@@ -16,7 +16,7 @@
     <artifactId>silversea-com</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Silversea.com AEM Parent</name>
+    <name>Silversea.com</name>
     <url></url>
 
     <!-- ====================================================================== -->
