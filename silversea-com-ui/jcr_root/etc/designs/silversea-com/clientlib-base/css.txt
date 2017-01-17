@@ -1,5 +1,4 @@
-#base=css
+#base=less
 
 grid.less
-
-components/header.less
+all.less
