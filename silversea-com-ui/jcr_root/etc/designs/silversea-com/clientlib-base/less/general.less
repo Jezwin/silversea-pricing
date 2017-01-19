@@ -1,0 +1,120 @@
+.container {
+    font-family: @f-opensans;
+}
+
+/*
+** Helpers Class
+*  Used by the contributor to stylize the conten
+*/
+
+/*
+** Color
+**/
+.h {
+    /*
+    ** Text color
+    */
+    &-text {
+        &-white {
+            color: white !important;
+        }
+        &-black {
+            color: @black !important;
+        }
+        &-red {
+            color: @red !important;
+        }
+        &-grey {
+            color: @grey !important;
+            &-l {
+                color: @grey-l !important;
+            }
+        }
+        
+    }
+	
+    /*
+    ** Background color
+    */
+	&-white {
+		background-color: white !important;
+	}
+	&-black {
+		background-color: @black !important;
+	}
+    &-red {
+        background-color: @red !important;
+    }
+    
+    
+    /*
+    ** Font
+    **/
+    &-bold {
+        font-weight: 800;
+    }
+}
+
+
+/*
+** c- Navigation
+**/
+
+/* ul */
+.c-navigation_list {
+    display: table;
+    height: 60px;
+    margin: 0;
+    min-width: 200px;
+    padding: 0;
+    padding-right: 15px;
+    text-align: right;
+    
+    &- {
+        .h();
+    }
+    
+    &--right {
+        float: right;
+    }
+    &--border {
+        &-right {
+            border-right: solid 1px @grey-l;
+        }
+        &-left {
+            border-left: solid 1px @grey-l;
+        }
+    }
+    /* li */
+    .c-navigation_item {
+        display: table-cell;
+        vertical-align: middle;
+        padding-left: 10px;
+        padding-right: 10px;
+        position: relative;
+        
+        &:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 25px;
+            height: 10px;
+            width: 1px;
+            background: @grey-l;
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                display: none;
+            }
+            /* tablet breakpoint */
+            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                display: none;
+            }
+        }
+        &:last-child {
+            &:before {
+                display: none;
+            }
+        }
+        
+    }
+}
