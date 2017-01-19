@@ -1,0 +1,193 @@
+/*
+** c- Header
+**/
+.c-header {
+    &_header {
+        background-color: @black;
+        
+        &_logo {
+            
+        }
+        .container {
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                width: 100%;
+            }
+            /* tablet breakpoint */
+            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.c-burger-menu {
+    position: relative;
+    width: 17px;
+    height: 18px;
+    cursor: pointer;
+    
+    .c-burger {
+      position: absolute;
+      background: @white;
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      right: 0px;
+      margin-top: -1px;
+      opacity: 1;
+        &::before {
+          position: absolute;
+          background: @white;
+          width: 17px;
+          height: 2px;
+          top: 6px;
+          content: "";
+          display: block;
+        }
+        &::after {
+          position: absolute;
+          background: @white;
+          width: 17px;
+          height: 2px;
+          bottom: 6px;
+          content: "";
+          display: block;
+        }
+        &::after, &::before, & {
+          transition: all .3s ease-in-out;
+          -webkit-transition: all .3s ease-in-out;
+        }
+    }
+    
+    & + .is-active {
+        background: @white;
+        
+        .c-burger {
+            &::after{
+               transform: rotate(-45deg);
+               -webkit-transform: rotate(-45deg);
+              bottom: 0px;
+            }
+            
+            &::before{
+               transform: rotate(45deg);
+               -webkit-transform: rotate(45deg);
+              top: 0px;
+            }
+        }
+    }
+}
+/* useless css */
+/*.burger-menu {
+  margin-left:auto;
+  margin-right: auto;
+}*/
+
+/*
+** c- Call
+**/
+.c-call {
+    display: table;
+    height: 60px;
+    min-width: 200px;
+    padding-right: 15px;
+    text-align: right;
+    
+    &_inner {
+        display: table-cell;
+        vertical-align: middle;
+        
+        .c-call_title {
+            text-transform: uppercase;
+            display: none;
+            font-size: 12px;
+            
+            @media screen and (max-width: @screen-sm) {
+                display: block;
+            }
+            
+        }
+        .c-call_number {
+            float: right;
+            font-size: 15px;
+            font-weight: @bold;
+            .c-call_number_icon {
+                @media screen and (max-width: @screen-sm) {
+                    display: none;
+                }
+            }
+        }
+        .c-call_msg {
+            clear: both;
+            display: block;
+            font-size: 9px;
+            font-weight: 400;
+            line-height: 8px;
+            padding-top: 5px;
+            
+            @media screen and (max-width: @screen-sm) {
+                display: none;
+            }
+            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                display: none;
+            }
+        }
+    }
+    
+    @media screen and (max-width: @screen-sm) {
+        /*.c-call_inner .c-call_title {
+            display: block;    
+        }*/
+        /*.c-call_inner .c-call_msg {
+            display: none;
+        }*/
+        /*.c-call_inner .c-call_number .c-call_number_icon {
+            display: none;
+        }*/
+        
+    }
+    @media screen (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        
+    }
+    @media screen (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
+        
+    }
+}
+
+/*
+** c- Language selector
+*/
+.c-lang {
+    position: relative;
+    &_current {
+        cursor: pointer;
+        
+        &:hover {
+            & + .c-lang_list {
+                max-height: 250px;
+            }
+        }
+    }
+    &_list {
+        background-color: @black;
+        line-height: 30px;
+        margin-left: -10px;
+        padding: 10px;
+        position: absolute;
+        
+        max-height: 0px;
+        overflow: hidden;
+        -webkit-transition: max-height 1s;
+        -moz-transition: max-height 1s;
+        -ms-transition: max-height 1s;
+        -o-transition: max-height 1s;
+        transition: max-height 1s;
+        
+        .c-lang_item {
+            text-align: center;
+        }
+    }
+    &_label {
+    }
+}
