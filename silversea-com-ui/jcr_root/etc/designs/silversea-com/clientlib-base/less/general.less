@@ -55,6 +55,13 @@
     }
 }
 
+/*
+** Button
+**/
+.c-btn {
+    border: 0px;
+}
+
 
 /*
 ** c- Navigation
@@ -66,25 +73,16 @@
     height: 60px;
     margin: 0;
     min-width: 200px;
-    padding: 0;
-    padding-right: 15px;
+    padding: 0px;
     text-align: right;
     
     &- {
         .h();
     }
-    
     &--right {
         float: right;
     }
-    &--border {
-        &-right {
-            border-right: solid 1px @grey-l;
-        }
-        &-left {
-            border-left: solid 1px @grey-l;
-        }
-    }
+
     /* li */
     .c-navigation_item {
         display: table-cell;
@@ -92,6 +90,16 @@
         padding-left: 10px;
         padding-right: 10px;
         position: relative;
+
+
+        &--border {
+            &-right {
+                border-right: solid 1px @grey-l;
+            }
+            &-left {
+                border-left: solid 1px @grey-l;
+            }
+        }
         
         &:before {
             content: "";
