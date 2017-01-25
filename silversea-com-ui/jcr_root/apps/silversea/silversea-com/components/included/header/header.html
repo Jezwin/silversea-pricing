@@ -1,19 +1,19 @@
 
 <!-- row header -->
 <div class="c-header">
-    <!--  header top  -->
-    <div class="c-header_header">
+    <div class="c-header__container">
+        <!--  header top  -->
         <div class="container">
             <div class="aem-Grid aem-Grid--12">
-                
+
                 <!--  header top logo -->
-                <div class="aem-GridColumn aem-GridColumn--default--3 c-header_header_logo">
+                <div class="aem-GridColumn aem-GridColumn--default--3 c-header_logo">
                     <a href="http://www.silversea.com/fr" class="bound"><img class="spritesilversea-logo" src="/images/logo.png" alt="Silversea" width="404"></a>
                 </div>
                 <!--  header top logo end -->
-                
+
                 <!--  header top navigation -->
-                <div class="aem-GridColumn aem-GridColumn--default--9 c-header_header_navigation">
+                <div class="aem-GridColumn aem-GridColumn--default--9">
 
                     <!--  c- NAVBURGER -->
                     <div class="c-nav-burger">
@@ -25,8 +25,8 @@
                     </div>
                     <!--  c- NAVBURGER end -->
 
-                    <div class="navigation">
-                        <ul class="top">
+                    <nav class="c-main-navigation">
+                        <ul class="c-main-navigation__top">
                             <li>
                                 <a href="#">
                                     <span>aaa</span>
@@ -38,7 +38,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul class="bottom">
+                        <ul class="c-main-navigation__bottom">
                             <div class="container">
                                 <li>
                                     <a href="#">
@@ -52,7 +52,8 @@
                                 </li>
                             </div>
                         </ul>
-                    </div>
+                        <div class="c-main-navigation__backdrop"></div>
+                    </nav>
 
                     <!--  c- QUOTE REQUEST -->
                     <div class="c-quote-request">
@@ -78,10 +79,9 @@
                     </div>
                     <!--  c- CALL end -->
                 </div>
-            
+
             </div>
         </div>
+        <!-- end header top -->
     </div>
-    <!-- end header top -->
-
 </div>

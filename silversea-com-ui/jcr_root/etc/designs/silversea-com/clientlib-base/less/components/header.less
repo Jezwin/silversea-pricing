@@ -4,35 +4,89 @@
 .c-header {
     position: fixed;
     width: 100%;
-    
-    &_header {
+    border-bottom: solid 1px rgba(255,255,255,.3);
+
+    &__container {
         background-color: @black;
-        border-bottom: solid 1px rgba(255,255,255,.3);
-        
-        &_logo {
-            
+        z-index: 100;
+    }
+    &_logo {
+
+    }
+    .container {
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
         }
-        .container {
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                width: 100%;
-                margin: 0px;
-                padding: 0px;
-            }
-            /* tablet breakpoint */
-            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                width: 100%;
-                margin: 0px;
-                padding: 0px;
-            }
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
         }
     }
 }
 
-.navigation {
+.c-main-navigation {
     float: right;
+    overflow: hidden;
+    
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        float: inherit;
+        position: absolute;
+        top: 61px;
+        left: 0px;
+        width: 100%;
+        max-height: 0px;
+        transition: max-height .3s ease-in-out;
 
-    ul.top {
+        &--open {
+            max-height: 600px;
+        }
+    }
+    /* tablet breakpoint */
+    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        float: inherit;
+        position: absolute;
+        top: 61px;
+        left: 0px;
+        width: 100%;
+        max-height: 0px;
+        transition: max-height .3s ease-in-out;
+
+        &--open {
+            max-height: 600px;
+        }
+    }
+    
+    &__backdrop {
+        display: none;
+        position: fixed;
+        background: @black;
+        opacity: 0.5;
+        height: 100%;
+        max-height: 0px;
+        width: 100%;
+        z-index: -99;
+        transition: max-height .3s ease-in-out;
+        -webkit-transition: max-height .3s ease-in-out;
+        
+        &--is-active {
+            max-height: 100%;
+        }
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            display: block;
+        }
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            display: block;
+        }
+    }
+    &__top {
         position: relative;
         height: 60px;
         margin: 0 10px;
@@ -41,10 +95,7 @@
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             margin: 0;
-            padding: 0;
             height: auto;
-            display: block;
-            float: left;
             width: 100%;
         }
         /* tablet breakpoint */
@@ -59,14 +110,11 @@
 
         li {
             float: left;
-            padding: 0 10px;
             cursor: pointer;
             list-style: none;
             position: relative;
-
-            &:hover {
-                color: @grey-l;
-            }
+            font-size: 11px;
+            text-transform: uppercase;
 
             &:before {
                 content: "";
@@ -75,49 +123,70 @@
                 top: 25px;
                 height: 10px;
                 width: 1px;
-                background: @grey-l;
+                background: @grey;
             }
 
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 float: none;
                 display: block;
-                border-bottom: solid 1px @grey-l;
-                text-transform: uppercase;
-                font-size: 12px;
+                border-bottom: solid 1px @grey--d;
                 background: @white;
 
                 &:before {
                     display: none;
                 }
-                &:hover {
-                    background: @grey-l;
+                &:hover, &:focus, &:active {
+                    background: @grey--e;
                 }
             }
             /* tablet breakpoint */
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
                 float: left;
                 width: 50%;
-                border-bottom: solid 1px @grey-l;
-                text-transform: uppercase;
-                font-size: 12px;
+                border-bottom: solid 1px @grey--d;
                 background: @white;
 
+                &:hover, &:focus, &:active {
+                    background: @grey--e;
+                }
                 &:before {
                     display: none;
                 }
-                &:hover {
-                    background: @grey-l;
-                }
                 &:nth-child(odd) {
-                    border-right: solid 1px @grey-l;
+                    border-right: solid 1px @grey--d;
                 }
             }
 
             a {
                 display: table;
                 height: 60px;
-                color: @grey-8;
+                color: @grey--ba;
+                width: 100%;
+                padding: 0 10px;
+                text-decoration: none;
+
+                &:hover, &:focus, &:active {
+                    color: @grey--c;
+                }
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    color: @grey--8;
+                    font-size: 12px;
+                    font-weight: 600;
+                    &:hover, &:focus, &:active {
+                        color: @grey--8;
+                    }
+                }
+                /* tablet breakpoint */
+                @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                    color: @grey--8;
+                    font-size: 12px;
+                    font-weight: 600;
+                    &:hover, &:focus, &:active {
+                        color: @grey--8;
+                    }
+                }
 
                 span {
                     display: table-cell;
@@ -126,7 +195,7 @@
             }
         }
     }
-    ul.bottom {
+    &__bottom {
         position: absolute;
         width: 100%;
         left: 0;
@@ -138,9 +207,28 @@
         transition: transform .3s ease-in-out;
         -webkit-transition: transform .3s ease-in-out;
         z-index: -500;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            position: relative;
+            float: left;
+            top: auto;
+            box-shadow: inherit;
+            z-index: 100;
+        }
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            position: relative;
+            float: left;
+            top: auto;
+            box-shadow: inherit;
+            z-index: 100;
+        }
 
-        &.bottom--hide {
+
+        &--hide {
             transform: translate(0px,-120px);
+
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 transform: translate(0px,0px);
@@ -150,36 +238,15 @@
                transform: translate(0px,0px);
             }
         }
-
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            float: left;
-            top: auto;
-            box-shadow: inherit;
-        }
-        /* tablet breakpoint */
-        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            float: left;
-            top: auto;
-            box-shadow: inherit;
-        }
-
         li {
             float: left;
             cursor: pointer;
-            padding: 0 10px;
             list-style: none;
             background: @white;
             position: relative;
 
             &:hover {
-                background: @grey-l;
+                background: #d3d3d3;
             }
             &:before {
                 content: "";
@@ -193,8 +260,7 @@
 
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
-                background: @grey-e;
-                color: @grey;
+                background: @grey--d;
                 float: none;
                 display: block;
                 border-bottom: solid 1px @white;
@@ -207,13 +273,13 @@
             }
             /* tablet breakpoint */
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                background: @grey-e;
-                color: @grey;
+                background: @grey--d;
                 float: left;
                 width: 50%;
                 border-right: solid 1px @white;
                 text-transform: uppercase;
                 font-size: 12px;
+
                 &:before {
                     display: none;
                 }
@@ -226,42 +292,24 @@
                 font-weight: 600;
                 font-size: 12px;
                 width: 100%;
+                padding: 0 10px;
+                text-decoration: none;
 
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    color: @grey--8;
+                }
+                /* tablet breakpoint */
+                @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                    color: @grey--8;
+                }
+                
                 span {
                     display: table-cell;
                     vertical-align: middle;
                 }
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
-                    color: @grey;
-                }
-                /* tablet breakpoint */
-                @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                    color: @grey;
-                }
             }
         }
-    }
-
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        float: inherit;
-        position: absolute;
-        top: 60px;
-        left: 0px;
-        width: 100%;
-    }
-    /* tablet breakpoint */
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        float: inherit;
-        position: absolute;
-        top: 60px;
-        left: 0px;
-        width: 100%;
-    }
-    /* desktop breakpoint */
-    @media screen and (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
-
     }
 }
 
@@ -326,7 +374,6 @@
     float: right;
     border-left: solid 1px @grey;
     display: none;
-    padding-left: 5px;
 
     &-title {
         /* phone breakpoint */
@@ -336,11 +383,16 @@
     }
 
     .c-btn {
+        padding-left: 5px;
         border-radius: 0;
         background-color: @black;
         color: @white;
         width: 100%;
         height: 100%;
+
+        &:focus {
+            outline: 0;
+        }
     }
 
     &.is-active {
