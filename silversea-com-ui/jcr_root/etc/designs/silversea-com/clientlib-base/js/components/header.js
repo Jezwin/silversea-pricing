@@ -8,11 +8,11 @@
             console.log('$(document).scrollTop() : ', $(document).scrollTop());
             
             if ($(document).scrollTop() > 120 && show) {
-                $('.c-main-navigation__bottom').toggleClass('c-main-navigation__bottom--hide');  
+                $('.c-main-nav__bottom').toggleClass('c-main-nav__bottom--hide');  
                 show = false;
             }
             else if ($(document).scrollTop() < 120 && !show) {
-                $('.c-main-navigation__bottom').toggleClass('c-main-navigation__bottom--hide');  
+                $('.c-main-nav__bottom').toggleClass('c-main-nav__bottom--hide');  
                 show = true;
             }
             

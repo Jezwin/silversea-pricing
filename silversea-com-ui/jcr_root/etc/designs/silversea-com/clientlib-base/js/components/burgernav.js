@@ -13,8 +13,10 @@
             _self.upActivity();
             
             _self.parent().toggleClass("is-active");
-            $('.c-main-navigation').toggleClass("c-main-navigation--open");
-            $('.c-main-navigation__backdrop').toggleClass("c-main-navigation__backdrop--is-active");
+            $('.c-main-nav').toggleClass("c-main-nav--open");
+            $('.c-main-nav__backdrop').toggleClass("c-main-nav__backdrop--is-active");
+            $('body').toggleClass("c-main-nav--body-fixed");
+            $('.c-header').toggleClass("c-main-nav--nav-expanded");
         }
         
         /*
@@ -22,6 +24,17 @@
         */
         this.upActivity = function () {
             _self.isActive = !_self.isActive;
+            
+            if (!_self.isActive)
+                _self.cleanListener();
+        }
+        
+        /*
+        ** Clean listener for performance
+        */
+        this.cleanListener = function () {
+            $(window).off("resize");
+            $('.c-main-nav__backdrop').off("click");
         }
 
         /*
@@ -31,10 +44,13 @@
             _self.toggledClass();
             
             if (_self.isActive) {
+                
+                $('.c-main-nav__backdrop').on('click', function () {
+                    _self.toggledClass();        
+                });
                 $(window).on("resize", function() {
                     if ($(this).width() >= 992 && _self.isActive) {
                         _self.toggledClass();
-                        $(this).off("resize");
                     }
                 });
             }
