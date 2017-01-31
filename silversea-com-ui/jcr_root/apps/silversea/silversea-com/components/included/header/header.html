@@ -1,14 +1,16 @@
 
 <!-- row header -->
-<div class="c-header">
+<header class="c-header">
+    <!--  header container  -->
     <div class="c-header__container">
-        <!--  header top  -->
         <div class="container">
             <div class="aem-Grid aem-Grid--12">
 
                 <!--  header top logo -->
-                <div class="aem-GridColumn aem-GridColumn--default--3 c-header_logo">
-                    <a href="http://www.silversea.com/fr" class="bound"><img class="spritesilversea-logo" src="/images/logo.png" alt="Silversea" width="404"></a>
+                <div class="aem-GridColumn aem-GridColumn--default--3">
+                    <a href="http://www.silversea.com/fr">
+                        <img class="c-header_logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="Silversea" />
+                    </a>
                 </div>
                 <!--  header top logo end -->
 
@@ -25,6 +27,7 @@
                     </div>
                     <!--  c- NAVBURGER end -->
 
+                    <!--  c- MAIN NAV -->
                     <nav class="c-main-nav">
                         <div class="c-main-nav__bottom">
                             <div class="container">
@@ -119,41 +122,44 @@
                                 </ul>
                             </div>
                         </div>
-                        <ul class="c-main-nav__top">
-                            <li class="c-main-nav__top--item c-main-nav--hide-md c-main-nav--hide-lg">
-                                <a href="#">
-                                    <span>Request a quote</span>
-                                </a>
-                            </li>
-                            <li class="c-main-nav__top--item">
-                                <a href="#">
-                                    <span>Brochures</span>
-                                </a>
-                            </li>
-                            <li class="c-main-nav__top--item c-main-nav--hide-lg">
-                                <a href="#">
-                                    <span>Sign up for offers</span>
-                                </a>
-                            </li>
-                            <li class="c-main-nav__top--item c-main-nav__top--item--small-md c-main-nav--hide-sm">
-                                <a href="#">
-                                    <span>My Silversea</span>
-                                </a>
-                            </li>
-                            <li class="c-main-nav__top--item c-main-nav__top--item--small-md">
-                                <a href="#">
-                                    <span>English</span>
-                                </a>
-                            </li>
-                            <li class="c-main-nav__top--item">
-                                <a href="#">
-                                    <span><i class="fa fa-lg fa-search"></i></span>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="c-main-nav__top">
+                            <ul class="c-main-nav__top--list">
+                                <li class="c-main-nav__top--item c-main-nav--hide-md c-main-nav--hide-lg">
+                                    <a href="#">
+                                        <span>Request a quote</span>
+                                    </a>
+                                </li>
+                                <li class="c-main-nav__top--item">
+                                    <a href="#">
+                                        <span>Brochures</span>
+                                    </a>
+                                </li>
+                                <li class="c-main-nav__top--item c-main-nav--hide-lg">
+                                    <a href="#">
+                                        <span>Sign up for offers</span>
+                                    </a>
+                                </li>
+                                <li class="c-main-nav__top--item c-main-nav__top--item--small-md c-main-nav--hide-sm">
+                                    <a href="#">
+                                        <span>My Silversea</span>
+                                    </a>
+                                </li>
+                                <li class="c-main-nav__top--item c-main-nav__top--item--small-md">
+                                    <a href="#">
+                                        <span>English</span>
+                                    </a>
+                                </li>
+                                <li class="c-main-nav__top--item">
+                                    <a href="#">
+                                        <span><i class="fa fa-lg fa-search"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         
                         <div class="c-main-nav__backdrop"></div>
                     </nav>
+                    <!--  c- MAIN NAV end -->
 
                     <!--  c- QUOTE REQUEST -->
                     <div class="c-quote-request">
@@ -182,6 +188,6 @@
 
             </div>
         </div>
-        <!-- end header top -->
     </div>
-</div>
+    <!-- end header top -->
+</header>

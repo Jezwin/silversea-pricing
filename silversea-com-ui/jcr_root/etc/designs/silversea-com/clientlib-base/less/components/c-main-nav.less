@@ -1,34 +1,3 @@
-/*
-** c- Header
-**/
-.c-header {
-    position: fixed;
-    width: 100%;
-    border-bottom: solid 1px rgba(255,255,255,.3);
-
-    &__container {
-        background-color: @black;
-        z-index: 100;
-    }
-    &_logo {
-
-    }
-    .container {
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            width: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
-        /* tablet breakpoint */
-        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            width: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
-    }
-}
-
 .c-main-nav {
     float: right;
     overflow: hidden;
@@ -99,7 +68,7 @@
         height: 100%;
         max-height: 0px;
         width: 100%;
-        z-index: -99;
+        z-index: 999;
         transition: max-height .3s ease-in-out;
         -webkit-transition: max-height .3s ease-in-out;
         
@@ -120,6 +89,7 @@
         height: 60px;
         margin: 0 10px;
         padding: 0;
+        z-index: 1000;
 
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
@@ -136,7 +106,6 @@
             float: left;
             width: 100%;
         }
-
         &--item {
             float: left;
             cursor: pointer;
@@ -149,7 +118,7 @@
                 content: "";
                 position: absolute;
                 left: 0;
-                top: 25px;
+                top: 24px;
                 height: 10px;
                 width: 1px;
                 background: @grey;
@@ -233,14 +202,12 @@
         position: absolute;
         width: 100%;
         left: 0;
-        margin: 0;
-        padding: 0;
         box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
         background: @white;
         transform: translate(0px,60px);
         transition: transform .3s ease-in-out;
         -webkit-transition: transform .3s ease-in-out;
-        z-index: -500;
+        z-index: -1000;
         
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
@@ -248,7 +215,7 @@
             float: left;
             transform: translate(0px,0px);
             box-shadow: inherit;
-            z-index: 100;
+            z-index: 1000;
         }
         /* tablet breakpoint */
         @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
@@ -256,7 +223,7 @@
             float: left;
             transform: translate(0px,0px);
             box-shadow: inherit;
-            z-index: 100;
+            z-index: 1000;
         }
 
         &--hide {
@@ -274,8 +241,6 @@
         &--list {
             display: table;
             width: 100%;
-            margin: 0;
-            padding: 0;
         }
         &--item {
             display: table-cell;
@@ -300,7 +265,7 @@
                 content: "";
                 position: absolute;
                 left: 0;
-                top: 25px;
+                top: 18px;
                 height: 10px;
                 width: 1px;
                 background: #e6e7e8;
@@ -356,7 +321,7 @@
         }
         &--link {
             display: table;
-            height: 60px;
+            height: 46px;
             color: @black;
             text-transform: uppercase;
             font-weight: 600;
@@ -396,9 +361,6 @@
     }
     
     &__subnav {
-        /*position: relative;*/
-        margin: 0;
-        padding: 0;
         background: #e6e7e8;
         background-image: -webkit-linear-gradient(90deg,#fff 0%,rgba(255,255,255,0) 100%);
         display: none;
@@ -433,8 +395,6 @@
             }
         }
         &--list {
-            margin: 0;
-            padding: 0;
             width: 100%;
             list-style: none;
         }
@@ -458,216 +418,5 @@
         &--right {
             right: 0;
         }
-    }
-}
-
-.c-quote-request {
-    text-transform: uppercase;
-    display: table;
-    float: right;
-    padding: 10px;
-    height: @nav-top-height;
-    border-left: 0px;
-    font-weight: @bold;
-    position: relative;
-
-    &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 25px;
-        height: 10px;
-        width: 1px;
-        background: @grey-l;
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            display: none;
-        }
-        /* tablet breakpoint */
-        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            display: none;
-        }
-    }
-
-    &-link {
-        display: table-cell;
-        color: @white;
-        vertical-align: middle;
-
-        &:hover, &:focus, &:active {
-            color: @grey-l;
-        }
-    }
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        display: none;
-        border-left: solid 1px @grey;
-    }
-    /* phone breakpoint */
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        border-left: solid 1px @grey;
-    }
-    /* desktop breakpoint */
-    @media screen and (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
-        border-left: 0px;
-    }
-}
-
-.c-nav-burger {
-    background: @black;
-    color: @white;
-    height: @nav-top-height;
-    display: inline-block;
-    max-width: 120px;
-    float: right;
-    border-left: solid 1px @grey;
-    display: none;
-
-    &-title {
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            display: none;
-        }
-    }
-
-    .c-btn {
-        padding-left: 5px;
-        border-radius: 0;
-        background-color: @black;
-        color: @white;
-        width: 100%;
-        height: 100%;
-
-        &:focus {
-            outline: 0;
-        }
-    }
-
-    &.is-active {
-        .c-btn {
-            background: @white;
-            color: @grey-l;
-            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                color: @black;
-            }
-        }
-        .fa-bars {
-            display:none;
-        }
-        .fa-close {
-            display:inherit;
-        }
-    }
-    .fa-close {
-        display: none;
-    }
-
-    @media screen and (max-width: @screen-sm) {
-        display: block;
-    }
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        display: block;
-    }
-}
-
-/*
-** c- Call
-**/
-.c-call {
-    display: table;
-    height: @nav-top-height;
-    min-width: 200px;
-    padding-right: 15px;
-    text-align: right;
-    float: right;
-    color: @white;
-    
-    &_inner {
-        display: table-cell;
-        vertical-align: middle;
-        
-        .c-call_title {
-            text-transform: uppercase;
-            display: none;
-            font-size: 12px;
-            
-            @media screen and (max-width: @screen-sm) {
-                display: block;
-            }
-            
-        }
-        .c-call_number {
-            float: right;
-            font-size: 15px;
-            font-weight: @bold;
-            display: block;
-            
-            .c-call_number_icon {
-                font-size: 11px;
-                
-                @media screen and (max-width: @screen-sm) {
-                    display: none;
-                }
-            }
-        }
-        .c-call_msg {
-            clear: both;
-            font-size: 9px;
-            font-weight: 400;
-            line-height: 8px;
-            padding-top: 5px;
-            display: block;
-            
-            @media screen and (max-width: @screen-sm) {
-                display: none;
-            }
-            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                display: none;
-            }
-        }
-    }
-
-    @media screen (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        
-    }
-    @media screen (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
-        
-    }
-}
-
-/*
-** c- Language selector
-*/
-.c-lang {
-    position: relative;
-    &_current {
-        cursor: pointer;
-        
-        &:hover {
-            & + .c-lang_list {
-                max-height: 250px;
-            }
-        }
-    }
-    &_list {
-        background-color: @black;
-        line-height: 30px;
-        margin-left: -10px;
-        padding: 10px;
-        position: absolute;
-        
-        max-height: 0px;
-        overflow: hidden;
-        -webkit-transition: max-height 1s;
-        -moz-transition: max-height 1s;
-        -ms-transition: max-height 1s;
-        -o-transition: max-height 1s;
-        transition: max-height 1s;
-        
-        .c-lang_item {
-            text-align: center;
-        }
-    }
-    &_label {
     }
 }

@@ -1,0 +1,202 @@
+/*
+* c- FOOTER
+*/
+.c-footer {
+    margin-top: 220px;
+    
+    &__section {
+        padding: 20px 0px;
+        border-bottom: solid 1px @grey--d;
+    }
+}
+
+/*
+* c- SUBSCRIBE
+*/
+.c-subscribe {
+    
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        border: 0;
+    }
+    
+    &__form {
+        padding: 20px;
+        border: solid 1px @grey--d;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            margin-top: 30px;
+        }
+
+        
+        &--label {
+            font-family: @f-playfair;
+            text-transform: uppercase;
+            display: block;
+            
+            &-text {
+                display: block;
+                width: 100%;
+                font-weight: 500;
+                font-size: 15px;
+            }
+            &-important {
+                display: block;
+                width: 100%;
+                font-weight: 400;
+                font-size: 26px;
+            }
+        }
+        
+        &--inputs {
+            width: 100%;
+            padding-right: 120px;
+            position: relative;
+            
+            .c-input {
+                width: 99%;
+            }
+            .c-btn {
+                width: 112px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                max-width: 130px;
+                min-width: 100px;
+                margin-left: 20px;
+                padding: 2px;
+                height: 100%;
+            }
+        }
+    }
+}
+
+/*
+* c- LIST
+*/
+.c-list {
+    font-size: 12px;
+    
+    &__title {
+        font-weight: 700;
+        color: @black;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        display: block;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            position: relative;
+            padding: 20px 30px;
+            cursor: pointer;
+            margin-bottom: 0px;
+            
+            &:before {
+                content: '\f107';
+                font-size: 20px;
+                font-family: 'FontAwesome';
+                display: block;
+                position: absolute;
+                top: 47%;
+                right: 30px;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+        }
+    }
+    &__group {
+        display: block;
+        &--important {
+            text-transform: uppercase;
+        }
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            display: none;
+            padding: 20px 30px;
+        }
+    }
+    &__item {
+        line-height: 20px;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            
+        }
+        
+        &--special {
+            margin-top: 30px
+        }
+    }
+    &__accordion {
+        float: left;
+        width: 33%;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            width: 100%;
+            margin: 0px;
+            border: 1px solid @grey--d;
+            border-bottom: none;
+            
+            &:nth-last-child(1) {
+                border-bottom: 1px solid @grey--d;
+            }
+        }
+    }
+}
+
+/*
+* c- ACCORDION
+*/
+.c-accordion {
+    &__title {
+        position: relative;
+        padding: 20px 30px;
+        cursor: pointer;
+        margin-bottom: 0px;
+
+        &:before {
+            content: '\f107';
+            font-size: 20px;
+            font-family: 'FontAwesome';
+            display: block;
+            position: absolute;
+            top: 47%;
+            right: 30px;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+    }
+    &__content {
+        
+    }
+}
+
+/*
+* c- FORM GROUP
+*/
+.c-form {
+}
+
+/*
+* c- INPUT
+*/
+.c-input {
+    border-radius: @button-radius;
+    border: solid 1px @grey--8;
+    padding: 10px 20px;
+    font-size: 14px;
+    height: 42px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    &--dark {
+        border: 0;
+        background-color: @grey--eb;
+        color: @grey--2b;
+    }
+}

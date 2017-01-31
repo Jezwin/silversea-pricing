@@ -1,0 +1,51 @@
+.c-quote-request {
+    text-transform: uppercase;
+    display: table;
+    float: right;
+    padding: 10px;
+    height: @nav-top-height;
+    border-left: 0px;
+    font-weight: @bold;
+    position: relative;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 25px;
+        height: 10px;
+        width: 1px;
+        background: @grey-l;
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            display: none;
+        }
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            display: none;
+        }
+    }
+
+    &-link {
+        display: table-cell;
+        color: @white;
+        vertical-align: middle;
+
+        &:hover, &:focus, &:active {
+            color: @grey-l;
+        }
+    }
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        display: none;
+        border-left: solid 1px @grey;
+    }
+    /* phone breakpoint */
+    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        border-left: solid 1px @grey;
+    }
+    /* desktop breakpoint */
+    @media screen and (min-width: @screen-lg-min) and (max-width: @screen-lg-max) {
+        border-left: 0px;
+    }
+}

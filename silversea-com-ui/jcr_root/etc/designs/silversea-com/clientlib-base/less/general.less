@@ -1,15 +1,47 @@
+/*
+* General style
+*/
 .container {
     font-family: @f-opensans;
+    width: auto;
+    max-width: 930px;
+}
+
+body {
+    padding-top: 106px;
+    
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        padding-top: 60px;
+    }
+    /* tablet breakpoint */
+    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        padding-top: 60px;
+    }
+}
+
+/*
+* Reset Css
+*/
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+a {
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+    }
 }
 
 /*
 ** Helpers Class
 *  Used by the contributor to stylize the conten
 */
-
-/*
-** Color
-**/
 .h {
     /*
     ** Text color
@@ -60,69 +92,35 @@
 **/
 .c-btn {
     border: 0px;
+    border-radius: @button-radius;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    
+    &--dark {
+        background: @black;
+        color: @white;
+        -webkit-transition: background 1s;
+        -moz-transition: background 1s;
+        -ms-transition: background 1s;
+        -o-transition: background 1s;
+        transition: background 1s;
+        
+        &:hover, &:focus, &:active {
+            background: @grey--9;
+        }
+    }
 }
 
-
 /*
-** c- Navigation
-**/
-
-/* ul */
-.c-navigation_list {
-    display: table;
-    height: 60px;
-    margin: 0;
-    min-width: 200px;
-    padding: 0px;
-    text-align: right;
-    
-    &- {
-        .h();
-    }
-    &--right {
-        float: right;
-    }
-
-    /* li */
-    .c-navigation_item {
-        display: table-cell;
-        vertical-align: middle;
-        padding-left: 10px;
-        padding-right: 10px;
-        position: relative;
-
-
-        &--border {
-            &-right {
-                border-right: solid 1px @grey-l;
-            }
-            &-left {
-                border-left: solid 1px @grey-l;
-            }
-        }
-        
-        &:before {
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 25px;
-            height: 10px;
-            width: 1px;
-            background: @grey-l;
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                display: none;
-            }
-            /* tablet breakpoint */
-            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                display: none;
-            }
-        }
-        &:last-child {
-            &:before {
-                display: none;
-            }
-        }
-        
+** C- Border
+*/
+.c-border {
+    &__bottom {
+        border-bottom: solid 1px @grey--d;
     }
 }

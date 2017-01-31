@@ -1,0 +1,56 @@
+.c-nav-burger {
+    background: @black;
+    color: @white;
+    height: @nav-top-height;
+    display: inline-block;
+    max-width: 120px;
+    float: right;
+    border-left: solid 1px @grey;
+    display: none;
+
+    &-title {
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            display: none;
+        }
+    }
+
+    .c-btn {
+        padding-left: 5px;
+        border-radius: 0;
+        background-color: @black;
+        color: @white;
+        width: 100%;
+        height: 100%;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    &.is-active {
+        .c-btn {
+            background: @white;
+            color: @grey-l;
+            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                color: @black;
+            }
+        }
+        .fa-bars {
+            display:none;
+        }
+        .fa-close {
+            display:inherit;
+        }
+    }
+    .fa-close {
+        display: none;
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        display: block;
+    }
+    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        display: block;
+    }
+}
