@@ -2,16 +2,6 @@
     float: right;
     overflow: hidden;
     
-    &--body-fixed {
-        position: fixed;
-        width: 100%;
-    }
-    &--nav-expanded {
-        top:0;
-        height: 100%;
-        overflow-y: auto;
-    }
-    
     /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         float: inherit;
@@ -41,25 +31,25 @@
         }
     }
     
-    &--hide-sm {
+    
+    
+    /*
+    ** Element
+    */
+    &__container {
+        width: 100%;
+        max-width: 930px;
+        margin: 0 auto;
+        
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
-           display: none;
+            max-width: 100%;
         }
-    }
-    &--hide-md {
         /* tablet breakpoint */
         @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-           display: none;
+            max-width: 100%;
         }
     }
-    &--hide-lg {
-        /* desktop breakpoint */
-        @media screen and (min-width: @screen-md-max) {
-           display: none;
-        }
-    }
-    
     &__backdrop {
         display: none;
         position: fixed;
@@ -75,6 +65,7 @@
         &--is-active {
             max-height: 100%;
         }
+        
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             display: block;
@@ -100,11 +91,16 @@
         /* tablet breakpoint */
         @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
             margin: 0;
-            padding: 0;
+            /*padding: 0;*/
             height: auto;
-            display: block;
-            float: left;
             width: 100%;
+        }
+        &--list {
+            /* tablet breakpoint */
+            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                display: table;
+                width: 100%
+            }
         }
         &--item {
             float: left;
@@ -140,6 +136,7 @@
             /* tablet breakpoint */
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
                 float: left;
+                display: block;
                 width: 50%;
                 background: @grey--d;
                 border-bottom: solid 1px @white;
@@ -160,41 +157,40 @@
                     border-right: solid 1px #fff;
                 }
             }
+        }
+        &--link {
+            display: table;
+            height: 60px;
+            color: @grey--ba;
+            width: 100%;
+            padding: 0 10px;
+            text-decoration: none;
 
-            a {
-                display: table;
-                height: 60px;
-                color: @grey--ba;
-                width: 100%;
-                padding: 0 10px;
-                text-decoration: none;
-
+            &:hover, &:focus, &:active {
+                color: @grey--c;
+            }
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                color: @grey--8;
+                font-size: 12px;
+                font-weight: 600;
                 &:hover, &:focus, &:active {
-                    color: @grey--c;
-                }
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
                     color: @grey--8;
-                    font-size: 12px;
-                    font-weight: 600;
-                    &:hover, &:focus, &:active {
-                        color: @grey--8;
-                    }
                 }
-                /* tablet breakpoint */
-                @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            }
+            /* tablet breakpoint */
+            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                color: @grey--8;
+                font-size: 12px;
+                font-weight: 600;
+                &:hover, &:focus, &:active {
                     color: @grey--8;
-                    font-size: 12px;
-                    font-weight: 600;
-                    &:hover, &:focus, &:active {
-                        color: @grey--8;
-                    }
                 }
+            }
 
-                span {
-                    display: table-cell;
-                    vertical-align: middle;
-                }
+            span {
+                display: table-cell;
+                vertical-align: middle;
             }
         }
     }
@@ -212,15 +208,15 @@
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             position: relative;
-            float: left;
+            /*float: left;*/
             transform: translate(0px,0px);
             box-shadow: inherit;
-            z-index: 1000;
+            z-index: 1001;
         }
         /* tablet breakpoint */
         @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
             position: relative;
-            float: left;
+            /*float: left;*/
             transform: translate(0px,0px);
             box-shadow: inherit;
             z-index: 1000;
@@ -249,6 +245,7 @@
             background: @white;
             position: relative;
             text-align: center;
+            text-transform: uppercase;
 
             &:hover, &:focus, &:active {
                 background: #e6e7e8;
@@ -279,7 +276,6 @@
                 border-bottom: solid 1px @grey--d;
                 float: none;
                 display: block;
-                text-transform: uppercase;
                 font-size: 12px;
                 text-align: left;
                 
@@ -302,7 +298,6 @@
                 background: @white;
                 float: left;
                 width: 50%;
-                text-transform: uppercase;
                 font-size: 12px;
                 text-align: left;
 
@@ -359,7 +354,6 @@
             }
         }
     }
-    
     &__subnav {
         background: #e6e7e8;
         background-image: -webkit-linear-gradient(90deg,#fff 0%,rgba(255,255,255,0) 100%);
@@ -383,7 +377,6 @@
             &:nth-child(2) {
                 border-left: 1px solid #e6e7e8;;
             }
-            
             &1 {
                 width: 225px;
             }
@@ -417,6 +410,36 @@
         }
         &--right {
             right: 0;
+        }
+    }
+    /*
+    ** State ajustement
+    */
+    &--body-fixed {
+        position: fixed;
+        width: 100%;
+    }
+    &--nav-expanded {
+        top:0;
+        height: 100%;
+        overflow-y: auto;
+    }
+    &--hide-sm {
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+           display: none;
+        }
+    }
+    &--hide-md {
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+           display: none;
+        }
+    }
+    &--hide-lg {
+        /* desktop breakpoint */
+        @media screen and (min-width: @screen-md-max) {
+           display: none;
         }
     }
 }

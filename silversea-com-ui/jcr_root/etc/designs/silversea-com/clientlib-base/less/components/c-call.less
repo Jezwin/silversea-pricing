@@ -1,5 +1,7 @@
 /*
 ** c- Call
+** Callbox for header
+** 3 differents states
 **/
 .c-call {
     display: table;
@@ -10,11 +12,11 @@
     float: right;
     color: @white;
     
-    &_inner {
+    &__inner {
         display: table-cell;
         vertical-align: middle;
         
-        .c-call_title {
+        .c-call__title {
             text-transform: uppercase;
             display: none;
             font-size: 12px;
@@ -24,13 +26,13 @@
             }
             
         }
-        .c-call_number {
+        .c-call__number {
             float: right;
             font-size: 15px;
             font-weight: @bold;
             display: block;
             
-            .c-call_number_icon {
+            .c-call__number_icon {
                 font-size: 11px;
                 
                 @media screen and (max-width: @screen-sm) {
@@ -38,7 +40,7 @@
                 }
             }
         }
-        .c-call_msg {
+        .c-call__msg {
             clear: both;
             font-size: 9px;
             font-weight: 400;
@@ -52,6 +54,66 @@
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
                 display: none;
             }
+        }
+    }
+}
+
+/*
+** c- Callbox
+** Callbox like baner
+** 2 differents states
+**/
+.c-callbox {
+    min-width: 200px;
+    width: 100%;
+    text-align: center;
+    color: @grey--2b;
+    
+    &__inner {
+        border: solid 1px @grey--d;
+        padding: 20px;   
+    }
+    &__msg {
+        display: inline-block;
+        max-width: 98%;
+        
+        &--icon {
+            font-size: 20px;
+        }
+        &--mobile {
+            display: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                display: inline-block;
+            }
+        }
+        &--desktop {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            margin: 0;
+            font-size: 14px;
+            line-height: 14px;
+            font-weight: 700;
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                display: none;
+            }
+        }
+    }
+    &__number {
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 700;
+        margin-left: 30px;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            display: block;
+            margin: 0;
         }
     }
 }

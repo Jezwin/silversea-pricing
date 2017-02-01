@@ -32,7 +32,7 @@ li {
 }
 a {
     color: inherit;
-    &:hover {
+    &:hover, &:active, &:focus {
         text-decoration: none;
         color: inherit;
     }
@@ -101,6 +101,14 @@ a {
     white-space: nowrap;
     vertical-align: middle;
     
+    &__inner {
+        margin: 10px 0;
+        
+        .c-btn {
+            width: 100%;
+        }
+    }
+    
     &--dark {
         background: @black;
         color: @white;
@@ -112,6 +120,19 @@ a {
         
         &:hover, &:focus, &:active {
             background: @grey--9;
+        }
+    }
+    &--red {
+        background: @red;
+        color: @white;
+        -webkit-transition: background 1s;
+        -moz-transition: background 1s;
+        -ms-transition: background 1s;
+        -o-transition: background 1s;
+        transition: background 1s;
+        
+        &:hover, &:focus, &:active {
+            background: @red-d;
         }
     }
 }

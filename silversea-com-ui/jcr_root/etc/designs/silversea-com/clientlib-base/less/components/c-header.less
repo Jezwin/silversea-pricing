@@ -6,6 +6,7 @@
     width: 100%;
     border-bottom: solid 1px rgba(255,255,255,.3);
     top: 0;
+    z-index: 1000;
 
     &__container {
         background-color: @black;
@@ -15,18 +16,18 @@
         height: 60px;
     }
     .container {
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            width: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
-        /* tablet breakpoint */
-        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            width: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
+//        /* phone breakpoint */
+//        @media screen and (max-width: @screen-sm) {
+//            width: 100%;
+//            margin: 0px;
+//            padding: 0px;
+//        }
+//        /* tablet breakpoint */
+//        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+//            width: 100%;
+//            margin: 0px;
+//            padding: 0px;
+//        }
     }
 }
 
