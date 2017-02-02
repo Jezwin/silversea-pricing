@@ -8,7 +8,6 @@
         padding: 20px 0px;
         border-bottom: solid 1px @grey--d;
     }
-    
     &__request {
         .c-list__group {
             /* phone breakpoint */
@@ -176,11 +175,78 @@
         }
     }
 }
+/*
+* c- LIST
+*/
+.c-list-inline {
+    font-size: 12px;
+    width: 100%;
+    
+    &__title {
+        color: @grey--2b;
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+        
+        
+        &--important {
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        &--limitsize {
+            width: 50%;
+        }
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+    &__group {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            width: 100%;
+            text-align: center;
+        }
+        
+        &--important {
+            text-transform: uppercase;
+        }
+        
+        /* phone breakpoint */
+//        @media screen and (max-width: @screen-sm) {
+//            display: none;
+//            padding: 20px 30px;
+//        }
+    }
+    &__item {
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+        line-height: 20px;
+        
+        
+        &--special {
+            margin-top: 30px
+        }
+    }
+}
 
+/*
+* c- AWARDS
+*/
+.c-awards {
+    
+}
 /*
 * c- ACCORDION
 */
-.c-accordion {
+/*.c-accordion {
     &__title {
         position: relative;
         padding: 20px 30px;
@@ -203,29 +269,4 @@
     &__content {
         
     }
-}
-
-/*
-* c- FORM GROUP
-*/
-.c-form {
-}
-
-/*
-* c- INPUT
-*/
-.c-input {
-    border-radius: @button-radius;
-    border: solid 1px @grey--8;
-    padding: 10px 20px;
-    font-size: 14px;
-    height: 42px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    
-    &--dark {
-        border: 0;
-        background-color: @grey--eb;
-        color: @grey--2b;
-    }
-}
+}*/
