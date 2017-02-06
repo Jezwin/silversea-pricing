@@ -6,7 +6,7 @@
 .c-call {
     display: table;
     height: @nav-top-height;
-    min-width: 200px;
+    min-width: 100px;
     padding-right: 15px;
     text-align: right;
     float: right;
@@ -68,6 +68,10 @@
     width: 100%;
     text-align: center;
     color: @grey--2b;
+    
+    @media screen and (max-width: @screen-sm) {
+        margin-bottom: 20px;
+    }
     
     &__inner {
         border: solid 1px @grey--d;
