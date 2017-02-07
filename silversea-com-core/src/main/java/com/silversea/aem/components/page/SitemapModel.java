@@ -2,7 +2,7 @@ package com.silversea.aem.components.page;
 
 import com.day.cq.commons.Filter;
 import com.day.cq.wcm.api.Page;
-import com.sliversea.aem.constants.SiteMapConsts;
+import com.silversea.aem.constants.WcmConstants;
 
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Model;
@@ -98,8 +98,8 @@ public class SitemapModel {
             }
 
             if (page.getProperties() != null) {
-                return !(page.getProperties().get(SiteMapConsts.PN_NOT_IN_SITEMAP, false)
-                        || page.getContentResource().getResourceType().endsWith(SiteMapConsts.RT_SUB_REDIRECT_PAGE));
+                return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
+                        || page.getContentResource().getResourceType().endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE));
             }
 
             return true;
