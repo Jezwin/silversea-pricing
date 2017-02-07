@@ -4,4 +4,5 @@
         <include pattern="/apps/silversea/silversea-com/config(.*)" />
     </filter>
     <filter root="/conf/silversea-com"/>
+    <filter root="/content/silversea-com/en/robots.txt"/>
 </workspaceFilter>
