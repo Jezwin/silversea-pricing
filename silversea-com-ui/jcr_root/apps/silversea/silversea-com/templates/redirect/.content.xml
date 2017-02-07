@@ -4,7 +4,7 @@
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
     jcr:title="Silversea.com Redirect"
-    allowedPaths="[/content/?]"
+    allowedPaths="[/content/.*]"
     ranking="{Long}0">
     <jcr:content
         jcr:primaryType="cq:PageContent"

@@ -7,9 +7,9 @@ import java.util.HashMap;
  */
 public interface ImportersConstants {
 
-    String CITIES_BASE_PATH = "/content/silversea-com/en/ports";
+    String BASEPATH_PORTS = "/content/silversea-com/en/other-resources/find-a-port";
 
-    HashMap CITY_PROPERTIES_MAPPING = new HashMap() {{
+    HashMap PROPERTIES_MAPPING_PORTS = new HashMap() {{
         put("city_cod", "cityCode");
         put("city_name", "jcr:title");
         put("description", "jcr:description");

@@ -102,13 +102,15 @@ a {
     vertical-align: middle;
     
     &__inner {
-        margin: 10px 0;
-        
+        margin: 5px 0;
         .c-btn {
             width: 100%;
         }
     }
     
+    .fa-angle-right {
+        margin-left: 5px;
+    }
     &--dark {
         background: @black;
         color: @white;
@@ -138,18 +140,9 @@ a {
 }
 
 /*
-** C- Border
-*/
-.c-border {
-    &__bottom {
-        border-bottom: solid 1px @grey--d;
-    }
-}
-
-/*
 * c- INPUT
 */
-.c-input {
+.o-input {
     border-radius: @button-radius;
     border: solid 1px @grey--8;
     padding: 10px 20px;
@@ -162,5 +155,40 @@ a {
         border: 0;
         background-color: @grey--eb;
         color: @grey--2b;
+    }
+}
+
+/*
+* c- IMAGE
+*/
+.o-img {
+    &--small {
+        display: block;
+        text-align: center;
+        min-width: 35px;
+    }
+    &--center {
+        text-align: center;
+    }
+}
+
+/*
+* o- SECTION
+*/
+.o-section {
+    padding: 20px 0px;
+        
+    &--separator {
+        border-bottom: solid 1px @grey--d;
+    }
+}
+
+/*
+* l- LAYOUT GRID AEM
+*/
+.l-grid {
+        
+    &--right {
+        float: right
     }
 }
