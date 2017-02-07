@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/apps/silversea/silversea-com">
-        <exclude pattern="/apps/silversea/silversea-com/config(.*)" />
+        <include pattern="/apps/silversea/silversea-com/config(.*)" />
     </filter>
-    <filter root="/etc/designs/silversea-com"/>
     <filter root="/conf/silversea-com"/>
 </workspaceFilter>
