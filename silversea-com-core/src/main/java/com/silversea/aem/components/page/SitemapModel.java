@@ -59,9 +59,11 @@ public class SitemapModel {
     private List<SitemapEntryModel> getEntries(Page page) {
         List<SitemapEntryModel> entries = new ArrayList<>();
 
+        /* TODO should be test the parent page ?
         if (page.getContentResource() != null && page.adaptTo(SitemapEntryModel.class) != null) {
-            entries.add(page.adaptTo(SitemapEntryModel.class));
+            //entries.add(page.adaptTo(SitemapEntryModel.class));
         }
+        */
 
         Iterator<Page> pages = page.listChildren(new SitemapFilter());
 

@@ -9,7 +9,7 @@ package com.silversea.aem.constants;
  */
 public final class WcmConstants {
 
-    public static final String PN_NOT_IN_SITEMAP = "";
-    public static final String RT_SUB_REDIRECT_PAGE = "";
+    public static final String PN_NOT_IN_SITEMAP = "notInSiteMap";
+    public static final String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
 
 }
