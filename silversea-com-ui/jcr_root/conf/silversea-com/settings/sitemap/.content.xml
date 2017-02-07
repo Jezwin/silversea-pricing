@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured">
+    <level-default jcr:primaryType="nt:unstructured">
+        <jcr:content
+                jcr:primaryType="nt:unstructured"
+                depth="{Long}-1"
+                priority="{Double}0.4"
+                changeFrequency="weekly" />
+    </level-default>
+    <level3 jcr:primaryType="nt:unstructured">
+        <jcr:content
+                jcr:primaryType="nt:unstructured"
+                depth="{Long}3"
+                priority="{Double}1.0"
+                changeFrequency="always" />
+    </level3>
+    <level4 jcr:primaryType="nt:unstructured">
+        <jcr:content
+                jcr:primaryType="nt:unstructured"
+                depth="{Long}4"
+                priority="{Double}0.8"
+                changeFrequency="hourly" />
+    </level4>
+    <level5 jcr:primaryType="nt:unstructured">
+        <jcr:content
+                jcr:primaryType="nt:unstructured"
+                depth="{Long}5"
+                priority="{Double}0.6"
+                changeFrequency="daily" />
+    </level5>
+    <level6 jcr:primaryType="nt:unstructured">
+        <jcr:content
+                jcr:primaryType="nt:unstructured"
+                depth="{Long}6"
+                priority="{Double}0.7"
+                changeFrequency="weekly" />
+    </level6>
+</jcr:root>

@@ -2,4 +2,5 @@
 <workspaceFilter version="1.0">
     <filter root="/apps/silversea/silversea-com"/>
     <filter root="/etc/designs/silversea-com"/>
+    <filter root="/conf/silversea-com"/>
 </workspaceFilter>

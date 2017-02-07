@@ -40,12 +40,16 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
+                        	com.silversea.aem.*
                         </Export-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Import-Package>
                             android.util;resolution:=optional,
                             *
                         </Import-Package>
+                        <Sling-Model-Packages>
+  							com.silversea.aem.components.page
+						</Sling-Model-Packages>    
                     </instructions>
                 </configuration>
             </plugin>
@@ -65,6 +69,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
+        <dependency>
+  			<groupId>javax.inject</groupId>
+  			<artifactId>javax.inject</artifactId>
+		</dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
