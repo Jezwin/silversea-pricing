@@ -1,0 +1,61 @@
+/*
+* c- SUBSCRIBE
+*/
+.c-subscribe {
+    
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        border: 0;
+    }
+    
+    &__form {
+        padding: 20px;
+        border: solid 1px @grey--d;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            margin-top: 30px;
+        }
+
+        
+        &--label {
+            font-family: @f-theano_didot;
+            text-transform: uppercase;
+            display: block;
+            
+            &-text {
+                display: block;
+                width: 100%;
+                font-weight: 500;
+                font-size: 15px;
+            }
+            &-important {
+                display: block;
+                width: 100%;
+                font-weight: 400;
+                font-size: 26px;
+            }
+        }
+        
+        &--inputs {
+            width: 100%;
+            padding-right: 120px;
+            position: relative;
+            
+            .o-input {
+                width: 99%;
+            }
+            .c-btn {
+                width: 112px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                max-width: 130px;
+                min-width: 100px;
+                margin-left: 20px;
+                padding: 2px;
+                height: 100%;
+            }
+        }
+    }
+}
