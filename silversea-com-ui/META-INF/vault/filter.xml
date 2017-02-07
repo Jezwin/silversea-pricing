@@ -4,5 +4,4 @@
         <exclude pattern="/apps/silversea/silversea-com/config(.*)" />
     </filter>
     <filter root="/etc/designs/silversea-com"/>
-    <filter root="/conf/silversea-com"/>
 </workspaceFilter>
