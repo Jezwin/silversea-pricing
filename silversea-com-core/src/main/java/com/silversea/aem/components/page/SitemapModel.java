@@ -26,6 +26,8 @@ public class SitemapModel {
     @Inject @Named("currentPage")
     private Page page;
 
+    private boolean isParentPage = true;
+    
     public SitemapModel() {
     }
 
@@ -42,7 +44,7 @@ public class SitemapModel {
 
         if (parentPage != null) {
             if (parentPage.getContentResource() != null && parentPage.getContentResource().adaptTo(SitemapEntryModel.class) != null) {
-                entries.add(parentPage.getContentResource().adaptTo(SitemapEntryModel.class));
+            	entries.add(parentPage.getContentResource().adaptTo(SitemapEntryModel.class));
             }
 
             entries.addAll(getEntries(parentPage));
@@ -59,12 +61,13 @@ public class SitemapModel {
     private List<SitemapEntryModel> getEntries(Page page) {
         List<SitemapEntryModel> entries = new ArrayList<>();
 
-        /* TODO should be test the parent page ?
-        if (page.getContentResource() != null && page.adaptTo(SitemapEntryModel.class) != null) {
-            //entries.add(page.adaptTo(SitemapEntryModel.class));
+        /* TODO should be test the parent page ? */
+        if (page.getContentResource() != null && page.adaptTo(SitemapEntryModel.class) != null && isParentPage) {
+        	if (page.getProperties() != null && !page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false))
+        		entries.add(page.adaptTo(SitemapEntryModel.class));
+            isParentPage = false;
         }
-        */
-
+        
         Iterator<Page> pages = page.listChildren(new SitemapFilter());
 
         while (pages.hasNext()) {
