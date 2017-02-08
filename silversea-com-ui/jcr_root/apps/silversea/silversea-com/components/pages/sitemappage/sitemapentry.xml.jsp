@@ -9,4 +9,4 @@ if (sitemapEntry != null) {
     <changefreq><%=sitemapEntry.getChangeFrequency() %></changefreq>
     <priority><%=sitemapEntry.getPriority().toString() %></priority>
 </url><%
-}%>
+} %>

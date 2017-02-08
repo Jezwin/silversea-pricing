@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/silversea/silversea-com">
+        <include pattern="/apps/silversea/silversea-com/config(.*)" />
+    </filter>
+    <filter root="/conf/silversea-com"/>
+    <filter root="/content/silversea-com/en/robots.txt"/>
+</workspaceFilter>

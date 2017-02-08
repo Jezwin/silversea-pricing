@@ -15,5 +15,5 @@
 log/
 target/
 
-silversea-com-ui/.brackets.json
-silversea-com-ui/jcr_root/.brackets.json
+# Brackets
+.brackets.json
