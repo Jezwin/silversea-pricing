@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="sling:OsgiConfig"
-    email.from="mjedli@sqli.com"
+    email.from="silversealuxurycruises@silversea.com"
     README="When you subscribe to either page or forum events notifications, 
     the from-email address is set to no-reply@acme.com per default. 
     You can change this value by configuring the Notification Email Channel service in the Web Console. 

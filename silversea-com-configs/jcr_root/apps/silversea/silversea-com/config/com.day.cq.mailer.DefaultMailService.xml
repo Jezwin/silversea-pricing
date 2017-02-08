@@ -5,6 +5,6 @@
     smtp.port="25"
     smtp.user="itsupport@silversea.com"
     smtp.password=""
-    from.address=""
+    from.address="silversealuxurycruises@silversea.com"
     smtp.ssl="{Boolean}false"
     README="You can change this value by configuring the SMTP mail service."/>
