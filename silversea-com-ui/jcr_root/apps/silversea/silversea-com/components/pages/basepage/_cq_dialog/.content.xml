@@ -216,7 +216,7 @@
                     <analyticsandseo
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Analytics &amp; Seo"
-                            cq:showOnCreate="false"
+                            cq:showOnCreate="{Boolean}false"
                             sling:resourceType="granite/ui/components/foundation/section">
                         <layout
                                 jcr:primaryType="nt:unstructured"
