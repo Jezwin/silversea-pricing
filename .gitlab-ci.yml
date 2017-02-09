@@ -8,7 +8,7 @@ mvn_build:
         - maven
         - author
     script:
-        - mvn clean install
+        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.249:4502
     only:
         - develop
         - master
