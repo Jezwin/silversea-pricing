@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Page"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    extraClientlibs="[cq.common.wcm,cq.siteadmin.admin.properties]"
+    mode="edit">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container"
+        class="cq-dialog-content-page">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container"
+                rel="cq-siteadmin-admin-properties-tabs">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                    type="nav"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <ship
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Ship"
+                            cq:showOnCreate="{Boolean}false"
+                            sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <longdescription
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="longDescription"
+                                            fieldLabel="Long Description"
+                                            name="./longDescription"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <shipcode
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="shipCode"
+                                            fieldLabel="Ship code"
+                                            name="./shipCode"
+                                            disabled="{Boolean}true"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <shipid
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="shipId"
+                                            fieldLabel="Ship Id"
+                                            name="./shipId"
+                                            disabled="{Boolean}true"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <heroBanner
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="bannerReference"
+                                            fieldLabel="Hero Banner"
+                                            name="./bannerReference"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <assetGallerySelectionReference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="assetGallerySelectionReference"
+                                            fieldLabel="Extra Media Gallery"
+                                            name="./assetGallerySelectionReference"
+                                            renderReadOnly="{Boolean}true"/>
+                                </items>
+                            </column>
+                        </items>
+                    </ship>
+                    <facts
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Facts"
+                            cq:showOnCreate="{Boolean}false"
+                            sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <guestsCapacity
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="guestsCapacity"
+                                            fieldLabel="Guests Capacity"
+                                            name="./guestsCapacity"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <crewCapacity
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="crewCapacity"
+                                            fieldLabel="Crew Capacity"
+                                            name="./crewCapacity"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <builtDate
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="builtDate"
+                                            fieldLabel="Built Date"
+                                            name="./builtDate"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <refurbDate
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="refurbDate"
+                                            fieldLabel="Refurb date"
+                                            name="./refurbDate"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <tonnage
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="tonnage"
+                                            fieldLabel="Tonnage"
+                                            name="./tonnage"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <lengthFt
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="lengthFt"
+                                            fieldLabel="Length ft"
+                                            name="./lengthFt"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <lengthM
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="lengthM"
+                                            fieldLabel="Length m"
+                                            name="./lengthM"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <width
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="width"
+                                            fieldLabel="Width"
+                                            name="./width"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <speed
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="speed"
+                                            fieldLabel="Speed"
+                                            name="./speed"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <registry
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="registry"
+                                            fieldLabel="Registry"
+                                            name="./registry"
+                                            renderReadOnly="{Boolean}true"/>
+                                    <deckplan
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="deckPlan"
+                                            fieldLabel="Global Deck Plan"
+                                            name="./deckPlan"
+                                            renderReadOnly="{Boolean}true"/>
+                                </items>
+                            </column>
+                        </items>
+                    </facts>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
