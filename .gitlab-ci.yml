@@ -1,0 +1,14 @@
+stages:
+    - dev-build
+
+mvn_build:
+    stage: dev-build
+    tags:
+        - dev
+        - maven
+        - author
+    script:
+        - mvn clean install
+    only:
+        - develop
+        - master
