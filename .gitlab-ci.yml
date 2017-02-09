@@ -20,7 +20,7 @@ mvn_build_dev_publish1:
         - maven
         - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.250:4502
+        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.250:4503
     only:
         - develop
         - master
@@ -32,7 +32,7 @@ mvn_build_dev_publish2:
         - maven
         - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.251:4502
+        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.251:4503
     only:
         - develop
         - master
