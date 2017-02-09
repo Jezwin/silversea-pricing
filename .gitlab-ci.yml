@@ -1,7 +1,7 @@
 stages:
     - dev-build
 
-mvn_build:
+mvn_build_dev_author:
     stage: dev-build
     tags:
         - dev
@@ -9,6 +9,30 @@ mvn_build:
         - author
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.249:4502
+    only:
+        - develop
+        - master
+
+mvn_build_dev_publish1:
+    stage: dev-build
+    tags:
+        - dev
+        - maven
+        - author
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.250:4502
+    only:
+        - develop
+        - master
+
+mvn_build_dev_publish2:
+    stage: dev-build
+    tags:
+        - dev
+        - maven
+        - author
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://10.234.4.251:4502
     only:
         - develop
         - master
