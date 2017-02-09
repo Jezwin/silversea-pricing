@@ -19,9 +19,9 @@
                     sling:resourceType="granite/ui/components/foundation/layouts/tabs"
                     type="nav"/>
                 <items jcr:primaryType="nt:unstructured">
-                    <excursion
+                    <landprogram
                             jcr:primaryType="nt:unstructured"
-                            jcr:title="Excursion"
+                            jcr:title="Land Program"
                             cq:showOnCreate="{Boolean}false"
                             sling:resourceType="granite/ui/components/foundation/section">
                         <layout
@@ -33,34 +33,28 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <codeexcursion
+                                    <id
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="codeExcursion"
-                                            fieldLabel="Excursion code"
-                                            name="./codeExcursion"
+                                            cq-msm-lockable="id"
+                                            fieldLabel="ID"
+                                            name="./id"
                                             renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
-                                    <apilongdescription
+                                    <code
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="apiLongDescription"
-                                            fieldLabel="API Long Description"
-                                            name="./apiLongDescription"
-                                            renderReadOnly="{Boolean}true"/>
-                                    <longdescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="longDescription"
-                                            fieldLabel="Long Description"
-                                            name="./longDescription"/>
+                                            cq-msm-lockable="code"
+                                            fieldLabel="Code"
+                                            name="./code"
+                                            renderReadOnly="{Boolean}true"
+                                            required="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>
-                    </excursion>
+                    </port>
                 </items>
             </tabs>
         </items>
