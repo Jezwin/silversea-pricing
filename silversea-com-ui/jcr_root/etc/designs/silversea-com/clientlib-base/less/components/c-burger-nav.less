@@ -8,14 +8,18 @@
     border-left: solid 1px @grey;
     display: none;
 
-    &-title {
+    &__title {
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             display: none;
         }
     }
+    
 
-    .c-btn {
+    &__btn {
+        
+        .c-btn();
+        
         padding-left: 5px;
         border-radius: 0;
         background-color: @black;
@@ -29,9 +33,11 @@
     }
 
     &.is-active {
-        .c-btn {
+        color: red;
+        .c-nav-burger__btn {            
             background: @white;
             color: @grey-l;
+            
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
                 color: @black;
             }

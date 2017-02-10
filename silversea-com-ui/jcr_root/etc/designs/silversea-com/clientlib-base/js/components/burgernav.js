@@ -12,6 +12,7 @@
         this.toggledClass = function () {
             _self.upActivity();
             
+        
             _self.parent().toggleClass("is-active");
             $('.c-main-nav').toggleClass("c-main-nav--open");
             $('.c-main-nav__backdrop').toggleClass("c-main-nav__backdrop--is-active");
