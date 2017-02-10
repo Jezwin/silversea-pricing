@@ -48,8 +48,8 @@
                             *
                         </Import-Package>
                         <Sling-Model-Packages>
-  							com.silversea.aem.components.page
-						</Sling-Model-Packages>    
+                            com.silversea.aem.components.page
+                        </Sling-Model-Packages>
                     </instructions>
                 </configuration>
             </plugin>
@@ -70,9 +70,9 @@
             <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
-  			<groupId>javax.inject</groupId>
-  			<artifactId>javax.inject</artifactId>
-		</dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
