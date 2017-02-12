@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -17,6 +18,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
@@ -26,7 +28,9 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author aurelienolivier
@@ -63,51 +67,96 @@ public class CitiesImporterImpl implements CitiesImporter {
             citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
             try {
-                List<City> result = citiesApi.citiesGet(null, null, null,
-                        null, null, null, null);
-
                 ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
                 PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
                 Session session = resourceResolver.adaptTo(Session.class);
 
                 Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
 
-                int i = 0;
+                List<City> cities;
+                int i = 1;
 
-                for (City city : result) {
-                    LOGGER.error("City: {}", city.getCityName());
+                do {
+                    cities = citiesApi.citiesGet(null, null, i,
+                            100, null, null, null);
 
-                    final String portFirstLetter = String.valueOf(city.getCityName().charAt(0));
-                    final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
+                    int j = 0;
 
-                    Page portFirstLetterPage;
+                    for (City city : cities) {
+                        LOGGER.debug("Importing city: {}", city.getCityName());
 
-                    if (citiesRootPage.hasChild(portFirstLetterName)) {
-                        portFirstLetterPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS
-                                + "/" + portFirstLetterName);
-                    } else {
-                        portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
-                                portFirstLetterName,
-                                "/apps/silversea/silversea-com/templates/page",
-                                portFirstLetter,
-                                false);
+                        final String portFirstLetter = String.valueOf(city.getCityName().charAt(0));
+                        final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
+
+                        Page portFirstLetterPage;
+
+                        if (citiesRootPage.hasChild(portFirstLetterName)) {
+                            portFirstLetterPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS
+                                    + "/" + portFirstLetterName);
+
+                            LOGGER.debug("Page {} already exists", portFirstLetterName);
+                        } else {
+                            portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
+                                    portFirstLetterName,
+                                    "/apps/silversea/silversea-com/templates/page",
+                                    portFirstLetter,
+                                    false);
+
+                            LOGGER.debug("Creating page {}", portFirstLetterName);
+                        }
+
+                        Iterator<Resource> resources = resourceResolver.findResources(
+                                "//element(*,cq:Page)[jcr:content/cityCode=\"" + city.getCityCod() + "\"]", "xpath");
+
+                        Page portPage;
+
+                        if (resources.hasNext()) {
+                            portPage = resources.next().adaptTo(Page.class);
+
+                            LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(), city.getCityCod());
+                        } else {
+                            portPage = pageManager.create(portFirstLetterPage.getPath(),
+                                    JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class), city.getCityName()),
+                                    "/apps/silversea/silversea-com/templates/port",
+                                    city.getCityName(),
+                                    false);
+
+                            LOGGER.debug("Creating port {}", city.getCityName());
+                        }
+
+                        Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
+
+                        if (portPageContentNode.hasProperty(JcrConstants.JCR_TITLE)
+                                && portPageContentNode.getProperty("jcr:title").getString().equals(city.getCityName())) {
+                            portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
+                        }
+
+                        portPageContentNode.setProperty("apiTitle", city.getCityName());
+                        portPageContentNode.setProperty("apiDescription", city.getShortDescription());
+                        portPageContentNode.setProperty("apiLongDescription", city.getDescription());
+                        portPageContentNode.setProperty("cityCode", city.getCityCod());
+                        portPageContentNode.setProperty("latitude", city.getLatitude());
+                        portPageContentNode.setProperty("longitude", city.getLongitude());
+                        portPageContentNode.setProperty("countryId", city.getCountryId());
+                        portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
+
+                        j++;
+
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                session.save();
+                            }
+                        }
                     }
-
-                    pageManager.create(portFirstLetterPage.getPath(),
-                            JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class), city.getCityName()),
-                            "/apps/silversea/silversea-com/templates/page",
-                            city.getCityName(),
-                            false);
 
                     i++;
+                } while (cities.size() > 0);
 
-                    if (i%100 == 0) {
-                        session.save();
-                    }
+                if (session.hasPendingChanges()) {
+                    session.save();
                 }
 
-                session.save();
-
+                resourceResolver.close();
             } catch (ApiException | WCMException | LoginException | RepositoryException e) {
                 LOGGER.error("Exception importing cities", e);
             }
@@ -115,7 +164,6 @@ public class CitiesImporterImpl implements CitiesImporter {
     }
 
     @Override
-    public void importCity(String cityId) {
-
+    public void importCity(final String cityId) {
     }
 }

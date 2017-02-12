@@ -21,7 +21,10 @@ public class TestServlet extends SlingSafeMethodsServlet {
     private CitiesImporter citiesImporter;
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+
         citiesImporter.importCities();
     }
 }
