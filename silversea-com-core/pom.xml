@@ -40,16 +40,17 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                        	com.silversea.aem.*
+                            com.silversea.aem.*
                         </Export-Package>
+                        <Sling-Model-Packages>
+                            com.silversea.aem.components.page,
+                            com.silversea.aem.models
+                        </Sling-Model-Packages>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Import-Package>
                             android.util;resolution:=optional,
                             *
                         </Import-Package>
-                        <Sling-Model-Packages>
-                            com.silversea.aem.components.page
-                        </Sling-Model-Packages>
                     </instructions>
                 </configuration>
             </plugin>

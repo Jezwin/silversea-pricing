@@ -1,3 +1,8 @@
+<sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse"/>
 <div class="container">
-<div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    <h1>Port : ${portUse.portModel.title}</h1>
+    <div>
+        <p>${portUse.portModel.apiDescription @ context='html'}</p>
+    </div>
+    <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 </div>
