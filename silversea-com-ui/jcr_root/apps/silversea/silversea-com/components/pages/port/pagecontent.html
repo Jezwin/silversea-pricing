@@ -4,5 +4,11 @@
     <div>
         <p>${portUse.portModel.apiDescription @ context='html'}</p>
     </div>
+    <div>
+        <h2>Excursions</h2>
+        <ul data-sly-list="${portUse.portModel.excursions}">
+            <li>${item.title}</li>
+        </ul>
+    </div>
     <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 </div>
