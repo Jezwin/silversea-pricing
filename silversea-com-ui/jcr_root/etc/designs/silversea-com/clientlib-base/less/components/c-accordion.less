@@ -1,0 +1,43 @@
+.c-accordion {
+    border-right: solid 1px @grey--e8;
+    border-left: solid 1px @grey--e8;
+
+    &__elem {
+        border-top: solid 1px @grey--e8;
+
+        &:nth-last-child(1) {
+            border-bottom: solid 1px @grey--e8;
+        }
+    }
+    &__header {
+        display: table;
+        width: 100%;
+        background-color: @grey--f9;
+        padding: 10px;
+
+        &:hover, &:active, &:focus {
+            cursor: pointer;
+            background-color: @grey--e6;
+        }
+        &[data-state='active'] {
+            background-color: @grey--e6;
+        }
+    }
+    &__title,
+    &__info,
+    &__action {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    &__body {
+        max-height: 0px;
+        overflow: hidden;
+        padding: 0px;
+        transition: max-height .3s ease-in-out;
+
+        &[data-collapsed='true'] {
+            padding: 10px;
+            max-height: 1000px;
+        }
+    }
+}

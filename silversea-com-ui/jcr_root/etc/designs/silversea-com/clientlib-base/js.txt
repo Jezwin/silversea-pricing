@@ -2,3 +2,5 @@
 
 components/header.js
 components/burgernav.js
+components/c-tab.js
+components/c-accordion.js

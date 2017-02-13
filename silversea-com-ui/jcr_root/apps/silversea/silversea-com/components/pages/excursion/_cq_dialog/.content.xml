@@ -41,6 +41,7 @@
                                             fieldLabel="Excursion code"
                                             name="./codeExcursion"
                                             disabled="{Boolean}true"
+                                            renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
                                     <apilongdescription
                                             jcr:primaryType="nt:unstructured"
@@ -49,6 +50,7 @@
                                             cq-msm-lockable="apiLongDescription"
                                             fieldLabel="API Long Description"
                                             name="./apiLongDescription"
+                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <longdescription
                                             jcr:primaryType="nt:unstructured"
@@ -56,6 +58,7 @@
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="longDescription"
                                             fieldLabel="Long Description"
+                                            renderReadOnly="{Boolean}true"
                                             name="./longDescription"/>
                                     <pois
                                             jcr:primaryType="nt:unstructured"
@@ -64,6 +67,7 @@
                                             cq-msm-lockable="pois"
                                             fieldLabel="POIs"
                                             disabled="{Boolean}true"
+                                            renderReadOnly="{Boolean}true"
                                             name="./pois"/>
                                 </items>
                             </column>

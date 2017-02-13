@@ -1,13 +1,97 @@
 <sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse"/>
-<div class="c-pagecontent">
+
+<div class="c-pageheader">
     <div class="container">
-        <h2 class="c-pagecontent__title">Find a Port</h2>
-        <span class="c-pagecontent__link">
-            <a href="http://www.silversea.com/find-port/" class="bound">search more<i class="fa fa-angle-down"></i></a>
-        </span>
+
+        <div class="aem-Grid aem-Grid--12">
+            <div class="aem-GridColumn aem-GridColumn--default--12">
+
+                <h2 class="c-pageheader__title">Find a Port</h2>
+                <div class="c-pageheader__links">
+                    <ul class="c-list-inline__group">
+                        <li class="c-list-inline__item c-list-inline__item--supper c-list-inline__item--separated">
+                            <a href="#">
+                                search more
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>
 
+<div class="c-pagecontent">
+    <div class="container">
+
+        <div class="aem-Grid aem-Grid--12">
+            <div class="aem-GridColumn aem-GridColumn--default--12">
+
+                <div class="c-tab">
+                    <ul class="c-tab__nav c-tab__nav--regular4">
+                        <li class="c-tab__link" data-state="active">
+                            <a href="#Overview">Overview</a>
+                         </li>
+                        <li class="c-tab__link">
+                            <a href="#Voyages">Voyages</a>
+                         </li>
+                        <li class="c-tab__link">
+                            <a href="#Excursions">Excursions</a>
+                         </li>
+                        <li class="c-tab__link">
+                            <a href="#LandProgrammes">Land Programmes</a>
+                         </li>
+                    </ul>
+
+                    <div class="c-tab__body">
+                        <div class="c-tab__content" data-state="active" id="Overview">
+                            <h1>
+                                ${portUse.portModel.title},
+                            </h1>
+                            <div>
+                                <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                            </div>
+                        </div>
+
+                        <div class="c-tab__content" id="Voyages">
+                            Voyages
+                        </div>
+                        <div class="c-tab__content" id="Excursions">
+                            <h1>
+                                ${portUse.portModel.title}
+                            </h1>
+                            <div class="c-accordion" data-sly-list="${portUse.portModel.excursions}">
+                                <div class="c-accordion__elem">
+                                    <div class="c-accordion__header">
+                                        <div class="c-accordion__title">
+                                            <p class="">test</p>
+                                        </div>
+                                        <div class="c-accordion__info">les infos</div>
+                                        <div class="c-accordion__action">Close</div>
+                                    </div>
+                                    <div class="c-accordion__body">${item.description @ context='html'}</div>
+                                </div>
+                            </div>
+                            <!--<ul data-sly-list="${portUse.portModel.excursions}">
+                                <li>${item.description @ context='html'}</li>
+                            </ul>-->
+                        </div>
+                        <div class="c-tab__content" id="LandProgrammes">
+                            LandProgrammes
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!--
 <div class="container">
     <h1>Port : ${portUse.portModel.title}</h1>
     <div>
@@ -21,3 +105,4 @@
     </div>
     <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 </div>
+-->

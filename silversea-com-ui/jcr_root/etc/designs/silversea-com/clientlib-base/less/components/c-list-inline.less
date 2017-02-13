@@ -45,16 +45,35 @@
         display: table-cell;
         vertical-align: middle;
         line-height: 20px;
-        
-        
+
         &--special {
             margin-top: 30px
         }
         &--normal {
             text-transform: none;
         }
+        &--bigger {
+            text-transform: uppercase;
+        }
         &--important {
             font-weight: 700;
+        }
+        &--supper {
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        &--separated {
+            position: relative;
+
+            &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 25%;
+                height: 50%;
+                width: 1px;
+                background: #e6e7e8;
+            }
         }
     }
 }
