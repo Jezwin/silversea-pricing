@@ -1,6 +1,7 @@
 package com.silversea.aem.servlets;
 
 import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -20,11 +21,15 @@ public class TestServlet extends SlingSafeMethodsServlet {
     @Reference
     private CitiesImporter citiesImporter;
 
+    @Reference
+    private ShoreExcursionsImporter shoreExcursionsImporter;
+
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
 
         citiesImporter.importCities();
+        shoreExcursionsImporter.importShoreExcursions();
     }
 }

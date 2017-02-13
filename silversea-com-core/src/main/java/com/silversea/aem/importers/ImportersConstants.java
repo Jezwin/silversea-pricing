@@ -7,4 +7,5 @@ public interface ImportersConstants {
 
     String BASEPATH_PORTS = "/content/silversea-com/en/other-resources/find-a-port";
 
+    String API_DOMAIN = "https://shop.silversea.com";
 }
