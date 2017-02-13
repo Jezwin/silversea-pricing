@@ -34,6 +34,14 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
+                                    <apititle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="apiTitle"
+                                            fieldLabel="API Title"
+                                            name="./apiTitle"
+                                            disabled="{Boolean}true"/>
                                     <apidescription
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
@@ -41,7 +49,6 @@
                                             cq-msm-lockable="apiDescription"
                                             fieldLabel="API Description"
                                             name="./apiDescription"
-                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <apilongdescription
                                             jcr:primaryType="nt:unstructured"
@@ -50,7 +57,6 @@
                                             cq-msm-lockable="apiLongDescription"
                                             fieldLabel="API Long Description"
                                             name="./apiLongDescription"
-                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <longdescription
                                             jcr:primaryType="nt:unstructured"
@@ -66,7 +72,14 @@
                                             cq-msm-lockable="cityCode"
                                             fieldLabel="City code"
                                             name="./cityCode"
-                                            renderReadOnly="{Boolean}true"
+                                            disabled="{Boolean}true"/>
+                                    <cityid
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="cityId"
+                                            fieldLabel="City ID"
+                                            name="./cityId"
                                             disabled="{Boolean}true"/>
                                     <latitude
                                             jcr:primaryType="nt:unstructured"
@@ -75,7 +88,6 @@
                                             cq-msm-lockable="latitude"
                                             fieldLabel="Latitude"
                                             name="./latitude"
-                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <longitude
                                             jcr:primaryType="nt:unstructured"
@@ -84,7 +96,6 @@
                                             cq-msm-lockable="longitude"
                                             fieldLabel="Longitude"
                                             name="./longitude"
-                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <countryid
                                             jcr:primaryType="nt:unstructured"
@@ -93,7 +104,6 @@
                                             cq-msm-lockable="countryId"
                                             fieldLabel="Country id"
                                             name="./countryId"
-                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <countryiso3
                                             jcr:primaryType="nt:unstructured"
@@ -102,7 +112,6 @@
                                             cq-msm-lockable="countryIso3"
                                             fieldLabel="Country iso3"
                                             name="./countryIso3"
-                                            renderReadOnly="{Boolean}true"
                                             disabled="{Boolean}true"/>
                                     <assetselectionreference
                                             jcr:primaryType="nt:unstructured"

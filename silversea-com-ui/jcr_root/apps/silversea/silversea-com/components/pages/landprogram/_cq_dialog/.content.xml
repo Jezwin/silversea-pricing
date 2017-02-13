@@ -33,23 +33,23 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <id
+                                    <landid
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="id"
+                                            cq-msm-lockable="landId"
                                             fieldLabel="ID"
-                                            name="./id"
-                                            renderReadOnly="{Boolean}true"
+                                            name="./landId"
+                                            disabled="{Boolean}true"
                                             required="{Boolean}true"/>
-                                    <code
+                                    <landcode
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="code"
+                                            cq-msm-lockable="landCode"
                                             fieldLabel="Code"
-                                            name="./code"
-                                            renderReadOnly="{Boolean}true"
+                                            name="./landCode"
+                                            disabled="{Boolean}true"
                                             required="{Boolean}true"/>
                                 </items>
                             </column>
