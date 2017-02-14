@@ -41,6 +41,7 @@
                                             fieldLabel="ID"
                                             name="./landId"
                                             disabled="{Boolean}true"
+                                            renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
                                     <landcode
                                             jcr:primaryType="nt:unstructured"
@@ -50,6 +51,7 @@
                                             fieldLabel="Code"
                                             name="./landCode"
                                             disabled="{Boolean}true"
+                                            renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
                                 </items>
                             </column>

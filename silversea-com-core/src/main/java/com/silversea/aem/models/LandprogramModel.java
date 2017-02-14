@@ -16,9 +16,9 @@ import javax.inject.Named;
  * Created by aurelienolivier on 12/02/2017.
  */
 @Model(adaptables = Page.class)
-public class ExcursionModel {
+public class LandprogramModel {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ExcursionModel.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(LandprogramModel.class);
 
     @Inject @Self
     private Page page;
@@ -29,17 +29,12 @@ public class ExcursionModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
     private String description;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/codeExcursion") @Optional
-    private String codeExcursion;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/landId") @Optional
+    private String landId;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription") @Optional
-    private String apiLongDescription;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/landCode") @Optional
+    private String landCode;
 
-//    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription")
-//    private String longDescription;
-//
-//    @Inject @Named(JcrConstants.JCR_CONTENT + "/pois")
-//    private String pois;
 
     @PostConstruct
     private void init() {
@@ -54,19 +49,11 @@ public class ExcursionModel {
         return description;
     }
 
-    public String getCodeExcursion() {
-        return codeExcursion;
+    public String getLandId() {
+        return landId;
     }
 
-    public String getApiLongDescription() {
-        return apiLongDescription;
+    public String getLandCode() {
+        return landCode;
     }
-//
-//    public String getLongDescription() {
-//        return longDescription;
-//    }
-//
-//    public String getPois() {
-//        return pois;
-//    }
 }

@@ -31,7 +31,7 @@
             <div class="aem-GridColumn aem-GridColumn--default--12">
 
                 <div class="c-tab">
-                    <ul class="c-tab__nav c-tab__nav--regular4">
+                    <ul class="c-tab__nav c-tab__nav--regular5">
                         <li class="c-tab__link" data-state="active">
                             <a href="#Overview">Overview</a>
                          </li>
@@ -43,6 +43,9 @@
                          </li>
                         <li class="c-tab__link">
                             <a href="#LandProgrammes">Land Programmes</a>
+                         </li>
+                        <li class="c-tab__link">
+                            <a href="#Hotels">Hotels</a>
                          </li>
                     </ul>
 
@@ -61,7 +64,7 @@
                         </div>
                         <div class="c-tab__content" id="Excursions">
                             <h1>
-                                ${portUse.portModel.title}
+                                ${portUse.portModel.title},
                             </h1>
                             <div class="c-accordion" data-sly-list="${portUse.portModel.excursions}">
                                 <div class="c-accordion__elem">
@@ -81,7 +84,46 @@
                             </div>
                         </div>
                         <div class="c-tab__content" id="LandProgrammes">
-                            LandProgrammes
+                            <h1>
+                                ${portUse.portModel.title},
+                            </h1>
+                            <div class="c-accordion" data-sly-list="${portUse.portModel.landprograms}">
+                                <div class="c-accordion__elem">
+                                    <div class="c-accordion__header">
+                                        <div class="c-accordion__title">
+                                            <p><strong>${item.title}</strong></p>
+                                            <p>${item.landId}</p>
+                                        </div>
+                                        <div class="c-accordion__action">
+                                            See More&nbsp;<i class="fa fa-angle-down"></i>
+                                        </div>
+                                    </div>
+                                    <div class="c-accordion__body">
+                                        ${item.description @ context='html'}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-tab__content" id="Hotels">
+                            <h1>
+                                ${portUse.portModel.title},
+                            </h1>
+                            <div class="c-accordion" data-sly-list="${portUse.portModel.landprograms}">
+                                <div class="c-accordion__elem">
+                                    <div class="c-accordion__header">
+                                        <div class="c-accordion__title">
+                                            <p><strong>${item.title}</strong></p>
+                                            <p>${item.landId}</p>
+                                        </div>
+                                        <div class="c-accordion__action">
+                                            See More&nbsp;<i class="fa fa-angle-down"></i>
+                                        </div>
+                                    </div>
+                                    <div class="c-accordion__body">
+                                        ${item.description @ context='html'}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

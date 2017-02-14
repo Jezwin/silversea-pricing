@@ -34,13 +34,14 @@ public class PortModel {
 
     private List<ExcursionModel> excursions;
 
+    private List<LandprogramModel> landprograms;
+
     @PostConstruct
     private void init() {
         excursions = new ArrayList<>();
+        landprograms = new ArrayList<>();
 
         final Iterator<Page> childs = page.listChildren();
-
-        LOGGER.debug("{}", page.getPath());
 
         while (childs.hasNext()) {
             Page child = childs.next();
@@ -50,6 +51,15 @@ public class PortModel {
 
                 while (excursionsPages.hasNext()) {
                     excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
+                }
+            }
+            else if (child.getName().equals("land-programs")) {
+
+                Iterator<Page> landprogramsPages = child.listChildren();
+
+                while (landprogramsPages.hasNext()) {
+
+                    landprograms.add(landprogramsPages.next().adaptTo(LandprogramModel.class));
                 }
             }
         }
@@ -65,5 +75,9 @@ public class PortModel {
 
     public List<ExcursionModel> getExcursions() {
         return excursions;
+    }
+
+    public List<LandprogramModel> getLandprograms() {
+        return landprograms;
     }
 }
