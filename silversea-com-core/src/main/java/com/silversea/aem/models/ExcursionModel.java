@@ -29,6 +29,18 @@ public class ExcursionModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
     private String description;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/codeExcursion")
+    private String codeExcursion;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription")
+    private String apiLongDescription;
+
+//    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+//    private String longDescription;
+//
+//    @Inject @Named(JcrConstants.JCR_CONTENT + "/pois")
+//    private String pois;
+
     @PostConstruct
     private void init() {
         LOGGER.debug("{}", page.getPath());
@@ -41,4 +53,20 @@ public class ExcursionModel {
     public String getDescription() {
         return description;
     }
+
+    public String getCodeExcursion() {
+        return codeExcursion;
+    }
+
+    public String getApiLongDescription() {
+        return apiLongDescription;
+    }
+//
+//    public String getLongDescription() {
+//        return longDescription;
+//    }
+//
+//    public String getPois() {
+//        return pois;
+//    }
 }
