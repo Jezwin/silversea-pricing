@@ -67,17 +67,17 @@
                                 <div class="c-accordion__elem">
                                     <div class="c-accordion__header">
                                         <div class="c-accordion__title">
-                                            <p class="">test</p>
+                                            <p><strong>${item.title}</strong></p>
                                         </div>
-                                        <div class="c-accordion__info">les infos</div>
-                                        <div class="c-accordion__action">Close</div>
+                                        <div class="c-accordion__action">
+                                            See More&nbsp;<i class="fa fa-angle-down"></i>
+                                        </div>
                                     </div>
-                                    <div class="c-accordion__body">${item.description @ context='html'}</div>
+                                    <div class="c-accordion__body">
+                                        ${item.description @ context='html'}
+                                    </div>
                                 </div>
                             </div>
-                            <!--<ul data-sly-list="${portUse.portModel.excursions}">
-                                <li>${item.description @ context='html'}</li>
-                            </ul>-->
                         </div>
                         <div class="c-tab__content" id="LandProgrammes">
                             LandProgrammes
@@ -91,18 +91,3 @@
 
     </div>
 </div>
-<!--
-<div class="container">
-    <h1>Port : ${portUse.portModel.title}</h1>
-    <div>
-        <p>${portUse.portModel.apiDescription @ context='html'}</p>
-    </div>
-    <div>
-        <h2>Excursions</h2>
-        <ul data-sly-list="${portUse.portModel.excursions}">
-            <li>${item.description @ context='html'}</li>
-        </ul>
-    </div>
-    <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-</div>
--->

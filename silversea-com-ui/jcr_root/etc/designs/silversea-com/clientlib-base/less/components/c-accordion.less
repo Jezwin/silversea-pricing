@@ -14,6 +14,7 @@
         width: 100%;
         background-color: @grey--f9;
         padding: 10px;
+        table-layout: fixed;
 
         &:hover, &:active, &:focus {
             cursor: pointer;
@@ -29,14 +30,23 @@
         display: table-cell;
         vertical-align: middle;
     }
+    &__title {
+        p {
+            margin: 0px;
+        }
+    }
+    &__action {
+        min-width: 90px;
+        width: 10%;
+        text-align: right;
+    }
     &__body {
         max-height: 0px;
         overflow: hidden;
-        padding: 0px;
         transition: max-height .3s ease-in-out;
+        padding: 0 10px;
 
         &[data-collapsed='true'] {
-            padding: 10px;
             max-height: 1000px;
         }
     }

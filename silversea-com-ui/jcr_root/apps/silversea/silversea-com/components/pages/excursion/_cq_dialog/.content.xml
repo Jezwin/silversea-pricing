@@ -41,7 +41,6 @@
                                             fieldLabel="Excursion code"
                                             name="./codeExcursion"
                                             disabled="{Boolean}true"
-                                            renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
                                     <apilongdescription
                                             jcr:primaryType="nt:unstructured"
@@ -58,7 +57,6 @@
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="longDescription"
                                             fieldLabel="Long Description"
-                                            renderReadOnly="{Boolean}true"
                                             name="./longDescription"/>
                                     <pois
                                             jcr:primaryType="nt:unstructured"
