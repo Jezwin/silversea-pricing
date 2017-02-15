@@ -71,7 +71,7 @@
                                     <div class="c-accordion__header">
                                         <div class="c-accordion__title">
                                             <p><strong>${item.title}</strong></p>
-                                            <p>${item.codeExcursion}</p>
+                                            <p>${item.shortDescription @ context='unsafe'}</p>
                                         </div>
                                         <div class="c-accordion__action">
                                             See More&nbsp;<i class="fa fa-angle-down"></i>
@@ -108,12 +108,12 @@
                             <h1>
                                 ${portUse.portModel.title},
                             </h1>
-                            <div class="c-accordion" data-sly-list="${portUse.portModel.landprograms}">
+                            <div class="c-accordion" data-sly-list="${portUse.portModel.hotels}">
                                 <div class="c-accordion__elem">
                                     <div class="c-accordion__header">
                                         <div class="c-accordion__title">
-                                            <p><strong>${item.title}</strong></p>
-                                            <p>${item.landId}</p>
+                                            <p><strong>${item.name}</strong></p>
+                                            <p>${item.code}</p>
                                         </div>
                                         <div class="c-accordion__action">
                                             See More&nbsp;<i class="fa fa-angle-down"></i>

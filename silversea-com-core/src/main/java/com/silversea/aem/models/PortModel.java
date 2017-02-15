@@ -36,10 +36,13 @@ public class PortModel {
 
     private List<LandprogramModel> landprograms;
 
+    private List<HotelModel> hotels;
+
     @PostConstruct
     private void init() {
         excursions = new ArrayList<>();
         landprograms = new ArrayList<>();
+        hotels = new ArrayList<>();
 
         final Iterator<Page> childs = page.listChildren();
 
@@ -62,6 +65,15 @@ public class PortModel {
                     landprograms.add(landprogramsPages.next().adaptTo(LandprogramModel.class));
                 }
             }
+            else if (child.getName().equals("hotels")) {
+
+                Iterator<Page> hotelsPages = child.listChildren();
+
+                while (hotelsPages.hasNext()) {
+
+                    hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
+                }
+            }
         }
     }
 
@@ -77,7 +89,7 @@ public class PortModel {
         return excursions;
     }
 
-    public List<LandprogramModel> getLandprograms() {
-        return landprograms;
-    }
+    public List<LandprogramModel> getLandprograms() { return landprograms; }
+
+    public List<HotelModel> getHotels() { return hotels; }
 }

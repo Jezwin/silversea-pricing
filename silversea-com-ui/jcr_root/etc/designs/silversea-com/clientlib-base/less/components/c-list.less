@@ -98,25 +98,25 @@
         
         .c-list__title {
             /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            position: relative;
-            padding: 20px 30px;
-            cursor: pointer;
-            margin-bottom: 0px;
-            
-            &:before {
-                content: '\f107';
-                font-size: 20px;
-                font-family: 'FontAwesome';
-                display: block;
-                position: absolute;
-                top: 47%;
-                right: 30px;
-                -webkit-transform: translateY(-50%);
-                -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
+            @media screen and (max-width: @screen-sm) {
+                position: relative;
+                padding: 20px 30px;
+                cursor: pointer;
+                margin-bottom: 0px;
+
+                &:before {
+                    content: '\f107';
+                    font-size: 20px;
+                    font-family: 'FontAwesome';
+                    display: block;
+                    position: absolute;
+                    top: 47%;
+                    right: 30px;
+                    -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                    transform: translateY(-50%);
+                }
             }
-        }
         }
     }
 }
