@@ -98,6 +98,7 @@ a {
     padding: 6px 12px;
     line-height: 1.42857143;
     text-align: center;
+    font-weight: @bold-l;
     white-space: nowrap;
     vertical-align: middle;
     
@@ -124,6 +125,19 @@ a {
             background: @grey--9;
         }
     }
+    &--grey {
+        background: @grey--c5;
+        color: @black;
+        -webkit-transition: background 1s;
+        -moz-transition: background 1s;
+        -ms-transition: background 1s;
+        -o-transition: background 1s;
+        transition: background 1s;
+        
+        &:hover, &:focus, &:active {
+            background: @grey-d;
+        }
+    }
     &--red {
         background: @red;
         color: @white;
@@ -135,6 +149,7 @@ a {
         
         &:hover, &:focus, &:active {
             background: @red-d;
+            color: @white;
         }
     }
 }
