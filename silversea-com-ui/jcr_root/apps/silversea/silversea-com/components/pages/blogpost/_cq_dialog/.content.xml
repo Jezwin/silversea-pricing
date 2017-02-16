@@ -52,8 +52,7 @@
                                                 fieldLabel="Publication date"
                                                 name="./publicationDate"
                                                 renderReadOnly="{Boolean}true"
-                                                type="datetime"
-                                                renderReadOnly="{Boolean}true"/>
+                                                type="datetime"/>
                                      <assetselectionreference
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
