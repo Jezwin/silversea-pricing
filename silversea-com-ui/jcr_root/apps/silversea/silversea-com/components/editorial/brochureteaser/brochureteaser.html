@@ -1,1 +1,10 @@
-<div class="c-subscribe__form--label-important">test 2000</div>
+<sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"/>
+
+<div class="c-subscribe__form--label-important">${brochureTeaserUse.assetTitle}</div>
+
+<div>Brochure Path : ${properties.brochurePath}</div>
+<div>Brochure Description : ${brochureTeaserUse.assetDescription}</div>
+<div>Brochure title : ${brochureTeaserUse.assetTitle}</div>
+<div>Brochure Image path : ${brochureTeaserUse.assetImage}</div>
+
+<img alt="" src="${brochureTeaserUse.assetImage}">
