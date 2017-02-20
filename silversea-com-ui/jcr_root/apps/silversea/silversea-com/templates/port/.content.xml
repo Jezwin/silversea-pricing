@@ -4,7 +4,7 @@
           jcr:description="Allows to manage ports"
           jcr:mixinTypes="[mix:lockable]"
           jcr:primaryType="cq:Template"
-          jcr:title="SCC - Port"
+          jcr:title="SSC - Port"
           allowedPaths="[/content/silversea-com/.*]"
           ranking="{Long}0">
     <jcr:content

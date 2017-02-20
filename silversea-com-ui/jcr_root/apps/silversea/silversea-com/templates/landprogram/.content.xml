@@ -2,14 +2,15 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0"
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-          jcr:description="Silversea.com port template"
+          jcr:description="Land Program management and display"
           jcr:mixinTypes="[mix:lockable]"
           jcr:primaryType="cq:Template"
-          jcr:title="Silversea.com Land Program"
+          jcr:title="SSC - Land Program"
           allowedPaths="[/content/silversea-com/.*]"
           ranking="{Long}0">
     <jcr:content
             jcr:primaryType="cq:PageContent"
+            pageCategory1="single land programmes"
             sling:resourceType="silversea/silversea-com/components/pages/landprogram">
     </jcr:content>
 </jcr:root>
