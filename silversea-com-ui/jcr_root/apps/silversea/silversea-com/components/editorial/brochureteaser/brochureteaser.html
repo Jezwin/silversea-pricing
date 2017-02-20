@@ -8,3 +8,12 @@
 <div>Brochure Image path : ${brochureTeaserUse.assetImage}</div>
 
 <img alt="" src="${brochureTeaserUse.assetImage}">
+
+
+<img alt="" src="${brochureTeaserUse.assetThumbnailsList[1]}">
+
+<dl data-sly-list.child="${brochureTeaserUse.assetThumbnailsList}">
+    <dt>key: ${child[0]}</dt>
+    <dd>value: ${brochureTeaserUse.assetThumbnailsList[child]}</dd>
+</dl>
+

@@ -39,9 +39,9 @@ public class BrochureTeaserUse extends WCMUsePojo {
             assetTitle = "";
             assetDescription = "";
         }
-
+        
     }
-
+    
     public List getThumbnailsPathList(SlingHttpServletRequest request) {
         
         List list = new ArrayList();
@@ -54,6 +54,10 @@ public class BrochureTeaserUse extends WCMUsePojo {
         return list;
     }
     
+    public List getAssetThumbnailsList() {
+        return assetThumbnailsList;
+    }
+    
     public String getAssetImage() {
         return assetThumbnailsList.get(1).toString(); //"http://localhost:4502" + asset.getRenditions().get(0).getPath();
     }
@@ -61,7 +65,7 @@ public class BrochureTeaserUse extends WCMUsePojo {
     public String getBrochurePath() {
         return brochurePath;
     }
-
+    
     public String getAssetDescription() {
         return assetDescription;
     }
