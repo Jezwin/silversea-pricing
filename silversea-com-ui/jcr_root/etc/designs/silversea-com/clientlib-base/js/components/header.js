@@ -5,7 +5,6 @@
 
         var show = true;
         $(document).scroll(function () {
-            console.log('$(document).scrollTop() : ', $(document).scrollTop());
             
             if ($(document).scrollTop() > 120 && show) {
                 $('.c-main-nav__bottom').toggleClass('c-main-nav__bottom--hide');  
