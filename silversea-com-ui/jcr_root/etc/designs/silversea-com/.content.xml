@@ -10,6 +10,12 @@
             <par
                     jcr:primaryType="nt:unstructured"
                     components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial]"/>
+            <par1
+                    jcr:primaryType="nt:unstructured"
+                    components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial]"/>
+            <par2
+                    jcr:primaryType="nt:unstructured"
+                    components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial]"/>
         </page>
     </jcr:content>
 </jcr:root>
