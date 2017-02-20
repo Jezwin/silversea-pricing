@@ -37,17 +37,10 @@
                                         <field
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                name="./suiteFeatures"
+                                                fieldLabel="Feature"
+                                                name="./suiteFeature"
                                                 required="{Boolean}true"/>
                                     </suitefeatures>
-                                    <suitefeature
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="suiteFeature"
-                                            fieldLabel="Feature"
-                                            name="./suiteFeature"
-                                            renderReadOnly="{Boolean}true"/>
                                     <suitecategorycodes
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -56,18 +49,11 @@
                                             renderReadOnly="{Boolean}true">
                                         <field
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                name="./suiteCategoryCodes"
+                                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                                name="./suiteCategoryCode"
+                                                fieldLabel="Suite Category Code"
                                                 required="{Boolean}true"/>
                                     </suitecategorycodes>
-                                    <suitecategorycode
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="suiteCategoryCode"
-                                            fieldLabel="Suite Category Code"
-                                            name="./suiteCategoryCode"
-                                            renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -92,8 +78,9 @@
                                             renderReadOnly="{Boolean}true">
                                         <field
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                name="./deckimage"
+                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                name="./image"
+                                                fieldLabel="Image"
                                                 required="{Boolean}true"/>
                                     </deckimage>
                                     <image
