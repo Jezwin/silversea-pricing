@@ -9,13 +9,13 @@
         <page jcr:primaryType="nt:unstructured">
             <par
                     jcr:primaryType="nt:unstructured"
-                    components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial]"/>
+                    components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial,group:Silversea - Voyage Journals]"/>
             <par1
                     jcr:primaryType="nt:unstructured"
-                    components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial]"/>
+                    components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial,group:Silversea - Voyage Journals]"/>
             <par2
                     jcr:primaryType="nt:unstructured"
-                    components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial]"/>
+                    components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial,group:Silversea - Voyage Journals]"/>
         </page>
     </jcr:content>
 </jcr:root>
