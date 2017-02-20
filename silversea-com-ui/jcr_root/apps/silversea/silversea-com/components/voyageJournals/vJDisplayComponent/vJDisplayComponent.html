@@ -1,0 +1,11 @@
+    <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+       <em>[Editer le composant : voyage Journal Display Component - SilverSea]</em>
+    </div>
+    <sly   data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
+            data-sly-unwrap> <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+    <div class="container">
+        <div class="o-section">
+            ${compnt.longDescription @ i18n}
+        </div>
+    </div>
+    </sly>
