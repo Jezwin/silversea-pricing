@@ -43,16 +43,16 @@
                                             renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
                                      <publicationDate
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                                allowBulkEdit="{Boolean}true"
-                                                cq-msm-lockable="publicationDate"
-                                                displayedFormat="MMMM DD, YYYY hh:mm a"
-                                                displayTimezoneMessage="{Boolean}true"
-                                                fieldLabel="Publication date"
-                                                name="./publicationDate"
-                                                renderReadOnly="{Boolean}true"
-                                                type="datetime"/>
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="publicationDate"
+                                            displayedFormat="MMMM DD, YYYY hh:mm a"
+                                            displayTimezoneMessage="{Boolean}true"
+                                            fieldLabel="Publication date"
+                                            name="./publicationDate"
+                                            renderReadOnly="{Boolean}true"
+                                            type="datetime"/>
                                      <assetselectionreference
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
