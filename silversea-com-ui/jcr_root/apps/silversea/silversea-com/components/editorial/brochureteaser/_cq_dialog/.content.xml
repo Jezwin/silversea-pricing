@@ -34,7 +34,8 @@
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             fieldDescription="Brochure"
                                             fieldLabel="Brochure"
-                                            name="./brochure"/>
+                                            name="./brochure"
+                                            rootPath="/content/dam/"/>
                                     </items>
                                 </column>
                             </items>

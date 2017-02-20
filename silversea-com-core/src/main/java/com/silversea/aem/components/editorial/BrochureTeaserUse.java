@@ -11,13 +11,15 @@ import com.day.cq.dam.api.DamConstants;
 
 public class BrochureTeaserUse extends WCMUsePojo {
 
+    private static final String BROCHURE_PROPERTIE = "brochure";
+
     private String brochurePath;
 
     private String assetDescription;
 
     private String assetTitle;
 
-    private List assetThumbnailsList;
+    private List<String> assetThumbnailsList;
 
     private Asset asset;
     
@@ -26,9 +28,9 @@ public class BrochureTeaserUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         
-        brochurePath = getProperties().get("brochure", String.class);
+        brochurePath = getProperties().get(BROCHURE_PROPERTIE, String.class);
         if (brochurePath != null) {
-            Resource resourceDam = getResourceResolver().getResource(getProperties().get("brochure", ""));
+            Resource resourceDam = getResourceResolver().getResource(getProperties().get(BROCHURE_PROPERTIE, ""));
             asset = resourceDam.adaptTo(Asset.class);
             
             assetThumbnailsList = getThumbnailsPathList(getRequest());
@@ -42,9 +44,9 @@ public class BrochureTeaserUse extends WCMUsePojo {
         
     }
     
-    public List getThumbnailsPathList(SlingHttpServletRequest request) {
+    public List<String> getThumbnailsPathList(SlingHttpServletRequest request) {
         
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         for (int i = 0 ; i<asset.getRenditions().size() ; i++) {
             StringBuilder sb = new StringBuilder();
             sb.append(request.getRequestURL().toString().split("/content/")[0]);
@@ -54,7 +56,7 @@ public class BrochureTeaserUse extends WCMUsePojo {
         return list;
     }
     
-    public List getAssetThumbnailsList() {
+    public List<String> getAssetThumbnailsList() {
         return assetThumbnailsList;
     }
     

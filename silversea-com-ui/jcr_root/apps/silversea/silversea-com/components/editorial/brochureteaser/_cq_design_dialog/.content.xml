@@ -31,18 +31,18 @@
                                     <items jcr:primaryType="nt:unstructured">
                                         <onlinerequestform
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             fieldDescription="Select Path"
                                             fieldLabel="Online request form"
-                                            name="./path"
+                                            name="./onlineRequestForm"
                                             rootPath="/content/dam/"/>
                                         <printedrequestform
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             fieldDescription="Select Path"
                                             fieldLabel="Printed request form"
-                                            name="./path"
-                                            rootPath="/content/"/>
+                                            name="./printedRequestForm"
+                                            rootPath="/content/dam/"/>
                                     </items>
                                 </column>
                             </items>
