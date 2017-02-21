@@ -12,23 +12,23 @@
     <sly   data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
             data-sly-unwrap> <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
         <div class="o-section">
-            ${pageProperties.dayNumber @ i18n}
+           ${'day' @ i18n} ${pageProperties.dayNumber @ i18n}
         </div>
         <div class="o-section">
             ${compnt.publicationDate @ i18n}
         </div>
         <div class="o-section">
-            ${compnt.author @ i18n}
+           ${'by' @ i18n} ${compnt.author @ i18n}
         </div>
         <div>
         <div class="o-section">
-            ${compnt.coordinates @ i18n}
+           ${'coordinates' @ i18n} ${compnt.coordinates @ i18n}
         </div>
         <div class="o-section">
             ${compnt.weather @ i18n}
         </div>
         <div class="o-section">
-            ${compnt.temperature @ i18n}
+           ${'temperature' @ i18n} ${compnt.temperature @ i18n}
         </div>
         <div class="o-section">
             ${compnt.pressure @ i18n}
@@ -38,11 +38,9 @@
         </div>
         </div>
     </sly>
-                
-                
-                    <div data-sly-resource="${'par1' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                </div>
-                        <div class="o-section">
+          <div data-sly-resource="${'par1' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+   </div>
+         <div class="o-section">
            Bloc pagination day
         </div>
                 <div class="aem-GridColumn aem-GridColumn--default--3">
