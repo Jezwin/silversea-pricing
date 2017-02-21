@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Page"
+    sling:resourceType="cq/gui/components/authoring/dialog"
+    extraClientlibs="[cq.common.wcm,cq.siteadmin.admin.properties]"
+    mode="edit">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container"
+        class="cq-dialog-content-page">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/container"
+                rel="cq-siteadmin-admin-properties-tabs">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+                    type="nav"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <voyagejournals
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Voyage journal"
+                            cq:showOnCreate="{Boolean}false"
+                            sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                     <dateV
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="date"
+                                            displayedFormat="MMMM DD, YYYY hh:mm a"
+                                            displayTimezoneMessage="{Boolean}true"
+                                            fieldLabel="Date"
+                                            name="./date"
+                                            renderReadOnly="{Boolean}true"
+                                            type="datetime"/>
+                                     <duration
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="duration"
+                                            fieldLabel="Duration"
+                                            name="./duration"
+                                            renderReadOnly="{Boolean}true"/>
+                                     <assetSelectionReference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="assetSelectionReference"
+                                            fieldLabel="Hero images"
+                                            name="./assetSelectionReference"
+                                            renderReadOnly="{Boolean}true"/>
+                                     <shipReference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="shipReference"
+                                            fieldLabel="Ship"
+                                            name="./shipReference"
+                                            renderReadOnly="{Boolean}true"
+                                            required="{Boolean}true"/>
+                                     <destinationReference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="destinationReference"
+                                            fieldLabel="Destination"
+                                            name="./destinationReference"
+                                            renderReadOnly="{Boolean}true"/>
+                                     <cruiseReference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="cruiseReference"
+                                            fieldLabel="Cruise"
+                                            name="./cruiseReference"
+                                            renderReadOnly="{Boolean}true"
+                                            required="{Boolean}true"/>
+                                      <cruises
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                                cq-msm-lockable="relatedCruiseReference"
+                                                fieldLabel="Related Cruises"
+                                                renderReadOnly="{Boolean}true">
+                                                <field
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                    name="./relatedCruiseReference"
+                                                    required="{Boolean}true"/>
+                                      </cruises>
+                                </items>
+                            </column>
+                        </items>
+                    </voyagejournals>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
