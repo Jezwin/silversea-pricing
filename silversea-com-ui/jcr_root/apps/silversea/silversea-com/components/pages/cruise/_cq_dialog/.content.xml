@@ -118,8 +118,9 @@
                                             renderReadOnly="{Boolean}true">
                                         <field
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                name="./keyPeople"
+                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                fieldLabel="People"
+                                                name="./reference"
                                                 required="{Boolean}true"/>
                                     </keypeople>
                                     <reference
@@ -138,19 +139,12 @@
                                             renderReadOnly="{Boolean}true">
                                         <field
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                                name="./exclusiveOffers"
+                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                                name="./offer"
+                                                fieldLabel="Offer"
+                                                disabled="{Boolean}true"
                                                 required="{Boolean}true"/>
                                     </exclusiveoffers>
-                                    <offer
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="offer"
-                                            fieldLabel="Offer"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"
-                                            name="./offer"/>
                                 </items>
                             </column>
                         </items>
