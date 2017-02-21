@@ -1,0 +1,50 @@
+/*
+* c- BROCHURES
+*/
+.c-brochure {
+    &__title {
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding-bottom: 0px;
+        color: black;
+        font-size: 22px;
+        margin-top: 20px;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            text-align : center;
+        }
+        
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            text-align : center;
+        }
+    }
+    
+    &__img {
+        width: auto;
+        max-height: 350px;
+        max-width: 100%;
+        margin: auto;
+        margin-bottom: 5px;
+    }
+    
+    &__btn {
+        width: 250px;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    
+    &__btndiv {
+    
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            text-align : center;
+        }
+        
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            text-align : center;
+        }
+    }
+}

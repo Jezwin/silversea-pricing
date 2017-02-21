@@ -33,6 +33,7 @@ public class BrochureTeaserUse extends WCMUsePojo {
             Resource resourceDam = getResourceResolver().getResource(getProperties().get(BROCHURE_PROPERTIE, ""));
             asset = resourceDam.adaptTo(Asset.class);
             
+            /* TODO replace by dynamic media */
             assetThumbnailsList = getThumbnailsPathList(getRequest());
             
             assetTitle = asset.getMetadataValue(DamConstants.DC_TITLE);
@@ -44,6 +45,7 @@ public class BrochureTeaserUse extends WCMUsePojo {
         
     }
     
+    /* TODO replace by dynamic media */
     public List<String> getThumbnailsPathList(SlingHttpServletRequest request) {
         
         List<String> list = new ArrayList<String>();

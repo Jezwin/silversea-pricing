@@ -1,34 +1,27 @@
 <sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"/>
 <div class="row">
-    <div class="col-md-6 visible-lg">
-        <div class="visible-lg" align="center" valign="middle">
-            <img alt="" src="${brochureTeaserUse.assetThumbnailsList[4]}">
-        </div>
+    <div class="col-md-7 visible-lg">
+        <img class="visible-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[0]}">
     </div>
-    <div class="col-md-6">
-        <h3>${brochureTeaserUse.assetTitle}</h3>
-        <div class="hidden-lg" align="center" valign="middle">
-            <img alt="" src="${brochureTeaserUse.assetThumbnailsList[4]}">
-        </div>
-        <br>
+    <div class="col-md-5">
+        <div class="c-brochure__title">${brochureTeaserUse.assetTitle}</div>
+        <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[0]}">
         <p>${brochureTeaserUse.assetDescription}</p>
-        <a href="${currentStyle.onlineRequestForm}">
-            <button class="c-btn c-btn--dark" type="button">
-                Voir en ligne
-                <i class="fa fa-lg fa-angle-right"></i>
-            </button>
-        </a>
-        <br><br>
-        <a href="${currentStyle.printedRequestForm}">
-            <button class="c-btn c-btn--dark" type="button">
-                M'envoyer cette <br> brochures
-                <i class="fa fa-lg fa-angle-right"></i>
-            </button>
-        </a>
+        <div class="c-brochure__btndiv">
+            <a href="${currentStyle.onlineRequestForm}">
+                <button class="c-btn c-btn--dark c-brochure__btn" type="button">
+                    <i class="fa fa-search"></i>
+                    &nbsp; Voir en ligne
+                </button>
+            </a>
+            <br>
+            <a href="${currentStyle.printedRequestForm}">
+                <button class="c-btn c-btn--dark c-brochure__btn" type="button">
+                    <i class="fa fa-envelope"></i>
+                    &nbsp; M'envoyer cette <br> &nbsp; &nbsp; &nbsp; &nbsp; brochures
+                </button>
+            </a>
+        </div>
     </div>
 </div>
-</section>
-<br>
 <hr>
-<br>
-
