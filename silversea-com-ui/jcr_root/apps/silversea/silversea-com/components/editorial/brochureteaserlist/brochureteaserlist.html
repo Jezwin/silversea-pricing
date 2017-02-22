@@ -1,4 +1,5 @@
-<sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserListUse"/>
+<sly data-sly-use.brochureTeaserListUse="com.silversea.aem.components.editorial.BrochureTeaserListUse"/>
+<sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"/>
 <div class="row">
     <div data-sly-resource="${'brochureListTitle' @ resourceType='/apps/silversea/silversea-com/components/editorial/text'}"></div>
     <div data-sly-resource="${'brochureListDescription' @ resourceType='/apps/silversea/silversea-com/components/editorial/text'}"></div>
@@ -9,13 +10,12 @@
             <option value="francais">Français</option>
         </select>
     </div>
-    <div>
-        test<br>
-
-        <ul data-sly-list.keyName="${brochureTeaserUse.brochureProperties}">
-            <li>KEY: ${keyName}, VALUE: ${brochureTeaserUse.brochureProperties[keyName]}</li>
-            <li>KEY: ${keyName}, VALUE: ${brochureTeaserUse.brochureProperties["description"]}</li>
-            <li>KEY: ${keyName}, VALUE: ${brochureTeaserUse.brochureProperties["title"]}</li>
-        </ul>
-    </div>
+    <br><br>
+    <dl data-sly-list="${brochureTeaserListUse.brochureProperties}">
+        <div data-sly-use.extra="brochureteaser.html">
+            <div data-sly-call="${extra.extra @ 
+                                    titre=brochureTeaserListUse.brochureProperties[itemList.index]['title'], 
+                                    description=brochureTeaserListUse.brochureProperties[itemList.index]['description'] }"/>
+        </div>
+    </dl>
 </div>

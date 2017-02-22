@@ -20,7 +20,7 @@ import com.day.cq.dam.api.DamConstants;
 
 public class BrochureTeaserListUse extends WCMUsePojo {
 
-    private Map brochureProperties;
+    private List<Map> brochureProperties;
     
     private String debugTest;
     
@@ -31,7 +31,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         Node node = resourceDam.adaptTo(Node.class);
         NodeIterator iterator = node.getNodes();
         
-        brochureProperties = new HashMap<String, String>();
+        brochureProperties = new ArrayList<>(Map);
         
         while (iterator.hasNext()) {
             Node currentNode = (Node) iterator.next();
@@ -39,8 +39,12 @@ public class BrochureTeaserListUse extends WCMUsePojo {
             if(currentNode.getPath().endsWith(".pdf")) {
                 Resource metadataResource = assetResource.getChild("jcr:content/metadata");
                 ValueMap prop = ResourceUtil.getValueMap(metadataResource);
-                brochureProperties.put("title", prop.get(DamConstants.DC_TITLE, String.class));
-                brochureProperties.put("description", prop.get(DamConstants.DC_DESCRIPTION, String.class));
+                
+                Map currentMap = new HashMap<String, String>();
+                currentMap.put("title", prop.get(DamConstants.DC_TITLE, String.class));
+                currentMap.put("description", prop.get(DamConstants.DC_DESCRIPTION, String.class));
+                
+                brochureProperties.add(currentMap);
             }
         }
     }
@@ -49,7 +53,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         return debugTest;
     }
     
-    public Map getBrochureProperties() {
+    public List<Map> getBrochureProperties() {
         return brochureProperties;
     }
 }
