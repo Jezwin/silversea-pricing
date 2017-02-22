@@ -1,0 +1,21 @@
+<sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserListUse"/>
+<div class="row">
+    <div data-sly-resource="${'brochureListTitle' @ resourceType='/apps/silversea/silversea-com/components/editorial/text'}"></div>
+    <div data-sly-resource="${'brochureListDescription' @ resourceType='/apps/silversea/silversea-com/components/editorial/text'}"></div>
+    <div class="col-md-6">${'Select the brochure language' @ i18n, locale=request.locale}</div>
+    <div class="col-md-6">
+        <select>
+            <option value="anglais">Anglais</option>
+            <option value="francais">Français</option>
+        </select>
+    </div>
+    <div>
+        test<br>
+
+        <ul data-sly-list.keyName="${brochureTeaserUse.brochureProperties}">
+            <li>KEY: ${keyName}, VALUE: ${brochureTeaserUse.brochureProperties[keyName]}</li>
+            <li>KEY: ${keyName}, VALUE: ${brochureTeaserUse.brochureProperties["description"]}</li>
+            <li>KEY: ${keyName}, VALUE: ${brochureTeaserUse.brochureProperties["title"]}</li>
+        </ul>
+    </div>
+</div>
