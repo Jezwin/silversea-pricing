@@ -10,7 +10,6 @@
     <jcr:content
             jcr:primaryType="cq:PageContent"
             pageCategory1="single ship"
-            pageCategory2="#single name#"
             pageCategory3="suites"
             sling:resourceType="silversea/silversea-com/components/pages/suitevariation">
     </jcr:content>
