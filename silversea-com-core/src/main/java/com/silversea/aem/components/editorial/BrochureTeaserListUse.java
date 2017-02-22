@@ -31,7 +31,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         Node node = resourceDam.adaptTo(Node.class);
         NodeIterator iterator = node.getNodes();
         
-        brochureProperties = new ArrayList<>(Map);
+        brochureProperties = new ArrayList<>();
         
         while (iterator.hasNext()) {
             Node currentNode = (Node) iterator.next();
@@ -40,7 +40,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
                 Resource metadataResource = assetResource.getChild("jcr:content/metadata");
                 ValueMap prop = ResourceUtil.getValueMap(metadataResource);
                 
-                Map currentMap = new HashMap<String, String>();
+                Map currentMap = new HashMap<>();
                 currentMap.put("title", prop.get(DamConstants.DC_TITLE, String.class));
                 currentMap.put("description", prop.get(DamConstants.DC_DESCRIPTION, String.class));
                 
