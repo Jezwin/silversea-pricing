@@ -255,7 +255,6 @@
                                             fieldLabel="Page category 3"
                                             name="./pageCategory3"
                                             renderReadOnly="{Boolean}true"/>
-
                                 </items>
                             </column>
                         </items>
