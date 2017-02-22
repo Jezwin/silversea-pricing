@@ -1,0 +1,28 @@
+<template data-sly-template.extra="${@ titre, description }">
+<div class="row">
+    <div class="col-md-7 visible-lg">
+        <img class="visible-lg c-brochure__img" alt="" src="http://localhost:4502/content/dam/siversea-com/brochures/bro-1.jpg/_jcr_content/renditions/original">
+    </div>
+    <div class="col-md-5">
+        <div class="c-brochure__title">${titre}</div>
+        <img class="hidden-lg c-brochure__img" alt="" src="http://localhost:4502/content/dam/siversea-com/brochures/bro-1.jpg/_jcr_content/renditions/original">
+        <p>${description}</p>
+        <div class="c-brochure__btndiv">
+            <a data-sly-test="${currentStyle.onlineRequestForm}" href="${currentStyle.onlineRequestForm}">
+                <button class="c-btn c-btn--dark c-brochure__btn" type="button">
+                    <i class="fa fa-search"></i>
+                    &nbsp; Voir en ligne
+                </button>
+            </a>
+            <br>
+            <a data-sly-test="${currentStyle.printedRequestForm}" href="${currentStyle.printedRequestForm}">
+                <button class="c-btn c-btn--dark c-brochure__btn" type="button">
+                    <i class="fa fa-envelope"></i>
+                    &nbsp; M'envoyer cette <br> &nbsp; &nbsp; &nbsp; &nbsp; brochures
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<hr>
+</template>
