@@ -1,58 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="nt:unstructured"
-    jcr:title="Page"
-    sling:resourceType="cq/gui/components/authoring/dialog"
-    extraClientlibs="[cq.common.wcm,cq.siteadmin.admin.properties]"
-    mode="edit">
-    <content
-        jcr:primaryType="nt:unstructured"
-        sling:resourceType="granite/ui/components/foundation/container"
-        class="cq-dialog-content-page">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured">
+    <content jcr:primaryType="nt:unstructured">
         <items jcr:primaryType="nt:unstructured">
-            <tabs
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="granite/ui/components/foundation/container"
-                rel="cq-siteadmin-admin-properties-tabs">
-                <layout
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-                    type="nav"/>
+            <tabs jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
-                    <basic
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Basic"
-                        sling:resourceType="granite/ui/components/foundation/section">
-                        <layout
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                            margin="{Boolean}false"/>
-                        <items jcr:primaryType="nt:unstructured">
-                            <column
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/container">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <title
-                                        jcr:primaryType="nt:unstructured"
-                                        jcr:title="Title and Tags"
-                                        sling:resourceType="granite/ui/components/foundation/form/fieldset">
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <showfloatingbar
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
-                                                allowBulkEdit="{Boolean}true"
-                                                cq-msm-lockable="showFloatingBar"
-                                                name="./showFloatingBar"
-                                                renderReadOnly="{Boolean}true"
-                                                text="Show Floating Bar"
-                                                value="true"
-                                                checked="{Boolean}true"/>
-                                        </items>
-                                    </title>
-                                </items>
-                            </column>
-                        </items>
-                    </basic>
                     <publicarea
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Public Area"
