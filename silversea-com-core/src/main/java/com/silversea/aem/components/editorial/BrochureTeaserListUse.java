@@ -13,6 +13,7 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 
 public class BrochureTeaserListUse extends WCMUsePojo {
@@ -32,15 +33,24 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         while (iterator.hasNext()) {
             Node currentNode = (Node) iterator.next();
-            Resource assetResource = getResourceResolver().getResource(currentNode.getPath());
-            if (currentNode.getPath().endsWith(".pdf")) {
+            if(currentNode.getPath().endsWith(".pdf")) {
+                
+                Resource assetResource = getResourceResolver().getResource(currentNode.getPath());
+                Asset asset = assetResource.adaptTo(Asset.class);
+                Map currentMap = new HashMap<>();
+                currentMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE));
+                currentMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
+                if (asset.getImagePreviewRendition() != null)
+                    currentMap.put("imgpath", asset.getImagePreviewRendition().getPath());
+                else 
+                    currentMap.put("imgpath", "");
+                /*
                 Resource metadataResource = assetResource.getChild("jcr:content/metadata");
                 ValueMap prop = ResourceUtil.getValueMap(metadataResource);
-
                 Map currentMap = new HashMap<>();
                 currentMap.put("title", prop.get(DamConstants.DC_TITLE, String.class));
                 currentMap.put("description", prop.get(DamConstants.DC_DESCRIPTION, String.class));
-
+                */
                 brochureProperties.add(currentMap);
             }
         }

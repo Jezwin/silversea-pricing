@@ -1,11 +1,11 @@
-<template data-sly-template.extra="${@ titre, description }">
+<template data-sly-template.extra="${@ titre, description, imgpath }">
 <div class="row">
     <div class="col-md-7 visible-lg">
-        <img class="visible-lg c-brochure__img" alt="" src="http://localhost:4502/content/dam/siversea-com/brochures/bro-1.jpg/_jcr_content/renditions/original">
+        <img class="visible-lg c-brochure__img" alt="" src="${imgpath}">
     </div>
     <div class="col-md-5">
         <div class="c-brochure__title">${titre}</div>
-        <img class="hidden-lg c-brochure__img" alt="" src="http://localhost:4502/content/dam/siversea-com/brochures/bro-1.jpg/_jcr_content/renditions/original">
+        <img class="hidden-lg c-brochure__img" alt="" src="${imgpath}">
         <p>${description}</p>
         <div class="c-brochure__btndiv">
             <a data-sly-test="${currentStyle.onlineRequestForm}" href="${currentStyle.onlineRequestForm}">
