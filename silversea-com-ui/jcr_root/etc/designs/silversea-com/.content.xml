@@ -15,7 +15,7 @@
                     components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties]"/>
             <par2
                     jcr:primaryType="nt:unstructured"
-                    components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties]"/>
+                    components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties,group:Silversea - voyagejournals]"/>
         </page>
     </jcr:content>
 </jcr:root>

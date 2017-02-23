@@ -4,4 +4,4 @@
     jcr:title="Dining Area Property Display"
     sling:resourceSuperType="foundation/components/parsys"
     allowedParents="[*/responsivegrid]"
-    componentGroup="Silversea - Editorial"/>
+    componentGroup="Silversea - displayproperties"/>
