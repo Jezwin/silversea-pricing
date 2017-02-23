@@ -1,92 +1,21 @@
-<div class="c-main-nav__bottom">
+<div class="c-main-nav__bottom" itemscope itemtype="http://schema.org/SiteNavigationElement">
     <div class="c-main-nav__container">
-        <ul class="c-main-nav__bottom--list">
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Find your cruise</span>
-                </a>
-            </li>
-            <li class="c-main-nav__bottom--item c-main-nav--visibility-md">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Exclusive offers</span>
-                </a>
-            </li>
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Why silversea</span>
-                </a>
-            </li>
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Destinations</span>
-                </a>
-                <ul class="c-main-nav__subnav c-main-nav__subnav--col2">
-                    <li class="c-main-nav__subnav--col">
-                        <ul class="c-main-nav__subnav--list">
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">Asia</a>
-                            </li>
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">South America</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="c-main-nav__subnav--col">
-                        <ul class="c-main-nav__subnav--list">
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">World cruise</a>
-                            </li>
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">Culinary and Wine Voyages</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Ships</span>
-                </a>
-                <ul class="c-main-nav__subnav c-main-nav__subnav--col1">
-                    <li class="c-main-nav__subnav--col">
-                        <ul class="c-main-nav__subnav--list">
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">Silver Cloud</a>
-                            </li>
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">Silver Wind</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>On Board</span>
-                </a>
-            </li>
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Ashore</span>
-                </a>
-            </li>
-            <li class="c-main-nav__bottom--item">
-                <a href="#" class="c-main-nav__bottom--link">
-                    <span>Silversea Expedition</span>
-                </a>
-                <ul class="c-main-nav__subnav c-main-nav__subnav--col1 c-main-nav__subnav--right">
-                    <li class="c-main-nav__subnav--col">
-                        <ul class="c-main-nav__subnav--list">
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">Silver Cloud</a>
-                            </li>
-                            <li class="c-main-nav__subnav--item">
-                                <a href="#" class="c-main-nav__subnav--link">Silver Wind</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+        <ul class="c-main-nav__bottom--list" role="menubar">
+            <sly data-sly-use.header="com.silversea.aem.components.page.HeaderModel"
+                data-sly-list="${header.navigation}"
+                data-sly-use.navigationTemplate="navigationtemplate.html">
+                <sly data-sly-test.itemType="${ item.type.toString == 'NODE_OPEN' }" data-sly-call="${ navigationTemplate.NODE_OPEN @ item=item }">
+                </sly><sly data-sly-test.itemType="${ item.type.toString == 'ITEM_BEGIN' }" data-sly-call="${ navigationTemplate.ITEM_BEGIN @ item=item }">
+                </sly><sly data-sly-test.itemType="${ item.type.toString == 'ITEM_END' }" data-sly-call="${ navigationTemplate.ITEM_END }">
+                </sly><sly data-sly-test.itemType="${ item.type.toString == 'NODE_CLOSE' }" data-sly-call="${ navigationTemplate.NODE_CLOSE }">
+            </sly></sly>
         </ul>
     </div>
 </div>
+<script>
+    var lis = $('.c-main-nav__subnav--col2 li li');
+    for(var i = 0; i < lis.length; i+=16) {
+      lis.slice(i, i+16).wrapAll("<ul class='c-main-nav__subnav--col generated'></li><li class='c-main-nav__subnav--list'>");
+    }
+    $('.c-main-nav__subnav--col.generated').unwrap().unwrap();
+</script>
