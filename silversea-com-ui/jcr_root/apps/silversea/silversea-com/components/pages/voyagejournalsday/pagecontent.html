@@ -41,10 +41,10 @@
             <div>
                 Bloc pagination day
                 <sly
-                    data-sly-use.cpt="com.silversea.aem.components.voyagejournals.JournalListDaysUse"
+                    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
                     data-sly-unwrap>
                 <div data-sly-test="${cpt.first}">on est dans la
-                    premiere page ${'day' @ i18n} ${cpt.next}</div>
+                    premiere page ${'day' @ i18n} ${cpt.next} ${cpt.nextPath}</div>
                 <div data-sly-test="${!cpt.first && !cpt.last}">
                     on est au milieu ${'day' @ i18n} ${cpt.previous}
                     ${'day' @ i18n} ${cpt.next}</div>

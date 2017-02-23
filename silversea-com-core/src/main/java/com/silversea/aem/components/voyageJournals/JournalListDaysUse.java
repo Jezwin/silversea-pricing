@@ -32,28 +32,54 @@ public class JournalListDaysUse extends WCMUsePojo {
     public List<JournalListDaysModel> getListDays() {
         return listDays;
     }
-    public boolean getFirst(){
-        if(listDays.get(0).getDayNumber() == currentDay.getDayNumber()){
+
+    public boolean isFirst() {
+        if (listDays.get(0).getDayNumber() == currentDay.getDayNumber()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    public boolean getLast(){
-        if(listDays.get(listDays.size()-1).getDayNumber() == currentDay.getDayNumber()){
+
+    public boolean isLast() {
+        if (listDays.get(listDays.size() - 1).getDayNumber() == currentDay.getDayNumber()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
-    public String getNext(){
+
+    public String getNext() {
         Integer s = Integer.valueOf(currentDay.getDayNumber()) + 1;
         return s.toString();
     }
-    
-    public String getPrevious(){
+
+    public String getPrevious() {
         Integer s = Integer.valueOf(currentDay.getDayNumber()) - 1;
         return s.toString();
+    }
+
+    public String getNextPath() {
+        int currentIndex = listDays.indexOf(currentDay);
+        String path;
+        if(currentIndex !=-1){
+            path = listDays.get(currentIndex+1).getPath();
+            return path;
+        }else{
+            return "";
+        }
+       
+    }
+
+    public String getPreviousPath() {
+        int currentIndex = listDays.indexOf(currentDay);
+        String path;
+        if(currentIndex !=-1){
+            path = listDays.get(currentIndex-1).getPath();
+            return path;
+        }else{
+            return "";
+        }
+       
     }
 }

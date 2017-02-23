@@ -36,10 +36,12 @@ public class JournalListDaysModel {
     @Named(JcrConstants.JCR_CONTENT + "/dayNumber")
     @Optional
     private String dayNumber;
+    
+    private String path;
 
     @PostConstruct
     private void init() {
-
+        path = page.getPath();
     }
 
     public String getTitle() {
@@ -49,5 +51,11 @@ public class JournalListDaysModel {
     public String getDayNumber() {
         return dayNumber;
     }
+
+    public String getPath() {
+        return path;
+    }
+    
+    
     
 }
