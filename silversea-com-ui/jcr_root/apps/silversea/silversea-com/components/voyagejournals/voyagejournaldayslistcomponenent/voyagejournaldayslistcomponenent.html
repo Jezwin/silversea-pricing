@@ -1,0 +1,15 @@
+
+<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+    <em>[Editer le composant : Journal list days - SilverSea]</em>
+</div>
+
+
+<sly
+    data-sly-use.cpt="com.silversea.aem.components.voyagejournals.JournalListDaysUse"
+    data-sly-unwrap>
+<ul data-sly-list="${cpt.listDays}">
+    <li><p>${item.title}</p>
+    <p>${item.dayNumber}</p>
+    </li>
+</ul>
+</sly>

@@ -16,9 +16,7 @@ public class VoyageJournalDayUse extends WCMUsePojo {
         voyageJournalDay = getCurrentPage().adaptTo(VoyageJournalDayModel.class);
     }
 
-	public VoyageJournalDayModel getVoyageJournalDay() {
-		return voyageJournalDay;
-	}
-
-
+    public VoyageJournalDayModel getVoyageJournalDay() {
+        return voyageJournalDay;
+    }
 }

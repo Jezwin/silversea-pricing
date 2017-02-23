@@ -1,51 +1,61 @@
-    <div class="container">
-        <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-    </div>
-    <div class="container">
-        <section class="o-section">
-            <div class="aem-Grid aem-Grid--12">
-                <div class="aem-GridColumn aem-GridColumn--default--9">
-                
-                    <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
-       <em>[Editer le composant : voyage Journal DayComponent - SilverSea]</em>
-    </div>
-    <sly   data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
-            data-sly-unwrap> <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
-        <div class="o-section">
-           ${'day' @ i18n} ${pageProperties.dayNumber @ i18n}
-        </div>
-        <div class="o-section">
-            ${compnt.publicationDate @ i18n}
-        </div>
-        <div class="o-section">
-           ${'by' @ i18n} ${compnt.author @ i18n}
-        </div>
-        <div>
-        <div class="o-section">
-           ${'coordinates' @ i18n} ${compnt.coordinates @ i18n}
-        </div>
-        <div class="o-section">
-            ${compnt.weather @ i18n}
-        </div>
-        <div class="o-section">
-           ${'temperature' @ i18n} ${compnt.temperature @ i18n}
-        </div>
-        <div class="o-section">
-            ${compnt.pressure @ i18n}
-        </div>
-        <div class="o-section">
-            ${compnt.wind @ i18n}
-        </div>
-        </div>
-    </sly>
-          <div data-sly-resource="${'par1' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-   </div>
-         <div class="o-section">
-           Bloc pagination day
-        </div>
-                <div class="aem-GridColumn aem-GridColumn--default--3">
-                    <div data-sly-resource="${'par2' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+
+<div class="container">
+    <div
+        data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+</div>
+<div class="container">
+    <section class="o-section">
+        <div class="aem-Grid aem-Grid--12">
+            <div class="aem-GridColumn aem-GridColumn--default--9">
+                <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+                    <em>[Editer le composant : voyage Journal
+                        DayComponent - SilverSea]</em>
                 </div>
+                <sly
+                    data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
+                    data-sly-unwrap> <sly
+                    data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+                <div class="o-section">${'day' @ i18n}
+                    ${pageProperties.dayNumber @ i18n}</div>
+                <div class="o-section">${compnt.publicationDate @
+                    i18n}</div>
+                <div class="o-section">${compnt.title @ i18n}</div>
+                <div class="o-section">${'by' @ i18n}
+                    ${compnt.author @ i18n}</div>
+                <div>
+                    <div class="o-section">${'coordinates' @ i18n}
+                        ${compnt.coordinates @ i18n}</div>
+                    <div class="o-section">${'weather' @ i18n}
+                        ${compnt.weather @ i18n}</div>
+                    <div class="o-section">${'temperature' @ i18n}
+                        ${compnt.temperature @ i18n}</div>
+                    <div class="o-section">${'pressure' @ i18n}
+                        ${compnt.pressure @ i18n}</div>
+                    <div class="o-section">${'wind' @ i18n}
+                        ${compnt.wind @ i18n}</div>
+                </div>
+                </sly>
+                <div
+                    data-sly-resource="${'par1' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
-        </section>
-    </div>
+            <div>
+                Bloc pagination day
+                <sly
+                    data-sly-use.cpt="com.silversea.aem.components.voyagejournals.JournalListDaysUse"
+                    data-sly-unwrap>
+                <div data-sly-test="${cpt.first}">on est dans la
+                    premiere page ${'day' @ i18n} ${cpt.next}</div>
+                <div data-sly-test="${!cpt.first && !cpt.last}">
+                    on est au milieu ${'day' @ i18n} ${cpt.previous}
+                    ${'day' @ i18n} ${cpt.next}</div>
+                <div data-sly-test="${cpt.last}">on est dans la
+                    derniere page ${'day' @ i18n} ${cpt.previous}</div>
+                </sly>
+            </div>
+            <div class="aem-GridColumn aem-GridColumn--default--3">
+                <div
+                    data-sly-resource="${'par2' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+            </div>
+        </div>
+    </section>
+</div>
