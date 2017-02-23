@@ -10,10 +10,7 @@
             <par
                     jcr:primaryType="nt:unstructured"
                     components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties]"/>
-            <par1
-                    jcr:primaryType="nt:unstructured"
-                    components="[/libs/wcm/foundation/components/responsivegrid,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties]"/>
-            <par2
+            <parSide
                     jcr:primaryType="nt:unstructured"
                     components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties,group:Silversea - voyagejournals]"/>
         </page>
