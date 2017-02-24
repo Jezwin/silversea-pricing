@@ -35,10 +35,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
 
     public Map mapTags; 
     
-    @Activate
-    public void activate() throws RepositoryException {
-
-    }
+    private boolean isInitService = false;
     
     private void initService(ResourceResolver resourceResolver) throws RepositoryException {
         
@@ -67,19 +64,22 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
                     
                     StringBuilder sb = new StringBuilder();
                     sb.append("geolocation:");
-                    sb.append("/").append(area);
+                    sb.append(area);
                     sb.append("/").append(market);
                     sb.append("/").append(countryCode);
                     
-                    mapTags.put(countryCodeNode,sb.toString());
+                    mapTags.put(countryCode,sb.toString());
                 }
             }
         }
+        
+        isInitService = true;
     }
     
     @Override
     public Map getTags(ResourceResolver resourceResolver) throws RepositoryException {
-        initService(resourceResolver);
+        if (!isInitService)
+            initService(resourceResolver);
         return mapTags;
     }
     
