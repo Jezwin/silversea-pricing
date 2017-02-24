@@ -53,7 +53,7 @@ public class JournalListDaysModel {
     }
 
     public String getPath() {
-        return path;
+        return  (path!=null && path.startsWith("/content") && !path.endsWith(".html") ?path+ ".html" : path);
     }
     
     

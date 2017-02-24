@@ -8,9 +8,10 @@
     data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
     data-sly-unwrap>
 <ul data-sly-list="${cpt.listDays}">
-    <li><p>${item.title}</p>
-    <p>${item.dayNumber}</p>
-    <p>${item.path}</p>
-    </li>
+    <li><a href="${item.path}">
+            <p>${item.title}</p>
+            <p>${item.dayNumber}</p>
+            <p>${item.path}</p>
+    </a></li>
 </ul>
 </sly>

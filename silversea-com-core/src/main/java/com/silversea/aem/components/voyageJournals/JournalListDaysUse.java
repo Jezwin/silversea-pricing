@@ -1,13 +1,17 @@
 package com.silversea.aem.components.voyageJournals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
+import com.drew.lang.StringUtil;
 import com.silversea.aem.models.JournalListDaysModel;
 
 /**
@@ -18,6 +22,8 @@ public class JournalListDaysUse extends WCMUsePojo {
     private List<JournalListDaysModel> listDays;
     private JournalListDaysModel currentDay;
 
+    Map<Integer, JournalListDaysModel> map = new HashMap<Integer, JournalListDaysModel>();
+
     @Override
     public void activate() throws Exception {
         listDays = new ArrayList<>();
@@ -26,6 +32,12 @@ public class JournalListDaysUse extends WCMUsePojo {
         Iterator<Page> childs = parentPage.listChildren();
         while (childs.hasNext()) {
             listDays.add(childs.next().adaptTo(JournalListDaysModel.class));
+        }
+
+        Iterator<Page> childs1 = parentPage.listChildren();
+        int i = 1;
+        while (childs1.hasNext()) {
+            map.put(i++, childs1.next().adaptTo(JournalListDaysModel.class));
         }
     }
 
@@ -60,26 +72,21 @@ public class JournalListDaysUse extends WCMUsePojo {
     }
 
     public String getNextPath() {
-        int currentIndex = listDays.indexOf(currentDay);
-        String path;
-        if(currentIndex !=-1){
-            path = listDays.get(currentIndex+1).getPath();
+        String path = map.get(Integer.valueOf(currentDay.getDayNumber()) + 1).getPath();
+        if (StringUtils.isNotEmpty(path)) {
             return path;
-        }else{
+        } else {
             return "";
         }
-       
     }
 
     public String getPreviousPath() {
-        int currentIndex = listDays.indexOf(currentDay);
-        String path;
-        if(currentIndex !=-1){
-            path = listDays.get(currentIndex-1).getPath();
+        String path = map.get(Integer.valueOf(currentDay.getDayNumber()) - 1).getPath();
+        if (StringUtils.isNotEmpty(path)) {
             return path;
-        }else{
+        } else {
             return "";
         }
-       
     }
+
 }

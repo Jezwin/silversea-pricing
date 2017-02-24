@@ -38,13 +38,19 @@
                 <sly
                     data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
                     data-sly-unwrap>
-                <div data-sly-test="${cpt.first}">on est dans la
-                    premiere page ${'day' @ i18n} ${cpt.next} ${cpt.nextPath}</div>
+                <div data-sly-test="${cpt.first}">
+                    <a href="${cpt.nextPath}">${'day' @ i18n}
+                        ${cpt.next} </a>
+                </div>
                 <div data-sly-test="${!cpt.first && !cpt.last}">
-                    on est au milieu ${'day' @ i18n} ${cpt.previous}
-                    ${'day' @ i18n} ${cpt.next}</div>
-                <div data-sly-test="${cpt.last}">on est dans la
-                    derniere page ${'day' @ i18n} ${cpt.previous}</div>
+                    <a href="${cpt.previousPath}"> ${'day' @ i18n}
+                        ${cpt.previous}</a><a href="${cpt.nextPath}">
+                        ${'day' @ i18n} ${cpt.next}</a>
+                </div>
+                <div data-sly-test="${cpt.last}">
+                    <a href="${cpt.previousPath}">${'day' @ i18n}
+                        ${cpt.previous}</a>
+                </div>
                 </sly>
             </div>
             <div class="aem-GridColumn aem-GridColumn--default--3">
