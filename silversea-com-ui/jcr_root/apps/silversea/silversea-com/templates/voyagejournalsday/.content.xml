@@ -3,7 +3,7 @@
     jcr:description="Silversea.com Voyage journals day template"
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
-    jcr:title="Silversea.com Voyage journals days"
+    jcr:title="SSC - Voyage journals days"
     allowedPaths="[/content/silversea-com/.*]"
     ranking="{Long}0">
     <jcr:content

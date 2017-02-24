@@ -3,7 +3,7 @@
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:mixinTypes="[mix:lockable]"
           jcr:primaryType="cq:Template"
-          jcr:title="Silversea.com Public Area Variation"
+          jcr:title="SSC - Public Area Variation"
           jcr:description="Allow to manage public area variation"
           allowedPaths="[/content/silversea-com/.*]"
           ranking="{Long}0">

@@ -3,7 +3,7 @@
     jcr:description="Silversea.com redirect page template"
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
-    jcr:title="Silversea.com Redirect"
+    jcr:title="SSC - Redirect"
     allowedPaths="[/content/.*]"
     ranking="{Long}0">
     <jcr:content

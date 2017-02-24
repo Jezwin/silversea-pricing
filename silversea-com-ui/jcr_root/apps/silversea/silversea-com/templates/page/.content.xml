@@ -5,7 +5,7 @@
           jcr:description="Silversea.com page template"
           jcr:mixinTypes="[mix:lockable]"
           jcr:primaryType="cq:Template"
-          jcr:title="Silversea.com Page"
+          jcr:title="SSC - Page"
           allowedPaths="[/content/silversea-com/.*]"
           ranking="{Long}0">
     <jcr:content

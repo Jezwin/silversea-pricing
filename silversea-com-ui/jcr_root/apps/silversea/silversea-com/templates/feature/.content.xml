@@ -3,7 +3,7 @@
     jcr:description="Silversea.com Feature template"
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
-    jcr:title="Silversea.com Feature"
+    jcr:title="SSC - Feature"
     allowedPaths="[/content/silversea-com/.*]"
     ranking="{Long}0">
     <jcr:content

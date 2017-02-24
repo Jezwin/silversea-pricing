@@ -3,7 +3,7 @@
     jcr:description="Silversea.com Press release template"
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
-    jcr:title="Silversea.com Press release"
+    jcr:title="SSC - Press release"
     allowedPaths="[/content/silversea-com/.*]"
     ranking="{Long}0">
     <jcr:content

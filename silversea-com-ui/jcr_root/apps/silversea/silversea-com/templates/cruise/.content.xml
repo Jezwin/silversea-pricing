@@ -4,6 +4,7 @@
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
     jcr:title="SSC - Cruise"
+    jcr:decription="Allow to manage cuises information"
     allowedPaths="[/content/silversea-com/.*]"
     ranking="{Long}0">
     <jcr:content
