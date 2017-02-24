@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ import com.silversea.aem.components.services.GeolocationTagCacheService;
 
 public class BrochureTeaserListUse extends WCMUsePojo {
 
-    private List<Map> brochureProperties;
+    private List<String> brochureList;
 
     private String debugTest;
     
@@ -34,33 +35,15 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         
         testTag = geolocService.getTags(getResourceResolver());
         
-        Resource resourceDam = getResourceResolver().getResource("/content/dam/siversea-com/brochures");
-        Node node = resourceDam.adaptTo(Node.class);
-        NodeIterator iterator = node.getNodes();   
+        //Iterator<Resource> resources = getResourceResolver().findResources("//element(*,cq:Page)[jcr:content/cityCode=\"" + city.getCityCod() + "\"]", "xpath");
+        
+        Iterator<Resource> resources = getResourceResolver().findResources("//element(*,dam:Asset)[jcr:content/metadata/@cq:tags='geolocation:EU/OtherEurope/FR-FRA-250']", "xpath");
+        brochureList = new ArrayList<String>();
 
-        brochureProperties = new ArrayList<Map>();
-
-        while (iterator.hasNext()) {
-            Node currentNode = (Node) iterator.next();
-            if(currentNode.getPath().endsWith(".pdf")) {
-                
-                Resource assetResource = getResourceResolver().getResource(currentNode.getPath());
-                Asset asset = assetResource.adaptTo(Asset.class);
-                Map currentMap = new HashMap<>();
-                currentMap.put("title", asset.getMetadataValue(DamConstants.DC_TITLE));
-                currentMap.put("description", asset.getMetadataValue(DamConstants.DC_DESCRIPTION));
-                if (asset.getImagePreviewRendition() != null)
-                    currentMap.put("imgpath", asset.getImagePreviewRendition().getPath());
-                else 
-                    currentMap.put("imgpath", "");
-                /*
-                Resource metadataResource = assetResource.getChild("jcr:content/metadata");
-                ValueMap prop = ResourceUtil.getValueMap(metadataResource);
-                Map currentMap = new HashMap<>();
-                currentMap.put("title", prop.get(DamConstants.DC_TITLE, String.class));
-                currentMap.put("description", prop.get(DamConstants.DC_DESCRIPTION, String.class));
-                */
-                brochureProperties.add(currentMap);
+        while (resources.hasNext()) {
+            Node node = resources.next().adaptTo(Node.class);
+            if(node.getPath().endsWith(".pdf")) {
+                brochureList.add(node.getPath());
             }
         }
     }
@@ -73,7 +56,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         return debugTest;
     }
     
-    public List<Map> getBrochureProperties() {
-        return brochureProperties;
+    public List<String> getBrochureList() {
+        return brochureList;
     }
 }

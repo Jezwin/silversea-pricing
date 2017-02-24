@@ -28,9 +28,16 @@ public class BrochureTeaserUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         
-        brochurePath = getProperties().get(BROCHURE_PROPERTIE, String.class);
+        if( get("brochurePathParam", String.class) != null)
+            getRequest().setAttribute(BROCHURE_PROPERTIE, get("brochurePathParam", String.class));
+        
+        if(getRequest().getAttribute(BROCHURE_PROPERTIE) != null) {
+            brochurePath = getRequest().getAttribute(BROCHURE_PROPERTIE).toString();
+        } else {
+            brochurePath = getProperties().get(BROCHURE_PROPERTIE, String.class);
+        }
         if (brochurePath != null) {
-            Resource resourceDam = getResourceResolver().getResource(getProperties().get(BROCHURE_PROPERTIE, ""));
+            Resource resourceDam = getResourceResolver().getResource(brochurePath);
             asset = resourceDam.adaptTo(Asset.class);
             
             /* TODO replace by dynamic media */

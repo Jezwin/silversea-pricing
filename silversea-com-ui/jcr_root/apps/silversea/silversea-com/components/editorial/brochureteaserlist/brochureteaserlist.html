@@ -8,12 +8,8 @@
         </select>
     </div>
     <br><br>
-    <dl data-sly-list="${brochureTeaserListUse.brochureProperties}">
+    <dl data-sly-list="${brochureTeaserListUse.brochureList}">
+        <div data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
         <div data-sly-resource="${'brochureListTitle' @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
     </dl>
-    
-    <ul data-sly-list.keyName="${brochureTeaserListUse.testTag}">
-            <li>KEY: ${keyName}, VALUE: ${brochureTeaserListUse.testTag[keyName]}</li>
-        </ul>
-    
 </div>
