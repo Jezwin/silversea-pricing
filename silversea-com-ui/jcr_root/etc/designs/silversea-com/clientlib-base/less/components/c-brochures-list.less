@@ -1,0 +1,50 @@
+.c-main-nav__bottom {display: none;}
+
+.brochureteaserlist {
+
+    &__header {
+        width: 100%;
+        padding: 0 0 30px 0;
+        text-align: center;
+        display: table;
+        
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            display: block;
+        }
+        
+        &__label {
+            width: 50%;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+            font-weight: bold;
+            padding-bottom: 0;
+            font-size: 14px;
+            
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                width: 100%;
+                text-align: center;
+                padding-right: 15px;
+                padding-bottom: 15px;
+            }
+        }
+        &__select {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: left;
+            padding-right: 15px;
+            
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                position: relative;
+                width: 100%;
+                display: block;
+                text-align: center;
+                padding-right: 15px;
+            }
+        }
+    }
+}
+    
