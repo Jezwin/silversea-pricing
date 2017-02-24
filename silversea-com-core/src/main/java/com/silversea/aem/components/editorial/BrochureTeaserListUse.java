@@ -25,13 +25,14 @@ public class BrochureTeaserListUse extends WCMUsePojo {
     
     private Map testTag;
 
-    @OSGiService
     private GeolocationTagCacheService geolocService;
     
     @Override
     public void activate() throws Exception {
 
         geolocService = getSlingScriptHelper().getService(GeolocationTagCacheService.class);
+        
+        testTag = geolocService.getTags(getResourceResolver());
         
         Resource resourceDam = getResourceResolver().getResource("/content/dam/siversea-com/brochures");
         Node node = resourceDam.adaptTo(Node.class);
@@ -62,8 +63,6 @@ public class BrochureTeaserListUse extends WCMUsePojo {
                 brochureProperties.add(currentMap);
             }
         }
-        
-        testTag = geolocService.getTags(getResourceResolver());
     }
 
     public Map getTestTag() {

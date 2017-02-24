@@ -14,6 +14,7 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -33,7 +34,9 @@ import com.silversea.aem.components.services.GeolocationTagCacheService;
 @Component(immediate=true, label = "Silversea.com - Geolocation Tag Cache Service")
 public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheService {
 
-    public Map mapTags; 
+    private static final String ETC_TAGS_GEOLOCATION_PATH = "/etc/tags/geolocation/";
+
+    public Map<String, String> mapTags; 
     
     private boolean isInitService = false;
     
@@ -41,7 +44,10 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
         
         mapTags = new HashMap();
         
-        Resource resourceTag = resourceResolver.getResource("/etc/tags/geolocation/");
+        Resource resourceTag = resourceResolver.getResource(ETC_TAGS_GEOLOCATION_PATH);
+        
+        // TODO replace node with tag
+        // Tag tag = resourceTag.adaptTo(Tag.class);
         
         Node geolocNode = resourceTag.adaptTo(Node.class);
         NodeIterator iteratorGeolocNode = geolocNode.getNodes();
@@ -60,7 +66,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
                     Node countryCodeNode = (Node) iteratorMarketNode.next();
                     String countryCode = countryCodeNode.getName();
                     
-                    /* geolocation:<area>/<market>/<country> */
+                    // geolocation:<area>/<market>/<country>
                     
                     StringBuilder sb = new StringBuilder();
                     sb.append("geolocation:");
@@ -84,14 +90,16 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     }
     
     @Override
-    public String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId) {
-        
-        return null;
+    public String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId) throws RepositoryException {
+        if (!isInitService)
+            initService(resourceResolver);
+        return mapTags.get(countryId);
     }
 
     @Override
-    public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver) {
-        // TODO Auto-generated method stub
+    public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
+        if (!isInitService)
+            initService(resourceResolver);
         return null;
     }
 

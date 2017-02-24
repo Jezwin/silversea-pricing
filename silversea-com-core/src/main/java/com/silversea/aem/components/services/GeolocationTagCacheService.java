@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.jcr.RepositoryException;
 
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
 
 /**
@@ -15,8 +16,8 @@ import org.apache.sling.api.resource.ResourceResolver;
  */
 public interface GeolocationTagCacheService {
 
-    String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId);
-    String getTagIdFromCurrentRequest(ResourceResolver resourceResolver);
+    String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId) throws RepositoryException;
+    String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException;
     Map getTags(ResourceResolver resourceResolver) throws RepositoryException;
 
 }
