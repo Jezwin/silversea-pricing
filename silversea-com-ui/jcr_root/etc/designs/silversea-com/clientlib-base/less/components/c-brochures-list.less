@@ -10,17 +10,15 @@
             display: block;
         }
         &__label {
-            width: 50%;
             display: table-cell;
             vertical-align: middle;
             text-align: right;
             font-weight: bold;
-            padding-bottom: 0;
+            padding: 0 15px 0 0;
             font-size: 14px;
             
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
-                width: 100%;
                 text-align: center;
                 padding-right: 15px;
                 padding-bottom: 15px;
@@ -30,16 +28,22 @@
             display: table-cell;
             vertical-align: middle;
             text-align: left;
-            padding-right: 15px;
+            padding-left: 0;
             
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 position: relative;
-                width: 100%;
                 display: block;
                 text-align: center;
-                padding-right: 15px;
             }
-        }
+            
+            .chosen-container {
+            max-width: 240px;
+                
+                .chosen-single {
+                    border-radius: 0 !important;
+                }
+            }
+        }    
     }
 }

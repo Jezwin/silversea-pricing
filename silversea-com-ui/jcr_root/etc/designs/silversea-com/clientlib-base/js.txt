@@ -1,5 +1,5 @@
 #base=js
-
+components/main.js
 components/header.js
 components/burgernav.js
 components/c-tab.js

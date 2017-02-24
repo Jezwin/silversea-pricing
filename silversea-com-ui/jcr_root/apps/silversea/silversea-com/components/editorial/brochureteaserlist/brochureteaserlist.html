@@ -7,17 +7,24 @@
                         ${'select-language' @ i18n}
                     </div>
                     <div class="col-md-6 brochureteaserlist__header__select">
-                        <select>
-                            <option value="DE-DEU-276">Germany</option>
-                            <option value="FR-FRA-250">Francais</option>
+                        <select class="chosen">
+                            <option value="anglais">Anglais</option>
+                            <option value="francais">Francais</option>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <dl data-sly-list="${brochureTeaserListUse.brochureList}">
+        <div data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
+        <div data-sly-resource="${'brochureListTitle' @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
+    </dl>
 </div>
 </section>
+
 <section class="o-section">
     <div class="aem-Grid aem-Grid--12">
         <div class="aem-GridColumn aem-GridColumn--default--12">
@@ -27,6 +34,9 @@
                     <sly data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
                     <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
                 </dl>
+                <ul data-sly-list.keyName="${brochureTeaserListUse.testTag}">
+                    <li>KEY: ${keyName}, VALUE: ${brochureTeaserListUse.testTag[keyName]}</li>
+                </ul>
             </div>
         </div>
     </div>
