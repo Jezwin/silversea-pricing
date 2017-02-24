@@ -26,6 +26,8 @@ import com.silversea.aem.components.services.GeolocationTagCacheService;
 @Component(immediate=true, label = "Silversea.com - Geolocation Tag Cache Service")
 public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheService {
 
+    private static final String REQUEST_COUNTRY_ID_PARAM = "countryId";
+
     private static final String ETC_TAGS_GEOLOCATION_PATH = "/etc/tags/geolocation/";
 
     public Map<String, String> mapTags; 
@@ -92,7 +94,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
-        return null;
+        return mapTags.get(request.getRequestPathInfo().getSelectorString());
     }
 
 

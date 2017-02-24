@@ -17,7 +17,9 @@ import org.apache.sling.api.resource.ResourceResolver;
 public interface GeolocationTagCacheService {
 
     String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId) throws RepositoryException;
+
     String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException;
+
     Map getTags(ResourceResolver resourceResolver) throws RepositoryException;
 
 }
