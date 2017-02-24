@@ -12,10 +12,3 @@
         </ul>
     </div>
 </div>
-<script>
-    var lis = $('.c-main-nav__subnav--col2 li li');
-    for(var i = 0; i < lis.length; i+=16) {
-      lis.slice(i, i+16).wrapAll("<ul class='c-main-nav__subnav--col generated'></li><li class='c-main-nav__subnav--list'>");
-    }
-    $('.c-main-nav__subnav--col.generated').unwrap().unwrap();
-</script>
