@@ -1,5 +1,5 @@
 <!--/* row header */-->
-<header class="c-header">
+<header class="c-header" data-sly-use.header="com.silversea.aem.components.page.HeaderModel">
     <!--/*  header container  */-->
     <div class="c-header__container">
         <div class="container">
@@ -7,12 +7,12 @@
 
                 <!--/*  header top logo */-->
                 <div class="aem-GridColumn aem-GridColumn--default--3 aem-GridColumn--phone--5">
-                    <a href="http://www.silversea.com/fr" class="c-header__inner">
+                    <a href="${header.homePage.path @ extension='html'}" class="c-header__inner">
                         <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="Silversea" />
                     </a>
                 </div>
-                <!--/*  header top logo end */-->
-
+                <!--/*  /header top logo */-->
+                
                 <!--/*  header top navigation */-->
                 <div class="aem-GridColumn aem-GridColumn--default--9 aem-GridColumn--phone--7">
 

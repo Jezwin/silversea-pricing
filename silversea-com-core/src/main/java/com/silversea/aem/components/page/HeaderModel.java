@@ -52,6 +52,8 @@ public class HeaderModel {
      */
     public Navigation navigation;
 
+    public Page homePage;
+
     /**
      * Constructor NavigationModel
      */
@@ -64,9 +66,9 @@ public class HeaderModel {
      */
     @PostConstruct
     public void init() {
+        homePage = currentPage.getAbsoluteParent(2);
         InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(resource);
-        //final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_TOP, String.class);
-        final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM, "/content/silversea-com/en");
+        final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM, homePage.getPath());
         navigation = navigationBuild(rootPath, 2);
     }
 
@@ -77,15 +79,16 @@ public class HeaderModel {
      * @param maxLevel
      * @return
      */
-    private Navigation navigationBuild(String pathRoot, Integer maxLevel) {
+    private Navigation navigationBuild(String path, Integer maxLevel) {
         Navigation nav = null;
 
-        Resource resourceRoot = resourceResolver.getResource(pathRoot);
+        Resource resourceRoot = resourceResolver.getResource(path);
 
         if (resourceRoot != null) {
             Page pageRoot = resourceRoot.adaptTo(Page.class);
+
             Page selectPage = PathUtils.isAncestor(pageRoot.getPath(), currentPage.getPath()) ? currentPage : pageRoot;
-            nav = new Navigation(selectPage, PathUtils.getDepth(pathRoot) - 1, new NavigationPageFilter(), maxLevel);
+            nav = new Navigation(selectPage, PathUtils.getDepth(path) - 1, new NavigationPageFilter(), maxLevel);
         }
 
         return nav;
