@@ -38,8 +38,6 @@ public class JournalFilterModel {
 
     }
 
-
-
 	public String getTitle() {
 		return title;
 	}
