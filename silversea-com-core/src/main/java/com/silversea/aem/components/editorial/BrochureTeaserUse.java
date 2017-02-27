@@ -23,16 +23,28 @@ public class BrochureTeaserUse extends WCMUsePojo {
 
     private Asset asset;
     
-    private String assetImage;
+    private boolean showOnlineRequestForm;
+    
+    private boolean showPrintedRequestForm;
+    
+    private String onlineRequestFormURL;
+    
+    private String printedRequestForm;
 
     @Override
     public void activate() throws Exception {
         
-        if( get("brochurePathParam", String.class) != null)
+        if ( get("brochurePathParam", String.class) != null) {
             getRequest().setAttribute(BROCHURE_PROPERTIE, get("brochurePathParam", String.class));
-        
-        if(getRequest().getAttribute(BROCHURE_PROPERTIE) != null) {
+        }
+        if (getRequest().getAttribute(BROCHURE_PROPERTIE) != null) {
             brochurePath = getRequest().getAttribute(BROCHURE_PROPERTIE).toString();
+            
+            // TODO set the currentstyle param.
+            showOnlineRequestForm = true;
+            showPrintedRequestForm = true;
+            onlineRequestFormURL = "";
+            printedRequestForm = "";
         } else {
             brochurePath = getProperties().get(BROCHURE_PROPERTIE, String.class);
         }
@@ -83,5 +95,21 @@ public class BrochureTeaserUse extends WCMUsePojo {
     
     public String getAssetTitle() {
         return assetTitle;
+    }
+
+    public boolean isShowOnlineRequestForm() {
+        return showOnlineRequestForm;
+    }
+
+    public boolean isShowPrintedRequestForm() {
+        return showPrintedRequestForm;
+    }
+
+    public String getOnlineRequestFormURL() {
+        return onlineRequestFormURL;
+    }
+
+    public String getPrintedRequestForm() {
+        return printedRequestForm;
     }
 }

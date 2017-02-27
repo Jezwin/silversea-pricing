@@ -1,21 +1,21 @@
 <sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"/>
 <div class="row">
     <div class="col-md-7 visible-lg">
-        <img class="visible-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[0]}">
+        <img class="visible-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2]}">
     </div>
     <div class="col-md-5">
         <div class="c-brochure__title">${brochureTeaserUse.assetTitle}</div>
-        <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[0]}">
+        <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2]}">
         <p>${brochureTeaserUse.assetDescription}</p>
         <div class="c-brochure__btndiv">
-            <a data-sly-test="${currentStyle.onlineRequestForm}" href="${currentStyle.onlineRequestForm}">
+            <a data-sly-test="${currentStyle.onlineRequestForm || brochureTeaserUse.showOnlineRequestForm}" href="${currentStyle.onlineRequestForm}">
                 <button class="c-btn c-btn--dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
                     <i class="fa fa-search"></i>
                     &nbsp; Voir en ligne
                 </button>
             </a>
             <br>
-            <a data-sly-test="${currentStyle.printedRequestForm}" href="${currentStyle.printedRequestForm}">
+            <a data-sly-test="${currentStyle.printedRequestForm || brochureTeaserUse.showPrintedRequestForm}" href="${currentStyle.printedRequestForm}">
                 <button class="c-btn c-btn--dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
                     <i class="fa fa-envelope"></i>
                     &nbsp; M'envoyer cette <br> &nbsp; &nbsp; &nbsp; &nbsp; brochures
