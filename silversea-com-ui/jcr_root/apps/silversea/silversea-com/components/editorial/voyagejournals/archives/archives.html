@@ -3,7 +3,9 @@
     <em>[Editer le composant : Journal Archive component -
         SilverSea]</em>
 </div>
-
+<div>
+${'archives' @ i18n}
+</div>
 
 <sly
     data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
@@ -18,7 +20,6 @@
             <a href="${month.path}">
                 <p>${month.title}</p>
                 <p>( ${month.monthNumber} )</p>
-                <p>${month.path}</p>
             </a> 
          </sly> 
      </sly>
