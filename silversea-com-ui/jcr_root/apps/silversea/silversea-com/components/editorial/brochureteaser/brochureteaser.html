@@ -1,11 +1,11 @@
 <sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"/>
 <div class="row">
     <div class="col-md-7 visible-lg">
-        <img class="visible-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2]}">
+        <img class="visible-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2] || brochureTeaserUse.assetThumbnailsList[0]}">
     </div>
     <div class="col-md-5">
         <div class="c-brochure__title">${brochureTeaserUse.assetTitle}</div>
-        <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2]}">
+        <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2] || brochureTeaserUse.assetThumbnailsList[0]}">
         <p>${brochureTeaserUse.assetDescription}</p>
         <div class="c-brochure__btndiv">
             <sly data-sly-test="${currentStyle.onlineRequestForm || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}">
