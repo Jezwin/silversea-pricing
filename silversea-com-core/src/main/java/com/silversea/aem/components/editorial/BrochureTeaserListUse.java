@@ -15,6 +15,8 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     private static final String COUNTRY_ID_PARAM = "countryIdParam";
 
+    private static final String PATH_TO_BROCHURES_DAM = "/jcr:root/content/dam/siversea-com/brochures";
+
     private List<String> brochureList;
 
     private GeolocationTagCacheService geolocService;
@@ -29,7 +31,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         String tagId = geolocService.getTagIdFromCurrentRequest(getResourceResolver(), getRequest());
 
         Iterator<Resource> resources = getResourceResolver()
-                .findResources("//element(*,dam:Asset)[jcr:content/metadata/@cq:tags=\"" + tagId + "\"]", "xpath");
+                .findResources(PATH_TO_BROCHURES_DAM + "//*[jcr:content/metadata/@cq:tags=\"" + tagId + "\"]", "xpath");
         brochureList = new ArrayList<String>();
 
         while (resources.hasNext()) {
