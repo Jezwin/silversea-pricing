@@ -1,4 +1,26 @@
-    <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
-       <em>[Editer le composant : Journal Archive component - SilverSea]</em>
-    </div>
-  
+
+<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+    <em>[Editer le composant : Journal Archive component -
+        SilverSea]</em>
+</div>
+
+
+<sly
+    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
+    data-sly-unwrap> 
+    <sly data-sly-list.year="${cpt.archiveYear}"
+        data-sly-unwrap> 
+            <a href="${year.path}">
+                 <p>${year.title}</p>
+                  <p>${year.path}</p>
+            </a> 
+    
+        <sly data-sly-list.month="${year.archiveMonth}" data-sly-unwrap>
+            <a href="${month.path}">
+                <p>${month.title}</p>
+                <p>( ${month.monthNumber} )</p>
+                <p>${month.path}</p>
+            </a> 
+         </sly> 
+     </sly>
+     </sly>

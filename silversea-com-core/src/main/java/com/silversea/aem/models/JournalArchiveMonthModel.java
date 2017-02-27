@@ -1,5 +1,6 @@
 package com.silversea.aem.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -21,29 +22,31 @@ import com.day.cq.wcm.api.Page;
  * Created by mbennabi on 20/02/2017.
  */
 @Model(adaptables = Page.class)
-public class JournalArchiveModel {
+public class JournalArchiveMonthModel {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(JournalArchiveModel.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(JournalArchiveMonthModel.class);
 
     @Inject
     @Self
     private Page page;
-    
-    @Inject
-    @Self
-    private String archivePath;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
     private String path;
-
-    private List<JournalArchiveMonthModel> archiveMonth;
     
+    private int monthNumber;
+
     @PostConstruct
     private void init() {
         path = page.getPath();
+        Iterator<Page> contMonth = page.listChildren();
+        monthNumber = 0;
+        while (contMonth.hasNext()) {
+            monthNumber = monthNumber+1;
+            contMonth.next();
+        }
     }
 
     public String getTitle() {
@@ -54,8 +57,8 @@ public class JournalArchiveModel {
         return (path != null && path.startsWith("/content") && !path.endsWith(".html") ? path + ".html" : path);
     }
 
-    public List<JournalArchiveMonthModel> getArchiveMonth() {
-        return archiveMonth;
+    public Page getPage() {
+        return page;
     }
 
     public void setTitle(String title) {
@@ -65,13 +68,13 @@ public class JournalArchiveModel {
     public void setPath(String path) {
         this.path = path;
     }
-
-    public void setArchiveMonth(List<JournalArchiveMonthModel> archiveMonth) {
-        this.archiveMonth = archiveMonth;
+    
+    public int getMonthNumber() {
+        return monthNumber;
     }
 
-    public String getArchivePath() {
-        return archivePath;
+    public void setMonthNumber(int monthNumber) {
+        this.monthNumber = monthNumber;
     }
 
 }
