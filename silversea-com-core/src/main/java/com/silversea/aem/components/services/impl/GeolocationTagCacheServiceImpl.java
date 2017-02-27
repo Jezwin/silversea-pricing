@@ -29,8 +29,6 @@ import com.silversea.aem.helper.GeolocationHelper;
 @Component(immediate = true, label = "Silversea.com - Geolocation Tag Cache Service")
 public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheService {
 
-    private static final String REQUEST_COUNTRY_ID_PARAM = "countryId";
-
     private static final String ETC_TAGS_GEOLOCATION_PATH = "/etc/tags/geolocation/";
 
     static final private Logger LOGGER = LoggerFactory.getLogger(GeolocationTagCacheServiceImpl.class);
@@ -79,16 +77,14 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     }
 
     @Override
-    public String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId)
-            throws RepositoryException {
+    public String getTagIdFromCountryId(ResourceResolver resourceResolver, String countryId) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
         return mapTags.get(countryId);
     }
 
     @Override
-    public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request)
-            throws RepositoryException {
+    public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
         return mapTags.get(GeolocationHelper.getCoutryCodeFromSelector(request.getRequestPathInfo().getSelectorString()));

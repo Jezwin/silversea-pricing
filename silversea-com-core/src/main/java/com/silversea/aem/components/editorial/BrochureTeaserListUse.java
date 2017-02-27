@@ -26,8 +26,6 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         geolocService = getSlingScriptHelper().getService(GeolocationTagCacheService.class);
 
-        String countryId = get(COUNTRY_ID_PARAM, String.class);
-
         String tagId = geolocService.getTagIdFromCurrentRequest(getResourceResolver(), getRequest());
 
         Iterator<Resource> resources = getResourceResolver()
