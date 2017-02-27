@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.silversea.aem.tools;
+package com.silversea.aem.helper;
 
 import org.apache.commons.lang3.StringUtils;
 

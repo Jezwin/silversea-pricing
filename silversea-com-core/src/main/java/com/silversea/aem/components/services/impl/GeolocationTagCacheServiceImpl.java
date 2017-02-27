@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.tagging.Tag;
 import com.silversea.aem.components.services.GeolocationTagCacheService;
-import com.silversea.aem.tools.GeolocationHelper;
+import com.silversea.aem.helper.GeolocationHelper;
 
 /**
  * @author mjedli
