@@ -41,8 +41,8 @@ public class BrochureTeaserUse extends WCMUsePojo {
             brochurePath = getRequest().getAttribute(BROCHURE_PROPERTIE).toString();
             
             // TODO set the currentstyle param.
-            showOnlineRequestForm = true;
-            showPrintedRequestForm = true;
+            showOnlineRequestForm = false;
+            showPrintedRequestForm = false;
             onlineRequestFormURL = "";
             printedRequestForm = "";
         } else {

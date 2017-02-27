@@ -8,28 +8,23 @@
         <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2]}">
         <p>${brochureTeaserUse.assetDescription}</p>
         <div class="c-brochure__btndiv">
-            <a data-sly-test="${currentStyle.onlineRequestForm || brochureTeaserUse.showOnlineRequestForm}" href="${currentStyle.onlineRequestForm}">
+            <sly data-sly-test="${currentStyle.onlineRequestForm || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}">
                 <button class="c-btn c-btn--dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
                     <i class="fa fa-search"></i>
                     &nbsp; Voir en ligne
                 </button>
-            </a>
+            </sly>
             <br>
-            <a data-sly-test="${currentStyle.printedRequestForm || brochureTeaserUse.showPrintedRequestForm}" href="${currentStyle.printedRequestForm}">
+            <sly data-sly-test="${currentStyle.printedRequestForm || currentStyle.printedRequestFormList || brochureTeaserUse.showPrintedRequestForm}">
                 <button class="c-btn c-btn--dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
                     <i class="fa fa-envelope"></i>
                     &nbsp; M'envoyer cette <br> &nbsp; &nbsp; &nbsp; &nbsp; brochures
                 </button>
-            </a>
+            </sly>
         </div>
     </div>
 </div>
 <hr>
-
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  TEST BUTTON
-</button>
-
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
