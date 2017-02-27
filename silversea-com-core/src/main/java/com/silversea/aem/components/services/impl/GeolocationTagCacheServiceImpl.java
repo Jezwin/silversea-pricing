@@ -17,6 +17,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
 import com.silversea.aem.components.services.GeolocationTagCacheService;
+import com.silversea.aem.tools.GeolocationHelper;
 
 /**
  * @author mjedli
@@ -94,7 +95,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
-        return mapTags.get(request.getRequestPathInfo().getSelectorString());
+        return mapTags.get(GeolocationHelper.getCoutryCodeFromSelector(request.getRequestPathInfo().getSelectorString()));
     }
 
 

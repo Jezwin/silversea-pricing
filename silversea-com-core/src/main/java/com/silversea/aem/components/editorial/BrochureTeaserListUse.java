@@ -26,8 +26,6 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         String countryId = get(COUNTRY_ID_PARAM, String.class);
 
-        //String tagId = geolocService.getTagIdFromCountryId(getResourceResolver(), countryId);
-        
         String tagId = geolocService.getTagIdFromCurrentRequest(getResourceResolver(), getRequest());
 
         Iterator<Resource> resources = getResourceResolver()
