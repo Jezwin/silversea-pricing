@@ -3,20 +3,21 @@
         <div class="aem-GridColumn aem-GridColumn--default--12">
             <div class="row">
                 <div class="brochureteaserlist__header">
-                    <div class="col-md-6 brochureteaserlist__header__label">
+                    <div class="brochureteaserlist__header__label">
                         ${'select-language' @ i18n}
                     </div>
-                    <div class="col-md-6 brochureteaserlist__header__select">
+                    <div class="brochureteaserlist__header__select">
                         <select class="chosen">
-                            <option value="anglais">Anglais</option>
-                            <option value="francais">Francais</option>
+                            <option value="anglais">English</option>
+                            <option value="francais">German</option>
+                            <option value="francais">Spanish</option>
+                            <option value="francais">French</option>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <dl data-sly-list="${brochureTeaserListUse.brochureList}">
         <div data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
