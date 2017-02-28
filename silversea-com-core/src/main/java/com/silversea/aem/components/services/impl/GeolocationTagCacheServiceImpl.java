@@ -13,7 +13,6 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -35,7 +34,7 @@ import com.silversea.aem.helper.GeolocationHelper;
 public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheService {
 
     private static final String ETC_TAGS_GEOLOCATION_PATH = "/etc/tags/geolocation/";
-    
+
     private static final String CONTENT_DAM_SIVERSEA_COM = "/content/dam/siversea-com";
 
     static final private Logger LOGGER = LoggerFactory.getLogger(GeolocationTagCacheServiceImpl.class);
@@ -69,7 +68,8 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
                     if (countryCodeTag.getTitle() != null && !"".equals(countryCodeTag.getTitle())) {
                         mapTags.put(countryCodeTag.getTitle(), countryCodeTag.getTagID());
                     } else {
-                        LOGGER.debug("Title not found for {} tag, set tag title and reload aem instance.", countryCodeTag.getPath());
+                        LOGGER.debug("Title not found for {} tag, set tag title and reload aem instance.",
+                                countryCodeTag.getPath());
                     }
                 }
             }
@@ -86,7 +86,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
             if (currentLangNode.getName() != null && !"jcr:content".equals(currentLangNode.getName()))
                 langList.add(currentLangNode.getName());
         }
-        
+
         isInitService = true;
     }
 
@@ -96,7 +96,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
             initService(resourceResolver);
         return langList;
     }
-    
+
     @Override
     public Map<String, String> getTags(ResourceResolver resourceResolver) throws RepositoryException {
         if (!isInitService)

@@ -10,7 +10,9 @@
                     <div class="brochureteaserlist__header__select">
                         <select class="chosen">
                             <dl data-sly-list="${brochureTeaserListUse.langList}">
-                                <option value="${brochureTeaserListUse.langList[itemList.index]}">${brochureTeaserListUse.langList[itemList.index] @ i18n}</option>
+                                <option value="${currentPage.path @ selectors=['country_FR-FRA-250', 'language_en']}">
+                                    ${brochureTeaserListUse.langList[itemList.index] @ i18n}
+                                </option>
                             </dl>
                         </select>
                     </div>
@@ -31,3 +33,10 @@
         </div>
     </div>
 </section>
+
+<script>
+$('select').on('change', function() {
+  alert( this.value );
+  window.location.href = this.value+".html";
+})
+</script>
