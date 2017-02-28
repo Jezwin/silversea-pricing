@@ -3,12 +3,17 @@
  */
 package com.silversea.aem.components.services.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -30,12 +35,16 @@ import com.silversea.aem.helper.GeolocationHelper;
 public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheService {
 
     private static final String ETC_TAGS_GEOLOCATION_PATH = "/etc/tags/geolocation/";
+    
+    private static final String CONTENT_DAM_SIVERSEA_COM = "/content/dam/siversea-com";
 
     static final private Logger LOGGER = LoggerFactory.getLogger(GeolocationTagCacheServiceImpl.class);
-    
+
     public Map<String, String> mapTags;
 
     private boolean isInitService = false;
+
+    private List<String> langList;
 
     private void initService(ResourceResolver resourceResolver) throws RepositoryException {
 
@@ -57,7 +66,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
 
                 while (iteratorMarketNode.hasNext()) {
                     Tag countryCodeTag = iteratorMarketNode.next();
-                    if  (countryCodeTag.getTitle() != null && !"".equals(countryCodeTag.getTitle())) {
+                    if (countryCodeTag.getTitle() != null && !"".equals(countryCodeTag.getTitle())) {
                         mapTags.put(countryCodeTag.getTitle(), countryCodeTag.getTagID());
                     } else {
                         LOGGER.debug("Title not found for {} tag, set tag title and reload aem instance.", countryCodeTag.getPath());
@@ -66,9 +75,28 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
             }
         }
 
+        Resource resourceNode = resourceResolver.getResource(CONTENT_DAM_SIVERSEA_COM);
+        Node silverseaDamNode = resourceNode.adaptTo(Node.class);
+        NodeIterator langNodeIterator = silverseaDamNode.getNodes();
+
+        langList = new ArrayList<String>();
+
+        while (langNodeIterator.hasNext()) {
+            Node currentLangNode = (Node) langNodeIterator.next();
+            if (currentLangNode.getName() != null && !"jcr:content".equals(currentLangNode.getName()))
+                langList.add(currentLangNode.getName());
+        }
+        
         isInitService = true;
     }
 
+    @Override
+    public List<String> getLangList(ResourceResolver resourceResolver) throws RepositoryException {
+        if (!isInitService)
+            initService(resourceResolver);
+        return langList;
+    }
+    
     @Override
     public Map<String, String> getTags(ResourceResolver resourceResolver) throws RepositoryException {
         if (!isInitService)
@@ -87,7 +115,14 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
-        return mapTags.get(GeolocationHelper.getCoutryCodeFromSelector(request.getRequestPathInfo().getSelectorString()));
+        return mapTags.get(GeolocationHelper.getCoutryCodeFromSelector(request.getRequestPathInfo().getSelectors()));
+    }
+
+    @Override
+    public String getLanguageCodeCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
+        if (!isInitService)
+            initService(resourceResolver);
+        return GeolocationHelper.getLanguageCodeFromSelector(request.getRequestPathInfo().getSelectors());
     }
 
 }

@@ -3,6 +3,7 @@
  */
 package com.silversea.aem.components.services;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.jcr.RepositoryException;
@@ -20,6 +21,10 @@ public interface GeolocationTagCacheService {
 
     String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException;
 
-    Map getTags(ResourceResolver resourceResolver) throws RepositoryException;
+    String getLanguageCodeCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException;
+
+    Map<?, ?> getTags(ResourceResolver resourceResolver) throws RepositoryException;
+    
+    List<String> getLangList(ResourceResolver resourceResolver) throws RepositoryException;
 
 }
