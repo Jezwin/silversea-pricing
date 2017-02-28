@@ -1,34 +1,68 @@
 <div class="container">
     <section class="o-section">
         <div class="aem-Grid aem-Grid--12">
-            <div class="aem-GridColumn aem-GridColumn--default--9">
+            <div class="aem-GridColumn aem-GridColumn--default--9 c-voyagejournalsday">
                 <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
                     <em>[Editer le composant : voyage Journal
                         DayComponent - SilverSea]</em>
                 </div>
                 <sly
                     data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
-                    data-sly-unwrap> <sly
-                    data-sly-test.compnt="${journalDay.voyageJournalDay}" />
-                <div class="o-section">${'day' @ i18n}
-                    ${pageProperties.dayNumber @ i18n}</div>
-                <div class="o-section">${compnt.publicationDate @
-                    i18n}</div>
-                <div class="o-section">${compnt.title @ i18n}</div>
-                <div class="o-section">${'by' @ i18n}
-                    ${compnt.author @ i18n}</div>
-                <div>
-                    <div class="o-section">${'coordinates' @ i18n}
-                        ${compnt.coordinates @ i18n}</div>
-                    <div class="o-section">${'weather' @ i18n}
-                        ${compnt.weather @ i18n}</div>
-                    <div class="o-section">${'temperature' @ i18n}
-                        ${compnt.temperature @ i18n}</div>
-                    <div class="o-section">${'pressure' @ i18n}
-                        ${compnt.pressure @ i18n}</div>
-                    <div class="o-section">${'wind' @ i18n}
-                        ${compnt.wind @ i18n}</div>
+                    data-sly-unwrap>
+                 <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+
+                <div class="c-voyagejournalsday__header">
+                    <h3>
+                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${'dd-MM-yyyy' @ format=compnt.publicationDate, i18n}
+                    </h3>
+                    <h1>${compnt.title @ i18n}</h1>
+                    <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
                 </div>
+
+                <div class="c-voyagejournalsday__dayinfo c-list-inline">
+                    <ul class="c-list-inline__group">
+                        <li class="c-list-inline__item c-list-inline__item--separated">
+                            <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates @ i18n}
+                        </li>
+                        <li class="c-list-inline__item c-list-inline__item--separated">
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="c-voyagejournalsday__content">
+
+                </div>
+
+                <div class="c-voyagejournalsday__info">
+
+                </div>
+
+                <div class="c-voyagejournalsday__pagination">
+
+                </div>
+                <div style="display: none">
+                    <div class="o-section">${'day' @ i18n}
+                        ${pageProperties.dayNumber @ i18n}</div>
+                    <div class="o-section">${compnt.publicationDate @
+                        i18n}</div>
+                    <div class="o-section">${compnt.title @ i18n}</div>
+                    <div class="o-section">${'by' @ i18n}
+                        ${compnt.author @ i18n}</div>
+                    <div>
+                        <div class="o-section">${'coordinates' @ i18n}
+                            ${compnt.coordinates @ i18n}</div>
+                        <div class="o-section">${'weather' @ i18n}
+                            ${compnt.weather @ i18n}</div>
+                        <div class="o-section">${'temperature' @ i18n}
+                            ${compnt.temperature @ i18n}</div>
+                        <div class="o-section">${'pressure' @ i18n}
+                            ${compnt.pressure @ i18n}</div>
+                        <div class="o-section">${'wind' @ i18n}
+                            ${compnt.wind @ i18n}</div>
+                    </div>
+                </div>
+
                 </sly>
                 <div
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>

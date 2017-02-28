@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured">
+    <content jcr:primaryType="nt:unstructured">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs jcr:primaryType="nt:unstructured">
+                <items jcr:primaryType="nt:unstructured">
+                    <landprogram
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Lightbox"
+                            cq:showOnCreate="{Boolean}false"
+                            sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <modalsize
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="modalSize"
+                                            fieldLabel="Modal size"
+                                            name="./modalSize"
+                                            renderReadOnly="{Boolean}true"
+                                            value="modal-lg"
+                                            defaultValue="modal-lg"
+                                            required="{Boolean}true">
+                                        <items jcr:primaryType="cq:WidgetCollection">
+                                            <lg
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Large"
+                                                    value="modal-lg"/>
+                                            <md
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Medium"
+                                                    value="modal-md"
+                                                    selected="true"/>
+                                            <sm
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Small"
+                                                    value="modal-sm"/>
+                                        </items>
+                                    </modalsize>
+                                </items>
+                            </column>
+                        </items>
+                    </landprogram>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
