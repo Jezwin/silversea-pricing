@@ -1,3 +1,4 @@
+<sly data-sly-use.brochureTeaserListUse="${'com.silversea.aem.components.editorial.BrochureTeaserListUse' @ countryIdParam='FR-FRA-250'}"/>
 <section class="o-section">
     <div class="aem-Grid aem-Grid--12">
         <div class="aem-GridColumn aem-GridColumn--default--12">
@@ -8,36 +9,24 @@
                     </div>
                     <div class="brochureteaserlist__header__select">
                         <select class="chosen">
-                            <option value="anglais">English</option>
-                            <option value="francais">German</option>
-                            <option value="francais">Spanish</option>
-                            <option value="francais">French</option>
+                            <dl data-sly-list="${brochureTeaserListUse.langList}">
+                                <option value="${brochureTeaserListUse.langList[itemList.index]}">${brochureTeaserListUse.langList[itemList.index] @ i18n}</option>
+                            </dl>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <dl data-sly-list="${brochureTeaserListUse.brochureList}">
-        <div data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
-        <div data-sly-resource="${'brochureListTitle' @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
-    </dl>
-</div>
 </section>
-
 <section class="o-section">
     <div class="aem-Grid aem-Grid--12">
         <div class="aem-GridColumn aem-GridColumn--default--12">
             <div class="row">
-                <sly data-sly-use.brochureTeaserListUse="${'com.silversea.aem.components.editorial.BrochureTeaserListUse' @ countryIdParam='FR-FRA-250'}"/>
                 <dl data-sly-list="${brochureTeaserListUse.brochureList}">
                     <sly data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
                     <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
                 </dl>
-                <ul data-sly-list.keyName="${brochureTeaserListUse.testTag}">
-                    <li>KEY: ${keyName}, VALUE: ${brochureTeaserListUse.testTag[keyName]}</li>
-                </ul>
             </div>
         </div>
     </div>
