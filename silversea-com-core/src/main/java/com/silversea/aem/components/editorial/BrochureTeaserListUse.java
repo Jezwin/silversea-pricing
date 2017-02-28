@@ -25,6 +25,8 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     private List<String> langList;
 
+    private String currentCountrySelector;
+    
     @Override
     public void activate() throws Exception {
 
@@ -32,10 +34,12 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         String tagId = geolocService.getTagIdFromCurrentRequest(getResourceResolver(), getRequest());
 
+        currentCountrySelector = getRequest().getRequestPathInfo().getSelectors()[0];
+        
         String langugeCode = geolocService.getLanguageCodeCurrentRequest(getResourceResolver(), getRequest());
 
         langList = geolocService.getLangList(getResourceResolver());
-
+        
         String langugeCodeQuerie = "";
         if (langugeCode != null && !"".equals(langugeCode)) {
             langugeCodeQuerie = "/" + langugeCode;
@@ -57,5 +61,9 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     public List<String> getLangList() {
         return langList;
+    }
+    
+    public String getCurrentCountrySelector() {
+        return currentCountrySelector;
     }
 }
