@@ -1,44 +1,36 @@
-<sly data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse"/>
-<div class="row">
-    <div class="col-md-7 visible-lg">
-        <img class="visible-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2] || brochureTeaserUse.assetThumbnailsList[0]}">
+<div data-sly-use.brochureTeaserUse="com.silversea.aem.components.editorial.BrochureTeaserUse" class="row">
+    <div class="col-md-12">
+        <h2 class="c-brochure__title visible-sm visible-xs">${brochureTeaserUse.assetTitle}</h2>
+    </div>
+    <div class="col-md-7">
+        <img class="c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2] || brochureTeaserUse.assetThumbnailsList[0]}" />
     </div>
     <div class="col-md-5">
-        <div class="c-brochure__title">${brochureTeaserUse.assetTitle}</div>
-        <img class="hidden-lg c-brochure__img" alt="" src="${brochureTeaserUse.assetThumbnailsList[2] || brochureTeaserUse.assetThumbnailsList[0]}">
-        <p>${brochureTeaserUse.assetDescription}</p>
-        <div class="c-brochure__btndiv">
-            <sly data-sly-test="${currentStyle.onlineRequestForm || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}">
-                <button class="c-btn c-btn--dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-search"></i>
-                    &nbsp; view-online
-                </button>
-            </sly>
-            <br>
-            <sly data-sly-test="${currentStyle.printedRequestForm || currentStyle.printedRequestFormList || brochureTeaserUse.showPrintedRequestForm}">
-                <button class="c-btn c-btn--dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-envelope"></i>
-                    &nbsp; mail-me-brochure
-                </button>
-            </sly>
-        </div>
+        <h2 class="c-brochure__title visible-lg visible-md">${brochureTeaserUse.assetTitle}</h2>
+        <p class="c-brochure__description">${brochureTeaserUse.assetDescription}</p>
+        <p class="c-brochure__btnwrapper">
+            <a data-sly-test="${currentStyle.onlineRequestForm || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}"
+                href="${currentStyle.onlineRequestForm @ extension='html', selectors='modalcontent'}"
+                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-search"></i>
+                <strong>${'view-online' @i18n}</strong>
+            </a>
+        </p>
+        <p class="c-brochure__btnwrapper">
+            <a data-sly-test="${currentStyle.printedRequestForm || currentStyle.printedRequestFormList || brochureTeaserUse.showPrintedRequestForm}"
+                href="${currentStyle.printedRequestForm @ extension='html', selectors='modalcontent'}"
+                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-envelope"></i>
+                <strong>${'mail-me-brochure' @ i18n}</strong>
+            </a>
+        </p>
     </div>
 </div>
 <hr>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="fa-stack"><i class="fa fa-circle-thin fa-stack-2x"></i><i class="fa fa-times fa-stack-1x"></i></span></button>
-      </div>
-      <div class="modal-body">
-          
-      </div>
-      <div class="modal-footer">
-
-      </div>
+<!--/* Modal */-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+        </div>
     </div>
-  </div>
 </div>
