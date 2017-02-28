@@ -190,10 +190,20 @@ a {
 * o- SECTION
 */
 .o-section {
-    padding: 20px 0px;
-        
+    padding: 20px 0;
+
     &--separator {
         border-top: solid 1px @grey--d;
+    }
+    &--award {
+        [class*='col-'] {
+            &:first-child {
+                padding-right: 0;
+            }
+            &:nth-child(2) {
+                padding-left: 0;
+            }
+        }
     }
 }
 
