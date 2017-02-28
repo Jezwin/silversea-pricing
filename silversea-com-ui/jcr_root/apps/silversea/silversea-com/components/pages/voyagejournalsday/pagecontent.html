@@ -2,91 +2,112 @@
     <section class="o-section">
         <div class="aem-Grid aem-Grid--12">
             <div class="aem-GridColumn aem-GridColumn--default--9 c-voyagejournalsday">
-                <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
-                    <em>[Editer le composant : voyage Journal
-                        DayComponent - SilverSea]</em>
-                </div>
                 <sly
                     data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
                     data-sly-unwrap>
-                 <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+                     <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
 
-                <div class="c-voyagejournalsday__header">
-                    <h3>
-                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${'dd-MM-yyyy' @ format=compnt.publicationDate, i18n}
-                    </h3>
-                    <h1>${compnt.title @ i18n}</h1>
-                    <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
-                </div>
+                    <div class="c-voyagejournalsday__header">
+                        <h3>
+                            <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${'yyyy-MM-dd' @ format=compnt.publicationDate, type='date'}
+                        </h3>
+                        <h1>${compnt.title @ i18n}</h1>
+                        <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
+                    </div>
 
-                <div class="c-voyagejournalsday__dayinfo c-list-inline">
-                    <ul class="c-list-inline__group">
-                        <li class="c-list-inline__item c-list-inline__item--separated">
-                            <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates @ i18n}
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--separated">
+                    <div class="c-voyagejournalsday__dayinfo c-list-inline">
+                        <ul class="c-list-inline__group">
+                            <li class="c-list-inline__item c-list-inline__item--separated">
+                                <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates}
+                            </li>
+                            <li class="c-list-inline__item c-list-inline__item--separated">
+                                <strong>${'temperature' @ i18n}:</strong> ${compnt.temperature} ${'temperatureUnity' @ i18n}
+                            </li>
+                            <li class="c-list-inline__item c-list-inline__item--separated">
+                                <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnity' @ i18n}
+                            </li>
+                        </ul>
+                    </div>
 
-                        </li>
-                    </ul>
-                </div>
+                    <div class="c-voyagejournalsday__content">
+                        ${compnt.longDescription @ context='html'}
+                    </div>
 
-                <div class="c-voyagejournalsday__content">
+                    <div class="c-voyagejournalsday__info">
 
-                </div>
-
-                <div class="c-voyagejournalsday__info">
-
-                </div>
+                    </div>
+                </sly>
 
                 <div class="c-voyagejournalsday__pagination">
-
+                    <sly
+                        data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
+                        data-sly-unwrap>
+                        <a href="${cpt.previousPath}"
+                            class="c-voyagejournalsday__pagination--previous"
+                            data-sly-test="${!cpt.first}">
+                            <i class="fa fa-angle-left fa-lg"></i>
+                            ${'day' @ i18n} ${cpt.previous}
+                        </a>
+                        <a href="${cpt.nextPath}"
+                            class="c-voyagejournalsday__pagination--next"
+                            data-sly-test="${!cpt.last}">
+                            ${'day' @ i18n} ${cpt.next}
+                            <i class="fa fa-angle-right fa-lg"></i>
+                        </a>
+                    </sly>
                 </div>
                 <div style="display: none">
-                    <div class="o-section">${'day' @ i18n}
-                        ${pageProperties.dayNumber @ i18n}</div>
-                    <div class="o-section">${compnt.publicationDate @
-                        i18n}</div>
-                    <div class="o-section">${compnt.title @ i18n}</div>
-                    <div class="o-section">${'by' @ i18n}
-                        ${compnt.author @ i18n}</div>
+                <sly
+                    data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse"
+                    data-sly-unwrap>
+                     <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+                        <div class="o-section">${'day' @ i18n}
+                            ${pageProperties.dayNumber @ i18n}</div>
+                        <div class="o-section">${compnt.publicationDate @
+                            i18n}</div>
+                        <div class="o-section">${compnt.title @ i18n}</div>
+                        <div class="o-section">${'by' @ i18n}
+                            ${compnt.author @ i18n}</div>
+                        <div>
+                            <div class="o-section">${'coordinates' @ i18n}
+                                ${compnt.coordinates @ i18n}</div>
+                            <div class="o-section">${'weather' @ i18n}
+                                ${compnt.weather @ i18n}</div>
+                            <div class="o-section">${'temperature' @ i18n}
+                                ${compnt.temperature @ i18n}</div>
+                            <div class="o-section">${'pressure' @ i18n}
+                                ${compnt.pressure @ i18n}</div>
+                            <div class="o-section">${'wind' @ i18n}
+                                ${compnt.wind @ i18n}</div>
+                        </div>
+                     </sly>
+
                     <div>
-                        <div class="o-section">${'coordinates' @ i18n}
-                            ${compnt.coordinates @ i18n}</div>
-                        <div class="o-section">${'weather' @ i18n}
-                            ${compnt.weather @ i18n}</div>
-                        <div class="o-section">${'temperature' @ i18n}
-                            ${compnt.temperature @ i18n}</div>
-                        <div class="o-section">${'pressure' @ i18n}
-                            ${compnt.pressure @ i18n}</div>
-                        <div class="o-section">${'wind' @ i18n}
-                            ${compnt.wind @ i18n}</div>
+                        Bloc pagination day
+                        <sly
+                            data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
+                            data-sly-unwrap>
+                            <div data-sly-test="${cpt.first}">
+                                <a href="${cpt.nextPath}">${'day' @ i18n}
+                                    ${cpt.next} </a>
+                            </div>
+                            <div data-sly-test="${!cpt.first && !cpt.last}">
+                                <a href="${cpt.previousPath}"> ${'day' @ i18n}
+                                    ${cpt.previous}</a><a href="${cpt.nextPath}">
+                                    ${'day' @ i18n} ${cpt.next}</a>
+                            </div>
+                            <div data-sly-test="${cpt.last}">
+                                <a href="${cpt.previousPath}">${'day' @ i18n}
+                                    ${cpt.previous}</a>
+                            </div>
+                        </sly>
                     </div>
                 </div>
 
-                </sly>
                 <div
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
-            <div>
-                Bloc pagination day
-                <sly
-                    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
-                    data-sly-unwrap>
-                <div data-sly-test="${cpt.first}">
-                    <a href="${cpt.nextPath}">${'day' @ i18n}
-                        ${cpt.next} </a>
-                </div>
-                <div data-sly-test="${!cpt.first && !cpt.last}">
-                    <a href="${cpt.previousPath}"> ${'day' @ i18n}
-                        ${cpt.previous}</a><a href="${cpt.nextPath}">
-                        ${'day' @ i18n} ${cpt.next}</a>
-                </div>
-                <div data-sly-test="${cpt.last}">
-                    <a href="${cpt.previousPath}">${'day' @ i18n}
-                        ${cpt.previous}</a>
-                </div>
-                </sly>
-            </div>
+
             <div class="aem-GridColumn aem-GridColumn--default--3">
                 <div
                     data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>

@@ -50,7 +50,7 @@ public class VoyageJournalDayModel {
     private Date publicationDate;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/Coordinates")
+    @Named(JcrConstants.JCR_CONTENT + "/coordinates")
     @Optional
     private String coordinates;
 
