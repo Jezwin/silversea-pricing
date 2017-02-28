@@ -11,5 +11,11 @@
             jcr:primaryType="cq:PageContent"
             showFloatingBar="{Boolean}true"
             sling:resourceType="silversea/silversea-com/components/pages/blogpost">
+            <par jcr:primaryType="nt:unstructured" sling:resourceType="/libs/wcm/foundation/components/responsivegrid"
+                 components="[group:displayproperties]">
+                 <titre jcr:primaryType="nt:unstructured"
+                         sling:resourceType="/apps/silversea/silversea-com/components/displayproperties/propertiesdisplay"
+                         text="Display properties" />
+            </par>
     </jcr:content>
 </jcr:root>
