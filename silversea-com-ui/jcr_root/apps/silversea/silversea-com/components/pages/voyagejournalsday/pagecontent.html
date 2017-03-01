@@ -15,28 +15,22 @@
                         <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
                     </div>
 
-                    <div class="c-voyagejournalsday__dayinfo c-list--tablet-inline">
-                        <!-- <ul class="c-list-inline__group c-list-inline__group--justify">
-                            <li class="c-list-inline__item c-list-inline__item">
+                    <div class="c-voyagejournalsday__dayinfo c-list-inline">
+                        <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
+                            <li class="c-list-inline__item" data-sly-test="${compnt.coordinates}">
                                 <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates}
                             </li>
-                            <li class="c-list-inline__item c-list-inline__item--separated-dark">
-                                <strong>${'temperature' @ i18n}:</strong> ${compnt.temperature} ${'temperatureUnity' @ i18n}
+                            <li class="c-list-inline__item" data-sly-test="${compnt.temperature}">
+                                <strong>${'temperature' @ i18n}:</strong> ${compnt.temperature} ${'temperatureUnit' @ i18n}
                             </li>
-                            <li class="c-list-inline__item c-list-inline__item--separated-dark">
-                                <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnity' @ i18n}
+                            <li class="c-list-inline__item" data-sly-test="${compnt.pressure}">
+                                <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnit' @ i18n}
                             </li>
-                        </ul> -->
-
-                        <ul class="c-list__group c-list__group--justify">
-                            <li class="c-list__item c-list__item--separated-dark">
-                                <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates}
+                            <li class="c-list-inline__item"  data-sly-test="${compnt.weather}">
+                                <strong>${'weather' @ i18n}:</strong> ${compnt.weather} ${'weatherUnit' @ i18n}
                             </li>
-                            <li class="c-list__item c-list__item--separated-dark">
-                                <strong>${'temperature' @ i18n}:</strong> ${compnt.temperature} ${'temperatureUnity' @ i18n}
-                            </li>
-                            <li class="c-list__item">
-                                <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnity' @ i18n}
+                            <li class="c-list-inline__item" data-sly-test="${compnt.wind}">
+                                <strong>${'wind' @ i18n}:</strong> ${compnt.wind} ${'windUnit' @ i18n}
                             </li>
                         </ul>
                     </div>
