@@ -1,18 +1,14 @@
 <div class="o-area-property-display">
     <div class="o-section">
         <!-- Image -->
-        <img class="o-slider" src="http://localhost:4502/content/silversea-com/en/other-resources/find-a-port/a/albany/_jcr_content/par/image.img.jpg/1486562033513.jpg" alt=""/>
+        <img class="o-slider" src="${pageProperties.assetSelectionReference}" alt=""/>
         
         <!-- Title -->
-        <h1 class="o-title">Pool Bar & Grill</h1>
-        
+        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title}</h1>
+       
         <!-- Description -->
         <div class="o-section o-section--separator o-description">
-            <p>Casual and convenient. At the Pool Bar on board this luxury cruise ship, cocktails are served with soft ocean breezes. Poolside menu options feature healthy CruiseLite selections and light fare for breakfast and lunch including grilled meats and fresh-from-the-oven pizza.</p>
-            
-            <p>As the stars begin to peek out from a darkening sky, the top deck of the Pool Bar & Grill is transformed into The Grill – an intimate al fresco eatery featuring a fun, interactive Black Rock Grill experience. A preheated volcanic rock is brought to your table, allowing you to cook such delicacies as steak, veal, pork, lamb, salmon, fish or prawns exactly to your liking right at your own table. And what a table it is. A white linen tablecloth laden with delectable morsels, and every seat with an unmatched ocean view: everything you could want from your luxury cruise line.</p>
-            
-            <p>Reservations are required for dinner.</p>
+            ${pageProperties.longDescription || currentPage.description}
         </div>
     </div>
 </div>
