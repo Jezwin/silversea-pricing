@@ -27,7 +27,8 @@
                                             cq-msm-lockable="diningReference"
                                             fieldLabel="Dining reference"
                                             name="./diningReference"
-                                            renderReadOnly="{Boolean}true"/>
+                                            renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
@@ -35,7 +36,8 @@
                                             cq-msm-lockable="plan"
                                             fieldLabel="Plan"
                                             name="./plan"
-                                            renderReadOnly="{Boolean}true"/>
+                                            renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"/>
                                     <virtualtour
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
@@ -43,7 +45,8 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Virtual Tour"
                                             name="./virtualTour"
-                                            renderReadOnly="{Boolean}true"/>
+                                            renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"/>
                                     <locationImage
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
@@ -51,7 +54,8 @@
                                             cq-msm-lockable="locationImage"
                                             fieldLabel="Location Image"
                                             name="./locationImage"
-                                            renderReadOnly="{Boolean}true"/>
+                                            renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"/>
                                 </items>
                             </column>
                         </items>
