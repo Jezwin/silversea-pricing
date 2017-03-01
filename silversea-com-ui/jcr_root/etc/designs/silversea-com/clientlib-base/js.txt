@@ -1,6 +1,6 @@
 #base=js
 components/main.js
-components/header.js
+components/c-header.js
 components/burgernav.js
 components/c-tab.js
 components/c-accordion.js
