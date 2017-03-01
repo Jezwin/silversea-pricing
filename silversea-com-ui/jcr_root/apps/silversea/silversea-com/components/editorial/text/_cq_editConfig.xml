@@ -116,10 +116,10 @@
                     jcr:primaryType="nt:unstructured"
                     features="*">
                     <styles jcr:primaryType="cq:WidgetCollection">
-                        <plainSpan
+                        <footnote
                             jcr:primaryType="nt:unstructured"
-                            cssName="defaultSpan"
-                            text="Default (add span tag)"/>
+                            cssName="h-text-footnote"
+                            text="Footnote"/>
                         <lead
                             jcr:primaryType="nt:unstructured"
                             cssName="lead"
