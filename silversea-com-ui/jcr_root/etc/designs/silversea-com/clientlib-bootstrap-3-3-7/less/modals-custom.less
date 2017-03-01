@@ -28,9 +28,8 @@
   // https://github.com/twbs/bootstrap/pull/10951.
   outline: 0;
 
-  // When fading in the modal, animate it to slide down
+  // When fading in the modal without animation
   &.fade .modal-dialog {
-    .translate(0, -25%);
     .transition-transform(~"0.3s ease-out");
   }
   &.in .modal-dialog { .translate(0, 0) }
@@ -45,8 +44,6 @@
   position: relative;
   width: auto;
   margin: 10px;
-  // REMOVE
-  margin-top: 150px;
 }
 
 // Actual modal
@@ -93,7 +90,7 @@
 // Where all modal content resides (sibling of .modal-header and .modal-footer)
 .modal-body {
   position: relative;
-  padding: @modal-inner-padding;
+  padding: 0 @modal-inner-padding @modal-inner-padding @modal-inner-padding;
 }
 
 // Footer (for actions)
@@ -131,20 +128,21 @@
 @media (min-width: @screen-sm-min) {
   // Automatically set modal's width for larger viewports
   .modal-dialog {
-    width: 100%;
-    margin: 0px auto;
-    margin-top: 109px;
-    height: 100%;
+    width: @modal-md;
+    margin: 30px auto;
   }
-  .modal-content {
-    height: 100%;
-  }
-
   // Modal sizes
-  .modal-sm { width: 100%; }
-
+  .modal-sm { width: @modal-sm; }
 }
 
 @media (min-width: @screen-md-min) {
   .modal-lg { width: @modal-lg; }
+}
+@media (max-width: @screen-sm-min) {
+    .modal {
+        background: @white;
+    }
+    .modal-dialog {
+        margin: 0;
+    }
 }

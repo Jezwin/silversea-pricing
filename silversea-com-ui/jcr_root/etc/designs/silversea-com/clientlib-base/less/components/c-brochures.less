@@ -3,48 +3,46 @@
 */
 .c-brochure {
     &__title {
-        font-weight: bold;
-        margin-bottom: 15px;
-        padding-bottom: 0px;
         color: @black;
-        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 15px;
         margin-top: 20px;
-        
+        padding-bottom: 0;
+        font-size: 22px;
+
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             text-align : center;
         }
-        
+
         /* tablet breakpoint */
         @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
             text-align : center;
         }
     }
-    
     &__img {
-        width: auto;
+        display: block;
+        margin: 0 auto;
         max-height: 350px;
         max-width: 100%;
-        margin: auto;
-        margin-bottom: 5px;
+        width: auto;
     }
-    
+    &__description {
+        font-size: 13px;
+        @media screen and (max-width: @screen-md-max) {
+            margin: 10px auto;
+            max-width: 570px;
+        }
+    }
+    &__btnwrapper {
+        @media screen and (max-width: @screen-md-max) {
+            text-align: center;
+        }
+    }
     &__btn {
         width: 250px;
-        text-align: left;
-        margin-bottom: 10px;
-    }
-    
-    &__btndiv {
-    
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            text-align : center;
-        }
-        
-        /* tablet breakpoint */
-        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            text-align : center;
+        @media screen and (min-width: @screen-md-max) {
+            text-align: left;
         }
     }
 }
