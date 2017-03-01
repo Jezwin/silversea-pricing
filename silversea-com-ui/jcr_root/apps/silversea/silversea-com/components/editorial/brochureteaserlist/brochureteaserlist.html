@@ -9,9 +9,16 @@
                     </div>
                     <div class="brochureteaserlist__header__select">
                         <select class="chosen">
-                            <dl data-sly-list="${brochureTeaserListUse.langList}">
-                                <option value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, brochureTeaserListUse.langList[itemList.index]]}">
-                                    ${brochureTeaserListUse.langList[itemList.index] @ i18n}
+                            <dl data-sly-list.child="${brochureTeaserListUse.langMap}">
+                                <dt>
+	                                <sly data-sly-test.currentlang="${brochureTeaserListUse.currentLanguageSelector == child}">
+	                                    <option selected value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child]}">
+	                                </sly>
+	                                <sly data-sly-test="${!currentlang}">
+	                                    <option value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child]}">
+	                                </sly>
+                                </dt>
+                                    <dd>${brochureTeaserListUse.langMap[child] @ i18n}</dd>
                                 </option>
                             </dl>
                         </select>
@@ -36,7 +43,6 @@
 
 <script>
 $('select').on('change', function() {
-  alert( this.value );
   window.location.href = this.value + ".html";
 })
 </script>
