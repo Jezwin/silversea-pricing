@@ -1,8 +1,12 @@
+<sly data-sly-use.diningVariationAssetUse="com.silversea.aem.components.editorial.DiningVariationAssetUse" />
     <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
        <em>[Editer le composant : assets List - SilverSea]</em>
     </div>
     
     <div>
-        Title of asset : 
+        Title of asset : ${diningVariationAssetUse.assetTitle}
+    </div>
+    <div>
+        <img class="c-brochure__img" alt="" src="${diningVariationAssetUse.assetThumbnailsList[2] || diningVariationAssetUse.assetThumbnailsList[0]}" />
     </div>
     
