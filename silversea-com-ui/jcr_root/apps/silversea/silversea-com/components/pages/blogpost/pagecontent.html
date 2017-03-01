@@ -9,7 +9,12 @@
                 <div
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
                 </div>
-                <div>${pageProperties.title}</div>
+                <sly
+                        data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse"
+                        data-sly-unwrap>
+                    
+                <div>${cpt.blog.title}</div>
+                </sly>
 
                 <div>
                     Bloc pagination day
