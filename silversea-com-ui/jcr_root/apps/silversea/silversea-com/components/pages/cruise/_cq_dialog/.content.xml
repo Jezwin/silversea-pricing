@@ -123,14 +123,6 @@
                                                 name="./reference"
                                                 required="{Boolean}true"/>
                                     </keypeople>
-                                    <reference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="reference"
-                                            fieldLabel="People"
-                                            renderReadOnly="{Boolean}true"
-                                            name="./reference"/>
                                     <exclusiveoffers
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
