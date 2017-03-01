@@ -9,17 +9,17 @@
         <h2 class="c-brochure__title visible-lg visible-md">${brochureTeaserUse.assetTitle}</h2>
         <p class="c-brochure__description">${brochureTeaserUse.assetDescription}</p>
         <p class="c-brochure__btnwrapper">
-            <a data-sly-test="${currentStyle.onlineRequestForm || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}"
+            <a data-sly-test="${currentStyle.onlineRequestFormReference || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}"
                 href="${currentStyle.onlineRequestForm @ extension='html', selectors='modalcontent'}"
-                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
+                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target=".bs-${lightboxPage.modalSize || 'modal-lg'}">
                 <i class="fa fa-search"></i>
                 <strong>${'view-online' @i18n}</strong>
             </a>
         </p>
         <p class="c-brochure__btnwrapper">
-            <a data-sly-test="${currentStyle.printedRequestForm || currentStyle.printedRequestFormList || brochureTeaserUse.showPrintedRequestForm}"
+            <a data-sly-test="${currentStyle.printedRequestFormReference || currentStyle.printedRequestFormList || brochureTeaserUse.showPrintedRequestForm}"
                 href="${currentStyle.printedRequestForm @ extension='html', selectors='modalcontent'}"
-                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target="#myModal">
+                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target=".bs-${lightboxPage.modalSize || 'modal-lg'}">
                 <i class="fa fa-envelope"></i>
                 <strong>${'mail-me-brochure' @ i18n}</strong>
             </a>
@@ -27,10 +27,3 @@
     </div>
 </div>
 <hr>
-<!--/* Modal */-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>

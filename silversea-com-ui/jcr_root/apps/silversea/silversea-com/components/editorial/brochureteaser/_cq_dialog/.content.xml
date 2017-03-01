@@ -35,6 +35,7 @@
                                             fieldDescription="Brochure"
                                             fieldLabel="Brochure"
                                             name="./brochure"
+                                            required="{Boolean}true"
                                             rootPath="/content/dam/"/>
                                     </items>
                                 </column>
