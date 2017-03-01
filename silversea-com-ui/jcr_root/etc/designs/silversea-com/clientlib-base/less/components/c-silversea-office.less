@@ -1,3 +1,22 @@
 .c-office {
     text-align: center;
+    
+    &__title {
+        margin-bottom: 20px;
+        padding: 0 20px;
+    }
+    &__address {
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+    &__contact {
+        &__phone, &__fax {
+         margin: 0;   
+        }
+        &__phone span, &__fax span {
+            text-transform: uppercase;
+            font-weight: @bold;
+        }
+    }
 }
