@@ -9,7 +9,7 @@
             <rtePlugins jcr:primaryType="nt:unstructured">
                 <subsuperscript
                     jcr:primaryType="nt:unstructured"
-                    features="*"/>
+                    features="*" />
                 <paraformat
                     jcr:primaryType="nt:unstructured"
                     features="*">
@@ -17,19 +17,19 @@
                         <p
                             jcr:primaryType="nt:unstructured"
                             description="This is my Paragraph"
-                            tag="p"/>
+                            tag="p" />
                         <h1
                             jcr:primaryType="nt:unstructured"
                             description="Header 1"
-                            tag="h1"/>
+                            tag="h1" />
                         <h2
                             jcr:primaryType="nt:unstructured"
                             description="Header 2"
-                            tag="h2"/>
+                            tag="h2" />
                         <h3
                             jcr:primaryType="nt:unstructured"
                             description="Header 3"
-                            tag="h3"/>
+                            tag="h3" />
                     </format>
                 </paraformat>
                 <misctools
@@ -39,22 +39,22 @@
                         <chars jcr:primaryType="nt:unstructured">
                             <copyright
                                 jcr:primaryType="nt:unstructured"
-                                entity="&amp;#169;"/>
+                                entity="&amp;#169;" />
                             <trademark
                                 jcr:primaryType="nt:unstructured"
-                                entity="&amp;#8482;"/>
+                                entity="&amp;#8482;" />
                             <registered
                                 jcr:primaryType="nt:unstructured"
-                                entity="&amp;#174;"/>
+                                entity="&amp;#174;" />
                             <emDash
                                 jcr:primaryType="nt:unstructured"
-                                entity="&amp;#8212;"/>
+                                entity="&amp;#8212;" />
                             <pound
                                 jcr:primaryType="nt:unstructured"
-                                entity="&amp;#163;"/>
+                                entity="&amp;#163;" />
                             <nbsp
                                 jcr:primaryType="nt:unstructured"
-                                entity="&amp;#160;"/>
+                                entity="&amp;#160;" />
                         </chars>
                     </specialCharsConfig>
                 </misctools>
@@ -81,7 +81,7 @@
                                         xtype="checkbox">
                                         <listeners
                                             jcr:primaryType="nt:unstructured"
-                                            check="function(component){var dlg=component.findParentByType('rtelinkdialog');dlg.enableSCFields(component.checked);}"/>
+                                            check="function(component){var dlg=component.findParentByType('rtelinkdialog');dlg.enableSCFields(component.checked);}" />
                                     </enable>
                                     <events
                                         jcr:primaryType="nt:unstructured"
@@ -89,14 +89,14 @@
                                         fieldDescription="e.g.: event2, event7"
                                         fieldLabel="Include SiteCatalyst events"
                                         name="./linkdialog/cq:adhocLinkTrackingEvents"
-                                        xtype="textfield"/>
+                                        xtype="textfield" />
                                     <evars
                                         jcr:primaryType="nt:unstructured"
                                         attribute="adhocevars"
                                         fieldDescription="e.g.: eVar1: pagedata.url, prop4: 'const'"
                                         fieldLabel="Include SiteCatalyst variables"
                                         name="./linkdialog/cq:adhocLinkTrackingEvars"
-                                        xtype="textfield"/>
+                                        xtype="textfield" />
                                 </items>
                             </linkAdvanced>
                         </linkAttributes>
@@ -105,13 +105,13 @@
                 <edit
                     jcr:primaryType="nt:unstructured"
                     defaultPasteMode="plaintext"
-                    stripHtmlTags="{Boolean}true"/>
+                    stripHtmlTags="{Boolean}true" />
                 <spellcheck
                     jcr:primaryType="nt:unstructured"
-                    features="*"/>
+                    features="*" />
                 <findreplace
                     jcr:primaryType="nt:unstructured"
-                    features="*"/>
+                    features="*" />
                 <styles
                     jcr:primaryType="nt:unstructured"
                     features="*">
@@ -119,11 +119,11 @@
                         <footnote
                             jcr:primaryType="nt:unstructured"
                             cssName="h-text-footnote"
-                            text="Footnote"/>
+                            text="Footnote" />
                         <lead
                             jcr:primaryType="nt:unstructured"
                             cssName="lead"
-                            text="Lead"/>
+                            text="Lead" />
                     </styles>
                 </styles>
             </rtePlugins>
