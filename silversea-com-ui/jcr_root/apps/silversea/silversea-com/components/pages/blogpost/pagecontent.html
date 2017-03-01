@@ -1,7 +1,3 @@
-
-<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
-    <em>[Editer le composant : blog post componenet- SilverSea]</em>
-</div>
 <div class="container">
     <section class="o-section">
         <div class="aem-Grid aem-Grid--12">
@@ -9,30 +5,22 @@
                 <div
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
                 </div>
-                <sly
-                        data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse"
+                <div class="c-pagination c-pagination--pull-right">
+                    <sly data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse" />
+                    <div data-sly-test="${cpt.blog.previous}"
                         data-sly-unwrap>
-                    
-                <div>${cpt.blog.title}</div>
-                </sly>
-
-                <div>
-                    <sly
-                        data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse"
+                        <a class="c-pagination--previous"
+                            href="${cpt.blog.previous.path}.html"> <i class="fa fa-angle-left fa-lg"></i>
+                            ${'previous' @ i18n}
+                        </a>
+                    </div>
+                    <div data-sly-test="${cpt.blog.next}"
                         data-sly-unwrap>
-                    <div data-sly-test="${cpt.blog.next}">
-                        <a href="${cpt.blog.next.path}.html"> ${'next' @ i18n}
-                            </a>
+                        <a class="c-pagination--next"
+                            href="${cpt.blog.next.path}.html">
+                            ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i>
+                        </a>
                     </div>
-                    
-                     <div data-sly-test="${cpt.blog.previous}">
-                        <a href="${cpt.blog.previous.path}.html"> ${'previous' @ i18n}
-                            </a>
-                    </div>
-                    
-
-                    
-                    </sly>
                 </div>
             </div>
             <div class="aem-GridColumn aem-GridColumn--default--3">

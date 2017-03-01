@@ -15,9 +15,7 @@ public class BlogPostUse extends WCMUsePojo {
         blog = getCurrentPage().adaptTo(BlogPostModel.class);
     }
 
-	public BlogPostModel getBlog() {
-		return blog;
-	}
-
-
+    public BlogPostModel getBlog() {
+        return blog;
+    }
 }
