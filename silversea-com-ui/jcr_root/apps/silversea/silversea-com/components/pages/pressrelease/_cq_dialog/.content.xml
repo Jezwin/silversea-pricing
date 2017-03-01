@@ -17,57 +17,58 @@
                 <layout
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-                    type="nav"/>
+                    type="nav" />
                 <items jcr:primaryType="nt:unstructured">
                     <pressrelease
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Press Release"
-                            cq:showOnCreate="{Boolean}false"
-                            sling:resourceType="granite/ui/components/foundation/section">
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Press Release"
+                        cq:showOnCreate="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/section">
                         <layout
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                margin="{Boolean}false"/>
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            margin="{Boolean}false" />
                         <items jcr:primaryType="nt:unstructured">
                             <column
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/container">
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
                                     <publicationDate
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                                allowBulkEdit="{Boolean}true"
-                                                cq-msm-lockable="publicationDate"
-                                                displayedFormat="MMMM DD, YYYY hh:mm a"
-                                                displayTimezoneMessage="{Boolean}true"
-                                                fieldLabel="Publication date"
-                                                name="./publicationDate"
-                                                type="datetime"
-                                                renderReadOnly="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="publicationDate"
+                                        displayedFormat="MMMM DD, YYYY hh:mm a"
+                                        displayTimezoneMessage="{Boolean}true"
+                                        fieldLabel="Publication date"
+                                        name="./publicationDate"
+                                        type="datetime"
+                                        required="{Boolean}true"
+                                        renderReadOnly="{Boolean}true" />
                                     <longdescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="longDescription"
-                                            fieldLabel="Long Description"
-                                            renderReadOnly="{Boolean}true"
-                                            name="./longDescription"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="longDescription"
+                                        fieldLabel="Long Description"
+                                        renderReadOnly="{Boolean}true"
+                                        name="./longDescription" />
                                     <assetselectionreference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="assetSelectionReference"
-                                            fieldLabel="Slider image"
-                                            renderReadOnly="{Boolean}true"
-                                            name="./assetSelectionReference"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="assetSelectionReference"
+                                        fieldLabel="Slider image"
+                                        renderReadOnly="{Boolean}true"
+                                        name="./assetSelectionReference" />
                                     <heroAssetSelectionReference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="heroAssetSelectionReference"
-                                            renderReadOnly="{Boolean}true"
-                                            fieldLabel="Hero image"
-                                            name="./heroAssetSelectionReference"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="heroAssetSelectionReference"
+                                        renderReadOnly="{Boolean}true"
+                                        fieldLabel="Hero image"
+                                        name="./heroAssetSelectionReference" />
                                 </items>
                             </column>
                         </items>
