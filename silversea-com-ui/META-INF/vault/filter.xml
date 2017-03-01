@@ -3,5 +3,7 @@
     <filter root="/apps/silversea/silversea-com">
         <exclude pattern="/apps/silversea/silversea-com/config(.*)" />
     </filter>
-    <filter root="/etc/designs/silversea-com"/>
+    <filter root="/etc/designs/silversea-com">
+        <exclude pattern="/etc/designs/silversea-com/jcr:content(.*)" />
+    </filter>
 </workspaceFilter>

@@ -3,49 +3,49 @@
 */
 .c-list-inline {
     font-size: 12px;
-    width: 100%;
-    
     &--center {
         text-align: center;
     }
     &__title {
         color: @grey--2b;
         display: inline-block;
-        width: auto;
         vertical-align: middle;
-        margin: 0;
-        
+        width: auto;
+
         &--important {
             font-weight: 700;
             text-transform: uppercase;
         }
-        
+
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
-            width: 100%;
             text-align: center;
+            width: 100%;
         }
     }
     &__group {
-        display: table;
         width: 100%;
         vertical-align: middle;
 
-
-        
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
-            width: 100%;
             text-align: center;
+            width: 100%;
         }
-        
         &--important {
             text-transform: uppercase;
         }
+        &--social {
+            @media screen and (min-width: @screen-sm) {
+                text-align: right;
+            }
+        }
+        &--award {
+            width: auto;
+        }
     }
     &__item {
-        display: table-cell;
-        vertical-align: middle;
+        display: inline-block;
         line-height: 20px;
 
         &--special {
@@ -61,20 +61,26 @@
             font-weight: 700;
         }
         &--supper {
-            text-transform: uppercase;
             font-weight: 700;
+            text-transform: uppercase;
         }
         &--separated {
             position: relative;
 
             &:before {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 25%;
-                height: 50%;
-                width: 1px;
                 background: #e6e7e8;
+                content: "";
+                height: 50%;
+                left: 0;
+                position: absolute;
+                top: 25%;
+                width: 1px;
+            }
+        }
+        &--social {
+            .fa {
+                font-size: 20px;
+                width: 40px;
             }
         }
     }
