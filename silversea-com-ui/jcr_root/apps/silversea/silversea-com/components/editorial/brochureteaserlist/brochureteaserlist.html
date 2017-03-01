@@ -8,7 +8,7 @@
                         ${'select-language' @ i18n}
                     </div>
                     <div class="brochureteaserlist__header__select">
-                        <select class="chosen">
+                        <select id="selectBrochureListLangId" class="chosen">
                             <dl data-sly-list.child="${brochureTeaserListUse.langMap}">
                                 <dt>
 	                                <sly data-sly-test.currentlang="${brochureTeaserListUse.currentLanguageSelector == child}">
@@ -42,7 +42,9 @@
 </section>
 
 <script>
-$('select').on('change', function() {
-  window.location.href = this.value + ".html";
+// brochures list component - select language code
+$('#selectBrochureListLangId').on('change', function() {
+    console.log($(this));
+    window.location.href = this.value + ".html";
 })
 </script>

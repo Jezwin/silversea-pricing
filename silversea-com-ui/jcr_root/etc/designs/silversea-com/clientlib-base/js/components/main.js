@@ -8,4 +8,5 @@ $(function() {
     $(document).on('hide.bs.modal', function(e) {
         $(e.target).removeData('bs.modal');
     });
+
 });
