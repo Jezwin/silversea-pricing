@@ -36,8 +36,9 @@
                                             cq-msm-lockable="publicationDate"
                                             displayedFormat="MMMM DD, YYYY hh:mm a"
                                             displayTimezoneMessage="{Boolean}true"
-                                            fieldLabel="Publication date"
+                                            fieldLabel="Publication Date"
                                             name="./publicationDate"
+                                            required="{Boolean}true"
                                             renderReadOnly="{Boolean}true"
                                             type="datetime"/>
                                     <assetselectionreference
@@ -45,7 +46,7 @@
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="assetSelectionReference"
-                                            fieldLabel="Extra Gallery"
+                                            fieldLabel="Image Gallery"
                                             name="./assetSelectionReference"
                                             renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"/>
