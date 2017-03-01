@@ -9,13 +9,27 @@
                 <div
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
                 </div>
+                <div>${pageProperties.title}</div>
+
                 <div>
-                    ${pageProperties.title}
+                    Bloc pagination day
+                    <sly
+                        data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse"
+                        data-sly-unwrap>
+                    <div data-sly-test="${cpt.blog.next}">
+                        <a href="${cpt.blog.next.path}.html"> ${'next' @ i18n}
+                            </a>
+                    </div>
+                    
+                     <div data-sly-test="${cpt.blog.previous}">
+                        <a href="${cpt.blog.previous.path}.html"> ${'previous' @ i18n}
+                            </a>
+                    </div>
+                    
+
+                    
+                    </sly>
                 </div>
-            
-            <div>
-                Bloc pagination day
-            </div>
             </div>
             <div class="aem-GridColumn aem-GridColumn--default--3">
                 <div

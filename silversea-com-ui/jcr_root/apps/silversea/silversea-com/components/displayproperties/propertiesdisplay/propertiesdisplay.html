@@ -1,0 +1,11 @@
+    <div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+       <em>[Editer le composant : property disply - SilverSea]</em>
+    </div>
+    <sly   data-sly-use.blogPost="com.silversea.aem.components.page.BlogPostUse"
+            data-sly-unwrap> <sly data-sly-test.compnt="${blogPost.blog}" />
+    <div class="container">
+        <div class="o-section">
+            ${compnt.longDescription @ i18n}
+        </div>
+    </div>
+    </sly>
