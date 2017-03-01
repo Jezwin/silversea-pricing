@@ -1,47 +1,44 @@
-<div>
-${'archives' @ i18n}
-</div>
+<sly
+    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
+    data-sly-unwrap>
 
-<div class="c-accordion" data-sly-list="${portUse.portModel.excursions}">
+<div class="c-accordion c-accordion--darkbox">
     <div class="c-accordion__elem">
         <div class="c-accordion__header">
             <div class="c-accordion__title">
-                <p>${'archives' @ i18n}</p>
+                <p>
+                    <strong>${'archives' @ i18n}</strong>
+                    <i class="fa fa-angle-down pull-right"></i>
+                </p>
             </div>
-            <div class="c-accordion__action">
-                <div class="c-accordion" data-sly-list="${portUse.portModel.excursions}">
-                    <div class="c-accordion__elem">
-                        <div class="c-accordion__header">
-                            <div class="c-accordion__title">
-                                <p>${'archives' @ i18n}</p>
-                            </div>
-                            <div class="c-accordion__action">
-                                See More&nbsp;<i class="fa fa-angle-down"></i>
-                            </div>
+        </div>
+        <div class="c-accordion__body c-accordion__body--full">
+
+            <div class="c-accordion c-accordion--light" data-sly-list.year="${cpt.archiveYear}">
+                <div class="c-accordion__elem">
+                    <div class="c-accordion__header">
+                        <div class="c-accordion__title">
+                            <p>
+                                <strong>${year.title}</strong>
+                                <i class="fa fa-angle-down pull-right"></i>
+                            </p>
                         </div>
-                        <div class="c-accordion__body">${item.description @ context='html'}</div>
+                    </div>
+                    <div class="c-accordion__body">
+                        <sly data-sly-list.month="${year.archiveMonth}" data-sly-unwrap>
+                            <p class="h-important h-right">
+                                <a href="${month.path}">
+                                    ${month.title} ( ${month.monthNumber} )
+                                </a>
+                            </p>
+                         </sly>
                     </div>
                 </div>
             </div>
+
+
         </div>
-        <div class="c-accordion__body">${item.description @ context='html'}</div>
     </div>
 </div>
 
-<sly
-    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
-    data-sly-unwrap> 
-    <sly data-sly-list.year="${cpt.archiveYear}"
-        data-sly-unwrap> 
-            <a href="${year.path}">
-                 <p>${year.title}</p>
-            </a> 
-    
-        <sly data-sly-list.month="${year.archiveMonth}" data-sly-unwrap>
-            <a href="${month.path}">
-                <p>${month.title}</p>
-                <p>( ${month.monthNumber} )</p>
-            </a> 
-         </sly> 
-     </sly>
-     </sly>
+</sly>
