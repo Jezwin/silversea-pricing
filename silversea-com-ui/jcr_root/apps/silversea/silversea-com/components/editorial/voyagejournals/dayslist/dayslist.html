@@ -7,10 +7,11 @@
 <sly
     data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse"
     data-sly-unwrap>
-<ul data-sly-list="${cpt.listDays}" class="list-group">
-    <li class="list-group-item" href="${item.path}">
-        <span class="pull-left">${item.title}</span>
-        <span class="pull-right">${item.dayNumber}</span>
-    </li>
-</ul>
+
+<div data-sly-list="${cpt.listDays}" class="c-list-group c-list-group--striped">
+    <a class="c-list-group__item  ${item.dayNumber == cpt.currentDay.getDayNumber ? 'c-list-group__item--active' : ''}" href="${item.path}">
+        <span class="c-list-group__title">${'day' @ i18n} ${item.dayNumber}</span>
+        <span class="">${item.title}</span>
+    </a>
+</div>
 </sly>

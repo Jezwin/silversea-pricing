@@ -95,8 +95,16 @@
             }
 
             &-dark {
+                position: relative;
+
                 &:before {
-                    background: @black;
+                    content: "";
+                    height: 90%;
+                    right: 5%;
+                    position: absolute;
+                    top: 5%;
+                    width: 1px;
+                    background: @grey--5;
                 }
             }
         }

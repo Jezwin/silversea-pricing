@@ -45,6 +45,10 @@ public class JournalListDaysUse extends WCMUsePojo {
         return listDays;
     }
 
+    public JournalListDaysModel getCurrentDay() {
+        return currentDay;
+    }
+
     public boolean isFirst() {
         if (listDays.get(0).getDayNumber() == currentDay.getDayNumber()) {
             return true;
