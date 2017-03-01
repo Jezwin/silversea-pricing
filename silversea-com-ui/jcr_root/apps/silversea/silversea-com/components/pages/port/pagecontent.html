@@ -1,136 +1,40 @@
-<sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse"/>
-
+<sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse" />
 <div class="c-pageheader">
     <div class="container">
-
-        <div class="aem-Grid aem-Grid--12">
-            <div class="aem-GridColumn aem-GridColumn--default--12">
-
-                <h2 class="c-pageheader__title">Find a Port</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="c-pageheader__title">${'Find a Port' @ i18n}</h2>
                 <div class="c-pageheader__links">
                     <ul class="c-list-inline__group">
-                        <li class="c-list-inline__item c-list-inline__item--supper c-list-inline__item--separated">
-                            <a href="#">
-                                search more
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                        </li>
+                        <li class="c-list-inline__item c-list-inline__item--supper c-list-inline__item--separated"><a href="#"> ${'search more' @ i18n} <i class="fa fa-angle-down"></i>
+                        </a></li>
                     </ul>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
-
 <div class="c-pagecontent">
     <div class="container">
-
-        <div class="aem-Grid aem-Grid--12">
-            <div class="aem-GridColumn aem-GridColumn--default--12">
-
+        <div class="row">
+            <div class="col-md-12">
                 <div class="c-tab">
                     <ul class="c-tab__nav c-tab__nav--regular5">
-                        <li class="c-tab__link" data-state="active">
-                            <a href="#Overview">Overview</a>
-                         </li>
-                        <li class="c-tab__link">
-                            <a href="#Voyages">Voyages</a>
-                         </li>
-                        <li class="c-tab__link">
-                            <a href="#Excursions">Excursions</a>
-                         </li>
-                        <li class="c-tab__link">
-                            <a href="#LandProgrammes">Land Programmes</a>
-                         </li>
-                        <li class="c-tab__link">
-                            <a href="#Hotels">Hotels</a>
-                         </li>
+                        <li class="c-tab__link" data-state="active"><a href="#Overview">Overview</a></li>
+                        <li class="c-tab__link"><a href="#Voyages">Voyages</a></li>
+                        <li class="c-tab__link"><a href="#Excursions">Excursions</a></li>
+                        <li class="c-tab__link"><a href="#LandProgrammes">Land Programmes</a></li>
+                        <li class="c-tab__link"><a href="#Hotels">Hotels</a></li>
                     </ul>
-
                     <div class="c-tab__body">
-                        <div class="c-tab__content" data-state="active" id="Overview">
-                            <h1>
-                                ${portUse.portModel.title},
-                            </h1>
-                            <div>
-                                <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                            </div>
-                        </div>
-
-                        <div class="c-tab__content" id="Voyages">
-                            Voyages
-                        </div>
-                        <div class="c-tab__content" id="Excursions">
-                            <h1>
-                                ${portUse.portModel.title},
-                            </h1>
-                            <div class="c-accordion" data-sly-list="${portUse.portModel.excursions}">
-                                <div class="c-accordion__elem">
-                                    <div class="c-accordion__header">
-                                        <div class="c-accordion__title">
-                                            <p><strong>${item.title}</strong></p>
-                                            <p>${item.shortDescription @ context='unsafe'}</p>
-                                        </div>
-                                        <div class="c-accordion__action">
-                                            See More&nbsp;<i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="c-accordion__body">
-                                        ${item.description @ context='html'}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="c-tab__content" id="LandProgrammes">
-                            <h1>
-                                ${portUse.portModel.title},
-                            </h1>
-                            <div class="c-accordion" data-sly-list="${portUse.portModel.landprograms}">
-                                <div class="c-accordion__elem">
-                                    <div class="c-accordion__header">
-                                        <div class="c-accordion__title">
-                                            <p><strong>${item.title}</strong></p>
-                                            <p>${item.landId}</p>
-                                        </div>
-                                        <div class="c-accordion__action">
-                                            See More&nbsp;<i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="c-accordion__body">
-                                        ${item.description @ context='html'}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="c-tab__content" id="Hotels">
-                            <h1>
-                                ${portUse.portModel.title},
-                            </h1>
-                            <div class="c-accordion" data-sly-list="${portUse.portModel.hotels}">
-                                <div class="c-accordion__elem">
-                                    <div class="c-accordion__header">
-                                        <div class="c-accordion__title">
-                                            <p><strong>${item.name}</strong></p>
-                                            <p>${item.code}</p>
-                                        </div>
-                                        <div class="c-accordion__action">
-                                            See More&nbsp;<i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="c-accordion__body">
-                                        ${item.description @ context='html'}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <sly data-sly-include="overviewtab.html" />
+                        <sly data-sly-include="voyagestab.html" />
+                        <sly data-sly-include="excursionstab.html" />
+                        <sly data-sly-include="landprogrammestab.html" />
+                        <sly data-sly-include="hotelstab.html" />
                     </div>
                 </div>
-
             </div>
         </div>
-
-
     </div>
 </div>

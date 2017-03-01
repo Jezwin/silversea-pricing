@@ -1,0 +1,19 @@
+<div class="c-tab__content" id="Hotels">
+    <h1>${portUse.portModel.title},</h1>
+    <div class="c-accordion" data-sly-list="${portUse.portModel.hotels}">
+        <div class="c-accordion__elem">
+            <div class="c-accordion__header">
+                <div class="c-accordion__title">
+                    <p>
+                        <strong>${item.name}</strong>
+                    </p>
+                    <p>${item.code}</p>
+                </div>
+                <div class="c-accordion__action">
+                    See More&nbsp;<i class="fa fa-angle-down"></i>
+                </div>
+            </div>
+            <div class="c-accordion__body">${item.description @ context='html'}</div>
+        </div>
+    </div>
+</div>
