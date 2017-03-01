@@ -118,7 +118,7 @@
                     <styles jcr:primaryType="cq:WidgetCollection">
                         <footnote
                             jcr:primaryType="nt:unstructured"
-                            cssName="h-text-footnote"
+                            cssName="h-text--footnote"
                             text="Footnote" />
                         <lead
                             jcr:primaryType="nt:unstructured"
