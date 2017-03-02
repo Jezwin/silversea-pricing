@@ -1,44 +1,30 @@
-<sly
-    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
-    data-sly-unwrap>
-
+<sly data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse" />
 <div class="c-accordion c-accordion--darkbox">
     <div class="c-accordion__elem">
         <div class="c-accordion__header">
             <div class="c-accordion__title">
                 <p>
-                    <strong>${'archives' @ i18n}</strong>
-                    <i class="fa fa-angle-down pull-right"></i>
+                    <strong>${'archives' @ i18n}</strong> <i class="fa fa-angle-down pull-right"></i>
                 </p>
             </div>
         </div>
         <div class="c-accordion__body c-accordion__body--full">
-
             <div class="c-accordion c-accordion--light" data-sly-list.year="${cpt.archiveYear}">
                 <div class="c-accordion__elem">
                     <div class="c-accordion__header">
                         <div class="c-accordion__title">
                             <p>
-                                <strong>${year.title}</strong>
-                                <i class="fa fa-angle-down pull-right"></i>
+                                <strong>${year.title}</strong> <i class="fa fa-angle-down pull-right"></i>
                             </p>
                         </div>
                     </div>
-                    <div class="c-accordion__body">
-                        <sly data-sly-list.month="${year.archiveMonth}" data-sly-unwrap>
-                            <p class="h-important h-right">
-                                <a href="${month.path}">
-                                    ${month.title} ( ${month.monthNumber} )
-                                </a>
-                            </p>
-                         </sly>
+                    <div class="c-accordion__body" data-sly-list.month="${year.archiveMonth}">
+                        <p class="h-important h-right">
+                            <a href="${month.path}"> ${month.title} ( ${month.monthNumber} ) </a>
+                        </p>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-
-</sly>
