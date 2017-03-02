@@ -158,7 +158,7 @@
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="country"
-                                        fieldLabel="Country"
+                                        fieldLabel="County"
                                         name="./country"
                                         required="{Boolean}true"
                                         renderReadOnly="{Boolean}true"
