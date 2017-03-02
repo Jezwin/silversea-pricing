@@ -8,8 +8,7 @@
 
         .c-accordion__header {
             background-color: @white;
-            border-right: solid 1px @grey--e8;
-            border-left: solid 1px @grey--e8;
+            border: solid 1px @grey--e8;
 
             &:hover, &:active, &:focus {
                 cursor: pointer;
@@ -18,8 +17,14 @@
             &[data-state='true'] {
                 background-color: @grey--3;
                 color: @white;
-                border-right: 0;
-                border-left: 0;
+                border: 0;
+            }
+        }
+        .c-accordion__elem {
+            border: 0px;
+
+            &:nth-last-child(1) {
+                border-bottom: 0px;
             }
         }
     }
@@ -33,6 +38,7 @@
             border-bottom: solid 1px @grey--e8;
             border-right: 0;
             border-left: 0;
+            border-top: 0;
 
             &:hover, &:active, &:focus {
                 cursor: pointer;
@@ -40,7 +46,12 @@
             }
             &[data-state='true'] {
                 background-color: @white;
+                border-bottom: solid 1px @grey--e8;
                 color: @black;
+
+                & + .c-accordion__body {
+                    border-bottom: solid 1px @grey--e8;
+                }
             }
         }
     }
@@ -56,7 +67,7 @@
         display: table;
         width: 100%;
         background-color: @grey--f9;
-        padding: 10px;
+        padding: 12px;
         table-layout: fixed;
 
         &:hover, &:active, &:focus {
@@ -77,6 +88,9 @@
         p {
             margin: 0px;
         }
+        &--large {
+            padding: 5px;
+        }
     }
     &__action {
         min-width: 90px;
@@ -96,5 +110,16 @@
         &[data-collapsed='true'] {
             max-height: 1000px;
         }
+
+        &--panel {
+            padding: 20px;
+        }
+    }
+    &__archivelink {
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: right;
+        height: 28px;
     }
 }
