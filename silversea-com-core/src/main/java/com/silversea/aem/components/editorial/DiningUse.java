@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.jcr.Node;
-
 import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
@@ -20,9 +18,6 @@ import com.day.cq.wcm.api.Page;
  *
  */
 public class DiningUse extends WCMUsePojo {
-
-    private static final String DINING_REFERENCE_PROPERTIE = "diningReference";
-
     private static final String SHIPS_PATH = "/jcr:root/content/silversea-com/en/ships";
 
     private Map<String, String> diningReferenceList;
@@ -46,5 +41,4 @@ public class DiningUse extends WCMUsePojo {
     public Map<String, String> getDiningReferenceList() {
         return diningReferenceList;
     }
-
 }
