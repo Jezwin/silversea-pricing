@@ -1,4 +1,3 @@
 #base=css
 
 chosen.css
-chosen.min.css
