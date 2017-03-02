@@ -19,32 +19,38 @@ import com.day.cq.dam.api.DamConstants;
  */
 public class DiningVariationAssetUse extends WCMUsePojo {
 
+    private static final String LOCATION_IMAGE = "locationImage";
+
+    private static final String VIRTUAL_TOUR = "virtualTour";
+
+    private static final String PLAN = "plan";
+
     private Asset asset;
-    
+
     private String assetTitle;
-    
+
     private List<String> assetThumbnailsList;
-    
+
     @Override
     public void activate() throws Exception {
-        
+
         String currentPath = "";
-        
-        if ("".equals(currentPath) && getCurrentPage().getProperties().get("plan") != null 
-                && !"".equals(getCurrentPage().getProperties().get("plan"))) {
-            currentPath = getCurrentPage().getProperties().get("plan").toString();
+
+        if ("".equals(currentPath) && getCurrentPage().getProperties().get(PLAN) != null
+                && !"".equals(getCurrentPage().getProperties().get(PLAN))) {
+            currentPath = getCurrentPage().getProperties().get(PLAN).toString();
         }
-        
-        if ("".equals(currentPath) && getCurrentPage().getProperties().get("virtualTour") != null 
-                && !"".equals(getCurrentPage().getProperties().get("virtualTour"))) {
-            currentPath = getCurrentPage().getProperties().get("virtualTour").toString();
+
+        if ("".equals(currentPath) && getCurrentPage().getProperties().get(VIRTUAL_TOUR) != null
+                && !"".equals(getCurrentPage().getProperties().get(VIRTUAL_TOUR))) {
+            currentPath = getCurrentPage().getProperties().get(VIRTUAL_TOUR).toString();
         }
-        
-        if ("".equals(currentPath) && getCurrentPage().getProperties().get("locationImage") != null 
-                && !"".equals(getCurrentPage().getProperties().get("virtualTour"))) {
-            currentPath = getCurrentPage().getProperties().get("locationImage").toString();
+
+        if ("".equals(currentPath) && getCurrentPage().getProperties().get(LOCATION_IMAGE) != null
+                && !"".equals(getCurrentPage().getProperties().get(VIRTUAL_TOUR))) {
+            currentPath = getCurrentPage().getProperties().get(LOCATION_IMAGE).toString();
         }
-        
+
         if (!"".equals(currentPath)) {
             Resource resourceDam = getResourceResolver().getResource(currentPath);
             asset = resourceDam.adaptTo(Asset.class);
@@ -52,7 +58,7 @@ public class DiningVariationAssetUse extends WCMUsePojo {
             assetThumbnailsList = getThumbnailsPathList(getRequest());
         }
     }
-    
+
     /* TODO replace by dynamic media */
     public List<String> getThumbnailsPathList(SlingHttpServletRequest request) {
 
