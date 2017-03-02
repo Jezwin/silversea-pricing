@@ -13,6 +13,7 @@ import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.cq.social.journal.client.api.Journal;
+import com.day.cq.wcm.api.Page;
 
 /**
  * @author mjedli
@@ -36,8 +37,9 @@ public class DiningUse extends WCMUsePojo {
                 SHIPS_PATH + "//*[jcr:content/@diningReference=\"" + diningReference + "\"]", "xpath");
 
         while (resources.hasNext()) {
-            Node node = resources.next().adaptTo(Node.class);
-            diningReferenceList.put(node.getName(), node.getPath() + Journal.URL_SUFFIX);
+            Page node = resources.next().adaptTo(Page.class);
+            if (node.getParent() != null)
+                diningReferenceList.put(node.getParent().getTitle(), node.getParent().getPath() + Journal.URL_SUFFIX);
         }
     }
 
