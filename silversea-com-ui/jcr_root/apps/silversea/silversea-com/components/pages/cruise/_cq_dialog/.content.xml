@@ -84,7 +84,8 @@
                                             fieldLabel="Ship"
                                             renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"
-                                            name="./shipReference"/>
+                                            name="./shipReference"
+                                            rootPath="/content/silversea-com/"/>
                                     <cruisecode
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -93,6 +94,7 @@
                                             fieldLabel="Cruise Code"
                                             name="./cruiseCode"
                                             disabled="{Boolean}true"
+                                            required="{Boolean}true"
                                             renderReadOnly="{Boolean}true"/>
                                     <itinerary
                                             jcr:primaryType="nt:unstructured"
@@ -121,7 +123,8 @@
                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                 fieldLabel="People"
                                                 name="./reference"
-                                                required="{Boolean}true"/>
+                                                required="{Boolean}true"
+                                                rootPath="/content/silversea-com/"/>
                                     </keypeople>
                                     <exclusiveoffers
                                             jcr:primaryType="nt:unstructured"
