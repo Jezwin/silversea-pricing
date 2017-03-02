@@ -1,3 +1,7 @@
+/*
+* c- AREA PROPERTY DISPLAY
+*/
+
 .o-area-property-display {
 
     .o-slider {
@@ -26,4 +30,55 @@
                 padding: 0;
             }
     }
+}
+
+
+
+.c-availability {
+    &__title {
+        font-size: 20px;
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
+    
+    .c-list__item {
+        margin: 0;
+        padding: 0 5px;
+        &:first-child, &:nth-child(3n+1) {
+            padding-left: 0; 
+        }
+        &:last-child, &:nth-child(3n) {
+            padding-right: 0;
+        }
+        
+        /* phone breakpoint */
+            @media screen and (max-width: @screen-md-max) {
+                 padding: 0;
+            }
+        
+        .c-availability__link {
+            display: block;
+            background: #333;
+            color: #fff;
+            font: 600 15px 'Open Sans',arial,helvetica,sans-serif;
+            margin-bottom: 10px;
+            position: relative;
+            text-align: left;
+            padding: 15px 28px 15px 16px;
+
+            &:hover {
+                background: #000;
+                color: #fff;
+            }
+
+            i {
+                position: absolute;
+                right: 16px;
+                top: 50%;
+                margin-top: -8px;
+            }
+
+        }
+        
+    }    
 }

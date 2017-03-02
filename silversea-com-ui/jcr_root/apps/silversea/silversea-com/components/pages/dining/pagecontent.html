@@ -2,13 +2,24 @@
 <div class="container">
     <div class="aem-Grid aem-Grid--12">
         <div class="aem-GridColumn aem-GridColumn--default--3 aem-GridColumn--phone--12">
-           <div data-sly-resource="${'menu' @ resourceType='/apps/silversea/silversea-com/components/editorial/menu'}"></div>
+            <div data-sly-resource="${'menu' @ resourceType='/apps/silversea/silversea-com/components/editorial/menu'}"></div>
         </div>
         <div class="aem-GridColumn aem-GridColumn--default--9 aem-GridColumn--phone--12">
-           <div data-sly-resource="${'propertyDisplay' @ resourceType='/apps/silversea/silversea-com/components/displayproperties/diningareapropertydisplay'}"></div>
-           <div>
-                <div>${'Available on' @ i18n}</div>
-           </div>
+            <div data-sly-resource="${'propertyDisplay' @ resourceType='/apps/silversea/silversea-com/components/displayproperties/diningareapropertydisplay'}"></div>
+            
+            <section class="o-section c-availability">
+                <p class="c-availability__title">${'available-on' @ i18n}</p>
+                <div class="container-fluid">
+                    <ul class="row c-list">
+                        <li class="col-md-4 c-list__item"><a href="" class="c-availability__link">Silver Explorer<i class="fa fa-lg fa-angle-right"></i></a></li>
+                        <li class="col-md-4 c-list__item"><a href="" class="c-availability__link">Silver Explorer<i class="fa fa-lg fa-angle-right"></i></a></li>
+                        <li class="col-md-4 c-list__item"><a href="" class="c-availability__link">Silver Explorer<i class="fa fa-lg fa-angle-right"></i></a></li>
+                        <li class="col-md-4 c-list__item"><a href="" class="c-availability__link">Silver Explorer<i class="fa fa-lg fa-angle-right"></i></a></li>
+                        <li class="col-md-4 c-list__item"><a href="" class="c-availability__link">Silver Explorer<i class="fa fa-lg fa-angle-right"></i></a></li>
+                        <li class="col-md-4 c-list__item"><a href="" class="c-availability__link">Silver Explorer<i class="fa fa-lg fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </section>
         </div>
     </div>
 </div>
