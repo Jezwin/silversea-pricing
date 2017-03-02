@@ -1,36 +1,28 @@
-<sly data-sly-use.brochureTeaserListUse="${'com.silversea.aem.components.editorial.BrochureTeaserListUse' @ countryIdParam='FR-FRA-250'}"/>
+<sly data-sly-use.brochureTeaserListUse="${'com.silversea.aem.components.editorial.BrochureTeaserListUse'}" />
 <section class="o-section">
-    <div class="aem-Grid aem-Grid--12">
-        <div class="aem-GridColumn aem-GridColumn--default--12">
-            <div class="row">
-                <div class="brochureteaserlist__header">
-                    <div class="brochureteaserlist__header__label">
-                        ${'select-language' @ i18n}
-                    </div>
-                    <div class="brochureteaserlist__header__select">
-                        <select id="selectBrochureListLangId" class="chosen">
-                            <dl data-sly-list.child="${brochureTeaserListUse.langMap}">
-                                <dt>
-	                                <sly data-sly-test.currentlang="${brochureTeaserListUse.currentLanguageSelector == child}">
-	                                    <option selected value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child]}">
-	                                </sly>
-	                                <sly data-sly-test="${!currentlang}">
-	                                    <option value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child]}">
-	                                </sly>
-                                </dt>
-                                    <dd>${brochureTeaserListUse.langMap[child] @ i18n}</dd>
-                                </option>
-                            </dl>
-                        </select>
-                    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="brochureteaserlist__header">
+                <div class="brochureteaserlist__header__label">
+                    ${'select-language' @ i18n}
+                </div>
+                <div class="brochureteaserlist__header__select">
+                    ${brochureTeaserListUse.langMap.size}
+                    <select id="selectBrochureListLangId" class="chosen">
+                        <sly data-sly-test.isCurrentLanguage="${brochureTeaserListUse.currentLanguageSelector == child}" />
+                        <option data-sly-repeat.child="${brochureTeaserListUse.langMap}"
+                            ${isCurrentLanguage ? 'selected' : ''} value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child], extension='html'}">
+                            ${brochureTeaserListUse.langMap[child] @ i18n}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <section class="o-section">
-    <div class="aem-Grid aem-Grid--12">
-        <div class="aem-GridColumn aem-GridColumn--default--12">
+    <div class="row">
+        <div class="col-sm-12">
             <div class="row">
                 <dl data-sly-list="${brochureTeaserListUse.brochureList}">
                     <sly data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
@@ -40,11 +32,3 @@
         </div>
     </div>
 </section>
-
-<script>
-// brochures list component - select language code
-$('#selectBrochureListLangId').on('change', function() {
-    console.log($(this));
-    window.location.href = this.value + ".html";
-})
-</script>

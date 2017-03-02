@@ -9,4 +9,8 @@ $(function() {
         $(e.target).removeData('bs.modal');
     });
 
+    // Redirect to page with brochure in the current language
+    $('#selectBrochureListLangId').on('change', function() {
+        window.location.href = this.value;
+    })
 });
