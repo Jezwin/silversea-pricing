@@ -5,7 +5,7 @@
                 <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
                 <div class="c-voyagejournalsday__header">
                     <h3>
-                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${'yyyy-MM-dd' @ format=compnt.publicationDate, type='date'}
+                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${compnt.publicationDate @ format='yyyy-MM-dd', type='date'}
                     </h3>
                     <h1>${compnt.title @ i18n}</h1>
                     <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
