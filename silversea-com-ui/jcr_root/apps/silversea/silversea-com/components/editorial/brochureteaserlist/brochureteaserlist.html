@@ -7,7 +7,6 @@
                     ${'select-language' @ i18n}
                 </div>
                 <div class="brochureteaserlist__header__select">
-                    ${brochureTeaserListUse.langMap.size}
                     <select id="selectBrochureListLangId" class="chosen">
                         <sly data-sly-test.isCurrentLanguage="${brochureTeaserListUse.currentLanguageSelector == child}" />
                         <option data-sly-repeat.child="${brochureTeaserListUse.langMap}"
