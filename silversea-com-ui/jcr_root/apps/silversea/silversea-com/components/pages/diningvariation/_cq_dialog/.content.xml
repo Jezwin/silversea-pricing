@@ -27,8 +27,7 @@
                                             cq-msm-lockable="diningReference"
                                             fieldLabel="Dining reference"
                                             name="./diningReference"
-                                            renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"/>
+                                            renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
