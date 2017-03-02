@@ -10,8 +10,9 @@
                     <select id="selectBrochureListLangId" class="chosen">
                         <sly data-sly-test.isCurrentLanguage="${brochureTeaserListUse.currentLanguageSelector == child}" />
                         <option data-sly-repeat.child="${brochureTeaserListUse.langMap}"
+                            selected="${isCurrentLanguage ? 'selected' : ''}"
                             value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child], extension='html'}">
-                            selected="${isCurrentLanguage ? 'selected' : ''}" ${brochureTeaserListUse.langMap[child] @ i18n}
+                            ${brochureTeaserListUse.langMap[child] @ i18n}
                         </option>
                     </select>
                 </div>
