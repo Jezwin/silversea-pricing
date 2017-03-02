@@ -5,4 +5,4 @@
     jcr:description="Allows to display a given brochure"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - Brochuress"/>
+    componentGroup="SSC - Editorial"/>
