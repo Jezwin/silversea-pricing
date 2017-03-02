@@ -66,7 +66,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
                 while (iteratorMarketNode.hasNext()) {
                     Tag countryCodeTag = iteratorMarketNode.next();
                     if (countryCodeTag.getTitle() != null && !"".equals(countryCodeTag.getTitle())) {
-                        mapTags.put(countryCodeTag.getTitle(), countryCodeTag.getTagID());
+                        mapTags.put(countryCodeTag.getName(), countryCodeTag.getTagID());
                     } else {
                         LOGGER.debug("Title not found for {} tag, set tag title and reload aem instance.",
                                 countryCodeTag.getPath());
