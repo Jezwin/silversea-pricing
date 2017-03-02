@@ -1,8 +1,5 @@
 package com.silversea.aem.models;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,8 +7,6 @@ import javax.inject.Named;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
@@ -21,8 +16,6 @@ import com.day.cq.wcm.api.Page;
  */
 @Model(adaptables = Page.class)
 public class JournalListDaysModel {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(JournalListDaysModel.class);
 
     @Inject
     @Self
@@ -36,7 +29,7 @@ public class JournalListDaysModel {
     @Named(JcrConstants.JCR_CONTENT + "/dayNumber")
     @Optional
     private String dayNumber;
-    
+
     private String path;
 
     @PostConstruct
@@ -53,9 +46,6 @@ public class JournalListDaysModel {
     }
 
     public String getPath() {
-        return  (path!=null && path.startsWith("/content") && !path.endsWith(".html") ?path+ ".html" : path);
+        return (path != null && path.startsWith("/content") && !path.endsWith(".html") ? path + ".html" : path);
     }
-    
-    
-    
 }

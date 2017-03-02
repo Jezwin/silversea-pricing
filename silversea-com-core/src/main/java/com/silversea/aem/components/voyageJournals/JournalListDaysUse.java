@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
-import com.drew.lang.StringUtil;
 import com.silversea.aem.models.JournalListDaysModel;
 
 /**
