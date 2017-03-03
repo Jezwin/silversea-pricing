@@ -18,7 +18,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     private static final String COUNTRY_ID_PARAM = "countryIdParam";
 
-    private static final String PATH_TO_BROCHURES_DAM = "/jcr:root/content/dam/siversea-com/brochures";
+    private static final String PATH_TO_BROCHURES_DAM = "/jcr:root/content/dam/siversea-com";
 
     private List<String> brochureList;
 
@@ -54,7 +54,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         }
 
         Iterator<Resource> resources = getResourceResolver().findResources(
-                PATH_TO_BROCHURES_DAM + langugeCodeQuerie + "//*[jcr:content/metadata/@cq:tags=\"" + tagId + "\"]",
+                PATH_TO_BROCHURES_DAM + langugeCodeQuerie + "/brochures//*[jcr:content/metadata/@cq:tags=\"" + tagId + "\"]",
                 "xpath");
         brochureList = new ArrayList<String>();
 
