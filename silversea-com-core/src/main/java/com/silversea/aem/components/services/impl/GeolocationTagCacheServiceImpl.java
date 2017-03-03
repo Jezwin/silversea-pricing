@@ -66,7 +66,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
                 while (iteratorMarketNode.hasNext()) {
                     Tag countryCodeTag = iteratorMarketNode.next();
                     if (countryCodeTag.getTitle() != null && !"".equals(countryCodeTag.getTitle())) {
-                        mapTags.put(countryCodeTag.getName().toString().toLowerCase(), countryCodeTag.getTagID().toString().toLowerCase());
+                        mapTags.put(countryCodeTag.getName().toString().toLowerCase(), countryCodeTag.getTagID());
                     } else {
                         LOGGER.debug("Name not found for {} tag, set tag title and reload : Silversea.com - Geolocation Tag Cache Service.",
                                 countryCodeTag.getPath());
@@ -115,7 +115,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     public String getTagIdFromCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
-        return mapTags.get(GeolocationHelper.getCoutryCodeFromSelector(request.getRequestPathInfo().getSelectors())).toString().toLowerCase();
+        return mapTags.get(GeolocationHelper.getCoutryCodeFromSelector(request.getRequestPathInfo().getSelectors()));
     }
 
     @Override

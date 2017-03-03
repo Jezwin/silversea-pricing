@@ -17,7 +17,7 @@ public class GeolocationHelper {
     public static String getCoutryCodeFromSelector(String[] selectors) {
         for (int i = 0; i < selectors.length; i++) {
             if (selectors[i].startsWith(GEOLOCATION_COUNTRY_PREFIX)) {
-                return StringUtils.removeStart(selectors[i], GEOLOCATION_COUNTRY_PREFIX);
+                return StringUtils.removeStart(selectors[i], GEOLOCATION_COUNTRY_PREFIX).toString().toLowerCase();
             }
         }
         return "";
