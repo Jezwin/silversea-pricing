@@ -122,7 +122,7 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
     public String getLanguageCodeCurrentRequest(ResourceResolver resourceResolver, SlingHttpServletRequest request) throws RepositoryException {
         if (!isInitService)
             initService(resourceResolver);
-        return GeolocationHelper.getLanguageCodeFromSelector(request.getRequestPathInfo().getSelectors()).toLowerCase();
+        return GeolocationHelper.getLanguageCodeFromSelector(request.getRequestPathInfo().getSelectors());
     }
 
 }
