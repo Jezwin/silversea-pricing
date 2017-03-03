@@ -4,13 +4,12 @@
         <div class="col-sm-12">
             <div class="brochureteaserlist__header">
                 <div class="brochureteaserlist__header__label">
-                    ${'select-language' @ i18n}
+                    ${'select-the-brochure-language' @ i18n}
                 </div>
                 <div class="brochureteaserlist__header__select">
-                    <select id="selectBrochureListLangId" class="chosen">
+                    <select id="selectBrochureListLangId" class="chosen" data-sly-list.child="${brochureTeaserListUse.langMap}">
                         <sly data-sly-test.isCurrentLanguage="${brochureTeaserListUse.currentLanguageSelector == child}" />
-                        <option data-sly-repeat.child="${brochureTeaserListUse.langMap}"
-                            selected="${isCurrentLanguage ? 'selected' : ''}"
+                        <option selected="${isCurrentLanguage ? 'selected' : ''}"
                             value="${currentPage.path @ selectors=[brochureTeaserListUse.currentCountrySelector, child], extension='html'}">
                             ${brochureTeaserListUse.langMap[child] @ i18n}
                         </option>
