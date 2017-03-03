@@ -3,7 +3,7 @@
     jcr:language="en"
     jcr:mixinTypes="[mix:language]"
     jcr:primaryType="sling:Folder">
-    <viewall
+    <select-the-brochure-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-the-brochure-language"
         sling:message="Select the brochure language"/>
