@@ -65,10 +65,10 @@ public class GeolocationTagCacheServiceImpl implements GeolocationTagCacheServic
 
                 while (iteratorMarketNode.hasNext()) {
                     Tag countryCodeTag = iteratorMarketNode.next();
-                    if (countryCodeTag.getTitle() != null && !"".equals(countryCodeTag.getTitle())) {
+                    if (countryCodeTag.getName() != null && !"".equals(countryCodeTag.getName())) {
                         mapTags.put(countryCodeTag.getName().toString().toLowerCase(), countryCodeTag.getTagID());
                     } else {
-                        LOGGER.debug("Name not found for {} tag, set tag title and reload : Silversea.com - Geolocation Tag Cache Service.",
+                        LOGGER.debug("Name not found for {} tag, set tag name and reload : Silversea.com - Geolocation Tag Cache Service.",
                                 countryCodeTag.getPath());
                     }
                 }
