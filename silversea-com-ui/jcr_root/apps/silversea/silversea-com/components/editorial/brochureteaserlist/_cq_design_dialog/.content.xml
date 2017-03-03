@@ -34,14 +34,14 @@
                                         fieldDescription="Select Path"
                                         fieldLabel="Online request form"
                                         name="./onlineRequestFormList"
-                                        rootPath="/content/dam/" />
+                                        rootPath="/content/" />
                                     <printedrequestform
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                         fieldDescription="Select Path"
                                         fieldLabel="Printed request form"
                                         name="./printedRequestFormList"
-                                        rootPath="/content/dam/" />
+                                        rootPath="/content/" />
                                 </items>
                             </column>
                         </items>
