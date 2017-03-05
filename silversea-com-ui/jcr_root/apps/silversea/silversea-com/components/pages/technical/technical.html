@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>${currentPage.title}</title>
+        <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+             data-sly-call="${clientlib.css @ categories='apps.silversea-com.bootstrap-3-3-7'}"/>
+    </head>
+    <body>
+        <div class="container">
+            <h1>${currentPage.title}</h1>
+            <sly data-sly-include="pagecontent.html"/>
+        </div>
+    </body>
+</html>

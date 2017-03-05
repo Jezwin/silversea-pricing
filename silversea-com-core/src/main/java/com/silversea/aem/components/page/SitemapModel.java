@@ -3,7 +3,6 @@ package com.silversea.aem.components.page;
 import com.day.cq.commons.Filter;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
-
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.Model;
 import org.slf4j.Logger;
@@ -23,16 +22,16 @@ public class SitemapModel {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SitemapModel.class);
 
-    @Inject @Named("currentPage")
+    @Inject
+    @Named("currentPage")
     private Page page;
 
     private boolean isParentPage = true;
-    
+
     public SitemapModel() {
     }
 
     /**
-     *
      * @return
      */
     public List<SitemapEntryModel> getEntries() {
@@ -44,7 +43,7 @@ public class SitemapModel {
 
         if (parentPage != null) {
             if (parentPage.getContentResource() != null && parentPage.getContentResource().adaptTo(SitemapEntryModel.class) != null) {
-            	entries.add(parentPage.getContentResource().adaptTo(SitemapEntryModel.class));
+                entries.add(parentPage.getContentResource().adaptTo(SitemapEntryModel.class));
             }
 
             entries.addAll(getEntries(parentPage));
@@ -54,7 +53,6 @@ public class SitemapModel {
     }
 
     /**
-     *
      * @param page
      * @return
      */
@@ -63,20 +61,20 @@ public class SitemapModel {
 
         /* TODO should be test the parent page ? */
         if (page.getContentResource() != null && page.adaptTo(SitemapEntryModel.class) != null && isParentPage) {
-        	if (page.getProperties() != null && !page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false))
-        		entries.add(page.adaptTo(SitemapEntryModel.class));
+            if (page.getProperties() != null && !page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false))
+                entries.add(page.adaptTo(SitemapEntryModel.class));
             isParentPage = false;
         }
-        
+
         Iterator<Page> pages = page.listChildren(new SitemapFilter());
 
         while (pages.hasNext()) {
             Page currentPage = pages.next();
 
-            LOGGER.debug("Reading page for generating sitemap : {}", currentPage.getPath());
+            LOGGER.trace("Reading page for generating sitemap : {}", currentPage.getPath());
 
             if (currentPage.getContentResource() != null && currentPage.adaptTo(SitemapEntryModel.class) != null) {
-                LOGGER.debug("Adding in sitemap : {}", currentPage.getPath());
+                LOGGER.trace("Adding in sitemap : {}", currentPage.getPath());
 
                 entries.add(currentPage.adaptTo(SitemapEntryModel.class));
             }
