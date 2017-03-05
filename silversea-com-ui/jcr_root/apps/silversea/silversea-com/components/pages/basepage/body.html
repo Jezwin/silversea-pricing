@@ -2,6 +2,10 @@
 <sly data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/header'}"/>
 <sly data-sly-include="pagecontent.html" />
 <sly data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/footer'}"/>
-<sly data-sly-resource="${'floating-bar' @ resourceType='silversea/silversea-com/components/included/floatingbar'}"/>
+<div class="c-floatingbar">
+    <div class="container">
+        <sly data-sly-resource="${'floating-bar' @ resourceType='silversea/silversea-com/components/included/floatingbar'}"/>
+    </div>
+</div>
 <div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}" data-sly-unwrap></div>
 <sly data-sly-include="footerlibs.html" />

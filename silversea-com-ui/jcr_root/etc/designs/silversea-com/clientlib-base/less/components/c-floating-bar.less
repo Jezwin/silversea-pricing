@@ -11,18 +11,22 @@
     .c-btn__inner {
         display: inline-block;
         margin: 10px 3px;
-    
+
         .c-btn {
             padding: 6px 25px;
-            
+
             &--desktop {
             display: inline;
-            
-            /* phone breakpoint */
+
+                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     display: none;
                 }
             }
         }
+    }
+
+    .runmode-author & {
+        position: static;
     }
 }
