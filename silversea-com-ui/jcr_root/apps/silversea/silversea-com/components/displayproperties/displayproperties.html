@@ -1,7 +1,7 @@
-<sly data-sly-use.cpt="com.silversea.aem.components.editorial.DisplayPropertiesUse" />
+<sly data-sly-use.cpt="com.silversea.aem.components.displayProperties.DisplayPropertiesUse" />
 <div data-sly-test="${!cpt.displayProperty && wcmmode.edit}" class="cq-placeholder" data-emptytext="Display properties"></div>
 <div class="o-property-display" data-sly-test="${cpt.displayProperty}">
     <div class="o-section">
-        ${cpt.displayProperty}
+        ${cpt.displayProperty @ context='html'}
     </div>
 </div>
