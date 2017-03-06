@@ -35,16 +35,16 @@
                                             <lg
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Large"
-                                                    value="modal-lg"/>
+                                                    selected="true"
+                                                    value="modal-lg" />
                                             <md
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Medium"
-                                                    value="modal-md"
-                                                    selected="true"/>
+                                                    value="modal-md" />
                                             <sm
                                                     jcr:primaryType="nt:unstructured"
                                                     text="Small"
-                                                    value="modal-sm"/>
+                                                    value="modal-sm" />
                                         </items>
                                     </modalsize>
                                 </items>
