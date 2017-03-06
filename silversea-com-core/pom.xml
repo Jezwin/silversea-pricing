@@ -44,7 +44,8 @@
                         </Export-Package>
                         <Sling-Model-Packages>
                             com.silversea.aem.components.page,
-                            com.silversea.aem.models
+                            com.silversea.aem.models,
+                            com.silversea.aem.helper
                         </Sling-Model-Packages>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Import-Package>
