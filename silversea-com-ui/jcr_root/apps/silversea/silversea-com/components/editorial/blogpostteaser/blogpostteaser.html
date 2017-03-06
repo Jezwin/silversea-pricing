@@ -1,0 +1,19 @@
+<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+    <em>[Editer le composant : Hero Banner - SilverSea]</em>
+</div>
+
+<sly
+    data-sly-use.cpt="com.silversea.aem.components.editorial.BlogPostTeaserUse"
+    data-sly-unwrap>
+
+<section class="o-section o-section--small">
+<div>${cpt.blogTeaser.title}</div>
+<div>${cpt.blogTeaser.publicationDate @ format='yyyy-MM-dd', type='date'}</div>
+<div>${'read-more' @ i18n} ${cpt.blogTeaser.blogPostReference}</div>
+<div>
+${properties.jcr:image}
+</div>
+</section>
+
+
+</sly>
