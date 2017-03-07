@@ -16,7 +16,7 @@
         var _elems = _self.find(_data.elem);
         var _links = _self.find(_data.link);
         var _contents = _self.find(_data.content);
-
+        var _multiple = (_self.attr('data-multiview') == 'true') || false;
         /*
         ** Link Click Event to show content
         */
@@ -27,6 +27,10 @@
             var isCollapsed = (elem.attr('data-collapsed') == 'true');
             var value = (!isCollapsed) ? _data.less : _data.more;
 
+            if (!_multiple) {
+                _contents.attr('data-collapsed', 'false');
+                _links.attr('data-state', 'false');
+            }
             elem.attr('data-collapsed', !isCollapsed);
             $(this).attr('data-state', !isCollapsed);
             $(this).children(_data.action).html(value);
