@@ -2,9 +2,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="c-pageheader__title">${currentPage.title}</h2>
-                <div class="c-header__properties c-list-inline o-divider--top-dark">
+                <h1 class="c-pageheader__title">${currentPage.title}</h1>
+                <div class="c-pageheader__decription">
+                    ${pageProperties.longDescription @ context='html' }
+                </div>
+                <div class="c-pageheader__properties c-list-inline o-divider--top-dark">
                     <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
+                        <li class="c-list-inline__item c-list-inline__item--no-separated">
+                            <strong>${'keyFact' @ i18n} :</strong>
+                        </li>
                         <li class="c-list-inline__item" data-sly-test="${pageProperties.guestsCapacity}">
                             <strong>${'guestsCapacity' @ i18n}:</strong> ${pageProperties.guestsCapacity}
                         </li>
@@ -27,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                ${pageProperties.longDescription @ context='html' }
+
             </div>
         </div>
     </div>

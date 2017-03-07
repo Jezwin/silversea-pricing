@@ -1,16 +1,15 @@
 <div class="container">
-    <section class="o-section">
+    <section class="o-section c-pageheader">
         <div class="row">
             <div class="col-sm-8 c-voyagejournalsday" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
                 <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
-                <div class="c-voyagejournalsday__header">
-                    <h3>
-                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${compnt.publicationDate @ format='yyyy-MM-dd', type='date'}
-                    </h3>
-                    <h1>${compnt.title @ i18n}</h1>
-                    <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
-                </div>
-                <div class="c-voyagejournalsday__dayinfo c-list-inline">
+                <p class="c-pageheader__date">
+                    <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${compnt.publicationDate @ format='yyyy-MM-dd', type='date'}
+                </p>
+                <h1 class="c-pageheader__subtitle">${compnt.title @ i18n}</h1>
+                <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
+
+                <div class="c-pageheader__properties c-list-inline o-divider--top-dark">
                     <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
                         <li class="c-list-inline__item" data-sly-test="${compnt.coordinates}">
                             <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates}
