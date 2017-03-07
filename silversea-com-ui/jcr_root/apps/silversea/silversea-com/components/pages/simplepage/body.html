@@ -1,7 +1,6 @@
-<sly data-sly-use.body="body.js"/>
-<sly data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/simpleheader'}"/>
-<sly data-sly-include="pagecontent.html" />
-<sly data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/simplefooter'}"/>
-<sly data-sly-resource="${'floating-bar' @ resourceType='silversea/silversea-com/components/included/floatingbar'}"/>
+<header data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/simpleheader'}"></header>
+<sly data-sly-include="pagecontent.html"></sly>
+<footer data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/simplefooter'}"></footers>
+<div class="c-floatingbar"data-sly-resource="${'floating-bar' @ resourceType='silversea/silversea-com/components/included/floatingbar'}"></div>
 <div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}" data-sly-unwrap></div>
-<sly data-sly-include="footerlibs.html" />
+<sly data-sly-include="footerlibs.html"></sly>
