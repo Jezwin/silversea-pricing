@@ -9,11 +9,11 @@
 
         <!-- Title -->
         <h1 class="o-title">${currentPage.navigationTitle ||
-            currentPage.title}</h1>
+            currentPage.title @ context='html'}</h1>
 
         <!-- Description -->
         <div class="o-section o-section--separator o-description">
-            ${pageProperties.longDescription || currentPage.description}
+            ${pageProperties.longDescription || currentPage.description @ context='html'}
         </div>
     </div>
 </div>
