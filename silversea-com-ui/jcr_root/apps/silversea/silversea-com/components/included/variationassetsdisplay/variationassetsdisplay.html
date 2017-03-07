@@ -1,17 +1,17 @@
 <div data-sly-test.empty="${(!properties.plan || !properties.locationImages || !properties.virtualTour) && wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Variation asset display"></div>
 <div class="row" data-sly-test="${!empty}" data-sly-use.variationAssetDisplay="com.silversea.aem.components.included.VariationAssetDisplay">
     <div class="col-sm-4" data-sly-test="${properties.plan}">
-        <a href="http://pic.qiantucdn.com/58pic/22/90/42/21A58PICsKy_1024.jpg" type="button" data-target=".bs-modal-lg" class="imagemodal">
-            <img src="${properties.plan}" alt="">
+        <a href="${properties.plan}" type="button" data-target=".bs-modal-lg" class="imagemodal">
         </a>
+        <div data-sly-resource="${'imgPlan' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></div>
         <strong>${'Suite Plan' @ i18n}</strong>
     </div>
     <div class="col-sm-4" data-sly-test="${properties.locationImages}">
-        <img src="${properties.locationImages}" alt="" />
+        <div data-sly-resource="${'imglocationImages' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></div>
         <strong>${'Suite Location' @ i18n}</strong>
     </div>
     <div class="col-sm-4" data-sly-test="${properties.virtualTour}">
-        <img src="${properties.virtualTour}" alt="" />
+        <div data-sly-resource="${'imgvirtualTour' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></div>
         <strong>${'Virtual Tour' @ i18n}</strong>
     </div>
 </div>
