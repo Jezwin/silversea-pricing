@@ -2,7 +2,7 @@
     <div class="o-section">
         <!-- Description -->
         <div class="o-section o-section--separator o-description">
-            ${pageProperties.longDescription || currentPage.description}
+            ${pageProperties.longDescription || currentPage.description @ context='html'}
         </div>
     </div>
 </div>
