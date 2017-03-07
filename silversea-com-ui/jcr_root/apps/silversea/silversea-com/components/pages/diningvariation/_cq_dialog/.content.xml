@@ -27,6 +27,7 @@
                                             cq-msm-lockable="diningReference"
                                             fieldLabel="Dining reference"
                                             name="./diningReference"
+                                            required="{Boolean}true"
                                             renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"

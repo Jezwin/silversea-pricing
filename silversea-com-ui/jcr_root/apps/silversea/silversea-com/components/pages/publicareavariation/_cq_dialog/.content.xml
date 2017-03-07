@@ -27,6 +27,7 @@
                                             cq-msm-lockable="publicAreaReference"
                                             fieldLabel="Public Area reference"
                                             name="./publicAreaReference"
+                                            required="{Boolean}true"
                                             renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
