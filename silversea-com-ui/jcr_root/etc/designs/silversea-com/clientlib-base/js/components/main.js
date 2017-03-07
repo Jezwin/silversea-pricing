@@ -7,6 +7,7 @@ $(function() {
     // Clean modal content on close event
     $(document).on('hide.bs.modal', function(e) {
         $(e.target).removeData('bs.modal');
+        $('.modal-content').empty();
     });
 
     // Redirect to page with brochure in the current language
