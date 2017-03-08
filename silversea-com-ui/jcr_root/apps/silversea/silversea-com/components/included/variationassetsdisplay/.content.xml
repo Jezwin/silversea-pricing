@@ -4,4 +4,4 @@
     jcr:title="SSC - Variation assets display"
     jcr:description="Allow to display assets of variations"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
-    componentGroup="SSC - Editorial"/>
+    componentGroup=".hidden" />

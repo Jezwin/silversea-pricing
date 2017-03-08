@@ -5,7 +5,7 @@
             data-sly-unwrap> <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
     <div class="container">
         <div class="o-section">
-            ${compnt.longDescription @ i18n}
+            ${compnt.longDescription @ context='html'}
         </div>
     </div>
     </sly>

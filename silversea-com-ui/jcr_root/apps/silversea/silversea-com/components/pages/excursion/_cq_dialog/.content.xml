@@ -28,8 +28,7 @@
                                             fieldLabel="Excursion code"
                                             name="./codeExcursion"
                                             disabled="{Boolean}true"
-                                            renderReadOnly="{Boolean}true"
-                                            required="{Boolean}true"/>
+                                            renderReadOnly="{Boolean}true"/>
                                     <apilongdescription
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
