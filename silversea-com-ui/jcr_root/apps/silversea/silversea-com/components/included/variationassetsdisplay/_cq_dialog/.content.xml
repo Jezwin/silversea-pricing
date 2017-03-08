@@ -28,17 +28,20 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="Plan"
-                                name="./plan" />
+                                rootPath="/content/dam/"
+                                name="./plan/image/fileReference" />
                             <locationimage
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="Location image"
-                                name="./locationImages" />
+                                rootPath="/content/dam/"
+                                name="./locationImages/image/fileReference" />
                             <virtualtour
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="virtualtour"
-                                name="./virtualTour" />
+                                rootPath="/content/dam/"
+                                name="./virtualTour/image/fileReference" />
                         </items>
                     </column>
                 </items>

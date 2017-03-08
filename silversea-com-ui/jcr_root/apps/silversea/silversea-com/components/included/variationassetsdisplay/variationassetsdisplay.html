@@ -1,17 +1,17 @@
-<div data-sly-test.empty="${(!properties.plan || !properties.locationImages || !properties.virtualTour) && wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Variation asset display"></div>
-<div class="row" data-sly-test="${!empty}" data-sly-use.variationAssetDisplay="com.silversea.aem.components.included.VariationAssetDisplay">
-    <div class="col-sm-4" data-sly-test="${properties.plan}">
+<div data-sly-test.empty="${(!properties.plan || !properties.locationImages || !properties.virtualTour) && wcmmode.edit}" class="cq-placeholder" data-emptytext="Variation asset display"></div>
+<div class="row" data-sly-use.variationAssetDisplay="com.silversea.aem.components.included.VariationAssetDisplay">
+    <div class="col-sm-4">
         <a href="${properties.plan}" type="button" data-target=".bs-modal-lg" class="imagemodal">
         </a>
-        <div data-sly-resource="${'imgPlan' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></div>
+        <sly data-sly-resource="${'./plan/image' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></sly>
         <strong>${'Suite Plan' @ i18n}</strong>
     </div>
-    <div class="col-sm-4" data-sly-test="${properties.locationImages}">
-        <div data-sly-resource="${'imglocationImages' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></div>
+    <div class="col-sm-4">
+        <sly data-sly-resource="${'./locationImages/image' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></sly>
         <strong>${'Suite Location' @ i18n}</strong>
     </div>
-    <div class="col-sm-4" data-sly-test="${properties.virtualTour}">
-        <div data-sly-resource="${'imgvirtualTour' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></div>
+    <div class="col-sm-4">
+        <sly data-sly-resource="${'./virtualTour/image' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></sly>
         <strong>${'Virtual Tour' @ i18n}</strong>
     </div>
 </div>
