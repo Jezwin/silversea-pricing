@@ -28,7 +28,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="c-voyagejournalsday__content">${compnt.longDescription @ context='html'}</div>
+                <div class="c-voyagejournalsday__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                 <div class="c-voyagejournalsday__info"></div>
                 <div class="c-voyagejournalsday__pagination c-pagination" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
                     <a href="${cpt.previousPath}"
@@ -42,7 +42,6 @@
                         <i class="fa fa-angle-right fa-lg"></i>
                     </a>
                 </div>
-                <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
             <div class="col-sm-4">
                 <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
