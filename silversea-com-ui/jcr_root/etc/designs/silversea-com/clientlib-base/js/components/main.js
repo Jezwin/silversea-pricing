@@ -17,9 +17,9 @@ $(function() {
     });
 
     // Build modal fragment for image
-    $('.imagemodal').on('click', function(e) {
+    $('.automatic-modal, .gallery-modal, .virtual-tour-modal').on('click', function(e) {
         e.preventDefault();
-        var img = $('<img style="width:100%" />');
+        var img = $('<img style="display:block;margin: 0 auto;" />');
         img.attr('src', $(this).attr('href'));
         $($(this).data('target')).modal('show');
         $('.modal-content:visible').append(img);
