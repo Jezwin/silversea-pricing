@@ -1,7 +1,13 @@
 <div data-sly-test.empty="${!properties.fileReference && wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="image"></div>
 <sly data-sly-test="${!empty}">
     <a data-sly-unwrap="${!properties.linkUrl}" href="${properties.linkUrl @ extension='html'}">
-        <img src="${properties.fileReference}" alt="${properties.alt}" title="${properties.title}" />
+        <picture>
+            <!--[if IE 9]><video style="display: none;"><![endif]-->
+            <source srcset="${properties.fileReference}, ${properties.fileReference} 2x" media="(max-width: 767px)"></source>
+            <source srcset="${properties.fileReference}, ${properties.fileReference} 2x" media="(min-width: 768px)"></source>
+            <!--[if IE 9]></video><![endif]-->
+            <img src="${properties.fileReference}" alt="${properties.alt}" title="${properties.title}" />
+        </picture>
     </a>
     <small data-sly-test="${properties.jcr:description}">${properties.jcr:description}</small>
 </sly>
