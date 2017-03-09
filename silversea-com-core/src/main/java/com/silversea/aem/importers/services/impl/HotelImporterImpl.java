@@ -112,6 +112,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                     if (hotelPage != null) {
                         Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
                         hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
+                        hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
                         hotelPageContentNode.setProperty("image", hotel.getImageUrl());
                         hotelPageContentNode.setProperty("code", hotel.getHotelCod());
                         j++;

@@ -117,7 +117,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                         excursionPageContentNode.setProperty(JcrConstants.JCR_TITLE, shorex.getShorexName());
                         excursionPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, shorex.getShortDescription());
                         excursionPageContentNode.setProperty("codeExcursion", shorex.getShorexCod());
-                        excursionPageContentNode.setProperty("apiDescription", shorex.getDescription());
+                        excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
                         excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
 
                         j++;
