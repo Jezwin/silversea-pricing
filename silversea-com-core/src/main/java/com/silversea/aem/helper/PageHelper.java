@@ -17,7 +17,18 @@ public class PageHelper extends WCMUsePojo {
         }
     }
 
+    /**
+     * @return the page
+     */
     public Page getPage() {
         return page;
     }
+
+    /**
+     * @return the homePage
+     */
+    public Page getHomePage() {
+        return getCurrentPage().getAbsoluteParent(2);
+    }
+
 }

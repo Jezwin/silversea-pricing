@@ -1,12 +1,12 @@
 <!--/*  header container  */-->
-<div class="c-header__container" data-sly-use.header="com.silversea.aem.components.page.HeaderModel">
+<div class="c-header__container" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
     <div class="container">
         <div class="aem-Grid aem-Grid--12">
 
             <!--/*  header top logo */-->
             <div class="aem-GridColumn aem-GridColumn--default--3 aem-GridColumn--phone--5">
-                <a href="${header.homePage.path @ extension='html'}" class="c-header__inner">
-                    <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="Silversea" />
+                <a href="${pageHelper.homePage.path @ extension='html'}" class="c-header__inner">
+                    <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="${pageHelper.homePage.jcr:title}" />
                 </a>
             </div>
             <!--/*  /header top logo */-->
