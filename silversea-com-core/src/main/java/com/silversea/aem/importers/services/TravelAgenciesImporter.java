@@ -3,7 +3,7 @@ package com.silversea.aem.importers.services;
 import java.io.IOException;
 
 /**
- * Created by aurelienolivier on 13/02/2017.
+ * Created by mbennabi on 08/03/2017.
  */
 public interface TravelAgenciesImporter {
 
