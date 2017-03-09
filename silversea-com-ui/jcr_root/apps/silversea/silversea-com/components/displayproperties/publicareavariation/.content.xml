@@ -4,4 +4,4 @@
     jcr:title="SSC - Public Area variation Property Display"
     sling:resourceSuperType="silversea/silversea-com/components/displayproperties"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - displayproperties"/>
+    componentGroup="SSC - Display properties" />

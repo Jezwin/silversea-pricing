@@ -4,4 +4,4 @@
     jcr:title="SSC - Suite Variation Property Display"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - displayproperties"/>
+    componentGroup="SSC - Display properties" />

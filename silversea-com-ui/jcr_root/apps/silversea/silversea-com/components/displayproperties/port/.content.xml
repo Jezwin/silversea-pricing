@@ -5,4 +5,4 @@
           jcr:title="SSC - Port properties display"
           sling:resourceSuperType="silversea/silversea-com/components/displayproperties"
           allowedParents="[*/responsivegrid]"
-          componentGroup="SSC - display properties"/>
+          componentGroup="SSC - Display properties" />

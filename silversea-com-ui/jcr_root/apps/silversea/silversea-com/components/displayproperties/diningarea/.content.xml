@@ -4,4 +4,4 @@
     jcr:title="SSC - Dining Area Property Display"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - displayproperties"/>
+    componentGroup="SSC - Display properties" />
