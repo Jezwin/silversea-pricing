@@ -53,21 +53,17 @@
                                         <field
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            fieldLabel="Cruise fare addition"
                                             name="./addition"
-                                            fieldLabel="Cruise fare addition" />
-                                        <field1
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            name="./notes"
-                                            fieldLabel="Cruise fare footnotes" />
+                                            rootPath="/content/silversea-com/" />
                                     </cruisefareadditions>
                                     <termandcondition
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="cq/gui/components/authoring/dialog/richtext"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="termAndCondition"
-                                        fieldLabel="Exclusive offer Terms & Condition"
-                                        name="./termAndCondition"/>
+                                        fieldLabel="Exclusive offer Terms &#38; Condition"
+                                        name="./termAndCondition" />
                                     <id
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="cq/gui/components/authoring/dialog/richtext"
@@ -97,45 +93,6 @@
                             </column>
                         </items>
                     </exclusiveoffer>
-                    
-                    <destinationstext
-                        jcr:primaryType="nt:unstructured"
-                        jcr:title="Texts for destinations"
-                        cq:showOnCreate="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/section">
-                        <layout
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                            margin="{Boolean}false" />
-                        <items jcr:primaryType="nt:unstructured">
-                            <column
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/container">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <destinations
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                        cq-msm-lockable="cruisefareadditions"
-                                        fieldLabel="Cruise fare additions"
-                                        renderReadOnly="{Boolean}true">
-                                        <destinationreference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            name="./destinationReference"
-                                            rootPath="/content/"
-                                            fieldLabel="Destination" />
-                                        <destinationtext
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
-                                            name="./destinationText"
-                                            rootPath="/content/"
-                                            fieldLabel="Text" />
-                                    </destinations>
-                                </items>
-                            </column>
-                        </items>
-                    </destinationstext>
-                    
                 </items>
             </tabs>
         </items>
