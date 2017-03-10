@@ -38,20 +38,21 @@ public class TestServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private TravelAgenciesImporter travelAgenciesImporter;
-    
-    @Reference ExclusiveOffersImporter exclusiveOffersImporter;
+
+    @Reference
+    ExclusiveOffersImporter exclusiveOffersImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
 
-//        citiesImporter.importCities();
+        citiesImporter.importCities();
         shoreExcursionsImporter.importShoreExcursions();
         hotelImporter.importHotel();
         landProgramImporter.importLandProgram();
         travelAgenciesImporter.importTravelAgencies();
-//        exclusiveOffersImporter.importExclusiveOffers();
+        exclusiveOffersImporter.importExclusiveOffers();
 
     }
 }

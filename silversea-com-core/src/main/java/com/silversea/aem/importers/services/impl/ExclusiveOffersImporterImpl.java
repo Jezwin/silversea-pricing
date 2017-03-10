@@ -52,8 +52,6 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
         SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
         spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         
-        AgenciesApi travelAgenciesApi = new AgenciesApi();
-        travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
@@ -83,12 +81,10 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
                     if (resources.hasNext()) {
                         offersPage = resources.next().adaptTo(Page.class);
-                    }
-
-                    else {
+                    }else {
                         offersPage = pageManager.create(offersRootPage.getPath(),
                                 JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class), offers.getVoyageSpecialOffer()),
-                                "/apps/silversea/silversea-com/templates/exclusiveoffers", offers.getVoyageSpecialOffer(), false);
+                                "/apps/silversea/silversea-com/templates/exclusiveoffer", offers.getVoyageSpecialOffer(), false);
                         //TODO trouver le bon nom du template exclusive offers  
                     }
 
