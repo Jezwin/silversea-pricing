@@ -18,10 +18,11 @@ button:focus {
             height: 22px;
             line-height: 19px;
             width: 22px;
-
-            .modal-content-transparent & {
-                border-color: @white;
-                color: @white;
+            @media screen and (min-width: @screen-sm) {
+                .modal-content-transparent & {
+                    border-color: @white;
+                    color: @white;
+                }
             }
         }
     }
