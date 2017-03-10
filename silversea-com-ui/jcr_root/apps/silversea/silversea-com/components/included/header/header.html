@@ -1,61 +1,28 @@
-<!--/*  header container  */-->
 <div class="c-header__container" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
     <div class="container">
-        <div class="aem-Grid aem-Grid--12">
-
-            <!--/*  header top logo */-->
-            <div class="aem-GridColumn aem-GridColumn--default--3 aem-GridColumn--phone--5">
+        <div class="row">
+            <div class="col-sm-3 col-xs-5">
                 <a href="${pageHelper.homePage.path @ extension='html'}" class="c-header__inner">
                     <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="${pageHelper.homePage.jcr:title}" />
                 </a>
             </div>
-            <!--/*  /header top logo */-->
-            
-            <!--/* header top navigation */-->
-            <div class="aem-GridColumn aem-GridColumn--default--9 aem-GridColumn--phone--7">
-
-                <!--/* c-NAVBURGER */-->
+            <div class="col-sm-9 col-xs-7 c-main-nav-wrapper">
                 <div class="c-nav-burger">
                     <button type="button" class="c-nav-burger__btn">
-                        
                         <span class="c-nav-burger__title">MENU</span>
                         <i class="fa fa-bars"></i>
                         <i class="fa fa-close"></i>
                     </button>
                 </div>
-                <!--/* /c-NAVBURGER end */-->
-
-                <!--/* c-MAIN NAV */-->
                 <nav class="c-main-nav">
                     <sly data-sly-include="mainnavbottom.html" />
                     <sly data-sly-include="mainnavtop.html" />
                     <div class="c-main-nav__backdrop"></div>
                 </nav>
-                <!--/* /c-MAIN NAV */-->
-
-                <!--/*  c- QUOTE REQUEST */-->
                 <div class="c-quote-request">
                     <a href="#" class="c-quote-request-link">Request a quote</a>
                 </div>
-                <!--/* /c-QUOTE REQUEST */-->
-
-                <!--/*  c-CALL */-->
-                <div class="c-call">
-                    <span class="c-call__inner">
-                        <span class="c-call__title">
-                            Cliquez & appelez
-                        </span>
-                        <span class="c-call__number">
-                            <span class="fa-stack c-call__number_icon">
-                                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                <i class="fa fa-phone fa-stack-1x"></i>
-                            </span>
-                            <span>01 70 70 96 22</span>
-                        </span>
-                        <span class="c-call__msg">or contact your travel agent</span>
-                    </span>
-                </div>
-                <!--/* /c-CALL */-->
+                <sly data-sly-include="call.html"></sly>
             </div>
         </div>
     </div>
