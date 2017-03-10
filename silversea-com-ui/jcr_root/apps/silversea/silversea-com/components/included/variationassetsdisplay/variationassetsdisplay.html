@@ -2,19 +2,19 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Variation asset display"></div>
 <div class="row">
     <div class="col-sm-4" data-sly-test.planLightboxPath="${variationAssetDisplay.planLightboxPath}">
-        <a href="${planLightboxPath}" type="button" data-target=".bs-modal-lg" class="automatic-modal">
+        <a href="${planLightboxPath}" type="button" data-target=".bs-modal-md" class="automatic-modal">
             <sly data-sly-resource="${'./plan/image' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></sly>
         </a>
         <strong>${'suite-plan' @ i18n}</strong>
     </div>
     <div class="col-sm-4" data-sly-test.locationLightboxPath="${variationAssetDisplay.locationLightboxPath}">
-        <a href="${locationLightboxPath}" type="button" data-target=".bs-modal-lg" class="gallery-modal">
+        <a href="${locationLightboxPath}" type="button" data-target=".bs-modal-md" class="gallery-modal">
             <sly data-sly-resource="${'./locationImages/image' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></sly>
         </a>
         <strong>${'suite-location' @ i18n}</strong>
     </div>
     <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${variationAssetDisplay.virualtourLightboxPath}">
-        <a href="${virualtourLightboxPath}" type="button" data-target=".bs-modal-lg" class="virtual-tour-modal">
+        <a href="${virualtourLightboxPath}" type="button" data-target=".bs-modal-md" class="virtual-tour-modal">
             <sly data-sly-resource="${'./virtualTour/image' @ resourceType='silversea/silversea-com/components/editorial/image', wcmmode='disabled'}"></sly>
         </a>
         <strong>${'virtual-tour' @ i18n}</strong>

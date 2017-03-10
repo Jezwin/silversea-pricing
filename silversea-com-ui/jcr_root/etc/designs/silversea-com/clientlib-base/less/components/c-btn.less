@@ -2,21 +2,27 @@
 ** C- Button
 */
 
-button:focus {outline:0;}
-
+button:focus {
+    outline:0;
+}
 .c-btn {
 
     &--close {
         &:before {
-            content: "\00D7";
-            font-size: 32px;
-            font-weight: 200;
             border: solid 1px #000;
             border-radius: 20px;
-            width: 22px;
+            content: "\00D7";
             display: block;
-            line-height: 19px;
+            font-size: 32px;
+            font-weight: 200;
             height: 22px;
+            line-height: 19px;
+            width: 22px;
+
+            .modal-content-transparent & {
+                border-color: @white;
+                color: @white;
+            }
         }
     }
 }
