@@ -1,12 +1,23 @@
 <div class="o-area-property-display">
+<sly data-sly-use.cpt="com.silversea.aem.components.displayProperties.PublicAreaVariationDisplayPropertiesUse" />
     <div class="o-section">
         <!-- Image -->
         <img class="o-slider" src="${pageProperties.assetSelectionReference}" alt=""/>
         
         <!-- Title -->
+        <div data-sly-test="${currentPage.navigationTitle || currentPage.title}">
         <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
-       
+        </div>
+        <div data-sly-test="${!currentPage.navigationTitle && !currentPage.title}">
+        <h1 class="o-title">${cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
+        </div>
+        
         <!-- Description -->
+        <div data-sly-test="${pageProperties.longDescription || currentPage.description}">
         <div class="o-section o-section--separator o-description">${pageProperties.longDescription || currentPage.description @ context='html'}</div>
+        </div>
+        <div data-sly-test="${!pageProperties.longDescription && !currentPage.description}">
+        <div class="o-section o-section--separator o-description">${cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}</div>
+        </div>
     </div>
 </div>
