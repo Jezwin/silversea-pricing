@@ -1,0 +1,48 @@
+/*
+* c- SUITE VARIATION
+*/
+
+.suitevariation {
+    &__bedroominfo li {
+        margin-bottom: 20px;
+        
+        span {
+            font-weight: @bold;
+        }
+    }
+    
+    &__features {
+        background-color: #F2F2F2;
+        padding: 20px;
+        
+        h4 {
+            font-size: 20px;
+            line-height: 1.2;
+            margin: 0 0 15px;
+        }
+        
+        ul {
+            list-style: outside;
+            margin-left: 3px;
+            padding-left: 15px;
+            font-size: 13px;
+            overflow: hidden;
+            
+            li {
+                margin-bottom: 10px;
+                list-style-type: disc;
+                max-width: 50%;
+                width: 100%;
+                float: left;
+                padding-right: 30px;
+                
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    max-width: 100%;
+                    float: none;
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
