@@ -1,6 +1,6 @@
 <div data-sly-test.empty="${!properties.fileReference && wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="image"></div>
 <sly data-sly-test="${!empty}">
-    <a data-sly-unwrap="${!properties.linkUrl}" href="${properties.linkUrl @ extension='html'}">
+    <a data-sly-unwrap="${!properties.linkURL}" href="${properties.linkURL @ extension='html'}">
         <picture>
             <!--[if IE 9]><video style="display: none;"><![endif]-->
             <source srcset="${properties.fileReference}, ${properties.fileReference} 2x" media="(max-width: 767px)"></source>
