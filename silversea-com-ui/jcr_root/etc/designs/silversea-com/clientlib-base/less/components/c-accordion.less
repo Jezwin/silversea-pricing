@@ -67,7 +67,7 @@
         display: table;
         width: 100%;
         background-color: @grey--f9;
-        padding: 12px;
+        padding: 12px 20px;
         table-layout: fixed;
 
         &:hover, &:active, &:focus {
@@ -75,7 +75,7 @@
             background-color: @grey--e6;
         }
         &[data-state='true'] {
-            background-color: @grey--e6;
+            //background-color: @grey--e6;
         }
     }
     &__title,
@@ -91,17 +91,29 @@
         &--large {
             padding: 5px;
         }
+        &--veryimportant {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+    &__subtitle {
+        font-size: 12px;
     }
     &__action {
         min-width: 90px;
         width: 10%;
+        font-size: 12px;
         text-align: right;
+        text-transform: uppercase;
+
+        &--light {
+            color: #828282;
+        }
     }
     &__body {
         max-height: 0px;
         overflow: hidden;
         transition: max-height .3s ease-in-out;
-        padding: 0 10px;
 
         &--full {
             padding: 0px;
