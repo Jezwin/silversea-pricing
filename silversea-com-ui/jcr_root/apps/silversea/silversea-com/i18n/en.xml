@@ -6,5 +6,17 @@
     <select-the-brochure-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-the-brochure-language"
-        sling:message="Select the brochure language"/>
+        sling:message="Select the brochure language" />
+    <suite-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-plan"
+        sling:message="Suite plan" />
+    <suite-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-location"
+        sling:message="Suite location" />
+    <virtual-tour
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="virtual-tour"
+        sling:message="Virtual tour" />
 </jcr:root>

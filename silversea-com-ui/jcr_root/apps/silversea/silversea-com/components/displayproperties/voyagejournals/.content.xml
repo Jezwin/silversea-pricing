@@ -4,4 +4,4 @@
     jcr:title="SSC - Voyage Journal Day Properties Display"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - displayproperties"/>
+    componentGroup="SSC - Display properties" />

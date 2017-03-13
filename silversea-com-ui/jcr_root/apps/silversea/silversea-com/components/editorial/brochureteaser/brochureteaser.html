@@ -11,7 +11,7 @@
         <p class="c-brochure__btnwrapper" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
             <a data-sly-test="${currentStyle.onlineRequestFormReference || currentStyle.onlineRequestFormList || brochureTeaserUse.showOnlineRequestForm}"
                 href="${currentStyle.onlineRequestFormReference @ extension='html', selectors='modalcontent'}"
-                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                 <i class="fa fa-search"></i>
                 <strong>${'view-online' @i18n}</strong>
             </a>
@@ -19,7 +19,7 @@
         <p class="c-brochure__btnwrapper" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
             <a data-sly-test="${currentStyle.printedRequestFormReference || currentStyle.printedRequestFormList || brochureTeaserUse.showPrintedRequestForm}"
                 href="${currentStyle.printedRequestFormReference @ extension='html', selectors='modalcontent'}"
-                class="btn btn-dark c-brochure__btn" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                 <i class="fa fa-envelope"></i>
                 <strong>${'mail-me-brochure' @ i18n}</strong>
             </a>

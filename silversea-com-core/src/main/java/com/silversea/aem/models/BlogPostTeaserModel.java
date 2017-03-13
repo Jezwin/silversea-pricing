@@ -44,9 +44,13 @@ public class BlogPostTeaserModel {
     @Optional
     private String assetSelectionReference;
 
+//    @Inject
+//    @Named(JcrConstants.JCR_CONTENT + "/blogPostReference")
+//    @Optional
+//    private String blogPostReference;
+    
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/blogPostReference")
-    @Optional
+    @Self
     private String blogPostReference;
 
     @PostConstruct

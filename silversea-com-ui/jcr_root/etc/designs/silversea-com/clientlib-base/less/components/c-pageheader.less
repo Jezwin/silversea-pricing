@@ -4,9 +4,21 @@
     margin: 30px 0px;
 
     &__title {
+        padding-right: 15px;
+        margin-bottom: 20px;
+        font-size: 30px;
+
+        &--inline {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+    &__subtitle {
         display: table-cell;
         vertical-align: middle;
         padding-right: 15px;
+        margin-bottom: 20px;
+        font-size: 24px;
     }
 
     &__links {
@@ -17,5 +29,16 @@
             padding: 0 10px;
             font-size: 12px;
         }
+    }
+
+    &__date {
+        font-size: 14px;
+        display: inline-block;
+        font-weight: 500;
+    }
+    &__properties {
+        font-size: 13px;
+        padding-top: 10px;
+        margin-bottom: 20px;
     }
 }

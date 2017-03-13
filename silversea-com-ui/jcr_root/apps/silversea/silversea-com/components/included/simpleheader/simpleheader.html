@@ -1,39 +1,14 @@
-<!--  header container  -->
-<div class="c-header__container">
+<div class="c-header__container" data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
     <div class="container">
-        <div class="aem-Grid aem-Grid--12">
-
-            <!--  header top logo -->
-            <div class="aem-GridColumn aem-GridColumn--default--3">
-                <a href="http://www.silversea.com/fr">
-                    <img class="c-header_logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="Silversea" />
+        <div class="row">
+            <div class="col-sm-3 col-xs-5">
+                <a href="${pageHelper.homePage.path @ extension='html'}" class="c-header__inner">
+                    <img class="c-header__logo" src="/etc/designs/silversea-com/clientlib-base/images/logo.png" alt="${pageHelper.homePage.jcr:title}" />
                 </a>
             </div>
-            <!--  header top logo end -->
-
-            <!--  header top navigation -->
-            <div class="aem-GridColumn aem-GridColumn--default--9">
-
-                <!--  c- CALL -->
-                <div class="c-call">
-                    <span class="c-call__inner">
-                        <span class="c-call__title">
-                            Cliquez & appelez
-                        </span>
-                        <span class="c-call__number">
-                            <span class="fa-stack c-call__number_icon">
-                                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                <i class="fa fa-phone fa-stack-1x"></i>
-                            </span>
-                            <span>01 70 70 96 22</span>
-                        </span>
-                        <span class="c-call__msg">ou contactez votre agent de voyage</span>
-                    </span>
-                </div>
-                <!--  c- CALL end -->
+            <div class="col-sm-9 col-xs-7 c-main-nav-wrapper">
+                <sly data-sly-include="./../header/call.html"></sly>
             </div>
-
         </div>
     </div>
 </div>
-<!-- end header top -->

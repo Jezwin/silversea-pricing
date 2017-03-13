@@ -1,14 +1,13 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.importers.services.ShoreExcursionsImporter;
-import io.swagger.client.ApiException;
-import io.swagger.client.api.ShorexesApi;
-import io.swagger.client.model.Shorex;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -19,12 +18,16 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+
+import io.swagger.client.ApiException;
+import io.swagger.client.api.ShorexesApi;
+import io.swagger.client.model.Shorex;
 
 /**
  * Created by aurelienolivier on 13/02/2017.
@@ -112,9 +115,9 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                         Node excursionPageContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
                         excursionPageContentNode.setProperty(JcrConstants.JCR_TITLE, shorex.getShorexName());
-                        excursionPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, shorex.getDescription());
+                        excursionPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, shorex.getShortDescription());
                         excursionPageContentNode.setProperty("codeExcursion", shorex.getShorexCod());
-                        excursionPageContentNode.setProperty("apiDescription", shorex.getDescription());
+                        excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
                         excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
 
                         j++;

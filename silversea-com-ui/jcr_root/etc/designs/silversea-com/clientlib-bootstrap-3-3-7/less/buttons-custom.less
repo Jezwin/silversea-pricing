@@ -16,9 +16,9 @@
   touch-action: manipulation;
   cursor: pointer;
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-  border: 1px solid transparent;
+  border: 0;
   white-space: nowrap;
-  .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @btn-border-radius-base);
+  .button-size(@padding-base-vertical; @padding-base-horizontal; 12px; @line-height-base; @btn-border-radius-base);
   .user-select(none);
 
   i {
@@ -53,6 +53,14 @@
     cursor: @cursor-disabled;
     .opacity(.65);
   }
+  
+  &.effect {
+    -webkit-transition: background 1s;
+    -moz-transition: background 1s;
+    -ms-transition: background 1s;
+    -o-transition: background 1s;
+    transition: background 1s;
+  }
 
   a& {
     &.disabled,
@@ -67,32 +75,37 @@
 // --------------------------------------------------
 
 .btn-default {
-  .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+  .button-variant(@btn-default-color; @btn-default-bg);
 }
 .btn-primary {
-  .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  .button-variant(@btn-primary-color; @btn-primary-bg);
 }
 // Success appears as green
 .btn-success {
-  .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+  .button-variant(@btn-success-color; @btn-success-bg);
 }
 // Info appears as blue-green
 .btn-info {
-  .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+  .button-variant(@btn-info-color; @btn-info-bg);
 }
 // Warning appears as orange
 .btn-warning {
-  .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+  .button-variant(@btn-warning-color; @btn-warning-bg);
 }
 // Danger and error appear as red
-.btn-danger {
-  .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+.btn-danger, .btn-red {
+  .button-variant(@btn-danger-color; @btn-danger-bg);
 }
 .btn-dark {
-  .button-variant(@white; @black; @black);
+  .button-variant(@white; @black);
+    &:hover {
+      background-color: @grey--9;
+    }
 }
+.btn-gray {
+  .button-variant(@black; @grey--c5);
 
-
+}
 // Link buttons
 // -------------------------
 
@@ -158,7 +171,7 @@
 
 // Vertically space out multiple block buttons
 .btn-block + .btn-block {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 // Specificity overrides

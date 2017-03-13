@@ -114,7 +114,6 @@
                                         fieldLabel="City"
                                         name="./city"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
                                         disabled="{Boolean}true" />
                                     <zip
                                         jcr:primaryType="nt:unstructured"
@@ -142,7 +141,6 @@
                                         fieldLabel="Country iso 3"
                                         name="./countryIso3"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
                                         disabled="{Boolean}true" />
                                     <stateCode
                                         jcr:primaryType="nt:unstructured"
@@ -153,14 +151,13 @@
                                         name="./stateCode"
                                         renderReadOnly="{Boolean}true"
                                         disabled="{Boolean}true" />
-                                    <country
+                                    <county
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="country"
+                                        cq-msm-lockable="county"
                                         fieldLabel="County"
-                                        name="./country"
-                                        required="{Boolean}true"
+                                        name="./county"
                                         renderReadOnly="{Boolean}true"
                                         disabled="{Boolean}true" />
                                     <phone
@@ -179,7 +176,6 @@
                                         cq-msm-lockable="latitude"
                                         fieldLabel="Latitude"
                                         name="./latitude"
-                                        required="{Boolean}true"
                                         renderReadOnly="{Boolean}true"
                                         disabled="{Boolean}true" />
                                     <longitude
@@ -189,7 +185,6 @@
                                         cq-msm-lockable="longitude"
                                         fieldLabel="Longitude"
                                         name="./longitude"
-                                        required="{Boolean}true"
                                         renderReadOnly="{Boolean}true"
                                         disabled="{Boolean}true" />
                                 </items>

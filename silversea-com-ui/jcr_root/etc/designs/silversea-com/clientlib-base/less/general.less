@@ -7,7 +7,7 @@
     max-width: 960px;
 }
 
-body {
+body:not(.simplepage) {
     padding-top: 110px !important;
     
     /* phone breakpoint */
@@ -72,16 +72,16 @@ a {
         }
         
     }
-	
+    
     /*
     ** Background color
     */
-	&-white {
-		background-color: white !important;
-	}
-	&-black {
-		background-color: @black !important;
-	}
+    &-white {
+        background-color: white !important;
+    }
+    &-black {
+        background-color: @black !important;
+    }
     &-red {
         background-color: @red !important;
     }
@@ -95,7 +95,6 @@ a {
     }
     &-important {
         text-transform: uppercase;
-        font-size: 12px;
     }
     &-right {
         text-align: right;
@@ -161,7 +160,7 @@ a {
         transition: background 1s;
         
         &:hover, &:focus, &:active {
-            background: @grey-d;
+            background: @grey--9;
         }
     }
     &--red {
@@ -202,6 +201,7 @@ a {
 * c- IMAGE
 */
 .o-img {
+    max-width: 100%;
     &--small {
         display: block;
         text-align: center;
@@ -209,6 +209,10 @@ a {
     }
     &--center {
         text-align: center;
+    }
+    .automatic-modal-body & {
+        display: block;
+        margin: 0 auto;
     }
 }
 
@@ -246,7 +250,24 @@ a {
     }
 }
 
-/**/
+/*
+** o- divider
+*/
+.o-divider {
+    &--bottom {
+        &-dark {
+            border-bottom: 1px solid @black;
+        }
+    }
+    &--top {
+        &-dark {
+            border-top: 1px solid @black;
+        }
+    }
+}
+/*
+** c- Pagination
+*/
 .c-pagination {
     &--pull-right {
         text-align: right;

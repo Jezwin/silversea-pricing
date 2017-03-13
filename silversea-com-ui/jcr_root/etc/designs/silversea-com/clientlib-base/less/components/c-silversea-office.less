@@ -2,13 +2,19 @@
     text-align: center;
     min-height: 260px;
     
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        text-align: left;
+        min-height: auto;
+    }
+    
     &__title {
         margin-bottom: 20px;
         padding: 0 20px;
     }
     &__address {
         margin-bottom: 20px;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 18px;
     }
     &__contact {

@@ -1,0 +1,18 @@
+<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
+    <em>[Editer le composant : Exclusive Display Properties - SilverSea]</em>
+</div>
+<div class="o-area-property-display">
+    <div class="o-section">
+        <!-- Image -->
+        <img class="o-slider"
+            src="${pageProperties.assetSelectionReference}" alt="" />
+
+        <!-- Title -->
+        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
+
+        <!-- Description -->
+        <div class="o-section o-section--separator o-description">
+            ${pageProperties.longDescription || currentPage.description @ context='html'}
+        </div>
+    </div>
+</div>
