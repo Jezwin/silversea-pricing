@@ -122,47 +122,26 @@
 }
 /*
 ** c- Callbox
-** Callbox for simple-footer
-** 2 differents states
+** Callbox for simple page
 **/
-.c-callbox-footer {
-    text-align: center;
-    padding: 20px 0 0;
-    border-top: 1px solid @grey--d;
-    
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        padding-top: 0;
-        margin-bottom: 10px;
-        border-bottom: 1px solid @grey--d;
-    }
+.simplepage {
+    .o-section--callbox {
+        border-top: 1px solid @grey--d;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 28px;
+        text-align: center;
 
-    &__msg {
-        &--mobile {
-            display: none;
-            
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                display: block;
-                font-weight: @bold;
-                margin-bottom: 0;
-                
-                a {
-                    display: block;
-                    padding: 20px 0;
-                }
-            }
+        p {
+            margin: 0;
         }
-        &--desktop {
-            display: block;
-            font-weight: @bold;
-            font-size: 16px;
-            line-height: 30px;
-            
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                display: none;
-            }
+
+        strong {
+            font-size: 18px;
+        }
+
+        @media screen and (max-width: @screen-sm) {
+            border-bottom: 1px solid @grey--d;
         }
     }
 }
