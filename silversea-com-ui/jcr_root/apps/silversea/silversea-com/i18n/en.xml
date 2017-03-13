@@ -19,4 +19,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="virtual-tour"
         sling:message="Virtual tour" />
+    <archives
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="archives"
+        sling:message="Archives" />
 </jcr:root>
