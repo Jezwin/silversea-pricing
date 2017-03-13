@@ -45,7 +45,6 @@
         ** Set Plugin cTab to the button
         */
         $(".c-accordion").each(function (i) {
-            console.log('--->', this, $(this));
             $(this).cAccordion();
         });
     });

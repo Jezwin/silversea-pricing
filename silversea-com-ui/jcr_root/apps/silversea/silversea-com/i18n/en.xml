@@ -23,4 +23,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="archives"
         sling:message="Archives" />
+    <day
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="day"
+        sling:message="Day" />
 </jcr:root>
