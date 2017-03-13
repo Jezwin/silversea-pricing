@@ -39,6 +39,35 @@ a {
 }
 
 /*
+** RTE component
+*/
+.text {
+    ul {
+        margin: inherit;
+        padding: inherit;
+        list-style-type: square;
+    }
+    ol {
+        margin: inherit;
+        padding: inherit;
+        list-style-type: decimal;
+    }
+    li {
+        list-style: inherit;
+    }
+    a {
+        color: initial;
+        font-weight: 700;
+        text-decoration: underline;
+        &:hover, &:active, &:focus {
+            text-decoration: initial;
+            color: initial;
+        }
+    }
+}
+
+
+/*
 ** Helpers Class
 *  Used by the contributor to stylize the conten
 */

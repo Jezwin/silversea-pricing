@@ -14,7 +14,11 @@
                     See More&nbsp;<i class="fa fa-angle-down"></i>
                 </div>
             </div>
-            <div class="c-accordion__body">${item.description @ context='html'}</div>
+            <div class="c-accordion__body">
+                <div class="c-accordion__body--panel">
+                    ${item.description @ context='html'}
+                </div>
+            </div>
         </div>
     </div>
 </div>
