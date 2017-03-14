@@ -1,3 +1,4 @@
+<sly data-sly-use.suiteUse="com.silversea.aem.components.page.SuiteUse" data-sly-unwrap />
 <div class="container">
     
     <div class="row">
@@ -13,7 +14,7 @@
                 <p class="c-availability__title">${'available-on' @ i18n}</p>
                 <div class="container-fluid">
                     <ul class="row c-list">
-                        <sly data-sly-list.child="${diningUse.diningReferenceList}" data-sly-unwrap>
+                        <sly data-sly-list.child="${suiteUse.suiteReferenceList}" data-sly-unwrap>
                             <li class="col-md-4 c-list__item">
                                 <a href="${diningUse.diningReferenceList[child]}" class="c-availability__link">${child}
                                     <i class="fa fa-lg fa-angle-right"></i>
