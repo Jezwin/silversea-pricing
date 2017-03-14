@@ -35,7 +35,7 @@
                                         fieldLabel="Online request form"
                                         name="./onlineRequestFormReference"
                                         required="{Boolean}true"
-                                        rootPath="/content/" />
+                                        rootPath="/content/silversea-com/" />
                                     <printedrequestform
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -43,7 +43,7 @@
                                         fieldLabel="Printed request form"
                                         name="./printedRequestFormReference"
                                         required="{Boolean}true"
-                                        rootPath="/content/" />
+                                        rootPath="/content/silversea-com/" />
                                 </items>
                             </column>
                         </items>
