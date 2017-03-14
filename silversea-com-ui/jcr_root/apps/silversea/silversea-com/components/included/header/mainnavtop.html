@@ -1,23 +1,23 @@
-<div class="c-main-nav__top">
+<div class="c-main-nav__top" data-sly-use.navTop="com.silversea.aem.components.page.HeaderModel">
     <ul class="c-main-nav__top--list">
-        <li class="c-main-nav__top--item c-main-nav--hide-md c-main-nav--hide-lg">
-            <a href="#" class="c-main-nav__top--link">
-                <span>Request a quote</span>
+        <li class="c-main-nav__top--item hidden-md hidden-lg" data-sly-test.page1="${navTop.link1Page}">
+            <a href="${page1.path @ extension = 'html'}" class="c-main-nav__top--link">
+                <span>${page1.navigationTitle || page1.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item">
-            <a href="#" class="c-main-nav__top--link">
-                <span>Brochures</span>
+        <li class="c-main-nav__top--item" data-sly-test.page2="${navTop.link2Page}">
+            <a href="${page2.path @ extension = 'html'}" class="c-main-nav__top--link">
+                <span>${page2.navigationTitle || page2.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item c-main-nav--hide-lg">
+        <li class="c-main-nav__top--item hidden-lg hidden-md">
             <a href="#" class="c-main-nav__top--link">
                 <span>Sign up for offers</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item c-main-nav__top--item--small-md c-main-nav--hide-sm">
-            <a href="#" class="c-main-nav__top--link">
-                <span>My Silversea</span>
+        <li class="c-main-nav__top--item c-main-nav__top--item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
+            <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top--link">
+                <span>${page3.navigationTitle || page3.title}</span>
             </a>
         </li>
         <li class="c-main-nav__top--item c-main-nav__top--item--small-md">
@@ -25,8 +25,8 @@
                 <span>ENG</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item">
-            <a href="#" class="c-main-nav__top--link">
+        <li class="c-main-nav__top--item" data-sly-test.search="${navTop.searchPage}">
+            <a href="${search.path @ extension ='html'}" class="c-main-nav__top--link">
                 <span><i class="fa fa-lg fa-search"></i></span>
             </a>
         </li>

@@ -7,7 +7,6 @@ import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
@@ -55,6 +54,26 @@ public class HeaderModel {
     public Page homePage;
 
     /**
+     * link 1 page (Request a quote page)
+     */
+    public Page link1Page;
+
+    /**
+     * link 2 page (brochure page)
+     */
+    public Page link2Page;
+
+    /**
+     * link 3 page (My Silversea page)
+     */
+    public Page link3Page;
+
+    /**
+     * Search Page
+     */
+    public Page searchPage;
+
+    /**
      * Constructor NavigationModel
      */
     public HeaderModel(SlingHttpServletRequest request) {
@@ -70,6 +89,30 @@ public class HeaderModel {
         InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(resource);
         final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM, homePage.getPath());
         navigation = navigationBuild(rootPath, 2);
+
+        final String link1Reference = properties.getInherited("link1Reference", String.class);
+        final String link2Reference = properties.getInherited("link2Reference", String.class);
+        final String link3Reference = properties.getInherited("link3Reference", String.class);
+        final String searchPageReference = properties.getInherited("searchPageReference", String.class);
+
+        link1Page = getPageFromPath(link1Reference);
+        link2Page = getPageFromPath(link2Reference);
+        link3Page = getPageFromPath(link3Reference);
+        searchPage = getPageFromPath(searchPageReference);
+    }
+
+    /**
+     * get Page from path
+     *
+     * @param path
+     * @return Page
+     */
+    private Page getPageFromPath(String path) {
+        Resource res = resourceResolver.resolve(path);
+        if (res != null) {
+            return res.adaptTo(Page.class);
+        }
+        return null;
     }
 
     /**
@@ -77,7 +120,7 @@ public class HeaderModel {
      *
      * @param pathRoot
      * @param maxLevel
-     * @return
+     * @return Navigation
      */
     private Navigation navigationBuild(String path, Integer maxLevel) {
         Navigation nav = null;
@@ -88,43 +131,9 @@ public class HeaderModel {
             Page pageRoot = resourceRoot.adaptTo(Page.class);
 
             Page selectPage = PathUtils.isAncestor(pageRoot.getPath(), currentPage.getPath()) ? currentPage : pageRoot;
-            nav = new Navigation(selectPage, PathUtils.getDepth(path) - 1, new NavigationPageFilter(), maxLevel);
+            nav = new Navigation(selectPage, PathUtils.getDepth(path) - 1, new PageFilter(), maxLevel);
         }
 
         return nav;
-    }
-
-    /**
-     * Navigation page filter
-     */
-    public class NavigationPageFilter extends PageFilter {
-
-        /**
-         * Filter the type of page based on resource
-         */
-        public NavigationPageFilter() {
-            super();
-        }
-
-        /**
-         * Override the default filter.
-         *
-         * @param page
-         * @return
-         */
-        @Override
-        public boolean includes(Page page) {
-            ValueMap pageProperties = page.getProperties();
-
-            if (page.getContentResource() == null) {
-                return false;
-            }
-
-            if (pageProperties != null && (page.isHideInNav() || !page.isValid())) {
-                return false;
-            }
-
-            return true;
-        }
     }
 }
