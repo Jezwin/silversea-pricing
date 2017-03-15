@@ -1,0 +1,12 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder c-floatingbar" data-emptytext="cookiedisclamer"></div>
+<sly data-sly-use.cookiedisclamer="${'com.silversea.aem.components.included.CookieDisclamerUse'}" />
+<div class="c-floatingbar" data-sly-test="${cookiedisclamer.showCookieMsg}" id="c-cookie">
+
+    <div class="container">
+        <p>${properties.jcr:title}</p>
+        <button id="c-cookie__close">
+            <span>${'close' @ i18n}</span>
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+</div>
