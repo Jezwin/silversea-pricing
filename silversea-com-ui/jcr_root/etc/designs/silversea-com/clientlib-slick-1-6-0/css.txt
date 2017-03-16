@@ -1,4 +1,4 @@
 #base=less
 
 slick.less
-slick-theme.less
+slick-theme-custom.less

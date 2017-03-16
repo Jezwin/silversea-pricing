@@ -19,18 +19,19 @@ $(function() {
     });
 
     // Build modal fragment for image
-    $('.automatic-modal, .gallery-modal, .virtual-tour-modal').on('click', function(e) {
-        e.preventDefault();
-        $modalContent = $('<div class="modal-content modal-content-transparent">' +
-                              '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>' +
-                              '<div class="modal-body automatic-modal-body"></div>' +
-                          '</div>')
-        var $img = $('<img class="o-img" />');
-        $img.attr('src', $(this).attr('href'));
-        $($(this).data('target')).modal('show');
-        $('.modal-content:visible').replaceWith($modalContent);
-        $('.modal-content:visible .modal-body').append($img);
-    });
+    $('.automatic-modal, .gallery-modal, .virtual-tour-modal').on(
+            'click',
+            function(e) {
+                e.preventDefault();
+                $modalContent = $('<div class="modal-content modal-content-transparent">'
+                        + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
+                        + '<div class="modal-body automatic-modal-body"></div>' + '</div>')
+                var $img = $('<img class="o-img" />');
+                $img.attr('src', $(this).attr('href'));
+                $($(this).data('target')).modal('show');
+                $('.modal-content:visible').replaceWith($modalContent);
+                $('.modal-content:visible .modal-body').append($img);
+            });
 
     /***************************************************************************
      * Brochure teaser
@@ -39,4 +40,20 @@ $(function() {
     $('#selectBrochureListLangId').on('change', function() {
         window.location.href = this.value;
     })
+
+    /***************************************************************************
+     * Gallery
+     **************************************************************************/
+    $('.slider-for').slick({
+        slidesToShow : 1,
+        slidesToScroll : 1,
+        asNavFor : '.slider-nav'
+    });
+    $('.slider-nav').slick({
+        slidesToShow : 6,
+        slidesToScroll : 1,
+        asNavFor : '.slider-for',
+        dots : true,
+        focusOnSelect : true
+    });
 });
