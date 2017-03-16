@@ -1,7 +1,8 @@
 package com.silversea.aem.components.included;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.s7dam.constants.S7damConstants;
 
 public class VariationAssetDisplay extends WCMUsePojo {
     private static final Logger LOGGER = LoggerFactory.getLogger(VariationAssetDisplay.class);
@@ -23,7 +23,7 @@ public class VariationAssetDisplay extends WCMUsePojo {
     /**
      * @return image path
      */
-    private String renditionPath(String componentPath) {
+    private Asset getAsset(String componentPath) {
         // Check if the node is created
         Resource componentRes = getResourceResolver().resolve(getResource().getPath() + componentPath);
         if (componentRes != null) {
@@ -32,34 +32,31 @@ public class VariationAssetDisplay extends WCMUsePojo {
                 Resource assetResource = getResourceResolver().getResource(imagePath);
                 // Check if the asset exist
                 if (assetResource != null) {
-                    Asset asset = assetResource.adaptTo(Asset.class);
-                    Node assetNode = assetResource.adaptTo(Node.class);
-
-                    String assetType = null;
-                    String thumbnailPath = "";
-                    try {
-                        if (assetNode.hasProperty(S7damConstants.S7_ASSET_METADATA_NODE + "/" + S7damConstants.PN_S7_TYPE)) {
-                            assetType = assetNode.getProperty(S7damConstants.S7_ASSET_METADATA_NODE + "/" + S7damConstants.PN_S7_TYPE).getString();
-                        }
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Exception, asset node not find", e);
-                    }
-
-                    if (assetType.equals(S7damConstants.S7_IMAGE_SET)) {
-                        // Dynamic Media Image Set
-                        Resource members = getResourceResolver().resolve(asset.getPath() + "/jcr:content/related/s7Set");
-                        ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
-                        // Use the first member for thumbnail
-                        thumbnailPath = membersCollection.getResources().next().getPath();
-                    } else if (assetType.equals(S7damConstants.S7_IMAGE)) {
-                        // Dynamic Media Image
-                        thumbnailPath = asset.getImagePreviewRendition().getPath();
-                    }
-                    return thumbnailPath;
+                    return assetResource.adaptTo(Asset.class);
                 }
             }
         }
-        return "";
+        return null;
+    }
+
+    private List<String> renditionPathList(String componentPath) {
+        List<String> renditionList = new ArrayList<String>();
+
+        // Dynamic Media Image Set
+        Resource members = getResourceResolver().resolve(getAsset(componentPath).getPath() + "/jcr:content/related/s7Set");
+        ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
+        Iterator<Resource> it = membersCollection.getResources();
+
+        while (it.hasNext()) {
+            renditionList.add(it.next().getPath());
+        }
+
+        return renditionList;
+    }
+
+    private String renditionPath(String componentPath) {
+        // Dynamic Media Image
+        return getAsset(componentPath).getPath();
     }
 
     /**
@@ -72,8 +69,8 @@ public class VariationAssetDisplay extends WCMUsePojo {
     /**
      * @return the location image path
      */
-    public String getLocationImageRenditionPath() {
-        return renditionPath("/locationImages/image");
+    public List<String> getLocationImageRenditionPath() {
+        return renditionPathList("/locationImages/image");
     }
 
     /**

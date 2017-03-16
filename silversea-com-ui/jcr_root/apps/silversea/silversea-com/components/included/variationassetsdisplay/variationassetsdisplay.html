@@ -7,17 +7,28 @@
     </a>
     <strong>${'suite-plan' @ i18n}</strong>
 </div>
-<div class="col-sm-4" data-sly-test.locationLightboxPath="${variationAssetDisplay.locationImageRenditionPath}">
+<div class="col-sm-4" data-sly-test.locationLightboxPath="${variationAssetDisplay.locationImageRenditionPath[0]}">
     <a href="${locationLightboxPath}" type="button" data-target=".bs-modal-md" class="gallery-modal">
         <sly data-sly-call="${imageTemplate.default @ imagePath=locationLightboxPath}"></sly>
     </a>
     <strong>${'suite-location' @ i18n}</strong>
-    
 </div>
 <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${variationAssetDisplay.virtualtourImageRenditionPath}">
     <a href="${virualtourLightboxPath}" type="button" data-target=".bs-modal-md" class="virtual-tour-modal">
         <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath}"></sly>
     </a>
     <strong>${'virtual-tour' @ i18n}</strong>
+</div>
+<div class="col-sm-12">
+    <div class="slider slider-for" data-sly-list="${variationAssetDisplay.locationImageRenditionPath}">
+        <div data-sly-test.renditionGallery="${'{0}?wid=1000' @ format=[item]}">
+            <sly data-sly-call="${imageTemplate.default @ imagePath=renditionGallery}"></sly>
+        </div>
+    </div>
+    <div class="slider slider-nav" data-sly-list="${variationAssetDisplay.locationImageRenditionPath}">
+        <div data-sly-test.renditionGalleryNav="${'{0}?wid=146' @ format=[item]}">
+            <sly data-sly-call="${imageTemplate.default @ imagePath=renditionGalleryNav}"></sly>
+        </div>
+    </div>
 </div>
 <hr />
