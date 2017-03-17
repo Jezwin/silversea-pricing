@@ -5,4 +5,5 @@
     </filter>
     <filter root="/conf/silversea-com"/>
     <filter root="/content/silversea-com/en/robots.txt"/>
+    <filter root="/content/elb.txt"/>
 </workspaceFilter>
