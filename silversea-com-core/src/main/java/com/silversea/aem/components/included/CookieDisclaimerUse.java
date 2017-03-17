@@ -16,10 +16,7 @@ import com.silversea.aem.helper.GeolocationHelper;
 /**
  * Created by asiba on 14/03/2017.
  */
-public class CookieDisclamerUse extends WCMUsePojo {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CookieDisclamerUse.class);
-
+public class CookieDisclaimerUse extends WCMUsePojo {
     private GeolocationTagCacheService geolocService;
 
     private String currentCountrySelector;
