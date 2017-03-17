@@ -4,4 +4,4 @@
     jcr:title="SSC - Side Menu"
     sling:resourceSuperType="wcm/foundation/components/text"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - Editorial"/>
+    componentGroup="SSC - Editorial" />

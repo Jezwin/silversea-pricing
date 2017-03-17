@@ -1,12 +1,8 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Suite area variation properties display"></div>
 <div class="o-area-property-display">
     <div class="o-section">
-        <!-- Image -->
         <div data-sly-resource="${'slider' @ resourceType='silversea/silversea-com/components/editorial/slider'}"></div>
-        
-        <!-- Title -->
         <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
-       
-        <!-- Description -->
         <div class="o-section o-section--separator o-description">
             <div class="row">
                 <div class="col-sm-6">
@@ -18,7 +14,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="suitevariation__features">
                 <h4>Features</h4>
                 <ul data-sly-list="${pageProperties.suiteFeature}">
