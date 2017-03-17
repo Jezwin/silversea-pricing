@@ -53,8 +53,12 @@
   background-clip: padding-box;
   // Remove focus outline from opened modal
   outline: 0;
-  &.modal-content-transparent {
+  &--transparent {
     background-color: transparent;
+
+    .modal-body {
+        padding: 0;
+    }
   }
 }
 
