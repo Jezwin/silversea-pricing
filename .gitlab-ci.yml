@@ -8,10 +8,9 @@ mvn_build_dev_author:
         - maven
         - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://ssc-int-author.dmz.stde.sqli.com:4502
+        - mvn clean install -Pauto-install-package -Dcq.url=http://34.249.35.114:4502
     only:
         - develop
-        - master
 
 mvn_build_dev_publish1:
     stage: dev-build
@@ -20,10 +19,9 @@ mvn_build_dev_publish1:
         - maven
         - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://ssc-int-publish1.dmz.stde.sqli.com:4503
+        - mvn clean install -Pauto-install-package -Dcq.url=http://34.251.88.130:4503
     only:
         - develop
-        - master
 
 mvn_build_dev_publish2:
     stage: dev-build
@@ -32,7 +30,6 @@ mvn_build_dev_publish2:
         - maven
         - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://ssc-int-publish2.dmz.stde.sqli.com:4503
+        - mvn clean install -Pauto-install-package -Dcq.url=http://34.252.20.219:4503
     only:
         - develop
-        - master
