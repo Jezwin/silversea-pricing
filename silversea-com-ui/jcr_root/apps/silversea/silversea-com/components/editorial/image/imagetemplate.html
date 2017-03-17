@@ -1,0 +1,9 @@
+<template data-sly-template.default="${ @ imagePath }">
+    <picture data-sly-test.imagePrefix="${'/is/image/'}">
+        <!--[if IE 9]><video style="display: none;"><![endif]-->
+        <source srcset="${imagePath @ prependPath=imagePrefix}, ${imagePath @ prependPath=imagePrefix} 2x" media="(max-width: 767px)"></source>
+        <source srcset="${imagePath @ prependPath=imagePrefix}, ${imagePath @ prependPath=imagePrefix} 2x" media="(min-width: 768px)"></source>
+        <!--[if IE 9]></video><![endif]-->
+        <img src="${imagePath @ prependPath=imagePrefix}" alt="${properties.alt}" title="${properties.title}" class="o-img cq-dd-image" />
+    </picture>
+</template>

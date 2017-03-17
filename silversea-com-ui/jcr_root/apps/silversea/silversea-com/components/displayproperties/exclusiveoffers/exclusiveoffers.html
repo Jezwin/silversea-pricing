@@ -8,7 +8,9 @@
             src="${pageProperties.assetSelectionReference}" alt="" />
 
         <!-- Title -->
-        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
+        <h1 class="o-title">
+            ${currentPage.navigationTitle || currentPage.title @ context='html'}
+        </h1>
 
         <!-- Description -->
         <div class="o-section o-section--separator o-description">
