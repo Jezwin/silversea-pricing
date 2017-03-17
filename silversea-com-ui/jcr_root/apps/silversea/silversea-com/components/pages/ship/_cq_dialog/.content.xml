@@ -66,8 +66,7 @@
                                         cq-msm-lockable="bannerReference"
                                         fieldLabel="Hero Banner"
                                         name="./bannerReference"
-                                        renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true" />
+                                        renderReadOnly="{Boolean}true" />
                                     <assetGallerySelectionReference
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
