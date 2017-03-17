@@ -1,19 +1,17 @@
 package com.silversea.aem.components.included;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.NameConstants;
-import com.silversea.aem.components.services.GeolocationTagCacheService;
-import com.silversea.aem.helper.GeolocationHelper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import java.util.*;
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
+import com.day.cq.commons.inherit.InheritanceValueMap;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.silversea.aem.components.services.GeolocationTagCacheService;
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.GeolocationHelper;
 
 /**
  * Created by asiba on 14/03/2017.
@@ -28,8 +26,12 @@ public class CookieDisclamerUse extends WCMUsePojo {
 
     private Boolean showCookieMsg;
 
+    private String description;
+    
     @Override
     public void activate() throws Exception {
+        InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
+        description = properties.getInherited("jcr:description", String.class);
 
         showCookieMsg = false;
 
@@ -51,8 +53,17 @@ public class CookieDisclamerUse extends WCMUsePojo {
         }
     }
 
+    /**
+     * @return the showCookieMsg
+     */
     public Boolean getShowCookieMsg() {
         return showCookieMsg;
     }
 
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
 }
