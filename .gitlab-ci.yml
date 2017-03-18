@@ -1,6 +1,8 @@
 stages:
     - dev-build
+    - rc-build
 
+### DEV Build
 mvn_build_dev_author:
     stage: dev-build
     tags:
@@ -27,3 +29,31 @@ mvn_build_dev_publish2:
         - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.21.95:4503
     only:
         - develop
+
+### RC Build
+mvn_build_rc_author:
+    stage: rc-build
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.2.240:4502
+    only:
+        - release-*
+
+mvn_build_rc_publish1:
+    stage: rc-build
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.14.111:4503
+    only:
+        - release-*
+
+mvn_build_rc_publish2:
+    stage: rc-build
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.30.57:4503
+    only:
+        - release-*
