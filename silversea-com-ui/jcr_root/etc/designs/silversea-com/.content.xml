@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="cq:Page">
     <clientlibs/>
     <jcr:content
@@ -9,7 +10,7 @@
         <page jcr:primaryType="nt:unstructured">
             <par
                     jcr:primaryType="nt:unstructured"
-                    components="[/libs/wcm/foundation/components/responsivegrid,group:SSC - Editorial,group:SSC - Voyage Journals,group:SSC - display properties]"/>
+                    components="[/libs/wcm/foundation/components/responsivegrid,group:SSC - Editorial,group:SSC - Voyage Journals,group:SSC - display properties,group:SSC - Brochures]"/>
             <parSide
                     jcr:primaryType="nt:unstructured"
                     components="[/libs/wcm/foundation/components/iparsys,group:Silversea - Editorial,group:Silversea - Voyage Journals,group:Silversea - displayproperties,group:Silversea - voyagejournals]"/>
