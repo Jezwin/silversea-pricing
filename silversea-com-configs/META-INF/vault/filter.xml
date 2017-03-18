@@ -6,4 +6,7 @@
     <filter root="/conf/silversea-com"/>
     <filter root="/content/silversea-com/en/robots.txt"/>
     <filter root="/content/elb.txt"/>
+    <filter root="/etc/workflow/launcher/config/dam_xmp_writeback"/>
+    <filter root="/etc/workflow/launcher/config/metadata_set_lastmodified"/>
+    <filter root="/etc/workflow/models/dam/update_asset"/>
 </workspaceFilter>
