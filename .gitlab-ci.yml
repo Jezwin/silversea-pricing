@@ -38,7 +38,7 @@ mvn_build_rc_author:
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.2.240:4502
     only:
-        - release-*
+        - /^release-.*$/
 
 mvn_build_rc_publish1:
     stage: rc-build
@@ -47,7 +47,7 @@ mvn_build_rc_publish1:
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.14.111:4503
     only:
-        - release-*
+        - /^release-.*$/
 
 mvn_build_rc_publish2:
     stage: rc-build
@@ -56,4 +56,4 @@ mvn_build_rc_publish2:
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.30.57:4503
     only:
-        - release-*
+        - /^release-.*$/
