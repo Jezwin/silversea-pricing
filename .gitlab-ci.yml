@@ -4,32 +4,26 @@ stages:
 mvn_build_dev_author:
     stage: dev-build
     tags:
-        - dev
         - maven
-        - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://34.249.35.114
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.6.213:4502
     only:
         - develop
 
 mvn_build_dev_publish1:
     stage: dev-build
     tags:
-        - dev
         - maven
-        - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://34.251.88.130
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.13.214:4503
     only:
         - develop
 
 mvn_build_dev_publish2:
     stage: dev-build
     tags:
-        - dev
         - maven
-        - author
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://34.252.20.219
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.21.95:4503
     only:
         - develop
