@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+    jcr:primaryType="rep:SystemUser"
+    jcr:uuid="f7c76c0f-e43f-37ee-aee9-f55cd048673c"
+    rep:authorizableId="geotagging-cache"
+    rep:principalName="geotagging-cache"/>

@@ -21,4 +21,7 @@ public interface WcmConstants {
 
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
+
+    // Tags
+    String TAG_NAMESPACE_LANGUAGES = "languages:";
 }

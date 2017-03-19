@@ -2,22 +2,17 @@ package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
-import com.day.cq.dam.api.Rendition;
-import com.day.cq.dam.api.RenditionPicker;
-import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.models.BrochureModel;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
-
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BrochureTeaserUse extends WCMUsePojo {
 
-    private String brochurePath;
-    private Asset asset;
+    static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserUse.class);
 
-    private List<String> assetThumbnailsList;
+    private BrochureModel brochure;
 
     private boolean showOnlineRequestForm;
     private boolean showPrintedRequestForm;
@@ -26,43 +21,30 @@ public class BrochureTeaserUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        ValueMap properties = getProperties();
-
-        brochurePath = properties.get(WcmConstants.PN_FILE_REFERENCE, String.class);
-
         // TODO set the currentstyle param.
         showOnlineRequestForm = false;
         showPrintedRequestForm = false;
         onlineRequestFormURL = "";
         printedRequestForm = "";
 
+        // Initialize the brochure model
+        String brochurePath = getProperties().get(WcmConstants.PN_FILE_REFERENCE, String.class);
         if (brochurePath != null) {
             Resource assetResource = getResourceResolver().getResource(brochurePath);
-            asset = assetResource.adaptTo(Asset.class);
+            Asset asset = assetResource.adaptTo(Asset.class);
+
+            LOGGER.debug("Found asset {}", asset.getPath());
+
+            if (asset != null) {
+                LOGGER.debug("Adapting asset {} to BrochureModel", asset.getPath());
+
+                brochure = asset.adaptTo(BrochureModel.class);
+            }
         }
     }
 
-    public String getCover() {
-        if (asset != null) {
-            RenditionPicker renditionPicker = new PrefixRenditionPicker("cover");
-            Rendition rendition = asset.getRendition(renditionPicker);
-
-            return rendition.getPath();
-        }
-
-        return null;
-    }
-
-    public String getBrochurePath() {
-        return brochurePath;
-    }
-
-    public String getAssetTitle() {
-        return asset != null ? asset.getMetadataValue(DamConstants.DC_TITLE) : null;
-    }
-
-    public String getAssetDescription() {
-        return asset != null ? asset.getMetadataValue(DamConstants.DC_DESCRIPTION) : null;
+    public BrochureModel getBrochure() {
+        return brochure;
     }
 
     public boolean isShowOnlineRequestForm() {

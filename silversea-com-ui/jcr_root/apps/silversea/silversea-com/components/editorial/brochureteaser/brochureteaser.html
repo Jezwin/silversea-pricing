@@ -1,39 +1,8 @@
-<div data-sly-use.brochure="${'com.silversea.aem.components.editorial.BrochureTeaserUse'}"
-     data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochure.brochurePath}"
+<div data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse'}"
+     data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochureTeaserUse.brochure}"
      class="cq-placeholder cq-dd-file" data-emptytext="Brochure teaser"></div>
 
-<div data-sly-test="${brochure.brochurePath}" data-sly-unwrap="${!wcmmode.edit}" class="cq-dd-file">
-    <div class="row">
-        <div class="col-md-12 visible-sm visible-xs">
-            <h2 class="c-brochure__title">${brochure.assetTitle}</h2>
-        </div>
-        <div class="col-md-7">
-            <img class="c-brochure__img" alt="${brochure.title}" src="${brochure.cover}" />
-        </div>
-        <div class="col-md-5">
-            <h2 class="c-brochure__title visible-lg visible-md">${brochure.assetTitle}</h2>
-            <p class="c-brochure__description">${brochure.assetDescription}</p>
-            <p class="c-brochure__btnwrapper"
-               data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
-                <a data-sly-test="${currentStyle.onlineRequestFormReference || currentStyle.onlineRequestFormList || brochure.showOnlineRequestForm}"
-                   href="${currentStyle.onlineRequestFormReference @ extension='html', selectors='modalcontent'}"
-                   class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal"
-                   data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                    <i class="fa fa-search"></i>
-                    <strong>${'view-online' @i18n}</strong>
-                </a>
-            </p>
-            <p class="c-brochure__btnwrapper"
-               data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
-                <a data-sly-test="${currentStyle.printedRequestFormReference || currentStyle.printedRequestFormList || brochure.showPrintedRequestForm}"
-                   href="${currentStyle.printedRequestFormReference @ extension='html', selectors='modalcontent'}"
-                   class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal"
-                   data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                    <i class="fa fa-envelope"></i>
-                    <strong>${'mail-me-brochure' @ i18n}</strong>
-                </a>
-            </p>
-        </div>
-    </div>
-    <hr>
+<div data-sly-test.brochure="${brochureTeaserUse.brochure}" data-sly-unwrap="${!wcmmode.edit}" class="cq-dd-file">
+    <sly data-sly-use.brochureTemplate="brochure.html"
+         data-sly-call="${brochureTemplate.default @ brochure = brochureTeaserUse.brochure, currentStyle = currentStyle}"></sly>
 </div>

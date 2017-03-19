@@ -1,82 +1,122 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.jcr.Node;
-
-import org.apache.sling.api.resource.Resource;
-
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.silversea.aem.components.services.GeolocationTagCacheService;
-import com.silversea.aem.helper.GeolocationHelper;
+import com.day.cq.commons.RangeIterator;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.helper.TagHelper;
+import com.silversea.aem.models.BrochureModel;
+import com.silversea.aem.services.GeolocationTagService;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ */
 public class BrochureTeaserListUse extends WCMUsePojo {
 
-    private static final String COUNTRY_ID_PARAM = "countryIdParam";
+    static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserListUse.class);
 
-    private static final String PATH_TO_BROCHURES_DAM = "/jcr:root/content/dam/siversea-com";
+    /**
+     * List of brochure paths, based on selected language and geolocation
+     */
+    private List<BrochureModel> brochures;
 
-    private List<String> brochureList;
+    private List<BrochureModel> brochuresNotLanguageFiltered;
 
-    private GeolocationTagCacheService geolocService;
+    private List<Tag> languages;
 
-    private Map<String, String> langMap;
-
-    private String currentCountrySelector;
-
-    private String currentLanguageSelector;
+    private String currentLanguage;
 
     @Override
     public void activate() throws Exception {
+        GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
 
-        geolocService = getSlingScriptHelper().getService(GeolocationTagCacheService.class);
+        // Getting context
+        final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
 
-        String tagId = geolocService.getTagIdFromCurrentRequest(getResourceResolver(), getRequest());
+        currentLanguage = LanguageHelper.getLanguage(getRequest());
+        if (currentLanguage == null) {
+            currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
+        }
+        final String languageTagId = "languages:" + currentLanguage;
 
-        currentCountrySelector = GeolocationHelper.getCountryCodeSelector(getRequest().getRequestPathInfo().getSelectors());
+        final String brochuresPath = getProperties().get("folderReference", "/content/dam/siversea-com/brochures");
 
-        currentLanguageSelector = GeolocationHelper.getLanguageSelector(getRequest().getRequestPathInfo().getSelectors());
+        // Building tag list
+        List<String> tagList = new ArrayList<>();
 
-        String langugeCode = geolocService.getLanguageCodeCurrentRequest(getResourceResolver(), getRequest());
+        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
-        langMap = new HashMap<String, String>();
-        for (String currentLang : geolocService.getLangList(getResourceResolver())) {
-            langMap.put(GeolocationHelper.LANGUAGE_PREFIX + currentLang, currentLang);
+        if (geolocationTagId != null) {
+            Tag geolocationTag = tagManager.resolve(geolocationTagId);
+
+            if (geolocationTag != null) {
+                tagList.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
+            }
         }
 
-        String langugeCodeQuerie = "";
-        if (langugeCode != null && !"".equals(langugeCode)) {
-            langugeCodeQuerie = "/" + langugeCode;
+        // Searching for brochures
+        brochuresNotLanguageFiltered = new ArrayList<>();
+        brochures = new ArrayList<>();
+        languages = new ArrayList<>();
+
+        LOGGER.debug("Searching brochures with tags: {}", tagList);
+
+        RangeIterator<Resource> resources = tagManager.find(brochuresPath,
+                tagList.toArray(new String[tagList.size()]), true);
+
+        if (resources != null) {
+            while (resources.hasNext()) {
+                Resource resource = resources.next();
+                Asset asset = resource.getParent().getParent().adaptTo(Asset.class);
+
+                if (asset != null) {
+                    BrochureModel brochure = asset.adaptTo(BrochureModel.class);
+                    brochuresNotLanguageFiltered.add(brochure);
+                }
+            }
+
+            // Building brochures list for current selected language
+            for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+                // Checking if found brochure correspond to the current language
+                if (brochure.getLanguage().getName().equals(currentLanguage)) {
+                    brochures.add(brochure);
+                }
+            }
+
+            // build language list
+            for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+                Tag language = brochure.getLanguage();
+
+                LOGGER.debug("Searching language for brochure: {}", brochure.getBrochurePath());
+
+                if (language != null) {
+                    LOGGER.debug("Adding language {} to language list", language.getTagID());
+
+                    languages.add(language);
+                }
+            }
         }
-
-        Iterator<Resource> resources = getResourceResolver().findResources(
-                PATH_TO_BROCHURES_DAM + langugeCodeQuerie + "/brochures//*[jcr:content/metadata/@cq:tags=\"" + tagId + "\"]",
-                "xpath");
-        brochureList = new ArrayList<String>();
-
-        while (resources.hasNext()) {
-            Node node = resources.next().adaptTo(Node.class);
-            brochureList.add(node.getPath());
-        }
     }
 
-    public List<String> getBrochureList() {
-        return brochureList;
+    public List<BrochureModel> getBrochures() {
+        return brochures;
     }
 
-    public Map<String, String> getLangMap() {
-        return langMap;
+    public List<Tag> getLanguages() {
+        return languages;
     }
 
-    public String getCurrentCountrySelector() {
-        return currentCountrySelector;
-    }
-
-    public String getCurrentLanguageSelector() {
-        return currentLanguageSelector;
+    public String getCurrentLanguage() {
+        return currentLanguage;
     }
 }
