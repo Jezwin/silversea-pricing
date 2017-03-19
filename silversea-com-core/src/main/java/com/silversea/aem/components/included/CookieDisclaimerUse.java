@@ -1,52 +1,44 @@
 package com.silversea.aem.components.included;
 
-import org.apache.sling.api.resource.ResourceResolver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import com.silversea.aem.components.services.GeolocationTagCacheService;
-import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
+import com.silversea.aem.services.GeolocationTagService;
+import org.apache.sling.api.resource.ResourceResolver;
 
 /**
  * Created by asiba on 14/03/2017.
  */
 public class CookieDisclaimerUse extends WCMUsePojo {
-    private GeolocationTagCacheService geolocService;
 
-    private String currentCountrySelector;
-
-    private Boolean showCookieMsg;
+    private Boolean showCookieMsg = false;
 
     private String description;
     
     @Override
     public void activate() throws Exception {
-        InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        description = properties.getInherited("jcr:description", String.class);
+        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
-        showCookieMsg = false;
+        // Getting context
+        GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
 
-        geolocService = getSlingScriptHelper().getService(GeolocationTagCacheService.class);
+        // Getting inherited properties
+        final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
+        description = properties.getInherited(JcrConstants.JCR_DESCRIPTION, String.class);
+        String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
 
-        String[] tagIds = getProperties().get("cq:tags", String[].class);
-
-        currentCountrySelector = GeolocationHelper.getCoutryCodeFromSelector(getRequest().getRequestPathInfo().getSelectors());
-
-        /*
-        * TODO : AUO Should i put this code in GeolocationTagCacheSevice method ?
-        * */
-        ResourceResolver resourceResolver = getResourceResolver();
-        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-        for (String tagId : tagIds) {
-            Tag tmp = tagManager.resolve(tagId);
-            if (tmp.getTitle().toLowerCase().equals(currentCountrySelector))
-                showCookieMsg = true;
+        if (tags != null) {
+            for (String tag : tags) {
+                if (tag.equals(geolocationTagId)) {
+                    showCookieMsg = true;
+                }
+            }
         }
     }
 
