@@ -8,6 +8,7 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 
 public class PageHelper extends WCMUsePojo {
+
     private Page page;
 
     @Override
@@ -38,10 +39,11 @@ public class PageHelper extends WCMUsePojo {
      */
     public String getTemplateName() {
         String path = getCurrentPage().getProperties().get(NameConstants.NN_TEMPLATE, String.class);
+
         if (StringUtils.isEmpty(path)) {
             return "";
         }
+
         return path.substring(path.lastIndexOf('/') + 1);
     }
-
 }

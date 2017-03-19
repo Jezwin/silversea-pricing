@@ -10,6 +10,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
  * @author mjedli
  *
  */
+@Deprecated
 public class SilverseaHelper {
 
     public static final String CONTENT = "/content/";
