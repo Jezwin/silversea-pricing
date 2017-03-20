@@ -27,4 +27,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="day"
         sling:message="Day" />
+    <features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="features"
+        sling:message="Features" />
 </jcr:root>

@@ -1,4 +1,5 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Suite area variation properties display"></div>
+<div data-sly-test.empty="${(wcmmode.edit || wcmmode.design) && !pageProperties.longDescription && !pageProperties.suiteFeature}"
+     class="cq-placeholder" data-emptytext="Suite variation properties display"></div>
 <div class="o-area-property-display">
     <div class="o-section">
         <div data-sly-resource="${'slider' @ resourceType='silversea/silversea-com/components/editorial/slider'}"></div>
@@ -14,8 +15,8 @@
                     </div>
                 </div>
             </div>
-            <div class="suitevariation__features">
-                <h4>Features</h4>
+            <div class="suitevariation__features" data-sly-test="${pageProperties.suiteFeature}">
+                <h4>${'features' @ i18n}</h4>
                 <ul data-sly-list="${pageProperties.suiteFeature}">
                     <li>${item}</li>
                 </ul>
