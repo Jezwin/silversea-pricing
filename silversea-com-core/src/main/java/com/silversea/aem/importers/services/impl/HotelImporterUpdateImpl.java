@@ -175,7 +175,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
             resourceResolver.close();
             
             } } catch (ApiException | WCMException | LoginException | RepositoryException e) {
-            LOGGER.error("Exception importing shorexes", e);
+            LOGGER.error("Exception importing hotels", e);
         }
     }
 }
