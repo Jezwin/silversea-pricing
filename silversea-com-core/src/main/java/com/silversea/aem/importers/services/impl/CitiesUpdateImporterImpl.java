@@ -71,7 +71,10 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
             // get last importing date
             String dateFormat = "yyyymmdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-            String currentDate = formatter.format(date.getTime());
+            String currentDate;
+            if (date != null) {
+                currentDate = formatter.format(date.getTime());
+             
 
             Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
 
@@ -170,7 +173,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+            } } catch (ApiException | WCMException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing cities", e);
         }
     }

@@ -72,7 +72,10 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
             // get last importing date
             String dateFormat = "yyyymmdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-            String currentDate = formatter.format(date.getTime());
+            String currentDate;
+            if(date !=null){
+             currentDate = formatter.format(date.getTime());
+           
 
             int i = 1;
 
@@ -170,7 +173,8 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+            
+            } } catch (ApiException | WCMException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
     }

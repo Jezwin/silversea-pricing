@@ -55,12 +55,12 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
     @Override
     public void importUpdateShoreExcursions() throws IOException, ReplicationException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/shoreExcursions");
-        
+
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            
+
             // get parent content resource
             Resource resParent = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
@@ -68,109 +68,113 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
             // get last importing date
             String dateFormat = "yyyymmdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-            String currentDate = formatter.format(date.getTime());
+            String currentDate;
+            if (date != null) {
+                currentDate = formatter.format(date.getTime());
 
-            ShorexesApi shorexesApi = new ShorexesApi();
-            shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+                ShorexesApi shorexesApi = new ShorexesApi();
+                shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
-            List<Shorex77> shorexes;
-            int i = 1;
+                List<Shorex77> shorexes;
+                int i = 1;
 
-            do {
-                shorexes = shorexesApi.shorexesGetChanges(currentDate, i, 100, null);
+                do {
+                    shorexes = shorexesApi.shorexesGetChanges(currentDate, i, 100, null);
 
-                int j = 0;
+                    int j = 0;
 
-                for (Shorex77 shorex : shorexes) {
-                    LOGGER.debug("Importing shorex: {}", shorex.getShorexCod());
+                    for (Shorex77 shorex : shorexes) {
+                        LOGGER.debug("Importing shorex: {}", shorex.getShorexCod());
 
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/codeExcursion=\"" + shorex.getShorexCod() + "\"]",
-                            "xpath");
+                        Iterator<Resource> resources = resourceResolver.findResources(
+                                "//element(*,cq:Page)[jcr:content/codeExcursion=\"" + shorex.getShorexCod() + "\"]",
+                                "xpath");
 
-                    Page excursionPage = null;
+                        Page excursionPage = null;
 
-                    if (resources.hasNext()) {
-                        excursionPage = resources.next().adaptTo(Page.class);
-                        if (BooleanUtils.isTrue(shorex.getIsDeleted())) {
-                            replicat.replicate(session, ReplicationActionType.DEACTIVATE, excursionPage.getPath());
-                        }
-                        LOGGER.debug("Shorex page {} with ID {} already exists", shorex.getShorexName(),
-                                shorex.getShorexId());
-                    } else {
-                        Integer cityId = shorex.getCities().size() > 0 ? shorex.getCities().get(0).getCityId() : null;
-
-                        if (cityId != null) {
-                            Iterator<Resource> portsResources = resourceResolver.findResources(
-                                    "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
-
-                            if (portsResources.hasNext()) {
-                                Page portPage = portsResources.next().adaptTo(Page.class);
-
-                                LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
-
-                                Page excursionsPage;
-                                if (portPage.hasChild("excursions")) {
-                                    excursionsPage = pageManager.getPage(portPage.getPath() + "/excursions");
-                                } else {
-                                    excursionsPage = pageManager.create(portPage.getPath(), "excursions",
-                                            "/apps/silversea/silversea-com/templates/page", "Excursions", false);
-                                }
-
-                                excursionPage = pageManager.create(excursionsPage.getPath(),
-                                        JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                                shorex.getShorexCod()),
-                                        "/apps/silversea/silversea-com/templates/excursion", shorex.getShorexCod(),
-                                        false);
-
-                                LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
-                            } else {
-                                LOGGER.debug("No city found with id {}", cityId);
+                        if (resources.hasNext()) {
+                            excursionPage = resources.next().adaptTo(Page.class);
+                            if (BooleanUtils.isTrue(shorex.getIsDeleted())) {
+                                replicat.replicate(session, ReplicationActionType.DEACTIVATE, excursionPage.getPath());
                             }
+                            LOGGER.debug("Shorex page {} with ID {} already exists", shorex.getShorexName(),
+                                    shorex.getShorexId());
                         } else {
-                            LOGGER.debug("Excursion have no city attached, not imported");
+                            Integer cityId = shorex.getCities().size() > 0 ? shorex.getCities().get(0).getCityId()
+                                    : null;
+
+                            if (cityId != null) {
+                                Iterator<Resource> portsResources = resourceResolver.findResources(
+                                        "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
+
+                                if (portsResources.hasNext()) {
+                                    Page portPage = portsResources.next().adaptTo(Page.class);
+
+                                    LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
+
+                                    Page excursionsPage;
+                                    if (portPage.hasChild("excursions")) {
+                                        excursionsPage = pageManager.getPage(portPage.getPath() + "/excursions");
+                                    } else {
+                                        excursionsPage = pageManager.create(portPage.getPath(), "excursions",
+                                                "/apps/silversea/silversea-com/templates/page", "Excursions", false);
+                                    }
+
+                                    excursionPage = pageManager.create(excursionsPage.getPath(),
+                                            JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
+                                                    shorex.getShorexCod()),
+                                            "/apps/silversea/silversea-com/templates/excursion", shorex.getShorexCod(),
+                                            false);
+
+                                    LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
+                                } else {
+                                    LOGGER.debug("No city found with id {}", cityId);
+                                }
+                            } else {
+                                LOGGER.debug("Excursion have no city attached, not imported");
+                            }
                         }
-                    }
 
-                    if (excursionPage != null) {
-                        Node excursionPageContentNode = excursionPage.getContentResource().adaptTo(Node.class);
+                        if (excursionPage != null) {
+                            Node excursionPageContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
-                        excursionPageContentNode.setProperty(JcrConstants.JCR_TITLE, shorex.getShorexName());
-                        excursionPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
-                                shorex.getShortDescription());
-                        excursionPageContentNode.setProperty("codeExcursion", shorex.getShorexCod());
-                        excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
-                        excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
+                            excursionPageContentNode.setProperty(JcrConstants.JCR_TITLE, shorex.getShorexName());
+                            excursionPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
+                                    shorex.getShortDescription());
+                            excursionPageContentNode.setProperty("codeExcursion", shorex.getShorexCod());
+                            excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
+                            excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
 
-                        j++;
-                    }
+                            j++;
+                        }
 
-                    if (j % 100 == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
                             }
                         }
                     }
+
+                    i++;
+                } while (shorexes.size() > 0);
+
+                if (session.hasPendingChanges()) {
+                    try {
+                        // save migration date
+                        Node rootNode = resParent.adaptTo(Node.class);
+                        rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+                        session.save();
+                    } catch (RepositoryException e) {
+                        session.refresh(false);
+                    }
                 }
 
-                i++;
-            } while (shorexes.size() > 0);
-
-            if (session.hasPendingChanges()) {
-                try {
-                    // save migration date
-                    Node rootNode = resParent.adaptTo(Node.class);
-                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-                    session.save();
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
+                resourceResolver.close();
             }
-
-            resourceResolver.close();
         } catch (ApiException | WCMException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
