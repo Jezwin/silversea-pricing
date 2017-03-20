@@ -47,7 +47,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
 
-//        citiesImporter.importCities();
+        citiesImporter.importCities();
         shoreExcursionsImporter.importShoreExcursions();
         hotelImporter.importHotel();
         landProgramImporter.importLandProgram();

@@ -57,39 +57,32 @@ public class TestUpdateServlet extends SlingSafeMethodsServlet {
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-
-        // citiesImporter.importCities();
-//        shoreExcursionsImporter.importShoreExcursions();
-//        hotelImporter.importHotel();
-//        landProgramImporter.importLandProgram();
-//        travelAgenciesImporter.importTravelAgencies();
-//        exclusiveOffersImporter.importExclusiveOffers();
-//        
+        
         try {
             citiesUpdateImporter.importUpdateCities();
         } catch (ReplicationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-//        try {
-//            hotelUpdateImporter.importUpdateHotel();
-//        } catch (ReplicationException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//        try {
-//            shorexExcursionsUpdateImporter.importUpdateShoreExcursions();
-//        } catch (ReplicationException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//        
-//        try {
-//            landProgramUpdateImporter.importUpdateLandProgram();
-//        } catch (ReplicationException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        try {
+            hotelUpdateImporter.importUpdateHotel();
+        } catch (ReplicationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            shorexExcursionsUpdateImporter.importUpdateShoreExcursions();
+        } catch (ReplicationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        try {
+            landProgramUpdateImporter.importUpdateLandProgram();
+        } catch (ReplicationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 
     }
