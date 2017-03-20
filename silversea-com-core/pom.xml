@@ -129,7 +129,6 @@
             <groupId>com.squareup.okio</groupId>
             <artifactId>okio</artifactId>
         </dependency>
-
         <!-- AEM APIs JAR -->
         <dependency>
             <groupId>com.adobe.aem</groupId>
