@@ -38,7 +38,8 @@
                                         fieldLabel="Slider Images"
                                         renderReadOnly="{Boolean}true"
                                         required="{Boolean}true"
-                                        name="./assetSelectionReference" />
+                                        name="./assetSelectionReference"
+                                        rootPath="/content/silversea-com/"/>
                                 </items>
                             </column>
                         </items>
