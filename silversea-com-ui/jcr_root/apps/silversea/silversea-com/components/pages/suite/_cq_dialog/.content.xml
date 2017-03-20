@@ -39,7 +39,7 @@
                                         renderReadOnly="{Boolean}true"
                                         required="{Boolean}true"
                                         name="./assetSelectionReference"
-                                        rootPath="/content/silversea-com/"/>
+                                        rootPath="/content/dam/siversea-com/ships/"/>
                                 </items>
                             </column>
                         </items>
