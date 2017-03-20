@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,6 +56,8 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
+            Page travelRootPage = pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES);
+
 
             int i = 1;
 
@@ -66,8 +69,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                 travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, 100);
                 
                 // get root parent travel agencies 
-                Page travelRootPage = pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES);
-
+                
                 int j = 0;
 
                 for (Agency agency : travelAgencies) {
@@ -125,6 +127,9 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
             if (session.hasPendingChanges()) {
                 try {
+                    //save migration date
+                    Node rootNode = travelRootPage.getContentResource().adaptTo(Node.class);
+                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
                     session.refresh(false);
