@@ -1,7 +1,7 @@
 <sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse" />
 <div class="c-tab__content" id="Excursions">
-    <h1>${portUse.portModel.title},</h1>
-    <div class="c-accordion" data-multiview="false" data-sly-list="${portUse.portModel.excursions}">
+    <h2>${portUse.portModel.title},</h2>
+    <div class="c-accordion" data-multiview="false" data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>" data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>" data-sly-list="${portUse.portModel.excursions}">
         <div class="c-accordion__elem">
             <div class="c-accordion__header">
                 <div class="c-accordion__title">
@@ -9,7 +9,7 @@
                     <p class="c-accordion__subtitle">${item.shortDescription @ context='unsafe'}</p>
                 </div>
                 <div class="c-accordion__action c-accordion__action--light">
-                    See More&nbsp;<i class="fa fa-angle-down"></i>
+                    ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
                 </div>
             </div>
             <div class="c-accordion__body">
