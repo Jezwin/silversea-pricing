@@ -1,3 +1,37 @@
 <div class="container">
+    <div data-sly-resource="${'herobanner' @ resourceType='/apps/silversea/silversea-com/components/editorial/herobanner'}"></div>
     <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+
+    <div class="c-pagecontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="c-tab c-tab__accordion">
+                    <ul class="c-tab__nav c-tab__nav--regular5">
+                        <li class="c-tab__link"><a href="#${'voyages' @i18n}">${'voyages' @i18n}</a></li>
+                        <li class="c-tab__link"><a href="#${'suites' @i18n}">${'suites' @i18n}</a></li>
+                        <li class="c-tab__link"><a href="#${'dining' @i18n}">${'dining' @i18n}</a></li>
+                        <li class="c-tab__link"><a href="#${'public-areas' @i18n}">${'public-areas' @i18n}</a></li>
+                        <li class="c-tab__link"><a href="#${'deck-plan-details' @i18n}">${'deck-plan-details' @i18n}</a></li>
+                    </ul>
+                    <div class="c-tab__body">
+                        <div class="c-tab__content" data-state="active" id="${'voyages' @ i18n}">
+                            <div data-sly-resource="${'parVoyage' @ resourceType='/apps/silversea/silversea-com/components/editorial/findyourcruise'}"></div>
+                        </div>
+                        <div class="c-tab__content" id="${'suites' @i18n}">
+                            <div data-sly-resource="${'parSuite' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                        </div>
+                        <div class="c-tab__content" id="${'dining' @i18n}">
+                            <div data-sly-resource="${'parDinings' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                        </div>
+                        <div class="c-tab__content" id="${'public-areas' @i18n}">
+                            <div data-sly-resource="${'parPublicAreas' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                        </div>
+                        <div class="c-tab__content" id="${'deck-plan-details' @i18n}">
+                            <div data-sly-resource="${'parDeckPlanAndDetails' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
