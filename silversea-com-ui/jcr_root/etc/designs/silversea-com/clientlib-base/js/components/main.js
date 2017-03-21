@@ -1,5 +1,20 @@
 $(function() {
     /***************************************************************************
+     * Use viewportDetect : allow sync between css breakpoint and javascript
+     * function call
+     **************************************************************************/
+    // On page load event, set viewport class name :
+    var viewportBootstrap = 'viewport-' + $.viewportDetect(), $body = $('body');
+    $body.addClass(viewportBootstrap);
+
+    // On widow resize event, set viewport class name :
+    $.viewportDetect(function(vp) {
+        viewportBootstrap = 'viewport-' + vp;
+        $body.removeClass('viewport-xs viewport-sm viewport-md viewport-lg viewport-xl').addClass(viewportBootstrap);
+        $body.trigger('trigger.viewport.changed');
+    });
+
+    /***************************************************************************
      * Chosen
      **************************************************************************/
     // Activate chosen plugin

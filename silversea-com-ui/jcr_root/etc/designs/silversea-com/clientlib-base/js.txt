@@ -6,3 +6,4 @@ components/c-tab.js
 components/c-accordion.js
 components/c-brochureslist.js
 components/c-cookie.js
+components/c-sidemenu.js
