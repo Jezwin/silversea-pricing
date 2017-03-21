@@ -164,8 +164,8 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 
                 if (session.hasPendingChanges()) {
                     try {
-                        // save migration date
-                        Node rootNode = resParent.adaptTo(Node.class);
+                     // save migration date
+                        Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
                         rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                         session.save();
                     } catch (RepositoryException e) {
