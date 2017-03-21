@@ -6,27 +6,25 @@
         var _self = this;
         
         var _data = {
-            elem: '.c-accordion__elem',
-            link: '.c-accordion__header',
             content: '.c-accordion__body',
             action: '.c-accordion__action',
-            more: 'See More&nbsp;<i class="fa fa-angle-down"></i>',
-            less: 'Close&nbsp;<i class="fa fa-angle-up"></i>'
-        };
-        var _elems = _self.children(_data.elem);
-        var _links = _self.find(_data.link);
-        var _contents = _self.find(_data.content);
-        var _multiple = (_self.attr('data-multiview') == 'true') || false;
+            more: _self.attr('data-more') || '<i class="fa fa-angle-down"></i>',
+            close: _self.attr('data-close') || '<i class="fa fa-angle-up"></i>'
+        },
+        _elems = _self.children('.c-accordion__elem'),
+        _links = _elems.children('.c-accordion__header'),
+        _contents = _self.find(_data.content),
+        _multiple = (_self.attr('data-multiview') == 'true') || false;
 
         /*
         ** Link Click Event to show content
         */
-        _elems.children(_data.link).click(function (e) {
+        _links.click(function (e) {
             e.preventDefault();
 
             var elem = $(this).parent().children(_data.content);
             var isCollapsed = (elem.attr('data-collapsed') == 'true');
-            var value = (!isCollapsed) ? _data.less : _data.more;
+            var value = (!isCollapsed) ? _data.close : _data.more;
 
             if (!_multiple) {
                 _contents.attr('data-collapsed', 'false');

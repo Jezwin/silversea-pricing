@@ -31,4 +31,12 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="features"
         sling:message="Features" />
+    <more-info
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more-info"
+        sling:message="More info" />
+    <close
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="close"
+        sling:message="Close" />
 </jcr:root>
