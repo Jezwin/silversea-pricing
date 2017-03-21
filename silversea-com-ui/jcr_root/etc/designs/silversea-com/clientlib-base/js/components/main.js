@@ -27,16 +27,15 @@ $(function() {
      **************************************************************************/
     // Clean modal content on close event
     $(document).on('hide.bs.modal', function(e) {
+        // Destroy gallery inside modal
+        $('.c-slider--for, .c-slider--nav').slick('unslick');
+
         $(e.target).removeData('bs.modal');
-        var $modalContent = $('body > .modal-content');
+        var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
 
         // Force to default class
         $modalContent.attr('class', 'modal-content');
-
-        // Destroy gallery inside modal
-        $modalContent.find('.c-slider--for, .c-slider--nav').slick('unslick');
-
     });
 
     // Build modal for image
@@ -58,21 +57,30 @@ $(function() {
         var $link = $(this);
 
         $($link.data('target')).modal('show');
-        var $modal = $('.modal-content:visible');
-        $modal.replaceWith($link.siblings(':hidden').html());
+        var $modalContent = $('.modal-content:visible');
+        var $modal = $('.modal:visible');
 
+        // Append gallery inside modal
+        $modalContent.replaceWith($link.siblings(':hidden').html());
+    });
+
+    $('.modal').on('shown.bs.modal', function() {
         // Build gallery
-        $('.c-slider--for').slick({
-            slidesToShow : 1,
-            slidesToScroll : 1,
-            asNavFor : '.c-slider--nav'
-        });
-        $('.c-slider--nav').slick({
-            slidesToShow : 6,
-            slidesToScroll : 1,
-            asNavFor : '.c-slider--for',
-            focusOnSelect : true
-        });
+        setTimeout(function() {
+            $('.c-slider--for').slick({
+                slidesToShow : 1,
+                slidesToScroll : 1,
+                asNavFor : '.modal .c-slider--nav'
+            });
+
+            $('.c-slider--nav').slick({
+                slidesToShow : 6,
+                slidesToScroll : 1,
+                asNavFor : '.modal .c-slider--for',
+                focusOnSelect : true
+            });
+        }, 10);
+
     });
     /***************************************************************************
      * Brochure teaser
