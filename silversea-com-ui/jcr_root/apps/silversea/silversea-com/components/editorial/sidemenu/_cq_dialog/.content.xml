@@ -19,6 +19,7 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                         fieldLabel="Menu root"
+                        rootPath="/content/silversea-com/"
                         name="./reference" />
                 </items>
             </column>
