@@ -1,15 +1,68 @@
 <section class="o-section">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8 c-voyagejournalsday" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
+            <div class="col-sm-8 c-voyagejournalslist" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
                 <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
 
-                <div class="c-pageheader">
-                    <p class="c-pageheader__subtitle">
-                        ${'OTHER-RECENT-JOURNALS' @ i18n}
+                <div class="c-pageheader--nomrg">
+                    <p class="c-pageheader__subtitle--small">
+                        
+<!--                        ${'OTHER-RECENT-JOURNALS' @ i18n}-->
+                        other recent journals
                     </p>
                 </div>
-                <div class="c-voyagejournalsday__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+<!--            <div class="c-voyagejournalsday__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">-->
+                <div class="c-voyagejournalsday__content">
+                    <ul class="c-list">
+                        <li class="c-list__item">
+                            <a href="http://www.silversea.com/expeditions/voyage-journals/9706/">
+                                <span class="voyage-ship-name">Silver Discoverer</span>
+                                <h2 class="voyage-journal-title">9706 PHUKET – <br />BENOA (BALI) ERFDG FEDE</h2>
+                                <span class="voyage-date">13 Mar 2017</span>
+                                <span class="voyage-id">voyage 9706</span>
+                                <span class="overlay">
+                                    <img class="img-responsive" src="http://static.silversea.com/wp-content/uploads/2017/03/9706-Day-3-2.-Guests-begin-hike-through-Gunung-Leuser-National-Park-308x178.jpg" alt="9706 PHUKET – BENOA (BALI)">
+                                </span>
+                            </a>
+                        </li>
+                        
+                        <li class="c-list__item">
+                            <a href="http://www.silversea.com/expeditions/voyage-journals/9706/">
+                                <span class="voyage-ship-name">Silver Discoverer</span>
+                                <h2 class="voyage-journal-title">9706 PHUKET – BENOA (BALI) ERFDG FEDE</h2>
+                                <span class="voyage-date">13 Mar 2017</span>
+                                <span class="voyage-id">voyage 9706</span>
+                                <span class="overlay">
+                                    <img class="img-responsive" src="http://static.silversea.com/wp-content/uploads/2017/03/9706-Day-3-2.-Guests-begin-hike-through-Gunung-Leuser-National-Park-308x178.jpg" alt="9706 PHUKET – BENOA (BALI)">
+                                </span>
+                            </a>
+                        </li>
+                        
+                        <li class="c-list__item">
+                            <a href="http://www.silversea.com/expeditions/voyage-journals/9706/">
+                                <span class="voyage-ship-name">Silver Discoverer</span>
+                                <h2 class="voyage-journal-title">9706 PHUKET – BENOA (BALI) ERFDG FEDE</h2>
+                                <span class="voyage-date">13 Mar 2017</span>
+                                <span class="voyage-id">voyage 9706</span>
+                                <span class="overlay">
+                                    <img class="img-responsive" src="http://static.silversea.com/wp-content/uploads/2017/03/9706-Day-3-2.-Guests-begin-hike-through-Gunung-Leuser-National-Park-308x178.jpg" alt="9706 PHUKET – BENOA (BALI)">
+                                </span>
+                            </a>
+                        </li>
+                        
+                        <li class="c-list__item">
+                            <a href="http://www.silversea.com/expeditions/voyage-journals/9706/">
+                                <span class="voyage-ship-name">Silver Discoverer</span>
+                                <h2 class="voyage-journal-title">9706 PHUKET – BENOA (BALI) ERFDG FEDE</h2>
+                                <span class="voyage-date">13 Mar 2017</span>
+                                <span class="voyage-id">voyage 9706</span>
+                                <span class="overlay">
+                                    <img class="img-responsive" src="http://static.silversea.com/wp-content/uploads/2017/03/9706-Day-3-2.-Guests-begin-hike-through-Gunung-Leuser-National-Park-308x178.jpg" alt="9706 PHUKET – BENOA (BALI)">
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div class="col-sm-4">
