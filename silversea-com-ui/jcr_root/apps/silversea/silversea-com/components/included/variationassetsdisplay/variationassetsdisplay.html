@@ -1,4 +1,4 @@
-<sly data-sly-use.variationAssetDisplay="com.silversea.aem.components.included.VariationAssetDisplay" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+<sly data-sly-use.variationAssetDisplay="com.silversea.aem.components.included.VariationAssetDisplayUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Variation asset display"></div>
 <hr />
 <div class="col-sm-4" data-sly-test.planLightboxPath="${variationAssetDisplay.planImageRenditionPath}">
@@ -20,13 +20,13 @@
             </div>
             <div class="modal-body ">
                 <div class="c-slider c-slider--for" data-sly-list="${variationAssetDisplay.locationImageRenditionPath}">
-                    <div data-sly-test.renditionGallery="${'{0}?wid=1000' @ format=[item]}">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=renditionGallery}"></sly>
+                    <div>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item, query='?wid=1000'}"></sly>
                     </div>
                 </div>
                 <div class="c-slider c-slider--nav" data-sly-list="${variationAssetDisplay.locationImageRenditionPath}">
-                    <div data-sly-test.renditionGalleryNav="${'{0}?wid=146' @ format=[item]}">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=renditionGalleryNav}"></sly>
+                    <div>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item, query='?wid=146'}"></sly>
                     </div>
                 </div>
             </div>

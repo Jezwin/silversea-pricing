@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 
-public class VariationAssetDisplay extends WCMUsePojo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(VariationAssetDisplay.class);
+public class VariationAssetDisplayUse extends WCMUsePojo {
+    private static final Logger LOGGER = LoggerFactory.getLogger(VariationAssetDisplayUse.class);
 
     @Override
     public void activate() throws Exception {
@@ -56,7 +56,11 @@ public class VariationAssetDisplay extends WCMUsePojo {
 
     private String renditionPath(String componentPath) {
         // Dynamic Media Image
-        return getAsset(componentPath).getPath();
+        if(getAsset(componentPath) != null) {
+            return getAsset(componentPath).getPath();
+        }
+
+        return null;
     }
 
     /**
