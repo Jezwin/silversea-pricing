@@ -19,7 +19,7 @@
 
 <div class="blogpostlist">
     <h3>other recent stories</h3>
-    <dl data-sly-list="${brochureTeaserListUse.blogPostTeaserModelList}">
+    <dl data-sly-list="${blogPostTeaserListUse.blogPostTeaserModelList}">
         <sly data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse' @ blogPostPathParam= BlogPostTeaserListUse.blogPostTeaserModelList[itemList.index] }">
         <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/blogpostteaser'}" />
     </dl>
