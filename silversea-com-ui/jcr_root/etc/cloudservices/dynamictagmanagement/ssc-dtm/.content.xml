@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:cloudservicename="dynamictagmanagement"
+        cq:lastModified="{Date}2017-03-21T09:46:23.702Z"
+        cq:lastModifiedBy="admin"
+        cq:template="/libs/cq/dtm/templates/dynamictagmanagement"
+        jcr:lastModified="{Date}2017-03-21T09:46:23.678Z"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="SSC-DTM"
+        sling:resourceType="cq/dtm/components/dynamictagmanagementpage"
+        authorProdInclude="true"
+        company="9d4e44082d7fd2d78f157f39b9fda8add7b72a9e"
+        companyDisplayValue="Silversea"
+        productionBundleURL="http://assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a.zip"
+        productionDomainHint="localhost:4502"
+        productionDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
+        productionDTMLibsPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
+        productionEntries="[]"
+        productionSecureDomainHint="localhost:4502"
+        property="356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
+        propertyDisplayValue="Silversea Revamp"
+        stagingBundleURL="http://assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.zip"
+        stagingDomainHint="localhost:4502"
+        stagingDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
+        stagingDTMLibsPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
+        stagingEntries="[selector.js,9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js]"
+        stagingSecureDomainHint="localhost:4502"
+        token="\{bbaff19ab9de70ada3497ff894e10cd8eb77ff018ce3b3a2dab895f220454e551e73df872844c221d3e1903db5200c724995bea17cb32416932d9e349d4720c4}">
+        <public
+            jcr:primaryType="nt:unstructured"
+            productionDTMMainScriptPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js"
+            productionUseSelfHosting="true"
+            stagingDTMMainScriptPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js"
+            stagingUseSelfHosting="true"/>
+    </jcr:content>
+</jcr:root>
