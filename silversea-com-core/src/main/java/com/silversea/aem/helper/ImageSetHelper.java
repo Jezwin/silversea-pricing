@@ -21,16 +21,20 @@ public class ImageSetHelper extends WCMUsePojo {
     private List<String> renditionPathList(String setPath) {
         // Dynamic Media Image Set
         Resource members = getResourceResolver().resolve(setPath + "/jcr:content/related/s7Set");
-        ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
+        if (members != null) {
+            ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
 
-        Iterator<Resource> it = membersCollection.getResources();
-        
-        List<String> renditionList = new ArrayList<String>();
-        while (it.hasNext()) {
-            Resource res = it.next();
-            renditionList.add(res.getPath());
+            Iterator<Resource> it = membersCollection.getResources();
+
+            List<String> renditionList = new ArrayList<String>();
+            while (it.hasNext()) {
+                Resource res = it.next();
+                renditionList.add(res.getPath());
+            }
+            return renditionList;
         }
-        return renditionList;
+
+        return null;
     }
 
     /**
