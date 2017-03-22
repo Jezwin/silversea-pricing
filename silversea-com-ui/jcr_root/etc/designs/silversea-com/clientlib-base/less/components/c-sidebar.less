@@ -7,9 +7,21 @@
 .c-sidebar  {
     margin-top: 20px;
     
-    .parbase {
-        margin: 20px 0;
+    div {
+        .parbase {
+            margin: 20px 0;
+            
+            &:first-child {
+                margin: 0 0 20px;
+                
+                .o-section, .o-section--small {
+                    padding-top: 0;
+                }
+            }
+        }
     }
+    
+    
     
     .c-blogpostteaser {
         &__img {
