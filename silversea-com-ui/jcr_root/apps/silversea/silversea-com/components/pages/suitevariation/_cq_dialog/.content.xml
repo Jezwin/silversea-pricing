@@ -71,27 +71,14 @@
                                             fieldLabel="Virtual Tour"
                                             renderReadOnly="{Boolean}true"
                                             name="./virtualTour"/>
-                                    <deckimage
+                                    <locationimage
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                            cq-msm-lockable="deckimage"
-                                            fieldLabel="Decks Images"
-                                            renderReadOnly="{Boolean}true">
-                                        <field
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                name="./image"
-                                                fieldLabel="Image"
-                                                required="{Boolean}true"/>
-                                    </deckimage>
-                                    <decknumber
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="deckNumber"
-                                            fieldLabel="Deck Number"
-                                            name="./deckNumber"
-                                            renderReadOnly="{Boolean}true"/>
+                                            cq-msm-lockable="virtualTour"
+                                            fieldLabel="Location Image"
+                                            renderReadOnly="{Boolean}true"
+                                            name="./locationimage"/>
                                     <bedroomsinformation
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/authoring/dialog/richtext"
