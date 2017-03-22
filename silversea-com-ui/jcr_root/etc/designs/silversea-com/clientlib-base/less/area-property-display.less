@@ -33,6 +33,15 @@
 }
 
 .c-availability {
+    padding-top: 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid @grey--c;
+    
+    /* phone breakpoint */
+    @media screen and (min-width: @screen-sm) {
+        margin-bottom: 0;
+    }
+    
     &__title {
         font-size: 20px;
         line-height: 1.2;
