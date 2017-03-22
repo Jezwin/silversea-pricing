@@ -3,11 +3,11 @@
     jcr:description="Silversea.com Voyage journal template"
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
-    jcr:title="SSC - Voyage journal"
+    jcr:title="SSC - Voyage journals"
     allowedPaths="[/content/silversea-com/.*]"
     ranking="{Long}0">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        sling:resourceType="silversea/silversea-com/components/pages/voyagejournal">
+        sling:resourceType="silversea/silversea-com/components/pages/voyagejournals">
     </jcr:content>
 </jcr:root>

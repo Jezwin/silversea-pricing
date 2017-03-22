@@ -28,7 +28,7 @@
                                         cq-msm-lockable="mapLabel"
                                         fieldLabel="Map Label"
                                         name="./mapLabel" />
-                                    <Excerpt
+                                    <excerpt
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
                                         allowBulkEdit="{Boolean}true"

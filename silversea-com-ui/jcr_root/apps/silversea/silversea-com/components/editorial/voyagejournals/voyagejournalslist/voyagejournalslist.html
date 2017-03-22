@@ -1,0 +1,15 @@
+<sly data-sly-use.cpt="com.silversea.aem.components.voyageJournals.VoyageJournalsListUse" />
+<ul class="c-list" data-sly-list="${cpt.voyageJournalList}">
+    <li class="c-list__item">aa
+        <a href="http://www.silversea.com/expeditions/voyage-journals/9706/">
+            <span class="voyage-ship-name">${item.title}</span>
+            <h2 class="voyage-journal-title">${item.pageProperties.cruiseReference} ${item.pageProperties.shipReference} – <br />${item.pageProperties.destinationReference}</h2>
+            <span class="voyage-date">${item.pageProperties.date}</span>
+            <span class="voyage-id">voyage ${item.pageProperties.cruiseReference}</span>
+            <span class="overlay">
+                <img class="img-responsive" src="${item.assetSelectionReference}">
+            </span>
+        </a>
+    </li>
+</ul>
+</div>
