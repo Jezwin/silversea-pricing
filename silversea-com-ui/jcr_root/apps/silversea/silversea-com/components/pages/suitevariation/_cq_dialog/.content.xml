@@ -78,7 +78,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Location Image"
                                             renderReadOnly="{Boolean}true"
-                                            name="./locationimage"/>
+                                            name="./locationImage"/>
                                     <bedroomsinformation
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="cq/gui/components/authoring/dialog/richtext"

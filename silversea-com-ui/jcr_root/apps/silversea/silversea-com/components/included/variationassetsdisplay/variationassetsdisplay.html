@@ -1,15 +1,16 @@
-<sly data-sly-use.variationAssetDisplay="com.silversea.aem.components.included.VariationAssetDisplayUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Variation asset display"></div>
 <hr />
-<div class="col-sm-4" data-sly-test.planLightboxPath="${variationAssetDisplay.planImageRenditionPath}">
+<div class="col-sm-4" data-sly-test.planLightboxPath="${pageProperties.plan || properties.plan}">
     <a href="${planLightboxPath}" type="button" data-target=".bs-modal-md" class="automatic-modal">
         <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath, query='?wid=280'}"></sly>
     </a>
     <strong>${'suite-plan' @ i18n}</strong>
 </div>
-<div class="col-sm-4" data-sly-test.locationLightboxPath="${variationAssetDisplay.locationImageRenditionPath[0]}">
-    <a href="#" type="button" data-target=".bs-modal-lg"  class="automatic-gallery-modal">
-        <sly data-sly-call="${imageTemplate.default @ imagePath=locationLightboxPath, query='?wid=280'}"></sly>
+<div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}">
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}">
+    <a href="#" type="button" data-target=".bs-modal-lg" class="automatic-gallery-modal">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0], query='?wid=280'}"></sly>
     </a>
     <strong>${'suite-location' @ i18n}</strong>
     <!--/* Gallery content */-->
@@ -19,12 +20,12 @@
                 <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body ">
-                <div class="c-slider c-slider--for" data-sly-list="${variationAssetDisplay.locationImageRenditionPath}">
+                <div class="c-slider c-slider--for" data-sly-list="${setImage.renditionList}">
                     <div>
                         <sly data-sly-call="${imageTemplate.default @ imagePath=item, query='?wid=1000'}"></sly>
                     </div>
                 </div>
-                <div class="c-slider c-slider--nav" data-sly-list="${variationAssetDisplay.locationImageRenditionPath}">
+                <div class="c-slider c-slider--nav" data-sly-list="${setImage.renditionList}">
                     <div>
                         <sly data-sly-call="${imageTemplate.default @ imagePath=item, query='?wid=146'}"></sly>
                     </div>
@@ -34,7 +35,7 @@
     </div>
     <!--/* Gallery content */-->
 </div>
-<div class="col-sm-4" data-sly-test.virualtourLightboxPath="${variationAssetDisplay.virtualtourImageRenditionPath}">
+<div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
     <a href="${virualtourLightboxPath}" type="button" data-target=".bs-modal-md" class="virtual-tour-modal">
         <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath, query='?wid=280'}"></sly>
     </a>
