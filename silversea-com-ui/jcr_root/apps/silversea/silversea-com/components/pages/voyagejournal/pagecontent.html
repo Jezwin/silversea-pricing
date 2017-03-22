@@ -10,15 +10,14 @@
                 </div>
 
                 <div class="c-voyagejournals__content">
-                    <sly data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse" />
-                    <ul class="c-list" data-sly-list="${cpt.listDays}">
+                    <ul class="c-list" data-sly-list="${currentPage.listChildren}">
                         <li class="c-list__item">
-                            <a href="http://www.silversea.com/expeditions/voyage-journals/9706/">
+                            <a href="${item.path @ extension='html'}">
                                 <h2 class="voyage-journal-title">${item.title}</h2>
-                                <span class="voyage-date">${'day' @ i18n} ${item.dayNumber}</span>
+                                <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
                                 <span class="overlay">
-                <img class="img-responsive" src="http://static.silversea.com/wp-content/uploads/2017/03/9706-Day-3-2.-Guests-begin-hike-through-Gunung-Leuser-National-Park-308x178.jpg" alt="9706 PHUKET – BENOA (BALI)">
-            </span>
+                                    <img class="img-responsive" src="${item.properties.assetSelectionReference}">
+                                </span>
                             </a>
                         </li>
                     </ul>
