@@ -25,14 +25,12 @@
     .o-section--separator {
 
         /* phone breakpoint */
-            @media screen and (min-width: @screen-sm) {
-                border: none;
-                padding: 0;
-            }
+        @media screen and (min-width: @screen-sm) {
+            border: none;
+            padding: 0;
+        }
     }
 }
-
-
 
 .c-availability {
     &__title {
@@ -47,7 +45,7 @@
         &:first-child, &:nth-child(3n+1) {
             padding-left: 0; 
         }
-        &:last-child, &:nth-child(3n) {
+        &:nth-child(3n) {
             padding-right: 0;
         }
         
