@@ -3,13 +3,13 @@
 <hr />
 <div class="col-sm-4" data-sly-test.planLightboxPath="${variationAssetDisplay.planImageRenditionPath}">
     <a href="${planLightboxPath}" type="button" data-target=".bs-modal-md" class="automatic-modal">
-        <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath}"></sly>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath, query='?wid=280'}"></sly>
     </a>
     <strong>${'suite-plan' @ i18n}</strong>
 </div>
 <div class="col-sm-4" data-sly-test.locationLightboxPath="${variationAssetDisplay.locationImageRenditionPath[0]}">
     <a href="#" type="button" data-target=".bs-modal-lg"  class="automatic-gallery-modal">
-        <sly data-sly-call="${imageTemplate.default @ imagePath=locationLightboxPath}"></sly>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=locationLightboxPath, query='?wid=280'}"></sly>
     </a>
     <strong>${'suite-location' @ i18n}</strong>
     <!--/* Gallery content */-->
@@ -36,7 +36,7 @@
 </div>
 <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${variationAssetDisplay.virtualtourImageRenditionPath}">
     <a href="${virualtourLightboxPath}" type="button" data-target=".bs-modal-md" class="virtual-tour-modal">
-        <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath}"></sly>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath, query='?wid=280'}"></sly>
     </a>
     <strong>${'virtual-tour' @ i18n}</strong>
 </div>
