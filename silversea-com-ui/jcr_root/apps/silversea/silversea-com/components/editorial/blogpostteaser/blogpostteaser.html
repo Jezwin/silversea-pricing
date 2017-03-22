@@ -1,20 +1,9 @@
-<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
-    
+<div data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse'}"
+     data-sly-test="${(wcmmode.edit || wcmmode.design) && !blogPostTeaserUse.brochure}"
+     class="cq-placeholder cq-dd-file" data-emptytext="Blog Post teaser"></div>
+         
+<div data-sly-test.brochure="${blogPostTeaserUse.blogTeaser}" data-sly-unwrap="${!wcmmode.edit}" class="cq-dd-file">
+    <sly data-sly-use.brochureTemplate="blogpost.html"
+         data-sly-call="${blogPostTemplate.default @ blogTeaser = blogPostTeaserUse.blogTeaser , blogPostReference = blogTeaser.path }"></sly>
 </div>
 
-<sly data-sly-use.model="${'com.silversea.aem.components.editorial.BlogPostTeaserUse'}" />
-<div class="row c-blogpostteaser">
-    <div class="col-sm-6 c-blogpostteaser__img">
-        <a href="#" class="wrapper-hover">
-            <img src="${model.blogTeaser.assetSelectionReference}" alt="">
-        </a>
-    </div>
-    <div class="col-sm-6 c-blogpostteaser__descr">
-        <div class="info">
-            <div class="date">${model.blogTeaser.formatPublicationDate}</div>
-            <h4>${model.blogTeaser.title}</h4>
-            <h6>${model.blogPostReferenceParam}</h6>
-        </div>
-        <a class="read-more" href="#">Read More<i class="fa fa-angle-right"></i></a>
-    </div>
-</div>

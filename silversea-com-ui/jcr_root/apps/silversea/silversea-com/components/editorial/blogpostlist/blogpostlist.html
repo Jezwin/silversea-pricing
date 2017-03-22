@@ -8,18 +8,17 @@
 <div data-sly-test="${blogPostTeaserListUse.highLightFirst}" class="blogpostfirst">
     <img class="blogpostfirst__img" src="${blogPostTeaserListUse.firstBlogPostTeaser.assetSelectionReference}" />
     <p class="blogpostfirst__date">${blogPostTeaserListUse.firstBlogPostTeaser.formatPublicationDate}</p>
-    <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title @context = 'html'}</h2>
+    <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title }</h2>
 
-    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.longDescription}</p>
+    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.longDescription @context = 'html'}</p>
 
-    <a class="read-more" href="#">Read More<i class="fa fa-angle-right"></i></a>
+    <a class="read-more" href="#">${'read-more' @i18n}<i class="fa fa-angle-right"></i></a>
 </div>
 
 <div class="blogpostlist">
-    <h3>other recent stories</h3>
-    <dl data-sly-list="${blogPostTeaserListUse.blogPostTeaserModelList}">
-    	<h6>${blogPostTeaserListUse.blogPostTeaserModelList[itemList.index].path} </h6>
-        <sly data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse' @ blogPostReferenceParam = blogPostTeaserListUse.blogPostTeaserModelList[itemList.index].path }">
-        <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/blogpostteaser'}" />
+    <h3>${'other-recent-story' @i18n}</h3>
+    <dl data-sly-list.blogTeaser="${blogPostTeaserListUse.blogPostTeaserModelList}">
+    	<sly data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
+             data-sly-call="${blogPostTemplate.default @ blogTeaser = blogTeaser, blogPostReference = blogTeaser.path }"></sly>
     </dl>
 </div>

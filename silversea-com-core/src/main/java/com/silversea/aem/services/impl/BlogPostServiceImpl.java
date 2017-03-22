@@ -38,7 +38,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 
 	private static final String DEFAULT_LIMIT_SIZE = "16";
 	private static final String DEFAULT_OFF_SET = "0";
-	private static final String DEFAULT_PUBLICATION_DATE = "publicationDate";
+	private static final String DEFAULT_PUBLICATION_DATE = "@publicationDate";
 
 	@Reference
 	private ResourceResolverFactory resourceResolverFactory;

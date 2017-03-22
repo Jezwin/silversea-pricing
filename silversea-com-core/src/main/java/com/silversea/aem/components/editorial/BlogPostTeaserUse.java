@@ -12,11 +12,9 @@ import com.silversea.aem.models.BlogPostTeaserModel;
  */
 public class BlogPostTeaserUse extends WCMUsePojo {
 
-	private static final String PROPERTY_BLOG_POST_REFERENCE_PARAM = "blogPostReferenceParam";
+	private static final String PROPERTY_BLOG_POST_REFERENCE_PARAM = "blogPostReference";
 
 	private BlogPostTeaserModel blogTeaser;
-
-	private String blogPostReferenceParam;
 
 	@Override
 	public void activate() throws Exception {
@@ -24,12 +22,14 @@ public class BlogPostTeaserUse extends WCMUsePojo {
 
 		try {
 			// Map the blogPostReference in Dialog
-			blogPostReferenceParam = properties.get(PROPERTY_BLOG_POST_REFERENCE_PARAM, String.class);
-			Resource res = getResourceResolver().getResource(blogPostReferenceParam);
-			if (null != res) {
-				Page targetPage = res.adaptTo(Page.class);
-				if (null != targetPage) {
-					blogTeaser = targetPage.adaptTo(BlogPostTeaserModel.class);
+			String blogPostReferenceParam = properties.get(PROPERTY_BLOG_POST_REFERENCE_PARAM, String.class);
+			if (null != blogTeaser) {
+				Resource res = getResourceResolver().getResource(blogPostReferenceParam);
+				if (null != res) {
+					Page targetPage = res.adaptTo(Page.class);
+					if (null != targetPage) {
+						blogTeaser = targetPage.adaptTo(BlogPostTeaserModel.class);
+					}
 				}
 			}
 
@@ -43,10 +43,4 @@ public class BlogPostTeaserUse extends WCMUsePojo {
 		return blogTeaser;
 	}
 
-	public String getBlogPostReferenceParam() {
-		return blogPostReferenceParam;
-	}
-	
-	
-	
 }

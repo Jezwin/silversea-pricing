@@ -1,6 +1,7 @@
 package com.silversea.aem.components.editorial;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.sling.api.resource.ValueMap;
@@ -38,13 +39,14 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
 		try {
 			blogPostService = getSlingScriptHelper().getService(BlogPostServiceImpl.class);
 			// Map the blogPostReference in Dialog
-			blogPostReference = properties.get(PROPERTY_BLOG_POST_REFERENCE, String.class);
+			blogPostReference = properties.get(PROPERTY_BLOG_POST_REFERENCE,getCurrentPage().getPath());
 			highLightFirst = properties.get(PROPERTY_HIGH_LIGHT_FIRST, Boolean.class);
 			blogPostTeaserModelList = blogPostService.getBlogPostTeaserModelList(blogPostReference,
 					WcmConstants.DEFAULT_KEY_CQ_TEMPLATE, DEFAULT_VALUE_TEMPLATE_PATH,
 					WcmConstants.DEFAULT_VALUE_ORDER_BY_SORT_DESC);
 			if(highLightFirst){
 				firstBlogPostTeaser = setFirstBlogPostTeaser(blogPostTeaserModelList.get(0));
+				blogPostTeaserModelList.remove(0);
 			}
 
 		} finally {
