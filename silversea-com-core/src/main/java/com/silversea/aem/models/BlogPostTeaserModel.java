@@ -43,10 +43,11 @@ public class BlogPostTeaserModel {
 	@Optional
 	private String assetSelectionReference;
 
+	private String path;
 
 	@PostConstruct
 	private void init() {
-		
+		path = page.getPath();
 	}
 
 	public Page getPage() {
@@ -68,10 +69,14 @@ public class BlogPostTeaserModel {
 	public String getAssetSelectionReference() {
 		return assetSelectionReference;
 	}
-	
+
 	public String getFormatPublicationDate() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		return df.format(publicationDate);
+	}
+
+	public String getPath() {
+		return path;
 	}
 
 }

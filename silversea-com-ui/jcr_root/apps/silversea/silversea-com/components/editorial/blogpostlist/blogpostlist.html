@@ -1,7 +1,5 @@
 <!--
 <div data-sly-test="${wcmmode.edit}" data-sly-unwrap></div>
-
-<sly data-sly-use.cpt="com.silversea.aem.components.editorial.BlogPostTeaserUse" data-sly-unwrap>
 -->
 <sly data-sly-use.blogPostTeaserListUse="${'com.silversea.aem.components.editorial.BlogPostTeaserListUse'}" />
     
@@ -20,7 +18,8 @@
 <div class="blogpostlist">
     <h3>other recent stories</h3>
     <dl data-sly-list="${blogPostTeaserListUse.blogPostTeaserModelList}">
-        <sly data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse' @ blogPostPathParam= BlogPostTeaserListUse.blogPostTeaserModelList[itemList.index] }">
+    	<h6>${blogPostTeaserListUse.blogPostTeaserModelList[itemList.index].path} </h6>
+        <sly data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse' @ blogPostReferenceParam = blogPostTeaserListUse.blogPostTeaserModelList[itemList.index].path }">
         <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/blogpostteaser'}" />
     </dl>
 </div>

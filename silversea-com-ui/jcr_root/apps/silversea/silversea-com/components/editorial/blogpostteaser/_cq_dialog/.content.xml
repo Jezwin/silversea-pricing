@@ -29,16 +29,16 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/container">
                                     <items jcr:primaryType="nt:unstructured">
-                                        <blogPostReference
+                                        <blogPostReferenceParam
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             fieldDescription="Path"
-                                            cq-msm-lockable="blogPostReference"
+                                            cq-msm-lockable="blogPostReferenceParam"
                                             fieldLabel="Path"
                                             renderReadOnly="{Boolean}true"
-                                            name="./blogPostReference"
+                                            name="./blogPostReferenceParam"
                                             required="{Boolean}true"
-                                            rootPath="/content/dam/"/>
+                                            rootPath="/content/"/>
                                     </items>
                                 </column>
                             </items>

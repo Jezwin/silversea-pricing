@@ -2,31 +2,19 @@
     
 </div>
 
-<sly
-    data-sly-use.cpt="com.silversea.aem.components.editorial.BlogPostTeaserUse"
-    data-sly-unwrap>
-
-<section class="o-section o-section--small" style="display: none;">
-<div>${cpt.blogTeaser.title}</div>
-<div>${cpt.blogTeaser.publicationDate @ format='yyyy-MM-dd', type='date'}</div>
-<div>${'read-more' @ i18n} ${cpt.blogTeaser.blogPostReference}</div>
-<div>
-${properties.jcr:image}
-</div>
-</section>
-    
-bbbb
+<sly data-sly-use.model="${'com.silversea.aem.components.editorial.BlogPostTeaserUse'}" />
 <div class="row c-blogpostteaser">
     <div class="col-sm-6 c-blogpostteaser__img">
-        <a href="http://www.silversea.com/blog/2017/01/sensational-sumatra-silversea-expeditions/" class="wrapper-hover">
-            <img src="http://static.silversea.com/wp-content/uploads/2017/01/IMG_1081-compressor.jpg" alt="">
+        <a href="#" class="wrapper-hover">
+            <img src="${model.blogTeaser.assetSelectionReference}" alt="">
         </a>
     </div>
     <div class="col-sm-6 c-blogpostteaser__descr">
         <div class="info">
-            <div class="date"><span class="number-value">04</span>&nbsp;<span class="span-date">Jan 2017</span></div>
-            <h4>Sensational Sumatra —  Silversea Expeditions</h4>
+            <div class="date">${model.blogTeaser.formatPublicationDate}</div>
+            <h4>${model.blogTeaser.title}</h4>
+            <h6>${model.blogPostReferenceParam}</h6>
         </div>
-        <a class="read-more" href="http://www.silversea.com/blog/2017/01/sensational-sumatra-silversea-expeditions/">Read More<i class="fa fa-angle-right"></i></a>
+        <a class="read-more" href="#">Read More<i class="fa fa-angle-right"></i></a>
     </div>
 </div>

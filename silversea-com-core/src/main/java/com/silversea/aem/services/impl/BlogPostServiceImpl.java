@@ -55,34 +55,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 	public List<BlogPostModel> getBlogPostModelList(String parentPath, String propertyKey, String propertyValue,
 			String sortBy) {
 		List<BlogPostModel> blogPostModelList = new ArrayList<>();
-		Map<String, String> map = new HashMap<>();
-		try {
-			map.put(WcmConstants.SEARCH_KEY_PATH, parentPath);
-			map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_PAGE);
-			map.put(WcmConstants.SEARCH_KEY_PROPERTY, propertyKey);
-			map.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, propertyValue);
-			map.put(WcmConstants.SEARCH_KEY_OFF_SET, DEFAULT_OFF_SET);
-			map.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, DEFAULT_LIMIT_SIZE);
-			map.put(WcmConstants.SEARCH_KEY_ORDER_BY, DEFAULT_PUBLICATION_DATE);
-			map.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, sortBy);
-			Query query = builder.createQuery(PredicateGroup.create(map), getSession());
-
-			SearchResult searchResult = query.getResult();
-			Iterator<Resource> resourceIterator = searchResult.getResources();
-			while (resourceIterator.hasNext()) {
-				Resource res = resourceIterator.next();
-				Page page = res.getParent().adaptTo(Page.class);
-				if (page != null) {
-					BlogPostModel blogPostModel = page.adaptTo(BlogPostModel.class);
-					blogPostModelList.add(blogPostModel);
-				}
-			}
-
-		} catch (Exception e) {
-			String errorMessage = "Please contact administrator as something went wrong in activate()";
-			LOGGER.error(errorMessage, e);
-		}
-
 		return blogPostModelList;
 	}
 
@@ -114,7 +86,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 			}
 
 		} catch (Exception e) {
-			String errorMessage = "Please contact administrator as something went wrong in activate()";
+			String errorMessage = "Some issues are happened ()";
 			LOGGER.error(errorMessage, e);
 		}
 
