@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.models.BlogPostModel;
 import com.silversea.aem.models.BlogPostTeaserModel;
 import com.silversea.aem.services.BlogPostService;
 import com.silversea.aem.services.impl.BlogPostServiceImpl;
@@ -26,6 +27,8 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
 	private List<BlogPostTeaserModel> blogPostTeaserModelList;
 
 	private BlogPostService blogPostService;
+	
+	private BlogPostTeaserModel firstBlogPostTeaser;
 
 	@Override
 	public void activate() throws Exception {
@@ -37,16 +40,16 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
 			// Map the blogPostReference in Dialog
 			blogPostReference = properties.get(PROPERTY_BLOG_POST_REFERENCE, String.class);
 			highLightFirst = properties.get(PROPERTY_HIGH_LIGHT_FIRST, Boolean.class);
-			blogPostTeaserModelList = blogPostService.getBlogPostTeaserModel(blogPostReference,
-					WcmConstants.DEFAULT_KEY_CQ_TEMPLATE, DEFAULT_VALUE_TEMPLATE_PATH, "DESC");
+			blogPostTeaserModelList = blogPostService.getBlogPostTeaserModelList(blogPostReference,
+					WcmConstants.DEFAULT_KEY_CQ_TEMPLATE, DEFAULT_VALUE_TEMPLATE_PATH,
+					WcmConstants.DEFAULT_VALUE_ORDER_BY_SORT_DESC);
+			if(highLightFirst){
+				firstBlogPostTeaser = setFirstBlogPostTeaser(blogPostTeaserModelList.get(0));
+			}
 
 		} finally {
 			properties = null;
 		}
-	}
-
-	public List<BlogPostTeaserModel> getBlogPostTeaserModels() {
-		return blogPostTeaserModelList;
 	}
 
 	public String getBlogPostReference() {
@@ -61,4 +64,13 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
 		return blogPostTeaserModelList;
 	}
 
+	public BlogPostTeaserModel getFirstBlogPostTeaser() {
+		return firstBlogPostTeaser;
+	}
+
+	public BlogPostTeaserModel setFirstBlogPostTeaser(BlogPostTeaserModel firstBlogPostTeaser) {
+		return this.firstBlogPostTeaser = firstBlogPostTeaser;
+	}
+
+	
 }

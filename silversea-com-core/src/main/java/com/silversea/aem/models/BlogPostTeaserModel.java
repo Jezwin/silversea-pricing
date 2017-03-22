@@ -1,5 +1,7 @@
 package com.silversea.aem.models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -41,18 +43,10 @@ public class BlogPostTeaserModel {
 	@Optional
 	private String assetSelectionReference;
 
-	// @Inject
-	// @Named(JcrConstants.JCR_CONTENT + "/blogPostReference")
-	// @Optional
-	// private String blogPostReference;
-
-	@Inject
-	@Self
-	private String blogPostReference;
 
 	@PostConstruct
 	private void init() {
-
+		
 	}
 
 	public Page getPage() {
@@ -74,9 +68,10 @@ public class BlogPostTeaserModel {
 	public String getAssetSelectionReference() {
 		return assetSelectionReference;
 	}
-
-	public String getBlogPostReference() {
-		return blogPostReference;
+	
+	public String getFormatPublicationDate() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		return df.format(publicationDate);
 	}
 
 }

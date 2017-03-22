@@ -8,23 +8,19 @@
 <h1>${pageProperties['jcr:title']}</h1>
 
 <div data-sly-test="${blogPostTeaserListUse.highLightFirst}" class="blogpostfirst">
-    <img class="blogpostfirst__img" src="http://static.silversea.com/wp-content/uploads/2017/01/KNE_Tuam-Village-compressor.jpg" />
-    <p class="blogpostfirst__date"><span>13</span> Jan 2017</p>
-    <h2 class="blogpostfirst__title">Exploring the Remote Islands and Villages of Papua New Guinea</h2>
+    <img class="blogpostfirst__img" src="${blogPostTeaserListUse.firstBlogPostTeaser.assetSelectionReference}" />
+    <p class="blogpostfirst__date">${blogPostTeaserListUse.firstBlogPostTeaser.formatPublicationDate}</p>
+    <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title @context = 'html'}</h2>
 
-    <p class="blogpostfirst__descr">From colourful festivals and artisan markets to fire dances and underwater beauty, Travel Writer, Karen Edwards, visits one of the world’s least-visited countries on board Silver Discoverer… Voyage: Koror to Cairns It feels like a dream; an all-encompassing, colourful, beautiful dream. Bright yellows, reds, greens and pinks swoosh and swing in the afternoon’s haze. Sleek white feathers ascend high into…</p>
+    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.longDescription}</p>
 
-    <a class="read-more" href="http://www.silversea.com/blog/2017/01/sensational-sumatra-silversea-expeditions/">Read More<i class="fa fa-angle-right"></i></a>
+    <a class="read-more" href="#">Read More<i class="fa fa-angle-right"></i></a>
 </div>
 
 <div class="blogpostlist">
     <h3>other recent stories</h3>
-    
-    <dl data-sly-list="${brochureTeaserListUse.brochureList}">
-        <sly data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
-        <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
+    <dl data-sly-list="${brochureTeaserListUse.blogPostTeaserModelList}">
+        <sly data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse' @ blogPostPathParam= BlogPostTeaserListUse.blogPostTeaserModelList[itemList.index] }">
+        <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/blogpostteaser'}" />
     </dl>
-    
-    
-
 </div>

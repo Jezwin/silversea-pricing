@@ -37,4 +37,6 @@ public interface WcmConstants {
 	String DEFAULT_KEY_CQ_TEMPLATE = "cq:template";
 	String DEFAULT_KEY_CQ_PAGE = "cq:page";
 	String DEFAULT_KEY_CQ_COMPONENT = "cq:component";
+	String DEFAULT_VALUE_ORDER_BY_SORT_DESC = "desc";
+	String DEFAULT_VALUE_ORDER_BY_SORT_ASC = "asc";
 }

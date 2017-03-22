@@ -24,6 +24,7 @@ import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.BlogPostModel;
 import com.silversea.aem.models.BlogPostTeaserModel;
@@ -37,7 +38,6 @@ public class BlogPostServiceImpl implements BlogPostService {
 
 	private static final String DEFAULT_LIMIT_SIZE = "15";
 	private static final String DEFAULT_OFF_SET = "0";
-	private static final String DEFAULT_ORDER_BY = "ASC";
 	private static final String DEFAULT_PUBLICATION_DATE = "publicationDate";
 
 	@Reference
@@ -52,34 +52,65 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public List<BlogPostModel> getBlogPostModel(String parentPath, String propertyKey, String propertyValue,
+	public List<BlogPostModel> getBlogPostModelList(String parentPath, String propertyKey, String propertyValue,
 			String sortBy) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<BlogPostTeaserModel> getBlogPostTeaserModel(String parentPath, String propertyKey, String propertyValue,
-			String sortBy) {
-		List<BlogPostTeaserModel> blogPostTeaserModelList = new ArrayList<>();
+		List<BlogPostModel> blogPostModelList = new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
 		try {
 			map.put(WcmConstants.SEARCH_KEY_PATH, parentPath);
+			map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_PAGE);
 			map.put(WcmConstants.SEARCH_KEY_PROPERTY, propertyKey);
 			map.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, propertyValue);
 			map.put(WcmConstants.SEARCH_KEY_OFF_SET, DEFAULT_OFF_SET);
 			map.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, DEFAULT_LIMIT_SIZE);
 			map.put(WcmConstants.SEARCH_KEY_ORDER_BY, DEFAULT_PUBLICATION_DATE);
-			map.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, DEFAULT_ORDER_BY);
+			map.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, sortBy);
 			Query query = builder.createQuery(PredicateGroup.create(map), getSession());
 
 			SearchResult searchResult = query.getResult();
 			Iterator<Resource> resourceIterator = searchResult.getResources();
 			while (resourceIterator.hasNext()) {
 				Resource res = resourceIterator.next();
-				BlogPostTeaserModel blogPostTeaserModel = res.adaptTo(BlogPostTeaserModel.class);
-				LOGGER.debug("Resource name:" + res.getName());
-				blogPostTeaserModelList.add(blogPostTeaserModel);
+				Page page = res.getParent().adaptTo(Page.class);
+				if (page != null) {
+					BlogPostModel blogPostModel = page.adaptTo(BlogPostModel.class);
+					blogPostModelList.add(blogPostModel);
+				}
+			}
+
+		} catch (Exception e) {
+			String errorMessage = "Please contact administrator as something went wrong in activate()";
+			LOGGER.error(errorMessage, e);
+		}
+
+		return blogPostModelList;
+	}
+
+	@Override
+	public List<BlogPostTeaserModel> getBlogPostTeaserModelList(String parentPath, String propertyKey,
+			String propertyValue, String sortBy) {
+		List<BlogPostTeaserModel> blogPostTeaserModelList = new ArrayList<>();
+		Map<String, String> map = new HashMap<>();
+		try {
+			map.put(WcmConstants.SEARCH_KEY_PATH, parentPath);
+			map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_PAGE);
+			map.put(WcmConstants.SEARCH_KEY_PROPERTY, propertyKey);
+			map.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, propertyValue);
+			map.put(WcmConstants.SEARCH_KEY_OFF_SET, DEFAULT_OFF_SET);
+			map.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, DEFAULT_LIMIT_SIZE);
+			map.put(WcmConstants.SEARCH_KEY_ORDER_BY, DEFAULT_PUBLICATION_DATE);
+			map.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, sortBy);
+			Query query = builder.createQuery(PredicateGroup.create(map), getSession());
+
+			SearchResult searchResult = query.getResult();
+			Iterator<Resource> resourceIterator = searchResult.getResources();
+			while (resourceIterator.hasNext()) {
+				Resource res = resourceIterator.next();
+				Page page = res.getParent().adaptTo(Page.class);
+				if (page != null) {
+					BlogPostTeaserModel blogPostTeaserModel = page.adaptTo(BlogPostTeaserModel.class);
+					blogPostTeaserModelList.add(blogPostTeaserModel);
+				}
 			}
 
 		} catch (Exception e) {
