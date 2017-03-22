@@ -3,15 +3,6 @@
     data-sly-use.runModeHelper="${'com.silversea.aem.helper.RunModesHelper'}"
     data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper'}">
 <head data-sly-include="head.html"></head>
-<body
-    class="${runModeHelper.authorRunModeClass} ${pageHelper.templateName}"
-    data-sly-include="body.html">
-    <!--/** Google Tag Manager (noscript) 
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5CN7PQ8"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
- End Google Tag Manager (noscript) **/-->
-    <!--/** needed for the DTM integration **/-->
-    <div
-        data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}"></div>
+<body class="${runModeHelper.authorRunModeClass} ${pageHelper.templateName}" data-sly-include="body.html">
 </body>
 </html>
