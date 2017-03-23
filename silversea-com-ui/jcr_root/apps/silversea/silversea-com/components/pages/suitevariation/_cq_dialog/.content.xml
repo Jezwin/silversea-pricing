@@ -62,6 +62,7 @@
                                             cq-msm-lockable="plan"
                                             fieldLabel="Plan"
                                             renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"
                                             name="./plan"/>
                                     <virtualtour
                                             jcr:primaryType="nt:unstructured"
@@ -70,6 +71,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Virtual Tour"
                                             renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"
                                             name="./virtualTour"/>
                                     <locationimage
                                             jcr:primaryType="nt:unstructured"
@@ -78,6 +80,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Location Image"
                                             renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"
                                             name="./locationImage"/>
                                     <bedroomsinformation
                                             jcr:primaryType="nt:unstructured"
