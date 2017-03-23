@@ -36,7 +36,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BlogPostServiceImpl.class);
 
-    private static final String DEFAULT_LIMIT_SIZE = "16";
+    private static final String DEFAULT_LIMIT_SIZE = "15";
     private static final String DEFAULT_OFF_SET = "0";
     private static final String DEFAULT_PUBLICATION_DATE = "@publicationDate";
 

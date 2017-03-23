@@ -52,10 +52,6 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
         }
     }
 
-    public String getBlogPostReference() {
-        return blogPostReference;
-    }
-
     public Boolean getHighLightFirst() {
         return highLightFirst;
     }
@@ -71,4 +67,5 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
     public BlogPostTeaserModel setFirstBlogPostTeaser(BlogPostTeaserModel firstBlogPostTeaser) {
         return this.firstBlogPostTeaser = firstBlogPostTeaser;
     }
+    
 }

@@ -24,80 +24,80 @@ import com.silversea.aem.helper.UrlHelper;
 @Model(adaptables = Page.class)
 public class BlogPostTeaserModel {
 
-	@Inject
-	private ResourceResolverFactory resourceResolverFactory;
+    @Inject
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Inject
-	@Self
-	private Page page;
+    @Inject
+    @Self
+    private Page page;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-	private String title;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    private String title;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/longDescription")
-	@Optional
-	private String longDescription;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+    @Optional
+    private String longDescription;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/publicationDate")
-	@Optional
-	private Date publicationDate;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/publicationDate")
+    @Optional
+    private Date publicationDate;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
-	@Optional
-	private String assetSelectionReference;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
+    private String assetSelectionReference;
 
-	private String path;
+    private String path;
 
-	@PostConstruct
-	private void init() {
-		path = page.getPath();
+    @PostConstruct
+    private void init() {
+        path = page.getPath();
 
-	}
+    }
 
-	public Page getPage() {
-		return page;
-	}
+    public Page getPage() {
+        return page;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getLongDescription() {
-		return longDescription;
-	}
+    public String getLongDescription() {
+        return longDescription;
+    }
 
-	public Date getPublicationDate() {
-		return publicationDate;
-	}
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
 
-	public String getAssetSelectionReference() {
-		return assetSelectionReference;
-	}
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
+    }
 
-	public String getFormatPublicationDate() {
-		Calendar cal = DateUtils.toCalendar(publicationDate);
-		StringBuilder builder = new StringBuilder();
-		builder.append("<span class='number-value'>");
-		builder.append(cal.get(Calendar.DAY_OF_MONTH));
-		builder.append("</span>&nbsp;");
-		builder.append("<span class='span-date'>");
-		builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
-		builder.append("&nbsp;");
-		builder.append(cal.get(Calendar.YEAR));
-		builder.append("</span>");
-		return builder.toString();
-	}
+    public String getFormatPublicationDate() {
+        Calendar cal = DateUtils.toCalendar(publicationDate);
+        StringBuilder builder = new StringBuilder();
+        builder.append("<span class='number-value'>");
+        builder.append(cal.get(Calendar.DAY_OF_MONTH));
+        builder.append("</span>&nbsp;");
+        builder.append("<span class='span-date'>");
+        builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
+        builder.append("&nbsp;");
+        builder.append(cal.get(Calendar.YEAR));
+        builder.append("</span>");
+        return builder.toString();
+    }
 
-	public String getPath() {
-		return path;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public String getProperUrl() {
-		return UrlHelper.getProperUrl(path);
-	}
+    public String getProperUrl() {
+        return UrlHelper.getProperUrl(path);
+    }
 
 }
