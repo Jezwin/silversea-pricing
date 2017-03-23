@@ -70,11 +70,11 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
             // get last importing date
-            String dateFormat = "yyyymmdd";
+            String dateFormat = "yyyyMMdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
             String currentDate ;
             if(date !=null){
-                currentDate = formatter.format(date.getTime());
+                currentDate = formatter.format(date.getTime()).toString();
               
 
             int i = 1;

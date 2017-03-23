@@ -66,11 +66,11 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
             // get last importing date
-            String dateFormat = "yyyymmdd";
+            String dateFormat = "yyyyMMdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
             String currentDate;
             if (date != null) {
-                currentDate = formatter.format(date.getTime());
+                currentDate = formatter.format(date.getTime()).toString();
 
                 ShorexesApi shorexesApi = new ShorexesApi();
                 shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
