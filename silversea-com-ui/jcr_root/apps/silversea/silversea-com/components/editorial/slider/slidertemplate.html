@@ -1,0 +1,15 @@
+<template data-sly-template.default>
+    <div class="c-slider">
+        <div data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    </div>
+</template>
+
+<template data-sly-template.populatefromSet="${ @ setImagePath, query }">
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}"
+        data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+    <div class="c-slider--default" data-sly-list="${setImage.renditionList}">
+        <div>
+            <sly data-sly-call="${imageTemplate.default @ imagePath=item, query=query}"></sly>
+        </div>
+    </div>
+</template>

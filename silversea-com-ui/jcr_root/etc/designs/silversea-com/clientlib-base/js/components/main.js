@@ -89,4 +89,9 @@ $(function() {
     $('#selectBrochureListLangId').on('change', function() {
         window.location.href = this.value;
     })
+
+    /***************************************************************************
+     * Slider
+     **************************************************************************/
+    $('.c-slider--default').slick();
 });
