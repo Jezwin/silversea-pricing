@@ -49,11 +49,11 @@
                                     fieldLabel="Color"
                                     name="color">
                                     <items jcr:primaryType="nt:unstructured">
-                                        <phone
+                                        <gray
                                             jcr:primaryType="nt:unstructured"
                                             text="gray"
                                             value="gray" />
-                                        <mail
+                                        <red
                                             jcr:primaryType="nt:unstructured"
                                             text="red"
                                             value="red" />
