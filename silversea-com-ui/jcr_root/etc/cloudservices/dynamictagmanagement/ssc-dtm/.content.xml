@@ -3,37 +3,27 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:cloudservicename="dynamictagmanagement"
-        cq:lastModified="{Date}2017-03-21T09:46:23.702Z"
+        cq:lastModified="{Date}2017-03-23T14:31:20.378Z"
         cq:lastModifiedBy="admin"
         cq:template="/libs/cq/dtm/templates/dynamictagmanagement"
-        jcr:lastModified="{Date}2017-03-21T09:46:23.678Z"
+        jcr:lastModified="{Date}2017-03-23T14:31:20.299Z"
         jcr:lastModifiedBy="admin"
         jcr:primaryType="cq:PageContent"
-        jcr:title="SSC-DTM"
+        jcr:title="ssc-dtm"
         sling:resourceType="cq/dtm/components/dynamictagmanagementpage"
         authorProdInclude="true"
         company="9d4e44082d7fd2d78f157f39b9fda8add7b72a9e"
         companyDisplayValue="Silversea"
-        productionBundleURL="http://assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a.zip"
-        productionDomainHint="localhost:4502"
         productionDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
-        productionDTMLibsPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
-        productionEntries="[]"
-        productionSecureDomainHint="localhost:4502"
         property="356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
         propertyDisplayValue="Silversea Revamp"
-        stagingBundleURL="http://assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.zip"
-        stagingDomainHint="localhost:4502"
         stagingDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
-        stagingDTMLibsPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
-        stagingEntries="[selector.js,9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js]"
-        stagingSecureDomainHint="localhost:4502"
-        token="\{bbaff19ab9de70ada3497ff894e10cd8eb77ff018ce3b3a2dab895f220454e551e73df872844c221d3e1903db5200c724995bea17cb32416932d9e349d4720c4}">
+        token="\{371335a34ab4a026bd8461d8bcdd2e8a10f85b3f25b14989db9096fc249656ebf6eb2a9ec6feb3f9fdccee64404186071567edc67d22715b3ab28eac0907c2cc}">
         <public
             jcr:primaryType="nt:unstructured"
-            productionDTMMainScriptPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js"
-            productionUseSelfHosting="true"
-            stagingDTMMainScriptPath="/etc/clientlibs/dtm/ssc-dtm/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js"
-            stagingUseSelfHosting="true"/>
+            productionFooterCode="&lt;script type=&quot;text/javascript&quot;>_satellite.pageBottom();&lt;/script>"
+            productionHeaderCode="&lt;script src=&quot;//assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a.js&quot;>&lt;/script>"
+            stagingFooterCode="&lt;script type=&quot;text/javascript&quot;>_satellite.pageBottom();&lt;/script>"
+            stagingHeaderCode="&lt;script src=&quot;//assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js&quot;>&lt;/script>"/>
     </jcr:content>
 </jcr:root>
