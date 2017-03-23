@@ -3,12 +3,12 @@
     jcr:mixinTypes="[mix:lockable]"
     jcr:primaryType="cq:Template"
     jcr:title="SSC - Blog posts"
-    jcr:description="Allows to create a new blog post"
+    jcr:description="Allows to create a new blog posts"
     allowedPaths="[/content/silversea-com/.*]"
     ranking="{Long}0">
     <jcr:content
         jcr:primaryType="cq:PageContent"
-        sling:resourceType="silversea/silversea-com/components/pages/blogpost">
+        sling:resourceType="silversea/silversea-com/components/pages/blogposts">
         <par
             jcr:primaryType="nt:unstructured"
             sling:resourceType="/libs/wcm/foundation/components/responsivegrid">

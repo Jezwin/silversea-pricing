@@ -1,24 +1,25 @@
-<!--
+<!--/*
 <div data-sly-test="${wcmmode.edit}" data-sly-unwrap></div>
--->
+*/-->
 <sly data-sly-use.blogPostTeaserListUse="${'com.silversea.aem.components.editorial.BlogPostTeaserListUse'}" />
     
-<h1>${pageProperties['jcr:title']}</h1>
+<h1>${pageProperties.title}</h1>
 
 <div data-sly-test="${blogPostTeaserListUse.highLightFirst}" class="blogpostfirst">
-    <img class="blogpostfirst__img" src="${blogPostTeaserListUse.firstBlogPostTeaser.assetSelectionReference}" />
-    <p class="blogpostfirst__date">${blogPostTeaserListUse.firstBlogPostTeaser.formatPublicationDate}</p>
+    <img class="blogpostfirst__img" src="${blogPostTeaserListUse.firstBlogPostTeaser.assetSelectionReference}" /><!--/* use call image template */-->
+    
+    <p class="blogpostfirst__date">${blogPostTeaserListUse.firstBlogPostTeaser.formatPublicationDate  @context = 'html'}</p>
     <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title }</h2>
 
     <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.longDescription @context = 'html'}</p>
 
-    <a class="read-more" href="#">${'read-more' @i18n}<i class="fa fa-angle-right"></i></a>
+    <a class="read-more" href="${blogPostTeaserListUse.firstBlogPostTeaser.properUrl}">${'read-more' @i18n}<i class="fa fa-angle-right"></i></a>
 </div>
-
+<hr/>
 <div class="blogpostlist">
     <h3>${'other-recent-story' @i18n}</h3>
     <dl data-sly-list.blogTeaser="${blogPostTeaserListUse.blogPostTeaserModelList}">
-    	<sly data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
+        <sly data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
              data-sly-call="${blogPostTemplate.default @ blogTeaser = blogTeaser, blogPostReference = blogTeaser.path }"></sly>
     </dl>
 </div>

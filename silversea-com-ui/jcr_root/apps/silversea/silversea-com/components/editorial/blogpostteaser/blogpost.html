@@ -1,17 +1,17 @@
 <template data-sly-template.default="${ @ blogTeaser , blogPostReference }">
 <div class="row c-blogpostteaser">
 	<div class="col-sm-6 c-blogpostteaser__img">
-		<a href="#" class="wrapper-hover"> <img
+		<a href="${blogTeaser.properUrl}" class="wrapper-hover"> <img
 			src="${blogTeaser.assetSelectionReference}" alt="">
 		</a>
 	</div>
 	<div class="col-sm-6 c-blogpostteaser__descr">
 		<div class="info">
-			<div class="date">${blogTeaser.formatPublicationDate}</div>
+			<div class="date">${blogTeaser.formatPublicationDate  @context = 'html'}</div>
 			<h4>${blogTeaser.title}</h4>
 			<h6>${blogPostReferenceParam}</h6>
 		</div>
-		<a class="read-more" href="#">${'read-more' @i18n}<i
+		<a class="read-more" href="${blogTeaser.properUrl}">${'read-more' @i18n}<i
 			class="fa fa-angle-right"></i></a>
 	</div>
 </div>

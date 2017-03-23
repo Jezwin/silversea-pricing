@@ -34,84 +34,84 @@ import com.silversea.aem.services.BlogPostService;
 @Service(value = BlogPostServiceImpl.class)
 public class BlogPostServiceImpl implements BlogPostService {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(BlogPostServiceImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(BlogPostServiceImpl.class);
 
-	private static final String DEFAULT_LIMIT_SIZE = "16";
-	private static final String DEFAULT_OFF_SET = "0";
-	private static final String DEFAULT_PUBLICATION_DATE = "@publicationDate";
+    private static final String DEFAULT_LIMIT_SIZE = "16";
+    private static final String DEFAULT_OFF_SET = "0";
+    private static final String DEFAULT_PUBLICATION_DATE = "@publicationDate";
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private QueryBuilder builder;
+    @Reference
+    private QueryBuilder builder;
 
-	@Activate
-	public void activate(final ComponentContext context) {
+    @Activate
+    public void activate(final ComponentContext context) {
 
-	}
+    }
 
-	@Override
-	public List<BlogPostModel> getBlogPostModelList(String parentPath, String propertyKey, String propertyValue,
-			String sortBy) {
-		List<BlogPostModel> blogPostModelList = new ArrayList<>();
-		return blogPostModelList;
-	}
+    @Override
+    public List<BlogPostModel> getBlogPostModelList(String path, String propertyKey, String propertyValue,
+            String sortBy) {
+        List<BlogPostModel> blogPostModelList = new ArrayList<>();
+        return blogPostModelList;
+    }
 
-	@Override
-	public List<BlogPostTeaserModel> getBlogPostTeaserModelList(String parentPath, String propertyKey,
-			String propertyValue, String sortBy) {
-		List<BlogPostTeaserModel> blogPostTeaserModelList = new ArrayList<>();
-		Map<String, String> map = new HashMap<>();
-		try {
-			map.put(WcmConstants.SEARCH_KEY_PATH, parentPath);
-			map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_PAGE);
-			map.put(WcmConstants.SEARCH_KEY_PROPERTY, propertyKey);
-			map.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, propertyValue);
-			map.put(WcmConstants.SEARCH_KEY_OFF_SET, DEFAULT_OFF_SET);
-			map.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, DEFAULT_LIMIT_SIZE);
-			map.put(WcmConstants.SEARCH_KEY_ORDER_BY, DEFAULT_PUBLICATION_DATE);
-			map.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, sortBy);
-			Query query = builder.createQuery(PredicateGroup.create(map), getSession());
+    @Override
+    public List<BlogPostTeaserModel> getBlogPostTeaserModelList(String path, String propertyKey, String propertyValue,
+            String sortBy) {
+        List<BlogPostTeaserModel> blogPostTeaserModelList = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+        try {
+            map.put(WcmConstants.SEARCH_KEY_PATH, path);
+            map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_PAGE);
+            map.put(WcmConstants.SEARCH_KEY_PROPERTY, propertyKey);
+            map.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, propertyValue);
+            map.put(WcmConstants.SEARCH_KEY_OFF_SET, DEFAULT_OFF_SET);
+            map.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, DEFAULT_LIMIT_SIZE);
+            map.put(WcmConstants.SEARCH_KEY_ORDER_BY, DEFAULT_PUBLICATION_DATE);
+            map.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, sortBy);
+            Query query = builder.createQuery(PredicateGroup.create(map), getSession());
 
-			SearchResult searchResult = query.getResult();
-			Iterator<Resource> resourceIterator = searchResult.getResources();
-			while (resourceIterator.hasNext()) {
-				Resource res = resourceIterator.next();
-				Page page = res.getParent().adaptTo(Page.class);
-				if (page != null) {
-					BlogPostTeaserModel blogPostTeaserModel = page.adaptTo(BlogPostTeaserModel.class);
-					blogPostTeaserModelList.add(blogPostTeaserModel);
-				}
-			}
+            SearchResult searchResult = query.getResult();
+            Iterator<Resource> resourceIterator = searchResult.getResources();
+            while (resourceIterator.hasNext()) {
+                Resource res = resourceIterator.next();
+                Page page = res.getParent().adaptTo(Page.class);
+                if (page != null) {
+                    BlogPostTeaserModel blogPostTeaserModel = page.adaptTo(BlogPostTeaserModel.class);
+                    blogPostTeaserModelList.add(blogPostTeaserModel);
+                }
+            }
 
-		} catch (Exception e) {
-			String errorMessage = "Some issues are happened ()";
-			LOGGER.error(errorMessage, e);
-		}
+        } catch (Exception e) {
+            String errorMessage = "Some issues are happened ()";
+            LOGGER.error(errorMessage, e);
+        }
 
-		return blogPostTeaserModelList;
-	}
+        return blogPostTeaserModelList;
+    }
 
-	@Override
-	public List<BlogPostModel> getBlogPostModel(String pagePath) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<BlogPostModel> getBlogPostModel(String pagePath) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	private ResourceResolver getResourceResolver() {
-		ResourceResolver resourceResolver = null;
-		try {
-			resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-		} catch (LoginException e) {
-			String errorMessage = "Please contact administrator as something went wrong in activate()";
-			LOGGER.error(errorMessage, e);
-		}
-		return resourceResolver;
-	}
+    private ResourceResolver getResourceResolver() {
+        ResourceResolver resourceResolver = null;
+        try {
+            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+        } catch (LoginException e) {
+            String errorMessage = "Please contact administrator as something went wrong in activate()";
+            LOGGER.error(errorMessage, e);
+        }
+        return resourceResolver;
+    }
 
-	private Session getSession() {
-		return getResourceResolver().adaptTo(Session.class);
-	}
+    private Session getSession() {
+        return getResourceResolver().adaptTo(Session.class);
+    }
 
 }

@@ -18,6 +18,9 @@ public interface WcmConstants {
 	String PN_NOT_IN_SITEMAP = "notInSitemap";
 	String PN_FILE_REFERENCE = "fileReference";
 	String PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM = "referencePageMainNavigationBottom";
+	
+	//HTML Suffix
+	String HTML_SUFFIX = ".html";
 
 	// Resource Type
 	String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
