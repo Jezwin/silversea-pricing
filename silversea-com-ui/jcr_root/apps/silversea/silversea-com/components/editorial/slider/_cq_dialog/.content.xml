@@ -36,7 +36,7 @@
                                 text="Auto scroll"
                                 fieldDescription="Slide will scroll every 5 seconds automatically"
                                 name="./autoScroll"
-                                value="true" 
+                                value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <style
                                 jcr:primaryType="nt:unstructured"
@@ -92,7 +92,7 @@
                         </items>
                     </column>
                 </items>
-            </image>
+            </slider>
         </items>
     </content>
 </jcr:root>
