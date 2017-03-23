@@ -1,6 +1,5 @@
 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Variation asset display"></div>
-<hr />
 <div class="col-sm-4" data-sly-test.planLightboxPath="${pageProperties.plan || properties.plan}">
     <a href="${planLightboxPath}" type="button" data-target=".bs-modal-md" class="automatic-modal">
         <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath, query='?wid=280'}"></sly>
