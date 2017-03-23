@@ -38,7 +38,7 @@
                                             renderReadOnly="{Boolean}true"
                                             name="./blogPostReference"
                                             required="{Boolean}true"
-                                            rootPath="/content/"/>
+                                            rootPath="/content/silversea-com"/>
                                     </items>
                                 </column>
                             </items>

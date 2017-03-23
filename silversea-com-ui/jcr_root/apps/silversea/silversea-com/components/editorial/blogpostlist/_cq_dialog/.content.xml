@@ -36,7 +36,7 @@
                                         fieldLabel="Path"
                                         renderReadOnly="{Boolean}true"
                                         name="./blogPostReference"
-                                        rootPath="/content" />
+                                        rootPath="/content/silversea-com" />
                                     <highLightFirst
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/checkbox"
