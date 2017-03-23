@@ -2,7 +2,8 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
           xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="cq:Component"
-          jcr:title="SSC - Port properties display"
+          jcr:title="SSC - Port display properties"
+          jcr:description="Allows to display default information of port"
           sling:resourceSuperType="silversea/silversea-com/components/displayproperties"
           allowedParents="[*/responsivegrid]"
           componentGroup="SSC - Display properties" />
