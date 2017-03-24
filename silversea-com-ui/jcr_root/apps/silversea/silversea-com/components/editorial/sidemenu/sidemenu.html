@@ -1,4 +1,5 @@
-<sly data-sly-use.reference="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"></sly>
+<sly data-sly-use.reference="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
+    data-sly-use.sideMenu="com.silversea.aem.components.editorial.SideMenuUse"></sly>
 <div class="o-sidemenu" data-sly-test.rootPage="${reference.page.parent || currentPage.parent}">
     <h2 class="o-sidemenu__title">
         <a href="${rootPage.path @ extension='html'}">${rootPage.navigationTitle || rootPage.title}</a>
@@ -10,7 +11,7 @@
                 <i class="fa fa-lg fa-angle-down o-sidemenu__icon"></i>
             </a>
         </dt>
-        <dd data-sly-repeat="${rootPage.listChildren}" class="o-sidemenu__item">
+        <dd data-sly-repeat="${sideMenu.subPage}" class="o-sidemenu__item">
             <a href="${item.path @extension='html'}" class="o-sidemenu__link ${currentPage.path == item.path ? 'o-sidemenu__link--current' : ''}">
                 <span  class="o-sidemenu__text">${item.navigationTitle || item.title}</span>
                 <i class="fa fa-lg fa-angle-right o-sidemenu__icon"></i>
