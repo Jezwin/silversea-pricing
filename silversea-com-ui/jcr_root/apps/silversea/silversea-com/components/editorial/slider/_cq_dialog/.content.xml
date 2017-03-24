@@ -47,7 +47,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <style1
                                         jcr:primaryType="nt:unstructured"
-                                        text="White arrows (white arrow, dot pagination)"
+                                        text="White arrows (white arrow, pagination)"
                                         value="style1" />
                                     <style2
                                         jcr:primaryType="nt:unstructured"
