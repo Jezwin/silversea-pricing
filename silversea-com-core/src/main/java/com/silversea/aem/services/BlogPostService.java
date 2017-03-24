@@ -7,12 +7,8 @@ import com.silversea.aem.models.BlogPostTeaserModel;
 
 public interface BlogPostService {
 
-	<T extends BlogPostModel> List<T> getBlogPostModelList(String path, String propertyKey, String propertyValue,
-			String sortBy);
 
 	<T extends BlogPostTeaserModel> List<T> getBlogPostTeaserModelList(String path, String propertyKey,
 			String propertyValue, String sortBy);
-
-	<T extends BlogPostModel> List<T> getBlogPostModel(String pagePath);
 
 }

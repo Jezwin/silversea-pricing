@@ -52,13 +52,6 @@ public class BlogPostServiceImpl implements BlogPostService {
     }
 
     @Override
-    public List<BlogPostModel> getBlogPostModelList(String path, String propertyKey, String propertyValue,
-            String sortBy) {
-        List<BlogPostModel> blogPostModelList = new ArrayList<>();
-        return blogPostModelList;
-    }
-
-    @Override
     public List<BlogPostTeaserModel> getBlogPostTeaserModelList(String path, String propertyKey, String propertyValue,
             String sortBy) {
         List<BlogPostTeaserModel> blogPostTeaserModelList = new ArrayList<>();
@@ -93,18 +86,12 @@ public class BlogPostServiceImpl implements BlogPostService {
         return blogPostTeaserModelList;
     }
 
-    @Override
-    public List<BlogPostModel> getBlogPostModel(String pagePath) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     private ResourceResolver getResourceResolver() {
         ResourceResolver resourceResolver = null;
         try {
             resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
         } catch (LoginException e) {
-            String errorMessage = "Please contact administrator as something went wrong in activate()";
+            String errorMessage = "Some issues are happened ()";
             LOGGER.error(errorMessage, e);
         }
         return resourceResolver;
