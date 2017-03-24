@@ -7,3 +7,4 @@ components/c-accordion.js
 components/c-brochureslist.js
 components/c-cookie.js
 components/c-sidemenu.js
+components/c-slider.js

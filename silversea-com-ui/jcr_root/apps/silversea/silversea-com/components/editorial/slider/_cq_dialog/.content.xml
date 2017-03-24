@@ -31,11 +31,11 @@
                                 min="1"
                                 name="./itemNumber"
                                 sling:resourceType="granite/ui/components/foundation/form/numberfield" />
-                            <autoScroll
+                            <autoPlay
                                 jcr:primaryType="nt:unstructured"
                                 text="Auto scroll"
                                 fieldDescription="Slide will scroll every 5 seconds automatically"
-                                name="./autoScroll"
+                                name="./autoPlay"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <style
