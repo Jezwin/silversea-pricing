@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -98,6 +100,12 @@ public class BlogPostTeaserModel {
 
     public String getProperUrl() {
         return UrlHelper.getProperUrl(path);
+    }
+
+    public String getThumbnailImageUrl() {
+        Resource resource = page.getContentResource().getChild("image");
+        ValueMap value = resource.getValueMap();
+        return value.get("fileReference", String.class);
     }
 
 }

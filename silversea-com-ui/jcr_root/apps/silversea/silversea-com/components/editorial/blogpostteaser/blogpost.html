@@ -3,8 +3,7 @@
 <div class="row c-blogpostteaser">
     <div class="col-sm-6 c-blogpostteaser__img">
         <a href="${blogTeaser.properUrl}" class="wrapper-hover"> <sly
-                data-sly-call="${imageTemplate.default @ imagePath=blogTeaser.assetSelectionReference, query='?wid=280'}">
-        <img src="${blogTeaser.assetSelectionReference}" alt=""></a>
+                data-sly-call="${imageTemplate.default @ imagePath=blogTeaser.thumbnailImageUrl , query='?wid=280'}"></a>
     </div>
     <div class="col-sm-6 c-blogpostteaser__descr">
         <div class="info">
