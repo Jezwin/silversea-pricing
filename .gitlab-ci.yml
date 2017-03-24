@@ -45,7 +45,7 @@ mvn_build_rc_publish1:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.14.111:4503
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.0.114:4503
     only:
         - /^release-.*$/
 
@@ -54,6 +54,6 @@ mvn_build_rc_publish2:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.30.57:4503
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.22.151:4503
     only:
         - /^release-.*$/
