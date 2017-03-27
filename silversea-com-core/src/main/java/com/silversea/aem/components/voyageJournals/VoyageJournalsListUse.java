@@ -1,10 +1,14 @@
 package com.silversea.aem.components.voyageJournals;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.QueryBuilder;
 import com.day.cq.wcm.api.Page;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.sling.api.resource.Resource;
+import com.day.cq.search.Query;
+import com.day.cq.search.result.SearchResult;
 
+import javax.jcr.Session;
 import java.util.*;
 
 /**
@@ -13,79 +17,37 @@ import java.util.*;
 public class VoyageJournalsListUse extends WCMUsePojo {
 
     private List<Page> voyageJournalList;
-    private Page currentDay;
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(VoyageJournalsListUse.class);
-    //Map<Integer, VoyageJournalModel> map = new HashMap<Integer, VoyageJournalModel>();
+    Map<String, String> mapQuery = new HashMap<String, String>();
+
 
     @Override
     public void activate() throws Exception {
-        voyageJournalList = new ArrayList<>();
-        currentDay = getCurrentPage(); //.adaptTo(VoyageJournalModel.class);
-        Page parentPage = getCurrentPage().getParent();
-        Iterator<Page> childs = getCurrentPage().listChildren();
-        while (childs.hasNext()) {
-            voyageJournalList.add(childs.next().adaptTo(Page.class));
-        }
-        LOGGER.debug("test loop {}", voyageJournalList.size());
 
-        /*Iterator<Page> childs1 = getCurrentPage().listChildren();
-        int i = 1;
-        while (childs1.hasNext()) {
-            map.put(i++, childs1.next().adaptTo(VoyageJournalModel.class));
-        }*/
+        voyageJournalList = new ArrayList<>();
+        mapQuery.put("path", getCurrentPage().getPath());
+        mapQuery.put("type", "cq:PageContent");
+        mapQuery.put("property", "sling:resourceType");
+        mapQuery.put("property.value", "silversea/silversea-com/components/pages/voyagejournal");
+        //map.put("p.offset", "0"); // same as query.setStart(0) below
+        //map.put("p.limit", "20"); // same as query.setHitsPerPage(20) below
+
+        Session session = getResourceResolver().adaptTo(Session.class);
+        QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
+        Query query = queryBuilder.createQuery(PredicateGroup.create(mapQuery), session);
+        //query.setStart(0);
+        //query.setHitsPerPage(20);
+
+        SearchResult result = query.getResult();
+
+        Iterator<Resource> iterator = result.getResources();
+        while (iterator.hasNext()) {
+            Page page = iterator.next().getParent().adaptTo(Page.class);
+            voyageJournalList.add(page);
+        }
     }
 
     public List<Page> getVoyageJournalList() {
         return voyageJournalList;
     }
-
-    public Page getCurrentDay() {
-        return currentDay;
-    }
-
-    /*public boolean isFirst() {
-        if (voyageJournalList.get(0).getDayNumber() == currentDay.getDayNumber()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isLast() {
-        if (voyageJournalList.get(voyageJournalList.size() - 1).getDayNumber() == currentDay.getDayNumber()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public String getNext() {
-        Integer s = Integer.valueOf(currentDay.getDayNumber()) + 1;
-        return s.toString();
-    }
-
-    public String getPrevious() {
-        Integer s = Integer.valueOf(currentDay.getDayNumber()) - 1;
-        return s.toString();
-    }
-
-    public String getNextPath() {
-        String path = map.get(Integer.valueOf(currentDay.getDayNumber()) + 1).getPath();
-        if (StringUtils.isNotEmpty(path)) {
-            return path;
-        } else {
-            return "";
-        }
-    }
-
-    public String getPreviousPath() {
-        String path = map.get(Integer.valueOf(currentDay.getDayNumber()) - 1).getPath();
-        if (StringUtils.isNotEmpty(path)) {
-            return path;
-        } else {
-            return "";
-        }
-    }*/
-
 }

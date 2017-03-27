@@ -5,23 +5,11 @@
 
                 <div class="c-pageheader--nomrg">
                     <p class="c-pageheader__subtitle--small">
-                        ${'SILVERSEA-VOYAGE-JOURNAL' @ i18n}
+                        <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </p>
                 </div>
 
-                <div class="c-voyagejournals__content">
-                    <ul class="c-list" data-sly-list="${currentPage.listChildren}">
-                        <li class="c-list__item">
-                            <a href="${item.path @ extension='html'}">
-                                <h2 class="voyage-journal-title">${item.title}</h2>
-                                <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
-                                <span class="overlay">
-                                    <img class="img-responsive" src="${item.properties.assetSelectionReference}">
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <div data-sly-resource="${'parVoyageJournals' @ resourceType='silversea/silversea-com/components/editorial/voyagejournals/voyagejournaldayslist'}"></div>
             </div>
 
             <div class="col-sm-4">

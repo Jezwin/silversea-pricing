@@ -1,14 +1,16 @@
-<ul class="c-list" data-sly-list="${currentPage.listChildren}">
-    <li class="c-list__item">
-        <a href="${item.path @ extension='html'}">
-            <sly data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}" />
-            <span class="voyage-ship-name">${hship.page.title}</span>
-            <h2 class="voyage-journal-title">${item.title}</h2>
-            <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
-            <span class="voyage-id">voyage ${item.name}</span>
-            <span class="overlay">
-                <img class="img-responsive" src="${item.properties.assetSelectionReference}">
-            </span>
-        </a>
-    </li>
-</ul>
+<div class="c-voyagejournals__content" data-sly-use.VoyageJournalsListUse="${'com.silversea.aem.components.voyageJournals.VoyageJournalsListUse'}">
+
+    <ul class="c-list" data-sly-list="${VoyageJournalsListUse.voyageJournalList}">
+        <li class="c-list__item" data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}">
+            <a href="${item.path @ extension='html'}">
+                <span class="voyage-ship-name">${hship.page.title}</span>
+                <h2 class="voyage-journal-title">${item.title}</h2>
+                <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
+                <span class="voyage-id">voyage ${hship.page.properties.shipCode}</span>
+                <span class="overlay">
+                    <img class="img-responsive" src="${item.properties.assetSelectionReference}">
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
