@@ -2,7 +2,6 @@ package com.silversea.aem.models;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -16,6 +15,7 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
+import com.day.cq.commons.LanguageUtil;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.helper.UrlHelper;
@@ -81,13 +81,15 @@ public class BlogPostTeaserModel {
     }
 
     public String getFormatPublicationDate() {
+        String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
+        String lang  = languageRootPath.split("/")[languageRootPath.split("/").length -1];
         Calendar cal = DateUtils.toCalendar(publicationDate);
         StringBuilder builder = new StringBuilder();
         builder.append("<span class='number-value'>");
         builder.append(cal.get(Calendar.DAY_OF_MONTH));
         builder.append("</span>&nbsp;");
         builder.append("<span class='span-date'>");
-        builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
+        builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
         builder.append("&nbsp;");
         builder.append(cal.get(Calendar.YEAR));
         builder.append("</span>");
