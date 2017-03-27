@@ -15,7 +15,10 @@ public class ImageSetHelper extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
-        renditionList = renditionPathList(path);
+        if (path != null) {
+            renditionList = renditionPathList(path);
+        }
+
     }
 
     private List<String> renditionPathList(String setPath) {
