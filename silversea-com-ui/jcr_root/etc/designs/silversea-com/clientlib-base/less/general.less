@@ -7,17 +7,21 @@
     max-width: 960px;
 }
 
-body:not(.simplepage) {
-    padding-top: 110px !important;
+body {
+    overflow-x: hidden;
 
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        padding-top: 60px;
-    }
+    &:not(.simplepage) {
+        padding-top: 110px !important;
 
-    /* tablet breakpoint */
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        padding-top: 60px;
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            padding-top: 60px;
+        }
+
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            padding-top: 60px;
+        }
     }
 }
 

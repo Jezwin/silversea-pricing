@@ -16,8 +16,8 @@
     }
 
     .slick-prev, .slick-next {
-        height: 54px;
-        width: 54px;
+        height: 40px;
+        width: 40px;
     }
 
     .slick-prev {
@@ -62,11 +62,18 @@
         }
 
         .slick-prev {
-            left: 0;
+            left: 10px;
         }
 
         .slick-next {
-            right: 0;
+            right: 10px;
+        }
+    }
+
+    &--for {
+        .slick-prev, .slick-next {
+            height: 54px;
+            width: 54px;
         }
     }
 
@@ -74,13 +81,80 @@
         .full-width;
     }
 
+    &--first-slide-only:not(.slick-initialized) {
+        > .parbase:not(:first-child) {
+            display: none;
+        }
+    }
+
     &--style1 {
-        
+        @media screen and (max-width: @screen-sm) {
+            margin-bottom: 40px;
+        }
+
+    .slick-dots {
+            @media screen and (min-width: @screen-sm) {
+                bottom: 20px;
+            }
+        }
     }
+
     &--style2 {
-        
+        .slick-prev, .slick-next {
+            background-color: @black;
+            border: 0;
+            color: @white;
+            font-size: 28px;
+            height: 40px;
+            transform: translate(0px, -50%);
+            width: 40px;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        .slick-next {
+            border-radius: 4px 0 0 4px;
+            right: 0;
+        }
+
+        .slick-prev {
+            border-radius: 0 4px 4px 0;
+            left: 0;
+        }
+
+        .slick-dots {
+            @media screen and (min-width: @screen-sm) {
+                display: none!important;
+            }
+        }
     }
+
     &--style3 {
-        
+        margin-bottom: 40px;
+
+        .slick-prev, .slick-next {
+            border: 0;
+            bottom: -40px;
+            color: @black;
+            font-size: 28px;
+            height: 40px;
+            top: auto;
+            transform: none;
+            width: 40px;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        .slick-next {
+            right: 0;
+        }
+
+        .slick-prev {
+            left: 0;
+        }
     }
 }
