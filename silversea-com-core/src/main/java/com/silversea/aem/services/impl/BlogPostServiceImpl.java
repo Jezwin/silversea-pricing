@@ -26,7 +26,6 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.models.BlogPostModel;
 import com.silversea.aem.models.BlogPostTeaserModel;
 import com.silversea.aem.services.BlogPostService;
 

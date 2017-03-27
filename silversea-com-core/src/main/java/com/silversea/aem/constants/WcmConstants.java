@@ -30,6 +30,7 @@ public interface WcmConstants {
 
 	// Use for QueryBuilder
 	String SEARCH_KEY_PATH = "path";
+	String SEARCH_NODE_NAME = "nodename";
 	String SEARCH_KEY_TYPE = "type";
 	String SEARCH_KEY_OFF_SET = "p.offset";
 	String SEARCH_KEY_PAGE_LIMIT = "p.limit";
@@ -39,6 +40,7 @@ public interface WcmConstants {
 	String SEARCH_KEY_PROPERTY_VALUE = "property.value";
 	String DEFAULT_KEY_CQ_TEMPLATE = "cq:template";
 	String DEFAULT_KEY_CQ_PAGE = "cq:page";
+	String DEFAULT_KEY_CQ_TAG = "cq:tag";
 	String DEFAULT_KEY_CQ_COMPONENT = "cq:component";
 	String DEFAULT_VALUE_ORDER_BY_SORT_DESC = "desc";
 	String DEFAULT_VALUE_ORDER_BY_SORT_ASC = "asc";
