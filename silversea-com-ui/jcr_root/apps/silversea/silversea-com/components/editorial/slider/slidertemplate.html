@@ -1,6 +1,6 @@
 <template data-sly-template.default>
-    <div class="${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'}"
-        data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000 , "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
+    <div class="${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''}"
+        data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000 ,"slidesToScroll": ${properties.itemNumber || "1"}, "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
         data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}">
     </div>
 </template>
