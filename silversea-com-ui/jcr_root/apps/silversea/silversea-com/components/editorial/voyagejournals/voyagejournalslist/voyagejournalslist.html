@@ -13,4 +13,32 @@
             </a>
         </li>
     </ul>
+
+    <ul data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 2}">
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 2}">
+            <a href="${currentPage.path @ extension='html'}?page=1">1</a>
+        </li>
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 2}">
+            <a href="${currentPage.path @ extension='html'}?page=2">2</a>
+        </li>
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 3}">
+            <a href="${currentPage.path @ extension='html'}?page=3">3</a>
+        </li>
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 4}">...</li>
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 4}">
+            <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.numberOfPages}">
+                ${VoyageJournalsListUse.numberOfPages}
+            </a>
+        </li>
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.prev >= 0}">
+            <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.prev}">
+                <- Previous
+            </a>
+        </li>
+        <li data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0 && VoyageJournalsListUse.numberOfPages >= 4}">
+            <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.next}">
+                NEXT ->
+            </a>
+        </li>
+    </ul>
 </div>
