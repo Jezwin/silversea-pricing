@@ -2,9 +2,9 @@
     <picture data-sly-test.imagePrefix="${'/is/image/'}">
         <sly data-sly-test.srcsetValue="${'{0}{1}' @format=[imagePath, query || '?wid=960']}" />
         <!--[if IE 9]><video style="display: none;"><![endif]-->
-        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(max-width: 767px)"></source>
-        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(min-width: 768px)"></source>
+        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(max-width: 767px)" />
+        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(min-width: 768px)" />
         <!--[if IE 9]></video><![endif]-->
-        <img src="${srcsetValue @ prependPath=imagePrefix}" alt="${properties.alt}" title="${properties.title}" class="o-img cq-dd-image" />
+        <img src="${srcsetValue @ prependPath=imagePrefix}" alt="${properties.alt || currentPage.title}" title="${properties.title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
