@@ -1,8 +1,17 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Teaser"></div>
 
-<a class="c-teaser" href="">
-    <img src="http://static.silversea.com/wp-content/uploads/2015/10/Atlantide-Hero.jpg" />
-    <h2 class="c-teaser__title">ATLANDIDE</h2>
-    <span class="c-teaser__descr">Pivotal to Silver Muse dining experience, this elegant bar and grill incorporates the best that the sea has to offer.</span>
-    <span class="c-teaser__link">Discover more <i class="fa fa-angle-right"></i></span>
-</a>
+<div class="c-teaser" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
+     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <a href="${properties.reference @ extension='html'}" class="c-teaser__wrapperhover"></a>
+    <div class="c-teaser__wrapper"> 
+        <h2 class="c-teaser__wrapper__title">${target.page.title}</h2>
+        <div class="c-teaser__wrapper__descr">
+            ${target.page.description}
+        </div> 
+    </div>
+    <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail, query='?wid=468'}"></sly>
+    <div class="c-teaser__descr-mobile">
+        ${target.page.description}
+    </div>
+    <a rel="nofollow" class="c-teaser__link" href="${properties.reference @ extension='html'}">${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
+</div>
