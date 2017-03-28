@@ -23,18 +23,17 @@ $(function(){
         $(".c-slider:not(.c-slider--for, .c-slider--nav)").slick(settingSlider);
     }
 
-    // On page resize
-    $("body").on("trigger.viewport.changed", function() {
-        var $sliderDisabledOnMobile = $(".c-slider.c-slider--first-slide-only");
+    // Filter
+    $(".c-slider.slick-initialized").slick("slickFilter", ":not(cq, .new.section)");
 
+    // On page resize
+    $(window).on("resize", function() {
         if ($.viewportDetect() === "xs") {
             // Disabled slider if the viewport is XS after page resizes
-            $sliderDisabledOnMobile.slick("unslick");
+            $(".c-slider.c-slider--first-slide-only.slick-initialized").slick("unslick");
         } else {
             // Enable slider if the viewport is not XS after page resize
-            if (!$sliderDisabledOnMobile.hasClass("slick-initialized")) {
-                $sliderDisabledOnMobile.slick(settingSlider);
-            }
+            $(".c-slider.c-slider--first-slide-only:not(.slick-initialized)").slick(settingSlider);
         }
     });
 });

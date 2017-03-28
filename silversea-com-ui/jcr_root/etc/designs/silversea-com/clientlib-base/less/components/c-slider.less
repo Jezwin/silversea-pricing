@@ -81,7 +81,7 @@
         .full-width;
     }
 
-    &--first-slide-only:not(.slick-initialized) {
+    &--first-slide-only:not(.slick-initialized).c-slider {
         > .parbase:not(:first-child) {
             display: none;
         }
@@ -165,6 +165,12 @@
 
         .slick-prev {
             left: 0;
+        }
+    }
+
+    &--first-slide-only {
+        @media screen and (max-width: @screen-sm) {
+            margin-bottom: 0;
         }
     }
 }
