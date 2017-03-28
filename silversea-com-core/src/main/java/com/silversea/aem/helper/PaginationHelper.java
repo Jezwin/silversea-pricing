@@ -14,11 +14,9 @@ import java.util.List;
  */
 public class PaginationHelper extends WCMUsePojo {
 
-    @Inject
-    @Self
     private Page page;
 
-    List<Page> listPage;
+    private List<Page> listPage;
 
     public Page next;
 
