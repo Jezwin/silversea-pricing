@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ imagePath, query }">
     <picture data-sly-test.imagePrefix="${'/is/image/'}">
-        <sly data-sly-test.srcsetValue="${'{0}{1}' @format=[imagePath, query || '?wid=960']}" />
+        <sly data-sly-test.srcsetValue="${'{0}{1}' @format=[imagePath, query || '?wid=960&fit=hfit,1']}" />
         <!--[if IE 9]><video style="display: none;"><![endif]-->
         <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(max-width: 767px)" />
         <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(min-width: 768px)" />
