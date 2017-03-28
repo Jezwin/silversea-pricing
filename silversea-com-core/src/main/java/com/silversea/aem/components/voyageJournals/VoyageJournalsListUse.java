@@ -36,17 +36,20 @@ public class VoyageJournalsListUse extends WCMUsePojo {
 
     private Integer Ilimit;
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(VoyageJournalsListUse.class);
-
 
     @Override
     public void activate() throws Exception {
+
+        /*
+        * Init page value
+        **/
+        Page page;
+        voyageJournalList = new ArrayList<>();
 
         final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
         limit = properties.getInherited("paginationLimit", String.class);
         Ilimit = Integer.parseInt(limit);
 
-        voyageJournalList = new ArrayList<>();
         if (getRequest().getRequestParameter("page") != null)
             currentPage = getRequest().getRequestParameter("page").toString();
         else
@@ -57,8 +60,9 @@ public class VoyageJournalsListUse extends WCMUsePojo {
             pageNum = 0;
         pageNum = pageNum * Ilimit;
 
-        LOGGER.debug("{} current page is ", currentPage);
-
+        /*
+        * Construct Query
+        * */
         mapQuery.put("path", getCurrentPage().getPath());
         mapQuery.put("type", "cq:PageContent");
         mapQuery.put("property", "sling:resourceType");
@@ -68,28 +72,25 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         mapQuery.put("p.offset", String.valueOf(pageNum));
         mapQuery.put("p.limit", limit);
 
-        LOGGER.debug("offset : {} limit : {} Ilimit : {}", String.valueOf(pageNum), limit, Ilimit);
-
+        /*
+        * Build Query
+        * */
         Session session = getResourceResolver().adaptTo(Session.class);
         QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
         Query query = queryBuilder.createQuery(PredicateGroup.create(mapQuery), session);
         query.setStart(pageNum);
         query.setHitsPerPage(Ilimit);
-
         SearchResult result = query.getResult();
 
+        /*
+        * Get result from Query
+        * */
         totalMatches = result.getTotalMatches();
         numberOfPages = (int) Math.ceil((float) totalMatches / Ilimit);
-
-        LOGGER.debug("totalMatches : {} number of page : {}", totalMatches, numberOfPages);
-
-        Page page;
         for (Hit hit : result.getHits()) {
             page = hit.getResource().getParent().adaptTo(Page.class);
             voyageJournalList.add(page);
         }
-
-        LOGGER.debug("total res : {}", voyageJournalList.size());
     }
 
     public List<Page> getVoyageJournalList() {
