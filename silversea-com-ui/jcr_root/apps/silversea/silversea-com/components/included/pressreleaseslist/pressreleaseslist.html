@@ -1,3 +1,42 @@
-<div>
-    press releases list
+<div class="" data-sly-use.PressreleaseslistUse="${'com.silversea.aem.components.included.PressreleaseslistUse'}">
+
+    <ul class="c-list" data-sly-list="${PressreleaseslistUse.pressReleaseList}">
+        <li class="c-list__item" data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}">
+            <a href="${item.path @ extension='html'}">
+                <h2 class="voyage-journal-title">${item.title}</h2>
+                <span class="voyage-date">${'date' @ i18n} ${item.properties.publicationDate @ format='dd-MM-yyyy', type='date'}</span>
+                <span class="overlay">
+                    <img class="img-responsive" src="${item.properties.assetSelectionReference}">
+                </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul data-sly-test.pageSize="${PressreleaseslistUse.numberOfPages >= 2}">
+        <li data-sly-test.pageSize="${PressreleaseslistUse.numberOfPages >= 2}">
+            <a href="${currentPage.path @ extension='html'}?page=1">1</a>
+        </li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.numberOfPages >= 2}">
+            <a href="${currentPage.path @ extension='html'}?page=2">2</a>
+        </li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.numberOfPages >= 3}">
+            <a href="${currentPage.path @ extension='html'}?page=3">3</a>
+        </li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.numberOfPages >= 4}">...</li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.numberOfPages >= 4}">
+            <a href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.numberOfPages}">
+                ${PressreleaseslistUse.numberOfPages}
+            </a>
+        </li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.prev >= 0}">
+            <a href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.prev}">
+                <- Previous
+            </a>
+        </li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.next >= 0 && PressreleaseslistUse.numberOfPages >= 4}">
+            <a href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.next}">
+                NEXT ->
+            </a>
+        </li>
+    </ul>
 </div>
