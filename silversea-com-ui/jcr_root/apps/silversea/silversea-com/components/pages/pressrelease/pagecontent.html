@@ -16,15 +16,15 @@
 
                 <div data-sly-resource="${'propertyDisplay' @ resourceType='/apps/silversea/silversea-com/components/displayproperties/pressrelease'}"></div>
 
-                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
-                    <a href="${cpt.previousPath}"
+                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.helper.PaginationHelper">
+                    <a href="${cpt.previous.path @ extension='html'}"
                        class="c-pagination--previous"
-                       data-sly-test="${!cpt.first}">
-                        <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${cpt.previous}
+                       data-sly-test="${cpt.previous}">
+                        <i class="fa fa-angle-left fa-lg"></i> ${'previous' @ i18n}
                     </a>
-                    <a href="${cpt.nextPath}"
+                    <a href="${cpt.next.path @ extension='html'}"
                        class="c-pagination--next"
-                       data-sly-test="${!cpt.last}"> ${'day' @ i18n} ${cpt.next}
+                       data-sly-test="${cpt.next}"> ${'next' @ i18n}
                         <i class="fa fa-angle-right fa-lg"></i>
                     </a>
                 </div>
