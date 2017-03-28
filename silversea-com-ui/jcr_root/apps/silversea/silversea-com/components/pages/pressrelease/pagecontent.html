@@ -1,0 +1,34 @@
+<section class="o-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+            </div>
+
+            <div class="col-sm-8 c-pressereleases">
+
+                <div class="c-pageheader">
+                    <p class="c-pageheader__date">
+                        <strong>${'date' @ i18n}</strong> ${pageProperties.publicationDate @ format='yyyy-MM-dd', type='date'}
+                    </p>
+                    <h1 class="c-pageheader__subtitle">${currentPage.title}</h1>
+                </div>
+
+                <div data-sly-resource="${'propertyDisplay' @ resourceType='/apps/silversea/silversea-com/components/displayproperties/pressrelease'}"></div>
+
+                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
+                    <a href="${cpt.previousPath}"
+                       class="c-pagination--previous"
+                       data-sly-test="${!cpt.first}">
+                        <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${cpt.previous}
+                    </a>
+                    <a href="${cpt.nextPath}"
+                       class="c-pagination--next"
+                       data-sly-test="${!cpt.last}"> ${'day' @ i18n} ${cpt.next}
+                        <i class="fa fa-angle-right fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
