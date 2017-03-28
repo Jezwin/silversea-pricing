@@ -1,38 +1,23 @@
-<!--
-<div data-sly-test="${wcmmode.edit}" data-sly-unwrap></div>
+<sly data-sly-use.blogPostTeaserListUse="${'com.silversea.aem.components.editorial.BlogPostTeaserListUse'}" />
+<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+<h1>${pageProperties.jcr:title}</h1>
 
-<sly data-sly-use.cpt="com.silversea.aem.components.editorial.BlogPostTeaserUse" data-sly-unwrap>
--->
-<sly data-sly-use.brochureTeaserListUse="${'com.silversea.aem.components.editorial.BrochureTeaserListUse'}" />
-
-<section class="o-section o-section--small" style="display: none;">
-<div>${cpt.blogTeaser.title}</div>
-<div>${cpt.blogTeaser.publicationDate @ format='yyyy-MM-dd', type='date'}</div>
-<div>${'read-more' @ i18n} ${cpt.blogTeaser.blogPostReference}</div>
-<div>
-${properties.jcr:image}
-</div>
-</section>
+<div data-sly-test="${blogPostTeaserListUse.highLightFirst}" class="blogpostfirst">
+    <sly data-sly-call="${imageTemplate.default @ imagePath=blogPostTeaserListUse.firstBlogPostTeaser.thumbnailImageUrl, query='?wid=280'}"></sly>
     
-<h1>Silversea Blog</h1>
-<div class="blogpostfirst">
-    <img class="blogpostfirst__img" src="http://static.silversea.com/wp-content/uploads/2017/01/KNE_Tuam-Village-compressor.jpg" />
-    <p class="blogpostfirst__date"><span>13</span> Jan 2017</p>
-    <h2 class="blogpostfirst__title">Exploring the Remote Islands and Villages of Papua New Guinea</h2>
+    <p class="blogpostfirst__date">${blogPostTeaserListUse.firstBlogPostTeaser.formatPublicationDate  @context = 'html'}</p>
+    <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title }</h2>
 
-    <p class="blogpostfirst__descr">From colourful festivals and artisan markets to fire dances and underwater beauty, Travel Writer, Karen Edwards, visits one of the world’s least-visited countries on board Silver Discoverer… Voyage: Koror to Cairns It feels like a dream; an all-encompassing, colourful, beautiful dream. Bright yellows, reds, greens and pinks swoosh and swing in the afternoon’s haze. Sleek white feathers ascend high into…</p>
-
-    <a class="read-more" href="http://www.silversea.com/blog/2017/01/sensational-sumatra-silversea-expeditions/">Read More<i class="fa fa-angle-right"></i></a>
+    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.longDescription @context = 'html'}</p>
+    <a class="read-more" href="${blogPostTeaserListUse.firstBlogPostTeaser.properUrl}">${'read-more' @i18n}<i class="fa fa-angle-right"></i></a>
 </div>
-
+<hr/>
+<div data-sly-test="${blogPostTeaserListUse.blogPostTeaserModelList.size >= 1}" data-sly-unwrap >
 <div class="blogpostlist">
-    <h3>other recent stories</h3>
-    
-    <dl data-sly-list="${brochureTeaserListUse.brochureList}">
-        <sly data-sly-use.brochureTeaserUse="${'com.silversea.aem.components.editorial.BrochureTeaserUse' @ brochurePathParam= brochureTeaserListUse.brochureList[itemList.index] }">
-        <sly data-sly-resource="${itemList.index @ resourceType='/apps/silversea/silversea-com/components/editorial/brochureteaser'}" />
+    <h3>${'other-recent-story' @i18n}</h3>
+    <dl data-sly-list.blogTeaser="${blogPostTeaserListUse.blogPostTeaserModelList}">
+        <sly data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
+             data-sly-call="${blogPostTemplate.default @ blogTeaser = blogTeaser, blogPostReference = blogTeaser.path }"></sly>
     </dl>
-    
-    
-
+</div>
 </div>

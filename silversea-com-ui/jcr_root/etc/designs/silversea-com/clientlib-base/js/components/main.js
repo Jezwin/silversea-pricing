@@ -1,5 +1,20 @@
 $(function() {
     /***************************************************************************
+     * Use viewportDetect : allow sync between css breakpoint and javascript
+     * function call
+     **************************************************************************/
+    // On page load event, set viewport class name :
+    var viewportBootstrap = 'viewport-' + $.viewportDetect(), $body = $('body');
+    $body.addClass(viewportBootstrap);
+
+    // On widow resize event, set viewport class name :
+    $.viewportDetect(function(vp) {
+        viewportBootstrap = 'viewport-' + vp;
+        $body.removeClass('viewport-xs viewport-sm viewport-md viewport-lg viewport-xl').addClass(viewportBootstrap);
+        $body.trigger('trigger.viewport.changed');
+    });
+
+    /***************************************************************************
      * Chosen
      **************************************************************************/
     // Activate chosen plugin
@@ -12,16 +27,15 @@ $(function() {
      **************************************************************************/
     // Clean modal content on close event
     $(document).on('hide.bs.modal', function(e) {
+        // Destroy gallery inside modal
+        $('.c-slider--for, .c-slider--nav').slick('unslick');
+
         $(e.target).removeData('bs.modal');
-        var $modalContent = $('body > .modal-content');
+        var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
 
         // Force to default class
         $modalContent.attr('class', 'modal-content');
-
-        // Destroy gallery inside modal
-        $modalContent.find('.c-slider--for, .c-slider--nav').slick('unslick');
-
     });
 
     // Build modal for image
@@ -43,22 +57,32 @@ $(function() {
         var $link = $(this);
 
         $($link.data('target')).modal('show');
-        var $modal = $('.modal-content:visible');
-        $modal.replaceWith($link.siblings(':hidden').html());
+        var $modalContent = $('.modal-content:visible');
+        var $modal = $('.modal:visible');
 
-        // Build gallery
-        $('.c-slider--for').slick({
-            slidesToShow : 1,
-            slidesToScroll : 1,
-            asNavFor : '.c-slider--nav'
-        });
-        $('.c-slider--nav').slick({
-            slidesToShow : 6,
-            slidesToScroll : 1,
-            asNavFor : '.c-slider--for',
-            focusOnSelect : true
-        });
+        // Append gallery inside modal
+        $modalContent.replaceWith($link.siblings(':hidden').html());
     });
+
+    $('.modal').on('shown.bs.modal', function() {
+        // Build gallery
+        setTimeout(function() {
+            $('.c-slider--for').slick({
+                slidesToShow : 1,
+                slidesToScroll : 1,
+                asNavFor : '.modal .c-slider--nav'
+            });
+
+            $('.c-slider--nav').slick({
+                slidesToShow : 6,
+                slidesToScroll : 1,
+                asNavFor : '.modal .c-slider--for',
+                focusOnSelect : true
+            });
+        }, 10);
+
+    });
+
     /***************************************************************************
      * Brochure teaser
      **************************************************************************/

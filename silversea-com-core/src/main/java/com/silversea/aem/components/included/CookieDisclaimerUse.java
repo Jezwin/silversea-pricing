@@ -4,12 +4,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
-import com.day.cq.tagging.TagManager;
-import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.services.GeolocationTagService;
-import org.apache.sling.api.resource.ResourceResolver;
 
 /**
  * Created by asiba on 14/03/2017.
@@ -19,11 +15,9 @@ public class CookieDisclaimerUse extends WCMUsePojo {
     private Boolean showCookieMsg = false;
 
     private String description;
-    
+
     @Override
     public void activate() throws Exception {
-        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-
         // Getting context
         GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
         final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());

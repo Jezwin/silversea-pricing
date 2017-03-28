@@ -6,17 +6,25 @@ import org.apache.sling.api.resource.Resource;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.foundation.Image;
 
 public class PageHelper extends WCMUsePojo {
 
     private Page page;
+    private String thumbnail;
 
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
         Resource resource = getResourceResolver().getResource(path);
+
         if (resource != null) {
             page = resource.adaptTo(Page.class);
+
+            Resource imageRes = page.getContentResource("image");
+            if (imageRes != null) {
+                thumbnail = imageRes.getValueMap().get("fileReference", String.class);
+            }
         }
     }
 
@@ -45,5 +53,13 @@ public class PageHelper extends WCMUsePojo {
         }
 
         return path.substring(path.lastIndexOf('/') + 1);
+    }
+    
+
+    /**
+     * @return the page for a given path
+     */
+    public String getThumbnail() {
+        return thumbnail;
     }
 }

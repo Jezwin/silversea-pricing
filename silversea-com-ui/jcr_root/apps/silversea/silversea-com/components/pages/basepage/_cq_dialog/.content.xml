@@ -94,6 +94,7 @@
                                                 fieldLabel="last Importing Date"
                                                 name="./lastModificationDate"
                                                 renderReadOnly="{Boolean}true"
+                                                disabled="{Boolean}true"
                                                 type="datetime" />
                                         </items>
                                     </title>

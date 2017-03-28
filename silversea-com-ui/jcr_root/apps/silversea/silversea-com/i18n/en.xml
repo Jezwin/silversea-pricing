@@ -27,4 +27,40 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="day"
         sling:message="Day" />
+    <features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="features"
+        sling:message="Features" />
+    <more-info
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more-info"
+        sling:message="More info" />
+    <close
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="close"
+        sling:message="Close" />
+    <voyages
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyages"
+        sling:message="Voyages" />
+    <suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites"
+        sling:message="Suites" />
+    <dining
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining"
+        sling:message="Dining" />
+    <public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas"
+        sling:message="Public Areas" />
+    <deck-plan-details
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="deck-plan-details"
+        sling:message="Deck Plan and Details" />
+    <keyfact
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="keyfact"
+        sling:message="Key Fact" />
 </jcr:root>

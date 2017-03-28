@@ -7,16 +7,21 @@
     max-width: 960px;
 }
 
-body:not(.simplepage) {
-    padding-top: 110px !important;
-    
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        padding-top: 60px;
-    }
-    /* tablet breakpoint */
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        padding-top: 60px;
+body {
+    overflow-x: hidden;
+
+    &:not(.simplepage) {
+        padding-top: 110px !important;
+
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            padding-top: 60px;
+        }
+
+        /* tablet breakpoint */
+        @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            padding-top: 60px;
+        }
     }
 }
 
@@ -27,9 +32,11 @@ ul {
     margin: 0;
     padding: 0;
 }
+
 li {
     list-style: none;
 }
+
 a {
     color: inherit;
     &:hover, &:active, &:focus {
@@ -47,25 +54,28 @@ a {
         padding: inherit;
         list-style-type: square;
     }
+
     ol {
         margin: inherit;
         padding: inherit;
         list-style-type: decimal;
     }
+
     li {
         list-style: inherit;
     }
+
     a {
         color: initial;
         font-weight: 700;
         text-decoration: underline;
+
         &:hover, &:active, &:focus {
             text-decoration: initial;
             color: initial;
         }
     }
 }
-
 
 /*
 ** Helpers Class
@@ -79,52 +89,59 @@ a {
         &-white {
             color: white !important;
         }
+
         &-black {
             color: @black !important;
         }
+
         &-red {
             color: @red !important;
         }
+
         &-grey {
             color: @grey !important;
+
             &-l {
                 color: @grey-l !important;
             }
+
             &-3 {
                 color: @grey--3 !important;
             }
         }
+
         &--footnote {
             font-size: 11px;
             font-style: italic;
-
         }
-        
     }
-    
+
     /*
     ** Background color
     */
     &-white {
         background-color: white !important;
     }
+
     &-black {
         background-color: @black !important;
     }
+
     &-red {
         background-color: @red !important;
     }
-    
-    
+
     /*
     ** Font
     **/
     &-bold {
         font-weight: 800;
     }
+
     &-important {
         text-transform: uppercase;
     }
+
     &-right {
         text-align: right;
     }
@@ -155,17 +172,17 @@ a {
     font-weight: @bold-l;
     white-space: nowrap;
     vertical-align: middle;
-    
-    &__inner {
 
+    &__inner {
         .c-btn {
             width: 100%;
         }
     }
-    
+
     .fa-angle-right {
         margin-left: 5px;
     }
+
     &--dark {
         background: @black;
         color: @white;
@@ -174,11 +191,12 @@ a {
         -ms-transition: background 1s;
         -o-transition: background 1s;
         transition: background 1s;
-        
+
         &:hover, &:focus, &:active {
             background: @grey--9;
         }
     }
+
     &--grey {
         background: @grey--c5;
         color: @black;
@@ -187,11 +205,12 @@ a {
         -ms-transition: background 1s;
         -o-transition: background 1s;
         transition: background 1s;
-        
+
         &:hover, &:focus, &:active {
             background: @grey--9;
         }
     }
+
     &--red {
         background: @red;
         color: @white;
@@ -200,7 +219,7 @@ a {
         -ms-transition: background 1s;
         -o-transition: background 1s;
         transition: background 1s;
-        
+
         &:hover, &:focus, &:active {
             background: @red-d;
             color: @white;
@@ -218,7 +237,7 @@ a {
     font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    
+
     &--dark {
         border: 0;
         background-color: @grey--eb;
@@ -231,18 +250,26 @@ a {
 */
 .o-img {
     max-width: 100%;
+    width: 100%;
+
     &--small {
         display: block;
         text-align: center;
         max-width: 35px;
     }
+
     &--center {
         text-align: center;
     }
+
     .automatic-modal-body & {
         display: block;
         margin: 0 auto;
     }
+}
+
+div.image {
+    margin-bottom: 0;
 }
 
 /*
@@ -254,6 +281,7 @@ a {
     &--separator {
         border-top: solid 1px @grey--d;
     }
+
     &--award {
         [class*='col-'] {
             &:first-child {
@@ -264,6 +292,7 @@ a {
             }
         }
     }
+
     &--small {
         padding: 5px 0;
     }
@@ -273,7 +302,6 @@ a {
 * l- LAYOUT GRID AEM
 */
 .l-grid {
-        
     &--right {
         float: right
     }
@@ -288,6 +316,7 @@ a {
             border-bottom: 1px solid @black;
         }
     }
+
     &--top {
         &-dark {
             border-top: 1px solid @black;

@@ -1,9 +1,10 @@
-<template data-sly-template.default="${ @ imagePath }">
+<template data-sly-template.default="${ @ imagePath, query }">
     <picture data-sly-test.imagePrefix="${'/is/image/'}">
+        <sly data-sly-test.srcsetValue="${'{0}{1}' @format=[imagePath, query || '?wid=960']}" />
         <!--[if IE 9]><video style="display: none;"><![endif]-->
-        <source srcset="${imagePath @ prependPath=imagePrefix}, ${imagePath @ prependPath=imagePrefix} 2x" media="(max-width: 767px)"></source>
-        <source srcset="${imagePath @ prependPath=imagePrefix}, ${imagePath @ prependPath=imagePrefix} 2x" media="(min-width: 768px)"></source>
+        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(max-width: 767px)"></source>
+        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(min-width: 768px)"></source>
         <!--[if IE 9]></video><![endif]-->
-        <img src="${imagePath @ prependPath=imagePrefix}" alt="${properties.alt}" title="${properties.title}" class="o-img cq-dd-image" />
+        <img src="${srcsetValue @ prependPath=imagePrefix}" alt="${properties.alt}" title="${properties.title}" class="o-img cq-dd-image" />
     </picture>
 </template>

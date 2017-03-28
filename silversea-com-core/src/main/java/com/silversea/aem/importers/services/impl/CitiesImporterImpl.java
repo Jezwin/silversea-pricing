@@ -24,6 +24,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,8 +58,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             int i = 1;
 
             do {
-                cities = citiesApi.citiesGet(null, null, i,
-                        100, null, null, null);
+                cities = citiesApi.citiesGet(null, null, i, 100, null, null, null);
 
                 int j = 0;
 
@@ -71,16 +71,13 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                     Page portFirstLetterPage;
 
                     if (citiesRootPage.hasChild(portFirstLetterName)) {
-                        portFirstLetterPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS
-                                + "/" + portFirstLetterName);
+                        portFirstLetterPage = pageManager
+                                .getPage(ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
 
                         LOGGER.debug("Page {} already exists", portFirstLetterName);
                     } else {
-                        portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
-                                portFirstLetterName,
-                                "/apps/silversea/silversea-com/templates/page",
-                                portFirstLetter,
-                                false);
+                        portFirstLetterPage = pageManager.create(citiesRootPage.getPath(), portFirstLetterName,
+                                "/apps/silversea/silversea-com/templates/page", portFirstLetter, false);
 
                         LOGGER.debug("Creating page {}", portFirstLetterName);
                     }
@@ -96,10 +93,9 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(), city.getCityCod());
                     } else {
                         portPage = pageManager.create(portFirstLetterPage.getPath(),
-                                JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class), city.getCityName()),
-                                "/apps/silversea/silversea-com/templates/port",
-                                city.getCityName(),
-                                false);
+                                JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
+                                        city.getCityName()),
+                                "/apps/silversea/silversea-com/templates/port", city.getCityName(), false);
 
                         LOGGER.debug("Creating port {}", city.getCityName());
                     }
@@ -139,6 +135,9 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
             if (session.hasPendingChanges()) {
                 try {
+                    // save migration date
+                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class); 
+                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
                     session.refresh(false);

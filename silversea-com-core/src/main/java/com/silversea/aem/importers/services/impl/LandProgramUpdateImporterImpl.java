@@ -70,9 +70,12 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
             // get last importing date
-            String dateFormat = "yyyymmdd";
+            String dateFormat = "yyyyMMdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-            String currentDate = formatter.format(date.getTime());
+            String currentDate ;
+            if(date !=null){
+                currentDate = formatter.format(date.getTime()).toString();
+              
 
             int i = 1;
 
@@ -158,10 +161,9 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 
             if (session.hasPendingChanges()) {
                 try {
-                    // save migration date
-                    Node rootNode = resParent.adaptTo(Node.class);
+                 // save migration date
+                    Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-
                     session.save();
                 } catch (RepositoryException e) {
                     session.refresh(false);
@@ -169,7 +171,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+            }} catch (ApiException | WCMException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
     }

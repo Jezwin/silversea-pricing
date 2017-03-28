@@ -54,122 +54,131 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
     @Override
     public void importUpdateCities() throws IOException, ReplicationException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/cities/changesFrom/");
 
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
-            CitiesApi citiesApi = new CitiesApi();
-            citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-
             // get parent content resource
             Resource resParent = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
             // get last importing date
-            String dateFormat = "yyyymmdd";
+            String dateFormat = "yyyyMMdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-            String currentDate = formatter.format(date.getTime());
+            String currentDate;
 
-            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            if (date != null) {
+                currentDate = formatter.format(date.getTime()).toString();
 
-            List<City77> cities;
-            int i = 1;
+//                final String authorizationHeader = getAuthorizationHeader("/api/v1/cities/changesFrom/" + currentDate);
+                final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
 
-            do {
-                cities = citiesApi.citiesGetChanges(currentDate, i, 100, null, null, null);
+                CitiesApi citiesApi = new CitiesApi();
+                citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
-                int j = 0;
+                Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
 
-                for (City77 city : cities) {
-                    LOGGER.debug("Importing city: {}", city.getCityName());
+                List<City77> cities;
+                int i = 1;
 
-                    final String portFirstLetter = String.valueOf(city.getCityName().charAt(0));
-                    final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
+                do {
+                    cities = citiesApi.citiesGetChanges(currentDate, i, 100, null, null, null);
 
-                    Page portFirstLetterPage;
+                    int j = 0;
 
-                    if (citiesRootPage.hasChild(portFirstLetterName)) {
-                        portFirstLetterPage = pageManager
-                                .getPage(ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
+                    for (City77 city : cities) {
+                        LOGGER.debug("Importing city: {}", city.getCityName());
 
-                        LOGGER.debug("Page {} already exists", portFirstLetterName);
-                    } else {
-                        portFirstLetterPage = pageManager.create(citiesRootPage.getPath(), portFirstLetterName,
-                                "/apps/silversea/silversea-com/templates/page", portFirstLetter, false);
+                        final String portFirstLetter = String.valueOf(city.getCityName().charAt(0));
+                        final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
 
-                        LOGGER.debug("Creating page {}", portFirstLetterName);
-                    }
+                        Page portFirstLetterPage;
 
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/cityCode=\"" + city.getCityCod() + "\"]", "xpath");
+                        if (citiesRootPage.hasChild(portFirstLetterName)) {
+                            portFirstLetterPage = pageManager
+                                    .getPage(ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
 
-                    Page portPage;
+                            LOGGER.debug("Page {} already exists", portFirstLetterName);
+                        } else {
+                            portFirstLetterPage = pageManager.create(citiesRootPage.getPath(), portFirstLetterName,
+                                    "/apps/silversea/silversea-com/templates/page", portFirstLetter, false);
 
-                    if (resources.hasNext()) {
-                        portPage = resources.next().adaptTo(Page.class);
-                        // TODO Descativation for deleted page
-                        if (BooleanUtils.isTrue(city.getIsDeleted())) {
-                            replicat.replicate(session, ReplicationActionType.DEACTIVATE, portPage.getPath());
+                            LOGGER.debug("Creating page {}", portFirstLetterName);
                         }
 
-                        LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(), city.getCityCod());
-                    } else {
-                        portPage = pageManager.create(portFirstLetterPage.getPath(),
-                                JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-                                        city.getCityName()),
-                                "/apps/silversea/silversea-com/templates/port", city.getCityName(), false);
+                        Iterator<Resource> resources = resourceResolver.findResources(
+                                "//element(*,cq:Page)[jcr:content/cityCode=\"" + city.getCityCod() + "\"]", "xpath");
 
-                        LOGGER.debug("Creating port {}", city.getCityName());
-                    }
+                        Page portPage;
 
-                    Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
+                        if (resources.hasNext()) {
+                            portPage = resources.next().adaptTo(Page.class);
+                            // TODO Descativation for deleted page
+                            if (BooleanUtils.isTrue(city.getIsDeleted())) {
+                                replicat.replicate(session, ReplicationActionType.DEACTIVATE, portPage.getPath());
+                            }
 
-                    if (portPageContentNode.hasProperty(JcrConstants.JCR_TITLE)
-                            && portPageContentNode.getProperty("jcr:title").getString().equals(city.getCityName())) {
-                        portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
-                    }
+                            LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(),
+                                    city.getCityCod());
+                        } else {
+                            portPage = pageManager.create(portFirstLetterPage.getPath(),
+                                    JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
+                                            city.getCityName()),
+                                    "/apps/silversea/silversea-com/templates/port", city.getCityName(), false);
 
-                    portPageContentNode.setProperty("apiTitle", city.getCityName());
-                    portPageContentNode.setProperty("apiDescription", city.getShortDescription());
-                    portPageContentNode.setProperty("apiLongDescription", city.getDescription());
-                    portPageContentNode.setProperty("cityCode", city.getCityCod());
-                    portPageContentNode.setProperty("cityId", city.getCityId());
-                    portPageContentNode.setProperty("latitude", city.getLatitude());
-                    portPageContentNode.setProperty("longitude", city.getLongitude());
-                    portPageContentNode.setProperty("countryId", city.getCountryId());
-                    portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
+                            LOGGER.debug("Creating port {}", city.getCityName());
+                        }
 
-                    j++;
+                        Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
 
-                    if (j % 100 == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                        if (portPageContentNode.hasProperty(JcrConstants.JCR_TITLE) && portPageContentNode
+                                .getProperty("jcr:title").getString().equals(city.getCityName())) {
+                            portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
+                        }
+
+                        portPageContentNode.setProperty("apiTitle", city.getCityName());
+                        portPageContentNode.setProperty("apiDescription", city.getShortDescription());
+                        portPageContentNode.setProperty("apiLongDescription", city.getDescription());
+                        portPageContentNode.setProperty("cityCode", city.getCityCod());
+                        portPageContentNode.setProperty("cityId", city.getCityId());
+                        portPageContentNode.setProperty("latitude", city.getLatitude());
+                        portPageContentNode.setProperty("longitude", city.getLongitude());
+                        portPageContentNode.setProperty("countryId", city.getCountryId());
+                        portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
+
+                        j++;
+
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
                             }
                         }
                     }
+
+                    i++;
+                } while (cities.size() > 0);
+
+                if (session.hasPendingChanges()) {
+                    try {
+                        // save migration date
+                        Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
+                        rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+                        session.save();
+                    } catch (RepositoryException e) {
+                        session.refresh(false);
+                    }
                 }
 
-                i++;
-            } while (cities.size() > 0);
-
-            if (session.hasPendingChanges()) {
-                try {
-                    // save migration date
-                    Node rootNode = resParent.adaptTo(Node.class);
-                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-                    session.save();
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
+                resourceResolver.close();
             }
-
-            resourceResolver.close();
         } catch (ApiException | WCMException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing cities", e);
         }

@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramImporter;
 
 import io.swagger.client.ApiException;
@@ -54,6 +56,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
+            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
 
             int i = 1;
 
@@ -134,6 +137,9 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
             if (session.hasPendingChanges()) {
                 try {
+                    // save migration date
+                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class); 
+                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
                     session.refresh(false);

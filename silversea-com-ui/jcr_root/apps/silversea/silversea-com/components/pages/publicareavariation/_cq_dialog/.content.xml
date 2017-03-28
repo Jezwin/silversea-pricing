@@ -36,6 +36,7 @@
                                             cq-msm-lockable="plan"
                                             fieldLabel="Plan"
                                             name="./plan"
+                                            rootPath="/content/dam/"
                                             renderReadOnly="{Boolean}true"/>
                                     <virtualtour
                                             jcr:primaryType="nt:unstructured"
@@ -44,6 +45,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Virtual Tour"
                                             name="./virtualTour"
+                                            rootPath="/content/dam/"
                                             renderReadOnly="{Boolean}true"/>
                                     <locationimage
                                             jcr:primaryType="nt:unstructured"
@@ -52,6 +54,7 @@
                                             cq-msm-lockable="locationImage"
                                             fieldLabel="Location Image"
                                             name="./locationImage"
+                                            rootPath="/content/dam/"
                                             renderReadOnly="{Boolean}true"/>
                                 </items>
                             </column>

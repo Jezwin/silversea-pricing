@@ -1,8 +1,11 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="cookie disclaimer"></div>
-<sly data-sly-use.cookiedisclaimer="${'com.silversea.aem.components.included.CookieDisclaimerUse'}" />
-<div class="c-floatingbar" data-sly-test="${cookiedisclaimer.showCookieMsg}" id="c-cookie">
-    <div class="container" data-sly-test="${cookiedisclaimer.description}">
-        <p>${cookiedisclaimer.description}</p>
+<div data-sly-use.cookieDisclaimerUse="${'com.silversea.aem.components.included.CookieDisclaimerUse'}"
+     data-sly-test.empty="${!cookieDisclaimerUse.description && wcmmode.edit}"
+     class="cq-placeholder" data-emptytext="cookie disclaimer"></div>
+
+<div id="c-cookie" class="c-floatingbar"
+     data-sly-test="${(cookieDisclaimerUse.showCookieMsg || wcmmode.edit) && cookieDisclaimerUse.description}" >
+    <div class="container">
+        <p>${cookieDisclaimerUse.description}</p>
         <button id="c-cookie__close">
             <span class="hidden-xs">${'close' @ i18n}</span>
             <i class="fa fa-times"></i>

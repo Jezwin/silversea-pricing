@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,9 +28,7 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.api.SpecialOffersApi;
-import io.swagger.client.model.Agency;
 import io.swagger.client.model.SpecialOffer;
 
 /**
@@ -47,16 +46,18 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
     @Override
     public void importExclusiveOffers() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/specialOffers");
-
+        try {
         // get authentification to the Special Offers API
         SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
         spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         
 
-        try {
+        
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
+            Page offersRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
+
 
             int i = 1;
             
@@ -68,8 +69,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                 specialOffers = spetialOffersApi.specialOffersGet(i, 100, null);
                 
                 // get root parent special offers
-                Page offersRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
-
+                
                 int j = 0;
 
                 for (SpecialOffer offers : specialOffers) {
@@ -114,6 +114,9 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
             if (session.hasPendingChanges()) {
                 try {
+                 // save migration date
+                    Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class); 
+                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
                     session.refresh(false);

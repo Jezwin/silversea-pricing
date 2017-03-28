@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="nt:unstructured"
-    jcr:title="Blog Post List"
-    sling:resourceType="cq/gui/components/authoring/dialog"
-    helpPath="https://www.adobe.com/go/aem6_2_docs_component_en#Title - Sightly">
+    jcr:title="SSC - Blog Post list"
+    sling:resourceType="cq/gui/components/authoring/dialog">
     <content
         jcr:primaryType="nt:unstructured"
         sling:resourceType="granite/ui/components/foundation/container">
         <layout
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-            margin="{Boolean}false"/>
+            margin="{Boolean}false" />
         <items jcr:primaryType="nt:unstructured">
             <column
                 jcr:primaryType="nt:unstructured"
@@ -23,25 +22,30 @@
                         <layout
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                            method="absolute"/>
-                            <items jcr:primaryType="nt:unstructured">
-                                <column
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/container">
-                                    <items jcr:primaryType="nt:unstructured">
-                                        <blogPostReference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldDescription="Path"
-                                            cq-msm-lockable="blogPostReference"
-                                            fieldLabel="Path"
-                                            renderReadOnly="{Boolean}true"
-                                            name="./blogPostReference"
-                                            required="{Boolean}true"
-                                            rootPath="/content/dam/"/>
-                                    </items>
-                                </column>
-                            </items>
+                            method="absolute" />
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <blogPostReference
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        fieldDescription="Path"
+                                        cq-msm-lockable="blogPostReference"
+                                        fieldLabel="Path"
+                                        renderReadOnly="{Boolean}true"
+                                        name="./blogPostReference"
+                                        rootPath="/content/silversea-com" />
+                                    <highLightFirst
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                        name="./highLightFirst"
+                                        text="High Light First Blog"
+                                        value="true" />
+                                </items>
+                            </column>
+                        </items>
                     </field>
                 </items>
             </column>

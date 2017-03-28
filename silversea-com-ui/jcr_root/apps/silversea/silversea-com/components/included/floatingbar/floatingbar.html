@@ -1,14 +1,11 @@
-<div class="container text-center ">
-    <a href="#" class="btn btn-red" type="button">
-       <span class="visible-xs-inline">${'quote' @ i18n}</span>
-       <span class="hidden-xs">${'request-a-quote' @ i18n}</span> <i class="fa fa-lg fa-angle-right"></i>
-    </a>
-    <a href="#" class="btn btn-gray" type="button">
-        <span class="visible-xs-inline">${'brochures' @ i18n}</span>
-        <span class="hidden-xs">${'request-or-download-a-brochures' @ i18n}</span> <i class="fa fa-lg fa-angle-right"></i>
-    </a>
-    <a href="#" class="btn btn-gray" type="button">
-        <span class="visible-xs-inline">${'sign-up' @ i18n}</span>
-        <span class="hidden-xs">${'sign-up-for-exclusive-offers' @ i18n}</span> <i class="fa fa-lg fa-angle-right"></i>
-    </a>
+<sly data-sly-use.floatingBar="${'com.silversea.aem.components.included.FloatingBarUse'}"></sly>
+<div data-sly-test.empty="${!floatingBar.calltoActionList && wcmmode.edit}" class="cq-placeholder" data-emptytext="Floating bar"></div>
+
+<div data-sly-test="${!empty}" class="c-floatingbar">
+    <div class="container text-center" data-sly-list="${floatingBar.calltoActionList}">
+        <a href="${item.reference @ extension='html'}" class="btn btn-${item.color}" type="button">
+           <span class="visible-xs-inline">${item.titleTablet}</span>
+           <span class="hidden-xs">${item.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+        </a>
+    </div>
 </div>

@@ -1,12 +1,13 @@
+<sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse" />
 <section class="o-section">
     <div class="c-pageheader">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="c-pageheader__title c-pageheader__title--inline">${'Find a Port' @ i18n}</h2>
+                    <h2 class="c-pageheader__title c-pageheader__title--inline">${'find-a-Port' @ i18n}</h2>
                     <div class="c-pageheader__links">
                         <ul class="c-list-inline__group">
-                            <li class="c-list-inline__item c-list-inline__item--supper c-list-inline__item--separated"><a href="#"> ${'search more' @ i18n} <i class="fa fa-angle-down"></i>
+                            <li class="c-list-inline__item c-list-inline__item--supper c-list-inline__item--separated"><a href="#"> ${'search-more' @ i18n} <i class="fa fa-angle-down"></i>
                             </a></li>
                         </ul>
                     </div>
@@ -18,20 +19,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="c-tab">
+                    <div class="c-tab c-tab__accordion">
                         <ul class="c-tab__nav c-tab__nav--regular5">
                             <li class="c-tab__link" data-state="active"><a href="#Overview">Overview</a></li>
                             <li class="c-tab__link"><a href="#Voyages">Voyages</a></li>
-                            <li class="c-tab__link"><a href="#Excursions">Excursions</a></li>
-                            <li class="c-tab__link"><a href="#LandProgrammes">Land Programmes</a></li>
-                            <li class="c-tab__link"><a href="#Hotels">Hotels</a></li>
+                            <sly data-sly-test="${portUse.portModel.excursions}">
+                                <li class="c-tab__link"><a href="#Excursions">Excursions</a></li>
+                            </sly>
+                            <sly data-sly-test="${portUse.portModel.landprograms}">
+                                <li class="c-tab__link"><a href="#LandProgrammes">Land Programmes</a></li>
+                            </sly>
+                            <sly data-sly-test="${portUse.portModel.hotels}">
+                                <li class="c-tab__link"><a href="#Hotels">Hotels</a></li>
+                            </sly>
                         </ul>
                         <div class="c-tab__body">
                             <sly data-sly-include="overviewtab.html" />
                             <sly data-sly-include="voyagestab.html" />
-                            <sly data-sly-include="excursionstab.html" />
-                            <sly data-sly-include="landprogrammestab.html" />
-                            <sly data-sly-include="hotelstab.html" />
+
+                            <sly data-sly-test="${portUse.portModel.excursions}">
+                                <sly data-sly-include="excursionstab.html" />
+                            </sly>
+                            <sly data-sly-test="${portUse.portModel.landprograms}">
+                                <sly data-sly-include="landprogrammestab.html" />
+                            </sly>
+                            <sly data-sly-test="${portUse.portModel.hotels}">
+                                <sly data-sly-include="hotelstab.html" />
+                            </sly>
                         </div>
                     </div>
                 </div>

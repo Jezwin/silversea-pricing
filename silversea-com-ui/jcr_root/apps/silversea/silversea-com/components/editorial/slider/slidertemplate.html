@@ -1,0 +1,14 @@
+<template data-sly-template.default>
+    <div class="${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
+        data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000 ,"slidesToScroll": ${properties.itemNumber || "1"}, "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
+        data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}">
+    </div>
+</template>
+
+<template data-sly-template.populatefromSet="${ @ setImagePath, query }">
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}"
+        data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+    <div class="c-slider c-slider--default" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true}'>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=item, query=query}"></sly>
+    </div>
+</template>
