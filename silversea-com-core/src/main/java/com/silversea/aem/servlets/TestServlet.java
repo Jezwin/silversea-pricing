@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.importers.services.HotelImporter;
 import com.silversea.aem.importers.services.LandProgramImporter;
@@ -41,18 +42,20 @@ public class TestServlet extends SlingSafeMethodsServlet {
 
     @Reference
     ExclusiveOffersImporter exclusiveOffersImporter;
+    
+    @Reference
+    CountriesImporter countriesImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-
         citiesImporter.importCities();
         shoreExcursionsImporter.importShoreExcursions();
         hotelImporter.importHotel();
         landProgramImporter.importLandProgram();
         travelAgenciesImporter.importTravelAgencies();
         exclusiveOffersImporter.importExclusiveOffers();
-
+        countriesImporter.importCountries();
     }
 }

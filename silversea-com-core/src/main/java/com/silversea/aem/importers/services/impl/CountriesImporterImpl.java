@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.felix.scr.annotations.Component;
@@ -29,7 +30,7 @@ import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
 
 @Component(immediate = true, label = "Silversea.com - Cities importer")
-@Service(value = CountriesImporterImpl.class)
+@Service
 public class CountriesImporterImpl extends BaseImporter implements CountriesImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
@@ -53,9 +54,8 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
             for (Country country : listCountries) {
                 importCountry(country.getCountryIso2(), country);
             }
-
+            getResourceResolver().close();
         } catch (Exception e) {
-            // TODO: handle exception
             String errorMessage = "Some issues are happened for import builder ()";
             LOGGER.error(errorMessage, e);
         }
@@ -68,13 +68,15 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
         Node currentNode = null;
         Session session = getResourceResolver().adaptTo(Session.class);
         try {
+            // Create the query builder to get node by country name - it means
+            // iso2
             map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
             map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
             map.put(WcmConstants.SEARCH_NODE_NAME, iso2);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
-
             SearchResult searchResult = query.getResult();
             Iterator<Node> nodes = searchResult.getNodes();
+            // Set result to current node
             if (nodes.hasNext()) {
                 while (nodes.hasNext()) {
                     Node node = nodes.next();
@@ -83,6 +85,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                     }
                 }
             }
+            // Add some properties for current node
             if (null != currentNode) {
                 currentNode.setProperty("country_id", country.getCountryId());
                 currentNode.setProperty("country_url", country.getCountryUrl());
@@ -92,14 +95,17 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                 currentNode.setProperty("country_prefix", country.getCountryPrefix());
                 currentNode.setProperty("market", country.getMarket());
                 currentNode.setProperty("region_id", country.getRegionId());
-                session.save();
+                if (session.hasPendingChanges()) {
+                    try {
+                        session.save();
+                    } catch (RepositoryException e) {
+                        session.refresh(false);
+                    }
+                }
             }
-
         } catch (Exception e) {
-            String errorMessage = "Some issues are happened on search Tag ()";
+            String errorMessage = "Some issues are happened ()";
             LOGGER.error(errorMessage, e);
-        } finally {
-            session.logout();
         }
     }
 

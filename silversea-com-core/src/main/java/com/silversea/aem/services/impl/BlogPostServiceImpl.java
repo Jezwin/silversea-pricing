@@ -81,7 +81,7 @@ public class BlogPostServiceImpl implements BlogPostService {
             String errorMessage = "Some issues are happened ()";
             LOGGER.error(errorMessage, e);
         }
-
+        getResourceResolver().close();
         return blogPostTeaserModelList;
     }
 
