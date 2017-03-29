@@ -3,20 +3,18 @@ package com.silversea.aem.components.voyageJournals;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.services.impl.GeolocationTagServiceImpl;
-import org.apache.sling.api.resource.Resource;
-import com.day.cq.search.Query;
 import com.day.cq.search.result.SearchResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.day.cq.wcm.api.Page;
 
 import javax.jcr.Session;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class VoyageJournalsListUse extends WCMUsePojo {
 
@@ -50,14 +48,16 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         limit = properties.getInherited("paginationLimit", String.class);
         Ilimit = Integer.parseInt(limit);
 
-        if (getRequest().getRequestParameter("page") != null)
+        if (getRequest().getRequestParameter("page") != null) {
             currentPage = getRequest().getRequestParameter("page").toString();
-        else
+        } else {
             currentPage = "1";
+        }
 
         pageNum = Integer.parseInt(currentPage) - 1;
-        if (pageNum <= 0)
+        if (pageNum <= 0) {
             pageNum = 0;
+        }
         pageNum = pageNum * Ilimit;
 
         /*
@@ -109,7 +109,11 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         return -1;
     }
 
-    public long getNumberOfPages() { return numberOfPages; }
+    public long getNumberOfPages() {
+        return numberOfPages;
+    }
 
-    public long getTotalMatches() { return totalMatches; }
+    public long getTotalMatches() {
+        return totalMatches;
+    }
 }
