@@ -28,6 +28,9 @@ public interface WcmConstants {
 	// Tags
 	String TAG_NAMESPACE_LANGUAGES = "languages:";
 
+	// Default Value
+	String PAGINATION_LIMIT = "10";
+
 	// Use for QueryBuilder
 	String SEARCH_KEY_PATH = "path";
 	String SEARCH_NODE_NAME = "nodename";

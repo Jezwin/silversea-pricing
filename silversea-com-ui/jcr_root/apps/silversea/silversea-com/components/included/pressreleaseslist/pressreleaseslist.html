@@ -1,0 +1,37 @@
+<div class="container" data-sly-use.PressreleaseslistUse="${'com.silversea.aem.components.included.PressreleaseslistUse'}">
+    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+
+    <div class="row c-pressreleaseslist" data-sly-list="${PressreleaseslistUse.pressReleaseList}">
+        <div class="col-sm-6 col-xs-12 c-pressreleaseslist__elem">
+            <sly data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}"></sly>
+
+            <div class="c-pressreleaseslist__img">
+                <a href="${item.path @ extension='html'}" class="wrapper-hover">
+                    <sly
+                            data-sly-call="${imageTemplate.default @ imagePath=item.heroAssetSelectionReference , query='?wid=280'}"></sly>
+                </a>
+            </div>
+            <div class="c-pressreleaseslist__descr">
+                <div class="date"><span class="date_title">${'date' @ i18n}</span> ${item.publicationDate  @context = 'html'}</div>
+                <h3 class="hidden-xs">${item.title}</h3>
+                <a class="read-more hidden-xs" href="${item.path @ extension='html'}">${'more' @i18n}</a>
+            </div>
+        </div>
+    </div>
+    <div class="c-pagination-number">
+        <sly data-sly-test.pageSize="${PressreleaseslistUse.prev >= 0}">
+            <a class="c-pagination-number__prev" href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.prev}">&#8592; ${'previous' @ i18n}</a>
+        </sly>
+
+        <sly data-sly-list="${PressreleaseslistUse.numberOfPages}">
+            <sly data-sly-test.active="${item == PressreleaseslistUse.current}"></sly>
+            <a href="${currentPage.path @ extension='html'}?page=${item}" class="${active ? 'active' : ''}">
+                ${item}
+            </a>
+        </sly>
+
+        <sly data-sly-test.pageSize="${PressreleaseslistUse.next >= 0}">
+            <a class="c-pagination-number__next" href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.next}">${'next' @ i18n} &#8594;</a>
+        </sly>
+    </div>
+</div>

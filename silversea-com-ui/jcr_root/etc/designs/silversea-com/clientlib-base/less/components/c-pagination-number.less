@@ -1,0 +1,31 @@
+/*
+** c- Pagination
+*/
+.c-pagination-number {
+
+    @media screen and (max-width: @screen-md-min) {
+        text-align: center;
+    }
+
+    a {
+        font-size: 14px;
+        padding: 0 5px;
+        display: inline-block;
+
+        &:hover {
+            background-color: @grey--eb;
+        }
+
+        &.active {
+            background-color: @black;
+            color: @white;
+            font-weight: bold;
+        }
+        &.c-pagination-number__prev {
+            color: #d6d5d5;
+            &:hover {
+                background-color: inherit;
+            }
+        }
+    }
+}
