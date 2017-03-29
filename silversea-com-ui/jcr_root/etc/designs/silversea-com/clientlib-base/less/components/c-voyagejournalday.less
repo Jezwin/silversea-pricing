@@ -1,6 +1,4 @@
-/**/
-
-.c-voyagejournalsday {
+.c-voyagejournals {
 
     &__header {
         border-bottom: 1px solid @black;
@@ -11,11 +9,13 @@
             font-size: 14px;
             margin: 0;
         }
+
         h1 {
             font-size: 24px;
             font-weight: 400;
             margin: 5px 0 10px 0;
         }
+
         p {
             font-size: 13px;
         }
@@ -25,13 +25,139 @@
         font-size: 13px;
         margin-bottom: 20px;
     }
+    
+    .c-list {
+        overflow: hidden;
+        
+        &__item {
+            position: relative;
+            width: 50%;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            
+            &:nth-child(odd) { 
+                float: left;
+                padding-right: 3px;
+                
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    float: none;
+                    padding-right: 0; 
+                }
+            }
+                
+            &:nth-child(even) {
+                float: right;
+                padding-left: 3px;
+                
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    float: none;
+                    padding-left: 0;
+                }
+            }
+            
+            &:hover .overlay img {
+                opacity: 0.5;
+                
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    opacity: 1;
+                }
+            }
+            
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                width: 100%;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-top: 1px solid @grey--d;
+            }
+            
+            a {
+                display: block;
+                color: #fff;
+                
+                * { padding: 0 15px; }
+                
+                .voyage-ship-name {
+                    position: absolute;
+                    top: 50%;
+                    z-index: 2;
+                    font-style: italic;
+                    font-size: 18px;
+                    font-weight: 400;
+                    text-transform: capitalize;
+                    
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        display: none;
+                    }
+                }
 
-    &__content {
-        font-size: 13px;
-        line-height: 18px;
-    }
+                .voyage-journal-title {
+                    font-size: 18px;
+                    z-index: 2;
+                    position: absolute;
+                    bottom: 13%;
+                    
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        font-size: 16px;
+                        bottom: 10%;
+                    }
+                }
 
-    &__info {
+                .voyage-date {
+                    position: absolute;
+                    bottom: 3px;
+                    font-size: 14px;
+                    font-weight: @bold;
+                    color: @black;
+                    text-transform: uppercase;
+                    
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        color: #FFF;
+                        font-size: 12px;
+                        bottom: 10px;
+                    }
+                }
 
+                .voyage-id {
+                    position: absolute;
+                    bottom: 3px;
+                    right: 3px;
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: @black;
+                    text-transform: uppercase;
+                    
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        color: #FFF;
+                        font-size: 12px;
+                        bottom: 10px;
+                    }
+                }
+
+                .overlay {
+                    display: block;
+                    background: @black;
+                    padding: 0;
+                    
+                    img {
+                        width: 100%;
+                        height: auto;
+                        padding: 0;
+                        -moz-transition: 0.3s ease;
+                        -o-transition: 0.3s ease;
+                        -ms-transition: 0.3s ease;
+                        transition: 0.3s ease;
+                        webkit-transition: 0.3s ease;
+                    }
+                }
+            }
+        }
     }
 }
