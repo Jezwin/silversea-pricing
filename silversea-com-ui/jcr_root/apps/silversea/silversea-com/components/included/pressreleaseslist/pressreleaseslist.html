@@ -7,9 +7,8 @@
 
             <div class="c-pressreleaseslist__img">
                 <a href="${item.path @ extension='html'}" class="wrapper-hover">
-                    <img class="img-responsive" src="${item.properties.heroAssetSelectionReference}">
-                    <!--<sly-->
-                            <!--data-sly-call="${imageTemplate.default @ imagePath=item.heroAssetSelectionReference , query='?wid=280'}"></sly>-->
+                    <sly
+                            data-sly-call="${imageTemplate.default @ imagePath=item.heroAssetSelectionReference , query='?wid=280'}"></sly>
                 </a>
             </div>
             <div class="c-pressreleaseslist__descr">
