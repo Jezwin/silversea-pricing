@@ -1,20 +1,16 @@
 package com.silversea.aem.importers.polling;
 
-import java.util.Date;
-
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.Resource;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.polling.importer.ImportException;
 import com.day.cq.polling.importer.Importer;
-import com.silversea.aem.importers.services.CountriesImporter;
+import com.silversea.aem.importers.services.ShipsImporter;
 
 @Component(metatype = false, enabled = true, label = "General Polling importer")
 @Service(value = Importer.class)
@@ -24,40 +20,32 @@ public class GeneralPollImporter implements Runnable, Importer {
     static final private Logger LOGGER = LoggerFactory.getLogger(GeneralPollImporter.class);
 
     @Reference
-    CountriesImporter countriesImporter;
+    ShipsImporter shipsImporter;
 
     @Override
     public void importData(String scheme, String datasource, Resource target) throws ImportException {
-        try {
-            countriesImporter.importCountries();
-            LOGGER.info("Date : " + new Date().toString());
-            LOGGER.info("scheme : " + scheme);
-            LOGGER.info("datasource : " + datasource);
-            LOGGER.info("target : " + target.getPath());
-        } catch (Exception e) {
-            String errorMessage = "Some issues are happened ()";
-            LOGGER.error(errorMessage, e);
-        }
+        //initService();
     }
 
     @Override
     public void importData(String scheme, String datasource, Resource target, String login, String password)
             throws ImportException {
-        try {
-            countriesImporter.importCountries();
-            LOGGER.info("Date : " + new Date().toString());
-            LOGGER.info("scheme : " + scheme);
-            LOGGER.info("datasource : " + datasource);
-            LOGGER.info("target : " + target.getPath());
-        } catch (Exception e) {
-            String errorMessage = "Some issues are happened ()";
-            LOGGER.error(errorMessage, e);
-        }
+        //initService();
     }
 
     @Override
     public void run() {
         LOGGER.error("General Polling Importer Running ...");
+    }
+
+    private void initService() {
+        try {
+            shipsImporter.importShips();
+            LOGGER.error("Service was executed.");
+        } catch (Exception e) {
+            String errorMessage = "Some issues are happened ()";
+            LOGGER.error(errorMessage, e);
+        }
     }
 
 }
