@@ -36,7 +36,6 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
     static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
     private static final String COUNTRY_PATH = "/api/v1/countries";
     private static final String GEOTAGGING_PATH = "/etc/tags/geotagging";
-    private static final Integer AVOID_SESSION_NUMBER = 1;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -49,12 +48,14 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
         final String authorizationHeader = getAuthorizationHeader(COUNTRY_PATH);
         CountriesApi countriesApi = new CountriesApi();
         countriesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+        Session session = getResourceResolver().adaptTo(Session.class);
         try {
             List<Country> listCountries = null;
             listCountries = countriesApi.countriesGet(null, null);
             for (Country country : listCountries) {
-                importCountry(country.getCountryIso2(), country);
+                importCountry(country.getCountryIso2(), country,session);
             }
+            session.save();
         } catch (Exception e) {
             String errorMessage = "Some issues are happened for import builder ()";
             LOGGER.error(errorMessage, e);
@@ -64,17 +65,15 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     }
 
-    private void importCountry(String iso2, Country country) {
+    private void importCountry(String iso2, Country country, Session session) {
         Map<String, String> map = new HashMap<>();
         Node currentNode = null;
-        Session session = null;
         try {
             // Create the query builder to get node by country name - it means
             // iso2
             map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
             map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
             map.put(WcmConstants.SEARCH_NODE_NAME, iso2);
-            session = getResourceResolver().adaptTo(Session.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
             SearchResult searchResult = query.getResult();
             Iterator<Node> nodes = searchResult.getNodes();
@@ -97,17 +96,9 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                 currentNode.setProperty("country_prefix", country.getCountryPrefix());
                 currentNode.setProperty("market", country.getMarket());
                 currentNode.setProperty("region_id", country.getRegionId());
-                if (session.hasPendingChanges()) {
-                    try {
-                        session.save();
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
             }
         } catch (Exception e) {
-            String errorMessage = "Some issues are happened ()";
-            LOGGER.error(errorMessage, e);
+            LOGGER.error("Bugs: ()", e);
         }
     }
 
