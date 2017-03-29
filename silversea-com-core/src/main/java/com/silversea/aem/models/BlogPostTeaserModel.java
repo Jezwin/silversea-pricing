@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -82,7 +83,7 @@ public class BlogPostTeaserModel {
 
     public String getFormatPublicationDate() {
         String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
-        String lang  = languageRootPath.split("/")[languageRootPath.split("/").length -1];
+        String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
         Calendar cal = DateUtils.toCalendar(publicationDate);
         StringBuilder builder = new StringBuilder();
         builder.append("<span class='number-value'>");
@@ -107,7 +108,11 @@ public class BlogPostTeaserModel {
     public String getThumbnailImageUrl() {
         Resource resource = page.getContentResource().getChild("image");
         ValueMap value = resource.getValueMap();
-        return value.get("fileReference", String.class);
+        String imagePath = value.get("fileReference", String.class);
+        if (!StringUtils.isNotEmpty(imagePath)) {
+            imagePath = "/content/dam/siversea-com/blog/noimage.png";
+        }
+        return imagePath;
     }
 
 }
