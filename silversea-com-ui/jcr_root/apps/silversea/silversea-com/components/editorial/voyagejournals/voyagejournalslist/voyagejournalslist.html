@@ -1,4 +1,7 @@
-<div class="c-voyagejournals__content" data-sly-use.VoyageJournalsListUse="${'com.silversea.aem.components.voyageJournals.VoyageJournalsListUse'}">
+<div class="c-voyagejournals__content"
+     data-sly-use.VoyageJournalsListUse="${'com.silversea.aem.components.voyageJournals.VoyageJournalsListUse'}">
+
+    <div data-sly-test="${(wcmmode.edit || wcmmode.design)}" data-emptytext="Voyage journals list" class="cq-placeholder cq-dd-file"></div>
 
     <ul class="c-list" data-sly-list="${VoyageJournalsListUse.voyageJournalList}">
         <li class="c-list__item" data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}">
@@ -8,7 +11,8 @@
                 <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
                 <span class="voyage-id">voyage ${hship.page.properties.shipCode}</span>
                 <span class="overlay">
-                    <img class="img-responsive" src="${item.properties.assetSelectionReference}">
+                    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
+                    <sly data-sly-call="${imageTemplate.default @ imagePath=item.properties.assetSelectionReference}" />
                 </span>
             </a>
         </li>
@@ -32,12 +36,12 @@
         </li>
         <li data-sly-test.pageSize="${VoyageJournalsListUse.prev >= 0}">
             <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.prev}">
-                <- Previous
+                <- ${'previous' @ i18n}
             </a>
         </li>
         <li data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0 && VoyageJournalsListUse.numberOfPages >= 4}">
             <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.next}">
-                NEXT ->
+                ${'next' @ i18n} ->
             </a>
         </li>
     </ul>
