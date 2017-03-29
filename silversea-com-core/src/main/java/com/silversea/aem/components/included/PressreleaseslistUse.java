@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Session;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by asiba on 28/03/2017.
@@ -102,6 +99,9 @@ public class PressreleaseslistUse extends WCMUsePojo {
         return pressReleaseList;
     }
 
+    public Integer getCurrent() {
+        return Integer.parseInt(currentPage);
+    }
     public int getNext() {
         if (Integer.parseInt(currentPage) < numberOfPages)
             return Integer.parseInt(currentPage) + 1;
@@ -114,7 +114,16 @@ public class PressreleaseslistUse extends WCMUsePojo {
         return -1;
     }
 
-    public long getNumberOfPages() { return numberOfPages; }
+    public List<Integer> getNumberOfPages() {
+        List<Integer> num = new ArrayList<>();
 
-    public long getTotalMatches() { return totalMatches; }
+        for (int i = 0; i < numberOfPages; i++) {
+             num.add(i+1);
+        }
+        return num;
+    }
+
+    public long getTotalMatches() {
+        return totalMatches;
+    }
 }
