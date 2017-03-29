@@ -30,7 +30,7 @@ import com.silversea.aem.models.BlogPostTeaserModel;
 import com.silversea.aem.services.BlogPostService;
 
 @Component(immediate = true)
-@Service(value = BlogPostServiceImpl.class)
+@Service(value = BlogPostService.class)
 public class BlogPostServiceImpl implements BlogPostService {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BlogPostServiceImpl.class);
