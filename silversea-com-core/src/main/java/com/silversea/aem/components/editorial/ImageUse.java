@@ -8,8 +8,8 @@ import com.day.cq.wcm.api.NameConstants;
 import com.silversea.aem.constants.WcmConstants;
 
 public class ImageUse extends WCMUsePojo {
-    private Integer desktopWidth = 920;
-    private Integer mobileWidth = 727;
+    private Integer desktopWidth = WcmConstants.DEFAULT_WIDTH_DESKTOP;
+    private Integer mobileWidth = WcmConstants.DEFAULT_WIDTH_MOBILE;
 
     @Override
     public void activate() {
@@ -27,6 +27,8 @@ public class ImageUse extends WCMUsePojo {
             Resource phoneRes = cqResponsiveRes.getChild(WcmConstants.NN_PHONE);
             if (phoneRes != null) {
                 widthResponsiveMobile = phoneRes.getValueMap().get("width", 12);
+            } else {
+                widthResponsiveMobile = widthResponsiveDesktop;
             }
         }
 
