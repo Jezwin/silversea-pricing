@@ -1,10 +1,9 @@
-<template data-sly-template.default="${ @ imagePath, query }">
+<template data-sly-template.default="${ @ imagePath, query }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
     <picture data-sly-test.imagePrefix="${'/is/image/'}">
-        <sly data-sly-test.srcsetValue="${'{0}{1}' @format=[imagePath, query || '?wid=960&fit=hfit,1']}" />
         <!--[if IE 9]><video style="display: none;"><![endif]-->
-        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(max-width: 767px)" />
-        <source srcset="${srcsetValue @ prependPath=imagePrefix}, ${srcsetValue @ prependPath=imagePrefix} 2x" media="(min-width: 768px)" />
+        <source srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.mobileWidth}&fit=hfit,1, ${imagePath @ prependPath=imagePrefix}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x" media="(max-width: 767px)" />
+        <source srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1, ${imagePath @ prependPath=imagePrefix}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x" media="(min-width: 768px)" />
         <!--[if IE 9]></video><![endif]-->
-        <img src="${srcsetValue @ prependPath=imagePrefix}" alt="${properties.alt || currentPage.title}" title="${properties.title || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>

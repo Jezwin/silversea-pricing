@@ -25,6 +25,10 @@ public interface WcmConstants {
 	// Resource Type
 	String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
 
+	// Node name
+	String NN_DEFAULT= "default";
+	String NN_PHONE= "phone";
+
 	// Tags
 	String TAG_NAMESPACE_LANGUAGES = "languages:";
 

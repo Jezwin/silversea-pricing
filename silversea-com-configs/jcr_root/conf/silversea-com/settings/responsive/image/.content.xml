@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured">
+    <silversea jcr:primaryType="nt:unstructured">
+        <silversea-com jcr:primaryType="nt:unstructured">
+            <components jcr:primaryType="nt:unstructured">
+                <editorial jcr:primaryType="nt:unstructured">
+                    <image jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="920" />
+                        <desktop-11
+                            jcr:primaryType="nt:unstructured"
+                            width="843" />
+                        <desktop-10
+                            jcr:primaryType="nt:unstructured"
+                            width="765" />
+                        <desktop-9
+                            jcr:primaryType="nt:unstructured"
+                            width="688" />
+                        <desktop-8
+                            jcr:primaryType="nt:unstructured"
+                            width="610" />
+                        <desktop-7
+                            jcr:primaryType="nt:unstructured"
+                            width="532" />
+                        <desktop-6
+                            jcr:primaryType="nt:unstructured"
+                            width="455" />
+                        <desktop-5
+                            jcr:primaryType="nt:unstructured"
+                            width="378" />
+                        <desktop-4
+                            jcr:primaryType="nt:unstructured"
+                            width="300" />
+                        <desktop-3
+                            jcr:primaryType="nt:unstructured"
+                            width="223" />
+                        <desktop-2
+                            jcr:primaryType="nt:unstructured"
+                            width="145" />
+                        <desktop-1
+                            jcr:primaryType="nt:unstructured"
+                            width="68" />
+                        <mobile-12
+                            jcr:primaryType="nt:unstructured"
+                            width="727" />
+                        <mobile-11
+                            jcr:primaryType="nt:unstructured"
+                            width="666" />
+                        <mobile-10
+                            jcr:primaryType="nt:unstructured"
+                            width="604" />
+                        <mobile-9
+                            jcr:primaryType="nt:unstructured"
+                            width="543" />
+                        <mobile-8
+                            jcr:primaryType="nt:unstructured"
+                            width="481" />
+                        <mobile-7
+                            jcr:primaryType="nt:unstructured"
+                            width="420" />
+                        <mobile-6
+                            jcr:primaryType="nt:unstructured"
+                            width="359" />
+                        <mobile-5
+                            jcr:primaryType="nt:unstructured"
+                            width="297" />
+                        <mobile-4
+                            jcr:primaryType="nt:unstructured"
+                            width="236" />
+                        <mobile-3
+                            jcr:primaryType="nt:unstructured"
+                            width="174" />
+                        <mobile-2
+                            jcr:primaryType="nt:unstructured"
+                            width="113" />
+                        <mobile-1
+                            jcr:primaryType="nt:unstructured"
+                            width="51" />
+                    </image>
+                </editorial>
+                <included jcr:primaryType="nt:unstructured">
+                    <variationassetsdisplay jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="300" />
+                        <mobile-12
+                            jcr:primaryType="nt:unstructured"
+                            width="727" />
+                    </variationassetsdisplay>
+                </included>
+            </components>
+        </silversea-com>
+    </silversea>
+</jcr:root>
