@@ -43,6 +43,8 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     @Reference
     private QueryBuilder builder;
+    
+    private Session session;
 
     @Override
     public void importCountries() throws IOException {
@@ -70,7 +72,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
             map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
             map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
             map.put(WcmConstants.SEARCH_NODE_NAME, country.getCountryIso2());
-            Session session = getResourceResolver().adaptTo(Session.class);
+            session = getResourceResolver().adaptTo(Session.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
             SearchResult searchResult = query.getResult();
             nodes = searchResult.getNodes();
@@ -91,7 +93,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     private void updateNode(Node node, Country country) {
         try {
-            Session session = getResourceResolver().adaptTo(Session.class);
+            session = getResourceResolver().adaptTo(Session.class);
             if (null != node) {
                 node.setProperty("country_id", country.getCountryId());
                 node.setProperty("country_url", country.getCountryUrl());
@@ -102,6 +104,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                 node.setProperty("market", country.getMarket());
                 node.setProperty("region_id", country.getRegionId());
                 session.save();
+                LOGGER.debug("Country with iso 2 : " + country.getCountryIso2() +" added.");
             }
             session.logout();
         } catch (LoginException | RepositoryException e) {
