@@ -4,80 +4,90 @@
     <silversea jcr:primaryType="nt:unstructured">
         <silversea-com jcr:primaryType="nt:unstructured">
             <components jcr:primaryType="nt:unstructured">
+                <displayproperties jcr:primaryType="nt:unstructured">
+                    <suitevariation jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="690" />
+                        <mobile-12
+                            jcr:primaryType="nt:unstructured"
+                            width="737" />
+                    </suitevariation>
+                </displayproperties>
                 <editorial jcr:primaryType="nt:unstructured">
                     <image jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
-                            width="920" />
+                            width="930" />
                         <desktop-11
                             jcr:primaryType="nt:unstructured"
-                            width="843" />
+                            width="850" />
                         <desktop-10
                             jcr:primaryType="nt:unstructured"
-                            width="765" />
+                            width="770" />
                         <desktop-9
                             jcr:primaryType="nt:unstructured"
-                            width="688" />
+                            width="690" />
                         <desktop-8
                             jcr:primaryType="nt:unstructured"
                             width="610" />
                         <desktop-7
                             jcr:primaryType="nt:unstructured"
-                            width="532" />
+                            width="530" />
                         <desktop-6
                             jcr:primaryType="nt:unstructured"
-                            width="455" />
+                            width="450" />
                         <desktop-5
                             jcr:primaryType="nt:unstructured"
-                            width="378" />
+                            width="370" />
                         <desktop-4
                             jcr:primaryType="nt:unstructured"
-                            width="300" />
+                            width="290" />
                         <desktop-3
                             jcr:primaryType="nt:unstructured"
-                            width="223" />
+                            width="210" />
                         <desktop-2
                             jcr:primaryType="nt:unstructured"
-                            width="145" />
+                            width="130" />
                         <desktop-1
                             jcr:primaryType="nt:unstructured"
-                            width="68" />
+                            width="50" />
                         <mobile-12
                             jcr:primaryType="nt:unstructured"
-                            width="727" />
+                            width="737" />
                         <mobile-11
                             jcr:primaryType="nt:unstructured"
-                            width="666" />
+                            width="673" />
                         <mobile-10
                             jcr:primaryType="nt:unstructured"
-                            width="604" />
+                            width="609" />
                         <mobile-9
                             jcr:primaryType="nt:unstructured"
-                            width="543" />
+                            width="545" />
                         <mobile-8
                             jcr:primaryType="nt:unstructured"
                             width="481" />
                         <mobile-7
                             jcr:primaryType="nt:unstructured"
-                            width="420" />
+                            width="417" />
                         <mobile-6
                             jcr:primaryType="nt:unstructured"
-                            width="359" />
+                            width="354" />
                         <mobile-5
                             jcr:primaryType="nt:unstructured"
-                            width="297" />
+                            width="290" />
                         <mobile-4
                             jcr:primaryType="nt:unstructured"
-                            width="236" />
+                            width="226" />
                         <mobile-3
                             jcr:primaryType="nt:unstructured"
-                            width="174" />
+                            width="162" />
                         <mobile-2
                             jcr:primaryType="nt:unstructured"
-                            width="113" />
+                            width="98" />
                         <mobile-1
                             jcr:primaryType="nt:unstructured"
-                            width="51" />
+                            width="34" />
                     </image>
                 </editorial>
                 <included jcr:primaryType="nt:unstructured">
