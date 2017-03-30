@@ -4,7 +4,7 @@
             <div class="col-sm-8 c-voyagejournals">
                 <div class="c-pageheader--nomrg">
                     <p class="c-pageheader__subtitle--small">
-                    ${'other-recent-journals' @ i18n}
+                    ${currentPage.pageTitle || 'other-recent-journals' @ i18n}
                     </p>
                 </div>
                 <div data-sly-resource="${'parVoyageJournals' @ resourceType='silversea/silversea-com/components/editorial/voyagejournals/voyagejournalslist'}"></div>

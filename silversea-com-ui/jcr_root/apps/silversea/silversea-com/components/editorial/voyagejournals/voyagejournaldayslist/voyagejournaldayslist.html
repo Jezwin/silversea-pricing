@@ -1,12 +1,13 @@
 <div class="c-voyagejournals__content">
     <ul class="c-list" data-sly-list="${currentPage.listChildren}">
+        <sly data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=item.path}"></sly>
         <li class="c-list__item">
             <a href="${item.path @ extension='html'}">
                 <h2 class="voyage-journal-title">${item.title}</h2>
                 <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
                 <span class="overlay">
                     <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
-                    <sly data-sly-call="${imageTemplate.default @ imagePath=item.properties.assetSelectionReference}" />
+                    <sly data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail}" />
                 </span>
             </a>
         </li>
