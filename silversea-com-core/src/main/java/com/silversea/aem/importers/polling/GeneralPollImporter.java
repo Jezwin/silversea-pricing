@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.polling.importer.ImportException;
 import com.day.cq.polling.importer.Importer;
+import com.silversea.aem.importers.services.CountriesImporter;
+import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.importers.services.ShipsImporter;
 
 @Component(metatype = false, enabled = true, label = "General Polling importer")
@@ -22,15 +24,21 @@ public class GeneralPollImporter implements Runnable, Importer {
     @Reference
     ShipsImporter shipsImporter;
 
+    @Reference
+    CountriesImporter countriesImporter;
+
+    @Reference
+    FeaturesImporter featuresImporter;
+
     @Override
     public void importData(String scheme, String datasource, Resource target) throws ImportException {
-        //initService();
+        initService();
     }
 
     @Override
     public void importData(String scheme, String datasource, Resource target, String login, String password)
             throws ImportException {
-        //initService();
+        initService();
     }
 
     @Override
@@ -41,7 +49,9 @@ public class GeneralPollImporter implements Runnable, Importer {
     private void initService() {
         try {
             shipsImporter.importShips();
-            LOGGER.error("Service was executed.");
+            countriesImporter.importCountries();
+            //featuresImporter.importFeatures();
+            LOGGER.debug("Service was executed.");
         } catch (Exception e) {
             String errorMessage = "Some issues are happened ()";
             LOGGER.error(errorMessage, e);

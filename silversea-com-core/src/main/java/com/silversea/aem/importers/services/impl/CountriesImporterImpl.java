@@ -26,6 +26,7 @@ import com.day.cq.search.result.SearchResult;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
 
@@ -48,69 +49,68 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
         final String authorizationHeader = getAuthorizationHeader(COUNTRY_PATH);
         CountriesApi countriesApi = new CountriesApi();
         countriesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-        Session session = getResourceResolver().adaptTo(Session.class);
         try {
             List<Country> listCountries = null;
             listCountries = countriesApi.countriesGet(null, null);
             for (Country country : listCountries) {
-                importCountry(country.getCountryIso2(), country,session);
+                importCountry(country);
             }
-            session.save();
-        } catch (Exception e) {
-            String errorMessage = "Some issues are happened for import builder ()";
-            LOGGER.error(errorMessage, e);
-        } finally {
             getResourceResolver().close();
+        } catch (LoginException | ApiException e) {
+            LOGGER.error("Some issues are happened for import countries ()", e);
         }
 
     }
 
-    private void importCountry(String iso2, Country country, Session session) {
+    private void importCountry(Country country) {
         Map<String, String> map = new HashMap<>();
-        Node currentNode = null;
+        Iterator<Node> nodes = null;
         try {
-            // Create the query builder to get node by country name - it means
-            // iso2
+            // Create the query builder to get node by country name - it means iso2
             map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
             map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
-            map.put(WcmConstants.SEARCH_NODE_NAME, iso2);
+            map.put(WcmConstants.SEARCH_NODE_NAME, country.getCountryIso2());
+            Session session = getResourceResolver().adaptTo(Session.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
             SearchResult searchResult = query.getResult();
-            Iterator<Node> nodes = searchResult.getNodes();
+            nodes = searchResult.getNodes();
             // Set result to current node
             if (nodes.hasNext()) {
                 while (nodes.hasNext()) {
                     Node node = nodes.next();
                     if (node.getDepth() == 6) {
-                        currentNode = node;
+                        updateNode(node, country);
                     }
                 }
             }
-            // Add some properties for current node
-            if (null != currentNode) {
-                currentNode.setProperty("country_id", country.getCountryId());
-                currentNode.setProperty("country_url", country.getCountryUrl());
-                currentNode.setProperty("country_iso2", country.getCountryIso2());
-                currentNode.setProperty("country_iso3", country.getCountryIso3());
-                currentNode.setProperty("country_name", country.getCountryName());
-                currentNode.setProperty("country_prefix", country.getCountryPrefix());
-                currentNode.setProperty("market", country.getMarket());
-                currentNode.setProperty("region_id", country.getRegionId());
-            }
-        } catch (Exception e) {
-            LOGGER.error("Bugs: ()", e);
+            session.logout();
+        } catch (LoginException | RepositoryException e) {
+            LOGGER.error("Error on save node: ()", e);
         }
     }
 
-    private ResourceResolver getResourceResolver() {
-        ResourceResolver resourceResolver = null;
+    private void updateNode(Node node, Country country) {
         try {
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-        } catch (LoginException e) {
-            String errorMessage = "Some issues are happened ()";
-            LOGGER.error(errorMessage, e);
+            Session session = getResourceResolver().adaptTo(Session.class);
+            if (null != node) {
+                node.setProperty("country_id", country.getCountryId());
+                node.setProperty("country_url", country.getCountryUrl());
+                node.setProperty("country_iso2", country.getCountryIso2());
+                node.setProperty("country_iso3", country.getCountryIso3());
+                node.setProperty("country_name", country.getCountryName());
+                node.setProperty("country_prefix", country.getCountryPrefix());
+                node.setProperty("market", country.getMarket());
+                node.setProperty("region_id", country.getRegionId());
+                session.save();
+            }
+            session.logout();
+        } catch (LoginException | RepositoryException e) {
+            LOGGER.error("Update node: ()", e);
         }
-        return resourceResolver;
+    }
+
+    private ResourceResolver getResourceResolver() throws LoginException {
+        return resourceResolverFactory.getAdministrativeResourceResolver(null);
     }
 
     @Override

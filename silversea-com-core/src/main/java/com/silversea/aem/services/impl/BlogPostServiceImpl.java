@@ -76,27 +76,19 @@ public class BlogPostServiceImpl implements BlogPostService {
                     blogPostTeaserModelList.add(blogPostTeaserModel);
                 }
             }
-
-        } catch (Exception e) {
-            String errorMessage = "Some issues are happened ()";
-            LOGGER.error(errorMessage, e);
-        }
-        getResourceResolver().close();
-        return blogPostTeaserModelList;
-    }
-
-    private ResourceResolver getResourceResolver() {
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+            getResourceResolver().close();
         } catch (LoginException e) {
             String errorMessage = "Some issues are happened ()";
             LOGGER.error(errorMessage, e);
         }
-        return resourceResolver;
+        return blogPostTeaserModelList;
     }
 
-    private Session getSession() {
+    private ResourceResolver getResourceResolver() throws LoginException {
+        return resourceResolverFactory.getAdministrativeResourceResolver(null);
+    }
+
+    private Session getSession() throws LoginException {
         return getResourceResolver().adaptTo(Session.class);
     }
 

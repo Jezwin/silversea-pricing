@@ -32,8 +32,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
         ShipsApi shipsApi = new ShipsApi();
         shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
-            List<Ship> listShips = null;
-            listShips = shipsApi.shipsGet(null);
+            List<Ship> listShips = shipsApi.shipsGet(null);
         } catch (Exception e) {
             String errorMessage = "Some issues are happened for import builder ()";
             LOGGER.error(errorMessage, e);
