@@ -11,6 +11,9 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.editorial.BlogPostTeaserListUse;
 import com.silversea.aem.constants.WcmConstants;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +105,7 @@ public class PressreleaseslistUse extends WCMUsePojo {
     public Integer getCurrent() {
         return Integer.parseInt(currentPage);
     }
+
     public int getNext() {
         if (Integer.parseInt(currentPage) < numberOfPages)
             return Integer.parseInt(currentPage) + 1;

@@ -34,6 +34,7 @@
                                             sling:resourceType="granite/ui/components/foundation/form/numberfield"
                                             fieldLabel="Result per page"
                                             defaultValue="10"
+                                            min="1"
                                             name="./paginationLimit"/>
                                 </items>
                             </column>

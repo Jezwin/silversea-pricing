@@ -4,11 +4,12 @@
     <div class="row c-pressreleaseslist" data-sly-list="${PressreleaseslistUse.pressReleaseList}">
         <div class="col-sm-6 col-xs-12 c-pressreleaseslist__elem">
             <sly data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}"></sly>
+            <sly data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=item.path}"></sly>
 
             <div class="c-pressreleaseslist__img">
                 <a href="${item.path @ extension='html'}" class="wrapper-hover">
                     <sly
-                            data-sly-call="${imageTemplate.default @ imagePath=item.heroAssetSelectionReference , query='?wid=280'}"></sly>
+                            data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail, query='?wid=280'}"></sly>
                 </a>
             </div>
             <div class="c-pressreleaseslist__descr">
@@ -23,7 +24,7 @@
             <a class="c-pagination-number__prev" href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.prev}">&#8592; ${'previous' @ i18n}</a>
         </sly>
 
-        <sly data-sly-list="${PressreleaseslistUse.numberOfPages}">
+        <sly data-sly-list="${PressreleaseslistUse.numberOfPages}" data-sly-test.pageSize="${PressreleaseslistUse.next >= 0 || PressreleaseslistUse.prev >= 0}">
             <sly data-sly-test.active="${item == PressreleaseslistUse.current}"></sly>
             <a href="${currentPage.path @ extension='html'}?page=${item}" class="${active ? 'active' : ''}">
                 ${item}
