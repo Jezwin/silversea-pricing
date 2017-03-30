@@ -61,14 +61,6 @@
                                         fieldLabel="Slider image"
                                         renderReadOnly="{Boolean}true"
                                         name="./assetSelectionReference" />
-                                    <heroAssetSelectionReference
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                        allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="heroAssetSelectionReference"
-                                        renderReadOnly="{Boolean}true"
-                                        fieldLabel="Hero image"
-                                        name="./heroAssetSelectionReference" />
                                 </items>
                             </column>
                         </items>
