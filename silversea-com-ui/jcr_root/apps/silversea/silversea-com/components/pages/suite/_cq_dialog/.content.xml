@@ -28,7 +28,6 @@
                                         cq-msm-lockable="longDescription"
                                         fieldLabel="Long Description"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
                                         name="./longDescription" />
                                     <assetselectionreference
                                         jcr:primaryType="nt:unstructured"
@@ -37,9 +36,8 @@
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Slider Images"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
                                         name="./assetSelectionReference"
-                                        rootPath="/content/dam/siversea-com/ships/"/>
+                                        rootPath="/content/dam/siversea-com/"/>
                                 </items>
                             </column>
                         </items>
