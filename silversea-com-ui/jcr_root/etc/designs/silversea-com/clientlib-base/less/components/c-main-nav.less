@@ -259,15 +259,18 @@
                     display: block;
                 }
             }
+
             &:before {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 18px;
-                height: 10px;
-                width: 1px;
                 background: #e5e5e5;
+                content: "";
+                height: 20px;
+                left: 0;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 1px;
             }
+
             &:nth-child(1):before {
                 display: none;
             }
