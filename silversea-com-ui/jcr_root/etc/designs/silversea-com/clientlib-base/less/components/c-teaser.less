@@ -10,7 +10,7 @@
     }
 
     &:hover .o-img {
-        opacity: 0.5;
+        opacity: 0.6;
 
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
@@ -24,7 +24,7 @@
         margin: 0;
         padding: 0;
         position: absolute;
-        z-index: 6;
+        z-index: 7;
         width: 100%;
         height: 100%;
     }
@@ -33,7 +33,7 @@
         position: absolute;
             left: 35px;
             top: 30px;
-        z-index: 5;
+        z-index: 6;
 
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
@@ -79,7 +79,19 @@
             }
         }
     }
-
+    
+    &__shader {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.8+0,0+100 */
+        background: -moz-linear-gradient(-45deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(-45deg, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        position: absolute;
+        z-index: 5;
+        height: 100%;
+        width: 100%;
+    }
+    
     .o-img {
         position: relative;
         z-index: 4;
@@ -119,7 +131,7 @@
         position: absolute;
             bottom: 40px;
             left: 35px;
-        z-index: 5;
+        z-index: 6;
         font-size: 100%;
         line-height: 1.5;
         color: @white;
