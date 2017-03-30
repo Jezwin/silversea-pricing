@@ -50,7 +50,7 @@ public class GeneralPollImporter implements Runnable, Importer {
         try {
             shipsImporter.importShips();
             countriesImporter.importCountries();
-            //featuresImporter.importFeatures();
+            featuresImporter.importFeatures();
             LOGGER.debug("Service was executed.");
         } catch (Exception e) {
             String errorMessage = "Some issues are happened ()";
