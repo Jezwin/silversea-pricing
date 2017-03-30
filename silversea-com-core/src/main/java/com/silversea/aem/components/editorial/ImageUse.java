@@ -1,8 +1,6 @@
 package com.silversea.aem.components.editorial;
 
 import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
@@ -10,7 +8,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.silversea.aem.constants.WcmConstants;
 
 public class ImageUse extends WCMUsePojo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ImageUse.class);
     private Integer desktopWidth = 920;
     private Integer mobileWidth = 727;
 
@@ -37,17 +34,11 @@ public class ImageUse extends WCMUsePojo {
         Resource confRes = getResource().adaptTo(Conf.class).getItemResource("/responsive/image/");
 
         if (confRes != null) {
-            LOGGER.error("\r\n========> {}", getResource().getResourceType());
-
             Resource desktopConfRes = confRes.getChild(getResource().getResourceType() + "/desktop-" + widthResponsiveDesktop);
             if (desktopConfRes != null) {
                 desktopWidth = desktopConfRes.getValueMap().get("width", Integer.class);
-                LOGGER.error("\r\n========> {}", "hello");
             }
-            
-            LOGGER.error("\r\n===== 12 ===> {}", widthResponsiveDesktop);
-            LOGGER.error("\r\n===== 32 ===> {}", desktopWidth);
-            
+
             Resource mobileConfRes = confRes.getChild(getResource().getResourceType() + "/mobile-" + widthResponsiveMobile);
             if (mobileConfRes != null) {
                 mobileWidth = mobileConfRes.getValueMap().get("width", Integer.class);
