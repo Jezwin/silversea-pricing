@@ -67,13 +67,13 @@
                                         fieldLabel="Hero Banner"
                                         name="./bannerReference"
                                         renderReadOnly="{Boolean}true" />
-                                    <assetGallerySelectionReference
+                                    <assetSelectionReference
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
                                         allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="assetGallerySelectionReference"
+                                        cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Extra Media Gallery"
-                                        name="./assetGallerySelectionReference"
+                                        name="./assetSelectionReference"
                                         renderReadOnly="{Boolean}true" />
                                     <deckplan
                                         jcr:primaryType="nt:unstructured"
