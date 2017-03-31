@@ -49,11 +49,11 @@ public class GeneralPollImporter implements Runnable, Importer {
     private void initService() {
         try {
             shipsImporter.importShips();
-            countriesImporter.importCountries();
             featuresImporter.importFeatures();
-            LOGGER.debug("Service was executed.");
+            countriesImporter.importCountries();
+            LOGGER.debug("General Polling was executed.");
         } catch (Exception e) {
-            String errorMessage = "Some issues are happened ()";
+            String errorMessage = "General Polling Importer errors: ()";
             LOGGER.error(errorMessage, e);
         }
     }

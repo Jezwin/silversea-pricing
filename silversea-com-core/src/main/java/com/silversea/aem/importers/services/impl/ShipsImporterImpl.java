@@ -38,8 +38,6 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
-    private Session session;
-
     @Override
     public void importShips() throws IOException {
         final String authorizationHeader = getAuthorizationHeader(SHIP_PATH);
@@ -50,6 +48,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             Page shipsRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SHIP);
 
             List<Ship> listShips = shipsApi.shipsGet(null);
+            Session session = getResourceResolver().adaptTo(Session.class);
             for (Ship ship : listShips) {
                 Iterator<Resource> resources = getResourceResolver().findResources(
                         "//element(*,cq:Page)[jcr:content/shipCode=\"" + ship.getShipCod() + "\"]", "xpath");
@@ -60,14 +59,13 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                 } else {
                     shipPage = pageManager.create(shipsRootPage.getPath(), ship.getShipCod().toLowerCase(),
                             "/apps/silversea/silversea-com/templates/ship", ship.getShipName());
-                    LOGGER.debug("Creating ship {} ", ship.getShipCod());
                 }
 
                 if (shipPage != null) {
                     Node shipPageContentNode = shipPage.getContentResource().adaptTo(Node.class);
                     updateShipNode(shipPageContentNode, ship);
                 }
-
+                LOGGER.debug("Check ship with {} ", ship.getShipCod());
             }
             updateRoot(shipsRootPage);
         } catch (Exception e) {
@@ -78,7 +76,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
     private void updateShipNode(Node shipPageContentNode, Ship ship) {
         try {
-            session = getResourceResolver().adaptTo(Session.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
             if (shipPageContentNode != null) {
                 shipPageContentNode.setProperty(JcrConstants.JCR_TITLE, ship.getShipName());
                 shipPageContentNode.setProperty("shipId", ship.getShipId());
@@ -87,8 +85,10 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                 shipPageContentNode.setProperty("shipType", ship.getShipType());
                 shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
                 session.save();
+                LOGGER.debug("Updated ship with {} ", ship.getShipCod());
             }
             session.logout();
+            session = null;
         } catch (LoginException | RepositoryException e) {
             String errorMessage = "Update Ship Errors : {} ";
             LOGGER.error(errorMessage, e);
@@ -97,7 +97,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
     private void updateRoot(Page page) {
         try {
-            session = getResourceResolver().adaptTo(Session.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
             // save migration date
             if (page != null) {
                 Node rootShipNode = page.getContentResource().adaptTo(Node.class);
@@ -105,6 +105,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                 session.save();
             }
             session.logout();
+            session = null;
         } catch (RepositoryException | LoginException e) {
             String errorMessage = "Update Root Node Modification Date : {} ";
             LOGGER.error(errorMessage, e);

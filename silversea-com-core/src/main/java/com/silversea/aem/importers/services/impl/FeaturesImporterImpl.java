@@ -38,8 +38,6 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
-    private Session session;
-
     @Override
     public void importFeatures() throws IOException {
 
@@ -61,25 +59,24 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                 } else {
                     featurePage = pageManager.create(featuresRootPage.getPath(), feature.getFeatureCod(),
                             "/apps/silversea/silversea-com/templates/feature", feature.getName());
-                    LOGGER.debug("Creating Feature with code : {} ", feature.getFeatureCod());
                 }
 
                 if (featurePage != null) {
                     Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
                     updateFeatureNode(featurePageContentNode, feature);
                 }
-
+                LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
             }
             updateRoot(featuresRootPage);
         } catch (Exception e) {
-            String errorMessage = "Import Ship Errors : {} ";
+            String errorMessage = "Import Feature Errors : {} ";
             LOGGER.error(errorMessage, e);
         }
     }
 
     private void updateFeatureNode(Node featurePageContentNode, Feature feature) {
         try {
-            session = getResourceResolver().adaptTo(Session.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
             if (featurePageContentNode != null) {
                 featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
                 featurePageContentNode.setProperty("featureId", feature.getFeatureId());
@@ -87,26 +84,30 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                 featurePageContentNode.setProperty("featureName", feature.getName());
                 featurePageContentNode.setProperty("featureOrder", feature.getOrder());
                 session.save();
+                LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
             }
             session.logout();
+            session = null;
         } catch (LoginException | RepositoryException e) {
-            String errorMessage = "Update Ship Errors : {} ";
+            String errorMessage = "Update Feature Errors : {} ";
             LOGGER.error(errorMessage, e);
         }
     }
 
     private void updateRoot(Page page) {
         try {
-            session = getResourceResolver().adaptTo(Session.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
             // save migration date
             if (page != null) {
-                Node rootShipNode = page.getContentResource().adaptTo(Node.class);
-                rootShipNode.setProperty("lastModificationDate", Calendar.getInstance());
+                Node rootSFeatureNode = page.getContentResource().adaptTo(Node.class);
+                rootSFeatureNode.setProperty("lastModificationDate", Calendar.getInstance());
                 session.save();
+                LOGGER.error("LastModificationDate of Feature {} ", Calendar.getInstance());
             }
             session.logout();
+            session = null;
         } catch (RepositoryException | LoginException e) {
-            String errorMessage = "Update Root Node Modification Date : {} ";
+            String errorMessage = "Update Root Node Modification Date errors : {} ";
             LOGGER.error(errorMessage, e);
         }
     }

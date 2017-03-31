@@ -43,8 +43,6 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     @Reference
     private QueryBuilder builder;
-    
-    private Session session;
 
     @Override
     public void importCountries() throws IOException {
@@ -59,7 +57,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
             }
             getResourceResolver().close();
         } catch (LoginException | ApiException e) {
-            LOGGER.error("Some issues are happened for import countries ()", e);
+            LOGGER.error("Import countries has some issues ()", e);
         }
 
     }
@@ -68,24 +66,24 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
         Map<String, String> map = new HashMap<>();
         Iterator<Node> nodes = null;
         try {
-            // Create the query builder to get node by country name - it means iso2
+            // Create the query builder to get node by country name - it means
+            // iso2
             map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
             map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
             map.put(WcmConstants.SEARCH_NODE_NAME, country.getCountryIso2());
-            session = getResourceResolver().adaptTo(Session.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
             SearchResult searchResult = query.getResult();
             nodes = searchResult.getNodes();
             // Set result to current node
-            if (nodes.hasNext()) {
-                while (nodes.hasNext()) {
-                    Node node = nodes.next();
-                    if (node.getDepth() == 6) {
-                        updateNode(node, country);
-                    }
+            while (nodes.hasNext()) {
+                Node node = nodes.next();
+                if (node.getDepth() == 6) {
+                    updateNode(node, country);
                 }
             }
             session.logout();
+            session = null;
         } catch (LoginException | RepositoryException e) {
             LOGGER.error("Error on save node: ()", e);
         }
@@ -93,7 +91,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     private void updateNode(Node node, Country country) {
         try {
-            session = getResourceResolver().adaptTo(Session.class);
+            Session session = getResourceResolver().adaptTo(Session.class);
             if (null != node) {
                 node.setProperty("country_id", country.getCountryId());
                 node.setProperty("country_url", country.getCountryUrl());
@@ -104,11 +102,12 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                 node.setProperty("market", country.getMarket());
                 node.setProperty("region_id", country.getRegionId());
                 session.save();
-                LOGGER.debug("Country with iso 2 : " + country.getCountryIso2() +" added.");
+                LOGGER.debug("Country with iso 2 : " + country.getCountryIso2() + " added.");
             }
             session.logout();
+            session = null;
         } catch (LoginException | RepositoryException e) {
-            LOGGER.error("Update node: ()", e);
+            LOGGER.error("Update node error: ()", e);
         }
     }
 
