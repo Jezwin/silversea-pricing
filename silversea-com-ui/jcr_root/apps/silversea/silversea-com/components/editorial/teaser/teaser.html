@@ -1,6 +1,6 @@
-<div data-sly-test.empty="${wcmmode.edit && !properties.reference}" class="cq-placeholder" data-emptytext="Teaser"></div>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Teaser"></div>
 
-<div class="c-teaser" data-sly-test="${!empty}" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
+<div class="c-teaser" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
      data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <a href="${properties.reference @ extension='html'}" class="c-teaser__wrapperhover"></a>
     <div class="c-teaser__wrapper"> 
