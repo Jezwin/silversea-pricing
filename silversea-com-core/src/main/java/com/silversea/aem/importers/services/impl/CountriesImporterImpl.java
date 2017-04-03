@@ -56,6 +56,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                 importCountry(country);
             }
             getResourceResolver().close();
+            LOGGER.debug("Data was imported completely ...");
         } catch (LoginException | ApiException e) {
             LOGGER.error("Import countries has some issues ()", e);
         }
@@ -84,12 +85,12 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
             }
             session.logout();
             session = null;
-        } catch (LoginException | RepositoryException e) {
+        } catch (LoginException | RepositoryException | IOException e) {
             LOGGER.error("Error on save node: ()", e);
         }
     }
 
-    private void updateNode(Node node, Country country) {
+    private void updateNode(Node node, Country country) throws IOException {
         try {
             Session session = getResourceResolver().adaptTo(Session.class);
             if (null != node) {
@@ -107,7 +108,8 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
             session.logout();
             session = null;
         } catch (LoginException | RepositoryException e) {
-            LOGGER.error("Update node error: ()", e);
+            LOGGER.error("Silversea - Have some issues with session. Try to reconnect ...");
+            importCountries();
         }
     }
 
