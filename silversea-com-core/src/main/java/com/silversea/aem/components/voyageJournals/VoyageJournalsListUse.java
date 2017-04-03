@@ -97,6 +97,10 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         return voyageJournalList;
     }
 
+    public Integer getCurrent() {
+        return Integer.parseInt(currentPage);
+    }
+
     public int getNext() {
         if (Integer.parseInt(currentPage) < numberOfPages)
             return Integer.parseInt(currentPage) + 1;
@@ -109,8 +113,13 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         return -1;
     }
 
-    public long getNumberOfPages() {
-        return numberOfPages;
+    public List<Integer> getNumberOfPages() {
+        List<Integer> num = new ArrayList<>();
+
+        for (int i = 0; i < numberOfPages; i++) {
+            num.add(i+1);
+        }
+        return num;
     }
 
     public long getTotalMatches() {

@@ -18,31 +18,21 @@
         </li>
     </ul>
 
-    <ul data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 2}">
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 2}">
-            <a href="${currentPage.path @ extension='html'}?page=1">1</a>
-        </li>
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 2}">
-            <a href="${currentPage.path @ extension='html'}?page=2">2</a>
-        </li>
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 3}">
-            <a href="${currentPage.path @ extension='html'}?page=3">3</a>
-        </li>
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 4}">...</li>
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.numberOfPages >= 4}">
-            <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.numberOfPages}">
-                ${VoyageJournalsListUse.numberOfPages}
+
+    <div class="c-pagination-number">
+        <sly data-sly-test.pageSize="${VoyageJournalsListUse.prev >= 0}">
+            <a class="c-pagination-number__prev" href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.prev}">&#8592; ${'previous' @ i18n}</a>
+        </sly>
+
+        <sly data-sly-list="${VoyageJournalsListUse.numberOfPages}" data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0 || VoyageJournalsListUse.prev >= 0}">
+            <sly data-sly-test.active="${item == VoyageJournalsListUse.current}"></sly>
+            <a href="${currentPage.path @ extension='html'}?page=${item}" class="${active ? 'active' : ''}">
+                ${item}
             </a>
-        </li>
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.prev >= 0}">
-            <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.prev}">
-                <- ${'previous' @ i18n}
-            </a>
-        </li>
-        <li data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0 && VoyageJournalsListUse.numberOfPages >= 4}">
-            <a href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.next}">
-                ${'next' @ i18n} ->
-            </a>
-        </li>
-    </ul>
+        </sly>
+
+        <sly data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0}">
+            <a class="c-pagination-number__next" href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.next}">${'next' @ i18n} &#8594;</a>
+        </sly>
+    </div>
 </div>
