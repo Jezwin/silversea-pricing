@@ -1,1 +1,10 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Vertical teaser"></div>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Vertical teaser"></div>
+<section data-sly-test="${properties.reference}" class="c-vertical-teaser c-vertical-teaser--${properties.style || 'style1'} thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" 
+    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
+    <div class="caption c-vertical-teaser__caption">
+        <h3 class="c-vertical-teaser__title">${target.page.navigationTitle || target.page.title}</h3>
+        <p class="c-vertical-teaser__desciption">${target.page.description}</p>
+        <p class="c-vertical-teaser__desciption"><a href="${target.page.path @ extenion='html'}">${'discover-more' @ i18n} <i class="fa fa-angle-right"></i></a></p>
+    </div>
+</section>
