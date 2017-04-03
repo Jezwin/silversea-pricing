@@ -1,5 +1,7 @@
 package com.silversea.aem.helper;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 
 public class StringHelper extends WCMUsePojo {
@@ -11,7 +13,10 @@ public class StringHelper extends WCMUsePojo {
         String text = get("text", String.class);
         Integer limit = get("limit", Integer.class);
 
-        textTruncate = text.substring(0, limit).trim();
+        if(StringUtils.isNotEmpty(text)) {
+            textTruncate = text.substring(0, limit).trim();
+        }
+
     }
 
     /**
