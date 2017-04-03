@@ -63,4 +63,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="keyfact"
         sling:message="Key Fact" />
+    <discover-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="discover-more"
+        sling:message="Discover more" />
 </jcr:root>
