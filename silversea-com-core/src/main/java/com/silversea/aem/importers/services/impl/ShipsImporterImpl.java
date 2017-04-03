@@ -26,6 +26,7 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
 
 import io.swagger.client.api.ShipsApi;
+import io.swagger.client.model.Feature;
 import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Cities importer")
@@ -44,13 +45,15 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
         ShipsApi shipsApi = new ShipsApi();
         shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
-            PageManager pageManager = getResourceResolver().adaptTo(PageManager.class);
+            ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+            Session session = resourceResolver.adaptTo(Session.class);
+            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Page shipsRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SHIP);
-
-            List<Ship> listShips = shipsApi.shipsGet(null);
-            Session session = getResourceResolver().adaptTo(Session.class);
+            List<Ship> listShips;
+            listShips = shipsApi.shipsGet(null);
+            int i = 0;
             for (Ship ship : listShips) {
-                Iterator<Resource> resources = getResourceResolver().findResources(
+                Iterator<Resource> resources = resourceResolver.findResources(
                         "//element(*,cq:Page)[jcr:content/shipCode=\"" + ship.getShipCod() + "\"]", "xpath");
                 Page shipPage = null;
 
@@ -63,57 +66,44 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
                 if (shipPage != null) {
                     Node shipPageContentNode = shipPage.getContentResource().adaptTo(Node.class);
-                    updateShipNode(shipPageContentNode, ship);
+                    if (shipPageContentNode != null) {
+                        shipPageContentNode.setProperty(JcrConstants.JCR_TITLE, ship.getShipName());
+                        shipPageContentNode.setProperty("shipId", ship.getShipId());
+                        shipPageContentNode.setProperty("shipCode", ship.getShipCod());
+                        shipPageContentNode.setProperty("shipName", ship.getShipName());
+                        shipPageContentNode.setProperty("shipType", ship.getShipType());
+                        shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
+                        session.save();
+                        LOGGER.debug("Updated ship with {} ", ship.getShipCod());
+                    }
                 }
                 LOGGER.debug("Check ship with {} ", ship.getShipCod());
+                i++;
+                if (i % 100 == 0) {
+                    if (session.hasPendingChanges()) {
+                        try {
+                            session.save();
+                        } catch (RepositoryException e) {
+                            session.refresh(true);
+                        }
+                    }
+                }
             }
-            updateRoot(shipsRootPage);
+            if (session.hasPendingChanges()) {
+                try {
+                    // save migration date
+                    Node rootNode = shipsRootPage.getContentResource().adaptTo(Node.class); 
+                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+                    session.save();
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+            resourceResolver.close();
         } catch (Exception e) {
             String errorMessage = "Import Ship Errors : {} ";
             LOGGER.error(errorMessage, e);
         }
-    }
-
-    private void updateShipNode(Node shipPageContentNode, Ship ship) {
-        try {
-            Session session = getResourceResolver().adaptTo(Session.class);
-            if (shipPageContentNode != null) {
-                shipPageContentNode.setProperty(JcrConstants.JCR_TITLE, ship.getShipName());
-                shipPageContentNode.setProperty("shipId", ship.getShipId());
-                shipPageContentNode.setProperty("shipCode", ship.getShipCod());
-                shipPageContentNode.setProperty("shipName", ship.getShipName());
-                shipPageContentNode.setProperty("shipType", ship.getShipType());
-                shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
-                session.save();
-                LOGGER.debug("Updated ship with {} ", ship.getShipCod());
-            }
-            session.logout();
-            session = null;
-        } catch (LoginException | RepositoryException e) {
-            String errorMessage = "Update Ship Errors : {} ";
-            LOGGER.error(errorMessage, e);
-        }
-    }
-
-    private void updateRoot(Page page) {
-        try {
-            Session session = getResourceResolver().adaptTo(Session.class);
-            // save migration date
-            if (page != null) {
-                Node rootShipNode = page.getContentResource().adaptTo(Node.class);
-                rootShipNode.setProperty("lastModificationDate", Calendar.getInstance());
-                session.save();
-            }
-            session.logout();
-            session = null;
-        } catch (RepositoryException | LoginException e) {
-            String errorMessage = "Update Root Node Modification Date : {} ";
-            LOGGER.error(errorMessage, e);
-        }
-    }
-
-    private ResourceResolver getResourceResolver() throws LoginException {
-        return resourceResolverFactory.getAdministrativeResourceResolver(null);
     }
 
 }

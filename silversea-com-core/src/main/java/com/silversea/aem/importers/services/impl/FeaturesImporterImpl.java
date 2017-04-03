@@ -22,9 +22,11 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.FeaturesApi;
 import io.swagger.client.model.Feature;
 
@@ -45,12 +47,16 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
         FeaturesApi featuresApi = new FeaturesApi();
         featuresApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
-            PageManager pageManager = getResourceResolver().adaptTo(PageManager.class);
+            ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+            Session session = resourceResolver.adaptTo(Session.class);
+            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Page featuresRootPage = pageManager.getPage(ImportersConstants.BASEPATH_FEATURES);
-
-            List<Feature> listFeatures = featuresApi.featuresGet(null);
-            for (Feature feature : listFeatures) {
-                Iterator<Resource> resources = getResourceResolver().findResources(
+            List<Feature> features;
+            features = featuresApi.featuresGet(null);
+            int i = 0;
+            for (Feature feature : features) {
+                LOGGER.debug("Importing Feature: {}", feature.getFeatureCod());
+                Iterator<Resource> resources = resourceResolver.findResources(
                         "//element(*,cq:Page)[jcr:content/featureCode=\"" + feature.getFeatureCod() + "\"]", "xpath");
                 Page featurePage = null;
 
@@ -63,57 +69,43 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 
                 if (featurePage != null) {
                     Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
-                    updateFeatureNode(featurePageContentNode, feature);
+                    if (featurePageContentNode != null) {
+                        featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
+                        featurePageContentNode.setProperty("featureId", feature.getFeatureId());
+                        featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
+                        featurePageContentNode.setProperty("featureName", feature.getName());
+                        featurePageContentNode.setProperty("featureOrder", feature.getOrder());
+                        session.save();
+                        LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
+                    }
                 }
                 LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
+                i++;
+                if (i % 100 == 0) {
+                    if (session.hasPendingChanges()) {
+                        try {
+                            session.save();
+                        } catch (RepositoryException e) {
+                            session.refresh(true);
+                        }
+                    }
+                }
             }
-            updateRoot(featuresRootPage);
-        } catch (Exception e) {
+            if (session.hasPendingChanges()) {
+                try {
+                    // save migration date
+                    Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class); 
+                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+                    session.save();
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+            resourceResolver.close();
+        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
             String errorMessage = "Import Feature Errors : {} ";
             LOGGER.error(errorMessage, e);
         }
-    }
-
-    private void updateFeatureNode(Node featurePageContentNode, Feature feature) {
-        try {
-            Session session = getResourceResolver().adaptTo(Session.class);
-            if (featurePageContentNode != null) {
-                featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
-                featurePageContentNode.setProperty("featureId", feature.getFeatureId());
-                featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
-                featurePageContentNode.setProperty("featureName", feature.getName());
-                featurePageContentNode.setProperty("featureOrder", feature.getOrder());
-                session.save();
-                LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
-            }
-            session.logout();
-            session = null;
-        } catch (LoginException | RepositoryException e) {
-            String errorMessage = "Update Feature Errors : {} ";
-            LOGGER.error(errorMessage, e);
-        }
-    }
-
-    private void updateRoot(Page page) {
-        try {
-            Session session = getResourceResolver().adaptTo(Session.class);
-            // save migration date
-            if (page != null) {
-                Node rootSFeatureNode = page.getContentResource().adaptTo(Node.class);
-                rootSFeatureNode.setProperty("lastModificationDate", Calendar.getInstance());
-                session.save();
-                LOGGER.error("LastModificationDate of Feature {} ", Calendar.getInstance());
-            }
-            session.logout();
-            session = null;
-        } catch (RepositoryException | LoginException e) {
-            String errorMessage = "Update Root Node Modification Date errors : {} ";
-            LOGGER.error(errorMessage, e);
-        }
-    }
-
-    private ResourceResolver getResourceResolver() throws LoginException {
-        return resourceResolverFactory.getAdministrativeResourceResolver(null);
     }
 
 }
