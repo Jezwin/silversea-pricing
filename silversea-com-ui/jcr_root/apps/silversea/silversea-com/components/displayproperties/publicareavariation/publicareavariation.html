@@ -4,16 +4,10 @@
     <div class="o-section" data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
         <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}"></sly>
         <div data-sly-test="${currentPage.navigationTitle || currentPage.title}">
-            <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
-        </div>
-        <div data-sly-test="${!currentPage.navigationTitle && !currentPage.title}">
-            <h1 class="o-title">${cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
+            <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
         </div>
         <div data-sly-test="${pageProperties.longDescription || currentPage.description}">
-            <div class="o-section o-section--separator o-description">${pageProperties.longDescription || currentPage.description @ context='html'}</div>
-        </div>
-        <div data-sly-test="${!pageProperties.longDescription && !currentPage.description}">
-            <div class="o-section o-section--separator o-description">${cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}</div>
+            <div class="o-section o-section--separator o-description">${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}</div>
         </div>
     </div>
 </div>
