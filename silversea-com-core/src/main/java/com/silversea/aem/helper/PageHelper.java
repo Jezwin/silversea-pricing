@@ -6,7 +6,6 @@ import org.apache.sling.api.resource.Resource;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.foundation.Image;
 
 public class PageHelper extends WCMUsePojo {
 
