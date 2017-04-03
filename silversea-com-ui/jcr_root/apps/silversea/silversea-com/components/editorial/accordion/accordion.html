@@ -1,11 +1,9 @@
-<div data-sly-test="${wcmmode.edit}" data-sly-unwrap>
-   <em>[Editer le composant : accordion]</em>
-</div>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Accordion"></div>
 <div class="row">
     <div class="col-xs-12">
         <div class="c-accordion c-accordion--darkbox" data-multiview="false">
             <div class="c-accordion__elem">
-                <div class="c-accordion__header" data-state="${properties.expanded || 'false'}">
+                <div class="c-accordion__header" data-state="${wcmmode.edit || properties.expanded ? 'true' : 'false'}">
                     <div class="c-accordion__title">
                         <p class="c-accordion__title--veryimportant">${properties.jcr:title}</p>
                     </div>
@@ -13,7 +11,7 @@
                         <i class='fa fa-angle-down'></i>
                     </div>
                 </div>
-                <div class="c-accordion__body" data-collapsed="${properties.expanded || 'false'}">
+                <div class="c-accordion__body" data-collapsed="${wcmmode.edit || properties.expanded ? 'true' : 'false'}">
                     <div class="c-accordion__body--panel">
                         <div data-sly-resource="${'parAccordion' @ resourceType='wcm/foundation/components/parsys'}"></div>
                     </div>
