@@ -22,6 +22,7 @@
     }
 
     .thumbnail &__caption {
+        height: 150px;
         padding: 7px 10px 30px;
     }
 
@@ -30,10 +31,6 @@
         font-size: 18px;
         margin: 0;
         text-transform: uppercase;
-
-        @media screen and (max-width: @screen-sm) {
-            font-family: "Playfair display";
-        }
     }
 
     &__description {
@@ -61,19 +58,45 @@
         text-transform: uppercase;
     }
 
+    &--style1 & {
+        @media screen and (max-width: @screen-sm) {
+            &__title {
+                font-family: "Theanodidot";
+                font-size: 26px;
+                line-height: 1;
+                padding: 17px 0 10px;
+            }
+        }
+    }
+
     &--style2 & {
+        &__caption {
+            height: 90px;
+        }
+
         &__title {
             background-color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
+            height: 76px;
             left: 50%;
-            padding: 20px;
             position: absolute;
             text-align: center;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 74%;
+            width: 80%;
 
             @media screen and (max-width: @screen-sm) {
-                width: 80%;
+                font-family: "Playfair Display";
+                font-size: 18px;
+            }
+
+            span {
+                left: 0;
+                padding: 5px 20px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
             }
         }
     }
