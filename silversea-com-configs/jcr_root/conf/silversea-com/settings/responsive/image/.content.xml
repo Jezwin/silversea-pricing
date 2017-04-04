@@ -96,6 +96,11 @@
                             jcr:primaryType="nt:unstructured"
                             width="300" />
                     </variationassetsdisplay>
+                    <pressreleaseslist>
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="300" />
+                    </pressreleaseslist>
                 </included>
             </components>
         </silversea-com>
