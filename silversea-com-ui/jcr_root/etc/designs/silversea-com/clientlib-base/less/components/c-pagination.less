@@ -25,6 +25,14 @@
         position: relative;
         text-transform: uppercase;
 
+        @media screen and (max-width: 440px) {
+
+            &:first-child {
+                width: 48%;
+                margin-right: 1%;
+            }
+        }
+
         @media screen and (max-width: @screen-md-min) {
 
             text-align: center;
@@ -43,6 +51,7 @@
                 margin-right: 0px;
             }
         }
+
     }
 
     &--previous {

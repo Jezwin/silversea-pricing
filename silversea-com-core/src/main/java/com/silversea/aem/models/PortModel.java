@@ -3,6 +3,7 @@ package com.silversea.aem.models;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public class PortModel {
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/apiDescription")
+    @Optional
     private String apiDescription;
 
     private List<ExcursionModel> excursions;

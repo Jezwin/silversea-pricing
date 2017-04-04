@@ -30,6 +30,7 @@
                                 fieldLabel="Target path"
                                 name="./reference"
                                 required="{Boolean}true"
+                                rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <style
                                 jcr:primaryType="nt:unstructured"

@@ -1,0 +1,103 @@
+.c-vertical-teaser {
+    position: relative;
+
+    &__image-wrapper {
+        position: relative;
+    }
+
+    picture {
+        background-color: @black;
+    }
+
+    .o-img {
+        -moz-transition: opacity 0.3s ease;
+        -o-transition: opacity 0.3s ease;
+        -ms-transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease;
+        webkit-transition: opacity 0.3s ease;
+    }
+
+    &:hover .o-img {
+        opacity: .5;
+    }
+
+    .thumbnail &__caption {
+        height: 150px;
+        padding: 7px 10px 30px;
+    }
+
+    &__title {
+        font-family: "Theano Didot Regular";
+        font-size: 18px;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    &__description {
+        font-size: 13px;
+        margin: 0;
+    }
+
+    &__link {
+        bottom: 9px;
+        position: absolute;
+
+        &--block {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+    }
+
+    &__label {
+        font-size: 11px;
+        font-weight: 600;
+        padding-right: 8px;
+        text-transform: uppercase;
+    }
+
+    &--style1 & {
+        @media screen and (max-width: @screen-sm) {
+            &__title {
+                font-family: "Theanodidot";
+                font-size: 26px;
+                line-height: 1;
+                padding: 17px 0 10px;
+            }
+        }
+    }
+
+    &--style2 & {
+        &__caption {
+            height: 90px;
+        }
+
+        &__title {
+            background-color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
+            height: 76px;
+            left: 50%;
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+
+            @media screen and (max-width: @screen-sm) {
+                font-family: "Playfair Display";
+                font-size: 18px;
+            }
+
+            span {
+                left: 0;
+                padding: 5px 20px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+            }
+        }
+    }
+}

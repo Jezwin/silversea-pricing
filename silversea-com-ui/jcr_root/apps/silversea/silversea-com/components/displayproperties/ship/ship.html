@@ -1,24 +1,24 @@
 <div class="c-pageheader">
-    <h1 class="c-pageheader__title">${currentPage.title}</h1>
+    <h1 class="c-pageheader__title">${currentPage.title || currentPage.navigationTitle}</h1>
     <div class="c-pageheader__decription">
-        ${pageProperties.longDescription @ context='html' }
+        ${pageProperties.longDescription || currentPage.description @ context='html' }
     </div>
-    <div class="c-pageheader__properties c-list-inline o-divider--top-dark">
+    <div class="c-pageheader__properties" data-sly-test="${pageProperties.guestsCapacity || pageProperties.crewCapacity || pageProperties.builtDate || pageProperties.tonnage}">
         <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
             <li class="c-list-inline__item c-list-inline__item--no-separated">
-                <strong class="h-important">${'key-fact' @ i18n} :</strong>
+                <strong class="h-important">${'key-facts' @ i18n} :</strong>
             </li>
-            <li class="c-list-inline__item" data-sly-test="${pageProperties.guestsCapacity}">
-                <strong>${'guests-capacity' @ i18n}:</strong> ${pageProperties.guestsCapacity}
+            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.guestsCapacity}">
+                ${'guests-capacity' @ i18n}: ${pageProperties.guestsCapacity}
             </li>
-            <li class="c-list-inline__item" data-sly-test="${pageProperties.crewCapacity}">
-                <strong>${'crew-capacity' @ i18n}:</strong> ${pageProperties.crewCapacity}
+            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.crewCapacity}">
+                ${'crew-capacity' @ i18n}: ${pageProperties.crewCapacity}
             </li>
-            <li class="c-list-inline__item" data-sly-test="${pageProperties.builtDate}">
-                <strong>${'built-date' @ i18n}:</strong> ${pageProperties.builtDate}
+            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.builtDate}">
+                ${'refurb-date' @ i18n}: ${pageProperties.builtDate}
             </li>
-            <li class="c-list-inline__item" data-sly-test="${pageProperties.tonnage}">
-                <strong>${'tonnage' @ i18n}:</strong> ${pageProperties.tonnage} ${'tonnage' @ i18n}
+            <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.tonnage}">
+                ${'tonnage' @ i18n}: ${pageProperties.tonnage} ${'tons' @ i18n}
             </li>
         </ul>
     </div>

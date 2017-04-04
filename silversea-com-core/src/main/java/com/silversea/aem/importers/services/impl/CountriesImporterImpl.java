@@ -50,71 +50,56 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
         CountriesApi countriesApi = new CountriesApi();
         countriesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
-            List<Country> listCountries = null;
-            listCountries = countriesApi.countriesGet(null, null);
-            for (Country country : listCountries) {
-                importCountry(country);
-            }
-            getResourceResolver().close();
-            LOGGER.debug("Data was imported completely ...");
-        } catch (LoginException | ApiException e) {
-            LOGGER.error("Import countries has some issues ()", e);
-        }
+            ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+            Session session = resourceResolver.adaptTo(Session.class);
+            List<Country> countries;
+            countries = countriesApi.countriesGet(null, null);
+            int j = 0;
+            for (Country country : countries) {
+                LOGGER.debug("Importing Country: {}", country.getCountryName());
+                Map<String, String> map = new HashMap<>();
+                Iterator<Node> nodes = null;
+                map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
+                map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
+                map.put(WcmConstants.SEARCH_NODE_NAME, country.getCountryIso2());
+                Query query = builder.createQuery(PredicateGroup.create(map), session);
+                SearchResult searchResult = query.getResult();
+                nodes = searchResult.getNodes();
+                // Set result to current node
+                while (nodes.hasNext()) {
+                    Node node = nodes.next();
+                    if (node.getDepth() == 6) {
+                        if (null != node) {
+                            node.setProperty("country_id", country.getCountryId());
+                            node.setProperty("country_url", country.getCountryUrl());
+                            node.setProperty("country_iso2", country.getCountryIso2());
+                            node.setProperty("country_iso3", country.getCountryIso3());
+                            node.setProperty("country_name", country.getCountryName());
+                            node.setProperty("country_prefix", country.getCountryPrefix());
+                            node.setProperty("market", country.getMarket());
+                            node.setProperty("region_id", country.getRegionId());
+                            session.save();
+                            // LOGGER.debug("Country with iso 2 : " +
+                            // country.getCountryIso2() + " added.");
+                        }
+                    }
+                }
+                j++;
 
-    }
-
-    private void importCountry(Country country) {
-        Map<String, String> map = new HashMap<>();
-        Iterator<Node> nodes = null;
-        try {
-            // Create the query builder to get node by country name - it means
-            // iso2
-            map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
-            map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
-            map.put(WcmConstants.SEARCH_NODE_NAME, country.getCountryIso2());
-            Session session = getResourceResolver().adaptTo(Session.class);
-            Query query = builder.createQuery(PredicateGroup.create(map), session);
-            SearchResult searchResult = query.getResult();
-            nodes = searchResult.getNodes();
-            // Set result to current node
-            while (nodes.hasNext()) {
-                Node node = nodes.next();
-                if (node.getDepth() == 6) {
-                    updateNode(node, country);
+                if (j % 100 == 0) {
+                    if (session.hasPendingChanges()) {
+                        try {
+                            session.save();
+                        } catch (RepositoryException e) {
+                            session.refresh(true);
+                        }
+                    }
                 }
             }
-            session.logout();
-            session = null;
-        } catch (LoginException | RepositoryException | IOException e) {
-            LOGGER.error("Error on save node: ()", e);
+            resourceResolver.close();
+        } catch (ApiException | LoginException | RepositoryException e) {
+            LOGGER.error("Exception importing countries", e);
         }
-    }
-
-    private void updateNode(Node node, Country country) throws IOException {
-        try {
-            Session session = getResourceResolver().adaptTo(Session.class);
-            if (null != node) {
-                node.setProperty("country_id", country.getCountryId());
-                node.setProperty("country_url", country.getCountryUrl());
-                node.setProperty("country_iso2", country.getCountryIso2());
-                node.setProperty("country_iso3", country.getCountryIso3());
-                node.setProperty("country_name", country.getCountryName());
-                node.setProperty("country_prefix", country.getCountryPrefix());
-                node.setProperty("market", country.getMarket());
-                node.setProperty("region_id", country.getRegionId());
-                session.save();
-                LOGGER.debug("Country with iso 2 : " + country.getCountryIso2() + " added.");
-            }
-            session.logout();
-            session = null;
-        } catch (LoginException | RepositoryException e) {
-            LOGGER.error("Silversea - Have some issues with session. Try to reconnect ...");
-            importCountries();
-        }
-    }
-
-    private ResourceResolver getResourceResolver() throws LoginException {
-        return resourceResolverFactory.getAdministrativeResourceResolver(null);
     }
 
     @Override

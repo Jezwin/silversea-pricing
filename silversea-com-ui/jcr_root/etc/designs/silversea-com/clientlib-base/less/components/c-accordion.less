@@ -10,6 +10,12 @@
 /*
 ** Component Accordion
 */
+** Port Component Accordion
+*/
+.port .c-accordion__body {
+    font-size: 13px;
+}
+
 .c-accordion {
     border-right: solid 1px @grey--e8;
     border-left: solid 1px @grey--e8;
@@ -132,7 +138,7 @@
     &__body {
         max-height: 0;
         overflow: hidden;
-        transition: max-height .3s ease-in-out;
+        transition: max-height .4s cubic-bezier(0.4, 0, 1, 1);
 
         &--full {
             padding: 0;
@@ -140,6 +146,9 @@
 
         &[data-collapsed='true'] {
             max-height: 1000px;
+        }
+        &[data-collapsed='false'] {
+            max-height: 0px;
         }
 
         &[data-collapsed='false'] {
@@ -158,6 +167,5 @@
         text-align: right;
         line-height: 28px;
         vertical-align: baseline;
-        margin-bottom: 10px;
     }
 }
