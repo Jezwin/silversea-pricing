@@ -96,7 +96,7 @@
                             jcr:primaryType="nt:unstructured"
                             width="300" />
                     </variationassetsdisplay>
-                    <pressreleaseslist>
+                    <pressreleaseslist jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
                             width="300" />
