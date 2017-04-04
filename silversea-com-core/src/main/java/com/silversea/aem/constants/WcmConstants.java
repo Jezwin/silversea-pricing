@@ -24,6 +24,7 @@ public interface WcmConstants {
 
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
+    String RT_IMAGE_CPT = "silversea/silversea-com/components/editorial/image";
 
     // Node name
     String NN_DEFAULT = "default";

@@ -89,23 +89,12 @@
                             jcr:primaryType="nt:unstructured"
                             width="34" />
                     </image>
-                    <teaser jcr:primaryType="nt:unstructured">
-                        <desktop-6
-                            jcr:primaryType="nt:unstructured"
-                            width="450" />
-                        <mobile-12
-                            jcr:primaryType="nt:unstructured"
-                            width="727" />
-                    </teaser>
                 </editorial>
                 <included jcr:primaryType="nt:unstructured">
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
                             width="300" />
-                        <mobile-12
-                            jcr:primaryType="nt:unstructured"
-                            width="727" />
                     </variationassetsdisplay>
                 </included>
             </components>
