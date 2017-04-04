@@ -14,14 +14,12 @@ public class DateHelper extends WCMUsePojo {
     public void activate() throws Exception {
         Calendar date = get("date", Calendar.class);
         String format = get("format", String.class);
-        String local = get("local", String.class);
-        Locale l = new Locale(local);
-        SimpleDateFormat formatter = new SimpleDateFormat(format,l);
+        Locale locale = getCurrentPage().getLanguage(false);
+        SimpleDateFormat formatter = new SimpleDateFormat(format, locale);
         value = formatter.format(date.getTime());
     }
 
     public String getValue() {
         return value;
     }
-
 }
