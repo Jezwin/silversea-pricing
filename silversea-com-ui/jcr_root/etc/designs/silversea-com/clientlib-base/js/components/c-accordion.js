@@ -14,7 +14,7 @@
         _elems = _self.children('.c-accordion__elem'),
         _links = _elems.children('.c-accordion__header'),
         _contents = _self.find(_data.content),
-        _multiple = (_self.attr('data-multiview') == 'true') || false;
+        _multiple = (_self.attr('data-multiview') === 'true') || false;
 
         /*
         ** Link Click Event to show content
@@ -23,7 +23,7 @@
             e.preventDefault();
 
             var elem = $(this).parent().children(_data.content);
-            var isCollapsed = (elem.attr('data-collapsed') == 'true');
+            var isCollapsed = (elem.attr('data-collapsed') === 'true');
             var value = (!isCollapsed) ? _data.close : _data.more;
 
             if (!_multiple) {
