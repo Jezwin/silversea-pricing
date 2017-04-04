@@ -28,15 +28,18 @@ body {
 /*
 * Reset Css
 */
+h1 {
+    &.content-title {
+        font-size: 30px;
+    }
+}
 ul {
     margin: 0;
     padding: 0;
 }
-
 li {
     list-style: none;
 }
-
 a {
     color: inherit;
     &:hover, &:active, &:focus {
@@ -49,6 +52,8 @@ a {
 ** RTE component
 */
 .text {
+    font-size: 13px;
+
     ul {
         margin: inherit;
         padding: inherit;
