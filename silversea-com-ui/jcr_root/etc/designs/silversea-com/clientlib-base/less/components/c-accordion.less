@@ -1,4 +1,3 @@
-
 /*
 ** Editorial Component Accordion
 */
@@ -8,11 +7,9 @@
     }
 }
 
-
 /*
 ** Component Accordion
 */
-
 .c-accordion {
     border-right: solid 1px @grey--e8;
     border-left: solid 1px @grey--e8;
@@ -29,17 +26,19 @@
                 cursor: pointer;
                 background-color: @white;
             }
+
             &[data-state='true'] {
                 background-color: @grey--3;
                 color: @white;
                 border: 0;
             }
         }
+
         .c-accordion__elem {
-            border: 0px;
+            border: 0;
 
             &:nth-last-child(1) {
-                border-bottom: 0px;
+                border-bottom: 0;
             }
         }
     }
@@ -59,6 +58,7 @@
                 cursor: pointer;
                 background-color: @white;
             }
+
             &[data-state='true'] {
                 background-color: @white;
                 border-bottom: solid 1px @grey--e8;
@@ -78,6 +78,7 @@
             border-bottom: solid 1px @grey--e8;
         }
     }
+
     &__header {
         display: table;
         width: 100%;
@@ -89,31 +90,34 @@
             cursor: pointer;
             background-color: @grey--e6;
         }
-        &[data-state='true'] {
-            
-        }
     }
+
     &__title,
     &__info,
     &__action {
         display: table-cell;
         vertical-align: middle;
     }
+
     &__title {
         p {
-            margin: 0px;
+            margin: 0;
         }
+
         &--large {
             padding: 5px;
         }
+
         &--veryimportant {
             text-transform: uppercase;
             font-weight: bold;
         }
     }
+
     &__subtitle {
         font-size: 12px;
     }
+
     &__action {
         min-width: 90px;
         width: 10%;
@@ -126,25 +130,27 @@
         }
     }
     &__body {
-        max-height: 0px;
+        max-height: 0;
         overflow: hidden;
         transition: max-height .3s ease-in-out;
 
         &--full {
-            padding: 0px;
+            padding: 0;
         }
 
         &[data-collapsed='true'] {
             max-height: 1000px;
         }
+
         &[data-collapsed='false'] {
-            max-height: 0px;
+            max-height: 0;
         }
 
         &--panel {
             padding: 20px;
         }
     }
+
     &__archivelink {
         font-size: 12px;
         font-weight: bold;
