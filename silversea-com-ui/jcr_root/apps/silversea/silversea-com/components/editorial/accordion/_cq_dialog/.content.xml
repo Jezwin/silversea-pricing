@@ -20,7 +20,6 @@
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/form/textfield"
                             name="./jcr:title"
-                            text="Title"
                             fieldLabel="Title"
                             required="{Boolean}true"/>
                     <expanded
