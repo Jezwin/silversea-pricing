@@ -23,6 +23,39 @@ $(function() {
     });
 
     /***************************************************************************
+     * Bootstrap Validator
+     **************************************************************************/
+    // Activate bootstrap validator plugin
+    /*$(document).ready(function() {
+        $('.c-rabwidget').validator();
+    });*/
+
+    /***************************************************************************
+     * RAB Widget
+     **************************************************************************/
+    // On button click cookie store email and redirect
+    /*jQuery(document).ready(function() {
+        $('.c-rabwidget').validator().on('submit', function (e) {
+            console.log(this, 'yolo');
+            if (!e.isDefaultPrevented()) {
+                console.log(this);
+            }
+        });
+    });*/
+
+
+    $('.c-rabwidget').on('submit', function (e) {
+
+        if (!e.isDefaultPrevented()) {
+            console.log('yolo', this.email, this.email.value);
+            //var today = new Date();
+            //today.setDate(today.getDate() + 365);
+            //document.cookie = "cookieMessageDisclaimer=true;expires=" + today.toUTCString();
+            document.cookie = "email=" + this.email.value + ";expires=" + today.toUTCString();
+        }
+    });
+
+    /***************************************************************************
      * Modal
      **************************************************************************/
     // Clean modal content on close event
@@ -89,5 +122,5 @@ $(function() {
     // Redirect to page with brochure in the current language
     $('#selectBrochureListLangId').on('change', function() {
         window.location.href = this.value;
-    })
+    });
 });

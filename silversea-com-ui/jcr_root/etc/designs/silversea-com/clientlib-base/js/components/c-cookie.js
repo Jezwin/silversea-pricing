@@ -1,6 +1,28 @@
 +function($) {
     'use strict';
 
+    function CookieDisclamer () {
+        this.name = "cookieMessageDisclaimer";
+        this.status = false;
+        this.cookie = null;
+    };
+
+    CookieDisclamer.prototype = {
+
+        isActive: function() {
+            this.getCookie();
+            return (this.cookie != null && ;
+        },
+        setCookie: function () {
+            var today = new Date();
+            today.setDate(today.getDate() + 365);
+            document.cookie = this.name + "=true;expires=" + today.toUTCString();
+        },
+        getCookie: function () {
+            this.cookie = document.cookie.match(/cookieMessageDisclaimer=(true||false)/);
+        };
+    };
+
     $(function() {
         /***************************************************************************
          * Show/hide message according to the "cookieMessageDisclaimer" cookie
@@ -19,5 +41,8 @@
                 hideCookie();
             });
         }
+        var testAnais = function () {
+            console.log('it is isolate ?');
+        };
     });
 }(jQuery);
