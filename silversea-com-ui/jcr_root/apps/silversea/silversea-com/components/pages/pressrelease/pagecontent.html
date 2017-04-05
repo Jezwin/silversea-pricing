@@ -14,7 +14,7 @@
                     <h1 class="c-pageheader__subtitle">${currentPage.title}</h1>
                 </div>
 
-                <div data-sly-resource="${'propertyDisplay' @ resourceType='/apps/silversea/silversea-com/components/displayproperties/pressrelease'}"></div>
+                <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 
                 <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.helper.PaginationHelper">
                     <a href="${cpt.previous.path @ extension='html'}"
