@@ -15,7 +15,7 @@
             $('#c-cookie__close').on('click', function() {
                 var today = new Date();
                 today.setDate(today.getDate() + 365);
-                document.cookie = "cookieMessageDisclaimer=true;expires=" + today.toUTCString();
+                document.cookie = "cookieMessageDisclaimer=true; expires=" + today.toUTCString();
                 hideCookie();
             });
         }

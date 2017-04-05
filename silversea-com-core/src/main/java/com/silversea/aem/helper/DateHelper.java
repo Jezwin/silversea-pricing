@@ -8,6 +8,9 @@ import com.adobe.cq.sightly.WCMUsePojo;
 
 public class DateHelper extends WCMUsePojo {
 
+    /*
+    ** Doc for format date https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+    * */
     public String value;
 
     @Override
