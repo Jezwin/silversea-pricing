@@ -14,8 +14,6 @@
             today.setDate(today.getDate() + 365);
             document.cookie = name + "=" + value + ";expires=" + today.toUTCString();
             // When cookie is added up expiration date of disclamer
-            console.log(name !== this.disclamer && this.getDisclamer() === 'true', name, this.disclamer, this.getDisclamer());
-
             if (name !== this.disclamer && this.getDisclamer() === 'true')
                 document.cookie = this.disclamer + "=" + 'true' + ";expires=" + today.toUTCString();
         },

@@ -1,4 +1,0 @@
-#base=less
-
-docs.less
-pygments-manni.less

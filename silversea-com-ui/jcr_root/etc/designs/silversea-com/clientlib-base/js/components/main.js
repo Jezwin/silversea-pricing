@@ -26,23 +26,9 @@ $(function() {
      * RAB Widget
      **************************************************************************/
     // On button click cookie store email and redirect
-    /*jQuery(document).ready(function() {
-        $('.c-rabwidget').validator().on('submit', function (e) {
-            console.log(this, 'yolo');
-            if (!e.isDefaultPrevented()) {
-                console.log(this);
-            }
-        });
-    });*/
-
-
     $('.c-rabwidget').validator().on('submit', function (e) {
-        console.log('--> beofre e.isDefaultPrevented()', e.isDefaultPrevented());
         if (!e.isDefaultPrevented()) {
-            console.log('yolo', this, this.email.value);
-
             $.CookieManager.setCookie('email', this.email.value);
-
         }
     });
 
