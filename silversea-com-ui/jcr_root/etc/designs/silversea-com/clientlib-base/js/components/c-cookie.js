@@ -10,12 +10,16 @@
         disclamer: 'cookieMessageDisclaimer',
 
         setCookie: function (name, value) {
+            var lastValue = this.getCookie(name);
             var today = new Date();
             today.setDate(today.getDate() + 365);
-            document.cookie = name + "=" + value + ";expires=" + today.toUTCString();
+
+            if (lastValue !== value) {
+                document.cookie = name + '=' + value + '; expires=' + today.toUTCString() + '; path=/';
+            }
             // When cookie is added up expiration date of disclamer
             if (name !== this.disclamer && this.getDisclamer() === 'true')
-                document.cookie = this.disclamer + "=" + 'true' + ";expires=" + today.toUTCString();
+                document.cookie = this.disclamer + '=true; expires=' + today.toUTCString() + '; path=/';
         },
         getCookie: function (pname) {
             var name = pname + "=";

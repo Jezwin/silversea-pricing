@@ -23,12 +23,21 @@ $(function() {
     });
 
     /***************************************************************************
-     * RAB Widget
+     * Form cookie value
      **************************************************************************/
-    // On button click cookie store email and redirect
-    $('.c-rabwidget').validator().on('submit', function (e) {
+    // On submit store mandatory value
+    var cookieValues = ['email', 'firstname', 'lastname'];
+    $('.c-formcookie').validator().on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
-            $.CookieManager.setCookie('email', this.email.value);
+            for ( var value in cookieValues ) {
+                if (this[cookieValues[value]] !== undefined) {
+                    $.CookieManager.setCookie(cookieValues[value], this[cookieValues[value]].value);
+                }
+            }
+            if (this.className.match(/c-formcookie--redirect/) !== null) {
+                e.preventDefault();
+                window.location.href = this.action;
+            }
         }
     });
 

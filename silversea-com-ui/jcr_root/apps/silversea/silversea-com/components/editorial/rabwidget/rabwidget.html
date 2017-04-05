@@ -1,8 +1,8 @@
 <div data-sly-test.empty="${!properties.pageReference && wcmmode.edit}" class="cq-placeholder" data-emptytext="RAB Widget"></div>
-<form class="c-subscribe__form form-inline c-rabwidget"
+<form class="c-subscribe__form form-inline c-formcookie c-formcookie--redirect"
       data-toggle="validator"
       data-disable="false"
-      action="${properties.pageReference @ extension='html'}">
+      action="${properties.pageReference @ extension='.country_FR.html'}">
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">
@@ -24,7 +24,7 @@
             </button>
         </div>
         <div class="col-xs-12">
-            <div class="help-block with-errors"></div>
+            <div class="help-block with-errors c-subscribe__form--error"></div>
         </div>
     </div>
 </form>
