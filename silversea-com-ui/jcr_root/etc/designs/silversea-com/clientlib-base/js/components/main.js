@@ -23,14 +23,6 @@ $(function() {
     });
 
     /***************************************************************************
-     * Bootstrap Validator
-     **************************************************************************/
-    // Activate bootstrap validator plugin
-    /*$(document).ready(function() {
-        $('.c-rabwidget').validator();
-    });*/
-
-    /***************************************************************************
      * RAB Widget
      **************************************************************************/
     // On button click cookie store email and redirect
@@ -44,14 +36,13 @@ $(function() {
     });*/
 
 
-    $('.c-rabwidget').on('submit', function (e) {
-
+    $('.c-rabwidget').validator().on('submit', function (e) {
+        console.log('--> beofre e.isDefaultPrevented()', e.isDefaultPrevented());
         if (!e.isDefaultPrevented()) {
-            console.log('yolo', this.email, this.email.value);
-            //var today = new Date();
-            //today.setDate(today.getDate() + 365);
-            //document.cookie = "cookieMessageDisclaimer=true;expires=" + today.toUTCString();
-            document.cookie = "email=" + this.email.value + ";expires=" + today.toUTCString();
+            console.log('yolo', this, this.email.value);
+
+            $.CookieManager.setCookie('email', this.email.value);
+
         }
     });
 

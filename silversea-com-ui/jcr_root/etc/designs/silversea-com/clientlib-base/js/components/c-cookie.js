@@ -1,48 +1,62 @@
 +function($) {
     'use strict';
 
-    function CookieDisclamer () {
-        this.name = "cookieMessageDisclaimer";
-        this.status = false;
-        this.cookie = null;
-    };
 
-    CookieDisclamer.prototype = {
+    /***************************************************************************
+     * CookieManager - Tools to manage cookie & disclamer
+     **************************************************************************/
+    $.CookieManager = {
 
-        isActive: function() {
-            this.getCookie();
-            return (this.cookie != null && ;
-        },
-        setCookie: function () {
+        disclamer: 'cookieMessageDisclaimer',
+
+        setCookie: function (name, value) {
             var today = new Date();
             today.setDate(today.getDate() + 365);
-            document.cookie = this.name + "=true;expires=" + today.toUTCString();
+            document.cookie = name + "=" + value + ";expires=" + today.toUTCString();
+            // When cookie is added up expiration date of disclamer
+            console.log(name !== this.disclamer && this.getDisclamer() === 'true', name, this.disclamer, this.getDisclamer());
+
+            if (name !== this.disclamer && this.getDisclamer() === 'true')
+                document.cookie = this.disclamer + "=" + 'true' + ";expires=" + today.toUTCString();
         },
-        getCookie: function () {
-            this.cookie = document.cookie.match(/cookieMessageDisclaimer=(true||false)/);
-        };
+        getCookie: function (pname) {
+            var name = pname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return null;
+        },
+        getDisclamer: function() {
+            return this.getCookie(this.disclamer);
+        },
+        setDisclamer: function(val) {
+            return this.setCookie(this.disclamer, val);
+        }
     };
 
     $(function() {
         /***************************************************************************
          * Show/hide message according to the "cookieMessageDisclaimer" cookie
          **************************************************************************/
+        //var cookie = new CookieManager();
         var hideCookie = function() {
             $("#c-cookie").attr('data-show', false);
         }
-        var cookieStatus = document.cookie.match(/cookieMessageDisclaimer=(true||false)/);
-        if (cookieStatus != null && cookieStatus[1] == 'true') {
+        if ($.CookieManager.getDisclamer() === 'true') {
             hideCookie();
         } else {
             $('#c-cookie__close').on('click', function() {
-                var today = new Date();
-                today.setDate(today.getDate() + 365);
-                document.cookie = "cookieMessageDisclaimer=true;expires=" + today.toUTCString();
+                $.CookieManager.setDisclamer('true');
                 hideCookie();
             });
         }
-        var testAnais = function () {
-            console.log('it is isolate ?');
-        };
     });
 }(jQuery);

@@ -1,5 +1,8 @@
 <div data-sly-test.empty="${!properties.pageReference && wcmmode.edit}" class="cq-placeholder" data-emptytext="RAB Widget"></div>
-<form class="c-subscribe__form form-inline c-rabwidget" data-toggle="validator" action="${properties.pageReference @ extension='html'}">
+<form class="c-subscribe__form form-inline c-rabwidget"
+      data-toggle="validator"
+      data-disable="false"
+      action="${properties.pageReference @ extension='html'}">
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">
