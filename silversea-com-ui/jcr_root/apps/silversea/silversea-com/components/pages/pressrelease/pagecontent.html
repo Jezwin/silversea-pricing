@@ -8,8 +8,9 @@
             <div class="col-sm-8 c-pressereleases">
 
                 <div class="c-pageheader">
-                    <p class="c-pageheader__date">
-                        <strong>${'date' @ i18n}</strong> ${pageProperties.publicationDate @ format='yyyy-MM-dd', type='date'}
+                    <p class="c-pageheader__date"
+                       data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
+                        <strong>${'date' @ i18n}</strong> ${date.value}
                     </p>
                     <h1 class="c-pageheader__subtitle">${currentPage.title}</h1>
                 </div>
