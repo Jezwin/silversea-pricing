@@ -11,7 +11,7 @@
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"
             type="nav" />
         <items jcr:primaryType="nt:unstructured">
-            <slider
+            <herobanner
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Hero Banner"
                 sling:resourceType="granite/ui/components/foundation/section">
@@ -24,11 +24,6 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <title
-                                jcr:primaryType="nt:unstructured"
-                                fieldLabel="Title"
-                                name="./title"
-                                sling:resourceType="cq/gui/components/authoring/dialog/richtext" />
                             <description
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Description"
@@ -55,7 +50,7 @@
                         </items>
                     </column>
                 </items>
-            </slider>
+            </herobanner>
             <button1
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Button 1"
