@@ -83,7 +83,7 @@
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="URL Link"
                                 name="./button1/reference"
-                                rootPath="/content/siversea-com"
+                                rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <color
                                 jcr:primaryType="nt:unstructured"
@@ -176,7 +176,7 @@
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="URL Link"
                                 name="./button2/reference"
-                                rootPath="/content/siversea-com"
+                                rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <color
                                 jcr:primaryType="nt:unstructured"
