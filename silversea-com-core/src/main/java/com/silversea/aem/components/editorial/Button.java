@@ -1,4 +1,4 @@
-package com.silversea.aem.components.included;
+package com.silversea.aem.components.editorial;
 
 /**
  * Button Object
@@ -8,6 +8,7 @@ public class Button {
     private String titleTablet;
     private String reference;
     private String color;
+    private String analyticType;
 
     /**
      * Constructor Button
@@ -16,7 +17,7 @@ public class Button {
      * @param reference
      * @param color
      */
-    public Button(String title , String titleTablet, String reference, String color) {
+    public Button(String title , String titleTablet, String reference, String color, String analyticType) {
         this.title = title;
         this.titleTablet = titleTablet;
         this.reference = reference;
@@ -49,5 +50,12 @@ public class Button {
      */
     public String getColor() {
         return color;
+    }
+
+    /**
+     * @return the analyticType
+     */
+    public String getAnalyticType() {
+        return analyticType;
     }
 }

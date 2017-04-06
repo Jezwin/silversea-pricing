@@ -1,1 +1,8 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Bouton"></div>
+<sly data-sly-use.button="${'com.silversea.aem.components.editorial.ButtonUse'}" />
+<sly data-sly-list="${button.calltoActionList}">
+    <a href="${item.reference @ extension='html'}" class="btn btn-${item.color}" type="button" data-sscclicktype="${item.analyticType}">
+       <span class="visible-xs-inline">${item.titleTablet || item.title}</span>
+       <span class="hidden-xs">${item.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+    </a>
+</sly>
