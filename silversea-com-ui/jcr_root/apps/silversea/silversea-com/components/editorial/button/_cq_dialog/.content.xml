@@ -66,6 +66,14 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="red"
                                                     value="red" />
+                                                <black
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="black"
+                                                    value="default" />
+                                                <white
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="white"
+                                                    value="white" />
                                             </items>
                                         </color>
                                         <size
@@ -74,14 +82,14 @@
                                             fieldLabel="Size"
                                             name="size">
                                             <items jcr:primaryType="nt:unstructured">
-                                                <gray
+                                                <normal
                                                     jcr:primaryType="nt:unstructured"
                                                     text="normal"
                                                     value="" />
-                                                <red
+                                                <small
                                                     jcr:primaryType="nt:unstructured"
                                                     text="small"
-                                                    value="small" />
+                                                    value="btn-sm" />
                                             </items>
                                         </size>
                                         <analyticType

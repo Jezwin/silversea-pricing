@@ -22,7 +22,7 @@ public class ButtonUse extends WCMUsePojo {
         String[] callToActions = properties.getInherited("callToActions", String[].class);
         if (callToActions != null) {
 
-            String title, titleTablet, reference, color, analyticType;
+            String title, titleTablet, reference, color, analyticType, size;
             JSONObject json;
             callToActionList = new ArrayList<>();
 
@@ -35,11 +35,12 @@ public class ButtonUse extends WCMUsePojo {
                     reference = json.getString("reference");
                     color = json.getString("color");
                     analyticType = json.getString("analyticType");
-                    Button buttonObj = new Button(title, titleTablet, reference, color, analyticType);
+                    size = json.getString("size");
+                    Button buttonObj = new Button(title, titleTablet, reference, color, analyticType, size);
                     callToActionList.add(buttonObj);
                 }
             } catch (JSONException e) {
-                LOGGER.error("JSONException FloatingBarUse: {}", e);
+                LOGGER.error("JSONException button json parsing : {}", e);
             }
         }
     }

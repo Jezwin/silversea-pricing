@@ -1,10 +1,13 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Hero banner"></div>
 <div class="c-hero-banner" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
     data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
-    <sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetReference}" />
-    <div class="container">
-        <h1>${properties.title @ context="html"}</h1>
-        <p>${properties.jcr:description @ context="html"}</p>
-        ${heroBanner.hasButton1 || 'empty'}
+    <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+    </div>
+    <div class="row">
+        <div class="col-md-5 c-hero-banner__content">
+            <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+            <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+        </div>
     </div>
 </div>

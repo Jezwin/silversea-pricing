@@ -9,6 +9,7 @@ public class Button {
     private String reference;
     private String color;
     private String analyticType;
+    private String size;
 
     /**
      * Constructor Button
@@ -17,11 +18,13 @@ public class Button {
      * @param reference
      * @param color
      */
-    public Button(String title , String titleTablet, String reference, String color, String analyticType) {
+    public Button(String title , String titleTablet, String reference, String color, String analyticType, String size) {
         this.title = title;
         this.titleTablet = titleTablet;
         this.reference = reference;
         this.color = color;
+        this.analyticType = analyticType;
+        this.size = size;
     }
 
     /**
@@ -57,5 +60,12 @@ public class Button {
      */
     public String getAnalyticType() {
         return analyticType;
+    }
+
+    /**
+     * @return the size
+     */
+    public String getSize() {
+        return size;
     }
 }
