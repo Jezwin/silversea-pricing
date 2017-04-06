@@ -94,6 +94,14 @@
                                         jcr:primaryType="nt:unstructured"
                                         text="red"
                                         value="red" />
+                                    <black
+                                        jcr:primaryType="nt:unstructured"
+                                        text="black"
+                                        value="default" />
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="white" />
                                 </items>
                             </color>
                             <size
@@ -187,6 +195,14 @@
                                         jcr:primaryType="nt:unstructured"
                                         text="red"
                                         value="red" />
+                                    <black
+                                        jcr:primaryType="nt:unstructured"
+                                        text="black"
+                                        value="default" />
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="white" />
                                 </items>
                             </color>
                             <size

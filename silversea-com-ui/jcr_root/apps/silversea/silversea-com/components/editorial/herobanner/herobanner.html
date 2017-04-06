@@ -5,9 +5,21 @@
         <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
     </div>
     <div class="row">
-        <div class="col-md-5 c-hero-banner__content">
+        <div class="col-md-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
             <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
             <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+            <sly data-sly-test.btn1="${banner.btn1}" />
+            <sly data-sly-test.btn2="${banner.btn2}" />
+            <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+                <a data-sly-test="btn1.reference" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" type="button" data-sscclicktype="${btn1.analyticType}">
+                    <span class="visible-xs-inline">${btn1.titleTablet || btn1.title}</span>
+                    <span class="hidden-xs">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+                </a>
+                <a data-sly-test="{btn2.reference" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" type="button" data-sscclicktype="${btn2.analyticType}">
+                    <span class="visible-xs-inline">${btn2.titleTablet || btn2.title}</span>
+                    <span class="hidden-xs">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+                </a>
+            </p>
         </div>
     </div>
 </div>
