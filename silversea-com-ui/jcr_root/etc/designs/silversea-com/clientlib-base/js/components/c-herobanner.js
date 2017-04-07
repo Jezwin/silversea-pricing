@@ -15,10 +15,12 @@ $(function() {
         }
     });
 
-    var $imageBannerList = $('.c-hero-banner .o-img');
-    $imageBannerList.each(function() {
-        var $imageBanner = $(this);
-        $imageBanner.closest('.c-hero-banner__image').css('background-image', 'url(' + $imageBanner.prop("currentSrc") + ')');
-        $imageBanner.css('visibility', 'hidden');
+    $('body', window).on('trigger.viewport.changed load', function() {
+        var $imageBannerList = $('.c-hero-banner .o-img');
+        $imageBannerList.each(function() {
+            var $imageBanner = $(this);
+            $imageBanner.closest('.c-hero-banner__image').css('background-image', 'url(' + $imageBanner.prop("currentSrc") + ')');
+            $imageBanner.css('visibility', 'hidden');
+        });
     });
 });
