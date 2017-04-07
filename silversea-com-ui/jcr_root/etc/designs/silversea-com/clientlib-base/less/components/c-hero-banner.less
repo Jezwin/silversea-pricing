@@ -31,16 +31,20 @@
 
         &__image {
             .full-width;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
             display: block;
             height: 330px;
             overflow: hidden;
 
             .o-img {
-                max-width: none;
-                min-height: 330px;
                 left: 50%;
-                position: relative;
-                transform: translateX(-50%);
+                min-height: 330px;
+                max-width: none;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%,-50%);
                 width: auto;
             }
         }
