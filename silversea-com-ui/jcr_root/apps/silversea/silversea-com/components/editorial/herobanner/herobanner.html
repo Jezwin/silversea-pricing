@@ -4,8 +4,8 @@
     <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference}">
         <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
     </div>
-    <div class="row">
-        <div class="col-md-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
+    <div class="row c-hero-banner__row">
+        <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
             <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
             <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
             <sly data-sly-test.btn1="${banner.btn1}" />

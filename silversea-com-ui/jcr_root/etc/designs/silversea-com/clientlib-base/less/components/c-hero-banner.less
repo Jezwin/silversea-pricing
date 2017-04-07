@@ -2,27 +2,65 @@
     margin-bottom: 20px;
     position: relative;
 
-    &__image {
-        .full-width;
-        height: 330px;
-        overflow: hidden;
-    }
-
-    &__image + .row &__content {
-        bottom: 0;
-        position: absolute;
-        top: 20px;
-    }
-
     &__content--white {
         background-color: rgba(255, 255, 255, 0.8);
     }
 
     &__title {
         font-family: @f-theano_didot;
-        font-size: 37px;
+        font-size: 30px;
         line-height: 0.95;
         margin-bottom: 20px;
+        text-align: center;
         text-transform: uppercase;
+    }
+
+    &__image {
+        display: none;
+    }
+
+    &__buttons {
+        text-align: center;
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__title {
+            font-size: 37px;
+            text-align: left;
+        }
+
+        &__image {
+            .full-width;
+            display: block;
+            height: 330px;
+            overflow: hidden;
+
+            .o-img {
+                max-width: none;
+                min-height: 330px;
+                left: 50%;
+                position: relative;
+                transform: translateX(-50%);
+                width: auto;
+            }
+        }
+
+        &__image + .row &__content {
+            bottom: 0;
+            position: absolute;
+            top: 20px;
+        }
+
+        &__buttons {
+            bottom: 0;
+            position: absolute;
+            text-align: left;
+            width: 150px;
+
+            .btn {
+                display: block;
+                width: 100%;
+            }
+        }
     }
 }
