@@ -67,7 +67,7 @@ mvn_build_rc_author:
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://34.194.113.231:4502
     only:
-        - /^[0-9]-[0-9]-[0-9]$/
+        - /^[0-9]\.[0-9]\.[0-9]$/
 
 mvn_build_rc_publish1:
     stage: release-build
@@ -76,7 +76,7 @@ mvn_build_rc_publish1:
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://34.196.202.218:4503
     only:
-        - /^[0-9]-[0-9]-[0-9]$/
+        - /^[0-9]\.[0-9]\.[0-9]$/
 
 mvn_build_rc_publish2:
     stage: release-build
@@ -85,4 +85,4 @@ mvn_build_rc_publish2:
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://34.192.200.203:4503
     only:
-        - /^[0-9]-[0-9]-[0-9]$/
+        - /^[0-9]\.[0-9]\.[0-9]$/
