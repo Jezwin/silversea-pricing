@@ -1,0 +1,27 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"
+      data-sly-use.head="head.js"
+      data-sly-use.headlibRenderer="headlibs.html"
+      data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
+<meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
+<meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
+<sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
+<sly data-sly-include="author.html" />
+<sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp" />
+<sly data-sly-include="customheaderlibs.html" />
+
+<sly data-sly-test.faviconpath="${head.faviconPath}">
+<link rel="icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="${faviconpath}">
+</sly>
+<link rel="apple-touch-icon" sizes="180x180" href="${head.designPath}/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="${head.designPath}/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="${head.designPath}/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="${head.designPath}/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="${head.designPath}/android-chrome-192x192.png" sizes="192x192">
+<link rel="manifest" href="${head.designPath}/manifest.json">
+<link rel="mask-icon" href="${head.designPath}/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<!--/** needed for the DTM integration **/-->
+<title>${head.title}</title>

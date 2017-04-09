@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:description="Allow to manage and display ship suites variations"
+          jcr:mixinTypes="[mix:lockable]"
+          jcr:primaryType="cq:Template"
+          jcr:title="SSC - Suite variation"
+          allowedPaths="[/content/silversea-com/.*]"
+          ranking="{Long}0">
+    <jcr:content
+            jcr:primaryType="cq:PageContent"
+            pageCategory1="single ship"
+            pageCategory3="suites"
+            sling:resourceType="silversea/silversea-com/components/pages/suitevariation">
+        <par
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="wcm/foundation/components/responsivegrid">
+            <display
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="silversea/silversea-com/components/displayproperties/suitevariation"/>
+        </par>
+    </jcr:content>
+</jcr:root>

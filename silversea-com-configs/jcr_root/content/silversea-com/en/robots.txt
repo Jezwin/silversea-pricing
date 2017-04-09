@@ -1,0 +1,3 @@
+Sitemap: http://www.silversea.com/sitemap-index.xml
+User-Agent: *
+Allow: /

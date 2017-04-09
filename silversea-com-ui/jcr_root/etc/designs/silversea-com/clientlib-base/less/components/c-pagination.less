@@ -1,0 +1,65 @@
+/*
+** c- Pagination
+*/
+.c-pagination {
+    text-align: right;
+
+    @media screen and (max-width: @screen-md-min) {
+        text-align: center;
+    }
+
+    &--separated {
+        border-bottom: 1px solid #d9d9d9;
+        border-top: 1px solid #d9d9d9;
+
+        @media screen and (max-width: @screen-md-min) {
+            border-bottom: 0px;
+            border-top: 0px;
+        }
+    }
+    a {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 50px;
+        position: relative;
+        text-transform: uppercase;
+
+        @media screen and (max-width: @screen-md-min) {
+
+            text-align: center;
+            background-image: linear-gradient(#fff,#f2f2f2);
+            border: 1px solid #e6e6e6;
+            flex-grow: 1;
+            line-height: 40px;
+            padding: 0 20px;
+            display: inline-block;
+            width: 49%;
+
+            &:first-child {
+                margin-right: 1%;
+            }
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
+
+    &--previous {
+
+        i {
+            margin-right: 5x;
+        }
+    }
+    &--next {
+        margin-left: 40px;
+
+        @media screen and (max-width: @screen-md-min) {
+            margin-left: 0px;
+        }
+
+        i {
+            margin-left: 5px;
+        }
+    }
+}

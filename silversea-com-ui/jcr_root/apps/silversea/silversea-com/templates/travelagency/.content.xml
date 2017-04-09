@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          jcr:mixinTypes="[mix:lockable]"
+          jcr:primaryType="cq:Template"
+          jcr:title="SSC - Travel agency"
+          jcr:description="Allows to manage travel agencies"
+          allowedPaths="[/content/silversea-com/.*]"
+          ranking="{Long}0">
+    <jcr:content
+            jcr:primaryType="cq:PageContent"
+            sling:resourceType="silversea/silversea-com/components/pages/travelagency">
+    </jcr:content>
+</jcr:root>

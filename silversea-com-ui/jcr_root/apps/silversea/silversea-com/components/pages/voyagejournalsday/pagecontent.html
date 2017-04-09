@@ -1,0 +1,57 @@
+<section class="o-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 c-voyagejournalsday" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
+                <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+
+                <div class="c-pageheader">
+                    <p class="c-pageheader__date">
+                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${compnt.publicationDate @ format='yyyy-MM-dd', type='date'}
+                    </p>
+                    <h1 class="c-pageheader__subtitle">${compnt.title @ i18n}</h1>
+                    <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
+
+                    <div class="c-pageheader__properties c-list-inline o-divider--top-dark">
+                        <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
+                            <li class="c-list-inline__item" data-sly-test="${compnt.coordinates}">
+                                <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates}
+                            </li>
+                            <li class="c-list-inline__item" data-sly-test="${compnt.temperature}">
+                                <strong>${'temperature' @ i18n}:</strong> ${compnt.temperature} ${'temperatureUnit' @ i18n}
+                            </li>
+                            <li class="c-list-inline__item" data-sly-test="${compnt.pressure}">
+                                <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnit' @ i18n}
+                            </li>
+                            <li class="c-list-inline__item" data-sly-test="${compnt.weather}">
+                                <strong>${'weather' @ i18n}:</strong> ${compnt.weather} ${'weatherUnit' @ i18n}
+                            </li>
+                            <li class="c-list-inline__item" data-sly-test="${compnt.wind}">
+                                <strong>${'wind' @ i18n}:</strong> ${compnt.wind} ${'windUnit' @ i18n}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="c-voyagejournalsday__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                <div class="c-voyagejournalsday__info"></div>
+                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
+                    <a href="${cpt.previousPath}"
+                        class="c-pagination--previous"
+                        data-sly-test="${!cpt.first}">
+                        <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${cpt.previous}
+                    </a>
+                    <a href="${cpt.nextPath}"
+                        class="c-pagination--next"
+                        data-sly-test="${!cpt.last}"> ${'day' @ i18n} ${cpt.next}
+                        <i class="fa fa-angle-right fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+                <div data-sly-resource="${'dayslistdisplay' @ resourceType='silversea/silversea-com/components/editorial/voyagejournals/dayslist'}"></div>
+            </div>
+        </div>
+    </div>
+</section>

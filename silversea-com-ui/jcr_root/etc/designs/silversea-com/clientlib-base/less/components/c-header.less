@@ -1,0 +1,31 @@
+/*
+** c- Header
+**/
+.header-fixed() {
+    border-bottom: solid 1px rgba(255,255,255,.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.header.parbase {
+    .header-fixed();
+}
+.c-header {
+    .header-fixed();
+
+    &__container {
+        background-color: @black;
+        z-index: 1000;
+    }
+    &__inner {
+        height: 60px;
+        display: table-cell;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    &__logo {
+        max-width: 202px;
+        width: 100%;
+    }
+}

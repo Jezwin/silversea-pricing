@@ -1,0 +1,21 @@
+<sly data-sly-use.reference="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"></sly>
+<div class="o-sidemenu" data-sly-test.rootPage="${reference.page.parent || currentPage.parent}">
+    <h2 class="o-sidemenu__title">
+        <a href="${rootPage.path @ extension='html'}">${rootPage.navigationTitle || rootPage.title}</a>
+    </h2>
+    <dl class="o-sidemenu__list">
+        <dt class="o-sidemenu__item visible-xs-block accordion-trigger">
+            <a href="#" class="o-sidemenu__link o-sidemenu__link--current">
+                <span  class="o-sidemenu__text">${currentPage.navigationTitle || currentPage.title}</span>
+                <i class="fa fa-lg fa-angle-down o-sidemenu__icon"></i>
+            </a>
+        </dt>
+        <dd data-sly-repeat="${rootPage.listChildren}" class="o-sidemenu__item">
+            <a href="${item.path @extension='html'}" class="o-sidemenu__link ${currentPage.path == item.path ? 'o-sidemenu__link--current' : ''}">
+                <span  class="o-sidemenu__text">${item.navigationTitle || item.title}</span>
+                <i class="fa fa-lg fa-angle-right o-sidemenu__icon"></i>
+                <i class="fa fa-lg fa-angle-down o-sidemenu__icon hidden-xs"></i>
+            </a>
+        </dd>
+    </dl>
+</div>

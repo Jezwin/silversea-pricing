@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="sling:OsgiConfig"
+    smtp.host="smtp.dynect.net"
+    smtp.port="25"
+    smtp.user="itsupport@silversea.com"
+    smtp.password=""
+    from.address="silversealuxurycruises@silversea.com"
+    smtp.ssl="{Boolean}false"/>

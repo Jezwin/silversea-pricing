@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/silversea/silversea-com">
+        <include pattern="/apps/silversea/silversea-com/config(.*)" />
+    </filter>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataschema/brochures"/>
+    <filter root="/conf/silversea-com"/>
+    <filter root="/content/silversea-com/en/robots.txt"/>
+    <filter root="/content/elb.txt"/>
+    <filter root="/etc/tags/geotagging/rep:policy"/>
+    <filter root="/etc/workflow/launcher/config/dam_xmp_writeback"/>
+    <filter root="/etc/workflow/launcher/config/metadata_set_lastmodified"/>
+    <filter root="/etc/workflow/models/dam/update_asset"/>
+    <filter root="/home/users/system/gHzmOV4k0ZqfqqXhf0RL"/>
+</workspaceFilter>

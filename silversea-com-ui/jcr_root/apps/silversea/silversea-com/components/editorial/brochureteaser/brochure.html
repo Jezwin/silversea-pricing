@@ -1,0 +1,35 @@
+<template data-sly-template.default="${ @ brochure, currentStyle }">
+    <div class="row">
+        <div class="col-md-12 visible-sm visible-xs">
+            <h2 class="c-brochure__title">${brochure.assetTitle}</h2>
+        </div>
+        <div class="col-md-7">
+            <img class="c-brochure__img" alt="${brochure.title}" src="${brochure.cover}" />
+        </div>
+        <div class="col-md-5">
+            <h2 class="c-brochure__title visible-lg visible-md">${brochure.assetTitle}</h2>
+            <p class="c-brochure__description">${brochure.assetDescription}</p>
+            <p class="c-brochure__btnwrapper"
+               data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
+                <a data-sly-test="${currentStyle.onlineRequestFormReference && brochure.onlineBrochureUrl}"
+                   href="${currentStyle.onlineRequestFormReference @ extension='html', selectors='modalcontent'}"
+                   class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal"
+                   data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                    <i class="fa fa-search"></i>
+                    <strong>${'view-online' @i18n}</strong>
+                </a>
+            </p>
+            <p class="c-brochure__btnwrapper"
+               data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
+                <a data-sly-test="${currentStyle.printedRequestFormReference}"
+                   href="${currentStyle.printedRequestFormReference @ extension='html', selectors='modalcontent'}"
+                   class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal"
+                   data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                    <i class="fa fa-envelope"></i>
+                    <strong>${'mail-me-brochure' @ i18n}</strong>
+                </a>
+            </p>
+        </div>
+    </div>
+    <hr>
+</template>

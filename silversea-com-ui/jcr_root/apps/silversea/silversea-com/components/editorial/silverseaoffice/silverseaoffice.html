@@ -1,0 +1,22 @@
+<div class="c-office">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="c-office__title">${properties.jcr:title}</h3>
+                <p class="c-office__address">${properties.jcr:description}</p>
+                <div class="c-office__contact">
+                    <div data-sly-test="${properties.phone}" data-sly-unwrap>
+                        <p class="c-office__contact__phone">
+                            <span>phone: </span>${properties.phone}
+                        </p>
+                    </div>
+                    <div data-sly-test="${properties.fax}" data-sly-unwrap>
+                        <p class="c-office__contact__fax">
+                            <span>fax: </span>${properties.fax}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

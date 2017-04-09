@@ -1,0 +1,25 @@
+#c-cookie {
+    color: @white;
+    text-align: center;
+
+    &[data-show='false'] {
+        display: none;
+    }
+
+    p {
+        display: inline-block;
+        max-width: 89%;
+        padding-right: 1%;
+        vertical-align: middle;
+
+        @media screen and (max-width: @screen-md-min) {
+            max-width: 79%;
+        }
+    }
+    &__close {
+        background: none;
+        display: inline-block;
+        border: 0;
+        text-transform: uppercase;
+    }
+}

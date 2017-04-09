@@ -1,0 +1,30 @@
+.c-office {
+    text-align: center;
+    min-height: 260px;
+    
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        text-align: left;
+        min-height: auto;
+    }
+    
+    &__title {
+        margin-bottom: 20px;
+        padding: 0 20px;
+    }
+    &__address {
+        margin-bottom: 20px;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    &__contact {
+        margin-bottom: 40px;
+        &__phone, &__fax {
+         margin: 0;   
+        }
+        &__phone span, &__fax span {
+            text-transform: uppercase;
+            font-weight: @bold;
+        }
+    }
+}

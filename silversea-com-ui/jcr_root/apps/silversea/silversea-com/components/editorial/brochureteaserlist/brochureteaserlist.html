@@ -1,0 +1,32 @@
+<div data-sly-use.brochureTeaserListUse="${'com.silversea.aem.components.editorial.BrochureTeaserListUse'}"
+     data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochureTeaserListUse.brochures}"
+     class="cq-placeholder" data-emptytext="Brochure teaser list"></div>
+
+<section class="o-section" data-sly-test="${brochureTeaserListUse.brochures}">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="brochureteaserlist__header">
+                <div class="brochureteaserlist__header__label">
+                    ${'select-the-brochure-language' @ i18n}
+                </div>
+                <div class="brochureteaserlist__header__select">
+                    <select id="selectBrochureListLangId" class="chosen" data-sly-list.child="${brochureTeaserListUse.languages}">
+                        <option
+                                data-sly-use.languageHelper="${'com.silversea.aem.helper.LanguageHelper' @ language=child.name}"
+                                selected="${brochureTeaserListUse.currentLanguage == child.name ? 'selected' : ''}"
+                                value="${currentPage.path @ selectors=[languageHelper.selector], extension='html'}">
+                            ${child.title}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="o-section" data-sly-test="${brochureTeaserListUse.brochures}">
+    <div data-sly-list.brochure="${brochureTeaserListUse.brochures}" data-sly-unwrap>
+        <sly data-sly-use.brochureTemplate="../brochureteaser/brochure.html"
+             data-sly-call="${brochureTemplate.default @ brochure = brochure, currentStyle = currentStyle}"></sly>
+    </div>
+</section>

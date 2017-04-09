@@ -1,0 +1,32 @@
+<div class="container">
+    <section class="o-section">
+        <div class="row">
+            <div class="col-sm-9">
+                <div
+                    data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
+                </div>
+                <div class="c-pagination c-pagination--pull-right">
+                    <sly data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse" />
+                    <div data-sly-test="${cpt.blog.previous}"
+                        data-sly-unwrap>
+                        <a class="c-pagination--previous"
+                            href="${cpt.blog.previous.path}.html"> <i class="fa fa-angle-left fa-lg"></i>
+                            ${'previous' @ i18n}
+                        </a>
+                    </div>
+                    <div data-sly-test="${cpt.blog.next}"
+                        data-sly-unwrap>
+                        <a class="c-pagination--next"
+                            href="${cpt.blog.next.path}.html">
+                            ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 c-sidebar">
+                <div
+                    data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+            </div>
+        </div>
+    </section>
+</div>

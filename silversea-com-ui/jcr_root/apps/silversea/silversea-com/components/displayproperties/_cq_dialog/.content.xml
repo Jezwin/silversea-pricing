@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Properties display"
+          sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <field
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/form/fieldset"
+                            name="./items">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                method="absolute"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+
+                                <items jcr:primaryType="nt:unstructured">
+                                    <target
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Property from the page properties to display"
+                                            fieldLabel="Target property"
+                                            name="./target">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <select
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Select value"
+                                                    value=""/>
+                                            <title
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="title"
+                                                    value="jcr:title"/>
+                                            <description
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="description"
+                                                    value="jcr:description"/>
+                                        </items>
+                                    </target>
+                                    <fallback
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/select"
+                                            fieldDescription="Fallback property"
+                                            fieldLabel="Fallback property"
+                                            name="./fallback">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <select
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="Select value"
+                                                    value=""/>
+                                            <title
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="title"
+                                                    value="jcr:title"/>
+                                            <description
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="description"
+                                                    value="jcr:description"/>
+                                        </items>
+                                    </fallback>
+                                </items>
+                            </column>
+                        </items>
+                    </field>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

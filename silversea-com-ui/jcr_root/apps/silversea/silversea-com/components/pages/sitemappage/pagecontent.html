@@ -1,0 +1,6 @@
+<div data-sly-use.sitemap="com.silversea.aem.components.page.SitemapModel">
+    <p>Following pages will be included in the sitemap :</p>
+    <ul data-sly-list.entry="${sitemap.entries}">
+        <li><a href="${entry.externalizedUrl}">${entry.externalizedUrl}</a></li>
+    </ul>
+</div>
