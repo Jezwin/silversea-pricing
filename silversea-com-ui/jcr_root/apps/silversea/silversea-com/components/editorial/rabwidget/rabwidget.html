@@ -1,0 +1,30 @@
+<div data-sly-test.empty="${!properties.pageReference && wcmmode.edit}" class="cq-placeholder" data-emptytext="RAB Widget"></div>
+<form class="c-subscribe__form form-inline c-formcookie c-formcookie--redirect"
+      data-toggle="validator"
+      data-disable="false"
+      action="${properties.pageReference @ extension='.country_FR.html'}">
+    <div class="row form-group">
+        <div class="col-xs-12">
+            <label class="c-subscribe__form--label">
+                <span class="c-subscribe__form--label-text">${'request-or-download' @ i18n}</span>
+                <span class="c-subscribe__form--label-important">${'free-brochure' @ i18n}</span>
+            </label>
+        </div>
+        <div class="col-xs-9">
+            <input class="o-input o-input--dark col-xs-12 input-sm"
+                   name="email"
+                   placeholder="${'your-email-address' @ i18n}"
+                   type="email"
+                   data-error="${'incorrect-email-address' @ i18n}" required/>
+        </div>
+        <div class="col-xs-3">
+            <button class="btn btn-default pull-right btn-sm" type="submit">
+                ${'submit' @ i18n}
+                <i class="fa fa-lg fa-angle-right"></i>
+            </button>
+        </div>
+        <div class="col-xs-12">
+            <div class="help-block with-errors c-subscribe__form--error"></div>
+        </div>
+    </div>
+</form>

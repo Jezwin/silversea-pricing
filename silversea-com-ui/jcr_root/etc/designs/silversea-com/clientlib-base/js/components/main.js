@@ -23,6 +23,25 @@ $(function() {
     });
 
     /***************************************************************************
+     * Form cookie value
+     **************************************************************************/
+    // On submit store mandatory value
+    var cookieValues = ['email', 'firstname', 'lastname'];
+    $('.c-formcookie').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            for ( var value in cookieValues ) {
+                if (this[cookieValues[value]] !== undefined) {
+                    $.CookieManager.setCookie(cookieValues[value], this[cookieValues[value]].value);
+                }
+            }
+            if (this.className.match(/c-formcookie--redirect/) !== null) {
+                e.preventDefault();
+                window.location.href = this.action;
+            }
+        }
+    });
+
+    /***************************************************************************
      * Modal
      **************************************************************************/
     // Clean modal content on close event
@@ -89,5 +108,5 @@ $(function() {
     // Redirect to page with brochure in the current language
     $('#selectBrochureListLangId').on('change', function() {
         window.location.href = this.value;
-    })
+    });
 });

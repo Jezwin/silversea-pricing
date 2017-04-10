@@ -1,28 +1,7 @@
 <section class="o-section">
     <div class="row">
         <div class="col-sm-6 c-subscribe">
-            <form class="c-subscribe__form form-inline">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <label class="c-subscribe__form--label">
-                            <span class="c-subscribe__form--label-text">Request or download</span>
-                            <span class="c-subscribe__form--label-important">a free brochure</span>
-                        </label>
-                    </div>
-                    <div class="col-xs-9">
-                        <input class="o-input o-input--dark col-xs-12 input-sm" name="email" placeholder="Your email address" type="email" />
-                    </div>
-                    <div class="col-xs-3">
-                        <button class="btn btn-default pull-right btn-sm" type="button">
-                            Submit
-                            <i class="fa fa-lg fa-angle-right"></i>
-                        </button>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="c-form-group__error"></div>
-                    </div>
-                </div>
-            </form>
+            <div data-sly-resource="${'rabwidget' @ resourceType='/apps/silversea/silversea-com/components/editorial/rabwidget'}"></div>
         </div>
         <div class="col-sm-6 c-subscribe">
             <form class="c-subscribe__form form-inline">
@@ -43,7 +22,7 @@
                         </button>
                     </div>
                     <div class="col-xs-12">
-                        <div class="c-form-group__error"></div>
+                        <div class="help-block with-errors c-subscribe__form--error"></div>
                     </div>
                 </div>
             </form>
