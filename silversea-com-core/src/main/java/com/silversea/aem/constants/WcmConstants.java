@@ -19,6 +19,9 @@ public interface WcmConstants {
     String PN_FILE_REFERENCE = "fileReference";
     String PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM = "referencePageMainNavigationBottom";
     String PN_WIDTH = "width";
+    String PN_BROCHURE_CODE="brochureCode";
+    String PN_BROCHURE_ONLINE_URL="onlineBrochureUrl";
+    String PN_BROCHURE_IS_DIGITAL_ONLY="brochureDigitalOnly";
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";

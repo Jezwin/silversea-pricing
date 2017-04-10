@@ -592,7 +592,7 @@
                                     fieldLabel="Digital only"
                                     text="Digital only"
                                     name="./jcr:content/metadata/brochureDigitalOnly"
-                                    value="isChecked"
+                                    value="true"
                                     disabled="true"
                                     renderReadOnly="true">
                                     <granite:data

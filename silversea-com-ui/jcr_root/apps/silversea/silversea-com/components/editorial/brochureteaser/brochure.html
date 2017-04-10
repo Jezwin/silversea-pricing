@@ -21,7 +21,7 @@
             </p>
             <p class="c-brochure__btnwrapper"
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
-                <a data-sly-test="${currentStyle.printedRequestFormReference}"
+                <a data-sly-test="${currentStyle.printedRequestFormReference && !brochure.brochureDigitalOnly}"
                    href="${currentStyle.printedRequestFormReference @ extension='html', selectors='modalcontent'}"
                    class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
