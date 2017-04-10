@@ -4,8 +4,8 @@
 <div data-sly-test.list="${button.calltoActionList}" class="c-floatingbar">
     <div class="container text-center" data-sly-list="${list}">
         <a href="${item.reference @ extension='html'}" class="btn btn-${item.color} ${item.size}" type="button" data-sscclicktype="${item.analyticType}">
-           <span class="visible-xs-inline">${item.titleTablet || item.title}</span>
-           <span class="hidden-xs">${item.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+           <span class="visible-xs-inline visible-sm-inline">${item.titleTablet || item.title}</span>
+           <span class="hidden-xs hidden-sm">${item.title}</span> <i class="fa fa-lg fa-angle-right"></i>
         </a>
     </div>
 </div>
