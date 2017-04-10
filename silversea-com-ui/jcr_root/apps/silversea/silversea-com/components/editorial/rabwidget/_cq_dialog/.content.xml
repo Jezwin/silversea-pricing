@@ -11,9 +11,9 @@
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"
             type="nav"/>
         <items jcr:primaryType="nt:unstructured">
-            <image
+            <rabwidget
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Image"
+                jcr:title="RAB Widget"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout
                     jcr:primaryType="nt:unstructured"
@@ -34,7 +34,7 @@
                         </items>
                     </column>
                 </items>
-            </image>
+            </rabwidget>
         </items>
     </content>
 </jcr:root>
