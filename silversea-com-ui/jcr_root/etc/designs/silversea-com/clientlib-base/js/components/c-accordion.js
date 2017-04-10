@@ -24,15 +24,16 @@
 
             var elem = $(this).parent().children(_data.content);
             var isCollapsed = (elem.attr('data-collapsed') === 'true');
-            var value = (!isCollapsed) ? _data.close : _data.more;
+            var currentAction = (!isCollapsed) ? _data.close : _data.more;
 
             if (!_multiple) {
                 _contents.attr('data-collapsed', 'false');
+                _links.children(_data.action).html(_data.more);
                 _links.attr('data-state', 'false');
             }
             elem.attr('data-collapsed', !isCollapsed);
             $(this).attr('data-state', !isCollapsed);
-            $(this).children(_data.action).html(value);
+            $(this).children(_data.action).html(currentAction);
 
         });
     };
