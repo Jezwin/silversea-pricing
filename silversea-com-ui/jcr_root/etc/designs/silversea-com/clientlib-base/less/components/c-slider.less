@@ -1,23 +1,6 @@
 .c-slider {
     margin-bottom: 20px;
 
-    .slick-prev, .slick-next {
-        border: 1px solid @white;
-        border-width: 0 1px 1px 0;
-        z-index: 1;
-
-        &:before {
-            border: 1px solid @grey--9;
-            border-width: 0 1px 1px 0;
-            content: " ";
-            display: block;
-            height: 100%;
-            opacity: .7;
-            position: relative;
-            width: 100%;
-        }
-    }
-
     .slick-list {
         margin: 0 -5px;
     }
@@ -27,32 +10,44 @@
     }
 
     .slick-prev, .slick-next {
-        height: 40px;
-        width: 40px;
+        height: 100%;
+        z-index: 1;
+        width: 80px;
+
+        &:before, &:after {
+            content: " ";
+            display: block;
+            height: 40px;
+            position: absolute;
+            top: 50%;
+            width: 40px;
+        }
+
+        &:before {
+            border: 1px solid @grey--9;
+            border-width: 0 1px 1px 0;
+            opacity: .7;
+            top: calc(~"50% + 2px");
+        }
+
+        &:after {
+            border: 1px solid @white;
+            border-width: 0 1px 1px 0;
+        }
     }
 
     .slick-prev {
-        left: 30px;
+        &:before, &:after {
+            left: 60%;
+            transform: translate(-50%, -50%) rotateZ(135deg);
+        }
     }
 
     .slick-next {
-        right: 30px;
-    }
-
-    .slick-prev:before {
-        left: 2px;
-    }
-
-    .slick-next:before {
-        top: 2px;
-    }
-
-    .slick-prev {
-        transform: translate(0, -50%) rotateZ(135deg);
-    }
-
-    .slick-next {
-        transform: translate(0, -50%) rotateZ(-45deg);
+        &:before, &:after {
+            left: 40%;
+            transform: translate(-50%, -50%) rotateZ(-45deg);
+        }
     }
 
     &--nav {
@@ -68,23 +63,34 @@
         }
 
         .slick-prev, .slick-next {
-            height: 30px;
             width: 30px;
+
+            &:before, &:after {
+                height: 30px;
+                width: 30px;
+            }
         }
 
         .slick-prev {
-            left: 10px;
+            &:before, &:after {
+                left: 80%;
+            }
         }
 
         .slick-next {
-            right: 10px;
+            &:before, &:after {
+                right: -20%;
+                left: auto;
+            }
         }
     }
 
     &--for {
         .slick-prev, .slick-next {
-            height: 54px;
-            width: 54px;
+            &:before, &:after {
+                height: 54px;
+                width: 54px;
+            }
         }
     }
 
@@ -138,7 +144,7 @@
             transform: translate(0px, -50%);
             width: 40px;
 
-            &:before {
+            &:before, &:after {
                 display: none;
             }
         }
@@ -173,7 +179,7 @@
             transform: none;
             width: 40px;
 
-            &:before {
+            &:before, &:after {
                 display: none;
             }
         }
@@ -189,7 +195,7 @@
 
     &--first-slide-only {
         @media screen and (max-width: @screen-sm) {
-            margin-bottom: 0;
+            margin-bottom: 20px;
         }
     }
 }
