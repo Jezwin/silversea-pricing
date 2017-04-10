@@ -29,6 +29,7 @@
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="subTitle"
                                         fieldLabel="Sub Title"
+                                        required="{Boolean}true"
                                         renderReadOnly="{Boolean}true"
                                         name="./subTitle" />
                                     <cruiseReference
@@ -49,7 +50,6 @@
                                         cq-msm-lockable="mapReference"
                                         fieldLabel="Itinerary map"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
                                         name="./mapReference"
                                         rootPath="/content/silversea-com/" />
                                     <itineraryFocusMap
@@ -59,7 +59,6 @@
                                         cq-msm-lockable="focusedMapReference"
                                         fieldLabel="Itinerary focused map"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
                                         name="./focusedMapReference"
                                         rootPath="/content/silversea-com/" />
                                 </items>
