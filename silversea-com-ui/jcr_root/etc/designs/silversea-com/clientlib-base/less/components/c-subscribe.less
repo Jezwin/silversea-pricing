@@ -2,26 +2,28 @@
 * c- SUBSCRIBE
 */
 .c-subscribe {
-    
+
     /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         border: 0;
     }
-    
+
     &__form {
         padding: 20px 20px 0 20px;
         border: solid 1px @grey--d;
-        
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            margin-top: 30px;
+
+        &:first-child {
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                margin-bottom: 30px;
+            }
         }
 
         &--label {
             font-family: @f-theano_didot;
             text-transform: uppercase;
             display: block;
-            
+
             &-text {
                 display: block;
                 width: 100%;
@@ -35,11 +37,11 @@
                 font-size: 26px;
             }
         }
-        
+
         &--inputs {
             width: 100%;
             position: relative;
-            
+
             .c-btn {
                 width: 112px;
                 position: absolute;

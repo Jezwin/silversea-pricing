@@ -8,13 +8,14 @@
             <div class="col-sm-8 c-pressereleases">
 
                 <div class="c-pageheader">
-                    <p class="c-pageheader__date">
-                        <strong>${'date' @ i18n}</strong> ${pageProperties.publicationDate @ format='yyyy-MM-dd', type='date'}
+                    <p class="c-pageheader__date"
+                       data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
+                        <strong>${'date' @ i18n}</strong> ${date.value}
                     </p>
                     <h1 class="c-pageheader__subtitle">${currentPage.title}</h1>
                 </div>
 
-                <div data-sly-resource="${'propertyDisplay' @ resourceType='/apps/silversea/silversea-com/components/displayproperties/pressrelease'}"></div>
+                <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 
                 <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.helper.PaginationHelper">
                     <a href="${cpt.previous.path @ extension='html'}"

@@ -2,16 +2,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====================================================================== -->
-    <!-- P A R E N T   P R O J E C T   D E S C R I P T I O N -->
+    <!-- P A R E N T P R O J E C T D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-aem-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <!-- ====================================================================== -->
-    <!-- P R O J E C T   D E S C R I P T I O N -->
+    <!-- P R O J E C T D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>silversea-com</artifactId>
     <version>1.1.0-SNAPSHOT</version>
@@ -36,7 +36,7 @@
     </modules>
 
     <!-- ====================================================================== -->
-    <!-- D E P E N D E N C I E S   M A N A G E M E N T -->
+    <!-- D E P E N D E N C I E S M A N A G E M E N T -->
     <!-- ====================================================================== -->
     <dependencyManagement>
         <dependencies>
@@ -69,6 +69,12 @@
                 <artifactId>okio</artifactId>
                 <version>1.11.0</version>
                 <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.3.1</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

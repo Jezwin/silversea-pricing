@@ -4,6 +4,7 @@
     &__nav {
         display: table;
         width: 100%;
+        margin-bottom: 30px;
 
         &--regular4 {
 
@@ -21,19 +22,19 @@
     }
     &__link {
         display: inline-block;
-        vertical-align: middle;
         text-align: center;
-        background-color: @grey--e6;
         border-bottom: solid 1px @grey--9;
+        padding-top: 15px;
 
         a {
             display: block;
-            padding: 10px;
+            background-color: @grey--e6;
+            padding: 15px;
             border-right: solid 1px @white;
-        }
 
-        &:hover {
-            background-color: @grey--e;
+            &:hover {
+                background-color: @grey--e;
+            }
         }
 
         &[data-state='active'] {
@@ -41,6 +42,13 @@
             border: 1px solid @grey--9;
             border-bottom: 0;
             font-weight: 700;
+            vertical-align: bottom;
+            padding-top: 0;
+
+            a {
+                background-color: @white;
+                padding: 22px 0;
+            }
         }
     }
     &__body {

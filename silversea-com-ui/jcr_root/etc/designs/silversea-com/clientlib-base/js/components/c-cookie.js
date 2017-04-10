@@ -48,16 +48,14 @@
         /***************************************************************************
          * Show/hide message according to the "cookieMessageDisclaimer" cookie
          **************************************************************************/
-        //var cookie = new CookieManager();
-        var hideCookie = function() {
-            $("#c-cookie").attr('data-show', false);
+        var showCookie = function(val) {
+            $("#c-cookie").attr('data-show', val);
         }
-        if ($.CookieManager.getDisclamer() === 'true') {
-            hideCookie();
-        } else {
+        if ($.CookieManager.getDisclamer() === null) {
+            showCookie(true);
             $('#c-cookie__close').on('click', function() {
                 $.CookieManager.setDisclamer('true');
-                hideCookie();
+                showCookie(false);
             });
         }
     });

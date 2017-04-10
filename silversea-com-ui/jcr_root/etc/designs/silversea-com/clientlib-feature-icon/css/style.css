@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'feature-icon';
+    src: url('../fonts/feature-icon.eot?f8zan9');
+    src: url('../fonts/feature-icon.eot?f8zan9#iefix') format('embedded-opentype'), url('../fonts/feature-icon.ttf?f8zan9') format('truetype'), url('../fonts/feature-icon.woff?f8zan9') format('woff'),
+        url('../fonts/feature-icon.svg?f8zan9#feature-icon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'feature-icon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-adventure:before {
+    content: "\e900";
+}
+
+.icon-binoculars:before {
+    content: "\e901";
+}
+
+.icon-bow-tie:before {
+    content: "\e902";
+}
+
+.icon-camera:before {
+    content: "\e903";
+}
+
+.icon-chef-hat:before {
+    content: "\e904";
+}
+
+.icon-crown:before {
+    content: "\e905";
+}
+
+.icon-diving:before {
+    content: "\e906";
+}
+
+.icon-driver-cap:before {
+    content: "\e907";
+}
+
+.icon-food:before {
+    content: "\e908";
+}
+
+.icon-globe:before {
+    content: "\e909";
+}
+
+.icon-grappe:before {
+    content: "\e90a";
+}
+
+.icon-headphone:before {
+    content: "\e90b";
+}
+
+.icon-heart-hand:before {
+    content: "\e90c";
+}
+
+.icon-lys:before {
+    content: "\e90d";
+}
+
+.icon-mark-c:before {
+    content: "\e90e";
+}
+
+.icon-mark-new:before {
+    content: "\e90f";
+}
+
+.icon-mark-p:before {
+    content: "\e910";
+}
+
+.icon-mark-s:before {
+    content: "\e911";
+}
+
+.icon-meditation:before {
+    content: "\e912";
+}
+
+.icon-moon:before {
+    content: "\e913";
+}
+
+.icon-opera:before {
+    content: "\e914";
+}
+
+.icon-parrot:before {
+    content: "\e915";
+}
+
+.icon-safari-hat:before {
+    content: "\e916";
+}
+
+.icon-seat:before {
+    content: "\e917";
+}
+
+.icon-shield-v:before {
+    content: "\e918";
+}
+
+.icon-spade:before {
+    content: "\e919";
+}
+
+.icon-stairs:before {
+    content: "\e91a";
+}
+
+.icon-star:before {
+    content: "\e91b";
+}
+
+.icon-walk:before {
+    content: "\e91c";
+}
+
+.icon-wheelchair:before {
+    content: "\e91d";
+}
+
+.icon-wheelchair-2:before {
+    content: "\e91e";
+}

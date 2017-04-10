@@ -12,5 +12,5 @@
 
 <!--/* Image */-->
 <template data-sly-template.image="${ @ imagePath}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
-    <img src="${imagePath @ prependPath=imagePrefix}" alt="${properties.alt || currentPage.title}" title="${properties.title || currentPage.title}" class="o-img cq-dd-image" />
+    <img src="${imagePath @ prependPath=imagePrefix}" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
 </template>

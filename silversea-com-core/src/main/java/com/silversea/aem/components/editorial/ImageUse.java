@@ -14,6 +14,8 @@ public class ImageUse extends WCMUsePojo {
 
     private Integer desktopWidth = WcmConstants.DEFAULT_WIDTH_DESKTOP;
     private Integer mobileWidth = WcmConstants.DEFAULT_WIDTH_MOBILE;
+    private static final String SLASH_DESKTOP_DASH = "/desktop-";
+    private static final String SLASH_MOBILE_DASH = "/mobile-";
 
     @Override
     public void activate() {
@@ -25,12 +27,12 @@ public class ImageUse extends WCMUsePojo {
         if (cqResponsiveRes != null) {
             Resource defaultRes = cqResponsiveRes.getChild(WcmConstants.NN_DEFAULT);
             if (defaultRes != null) {
-                widthResponsiveDesktop = defaultRes.getValueMap().get("width", 12);
+                widthResponsiveDesktop = defaultRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
             }
 
             Resource phoneRes = cqResponsiveRes.getChild(WcmConstants.NN_PHONE);
             if (phoneRes != null) {
-                widthResponsiveMobile = phoneRes.getValueMap().get("width", 12);
+                widthResponsiveMobile = phoneRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
             } else {
                 widthResponsiveMobile = widthResponsiveDesktop;
             }
@@ -40,20 +42,20 @@ public class ImageUse extends WCMUsePojo {
         Resource confRes = getResource().adaptTo(Conf.class).getItemResource("/responsive/image/");
 
         if (confRes != null) {
-            Resource desktopConfRes = confRes.getChild(getResource().getResourceType() + "/desktop-" + widthResponsiveDesktop);
+            Resource desktopConfRes = confRes.getChild(getResource().getResourceType() + SLASH_DESKTOP_DASH + widthResponsiveDesktop);
 
             if (desktopConfRes == null) {
                 // If configuration is not define for the component, use the image component configuration.
-                desktopConfRes = confRes.getChild(WcmConstants.RT_IMAGE_CPT + "/desktop-" + widthResponsiveDesktop);
+                desktopConfRes = confRes.getChild(WcmConstants.RT_IMAGE_CPT + SLASH_DESKTOP_DASH + widthResponsiveDesktop);
             }
-            desktopWidth = desktopConfRes.getValueMap().get("width", Integer.class);
+            desktopWidth = desktopConfRes.getValueMap().get(WcmConstants.PN_WIDTH, Integer.class);
 
-            Resource mobileConfRes = confRes.getChild(getResource().getResourceType() + "/mobile-" + widthResponsiveMobile);
+            Resource mobileConfRes = confRes.getChild(getResource().getResourceType() + SLASH_MOBILE_DASH + widthResponsiveMobile);
             if (mobileConfRes == null) {
                 // If configuration is not define for the component, use the image component configuration.
-                mobileConfRes = confRes.getChild(WcmConstants.RT_IMAGE_CPT + "/mobile-" + widthResponsiveMobile);
+                mobileConfRes = confRes.getChild(WcmConstants.RT_IMAGE_CPT + SLASH_MOBILE_DASH + widthResponsiveMobile);
             }
-            mobileWidth = mobileConfRes.getValueMap().get("width", Integer.class);
+            mobileWidth = mobileConfRes.getValueMap().get(WcmConstants.PN_WIDTH, Integer.class);
         }
     }
 

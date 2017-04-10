@@ -1,4 +1,4 @@
-package com.silversea.aem.components.included;
+package com.silversea.aem.components.editorial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 
-public class FloatingBarUse extends WCMUsePojo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FloatingBarUse.class);
+public class ButtonUse extends WCMUsePojo {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ButtonUse.class);
     private List<Button> callToActionList;
 
     @Override
@@ -22,7 +22,7 @@ public class FloatingBarUse extends WCMUsePojo {
         String[] callToActions = properties.getInherited("callToActions", String[].class);
         if (callToActions != null) {
 
-            String title, titleTablet, reference, color;
+            String title, titleTablet, reference, color, analyticType, size;
             JSONObject json;
             callToActionList = new ArrayList<>();
 
@@ -34,11 +34,13 @@ public class FloatingBarUse extends WCMUsePojo {
                     titleTablet = json.getString("titleTablet");
                     reference = json.getString("reference");
                     color = json.getString("color");
-                    Button buttonObj = new Button(title, titleTablet, reference, color);
+                    analyticType = json.getString("analyticType");
+                    size = json.getString("size");
+                    Button buttonObj = new Button(title, titleTablet, reference, color, analyticType, size);
                     callToActionList.add(buttonObj);
                 }
             } catch (JSONException e) {
-                LOGGER.error("JSONException FloatingBarUse: {}", e);
+                LOGGER.error("JSONException button json parsing : {}", e);
             }
         }
     }

@@ -89,6 +89,11 @@
                             jcr:primaryType="nt:unstructured"
                             width="34" />
                     </image>
+                    <herobanner jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                                jcr:primaryType="nt:unstructured"
+                                width="1920" />
+                    </herobanner>
                 </editorial>
                 <included jcr:primaryType="nt:unstructured">
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">
@@ -96,6 +101,11 @@
                             jcr:primaryType="nt:unstructured"
                             width="300" />
                     </variationassetsdisplay>
+                    <pressreleaseslist jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="300" />
+                    </pressreleaseslist>
                 </included>
             </components>
         </silversea-com>

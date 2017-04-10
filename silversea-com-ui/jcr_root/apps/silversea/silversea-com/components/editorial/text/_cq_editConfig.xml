@@ -5,7 +5,9 @@
         jcr:primaryType="cq:InplaceEditingConfig"
         active="{Boolean}true"
         editorType="text">
-        <config jcr:primaryType="nt:unstructured">
+        <config
+            jcr:primaryType="nt:unstructured"
+            externalStyleSheets="/etc/designs/silversea-com/clientlib-rte.min.css">
             <rtePlugins jcr:primaryType="nt:unstructured">
                 <subsuperscript
                     jcr:primaryType="nt:unstructured"
@@ -124,6 +126,10 @@
                             jcr:primaryType="nt:unstructured"
                             cssName="lead"
                             text="Lead" />
+                        <red
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-text-red"
+                            text="red" />
                     </styles>
                 </styles>
             </rtePlugins>
