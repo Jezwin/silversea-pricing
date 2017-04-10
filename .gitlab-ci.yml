@@ -60,7 +60,7 @@ mvn_build_rc_publish2:
         - /^release-.*$/
 
 ### Release Build
-mvn_build_rc_author:
+mvn_build_release_author:
     stage: release-build
     tags:
         - maven
@@ -69,7 +69,7 @@ mvn_build_rc_author:
     only:
         - /^[0-9]\.[0-9]\.[0-9]$/
 
-mvn_build_rc_publish1:
+mvn_build_release_publish1:
     stage: release-build
     tags:
         - maven
@@ -78,7 +78,7 @@ mvn_build_rc_publish1:
     only:
         - /^[0-9]\.[0-9]\.[0-9]$/
 
-mvn_build_rc_publish2:
+mvn_build_release_publish2:
     stage: release-build
     tags:
         - maven
