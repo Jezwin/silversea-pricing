@@ -74,6 +74,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                         featurePageContentNode.setProperty("featureId", feature.getFeatureId());
                         featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
                         featurePageContentNode.setProperty("featureName", feature.getName());
+                        featurePageContentNode.setProperty("apiTitle", feature.getName());
                         featurePageContentNode.setProperty("featureOrder", feature.getOrder());
                         session.save();
                         LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
