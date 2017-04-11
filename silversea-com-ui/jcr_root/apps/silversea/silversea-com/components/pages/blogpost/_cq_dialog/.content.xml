@@ -49,6 +49,7 @@
                                         fieldLabel="Image Gallery"
                                         name="./assetSelectionReference"
                                         renderReadOnly="{Boolean}true"
+                                        rootPath="/content/dam/"
                                         required="{Boolean}true" />
                                 </items>
                             </column>

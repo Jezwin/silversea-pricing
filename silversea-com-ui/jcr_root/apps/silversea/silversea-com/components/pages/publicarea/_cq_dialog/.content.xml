@@ -35,6 +35,7 @@
                                             cq-msm-lockable="assetSelectionReference"
                                             fieldLabel="Slider Images"
                                             name="./assetSelectionReference"
+                                            rootPath="/content/dam/"
                                             renderReadOnly="{Boolean}true"/>
                                 </items>
                             </column>

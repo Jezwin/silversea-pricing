@@ -28,6 +28,7 @@
                                             cq-msm-lockable="suiteReference"
                                             fieldLabel="Suite reference"
                                             renderReadOnly="{Boolean}true"
+                                            rootPath="/content/silversea-com/"
                                             name="./suiteReference"/>
                                     <suitefeatures
                                             jcr:primaryType="nt:unstructured"

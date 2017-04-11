@@ -116,6 +116,7 @@
                                             cq-msm-lockable="assetSelectionReference"
                                             fieldLabel="Extra Gallery"
                                             renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/"
                                             name="./assetSelectionReference"/>
                                 </items>
                             </column>

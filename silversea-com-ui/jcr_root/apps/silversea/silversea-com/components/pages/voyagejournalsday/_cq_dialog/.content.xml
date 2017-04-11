@@ -111,6 +111,7 @@
                                         fieldLabel="Hero Banner"
                                         name="./heroAssetSelectionReference"
                                         renderReadOnly="{Boolean}true"
+                                        rootPath="/content/dam/"
                                         required="{Boolean}true" />
                                     <author
                                         jcr:primaryType="nt:unstructured"
@@ -127,6 +128,7 @@
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Gallery"
+                                        rootPath="/content/dam/"
                                         name="./assetSelectionReference"
                                         renderReadOnly="{Boolean}true" />
                                 </items>

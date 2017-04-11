@@ -28,6 +28,7 @@
                                             fieldLabel="Public Area reference"
                                             name="./publicAreaReference"
                                             required="{Boolean}true"
+                                            rootPath="/content/silversea-com/"
                                             renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
