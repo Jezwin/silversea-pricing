@@ -67,4 +67,12 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="discover-more"
         sling:message="Discover more" />
+    <view-online
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-online"
+        sling:message="VIEW ONLINE" />
+    <mail-me-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="mail-me-brochure"
+        sling:message="MAIL ME THIS BROCHURE" />
 </jcr:root>
