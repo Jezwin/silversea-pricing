@@ -24,9 +24,7 @@
     </div>
 </section>
 
-<section class="o-section" data-sly-test="${brochureTeaserListUse.brochures}">
-    <div data-sly-list.brochure="${brochureTeaserListUse.brochures}" data-sly-unwrap>
-        <sly data-sly-use.brochureTemplate="../brochureteaser/brochure.html"
-             data-sly-call="${brochureTemplate.default @ brochure = brochure, currentStyle = currentStyle}"></sly>
-    </div>
+<section data-sly-test="${brochureTeaserListUse.brochures}" data-sly-list.brochure="${brochureTeaserListUse.brochures}">
+    <sly data-sly-use.brochureTemplate="../brochureteaser/brochure.html" data-sly-call="${brochureTemplate.default @ brochure = brochure, currentStyle = currentStyle}" />
+    <hr data-sly-test="${!brochureList.last}" />
 </section>
