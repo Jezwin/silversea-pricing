@@ -4,9 +4,9 @@
         ${pageProperties.longDescription || currentPage.description @ context='html' }
     </div>
     <div class="c-pageheader__properties" data-sly-test="${pageProperties.guestsCapacity || pageProperties.crewCapacity || pageProperties.builtDate || pageProperties.tonnage}">
-        <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
+        <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet h-important">
             <li class="c-list-inline__item c-list-inline__item--no-separated">
-                <strong class="h-important">${'key-facts' @ i18n} :</strong>
+                <strong>${'key-facts' @ i18n} :</strong>
             </li>
             <li class="c-list-inline__item c-list-inline__item--no-separated" data-sly-test="${pageProperties.guestsCapacity}">
                 ${'guests-capacity' @ i18n}: ${pageProperties.guestsCapacity}

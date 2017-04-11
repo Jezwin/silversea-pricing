@@ -1,6 +1,5 @@
 .c-tab {
 
-
     &__nav {
         display: table;
         width: 100%;
@@ -12,6 +11,7 @@
                 width: 25%;
             }
         }
+
         &--regular5 {
 
             .c-tab__link {
@@ -20,6 +20,7 @@
             }
         }
     }
+
     &__link {
         display: inline-block;
         text-align: center;
@@ -29,7 +30,8 @@
         a {
             display: block;
             background-color: @grey--e6;
-            padding: 15px;
+            height: 50px;
+            line-height: 50px;
             border-right: solid 1px @white;
 
             &:hover {
@@ -47,17 +49,111 @@
 
             a {
                 background-color: @white;
-                padding: 22px 0;
+                height: 64px;
+                line-height: 64px;
             }
         }
     }
-    &__body {
-    }
+
     &__content {
         display: none;
 
         &[data-state='active'] {
             display: block;
+        }
+    }
+
+    &__accordion {
+
+        @media screen and (max-width: @screen-sm) {
+            position: relative;
+
+            .c-tab__nav {
+                display: block;
+                border: 0;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                padding-top: 52px;
+                position: absolute;
+                z-index:10;
+            }
+
+            .c-tab__body {
+                position: relative;
+                top: 80px;
+            }
+
+            .c-tab__link {
+                display: none;
+                width: 100%;
+                max-width: inherit;
+                padding-top: 0;
+                text-align: left;
+                border-bottom: 1px solid #d9d9d9;
+                border-left: 1px solid #d9d9d9;
+                border-right: 1px solid #d9d9d9;
+                position: relative;
+
+                &[data-state='active'] {
+                    display: block;
+                    border: 0px;
+                    color: black;
+                    font-size: 18px;
+                    line-height: 28px;
+                    border: solid 1px #999;
+                    position: absolute;
+                    top: 0;
+
+                    &:hover {
+                        background-color: white;
+                    }
+
+                    &::before {
+                        content: "\f107";
+                        font-family: FontAwesome;
+                        position: absolute;
+                        line-height: 52px;
+                        right: 10px;
+                    }
+                }
+
+                a {
+                    background-color: white;
+                    padding: 0;
+                    display: block;
+                    height: 50px;
+                    line-height: 20px;
+                    font-size: 14px;
+                    vertical-align: middle;
+                    padding: 15px 12px;
+                    color: #333;
+
+                    &:hover {
+                        background-color: white;
+                    }
+                }
+            }
+
+            &.open {
+
+                .c-tab__link {
+                    display: block;
+
+                    a:hover {
+                        background-color: @grey--e;
+                    }
+
+                    &[data-state='active'] {
+                        background-color: white;
+
+                        a:hover, a:focus, a:active {
+                            background-color: white;
+                        }
+                    }
+
+                }
+            }
         }
     }
 }

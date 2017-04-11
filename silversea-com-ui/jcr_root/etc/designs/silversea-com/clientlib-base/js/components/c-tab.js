@@ -24,6 +24,17 @@
             $(this).attr("data-state", "active");
             $(_data.content + id).attr("data-state", "active");
         });
+
+        if (_self.hasClass('c-tab__accordion')) {
+            console.log('---> ENTERED ');
+
+            $('body').on('trigger.viewport.changed', function() {
+                if($.viewportDetect() === 'xs') {
+                    _self.removeClass('open');
+                    _self.children('.c-tab__nav').attr('aria-expanded', 'false');
+                }
+            });
+        }
     };
 
     $(function() {
