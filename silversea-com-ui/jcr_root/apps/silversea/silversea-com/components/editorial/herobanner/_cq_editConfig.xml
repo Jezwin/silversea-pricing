@@ -6,4 +6,11 @@
         active="{Boolean}true"
         configPath="/apps/silversea/silversea-com/components/editorial/text/cq:editConfig/cq:inplaceEditing/config"
         editorType="text" />
+    <cq:dropTargets jcr:primaryType="nt:unstructured">
+        <image
+            jcr:primaryType="cq:DropTargetConfig"
+            accept="[image/.*]"
+            groups="[media]"
+            propertyName="./assetReference" />
+    </cq:dropTargets>
 </jcr:root>
