@@ -9,13 +9,13 @@
                 <div class="brochureteaserlist__header__label">
                     ${'select-the-brochure-language' @ i18n}
                 </div>
-                <div class="brochureteaserlist__header__select">
-                    <select id="selectBrochureListLangId" class="chosen" data-sly-list.child="${brochureTeaserListUse.languages}">
+                <div class="brochureteaserlist__header__select" data-sly-test.language="${brochureTeaserListUse.languages}">
+                    <select id="selectBrochureListLangId" class="chosen" data-sly-list.child="${language}">
                         <option
-                                data-sly-use.languageHelper="${'com.silversea.aem.helper.LanguageHelper' @ language=child.name}"
-                                selected="${brochureTeaserListUse.currentLanguage == child.name ? 'selected' : ''}"
-                                value="${currentPage.path @ selectors=[languageHelper.selector], extension='html'}">
-                            ${child.title}
+                            data-sly-use.languageHelper="${'com.silversea.aem.helper.LanguageHelper' @ language=child}"
+                            selected="${brochureTeaserListUse.currentLanguage == child ? 'selected' : ''}"
+                            value="${currentPage.path @ selectors=[languageHelper.selector], extension='html'}">
+                            ${language[child]}
                         </option>
                     </select>
                 </div>
