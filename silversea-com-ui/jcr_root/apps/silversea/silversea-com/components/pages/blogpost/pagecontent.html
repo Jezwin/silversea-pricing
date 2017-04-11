@@ -2,6 +2,17 @@
     <section class="o-section">
         <div class="row">
             <div class="col-sm-9 col-xs-12">
+                <div class="o-section" data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
+                    <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}"></sly>
+                </div>
+                <div class="c-pageheader">
+                    <p class="c-pageheader__date"
+                       data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=pageProperties.publicationDate}">
+                        <strong>${date.value}</strong>
+                    </p>
+                    <h2 class="c-pageheader__subtitle">${currentPage.title}</h2>
+                </div>
+
                 <div
                     data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
                 </div>
