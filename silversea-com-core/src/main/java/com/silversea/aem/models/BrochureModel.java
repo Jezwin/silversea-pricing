@@ -65,11 +65,11 @@ public class BrochureModel {
     public String getOnlineBrochureUrl() {
         return getCustomMetatdate(WcmConstants.PN_BROCHURE_ONLINE_URL, String.class);
     }
-    
-    public boolean isBrochureDigitalOnly(){
-    	return getCustomMetatdate(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
+
+    public Boolean isBrochureDigitalOnly() {
+        return getCustomMetatdate(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
     }
-   
+
     public Tag getLanguage() {
         Resource metadataResource = assetResource.getChild("jcr:content/metadata");
 
@@ -85,21 +85,21 @@ public class BrochureModel {
 
         return null;
     }
-    
+
     /**
      * Helper: retrieve custom asset's meta data
      * @param propertyName: property name
      * @param type: Object type
      * @return: property's value
      */
-    private <T> T getCustomMetatdate(String propertyName, Class<T> type){
-    	Resource metadataResource = assetResource.getChild("jcr:content/metadata");
-    	T value = null;
-    	if(metadataResource!=null){
-    		ValueMap properties = ResourceUtil.getValueMap(metadataResource);
-    		value = properties.get(propertyName, type);
-    	}
-    	
-    	return value;
+    private <T> T getCustomMetatdate(String propertyName, Class<T> type) {
+        Resource metadataResource = assetResource.getChild("jcr:content/metadata");
+        T value = null;
+        if (metadataResource != null) {
+            ValueMap properties = ResourceUtil.getValueMap(metadataResource);
+            value = properties.get(propertyName, type);
+        }
+
+        return value;
     }
 }
