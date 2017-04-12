@@ -15,6 +15,7 @@ import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.silversea.aem.importers.services.BrochuresImporter;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
@@ -56,6 +57,9 @@ public class TestServlet extends SlingSafeMethodsServlet {
     
     @Reference
     ShipsImporter shipsImporter;
+    
+    @Reference
+    BrochuresImporter brochuresImporter;
     
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -136,6 +140,13 @@ public class TestServlet extends SlingSafeMethodsServlet {
         	response.getWriter().write("Feature import Done<br/>");
         	response.getWriter().flush();
         }
+        
+        if(all || mode.equals(Mode.brochures)) {
+        	brochuresImporter.importBrochures();
+        	response.getWriter().write("Brochures import Done<br/>");
+        	response.getWriter().flush();
+        }
+        
         closeDocument(response.getWriter());
         
         
@@ -154,7 +165,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
 	}
 
 	enum Mode {
-    	cities,ex,hotels,lp,ta,eo,countries,ft,ships;
+    	cities,ex,hotels,lp,ta,eo,countries,ft,ships,brochures;
     	
     }
 }
