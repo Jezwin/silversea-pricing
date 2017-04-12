@@ -11,7 +11,7 @@
         sling:resourceType="silversea/silversea-com/components/pages/voyagejournalsday">
         <par
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="/libs/wcm/foundation/components/responsivegrid">
+            sling:resourceType="wcm/foundation/components/responsivegrid">
             <display
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="silversea/silversea-com/components/displayproperties/voyagejournals"
