@@ -3,76 +3,236 @@
     jcr:language="en"
     jcr:mixinTypes="[mix:language]"
     jcr:primaryType="sling:Folder">
-    <select-the-brochure-language
+    <avaible-on
         jcr:primaryType="sling:MessageEntry"
-        sling:key="select-the-brochure-language"
-        sling:message="Select the brochure language" />
-    <suite-plan
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suite-plan"
-        sling:message="Suite plan" />
-    <suite-location
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suite-location"
-        sling:message="Suite location" />
-    <virtual-tour
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="virtual-tour"
-        sling:message="Virtual tour" />
+        sling:key="avaible-on"
+        sling:message="Avaible on" />
     <archives
         jcr:primaryType="sling:MessageEntry"
         sling:key="archives"
         sling:message="Archives" />
-    <day
+    <build-date
         jcr:primaryType="sling:MessageEntry"
-        sling:key="day"
-        sling:message="Day" />
-    <features
+        sling:key="build-date"
+        sling:message="Build date" />
+    <by
         jcr:primaryType="sling:MessageEntry"
-        sling:key="features"
-        sling:message="Features" />
-    <more-info
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="more-info"
-        sling:message="More info" />
+        sling:key="by"
+        sling:message="By" />
     <close
         jcr:primaryType="sling:MessageEntry"
         sling:key="close"
         sling:message="Close" />
-    <voyages
+    <coordinates
         jcr:primaryType="sling:MessageEntry"
-        sling:key="voyages"
-        sling:message="Voyages" />
-    <suites
+        sling:key="coordinates"
+        sling:message="Coordinates" />
+    <crew-capacity
         jcr:primaryType="sling:MessageEntry"
-        sling:key="suites"
-        sling:message="Suites" />
-    <dining
+        sling:key="crew-capacity"
+        sling:message="Crew capacity" />
+    <date
         jcr:primaryType="sling:MessageEntry"
-        sling:key="dining"
-        sling:message="Dining" />
-    <public-areas
+        sling:key="date"
+        sling:message="Date" />
+    <day
         jcr:primaryType="sling:MessageEntry"
-        sling:key="public-areas"
-        sling:message="Public Areas" />
+        sling:key="day"
+        sling:message="Day" />
     <deck-plan-details
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
         sling:message="Deck Plan and Details" />
-    <keyfact
+    <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
-        sling:key="keyfact"
-        sling:message="Key Fact" />
+        sling:key="destination-discover-more"
+        sling:message="Discover more about this destination" />
+    <destination-view-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="destination-view-cruise"
+        sling:message="View cruises for this destination" />
+    <dining
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining"
+        sling:message="Dining" />
     <discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="discover-more"
         sling:message="Discover more" />
-    <view-online
+    <excursions
         jcr:primaryType="sling:MessageEntry"
-        sling:key="view-online"
-        sling:message="VIEW ONLINE" />
+        sling:key="excursions"
+        sling:message="Excursions" />
+    <features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="features"
+        sling:message="Features" />
+    <find-a-port
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="find-a-port"
+        sling:message="Find a port" />
+    <follow-us
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="follow-us"
+        sling:message="Follow us" />
+    <free-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="free-brochure"
+        sling:message="Free brochure" />
+    <hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hotels"
+        sling:message="Hotels" />
+    <guests-capacity
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="guests-capacity"
+        sling:message="Guests capacity" />
+    <key-fact
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="key-fact"
+        sling:message="Key Fact" />
+    <land-programmes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programmes"
+        sling:message="Land programmes" />
+    <location-images
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="location-images"
+        sling:message="Location images" />
     <mail-me-brochure
         jcr:primaryType="sling:MessageEntry"
         sling:key="mail-me-brochure"
         sling:message="MAIL ME THIS BROCHURE" />
+    <menu
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="menu"
+        sling:message="Menu" />
+    <more-info
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more-info"
+        sling:message="More info" />
+    <more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more"
+        sling:message="More" />
+    <next
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="next"
+        sling:message="Next" />
+    <other-recent-journals
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-recent-journals"
+        sling:message="Other recent journals" />
+    <other-recent-story
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-recent-story"
+        sling:message="Other recent stories" />
+    <overview
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="overview"
+        sling:message="Overview" />
+    <plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="plan"
+        sling:message="Plan" />
+    <pressure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pressure"
+        sling:message="Pressure" />
+    <pressureUnit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pressureUnit"
+        sling:message="hPa" />
+    <previous
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="previous"
+        sling:message="Previous" />
+    <public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas"
+        sling:message="Public Areas" />
+    <read-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="read-more"
+        sling:message="Read More" />
+    <request-or-download
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-or-download"
+        sling:message="Request or download" />
+    <select-language
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-language"
+        sling:message="Select language" />
+    <search-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="search-more"
+        sling:message="Search more" />
+    <select-the-brochure-language
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-the-brochure-language"
+        sling:message="Select the brochure language" />
+    <silversea-voyage-journal
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="silversea-voyage-journal"
+        sling:message="Silversea voyage journal" />
+    <submit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="submit"
+        sling:message="Submit" />
+    <sign-up
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up"
+        sling:message="Sign-up" />
+    <suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites"
+        sling:message="Suites" />
+    <suite-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-location"
+        sling:message="Suite location" />
+    <suite-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-plan"
+        sling:message="Suite plan" />
+    <temperature
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="temperature"
+        sling:message="Temperature" />
+    <temperatureUnit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="temperatureUnit"
+        sling:message="C" />
+    <tonnage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="tonnage"
+        sling:message="Tonnage" />
+    <tons
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="tons"
+        sling:message="Tons" />
+    <view-online
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-online"
+        sling:message="VIEW ONLINE" />
+    <virtual-tour
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="virtual-tour"
+        sling:message="Virtual tour" />
+    <voyages
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyages"
+        sling:message="Voyages" />
+    <weather
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="weather"
+        sling:message="Weather" />
+    <wind
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="wind"
+        sling:message="Km" />
+    <windUnit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="windUnit"
+        sling:message="Km" />
 </jcr:root>
