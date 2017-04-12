@@ -55,14 +55,14 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/datepicker"
                                         allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="publicationDate"
                                         displayedFormat="MMMM DD, YYYY hh:mm a"
                                         displayTimezoneMessage="{Boolean}true"
+                                        type="datetime"
+                                        renderReadOnly="{Boolean}true"
+                                        cq-msm-lockable="publicationDate"
                                         fieldLabel="Date"
                                         name="./publicationDate"
-                                        renderReadOnly="{Boolean}true"
-                                        required="{Boolean}true"
-                                        type="datetime" />
+                                        required="{Boolean}true" />
                                     <coordinates
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
