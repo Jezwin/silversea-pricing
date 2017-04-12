@@ -1,5 +1,4 @@
 .c-voyagejournals {
-
     &__header {
         border-bottom: 1px solid @black;
         margin-bottom: 10px;
@@ -25,47 +24,45 @@
         font-size: 13px;
         margin-bottom: 20px;
     }
-    
+
     .c-list {
+        margin: 0 -5px;
         overflow: hidden;
-        
+
         &__item {
+            float: left;
             position: relative;
             width: 50%;
             padding-bottom: 25px;
+            padding-left: 5px;
+            padding-right: 5px;
             margin-bottom: 25px;
-            
+
             &:nth-child(odd) { 
-                float: left;
-                padding-right: 3px;
-                
+                clear: both;
+
                 /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     float: none;
-                    padding-right: 0; 
                 }
             }
-                
+
             &:nth-child(even) {
-                float: right;
-                padding-left: 3px;
-                
                 /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     float: none;
-                    padding-left: 0;
                 }
             }
-            
+
             &:hover .overlay img {
                 opacity: 0.5;
-                
+
                 /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     opacity: 1;
                 }
             }
-            
+
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 width: 100%;
@@ -73,13 +70,13 @@
                 padding-bottom: 0;
                 border-top: 1px solid @grey--d;
             }
-            
+
             a {
                 display: block;
-                color: #fff;
-                
-                * { padding: 0 15px; }
-                
+                color: @white;
+
+                > * { padding: 0 15px; }
+
                 .voyage-ship-name {
                     position: absolute;
                     top: 50%;
@@ -88,7 +85,7 @@
                     font-size: 18px;
                     font-weight: 400;
                     text-transform: capitalize;
-                    
+
                     /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
                         display: none;
@@ -100,7 +97,7 @@
                     z-index: 2;
                     position: absolute;
                     bottom: 13%;
-                    
+
                     /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
                         font-size: 16px;
@@ -115,10 +112,10 @@
                     font-weight: @bold;
                     color: @black;
                     text-transform: uppercase;
-                    
+
                     /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
-                        color: #FFF;
+                        color: @white;
                         font-size: 12px;
                         bottom: 10px;
                     }
@@ -132,10 +129,10 @@
                     font-weight: 700;
                     color: @black;
                     text-transform: uppercase;
-                    
+
                     /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
-                        color: #FFF;
+                        color: @white;
                         font-size: 12px;
                         bottom: 10px;
                     }
@@ -145,7 +142,7 @@
                     display: block;
                     background: @black;
                     padding: 0;
-                    
+
                     img {
                         width: 100%;
                         height: auto;
