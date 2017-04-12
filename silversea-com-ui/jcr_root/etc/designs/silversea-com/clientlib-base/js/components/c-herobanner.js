@@ -18,12 +18,21 @@ $(function() {
         }
     });
 
-    $('body', window).on('trigger.viewport.changed load', function() {
+    // On viewport change
+    $('body').on('trigger.viewport.changed', function() {
+        setBackgroundHero();
+    });
+
+    // On page load
+    setBackgroundHero();
+
+    function setBackgroundHero() {
         var $imageBannerList = $('.c-hero-banner .o-img');
+
         $imageBannerList.each(function() {
             var $imageBanner = $(this);
             $imageBanner.closest('.c-hero-banner__image').css('background-image', 'url(' + $imageBanner.prop("currentSrc") + ')');
             $imageBanner.css('visibility', 'hidden');
         });
-    });
+    }
 });
