@@ -34,18 +34,17 @@ public class VoyageJournalsListUse extends WCMUsePojo {
 
     private Integer Ilimit;
 
-
     @Override
     public void activate() throws Exception {
 
         /*
-        * Init page value
-        **/
+         * Init page value
+         **/
         Page page;
         voyageJournalList = new ArrayList<>();
 
         final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        limit = properties.getInherited("paginationLimit", String.class);
+        limit = properties.getInherited("paginationLimit", "10");
         Ilimit = Integer.parseInt(limit);
 
         if (getRequest().getRequestParameter("page") != null) {
@@ -61,8 +60,8 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         pageNum = pageNum * Ilimit;
 
         /*
-        * Construct Query
-        * */
+         * Construct Query
+         */
         mapQuery.put("path", getCurrentPage().getPath());
         mapQuery.put("type", "cq:PageContent");
         mapQuery.put("property", "sling:resourceType");
@@ -73,8 +72,8 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         mapQuery.put("p.limit", limit);
 
         /*
-        * Build Query
-        * */
+         * Build Query
+         */
         Session session = getResourceResolver().adaptTo(Session.class);
         QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
         Query query = queryBuilder.createQuery(PredicateGroup.create(mapQuery), session);
@@ -83,8 +82,8 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         SearchResult result = query.getResult();
 
         /*
-        * Get result from Query
-        * */
+         * Get result from Query
+         */
         totalMatches = result.getTotalMatches();
         numberOfPages = (int) Math.ceil((float) totalMatches / Ilimit);
         for (Hit hit : result.getHits()) {
@@ -117,7 +116,7 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         List<Integer> num = new ArrayList<>();
 
         for (int i = 0; i < numberOfPages; i++) {
-            num.add(i+1);
+            num.add(i + 1);
         }
         return num;
     }
