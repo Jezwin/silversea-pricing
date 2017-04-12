@@ -8,7 +8,9 @@
             <a href="${item.path @ extension='html'}">
                 <span class="voyage-ship-name">${hship.page.title}</span>
                 <h2 class="voyage-journal-title">${item.title}</h2>
-                <span class="voyage-date">${item.properties.date @ format='dd-MM-yyyy', type='date'}</span>
+                <span class="voyage-date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.properties.date}">
+                    ${date.value}
+                </span>
                 <span class="voyage-id">voyage ${hship.page.properties.shipCode}</span>
                 <span class="overlay">
                     <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
