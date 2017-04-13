@@ -91,7 +91,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
                 for (Land77 land : lands) {
 
                     Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/landCode=\"" + land.getLandCod() + "\"]", "xpath");
+                            "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]", "xpath");
 
                     Page landPage = null;
 

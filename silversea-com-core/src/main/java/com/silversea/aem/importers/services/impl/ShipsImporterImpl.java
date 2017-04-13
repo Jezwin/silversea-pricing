@@ -9,10 +9,10 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -26,6 +26,7 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
 
 import io.swagger.client.api.ShipsApi;
+import io.swagger.client.model.Feature;
 import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Cities importer")
@@ -34,7 +35,6 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ShipsImporterImpl.class);
     private static final String SHIP_PATH = "/api/v1/ships";
-    private static final String TEMPLATE_SHIP_PATH = "/apps/silversea/silversea-com/templates/ship";
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -54,15 +54,14 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             int i = 0;
             for (Ship ship : listShips) {
                 Iterator<Resource> resources = resourceResolver.findResources(
-                        "//element(*,cq:Page)[jcr:content/shipCode=\"" + ship.getShipCod() + "\"]", "xpath");
+                        "//element(*,cq:Page)[jcr:content/shipId=\"" + ship.getShipId() + "\"]", "xpath");
                 Page shipPage = null;
 
                 if (resources.hasNext()) {
                     shipPage = resources.next().adaptTo(Page.class);
                 } else {
-                    shipPage = pageManager.create(shipsRootPage.getPath(),
-                            StringUtils.replace(ship.getShipName().toLowerCase(), " ", "-"), TEMPLATE_SHIP_PATH,
-                            ship.getShipName());
+                    shipPage = pageManager.create(shipsRootPage.getPath(), ship.getShipCod().toLowerCase(),
+                            "/apps/silversea/silversea-com/templates/ship", ship.getShipName());
                 }
 
                 if (shipPage != null) {
@@ -93,7 +92,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             if (session.hasPendingChanges()) {
                 try {
                     // save migration date
-                    Node rootNode = shipsRootPage.getContentResource().adaptTo(Node.class);
+                    Node rootNode = shipsRootPage.getContentResource().adaptTo(Node.class); 
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {

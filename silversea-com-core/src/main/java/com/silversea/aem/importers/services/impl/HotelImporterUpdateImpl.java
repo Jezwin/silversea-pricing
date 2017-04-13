@@ -90,7 +90,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                 for (Hotel77 hotel : hotels) {
 
                     Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/code=\"" + hotel.getHotelCod() + "\"]", "xpath");
+                            "//element(*,cq:Page)[jcr:content/id=\"" + hotel.getHotelId() + "\"]", "xpath");
 
                     Page hotelPage = null;
 
@@ -143,6 +143,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                         hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
                         hotelPageContentNode.setProperty("image", hotel.getImageUrl());
                         hotelPageContentNode.setProperty("code", hotel.getHotelCod());
+                        hotelPageContentNode.setProperty("id", hotel.getHotelId());
                         j++;
                     }
 

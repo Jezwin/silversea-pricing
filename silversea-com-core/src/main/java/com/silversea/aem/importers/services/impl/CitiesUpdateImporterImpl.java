@@ -111,7 +111,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
                         }
 
                         Iterator<Resource> resources = resourceResolver.findResources(
-                                "//element(*,cq:Page)[jcr:content/cityCode=\"" + city.getCityCod() + "\"]", "xpath");
+                                "//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]", "xpath");
 
                         Page portPage;
 
