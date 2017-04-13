@@ -67,8 +67,11 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
                 for (City city : cities) {
                     LOGGER.debug("Importing city: {}", city.getCityName());
-
-                    final String portFirstLetter = String.valueOf(city.getCityName().charAt(0));
+                     String portFirstLetter="";
+                    if(city.getCityName()!=null){
+                    	portFirstLetter = String.valueOf(city.getCityName().charAt(0));
+                    }
+                    
                     final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
 
                     Page portFirstLetterPage;

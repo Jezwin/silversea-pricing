@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.silversea.aem.importers.services.BrochuresImporter;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.importers.services.CountriesImporter;
+import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.importers.services.HotelImporter;
@@ -60,6 +61,9 @@ public class TestServlet extends SlingSafeMethodsServlet {
     
     @Reference
     BrochuresImporter brochuresImporter;
+    
+    @Reference
+    CruisesImporter cruisesImporter;
     
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -147,6 +151,12 @@ public class TestServlet extends SlingSafeMethodsServlet {
         	response.getWriter().flush();
         }
         
+        if(all || mode.equals(Mode.cruises)) {
+        	cruisesImporter.importCruises();
+        	response.getWriter().write("Cruises import Done<br/>");
+        	response.getWriter().flush();
+        }
+        
         closeDocument(response.getWriter());
         
         
@@ -165,7 +175,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
 	}
 
 	enum Mode {
-    	cities,ex,hotels,lp,ta,eo,countries,ft,ships,brochures;
+    	cities,ex,hotels,lp,ta,eo,countries,ft,ships,brochures,cruises;
     	
     }
 }
