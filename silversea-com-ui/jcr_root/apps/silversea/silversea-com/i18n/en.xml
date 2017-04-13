@@ -235,4 +235,12 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="windUnit"
         sling:message="Km" />
+    <phone
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="phone"
+        sling:message="phone" />
+    <fax
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fax"
+        sling:message="fax" />
 </jcr:root>
