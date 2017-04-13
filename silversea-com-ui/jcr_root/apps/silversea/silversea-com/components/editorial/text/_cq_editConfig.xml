@@ -130,6 +130,10 @@
                             jcr:primaryType="nt:unstructured"
                             cssName="h-text-red"
                             text="red" />
+                        <serif
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-serif"
+                            text="serif" />
                     </styles>
                 </styles>
             </rtePlugins>
