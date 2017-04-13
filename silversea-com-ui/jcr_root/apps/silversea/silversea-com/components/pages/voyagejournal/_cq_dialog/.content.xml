@@ -60,7 +60,7 @@
                                             cq-msm-lockable="assetSelectionReference"
                                             fieldLabel="Hero images"
                                             name="./assetSelectionReference"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                      <shipReference
                                             jcr:primaryType="nt:unstructured"
@@ -70,7 +70,7 @@
                                             fieldLabel="Ship"
                                             name="./shipReference"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/silversea-com/"
+                                            rootPath="/content/silversea-com"
                                             required="{Boolean}true"/>
                                      <destinationReference
                                             jcr:primaryType="nt:unstructured"
@@ -79,7 +79,7 @@
                                             cq-msm-lockable="destinationReference"
                                             fieldLabel="Destination"
                                             name="./destinationReference"
-                                            rootPath="/content/silversea-com/"
+                                            rootPath="/content/silversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                      <cruiseReference
                                             jcr:primaryType="nt:unstructured"
@@ -89,7 +89,7 @@
                                             fieldLabel="Cruise"
                                             name="./cruiseReference"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/silversea-com/"
+                                            rootPath="/content/silversea-com"
                                             required="{Boolean}true"/>
                                       <cruises
                                                 jcr:primaryType="nt:unstructured"
@@ -100,7 +100,7 @@
                                                 <field
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                                    rootPath="/content/silversea-com/"
+                                                    rootPath="/content/silversea-com"
                                                     name="./relatedCruiseReference"/>
                                       </cruises>
                                 </items>

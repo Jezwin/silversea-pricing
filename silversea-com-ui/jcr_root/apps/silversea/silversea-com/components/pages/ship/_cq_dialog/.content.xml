@@ -66,7 +66,7 @@
                                         cq-msm-lockable="bannerReference"
                                         fieldLabel="Hero Banner"
                                         name="./bannerReference"
-                                        rootPath="/content/dam/"
+                                        rootPath="/content/dam/siversea-com"
                                         renderReadOnly="{Boolean}true" />
                                     <assetSelectionReference
                                         jcr:primaryType="nt:unstructured"
@@ -75,7 +75,7 @@
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Extra Media Gallery"
                                         name="./assetSelectionReference"
-                                        rootPath="/content/dam/"
+                                        rootPath="/content/dam/siversea-com"
                                         renderReadOnly="{Boolean}true" />
                                     <deckplan
                                         jcr:primaryType="nt:unstructured"
@@ -84,7 +84,7 @@
                                         cq-msm-lockable="deckPlan"
                                         fieldLabel="Global Deck Plan"
                                         name="./deckPlan"
-                                        rootPath="/content/dam/"
+                                        rootPath="/content/dam/siversea-com"
                                         renderReadOnly="{Boolean}true" />
                                 </items>
                             </column>

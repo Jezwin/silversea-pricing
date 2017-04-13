@@ -44,7 +44,7 @@
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="lightboxReference"
                                         fieldLabel="Lightbox"
-                                        rootPath="/content/silversea-com/"
+                                        rootPath="/content/silversea-com"
                                         name="./lightboxReference" />
                                     <cruisefareadditions
                                         jcr:primaryType="nt:unstructured"

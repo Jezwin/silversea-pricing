@@ -85,7 +85,7 @@
                                             renderReadOnly="{Boolean}true"
                                             required="{Boolean}true"
                                             name="./shipReference"
-                                            rootPath="/content/silversea-com/"/>
+                                            rootPath="/content/silversea-com"/>
                                     <cruisecode
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -103,7 +103,8 @@
                                             cq-msm-lockable="itinerary"
                                             fieldLabel="Itinerary map"
                                             renderReadOnly="{Boolean}true"
-                                            name="./itinerary"/>
+                                            name="./itinerary"
+                                            rootPath="/content/silversea-com" />
                                     <assetSelectionReference
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -111,7 +112,8 @@
                                             cq-msm-lockable="assetSelectionReference"
                                             fieldLabel="Extra media gallery"
                                             renderReadOnly="{Boolean}true"
-                                            name="./assetSelectionReference"/>
+                                            name="./assetSelectionReference"
+                                            rootPath="/content/dam/silversea-com" />
                                     <keypeople
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -124,7 +126,7 @@
                                                 fieldLabel="People"
                                                 name="./reference"
                                                 required="{Boolean}true"
-                                                rootPath="/content/silversea-com/"/>
+                                                rootPath="/content/silversea-com"/>
                                     </keypeople>
                                     <exclusiveoffers
                                             jcr:primaryType="nt:unstructured"
@@ -138,7 +140,8 @@
                                                 name="./offer"
                                                 fieldLabel="Offer"
                                                 disabled="{Boolean}true"
-                                                required="{Boolean}true"/>
+                                                required="{Boolean}true"
+                                                rootPath="/content/silversea-com" />
                                     </exclusiveoffers>
                                 </items>
                             </column>

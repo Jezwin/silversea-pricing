@@ -28,7 +28,7 @@
                                             fieldLabel="Dining reference"
                                             name="./diningReference"
                                             required="{Boolean}true"
-                                            rootPath="/content/silversea-com/"
+                                            rootPath="/content/silversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
@@ -38,7 +38,7 @@
                                             fieldLabel="Plan"
                                             name="./plan"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"/>
+                                            rootPath="/content/dam/siversea-com"/>
                                     <virtualtour
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
@@ -47,7 +47,7 @@
                                             fieldLabel="Virtual Tour"
                                             name="./virtualTour"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"/>
+                                            rootPath="/content/dam/siversea-com"/>
                                     <locationImage
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
@@ -56,7 +56,7 @@
                                             fieldLabel="Location Image"
                                             name="./locationImage"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"/>
+                                            rootPath="/content/dam/siversea-com"/>
                                 </items>
                             </column>
                         </items>
