@@ -14,7 +14,6 @@ import javax.jcr.Session;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -28,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -68,16 +68,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	private ResourceResolverFactory resourceResolverFactory;
 	private ResourceResolver resourceResolver ;
 	private PageManager pageManager;
-    private Session session;
-	@Activate
-	public void activate(){
-		try {
-			resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			pageManager = resourceResolver.adaptTo(PageManager.class);
-		} catch (LoginException e) {
-			LOGGER.error("Exception occured while retrieving resource resolver",e);
-		}   
-	}
+	private Session session;
 
 	@Override
 	public void importCruises() throws IOException {
@@ -107,20 +98,20 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 					Page cruisesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_CRUISES);
 
 					//Retrieve and create or update cruise page
-					resources = findResourceById("cq:Page","cruiseId",Objects.toString(voyage.getVoyageId()));
+					resources = findResourceById(NameConstants.NT_PAGE,"cruiseId",Objects.toString(voyage.getVoyageId()));
 					cruisePage = adaptOrCreatePage(resources,CUISE_TEMPLATE,cruisesRootPage,voyage.getVoyageName());
 					updateCruisePage(cruisePage,voyage);
 
 					//Retrieve or create itineraries node
 					Node itinerairesNode = findOrCreateNode(cruisePage.adaptTo(Node.class),"itineraries");
-
+					saveSession(session,false);
 					List<Itinerary> itinerairesCruise = getCruiseIteneraries(voyage.getItineraryUrl(),voyage.getVoyageId());
-					session.save();
+					
 
 					for (Itinerary itinerary : itinerairesCruise) {
 
 						//Retrieve and create or update itenirary node
-						resources = findResourceById("cq:Page", "itineraryId",Objects.toString(itinerary.getItineraryId()));
+						resources = findResourceById(NameConstants.NT_PAGE, "itineraryId",Objects.toString(itinerary.getItineraryId()));
 						Node itineraryNode = adaptOrCreateNode(resources,itinerairesNode,Objects.toString(itinerary.getItineraryId()));
 						updateItineraryNode(itineraryNode,itinerary);
 
@@ -138,12 +129,12 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 						updateExcursionsNode(excursions,itinerairesNode);
 
 					}
-					session.save();
+					saveSession(session,false);;
 					//Create or update suites nodes
 					List<VoyagePriceComplete> voyagePrices = getVoyagePrices(PRICE_API_URL);
 					VoyagePriceComplete voyagePrice = getVoyagePriceById(voyagePrices,voyage.getVoyageId());
 					Node suitesNode = findOrCreateNode(cruisePage.adaptTo(Node.class),"suites");
-					session.save();
+					saveSession(session,false);
 					buildOrUpdateSuiteNodes(voyagePrice,suitesNode,voyage);
 
 					j++;
@@ -220,7 +211,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 			node = resources.next().adaptTo(Node.class);
 		} else {
 			node = rootNode.addNode(nodeName);
-			node.setPrimaryType("nt:unstructured");
+			node.setPrimaryType(JcrConstants.NT_UNSTRUCTURED);
 		}
 
 		return node;
@@ -233,7 +224,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 			node = element.getNode(name);
 		} else {
 			node = element.addNode(name);
-			node.setPrimaryType("nt:unstructured");
+			node.setPrimaryType(JcrConstants.NT_UNSTRUCTURED);
 		}
 		return node;
 	}
@@ -241,19 +232,12 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	private void updateCruisePage(Page cruisePage, Voyage voyage) throws RepositoryException{
 		Node cruisePageContentNode = cruisePage.getContentResource().adaptTo(Node.class);
 
-		if (cruisePageContentNode.hasProperty(JcrConstants.JCR_TITLE) && cruisePageContentNode
-				.getProperty("jcr:title").getString().equals(voyage.getVoyageName())) {
-			cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
-		}
-
-		Iterator<Resource> resources = findResourceById("cq:Page","shipId",Objects.toString(voyage.getShipId()));
-		String shipReference = resources.hasNext() ? resources.next().getPath() : "";
-
+		cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
 		cruisePageContentNode.setProperty("startDate", voyage.getArriveDate().toString());
-		// TODO Rajout du voyageHighlights
+		// TODO  voyageHighlights ?
 		cruisePageContentNode.setProperty("endDate", voyage.getDepartDate().toString());
 		cruisePageContentNode.setProperty("duration", voyage.getDays());
-		cruisePageContentNode.setProperty("shipReference", shipReference);
+		cruisePageContentNode.setProperty("shipReference", findReference("shipId",Objects.toString(voyage.getShipId())));
 		cruisePageContentNode.setProperty("cruiseCode", voyage.getVoyageCod());
 		cruisePageContentNode.setProperty("cruiseId", voyage.getVoyageId());
 		cruisePageContentNode.setProperty("itinerary", voyage.getMapUrl());
@@ -262,7 +246,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
 	private List<Itinerary> getCruiseIteneraries(String apiUrl,Integer voyageId) throws IOException,ApiException{
 		List<Itinerary> itineraireCruise = null;
-		
+
 		final String authorizationHeader = getAuthorizationHeader("/api"+StringUtils.substringAfter(apiUrl, "/api"));
 		VoyagesApi voyageItiniraryApi = new VoyagesApi();
 		voyageItiniraryApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
@@ -283,10 +267,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	}
 
 	private void updateItineraryNode(Node itineraryNode ,Itinerary itinerary)throws RepositoryException{
-		Iterator<Resource> resources = findResourceById("nt:unstructured","cityId",Objects.toString(itinerary.getCityId()));
-		String portReference = resources.hasNext() ? resources.next().getPath() : "";
-		itineraryNode.setPrimaryType("nt:unstructured");
-		itineraryNode.setProperty("portReference", portReference);
+		itineraryNode.setProperty("portReference", findReference("cityId", Objects.toString(itinerary.getCityId())));
 		itineraryNode.setProperty("voyageId", itinerary.getVoyageId());
 		itineraryNode.setProperty("cityId", itinerary.getCityId());
 		itineraryNode.setProperty("date", itinerary.getItineraryDate().toString());
@@ -298,17 +279,15 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	}
 
 	private void updateLandNodes(List<LandItinerary> landProgramList,Node itineraryNode)throws RepositoryException{
-		if (!landProgramList.isEmpty()) {
+		if (landProgramList != null && !landProgramList.isEmpty()) {
 
 
 			Node landsNode = findOrCreateNode(itineraryNode,"land-programs");
 
 			for (LandItinerary land : landProgramList) {
 
-				Iterator<Resource> resources = findResourceById("nt:unstructured", "landItineraryId",Objects.toString(land.getLandItineraryId()));
+				Iterator<Resource> resources = findResourceById(JcrConstants.NT_UNSTRUCTURED, "landItineraryId",Objects.toString(land.getLandItineraryId()));
 				Node landNode =adaptOrCreateNode(resources,landsNode, Objects.toString(land.getLandItineraryId()));
-
-				landNode.setPrimaryType("nt:unstructured");
 				landNode.setProperty("landProgramReference", findReference("landProgramId", Objects.toString(land.getLandItineraryId())));
 				landNode.setProperty("date", land.getDate().toString());
 				landNode.setProperty("cityId", land.getCityId());
@@ -332,16 +311,15 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	private void updateHotelNodes(List<HotelItinerary> hotels,Node itineraryNode)throws RepositoryException{
 
 
-		if (!hotels.isEmpty()) {
+		if (hotels!=null && !hotels.isEmpty()) {
 
 			Node HotelsNode = findOrCreateNode(itineraryNode,"hotels");
 
 			for (HotelItinerary hotel : hotels) {
 
-				Iterator<Resource> resources = findResourceById("nt:unstructured", "hotelItineraryId",Objects.toString(hotel.getHotelItineraryId()));
+				Iterator<Resource> resources = findResourceById(JcrConstants.NT_UNSTRUCTURED, "hotelItineraryId",Objects.toString(hotel.getHotelItineraryId()));
 				Node hotelNode = adaptOrCreateNode(resources,HotelsNode,Objects.toString(hotel.getHotelItineraryId()));
 
-				hotelNode.setPrimaryType("nt:unstructured");
 				hotelNode.setProperty("hotelReference", findReference("hotelId", Objects.toString(hotel.getHotelItineraryId())));
 				hotelNode.setProperty("hotelItineraryId", hotel.getHotelItineraryId());
 				hotelNode.setProperty("cityId", hotel.getCityId());
@@ -363,16 +341,15 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	}
 
 	private void updateExcursionsNode(List<ShorexItinerary> excursions,Node itineraryNode)throws RepositoryException{
-		if (!excursions.isEmpty()) {
+		if (excursions != null && !excursions.isEmpty()) {
 
 			Node excursionsNode = findOrCreateNode(itineraryNode,"excursions");
 
 			for (ShorexItinerary excursion : excursions) {
 
-				Iterator<Resource> resources = findResourceById("nt:unstructured", "shorexItineraryId",Objects.toString(excursion.getShorexItineraryId()));
+				Iterator<Resource> resources = findResourceById(JcrConstants.NT_UNSTRUCTURED, "shorexItineraryId",Objects.toString(excursion.getShorexItineraryId()));
 				Node excursionNode = adaptOrCreateNode(resources,excursionsNode,Objects.toString(excursion.getShorexItineraryId()));
 
-				excursionNode.setPrimaryType("nt:unstructured");
 				excursionNode.setProperty("excursionReference", findReference("shorexId", Objects.toString(excursion.getShorexId())));
 				excursionNode.setProperty("shorexItineraryId", excursion.getShorexItineraryId());
 				excursionNode.setProperty("cityId", excursion.getCityId());
@@ -409,11 +386,11 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	}
 
 	private void buildOrUpdateSuiteNodes(VoyagePriceComplete voyagePrice,Node suitesNode,Voyage voyage)throws RepositoryException{
-		if(!voyagePrice.getMarketCurrency().isEmpty()){
+		if(voyagePrice != null && !voyagePrice.getMarketCurrency().isEmpty()){
 
 			for(Price price : voyagePrice.getMarketCurrency().get(0).getCruiseOnlyPrices()){
 
-				Iterator<Resource> res = findResourceById("nt:unstructured", "suiteCategoryCod",price.getSuiteCategoryCod());
+				Iterator<Resource> res = findResourceById(JcrConstants.NT_UNSTRUCTURED, "suiteCategoryCod",price.getSuiteCategoryCod());
 				Node suiteNode = adaptOrCreateNode(res,suitesNode,price.getSuiteCategoryCod());
 
 				Resource suite = findSuiteReference(voyage.getShipId(),price.getSuiteCategoryCod());
@@ -422,12 +399,13 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 					ValueMap properties = suite.getValueMap();
 					suiteReference = properties.get("suiteReference",String.class);
 				}
-				suiteNode.setPrimaryType("nt:unstructured");	
+
 				suiteNode.setProperty("suiteReference", suiteReference);
 				suiteNode.setProperty("suiteCategoryCod", price.getSuiteCategoryCod());
-				session.save();
-				buildOrUpdateVariationNodes(voyagePrice.getMarketCurrency(),suiteNode,price.getSuiteCategoryCod(),voyage.getVoyageCod());
+				saveSession(session,false);
 				//Create variationNode
+				buildOrUpdateVariationNodes(voyagePrice.getMarketCurrency(),suiteNode,price.getSuiteCategoryCod(),voyage.getVoyageCod());
+				
 			}
 
 		}
@@ -439,17 +417,16 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
 					//TODO variation id
 					String variationId = voyageCode  + suiteCategoryCod + voyagePriceMarket.getMarketCod();
-					Iterator<Resource> resources = findResourceById("nt:unstructured", "variationId",variationId);
+					Iterator<Resource> resources = findResourceById(JcrConstants.NT_UNSTRUCTURED, "variationId",variationId);
 					Node variationNode = adaptOrCreateNode(resources,suiteNode,voyagePriceMarket.getMarketCod());
 					String[] geotaggingTags = {GEOTAGGING_TAG_PREFIX + voyagePriceMarket.getMarketCod().toLowerCase()};
 
-					variationNode.setPrimaryType("nt:unstructured");
 					variationNode.setProperty("price", price.getCruiseOnlyFare());
 					//TODO deckNumber
 					variationNode.setProperty("deckNumber", "");
 					variationNode.setProperty("currency", price.getCurrencyCod());
 					variationNode.setProperty("availability",price.getSuiteAvailability());
-					variationNode.setProperty("cq:tags", geotaggingTags);
+					variationNode.setProperty(NameConstants.PN_TAGS, geotaggingTags);
 					variationNode.setProperty("variationId", variationId);
 					break;
 				}
@@ -457,9 +434,10 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 		}
 
 	}
-
+	
 	private String findReference(String property, String id){
-		Iterator<Resource> res = findResourceById("cq:Page", property, id);
+		
+		Iterator<Resource> res = findResourceById(NameConstants.NT_PAGE, property, id);
 		String reference = res.hasNext() ? res.next().getPath() : "";
 
 		return reference;
@@ -467,7 +445,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
 	private Resource findSuiteReference(Integer shipId,String suiteCategoryCode){
 
-		Iterator<Resource> resources = findResourceById("cq:Page", "shipId", Objects.toString(shipId));
+		Iterator<Resource> resources = findResourceById(NameConstants.NT_PAGE, "shipId", Objects.toString(shipId));
 		if(resources.hasNext()){
 			Page ship = resources.next().adaptTo(Page.class);
 			Resource suitesNode = ship.getContentResource("suistes");
