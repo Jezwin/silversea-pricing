@@ -87,7 +87,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                         LOGGER.debug("Importing shorex: {}", shorex.getShorexCod());
 
                         Iterator<Resource> resources = resourceResolver.findResources(
-                                "//element(*,cq:Page)[jcr:content/id=\"" + shorex.getShorexId() + "\"]",
+                                "//element(*,cq:Page)[jcr:content/shorexId=\"" + shorex.getShorexId() + "\"]",
                                 "xpath");
 
                         Page excursionPage = null;
@@ -144,7 +144,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                             excursionPageContentNode.setProperty("codeExcursion", shorex.getShorexCod());
                             excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
-                            excursionPageContentNode.setProperty("id", shorex.getShorexId());
+                            excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
 
                             j++;
                         }

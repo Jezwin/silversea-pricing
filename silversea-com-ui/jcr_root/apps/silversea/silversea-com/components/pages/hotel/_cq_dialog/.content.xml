@@ -228,6 +228,14 @@
                                         name="./code"
                                         disabled="{Boolean}true"
                                         renderReadOnly="{Boolean}true" />
+                                    <hotelId
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="hotelId"
+                                        fieldLabel="ID"
+                                        disabled="{Boolean}true"
+                                        name="./hotelId" />
                                 </items>
                             </column>
                         </items>

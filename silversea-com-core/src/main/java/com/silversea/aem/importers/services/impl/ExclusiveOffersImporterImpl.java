@@ -75,7 +75,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                 for (SpecialOffer offers : specialOffers) {
 
                     Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/id=\"" + offers.getVoyageSpecialOfferId() + "\"]", "xpath");
+                            "//element(*,cq:Page)[jcr:content/exclusiveOfferId=\"" + offers.getVoyageSpecialOfferId() + "\"]", "xpath");
 
                     Page offersPage = null;
 
@@ -91,7 +91,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                     if (offersPage != null) {
                         Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
                         offersContentNode.setProperty(JcrConstants.JCR_TITLE, offers.getVoyageSpecialOffer());
-                        offersContentNode.setProperty("id", offers.getVoyageSpecialOfferId());
+                        offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
                         offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
                         offersContentNode.setProperty("endDate", offers.getValidTo().toString());
                         
