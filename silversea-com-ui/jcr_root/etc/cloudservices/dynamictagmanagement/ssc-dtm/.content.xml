@@ -3,11 +3,7 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:cloudservicename="dynamictagmanagement"
-        cq:lastModified="{Date}2017-03-23T14:31:20.378Z"
-        cq:lastModifiedBy="admin"
         cq:template="/libs/cq/dtm/templates/dynamictagmanagement"
-        jcr:lastModified="{Date}2017-03-23T14:31:20.299Z"
-        jcr:lastModifiedBy="admin"
         jcr:primaryType="cq:PageContent"
         jcr:title="ssc-dtm"
         sling:resourceType="cq/dtm/components/dynamictagmanagementpage"

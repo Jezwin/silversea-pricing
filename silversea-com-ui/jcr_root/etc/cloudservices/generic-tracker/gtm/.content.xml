@@ -3,11 +3,7 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:cloudservicename="generictracker"
-        cq:lastModified="{Date}2017-03-21T14:16:15.386Z"
-        cq:lastModifiedBy="admin"
         cq:template="/libs/cq/analytics/templates/generictracker"
-        jcr:lastModified="{Date}2017-03-21T14:16:15.379Z"
-        jcr:lastModifiedBy="admin"
         jcr:primaryType="cq:PageContent"
         jcr:title="GTM"
         sling:resourceType="cq/analytics/components/generictrackerpage"
