@@ -1,10 +1,7 @@
 .c-office {
-    min-height: 260px;
-    text-align: center;
-
-    @media screen and (max-width: @screen-sm) {
-        min-height: auto;
-        text-align: left;
+    @media screen and (min-width: @screen-md-min) {
+        min-height: 260px;
+        text-align: center;
     }
 
     &__title {
@@ -26,8 +23,7 @@
             margin: 0;
         }
 
-        &__phone span, &__fax span {
-            font-weight: @bold;
+        &__phone b, &__fax b {
             text-transform: uppercase;
         }
     }

@@ -4,10 +4,10 @@
     <address class="c-office__address" data-sly-text="${properties.jcr:description}"></address>
     <div class="c-office__contact">
         <p  data-sly-test="${properties.phone}" class="c-office__contact__phone">
-            <span>${'phone' @ i18n}: </span>${properties.phone}
+            <b>${'phone' @ i18n}: </b>${properties.phone}
         </p>
         <p data-sly-test="${properties.fax}" class="c-office__contact__fax">
-            <span>${'fax' @ i18n}: </span>${properties.fax}
+            <b>${'fax' @ i18n}: </b>${properties.fax}
         </p>
     </div>
 </div>
