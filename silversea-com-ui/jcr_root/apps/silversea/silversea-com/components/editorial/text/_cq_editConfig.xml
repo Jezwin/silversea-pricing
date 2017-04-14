@@ -32,6 +32,14 @@
                             jcr:primaryType="nt:unstructured"
                             description="Header 3"
                             tag="h3" />
+                        <h4
+                            jcr:primaryType="nt:unstructured"
+                            description="Header 4"
+                            tag="h4" />
+                        <h5
+                            jcr:primaryType="nt:unstructured"
+                            description="Header 5"
+                            tag="h5" />
                     </format>
                 </paraformat>
                 <misctools
