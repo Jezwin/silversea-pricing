@@ -1,4 +1,4 @@
-package com.silversea.aem.components.editorial;
+package com.silversea.aem.components.page;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * TODO merge with {@link SuiteUse}
+ *
  * @author mjedli
  */
 public class DiningUse extends WCMUsePojo {
