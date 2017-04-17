@@ -1,27 +1,25 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.sling.api.resource.Resource;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageFilter;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class SideMenuUse extends WCMUsePojo {
-    private List<Page> subPage;
+
+    private List<Page> subPage = new ArrayList<>();
 
     @Override
     public void activate() throws Exception {
         String rootPagePath = getProperties().get("reference", getCurrentPage().getParent().getPath());
+        Page rootPage = getPageManager().getPage(rootPagePath);
 
-        Resource res = getResourceResolver().resolve(rootPagePath);
-        if (res != null) {
-            Page rootPage = res.adaptTo(Page.class);
-            subPage = new ArrayList<Page>();
+        if (rootPage != null) {
             Iterator<Page> it = rootPage.listChildren(new PageFilter());
+
             while (it.hasNext()) {
                 subPage.add(it.next());
             }
@@ -29,7 +27,7 @@ public class SideMenuUse extends WCMUsePojo {
     }
 
     /**
-     * @return the subPage
+     * @return the subpages
      */
     public List<Page> getSubPage() {
         return subPage;
