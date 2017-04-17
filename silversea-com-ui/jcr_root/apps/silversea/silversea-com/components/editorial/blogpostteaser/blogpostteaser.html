@@ -2,8 +2,8 @@
      data-sly-test="${(wcmmode.edit || wcmmode.design) && !blogPostTeaserUse.blogTeaser}"
      class="cq-placeholder cq-dd-file" data-emptytext="Blog Post teaser"></div>
          
-<div data-sly-test="${blogPostTeaserUse.blogTeaser}" data-sly-unwrap="${!wcmmode.edit}" class="cq-dd-file">
+<div data-sly-test="${blogPostTeaserUse.blogTeaser}" data-sly-unwrap="${!wcmmode.edit}">
     <sly data-sly-use.blogPostTemplate="blogpost.html"
-         data-sly-call="${blogPostTemplate.default @ blogTeaser = blogPostTeaserUse.blogTeaser , blogPostReference = blogTeaser.path }"></sly>
+         data-sly-call="${blogPostTemplate.default @ blogTeaser=blogPostTeaserUse.blogTeaser, blogPostReference=blogTeaser.path }"></sly>
 </div>
 

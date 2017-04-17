@@ -1,12 +1,9 @@
 package com.silversea.aem.models;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.LanguageUtil;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.helper.UrlHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.sling.api.resource.Resource;
@@ -16,10 +13,11 @@ import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
-import com.day.cq.commons.LanguageUtil;
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.helper.UrlHelper;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mbennabi on 20/02/2017.
@@ -27,96 +25,92 @@ import com.silversea.aem.helper.UrlHelper;
 @Model(adaptables = Page.class)
 public class BlogPostTeaserModel {
 
-	@Inject
-	private ResourceResolverFactory resourceResolverFactory;
+    @Inject
+    @Self
+    private Page page;
 
-	@Inject
-	@Self
-	private Page page;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    private String title;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-	private String title;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+    @Optional
+    private String longDescription;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/longDescription")
-	@Optional
-	private String longDescription;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/publicationDate")
+    @Optional
+    private Date publicationDate;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/publicationDate")
-	@Optional
-	private Date publicationDate;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
+    private String assetSelectionReference;
 
-	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
-	@Optional
-	private String assetSelectionReference;
+    private String path;
 
-	private String path;
+    @PostConstruct
+    private void init() {
+        path = page.getPath();
+    }
 
-	@PostConstruct
-	private void init() {
-		path = page.getPath();
+    public Page getPage() {
+        return page;
+    }
 
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public Page getPage() {
-		return page;
-	}
+    public String getLongDescription() {
+        return longDescription;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
 
-	public String getLongDescription() {
-		return longDescription;
-	}
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
+    }
 
-	public Date getPublicationDate() {
-		return publicationDate;
-	}
+    public String getFormatPublicationDate() {
+        String formatDate = "";
+        if (publicationDate != null) {
+            String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
+            String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
+            Calendar cal = DateUtils.toCalendar(publicationDate);
+            StringBuilder builder = new StringBuilder();
+            builder.append("<span class='number-value'>");
+            builder.append(cal.get(Calendar.DAY_OF_MONTH));
+            builder.append("</span>&nbsp;");
+            builder.append("<span class='span-date'>");
+            builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
+            builder.append("&nbsp;");
+            builder.append(cal.get(Calendar.YEAR));
+            builder.append("</span>");
+            formatDate = builder.toString();
+        }
+        return formatDate;
+    }
 
-	public String getAssetSelectionReference() {
-		return assetSelectionReference;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public String getFormatPublicationDate() {
-		String formatDate = "";
-		if (publicationDate != null) {
-			String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
-			String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
-			Calendar cal = DateUtils.toCalendar(publicationDate);
-			StringBuilder builder = new StringBuilder();
-			builder.append("<span class='number-value'>");
-			builder.append(cal.get(Calendar.DAY_OF_MONTH));
-			builder.append("</span>&nbsp;");
-			builder.append("<span class='span-date'>");
-			builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
-			builder.append("&nbsp;");
-			builder.append(cal.get(Calendar.YEAR));
-			builder.append("</span>");
-			formatDate = builder.toString();
-		}
-		return formatDate;
-	}
+    public String getProperUrl() {
+        return UrlHelper.getProperUrl(path);
+    }
 
-	public String getPath() {
-		return path;
-	}
-
-	public String getProperUrl() {
-		return UrlHelper.getProperUrl(path);
-	}
-
-	public String getThumbnailImageUrl() {
-		Resource resource = page.getContentResource().getChild("image");
-		ValueMap value = resource.getValueMap();
-		String imagePath = value.get("fileReference", String.class);
-		if (!StringUtils.isNotEmpty(imagePath)) {
-			imagePath = "/content/dam/siversea-com/blog/noimage.png";
-		}
-		return imagePath;
-	}
+    public String getThumbnailImageUrl() {
+        Resource resource = page.getContentResource().getChild("image");
+        ValueMap value = resource.getValueMap();
+        String imagePath = value.get("fileReference", String.class);
+        if (!StringUtils.isNotEmpty(imagePath)) {
+            imagePath = "/content/dam/siversea-com/blog/noimage.png";
+        }
+        return imagePath;
+    }
 
 }

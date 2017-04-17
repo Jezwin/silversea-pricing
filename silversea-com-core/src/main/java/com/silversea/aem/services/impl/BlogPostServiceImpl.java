@@ -29,6 +29,7 @@ import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.BlogPostTeaserModel;
 import com.silversea.aem.services.BlogPostService;
 
+@Deprecated
 @Component(immediate = true)
 @Service(value = BlogPostService.class)
 public class BlogPostServiceImpl implements BlogPostService {
