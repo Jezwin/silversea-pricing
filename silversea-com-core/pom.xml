@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- ====================================================================== -->
-    <!-- P A R E N T P R O J E C T D E S C R I P T I O N -->
+    <!-- P A R E N T   P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <parent>
         <groupId>com.silversea.aem</groupId>
@@ -11,7 +12,7 @@
     </parent>
 
     <!-- ====================================================================== -->
-    <!-- P R O J E C T D E S C R I P T I O N -->
+    <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>silversea-com-core</artifactId>
     <packaging>bundle</packaging>
@@ -47,7 +48,9 @@
                             com.silversea.aem.models,
                             com.silversea.aem.helper
                         </Sling-Model-Packages>
-                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                        <Embed-Dependency>
+                            *;scope=compile|runtime
+                        </Embed-Dependency>
                         <Import-Package>
                             android.util;resolution:=optional,
                             *
@@ -62,14 +65,13 @@
     <!-- D E P E N D E N C I E S -->
     <!-- ====================================================================== -->
     <dependencies>
+        <!-- Apache Felix dependencies -->
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
         </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-        </dependency>
+
+        <!-- JAVAX dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -79,9 +81,11 @@
             <artifactId>javax.inject</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
         </dependency>
+
+        <!-- OSGI dependencies -->
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
@@ -90,28 +94,40 @@
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
+
+        <!-- SLF4J dependencies -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+
+        <!-- Commons dependencies -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.day.commons.osgi.wrapper</groupId>
-            <artifactId>com.day.commons.osgi.wrapper.commons-httpclient</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+
+        <!-- Misc librairies dependencies -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
+
+        <!-- DAY/AEM dependencies -->
         <dependency>
-            <groupId>javax.jcr</groupId>
-            <artifactId>jcr</artifactId>
+            <groupId>com.day.commons.osgi.wrapper</groupId>
+            <artifactId>com.day.commons.osgi.wrapper.commons-httpclient</artifactId>
         </dependency>
 
+        <!-- Swagger dependencies // will be embedded -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -132,19 +148,18 @@
             <groupId>com.squareup.okio</groupId>
             <artifactId>okio</artifactId>
         </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
         <!-- AEM APIs JAR -->
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>uber-jar</artifactId>
             <classifier>obfuscated-apis</classifier>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>4.11</version>
-		    <scope>test</scope>
-		</dependency>
-        
     </dependencies>
 </project>
