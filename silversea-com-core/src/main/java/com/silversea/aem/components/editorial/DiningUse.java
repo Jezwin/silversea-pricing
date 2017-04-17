@@ -1,44 +1,44 @@
-/**
- * 
- */
 package com.silversea.aem.components.editorial;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.sling.api.resource.Resource;
-
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.cq.social.journal.client.api.Journal;
 import com.day.cq.wcm.api.Page;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author mjedli
- *
  */
 public class DiningUse extends WCMUsePojo {
-    
 
-    private Map<String, String> diningReferenceList;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DiningUse.class);
+
+    private List<Page> diningReferenceList = new ArrayList<>();
 
     @Override
     public void activate() throws Exception {
-        final String SHIPS_PATH = "/jcr:root/content/silversea-com/"+getCurrentPage().getAbsoluteParent(2).getName()+"/ships";
-        String diningReference = getCurrentPage().getPath();
-        diningReferenceList = new HashMap<String, String>();
-
         Iterator<Resource> resources = getResourceResolver().findResources(
-                SHIPS_PATH + "//*[jcr:content/@diningReference=\"" + diningReference + "\"]", "xpath");
+                "//element(*, cq:Page)[" +
+                        "jcr:content/@sling:resourceType=\"silversea/silversea-com/components/pages/diningvariation\"" +
+                        " and jcr:content/@diningReference=\"" + getCurrentPage().getPath() + "\"]",
+                "xpath");
 
         while (resources.hasNext()) {
-            Page node = resources.next().adaptTo(Page.class);
-            if (node.getParent() != null)
-                diningReferenceList.put(node.getParent(2).getTitle(), node.getParent(2).getPath() + Journal.URL_SUFFIX);
+            Page page = resources.next().adaptTo(Page.class);
+
+            if (page != null && page.getParent(2) != null) {
+                LOGGER.debug("Found page {} on ship {}", page.getPath(), page.getParent(2).getPath());
+
+                diningReferenceList.add(page.getParent(2));
+            }
         }
     }
 
-    public Map<String, String> getDiningReferenceList() {
+    public List<Page> getDiningReferenceList() {
         return diningReferenceList;
     }
 }

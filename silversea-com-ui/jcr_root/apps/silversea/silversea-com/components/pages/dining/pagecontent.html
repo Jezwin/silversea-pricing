@@ -5,13 +5,13 @@
             <div data-sly-resource="${'menu' @ resourceType='silversea/silversea-com/components/editorial/sidemenu'}"></div>
         </div>
         <div class="col-sm-9">
-            <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
+            <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             <section class="o-section c-availability">
                 <p class="c-availability__title">${'available-on' @ i18n}</p>
                 <div class="container-fluid">
-                    <ul class="row c-list" data-sly-list.child="${diningUse.diningReferenceList}">
+                    <ul class="row c-list" data-sly-list="${diningUse.diningReferenceList}">
                         <li class="col-md-4 c-list__item">
-                            <a href="${diningUse.diningReferenceList[child]}" class="c-availability__link">${child}
+                            <a href="${item.path @ extension = 'html'}" class="c-availability__link">${item.title}
                                 <i class="fa fa-lg fa-angle-right"></i>
                             </a>
                         </li>
