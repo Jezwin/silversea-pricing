@@ -13,13 +13,14 @@
             <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0]}"></sly>
         </a>
         <strong>${'suite-location' @ i18n}</strong>
+
         <!--/* Gallery content */-->
         <div class="hide">
             <div class="modal-content modal-content--transparent">
                 <div class="modal-header">
                     <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body ">
+                <div class="modal-body">
                     <div class="c-slider c-slider--for" data-sly-list="${setImage.renditionList}">
                         <div>
                             <sly data-sly-call="${imageTemplate.default @ imagePath=item}"></sly>
