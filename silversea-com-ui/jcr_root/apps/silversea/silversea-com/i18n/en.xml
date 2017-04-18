@@ -79,14 +79,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="free-brochure"
         sling:message="Free brochure" />
-    <hotels
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="hotels"
-        sling:message="Hotels" />
     <guests-capacity
         jcr:primaryType="sling:MessageEntry"
         sling:key="guests-capacity"
         sling:message="Guests capacity" />
+    <hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hotels"
+        sling:message="Hotels" />
+    <incorrect-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="incorrect-email-address"
+        sling:message="Incorrect email address" />
     <key-fact
         jcr:primaryType="sling:MessageEntry"
         sling:key="key-fact"
@@ -235,6 +239,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="windUnit"
         sling:message="Km" />
+    <your-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="your-email-address"
+        sling:message="Your email address" />
     <phone
         jcr:primaryType="sling:MessageEntry"
         sling:key="phone"
