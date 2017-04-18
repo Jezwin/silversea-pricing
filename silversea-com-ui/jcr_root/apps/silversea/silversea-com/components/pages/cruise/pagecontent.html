@@ -1,3 +1,34 @@
 <div class="container">
+    <sly data-sly-include="fragment/header.html" />
+    <!--/* Overview tab */-->
+    <sly data-sly-include="fragment/overviewtab/overview.html" />
+    <sly data-sly-include="fragment/overviewtab/fare.html" />
+    <sly data-sly-include="fragment/overviewtab/itineraries.html" />
+    <sly data-sly-include="fragment/overviewtab/enrichements.html" />
+    <sly data-sly-include="fragment/overviewtab/footnotes.html" />
     <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+
+    <!--/* Suite and fares tab */-->
+    <sly data-sly-include="fragment/suitetab/suitelist.html" />
+
+    <!--/* Excursion tab */-->
+    <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
+
+    <!--/* Ship tab */-->
+    <sly data-sly-include="fragment/shiptab/overview.html" />
+    <sly data-sly-include="fragment/shiptab/suitevariation.html" />
+    <sly data-sly-include="fragment/shiptab/diningvariation.html" />
+    <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
+
+    <!--/* Land and hotel tab */-->
+    <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
+
+    <!--/* Highlight tab */-->
+    <sly data-sly-include="fragment/highlighttab/hightlight.html" />
+    <sly data-sly-include="fragment/highlighttab/keypeople.html" />
+
+    <!--/* Photos and videos tab */-->
+    <sly data-sly-include="fragment/phototab/portextramediagallery.html" />
+    <sly data-sly-include="fragment/phototab/suitevariation.html" />
+    <sly data-sly-include="fragment/phototab/diningpublicareavariation.html" />
 </div>
