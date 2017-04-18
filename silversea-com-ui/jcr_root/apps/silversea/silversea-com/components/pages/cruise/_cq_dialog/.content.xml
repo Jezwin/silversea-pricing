@@ -51,7 +51,9 @@
                                             renderReadOnly="{Boolean}true"/>
                                     <startdate
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                            displayedFormat="MMMM DD, YYYY hh:mm a"
+                                            type="datetime"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="startDate"
                                             fieldLabel="Start date"
@@ -60,7 +62,9 @@
                                             renderReadOnly="{Boolean}true"/>
                                     <enddate
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/datepicker"
+                                            displayedFormat="MMMM DD, YYYY hh:mm a"
+                                            type="datetime"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="endDate"
                                             fieldLabel="End date"
