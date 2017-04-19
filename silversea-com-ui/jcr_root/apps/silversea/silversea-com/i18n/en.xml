@@ -251,4 +251,24 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="fax"
         sling:message="fax" />
+    <suites-and-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-and-fares"
+        sling:message="Suites and fares" />
+    <ship
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ship"
+        sling:message="Ship" />
+    <land-and-hotel
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-and-hotel"
+        sling:message="Land and hotel" />
+    <highlight
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="highlight"
+        sling:message="Highlight" />
+    <photos-and-videos
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="photos-and-videos"
+        sling:message="Photos and videos" />
 </jcr:root>
