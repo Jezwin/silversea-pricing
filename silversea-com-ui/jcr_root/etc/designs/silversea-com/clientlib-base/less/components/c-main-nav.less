@@ -12,9 +12,9 @@
         float: inherit;
         position: absolute;
         top: 61px;
-        left: 0px;
+        left: 0;
         width: 100%;
-        max-height: 0px;
+        max-height: 0;
         transition: max-height .3s ease-in-out;
 
         &--open {
@@ -27,9 +27,9 @@
         float: inherit;
         position: absolute;
         top: 61px;
-        left: 0px;
+        left: 0;
         width: 100%;
-        max-height: 0px;
+        max-height: 0;
         transition: max-height .3s ease-in-out;
 
         &--open {
@@ -62,7 +62,7 @@
         background: @black;
         opacity: 0.5;
         height: 100%;
-        max-height: 0px;
+        max-height: 0;
         width: 100%;
         z-index: 999;
         transition: max-height .3s ease-in-out;
@@ -217,7 +217,7 @@
         left: 0;
         box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
         background: @white;
-        transform: translate(0px,60px);
+        transform: translate(0,60px);
         transition: transform .3s ease-in-out;
         -webkit-transition: transform .3s ease-in-out;
         z-index: -1000;
@@ -225,8 +225,7 @@
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             position: relative;
-            /*float: left;*/
-            transform: translate(0px,0px);
+            transform: translate(0,0);
             box-shadow: inherit;
             z-index: 1001;
         }
@@ -234,23 +233,22 @@
         /* tablet breakpoint */
         @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
             position: relative;
-            /*float: left;*/
-            transform: translate(0px,0px);
+            transform: translate(0,0);
             box-shadow: inherit;
             z-index: 1000;
         }
 
         &--hide {
-            transform: translate(0px,-120px);
+            transform: translate(0,-120px);
 
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
-                transform: translate(0px,0px);
+                transform: translate(0,0);
             }
 
             /* tablet breakpoint */
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-               transform: translate(0px,0px);
+               transform: translate(0,0);
             }
         }
 
@@ -269,8 +267,8 @@
             text-transform: uppercase;
 
             &:hover, &:focus, &:active {
-                background: #e6e7e8;
-                
+                background: @grey-l;
+
                 &:before {
                     display: none;
                 }
@@ -280,11 +278,21 @@
                 }
             }
 
+            @media screen and (min-width: @screen-md-min) {
+                &--ontrail {
+                    background: @grey-l;
+    
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+
             &:before {
                 background: #e5e5e5;
                 content: "";
                 height: 20px;
-                left: 0;
+                left: -1px;
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
@@ -304,7 +312,7 @@
                 text-align: left;
 
                 &:hover, &:focus, &:active {
-                    background: #eee;
+                    background: @grey--e;
 
                     .c-main-nav__subnav {
                         display: none;
@@ -318,8 +326,8 @@
 
             /* tablet breakpoint */
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                border-right: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
+                border-right: 1px solid @grey--d;
+                border-bottom: 1px solid @grey--d;
                 background: @white;
                 float: left;
                 width: 50%;
@@ -331,7 +339,7 @@
                 }
 
                 &:hover, &:focus, &:active {
-                    background: #eee;
+                    background: @grey--e;
 
                     .c-main-nav__subnav {
                         display: none;
@@ -384,7 +392,7 @@
     }
 
     &__subnav {
-        background: #e6e7e8;
+        background: @grey-l;
         background-image: -webkit-linear-gradient(90deg,#fff 0%,rgba(255,255,255,0) 100%);
         display: none;
         height: auto;
@@ -404,7 +412,7 @@
             width: 100%;
 
             &:nth-child(1) {
-                border-right: 1px solid #e6e7e8;;
+                border-right: 1px solid @grey-l;;
             }
 
             &1 {
