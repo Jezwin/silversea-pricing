@@ -1,17 +1,17 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.Date;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
 
 /**
  * Created by mbennabi on 17/02/2017.
@@ -104,21 +104,35 @@ public class CruiseModel {
         return startdate;
     }
 
-    public String getEnddate() { return enddate; }
+    public String getEnddate() {
+        return enddate;
+    }
 
-    public String getDuration() { return duration; }
+    public String getDuration() {
+        return duration;
+    }
 
-    public String getShipReference() { return shipReference; }
+    public String getShipReference() {
+        return shipReference;
+    }
 
-    public String getCruiseCode() { return cruiseCode; }
+    public String getCruiseCode() {
+        return cruiseCode;
+    }
 
-    public String getItinerary() { return itinerary; }
+    public String getItinerary() {
+        return itinerary;
+    }
 
-    public String getAssetSelectionReference() { return assetSelectionReference; }
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
+    }
 
-    public String[] getKeypeople() { return keypeople; }
+    public String[] getKeypeople() {
+        return keypeople;
+    }
 
-    public String[] getExclusiveoffers() { return exclusiveoffers; }
-
-
+    public String[] getExclusiveoffers() {
+        return exclusiveoffers;
+    }
 }
