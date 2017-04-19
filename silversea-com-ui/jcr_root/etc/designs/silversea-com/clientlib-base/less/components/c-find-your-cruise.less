@@ -821,85 +821,6 @@
                                     }
                                 }
                             }
-
-                            &_feature {
-                                position: relative;
-                                display: inline-block;
-
-                                ul {
-                                    list-style: none;
-                                    margin: 0;
-                                    padding: 0;
-                                }
-
-                                &_inner {
-                                    vertical-align: middle;
-                                    font-size: 12px;
-                                    display: inline-block;
-                                    margin: 0 3px 0 0;
-
-                                    .feature {
-                                        background-size: 100%;
-                                        float: left;
-                                        margin-right: 7px;
-                                        width: 12px;
-                                        height: 12px;
-                                        position: relative;
-                                        cursor: pointer;
-
-                                        &:last-child {
-                                            margin-right: 0;
-                                        }
-
-                                        .tooltip {
-                                            display: none;
-                                            position: absolute;
-                                            bottom: 20px;
-                                            left: -20px;
-                                            z-index: 5;
-                                            background: @white;
-                                            border-radius: 4px;
-                                            border:1px solid @black;
-                                            width: 160px;
-                                            text-align: center;
-                                            padding: 5px 20px;
-                                        }
-
-                                        &:hover .tooltip {
-                                            display: block;
-
-                                            &:before {
-                                                content: "";
-                                                display: block;
-                                                color: @black;
-                                                font-family: inherit;
-                                                font-size: 13px;
-                                                line-height: 15px;
-                                            }
-
-                                            i {
-                                                position: absolute;
-                                                content: "";
-                                                display: block;
-                                                width: 0;
-                                                height: 0;
-                                                border-left: 6px solid transparent;
-                                                border-right: 6px solid transparent;
-                                                border-top: 7px solid red;
-                                                left: 20px;
-                                                bottom: -7px;
-                                            }
-                                        }
-
-                                        &:hover.feature-eo .tooltip:before { content: "Exclusive Offer"; }
-                                        &:hover.feature-gh .tooltip:before { content: "Gentlemen Host"; }
-                                        &:hover.feature-ecgc .tooltip:before { content: "L'Ecole des Chefs / Gourmet Cruises"; }
-                                        &:hover.feature-bs .tooltip:before { content: "Bridge Sailings"; }
-                                        &:hover.feature-wsv .tooltip:before { content: "Wine series Voyage"; }
-                                        &:hover.feature-vs .tooltip:before { content: "Venetian Society"; }
-                                    }
-                                }
-                            }
                         }
 
                         .fyc2_result__daysdate {
@@ -1181,6 +1102,87 @@
                     }
                 }
             }
+        }
+    }
+}
+
+// ICONS FEATURES
+
+.meta_feature {
+    position: relative;
+    display: inline-block;
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &_inner {
+        vertical-align: middle;
+        font-size: 12px;
+        display: inline-block;
+        margin: 0 3px 0 0;
+
+        .feature {
+            background-size: 100%;
+            float: left;
+            margin-right: 7px;
+            width: 12px;
+            height: 12px;
+            position: relative;
+            cursor: pointer;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            .tooltip {
+                display: none;
+                position: absolute;
+                bottom: 20px;
+                left: -20px;
+                z-index: 5;
+                background: @white;
+                border-radius: 4px;
+                border:1px solid @black;
+                width: 160px;
+                text-align: center;
+                padding: 5px 20px;
+            }
+
+            &:hover .tooltip {
+                display: block;
+
+                &:before {
+                    content: "";
+                    display: block;
+                    color: @black;
+                    font-family: inherit;
+                    font-size: 13px;
+                    line-height: 15px;
+                }
+
+                i {
+                    position: absolute;
+                    content: "";
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-top: 7px solid red;
+                    left: 20px;
+                    bottom: -7px;
+                }
+            }
+
+            &:hover.feature-eo .tooltip:before { content: "Exclusive Offer"; }
+            &:hover.feature-gh .tooltip:before { content: "Gentlemen Host"; }
+            &:hover.feature-ecgc .tooltip:before { content: "L'Ecole des Chefs / Gourmet Cruises"; }
+            &:hover.feature-bs .tooltip:before { content: "Bridge Sailings"; }
+            &:hover.feature-wsv .tooltip:before { content: "Wine series Voyage"; }
+            &:hover.feature-vs .tooltip:before { content: "Venetian Society"; }
         }
     }
 }
