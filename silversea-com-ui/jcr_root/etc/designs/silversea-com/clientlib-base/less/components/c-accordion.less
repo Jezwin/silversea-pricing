@@ -7,7 +7,8 @@
     }
 }
 
-/** Port Component Accordion
+/*
+** Port Component Accordion
 */
 .port .c-accordion__body {
     font-size: 13px;
@@ -70,9 +71,9 @@
                 border-bottom: solid 1px @grey--e8;
                 color: @grey--3;
 
-                & + .c-accordion__body {
+                /*& + .c-accordion__body {
                     border-bottom: solid 1px @grey--e8;
-                }
+                }*/
             }
         }
     }
@@ -95,6 +96,14 @@
         &:hover, &:active, &:focus {
             cursor: pointer;
             background-color: @grey--e6;
+        }
+
+        &[data-state='true'] {
+
+            & + .c-accordion__body {
+                max-height: 999px;
+                transition: max-height 2s ease-out;
+            }
         }
     }
 
@@ -138,21 +147,10 @@
     &__body {
         max-height: 0;
         overflow: hidden;
-        transition: max-height .4s cubic-bezier(0.4, 0, 1, 1);
+        transition: max-height 0.25s ease-out;
 
         &--full {
             padding: 0;
-        }
-
-        &[data-collapsed='true'] {
-            max-height: 9999px;
-        }
-        &[data-collapsed='false'] {
-            max-height: 0px;
-        }
-
-        &[data-collapsed='false'] {
-            max-height: 0;
         }
 
         &--panel {

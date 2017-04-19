@@ -41,6 +41,53 @@
                     <p class="voyageimg__label">Fares shown are per guest</p>
                 </div>
 
+                <div class="col-xs-12 visible-xs">
+                    <div class="cruise__header_metainfo">
+                        <span>Silversea Cruises</span>
+                        <span>Silver Muse</span>
+                        <span>Voyage 6724</span>
+                        <span>
+                            <ul>
+                                <li class="meta_feature_inner">
+                                    <span class="feature feature-eo">
+                                        <i class="icon-star"></i>
+                                        <span class="tooltip"><i></i></span>
+                                    </span>
+                                </li>
+                                <li class="meta_feature_inner">
+                                    <span class="feature feature-vs">
+                                        <i class="icon-shield-v"></i>
+                                        <span class="tooltip"><i></i></span>
+                                    </span>
+                                </li>
+                                <li class="meta_feature_inner">
+                                    <span class="feature feature-ecgc">
+                                        <i class="icon-lys"></i>
+                                        <span class="tooltip"><i></i></span>
+                                    </span>
+                                </li>
+                                <li class="meta_feature_inner">
+                                    <span class="feature feature-wsv">
+                                        <i class="icon-grappe"></i>
+                                        <span class="tooltip"><i></i></span>
+                                    </span>
+                                </li>
+                                <li class="meta_feature_inner">
+                                    <span class="feature feature-bs">
+                                        <i class="icon-spade"></i>
+                                        <span class="tooltip"><i></i></span>
+                                    </span>
+                                </li>
+                                <li class="meta_feature_inner">
+                                    <span class="feature feature-gh">
+                                        <i class="icon-bow-tie"></i>
+                                        <span class="tooltip"><i></i></span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </span>
+                    </div>
+                </div>
                 <div class="col-xs-12">
                     <div class="voyagefeature">
                         <p><strong><i class="fa fa-star"></i> FEATURED EXCLUSIVE OFFERS / PROGRAMMES:</strong></p>
@@ -55,6 +102,58 @@
         </div>
     </div>
     <div class="row">
+        <h1>Cruise itinerary</h1>
 
+        <div class="c-accordion"
+             data-multiview="false"
+             data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
+             data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
+            <div class="c-accordion__elem">
+                <div class="c-accordion__header">
+                    <div class="c-accordion__title">
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=pageProperties.itinerary}"></sly>
+                    </div>
+                    <div class="c-accordion__title">
+                        <p class="c-accordion__title--veryimportant">ITEA</p>
+                        <p class="c-accordion__subtitle">Italy</p>
+                    </div>
+                    <div class="c-accordion__title">
+                        <p class="c-accordion__title--veryimportant">Sunday May 14</p>
+                        <p class="c-accordion__subtitle">Arrive: 8:00 AM, Depart 6:00 PM</p>
+                    </div>
+                    <div class="c-accordion__action c-accordion__action--light">
+                        ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
+                    </div>
+                </div>
+                <div class="c-accordion__body">
+                    <div class="c-accordion__body--panel">
+                        The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative
+                    </div>
+                </div>
+            </div>
+            <div class="c-accordion__elem">
+                <div class="c-accordion__header">
+                    <div class="c-accordion__title">
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=pageProperties.itinerary}"></sly>
+                    </div>
+                    <div class="c-accordion__title">
+                        <p class="c-accordion__title--veryimportant">ITEA</p>
+                        <p class="c-accordion__subtitle">Italy</p>
+                    </div>
+                    <div class="c-accordion__title">
+                        <p class="c-accordion__title--veryimportant">Sunday May 14</p>
+                        <p class="c-accordion__subtitle">Arrive: 8:00 AM, Depart 6:00 PM</p>
+                    </div>
+                    <div class="c-accordion__action c-accordion__action--light">
+                        ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
+                    </div>
+                </div>
+                <div class="c-accordion__body">
+                    <div class="c-accordion__body--panel">
+                        The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
