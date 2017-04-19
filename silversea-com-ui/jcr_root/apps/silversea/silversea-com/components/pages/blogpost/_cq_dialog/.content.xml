@@ -49,7 +49,7 @@
                                             fieldLabel="Image Gallery"
                                             name="./assetSelectionReference"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/siversea-com"
+                                            rootPath="/content/dam"
                                             required="{Boolean}true"/>
                                 </items>
                             </column>

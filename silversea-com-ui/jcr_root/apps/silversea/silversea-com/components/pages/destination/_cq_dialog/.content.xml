@@ -64,7 +64,7 @@
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Extra Media Gallery"
-                                        rootPath="/content/dam/siversea-com"
+                                        rootPath="/content/dam"
                                         name="./assetSelectionReference" />
                                     <category
                                         jcr:primaryType="nt:unstructured"

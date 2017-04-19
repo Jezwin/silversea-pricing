@@ -59,6 +59,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="discover-more"
         sling:message="Discover more" />
+    <enrichements
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="enrichements"
+        sling:message="Enrichements" />
     <excursions
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
@@ -71,6 +75,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="find-a-port"
         sling:message="Find a port" />
+    <footnotes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="footnotes"
+        sling:message="Footnotes" />
     <follow-us
         jcr:primaryType="sling:MessageEntry"
         sling:key="follow-us"
@@ -91,6 +99,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="incorrect-email-address"
         sling:message="Incorrect email address" />
+    <itineraries
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="itineraries"
+        sling:message="Itineraries" />
     <key-fact
         jcr:primaryType="sling:MessageEntry"
         sling:key="key-fact"
@@ -191,6 +203,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
         sling:message="Suites" />
+    <suites-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-fares"
+        sling:message="Suites and fares" />
     <suite-location
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite-location"

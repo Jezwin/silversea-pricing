@@ -26,7 +26,6 @@
         });
 
         if (_self.hasClass('c-tab__accordion')) {
-            console.log('---> ENTERED ');
 
             $('body').on('trigger.viewport.changed', function() {
                 if($.viewportDetect() === 'xs') {

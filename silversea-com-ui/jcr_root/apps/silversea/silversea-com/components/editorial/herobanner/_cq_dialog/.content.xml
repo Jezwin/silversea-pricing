@@ -33,13 +33,13 @@
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Background"
                                 name="./assetReference"
-                                rootPath="/content/dam/siversea-com"
+                                rootPath="/content/dam"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <video
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Video"
                                 name="./videoReference"
-                                rootPath="/content/dam/siversea-com"
+                                rootPath="/content/dam"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <disabledTextBackground
                                 jcr:primaryType="nt:unstructured"

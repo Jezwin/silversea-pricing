@@ -1,71 +1,60 @@
-<div class="container">
+<div class="container c-cruise expedition">
     <div class="row">
         <div class="col-md-12">
             <sly data-sly-include="fragment/header.html" />
         </div>
     </div>
+
+    <!--/* Overview tab */-->
     <div class="row">
         <div class="col-md-12">
             <div class="c-tab c-tab__accordion">
                 <ul class="c-tab__nav c-tab__nav--regular5 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link" data-state="active">
-                        <a href="#overview">${'overview' @i18n}</a>
+                        <a href="#Overview">${'overview' @i18n}</a>
                     </li><li class="c-tab__link">
-                        <a href="#suitenfare">${'suites-and-fares' @i18n}</a>
+                        <a href="#Suites-fares">${'suites-fares' @i18n}</a>
                     </li><li class="c-tab__link">
-                            <a href="#excursion">${'excursions' @i18n}</a>
+                        <a href="#Itineraries">${'itineraries' @i18n}</a>
                     </li><li class="c-tab__link">
-                            <a href="#ship">${'ship' @i18n}</a>
+                        <a href="#Enrichements">${'enrichements' @i18n}</a>
                     </li><li class="c-tab__link">
-                        <a href="#landnhotel">${'land-and-hotel' @i18n}</a>
-                    </li><li class="c-tab__link">
-                        <a href="#highlight">${'highlight' @i18n}</a>
-                    </li><li class="c-tab__link">
-                        <a href="#photonvideo">${'photos-and-videos' @i18n}</a>
+                        <a href="#Footnotes">${'footnotes' @i18n}</a>
                     </li>
                 </ul>
                 <div class="c-tab__body">
-                    <div class="c-tab__content" id="overview">
-                        <!--/* Overview tab */-->
-                        <sly data-sly-include="fragment/overviewtab/overview.html" />
-                        <sly data-sly-include="fragment/overviewtab/fare.html" />
-                        <sly data-sly-include="fragment/overviewtab/itineraries.html" />
-                        <sly data-sly-include="fragment/overviewtab/enrichements.html" />
-                        <sly data-sly-include="fragment/overviewtab/footnotes.html" />
-                        <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                    <div class="c-tab__content" id="suitenfare">
-                        <!--/* Suite and fares tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist.html" />
-                    </div>
-                    <div class="c-tab__content" id="excursion">
-                        <!--/* Excursion tab */-->
-                        <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
-                    </div>
-                    <div class="c-tab__content" id="ship">
-                        <!--/* Ship tab */-->
-                        <sly data-sly-include="fragment/shiptab/overview.html" />
-                        <sly data-sly-include="fragment/shiptab/suitevariation.html" />
-                        <sly data-sly-include="fragment/shiptab/diningvariation.html" />
-                        <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
-                    </div>
-                    <div class="c-tab__content" id="landnhotel">
-                        <!--/* Land and hotel tab */-->
-                        <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
-                    </div>
-                    <div class="c-tab__content" id="highlight">
-                        <!--/* Highlight tab */-->
-                        <sly data-sly-include="fragment/highlighttab/hightlight.html" />
-                        <sly data-sly-include="fragment/highlighttab/keypeople.html" />
-                    </div>
-                    <div class="c-tab__content" id="photonvideo">
-                        <!--/* Photos and videos tab */-->
-                        <sly data-sly-include="fragment/phototab/portextramediagallery.html" />
-                        <sly data-sly-include="fragment/phototab/suitevariation.html" />
-                        <sly data-sly-include="fragment/phototab/diningpublicareavariation.html" />
-                    </div>
+                    <sly data-sly-include="fragment/overviewtab/overview.html" />
+                    <sly data-sly-include="fragment/overviewtab/fare.html" />
+                    <sly data-sly-include="fragment/overviewtab/itineraries.html" />
+                    <sly data-sly-include="fragment/overviewtab/enrichements.html" />
+                    <sly data-sly-include="fragment/overviewtab/footnotes.html" />
                 </div>
             </div>
         </div>
     </div>
+    <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+
+    <!--/* Suite and fares tab */-->
+    <sly data-sly-include="fragment/suitetab/suitelist.html" />
+
+    <!--/* Excursion tab */-->
+    <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
+
+    <!--/* Ship tab */-->
+    <sly data-sly-include="fragment/shiptab/overview.html" />
+    <sly data-sly-include="fragment/shiptab/suitevariation.html" />
+    <sly data-sly-include="fragment/shiptab/diningvariation.html" />
+    <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
+
+    <!--/* Land and hotel tab */-->
+    <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
+
+    <!--/* Highlight tab */-->
+    <sly data-sly-include="fragment/highlighttab/hightlight.html" />
+    <sly data-sly-include="fragment/highlighttab/keypeople.html" />
+
+    <!--/* Photos and videos tab */-->
+    <sly data-sly-include="fragment/phototab/portextramediagallery.html" />
+    <sly data-sly-include="fragment/phototab/suitevariation.html" />
+    <sly data-sly-include="fragment/phototab/diningpublicareavariation.html" />
 </div>
