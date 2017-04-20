@@ -315,4 +315,16 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote" />
+    <fares-from
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-from"
+        sling:message="Fares from" />
+    <waitlist
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="waitlist"
+        sling:message="Waitlist" />
+    <per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="per-guest"
+        sling:message="Per guest" />
 </jcr:root>
