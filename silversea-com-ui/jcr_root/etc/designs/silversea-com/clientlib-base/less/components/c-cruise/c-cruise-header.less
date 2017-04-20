@@ -1,4 +1,10 @@
 .cruise__header {
+    margin-bottom: 25px;
+
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        margin-bottom: 35px;
+    }
 
     .cruise__header_title {
         text-align: center;
@@ -13,10 +19,6 @@
             @media screen and (max-width: @screen-xs) {
                 font-size: 23px;
             }
-
-        .lowercase {
-            text-transform: lowercase;
-        }
 
         .cruise_header_subtitle {
             display: block;
