@@ -287,4 +287,32 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="photos-and-videos"
         sling:message="Photos and videos" />
+    <included-cruise-fare
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="included-cruise-fare"
+        sling:message="included in the cruise fare" />
+    <view-all
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all"
+        sling:message="View all" />
+    <view-less
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-less"
+        sling:message="View less" />
+    <previous-voyage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="previous-voyage"
+        sling:message="previous voyage" />
+    <next-voyage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="next-voyage"
+        sling:message="next voyage" />
+    <suites-and-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-and-fares"
+        sling:message="suites and fares" />
+    <request-quote
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-quote"
+        sling:message="request a quote" />
 </jcr:root>

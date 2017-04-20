@@ -1,27 +1,27 @@
 <div class="cruise__header">
-	<h1 class="cruise__header_title">
-		Bridgetown <span class="lowercase">to</span> Fort Lauderdale, Florida
-        <span class="cruise_header_subtitle">Caribbean &amp; Central America Cruise</span>
-	</h1>
-	<div class="cruise__header_desc">
-		<div class="cruise__header_txt">
-			<p><b>TREASURE ISLANDS AND PARADISE LOST&nbsp;—&nbsp;</b>Picture yourself on the beaches of Barbados, on a zip-line flight above the trees in St. Lucia or exploring the Dominican Republic by buggy. Imagine the taste of a gourmet meal in Aruba, a rum-punch in Grand Turk and fresh lobster in Bonaire. Feel your troubles melt away with the warmth of the winter sun on your skin as you embark on two weeks of pure bliss.</p>
-		</div>
-		<div class="cruise__header_cta">
-			<a class="btn btn-dark btn-block effect" href="#"><span>SUITES AND FARES</span><i class="fa fa-angle-right"></i></a>
-			<a class="btn btn-red btn-block effect" href="#"><span>REQUEST A QUOTE</span><i class="fa fa-angle-right"></i></a>
-		</div>
-	</div>
-	<div class="cruise__header_meta hidden-xs">
-		<div class="cruise__header_nextprev">
-			<a href="#"><i class="fa fa-angle-left"></i> <span>Previous Voyage</span></a>
-			<a href="#"><span>Next Voyage</span> <i class="fa fa-angle-right"></i></a>
-		</div>
-		<div class="cruise__header_metainfo">
-			<span>Silversea Cruises</span>
-			<span>Silver Muse</span>
-			<span>Voyage 6724</span>
-			<span>
+    <h1 class="cruise__header_title">
+        ${currentPage.title}
+        <span class="cruise_header_subtitle">${currentPage.subtitle}</span>
+    </h1>
+    <div class="cruise__header_desc">
+        <div class="cruise__header_txt">
+            <p>${currentPage.description}</p>
+        </div>
+        <div class="cruise__header_cta">
+            <a class="btn btn-dark btn-block effect" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            <a class="btn btn-red btn-block effect" href="#"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+    <div class="cruise__header_meta hidden-xs">
+        <div class="cruise__header_nextprev">
+            <a href="#"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
+            <a href="#"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="cruise__header_metainfo">
+            <span>Silversea Cruises</span>
+            <span>Silver Muse</span>
+            <span>Voyage 6724</span>
+            <span>
                 <ul>
                     <li class="meta_feature_inner">
                         <span class="feature feature-eo">
@@ -60,7 +60,7 @@
                         </span>
                     </li>
                 </ul>
-			</span>
-		</div>
-	</div>
+            </span>
+        </div>
+    </div>
 </div>
