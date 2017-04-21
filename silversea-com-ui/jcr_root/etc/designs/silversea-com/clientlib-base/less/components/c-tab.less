@@ -84,8 +84,7 @@
             }
 
             .c-tab__body {
-                position: relative;
-                top: 80px;
+                padding-top: 80px;
             }
 
             .c-tab__link {
@@ -101,7 +100,7 @@
 
                 &[data-state='active'] {
                     display: block;
-                    border: 0px;
+                    border: 0;
                     color: black;
                     font-size: 18px;
                     line-height: 28px;
@@ -110,7 +109,7 @@
                     top: 0;
 
                     &:hover {
-                        background-color: white;
+                        background-color: @white;
                     }
 
                     &::before {
@@ -131,10 +130,10 @@
                     font-size: 14px;
                     vertical-align: middle;
                     padding: 15px 12px;
-                    color: #333;
+                    color: @grey--3;
 
                     &:hover {
-                        background-color: white;
+                        background-color: @white;
                     }
                 }
             }
@@ -149,10 +148,10 @@
                     }
 
                     &[data-state='active'] {
-                        background-color: white;
+                        background-color: @white;
 
                         a:hover, a:focus, a:active {
-                            background-color: white;
+                            background-color: @white;
                         }
                     }
 
