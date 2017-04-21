@@ -100,6 +100,7 @@
 .btn-dark {
     .button-variant(@white;
     @black);
+
     &:hover {
         background-color: @grey--9;
     }
@@ -113,7 +114,9 @@
 .btn-white {
     .button-variant(@black;
     @white);
-    &hover {
+    border: 1px solid #888;
+
+    &:hover {
         background-color: @grey--e6;
     }
 }
