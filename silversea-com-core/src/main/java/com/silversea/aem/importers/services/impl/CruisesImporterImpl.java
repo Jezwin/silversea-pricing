@@ -3,8 +3,10 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -13,7 +15,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -67,6 +68,11 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	private static final String SHORE_EXCURSIONS_API_URL ="/api/v1/shoreExcursions/Itinerary";
 	private static final String PRICE_API_URL = "/api/v1/prices";
 	private static final String GEOTAGGING_TAG_PREFIX = "geotagging:";
+	private static final String PRICE_WAITLIST = "Waitlist:";
+	
+	enum PriceVariations {
+        EU_EUR,UK_GBP,AS_AUD,FT_USD;  
+    }
 
 	@Reference
 	private ResourceResolverFactory resourceResolverFactory;
@@ -74,7 +80,8 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 	private PageManager pageManager;
 	private Session session;
 	//TODO: to change
-	List<VoyagePriceComplete> voyagePricesComplete;
+	private List<VoyagePriceComplete> voyagePricesComplete;
+	private Map<String,Integer> lowestPrices;
 	
 	private void init() {
 		try {
@@ -106,7 +113,10 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 				voyages = voyageApi.voyagesGet(null, null, null, null, null, i, PER_PAGE, null, null);
 
 				for (Voyage voyage : voyages) {
-
+  
+				    //Instantiate new hashMap which will contains 
+				    //lowest prices for the cruise
+				    lowestPrices = new HashMap<String,Integer>();
 					//TODO retrieve cruises root page dynamically
 					//String destinationPath = getDestinationPath(voyage.getVoyageId());
 					Page cruisesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_CRUISES);
@@ -121,6 +131,9 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 					
 					//Create or update suites nodes
 					buildOrUpdateSuiteNodes(cruisePage,voyage);
+					
+					//Create or update lowest prices
+					buildLowestPrices(cruisePage,lowestPrices);
 
 					j++;
 
@@ -274,7 +287,6 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 				hotelNode.setProperty("cityId", hotel.getCityId());
 				//TODO : availableFrom
 				//TODO : availableTo
-
 			}
 		}
 	}
@@ -402,6 +414,8 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 				//TODO Review tags
 				variationNode.setProperty(NameConstants.PN_TAGS, geotaggingTags);
 				variationNode.setProperty("variationId", variationId);
+				//Calculate the lowest price
+				calculateLowestPrice(price,voyagePriceMarket.getMarketCod());
 			}
 		}
 	}
@@ -469,7 +483,31 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 		
 		return references.stream().toArray(String[]::new);
 	}
-
-
-
+	
+	private void calculateLowestPrice(Price price, String marketCode){   
+	    if(price != null && !StringUtils.equals(PRICE_WAITLIST, Objects.toString(price.getCruiseOnlyFare()))){
+	        String variation = marketCode+"_"+price.getCurrencyCod();
+	        if(Arrays.stream(PriceVariations.values())
+	                .anyMatch(e -> e.name().equals(variation)) &&
+	            (!lowestPrices.containsKey(variation) || 
+	            price.getCruiseOnlyFare()< lowestPrices.get(variation))){
+	            lowestPrices.put(variation, price.getCruiseOnlyFare());
+	        }
+	    }
+	}
+	
+	private void buildLowestPrices(Page rootPage,Map<String,Integer> prices){
+	    if(prices != null && !prices.isEmpty()){
+	        prices.forEach((key,value)->{
+                try {
+                    Node node = ImporterUtils.findOrCreateNode( rootPage.adaptTo(Node.class),key);
+                    node.setProperty("lowestPrice", value);   
+                } catch (RepositoryException e) {
+                  LOGGER.error("Exception while importing lowest prices",e);
+                }
+           
+	        });
+	    }
+	    
+	}
 }
