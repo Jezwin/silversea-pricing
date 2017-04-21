@@ -1,0 +1,107 @@
+.c-suitelist {
+    &__item {
+        margin: 20px 0;
+    }
+
+    &__detail {
+        &__title {
+            font-family: @f-theano_didot;
+            font-size: 22px;
+            line-height: 20px;
+            margin: 10px 0 8px;
+            text-transform: uppercase;
+        }
+
+        &__description {
+            line-height: 18.2px;
+            margin: 0;
+        }
+    }
+
+    &__price {
+        font-size: 13px;
+        text-transform: uppercase;
+
+        &__text {
+            display: block;
+
+            &--important {
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 25px;
+                text-transform: uppercase;
+            }
+
+            &--important2 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        &__heading {
+            border: 1px solid @grey--d;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        &__image {
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+
+            img {
+                top: 50%;
+                position: absolute;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
+
+        &__button {
+            margin-top: 13px;
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__item {
+            border-bottom: 1px solid @grey--d;
+            padding: 15px 0;
+
+            &:first-child {
+                border-top: 1px solid @grey--d;
+            }
+        }
+
+        &__image, &__detail, &__price, &__button {
+            float: left;
+        }
+
+        &__image {
+            width: 28%;
+        }
+
+        &__detail {
+            padding-left: 15px;
+            width: 32%;
+
+            &__title {
+                margin: 0 0 12px;
+            }
+        }
+
+        &__price {
+            border: 1px solid @grey--d;
+            border-width: 0 1px;
+            padding: 0 10px;
+            text-align: center;
+            width: 20%;
+        }
+
+        &__button {
+            padding-left: 15px;
+            width: 20%;
+        }
+    }
+}
