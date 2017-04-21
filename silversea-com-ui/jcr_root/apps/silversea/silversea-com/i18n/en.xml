@@ -59,10 +59,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="discover-more"
         sling:message="Discover more" />
-    <enrichements
+    <enrichments
         jcr:primaryType="sling:MessageEntry"
-        sling:key="enrichements"
-        sling:message="Enrichements" />
+        sling:key="enrichments"
+        sling:message="Enrichments" />
     <excursions
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
