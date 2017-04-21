@@ -327,4 +327,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="per-guest"
         sling:message="Per guest" />
+    <cruise-enrichments-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-enrichments-description"
+        sling:message="Silversea's cruises offer you a chance to indulge your passions and enjoy experiences not found on a typical cruise" />
 </jcr:root>
