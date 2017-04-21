@@ -21,7 +21,7 @@
                         fieldLabel="Brochure"
                         name="./brochure"
                         required="{Boolean}true"
-                        rootPath="/content/dam" />
+                        rootPath="/content/dam/siversea-com/brochures" />
                 </items>
             </column>
         </items>
