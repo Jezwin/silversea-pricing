@@ -1,6 +1,7 @@
 <div class="c-suitelist accordion" role="tablist" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="panel c-suitelist__item" data-sly-repeat="${[1,2,3,4,5]}">
-        <div role="tab" class="clearfix c-suitelist__heading">
+        <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse${itemList.index}"
+        data-toggle="collapse" data-parent=".accordion" aria-expanded="false" aria-controls="suitelist-collapse${itemList.index}">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly> 
             </div>
@@ -17,15 +18,15 @@
                 </sly>
             </div>
             <div class="c-suitelist__button">
-                <a class="btn btn-red effect" href="#">
+                <a class="btn btn-red effect btn-thin request-quote" href="#">
                     <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                 </a>
-                <a class="btn btn-white effect collapsed hidden-xs" data-toggle="collapse" data-parent=".accordion" href=".suitelist-collapse${itemList.index}" aria-expanded="false">
+                <button class="btn btn-white btn-thin effect hidden-xs">
                     <span>${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
-                </a>
+                </button>
             </div>
         </div>
-        <div class="collapse suitelist-collapse${itemList.index}" role="tabpanel">
+        <div id="suitelist-collapse${itemList.index}" class="collapse" role="tabpanel" aria-labelledby="suitelist-collapse${itemList.index}">
             <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
         </div>
     </div>

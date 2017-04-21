@@ -1,6 +1,19 @@
 .c-suitelist {
-    &__item {
-        margin: 20px 0;
+    &__heading {
+        transition: background-color 300ms,  opacity 300ms;
+    }
+
+    &__image {
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            top: 50%;
+            position: absolute;
+            left: 0;
+            transform: translateY(-50%);
+        }
     }
 
     &__detail {
@@ -42,21 +55,9 @@
     @media screen and (max-width: @screen-sm) {
         &__heading {
             border: 1px solid @grey--d;
+            cursor: pointer;
             padding-bottom: 15px;
             text-align: center;
-        }
-
-        &__image {
-            height: 150px;
-            overflow: hidden;
-            position: relative;
-
-            img {
-                top: 50%;
-                position: absolute;
-                left: 0;
-                transform: translateY(-50%);
-            }
         }
 
         &__button {
@@ -67,10 +68,17 @@
     @media screen and (min-width: @screen-md-min) {
         &__item {
             border-bottom: 1px solid @grey--d;
-            padding: 15px 0;
 
             &:first-child {
                 border-top: 1px solid @grey--d;
+            }
+        }
+
+        &__heading {
+            padding: 15px 0;
+
+            &.collapsed:not(.opacity):hover {
+                background-color: @grey--e6;
             }
         }
 
@@ -83,8 +91,8 @@
         }
 
         &__detail {
-            padding-left: 15px;
-            width: 32%;
+            padding: 0 15px 0 10px;
+            width: 30%;
 
             &__title {
                 margin: 0 0 12px;
@@ -100,8 +108,22 @@
         }
 
         &__button {
-            padding-left: 15px;
-            width: 20%;
+            padding: 0 15px;
+            width: 22%;
+
+            .btn {
+                display: block;
+                padding-right: 21px;
+                position: relative;
+                width: 100%;
+
+                i {
+                    position: absolute;
+                    right: 9px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
         }
     }
 }
