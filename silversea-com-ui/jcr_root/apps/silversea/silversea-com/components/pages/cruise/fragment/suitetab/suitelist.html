@@ -1,7 +1,7 @@
-<div class="c-suitelist accordion" role="tablist" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+<div class="c-suitelist" role="tablist" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="panel c-suitelist__item" data-sly-repeat="${[1,2,3,4,5]}">
         <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse${itemList.index}"
-        data-toggle="collapse" data-parent=".accordion" aria-expanded="false" aria-controls="suitelist-collapse${itemList.index}">
+        data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse${itemList.index}">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly> 
             </div>
