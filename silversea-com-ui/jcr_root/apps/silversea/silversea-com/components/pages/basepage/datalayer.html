@@ -1,18 +1,18 @@
 <sly data-sly-use.datalayer="com.silversea.aem.components.included.DataLayerUse" />
 <script type="text/javascript">
-    window._ssc_base_dl = {
+    window._ssc_dl = {
         page : {
             env_work : '${datalayer.runMode @context='scriptString'}',
             env_channel : 'pony',
-            event : '',
+            event : '${datalayer.event @context='scriptString'}',
             
-            user_language : '',
+            user_language : '${datalayer.userLanguage @context='scriptString'}',
             user_country : '',
             user_geo_adwords : '',
             user_recency : '',
             user_email_optin: '',
             user_status: '',
-            user_email: '',
+            user_email: '${datalayer.userEmail @context='scriptString'}',',
             user_last_visit: '',
             user_geo_adwords: '',
             user_country: '',
@@ -20,8 +20,9 @@
             api_indiv_id: '',
             time: '',
             
-            page_cat1: '${datalayer.pageCategorie1 @context='scriptString'}',
-            page_cat2: '${datalayer.pageCategorie2 @context='scriptString'}',
+            page_cat1: '${datalayer.pageCategory1 @context='scriptString'}',
+            page_cat2: '${datalayer.pageCategory2 @context='scriptString'}',
+            page_cat3: '${datalayer.pageCategory3 @context='scriptString'}',
             track_page_type: '',
             track_current_page: '',
             Template: '',
