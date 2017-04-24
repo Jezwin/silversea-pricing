@@ -1,7 +1,7 @@
 <div class="c-suitelist" role="tablist" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="panel c-suitelist__item" data-sly-repeat="${[1,2,3,4,5]}">
-        <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse${itemList.index}"
-        data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse${itemList.index}">
+        <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
+        data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly> 
             </div>
@@ -26,8 +26,44 @@
                 </button>
             </div>
         </div>
-        <div id="suitelist-collapse${itemList.index}" class="collapse" role="tabpanel" aria-labelledby="suitelist-collapse${itemList.index}">
-            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+        <div id="suitelist-collapse-${itemList.index}" class="collapse" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
+            <div class="c-tab c-tab__accordion">
+                <ul class="c-tab__nav c-tab__nav--regular6" aria-expanded="false">
+                    <li class="c-tab__link" data-state="active">
+                        <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>
+                    </li><li class="c-tab__link">
+                        <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
+                    </li><li class="c-tab__link">
+                            <a href="#features-${itemList.index}"><span>${'features' @i18n}</span></a>
+                    </li><li class="c-tab__link">
+                            <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
+                    </li><li class="c-tab__link">
+                        <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
+                    </li>
+                </ul>
+                <div class="c-tab__body">
+                    <div class="c-tab__content" id="description-${itemList.index}" data-state="active">
+                        <!--/* Description tab */-->hello
+                        <sly data-sly-include="fragment/suitetab/suitelist/description.html" />
+                    </div>
+                    <div class="c-tab__content" id="suite-plan-${itemList.index}">
+                        <!--/* Suite plan tab */-->hellohello
+                        <sly data-sly-include="fragment/suitetab/suitelist/suiteplan.html" />
+                    </div>
+                    <div class="c-tab__content" id="feature-${itemList.index}">
+                        <!--/* Features tab */-->hellohellohello
+                        <sly data-sly-include="fragment/suitetab/suitelist/feature.html" />
+                    </div>
+                    <div class="c-tab__content" id="suite-location-${itemList.index}">
+                        <!--/* Suite location tab */-->hellohellohellohello
+                        <sly data-sly-include="fragment/suitetab/suitelist/suitelocation.html" />
+                    </div>
+                    <div class="c-tab__content" id="virtual-tour-${itemList.index}">
+                        <!--/* Virtual tour tab */-->hellohellohellohellohello
+                        <sly data-sly-include="fragment/suitetab/suitelist/virtualtour.html" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
