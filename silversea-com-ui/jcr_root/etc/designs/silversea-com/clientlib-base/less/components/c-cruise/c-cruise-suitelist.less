@@ -1,6 +1,7 @@
 .c-suitelist {
     &__heading {
-        transition: background-color 300ms,  opacity 300ms;
+        cursor: pointer;
+        transition: background-color 300ms, opacity 300ms;
     }
 
     &__image {
@@ -48,6 +49,25 @@
             &--important2 {
                 font-size: 18px;
                 font-weight: 700;
+            }
+        }
+    }
+
+    &__suite-table.table {
+        table-layout: fixed;
+            th, td {
+                padding: 20px 15px;
+            }
+    }
+
+    &__collapse {
+        background-color: @grey--e;
+    }
+
+    @media screen and (max-width: 480px) {
+        &__suite-table {
+            th, td {
+                padding: 0;
             }
         }
     }

@@ -26,7 +26,7 @@
                 </button>
             </div>
         </div>
-        <div id="suitelist-collapse-${itemList.index}" class="collapse" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
+        <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
             <div class="c-tab c-tab__accordion">
                 <ul class="c-tab__nav c-tab__nav--regular6 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link" data-state="active">
@@ -63,6 +63,7 @@
                         <sly data-sly-include="fragment/suitetab/suitelist/virtualtour.html" />
                     </div>
                 </div>
+                <sly data-sly-include="fragment/suitetab/suitelist/fare.html" />
             </div>
         </div>
     </div>
