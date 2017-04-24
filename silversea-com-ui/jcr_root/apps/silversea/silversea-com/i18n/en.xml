@@ -331,4 +331,28 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-enrichments-description"
         sling:message="Silversea's cruises offer you a chance to indulge your passions and enjoy experiences not found on a typical cruise" />
+    <view-deck-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-deck-plan"
+        sling:message="View the deck plan" />
+    <guests
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="guests"
+        sling:message="guests" />
+    <crew
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="crew"
+        sling:message="crew" />
+    <length
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="length"
+        sling:message="length" />
+    <feet
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feet"
+        sling:message="Feet" />
+    <meters
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="meters"
+        sling:message="Meters" />
 </jcr:root>
