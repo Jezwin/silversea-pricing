@@ -170,7 +170,11 @@
     <read-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="read-more"
-        sling:message="Read More" />
+        sling:message="Read more" />
+    <read-less
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="read-less"
+        sling:message="Read less" />
     <request-or-download
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-or-download"
@@ -203,10 +207,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
         sling:message="Suites" />
-    <suites-fares
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suites-fares"
-        sling:message="Suites and fares" />
     <suite-location
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite-location"
@@ -307,10 +307,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="next-voyage"
         sling:message="next voyage" />
-    <suites-and-fares
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suites-and-fares"
-        sling:message="suites and fares" />
     <request-quote
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
@@ -355,4 +351,20 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="meters"
         sling:message="Meters" />
+    <view-all-ship-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-ship-descr"
+        sling:message="View all ship description" />
+    <view-all-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-suites"
+        sling:message="View all suites" />
+    <view-all-restaurants
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-restaurants"
+        sling:message="View all restaurants" />
+    <view-all-public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-public-areas"
+        sling:message="View all public areas" />
 </jcr:root>
