@@ -4,11 +4,14 @@ $(function() {
     })
 
     $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
-        var $item = $('div[id^="suitelist-collapse"]').not($(this));
+        var $currentCollapse = $(this);
+        var $item = $('div[id^="suitelist-collapse"]').not($currentCollapse);
         $item.prev('.c-suitelist__heading').addClass('opacity');
 
+        var scrollTargetOffsetTop = $.viewportDetect() === 'xs' ? $currentCollapse.offset().top - 20 : $currentCollapse.prev('.c-suitelist__heading').offset().top - 10 ;
+
         $('html, body').animate({
-            scrollTop: $(this).prev('.c-suitelist__heading').offset().top - $('.c-header').height()
+            scrollTop: scrollTargetOffsetTop - $('.c-header').height()
         }, 500);
     }).on('hide.bs.collapse', function(e) {
         var $item = $('div[id^="suitelist-collapse"]').not($(this));
