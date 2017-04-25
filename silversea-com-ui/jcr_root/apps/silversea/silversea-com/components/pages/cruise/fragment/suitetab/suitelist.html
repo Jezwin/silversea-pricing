@@ -26,18 +26,18 @@
                 </button>
             </div>
         </div>
-        <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
+        <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse in" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
             <div class="c-tab c-tab__accordion">
-                <ul class="c-tab__nav c-tab__nav--regular6 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
-                    <li class="c-tab__link" data-state="active">
+                <ul class="c-tab__nav dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+                    <li class="c-tab__link c-tab__link--button" data-state="active">
                         <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>
-                    </li><li class="c-tab__link">
+                    </li><li class="c-tab__link c-tab__link--button">
                         <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
-                    </li><li class="c-tab__link">
+                    </li><li class="c-tab__link c-tab__link--button">
                             <a href="#features-${itemList.index}"><span>${'features' @i18n}</span></a>
-                    </li><li class="c-tab__link">
+                    </li><li class="c-tab__link c-tab__link--button">
                             <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
-                    </li><li class="c-tab__link">
+                    </li><li class="c-tab__link c-tab__link--button">
                         <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
                     </li>
                 </ul>

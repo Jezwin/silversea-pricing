@@ -1,40 +1,38 @@
 @media screen and (min-width: @screen-md-min) {
-    .cruise {
-        .c-tab__link {
-            padding-top: 6px;
+    .c-tab__link--dark {
+        padding-top: 6px;
+
+        a {
+            background-color: @grey;
+            color: @white;
+            height: 60px;
+            line-height: 60px;
+            text-transform: uppercase;
+            transition: background 200ms ease-in-out;
+
+            &:hover {
+                background-color: @grey--8;
+            }
+        }
+
+        span {
+            display: inline-block;
+            line-height: 16px;
+            vertical-align: middle;
+            width: 90%;
+        }
+
+        &[data-state='active'] {
+            border: 1px solid @black;
+            border-bottom: 0;
+            font-weight: 400;
+            padding-top: 0;
 
             a {
-                background-color: @grey;
-                color: @white;
-                height: 60px;
-                line-height: 60px;
-                text-transform: uppercase;
-                transition: background 200ms ease-in-out;
-
-                &:hover {
-                    background-color: @grey--8;
-                }
-            }
-
-            span {
-                display: inline-block;
-                line-height: 16px;
-                vertical-align: middle;
-                width: 90%;
-            }
-
-            &[data-state='active'] {
-                border: 1px solid @black;
-                border-bottom: 0;
-                font-weight: 400;
-                padding-top: 0;
-
-                a {
-                    background-color: @white;
-                    color: @black;
-                    height: 66px;
-                    line-height: 66px;
-                }
+                background-color: @white;
+                color: @black;
+                height: 66px;
+                line-height: 66px;
             }
         }
     }

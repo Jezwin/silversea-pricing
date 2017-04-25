@@ -57,6 +57,45 @@
                 line-height: 64px;
             }
         }
+
+        &--button {
+            background: transparent;
+            border: 0;
+            padding: 0;
+
+            a {
+                background: transparent;
+                border: 0;
+                color: @grey--7;
+                font-size: 12px;
+                height: auto;
+                line-height: inherit;
+                padding: 12px 10px;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: @black;
+                    background-color: @grey--ca;
+                }
+            }
+
+            &:not(:last-child) a {
+                border-right: 1px solid @grey--ca;
+            }
+
+            &[data-state='active'] {
+                background: transparent;
+                border: 2px solid @black;
+
+                a {
+                    background-color: transparent;
+                    color: @black;
+                    height: auto;
+                    line-height: inherit;
+                    padding: 10px 8px;
+                }
+            }
+        }
     }
 
     &__content {
@@ -68,7 +107,6 @@
     }
 
     &__accordion {
-
         @media screen and (max-width: @screen-sm) {
             position: relative;
 
@@ -139,7 +177,6 @@
             }
 
             &.open {
-
                 .c-tab__link {
                     display: block;
 

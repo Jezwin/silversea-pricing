@@ -1,24 +1,24 @@
 <h3 class="c-suitelist__collapse__title">SELECT YOUR SUITE AND REQUEST A QUOTE</h3>
 <table class="table c-suitelist__suite-table">
     <caption>
-        <strong>NOTE:</strong> The difference between each single Suite is available in the deck plan of the ship.
+        <strong>${'note:' @ i18n}</strong> ${'cruise-fare-description' @ i18n} The difference between each single Suite is available in the deck plan of the ship.
     </caption>
     <thead>
         <tr>
-            <th>SUITE</th>
-            <th>LOCATION</th>
-            <th>FARES (PER GUEST)</th>
-            <th>SELECT YOUR SUITE</th>
+            <th>${'suite' @ i18n}</th>
+            <th>${'location' @ i18n}</th>
+            <th>${'fares' @ i18n} (${'per-guest' @ i18n})</th>
+            <th>${'select-your-suite' @ i18n}</th>
         </tr>
     </thead>
     <tbody>
         <tr data-sly-repeat="${[1,2,3]}">
             <td><strong class="text-uppercase">Owner's 2</strong></td>
-            <td><a href="#" class="h-underline">VIEW DECK</a></td>
+            <td><a href="#" class="h-underline">${'view-deck' @ i18n}</a></td>
             <td>
-                <strong class="c-suitelist__price__text--important3">WAITLIST</strong>
-                <span>FARES FROM:</span>
-                <span><strong class="c-suitelist__price__text--important4">&euro; 21,650</strong> (per guest)</span>
+                <strong class="c-suitelist__price__text--important3">${'waitlist' @ i18n}</strong>
+                <span>${'fares-from:' @ i18n}</span>
+                <span><strong class="c-suitelist__price__text--important4">&euro; 21,650</strong> (${'per-guest' @ i18n})</span>
             </td>
             <td>
                 <a class="btn btn-red effect btn-thin request-quote" href="#">
