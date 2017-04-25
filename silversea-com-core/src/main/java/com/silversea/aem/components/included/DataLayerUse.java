@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.adobe.granite.contexthub.api.ContextHub;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.services.RunModesService;
 
@@ -41,16 +42,19 @@ public class DataLayerUse extends WCMUsePojo {
                 && getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_PAGE)) {
             event = getCurrentPage().getProperties().get("eventValue").toString();
         }
+        
+        String userAgent = getRequest().getHeader("user-agent");
+//        ContextHub contextHub = 
         /**
          * users data
          */
         Locale locale = getCurrentPage().getLanguage(false);
         userLanguage = locale.getLanguage();
-        if (getRequest().getCookie("email").getValue() != null) {
-            userEmail = getRequest().getCookie("email").getValue();
-        }
+//        if (getRequest().getCookie("email").getValue() != null) {
+//            userEmail = getRequest().getCookie("email").getValue();
+//        }
 
-        // Cookie[] c = getRequest().getCookies();
+         Cookie[] c = getRequest().getCookies();
         // Cookie c2 = getRequest().getCookie("email");
         /**
          * tree structure data
