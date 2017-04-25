@@ -25,7 +25,7 @@
                     </li>
                 </ul>
                 <div class="c-tab__body">
-                    <div class="c-tab__content" id="overview" data-state="active">
+                    <div class="c-tab__content" id="overview">
                         <!--/* Overview tab */-->
                         <sly data-sly-include="fragment/overviewtab/overview.html" />
                         <sly data-sly-include="fragment/overviewtab/fare.html" />
@@ -34,7 +34,7 @@
                         <sly data-sly-include="fragment/overviewtab/footnotes.html" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
-                    <div class="c-tab__content" id="suitenfare">
+                    <div class="c-tab__content" id="suitenfare" data-state="active">
                         <!--/* Suite and fares tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist.html" />
                     </div>
