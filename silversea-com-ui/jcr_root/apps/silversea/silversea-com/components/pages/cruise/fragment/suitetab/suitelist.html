@@ -34,7 +34,7 @@
                     </li><li class="c-tab__link c-tab__link--button">
                         <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--button">
-                            <a href="#features-${itemList.index}"><span>${'features' @i18n}</span></a>
+                            <a href="#feature-${itemList.index}"><span>${'features' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--button">
                             <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--button">
@@ -42,23 +42,23 @@
                     </li>
                 </ul>
                 <div class="c-tab__body">
-                    <div class="c-tab__content" id="description-${itemList.index}" data-state="active">
+                    <div class="c-tab__content c-tab__content--description" id="description-${itemList.index}" data-state="active">
                         <!--/* Description tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist/description.html" />
                     </div>
-                    <div class="c-tab__content" id="suite-plan-${itemList.index}">
+                    <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}">
                         <!--/* Suite plan tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist/suiteplan.html" />
                     </div>
-                    <div class="c-tab__content" id="feature-${itemList.index}">
+                    <div class="c-tab__content c-tab__content--feature" id="feature-${itemList.index}">
                         <!--/* Features tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist/feature.html" />
                     </div>
-                    <div class="c-tab__content" id="suite-location-${itemList.index}">
+                    <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}">
                         <!--/* Suite location tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist/suitelocation.html" />
                     </div>
-                    <div class="c-tab__content" id="virtual-tour-${itemList.index}">
+                    <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}">
                         <!--/* Virtual tour tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist/virtualtour.html" />
                     </div>
