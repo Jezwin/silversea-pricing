@@ -3,8 +3,13 @@
     .row {
         margin-top: 15px;
 
-            .ship-overview__content {
-                padding: 0 30px 10px 15px;
+        .ship-overview__content {
+            padding: 0 30px 10px 15px;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                padding: 0 15px 0;
+            }
 
             p {
                 margin: 0 0 20px;
@@ -28,11 +33,23 @@
                     }
                 }
             }
+
+            .ship-overview__content_expand {
+                text-align: center;
+                font-size: 12px;
+                padding-bottom: 20px;
+            }
         }
 
         .pictureblock {
             text-align: center;
             padding: 0 15px 0 0;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                margin: 10px 0 0;
+                padding: 0 15px;
+            }
 
             img {
                 width: 100%;
