@@ -31,6 +31,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew-capacity"
         sling:message="Crew capacity" />
+    <cruise-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary"
+        sling:message="Cruise itinerary" />
+    <cruise-itinerary-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit" />
+    <cruise-itinerary-link
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-link"
+        sling:message="Click here to see all photos and videos." />
     <date
         jcr:primaryType="sling:MessageEntry"
         sling:key="date"

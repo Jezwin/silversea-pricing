@@ -22,8 +22,12 @@
         _links.click(function (e) {
             e.preventDefault();
 
+            if($(e.target).hasClass('c-accordion__header--unclickable')){
+                return;
+            }
+
             var elem = $(this).parent().children(_data.content);
-            var isCollapsed = (elem.attr('data-collapsed') === 'true');
+            var isCollapsed = ($(this).attr('data-state') === 'true');
             var currentAction = (!isCollapsed) ? _data.close : _data.more;
 
             if (!_multiple) {
@@ -33,7 +37,7 @@
             }
             elem.attr('data-collapsed', !isCollapsed);
             $(this).attr('data-state', !isCollapsed);
-            $(this).children(_data.action).html(currentAction);
+            $(this).find(_data.action).html(currentAction);
 
         });
     };
