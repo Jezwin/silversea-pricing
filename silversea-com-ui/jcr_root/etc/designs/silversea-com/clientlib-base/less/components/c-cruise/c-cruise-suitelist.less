@@ -64,6 +64,7 @@
     }
 
     &__suite-table.table {
+        border-bottom: 1px solid @grey--d;
         font-size: 12px;
         table-layout: fixed;
 
@@ -104,6 +105,8 @@
         }
 
         @media screen and (max-width: @screen-xs) {
+            border-bottom: 0;
+
             tr {
                 border-bottom: 1px solid @grey--ca;
                 display: block;

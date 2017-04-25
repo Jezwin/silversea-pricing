@@ -58,41 +58,43 @@
             }
         }
 
-        &--button {
-            background: transparent;
-            border: 0;
-            padding: 0;
-
-            a {
+        @media screen and (min-width: @screen-md-min) {
+            &--button {
                 background: transparent;
                 border: 0;
-                color: @grey--7;
-                font-size: 12px;
-                height: auto;
-                line-height: inherit;
-                padding: 12px 10px;
-                text-transform: uppercase;
-
-                &:hover {
-                    color: @black;
-                    background-color: @grey--ca;
-                }
-            }
-
-            &:not(:last-child) a {
-                border-right: 1px solid @grey--ca;
-            }
-
-            &[data-state='active'] {
-                background: transparent;
-                border: 2px solid @black;
+                padding: 0;
 
                 a {
-                    background-color: transparent;
-                    color: @black;
+                    background: transparent;
+                    border: 0;
+                    color: @grey--7;
+                    font-size: 12px;
                     height: auto;
                     line-height: inherit;
-                    padding: 10px 8px;
+                    padding: 12px 10px;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        color: @black;
+                        background-color: @grey--ca;
+                    }
+                }
+
+                &:not(:last-child) a {
+                    border-right: 1px solid @grey--ca;
+                }
+
+                &[data-state='active'] {
+                    background: transparent;
+                    border: 2px solid @black;
+
+                    a {
+                        background-color: transparent;
+                        color: @black;
+                        height: auto;
+                        line-height: inherit;
+                        padding: 10px 8px;
+                    }
                 }
             }
         }
@@ -131,9 +133,9 @@
                 max-width: inherit;
                 padding-top: 0;
                 text-align: left;
-                border-bottom: 1px solid #d9d9d9;
-                border-left: 1px solid #d9d9d9;
-                border-right: 1px solid #d9d9d9;
+                border-bottom: 1px solid @grey--d9;
+                border-left: 1px solid @grey--d9;
+                border-right: 1px solid @grey--d9;
                 position: relative;
 
                 &[data-state='active'] {
@@ -142,7 +144,7 @@
                     color: black;
                     font-size: 18px;
                     line-height: 28px;
-                    border: solid 1px #999;
+                    border: solid 1px @grey--d9;
                     position: absolute;
                     top: 0;
 
