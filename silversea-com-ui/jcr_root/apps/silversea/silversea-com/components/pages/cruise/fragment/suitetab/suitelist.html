@@ -26,8 +26,9 @@
                 </button>
             </div>
         </div>
-        <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse in" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
+        <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
             <div class="c-tab c-tab__accordion">
+                <a href="#" class="collapse-close text-uppercase"><i class="fa fa-times"></i> ${'close' @ i18n}</a>
                 <ul class="c-tab__nav dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link c-tab__link--button" data-state="active">
                         <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>

@@ -192,6 +192,16 @@
                 top: -15px;
             }
         }
+
+        .collapse-close {
+            color: @grey--7;
+            float: right;
+            font-size: 12px;
+
+            i {
+                font-size: 13px;
+            }
+        }
     }
 
     @media screen and (max-width: @screen-sm) {
@@ -226,6 +236,16 @@
                 top: -10px;
                 transform: translateX(-50%);
                 width: 0;
+            }
+
+            .c-tab__accordion {
+                .c-tab__nav {
+                    margin-top: 30px;
+                }
+
+                .c-tab__body {
+                    padding-top: 120px;
+                }
             }
         }
     }
@@ -288,6 +308,16 @@
                     top: 50%;
                     transform: translateY(-50%);
                 }
+            }
+        }
+
+        &__collapse {
+            .c-tab__nav {
+                width: auto;
+            }
+
+            .collapse-close {
+                padding: 10px 0;
             }
         }
     }
