@@ -1,0 +1,125 @@
+.c-cruise-keypeople {
+
+    .c-cruise__descr {
+        margin-bottom: 20px;
+    }
+
+    .keypeople__slider {
+
+        &-item {
+            position: relative;
+            border: 1px solid @grey--d;
+            margin: 0 5px;
+            cursor: pointer;
+            width: 100%;
+            width: 25%;    // must be deleted with slider component
+            float: left;   // must be deleted with slider component
+
+            &:first-child {
+                margin: 0 5px 0 0;
+            }
+
+            &:last-child {
+                margin: 0 0 0 5px;
+            }
+
+            &.active {
+                background: @grey--e;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+
+            div {
+                padding: 20px 20px 15px;
+
+                .keypeople--identity {
+                    margin: 0 0 10px;
+                    font-size: 13px;
+                    line-height: 1.2;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+
+                .keypeople--profession {
+                    font-style: italic;
+                    font-size: 13px;
+                    margin: 10px 0 0;
+                }
+
+                a {
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    font-weight: @bold;
+
+                    i {
+                        padding-left: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .keypeople__details {
+        background: @grey--e;
+        padding: 50px;
+        position: relative;
+        clear: both;
+
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-xs) {
+            padding: 20px;
+        }
+
+        &--identity {
+            font-size: 24px;
+            line-height: 1.333333;
+            font-family: @f-theano_didot;
+            text-transform: uppercase;
+            margin: 0;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-xs) {
+                font-size: 20px;
+            }
+        }
+
+        &--profession {
+            font-style: italic;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        &--descr {
+            margin: 30px 0 0;
+            font-size: 13px;
+            line-height: 1.5;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-xs) {
+                margin: 10px 0 0;
+            }
+        }
+
+        .btn-close {
+            color: #777;
+            font-size: 13px;
+            text-transform: uppercase;
+            position: absolute;
+            right: 50px;
+            top: 50px;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-xs) {
+                right: 10px;
+                top: 10px;
+            }
+
+            i {
+                margin: 0 5px 0 0;
+            }
+        }
+    }
+}
