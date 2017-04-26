@@ -1,12 +1,16 @@
 <div class="row">
     <div class="col-sm-10">
-        <div data-sly-list="${[1,2,3]}">
-            <img class="o-img" src="http://static.silversea.com/wp-content/uploads/2014/08/SuiteLocation_Whisper_deck6_03grand1-lbox-742x417-ffffff.jpg" alt="deck 6">
+        <div data-sly-list="${[1,2,3]}" class="tab-content">
+            <div class="tab-pane ${itemList.first ? 'active' : ''}">
+                <img class="o-img" src="http://static.silversea.com/wp-content/uploads/2014/08/SuiteLocation_Whisper_deck6_03grand1-lbox-742x417-ffffff.jpg" alt="deck 6">
+            </div>
         </div>
     </div>
     <div class="col-sm-2">
-        <ul data-sly-list="${[1,2,3]}">
-            <li><a href="#">Deck 6</a></li>
+        <ul data-sly-list="${[1,2,3]}" class="nav nav-tabs nav-tabs--vertical">
+            <li class="${itemList.first ? 'active' : ''}">
+                <a role="tab" href="#">Deck 6</a>
+            </li>
         </ul>
     </div>
 </div>
