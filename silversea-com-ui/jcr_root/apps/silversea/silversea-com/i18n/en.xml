@@ -367,4 +367,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-public-areas"
         sling:message="View all public areas" />
+    <voyage-highlights
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage-highlights"
+        sling:message="voyage highlights" />
 </jcr:root>
