@@ -13,23 +13,23 @@
             <div class="col-xs-12 voyagetable">
                 <div class="voyagetable__elem">
                     <a href="#">
-                        <span>duration</span>
+                        <span>${'duration' @ i18n}</span>
                         <span class="lead">7</span>
-                        <span>days</span>
+                        <span>${'days' @ i18n}</span>
                     </a>
                 </div>
                 <div class="voyagetable__elem">
                     <a href="#">
-                        <span>departure</span>
+                        <span>${'departure' @ i18n}</span>
                         <span class="lead">Apr 22</span>
                         <span>2017</span>
                     </a>
                 </div>
                 <div class="voyagetable__elem">
                     <a href="#">
-                        <span>duration</span>
+                        <span>${'fares-from' @ i18n}</span>
                         <span class="lead">€ 8,350</span>
-                        <span>(per guest)</span>
+                        <span>(${'per-guest' @ i18n})</span>
                     </a>
                 </div>
             </div>
@@ -89,10 +89,26 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <div class="voyagefeature">
+                <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
                     <p><strong><i class="fa fa-star"></i> FEATURED EXCLUSIVE OFFERS / PROGRAMMES:</strong></p>
-                    <p><strong>Early Booking Bonus:</strong> Save 10% if you book and pay in full by 2 May*</p>
-                    <p><strong>Embrace The Beauty Cruise South America:</strong> Book by 31 May, 2017 and enjoy €1200 savings per suite* on select South America voyages</p>
+
+                    <p>
+                        <a href="${pageProperties.title @ extension='html', selectors='modalcontent'}"
+                           class="" data-toggle="modal"
+                           data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                            <strong>Early Booking Bonus :</strong>
+                        </a>
+                        Save 10% if you book and pay in full by 2 May*
+                    </p>
+
+                    <p>
+                        <a href="${pageProperties.title @ extension='html', selectors='modalcontent'}"
+                          class="" data-toggle="modal"
+                          data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                        <strong>Embrace The Beauty Cruise South America :</strong>
+                        </a>
+                        Book by 31 May, 2017 and enjoy €1200 savings per suite* on select South America voyages
+                    </p>
                 </div>
             </div>
             <div class="col-xs-5 pull-right">

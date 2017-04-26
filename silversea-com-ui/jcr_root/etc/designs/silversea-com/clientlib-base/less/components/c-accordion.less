@@ -15,11 +15,37 @@
 }
 
 /*
+** Archive Component Accordion
+*/
+.archives {
+
+    .c-accordion__title {
+        padding: 13px;
+    }
+
+    .c-accordion .c-accordion .c-accordion__header {
+        padding-left: 0px;
+    }
+}
+
+/*
 ** Component Accordion
 */
 .c-accordion {
     border-right: solid 1px @grey--e8;
     border-left: solid 1px @grey--e8;
+
+    & & {
+        border: 0;
+
+        .c-accordion__header {
+            padding-left: 25px;
+        }
+
+        .c-accordion__body--panel {
+            padding-left: 40px;
+        }
+    }
 
     &--darkbox {
         border-right: 0;
@@ -28,6 +54,7 @@
         .c-accordion__header {
             background-color: @white;
             border: solid 1px @grey--e8;
+            padding: 0px;
 
             &:hover, &:active, &:focus {
                 cursor: pointer;
@@ -172,6 +199,7 @@
 
         .c-accordion__title {
             vertical-align: top;
+            padding: 0px;
 
             &--img {
                 width: 135px;
@@ -269,21 +297,6 @@
                     column-count: 1;
                 }
             }
-
-            &.arrivals {
-                font-size: 12px;
-
-                @media screen and (max-width: @screen-sm) {
-                    display: none;
-                }
-            }
-
-            &.veryimportant {
-                text-transform: uppercase;
-                font-size: 18px;
-                line-height: 22px;
-                font-weight: bold;
-            }
         }
 
         .c-accordion__action {
@@ -312,12 +325,29 @@
         display: table;
         width: 100%;
         background-color: @grey--f9;
-        padding: 12px 20px;
+        padding: 3px;
         table-layout: fixed;
 
         &:hover, &:active, &:focus {
             cursor: pointer;
             background-color: @grey--e6;
+        }
+
+        &--center-xs {
+
+            @media screen and (max-width: @screen-sm) {
+
+                .c-accordion__title {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: center;
+
+                    &.c-accordion__action {
+                        padding-top: 0px;
+                    }
+                }
+            }
+
         }
 
         &[data-state='true'] {
@@ -335,6 +365,24 @@
             -ms-user-select: initial;
             cursor: auto;
         }
+
+        &--parent {
+             background-color: @white;
+             padding: 3px 15px 3px 3px;
+
+             .c-accordion__action {
+                vertical-align: top;
+             }
+
+             .c-accordion__title {
+                 padding: 15px;
+                 vertical-align: top;
+
+                 &--thumbnail {
+                    padding: 0px;
+                 }
+              }
+        }
     }
 
     &__title,
@@ -342,6 +390,7 @@
     &__action {
         display: table-cell;
         vertical-align: middle;
+        padding: 15px;
     }
 
     &__title {
@@ -357,21 +406,60 @@
             text-transform: uppercase;
             font-weight: bold;
         }
+
+        &--thumbnail {
+            width: 120px;
+
+            img {
+                width: 120px;
+            }
+        }
+
+        &.w-title {
+            width: 39%;
+
+            @media screen and (max-width: @screen-sm) {
+                width: 100%;
+            }
+        }
+        &.w-content {
+            width: 25%;
+        }
     }
 
     &__subtitle {
         font-size: 12px;
+
+        &.arrivals {
+            font-size: 12px;
+
+            @media screen and (max-width: @screen-sm) {
+                display: none;
+            }
+        }
+
+        &.veryimportant {
+            text-transform: uppercase;
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: bold;
+        }
     }
 
     &__action {
         min-width: 90px;
-        width: 10%;
+        width: 13%;
         font-size: 12px;
         text-align: right;
         text-transform: uppercase;
 
         &--light {
             color: #828282;
+        }
+
+        &.small {
+            width: 40px;
+            padding: 15px;
         }
     }
     &__body {

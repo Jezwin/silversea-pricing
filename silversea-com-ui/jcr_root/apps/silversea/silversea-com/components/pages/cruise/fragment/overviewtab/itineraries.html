@@ -1,84 +1,86 @@
 <div class="row">
-    <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
-    <p class="c-cruise__descr">
-        ${'cruise-itinerary-description' @ i18n}
-        <br/>
-        <a href="#photonvideo" class="bound"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
-    </p>
+    <div class="col-xs-12">
+        <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
+        <p class="c-cruise__descr">
+            ${'cruise-itinerary-description' @ i18n}
+            <br/>
+            <a href="#photonvideo" class="bound"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+        </p>
 
-    <div class="c-accordion c-accordion--expander"
-         data-multiview="false"
-         data-more="${'more' @ i18n} <i class='fa fa-angle-down'></i>"
-         data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
-        <div class="c-accordion__elem">
-            <div class="c-accordion__header">
+        <div class="c-accordion c-accordion--expander"
+             data-multiview="false"
+             data-more="${'more' @ i18n} <i class='fa fa-angle-down'></i>"
+             data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
+            <div class="c-accordion__elem">
+                <div class="c-accordion__header">
 
-                <div class="c-accordion__title c-accordion__title--img">
-                    <div class="c-accordion__title--img_block">
-                        <sly data-sly-test.imagePrefix="${'/is/image/'}" />
-                        <div style="background-image: url(${pageProperties.itinerary @ prependPath=imagePrefix, context='uri'})"></div>
+                    <div class="c-accordion__title c-accordion__title--img">
+                        <div class="c-accordion__title--img_block">
+                            <sly data-sly-test.imagePrefix="${'/is/image/'}" />
+                            <div style="background-image: url(${pageProperties.itinerary @ prependPath=imagePrefix, context='uri'})"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="c-accordion__title c-accordion__title--header">
-                    <div class="c-accordion__title">
+                    <div class="c-accordion__title c-accordion__title--header">
                         <div class="c-accordion__title">
-                            <ul class="c-accordion__subtitle list">
-                                <li class="c-accordion__subtitle veryimportant">ITEA</li>
-                                <li class="c-accordion__subtitle city">Italy</li>
-                                <li class="c-accordion__subtitle">Sunday May 14</li>
-                                <li class="c-accordion__subtitle arrivals">Arrive: 8:00 AM, Depart 6:00 PM</li>
-                            </ul>
+                            <div class="c-accordion__title">
+                                <ul class="c-accordion__subtitle list">
+                                    <li class="c-accordion__subtitle veryimportant">ITEA</li>
+                                    <li class="c-accordion__subtitle city">Italy</li>
+                                    <li class="c-accordion__subtitle">Sunday May 14</li>
+                                    <li class="c-accordion__subtitle arrivals">Arrive: 8:00 AM, Depart 6:00 PM</li>
+                                </ul>
+                            </div>
+                            <div class="c-accordion__action">
+                                ${'more' @ i18n} <i class='fa fa-angle-down'></i>
+                            </div>
                         </div>
-                        <div class="c-accordion__action">
-                            ${'more' @ i18n} <i class='fa fa-angle-down'></i>
+                        <div class="c-accordion__title--body">
+                            <p class="c-accordion__header--unclickable">The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative</p>
                         </div>
                     </div>
-                    <div class="c-accordion__title--body">
-                        <p class="c-accordion__header--unclickable">The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative</p>
+                </div>
+                <div class="c-accordion__body">
+                    <div class="c-accordion__body--panel">
+                        The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative
                     </div>
                 </div>
             </div>
-            <div class="c-accordion__body">
-                <div class="c-accordion__body--panel">
-                    The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative
-                </div>
-            </div>
-        </div>
-        <div class="c-accordion__elem">
-            <div class="c-accordion__header">
+            <div class="c-accordion__elem">
+                <div class="c-accordion__header">
 
-                <div class="c-accordion__title c-accordion__title--img">
-                    <div class="c-accordion__title--img_block">
-                        <sly data-sly-test.imagePrefix="${'/is/image/'}" />
-                        <div style="background-image: url(${pageProperties.itinerary @ prependPath=imagePrefix, context='uri'})"></div>
+                    <div class="c-accordion__title c-accordion__title--img">
+                        <div class="c-accordion__title--img_block">
+                            <sly data-sly-test.imagePrefix="${'/is/image/'}" />
+                            <div style="background-image: url(${pageProperties.itinerary @ prependPath=imagePrefix, context='uri'})"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="c-accordion__title c-accordion__title--header">
-                    <div class="c-accordion__title">
+                    <div class="c-accordion__title c-accordion__title--header">
                         <div class="c-accordion__title">
-                            <ul class="c-accordion__subtitle list">
-                                <li class="c-accordion__subtitle veryimportant">ITEA</li>
-                                <li class="c-accordion__subtitle city">Italy</li>
-                                <li class="c-accordion__subtitle">Sunday May 14</li>
-                                <li class="c-accordion__subtitle arrivals">Arrive: 8:00 AM, Depart 6:00 PM</li>
+                            <div class="c-accordion__title">
+                                <ul class="c-accordion__subtitle list">
+                                    <li class="c-accordion__subtitle veryimportant">ITEA</li>
+                                    <li class="c-accordion__subtitle city">Italy</li>
+                                    <li class="c-accordion__subtitle">Sunday May 14</li>
+                                    <li class="c-accordion__subtitle arrivals">Arrive: 8:00 AM, Depart 6:00 PM</li>
 
-                            </ul>
+                                </ul>
+                            </div>
+                            <div class="c-accordion__action">
+                                ${'more' @ i18n} <i class='fa fa-angle-down'></i>
+                            </div>
                         </div>
-                        <div class="c-accordion__action">
-                            ${'more' @ i18n} <i class='fa fa-angle-down'></i>
+                        <div class="c-accordion__title--body">
+                            <p class="c-accordion__header--unclickable">The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative</p>
                         </div>
-                    </div>
-                    <div class="c-accordion__title--body">
-                        <p class="c-accordion__header--unclickable">The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="c-accordion__body">
-                <div class="c-accordion__body--panel">
-                    The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative
+                <div class="c-accordion__body">
+                    <div class="c-accordion__body--panel">
+                        The medieval cliff-hanging town of Taormina is overrun with tourists, yet its natural beauty is still hard to dispute. The view of the sea and Mt. Etna from its jagged cactus-covered cliffs is as close to perfection as a panorama can get—especially on clear days, when the snowcapped volcano's white puffs of smoke rise against the blue sky. Writers have extolled Taormina's beauty almost since it was founded in the 6th century BC by Greeks from nearby Naxos; Goethe and D. H. Lawrence were among its well-known enthusiasts. The town's boutique-lined main streets get old pretty quickly, but the many hiking paths that wind through the beautiful hills surrounding Taormina promise a timeless alternative
+                    </div>
                 </div>
             </div>
         </div>

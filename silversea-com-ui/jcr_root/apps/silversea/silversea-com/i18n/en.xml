@@ -35,6 +35,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary"
         sling:message="Cruise itinerary" />
+    <cruise-excursion-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-excursion-description"
+        sling:message="Shore excursions provide the highlight of any cruise and allow you to gather a 360° vision of your destination. You may also make your own bespoke arrangements with the Silver Shore Concierge at least two weeks prior to sailing." />
     <cruise-itinerary-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary-description"
@@ -51,6 +55,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="day"
         sling:message="Day" />
+    <days
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="days"
+        sling:message="Days" />
     <deck-plan-details
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
@@ -71,6 +79,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="discover-more"
         sling:message="Discover more" />
+    <duration
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="duration"
+        sling:message="Duration" />
     <enrichments
         jcr:primaryType="sling:MessageEntry"
         sling:key="enrichments"
