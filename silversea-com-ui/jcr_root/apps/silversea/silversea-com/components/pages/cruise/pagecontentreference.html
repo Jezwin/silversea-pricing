@@ -1,0 +1,101 @@
+
+<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-unwrap/>
+
+<p>title: ${cruise.cruiseModel.title}</p>
+
+<p>subtitle (Destination title): ${cruise.cruiseModel.destinationTitle}</p>
+
+<p>Description : ${cruise.cruiseModel.description}</p>
+
+<p>Previous: ${cruise.previous}</p>
+<p>Next: ${cruise.next}</p>
+
+<p>cruise Type: ${cruise.cruiseModel.cruiseType}</p>
+<p>ship Name: ${cruise.cruiseModel.shipName}</p>
+<p>Voyage code: ${cruise.cruiseModel.cruiseCode}</p>
+
+<!-- END BLOC 1 TODO: features and EOs icons -->
+
+<ul data-sly-test="${cruise.cruiseModel.features}"
+        data-sly-list="${cruise.cruiseModel.features}">
+        <li>
+            <p>Title:${item.title}</p>
+            <p>Icon:${item.icon}</p>
+        </li>
+</ul>
+
+<p>duration: ${cruise.cruiseModel.duration}</p>
+<span  data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=cruise.cruiseModel.startDate}">
+      start date: ${date.value}
+</span>
+<p>lowest price: ${cruise.cruiseModel.lowestPrice}</p>
+<img src="${cruise.cruiseModel.itinerary}"/>
+
+<h3> OFFRES EXCLUSIVES / PROGRAMMES :</h3>
+<ul data-sly-test="${cruise.cruiseModel.exclusiveOffers}"
+        data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
+        <li>
+        	<p>Map over head: ${item.mapOverHead}</p>
+            <p>Title:${item.title}</p>
+            <p>Description:${item.description}</p>
+        </li>
+</ul>
+
+<h3>INCLUS DANS LE PRIX DE LA CROISIÈRE</h3>
+
+<h3>cruise fare additions</h3>
+<ul data-sly-test="${cruise.cruiseModel.cruiseFareAdditions}"
+        data-sly-list="${cruise.cruiseModel.cruiseFareAdditions}">
+        <li>
+        	<p>${item}</p>
+        </li>
+</ul>
+ 
+ <h3>exclusive offer cruise fare additions</h3>
+<ul data-sly-test="${cruise.cruiseModel.exclusiveFareAdditions}"
+        data-sly-list="${cruise.cruiseModel.exclusiveFareAdditions}">
+        <li>
+        	<p>Addition: ${item.addition}</p>
+        	<p>Note : ${item.notes}</p>
+        </li>
+</ul>
+
+<p>Destination foot note : ${cruise.cruiseModel.destinationFootNote}</p>
+
+<h3>SUITES</h3>
+<!-- SUITES -->
+
+<ul data-sly-test="${cruise.cruiseModel.suites}"
+        data-sly-list="${cruise.cruiseModel.suites}">
+        <li>
+            <p>Title: ${item.title}</p>
+            <p>Suite sub title:</p>
+        	<ul data-sly-test="${item.suiteSubTitle}"
+                     data-sly-list="${item.suiteSubTitle}">
+                 <li>
+        	          <p>${item}</p>
+                 </li>
+            </ul>
+        	<p>Suite lowest price: ${item.lowestPrice}</p>
+        	<p>Bedroom informations: ${item.bedroomsInformation @ context='html'}</p>
+        	<p>Long description: ${item.longDescription @ context='html'}</p>
+        	<p>Features:</p>
+            <ul data-sly-test="${item.features}"
+                     data-sly-list="${item.features}">
+                 <li>
+        	          <p>${item}</p>
+                 </li>
+            </ul>
+            <p>Plan:</p>
+        	<img src="${item.plan}"/>
+        	<strong>Suite variation:</strong>
+        	<ul data-sly-test="${cruise.cruiseModel.variations}"
+                       data-sly-list="${cruise.cruiseModel.variations}">
+                 <li>
+        	         <p>Title:${item.name}</p>
+        	         <p>Price:${item.price}</p>
+                 </li>
+            </ul>
+        </li>
+        <hr/>
+</ul>
