@@ -29,6 +29,8 @@ import com.day.cq.tagging.TagManager.FindResults;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.CruiseFareAddition;
 import com.silversea.aem.components.beans.Feature;
+import com.silversea.aem.components.beans.Price;
+import com.silversea.aem.enums.Currency;
 
 /**
  * Created by mbennabi on 17/02/2017.
@@ -101,24 +103,24 @@ public class CruiseModel {
     private String[] keypeople;
 
     private String destinationTitle;
-    
+
     private List<Feature> features;
 
     private List<SuiteModel> suites;
 
     private List<ExclusiveOfferModel> exclusiveOffers;
-    
+
     private List<CruiseFareAddition> exclusiveFareAdditions;
 
     private String[] cruiseFareAdditions;
-    
+
     private String destinationFootNote;
 
     private String cruiseType;
 
     private String shipName;
 
-    private String lowestPrice;
+    private Price lowestPrice;
 
     private ResourceResolver resourceResolver;
 
@@ -221,8 +223,8 @@ public class CruiseModel {
         return title;
     }
 
-    private String initLowestPrice(String geoMarketCode){
-        String lowestPrice = null;
+    private Price initLowestPrice(String geoMarketCode){
+        Price lowestPrice = null;
         try {
 
             Node node = page.adaptTo(Node.class);
@@ -233,7 +235,8 @@ public class CruiseModel {
                 while(iterator.hasNext()){
                     Node next = iterator.nextNode();
                     if(StringUtils.contains(next.getName(),geoMarketCode)){
-                        lowestPrice = Objects.toString(next.getProperty("price").getValue());
+                        String priceValue = Objects.toString(next.getProperty("price").getValue());
+                        lowestPrice = initPrice(geoMarketCode,priceValue);
                     }
                 }
             }        
@@ -272,16 +275,39 @@ public class CruiseModel {
                     SuiteModel suiteModel = resource.adaptTo(SuiteModel.class);
                     Node lowestPriceNode = node.getNode("lowest-prices");
                     suiteModel.initLowestPrice(lowestPriceNode,geoMarketCode);
-                    //suiteModel.initVarirations(node,geoMarketCode);
+                    suiteModel.initVarirations(node,geoMarketCode);
                     suiteList.add(suiteModel);
                 }
             }
         }catch (RepositoryException e) {
             LOGGER.error("Exception while building suites",e);
         }
-        
+
         return suiteList;
     }
+
+    //TODO: duplicated code
+    Price initPrice(String geoMarketCode ,String value){      
+        Price price = new Price();
+        Currency currency = getCurrencyByMarKetCode(geoMarketCode);
+        price.setCurrency(currency.getLabel());
+        price.setValue(value);
+        if(StringUtils.isNumeric(value)){
+            price.setWaitList(false);
+        }
+        else{
+            price.setWaitList(true);
+        }
+        return price;
+    }
+
+    //TODO: duplicated code
+    private Currency getCurrencyByMarKetCode(String marKetCode){
+        return Arrays.stream(Currency.values())
+                .filter(e -> e.name().equals(marKetCode)).findFirst()
+                .orElseThrow(() -> new IllegalStateException());
+    }
+
 
     public String getTitle() {
         return title;
@@ -356,7 +382,7 @@ public class CruiseModel {
         return shipName;
     }
 
-    public String getLowestPrice() {
+    public Price getLowestPrice() {
         return lowestPrice;
     }
 

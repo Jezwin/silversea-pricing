@@ -14,6 +14,4 @@ public enum CruiseType {
     public String getValue() {
         return value;
     }
-    
- 
 }

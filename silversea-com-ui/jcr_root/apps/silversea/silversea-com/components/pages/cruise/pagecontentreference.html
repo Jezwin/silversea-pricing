@@ -28,7 +28,9 @@
 <span  data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=cruise.cruiseModel.startDate}">
       start date: ${date.value}
 </span>
-<p>lowest price: ${cruise.cruiseModel.lowestPrice}</p>
+<p>lowest price: ${cruise.cruiseModel.lowestPrice.value}</p>
+<p>currency: ${cruise.cruiseModel.lowestPrice.currency}</p>
+<p>currency: ${cruise.cruiseModel.lowestPrice.isWaitList}</p>
 <img src="${cruise.cruiseModel.itinerary}"/>
 
 <h3> OFFRES EXCLUSIVES / PROGRAMMES :</h3>
@@ -87,13 +89,24 @@
                  </li>
             </ul>
             <p>Plan:</p>
+            <!-- Suite plan -->
         	<img src="${item.plan}"/>
+        	<p>Location:</p>
+        	<!-- Suite location -->
+        	<img src="${item.locationImage}"/>
+        	<p>Visual tour:</p>
+        	<!-- suite visual tour -->
+        	<img src="${item.virtualTour}"/>
+        	<br/>
         	<strong>Suite variation:</strong>
-        	<ul data-sly-test="${cruise.cruiseModel.variations}"
-                       data-sly-list="${cruise.cruiseModel.variations}">
+        	<ul data-sly-test="${item.variations}"
+                       data-sly-list="${item.variations}">
                  <li>
+                 	<!-- Variation name is a key: must create a key/value i18n -->
         	         <p>Title:${item.name}</p>
-        	         <p>Price:${item.price}</p>
+        	         <p>Price:${item.price.value}</p>
+        	         <p>isWaitList:${item.price.isWaitList}</p>
+        	         <p>Currency:${item.price.currency}</p>
                  </li>
             </ul>
         </li>
