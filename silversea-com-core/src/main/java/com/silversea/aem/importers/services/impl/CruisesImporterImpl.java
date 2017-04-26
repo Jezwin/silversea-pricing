@@ -31,6 +31,8 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.enums.CruiseType;
+import com.silversea.aem.enums.PriceVariations;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesImporter;
@@ -60,19 +62,22 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(CruisesImporterImpl.class);
 	private static final int PER_PAGE = 10;
+	//Api urls
 	private static final String VOYAGE_API_URL="/api/v1/voyages";
 	private static final String LAND_ADVENTURES_API_URL ="/api/v1/landAdventures/Itinerary";
-	private static final String CUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
 	private static final String SPECIAL_OFFERS_API_URL = "/api/v1/voyageSpecialOffers";
 	private static final String HOTEL_ITINERARY_API_URL = "/api/v1/hotels/Itinerary";
 	private static final String SHORE_EXCURSIONS_API_URL ="/api/v1/shoreExcursions/Itinerary";
 	private static final String PRICE_API_URL = "/api/v1/prices";
+	//Templates
+    private static final String CUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
+    //Tags path
+    private static final String SILVERSEA_CTUISE_TYPE_TAG_PREFIX = "cruise-type:";
 	private static final String GEOTAGGING_TAG_PREFIX = "geotagging:";
+	//Constants
 	private static final String PRICE_WAITLIST = "Waitlist:";
+
 	
-	enum PriceVariations {
-        EU_EUR,UK_GBP,AS_AUD,FT_USD;  
-    }
 
 	@Reference
 	private ResourceResolverFactory resourceResolverFactory;
@@ -193,10 +198,10 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 		
 		List<VoyageSpecialOffer> voyageSpecialOffers = getVoyageSpecialOffers(SPECIAL_OFFERS_API_URL,voyage.getVoyageId());
 		Node cruisePageContentNode = cruisePage.getContentResource().adaptTo(Node.class);
-
-		cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
+        cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
 		// TODO  voyageHighlights ?
 		cruisePageContentNode.setProperty("voyageHighlights","");
+	    cruisePageContentNode.setProperty(NameConstants.PN_TAGS,getCruiseTags(voyage));
 		cruisePageContentNode.setProperty("exclusiveOffers",findSpecialOffersReferences(voyageSpecialOffers));
 		cruisePageContentNode.setProperty("startDate", voyage.getArriveDate().toString());
 		cruisePageContentNode.setProperty("endDate", voyage.getDepartDate().toString());
@@ -205,6 +210,27 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 		cruisePageContentNode.setProperty("cruiseCode", voyage.getVoyageCod());
 		cruisePageContentNode.setProperty("cruiseId", voyage.getVoyageId());
 		cruisePageContentNode.setProperty("itinerary", voyage.getMapUrl());
+		
+	
+	}
+	
+	private String[] getCruiseTags(Voyage voyage){
+	    
+	    List<String> tags =new ArrayList<String>();
+	    if(voyage.getFeatures()!=null && !voyage.getFeatures().isEmpty()){
+	        voyage.getFeatures().forEach(item -> {
+	            Iterator<Resource> resources = ImporterUtils.findResourceById("cq:Tag", "featureId", Objects.toString(item), resourceResolver);
+	            if(resources.hasNext()){
+	                tags.add(resources.next().getValueMap().get(JcrConstants.JCR_TITLE,String.class));
+	            }
+	        });
+	    }
+	    
+	    CruiseType cruiseType = voyage.getIsExpedition() ? CruiseType.SILVERSEA_CTUISE : CruiseType.SILVERSEA_EXPEDITION_CTUISE;
+        String cruiseTypeTag = SILVERSEA_CTUISE_TYPE_TAG_PREFIX + cruiseType.getValue();
+	    tags.add(cruiseTypeTag);
+	    
+	    return tags.stream().toArray(String[]::new);
 	}
 
 	private List<Itinerary> getCruiseIteneraries(String apiUrl,Integer voyageId) throws IOException,ApiException{
@@ -484,6 +510,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 		return references.stream().toArray(String[]::new);
 	}
 	
+	//TODO:Store WAITLIST if prices not exits
 	private void calculateLowestPrice(Price price, String marketCode){   
 	    if(price != null && !StringUtils.equals(PRICE_WAITLIST, Objects.toString(price.getCruiseOnlyFare()))){
 	        String variation = marketCode+"_"+price.getCurrencyCod();

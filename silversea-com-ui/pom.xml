@@ -51,6 +51,21 @@
                             <artifactId>silversea-com-core</artifactId>
                             <target>${bundle.install.directory}</target>
                         </embedded>
+                        <embedded>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-annotations</artifactId>
+							<target>${bundle.install.directory}</target>
+						</embedded>
+						<embedded>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-core</artifactId>
+							<target>${bundle.install.directory}</target>
+						</embedded>
+                        <embedded>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-databind</artifactId>
+							<target>${bundle.install.directory}</target>
+						</embedded>
                     </embeddeds>
                 </configuration>
             </plugin>
@@ -102,5 +117,18 @@
             <groupId>com.day.cq.wcm</groupId>
             <artifactId>cq-wcm-taglib</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
     </dependencies>
 </project>

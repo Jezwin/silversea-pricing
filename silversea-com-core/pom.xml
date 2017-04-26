@@ -24,6 +24,7 @@
     <!-- ====================================================================== -->
     <properties>
         <sonar.sources>src</sonar.sources>
+        <cxf.version>3.0.4</cxf.version>
     </properties>
 
     <!-- ====================================================================== -->
@@ -161,5 +162,20 @@
             <artifactId>uber-jar</artifactId>
             <classifier>obfuscated-apis</classifier>
         </dependency>
+        
+        <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
     </dependencies>
 </project>

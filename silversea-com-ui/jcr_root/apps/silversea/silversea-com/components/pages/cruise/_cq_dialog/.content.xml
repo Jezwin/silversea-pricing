@@ -49,6 +49,14 @@
                                             fieldLabel="Description (imported)"
                                             name="./importedDescription"
                                             renderReadOnly="{Boolean}true"/>
+                                    <fareadditions
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="cruiseFareAdditions"
+                                            fieldLabel="Cruise fare additions"
+                                            name="./cruiseFareAdditions"
+                                            renderReadOnly="{Boolean}true"/>
                                     <startdate
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/datepicker"

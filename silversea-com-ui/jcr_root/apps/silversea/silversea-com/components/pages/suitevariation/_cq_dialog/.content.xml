@@ -91,6 +91,12 @@
                                             fieldLabel="Bedrooms Information"
                                             renderReadOnly="{Boolean}true"
                                             name="./bedroomsInformation"/>
+                                    <suitesubtitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            name="./suiteSubTitle"
+                                            fieldLabel="Suite sub title"
+                                            required="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>
