@@ -38,7 +38,7 @@
                     <p>Book by 2 May and choose a two category upgrade, 50% saving on a second suite or $1,000* on board credit</p>
                 </div>
                 <sly data-sly-call="${imageTemplate.default @ imagePath=pageProperties.itinerary}"></sly>
-                <p class="voyageimg__label">Fares shown are per guest</p>
+                <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
             </div>
 
             <div class="col-xs-12 visible-xs">
@@ -90,7 +90,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
-                    <p><strong><i class="fa fa-star"></i> FEATURED EXCLUSIVE OFFERS / PROGRAMMES:</strong></p>
+                    <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
 
                     <p>
                         <a href="${pageProperties.title @ extension='html', selectors='modalcontent'}"
@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="col-xs-5 pull-right">
-                <button class="btn btn-dark btn-block effect">Suites and Fares <span><i class="fa fa-angle-right"></i></span></button>
+                <button class="btn btn-dark btn-block effect">${'suites-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></button>
             </div>
         </div>
     </div>

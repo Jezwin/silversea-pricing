@@ -63,6 +63,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
         sling:message="Deck Plan and Details" />
+    <departure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="departure"
+        sling:message="Departure" />
     <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-discover-more"
@@ -91,6 +95,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <fares-from
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-from"
+        sling:message="Fares from" />
     <features
         jcr:primaryType="sling:MessageEntry"
         sling:key="features"
@@ -175,6 +183,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="plan"
         sling:message="Plan" />
+    <per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="per-guest"
+        sling:message="Per guest" />
     <pressure
         jcr:primaryType="sling:MessageEntry"
         sling:key="pressure"
@@ -231,6 +243,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
         sling:message="Suites" />
+    <suites-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-fares"
+        sling:message="Suites and fares" />
     <suite-location
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite-location"
@@ -287,10 +303,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="phone"
         sling:message="phone" />
+    <fares-shown-are-per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-shown-are-per-guest"
+        sling:message="Fares shown are per guest" />
     <fax
         jcr:primaryType="sling:MessageEntry"
         sling:key="fax"
         sling:message="fax" />
+    <feature-exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feature-exclusive-offers"
+        sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
     <suites-and-fares
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-and-fares"
