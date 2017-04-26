@@ -1,11 +1,6 @@
 .cruise__header {
     margin-bottom: 25px;
 
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        margin-bottom: 35px;
-    }
-
     .cruise__header_title {
         text-align: center;
         color: #000;
@@ -16,9 +11,9 @@
         line-height: 1;
 
         /* phone breakpoint */
-            @media screen and (max-width: @screen-xs) {
-                font-size: 23px;
-            }
+        @media screen and (max-width: @screen-xs) {
+            font-size: 23px;
+        }
 
         .cruise_header_subtitle {
             display: block;
@@ -78,7 +73,8 @@
                 /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     width: auto;
-                    margin: 0;
+                    display: inline-block !important;
+                    margin: 0 0 10px 0;
                 }
             }
         }
