@@ -3,6 +3,10 @@
     jcr:language="en"
     jcr:mixinTypes="[mix:language]"
     jcr:primaryType="sling:Folder">
+    <and
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="and"
+        sling:message="and" />
     <avaible-on
         jcr:primaryType="sling:MessageEntry"
         sling:key="avaible-on"
@@ -143,6 +147,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="land-programmes"
         sling:message="Land programmes" />
+    <land-programmes-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programmes-description"
+        sling:message="Our land programmes (multi-day mid-, pre- or post-cruise) provide additional opportunities to discover more of the highlights and hidden treasures of the lands you visit." />
+    <land-and-hotel
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-and-hotel"
+        sling:message="Land and hotel" />
     <location-images
         jcr:primaryType="sling:MessageEntry"
         sling:key="location-images"
@@ -187,6 +199,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="per-guest"
         sling:message="Per guest" />
+    <pre-post-hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-post-hotels"
+        sling:message="Pre-post hotels" />
     <pressure
         jcr:primaryType="sling:MessageEntry"
         sling:key="pressure"
@@ -323,10 +339,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
         sling:message="Ship" />
-    <land-and-hotel
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="land-and-hotel"
-        sling:message="Land and hotel" />
     <highlight
         jcr:primaryType="sling:MessageEntry"
         sling:key="highlight"

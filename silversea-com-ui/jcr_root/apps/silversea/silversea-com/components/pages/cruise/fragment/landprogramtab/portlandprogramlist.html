@@ -1,0 +1,61 @@
+<div class="row">
+    <h3 class="c-cruise__subtitle">1 ${'land-programmes' @ i18n} ${'and' @ i18n} 4 ${'pre-post-hotels' @ i18n}</h3>
+    <p class="c-cruise__descr">
+        ${'land-programmes-description' @ i18n}
+    </p>
+
+    <div class="c-accordion"
+         data-multiview="false"
+         data-more="<i class='fa fa-angle-down'></i>"
+         data-close="<i class='fa fa-angle-up'></i>">
+        <div class="c-accordion__elem" data-sly-repeat="${[1,2,3]}">
+            <div class="c-accordion__header c-accordion__header--parent">
+                <div class="c-accordion__title c-accordion__title--thumbnail">
+                    <img data-original="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-monaco-monte-carlo-468x360.jpg" alt="Monte Carlo" src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-monaco-monte-carlo-468x360.jpg">
+                </div>
+                <div class="c-accordion__title w-title">
+                    <p class="c-accordion__subtitle veryimportant">Monte Carlo</p>
+                    <p> Monaco</p>
+                    <p class="visible-xs">Friday May 19</p>
+                </div>
+                <div class="c-accordion__title w-content hidden-xs">
+                    <p>Friday May 19</p>
+                </div>
+                <div class="c-accordion__title w-content hidden-xs">
+                    <u>2 Post-cruise hotels</u>
+                </div>
+                <div class="c-accordion__action small">
+                    <i class='fa fa-angle-down'></i>
+                </div>
+            </div>
+            <div class="c-accordion__body c-accordion__body--full">
+
+                <div class="c-accordion"
+                     data-multiview="false"
+                     data-more="${'more' @ i18n} <i class='fa fa-angle-down'></i>"
+                     data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
+                    <div class="c-accordion__elem" data-sly-repeat="${[1,2,3]}">
+                        <div class="c-accordion__header c-accordion__header--center-xs">
+                            <div class="c-accordion__title">
+                                <p><strong>GRANDE HOTEL:  HOTEL HERMITAGE MONTE CARLO</strong></p>
+                                <p class="c-accordion__subtitle hidden-xs">lunch at Vrads Station, relax on a panoramic ride aboard a steam locomotive, then visit the Silkeborg Museum, home of the 'Tollund Man'. Finally, marvel at the breath-taking vistas from Sky Mountain and the Himmelbjerget Viewpoint.</p>
+                            </div>
+
+                            <div class="c-accordion__title c-accordion__action c-accordion__action--light">
+                                ${'more' @ i18n} <i class='fa fa-angle-down'></i>
+                            </div>
+                        </div>
+                        <div class="c-accordion__body">
+                            <div class="c-accordion__body--panel">
+                                <p>Charm and refined elegance characterise this Belle Epoque historic monument. The Hotel Hermitage is only steps from the Casino de Monte-Carlo and directly connected to the Thermes Marins Monte-Carlo.  Most of the rooms at this finest palace benefits from a breathtaking view on the Monaco’s harbor and the Prince’s Palace. Acclaimed chef Joël Garault invites guests to experience true Mediterranean flavour at his restaurant, Le Vistamar, with its spectacular view</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="visible-xs">
+        <a class="btn btn-red effect" href="#"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+    </div>
+</div>
