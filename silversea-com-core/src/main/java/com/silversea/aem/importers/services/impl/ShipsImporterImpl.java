@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
 
@@ -61,7 +62,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                     shipPage = resources.next().adaptTo(Page.class);
                 } else {
                     shipPage = pageManager.create(shipsRootPage.getPath(), ship.getShipCod().toLowerCase(),
-                            "/apps/silversea/silversea-com/templates/ship", ship.getShipName());
+                            TemplateConstants.PATH_SHIP, ship.getShipName());
                 }
 
                 if (shipPage != null) {

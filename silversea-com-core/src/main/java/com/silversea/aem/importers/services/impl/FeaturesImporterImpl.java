@@ -23,6 +23,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
 
@@ -57,14 +58,14 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
             for (Feature feature : features) {
                 LOGGER.debug("Importing Feature: {}", feature.getFeatureCod());
                 Iterator<Resource> resources = resourceResolver.findResources(
-                        "//element(*,cq:Page)[jcr:content/featureCode=\"" + feature.getFeatureCod() + "\"]", "xpath");
+                        "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
                 Page featurePage = null;
 
                 if (resources.hasNext()) {
                     featurePage = resources.next().adaptTo(Page.class);
                 } else {
                     featurePage = pageManager.create(featuresRootPage.getPath(), feature.getFeatureCod(),
-                            "/apps/silversea/silversea-com/templates/feature", feature.getName());
+                            TemplateConstants.PATH_FEATURE, feature.getName());
                 }
 
                 if (featurePage != null) {

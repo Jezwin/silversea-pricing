@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 
@@ -84,7 +85,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                     }else {
                         offersPage = pageManager.create(offersRootPage.getPath(),
                                 JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class), offers.getVoyageSpecialOffer()),
-                                "/apps/silversea/silversea-com/templates/exclusiveoffer", offers.getVoyageSpecialOffer(), false);
+                                TemplateConstants.PATH_EXCLUSIVE_OFFERT, offers.getVoyageSpecialOffer(), false);
                         //TODO trouver le bon nom du template exclusive offers  
                     }
 

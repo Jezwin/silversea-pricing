@@ -30,6 +30,7 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelUpdateImporter;
 
@@ -124,7 +125,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                 hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                                 hotel.getHotelName()),
-                                        "/apps/silversea/silversea-com/templates/hotel", hotel.getHotelName(), false);
+                                        TemplateConstants.PATH_HOTEL, hotel.getHotelName(), false);
 
                                 LOGGER.debug("Creating excursion {}", hotel.getHotelName());
                             } else {

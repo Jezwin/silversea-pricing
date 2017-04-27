@@ -23,6 +23,9 @@ public interface TemplateConstants {
       String PATH_PUBLIC_AREA_VARIATION= "/apps/silversea/silversea-com/templates/publicareavariation";
       String PATH_LANDPROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
       String PATH_DINING_VARIATION = "/apps/silversea/silversea-com/templates/diningvariation";
-     // String PATH_PAGE = "/apps/silversea/silversea-com/templates/page";
-     // String PATH_PAGE = "/apps/silversea/silversea-com/templates/voyagejournalsday";
+      String PATH_HOTEL = "/apps/silversea/silversea-com/templates/hotel";
+      String PATH_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
+      // String PATH_PAGE = ""/apps/silversea/silversea-com/templates/travelagency"";
+      // String PATH_PAGE = ""/apps/silversea/silversea-com/templates/travelagency"";
+      // String PATH_PAGE = ""/apps/silversea/silversea-com/templates/travelagency"";
 }

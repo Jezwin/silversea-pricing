@@ -30,6 +30,7 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
 
@@ -105,7 +106,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
                             LOGGER.debug("Page {} already exists", portFirstLetterName);
                         } else {
                             portFirstLetterPage = pageManager.create(citiesRootPage.getPath(), portFirstLetterName,
-                                    "/apps/silversea/silversea-com/templates/page", portFirstLetter, false);
+                                    TemplateConstants.PATH_PAGE, portFirstLetter, false);
 
                             LOGGER.debug("Creating page {}", portFirstLetterName);
                         }
@@ -128,7 +129,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
                             portPage = pageManager.create(portFirstLetterPage.getPath(),
                                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
                                             city.getCityName()),
-                                    "/apps/silversea/silversea-com/templates/port", city.getCityName(), false);
+                                   TemplateConstants.PATH_PORT, city.getCityName(), false);
 
                             LOGGER.debug("Creating port {}", city.getCityName());
                         }

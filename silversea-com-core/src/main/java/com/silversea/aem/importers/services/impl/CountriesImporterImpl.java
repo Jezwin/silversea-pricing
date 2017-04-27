@@ -30,7 +30,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
 
-@Component(immediate = true, label = "Silversea.com - Cities importer")
+@Component(immediate = true, label = "Silversea.com - Contries importer")
 @Service(value = CountriesImporter.class)
 public class CountriesImporterImpl extends BaseImporter implements CountriesImporter {
 

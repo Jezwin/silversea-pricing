@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesImporter;
 
@@ -88,7 +89,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                         // sous quel neouds faut créer les pages !!!!! BASEPATH_TRAVEL_AGENCIES
                         agencyTravelPage = pageManager.create(travelRootPage.getPath(),
                                 JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class), agency.getAgency()),
-                                "/apps/silversea/silversea-com/templates/travelagency", agency.getAgency(),
+                                TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency(),
                                 false);
                     }
 

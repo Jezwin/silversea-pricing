@@ -30,6 +30,7 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsUpdateImporter;
 
@@ -123,7 +124,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                                     shorex.getShorexCod()),
-                                            "/apps/silversea/silversea-com/templates/excursion", shorex.getShorexCod(),
+                                            TemplateConstants.PATH_EXCURSION, shorex.getShorexCod(),
                                             false);
 
                                     LOGGER.debug("Creating excursion {}", shorex.getShorexCod());

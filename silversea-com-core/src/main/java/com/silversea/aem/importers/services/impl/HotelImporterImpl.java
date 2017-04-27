@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
 
@@ -100,7 +101,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                                 hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                                 hotel.getHotelName()),
-                                        "/apps/silversea/silversea-com/templates/hotel", hotel.getHotelName(),
+                                        TemplateConstants.PATH_HOTEL, hotel.getHotelName(),
                                         false);
 
                                 LOGGER.debug("Creating excursion {}", hotel.getHotelName());
