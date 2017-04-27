@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.sling.api.resource.ResourceResolver;
+
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.commons.Externalizer;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.services.RunModesService;
@@ -18,6 +21,7 @@ public class DataLayerUse extends WCMUsePojo {
     private String event = "";
 
     private String userEmail = "";
+    private String currentPageUrl = "";
 
     private String userLanguage = "";
     private String pageCategory1 = "";
@@ -47,6 +51,11 @@ public class DataLayerUse extends WCMUsePojo {
          */
         Locale locale = getCurrentPage().getLanguage(false);
         userLanguage = locale.getLanguage();
+
+        ResourceResolver resourceResolver = getRequest().getResourceResolver();
+        Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
+        currentPageUrl = externalizer.publishLink(resourceResolver, "http", getCurrentPage().getPath());
+
         // if (getRequest().getCookie("email").getValue() != null) {
         // userEmail = getRequest().getCookie("email").getValue();
         // }
@@ -131,25 +140,137 @@ public class DataLayerUse extends WCMUsePojo {
          */
         // TODO récuperer la bonne market
         geoLoc = "UK";
+        String adwords_conversion_label = "";
+        String adwords_value = "1.0";
+        String adwords_format = "";
         if (geoLoc.equals("US")) {
-            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", "adwords_conversion_label", 
-                    "adwords_format", "adwords_value", "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127", "GSvQCJnls1wQl5v74wM", "1000698659832", "39634");
+            if (pageCategory2.toLowerCase().equals("RAQ TY")) {
+                adwords_conversion_label = "XXW_CPmImQQQl5v74wM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+                adwords_conversion_label = "4ekHCIGahAQQl5v74wM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+                adwords_conversion_label = "kakUCIDVllcQl5v74wM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+                adwords_conversion_label = "tgx1COGdhAQQl5v74wM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+                adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
+                adwords_format = "2";
+            }
+            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwords_conversion_label,
+                    adwords_format, adwords_value, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127",
+                    "GSvQCJnls1wQl5v74wM", "1000698659832", "39634");
         }
+
         if (geoLoc.equals("LAM")) {
-            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", "adwords_conversion_label", 
-                    "adwords_format", "adwords_value", "985293017", "19tjCL3os1wQ2cHp1QM", "985293017", "c5paCPzos1wQ2cHp1QM", "1000698659832", "39634");
+            if (pageCategory2.toLowerCase().equals("RAQ TY")) {
+                adwords_conversion_label = "2ro7CO-klggQ2cHp1QM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+                adwords_conversion_label = "LUfyCNenlggQ2cHp1QM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+                adwords_conversion_label = "eYA8CO-pllcQ2cHp1QM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+                adwords_conversion_label = "-YN5COellggQ2cHp1QM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+                adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
+                adwords_format = "3";
+            }
+            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwords_conversion_label,
+                    adwords_format, adwords_value, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017",
+                    "c5paCPzos1wQ2cHp1QM", "1000698659832", "39634");
         }
+
         if (geoLoc.equals("AP")) {
-            media = new MediaDataLayer("AP","AP", "337dc751", "974446676", "adwords_conversion_label", 
-                    "adwords_format", "adwords_value", "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676", "2n1oCOrpsFwQ1MDT0AM", "1000698659832", "39634");
+            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+                adwords_conversion_label = "7HNzCNzvkQgQ1MDT0AM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+                adwords_conversion_label = "OW6VCMTykQgQ1MDT0AM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+                adwords_conversion_label = "GiVYCNv4lVcQ1MDT0AM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+                adwords_conversion_label = "8OO5CMzxkQgQ1MDT0AM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+                adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
+                adwords_format = "3";
+            }
+            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwords_conversion_label,
+                    adwords_format, adwords_value, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676",
+                    "2n1oCOrpsFwQ1MDT0AM", "1000698659832", "39634");
         }
+
         if (geoLoc.equals("UK")) {
-            media = new MediaDataLayer("UK","UK", "337dc751","958324608" , "adwords_conversion_label", 
-                    "adwords_format", "adwords_value", "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608", "RzaaCPWMsFwQgL_7yAM", "1000698659832", "39634");
+            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+                adwords_conversion_label = "htdlCLDd2iMQgL_7yAM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+                adwords_conversion_label = "EcqGCIjAxSEQgL_7yAM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+                adwords_conversion_label = "f4dGCLz6lVcQgL_7yAM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+                adwords_conversion_label = "80vfCIDBxSEQgL_7yAM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+                adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
+                adwords_format = "3";
+            }
+            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwords_conversion_label,
+                    adwords_format, adwords_value, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608",
+                    "RzaaCPWMsFwQgL_7yAM", "1000698659832", "39634");
         }
+
         if (geoLoc.equals("EMEA")) {
-            media = new MediaDataLayer("EMEA","EMEA", "337dc751", "974176588", "adwords_conversion_label", 
-                    "adwords_format", "adwords_value", "974176588", "uPZUCPPpsFwQzILD0AM", "974176588", "Z58tCPSRsFwQzILD0AM", "1000698659832", "39634");
+            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+                adwords_conversion_label = "81HGCJzThggQzILD0AM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+                adwords_conversion_label = "Fl7fCPTXhggQzILD0AM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+                adwords_conversion_label = "Pr99CPn0llcQzILD0AM";
+                adwords_format = "2";
+            }
+            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+                adwords_conversion_label = "We5mCITWhggQzILD0AM";
+                adwords_format = "3";
+            }
+            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+                adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
+                adwords_format = "3";
+            }
+            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwords_conversion_label,
+                    adwords_format, adwords_value, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
+                    "Z58tCPSRsFwQzILD0AM", "1000698659832", "39634");
         }
 
     }
@@ -188,6 +309,10 @@ public class DataLayerUse extends WCMUsePojo {
 
     public MediaDataLayer getMedia() {
         return media;
+    }
+
+    public String getCurrentPageUrl() {
+        return currentPageUrl;
     }
 
 }
