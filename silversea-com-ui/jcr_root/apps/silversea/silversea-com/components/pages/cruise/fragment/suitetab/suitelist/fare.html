@@ -1,29 +1,31 @@
-<h3 class="c-suitelist__collapse__title">SELECT YOUR SUITE AND REQUEST A QUOTE</h3>
-<table class="table c-suitelist__suite-table">
-    <caption>
-        <strong>${'note:' @ i18n}</strong> ${'cruise-fare-description' @ i18n} The difference between each single Suite is available in the deck plan of the ship.
-    </caption>
-    <thead>
-        <tr>
-            <th>${'suite' @ i18n}</th>
-            <th>${'location' @ i18n}</th>
-            <th>${'fares' @ i18n} (${'per-guest' @ i18n})</th>
-            <th>${'select-your-suite' @ i18n}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-sly-repeat="${[1,2,3]}">
-            <td><strong class="text-uppercase">Owner's 2</strong></td>
-            <td><a href="#" class="text-uppercase">${'view-deck' @ i18n}</a></td>
-            <td>
-                <strong class="text-uppercase">${'waitlist' @ i18n}</strong>
-                <strong class="text-uppercase">&euro; 21,650</strong>
-            </td>
-            <td>
-                <a class="btn btn-red effect btn-thin request-quote" href="#">
-                    <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
-                </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<template data-sly-template.default="${ @ variations }">
+    <h3 class="c-suitelist__collapse__title">${'select-your-suite-and-request-a-quote' @ i18n}</h3>
+    <table class="table c-suitelist__suite-table">
+        <caption>
+            <strong>${'note:' @ i18n}</strong> ${'the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship.' @ i18n}
+        </caption>
+        <thead>
+            <tr>
+                <th>${'suite' @ i18n}</th>
+                <th>${'location' @ i18n}</th>
+                <th>${'fares' @ i18n} (${'per-guest' @ i18n})</th>
+                <th>${'select-your-suite' @ i18n}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-sly-repeat="${variations}">
+                <td><strong class="text-uppercase">${item.name @ i18n }</strong></td>
+                <td><a href="#" class="text-uppercase">${'view-deck' @ i18n}</a></td>
+                <td>
+                    <strong class="text-uppercase" data-sly-test.isWaitList="">${'waitlist' @ i18n}</strong>
+                    <strong class="text-uppercase" data-sly-test="{!isWaitList}">${item.price.currency} ${item.price.value}</strong>
+                </td>
+                <td>
+                    <a class="btn btn-red effect btn-thin request-quote" href="#">
+                        <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</template>
