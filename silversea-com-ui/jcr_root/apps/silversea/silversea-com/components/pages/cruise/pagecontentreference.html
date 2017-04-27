@@ -37,7 +37,7 @@
 <ul data-sly-test="${cruise.cruiseModel.exclusiveOffers}"
         data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
         <li>
-        	<p>Map over head: ${item.mapOverHead}</p>
+            <p>Map over head: ${item.mapOverHead}</p>
             <p>Title:${item.title}</p>
             <p>Description:${item.description @ context='html'}</p>
         </li>
@@ -49,7 +49,7 @@
 <ul data-sly-test="${cruise.cruiseModel.cruiseFareAdditions}"
         data-sly-list="${cruise.cruiseModel.cruiseFareAdditions}">
         <li>
-        	<p>${item}</p>
+            <p>${item}</p>
         </li>
 </ul>
  
@@ -57,8 +57,8 @@
 <ul data-sly-test="${cruise.cruiseModel.exclusiveFareAdditions}"
         data-sly-list="${cruise.cruiseModel.exclusiveFareAdditions}">
         <li>
-        	<p>Addition: ${item.addition}</p>
-        	<p>Note : ${item.notes}</p>
+            <p>Addition: ${item.addition}</p>
+            <p>Note : ${item.notes}</p>
         </li>
 </ul>
 
@@ -73,41 +73,42 @@
             <p>Thumbnail: ${item.thumbnail}</p>
             <p>Title: ${item.title}</p>
             <p>Suite sub title:</p>
-        	<ul data-sly-test="${item.suiteSubTitle}"
+            <ul data-sly-test="${item.suiteSubTitle}"
                      data-sly-list="${item.suiteSubTitle}">
                  <li>
-        	          <p>${item}</p>
+                      <p>${item}</p>
                  </li>
             </ul>
-        	<p>Suite lowest price: ${item.lowestPrice}</p>
-        	<p>Bedroom informations: ${item.bedroomsInformation @ context='html'}</p>
-        	<p>Long description: ${item.longDescription @ context='html'}</p>
-        	<p>Features:</p>
+            <p>Suite lowest, price + currency: ${item.lowestPrice.value} ${item.lowestPrice.currency}</p>
+            <p>Suite lowest, is waitlist: ${item.lowestPrice.isWaitList}</p>
+            <p>Bedroom informations: ${item.bedroomsInformation @ context='html'}</p>
+            <p>Long description: ${item.longDescription @ context='html'}</p>
+            <p>Features:</p>
             <ul data-sly-test="${item.features}"
                      data-sly-list="${item.features}">
                  <li>
-        	          <p>${item}</p>
+                      <p>${item}</p>
                  </li>
             </ul>
             <p>Plan:</p>
             <!-- Suite plan -->
-        	<img src="${item.plan}"/>
-        	<p>Location:</p>
-        	<!-- Suite location -->
-        	<img src="${item.locationImage}"/>
-        	<p>Visual tour:</p>
-        	<!-- suite visual tour -->
-        	<img src="${item.virtualTour}"/>
-        	<br/>
-        	<strong>Suite variation:</strong>
-        	<ul data-sly-test="${item.variations}"
+            <img src="${item.plan}"/>
+            <p>Location:</p>
+            <!-- Suite location -->
+            <img src="${item.locationImage}"/>
+            <p>Visual tour:</p>
+            <!-- suite visual tour -->
+            <img src="${item.virtualTour}"/>
+            <br/>
+            <strong>Suite variation:</strong>
+            <ul data-sly-test="${item.variations}"
                        data-sly-list="${item.variations}">
                  <li>
-                 	<!-- Variation name is a key: must create a key/value i18n -->
-        	         <p>Title:${item.name}</p>
-        	         <p>Price:${item.price.value}</p>
-        	         <p>isWaitList:${item.price.isWaitList}</p>
-        	         <p>Currency:${item.price.currency}</p>
+                     <!-- Variation name is a key: must create a key/value i18n -->
+                     <p>Title:${item.name}</p>
+                     <p>Price:${item.price.value}</p>
+                     <p>isWaitList:${item.price.isWaitList}</p>
+                     <p>Currency:${item.price.currency}</p>
                  </li>
             </ul>
         </li>
