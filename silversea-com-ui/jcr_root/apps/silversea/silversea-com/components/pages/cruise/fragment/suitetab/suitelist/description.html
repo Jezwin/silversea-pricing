@@ -1,30 +1,33 @@
-<div class="row c-tab__content--description__row">
-    <div class="col-sm-6">
-        <img class="o-img" src="http://static.silversea.com/wp-content/uploads/2014/08/whisper-shadow-owner-suite-468x360-450x340-c-default.jpg" alt="Owner's Suite">
+<template data-sly-template.default="${ @ suite }">
+    <div class="row c-tab__content--description__row">
+        <div class="col-sm-6">
+            <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
+                data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=suite.page.properties.assetSelectionReference}"></sly>
+        </div>
+        <div class="col-sm-6">
+            <div class="c-tab__content--description__info">
+                <p>
+                    <strong class="text-uppercase">${'dimension:' @ i18n}</strong>
+                    ${suite.bedroomsInformation @ context='html'}
+                </p>
+                ${suite.longDescription @ context='html'}
+            </div>
+            <div class="c-tab__content--description__price">
+                <p>
+                    <span><strong>${'fares-from' @ i18n}</strong></span><br />
+                    <span data-sly-test.isisWaitList="${suite.lowestPrice.isWaitList}">
+                        <strong class="c-suitelist__price__text--important5 text-uppercase">${'waitlist' @ i18n}</strong>
+                    </span>
+                    <span data-sly-test="${!isisWaitList}">
+                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suite.lowestPrice.currency} ${suite.lowestPrice.value}</strong>
+                        (${'per-guest' @ i18n})
+                    </span>
+                    
+                </p>
+                <a class="btn btn-red effect btn-thin request-quote" href="#">
+                    <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="c-tab__content--description__info">
-            <p>
-                <strong>DIMENSIONS:</strong> <br>One bedroom: 736 ft&sup2; / 69m&sup2; including veranda <br>Two bedroom: 1,031 ft&sup2; / 96m&sup2; including veranda
-            </p>
-            <p>
-                <strong>Number of guests:</strong> Up to 4 guests
-            </p>
-            <p>
-                Stately. Commanding and majestic. Perfect for entertaining. The Royal suite lives up to its name. Enough living space to roam. The pinnacle of good living. Available as a one-bedroom
-                configuration or as two bedrooms (as illustrated) by adjoining with a Veranda Suite. <em>(The Suite Plan illustration does not accurately depict the veranda walls. Click on the <strong>Silver
-                Wind Virtual Tour</strong> to see the actual Royal Suite veranda.)
-                </em>
-            </p>
-        </div>
-        <div class="c-tab__content--description__price">
-            <p>
-                <span><strong>Fares from</strong></span><br />
-                <span><strong class="c-suitelist__price__text--important5 text-uppercase">&euro; 21,650</strong> (per guest)</span>
-            </p>
-            <a class="btn btn-red effect btn-thin request-quote" href="#">
-                <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
-            </a>
-        </div>
-     </div>
-</div>
+</template>
