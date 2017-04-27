@@ -2,9 +2,9 @@ package com.silversea.aem.components.beans;
 
 public class Price {
     
-    String value;
-    boolean isWaitList;
-    String currency;
+    private String value;
+    private boolean isWaitList;
+    private String currency;
     
     public Price() {
     }

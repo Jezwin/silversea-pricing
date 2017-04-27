@@ -136,17 +136,17 @@
                                             name="./destinations">
                                             <items
                                                 jcr:primaryType="nt:unstructured">
-                                                <addition
+                                                <refrence
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                     fieldLabel="Destination"
                                                     rootPath="/content/silversea-com"
-                                                    name="destinationReference" />
-                                                <notes
+                                                    name="reference" />
+                                                <text
                                                     jcr:primaryType="nt:unstructured"
                                                     sling:resourceType="granite/ui/components/foundation/form/textarea"
                                                     fieldLabel="Text"
-                                                    name="destinationText" />
+                                                    name="text" />
                                             </items>
                                         </field>
                                     </destinations>

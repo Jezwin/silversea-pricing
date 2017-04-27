@@ -152,9 +152,10 @@ public class CruiseModel {
             Arrays.asList(exclusiveOfferUrls).forEach((item)->{
                 Page page = resourceResolver.resolve(item).adaptTo(Page.class);
                 ExclusiveOfferModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferModel.class);
-                exclusiveOfferModel.initDescription(country, destination);
-                exclusiveOffers.add(exclusiveOfferModel);
-
+                if(exclusiveOfferModel.isValid(geoMarketCode)){
+                    exclusiveOfferModel.initDescription(country, destination);
+                    exclusiveOffers.add(exclusiveOfferModel);
+                }
             });
         }
         return exclusiveOffers;

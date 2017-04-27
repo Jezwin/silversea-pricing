@@ -39,7 +39,7 @@
         <li>
         	<p>Map over head: ${item.mapOverHead}</p>
             <p>Title:${item.title}</p>
-            <p>Description:${item.description}</p>
+            <p>Description:${item.description @ context='html'}</p>
         </li>
 </ul>
 
@@ -70,6 +70,7 @@
 <ul data-sly-test="${cruise.cruiseModel.suites}"
         data-sly-list="${cruise.cruiseModel.suites}">
         <li>
+            <p>Thumbnail: ${item.thumbnail}</p>
             <p>Title: ${item.title}</p>
             <p>Suite sub title:</p>
         	<ul data-sly-test="${item.suiteSubTitle}"

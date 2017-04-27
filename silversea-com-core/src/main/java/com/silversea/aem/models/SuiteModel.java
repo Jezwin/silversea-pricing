@@ -86,6 +86,7 @@ public class SuiteModel {
     private void init() {
         resourceResolver = page.getContentResource().getResourceResolver();
         tagManager = resourceResolver.adaptTo(TagManager.class);
+        thumbnail = page.getProperties().get("image/fileReference", String.class);
         String suiteReference = page.getProperties().get("suiteReference", String.class);
         suiteSubTitle = parseSuitesSubtitle();
         longDescription = initLongDescription(suiteReference);
@@ -95,6 +96,7 @@ public class SuiteModel {
         lowestPrice = getPriceByGeoMarketCode(lowestPriceNode,geoMarketCode,"priceMarketCode");
     }
 
+    //TODO: duplicated code
     private String[] parseSuitesSubtitle(){
         String[] subTitle = null;
         String text = page.getProperties().get("suiteSubTitle", String.class);
@@ -256,7 +258,10 @@ public class SuiteModel {
 
     public String getVirtualTour() {
         return virtualTour;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
     } 
-
-
+    
 }
