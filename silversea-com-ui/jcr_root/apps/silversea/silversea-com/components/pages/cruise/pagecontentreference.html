@@ -79,7 +79,8 @@
                       <p>${item}</p>
                  </li>
             </ul>
-            <p>Suite lowest, price + currency: ${item.lowestPrice.value} ${item.lowestPrice.currency}</p>
+            
+        	<p>Suite lowest, price + currency: ${item.lowestPrice.value} ${item.lowestPrice.currency}</p>
             <p>Suite lowest, is waitlist: ${item.lowestPrice.isWaitList}</p>
             <p>Bedroom informations: ${item.bedroomsInformation @ context='html'}</p>
             <p>Long description: ${item.longDescription @ context='html'}</p>
@@ -112,5 +113,20 @@
                  </li>
             </ul>
         </li>
-        <hr/>
+        <hr/> 
 </ul>
+<h3>CRUISE ITINERARY</h3>
+<ul data-sly-test="${cruise.cruiseModel.itineraries}"
+        data-sly-list="${cruise.cruiseModel.itineraries}">
+            <li>
+               <p>Country : ${item.country}</p>
+               <p>Thumbnail: ${item.thumbnail}</p>
+               <span  data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
+                      Date: ${date.value}
+               </span>
+        	   <p>Arrive time : ${item.arriveTime}</p>
+        	   <p>Depart time : ${item.departTime}</p>
+        	   <p>Description : ${item.description @ context='html'}</p>
+             </li>
+             <hr/>            
+ </ul>
