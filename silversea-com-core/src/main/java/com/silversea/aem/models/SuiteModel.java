@@ -262,6 +262,10 @@ public class SuiteModel {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public Page getPage() {
+        // TODO remove getter for properties accessible from Page
+        return page;
     } 
-    
 }
