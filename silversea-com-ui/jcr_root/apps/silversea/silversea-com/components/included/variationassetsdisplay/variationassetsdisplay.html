@@ -8,12 +8,11 @@
         <strong>${'suite-plan' @ i18n}</strong>
     </div>
     <div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}">
-        <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}">
+        <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}" />
         <a href="#" type="button" data-target=".bs-modal-lg" class="automatic-gallery-modal">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0]}"></sly>
+            <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0]}" />
         </a>
         <strong>${'suite-location' @ i18n}</strong>
-
         <!--/* Gallery content */-->
         <div class="hide">
             <div class="modal-content modal-content--transparent">
@@ -23,12 +22,12 @@
                 <div class="modal-body">
                     <div class="c-slider c-slider--for" data-sly-list="${setImage.renditionList}">
                         <div>
-                            <sly data-sly-call="${imageTemplate.default @ imagePath=item}"></sly>
+                            <sly data-sly-call="${imageTemplate.default @ imagePath=item}" />
                         </div>
                     </div>
                     <div class="c-slider c-slider--nav" data-sly-list="${setImage.renditionList}">
                         <div>
-                            <sly data-sly-call="${imageTemplate.default @ imagePath=item}"></sly>
+                            <sly data-sly-call="${imageTemplate.default @ imagePath=item}" />
                         </div>
                     </div>
                 </div>
@@ -38,7 +37,7 @@
     </div>
     <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
         <a href="${virualtourLightboxPath @ prependPath='/is/image/'}?wid=930&fit=fit,1" type="button" data-target=".bs-modal-md" class="virtual-tour-modal">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath}"></sly>
+            <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath}" />
         </a>
         <strong>${'virtual-tour' @ i18n}</strong>
     </div>
