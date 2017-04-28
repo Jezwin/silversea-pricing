@@ -135,7 +135,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         portPageContentNode.setProperty("longitude", city.getLongitude());
                         portPageContentNode.setProperty("countryId", city.getCountryId());
                         portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
-                        succesNumber = succesNumber+1;
+                        succesNumber = succesNumber + 1;
                         j++;
 
                         if (j % 100 == 0) {

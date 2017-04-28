@@ -2,11 +2,11 @@ package com.silversea.aem.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -35,6 +35,12 @@ public class TestServlet extends SlingSafeMethodsServlet {
     private int nbrError = 0;
 
     private int nbrSucces = 0;
+
+    StopWatch watch = new StopWatch();
+    String time = "";
+
+    StopWatch watchAll = new StopWatch();
+    String timeAll = "";
 
     @Reference
     private CitiesImporter citiesImporter;
@@ -90,10 +96,17 @@ public class TestServlet extends SlingSafeMethodsServlet {
                 response.getWriter().close();
                 return;
             }
+        }else{
+            watchAll.reset();
+            watchAll.start();
         }
         // End To Extract
 
         if (all || mode.equals(Mode.cities)) {
+            response.getWriter().write("Init import of cities ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             citiesImporter.importCities();
             nbrError = citiesImporter.getErrorNumber();
             nbrSucces = citiesImporter.getSuccesNumber();
@@ -102,10 +115,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("Cities import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
             response.getWriter().write("cities import Done<br/>");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
 
         if (all || mode.equals(Mode.ex)) {
+            response.getWriter().write("Init import of shorex ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             shoreExcursionsImporter.importShoreExcursions();
             nbrError = shoreExcursionsImporter.getErrorNumber();
             nbrSucces = shoreExcursionsImporter.getSuccesNumber();
@@ -114,10 +135,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("Shorex import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
             response.getWriter().write("ShoreExcursions import Done<br/>");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
 
         if (all || mode.equals(Mode.hotels)) {
+            response.getWriter().write("Init import of hotels ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             hotelImporter.importHotel();
             nbrError = hotelImporter.getErrorNumber();
             nbrSucces = hotelImporter.getSuccesNumber();
@@ -126,10 +155,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("hotels import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
             response.getWriter().write("Hotels import Done<br/>");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
 
         if (all || mode.equals(Mode.lp)) {
+            response.getWriter().write("Init import of lands programs ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             landProgramImporter.importLandProgram();
             nbrError = landProgramImporter.getErrorNumber();
             nbrSucces = landProgramImporter.getSuccesNumber();
@@ -138,10 +175,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("land program import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
             response.getWriter().write("LandPrograms import Done<br/>");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
 
         if (all || mode.equals(Mode.ta)) {
+            response.getWriter().write("Init import of travel agencies ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             travelAgenciesImporter.importTravelAgencies();
             nbrError = travelAgenciesImporter.getErrorNumber();
             nbrSucces = travelAgenciesImporter.getSuccesNumber();
@@ -150,10 +195,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("Travel agencies import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
             response.getWriter().write("TravelAgencies import Done<br/>");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
 
         if (all || mode.equals(Mode.eo)) {
+            response.getWriter().write("Init import of exclusives offers ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             exclusiveOffersImporter.importExclusiveOffers();
             nbrError = exclusiveOffersImporter.getErrorNumber();
             nbrSucces = exclusiveOffersImporter.getSuccesNumber();
@@ -162,10 +215,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("Exclusives offers import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
             response.getWriter().write("ExclusiveOffers import Done<br/>");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
 
         if (all || mode.equals(Mode.ships)) {
+            response.getWriter().write("Init import of ships ...<br/>");
+            response.getWriter().flush();
+            watch.reset();
+            watch.start();
             shipsImporter.importShips();
             nbrError = shipsImporter.getErrorNumber();
             nbrSucces = shipsImporter.getSuccesNumber();
@@ -174,33 +235,46 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("<br/>");
             response.getWriter().write("Ships import succes number : <p>" + nbrSucces + "</p>");
             response.getWriter().write("<br/>");
+            response.getWriter().write("<br/> ---------------- <br />");
+            watch.stop();
+            time = watch.toString();
+            response.getWriter().write("Time :<br/>" + time);
+            response.getWriter().write("<br/>");
             response.getWriter().flush();
         }
 
-        if (all || mode.equals(Mode.countries)) {
-            countriesImporter.importCountries();
-            response.getWriter().write("Countries import Done<br/>");
+        // if (all || mode.equals(Mode.countries)) {
+        // countriesImporter.importCountries();
+        // response.getWriter().write("Countries import Done<br/>");
+        // response.getWriter().flush();
+        // }
+        //
+        // if (all || mode.equals(Mode.ft)) {
+        // featuresImporter.importFeatures();
+        // response.getWriter().write("Feature import Done<br/>");
+        // response.getWriter().flush();
+        // }
+        //
+        // if (all || mode.equals(Mode.brochures)) {
+        // brochuresImporter.importBrochures();
+        // response.getWriter().write("Brochures import Done<br/>");
+        // response.getWriter().flush();
+        // }
+        //
+        // if (all || mode.equals(Mode.cruises)) {
+        // cruisesImporter.importCruises();
+        // response.getWriter().write("Cruises import Done<br/>");
+        // response.getWriter().flush();
+        // }
+
+        if(all){
+            watchAll.stop();
+            timeAll = watchAll.toString();
+            response.getWriter().write("<br/> ---------------- <br />");
+            response.getWriter().write("Time Global:<br/>" + timeAll);
+            response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
         }
-
-        if (all || mode.equals(Mode.ft)) {
-            featuresImporter.importFeatures();
-            response.getWriter().write("Feature import Done<br/>");
-            response.getWriter().flush();
-        }
-
-        if (all || mode.equals(Mode.brochures)) {
-            brochuresImporter.importBrochures();
-            response.getWriter().write("Brochures import Done<br/>");
-            response.getWriter().flush();
-        }
-
-        if (all || mode.equals(Mode.cruises)) {
-            cruisesImporter.importCruises();
-            response.getWriter().write("Cruises import Done<br/>");
-            response.getWriter().flush();
-        }
-
         closeDocument(response.getWriter());
 
     }
@@ -218,7 +292,8 @@ public class TestServlet extends SlingSafeMethodsServlet {
     }
 
     enum Mode {
-        cities, ex, hotels, lp, ta, eo, countries, ft, ships, brochures, cruises;
+        cities, ex, hotels, lp, ta, eo, ships; // , countries, ft, brochures,
+                                               // cruises;
 
     }
 }
