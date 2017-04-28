@@ -142,7 +142,7 @@
         background-color: @grey--e;
 
         .c-tab {
-            margin: 20px 15px 1px;
+            margin: 20px 15px 0;
         }
 
         &__title {
@@ -171,14 +171,31 @@
 
     @media screen and (max-width: @screen-sm) {
         &__item {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         &__heading {
             border: 1px solid @grey--d;
             cursor: pointer;
             padding-bottom: 15px;
+            position: relative;
             text-align: center;
+
+            &[aria-expanded='true'] {
+                &:before {
+                    border-color: transparent transparent @grey--e transparent;
+                    border-style: solid;
+                    border-width: 0 12px 14px 12px;
+                    content: ' ';
+                    display: block;
+                    height: 0;
+                    left: 50%;
+                    position: absolute;
+                    bottom: -14px;
+                    transform: translateX(-50%);
+                    width: 0;
+                }
+            }
         }
 
         &__button {
@@ -187,21 +204,6 @@
 
         &__collapse {
             margin-top: 10px;
-            position: relative;
-
-            &:before {
-                border-color: transparent transparent @grey--e transparent;
-                border-style: solid;
-                border-width: 0 12px 14px 12px;
-                content: ' ';
-                display: block;
-                height: 0;
-                left: 50%;
-                position: absolute;
-                top: -10px;
-                transform: translateX(-50%);
-                width: 0;
-            }
 
             .c-tab__accordion {
                 .c-tab__nav {
