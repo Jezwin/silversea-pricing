@@ -91,10 +91,10 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             for (Ship ship : listShips) {
                 try {
                   //TODO remove this conditions, just to test 
-                  if(i==2){
-                      String test = null;
-                      test.toString();
-                  }
+//                  if(i==2){
+//                      String test = null;
+//                      test.toString();
+//                  }
                     Iterator<Resource> resources = resourceResolver.findResources(
                             "//element(*,cq:Page)[jcr:content/shipId=\"" + ship.getShipId() + "\"]", "xpath");
                     Page shipPage = null;
