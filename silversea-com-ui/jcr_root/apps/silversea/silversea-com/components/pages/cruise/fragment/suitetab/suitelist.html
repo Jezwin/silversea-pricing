@@ -1,5 +1,5 @@
 <div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="c-suitelist" role="tablist">
-    <div class="panel c-suitelist__item" data-sly-repeat="${cruise.cruiseModel.suites}">
+    <div class="panel c-suitelist__item contains-slider" data-sly-repeat="${cruise.cruiseModel.suites}">
         <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
         data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
@@ -8,6 +8,7 @@
             </div>
             <div class="c-suitelist__detail">
                 <h3 class="c-suitelist__detail__title" data-sly-text="${item.page.title}"></h3>
+                ${item.page.path}
                 <p class="c-suitelist__detail__description">
                     <sly data-sly-repeat="${item.suiteSubTitle}">
                         ${item}

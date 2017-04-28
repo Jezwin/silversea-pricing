@@ -22,7 +22,7 @@
                 $(_links).removeAttr('data-state', null);
 
                 $(this).attr('data-state', 'active');
-                $(_data.content + id).attr('data-state', 'active');
+                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
             });
 
             if (_self.hasClass('c-tab__accordion')) {

@@ -3,11 +3,12 @@ $(function() {
         e.stopPropagation();
     })
 
-    // Re-init Slider inside collapse
-    $('.c-suitelist__heading').on('click', function() {
-        $('.c-slider').slick('unslick').slick();
+    // Force reinit slider when it was inside a hidden tab
+    $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
+        var $currentSlider = $(this).find('.c-slider');
         $(window).trigger('resize');
-    })
+        $currentSlider.slick('unslick').slick();
+    });
 
     $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
         var $currentCollapse = $(this);
