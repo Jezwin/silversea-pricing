@@ -42,6 +42,9 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
     static final private Logger LOGGER = LoggerFactory.getLogger(TravelAgenciesImporterImpl.class);
 
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -52,13 +55,12 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
         // get authentification to the Travel Agencies API
         AgenciesApi travelAgenciesApi = new AgenciesApi();
         travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-        
+
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
             Page travelRootPage = pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES);
-
 
             int i = 1;
 
@@ -68,58 +70,69 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
                 // gets all lands
                 travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, 100);
-                
-                // get root parent travel agencies 
-                
+
+                // get root parent travel agencies
+
                 int j = 0;
 
                 for (Agency agency : travelAgencies) {
 
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/agencyId=\"" + agency.getAgencyId() + "\"]", "xpath");
+                    try {
+                        // TODO remove this conditions, just to test
+                        // if(j==2){
+                        // String test = null;
+                        // test.toString();
+                        // }
 
-                    Page agencyTravelPage = null;
+                        Iterator<Resource> resources = resourceResolver.findResources(
+                                "//element(*,cq:Page)[jcr:content/agencyId=\"" + agency.getAgencyId() + "\"]", "xpath");
 
-                    if (resources.hasNext()) {
-                        agencyTravelPage = resources.next().adaptTo(Page.class);
-                    } 
-                    
-                    
-                    else {
-                        // sous quel neouds faut créer les pages !!!!! BASEPATH_TRAVEL_AGENCIES
-                        agencyTravelPage = pageManager.create(travelRootPage.getPath(),
-                                JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class), agency.getAgency()),
-                                TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency(),
-                                false);
-                    }
+                        Page agencyTravelPage = null;
 
-                    
-                    
-                    if (agencyTravelPage != null) {
-                        Node agencyContentNode = agencyTravelPage.getContentResource().adaptTo(Node.class);
-                        agencyContentNode.setProperty(JcrConstants.JCR_TITLE, agency.getAgency());
-                        agencyContentNode.setProperty("agencyId", agency.getAgencyId());
-                        agencyContentNode.setProperty("address", agency.getAddress());
-                        agencyContentNode.setProperty("city", agency.getCity());
-                        agencyContentNode.setProperty("zip", agency.getZip());
-                        agencyContentNode.setProperty("zip4", agency.getZip4());
-                        agencyContentNode.setProperty("countryIso3", agency.getCountryIso3());
-                        agencyContentNode.setProperty("stateCode", agency.getStateCod());
-                        agencyContentNode.setProperty("county", agency.getCounty());
-                        agencyContentNode.setProperty("phone", agency.getPhone());
-                        agencyContentNode.setProperty("latitude", agency.getLat());
-                        agencyContentNode.setProperty("longitude", agency.getLon());
-                        j++;
-                    }
+                        if (resources.hasNext()) {
+                            agencyTravelPage = resources.next().adaptTo(Page.class);
+                        }
 
-                    if (j % 100 == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                        else {
+                            // sous quel neouds faut créer les pages !!!!!
+                            // BASEPATH_TRAVEL_AGENCIES
+                            agencyTravelPage = pageManager.create(travelRootPage.getPath(),
+                                    JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
+                                            agency.getAgency()),
+                                    TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency(), false);
+                        }
+
+                        if (agencyTravelPage != null) {
+                            Node agencyContentNode = agencyTravelPage.getContentResource().adaptTo(Node.class);
+                            agencyContentNode.setProperty(JcrConstants.JCR_TITLE, agency.getAgency());
+                            agencyContentNode.setProperty("agencyId", agency.getAgencyId());
+                            agencyContentNode.setProperty("address", agency.getAddress());
+                            agencyContentNode.setProperty("city", agency.getCity());
+                            agencyContentNode.setProperty("zip", agency.getZip());
+                            agencyContentNode.setProperty("zip4", agency.getZip4());
+                            agencyContentNode.setProperty("countryIso3", agency.getCountryIso3());
+                            agencyContentNode.setProperty("stateCode", agency.getStateCod());
+                            agencyContentNode.setProperty("county", agency.getCounty());
+                            agencyContentNode.setProperty("phone", agency.getPhone());
+                            agencyContentNode.setProperty("latitude", agency.getLat());
+                            agencyContentNode.setProperty("longitude", agency.getLon());
+                            succesNumber = succesNumber+1;
+                            j++;
+                        }
+
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        errorNumber = errorNumber + 1;
+                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        j++;
                     }
                 }
 
@@ -128,7 +141,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
             if (session.hasPendingChanges()) {
                 try {
-                    //save migration date
+                    // save migration date
                     Node rootNode = travelRootPage.getContentResource().adaptTo(Node.class);
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
@@ -138,8 +151,16 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+        } catch (ApiException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
+    }
+    
+    public int getErrorNumber() {
+        return errorNumber;
+    }
+
+    public int getSuccesNumber() {
+        return succesNumber;
     }
 }

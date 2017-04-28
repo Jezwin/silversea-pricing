@@ -8,4 +8,8 @@ import java.io.IOException;
 public interface ExclusiveOffersImporter {
 
     void importExclusiveOffers() throws IOException;
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

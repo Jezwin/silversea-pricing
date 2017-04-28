@@ -10,4 +10,8 @@ public interface CitiesImporter {
     void importCities() throws IOException;
 
     void importCity(final String cityId);
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

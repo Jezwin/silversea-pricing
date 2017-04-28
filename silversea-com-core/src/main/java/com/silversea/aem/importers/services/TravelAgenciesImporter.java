@@ -8,4 +8,8 @@ import java.io.IOException;
 public interface TravelAgenciesImporter {
 
     void importTravelAgencies() throws IOException;
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

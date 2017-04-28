@@ -42,6 +42,9 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
     static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramImporterImpl.class);
 
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -72,64 +75,77 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
                 for (Land land : lands) {
 
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]", "xpath");
+                    try {
+                        // TODO remove this conditions, just to test
+                        // if(j==2){
+                        // String test = null;
+                        // test.toString();
+                        // }
 
-                    Page landPage = null;
+                        Iterator<Resource> resources = resourceResolver.findResources(
+                                "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]", "xpath");
 
-                    if (resources.hasNext()) {
-                        landPage = resources.next().adaptTo(Page.class);
-                    } else {
-                        Integer cityId = land.getCities().size() > 0 ? land.getCities().get(0).getCityId() : null;
+                        Page landPage = null;
 
-                        if (cityId != null) {
-                            Iterator<Resource> portsResources = resourceResolver.findResources(
-                                    "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
-
-                            if (portsResources.hasNext()) {
-                                Page portPage = portsResources.next().adaptTo(Page.class);
-
-                                LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
-
-                                Page landsPage;
-                                if (portPage.hasChild("landprogram")) {
-                                    landsPage = pageManager.getPage(portPage.getPath() + "/landprogram");
-                                } else {
-                                    landsPage = pageManager.create(portPage.getPath(), "landprogram",
-                                            "/apps/silversea/silversea-com/templates/page", "Land Program", false);
-                                }
-
-                                landPage = pageManager.create(landsPage.getPath(),
-                                        JcrUtil.createValidChildName(landsPage.adaptTo(Node.class), land.getLandName()),
-                                        TemplateConstants.PATH_LANDPROGRAM, land.getLandName(),
-                                        false);
-
-                                LOGGER.debug("Creating land {}", land.getLandCod());
-                            } else {
-                                LOGGER.debug("No city found with id {}", cityId);
-                            }
+                        if (resources.hasNext()) {
+                            landPage = resources.next().adaptTo(Page.class);
                         } else {
-                            LOGGER.debug("Excursion have no city attached, not imported");
-                        }
-                    }
+                            Integer cityId = land.getCities().size() > 0 ? land.getCities().get(0).getCityId() : null;
 
-                    if (landPage != null) {
-                        Node hotelPageContentNode = landPage.getContentResource().adaptTo(Node.class);
-                        hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, land.getLandName());
-                        hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, land.getDescription());
-                        hotelPageContentNode.setProperty("landId", land.getLandId());
-                        hotelPageContentNode.setProperty("landCode", land.getLandCod());
-                        j++;
-                    }
+                            if (cityId != null) {
+                                Iterator<Resource> portsResources = resourceResolver.findResources(
+                                        "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
 
-                    if (j % 100 == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                                if (portsResources.hasNext()) {
+                                    Page portPage = portsResources.next().adaptTo(Page.class);
+
+                                    LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
+
+                                    Page landsPage;
+                                    if (portPage.hasChild("landprogram")) {
+                                        landsPage = pageManager.getPage(portPage.getPath() + "/landprogram");
+                                    } else {
+                                        landsPage = pageManager.create(portPage.getPath(), "landprogram",
+                                                "/apps/silversea/silversea-com/templates/page", "Land Program", false);
+                                    }
+
+                                    landPage = pageManager.create(landsPage.getPath(),
+                                            JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
+                                                    land.getLandName()),
+                                            TemplateConstants.PATH_LANDPROGRAM, land.getLandName(), false);
+
+                                    LOGGER.debug("Creating land {}", land.getLandCod());
+                                } else {
+                                    LOGGER.debug("No city found with id {}", cityId);
+                                }
+                            } else {
+                                LOGGER.debug("Excursion have no city attached, not imported");
                             }
                         }
+
+                        if (landPage != null) {
+                            Node hotelPageContentNode = landPage.getContentResource().adaptTo(Node.class);
+                            hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, land.getLandName());
+                            hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, land.getDescription());
+                            hotelPageContentNode.setProperty("landId", land.getLandId());
+                            hotelPageContentNode.setProperty("landCode", land.getLandCod());
+                            succesNumber = succesNumber+1;
+                            j++;
+                        }
+
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        errorNumber = errorNumber + 1;
+                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        j++;
                     }
                 }
 
@@ -139,7 +155,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
             if (session.hasPendingChanges()) {
                 try {
                     // save migration date
-                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class); 
+                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
@@ -148,8 +164,16 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+        } catch (ApiException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
+    }
+
+    public int getErrorNumber() {
+        return errorNumber;
+    }
+
+    public int getSuccesNumber() {
+        return succesNumber;
     }
 }

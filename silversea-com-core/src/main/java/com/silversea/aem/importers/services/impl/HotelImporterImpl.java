@@ -23,7 +23,6 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
@@ -31,7 +30,6 @@ import com.silversea.aem.importers.services.HotelImporter;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.HotelsApi;
 import io.swagger.client.model.Hotel;
-import io.swagger.client.model.Shorex;
 
 /**
  * Created by mbennabi on 08/03/2017.
@@ -45,15 +43,17 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+
     @Override
     public void importHotel() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/hotels");
 
-        // get authentification to the Hotels API
-        HotelsApi hotelsApi = new HotelsApi();
-        hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-
         try {
+            // get authentification to the Hotels API
+            HotelsApi hotelsApi = new HotelsApi();
+            hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
@@ -71,66 +71,78 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
                 for (Hotel hotel : hotels) {
 
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/hotelId=\"" + hotel.getHotelId() + "\"]", "xpath");
+                    try {
+                        // TODO remove this conditions, just to test
+                        // if(j==2){
+                        // String test = null;
+                        // test.toString();
+                        // }
 
-                    Page hotelPage = null;
+                        Iterator<Resource> resources = resourceResolver.findResources(
+                                "//element(*,cq:Page)[jcr:content/hotelId=\"" + hotel.getHotelId() + "\"]", "xpath");
 
-                    if (resources.hasNext()) {
-                        hotelPage = resources.next().adaptTo(Page.class);
-                    } else {
-                        Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
+                        Page hotelPage = null;
 
-                        if (cityId != null) {
-                            Iterator<Resource> portsResources = resourceResolver.findResources(
-                                    "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
-
-                            if (portsResources.hasNext()) {
-                                Page portPage = portsResources.next().adaptTo(Page.class);
-
-                                LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
-
-                                Page hotelsPage;
-                                if (portPage.hasChild("hotels")) {
-                                    hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
-                                } else {
-                                    hotelsPage = pageManager.create(portPage.getPath(), "hotels",
-                                            "/apps/silversea/silversea-com/templates/page", "Hotels", false);
-                                }
-
-                                hotelPage = pageManager.create(hotelsPage.getPath(),
-                                        JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                hotel.getHotelName()),
-                                        TemplateConstants.PATH_HOTEL, hotel.getHotelName(),
-                                        false);
-
-                                LOGGER.debug("Creating excursion {}", hotel.getHotelName());
-                            } else {
-                                LOGGER.debug("No city found with id {}", cityId);
-                            }
+                        if (resources.hasNext()) {
+                            hotelPage = resources.next().adaptTo(Page.class);
                         } else {
-                            LOGGER.debug("Excursion have no city attached, not imported");
-                        }
-                    }
+                            Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
 
-                    if (hotelPage != null) {
-                        Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
-                        hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
-                        hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
-                        hotelPageContentNode.setProperty("image", hotel.getImageUrl());
-                        hotelPageContentNode.setProperty("code", hotel.getHotelCod());
-                        hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
-                        j++;
-                    }
+                            if (cityId != null) {
+                                Iterator<Resource> portsResources = resourceResolver.findResources(
+                                        "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
 
-                    if (j % 100 == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                                if (portsResources.hasNext()) {
+                                    Page portPage = portsResources.next().adaptTo(Page.class);
+
+                                    LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
+
+                                    Page hotelsPage;
+                                    if (portPage.hasChild("hotels")) {
+                                        hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
+                                    } else {
+                                        hotelsPage = pageManager.create(portPage.getPath(), "hotels",
+                                                "/apps/silversea/silversea-com/templates/page", "Hotels", false);
+                                    }
+
+                                    hotelPage = pageManager.create(hotelsPage.getPath(),
+                                            JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
+                                                    hotel.getHotelName()),
+                                            TemplateConstants.PATH_HOTEL, hotel.getHotelName(), false);
+
+                                    LOGGER.debug("Creating excursion {}", hotel.getHotelName());
+                                } else {
+                                    LOGGER.debug("No city found with id {}", cityId);
+                                }
+                            } else {
+                                LOGGER.debug("Excursion have no city attached, not imported");
                             }
                         }
+
+                        if (hotelPage != null) {
+                            Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
+                            hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
+                            hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
+                            hotelPageContentNode.setProperty("image", hotel.getImageUrl());
+                            hotelPageContentNode.setProperty("code", hotel.getHotelCod());
+                            hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
+                            j++;
+                            succesNumber = succesNumber+1;
+                        }
+
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        errorNumber = errorNumber + 1;
+                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        j++;
                     }
                 }
 
@@ -140,7 +152,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
             if (session.hasPendingChanges()) {
                 try {
                     // save migration date
-                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class); 
+                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
@@ -149,8 +161,18 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+        } catch (ApiException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
     }
+
+    public int getErrorNumber() {
+        return errorNumber;
+    }
+
+    public int getSuccesNumber() {
+        return succesNumber;
+    }
+
+
 }

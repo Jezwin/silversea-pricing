@@ -8,4 +8,8 @@ import java.io.IOException;
 public interface LandProgramImporter {
 
     void importLandProgram() throws IOException;
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

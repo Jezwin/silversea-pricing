@@ -8,4 +8,8 @@ import java.io.IOException;
 public interface ShoreExcursionsImporter {
 
     void importShoreExcursions() throws IOException;
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

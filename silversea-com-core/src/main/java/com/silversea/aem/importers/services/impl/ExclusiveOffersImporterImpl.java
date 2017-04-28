@@ -41,6 +41,9 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersImporterImpl.class);
 
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -48,65 +51,77 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
     public void importExclusiveOffers() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/specialOffers");
         try {
-        // get authentification to the Special Offers API
-        SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-        spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-        
+            // get authentification to the Special Offers API
+            SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
+            spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
-        
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
             Page offersRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
 
-
             int i = 1;
-            
+
             List<SpecialOffer> specialOffers;
 
             do {
 
                 // gets all special Offers
                 specialOffers = spetialOffersApi.specialOffersGet(i, 100, null);
-                
+
                 // get root parent special offers
-                
+
                 int j = 0;
 
                 for (SpecialOffer offers : specialOffers) {
 
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/exclusiveOfferId=\"" + offers.getVoyageSpecialOfferId() + "\"]", "xpath");
+                    try {
+                        // TODO remove this conditions, just to test
+                        // if(j==2){
+                        // String test = null;
+                        // test.toString();
+                        // }
 
-                    Page offersPage = null;
+                        Iterator<Resource> resources = resourceResolver
+                                .findResources("//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
+                                        + offers.getVoyageSpecialOfferId() + "\"]", "xpath");
 
-                    if (resources.hasNext()) {
-                        offersPage = resources.next().adaptTo(Page.class);
-                    }else {
-                        offersPage = pageManager.create(offersRootPage.getPath(),
-                                JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class), offers.getVoyageSpecialOffer()),
-                                TemplateConstants.PATH_EXCLUSIVE_OFFERT, offers.getVoyageSpecialOffer(), false);
-                        //TODO trouver le bon nom du template exclusive offers  
-                    }
+                        Page offersPage = null;
 
-                    if (offersPage != null) {
-                        Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
-                        offersContentNode.setProperty(JcrConstants.JCR_TITLE, offers.getVoyageSpecialOffer());
-                        offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
-                        offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
-                        offersContentNode.setProperty("endDate", offers.getValidTo().toString());
-                        
-                        j++;
-                    }
+                        if (resources.hasNext()) {
+                            offersPage = resources.next().adaptTo(Page.class);
+                        } else {
+                            offersPage = pageManager.create(offersRootPage.getPath(),
+                                    JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
+                                            offers.getVoyageSpecialOffer()),
+                                    TemplateConstants.PATH_EXCLUSIVE_OFFERT, offers.getVoyageSpecialOffer(), false);
+                            // TODO trouver le bon nom du template exclusive
+                            // offers
+                        }
 
-                    if (j % 100 == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                        if (offersPage != null) {
+                            Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
+                            offersContentNode.setProperty(JcrConstants.JCR_TITLE, offers.getVoyageSpecialOffer());
+                            offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
+                            offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
+                            offersContentNode.setProperty("endDate", offers.getValidTo().toString());
+                            succesNumber = succesNumber+1;
+                            j++;
+                        }
+
+                        if (j % 100 == 0) {
+                            if (session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        errorNumber = errorNumber + 1;
+                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        j++;
                     }
                 }
 
@@ -115,8 +130,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
             if (session.hasPendingChanges()) {
                 try {
-                 // save migration date
-                    Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class); 
+                    // save migration date
+                    Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class);
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
@@ -125,8 +140,16 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
             }
 
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+        } catch (ApiException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing shorexes", e);
         }
+    }
+
+    public int getErrorNumber() {
+        return errorNumber;
+    }
+
+    public int getSuccesNumber() {
+        return succesNumber;
     }
 }
