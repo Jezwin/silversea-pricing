@@ -59,19 +59,23 @@
                     </div>
                     <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}">
                         <!--/* Suite plan tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist/suiteplan.html" />
+                        <sly data-sly-use.suitePlanTemplate="suitelist/suiteplan.html"
+                            data-sly-call="${suitePlanTemplate.default @ suite=item}" />
                     </div>
                     <div class="c-tab__content c-tab__content--feature" id="feature-${itemList.index}">
                         <!--/* Features tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist/feature.html" />
+                        <sly data-sly-use.featureTemplate="suitelist/feature.html"
+                            data-sly-call="${featureTemplate.default @ suite=item}" />
                     </div>
                     <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}">
                         <!--/* Suite location tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist/suitelocation.html" />
+                        <sly data-sly-use.suiteLocationTemplate="suitelist/suitelocation.html"
+                            data-sly-call="${suiteLocationTemplate.default @ suite=item}" />
                     </div>
                     <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}">
                         <!--/* Virtual tour tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist/virtualtour.html" />
+                        <sly data-sly-use.virtualTourTemplate="suitelist/virtualtour.html"
+                            data-sly-call="${virtualTourTemplate.default @ suite=item}" />
                     </div>
                 </div>
                 <sly data-sly-use.fareTemplate="suitelist/fare.html"
