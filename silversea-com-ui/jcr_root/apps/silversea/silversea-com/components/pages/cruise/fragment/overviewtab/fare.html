@@ -1,18 +1,8 @@
-<div class="c-cruise__fare">
+<div class="c-cruise__fare" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'included-cruise-fare' @ i18n}</h3>
     <ul class="c-list">
-        <li><strong>Included flights between Ecuador and the Galápagos Islands</strong></li>
-        <li><strong>Included Transfers</strong></li>
-        <li><strong>Included pre and post Hotel*</strong></li>
-        <li><strong>Included National Park fees</strong></li>
-        <li>Personalised service – the best crew-to-guest ratio in expedition cruising</li>
-        <li>Butler service in every suite – all guests are pampered equally</li>
-        <li>Open-seating dining options – dine when and with whomever you please</li>
-        <li>Beverages in-suite and throughout the ship – select wines, premium spirits, specialty coffees and soft drinks, plus your own tailored mini-bar</li>
-        <li>In-suite dining and room service – available 24 hours aboard Silver Explorer, and from 06:00 to 23:00 aboard Silver Galapagos and Silver Discoverer</li>
-        <li>Enrichment lectures by a highly qualified Expeditions Team</li>
-        <li>Guided Zodiac, land and sea tours, and shoreside activities led by the Expeditions Team</li>
-        <li>Gratuities always included in your fare</li>
+        <li data-sly-repeat="${cruise.cruiseModel.cruiseFareAdditions}"><strong>${item}</strong></li>
+        <li data-sly-repeat="${cruise.cruiseModel.exclusiveFareAdditions}">${item.addition}</li>
     </ul>
     <div class="c-list__expand">
         <a href="#" class="view_all">${'view-all' @ i18n} <i class="fa fa-angle-down"></i></a>
