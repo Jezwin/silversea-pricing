@@ -62,12 +62,14 @@ $(function() {
         e.preventDefault();
         $modalContent = $('<div class="modal-content modal-content--transparent">'
                 + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
-                + '<div class="modal-body automatic-modal-body"></div>' + '</div>')
-        var $img = $('<img class="o-img" />');
-        $img.attr('src', $(this).attr('href'));
+                + '<div class="modal-body automatic-modal-body"><img class="o-img" /></div>' + '</div>')
         $($(this).data('target')).modal('show');
-        $('.modal-content:visible').replaceWith($modalContent);
-        $('.modal-content:visible .modal-body').append($img);
+        var imagePath = $(this).attr('href');
+        $('.modal').on('shown.bs.modal', function (e) {
+            $(this).find('.modal-content').replaceWith($modalContent);
+            $(this).find('img').attr('src', imagePath);
+        });
+
     });
 
     // Build modal fragment for Gallery
