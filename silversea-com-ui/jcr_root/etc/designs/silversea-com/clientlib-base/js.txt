@@ -2,6 +2,7 @@
 components/main.js
 components/c-header.js
 components/burgernav.js
+components/modal.js
 components/c-tab.js
 components/c-accordion.js
 components/c-brochureslist.js
