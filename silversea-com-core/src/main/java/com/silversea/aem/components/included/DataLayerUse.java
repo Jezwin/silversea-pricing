@@ -40,10 +40,12 @@ public class DataLayerUse extends WCMUsePojo {
          */
         RunModesService run = getSlingScriptHelper().getService(RunModesService.class);
         runMode = run.getCurrentRunMode();
-        if (getCurrentPage().getProperties().get("event") != null
-                && getCurrentPage().getProperties().get("event").toString().equals("true")
-                && getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_PAGE)) {
+        
+        if (getCurrentPage().getProperties().get("eventValue") != null) {
             event = getCurrentPage().getProperties().get("eventValue").toString();
+        }
+        if (getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_EXCLUSIVE_OFFERT)) {
+            event = "searchresults";
         }
 
         /**
@@ -54,7 +56,7 @@ public class DataLayerUse extends WCMUsePojo {
 
         ResourceResolver resourceResolver = getRequest().getResourceResolver();
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
-        currentPageUrl = externalizer.publishLink(resourceResolver, "http", getCurrentPage().getPath());
+        currentPageUrl = externalizer.publishLink(resourceResolver, "http", getCurrentPage().getPath()) + ".html";
 
         // if (getRequest().getCookie("email").getValue() != null) {
         // userEmail = getRequest().getCookie("email").getValue();

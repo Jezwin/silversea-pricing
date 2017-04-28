@@ -138,41 +138,6 @@
                                                 fieldLabel="Description"
                                                 name="./jcr:description"
                                                 renderReadOnly="{Boolean}true" />
-                                            <event
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
-                                                allowBulkEdit="{Boolean}true"
-                                                cq-msm-lockable="event"
-                                                name="./event"
-                                                renderReadOnly="{Boolean}true"
-                                                text="DTM Event"
-                                                value="true" />
-                                            <eventValue
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                fieldDescription="DTM Event value"
-                                                fieldLabel="DTM Event Value"
-                                                name="./eventValue">
-                                                <items
-                                                    jcr:primaryType="nt:unstructured">
-                                                    <searchresults
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="searchresults"
-                                                        value="searchresults" />
-                                                    <offerdetail
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="offerdetail"
-                                                        value="offerdetail" />
-                                                    <conversionintent
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="conversionintent"
-                                                        value="conversionintent" />
-                                                    <conversion
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="conversion"
-                                                        value="conversion" />
-                                                </items>
-                                            </eventValue>
                                         </items>
                                     </moretitles>
                                     <onofftime
@@ -305,6 +270,13 @@
                                         fieldLabel="Page category 3"
                                         name="./pageCategory3"
                                         renderReadOnly="{Boolean}true" />
+                                    <eventValue
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        fieldDescription="DTM Event value"
+                                        fieldLabel="DTM Event Value"
+                                        name="./eventValue" 
+                                        renderReadOnly="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>
