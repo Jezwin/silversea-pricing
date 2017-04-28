@@ -299,6 +299,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyages"
         sling:message="Voyages" />
+    <voyage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage"
+        sling:message="Voyage" />
     <weather
         jcr:primaryType="sling:MessageEntry"
         sling:key="weather"
@@ -431,6 +435,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
         sling:message="voyage highlights" />
+    <expedition-team
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team"
+        sling:message="expedition team" />
+    <expedition-team-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team-descr"
+        sling:message="Between 11 and 13 qualified specialists, many with a PhD or Professor to their name, will be on hand during every voyage and shore excursion. They’ll give lecuters, run workshops, lead Zodiac trips and guide nature walks." />
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
