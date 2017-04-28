@@ -2,12 +2,15 @@ package com.silversea.aem.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -68,6 +71,10 @@ public class ExcursionModel {
 
     private List<Feature> features;
 
+    private String duration;
+
+    private String schedule;
+
     @PostConstruct
     private void init() {
 
@@ -81,6 +88,17 @@ public class ExcursionModel {
             shortDescription = matcher.group(0);
         }
         features = initFeatures();
+    }
+
+    public void initialize(Node node) {
+        if (node != null) {
+            try {
+                schedule = Objects.toString(node.getProperty("plannedDepartureTime").getValue());
+                duration = Objects.toString(node.getProperty("duration").getValue());
+            } catch (RepositoryException e) {
+                LOGGER.error("Exception while initializing properties", e);
+            }
+        }
     }
 
     private List<Feature> initFeatures() {
@@ -136,5 +154,13 @@ public class ExcursionModel {
 
     public List<Feature> getFeatures() {
         return features;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getSchedule() {
+        return schedule;
     }
 }

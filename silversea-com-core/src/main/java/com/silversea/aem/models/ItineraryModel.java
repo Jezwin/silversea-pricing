@@ -1,5 +1,6 @@
 package com.silversea.aem.models;
 
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -60,7 +62,7 @@ public class ItineraryModel {
     public void initDate(Node itineraryNode) {
 
         try {
-            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            DateFormat dateFormat = new SimpleDateFormat();
             date = Calendar.getInstance();
             arriveTime = getTime(itineraryNode, "arriveTime", "arriveAmPm");
             departTime = getTime(itineraryNode, "departTime", "departAmPm");
@@ -92,64 +94,48 @@ public class ItineraryModel {
         return value;
     }
 
-    private List<ExcursionModel> initExcursions(Node itineraryNode) {
-        List<ExcursionModel> excursions = new ArrayList<ExcursionModel>();
+    public <T> List<T> initModels(Node itineraryNode, Class<T> modelClass, String rootNode, String reference,String callBack) {
+        List<T> list = new ArrayList<T>();
         try {
-            Node excursionsNode = itineraryNode.getNode("excursions");
-            NodeIterator excursionsNodes = excursionsNode.getNodes();
-            if (excursionsNodes != null && excursionsNodes.hasNext()) {
-                while (excursionsNodes.hasNext()) {
-                    Node node = excursionsNodes.nextNode();
-                    String path = Objects.toString(node.getProperty("excursionReference").getValue());
-                    Page resource = resourceResolver.resolve(path).adaptTo(Page.class);
-                    ExcursionModel excursionModel = resource.adaptTo(ExcursionModel.class);
-                    excursions.add(excursionModel);
+            Node root = itineraryNode.getNode(rootNode);
+            NodeIterator rootNodes = root.getNodes();
+            if (rootNodes != null && rootNodes.hasNext()) {
+                while (rootNodes.hasNext()) {
+                    Node node = rootNodes.nextNode();
+                    String path = Objects.toString(node.getProperty(reference).getValue());
+                    if (!StringUtils.isEmpty(path)) {
+                        Resource resource = resourceResolver.resolve(path);
+                        Page pa = resource.adaptTo(Page.class);
+                        T model = pa.adaptTo(modelClass);
+                        callback(model, node,callBack,Node.class);
+                        list.add(model);
+                    }
                 }
             }
         } catch (RepositoryException e) {
-            LOGGER.error("Error while initializing excursions", e);
+            LOGGER.error("Error while initializing models", e);
         }
-        return excursions;
+        return list;
     }
-    
-    private List<ExcursionModel> initHotels(Node itineraryNode) {
-        List<HotelModel> hotels = new ArrayList<HotelModel>();
+
+    public <T> void callback(T model, T paramValue, String methodName, Class<?>... paramType) {
         try {
-            Node hotelsNode = itineraryNode.getNode("hotels");
-            NodeIterator hotelsNodes = hotelsNode.getNodes();
-            if (hotelsNodes != null && hotelsNodes.hasNext()) {
-                while (hotelsNodes.hasNext()) {
-                    Node node = hotelsNodes.nextNode();
-                    String path = Objects.toString(node.getProperty("hotelReference").getValue());
-                    Page resource = resourceResolver.resolve(path).adaptTo(Page.class);
-                    HotelModel hotelModel = resource.adaptTo(HotelModel.class);
-                    hotels.add(hotelModel);
-                }
+            if(model != null && !StringUtils.isEmpty(methodName)){
+                Method method = model.getClass().getDeclaredMethod(methodName, paramType);
+                if (method != null) {
+                    method.invoke(model,paramValue);
+                } 
             }
-        } catch (RepositoryException e) {
-            LOGGER.error("Error while initializing hotels", e);
-        }
-        return excursions;
+        } catch (Exception e) {
+            LOGGER.error("Exception while invoking callbakc",e);
+        } 
     }
-    
-    private List<LandprogramModel> initLandPrograms(Node itineraryNode) {
-        List<LandprogramModel> landprograms = new ArrayList<LandprogramModel>();
-        try {
-            Node landprogramsNode = itineraryNode.getNode("land-programs");
-            NodeIterator landprogramsNodes = landprogramsNode.getNodes();
-            if (landprogramsNodes != null && landprogramsNodes.hasNext()) {
-                while (landprogramsNodes.hasNext()) {
-                    Node node = landprogramsNodes.nextNode();
-                    String path = Objects.toString(node.getProperty("landProgramReference").getValue());
-                    Page resource = resourceResolver.resolve(path).adaptTo(Page.class);
-                    HotelModel hotelModel = resource.adaptTo(HotelModel.class);
-                    hotels.add(hotelModel);
-                }
-            }
-        } catch (RepositoryException e) {
-            LOGGER.error("Error while initializing land programs", e);
-        }
-        return landprograms;
+
+    public void init(Node itineraryNode) {
+        initDate(itineraryNode);
+        excursions = initModels(itineraryNode, ExcursionModel.class, "excursions", "excursionReference","initialize");
+        hotels = initModels(itineraryNode, HotelModel.class, "hotels", "hotelReference",null);
+        landprograms = initModels(itineraryNode, LandprogramModel.class, "land-programs", "landProgramReference",null);
     }
 
     private String formatTime(String time) {

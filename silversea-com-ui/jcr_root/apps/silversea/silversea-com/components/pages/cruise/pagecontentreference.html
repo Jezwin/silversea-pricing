@@ -11,7 +11,7 @@
 <p>Next: ${cruise.next}</p>
 
 <p>cruise Type: ${cruise.cruiseModel.cruiseType}</p>
-<p>ship Name: ${cruise.cruiseModel.shipName}</p>
+<p>ship Name: ${cruise.cruiseModel.ship.title}</p>
 <p>Voyage code: ${cruise.cruiseModel.cruiseCode}</p>
 
 <!-- END BLOC 1 TODO: features and EOs icons -->
@@ -130,3 +130,48 @@
              </li>
              <hr/>            
  </ul>
+ 
+ 
+<ul data-sly-test="${cruise.cruiseModel.itineraries}"
+        data-sly-list="${cruise.cruiseModel.itineraries}">
+            <li>
+            <h3>Excursions</h3>
+               <ul data-sly-test="${item.excursions}"
+                        data-sly-list="${item.excursions}">
+                        <p>Title: ${item.title}</p>
+                        <p>Description: ${item.description @ context='html'}</p>
+                        <p>Code: ${item.codeExcursion}</p>
+                        <p>Api longdescription: ${item.apiLongDescription @ context='html'}</p>
+                        <p>Poi: ${item.pois}</p>
+                        <p>Duration: ${item.duration}</p>
+                        <p>Schedule: ${item.schedule}</p>
+                        <p>Features:</p>
+                        <ul data-sly-test="${item.features}"
+                        data-sly-list="${item.features}">
+                        	<p>Icon:${item.icon}</p>
+                        	<p>Title:${item.title}</p>
+                        </ul>
+                        <hr/> 
+               </ul>
+               <h3>Hotels</h3>
+               <ul data-sly-test="${item.hotels}"
+                        data-sly-list="${item.hotels}">
+                        <p>Title: ${item.name}</p>
+                		<p>Description: ${item.description @ context='html'}</p>
+                        <hr/> 
+               </ul>
+               <h3>Land programs</h3>
+               <ul data-sly-test="${item.landprograms}"
+                        data-sly-list="${item.landprograms}">
+                        <p>Title: ${item.title}</p>
+                		<p>Description: ${item.description @ context='html'}</p>
+                        <hr/> 
+               </ul>
+             </li>
+             <hr/>            
+ </ul>
+ 
+ <h3>SHIP</h3>
+ <p>ship Name: ${cruise.cruiseModel.ship.title}</p>
+ <p>Description : ${cruise.cruiseModel.ship.longDescription @ context='html'}</p>
+ 
