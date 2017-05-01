@@ -1,4 +1,4 @@
-<div class="cruise__header">
+<div class="cruise__header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h1 class="cruise__header_title">
         ${currentPage.title}
         <span class="cruise_header_subtitle">${currentPage.subtitle}</span>
@@ -14,53 +14,51 @@
     </div>
     <div class="cruise__header_meta hidden-xs">
         <div class="cruise__header_nextprev">
-            <a href="#"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
-            <a href="#"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
+            <a href="${cruise.previous @ extension='html'}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
+            <a href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
         </div>
         <div class="cruise__header_metainfo">
-            <span>Silversea Cruises</span>
-            <span>Silver Muse</span>
-            <span>Voyage 6724</span>
-            <span>
-                <ul>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-eo">
-                            <i class="icon-star"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-vs">
-                            <i class="icon-shield-v"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-ecgc">
-                            <i class="icon-lys"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-wsv">
-                            <i class="icon-grappe"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-bs">
-                            <i class="icon-spade"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-gh">
-                            <i class="icon-bow-tie"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                </ul>
-            </span>
+            <span>${cruise.cruiseModel.cruiseType}</span>
+            <span>${cruise.cruiseModel.ship.title}</span>
+            <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
+            <ul>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-eo">
+                        <i class="icon-star"></i>
+                        <span class="tooltip"><i></i></span>
+                    </span>
+                </li>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-vs">
+                        <i class="icon-shield-v"></i>
+                        <span class="tooltip"><i></i></span>
+                    </span>
+                </li>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-ecgc">
+                        <i class="icon-lys"></i>
+                        <span class="tooltip"><i></i></span>
+                    </span>
+                </li>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-wsv">
+                        <i class="icon-grappe"></i>
+                        <span class="tooltip"><i></i></span>
+                    </span>
+                </li>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-bs">
+                        <i class="icon-spade"></i>
+                        <span class="tooltip"><i></i></span>
+                    </span>
+                </li>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-gh">
+                        <i class="icon-bow-tie"></i>
+                        <span class="tooltip"><i></i></span>
+                    </span>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
