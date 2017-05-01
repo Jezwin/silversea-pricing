@@ -1,11 +1,11 @@
 <div class="cruise__header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h1 class="cruise__header_title">
-        ${currentPage.title}
-        <span class="cruise_header_subtitle">${currentPage.subtitle}</span>
+        ${cruise.cruiseModel.title}
+        <span class="cruise_header_subtitle">${cruise.cruiseModel.destinationTitle}</span>
     </h1>
     <div class="cruise__header_desc">
         <div class="cruise__header_txt">
-            <p>${currentPage.description}</p>
+            <p>${cruise.cruiseModel.description}</p>
         </div>
         <div class="cruise__header_cta">
             <a class="btn btn-dark effect visible-xs" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
