@@ -1,8 +1,8 @@
 <div class="c-cruise__ship-overview" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
     <h3 class="c-cruise__subtitle">${target.page.properties.jcr:title}</h3>
     <div class="row">
-        <div class="col-sm-6 col-sm-push-6 pictureblock">
-            <img src="http://static.silversea.com/wp-content/uploads/2015/10/Silver-Muse-672x372.jpg" />
+        <div class="col-sm-6 col-sm-push-6 pictureblock" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+            <sly class="shipimg" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
             <a href="" class="hidden-xs">${'view-deck-plan' @ i18n}</a>
         </div>
         <div class="col-sm-6 col-sm-pull-6 ship-overview__content">
