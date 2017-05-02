@@ -45,7 +45,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
     private QueryBuilder builder;
 
     @Override
-    public void importCountries() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader(COUNTRY_PATH);
         CountriesApi countriesApi = new CountriesApi();
         countriesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);

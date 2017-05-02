@@ -42,7 +42,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
     private ResourceResolverFactory resourceResolverFactory;
 
     @Override
-    public void importFeatures() throws IOException {
+    public void importData() throws IOException {
 
         final String authorizationHeader = getAuthorizationHeader(FEATURE_PATH);
         FeaturesApi featuresApi = new FeaturesApi();

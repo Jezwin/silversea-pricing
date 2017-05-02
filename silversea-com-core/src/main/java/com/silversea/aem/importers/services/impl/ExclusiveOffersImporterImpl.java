@@ -48,7 +48,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
     private ResourceResolverFactory resourceResolverFactory;
 
     @Override
-    public void importExclusiveOffers() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/specialOffers");
         try {
             // get authentification to the Special Offers API

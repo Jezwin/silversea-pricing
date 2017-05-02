@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public interface LandProgramImporter {
 
-    void importLandProgram() throws IOException;
+    void importData() throws IOException;
 
     int getErrorNumber();
 

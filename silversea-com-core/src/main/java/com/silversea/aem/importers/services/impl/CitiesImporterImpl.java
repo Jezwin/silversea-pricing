@@ -48,7 +48,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
     private ResourceResolverFactory resourceResolverFactory;
 
     @Override
-    public void importCities() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
 
         CitiesApi citiesApi = new CitiesApi();

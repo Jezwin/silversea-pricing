@@ -107,7 +107,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            citiesImporter.importCities();
+            citiesImporter.importData();
             nbrError = citiesImporter.getErrorNumber();
             nbrSucces = citiesImporter.getSuccesNumber();
             response.getWriter().write("Cities import failure number : <p>" + nbrError + "</p>");
@@ -127,7 +127,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            shoreExcursionsImporter.importShoreExcursions();
+            shoreExcursionsImporter.importData();
             nbrError = shoreExcursionsImporter.getErrorNumber();
             nbrSucces = shoreExcursionsImporter.getSuccesNumber();
             response.getWriter().write("Shorex import failure number : <p>" + nbrError + "</p>");
@@ -147,7 +147,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            hotelImporter.importHotel();
+            hotelImporter.importData();
             nbrError = hotelImporter.getErrorNumber();
             nbrSucces = hotelImporter.getSuccesNumber();
             response.getWriter().write("Hotels import failure number : <p>" + nbrError + "</p>");
@@ -167,7 +167,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            landProgramImporter.importLandProgram();
+            landProgramImporter.importData();
             nbrError = landProgramImporter.getErrorNumber();
             nbrSucces = landProgramImporter.getSuccesNumber();
             response.getWriter().write("Land program import failure number : <p>" + nbrError + "</p>");
@@ -187,7 +187,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            travelAgenciesImporter.importTravelAgencies();
+            travelAgenciesImporter.importData();
             nbrError = travelAgenciesImporter.getErrorNumber();
             nbrSucces = travelAgenciesImporter.getSuccesNumber();
             response.getWriter().write("Travel agencies import failure number : <p>" + nbrError + "</p>");
@@ -207,7 +207,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            exclusiveOffersImporter.importExclusiveOffers();
+            exclusiveOffersImporter.importData();
             nbrError = exclusiveOffersImporter.getErrorNumber();
             nbrSucces = exclusiveOffersImporter.getSuccesNumber();
             response.getWriter().write("Exclusive offers import failure number : <p>" + nbrError + "</p>");
@@ -227,7 +227,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
             watch.reset();
             watch.start();
-            shipsImporter.importShips();
+            shipsImporter.importData();
             nbrError = shipsImporter.getErrorNumber();
             nbrSucces = shipsImporter.getSuccesNumber();
             response.getWriter().write("Ships import Done<br/>");

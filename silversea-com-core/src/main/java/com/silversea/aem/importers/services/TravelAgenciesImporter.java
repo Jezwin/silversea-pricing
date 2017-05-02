@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public interface TravelAgenciesImporter {
 
-    void importTravelAgencies() throws IOException;
+    void importData() throws IOException;
 
     int getErrorNumber();
 

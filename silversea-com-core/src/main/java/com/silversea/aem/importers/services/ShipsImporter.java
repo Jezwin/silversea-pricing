@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface ShipsImporter {
 
-    void importShips() throws IOException;
+    void importData() throws IOException;
     
     int getErrorNumber();
     

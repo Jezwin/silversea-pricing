@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public interface ExclusiveOffersImporter {
 
-    void importExclusiveOffers() throws IOException;
+    void importData() throws IOException;
 
     int getErrorNumber();
 

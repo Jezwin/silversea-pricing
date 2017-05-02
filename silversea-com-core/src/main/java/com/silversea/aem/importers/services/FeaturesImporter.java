@@ -6,6 +6,6 @@ import io.swagger.client.model.Country;
 
 public interface FeaturesImporter {
 
-    void importFeatures() throws IOException;
+    void importData() throws IOException;
 
 }

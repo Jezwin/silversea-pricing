@@ -49,7 +49,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
     private ResourceResolverFactory resourceResolverFactory;
 
     @Override
-    public void importLandProgram() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/landAdventures");
 
         // get authentification to the Land API

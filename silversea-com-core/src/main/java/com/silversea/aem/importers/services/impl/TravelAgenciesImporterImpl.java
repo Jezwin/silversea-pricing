@@ -23,7 +23,6 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesImporter;
@@ -31,7 +30,6 @@ import com.silversea.aem.importers.services.TravelAgenciesImporter;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.model.Agency;
-import io.swagger.client.model.Land;
 
 /**
  * Created by mbennabi on 08/03/2017.
@@ -49,7 +47,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
     private ResourceResolverFactory resourceResolverFactory;
 
     @Override
-    public void importTravelAgencies() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/agencies");
 
         // get authentification to the Travel Agencies API
@@ -96,10 +94,28 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                         else {
                             // sous quel neouds faut créer les pages !!!!!
                             // BASEPATH_TRAVEL_AGENCIES
-                            agencyTravelPage = pageManager.create(travelRootPage.getPath(),
-                                    JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
-                                            agency.getAgency()),
-                                    TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency(), false);
+                            // TODO vérifié si le noeud pays existe
+                            Page agencyTravelContryPage = pageManager
+                                    .getPage("/content/silversea-com/en/other-resources/find-a-travel-agent/"
+                                            + agency.getCountryIso3().toLowerCase());
+                            if (agencyTravelContryPage == null) {
+                                agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
+                                        JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
+                                                agency.getCountryIso3()),
+                                        "/apps/silversea/silversea-com/templates/page", agency.getCountryIso3(), false);
+                            }
+                            if (agencyTravelContryPage != null) {
+                                agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
+                                        JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
+                                                agency.getAgency()),
+                                        TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency(), false);
+                            }
+                            // agencyTravelPage =
+                            // pageManager.create(travelRootPage.getPath(),
+                            // JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
+                            // agency.getAgency()),
+                            // TemplateConstants.PATH_TRAVEL_AGENCY,
+                            // agency.getAgency(), false);
                         }
 
                         if (agencyTravelPage != null) {
@@ -116,7 +132,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                             agencyContentNode.setProperty("phone", agency.getPhone());
                             agencyContentNode.setProperty("latitude", agency.getLat());
                             agencyContentNode.setProperty("longitude", agency.getLon());
-                            succesNumber = succesNumber+1;
+                            succesNumber = succesNumber + 1;
                             j++;
                         }
 
@@ -155,7 +171,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
             LOGGER.error("Exception importing shorexes", e);
         }
     }
-    
+
     public int getErrorNumber() {
         return errorNumber;
     }

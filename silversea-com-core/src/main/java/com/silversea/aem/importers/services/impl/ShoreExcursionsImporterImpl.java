@@ -47,7 +47,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
     private ResourceResolverFactory resourceResolverFactory;
 
     @Override
-    public void importShoreExcursions() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/shoreExcursions");
 
         ShorexesApi shorexesApi = new ShorexesApi();

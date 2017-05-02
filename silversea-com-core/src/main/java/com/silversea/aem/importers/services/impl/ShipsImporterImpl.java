@@ -73,7 +73,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
     }
 
     @Override
-    public void importShips() throws IOException {
+    public void importData() throws IOException {
         LOGGER.debug("Début de l'import");
 
         try {

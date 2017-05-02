@@ -47,7 +47,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
     private int succesNumber = 0;
 
     @Override
-    public void importHotel() throws IOException {
+    public void importData() throws IOException {
         final String authorizationHeader = getAuthorizationHeader("/api/v1/hotels");
 
         try {
