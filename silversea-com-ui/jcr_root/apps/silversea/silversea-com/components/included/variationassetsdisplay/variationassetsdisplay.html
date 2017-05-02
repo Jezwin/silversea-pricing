@@ -10,7 +10,7 @@
     <div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}">
         <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}" />
         <a href="#" type="button" data-target=".bs-modal-lg" class="automatic-gallery-modal">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0]}" />
+            <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path}" />
         </a>
         <strong>${'suite-location' @ i18n}</strong>
         <!--/* Gallery content */-->
@@ -22,12 +22,12 @@
                 <div class="modal-body">
                     <div class="c-slider c-slider--for" data-sly-list="${setImage.renditionList}">
                         <div>
-                            <sly data-sly-call="${imageTemplate.default @ imagePath=item}" />
+                            <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
                         </div>
                     </div>
                     <div class="c-slider c-slider--nav" data-sly-list="${setImage.renditionList}">
                         <div>
-                            <sly data-sly-call="${imageTemplate.default @ imagePath=item}" />
+                            <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
                         </div>
                     </div>
                 </div>

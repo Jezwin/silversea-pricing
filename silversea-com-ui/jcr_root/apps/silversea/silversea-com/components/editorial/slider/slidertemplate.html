@@ -9,6 +9,6 @@
     <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}"
         data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
     <div class="c-slider c-slider--default" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true}'>
-        <sly data-sly-call="${imageTemplate.default @ imagePath=item, query=query}"></sly>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path, query=query}"></sly>
     </div>
 </template>

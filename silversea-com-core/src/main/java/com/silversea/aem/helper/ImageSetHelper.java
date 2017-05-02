@@ -8,9 +8,10 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.resource.collection.ResourceCollection;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.dam.api.Asset;
 
 public class ImageSetHelper extends WCMUsePojo {
-    private List<String> renditionList;
+    private List<Asset> renditionList;
 
     @Override
     public void activate() throws Exception {
@@ -21,7 +22,7 @@ public class ImageSetHelper extends WCMUsePojo {
 
     }
 
-    private List<String> renditionPathList(String setPath) {
+    private List<Asset> renditionPathList(String setPath) {
         // Dynamic Media Image Set
         Resource members = getResourceResolver().resolve(setPath + "/jcr:content/related/s7Set");
         if (members != null) {
@@ -29,10 +30,10 @@ public class ImageSetHelper extends WCMUsePojo {
 
             Iterator<Resource> it = membersCollection.getResources();
 
-            List<String> renditionList = new ArrayList<String>();
+            List<Asset> renditionList = new ArrayList<Asset>();
             while (it.hasNext()) {
                 Resource res = it.next();
-                renditionList.add(res.getPath());
+                renditionList.add(res.adaptTo(Asset.class));
             }
             return renditionList;
         }
@@ -43,7 +44,7 @@ public class ImageSetHelper extends WCMUsePojo {
     /**
      * @return the renditionList
      */
-    public List<String> getRenditionList() {
+    public List<Asset> getRenditionList() {
         return renditionList;
     }
 }
