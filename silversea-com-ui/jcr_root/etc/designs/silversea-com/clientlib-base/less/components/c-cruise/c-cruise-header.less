@@ -3,10 +3,10 @@
 
     .cruise__header_title {
         text-align: center;
-        color: #000;
+        color: @black;
         font-size: 38px;
         font-weight: 400;
-        font-family: theanodidot;
+        font-family: @f-theano_didot;
         text-transform: uppercase;
         line-height: 1;
 
@@ -19,7 +19,7 @@
             display: block;
             font-size: 16px;
             color: #999;
-            font-family: "Open-Sans",sans-serif;
+            font-family: @f-sans_serif;
             margin-top: 10px;
 
             &:after {
@@ -108,9 +108,6 @@
             margin-left: 5px;
 
            & > span {
-               display: inline-block;
-               margin: 0!important;
-               padding: 0;
 
                &:after {
                    content: '|';

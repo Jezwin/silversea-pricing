@@ -21,41 +21,11 @@
             <span>${cruise.cruiseModel.cruiseType}</span>
             <span>${cruise.cruiseModel.ship.title}</span>
             <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-            <ul>
+            <ul data-sly-list="${cruise.cruiseModel.features}">
                 <li class="meta_feature_inner">
-                    <span class="feature feature-eo">
-                        <i class="icon-star"></i>
-                        <span class="tooltip"><i></i></span>
-                    </span>
-                </li>
-                <li class="meta_feature_inner">
-                    <span class="feature feature-vs">
-                        <i class="icon-shield-v"></i>
-                        <span class="tooltip"><i></i></span>
-                    </span>
-                </li>
-                <li class="meta_feature_inner">
-                    <span class="feature feature-ecgc">
-                        <i class="icon-lys"></i>
-                        <span class="tooltip"><i></i></span>
-                    </span>
-                </li>
-                <li class="meta_feature_inner">
-                    <span class="feature feature-wsv">
-                        <i class="icon-grappe"></i>
-                        <span class="tooltip"><i></i></span>
-                    </span>
-                </li>
-                <li class="meta_feature_inner">
-                    <span class="feature feature-bs">
-                        <i class="icon-spade"></i>
-                        <span class="tooltip"><i></i></span>
-                    </span>
-                </li>
-                <li class="meta_feature_inner">
-                    <span class="feature feature-gh">
-                        <i class="icon-bow-tie"></i>
-                        <span class="tooltip"><i></i></span>
+                    <span class="feature">
+                        <i class="icon-star ${item.icon}"></i>
+                        <span class="tooltip"><i></i>${item.title}</span>
                     </span>
                 </li>
             </ul>
