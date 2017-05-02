@@ -34,7 +34,7 @@ import com.silversea.aem.enums.Currency;
 /**
  * Created by mbennabi on 17/02/2017.
  */
-@Model(adaptables = { Page.class})
+@Model(adaptables = { Page.class })
 public class CruiseModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseModel.class);
@@ -123,8 +123,6 @@ public class CruiseModel {
 
     private Price lowestPrice;
 
-    
-
     private ResourceResolver resourceResolver;
 
     @PostConstruct
@@ -138,13 +136,14 @@ public class CruiseModel {
         itineraries = initIteniraries();
         ship = initShip(shipReference);
     }
-     public void initByGeoLocation(GeoLocation geolocation){
-         exclusiveOffers = initExclusiveOffersByGeoLocation(geolocation.getGeoMarketCode(), geolocation.getCountry());
-         cruiseFareAdditions = parseCruiseFareAdditions();
-         exclusiveFareAdditions = getAllExclusiveFareAdditions();
-         lowestPrice = initLowestPrice(geolocation.getGeoMarketCode());
-         suites = initSuites(geolocation.getGeoMarketCode());
-     }
+
+    public void initByGeoLocation(GeoLocation geolocation) {
+        exclusiveOffers = initExclusiveOffersByGeoLocation(geolocation.getGeoMarketCode(), geolocation.getCountry());
+        cruiseFareAdditions = parseCruiseFareAdditions();
+        exclusiveFareAdditions = getAllExclusiveFareAdditions();
+        lowestPrice = initLowestPrice(geolocation.getGeoMarketCode());
+        suites = initSuites(geolocation.getGeoMarketCode());
+    }
 
     private List<ExclusiveOfferModel> initExclusiveOffersByGeoLocation(String geoMarketCode, String country) {
 
@@ -434,7 +433,4 @@ public class CruiseModel {
     public ShipModel getShip() {
         return ship;
     }
-
-   
-   
 }

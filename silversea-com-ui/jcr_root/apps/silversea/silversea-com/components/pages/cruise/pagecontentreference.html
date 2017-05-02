@@ -175,3 +175,27 @@
  <p>ship Name: ${cruise.cruiseModel.ship.title}</p>
  <p>Description : ${cruise.cruiseModel.ship.longDescription @ context='html'}</p>
  
+ <h3>Restaurants</h3>
+ <ul data-sly-test="${cruise.cruiseModel.ship.dinings}"
+        data-sly-list="${cruise.cruiseModel.ship.dinings}">
+        <li>
+        <!-- Don't use page's properties because we have properties fall back in the back end  -->
+           <p>Title: ${item.title}</p>
+           <p>Description: ${item.longDescription @ context='html'}</p>
+           <p>Asset selection: ${item.assetSelectionReference}</p>
+        </li>
+</ul>
+
+<h3>Public area</h3>
+ <ul data-sly-test="${cruise.cruiseModel.ship.publicAreas}"
+        data-sly-list="${cruise.cruiseModel.ship.publicAreas}">
+        <li>
+        <!-- Don't use page's properties because we have properties fall back in the back end  -->
+           <p>Title: ${item.title}</p>
+           <p>Description: ${item.longDescription @ context='html'}</p>
+           <p>Asset selection: ${item.assetSelectionReference}</p>
+        </li>
+</ul>
+
+ 
+ 

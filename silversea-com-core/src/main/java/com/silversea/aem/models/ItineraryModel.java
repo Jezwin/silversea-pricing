@@ -94,7 +94,8 @@ public class ItineraryModel {
         return value;
     }
 
-    public <T> List<T> initModels(Node itineraryNode, Class<T> modelClass, String rootNode, String reference,String callBack) {
+    public <T> List<T> initModels(Node itineraryNode, Class<T> modelClass, String rootNode, String reference,
+            String callBack) {
         List<T> list = new ArrayList<T>();
         try {
             Node root = itineraryNode.getNode(rootNode);
@@ -107,7 +108,7 @@ public class ItineraryModel {
                         Resource resource = resourceResolver.resolve(path);
                         Page pa = resource.adaptTo(Page.class);
                         T model = pa.adaptTo(modelClass);
-                        callback(model, node,callBack,Node.class);
+                        callback(model, node, callBack, Node.class);
                         list.add(model);
                     }
                 }
@@ -120,22 +121,22 @@ public class ItineraryModel {
 
     public <T> void callback(T model, T paramValue, String methodName, Class<?>... paramType) {
         try {
-            if(model != null && !StringUtils.isEmpty(methodName)){
+            if (model != null && !StringUtils.isEmpty(methodName)) {
                 Method method = model.getClass().getDeclaredMethod(methodName, paramType);
                 if (method != null) {
-                    method.invoke(model,paramValue);
-                } 
+                    method.invoke(model, paramValue);
+                }
             }
         } catch (Exception e) {
-            LOGGER.error("Exception while invoking callbakc",e);
-        } 
+            LOGGER.error("Exception while invoking callbakc", e);
+        }
     }
 
     public void init(Node itineraryNode) {
         initDate(itineraryNode);
-        excursions = initModels(itineraryNode, ExcursionModel.class, "excursions", "excursionReference","initialize");
-        hotels = initModels(itineraryNode, HotelModel.class, "hotels", "hotelReference",null);
-        landprograms = initModels(itineraryNode, LandprogramModel.class, "land-programs", "landProgramReference",null);
+        excursions = initModels(itineraryNode, ExcursionModel.class, "excursions", "excursionReference", "initialize");
+        hotels = initModels(itineraryNode, HotelModel.class, "hotels", "hotelReference", null);
+        landprograms = initModels(itineraryNode, LandprogramModel.class, "land-programs", "landProgramReference", null);
     }
 
     private String formatTime(String time) {

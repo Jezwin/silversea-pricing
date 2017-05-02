@@ -14,6 +14,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -44,6 +45,16 @@ public class SuiteModel {
     private String title;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+    @Optional
+    private String longDescription;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
+    private String assetSelectionReference;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformation")
     @Optional
     private String bedroomsInformation;
@@ -72,8 +83,6 @@ public class SuiteModel {
 
     private String[] suiteSubTitle;
 
-    private String longDescription;
-
     private String thumbnail;
 
     private List<SuiteVariation> variations;
@@ -87,9 +96,10 @@ public class SuiteModel {
         resourceResolver = page.getContentResource().getResourceResolver();
         tagManager = resourceResolver.adaptTo(TagManager.class);
         thumbnail = page.getProperties().get("image/fileReference", String.class);
-        String suiteReference = page.getProperties().get("suiteReference", String.class);
         suiteSubTitle = parseSuitesSubtitle();
-        longDescription = initLongDescription(suiteReference);
+        title = initProperty("suiteReference", title, "title");
+        longDescription = initProperty("suiteReference", longDescription, "longDescription");
+        assetSelectionReference = initProperty("suiteReference", assetSelectionReference, "assetSelectionReference");
     }
 
     public void initLowestPrice(Node lowestPriceNode, String geoMarketCode) {
@@ -106,17 +116,27 @@ public class SuiteModel {
         return subTitle;
     }
 
-    private String initLongDescription(String suiteReference) {
-
-        String longDescription = page.getProperties().get("longDescription", String.class);
-        if (!StringUtils.isNotEmpty(longDescription)) {
-            Page suiteReferencePage = resourceResolver.resolve(suiteReference).adaptTo(Page.class);
-            if (suiteReferencePage != null) {
-                longDescription = suiteReferencePage.getProperties().get("longDescription", String.class);
+    private String initProperty(String reference, String property, String referenceProperty) {
+        String value = property;
+        if (StringUtils.isEmpty(property)) {
+            Page page = getPageReference(reference);
+            if (page != null) {
+                value = page.getProperties().get(referenceProperty, String.class);
             }
 
         }
-        return longDescription;
+        return value;
+    }
+
+    private Page getPageReference(String reference) {
+        Page pageReference = null;
+        String path = page.getProperties().get(reference, String.class);
+        Resource resource = resourceResolver.resolve(path);
+        if (resource != null) {
+            pageReference = resource.adaptTo(Page.class);
+        }
+
+        return pageReference;
     }
 
     public void initVarirations(Node suiteNode, String geoMarketCode) {
@@ -173,14 +193,11 @@ public class SuiteModel {
             if (nodes != null && nodes.hasNext()) {
                 while (nodes.hasNext()) {
                     Node node = nodes.nextNode();
-
                     Value[] tags = node.getProperty("cq:tags").getValues();
                     Currency currency = getCurrencyByMarKetCode(geoMarketCode);
-
                     String suitePriceCurrency = Objects.toString(node.getProperty("currency").getValue());
                     // TODO
                     Tag tag = tagManager.resolve(tags[0].getString());
-
                     if (StringUtils.equals(geoMarketCode, tag.getTitle())
                             && StringUtils.equals(suitePriceCurrency, currency.getValue())) {
                         String value = Objects.toString(node.getProperty("price").getValue());
@@ -264,5 +281,5 @@ public class SuiteModel {
     public Page getPage() {
         // TODO remove getter for properties accessible from Page
         return page;
-    } 
+    }
 }

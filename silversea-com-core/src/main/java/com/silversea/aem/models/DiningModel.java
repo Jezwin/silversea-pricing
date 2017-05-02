@@ -16,49 +16,69 @@ import com.day.cq.wcm.api.Page;
 
 @Model(adaptables = Page.class)
 public class DiningModel {
-    
+
     @Inject
     @Self
     private Page page;
-    
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Optional
+    private String title;
+
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/longDescription")
     @Optional
     private String longDescription;
-    
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
+    private String assetSelectionReference;
+
     private ResourceResolver resourceResolver;
-    
+
     @PostConstruct
     private void init() {
         resourceResolver = page.getContentResource().getResourceResolver();
-        longDescription = initDescription("diningReference", "longDescription","longDescription");
+        title = initProperty("diningReference", title, "title");
+        longDescription = initProperty("diningReference", longDescription, "longDescription");
+        assetSelectionReference = initProperty("diningReference", assetSelectionReference, "assetSelectionReference");
     }
 
-    private String initDescription(String reference, String property,String referenceProperty){    
-        if(StringUtils.isEmpty(longDescription)){
+    private String initProperty(String reference, String property, String referenceProperty) {
+        String value = property;
+        if (StringUtils.isEmpty(property)) {
             Page page = getPageReference(reference);
-            if(page != null){
-                longDescription = page.getProperties().get(referenceProperty,String.class);
+            if (page != null) {
+                value = page.getProperties().get(referenceProperty, String.class);
             }
-             
+
         }
-        return longDescription;
+        return value;
     }
 
-    private Page getPageReference(String reference){
+    private Page getPageReference(String reference) {
         Page pageReference = null;
         String path = page.getProperties().get(reference, String.class);
         Resource resource = resourceResolver.resolve(path);
-        if(resource!=null){
+        if (resource != null) {
             pageReference = resource.adaptTo(Page.class);
         }
-        
+
         return pageReference;
     }
 
-
     public String getLongDescription() {
         return longDescription;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
     }
 
     public Page getPage() {
