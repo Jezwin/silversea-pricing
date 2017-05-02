@@ -22,7 +22,7 @@
         _links.click(function (e) {
             e.preventDefault();
 
-            if($(e.target).hasClass('c-accordion__header--unclickable')){
+            if($(e.target).hasClass('c-accordion__header--unclickable') || $(e.target).parent().hasClass('c-accordion__header--unclickable')){
                 return;
             }
 

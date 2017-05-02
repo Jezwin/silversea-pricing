@@ -15,6 +15,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="archives"
         sling:message="Archives" />
+    <arrive
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="arrive"
+        sling:message="Arrive" />
     <build-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="build-date"
@@ -27,6 +31,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="close"
         sling:message="Close" />
+    <code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="code"
+        sling:message="code" />
     <coordinates
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"
@@ -67,6 +75,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
         sling:message="Deck Plan and Details" />
+    <depart
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="depart"
+        sling:message="Depart" />
     <departure
         jcr:primaryType="sling:MessageEntry"
         sling:key="departure"
@@ -99,6 +111,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <excursion-s
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="excursion-s"
+        sling:message="Excursion(s)" />
     <fares-from
         jcr:primaryType="sling:MessageEntry"
         sling:key="fares-from"
@@ -127,10 +143,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="guests-capacity"
         sling:message="Guests capacity" />
+    <hours
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hours"
+        sling:message="Hours" />
     <hotels
         jcr:primaryType="sling:MessageEntry"
         sling:key="hotels"
         sling:message="Hotels" />
+    <in
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="in"
+        sling:message="in" />
     <incorrect-email-address
         jcr:primaryType="sling:MessageEntry"
         sling:key="incorrect-email-address"
@@ -147,6 +171,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="land-programmes"
         sling:message="Land programmes" />
+    <land-programme-s
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programme-s"
+        sling:message="Land programme(s)" />
     <land-programmes-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="land-programmes-description"
@@ -243,6 +271,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-the-brochure-language"
         sling:message="Select the brochure language" />
+    <schedule
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="schedule"
+        sling:message="Schedule" />
     <silversea-voyage-journal
         jcr:primaryType="sling:MessageEntry"
         sling:key="silversea-voyage-journal"
@@ -363,6 +395,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-less"
         sling:message="View less" />
+    <pre-cruise-hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-cruise-hotels"
+        sling:message="Pre-cruise hotels" />
     <previous-voyage
         jcr:primaryType="sling:MessageEntry"
         sling:key="previous-voyage"

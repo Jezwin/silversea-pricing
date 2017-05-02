@@ -1,3 +1,5 @@
+<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
+<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
 <div class="row">
     <h3 class="c-cruise__subtitle">${'excursions' @ i18n}</h3>
     <p class="c-cruise__descr">
@@ -7,25 +9,29 @@
     <div class="c-accordion"
          data-multiview="false"
          data-more="<i class='fa fa-angle-down'></i>"
-         data-close="<i class='fa fa-angle-up'></i>">
-        <div class="c-accordion__elem" data-sly-repeat="${[1,2,3]}">
+         data-close="<i class='fa fa-angle-up'></i>"
+         data-sly-test="${cruise.cruiseModel.itineraries}"
+         data-sly-list="${cruise.cruiseModel.itineraries}">
+        <div class="c-accordion__elem">
             <div class="c-accordion__header c-accordion__header--parent">
                 <div class="c-accordion__title c-accordion__title--thumbnail">
-                    <img data-original="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-monaco-monte-carlo-468x360.jpg" alt="Monte Carlo" src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-monaco-monte-carlo-468x360.jpg">
+                    <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
                 </div>
                 <div class="c-accordion__title w-title">
-                    <p class="c-accordion__subtitle veryimportant">Monte Carlo</p>
-                    <p> Monaco</p>
-                    <p class="visible-xs">Friday May 19</p>
+                    <p class="c-accordion__subtitle veryimportant">Title ?</p>
+                    <p>${item.country}</p>
+                    <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
+                        ${date.value}
+                    </p>
                 </div>
                 <div class="c-accordion__title w-content hidden-xs">
-                    <p>Friday May 19</p>
+                    <p>${date.value}</p>
                     <p class="c-accordion__subtitle">
-						Arrive: 8:00 AM, Depart: 11:00 PM
+                        <span data-sly-test="${item.arriveTime}">${'arrive' @ i18n}: ${item.arriveTime},</span> <span data-sly-test="${item.departTime}">${'depart' @ i18n} ${item.departTime}</span>
 					</p>
                 </div>
                 <div class="c-accordion__title w-content hidden-xs">
-                    <u>2 Pre-cruise hotels</u>
+                    <u>${item.excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} Title ?</u>
                 </div>
                 <div class="c-accordion__action small">
                     <i class='fa fa-angle-down'></i>
@@ -36,36 +42,40 @@
                 <div class="c-accordion"
                      data-multiview="false"
                      data-more="${'more' @ i18n} <i class='fa fa-angle-down'></i>"
-                     data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
-                    <div class="c-accordion__elem" data-sly-repeat="${[1,2,3]}">
+                     data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
+                     data-sly-test="${item.excursions}"
+                     data-sly-list="${item.excursions}">
+                    <div class="c-accordion__elem">
                         <div class="c-accordion__header c-accordion__header--center-xs">
-                            <div class="c-accordion__title">
+                            <div class="c-accordion__title valigntop ">
                                 <span class="feature feature-ecgc visible-xs">
                                     <i class="icon-lys"></i>
                                     <span class="tooltip"><i></i></span>
                                 </span>
-                                <p><strong>GRANDE HOTEL:  HOTEL HERMITAGE MONTE CARLO</strong></p>
-                                <p class="c-accordion__subtitle hidden-xs">lunch at Vrads Station, relax on a panoramic ride aboard a steam locomotive, then visit the Silkeborg Museum, home of the 'Tollund Man'. Finally, marvel at the breath-taking vistas from Sky Mountain and the Himmelbjerget Viewpoint.</p>
+                                <p><strong>${item.title}</strong></p>
+                                <div class="c-accordion__subtitle hidden-xs">
+                                    ${item.description @ context='html'}
+                                </div>
                             </div>
 
-                            <div class="c-accordion__title w-content hidden-xs">
+                            <div class="c-accordion__title  valigntop w-content hidden-xs">
 								<span class="feature feature-ecgc">
                                     <i class="icon-lys"></i>
                                     <span class="tooltip"><i></i></span>
                                 </span>
                                 <div class="c-accordion__subtitle">
-                                    Duration: 8 Hours <br>
-                                    Excursion code: KUS-Y
+                                    ${'duration' @ i18n}: ${item.duration} ${'hours' @ i18n} <br>
+                                    ${'excursion' @ i18n} ${'code' @ i18n}: ${item.codeExcursion}
                                 </div>
                             </div>
 
-                            <div class="c-accordion__title c-accordion__action c-accordion__action--light">
+                            <div class="c-accordion__title  valigntop c-accordion__action c-accordion__action--light">
                                 ${'more' @ i18n} <i class='fa fa-angle-down'></i>
                             </div>
                         </div>
                         <div class="c-accordion__body">
                             <div class="c-accordion__body--panel">
-                                <p>Charm and refined elegance characterise this Belle Epoque historic monument. The Hotel Hermitage is only steps from the Casino de Monte-Carlo and directly connected to the Thermes Marins Monte-Carlo.  Most of the rooms at this finest palace benefits from a breathtaking view on the Monaco’s harbor and the Prince’s Palace. Acclaimed chef Joël Garault invites guests to experience true Mediterranean flavour at his restaurant, Le Vistamar, with its spectacular view</p>
+                                ${item.apiLongDescription @ context='html'}
 
                                 <div class="">
                                     <span>
@@ -86,9 +96,9 @@
                                     </span>
                                 </div>
                                 <div class="">
-                                    <span><strong>Duration: 3 Hours 30 Minutes</strong></span>
-                                    <span><strong>SCHEDULE: Morning</strong></span>
-                                    <span><strong>CODE: KUS-B</strong></span>
+                                    <span><strong>${'duration' @ i18n}: 3 Hours 30 Minutes</strong></span>
+                                    <span><strong>${'schedule' @ i18n}: ${item.schedule}</strong></span>
+                                    <span><strong>${'code' @ i18n}: ${item.codeExcursion}</strong></span>
                                 </div>
                             </div>
                         </div>

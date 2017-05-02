@@ -284,17 +284,11 @@
             }
 
             &.list {
-                column-count: 2;
-                -ms-transition: all 0.15s ease;
-                -moz-transition: all 0.15s ease;
-                -o-transition: all 0.15s ease;
-                -webkit-transition: all 0.15s ease;
-                transition: all 0.15s ease;
-                -webkit-transform: translateZ(0) scale(1,1);
-                -webkit-backface-visibility: hidden;
+                float:left;
+                width: 50%;
 
                 @media screen and (max-width: @screen-sm) {
-                    column-count: 1;
+                    width: 100%;
                 }
             }
         }
@@ -375,8 +369,6 @@
              }
 
              .c-accordion__title {
-                 padding: 15px;
-                 vertical-align: top;
 
                  &--thumbnail {
                     padding: 0px;
@@ -391,6 +383,10 @@
         display: table-cell;
         vertical-align: middle;
         padding: 15px;
+
+        .valigntop {
+            vertical-align: top;
+        }
     }
 
     &__title {

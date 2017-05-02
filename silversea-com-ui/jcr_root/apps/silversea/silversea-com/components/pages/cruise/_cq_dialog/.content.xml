@@ -116,7 +116,7 @@
                                             fieldLabel="Itinerary map"
                                             renderReadOnly="{Boolean}true"
                                             name="./itinerary"
-                                            rootPath="/content/dam/silversea-com" />
+                                            rootPath="/content/dam/" />
                                     <assetSelectionReference
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -125,7 +125,7 @@
                                             fieldLabel="Extra media gallery"
                                             renderReadOnly="{Boolean}true"
                                             name="./assetSelectionReference"
-                                            rootPath="/content/dam/silversea-com" />
+                                            rootPath="/content/dam/" />
                                     <keypeople
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/multifield"

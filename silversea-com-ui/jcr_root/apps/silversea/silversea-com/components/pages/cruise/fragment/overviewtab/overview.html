@@ -1,4 +1,4 @@
-
+<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
 <div class="row">
     <div class="col-sm-6 hidden-xs voyageimg">
@@ -14,21 +14,30 @@
                 <div class="voyagetable__elem">
                     <a href="#">
                         <span>${'duration' @ i18n}</span>
-                        <span class="lead">7</span>
+                        <span class="lead">${cruise.cruiseModel.duration}</span>
                         <span>${'days' @ i18n}</span>
                     </a>
                 </div>
                 <div class="voyagetable__elem">
                     <a href="#">
                         <span>${'departure' @ i18n}</span>
-                        <span class="lead">Apr 22</span>
-                        <span>2017</span>
+                        <span class="lead" data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">
+                          ${dateDay.value}
+                        </span>
+                        <span  data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
+                          ${dateYear.value}
+                        </span>
                     </a>
                 </div>
                 <div class="voyagetable__elem">
                     <a href="#">
                         <span>${'fares-from' @ i18n}</span>
-                        <span class="lead">€ 8,350</span>
+                        <span class="lead" data-sly-test="${cruise.cruiseModel.lowestPrice.isWaitList}">
+                            ${cruise.cruiseModel.lowestPrice.currency} ${cruise.cruiseModel.lowestPrice.value}
+                        </span>
+                        <span class="lead" data-sly-test="${!cruise.cruiseModel.lowestPrice.isWaitList}">
+                            ${'waitlist' @ i18n}
+                        </span>
                         <span>(${'per-guest' @ i18n})</span>
                     </a>
                 </div>
@@ -37,15 +46,15 @@
                 <div class="voyageimg__info">
                     <p>Book by 2 May and choose a two category upgrade, 50% saving on a second suite or $1,000* on board credit</p>
                 </div>
-                <sly data-sly-call="${imageTemplate.default @ imagePath=pageProperties.itinerary}"></sly>
+                <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}"></sly>
                 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
             </div>
 
             <div class="col-xs-12 visible-xs">
                 <div class="cruise__header_metainfo">
-                    <span>Silversea Cruises</span>
-                    <span>Silver Muse</span>
-                    <span>Voyage 6724</span>
+                    <span>${cruise.cruiseModel.cruiseType}</span>
+                    <span>${cruise.cruiseModel.ship.title}</span>
+                    <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
                     <span>
                         <ul>
                             <li class="meta_feature_inner">
@@ -92,22 +101,15 @@
                 <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
                     <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
 
-                    <p>
-                        <a href="${pageProperties.title @ extension='html', selectors='modalcontent'}"
+                    <p data-sly-test="${cruise.cruiseModel.exclusiveOffers}"
+                        data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
+                        <a data-sly-test="${item.lightboxReference}"
+                           href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
                            class="" data-toggle="modal"
                            data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                            <strong>Early Booking Bonus :</strong>
+                            <strong>${item.title}: </strong>
                         </a>
-                        Save 10% if you book and pay in full by 2 May*
-                    </p>
-
-                    <p>
-                        <a href="${pageProperties.title @ extension='html', selectors='modalcontent'}"
-                          class="" data-toggle="modal"
-                          data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                        <strong>Embrace The Beauty Cruise South America :</strong>
-                        </a>
-                        Book by 31 May, 2017 and enjoy €1200 savings per suite* on select South America voyages
+                        <strong data-sly-test="${!item.lightboxReference}">${item.title}: </strong>${item.description @ context='html'}
                     </p>
                 </div>
             </div>
