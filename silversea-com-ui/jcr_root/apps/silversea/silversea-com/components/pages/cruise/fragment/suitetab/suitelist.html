@@ -70,7 +70,7 @@
                     <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}">
                         <!--/* Suite location tab */-->
                         <sly data-sly-use.suiteLocationTemplate="suitelist/suitelocation.html"
-                            data-sly-call="${suiteLocationTemplate.default @ suite=item}" />
+                            data-sly-call="${suiteLocationTemplate.default @ suite=item, index=itemList.index}" />
                     </div>
                     <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}">
                         <!--/* Virtual tour tab */-->

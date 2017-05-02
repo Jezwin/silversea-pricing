@@ -13,7 +13,7 @@
 
     .c-tab__content--feature {
         ul {
-            list-style: disc url(data:image/gif;base64,R0lGODlhBQAKAIABAAAAAP///yH5BAEAAAEALAAAAAAFAAoAAAIIjI+ZwKwPUQEAOw==);
+            list-style: url(data:image/gif;base64,R0lGODlhBQAKAIABAAAAAP///yH5BAEAAAEALAAAAAAFAAoAAAIIjI+ZwKwPUQEAOw==);
 
             li {
                 list-style: inherit;
@@ -23,13 +23,21 @@
     }
 
     .c-tab__content--suite-location {
-        .nav-tabs--vertical > li > a {
-            background-color: @white;
-            border: 1px solid @grey--d9;
-            border-radius: 0;
-            border-width: 1px;
-            padding: 15px 0;
-            text-align: center;
+        .nav-tabs--vertical > li {
+            & > a {
+                background-color: @white;
+                border: 1px solid @grey--d9;
+                border-radius: 0;
+                border-width: 1px;
+                color: @grey--7;
+                padding: 15px 0;
+                text-align: center;
+            }
+
+            &.active > a {
+                color: @grey--3;
+                font-weight: 700;
+            }
         }
 
         .nav-tabs > li {
