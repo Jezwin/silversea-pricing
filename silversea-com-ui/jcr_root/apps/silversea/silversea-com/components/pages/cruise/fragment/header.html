@@ -14,17 +14,11 @@
     </div>
     <div class="cruise__header_meta hidden-xs">
         <div class="cruise__header_nextprev">
-<<<<<<< Upstream, based on origin/develop
             <a href="${cruise.previous @ extension='html'}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
             <a href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
-=======
-            <a href="${cruise.previous}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
-            <a href="${cruise.next}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
->>>>>>> 893d51c SSC-1459 - Cruise component - Header - dynamization update
         </div>
         <div class="cruise__header_metainfo">
             <span>${cruise.cruiseModel.cruiseType}</span>
-<<<<<<< Upstream, based on origin/develop
             <span>${cruise.cruiseModel.ship.title}</span>
             <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
             <ul>
@@ -65,50 +59,6 @@
                     </span>
                 </li>
             </ul>
-=======
-            <span>${cruise.cruiseModel.shipName}</span>
-            <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-            <span>
-                <ul>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-eo">
-                            <i class="icon-star"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-vs">
-                            <i class="icon-shield-v"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-ecgc">
-                            <i class="icon-lys"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-wsv">
-                            <i class="icon-grappe"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-bs">
-                            <i class="icon-spade"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature feature-gh">
-                            <i class="icon-bow-tie"></i>
-                            <span class="tooltip"><i></i></span>
-                        </span>
-                    </li>
-                </ul>
-            </span>
->>>>>>> 893d51c SSC-1459 - Cruise component - Header - dynamization update
         </div>
     </div>
 </div>
