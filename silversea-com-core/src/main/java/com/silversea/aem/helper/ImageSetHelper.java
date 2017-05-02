@@ -24,7 +24,7 @@ public class ImageSetHelper extends WCMUsePojo {
 
     private List<Asset> renditionPathList(String setPath) {
         // Dynamic Media Image Set
-        Resource members = getResourceResolver().resolve(setPath + "/jcr:content/related/s7Set");
+        Resource members = getResourceResolver().getResource(setPath + "/jcr:content/related/s7Set");
         if (members != null) {
             ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
 

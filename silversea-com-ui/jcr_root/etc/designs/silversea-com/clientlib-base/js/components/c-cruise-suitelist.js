@@ -24,4 +24,10 @@ $(function() {
         var $item = $('div[id^="suitelist-collapse"]').not($(this));
         $item.prev('.c-suitelist__heading').removeClass('opacity');
     });
+
+    // Open location tab on click event on ""
+    $('a[data-toggle="location-tab"]').on('click', function(e) {
+        e.preventDefault();
+        var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
+    })
 });
