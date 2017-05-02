@@ -18,7 +18,7 @@
         .cruise_header_subtitle {
             display: block;
             font-size: 16px;
-            color: #999;
+            color: @grey--9;
             font-family: @f-sans_serif;
             margin-top: 10px;
 
@@ -29,7 +29,11 @@
                 height: 2px;
                 display: block;
                 margin: 20px auto;
-                background: #6ABDBC;
+                background: @blue;
+
+                .expedition & {
+                    background-color: @red-expedition;
+                }
             }
         }
     }
