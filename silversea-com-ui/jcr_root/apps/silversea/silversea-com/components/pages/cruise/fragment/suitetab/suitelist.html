@@ -41,13 +41,13 @@
                 <ul class="c-tab__nav dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link c-tab__link--button" data-state="active">
                         <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--button">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.plan}">
                         <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--button">
                             <a href="#feature-${itemList.index}"><span>${'features' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--button">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.locationImage}">
                             <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--button">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.virtualTour}">
                         <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
                     </li>
                 </ul>
@@ -57,7 +57,7 @@
                         <sly data-sly-use.descriptionTemplate="suitelist/description.html"
                             data-sly-call="${descriptionTemplate.default @ suite=item}" />
                     </div>
-                    <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}">
+                    <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}" data-sly-test="${item.plan}">
                         <!--/* Suite plan tab */-->
                         <sly data-sly-use.suitePlanTemplate="suitelist/suiteplan.html"
                             data-sly-call="${suitePlanTemplate.default @ suite=item}" />
@@ -67,12 +67,12 @@
                         <sly data-sly-use.featureTemplate="suitelist/feature.html"
                             data-sly-call="${featureTemplate.default @ suite=item}" />
                     </div>
-                    <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}">
+                    <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}" data-sly-test="${item.locationImage}">
                         <!--/* Suite location tab */-->
                         <sly data-sly-use.suiteLocationTemplate="suitelist/suitelocation.html"
                             data-sly-call="${suiteLocationTemplate.default @ suite=item, index=itemList.index}" />
                     </div>
-                    <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}">
+                    <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}" data-sly-test="${item.virtualTour}">
                         <!--/* Virtual tour tab */-->
                         <sly data-sly-use.virtualTourTemplate="suitelist/virtualtour.html"
                             data-sly-call="${virtualTourTemplate.default @ suite=item}" />
