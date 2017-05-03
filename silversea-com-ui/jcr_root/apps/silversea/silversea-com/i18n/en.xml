@@ -482,13 +482,105 @@
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
-        sling:message="Owner's 1" />
-    <o2s
+        sling:message="Owner's" />
+    <o2
         jcr:primaryType="sling:MessageEntry"
         sling:key="O2"
-        sling:message="Owner's 2" />
-    <o3s
+        sling:message="Owner" />
+    <cv
         jcr:primaryType="sling:MessageEntry"
-        sling:key="O3"
-        sling:message="Owner's 3" />
+        sling:key="CV"
+        sling:message="Classic Veranda" />
+    <sv
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="SV"
+        sling:message="Superior Veranda" />
+    <r1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="R1"
+        sling:message="Royal" />
+    <vs
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VS"
+        sling:message="View" />
+    <vr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VR"
+        sling:message="Veranda" />
+    <vi
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VI"
+        sling:message="Vista" />
+    <ts
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="TS"
+        sling:message="Terrace" />
+    <sl
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="SL"
+        sling:message="Silver" />
+    <r2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="R2"
+        sling:message="Royal" />
+    <me
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ME"
+        sling:message="Medaillon" />
+    <g2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="G2"
+        sling:message="Grand" />
+    <g1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="G1"
+        sling:message="Grand" />
+    <ex
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EX"
+        sling:message="Expedition" />
+    <es
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ES"
+        sling:message="Explorer" />
+    <ec
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EC"
+        sling:message="Explorere Class" />
+    <dx
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="DX"
+        sling:message="Deluxe Veranda" />
+    <dv
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="DV"
+        sling:message="Midship Veranda" />
+    <b6
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B6"
+        sling:message="Veranda 6" />
+    <b5
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B5"
+        sling:message="Veranda 5" />
+    <b4
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B4"
+        sling:message="Veranda 4" />
+    <b3
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B3"
+        sling:message="Veranda 3" />
+    <b2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B2"
+        sling:message="Veranda 2" />
+    <b1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B1"
+        sling:message="Veranda 1" />
+    <ac
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="AC"
+        sling:message="Adventurer Class" />
 </jcr:root>
