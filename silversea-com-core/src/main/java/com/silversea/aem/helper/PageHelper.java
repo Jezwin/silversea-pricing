@@ -20,9 +20,11 @@ public class PageHelper extends WCMUsePojo {
         if (resource != null) {
             page = resource.adaptTo(Page.class);
 
-            Resource imageRes = page.getContentResource("image");
-            if (imageRes != null) {
-                thumbnail = imageRes.getValueMap().get("fileReference", String.class);
+            if(page != null) {
+                Resource imageRes = page.getContentResource("image");
+                if (imageRes != null) {
+                    thumbnail = imageRes.getValueMap().get("fileReference", String.class);
+                }
             }
         }
     }
