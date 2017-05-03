@@ -243,29 +243,29 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
         }
 
-        // if (all || mode.equals(Mode.countries)) {
-        // countriesImporter.importCountries();
-        // response.getWriter().write("Countries import Done<br/>");
-        // response.getWriter().flush();
-        // }
-        //
-        // if (all || mode.equals(Mode.ft)) {
-        // featuresImporter.importFeatures();
-        // response.getWriter().write("Feature import Done<br/>");
-        // response.getWriter().flush();
-        // }
-        //
-        // if (all || mode.equals(Mode.brochures)) {
-        // brochuresImporter.importBrochures();
-        // response.getWriter().write("Brochures import Done<br/>");
-        // response.getWriter().flush();
-        // }
-        //
-        // if (all || mode.equals(Mode.cruises)) {
-        // cruisesImporter.importCruises();
-        // response.getWriter().write("Cruises import Done<br/>");
-        // response.getWriter().flush();
-        // }
+         if (all || mode.equals(Mode.countries)) {
+         countriesImporter.importData();
+         response.getWriter().write("Countries import Done<br/>");
+         response.getWriter().flush();
+         }
+        
+         if (all || mode.equals(Mode.ft)) {
+         featuresImporter.importData();
+         response.getWriter().write("Feature import Done<br/>");
+         response.getWriter().flush();
+         }
+        
+         if (all || mode.equals(Mode.brochures)) {
+         brochuresImporter.importBrochures();
+         response.getWriter().write("Brochures import Done<br/>");
+         response.getWriter().flush();
+         }
+        
+         if (all || mode.equals(Mode.cruises)) {
+         cruisesImporter.importCruises();
+         response.getWriter().write("Cruises import Done<br/>");
+         response.getWriter().flush();
+         }
 
         if(all){
             watchAll.stop();
@@ -292,8 +292,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
     }
 
     enum Mode {
-        cities, ex, hotels, lp, ta, eo, ships; // , countries, ft, brochures,
-                                               // cruises;
+        cities, ex, hotels, lp, ta, eo, ships , countries, ft, brochures, cruises;
 
     }
 }

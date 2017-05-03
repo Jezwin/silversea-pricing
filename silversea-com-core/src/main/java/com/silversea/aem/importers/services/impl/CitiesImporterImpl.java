@@ -95,7 +95,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                             LOGGER.debug("Page {} already exists", portFirstLetterName);
                         } else {
                             portFirstLetterPage = pageManager.create(citiesRootPage.getPath(), portFirstLetterName,
-                                    TemplateConstants.PATH_PAGE, portFirstLetter, false);
+                                    TemplateConstants.PATH_PAGE_PORT, portFirstLetter, false);
 
                             LOGGER.debug("Creating page {}", portFirstLetterName);
                         }

@@ -16,16 +16,18 @@ public interface TemplateConstants {
     String PATH_VOYAGE_JOURNAL = "/apps/silversea/silversea-com/templates/voyagejournal";
     String PATH_PRESS_RELEASE = "/apps/silversea/silversea-com/templates/pressrelease";
     String PATH_FEATURE = "/apps/silversea/silversea-com/templates/feature";
-     String PATH_PORT = "/apps/silversea/silversea-com/templates/port";
-     String PATH_BLOG_POST = "/apps/silversea/silversea-com/templates/blogpost";
-     String PATH_KEY_PEPOLE = "/apps/silversea/silversea-com/templates/keypeople";
-     String PATH_VOYAGE_JOURNAL_DAY = "/apps/silversea/silversea-com/templates/voyagejournalsday";
-      String PATH_PUBLIC_AREA_VARIATION= "/apps/silversea/silversea-com/templates/publicareavariation";
-      String PATH_LANDPROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
-      String PATH_DINING_VARIATION = "/apps/silversea/silversea-com/templates/diningvariation";
-      String PATH_HOTEL = "/apps/silversea/silversea-com/templates/hotel";
-      String PATH_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
-      // String PATH_PAGE = ""/apps/silversea/silversea-com/templates/travelagency"";
-      // String PATH_PAGE = ""/apps/silversea/silversea-com/templates/travelagency"";
-      // String PATH_PAGE = ""/apps/silversea/silversea-com/templates/travelagency"";
+    String PATH_PORT = "/apps/silversea/silversea-com/templates/port";
+    String PATH_BLOG_POST = "/apps/silversea/silversea-com/templates/blogpost";
+    String PATH_KEY_PEPOLE = "/apps/silversea/silversea-com/templates/keypeople";
+    String PATH_VOYAGE_JOURNAL_DAY = "/apps/silversea/silversea-com/templates/voyagejournalsday";
+    String PATH_PUBLIC_AREA_VARIATION = "/apps/silversea/silversea-com/templates/publicareavariation";
+    String PATH_LANDPROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
+    String PATH_DINING_VARIATION = "/apps/silversea/silversea-com/templates/diningvariation";
+    String PATH_HOTEL = "/apps/silversea/silversea-com/templates/hotel";
+    String PATH_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
+    String PATH_PAGE_PORT = "/apps/silversea/silversea-com/templates/portslist";
+    // String PATH_PAGE =
+    // ""/apps/silversea/silversea-com/templates/travelagency"";
+    // String PATH_PAGE =
+    // ""/apps/silversea/silversea-com/templates/travelagency"";
 }
