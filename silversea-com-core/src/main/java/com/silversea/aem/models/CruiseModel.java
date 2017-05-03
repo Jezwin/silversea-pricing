@@ -49,6 +49,7 @@ public class CruiseModel {
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
+    @Optional
     private String description;
 
     @Inject
