@@ -11,10 +11,11 @@
                 </a>
             </div>
             <div class="c-pressreleaseslist__descr">
-                <span class="date_title"
-                      data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">${'date' @ i18n} </span> ${date.value}
+                <p class="date_title" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
+                    ${'date' @ i18n}: <span>${date.value}</span>
+                </p>
                 <h3 class="hidden-xs">${item.title}</h3>
-                <a class="read-more hidden-xs" href="${item.path @ extension='html'}">${'more' @ i18n}</a>
+                <a class="read-more" href="${item.path @ extension='html'}">${'more' @ i18n}</a>
             </div>
         </div>
     </div>

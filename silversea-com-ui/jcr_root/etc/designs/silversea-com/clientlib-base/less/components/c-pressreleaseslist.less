@@ -2,6 +2,7 @@
 
     &__elem {
         margin-bottom: 30px;
+        padding: 0;
 
         &:nth-child(2n+1) {
             clear: both;
@@ -40,21 +41,22 @@
 
     &__descr {
 
-        .date {
-            font-size: 14px;
-            line-height: 16px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+        .date_title {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 10px;
+            margin: 10px 0 0;
+
+            span {
+                font-size: 14px;
+                line-height: 16px;
+                font-weight: normal;
+                text-transform: none;
+            }
 
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
-                margin: 0;
-            }
-
-            .date_title {
-                text-transform: uppercase;
-                font-weight: 700;
-                font-size: 10px;
+                margin-bottom: 15px;
             }
         }
 
@@ -70,7 +72,6 @@
             text-decoration: none;
             font-weight: bold;
             position: relative;
-            text-transform: uppercase;
 
             &:before {
                 content: "\f105";
