@@ -6,7 +6,12 @@
                 <div class="c-accordion__title">
                     <p><strong>${item.title || item.name}</strong></p>
                     <div class="c-accordion__subtitle hidden-xs">
-                        ${item.shortDescription || 'shortDescription' @ context='html'}
+                        <p data-sly-test="${item.name}" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=80}">
+                            ${description.textTruncate || item.description}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
+                        </p>
+                        <sly data-sly-test="${!item.name}">
+                            ${item.shortDescription || 'shortDescription'}
+                        </sly>
                     </div>
                 </div>
 
