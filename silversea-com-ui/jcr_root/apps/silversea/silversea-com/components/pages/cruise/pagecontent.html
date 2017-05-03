@@ -12,13 +12,13 @@
                         <a href="#overview"><span>${'overview' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--dark">
+                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise'}">
                             <a href="#excursion"><span>${'excursions' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                             <a href="#ship"><span>${'ship' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#landnhotel"><span>${'land-and-hotel' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--dark">
+                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                         <a href="#highlight"><span>${'highlight' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#photonvideo"><span>${'photos-and-videos' @i18n}</span></a>
@@ -38,7 +38,7 @@
                         <!--/* Suite and fares tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist.html" />
                     </div>
-                    <div class="c-tab__content" id="excursion">
+                    <div class="c-tab__content" id="excursion" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise'}">
                         <!--/* Excursion tab */-->
                         <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
                     </div>
@@ -53,7 +53,7 @@
                         <!--/* Land and hotel tab */-->
                         <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
                     </div>
-                    <div class="c-tab__content" id="highlight">
+                    <div class="c-tab__content" id="highlight" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                         <!--/* Highlight tab */-->
                         <sly data-sly-include="fragment/highlighttab/hightlight.html" />
                         <sly data-sly-include="fragment/highlighttab/keypeople.html" />
