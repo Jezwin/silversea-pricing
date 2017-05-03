@@ -29,8 +29,8 @@
                         <div class="c-accordion__title">
                             <div class="c-accordion__title">
                                 <ul class="c-accordion__subtitle list">
-                                    <li class="c-accordion__subtitle veryimportant">${item.country}</li>
-                                    <li class="c-accordion__subtitle city">Pays</li>
+                                    <li class="c-accordion__subtitle veryimportant">${item.apiTitle || item.title || 'Title'}</li>
+                                    <li class="c-accordion__subtitle city">${item.country}</li>
                                 </ul>
                                 <ul class="c-accordion__subtitle list">
                                     <li class="c-accordion__subtitle" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">

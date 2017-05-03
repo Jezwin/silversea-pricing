@@ -6,7 +6,7 @@
                 <div class="c-accordion__title">
                     <p><strong>${item.title || item.name}</strong></p>
                     <div class="c-accordion__subtitle hidden-xs">
-                        ${item.shortDescription @ context='html'}
+                        ${item.shortDescription || 'shortDescription' @ context='html'}
                     </div>
                 </div>
 

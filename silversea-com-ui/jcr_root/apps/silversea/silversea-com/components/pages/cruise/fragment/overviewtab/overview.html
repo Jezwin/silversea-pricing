@@ -3,10 +3,10 @@
 <div class="row">
     <div class="col-sm-6 hidden-xs voyageimg">
         <div class="voyageimg__info">
-            <p>Book by 2 May and choose a two category upgrade, 50% saving on a second suite or $1,000* on board credit</p>
+            <p>MapOverHead</p>
         </div>
         <sly data-sly-call="${imageTemplate.default @ imagePath=pageProperties.itinerary}"></sly>
-        <p class="voyageimg__label">Fares shown are per guest</p>
+        <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
     </div>
     <div class="col-xs-12 col-sm-6">
         <div class="row">
@@ -44,7 +44,7 @@
             </div>
             <div class="col-xs-12 visible-xs voyageimg">
                 <div class="voyageimg__info">
-                    <p>Book by 2 May and choose a two category upgrade, 50% saving on a second suite or $1,000* on board credit</p>
+                    <p>MapOverHead</p>
                 </div>
                 <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}"></sly>
                 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>

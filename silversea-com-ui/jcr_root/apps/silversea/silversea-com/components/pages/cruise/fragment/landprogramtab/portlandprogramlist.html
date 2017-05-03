@@ -19,17 +19,17 @@
                     <div class="c-accordion__title c-accordion__title--thumbnail">
                         <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
                     </div>
-                    <div class="c-accordion__title w-title">
-                        <p class="c-accordion__subtitle veryimportant">${item.apiTitle}</p>
+                    <div class="c-accordion__title w-title valigntop">
+                        <p class="c-accordion__subtitle veryimportant">${item.apiTitle || item.title || 'Title'}</p>
                         <p>${item.country}</p>
                         <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
                             ${date.value}
                         </p>
                     </div>
-                    <div class="c-accordion__title w-content hidden-xs">
+                    <div class="c-accordion__title w-content valigntop hidden-xs">
                         <p>${date.value}</p>
                     </div>
-                    <div class="c-accordion__title w-content hidden-xs">
+                    <div class="c-accordion__title w-content valigntop hidden-xs">
                         <u data-sly-test="${item.landprograms.size > 0}">${item.landprograms.size} ${'land-programmes' @ i18n} </u>
                         <u data-sly-test="${item.landprograms.size > 0 && item.hotels.size > 0}">${'and' @ i18n} </u>
                         <u data-sly-test="${item.hotels.size > 0}">${item.hotels.size} ${'hotels' @ i18n}</u>
