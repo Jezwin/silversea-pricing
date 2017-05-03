@@ -177,7 +177,7 @@
                 .c-accordion__subtitle {
 
                     &.list {
-                        column-count: 1;
+                        width: 100%;
                     }
 
                     &.city {
@@ -264,11 +264,16 @@
                 }
 
                 & > .c-accordion__title {
+                    padding-bottom: 20px;
 
                     @media screen and (max-width: @screen-sm) {
                         width: calc(100% - 145px);
                         display: table-row;
                         vertical-align: middle;
+                    }
+
+                    .c-accordion__title {
+                        width: 100%;
                     }
                 }
             }
@@ -384,7 +389,7 @@
         vertical-align: middle;
         padding: 15px;
 
-        .valigntop {
+        &.valigntop {
             vertical-align: top;
         }
     }

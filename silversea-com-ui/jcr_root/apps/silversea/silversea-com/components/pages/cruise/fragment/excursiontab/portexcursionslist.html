@@ -1,83 +1,85 @@
 <sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
 <div class="row">
-    <h3 class="c-cruise__subtitle">${'excursions' @ i18n}</h3>
-    <p class="c-cruise__descr">
-        ${'cruise-excursion-description' @ i18n}
-    </p>
+    <div class="col-xs-12">
 
-    <div class="c-accordion"
-         data-multiview="false"
-         data-more="<i class='fa fa-angle-down'></i>"
-         data-close="<i class='fa fa-angle-up'></i>"
-         data-sly-test="${cruise.cruiseModel.itineraries}"
-         data-sly-list="${cruise.cruiseModel.itineraries}">
-        <div class="c-accordion__elem">
-            <div class="c-accordion__header c-accordion__header--parent">
-                <div class="c-accordion__title c-accordion__title--thumbnail">
-                    <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
-                </div>
-                <div class="c-accordion__title w-title">
-                    <p class="c-accordion__subtitle veryimportant">Title ?</p>
-                    <p>${item.country}</p>
-                    <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
-                        ${date.value}
-                    </p>
-                </div>
-                <div class="c-accordion__title w-content hidden-xs">
-                    <p>${date.value}</p>
-                    <p class="c-accordion__subtitle">
-                        <span data-sly-test="${item.arriveTime}">${'arrive' @ i18n}: ${item.arriveTime},</span> <span data-sly-test="${item.departTime}">${'depart' @ i18n} ${item.departTime}</span>
-					</p>
-                </div>
-                <div class="c-accordion__title w-content hidden-xs">
-                    <u>${item.excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} Title ?</u>
-                </div>
-                <div class="c-accordion__action small">
-                    <i class='fa fa-angle-down'></i>
-                </div>
-            </div>
-            <div class="c-accordion__body c-accordion__body--full">
+        <h3 class="c-cruise__subtitle">${'excursions' @ i18n}</h3>
+        <p class="c-cruise__descr">
+            ${'cruise-excursion-description' @ i18n}
+        </p>
 
-                <div class="c-accordion"
-                     data-multiview="false"
-                     data-more="${'more' @ i18n} <i class='fa fa-angle-down'></i>"
-                     data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
-                     data-sly-test="${item.excursions}"
-                     data-sly-list="${item.excursions}">
-                    <div class="c-accordion__elem">
-                        <div class="c-accordion__header c-accordion__header--center-xs">
-                            <div class="c-accordion__title valigntop ">
+        <div class="c-accordion"
+             data-multiview="false"
+             data-more="<i class='fa fa-angle-down'></i>"
+             data-close="<i class='fa fa-angle-up'></i>"
+             data-sly-test="${cruise.cruiseModel.itineraries}"
+             data-sly-list="${cruise.cruiseModel.itineraries}">
+            <div class="c-accordion__elem" data-sly-test="${item.excursions.size > 0}">
+                <div class="c-accordion__header c-accordion__header--parent">
+                    <div class="c-accordion__title c-accordion__title--thumbnail">
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
+                    </div>
+                    <div class="c-accordion__title w-title">
+                        <p class="c-accordion__subtitle veryimportant">${item.apiTitle}</p>
+                        <p>${item.country}</p>
+                        <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
+                            ${date.value}
+                        </p>
+                    </div>
+                    <div class="c-accordion__title w-content hidden-xs valigntop">
+                        <p>${date.value}</p>
+                        <p class="c-accordion__subtitle">
+                            <span data-sly-test="${item.arriveTime}">${'arrive' @ i18n}: ${item.arriveTime},</span> <span data-sly-test="${item.departTime}">${'depart' @ i18n} ${item.departTime}</span>
+                        </p>
+                    </div>
+                    <div class="c-accordion__title w-content hidden-xs valigntop">
+                        <u>${item.excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${item.country}</u>
+                    </div>
+                    <div class="c-accordion__action small">
+                        <i class='fa fa-angle-down'></i>
+                    </div>
+                </div>
+                <div class="c-accordion__body c-accordion__body--full">
+
+                    <div class="c-accordion"
+                         data-multiview="false"
+                         data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
+                         data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
+                         data-sly-test="${item.excursions}"
+                         data-sly-list="${item.excursions}">
+                        <div class="c-accordion__elem">
+                            <div class="c-accordion__header c-accordion__header--center-xs">
+                                <div class="c-accordion__title valigntop ">
                                 <span class="feature feature-ecgc visible-xs">
                                     <i class="icon-lys"></i>
                                     <span class="tooltip"><i></i></span>
                                 </span>
-                                <p><strong>${item.title}</strong></p>
-                                <div class="c-accordion__subtitle hidden-xs">
-                                    ${item.description @ context='html'}
+                                    <p><strong>${item.title}</strong></p>
+                                    <div class="c-accordion__subtitle hidden-xs">
+                                        ${item.description @ context='html'}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="c-accordion__title  valigntop w-content hidden-xs">
+                                <div class="c-accordion__title  valigntop w-content hidden-xs">
 								<span class="feature feature-ecgc">
                                     <i class="icon-lys"></i>
                                     <span class="tooltip"><i></i></span>
                                 </span>
-                                <div class="c-accordion__subtitle">
-                                    ${'duration' @ i18n}: ${item.duration} ${'hours' @ i18n} <br>
-                                    ${'excursion' @ i18n} ${'code' @ i18n}: ${item.codeExcursion}
+                                    <div class="c-accordion__subtitle">
+                                        ${'duration' @ i18n}: ${item.duration} ${'hours' @ i18n} <br>
+                                        ${'excursion' @ i18n} ${'code' @ i18n}: ${item.codeExcursion}
+                                    </div>
+                                </div>
+
+                                <div class="c-accordion__title  valigntop c-accordion__action c-accordion__action--light">
+                                    ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
                                 </div>
                             </div>
+                            <div class="c-accordion__body">
+                                <div class="c-accordion__body--panel">
+                                    ${item.apiLongDescription @ context='html'}
 
-                            <div class="c-accordion__title  valigntop c-accordion__action c-accordion__action--light">
-                                ${'more' @ i18n} <i class='fa fa-angle-down'></i>
-                            </div>
-                        </div>
-                        <div class="c-accordion__body">
-                            <div class="c-accordion__body--panel">
-                                ${item.apiLongDescription @ context='html'}
-
-                                <div class="">
+                                    <div class="">
                                     <span>
                                         <ul>
                                             <li class="meta_feature_inner">
@@ -94,11 +96,12 @@
                                             </li>
                                         </ul>
                                     </span>
-                                </div>
-                                <div class="">
-                                    <span><strong>${'duration' @ i18n}: 3 Hours 30 Minutes</strong></span>
-                                    <span><strong>${'schedule' @ i18n}: ${item.schedule}</strong></span>
-                                    <span><strong>${'code' @ i18n}: ${item.codeExcursion}</strong></span>
+                                    </div>
+                                    <ul class="c-list-inline">
+                                        <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'duration' @ i18n}: ${item.duration} Minutes</strong></li>
+                                        <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'schedule' @ i18n}: ${item.schedule}</strong></li>
+                                        <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'code' @ i18n}: ${item.codeExcursion}</strong></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -106,5 +109,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>

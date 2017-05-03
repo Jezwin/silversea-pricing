@@ -153,6 +153,28 @@ a {
             color: @white;
         }
     }
+
+    &--white {
+        width: auto;
+        max-width: 100%;
+        white-space: normal;
+        border: 1px solid @grey--8;
+        text-align: left;
+        margin-bottom: 10px;
+        padding: 8px 20px;
+        background-color: @white;
+        -webkit-transition: background 1s;
+        -moz-transition: background 1s;
+        -ms-transition: background 1s;
+        -o-transition: background 1s;
+        transition: background 1s;
+        font-size: 11px;
+        font-weight: normal;
+
+        &:hover, &:focus, &:active {
+            background-color: @grey--e6;
+        }
+    }
 }
 
 /*
