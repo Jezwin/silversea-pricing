@@ -26,6 +26,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
@@ -46,9 +47,13 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
+    @Reference
+    private ApiConfigurationService apiConfig;
+
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/agencies");
+//        final String authorizationHeader = getAuthorizationHeader("/api/v1/agencies");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
 
         // get authentification to the Travel Agencies API
         AgenciesApi travelAgenciesApi = new AgenciesApi();
@@ -107,8 +112,8 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                             if (agencyTravelContryPage != null) {
                                 agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
                                         JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
-                                                agency.getAgency()),
-                                        TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency(), false);
+                                                agency.getAgency().replaceAll("[^\\dA-Za-z ]", "")),
+                                        TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency().replaceAll("[^\\dA-Za-z ]", ""), false);
                             }
                             // agencyTravelPage =
                             // pageManager.create(travelRootPage.getPath(),

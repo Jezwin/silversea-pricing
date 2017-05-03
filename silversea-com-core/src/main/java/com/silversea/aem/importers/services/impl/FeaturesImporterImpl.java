@@ -26,6 +26,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.FeaturesApi;
@@ -41,10 +42,15 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
+    @Reference
+    private ApiConfigurationService apiConfig;
+
     @Override
     public void importData() throws IOException {
 
-        final String authorizationHeader = getAuthorizationHeader(FEATURE_PATH);
+        // final String authorizationHeader =
+        // getAuthorizationHeader(FEATURE_PATH);
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("featuresUrl"));
         FeaturesApi featuresApi = new FeaturesApi();
         featuresApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
@@ -56,47 +62,54 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
             features = featuresApi.featuresGet(null);
             int i = 0;
             for (Feature feature : features) {
-                LOGGER.debug("Importing Feature: {}", feature.getFeatureCod());
-                Iterator<Resource> resources = resourceResolver.findResources(
-                        "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
-                Page featurePage = null;
+                try {
+                    
+                    LOGGER.debug("Importing Feature: {}", feature.getFeatureCod());
+                    Iterator<Resource> resources = resourceResolver.findResources(
+                            "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
+                    Page featurePage = null;
 
-                if (resources.hasNext()) {
-                    featurePage = resources.next().adaptTo(Page.class);
-                } else {
-                    featurePage = pageManager.create(featuresRootPage.getPath(), feature.getFeatureCod(),
-                            TemplateConstants.PATH_FEATURE, feature.getName());
-                }
-
-                if (featurePage != null) {
-                    Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
-                    if (featurePageContentNode != null) {
-                        featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
-                        featurePageContentNode.setProperty("featureId", feature.getFeatureId());
-                        featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
-                        featurePageContentNode.setProperty("featureName", feature.getName());
-                        featurePageContentNode.setProperty("apiTitle", feature.getName());
-                        featurePageContentNode.setProperty("featureOrder", feature.getOrder());
-                        session.save();
-                        LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
+                    if (resources.hasNext()) {
+                        featurePage = resources.next().adaptTo(Page.class);
+                    } else {
+                        featurePage = pageManager.create(featuresRootPage.getPath(), feature.getFeatureCod(),
+                                TemplateConstants.PATH_FEATURE, feature.getName(),false);
                     }
-                }
-                LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
-                i++;
-                if (i % 100 == 0) {
-                    if (session.hasPendingChanges()) {
-                        try {
+
+                    if (featurePage != null) {
+                        Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
+                        if (featurePageContentNode != null) {
+                            featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
+                            featurePageContentNode.setProperty("featureId", feature.getFeatureId());
+                            featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
+                            featurePageContentNode.setProperty("featureName", feature.getName());
+                            featurePageContentNode.setProperty("apiTitle", feature.getName());
+                            featurePageContentNode.setProperty("featureOrder", feature.getOrder());
                             session.save();
-                        } catch (RepositoryException e) {
-                            session.refresh(true);
+                            LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
                         }
                     }
+                    LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
+                    i++;
+                    if (i % 100 == 0) {
+                        if (session.hasPendingChanges()) {
+                            try {
+                                session.save();
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+//                    errorNumber = errorNumber + 1;
+                    LOGGER.debug("Hotel error, number of faulures :", e);
+                    i++;
                 }
             }
             if (session.hasPendingChanges()) {
                 try {
                     // save migration date
-                    Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class); 
+                    Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
                     rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                     session.save();
                 } catch (RepositoryException e) {
@@ -104,7 +117,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                 }
             }
             resourceResolver.close();
-        } catch (ApiException | WCMException | LoginException | RepositoryException e) {
+        } catch (ApiException | LoginException | RepositoryException e) {
             String errorMessage = "Import Feature Errors : {} ";
             LOGGER.error(errorMessage, e);
         }

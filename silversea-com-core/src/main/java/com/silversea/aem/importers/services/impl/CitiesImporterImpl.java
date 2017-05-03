@@ -23,10 +23,10 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.CitiesApi;
@@ -46,14 +46,17 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
+//        final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
 
         CitiesApi citiesApi = new CitiesApi();
         citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -113,8 +116,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         } else {
                             portPage = pageManager.create(portFirstLetterPage.getPath(),
                                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-                                            city.getCityName()),
-                                    TemplateConstants.PATH_PORT, city.getCityName(), false);
+                                            city.getCityName().replaceAll("[^\\dA-Za-z ]", "")),
+                                    TemplateConstants.PATH_PORT, city.getCityName().replaceAll("[^\\dA-Za-z ]", ""), false);
 
                             LOGGER.debug("Creating port {}", city.getCityName());
                         }

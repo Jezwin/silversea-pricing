@@ -26,6 +26,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShorexesApi;
@@ -45,10 +46,14 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/shoreExcursions");
+//        final String authorizationHeader = getAuthorizationHeader("/api/v1/shoreExcursions");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
 
         ShorexesApi shorexesApi = new ShorexesApi();
         shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
@@ -111,8 +116,8 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                                    shorex.getShorexCod()),
-                                            TemplateConstants.PATH_EXCURSION, shorex.getShorexCod(), false);
+                                                    shorex.getShorexCod().replaceAll("[^\\dA-Za-z ]", "")),
+                                            TemplateConstants.PATH_EXCURSION, shorex.getShorexCod().replaceAll("[^\\dA-Za-z ]", ""), false);
 
                                     LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
                                 } else {

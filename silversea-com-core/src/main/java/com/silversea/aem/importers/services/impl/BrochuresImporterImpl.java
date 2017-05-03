@@ -23,6 +23,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.DamConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.BrochuresImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.BrochuresApi;
@@ -42,6 +43,8 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
 
 	@Reference
 	private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
 
 	/**{@inheritDoc}**/
@@ -50,8 +53,8 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
 		List<Brochure> brochures = null;
 		ResourceResolver resourceResolver = null;
 		int index = 1;
-
-		final String authorizationHeader = getAuthorizationHeader(BROCHURE_API_URL);
+		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("brochureUrl"));
+//		final String authorizationHeader = getAuthorizationHeader(BROCHURE_API_URL);
 		BrochuresApi brochuresApi = new BrochuresApi();
 		brochuresApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);		
 		try {

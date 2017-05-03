@@ -27,6 +27,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.LandsApi;
@@ -47,10 +48,14 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/landAdventures");
+//        final String authorizationHeader = getAuthorizationHeader("/api/v1/landAdventures");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
 
         // get authentification to the Land API
         LandsApi landsApi = new LandsApi();
@@ -111,8 +116,8 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
                                     landPage = pageManager.create(landsPage.getPath(),
                                             JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
-                                                    land.getLandName()),
-                                            TemplateConstants.PATH_LANDPROGRAM, land.getLandName(), false);
+                                                    land.getLandName().replaceAll("[^\\dA-Za-z ]", "")),
+                                            TemplateConstants.PATH_LANDPROGRAM, land.getLandName().replaceAll("[^\\dA-Za-z ]", ""), false);
 
                                     LOGGER.debug("Creating land {}", land.getLandCod());
                                 } else {

@@ -25,6 +25,7 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.CountriesApi;
@@ -40,13 +41,17 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     @Reference
     private QueryBuilder builder;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader(COUNTRY_PATH);
+//        final String authorizationHeader = getAuthorizationHeader(COUNTRY_PATH);
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("contriesUrl"));
         CountriesApi countriesApi = new CountriesApi();
         countriesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {

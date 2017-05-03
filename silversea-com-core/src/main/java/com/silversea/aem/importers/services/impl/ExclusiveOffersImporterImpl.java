@@ -27,6 +27,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.SpecialOffersApi;
@@ -46,10 +47,14 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/specialOffers");
+//        final String authorizationHeader = getAuthorizationHeader("/api/v1/specialOffers");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
         try {
             // get authentification to the Special Offers API
             SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
@@ -93,8 +98,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                         } else {
                             offersPage = pageManager.create(offersRootPage.getPath(),
                                     JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
-                                            offers.getVoyageSpecialOffer()),
-                                    TemplateConstants.PATH_EXCLUSIVE_OFFERT, offers.getVoyageSpecialOffer(), false);
+                                            offers.getVoyageSpecialOffer().replaceAll("[^\\dA-Za-z ]", "")),
+                                    TemplateConstants.PATH_EXCLUSIVE_OFFERT, offers.getVoyageSpecialOffer().replaceAll("[^\\dA-Za-z ]", ""), false);
                             // TODO trouver le bon nom du template exclusive
                             // offers
                         }

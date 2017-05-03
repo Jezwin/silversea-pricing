@@ -26,6 +26,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.HotelsApi;
@@ -42,13 +43,17 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     private int errorNumber = 0;
     private int succesNumber = 0;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/hotels");
+//        final String authorizationHeader = getAuthorizationHeader("/api/v1/hotels");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
 
         try {
             // get authentification to the Hotels API
@@ -107,8 +112,8 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
                                     hotelPage = pageManager.create(hotelsPage.getPath(),
                                             JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                    hotel.getHotelName()),
-                                            TemplateConstants.PATH_HOTEL, hotel.getHotelName(), false);
+                                                    hotel.getHotelName().replaceAll("[^\\dA-Za-z ]", "")),
+                                            TemplateConstants.PATH_HOTEL, hotel.getHotelName().replaceAll("[^\\dA-Za-z ]", ""), false);
 
                                     LOGGER.debug("Creating excursion {}", hotel.getHotelName());
                                 } else {

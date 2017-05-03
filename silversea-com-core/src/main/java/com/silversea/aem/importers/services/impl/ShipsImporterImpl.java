@@ -25,11 +25,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.api.ShipsApi;
 import io.swagger.client.model.Ship;
@@ -46,38 +48,41 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-    /** URL récupérer l url de l API. **/
-    @Property(value = "/api/v1/ships", label = "Api Path", description = "path to the ship api")
-    private static String URL = "url";
-    /** URL récupérer les codes groupements service. **/
-    private String url;
+//    /** URL récupérer l url de l API. **/
+//    @Property(value = "/api/v1/ships", label = "Api Path", description = "path to the ship api")
+//    private static String URL = "url";
+//    /** URL récupérer les codes groupements service. **/
+//    private String url;
 
     /**
      * Methode activate permettant de récupérer les valeurs des propriétés
      * 
      * @param compContext
      */
-    @Activate
-    @Modified
-    protected void activate(ComponentContext compContext) {
-
-        LOGGER.debug("Activation service configuration");
-
-        // Récupération des propriétés
-        @SuppressWarnings("unchecked")
-        Dictionary<String, String> properties = compContext.getProperties();
-
-        // Récupération de la propriété SERVICE_URL
-        url = PropertiesUtil.toString(properties.get(URL), "/api/v1/ships");
-    }
+//    @Activate
+//    @Modified
+//    protected void activate(ComponentContext compContext) {
+//
+//        LOGGER.debug("Activation service configuration");
+//
+//        // Récupération des propriétés
+//        @SuppressWarnings("unchecked")
+//        Dictionary<String, String> properties = compContext.getProperties();
+//
+//        // Récupération de la propriété SERVICE_URL
+//        url = PropertiesUtil.toString(properties.get(URL), "/api/v1/ships");
+//    }
 
     @Override
     public void importData() throws IOException {
         LOGGER.debug("Début de l'import");
 
         try {
-            final String authorizationHeader = getAuthorizationHeader(url);
+            final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
+//            final String authorizationHeader = getAuthorizationHeader(url);
             ShipsApi shipsApi = new ShipsApi();
             shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
@@ -102,8 +107,13 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                     if (resources.hasNext()) {
                         shipPage = resources.next().adaptTo(Page.class);
                     } else {
-                        shipPage = pageManager.create(shipsRootPage.getPath(), ship.getShipCod().toLowerCase(),
-                                TemplateConstants.PATH_SHIP, ship.getShipName());
+//                        shipPage = pageManager.create(shipsRootPage.getPath(), ship.getShipName(),
+//                                TemplateConstants.PATH_SHIP, ship.getShipName(),false);
+                        
+                        shipPage = pageManager.create(shipsRootPage.getPath(),
+                                JcrUtil.createValidChildName(shipsRootPage.adaptTo(Node.class),
+                                        ship.getShipName()),
+                                        TemplateConstants.PATH_SHIP, ship.getShipName(), false);
                     }
 
                     if (shipPage != null) {
