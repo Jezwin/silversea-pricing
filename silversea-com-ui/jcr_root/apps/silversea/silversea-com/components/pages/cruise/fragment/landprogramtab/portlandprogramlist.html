@@ -1,5 +1,4 @@
-<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
-<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
 <div class="row">
     <div class="col-xs-12">
 
@@ -12,12 +11,11 @@
              data-multiview="false"
              data-more="<i class='fa fa-angle-down'></i>"
              data-close="<i class='fa fa-angle-up'></i>"
-             data-sly-test="${cruise.cruiseModel.itineraries}"
              data-sly-list="${cruise.cruiseModel.itineraries}">
             <div class="c-accordion__elem" data-sly-test="${item.hotels.size > 0 || item.landprograms.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
                     <div class="c-accordion__title c-accordion__title--thumbnail">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
                     </div>
                     <div class="c-accordion__title w-title valigntop">
                         <p class="c-accordion__subtitle veryimportant">${item.apiTitle || item.title || 'Title'}</p>
