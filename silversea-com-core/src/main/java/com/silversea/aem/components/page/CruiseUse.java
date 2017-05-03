@@ -94,5 +94,4 @@ public class CruiseUse extends WCMUsePojo {
     public CruiseModel getCruiseModel() {
         return cruiseModel;
     }
-
 }

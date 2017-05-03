@@ -125,6 +125,8 @@ public class CruiseModel {
 
     private ResourceResolver resourceResolver;
 
+    private boolean hasLandPrograms = false;
+
     @PostConstruct
     private void init() {
 
@@ -135,6 +137,11 @@ public class CruiseModel {
         destinationFootNote = page.getParent().getProperties().get("footnote", String.class);
         itineraries = initIteniraries();
         ship = initShip(shipReference);
+
+        //check if cruise has land Programs
+        for (int i = 0; i < itineraries.size() && !hasLandPrograms; i++) {
+            hasLandPrograms = itineraries.get(i).getLandprograms().size() > 0;
+        }
     }
 
     public void initByGeoLocation(GeoLocation geolocation) {
@@ -338,8 +345,7 @@ public class CruiseModel {
 
     // TODO: duplicated code
     private Currency getCurrencyByMarKetCode(String marKetCode) {
-        return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst()
-                .orElseThrow(() -> new IllegalStateException());
+        return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst().orElseThrow(() -> new IllegalStateException());
     }
 
     public String getTitle() {
@@ -432,5 +438,9 @@ public class CruiseModel {
 
     public ShipModel getShip() {
         return ship;
+    }
+
+    public boolean hasLandPrograms() {
+        return hasLandPrograms;
     }
 }
