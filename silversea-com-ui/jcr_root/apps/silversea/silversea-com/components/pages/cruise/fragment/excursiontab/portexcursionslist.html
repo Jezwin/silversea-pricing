@@ -1,18 +1,14 @@
-<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
-<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
 <div class="row">
     <div class="col-xs-12">
-
         <h3 class="c-cruise__subtitle">${'excursions' @ i18n}</h3>
         <p class="c-cruise__descr">
             ${'cruise-excursion-description' @ i18n}
         </p>
-
         <div class="c-accordion"
              data-multiview="false"
              data-more="<i class='fa fa-angle-down'></i>"
              data-close="<i class='fa fa-angle-up'></i>"
-             data-sly-test="${cruise.cruiseModel.itineraries}"
              data-sly-list="${cruise.cruiseModel.itineraries}">
             <div class="c-accordion__elem" data-sly-test="${item.excursions.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
@@ -20,7 +16,7 @@
                         <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
                     </div>
                     <div class="c-accordion__title w-title">
-                        <p class="c-accordion__subtitle veryimportant">${item.apiTitle}</p>
+                        <p class="c-accordion__subtitle veryimportant">${item.title}</p>
                         <p>${item.country}</p>
                         <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
                             ${date.value}
@@ -40,20 +36,22 @@
                     </div>
                 </div>
                 <div class="c-accordion__body c-accordion__body--full">
-
                     <div class="c-accordion"
                          data-multiview="false"
                          data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
                          data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
-                         data-sly-test="${item.excursions}"
                          data-sly-list="${item.excursions}">
                         <div class="c-accordion__elem">
                             <div class="c-accordion__header c-accordion__header--center-xs">
                                 <div class="c-accordion__title valigntop ">
-                                <span class="feature feature-ecgc visible-xs">
-                                    <i class="icon-lys"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
+                                    <ul class="feature feature-ecgc visible-xs" data-sly-list="${item.features}">
+                                        <li class="meta_feature_inner">
+                                            <span class="feature">
+                                                <i class="${item.icon}"></i>
+                                                <span class="tooltip"><i></i>${item.title}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
                                     <p><strong>${item.title}</strong></p>
                                     <div class="c-accordion__subtitle hidden-xs">
                                         ${item.description @ context='html'}
@@ -61,10 +59,14 @@
                                 </div>
 
                                 <div class="c-accordion__title  valigntop w-content hidden-xs">
-								<span class="feature feature-ecgc">
-                                    <i class="icon-lys"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
+                                    <ul class="feature feature-ecgc" data-sly-list="${item.features}">
+                                        <li class="meta_feature_inner">
+                                            <span class="feature">
+                                                <i class="${item.icon}"></i>
+                                                <span class="tooltip"><i></i>${item.title}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
                                     <div class="c-accordion__subtitle">
                                         ${'duration' @ i18n}: ${item.duration} ${'hours' @ i18n} <br>
                                         ${'excursion' @ i18n} ${'code' @ i18n}: ${item.codeExcursion}
@@ -77,26 +79,16 @@
                             </div>
                             <div class="c-accordion__body">
                                 <div class="c-accordion__body--panel">
+                                    ${item.page.path}
                                     ${item.apiLongDescription @ context='html'}
-
-                                    <div class="">
-                                    <span>
-                                        <ul>
-                                            <li class="meta_feature_inner">
-                                                <span class="feature feature-eo">
-                                                    <i class="icon-star"></i>
-                                                    <span class="tooltip"><i></i></span>
-                                                </span>
-                                            </li>
-                                            <li class="meta_feature_inner">
-                                                <span class="feature feature-vs">
-                                                    <i class="icon-shield-v"></i>
-                                                    <span class="tooltip"><i></i></span>
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </span>
-                                    </div>
+                                    <ul class="feature feature-ecgc" data-sly-list="${item.features}">
+                                        <li class="meta_feature_inner">
+                                            <span class="feature">
+                                                <i class="${item.icon}"></i>
+                                                <span class="tooltip"><i></i>${item.title}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
                                     <ul class="c-list-inline">
                                         <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'duration' @ i18n}: ${item.duration} Minutes</strong></li>
                                         <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'schedule' @ i18n}: ${item.schedule}</strong></li>
@@ -109,6 +101,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
