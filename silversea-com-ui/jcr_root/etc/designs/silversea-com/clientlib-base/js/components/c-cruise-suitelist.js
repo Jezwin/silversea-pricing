@@ -4,6 +4,10 @@ $(function() {
     })
 
     // Force reinit slider when it was inside a hidden tab
+    $('div[id^="suitelist-collapse"]').on('show.bs.collapse', function(e) {
+        $(this).find('.c-tab__content[data-state="active"]').trigger('ctabcontent-shown');
+    });
+
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         var $currentSlider = $(this).find('.c-slider');
         $(window).trigger('resize');
