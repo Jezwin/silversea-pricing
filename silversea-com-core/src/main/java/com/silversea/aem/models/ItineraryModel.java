@@ -11,7 +11,6 @@ import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
@@ -36,10 +35,6 @@ public class ItineraryModel {
     @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-    private String country;
-    private String city;
     private Calendar date;
     private String arriveTime;
     private String departTime;
@@ -153,11 +148,8 @@ public class ItineraryModel {
     }
 
     public String getCountry() {
-        return country;
-    }
-
-    public String getCity() {
-        return city;
+        // TODO convert iso3 to country name
+        return page.getProperties().get("countryIso3", String.class) ;
     }
 
     public Calendar getDate() {
@@ -190,5 +182,9 @@ public class ItineraryModel {
 
     public List<HotelModel> getHotels() {
         return hotels;
+    }
+
+    public String getTitle() {
+        return page.getProperties().get("apiTitle", page.getTitle());
     }
 }
