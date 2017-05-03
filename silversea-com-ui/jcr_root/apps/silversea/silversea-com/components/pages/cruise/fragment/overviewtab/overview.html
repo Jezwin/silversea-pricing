@@ -1,11 +1,9 @@
-<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
-<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
-<div class="row">
+<div class="row" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="col-sm-6 hidden-xs voyageimg">
         <div class="voyageimg__info">
-            <p>MapOverHead</p>
+            <p>Book by 2 May and choose a two category upgrade, 50% saving on a second suite or $1,000* on board credit</p>
         </div>
-        <sly data-sly-call="${imageTemplate.default @ imagePath=pageProperties.itinerary}"></sly>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
         <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
     </div>
     <div class="col-xs-12 col-sm-6">
@@ -22,10 +20,10 @@
                     <a href="#">
                         <span>${'departure' @ i18n}</span>
                         <span class="lead" data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">
-                          ${dateDay.value}
+                            ${dateDay.value}
                         </span>
-                        <span  data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
-                          ${dateYear.value}
+                        <span data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
+                            ${dateYear.value}
                         </span>
                     </a>
                 </div>
@@ -44,68 +42,34 @@
             </div>
             <div class="col-xs-12 visible-xs voyageimg">
                 <div class="voyageimg__info">
+                    <!--/* TODO use getter when it will be available */-->
                     <p>MapOverHead</p>
                 </div>
-                <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}"></sly>
+                <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
                 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
             </div>
-
             <div class="col-xs-12 visible-xs">
                 <div class="cruise__header_metainfo">
                     <span>${cruise.cruiseModel.cruiseType}</span>
                     <span>${cruise.cruiseModel.ship.title}</span>
                     <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-                    <span>
-                        <ul>
-                            <li class="meta_feature_inner">
-                                <span class="feature feature-eo">
-                                    <i class="icon-star"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner">
-                                <span class="feature feature-vs">
-                                    <i class="icon-shield-v"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner">
-                                <span class="feature feature-ecgc">
-                                    <i class="icon-lys"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner">
-                                <span class="feature feature-wsv">
-                                    <i class="icon-grappe"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner">
-                                <span class="feature feature-bs">
-                                    <i class="icon-spade"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner">
-                                <span class="feature feature-gh">
-                                    <i class="icon-bow-tie"></i>
-                                    <span class="tooltip"><i></i></span>
-                                </span>
-                            </li>
-                        </ul>
-                    </span>
+                    <ul data-sly-list="${cruise.cruiseModel.features}">
+                        <li class="meta_feature_inner">
+                            <span class="feature">
+                                <i class="${item.icon}"></i>
+                                <span class="tooltip"><i></i>${item.title}</span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-xs-12">
                 <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
                     <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
-
-                    <p data-sly-test="${cruise.cruiseModel.exclusiveOffers}"
-                        data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
+                    <p data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
                         <a data-sly-test="${item.lightboxReference}"
                            href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
-                           class="" data-toggle="modal"
+                           data-toggle="modal"
                            data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                             <strong>${item.title}: </strong>
                         </a>
