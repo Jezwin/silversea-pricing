@@ -1,65 +1,11 @@
-<div class="c-cruise-ship-info">
+<div class="c-cruise-ship-info" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'restaurants' @ i18n}</h3>
     <p class="c-cruise__descr">Renowned for culinary excellence and innovative spirit, Silversea’s luxury cruises offer a choice of open-seating dining options throughout the fleet, as well as several specialty venues aboard all non-expedition ships.</p>
-    <div>
-        <div class="row c-cruise-ship-info__item">
-            <div class="col-sm-6 variationimg">
-                <img src="http://static.silversea.com/wp-content/uploads/2015/10/MaDame-Hero-672x372.jpg" />
-            </div>
 
-            <div class="col-sm-6 variationcontent">
-                <div class="ship-mobilewrapper">
-                    <h4 class="variationcontent__title">La Dame by Relais &amp; Châteaux</h4>
-                    <p class="variationcontent__descr">La Dame by Relais &amp; Châteaux® features a bespoke menu by top chefs from the Relais &amp; Châteaux team, and is the highest expression of excellence of French dining that Silver Muse has to offer. The ambience is one of chic contemporary style, with crisp white table linens and the impeccable white gloved service associated with Silversea.
-                    The boutique hotel and gourmet restaurant guild Relais &amp; Châteaux are unsurpassed in their belief in standards of hospitality, personalised service and outstanding cuisine. Rooted in these shared values, Silversea is proud of its privileged collaboration and its continued partnership for the pursuit of excellence.</p>
+    <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=cruise.cruiseModel.ship.dinings}" />
 
-                    <div class="variationcontent__descr_expand">
-                        <a href="" class="read_more">${'read-more' @ i18n} <i class="fa fa-angle-down"></i></a>
-                        <a href="" class="read_less">${'read-less' @ i18n} <i class="fa fa-angle-up"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row c-cruise-ship-info__item">
-            <div class="col-sm-6 col-sm-push-6 variationimg">
-                <img src="http://static.silversea.com/wp-content/uploads/2015/10/Kabuki-Hero-672x372.jpg" />
-            </div>
-
-            <div class="col-sm-6 col-sm-pull-6 variationcontent">
-                <div class="ship-mobilewrapper">
-                    <h4 class="variationcontent__title">Kaiseki</h4>
-                    <p class="variationcontent__descr">The fine art of Kaiseki lies in its meticulous preparation and beautiful presentation. Dishes reflect a passion for tradition and performance and our reinterpretation of these values is clear. Balanced menus have been inspired by the five elements of Japanese nutritional cuisine and respect the equilibrium of yin and yang. With teppanyaki available exclusively for evening diners, daytime menus feature a varied and balanced menu of sushi, sashimi and other raw Asian-inspired dishes.</p>
-
-                    <div class="variationcontent__descr_expand">
-                        <a href="" class="read_more">${'read-more' @ i18n} <i class="fa fa-angle-down"></i></a>
-                        <a href="" class="read_less">${'read-less' @ i18n} <i class="fa fa-angle-up"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row c-cruise-ship-info__item">
-            <div class="col-sm-6 variationimg">
-                <img src="http://static.silversea.com/wp-content/uploads/2016/01/Indochine-Hero-672x372.jpg" />
-            </div>
-
-            <div class="col-sm-6 variationcontent">
-                <div class="ship-mobilewrapper">
-                    <h4 class="variationcontent__title">Indochine</h4>
-                    <p class="variationcontent__descr">Evoking a sense of exotic mystery, the Asian-accented Indochine embarks you on an exquisite journey of culinary discovery. Unlock the hidden treasures of the spice markets of Mumbai, whet your appetite with the exoticism of Thailand and temper your taste buds with the cuisine of Vietnam. Elegant and exquisite dishes bursting with Asian essence awaken your gastronomic senses and immerse you in an expansive tapestry of the palate.
-                    Savour the fusion of flavours of a vast continent that defies definition — in a stylish restaurant that pays homage to its delectable cuisine.</p>
-
-                    <div class="variationcontent__descr_expand">
-                        <a href="" class="read_more">${'read-more' @ i18n} <i class="fa fa-angle-down"></i></a>
-                        <a href="" class="read_less">${'read-less' @ i18n} <i class="fa fa-angle-up"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="c-cruise-ship-info__item-expander">
-            <a class="btn btn-dark expander-open" href=""><span>${'view-all-restaurants' @ i18n}</span><i class="fa fa-angle-down"></i></a>
-            <a class="btn btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
-        </div>
+    <div class="c-cruise-ship-info__item-expander">
+        <a class="btn btn-dark expander-open" href=""><span>${'view-all-restaurants' @ i18n}</span><i class="fa fa-angle-down"></i></a>
+        <!--/* <a class="btn btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a> */-->
     </div>
 </div>

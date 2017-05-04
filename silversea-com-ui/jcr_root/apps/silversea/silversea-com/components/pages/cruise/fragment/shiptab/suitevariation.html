@@ -2,7 +2,7 @@
     <h3 class="c-cruise__subtitle">${'suites' @ i18n}</h3>
     <p class="c-cruise__descr">Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite.</p>
 
-    <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=cruise.cruiseModel.suites}"></sly>
+    <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=cruise.cruiseModel.suites}" />
 
     <div class="c-cruise-ship-info__item-expander">
         <a class="btn btn-dark expander-open" href=""><span>${'view-all-suites' @ i18n}</span><i class="fa fa-angle-down"></i></a>
