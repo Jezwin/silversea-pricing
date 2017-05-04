@@ -3,9 +3,8 @@
 <head>
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientlib.css @ categories='apps.silversea-com.bootstrap-3-3-7'}" />
 </head>
-<body>
+<body data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <div class="container-fluid">
-        <sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-unwrap />
         <p>title: ${cruise.cruiseModel.title}</p>
         <p>subtitle (Destination title): ${cruise.cruiseModel.destinationTitle}</p>
         <p>Description : ${cruise.cruiseModel.description}</p>
@@ -54,22 +53,22 @@
         <!-- SUITES -->
         <ul data-sly-test="${cruise.cruiseModel.suites}" data-sly-list="${cruise.cruiseModel.suites}">
             <li>
-                <p>Thumbnail: ${item.thumbnail}</p>
-                <p>Title: ${item.title}</p>
+                <p>Thumbnail: ${item.thumbnail || 'empty'}</p>
+                <p>Title: ${item.title || 'empty'}</p>
                 <p>Suite sub title:</p>
                 <ul data-sly-test="${item.suiteSubTitle}" data-sly-list="${item.suiteSubTitle}">
                     <li>
-                        <p>${item}</p>
+                        <p>${item || 'empty'}</p>
                     </li>
                 </ul>
-                <p>Suite lowest, price + currency: ${item.lowestPrice.value} ${item.lowestPrice.currency}</p>
-                <p>Suite lowest, is waitlist: ${item.lowestPrice.isWaitList}</p>
-                <p>Bedroom informations: ${item.bedroomsInformation @ context='html'}</p>
-                <p>Long description: ${item.longDescription @ context='html'}</p>
+                <p>Suite lowest, price + currency: ${item.lowestPrice.value || 'empty'} ${item.lowestPrice.currency || 'empty'}</p>
+                <p>Suite lowest, is waitlist: ${item.lowestPrice.isWaitList || 'empty'}</p>
+                <p>Bedroom informations: ${item.bedroomsInformation  || 'empty' @ context='html'}</p>
+                <p>Long description: ${item.longDescription || 'empty' @ context='html'}</p>
                 <p>Features:</p>
                 <ul data-sly-test="${item.features}" data-sly-list="${item.features}">
                     <li>
-                        <p>${item}</p>
+                        <p>${item || 'empty'}</p>
                     </li>
                 </ul>
                 <p>Plan:</p> <!-- Suite plan --> <img src="${item.plan}" />
@@ -78,14 +77,14 @@
                 <ul data-sly-test="${item.variations}" data-sly-list="${item.variations}">
                     <li>
                         <!-- Variation name is a key: must create a key/value i18n -->
-                        <p>Title:${item.name}</p>
-                        <p>Price:${item.price.value}</p>
-                        <p>isWaitList:${item.price.isWaitList}</p>
-                        <p>Currency:${item.price.currency}</p>
+                        <p>Title:${item.name || 'empty'}</p>
+                        <p>Price:${item.price.value || 'empty'}</p>
+                        <p>isWaitList:${item.price.isWaitList || 'empty'}</p>
+                        <p>Currency:${item.price.currency || 'empty'}</p>
                     </li>
                 </ul>
+                <hr />
             </li>
-            <hr />
         </ul>
         <section class="row">
             <div class="col-sm-12">
