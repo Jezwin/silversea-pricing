@@ -14,7 +14,7 @@ public class StringHelper extends WCMUsePojo {
         Integer limit = get("limit", Integer.class);
 
         if(StringUtils.isNotEmpty(text)) {
-            textTruncate = text.substring(0, limit).trim();
+            textTruncate = (text.length() > limit) ? text.substring(0, limit).trim() : text;
         }
 
     }
