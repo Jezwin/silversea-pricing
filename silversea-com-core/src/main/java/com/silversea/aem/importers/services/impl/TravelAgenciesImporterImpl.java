@@ -56,11 +56,11 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
         /**
          * authentification pour le swagger
          */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         /**
-          * Récuperation du domain de l'api Swager
-          */
-         getApiDomain(apiConfig.getApiBaseDomain());
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        /**
+         * Récuperation du domain de l'api Swager
+         */
+        getApiDomain(apiConfig.getApiBaseDomain());
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/agencies");
@@ -74,7 +74,9 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            Page travelRootPage = pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES);
+            // Page travelRootPage =
+            // pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES);
+            Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 
             int i = 1;
 

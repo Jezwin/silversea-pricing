@@ -73,7 +73,8 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             int i = 1;
 

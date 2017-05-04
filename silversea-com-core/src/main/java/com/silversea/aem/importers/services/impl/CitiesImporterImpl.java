@@ -73,7 +73,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
-            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             List<City> cities;
             int i = 1;

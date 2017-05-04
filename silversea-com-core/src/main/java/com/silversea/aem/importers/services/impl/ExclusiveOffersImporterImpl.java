@@ -70,7 +70,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            Page offersRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
+//            Page offersRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
+            Page offersRootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
 
             int i = 1;
 

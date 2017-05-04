@@ -51,11 +51,11 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
         /**
          * authentification pour le swagger
          */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         /**
-          * Récuperation du domain de l'api Swager
-          */
-         getApiDomain(apiConfig.getApiBaseDomain());
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        /**
+         * Récuperation du domain de l'api Swager
+         */
+        getApiDomain(apiConfig.getApiBaseDomain());
 
         // final String authorizationHeader =
         // getAuthorizationHeader(FEATURE_PATH);
@@ -66,7 +66,9 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             Session session = resourceResolver.adaptTo(Session.class);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            Page featuresRootPage = pageManager.getPage(ImportersConstants.BASEPATH_FEATURES);
+            // Page featuresRootPage =
+            // pageManager.getPage(ImportersConstants.BASEPATH_FEATURES);
+            Page featuresRootPage = pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
             List<Feature> features;
             features = featuresApi.featuresGet(null);
             int i = 0;

@@ -73,7 +73,8 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             List<Shorex> shorexes;
             int i = 1;
