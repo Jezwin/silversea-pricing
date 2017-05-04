@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesImporter;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -106,14 +107,14 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                             if (agencyTravelContryPage == null) {
                                 agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
                                         JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
-                                                agency.getCountryIso3()),
-                                        "/apps/silversea/silversea-com/templates/page", agency.getCountryIso3(), false);
+                                                StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3())),
+                                        "/apps/silversea/silversea-com/templates/page", StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
                             }
                             if (agencyTravelContryPage != null) {
                                 agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
                                         JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
-                                                agency.getAgency().replaceAll("[^\\dA-Za-z ]", "")),
-                                        TemplateConstants.PATH_TRAVEL_AGENCY, agency.getAgency().replaceAll("[^\\dA-Za-z ]", ""), false);
+                                                StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
+                                        TemplateConstants.PATH_TRAVEL_AGENCY, StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
                             }
                             // agencyTravelPage =
                             // pageManager.create(travelRootPage.getPath(),

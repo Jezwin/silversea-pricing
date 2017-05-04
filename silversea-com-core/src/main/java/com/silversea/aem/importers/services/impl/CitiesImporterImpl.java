@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -116,8 +117,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         } else {
                             portPage = pageManager.create(portFirstLetterPage.getPath(),
                                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-                                            city.getCityName().replaceAll("[^\\dA-Za-z ]", "")),
-                                    TemplateConstants.PATH_PORT, city.getCityName().replaceAll("[^\\dA-Za-z ]", ""), false);
+                                            StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
+                                    TemplateConstants.PATH_PORT, StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
 
                             LOGGER.debug("Creating port {}", city.getCityName());
                         }

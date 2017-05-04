@@ -25,4 +25,9 @@ public class StringHelper extends WCMUsePojo {
     public String getTextTruncate() {
         return textTruncate;
     }
+    
+    public static String getFormatWithoutSpecialCharcters(String format){
+        format = format.replaceAll("[^a-zA-Z0-9 ]+","").replaceAll(" ", "-");
+        return format;
+    }
 }

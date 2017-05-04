@@ -24,6 +24,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -72,8 +73,8 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                     if (resources.hasNext()) {
                         featurePage = resources.next().adaptTo(Page.class);
                     } else {
-                        featurePage = pageManager.create(featuresRootPage.getPath(), feature.getFeatureCod(),
-                                TemplateConstants.PATH_FEATURE, feature.getName(),false);
+                        featurePage = pageManager.create(featuresRootPage.getPath(), StringHelper.getFormatWithoutSpecialCharcters(feature.getFeatureCod()),
+                                TemplateConstants.PATH_FEATURE, StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),false);
                     }
 
                     if (featurePage != null) {

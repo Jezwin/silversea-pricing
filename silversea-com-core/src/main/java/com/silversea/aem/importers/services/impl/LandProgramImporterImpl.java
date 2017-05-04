@@ -25,6 +25,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramImporter;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -116,8 +117,8 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
                                     landPage = pageManager.create(landsPage.getPath(),
                                             JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
-                                                    land.getLandName().replaceAll("[^\\dA-Za-z ]", "")),
-                                            TemplateConstants.PATH_LANDPROGRAM, land.getLandName().replaceAll("[^\\dA-Za-z ]", ""), false);
+                                                    StringHelper.getFormatWithoutSpecialCharcters(land.getLandName())),
+                                            TemplateConstants.PATH_LANDPROGRAM, StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()), false);
 
                                     LOGGER.debug("Creating land {}", land.getLandCod());
                                 } else {

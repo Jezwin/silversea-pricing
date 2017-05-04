@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -112,8 +113,8 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
                                     hotelPage = pageManager.create(hotelsPage.getPath(),
                                             JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                    hotel.getHotelName().replaceAll("[^\\dA-Za-z ]", "")),
-                                            TemplateConstants.PATH_HOTEL, hotel.getHotelName().replaceAll("[^\\dA-Za-z ]", ""), false);
+                                                    StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                            TemplateConstants.PATH_HOTEL, StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                     LOGGER.debug("Creating excursion {}", hotel.getHotelName());
                                 } else {
