@@ -261,11 +261,11 @@ public class TestServlet extends SlingSafeMethodsServlet {
          response.getWriter().flush();
          }
         
-//         if (all || mode.equals(Mode.cruises)) {
-//         cruisesImporter.importCruises();
-//         response.getWriter().write("Cruises import Done<br/>");
-//         response.getWriter().flush();
-//         }
+         if (all || mode.equals(Mode.cruises)) {
+         cruisesImporter.importCruises();
+         response.getWriter().write("Cruises import Done<br/>");
+         response.getWriter().flush();
+         }
 
         if(all){
             watchAll.stop();
@@ -292,7 +292,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
     }
 
     enum Mode {
-        cities, ex, hotels, lp, ta, eo, ships , countries, ft, brochures ;//,cruises;
+        cities, ex, hotels, lp, ta, eo, ships , countries, ft, brochures ,cruises;
 
     }
 }
