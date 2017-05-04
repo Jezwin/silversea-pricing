@@ -1,6 +1,6 @@
 <div class="c-cruise-ship-info" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'restaurants' @ i18n}</h3>
-    <p class="c-cruise__descr">Renowned for culinary excellence and innovative spirit, Silversea’s luxury cruises offer a choice of open-seating dining options throughout the fleet, as well as several specialty venues aboard all non-expedition ships.</p>
+    <p class="c-cruise__descr">${'cruise-ship-restaurant-description' @ i18n}</p>
 
     <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=cruise.cruiseModel.ship.dinings}" />
 

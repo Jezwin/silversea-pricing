@@ -1,6 +1,6 @@
 <div class="c-cruise-ship-info" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'public-areas' @ i18n}</h3>
-    <p class="c-cruise__descr">Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service.</p>
+    <p class="c-cruise__descr">${'cruise-ship-publicarea-description' @ i18n}</p>
 
     <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=cruise.cruiseModel.ship.publicAreas}" />
 

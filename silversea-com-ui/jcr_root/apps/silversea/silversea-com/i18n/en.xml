@@ -583,4 +583,16 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="AC"
         sling:message="Adventurer Class" />
+    <cruise-ship-suite-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-suite-description"
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite." />
+    <cruise-ship-publicarea-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-publicarea-description"
+        sling:message="Renowned for culinary excellence and innovative spirit, Silversea's luxury cruises offer a choice of open-seating dining options throughout the fleet, as well as several specialty venues aboard all non-expedition ships." />
+    <cruise-ship-restaurant-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-restaurant-description"
+        sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service." />
 </jcr:root>
