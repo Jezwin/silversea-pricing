@@ -1,6 +1,5 @@
 package com.silversea.aem.services.impl;
 
-import java.io.IOException;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,12 +16,11 @@ import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.silversea.aem.importers.services.impl.BaseImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
 @Component(immediate = true, label = "Silversea.com - Api importer Configuration", metatype = true)
 @Service(value = ApiConfigurationService.class)
-public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfigurationService {
+public class ApiConfigurationServiceImp implements ApiConfigurationService {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ApiConfigurationServiceImp.class);
 
@@ -88,19 +86,6 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
 
     }
 
-    @Override
-    public String apiUrlConfiguration(String api) {
-        return api_path.get(api);
-    }
-
-    public String apiRootPath(String api) {
-        return api_root_path.get(api);
-    }
-
-    public void passwordSwagger() {
-
-    }
-
     public String getLogin() {
         return login;
     }
@@ -108,17 +93,19 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
     public String getPassword() {
         return password;
     }
-
-    public Map<String, String> getApi_path() {
-        return api_path;
+    
+    @Override
+    public String apiUrlConfiguration(String api) {
+        return api_path.get(api);
+    }
+    @Override
+    public String apiRootPath(String api) {
+        return api_root_path.get(api);
     }
 
-    public String getApiDomain() {
+    @Override
+    public String getApiBaseDomain() {
         return apiDomain;
-    }
-
-    public Map<String, String> getApi_root_path() {
-        return api_root_path;
     }
 
     private Map<String, String> parseToMap(String[] apiPaths) {
@@ -130,4 +117,5 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
         }
         return result;
     }
+
 }

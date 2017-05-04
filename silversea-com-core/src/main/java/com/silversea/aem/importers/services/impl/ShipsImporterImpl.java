@@ -55,6 +55,10 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
              * authentification pour le swagger
              */
             getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+            /**
+             * Récuperation du domain de l'api Swager
+             */
+            getApiDomain(apiConfig.getApiBaseDomain());
 
             final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
             // final String authorizationHeader = getAuthorizationHeader(url);
@@ -63,7 +67,8 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             Session session = resourceResolver.adaptTo(Session.class);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            Page shipsRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SHIP);
+//            Page shipsRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SHIP);
+            Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
             List<Ship> listShips;
             listShips = shipsApi.shipsGet(null);
             int i = 0;

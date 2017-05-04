@@ -60,6 +60,11 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
          * authentification pour le swagger
          */
         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        /**
+         * Récuperation du domain de l'api Swager
+         */
+        getApiDomain(apiConfig.getApiBaseDomain());
+
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
         CitiesApi citiesApi = new CitiesApi();
         citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);

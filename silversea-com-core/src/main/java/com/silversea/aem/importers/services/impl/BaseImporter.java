@@ -39,10 +39,14 @@ public class BaseImporter {
     protected String getAuthorizationHeader(final String path) throws IOException {
         // Get server data used to generate digest authentication
         HttpClient client = new HttpClient();
+        GetMethod get;
+        if (apiDomain != null) {
+            get = new GetMethod(apiDomain + path);
+        } else {
+            get = new GetMethod(ImportersConstants.API_DOMAIN + path);
+        }
 
-        GetMethod get = new GetMethod(ImportersConstants.API_DOMAIN + path);
         client.executeMethod(get);
-
         Header wwwAuthenticateHeader = get.getResponseHeader("WWW-Authenticate");
 
         if (wwwAuthenticateHeader != null) {

@@ -57,6 +57,10 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
          * authentification pour le swagger
          */
          getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+         /**
+          * Récuperation du domain de l'api Swager
+          */
+         getApiDomain(apiConfig.getApiBaseDomain());
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/agencies");
