@@ -137,7 +137,10 @@ public class CruiseModel {
         destinationTitle = getPagereferenceTitle(page.getParent().getPath());
         destinationFootNote = page.getParent().getProperties().get("footnote", String.class);
         itineraries = initIteniraries();
-        ship = initShip(shipReference);
+
+        if(StringUtils.isNotBlank(shipReference)) {
+            ship = initShip(shipReference);
+        }
 
         //check if cruise has land Programs
         for (int i = 0; i < itineraries.size() && !hasLandPrograms; i++) {
