@@ -14,8 +14,8 @@
     </div>
     <div class="cruise__header_meta hidden-xs">
         <div class="cruise__header_nextprev">
-            <a href="${cruise.previous @ extension='html'}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
-            <a href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
+            <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html'}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
+            <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
         </div>
         <div class="cruise__header_metainfo">
             <span>${cruise.cruiseModel.cruiseType}</span>
