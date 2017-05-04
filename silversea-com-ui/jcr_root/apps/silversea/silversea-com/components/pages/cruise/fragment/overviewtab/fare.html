@@ -1,8 +1,8 @@
 <div class="c-cruise__fare" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'included-cruise-fare' @ i18n}</h3>
     <ul class="c-list">
-        <li data-sly-repeat="${cruise.cruiseModel.cruiseFareAdditions}"><strong>${item}</strong></li>
-        <li data-sly-repeat="${cruise.cruiseModel.exclusiveFareAdditions}">${item.addition}</li>
+        <li data-sly-repeat="${cruise.cruiseModel.exclusiveFareAdditions}"><strong>${item.addition}</strong></li>
+        <li data-sly-repeat="${cruise.cruiseModel.cruiseFareAdditions}">${item}</li>
     </ul>
     <div class="c-list__expand">
         <a href="#" class="view_all">${'view-all' @ i18n} <i class="fa fa-angle-down"></i></a>
