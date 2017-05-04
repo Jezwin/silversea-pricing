@@ -526,7 +526,7 @@
     <me
         jcr:primaryType="sling:MessageEntry"
         sling:key="ME"
-        sling:message="Medaillon" />
+        sling:message="Medallion" />
     <g2
         jcr:primaryType="sling:MessageEntry"
         sling:key="G2"
@@ -546,7 +546,7 @@
     <ec
         jcr:primaryType="sling:MessageEntry"
         sling:key="EC"
-        sling:message="Explorere Class" />
+        sling:message="Explorer Class" />
     <dx
         jcr:primaryType="sling:MessageEntry"
         sling:key="DX"
