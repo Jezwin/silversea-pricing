@@ -3,6 +3,7 @@ package com.silversea.aem.helper;
 import org.apache.commons.lang3.StringUtils;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.commons.jcr.JcrUtil;
 
 public class StringHelper extends WCMUsePojo {
 
@@ -27,7 +28,8 @@ public class StringHelper extends WCMUsePojo {
     }
     
     public static String getFormatWithoutSpecialCharcters(String format){
-        format = format.replaceAll("[^a-zA-Z0-9 ]+","").replaceAll(" ", "-");
+        format = format.replaceAll("[^a-zA-Z0-9 ]+","").replaceAll(" ", "-").toLowerCase();
+//        format = JcrUtil.createValidName(format);
         return format;
     }
 }

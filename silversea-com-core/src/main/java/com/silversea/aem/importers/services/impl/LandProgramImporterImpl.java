@@ -49,13 +49,19 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-//        final String authorizationHeader = getAuthorizationHeader("/api/v1/landAdventures");
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/landAdventures");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
 
         // get authentification to the Land API
@@ -118,7 +124,8 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                                     landPage = pageManager.create(landsPage.getPath(),
                                             JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
                                                     StringHelper.getFormatWithoutSpecialCharcters(land.getLandName())),
-                                            TemplateConstants.PATH_LANDPROGRAM, StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()), false);
+                                            TemplateConstants.PATH_LANDPROGRAM,
+                                            StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()), false);
 
                                     LOGGER.debug("Creating land {}", land.getLandCod());
                                 } else {
@@ -135,7 +142,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                             hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, land.getDescription());
                             hotelPageContentNode.setProperty("landId", land.getLandId());
                             hotelPageContentNode.setProperty("landCode", land.getLandCod());
-                            succesNumber = succesNumber+1;
+                            succesNumber = succesNumber + 1;
                             j++;
                         }
 

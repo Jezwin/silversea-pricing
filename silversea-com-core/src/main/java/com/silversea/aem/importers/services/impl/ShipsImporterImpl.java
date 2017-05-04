@@ -2,7 +2,6 @@ package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Dictionary;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,17 +9,12 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Modified;
-import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.commons.osgi.PropertiesUtil;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +51,11 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
         LOGGER.debug("Début de l'import");
 
         try {
+            /**
+             * authentification pour le swagger
+             */
+            getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+
             final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
             // final String authorizationHeader = getAuthorizationHeader(url);
             ShipsApi shipsApi = new ShipsApi();

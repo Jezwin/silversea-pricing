@@ -49,10 +49,15 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
 
 	/**{@inheritDoc}**/
 	public void importBrochures() throws IOException{
-
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+	    
 		List<Brochure> brochures = null;
 		ResourceResolver resourceResolver = null;
 		int index = 1;
+		
 		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("brochureUrl"));
 //		final String authorizationHeader = getAuthorizationHeader(BROCHURE_API_URL);
 		BrochuresApi brochuresApi = new BrochuresApi();

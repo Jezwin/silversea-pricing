@@ -25,6 +25,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -47,13 +48,19 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-//        final String authorizationHeader = getAuthorizationHeader("/api/v1/specialOffers");
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/specialOffers");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
         try {
             // get authentification to the Special Offers API
@@ -98,8 +105,11 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                         } else {
                             offersPage = pageManager.create(offersRootPage.getPath(),
                                     JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
-                                            offers.getVoyageSpecialOffer().replaceAll("[^\\dA-Za-z ]", "")),
-                                    TemplateConstants.PATH_EXCLUSIVE_OFFERT, offers.getVoyageSpecialOffer().replaceAll("[^\\dA-Za-z ]", ""), false);
+                                            StringHelper
+                                                    .getFormatWithoutSpecialCharcters(offers.getVoyageSpecialOffer())),
+                                    TemplateConstants.PATH_EXCLUSIVE_OFFERT,
+                                    StringHelper.getFormatWithoutSpecialCharcters(offers.getVoyageSpecialOffer()),
+                                    false);
                             // TODO trouver le bon nom du template exclusive
                             // offers
                         }
@@ -110,7 +120,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                             offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
                             offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
                             offersContentNode.setProperty("endDate", offers.getValidTo().toString());
-                            succesNumber = succesNumber+1;
+                            succesNumber = succesNumber + 1;
                             j++;
                         }
 

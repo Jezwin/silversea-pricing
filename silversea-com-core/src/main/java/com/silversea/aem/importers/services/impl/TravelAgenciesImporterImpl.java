@@ -53,7 +53,13 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
     @Override
     public void importData() throws IOException {
-//        final String authorizationHeader = getAuthorizationHeader("/api/v1/agencies");
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/agencies");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
 
         // get authentification to the Travel Agencies API
@@ -108,13 +114,15 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                                 agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
                                         JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3())),
-                                        "/apps/silversea/silversea-com/templates/page", StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
+                                        "/apps/silversea/silversea-com/templates/page",
+                                        StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
                             }
                             if (agencyTravelContryPage != null) {
                                 agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
                                         JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
-                                        TemplateConstants.PATH_TRAVEL_AGENCY, StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
+                                        TemplateConstants.PATH_TRAVEL_AGENCY,
+                                        StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
                             }
                             // agencyTravelPage =
                             // pageManager.create(travelRootPage.getPath(),

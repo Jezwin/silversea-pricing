@@ -48,6 +48,10 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 
     @Override
     public void importData() throws IOException {
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
 
         // final String authorizationHeader =
         // getAuthorizationHeader(FEATURE_PATH);
@@ -64,7 +68,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
             int i = 0;
             for (Feature feature : features) {
                 try {
-                    
+
                     LOGGER.debug("Importing Feature: {}", feature.getFeatureCod());
                     Iterator<Resource> resources = resourceResolver.findResources(
                             "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
@@ -73,8 +77,10 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                     if (resources.hasNext()) {
                         featurePage = resources.next().adaptTo(Page.class);
                     } else {
-                        featurePage = pageManager.create(featuresRootPage.getPath(), StringHelper.getFormatWithoutSpecialCharcters(feature.getFeatureCod()),
-                                TemplateConstants.PATH_FEATURE, StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),false);
+                        featurePage = pageManager.create(featuresRootPage.getPath(),
+                                StringHelper.getFormatWithoutSpecialCharcters(feature.getFeatureCod()),
+                                TemplateConstants.PATH_FEATURE,
+                                StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
                     }
 
                     if (featurePage != null) {
@@ -102,7 +108,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                         }
                     }
                 } catch (Exception e) {
-//                    errorNumber = errorNumber + 1;
+                    // errorNumber = errorNumber + 1;
                     LOGGER.debug("Hotel error, number of faulures :", e);
                     i++;
                 }

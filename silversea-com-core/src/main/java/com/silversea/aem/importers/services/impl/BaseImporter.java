@@ -18,7 +18,18 @@ import com.silversea.aem.services.ApiConfigurationService;
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
+
 public class BaseImporter {
+
+    private String login;
+    private String password;
+    private String apiDomain;
+
+    // public BaseImporter(String login, String password) {
+    // super();
+    // this.login = login;
+    // this.password = password;
+    // }
 
     @Reference
     private ApiConfigurationService apiConf;
@@ -37,17 +48,31 @@ public class BaseImporter {
         if (wwwAuthenticateHeader != null) {
             DigestAuthenticationInfos digestAuthenticationInfos = new DigestAuthenticationInfos(
                     wwwAuthenticateHeader.getValue());
-             digestAuthenticationInfos.setCredentials("auolivier@sqli.com","123qweASD");
-//            digestAuthenticationInfos.setCredentials(apiConf.getLogin(), apiConf.getPassword());
+            // TODO remove de if else
+            if (login != null && password != null) {
+                digestAuthenticationInfos.setCredentials(login, password);
+            } else {
+                digestAuthenticationInfos.setCredentials("auolivier@sqli.com", "123qweASD");
+            }
             digestAuthenticationInfos.setUri(path);
 
             final String authorizationHeader = digestAuthenticationInfos.getHeaderValue();
 
-            LOGGER.error("Authorization header : {}", authorizationHeader);
+            LOGGER.debug("Authorization header : {}", authorizationHeader);
 
             return authorizationHeader;
         }
 
         return null;
     }
+
+    protected void getAuthentification(String log, String pass) {
+        login = log;
+        password = pass;
+    }
+
+    protected void getApiDomain(String domain) {
+        apiDomain = domain;
+    }
+
 }

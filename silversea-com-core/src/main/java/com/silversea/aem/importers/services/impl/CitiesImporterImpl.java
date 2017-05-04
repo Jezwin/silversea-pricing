@@ -47,15 +47,20 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
-//        final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
 
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/cities");
+        /**
+         * authentification pour le swagger
+         */
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
         CitiesApi citiesApi = new CitiesApi();
         citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
@@ -118,7 +123,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                             portPage = pageManager.create(portFirstLetterPage.getPath(),
                                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
-                                    TemplateConstants.PATH_PORT, StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
+                                    TemplateConstants.PATH_PORT,
+                                    StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
 
                             LOGGER.debug("Creating port {}", city.getCityName());
                         }

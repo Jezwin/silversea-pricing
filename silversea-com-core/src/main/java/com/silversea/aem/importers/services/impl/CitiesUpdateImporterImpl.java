@@ -59,6 +59,11 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
         // getAuthorizationHeader("/api/v1/cities/changesFrom/");
 
         try {
+            /**
+             * authentification pour le swagger
+             */
+//          getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+            
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);

@@ -47,13 +47,19 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
     @Override
     public void importData() throws IOException {
-//        final String authorizationHeader = getAuthorizationHeader("/api/v1/shoreExcursions");
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/shoreExcursions");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
 
         ShorexesApi shorexesApi = new ShorexesApi();
@@ -117,8 +123,11 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                                    StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexCod())),
-                                            TemplateConstants.PATH_EXCURSION, StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexCod()), false);
+                                                    StringHelper
+                                                            .getFormatWithoutSpecialCharcters(shorex.getShorexCod())),
+                                            TemplateConstants.PATH_EXCURSION,
+                                            StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexCod()),
+                                            false);
 
                                     LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
                                 } else {
@@ -178,7 +187,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             LOGGER.error("Exception importing shorexes", e);
         }
     }
-    
+
     public int getErrorNumber() {
         return errorNumber;
     }

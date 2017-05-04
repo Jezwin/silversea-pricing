@@ -30,6 +30,11 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
     private ResourceResolverFactory resourceResolverFactory;
 
     /** URL récupérer login swagger **/
+    @Property(value = "https://shop.silversea.com", label = "Api Domain", description = "Api domain of swagger")
+    private static String API_DOMAIN = "apiDomain";
+    private String apiDomain;
+
+    /** URL récupérer login swagger **/
     @Property(value = "auolivier@sqli.com", label = "login swagger", description = "login swagger")
     private static String LOGIN = "login";
     private String login;
@@ -41,49 +46,20 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
 
     @Property(description = "SSC API Paths", value = { "shipUrl:/api/v1/ships", "brochureUrl:/api/v1/brochures",
             "featuresUrl:/api/v1/features", "contriesUrl:/api/v1/countries", "spetialOffersUrl:/api/v1/specialOffers",
-            "landProgramUrl:/api/v1/landAdventures", "shorexUrl:/api/v1/shoreExcursions","hotelUrl:/api/v1/shoreExcursions", "agenciesUrl:/api/v1/agencies", "citiesUrl:/api/v1/cities",})
+            "landProgramUrl:/api/v1/landAdventures", "shorexUrl:/api/v1/shoreExcursions",
+            "hotelUrl:/api/v1/shoreExcursions", "agenciesUrl:/api/v1/agencies", "citiesUrl:/api/v1/cities", })
     private static final String API_PATH = "apiPath";
     private Map<String, String> api_path;
 
-//    /** URL récupérer l url de l API.SHIP **/
-//    @Property(value = "/api/v1/ships", label = "Ship API Url", description = "path to the ship api")
-//    private static String SHIP_URL = "shipUrl";
-//    private String shipUrl;
-//
-//    /** URL récupérer l url de la brochure API. **/
-//    @Property(value = "/api/v1/brochures", label = "Brochures Api Path", description = "path to the Brochure api")
-//    private static String BROCHURE_API_URL = "brochureUrl";
-//    private String brochureUrl;
-//
-//    /** URL récupérer l url de contires API. **/
-//    @Property(value = "/api/v1/countries", label = "Contries Api Path", description = "path to the Contries api")
-//    private static String COUNTRY_PATH = "contriesUrl";
-//    private String contriesUrl;
-//
-//    /** URL récupérer l url de la brochure API. **/
-//    @Property(value = "/api/v1/specialOffers", label = "Special Offers Api Path", description = "path to the Specials Offers api")
-//    private static String SPECIAL_OFFERS_PATH = "spetialOffersUrl";
-//    private String spetialOffersUrl;
-//
-//    /** URL récupérer l url de land program API. **/
-//    @Property(value = "/api/v1/landAdventures", label = "Land Program Api Path", description = "path to the Land program api")
-//    private static String LAND_PROGRAM_PATH = "landProgramUrl";
-//    private String landProgramUrl;
-//
-//    /** URL récupérer l url de shorx API. **/
-//    @Property(value = "/api/v1/shoreExcursions", label = "Shorex Api Path", description = "path to the shorex api")
-//    private static String SHOREX_PATH = "shorexUrl";
-//    private String shorexUrl;
-//
-//    /** URL récupérer l url de shorx API. **/
-//    @Property(value = "/api/v1/agencies", label = "agencies Api Path", description = "path to the agencies api")
-//    private static String AGENCIES_PATH = "agenciesUrl";
-//    private String agenciesUrl;
-//
-//    /** URL récupérer l url de shorx API. **/
-//    @Property(value = "/api/v1/cities", label = "cities Api Path", description = "path to the cities api")
-//    private static String CITIES_PATH = "citiesUrl";
-//    private String citiesUrl;
+    @Property(description = "SSC API Root Paths", value = { "shipUrl:/content/silversea-com/en/ships",
+            "brochureUrl:/content/dam/siversea-com/brochures", "featuresUrl:/content/silversea-com/en/features",
+            "contriesUrl:/content/silversea-com/en/country",
+            "spetialOffersUrl:/content/silversea-com/en/exclusive-offers",
+            "agenciesUrl:/content/silversea-com/en/other-resources/find-a-travel-agent",
+            "citiesUrl:/content/silversea-com/en/other-resources/find-a-port",
+            "cruisesUrl:/content/silversea-com/en/destinations/destination", })
+    private static final String API_ROOT_PATH = "apiRootPath";
+    private Map<String, String> api_root_path;
 
     /**
      * Methode activate permettant de récupérer les valeurs des propriétés
@@ -104,22 +80,21 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
         login = PropertiesUtil.toString(properties.get(LOGIN), "auolivier@sqli.com");
         password = PropertiesUtil.toString(properties.get(PASSWORD), "123qweASD");
 
-        // Récupération de la propriété ship url
-//        shipUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/brochures");
-//        brochureUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/ships");
-//        contriesUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/countries");
-//        spetialOffersUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/specialOffers");
-//        landProgramUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/landAdventures");
-//        shorexUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/shoreExcursions");
-//        agenciesUrl = PropertiesUtil.toString(properties.get(SHIP_URL), "/api/v1/agencies");
+        apiDomain = PropertiesUtil.toString(properties.get(API_DOMAIN), "https://shop.silversea.com");
 
         api_path = parseToMap(PropertiesUtil.toStringArray(properties.get(API_PATH), new String[] {}));
+
+        api_root_path = parseToMap(PropertiesUtil.toStringArray(properties.get(API_ROOT_PATH), new String[] {}));
 
     }
 
     @Override
     public String apiUrlConfiguration(String api) {
         return api_path.get(api);
+    }
+
+    public String apiRootPath(String api) {
+        return api_root_path.get(api);
     }
 
     public void passwordSwagger() {
@@ -138,37 +113,13 @@ public class ApiConfigurationServiceImp extends BaseImporter implements ApiConfi
         return api_path;
     }
 
-//    public String getShipUrl() {
-//        return shipUrl;
-//    }
-//
-//    public String getBrochureUrl() {
-//        return brochureUrl;
-//    }
-//
-//    public String getContriesUrl() {
-//        return contriesUrl;
-//    }
-//
-//    public String getSpetialOffersUrl() {
-//        return spetialOffersUrl;
-//    }
-//
-//    public String getLandProgramUrl() {
-//        return landProgramUrl;
-//    }
-//
-//    public String getShorexUrl() {
-//        return shorexUrl;
-//    }
-//
-//    public String getAgenciesUrl() {
-//        return agenciesUrl;
-//    }
-//
-//    public String getCitiesUrl() {
-//        return citiesUrl;
-//    }
+    public String getApiDomain() {
+        return apiDomain;
+    }
+
+    public Map<String, String> getApi_root_path() {
+        return api_root_path;
+    }
 
     private Map<String, String> parseToMap(String[] apiPaths) {
         Map<String, String> result = new HashMap<String, String>();

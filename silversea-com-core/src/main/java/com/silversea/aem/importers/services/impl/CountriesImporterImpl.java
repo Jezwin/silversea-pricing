@@ -41,7 +41,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
@@ -50,7 +50,13 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 
     @Override
     public void importData() throws IOException {
-//        final String authorizationHeader = getAuthorizationHeader(COUNTRY_PATH);
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+         
+        // final String authorizationHeader =
+        // getAuthorizationHeader(COUNTRY_PATH);
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("contriesUrl"));
         CountriesApi countriesApi = new CountriesApi();
         countriesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);

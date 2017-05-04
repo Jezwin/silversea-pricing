@@ -44,7 +44,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
@@ -53,7 +53,13 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
     @Override
     public void importData() throws IOException {
-//        final String authorizationHeader = getAuthorizationHeader("/api/v1/hotels");
+        /**
+         * authentification pour le swagger
+         */
+         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/hotels");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
 
         try {
@@ -113,8 +119,10 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
                                     hotelPage = pageManager.create(hotelsPage.getPath(),
                                             JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                    StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                            TemplateConstants.PATH_HOTEL, StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                                    StringHelper
+                                                            .getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                            TemplateConstants.PATH_HOTEL,
+                                            StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                     LOGGER.debug("Creating excursion {}", hotel.getHotelName());
                                 } else {
@@ -133,7 +141,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                             hotelPageContentNode.setProperty("code", hotel.getHotelCod());
                             hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
                             j++;
-                            succesNumber = succesNumber+1;
+                            succesNumber = succesNumber + 1;
                         }
 
                         if (j % 100 == 0) {
@@ -179,6 +187,5 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
     public int getSuccesNumber() {
         return succesNumber;
     }
-
 
 }
