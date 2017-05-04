@@ -1,11 +1,11 @@
-<div class="c-cruise__enrichments">
+<div class="c-cruise__enrichments" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'enrichments' @ i18n}</h3>
     <p class="c-cruise__descr">${'cruise-enrichments-description' @ i18n}</p>
-    <div class="enrichments__slider">
+    <div class="enrichments__slider" data-sly-list="${cruise.cruiseModel.features}">
         <div class="enrichments__slider-item">
-            <i class="icon-spade"></i>
-            <p class="enrichments__slider__title">bridge sailings</p>
-            <p class="enrichments__slider__subtitle">Bridge cruises with a competitive yet playful ambience</p>
+            <i class="${item.icon}"></i>
+            <p class="enrichments__slider__title">${item.title}</p>
+            <p class="enrichments__slider__subtitle">${item.description}</p>
         </div>
     </div>
 </div>
