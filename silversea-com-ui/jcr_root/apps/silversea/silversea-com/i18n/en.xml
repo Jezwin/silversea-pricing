@@ -598,7 +598,7 @@
     <restaurants-public-areas
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas"
-        sling:message="restaurants & publics areas" />
+        sling:message="restaurants &amp; publics areas" />
     <restaurants-public-areas-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas-descr"
