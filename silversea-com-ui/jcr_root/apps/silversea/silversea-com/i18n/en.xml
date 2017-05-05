@@ -595,4 +595,20 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-ship-restaurant-description"
         sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service." />
+    <restaurants-public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas"
+        sling:message="restaurants & publics areas" />
+    <restaurants-public-areas-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas-descr"
+        sling:message="Your time on board will be time well-spent. Discover the dining options where you'll savour culinary excellence, and the exciting venues where you'll mingle with international travellers while enjoying our all-inclusive lifestyle." />
+    <suites-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas-descr"
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />
+    <cruise-itinerary-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas-descr"
+        sling:message="At the heart of any cruise are the destinations you visit - discover more in the gallery below." />
 </jcr:root>
