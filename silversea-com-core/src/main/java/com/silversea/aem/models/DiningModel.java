@@ -38,12 +38,15 @@ public class DiningModel {
 
     private ResourceResolver resourceResolver;
 
+    private String thumbnail;
+
     @PostConstruct
     private void init() {
         resourceResolver = page.getContentResource().getResourceResolver();
         title = initProperty("diningReference", title, "title");
         longDescription = initProperty("diningReference", longDescription, "longDescription");
         assetSelectionReference = initProperty("diningReference", assetSelectionReference, "assetSelectionReference");
+        thumbnail = page.getProperties().get("image/fileReference", String.class);
     }
 
     private String initProperty(String reference, String property, String referenceProperty) {
@@ -83,5 +86,9 @@ public class DiningModel {
 
     public Page getPage() {
         return page;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
     }
 }

@@ -38,6 +38,8 @@ public class PublicAreaModel {
 
     private ResourceResolver resourceResolver;
 
+    private String thumbnail;
+
     @PostConstruct
     private void init() {
         resourceResolver = page.getContentResource().getResourceResolver();
@@ -45,6 +47,7 @@ public class PublicAreaModel {
         longDescription = initProperty("publicAreaReference", longDescription, "longDescription");
         assetSelectionReference = initProperty("publicAreaReference", assetSelectionReference,
                 "assetSelectionReference");
+        thumbnail = page.getProperties().get("image/fileReference", String.class);
     }
 
     private String initProperty(String reference, String property, String referenceProperty) {
@@ -84,5 +87,9 @@ public class PublicAreaModel {
 
     public Page getPage() {
         return page;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
     }
 }
