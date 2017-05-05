@@ -57,7 +57,7 @@ public class ItineraryModel {
     public void initDate(Node itineraryNode) {
 
         try {
-            DateFormat dateFormat = new SimpleDateFormat();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS");
             date = Calendar.getInstance();
             arriveTime = getTime(itineraryNode, "arriveTime", "arriveAmPm");
             departTime = getTime(itineraryNode, "departTime", "departAmPm");
