@@ -59,6 +59,21 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
     private static final String API_ROOT_PATH = "apiRootPath";
     private Map<String, String> api_root_path;
 
+    /** URL récupérer le nombre déelement a retourner par l'api **/
+    @Property(value = "123qweASD", label = "page size", description = "page size (number of element returned by the API)")
+    private static String PAGE_SIZE = "pageSize";
+    private int pageSize;
+
+    /** URL récupérer la session refresh **/
+    @Property(value = "123qweASD", label = "Session refresh", description = "Number of element , before we refresh se session save")
+    private static String SESSION_REFRESH = "sessionRefresh";
+    private int sessionRefresh;
+
+    /** URL récupérer le timeout **/
+    @Property(value = "123qweASD", label = "Timeout", description = "Timeout")
+    private static String TIME_OUT = "timeout";
+    private int timeout;
+
     /**
      * Methode activate permettant de récupérer les valeurs des propriétés
      * 
@@ -84,6 +99,10 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
 
         api_root_path = parseToMap(PropertiesUtil.toStringArray(properties.get(API_ROOT_PATH), new String[] {}));
 
+        pageSize = PropertiesUtil.toInteger(properties.get(PAGE_SIZE), 100);
+        sessionRefresh = PropertiesUtil.toInteger(properties.get(SESSION_REFRESH), 100);
+        timeout = PropertiesUtil.toInteger(properties.get(TIME_OUT), 100);
+
     }
 
     public String getLogin() {
@@ -93,11 +112,12 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
     public String getPassword() {
         return password;
     }
-    
+
     @Override
     public String apiUrlConfiguration(String api) {
         return api_path.get(api);
     }
+
     @Override
     public String apiRootPath(String api) {
         return api_root_path.get(api);
@@ -106,6 +126,18 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
     @Override
     public String getApiBaseDomain() {
         return apiDomain;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getSessionRefresh() {
+        return sessionRefresh;
+    }
+
+    public int getTimeout() {
+        return timeout;
     }
 
     private Map<String, String> parseToMap(String[] apiPaths) {

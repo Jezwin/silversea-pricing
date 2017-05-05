@@ -46,6 +46,8 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -63,6 +65,18 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
           * Récuperation du domain de l'api Swager
           */
          getApiDomain(apiConfig.getApiBaseDomain());
+         /**
+          * Récuperation de la session refresh
+          */
+         if(apiConfig.getSessionRefresh() != 0){
+             sessionRefresh = apiConfig.getSessionRefresh();
+         }
+         /**
+          * Récuperation de per page
+          */
+         if(apiConfig.getPageSize() != 0){
+             pageSize = apiConfig.getPageSize();
+         }
         
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/landAdventures");
@@ -86,7 +100,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
             do {
 
                 // gets all lands
-                lands = landsApi.landsGet(null, i, 100, null);
+                lands = landsApi.landsGet(null, i, pageSize, null);
 
                 int j = 0;
 
@@ -151,7 +165,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                             j++;
                         }
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();

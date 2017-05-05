@@ -50,6 +50,8 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
     @Override
     public void importData() throws IOException {
@@ -61,6 +63,18 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
           * Récuperation du domain de l'api Swager
           */
          getApiDomain(apiConfig.getApiBaseDomain());
+         /**
+          * Récuperation de la session refresh
+          */
+         if(apiConfig.getSessionRefresh() != 0){
+             sessionRefresh = apiConfig.getSessionRefresh();
+         }
+         /**
+          * Récuperation de per page
+          */
+         if(apiConfig.getPageSize() != 0){
+             pageSize = apiConfig.getPageSize();
+         }
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/hotels");
@@ -82,7 +96,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
             do {
                 // gets all hotels
-                hotels = hotelsApi.hotelsGet(null, i, 100, null);
+                hotels = hotelsApi.hotelsGet(null, i, pageSize, null);
 
                 int j = 0;
 
@@ -149,7 +163,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                             succesNumber = succesNumber + 1;
                         }
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();

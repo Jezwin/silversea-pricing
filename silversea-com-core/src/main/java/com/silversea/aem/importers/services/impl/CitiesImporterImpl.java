@@ -44,6 +44,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -64,6 +66,18 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
          * Récuperation du domain de l'api Swager
          */
         getApiDomain(apiConfig.getApiBaseDomain());
+        /**
+         * Récuperation de la session refresh
+         */
+        if(apiConfig.getSessionRefresh() != 0){
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
+        /**
+         * Récuperation de per page
+         */
+        if(apiConfig.getPageSize() != 0){
+            pageSize = apiConfig.getPageSize();
+        }
 
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
         CitiesApi citiesApi = new CitiesApi();
@@ -80,7 +94,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             int i = 1;
 
             do {
-                cities = citiesApi.citiesGet(null, null, i, 100, null, null, null);
+                cities = citiesApi.citiesGet(null, null, i, pageSize, null, null, null);
 
                 int j = 0;
 
@@ -154,7 +168,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         succesNumber = succesNumber + 1;
                         j++;
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();

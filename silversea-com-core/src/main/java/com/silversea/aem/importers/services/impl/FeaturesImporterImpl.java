@@ -22,10 +22,8 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -38,7 +36,11 @@ import io.swagger.client.model.Feature;
 public class FeaturesImporterImpl extends BaseImporter implements FeaturesImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesImporterImpl.class);
-    private static final String FEATURE_PATH = "/api/v1/features";
+//    private static final String FEATURE_PATH = "/api/v1/features";
+    
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+    private int sessionRefresh = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -56,6 +58,12 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
          * Récuperation du domain de l'api Swager
          */
         getApiDomain(apiConfig.getApiBaseDomain());
+        /**
+         * Récuperation de la session refresh
+         */
+        if(apiConfig.getSessionRefresh() != 0){
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
 
         // final String authorizationHeader =
         // getAuthorizationHeader(FEATURE_PATH);
@@ -104,7 +112,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                     }
                     LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
                     i++;
-                    if (i % 100 == 0) {
+                    if (i % sessionRefresh == 0) {
                         if (session.hasPendingChanges()) {
                             try {
                                 session.save();

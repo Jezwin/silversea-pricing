@@ -44,6 +44,8 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -61,6 +63,18 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
          * Récuperation du domain de l'api Swager
          */
         getApiDomain(apiConfig.getApiBaseDomain());
+        /**
+         * Récuperation de la session refresh
+         */
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
+        /**
+         * Récuperation de per page
+         */
+        if(apiConfig.getPageSize() != 0){
+            pageSize = apiConfig.getPageSize();
+        }
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/agencies");
@@ -85,7 +99,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
             do {
 
                 // gets all lands
-                travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, 100);
+                travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
 
                 // get root parent travel agencies
 
@@ -156,7 +170,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
                             j++;
                         }
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();

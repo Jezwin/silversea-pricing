@@ -40,6 +40,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -59,6 +60,12 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
              * Récuperation du domain de l'api Swager
              */
             getApiDomain(apiConfig.getApiBaseDomain());
+            /**
+             * Récuperation de la session refresh
+             */
+            if(apiConfig.getSessionRefresh() != 0){
+                sessionRefresh = apiConfig.getSessionRefresh();
+            }
 
             final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
             // final String authorizationHeader = getAuthorizationHeader(url);
@@ -72,7 +79,6 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             List<Ship> listShips;
             listShips = shipsApi.shipsGet(null);
             int i = 0;
-
             for (Ship ship : listShips) {
                 try {
                     Iterator<Resource> resources = resourceResolver.findResources(
@@ -105,7 +111,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                     LOGGER.debug("Check ship with {} ", ship.getShipCod());
                     i++;
                     succesNumber = succesNumber + 1;
-                    if (i % 100 == 0) {
+                    if (i % sessionRefresh == 0) {
                         if (session.hasPendingChanges()) {
                             try {
                                 session.save();

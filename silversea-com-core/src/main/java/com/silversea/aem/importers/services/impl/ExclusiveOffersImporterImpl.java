@@ -45,6 +45,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -58,6 +60,22 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
          * authentification pour le swagger
          */
          getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+         /**
+          * Récuperation du domain de l'api Swager
+          */
+         getApiDomain(apiConfig.getApiBaseDomain());
+         /**
+          * Récuperation de la session refresh
+          */
+         if(apiConfig.getSessionRefresh() != 0){
+             sessionRefresh = apiConfig.getSessionRefresh();
+         }
+         /**
+          * Récuperation de per page
+          */
+         if(apiConfig.getPageSize() != 0){
+             pageSize = apiConfig.getPageSize();
+         }
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/specialOffers");
@@ -80,7 +98,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
             do {
 
                 // gets all special Offers
-                specialOffers = spetialOffersApi.specialOffersGet(i, 100, null);
+                specialOffers = spetialOffersApi.specialOffersGet(i, pageSize, null);
 
                 // get root parent special offers
 
@@ -125,7 +143,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                             j++;
                         }
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();

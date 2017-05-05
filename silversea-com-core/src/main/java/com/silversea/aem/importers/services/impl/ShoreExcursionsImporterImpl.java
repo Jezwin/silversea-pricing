@@ -44,6 +44,8 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
     private int errorNumber = 0;
     private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -61,6 +63,18 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
           * Récuperation du domain de l'api Swager
           */
          getApiDomain(apiConfig.getApiBaseDomain());
+         /**
+          * Récuperation de la session refresh
+          */
+         if(apiConfig.getSessionRefresh() != 0){
+             sessionRefresh = apiConfig.getSessionRefresh();
+         }
+         /**
+          * Récuperation de per page
+          */
+         if(apiConfig.getPageSize() != 0){
+             pageSize = apiConfig.getPageSize();
+         }
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/shoreExcursions");
@@ -80,7 +94,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             int i = 1;
 
             do {
-                shorexes = shorexesApi.shorexesGet(null, i, 100, null);
+                shorexes = shorexesApi.shorexesGet(null, i, pageSize, null);
 
                 int j = 0;
 
@@ -157,7 +171,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                             j++;
                         }
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     // save migration date

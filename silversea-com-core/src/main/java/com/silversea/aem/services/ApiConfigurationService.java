@@ -14,21 +14,10 @@ public interface ApiConfigurationService {
     String getLogin();
 
     String getPassword();
+    
+    public int getPageSize() ;
 
-    // String getShipUrl();
-    //
-    // String getBrochureUrl();
-    //
-    // String getContriesUrl();
-    //
-    // String getSpetialOffersUrl();
-    //
-    // String getLandProgramUrl();
-    //
-    // String getShorexUrl();
-    //
-    // String getAgenciesUrl();
-    //
-    // String getCitiesUrl();
+    public int getSessionRefresh();
 
+    public int getTimeout() ;
 }
