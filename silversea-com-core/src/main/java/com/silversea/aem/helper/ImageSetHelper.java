@@ -9,20 +9,27 @@ import org.apache.sling.resource.collection.ResourceCollection;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
+import com.google.common.collect.Lists;
 
 public class ImageSetHelper extends WCMUsePojo {
     private List<Asset> renditionList;
+    private List<List<Asset>> renditionListByGroup;
 
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
+        Integer size = get("size", Integer.class);
+
         if (path != null) {
-            renditionList = renditionPathList(path);
+            renditionList = buildRenditionPathList(path);
         }
 
+        if (renditionList != null && size != null) {
+            renditionListByGroup = Lists.partition(renditionList, size);
+        }
     }
 
-    private List<Asset> renditionPathList(String setPath) {
+    private List<Asset> buildRenditionPathList(String setPath) {
         // Dynamic Media Image Set
         Resource members = getResourceResolver().getResource(setPath + "/jcr:content/related/s7Set");
         if (members != null) {
@@ -46,5 +53,12 @@ public class ImageSetHelper extends WCMUsePojo {
      */
     public List<Asset> getRenditionList() {
         return renditionList;
+    }
+
+    /**
+     * @return the renditionListByGroup
+     */
+    public List<List<Asset>> getRenditionListByGroup() {
+        return renditionListByGroup;
     }
 }
