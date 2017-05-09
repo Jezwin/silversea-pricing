@@ -1,7 +1,7 @@
 <sly data-sly-use.button="com.silversea.aem.components.editorial.ButtonUse"></sly>
 <div data-sly-test="${!button.calltoActionList && wcmmode.edit}" class="cq-placeholder" data-emptytext="Floating bar"></div>
 
-<div data-sly-test.list="${button.calltoActionList}" data-sly-test="${pageProperties.showFloatingBar}" class="c-floatingbar">
+<div data-sly-test.list="${button.calltoActionList}" data-sly-test="${pageProperties.showFloatingBar}" class="c-floatingbar hidden-xs">
     <div class="container text-center" data-sly-list="${list}">
         <a href="${item.reference @ extension='html'}" class="btn btn-${item.color} ${item.size}" type="button" data-sscclicktype="${item.analyticType}">
            <span class="visible-xs-inline visible-sm-inline">${item.titleTablet || item.title}</span>
