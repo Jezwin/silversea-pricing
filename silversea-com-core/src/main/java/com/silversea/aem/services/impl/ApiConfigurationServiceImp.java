@@ -60,17 +60,17 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
     private Map<String, String> api_root_path;
 
     /** URL récupérer le nombre déelement a retourner par l'api **/
-    @Property(value = "123qweASD", label = "page size", description = "page size (number of element returned by the API)")
+    @Property(value = "100", label = "page size", description = "page size (number of element returned by the API)")
     private static String PAGE_SIZE = "pageSize";
     private int pageSize;
 
     /** URL récupérer la session refresh **/
-    @Property(value = "123qweASD", label = "Session refresh", description = "Number of element , before we refresh se session save")
+    @Property(value = "100", label = "Session refresh", description = "Number of element , before we refresh se session save")
     private static String SESSION_REFRESH = "sessionRefresh";
     private int sessionRefresh;
 
     /** URL récupérer le timeout **/
-    @Property(value = "123qweASD", label = "Timeout", description = "Timeout")
+    @Property(value = "3000", label = "Timeout", description = "Timeout")
     private static String TIME_OUT = "timeout";
     private int timeout;
 
