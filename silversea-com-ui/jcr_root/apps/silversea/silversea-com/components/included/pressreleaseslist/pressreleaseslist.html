@@ -6,16 +6,17 @@
             <sly data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=item.path}"></sly>
 
             <div class="c-pressreleaseslist__img">
-                <a href="${item.path @ extension='html'}" class="wrapper-hover">
+                <a href="${item.path @ extension='html'}">
                     <sly data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail}"></sly>
                 </a>
             </div>
             <div class="c-pressreleaseslist__descr">
+                <a href="${item.path @ extension='html'}" class="wrapperhover"></a>
                 <p class="date_title" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
                     ${'date' @ i18n}: <span>${date.value}</span>
                 </p>
                 <h3 class="hidden-xs">${item.title}</h3>
-                <a class="read-more" href="${item.path @ extension='html'}">${'more' @ i18n}</a>
+                <a class="read-more" href="${item.path @ extension='html'}"><span>${'more' @ i18n}</span></a>
             </div>
         </div>
     </div>
