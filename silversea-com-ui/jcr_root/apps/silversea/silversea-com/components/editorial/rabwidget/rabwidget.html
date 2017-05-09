@@ -1,8 +1,7 @@
 <div data-sly-test.empty="${!properties.pageReference && wcmmode.edit}" class="cq-placeholder" data-emptytext="RAB Widget"></div>
 <form class="c-subscribe__form form-inline c-formcookie c-formcookie--redirect"
-      data-toggle="validator"
       data-disable="false"
-      action="${inheritedPageProperties.pageReference || properties.pageReference @ extension='html'}">
+      action="${inheritedPageProperties.pageReference || properties.pageReference @ extension='html'}" novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">
@@ -11,14 +10,15 @@
             </label>
         </div>
         <div class="col-xs-9">
-            <input class="o-input o-input--dark col-xs-12 input-sm"
+            <input class="o-input o-input--dark o-input--lg col-xs-12"
                    name="email"
                    placeholder="${'your-email-address' @ i18n}"
                    type="email"
-                   data-error="${'incorrect-email-address' @ i18n}" required/>
+                   data-required-error="${'required-email-address' @ i18n}"
+                   data-error="${'incorrect-email-address' @ i18n}" required />
         </div>
         <div class="col-xs-3">
-            <button class="btn btn-default pull-right btn-sm" type="submit">
+            <button class="btn btn-default pull-right c-btn--lg" type="submit">
                 ${'submit' @ i18n}
                 <i class="fa fa-lg fa-angle-right"></i>
             </button>

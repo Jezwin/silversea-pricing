@@ -27,7 +27,9 @@ $(function() {
      **************************************************************************/
     // On submit store mandatory value
     var cookieValues = ['email', 'firstname', 'lastname'];
-    $('.c-formcookie').validator().on('submit', function (e) {
+    $('.c-formcookie').validator()
+                        .off('input.bs.validator change.bs.validator focusout.bs.validator')
+                        .on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
             for ( var value in cookieValues ) {
                 if (this[cookieValues[value]] !== undefined) {

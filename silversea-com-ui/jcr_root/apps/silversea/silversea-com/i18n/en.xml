@@ -259,6 +259,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-or-download"
         sling:message="Request or download" />
+    <required-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-email-address"
+        sling:message="Email address is required" />
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
