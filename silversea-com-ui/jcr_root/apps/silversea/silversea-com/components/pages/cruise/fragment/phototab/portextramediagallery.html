@@ -1,8 +1,10 @@
+<sly data-sly-use.set="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference, size=5}" />
+
 <div class="c-cruise-photovideo">
     <h3 class="c-cruise__subtitle">${'cruise-itinearay' @ i18n}</h3>
     <p class="c-cruise__descr">${'cruise-itinearay-descr' @ i18n}</p>
     <div class="c-cruise__gallery">
-        <div class="c-cruise__gallery__featured">
+        <div class="c-cruise__gallery__featured" data-sly-repeat="${[1,2,3]}">
             <div class="c-cruise__gallery__featured__left">
                 <a href="#" class="c-cruise__gallery__item">
                     <img src="http://static.silversea.com/wp-content/uploads/2016/09/ECM_251642_silversea-mediterranean-cruise-cittavecchia-rome-italy(2)-672x372.jpg" />
@@ -25,32 +27,6 @@
                 <a href="#" class="c-cruise__gallery__item">
                     <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-amalfi-italy-2-672x372.jpg" />
                     <span class="c-cruise__gallery__item__caption">Amalfi, Italy</span>
-                </a>
-            </div>
-        </div>
-        <div class="c-cruise__gallery__featured">
-            <div class="c-cruise__gallery__featured__left">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-taormina-sicily-italy-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Taormina, Italy</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-taormina-italy-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Taormina, Italy</span>
-                </a>
-            </div>
-            <div class="c-cruise__gallery__featured__right">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-local-shop-taormina-italy-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Taormina, Italy</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-taormina-sicily-italy-2-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Taormina, Italy</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-santorini-greece-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Santorini, Greece</span>
                 </a>
             </div>
         </div>
