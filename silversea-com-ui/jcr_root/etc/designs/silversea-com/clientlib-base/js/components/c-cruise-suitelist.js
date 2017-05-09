@@ -10,8 +10,12 @@ $(function() {
 
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         var $currentSlider = $(this).find('.c-slider');
-        $(window).trigger('resize');
         $currentSlider.slick('unslick').slick();
+    });
+
+    // Force reinit slider for cruise Enrichments
+    $('#overview').on('ctabcontent-shown', function(){
+        $(this).find('.c-slider').slick('unslick').slick();
     });
 
     $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
@@ -34,4 +38,6 @@ $(function() {
         e.preventDefault();
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
     })
+    
+    
 });
