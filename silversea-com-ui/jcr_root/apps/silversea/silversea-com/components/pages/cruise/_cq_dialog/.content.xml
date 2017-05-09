@@ -63,7 +63,7 @@
                                             sling:resourceType="granite/ui/components/foundation/form/textarea"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="cruiseFareAdditions"
-                                            fieldLabel="Voyage highlights"
+                                            fieldLabel="Cruise fare additions"
                                             name="./cruiseFareAdditions"
                                             renderReadOnly="{Boolean}true"/>
                                     <startdate
