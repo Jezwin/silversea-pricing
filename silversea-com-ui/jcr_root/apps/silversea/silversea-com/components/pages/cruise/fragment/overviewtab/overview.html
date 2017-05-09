@@ -63,7 +63,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12" data-sly-test="${cruise.cruiseModel.exclusiveOffers}">
                 <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
                     <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
                     <p data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
