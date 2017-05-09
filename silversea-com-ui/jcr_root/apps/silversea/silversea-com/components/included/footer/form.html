@@ -13,7 +13,11 @@
                         </label>
                     </div>
                     <div class="col-xs-9">
-                        <input class="o-input o-input--dark col-xs-12 o-input--lg" name="email" placeholder="Your email address" type="email" />
+                        <input class="o-input o-input--dark col-xs-12 o-input--lg"
+                               name="email"
+                               placeholder="Your email address"
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                               type="email" />
                     </div>
                     <div class="col-xs-3">
                         <button class="btn btn-default pull-right c-btn--lg" type="button">
