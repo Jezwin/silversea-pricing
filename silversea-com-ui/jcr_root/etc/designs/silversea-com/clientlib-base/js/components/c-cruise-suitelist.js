@@ -38,6 +38,9 @@ $(function() {
         e.preventDefault();
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
     })
-    
-    
+
+    // Open tab from link other than tab
+    $('a[data-tab-target]').on('click', function() {
+        $('a[href="'+ $(this).data('tab-target') +'"]').closest('li').trigger('click');
+    });
 });
