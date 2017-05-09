@@ -28,7 +28,7 @@ public class StringHelper extends WCMUsePojo {
     }
     
     public static String getFormatWithoutSpecialCharcters(String format){
-        format = format.replaceAll("[^a-zA-Z0-9 ]+","").replaceAll(" ", "-").toLowerCase();
+        format = format.replaceAll("[^a-zA-Z0-9 ]+","").trim().replaceAll(" ", "-").toLowerCase();
 //        format = JcrUtil.createValidName(format);
         return format;
     }

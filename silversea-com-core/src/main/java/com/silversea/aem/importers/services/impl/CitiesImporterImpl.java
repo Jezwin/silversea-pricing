@@ -151,11 +151,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
                         Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
 
-                        if (portPageContentNode.hasProperty(JcrConstants.JCR_TITLE) && portPageContentNode
-                                .getProperty("jcr:title").getString().equals(city.getCityName())) {
-                            portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
-                        }
-
+                        portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
                         portPageContentNode.setProperty("apiTitle", city.getCityName());
                         portPageContentNode.setProperty("apiDescription", city.getShortDescription());
                         portPageContentNode.setProperty("apiLongDescription", city.getDescription());
