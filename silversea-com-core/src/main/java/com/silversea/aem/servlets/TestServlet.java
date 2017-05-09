@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -80,6 +81,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
             throws ServletException, IOException {
+       try {
         response.setContentType("text/html");
         prepareDoc(response.getWriter());
 
@@ -269,7 +271,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
                 response.getWriter().write("Cruises import Done<br/>");
                 response.getWriter().flush();
             }
-            isAllRuning = false;
+            
         }else{
             response.getWriter().write("<br/>an other import is aleready run<br />");
             response.getWriter().flush();
@@ -284,7 +286,18 @@ public class TestServlet extends SlingSafeMethodsServlet {
             response.getWriter().flush();
         }
         closeDocument(response.getWriter());
-
+       } catch(RuntimeException e) {
+           watchAll.stop();
+           timeAll = watchAll.toString();
+           response.getWriter().write("<br/> ---------------- <br />");
+           response.getWriter().write("Time Global:<br/>" + timeAll);
+           response.getWriter().write("Finished With Error : " + ExceptionUtils.getStackTrace(e));
+           response.getWriter().write("<br/> ---------------- <br />");
+           response.getWriter().flush();
+       }
+       finally {
+           isAllRuning = false;
+    }
     }
 
     private void prepareDoc(PrintWriter writer) {
