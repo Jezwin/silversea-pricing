@@ -83,7 +83,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
             for (Feature feature : features) {
                 try {
 
-                    LOGGER.debug("Importing Feature: {}", feature.getFeatureCod());
+                    LOGGER.debug("Importing Feature: {}", feature.getName());
                     Iterator<Resource> resources = resourceResolver.findResources(
                             "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
                     Page featurePage = null;
@@ -92,7 +92,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                         featurePage = resources.next().adaptTo(Page.class);
                     } else {
                         featurePage = pageManager.create(featuresRootPage.getPath(),
-                                StringHelper.getFormatWithoutSpecialCharcters(feature.getFeatureCod()),
+                                StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
                                 TemplateConstants.PATH_FEATURE,
                                 StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
                     }

@@ -25,7 +25,6 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -58,23 +57,23 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
         /**
          * authentification pour le swagger
          */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         /**
-          * Récuperation du domain de l'api Swager
-          */
-         getApiDomain(apiConfig.getApiBaseDomain());
-         /**
-          * Récuperation de la session refresh
-          */
-         if(apiConfig.getSessionRefresh() != 0){
-             sessionRefresh = apiConfig.getSessionRefresh();
-         }
-         /**
-          * Récuperation de per page
-          */
-         if(apiConfig.getPageSize() != 0){
-             pageSize = apiConfig.getPageSize();
-         }
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        /**
+         * Récuperation du domain de l'api Swager
+         */
+        getApiDomain(apiConfig.getApiBaseDomain());
+        /**
+         * Récuperation de la session refresh
+         */
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
+        /**
+         * Récuperation de per page
+         */
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/shoreExcursions");
@@ -87,7 +86,8 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            // Page citiesRootPage =
+            // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             List<Shorex> shorexes;
@@ -101,11 +101,6 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                 for (Shorex shorex : shorexes) {
 
                     try {
-                        // TODO remove this conditions, just to test
-                        // if(j==2){
-                        // String test = null;
-                        // test.toString();
-                        // }
 
                         LOGGER.debug("Importing shorex: {}", shorex.getShorexCod());
 
@@ -143,12 +138,12 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                                     StringHelper
-                                                            .getFormatWithoutSpecialCharcters(shorex.getShorexCod())),
+                                                            .getFormatWithoutSpecialCharcters(shorex.getShorexName())),
                                             TemplateConstants.PATH_EXCURSION,
-                                            StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexCod()),
+                                            StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()),
                                             false);
 
-                                    LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
+                                    LOGGER.debug("Creating excursion {}", shorex.getShorexName());
                                 } else {
                                     LOGGER.debug("No city found with id {}", cityId);
                                 }
