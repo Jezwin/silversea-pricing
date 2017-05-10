@@ -38,20 +38,26 @@
             }
         }
 
-        &--inputs {
-            width: 100%;
-            position: relative;
+        .btn {
+            width: 112px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            max-width: 130px;
+            min-width: 100px;
+            margin-left: 20px;
+            padding: 6px 0 6px 10px;
 
-            .c-btn {
-                width: 112px;
-                position: absolute;
-                right: 0;
-                top: 0;
-                max-width: 130px;
-                min-width: 100px;
-                margin-left: 20px;
-                padding: 2px;
-                height: 100%;
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                padding: 2px 0 2px 15px;
+            }
+        }
+
+        .o-input--lg, .c-btn--lg {
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                height: 32px;
             }
         }
 
