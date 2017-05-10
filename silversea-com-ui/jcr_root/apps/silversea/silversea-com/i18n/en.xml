@@ -19,10 +19,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="arrive"
         sling:message="Arrive" />
-    <build-date
+    <built-date
         jcr:primaryType="sling:MessageEntry"
-        sling:key="build-date"
-        sling:message="Build date" />
+        sling:key="built-date"
+        sling:message="Built date" />
     <by
         jcr:primaryType="sling:MessageEntry"
         sling:key="by"
@@ -415,6 +415,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="next-voyage"
         sling:message="next voyage" />
+    <refurb-date
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="refurb-date"
+        sling:message="Last refurbishement" />
     <request-quote
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
