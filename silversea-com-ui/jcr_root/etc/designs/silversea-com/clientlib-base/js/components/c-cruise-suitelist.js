@@ -50,5 +50,12 @@ $(function() {
         if (viewport !== 'md' || viewport !== 'lg') {
             $('.c-cruise-highlights__content').scrollTop(0);
         }
-    })
+    });
+
+    // Toggle Highlight (small viewport)
+    var $container = $('.c-cruise-highlights__content');
+    $container.find('a[data-toggle-text]').on('click', function(e) {
+        e.preventDefault();
+        $container.toggleClass('open');
+    });
 });

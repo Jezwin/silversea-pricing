@@ -31,6 +31,26 @@
             overflow: hidden;
             padding: 10px;
             position: relative;
+
+            &.open {
+                max-height: 100000px;
+
+                a[data-toggle-text="close"] {
+                    display: block;
+                }
+
+                a[data-toggle-text="show"] {
+                    display: none;
+                }
+            }
+
+            a[data-toggle-text="close"] {
+                display: none;
+            }
+
+            a[data-toggle-text="show"] {
+                display: block;
+            }
         }
 
         &--expand {
