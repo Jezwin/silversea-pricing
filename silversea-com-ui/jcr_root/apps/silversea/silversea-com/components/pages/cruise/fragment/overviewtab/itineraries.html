@@ -9,10 +9,10 @@
             <a href="#photonvideo" class="bound"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
         </p>
 
-        <div class="c-accordion c-accordion--expander"
+        <div class="c-accordion c-accordion--expander c-cruise-itineraries"
              data-multiview="false"
-             data-more="${'more' @ i18n} <i class='fa fa-angle-down'></i>"
-             data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
+             data-more="<span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>"
+             data-close="<span>${'close' @ i18n}</span> <i class='fa fa-angle-up'></i>"
              data-sly-test="${cruise.cruiseModel.itineraries}"
              data-sly-list="${cruise.cruiseModel.itineraries}">
             <div class="c-accordion__elem">
@@ -42,7 +42,7 @@
                                 </ul>
                             </div>
                             <div class="c-accordion__action">
-                                ${'more' @ i18n} <i class='fa fa-angle-down'></i>
+                                <span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>
                             </div>
                         </div>
                         <div class="c-accordion__title--body c-accordion__header--unclickable">
