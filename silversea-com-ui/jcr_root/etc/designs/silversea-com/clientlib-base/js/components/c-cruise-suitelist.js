@@ -14,7 +14,7 @@ $(function() {
     });
 
     // Force reinit slider for cruise Enrichments
-    $('#overview').on('ctabcontent-shown', function(){
+    $('#overview').on('ctabcontent-shown', function() {
         $(this).find('.c-slider').slick('unslick').slick();
     });
 
@@ -41,6 +41,14 @@ $(function() {
 
     // Open tab from link other than tab
     $('a[data-tab-target]').on('click', function() {
-        $('a[href="'+ $(this).data('tab-target') +'"]').closest('li').trigger('click');
+        $('a[href="' + $(this).data('tab-target') + '"]').closest('li').trigger('click');
     });
+
+    // Force Scroll top for highlight container on resize
+    $(window).on('resize', function() {
+        var viewport = $.viewportDetect();
+        if (viewport !== 'md' || viewport !== 'lg') {
+            $('.c-cruise-highlights__content').scrollTop(0);
+        }
+    })
 });
