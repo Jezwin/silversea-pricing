@@ -57,5 +57,8 @@ $(function() {
     $container.find('a[data-toggle-text]').on('click', function(e) {
         e.preventDefault();
         $container.toggleClass('open');
+        $('html, body').animate({
+            scrollTop : $('#highlight').offset().top - $('.c-header').height()
+        }, 500);
     });
 });
