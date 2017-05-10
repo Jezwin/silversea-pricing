@@ -443,6 +443,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="guests"
         sling:message="guests" />
+    <guests-capacity
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="guests-capacity"
+        sling:message="Guests capacity" />
     <crew
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew"
