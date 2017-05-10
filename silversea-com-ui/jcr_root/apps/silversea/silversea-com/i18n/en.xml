@@ -27,6 +27,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="by"
         sling:message="By" />
+    <click-to-call
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="click-to-call"
+        sling:message="Click to call" />
     <close
         jcr:primaryType="sling:MessageEntry"
         sling:key="close"
