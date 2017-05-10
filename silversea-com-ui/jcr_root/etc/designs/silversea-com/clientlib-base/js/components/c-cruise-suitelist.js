@@ -61,4 +61,10 @@ $(function() {
             scrollTop : $('#highlight').offset().top - $('.c-header').height()
         }, 500);
     });
+
+    // keypeople tab/carousel
+    $('.c-cruise-keypeople').find('[data-keypeople-toggle]').on('click', function() {
+        $('.keypeople__details__inner-wrapper').hide();
+        $('#'+ $(this).data('keypeople-toggle') +'').show();
+    });
 });
