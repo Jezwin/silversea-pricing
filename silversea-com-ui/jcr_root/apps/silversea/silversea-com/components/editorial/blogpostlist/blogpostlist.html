@@ -13,7 +13,7 @@
 </div>
 <hr/>
 <div data-sly-test="${blogPostTeaserListUse.blogPostTeaserModelList.size >= 1}" data-sly-unwrap >
-<div class="blogpostlist">
+<div class="blogpostwrapper">
     <h3>${'other-recent-story' @i18n}</h3>
     <dl data-sly-list.blogTeaser="${blogPostTeaserListUse.blogPostTeaserModelList}">
         <sly data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
