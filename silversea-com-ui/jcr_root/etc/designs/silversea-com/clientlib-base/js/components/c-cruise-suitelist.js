@@ -10,12 +10,12 @@ $(function() {
 
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         var $currentSlider = $(this).find('.c-slider');
-        $currentSlider.slick('unslick').slick();
+        $currentSlider.slick('resize');
     });
 
-    // Force reinit slider for cruise Enrichments
-    $('#overview').on('ctabcontent-shown', function() {
-        $(this).find('.c-slider').slick('unslick').slick();
+    // Force reinit slider for cruise for Enrichments and key people slider
+    $('#overview, #highlight').on('ctabcontent-shown', function() {
+        $(this).find('.c-slider').slick('resize');
     });
 
     $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
@@ -33,7 +33,7 @@ $(function() {
         $item.prev('.c-suitelist__heading').removeClass('opacity');
     });
 
-    // Open location tab on click event on ""
+    // Open location tab on click event on tab
     $('a[data-toggle="location-tab"]').on('click', function(e) {
         e.preventDefault();
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
@@ -64,7 +64,20 @@ $(function() {
 
     // keypeople tab/carousel
     $('.c-cruise-keypeople').find('[data-keypeople-toggle]').on('click', function() {
+        var $currentTrigger = $(this);
+
+        // highlight current
+        $('.c-cruise-keypeople').find('[data-keypeople-toggle]').removeClass('active');
+        $currentTrigger.addClass('active');
+
+        // show current details
         $('.keypeople__details__inner-wrapper').hide();
-        $('#'+ $(this).data('keypeople-toggle') +'').show();
+        $('#' + $currentTrigger.data('keypeople-toggle') + '').show();
+
+        // Close details
+        $('.btn-close').on('click', function(e) {
+            e.preventDefault();
+            $(this).closest('.keypeople__details__inner-wrapper').hide();
+        });
     });
 });
