@@ -1,13 +1,14 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Public area variation display properties"></div>
-<div class="o-area-property-display">
-    <sly data-sly-use.cpt="com.silversea.aem.components.displayProperties.PublicAreaVariationDisplayPropertiesUse" />
-    <div class="o-section" data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties['assetSelectionReference']}"></sly>
-        <div data-sly-test="${currentPage.navigationTitle || currentPage.title}">
-            <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
-        </div>
-        <div data-sly-test="${pageProperties.longDescription || currentPage.description}">
-            <div class="o-section o-section--separator o-description">${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}</div>
-        </div>
+<div class="o-area-property-display"
+     data-sly-use.cpt="com.silversea.aem.components.displayProperties.PublicAreaVariationDisplayPropertiesUse"
+     data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
+    <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties['assetSelectionReference']}"></sly>
+    <h1 class="o-title"
+        data-sly-test="${currentPage.navigationTitle || currentPage.title}">
+        ${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}
+    </h1>
+    <div class="o-section o-section--separator o-description"
+         data-sly-test="${pageProperties.longDescription || currentPage.description}">
+        ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
     </div>
 </div>
