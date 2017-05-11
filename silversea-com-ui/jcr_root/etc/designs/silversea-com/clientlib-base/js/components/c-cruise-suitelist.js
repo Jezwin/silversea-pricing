@@ -10,12 +10,13 @@ $(function() {
 
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         var $currentSlider = $(this).find('.c-slider');
-        $currentSlider.slick('unslick').slick();
+        $currentSlider.slick('unslick').slick(settingSlider);
     });
 
-    // Force reinit slider
-    $('.c-cruise .c-tab__content').on('ctabcontent-shown', function() {
-        $(this).find('.c-slider').slick('resize');
+    // Force reinit slider for cruise for Enrichments and key people slider
+    $('#overview, #highlight').on('ctabcontent-shown', function() {
+        console.log('hello');
+        $(this).find('.c-slider--style2').slick('unslick').slick(settingSlider);
     });
 
     $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
