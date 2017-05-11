@@ -13,9 +13,9 @@ $(function() {
         $currentSlider.slick('unslick').slick();
     });
 
-    // Force reinit slider for cruise for Enrichments and key people slider
-    $('#overview, #highlight').on('ctabcontent-shown', function() {
-        $(this).find('.c-slider').slick('unslick').slick();
+    // Force reinit slider
+    $('.c-cruise .c-tab__content').on('ctabcontent-shown', function() {
+        $(this).find('.c-slider').slick('resize');
     });
 
     $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
