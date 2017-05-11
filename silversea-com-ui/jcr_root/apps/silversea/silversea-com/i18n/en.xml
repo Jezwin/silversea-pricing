@@ -627,4 +627,16 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas-descr"
         sling:message="At the heart of any cruise are the destinations you visit - discover more in the gallery below." />
+    <select-your-suite-and-request-a-quote
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-your-suite-and-request-a-quote"
+        sling:message="SELECT YOUR SUITE AND REQUEST A QUOTE" />
+    <the-difference-between-each-single-suite
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship"
+        sling:message="The difference between each single Suite is available in the deck plan of the ship." />
+    <note
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="note"
+        sling:message="note" />
 </jcr:root>
