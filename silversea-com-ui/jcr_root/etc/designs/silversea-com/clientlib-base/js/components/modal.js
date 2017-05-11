@@ -4,9 +4,6 @@ $(function(){
      **************************************************************************/
     // Clean modal content on close event
     $(document).on('hide.bs.modal', function(e) {
-        // Destroy gallery inside modal
-        //$('.c-slider--for, .c-slider--nav').slick('unslick');
-
         $(e.target).removeData('bs.modal');
         var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
