@@ -7,8 +7,16 @@
 
 <template data-sly-template.populatefromSet="${ @ setImagePath, query }">
     <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}"
-        data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+        data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
     <div class="c-slider c-slider--default" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true}'>
-        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path, query=query}"></sly>
+        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path, query=query}" />
+    </div>
+</template>
+
+<template data-sly-template.populatefromSetStyle2="${ @ setImagePath}">
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}"
+        data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
+    <div class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
     </div>
 </template>
