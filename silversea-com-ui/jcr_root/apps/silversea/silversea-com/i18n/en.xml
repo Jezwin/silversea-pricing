@@ -639,4 +639,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="note"
         sling:message="note" />
+    <available-on
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="available-on"
+        sling:message="available on" />
 </jcr:root>
