@@ -16,7 +16,7 @@
 <template data-sly-template.populatefromSetStyle2="${ @ setImagePath}">
     <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}"
         data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
-    <div class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}">
+    <div class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true}'>
         <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
     </div>
 </template>
