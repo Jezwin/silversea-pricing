@@ -12,7 +12,7 @@ import org.joda.time.DateTime;
 /**
  * CategoryAvailability
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-04-28T10:11:16.867Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
 public class CategoryAvailability {
   @SerializedName("voyage_cod")
   private String voyageCod = null;

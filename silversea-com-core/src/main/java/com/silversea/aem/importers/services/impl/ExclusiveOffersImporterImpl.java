@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -21,12 +22,13 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -54,29 +56,44 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
     @Reference
     private ApiConfigurationService apiConfig;
 
+    // @Reference
+    // private SlingHttpServletRequest request;
+
+    private List<Tag> market;
+
+    private List<String> geoMarket;
+
+//    @Reference
+//    private TagManager tagManager;
+
+    // @Activate
+    // @Modified
+    // protected void activate(ComponentContext compContext) {
+    // tagManager = resourceResolver.adaptTo(TagManager.class);
+    // }
+
     @Override
     public void importData() throws IOException {
         /**
          * authentification pour le swagger
          */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         /**
-          * Récuperation du domain de l'api Swager
-          */
-         getApiDomain(apiConfig.getApiBaseDomain());
-         /**
-          * Récuperation de la session refresh
-          */
-         if(apiConfig.getSessionRefresh() != 0){
-             sessionRefresh = apiConfig.getSessionRefresh();
-         }
-         /**
-          * Récuperation de per page
-          */
-         if(apiConfig.getPageSize() != 0){
-             pageSize = apiConfig.getPageSize();
-         }
-
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        /**
+         * Récuperation du domain de l'api Swager
+         */
+        getApiDomain(apiConfig.getApiBaseDomain());
+        /**
+         * Récuperation de la session refresh
+         */
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
+        /**
+         * Récuperation de per page
+         */
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/specialOffers");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
@@ -87,8 +104,10 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-//            Page offersRootPage = pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
+            // Page offersRootPage =
+            // pageManager.getPage(ImportersConstants.BASEPATH_SPECIAL_OFFERS);
             Page offersRootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
 
             int i = 1;
@@ -107,11 +126,6 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                 for (SpecialOffer offers : specialOffers) {
 
                     try {
-                        // TODO remove this conditions, just to test
-                        // if(j==2){
-                        // String test = null;
-                        // test.toString();
-                        // }
 
                         Iterator<Resource> resources = resourceResolver
                                 .findResources("//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
@@ -139,6 +153,18 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                             offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
                             offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
                             offersContentNode.setProperty("endDate", offers.getValidTo().toString());
+                            // TODO decommenté la ligne
+                            
+                            geoMarket = offers.getMarkets();
+                            market = new ArrayList<>();
+                            if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
+                                market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
+                            }
+                            for (Tag tag : market) {
+                                offersContentNode.setProperty("cq:tags",market.toString());
+//                                tagManager.setTags(offersPage.getContentResource(), tag.t);
+                            }
+                            
                             succesNumber = succesNumber + 1;
                             j++;
                         }
@@ -154,7 +180,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                         }
                     } catch (Exception e) {
                         errorNumber = errorNumber + 1;
-                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        LOGGER.debug("Exclusive offer falure error, number of faulures :", errorNumber);
                         j++;
                     }
                 }
@@ -175,7 +201,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
             resourceResolver.close();
         } catch (ApiException | LoginException | RepositoryException e) {
-            LOGGER.error("Exception importing shorexes", e);
+            LOGGER.error("Exception importing Exclusive offers", e);
         }
     }
 

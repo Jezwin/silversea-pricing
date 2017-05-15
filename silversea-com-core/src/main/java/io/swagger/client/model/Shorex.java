@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Shorex
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-04-28T10:11:16.867Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
 public class Shorex {
   @SerializedName("shorex_id")
   private Integer shorexId = null;

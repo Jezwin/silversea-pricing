@@ -4,12 +4,14 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
  * SpecialOffer
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-04-28T10:11:16.867Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
 public class SpecialOffer {
   @SerializedName("voyage_special_offer_id")
   private Integer voyageSpecialOfferId = null;
@@ -22,6 +24,9 @@ public class SpecialOffer {
 
   @SerializedName("valid_to")
   private DateTime validTo = null;
+
+  @SerializedName("markets")
+  private List<String> markets = new ArrayList<String>();
 
   public SpecialOffer voyageSpecialOfferId(Integer voyageSpecialOfferId) {
     this.voyageSpecialOfferId = voyageSpecialOfferId;
@@ -95,6 +100,29 @@ public class SpecialOffer {
     this.validTo = validTo;
   }
 
+  public SpecialOffer markets(List<String> markets) {
+    this.markets = markets;
+    return this;
+  }
+
+  public SpecialOffer addMarketsItem(String marketsItem) {
+    this.markets.add(marketsItem);
+    return this;
+  }
+
+   /**
+   * Get markets
+   * @return markets
+  **/
+  @ApiModelProperty(value = "")
+  public List<String> getMarkets() {
+    return markets;
+  }
+
+  public void setMarkets(List<String> markets) {
+    this.markets = markets;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -108,12 +136,13 @@ public class SpecialOffer {
     return Objects.equals(this.voyageSpecialOfferId, specialOffer.voyageSpecialOfferId) &&
         Objects.equals(this.voyageSpecialOffer, specialOffer.voyageSpecialOffer) &&
         Objects.equals(this.validFrom, specialOffer.validFrom) &&
-        Objects.equals(this.validTo, specialOffer.validTo);
+        Objects.equals(this.validTo, specialOffer.validTo) &&
+        Objects.equals(this.markets, specialOffer.markets);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(voyageSpecialOfferId, voyageSpecialOffer, validFrom, validTo);
+    return Objects.hash(voyageSpecialOfferId, voyageSpecialOffer, validFrom, validTo, markets);
   }
 
 
@@ -126,6 +155,7 @@ public class SpecialOffer {
     sb.append("    voyageSpecialOffer: ").append(toIndentedString(voyageSpecialOffer)).append("\n");
     sb.append("    validFrom: ").append(toIndentedString(validFrom)).append("\n");
     sb.append("    validTo: ").append(toIndentedString(validTo)).append("\n");
+    sb.append("    markets: ").append(toIndentedString(markets)).append("\n");
     sb.append("}");
     return sb.toString();
   }

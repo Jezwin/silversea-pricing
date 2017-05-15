@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 /**
  * Voyage
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-04-28T10:11:16.867Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
 public class Voyage {
   @SerializedName("voyage_id")
   private Integer voyageId = null;
@@ -21,6 +21,9 @@ public class Voyage {
 
   @SerializedName("voyage_cod")
   private String voyageCod = null;
+
+  @SerializedName("voyage_highlights")
+  private String voyageHighlights = null;
 
   @SerializedName("voyage_name")
   private String voyageName = null;
@@ -116,6 +119,24 @@ public class Voyage {
 
   public void setVoyageCod(String voyageCod) {
     this.voyageCod = voyageCod;
+  }
+
+  public Voyage voyageHighlights(String voyageHighlights) {
+    this.voyageHighlights = voyageHighlights;
+    return this;
+  }
+
+   /**
+   * Get voyageHighlights
+   * @return voyageHighlights
+  **/
+  @ApiModelProperty(value = "")
+  public String getVoyageHighlights() {
+    return voyageHighlights;
+  }
+
+  public void setVoyageHighlights(String voyageHighlights) {
+    this.voyageHighlights = voyageHighlights;
   }
 
   public Voyage voyageName(String voyageName) {
@@ -388,6 +409,7 @@ public class Voyage {
     return Objects.equals(this.voyageId, voyage.voyageId) &&
         Objects.equals(this.voyageUrl, voyage.voyageUrl) &&
         Objects.equals(this.voyageCod, voyage.voyageCod) &&
+        Objects.equals(this.voyageHighlights, voyage.voyageHighlights) &&
         Objects.equals(this.voyageName, voyage.voyageName) &&
         Objects.equals(this.voyageMarketName, voyage.voyageMarketName) &&
         Objects.equals(this.voyageDescription, voyage.voyageDescription) &&
@@ -406,7 +428,7 @@ public class Voyage {
 
   @Override
   public int hashCode() {
-    return Objects.hash(voyageId, voyageUrl, voyageCod, voyageName, voyageMarketName, voyageDescription, departDate, arriveDate, isExpedition, itineraryUrl, days, destinationId, destinationUrl, shipId, shipUrl, mapUrl, features);
+    return Objects.hash(voyageId, voyageUrl, voyageCod, voyageHighlights, voyageName, voyageMarketName, voyageDescription, departDate, arriveDate, isExpedition, itineraryUrl, days, destinationId, destinationUrl, shipId, shipUrl, mapUrl, features);
   }
 
 
@@ -418,6 +440,7 @@ public class Voyage {
     sb.append("    voyageId: ").append(toIndentedString(voyageId)).append("\n");
     sb.append("    voyageUrl: ").append(toIndentedString(voyageUrl)).append("\n");
     sb.append("    voyageCod: ").append(toIndentedString(voyageCod)).append("\n");
+    sb.append("    voyageHighlights: ").append(toIndentedString(voyageHighlights)).append("\n");
     sb.append("    voyageName: ").append(toIndentedString(voyageName)).append("\n");
     sb.append("    voyageMarketName: ").append(toIndentedString(voyageMarketName)).append("\n");
     sb.append("    voyageDescription: ").append(toIndentedString(voyageDescription)).append("\n");

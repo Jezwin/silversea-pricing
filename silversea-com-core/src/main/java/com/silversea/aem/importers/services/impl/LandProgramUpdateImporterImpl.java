@@ -117,9 +117,9 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 
                                 Page landsPage;
                                 if (portPage.hasChild("landprogram")) {
-                                    landsPage = pageManager.getPage(portPage.getPath() + "/landprogram");
+                                    landsPage = pageManager.getPage(portPage.getPath() + "/land-programs");
                                 } else {
-                                    landsPage = pageManager.create(portPage.getPath(), "landprogram",
+                                    landsPage = pageManager.create(portPage.getPath(), "land-programs",
                                             "/apps/silversea/silversea-com/templates/page", "Land Program", false);
                                 }
 
