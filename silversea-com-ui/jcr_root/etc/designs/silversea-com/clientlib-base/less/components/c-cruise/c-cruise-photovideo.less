@@ -2,6 +2,8 @@
     .c-cruise__gallery {
         margin-bottom: 20px;
         margin-top: 40px;
+        overflow: hidden;
+        transition: max-height 1s;
         width: 100%;
 
         &__featured {
@@ -43,7 +45,12 @@
         }
 
         &__item {
+            background-position: center center;
+            background-size: cover;
             display: block;
+            height: 0;
+            overflow: hidden;
+            padding-bottom: 53%;
             position: relative;
 
             &:before {
@@ -91,6 +98,18 @@
                 line-height: 1;
                 padding: 10px 20px 10px 10px;
                 position: absolute;
+            }
+        }
+
+        &.open {
+            .expander-open {
+                display: none;
+            }
+        }
+
+        &:not(.open) {
+            .expander-close {
+                display: none;
             }
         }
     }

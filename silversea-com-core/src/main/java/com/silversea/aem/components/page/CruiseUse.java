@@ -1,19 +1,28 @@
 package com.silversea.aem.components.page;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.google.common.collect.Lists;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.GeolocationTagService;
+import com.silversea.aem.utils.AssetUtils;
 
 public class CruiseUse extends WCMUsePojo {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
 
     // TODO : to change US AND FT by default
     private static final String DEFAULT_GEOLOCATION_COUTRY = "FR";
@@ -93,5 +102,29 @@ public class CruiseUse extends WCMUsePojo {
      */
     public CruiseModel getCruiseModel() {
         return cruiseModel;
+    }
+
+    public List<Asset> getAllAssetForItinerary() {
+        return null;
+    }
+
+    public List<List<Asset>> getAllAssetForSuite() {
+        if (cruiseModel != null) {
+            String assetSelectionReference;
+            List<List<Asset>> renditionListByGroup;
+            List<Asset> assetList = new ArrayList<Asset>();
+            for (SuiteModel suite : cruiseModel.getSuites()) {
+                assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
+
+                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+            }
+            renditionListByGroup = Lists.partition(assetList, 5);
+            return renditionListByGroup;
+        }
+        return null;
+    }
+
+    public List<Asset> getAllAssetForRestaturantNPublicAres() {
+        return null;
     }
 }

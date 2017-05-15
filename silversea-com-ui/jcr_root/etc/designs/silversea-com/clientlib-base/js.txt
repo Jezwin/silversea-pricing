@@ -11,3 +11,4 @@ components/c-sidemenu.js
 components/c-slider.js
 components/c-herobanner.js
 components/c-cruise-suitelist.js
+components/c-cruise-photovideo.js

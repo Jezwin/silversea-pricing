@@ -1,36 +1,22 @@
-<div class="c-cruise-photovideo">
+<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h3 class="c-cruise__subtitle">${'suites' @ i18n}</h3>
     <p class="c-cruise__descr">${'suites-descr' @ i18n}</p>
+
     <div class="c-cruise__gallery">
-        <div class="c-cruise__gallery__featured" data-sly-repeat="${[1,2,3]}">
+        <div class="c-cruise__gallery__featured clearfix" data-sly-repeat="${cruise.allAssetForSuite}" data-sly-use.imageTemplate="suitevariationimagetemplate.html">
             <div class="c-cruise__gallery__featured__left">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/08/Owner_suite_herojpg-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Owner's Suite</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/08/Owner_suite_01_UC544-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Owner's Suite</span>
-                </a>
+                <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
+                <sly data-sly-call="${imageTemplate.default @ asset=item[1]}" />
             </div>
             <div class="c-cruise__gallery__featured__right">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/08/Owner_suite_07_RGB_color_0000_UC500-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Owner's Suite</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/08/Owner_second_suite_01_UC5531-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Owner's Suite</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/08/Owner_second_suite_08_RGB_color_0000_UC4921-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Owner's Suite</span>
-                </a>
+                <sly data-sly-call="${imageTemplate.default @ asset=item[2]}" />
+                <sly data-sly-call="${imageTemplate.default @ asset=item[3]}" />
+                <sly data-sly-call="${imageTemplate.default @ asset=item[4]}" />
             </div>
         </div>
         <div class="c-cruise__item-expander">
-            <a class="btn btn-thin btn-dark expander-open" href=""><span>${'view-all' @ i18n}</span><i class="fa fa-angle-down"></i></a>
-            <!--/* <a class="btn btn-thin btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a> */-->
+            <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all' @ i18n}</span><i class="fa fa-angle-down"></i></a>
+            <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
         </div>
     </div>
 </div>
