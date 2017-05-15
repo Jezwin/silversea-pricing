@@ -23,19 +23,31 @@ $(function() {
         var $trigger = $(this), $wrapper = $trigger.closest('.c-cruise__gallery');
         var totalHeight = 0;
 
-        // show hidden image group
-        $wrapper.css('height', $wrapper.height()).find('.c-cruise__gallery__featured').show();
+        if ($wrapper.hasClass('open')) {
+            $wrapper.css('height', $wrapper.outerHeight());
 
-        // Calculate full height
-        $wrapper.children().each(function() {
-            totalHeight = totalHeight + $(this).outerHeight(true);
-        });
+            // Animate for slide effect (slide up)
+            $wrapper.animate({
+                'height' : $wrapper.find('.c-cruise__gallery__featured').first().outerHeight()
+            }, 1000, function() {
+                $wrapper.css('height', $wrapper.height()).find('.c-cruise__gallery__featured:not(:eq(0))').hide();
+                $(this).css('height', '').removeClass('open');
+            });
+        } else {
+            // show hidden image group
+            $wrapper.css('height', $wrapper.height()).find('.c-cruise__gallery__featured').show();
 
-        // Animate for slide effect
-        $wrapper.animate({
-            'height' : totalHeight
-        }, 1000, function() {
-            $(this).css('height', '').addClass('open');
-        });
+            // Calculate full height
+            $wrapper.children().each(function() {
+                totalHeight = totalHeight + $(this).outerHeight(true);
+            });
+
+            // Animate for slide effect (slide down)
+            $wrapper.animate({
+                'height' : totalHeight
+            }, 1000, function() {
+                $(this).css('height', '').addClass('open');
+            });
+        }
     });
 });
