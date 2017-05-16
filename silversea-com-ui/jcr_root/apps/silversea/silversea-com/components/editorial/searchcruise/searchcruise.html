@@ -1,0 +1,16 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search cruise"></div>
+<div class="c-search-cruise" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="c-search-cruise__image hidden-xs" data-sly-test.reference="${properties.fileReference}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+    </div>
+    <div class="row c-search-cruise__row">
+        <div class="col-sm-9 c-search-cruise__content">
+            <h1 class="c-search-cruise__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+            <p class="c-search-cruise__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+        </div>
+        <div class="col-sm-3 c-search-cruise__form">
+
+        </div>
+    </div>
+</div>
+

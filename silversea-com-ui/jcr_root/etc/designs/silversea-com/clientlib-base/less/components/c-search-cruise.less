@@ -1,0 +1,27 @@
+.c-search-cruise {
+    margin: 0 auto 20px;
+    max-width: 930px;
+    position: relative;
+
+    &__image {
+
+        @media screen and (min-width: @screen-md-min) {
+            .full-width;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            height: 330px;
+            overflow: hidden;
+
+            .o-img {
+                left: 50%;
+                min-height: 330px;
+                max-width: none;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                width: auto;
+            }
+        }
+    }
+}
