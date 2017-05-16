@@ -1,22 +1,8 @@
-<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
+<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-test="${cruise.allAssetForSuite}">
     <h3 class="c-cruise__subtitle">${'suites' @ i18n}</h3>
     <p class="c-cruise__descr">${'suites-descr' @ i18n}</p>
 
     <div class="c-cruise__gallery">
-        <div class="c-cruise__gallery__featured clearfix" data-sly-repeat="${cruise.allAssetForSuite}" data-sly-use.imageTemplate="suitevariationimagetemplate.html">
-            <div class="c-cruise__gallery__featured__left">
-                <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
-                <sly data-sly-call="${imageTemplate.default @ asset=item[1]}" />
-            </div>
-            <div class="c-cruise__gallery__featured__right">
-                <sly data-sly-call="${imageTemplate.default @ asset=item[2]}" />
-                <sly data-sly-call="${imageTemplate.default @ asset=item[3]}" />
-                <sly data-sly-call="${imageTemplate.default @ asset=item[4]}" />
-            </div>
-        </div>
-        <div class="c-cruise__item-expander">
-            <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all' @ i18n}</span><i class="fa fa-angle-down"></i></a>
-            <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
-        </div>
+        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetGroup = cruise.allAssetForSuite}" />
     </div>
 </div>

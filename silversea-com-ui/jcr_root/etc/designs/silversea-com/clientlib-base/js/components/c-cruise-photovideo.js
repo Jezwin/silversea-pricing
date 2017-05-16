@@ -29,9 +29,14 @@ $(function() {
             // Animate for slide effect (slide up)
             $wrapper.animate({
                 'height' : $wrapper.find('.c-cruise__gallery__featured').first().outerHeight()
-            }, 1000, function() {
+            }, 600, function() {
                 $wrapper.css('height', $wrapper.height()).find('.c-cruise__gallery__featured:not(:eq(0))').hide();
                 $(this).css('height', '').removeClass('open');
+
+                // After animation, launch scrollTo
+                $('html, body').animate({
+                    scrollTop : $wrapper.offset().top - $('.c-header').height()
+                }, 1000);
             });
         } else {
             // show hidden image group

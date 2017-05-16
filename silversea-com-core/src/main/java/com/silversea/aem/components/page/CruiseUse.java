@@ -17,6 +17,9 @@ import com.google.common.collect.Lists;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.DiningModel;
+import com.silversea.aem.models.ItineraryModel;
+import com.silversea.aem.models.PublicAreaModel;
 import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
@@ -104,27 +107,73 @@ public class CruiseUse extends WCMUsePojo {
         return cruiseModel;
     }
 
-    public List<Asset> getAllAssetForItinerary() {
+    public List<List<Asset>> getAllAssetForItinerary() {
+        if (cruiseModel != null) {
+            String assetSelectionReference;
+            List<Asset> assetList = new ArrayList<Asset>();
+
+            // Add asset from several list inside the same list
+            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+            }
+
+            assetSelectionReference = cruiseModel.getAssetSelectionReference();
+            if (StringUtils.isNotBlank(assetSelectionReference)) {
+                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+            }
+
+            return buildAssetSListGroup(assetList);
+        }
         return null;
     }
 
     public List<List<Asset>> getAllAssetForSuite() {
         if (cruiseModel != null) {
             String assetSelectionReference;
-            List<List<Asset>> renditionListByGroup;
             List<Asset> assetList = new ArrayList<Asset>();
+
+            // Add asset from several list inside the same list
             for (SuiteModel suite : cruiseModel.getSuites()) {
                 assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
-
-                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
             }
-            renditionListByGroup = Lists.partition(assetList, 5);
-            return renditionListByGroup;
+
+            return buildAssetSListGroup(assetList);
         }
         return null;
     }
 
-    public List<Asset> getAllAssetForRestaturantNPublicAres() {
+    public List<List<Asset>> getAllAssetForRestaturantNPublicAreas() {
+        if (cruiseModel != null) {
+            String assetSelectionReference;
+            List<Asset> assetList = new ArrayList<Asset>();
+
+            // Add asset from several list inside the same list
+            for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
+                assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+            }
+
+            for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
+                assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+            }
+
+            return buildAssetSListGroup(assetList);
+        }
         return null;
+    }
+
+    private List<List<Asset>> buildAssetSListGroup(List<Asset> assetList) {
+        return Lists.partition(assetList, 5);
     }
 }

@@ -1,36 +1,8 @@
-<div class="c-cruise-photovideo">
+<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-test="${cruise.allAssetForRestaturantNPublicAreas}">
     <h3 class="c-cruise__subtitle">${'restaurants-public-areas' @ i18n}</h3>
     <p class="c-cruise__descr">${'restaurants-public-areas-descr' @ i18n}</p>
+
     <div class="c-cruise__gallery">
-        <div class="c-cruise__gallery__featured" data-sly-repeat="${[1,2,3]}">
-            <div class="c-cruise__gallery__featured__left">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2015/10/MaDame-Hero-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">La Dame by Relais & Château</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2015/10/Le-Champagne_0003_UC996-1-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">La Dame by Relais & Château</span>
-                </a>
-            </div>
-            <div class="c-cruise__gallery__featured__right">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2015/10/Le-Champagne_0005_UC997-1-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">La Dame by Relais & Château</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2015/10/Kabuki-Hero-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Kaiseki</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2015/10/Seishin-00002_UC1098-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Kaiseki</span>
-                </a>
-            </div>
-        </div>
-        <div class="c-cruise__item-expander">
-            <a class="btn btn-thin btn-dark expander-open" href=""><span>${'view-all' @ i18n}</span><i class="fa fa-angle-down"></i></a>
-            <!--/* <a class="btn btn-thin btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a> */-->
-        </div>
+        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetGroup = cruise.allAssetForRestaturantNPublicAreas}" />
     </div>
 </div>

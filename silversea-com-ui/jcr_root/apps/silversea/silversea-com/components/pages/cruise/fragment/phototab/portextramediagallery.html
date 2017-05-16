@@ -1,38 +1,8 @@
-<sly data-sly-use.set="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference, size=5}" />
-
-<div class="c-cruise-photovideo">
+<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-test="${cruise.allAssetForItinerary}">
     <h3 class="c-cruise__subtitle">${'cruise-itinearay' @ i18n}</h3>
     <p class="c-cruise__descr">${'cruise-itinearay-descr' @ i18n}</p>
+
     <div class="c-cruise__gallery">
-        <div class="c-cruise__gallery__featured" data-sly-repeat="${[1,2,3]}">
-            <div class="c-cruise__gallery__featured__left">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2016/09/ECM_251642_silversea-mediterranean-cruise-cittavecchia-rome-italy(2)-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Civitavecchia (Rome), Italy</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-sorrento-italy-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Sorrento, Italy</span>
-                </a>
-            </div>
-            <div class="c-cruise__gallery__featured__right">
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-sorrento-italy-2-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Sorrento, Italy</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-amalfi-positano-italy-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Amalfi, Italy</span>
-                </a>
-                <a href="#" class="c-cruise__gallery__item">
-                    <img src="http://static.silversea.com/wp-content/uploads/2014/09/silversea-mediterranean-cruise-amalfi-italy-2-672x372.jpg" />
-                    <span class="c-cruise__gallery__item__caption">Amalfi, Italy</span>
-                </a>
-            </div>
-        </div>
-        <div class="c-cruise__item-expander">
-            <a class="btn btn-thin btn-dark expander-open" href=""><span>${'view-all' @ i18n}</span><i class="fa fa-angle-down"></i></a>
-            <!--/* <a class="btn btn-thin btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a> */-->
-        </div>
+        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetGroup = cruise.allAssetForItinerary}" />
     </div>
 </div>
