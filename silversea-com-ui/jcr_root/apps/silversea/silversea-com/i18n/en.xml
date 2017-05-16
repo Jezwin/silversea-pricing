@@ -622,10 +622,14 @@
     <suites-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas-descr"
-        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />7*
+    <cruise-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary"
+        sling:message="Cruise itinerary" />
     <cruise-itinerary-descr
         jcr:primaryType="sling:MessageEntry"
-        sling:key="restaurants-public-areas-descr"
+        sling:key="cruise-itinerary-descr"
         sling:message="At the heart of any cruise are the destinations you visit - discover more in the gallery below." />
     <select-your-suite-and-request-a-quote
         jcr:primaryType="sling:MessageEntry"
