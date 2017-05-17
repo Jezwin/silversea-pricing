@@ -6,7 +6,7 @@
         <source srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.mobileWidth}&fit=hfit,1, ${imagePath @ prependPath=imagePrefix}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x" media="(max-width: 767px)" />
         <source srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1, ${imagePath @ prependPath=imagePrefix}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x" media="(min-width: 768px)" />
         <!--[if IE 9]></video><![endif]-->
-        <img src="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.title || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
 

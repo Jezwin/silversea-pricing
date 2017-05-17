@@ -1,9 +1,7 @@
 <div data-sly-test.empty="${!properties.fileReference && wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="image"></div>
 <sly data-sly-test="${!empty}">
     <a data-sly-unwrap="${!properties.linkURL}" href="${properties.linkURL @ extension='html'}">
-        <sly data-sly-use.imageTemplate="imagetemplate.html">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=properties.fileReference}"></sly>
-        </sly>
+        <sly data-sly-use.imageTemplate="imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=properties.fileReference}" />
     </a>
     <small data-sly-test="${properties.jcr:description}">${properties.jcr:description}</small>
 </sly>
