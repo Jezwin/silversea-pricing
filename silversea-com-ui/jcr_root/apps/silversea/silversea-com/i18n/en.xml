@@ -47,10 +47,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew-capacity"
         sling:message="Crew capacity" />
-    <cruise-itinerary
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="cruise-itinerary"
-        sling:message="Cruise itinerary" />
     <cruise-excursion-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-excursion-description"
@@ -143,10 +139,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="free-brochure"
         sling:message="Free brochure" />
-    <guests-capacity
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="guests-capacity"
-        sling:message="Guests capacity" />
     <hours
         jcr:primaryType="sling:MessageEntry"
         sling:key="hours"
@@ -423,10 +415,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote" />
-    <fares-from
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fares-from"
-        sling:message="Fares from" />
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
