@@ -16,13 +16,12 @@
     &__content {
         width: 37%;
         padding: 15px 10px 5px 10px;
-        color: #fff;
+        color: @white;
         background-color: rgba(0,0,0,.5);
         position: absolute;
         left: 13%;
         top: 20%;
 
-        /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             border: 1px solid @grey--d;
             width: 100%;
@@ -39,7 +38,6 @@
             line-height: 1;
             text-transform: uppercase;
 
-            /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 margin: 0 0 30px;
             }
@@ -48,7 +46,6 @@
                 font-size: 41px;
                 margin: 0;
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     font-size: 28px;
                 }
@@ -58,7 +55,6 @@
                     position: relative;
                     top: -20px;
 
-                    /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
                         font-size: 11px;
                         top: -16px;
@@ -69,13 +65,12 @@
             a {
                 display: block;
                 text-transform: none;
-                font-weight: bold;
+                font-weight: @bold;
                 font-size: 20px;
                 text-decoration: underline;
                 font-family: @f-sans_serif;
                 margin-bottom: 26px;
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     font-size: 15px;
                     margin-top: 15px;
@@ -104,7 +99,6 @@
                 margin: 0;
                 line-height: 1.2;
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     font-size: 20px;
                 }
@@ -117,7 +111,6 @@
                 position: relative;
                 z-index: 2;
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     background-color: @black;
                     color: @white;
