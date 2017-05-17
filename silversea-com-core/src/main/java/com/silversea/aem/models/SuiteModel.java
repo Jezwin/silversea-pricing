@@ -26,7 +26,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.Price;
+import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.enums.Currency;
 
@@ -79,7 +79,7 @@ public class SuiteModel {
     @Optional
     private String[] features;
 
-    private Price lowestPrice;
+    private PriceData lowestPrice;
 
     private String[] suiteSubTitle;
 
@@ -147,7 +147,7 @@ public class SuiteModel {
                 while (variationNodes.hasNext()) {
                     Node node = variationNodes.nextNode();
                     if (!StringUtils.equals(node.getName(), "lowest-price")) {
-                        Price price = getPrice(node, geoMarketCode);
+                        PriceData price = getPrice(node, geoMarketCode);
                         String name = Objects.toString(node.getProperty("suiteCategoryCod").getValue());
                         SuiteVariation suiteVariation = new SuiteVariation();
                         suiteVariation.setPrice(price);
@@ -162,8 +162,8 @@ public class SuiteModel {
         }
     }
 
-    private Price getPriceByGeoMarketCode(Node pricesNode, String geoMarketCode, String property) {
-        Price price = null;
+    private PriceData getPriceByGeoMarketCode(Node pricesNode, String geoMarketCode, String property) {
+        PriceData price = null;
         try {
             NodeIterator nodes = pricesNode.getNodes();
             if (nodes != null && nodes.hasNext()) {
@@ -186,8 +186,8 @@ public class SuiteModel {
         return price;
     }
 
-    private Price getPrice(Node pricesNode, String geoMarketCode) {
-        Price price = null;
+    private PriceData getPrice(Node pricesNode, String geoMarketCode) {
+        PriceData price = null;
         try {
             NodeIterator nodes = pricesNode.getNodes();
             if (nodes != null && nodes.hasNext()) {
@@ -215,8 +215,8 @@ public class SuiteModel {
     }
 
     // TODO: duplicated code
-    Price initPrice(String geoMarketCode, String value) {
-        Price price = new Price();
+    PriceData initPrice(String geoMarketCode, String value) {
+        PriceData price = new PriceData();
         Currency currency = getCurrencyByMarKetCode(geoMarketCode);
         price.setCurrency(currency.getLabel());
         price.setValue(value);
@@ -238,7 +238,7 @@ public class SuiteModel {
         return title;
     }
 
-    public Price getLowestPrice() {
+    public PriceData getLowestPrice() {
         return lowestPrice;
     }
 

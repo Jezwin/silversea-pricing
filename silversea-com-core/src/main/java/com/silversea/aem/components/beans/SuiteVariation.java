@@ -3,7 +3,7 @@ package com.silversea.aem.components.beans;
 public class SuiteVariation {
 
     private String name;
-    private Price price;
+    private PriceData price;
 
 
     public SuiteVariation() {
@@ -13,13 +13,13 @@ public class SuiteVariation {
     public void setName(String name) {
         this.name = name;
     }
-    public void setPrice(Price price) {
+    public void setPrice(PriceData price) {
         this.price = price;
     }
     public String getName() {
         return name;
     }
-    public Price getPrice() {
+    public PriceData getPrice() {
         return price;
     }
 }

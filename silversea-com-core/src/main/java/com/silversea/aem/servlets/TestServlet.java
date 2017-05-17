@@ -287,7 +287,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
         }
         closeDocument(response.getWriter());
        } catch(RuntimeException e) {
-           watchAll.stop();
+           //watchAll.stop();
            timeAll = watchAll.toString();
            response.getWriter().write("<br/> ---------------- <br />");
            response.getWriter().write("Time Global:<br/>" + timeAll);

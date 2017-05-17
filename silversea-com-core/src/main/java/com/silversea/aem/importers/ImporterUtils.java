@@ -8,6 +8,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -48,10 +49,12 @@ public class ImporterUtils {
 	public static Iterator<Resource> findResourceById(String type,String property, String id,ResourceResolver resourceResolver){
 
 		Map<String, String> queryMap = new HashMap<String, String>();
+		//check if resource is a page or a node
+		property = StringUtils.equals(type, NameConstants.NT_PAGE) ? "jcr:content/" + property : property;
 		queryMap.put("type", type);
 		queryMap.put("property", property);
 		queryMap.put("id", id);
-		String queryTemplate = "//element(*,${type})[jcr:content/${property}=\'${id}\']";
+		String queryTemplate = "/jcr:root/content/silversea-com/en//element(*,${type})[${property}=\'${id}\']";
 		StrSubstitutor substitutor = new StrSubstitutor(queryMap);
 
 		//Execute query

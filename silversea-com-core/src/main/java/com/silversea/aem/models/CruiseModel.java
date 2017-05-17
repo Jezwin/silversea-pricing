@@ -28,7 +28,7 @@ import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.CruiseFareAddition;
 import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.components.beans.GeoLocation;
-import com.silversea.aem.components.beans.Price;
+import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.enums.Currency;
 
 /**
@@ -122,7 +122,7 @@ public class CruiseModel {
 
     private String cruiseType;
 
-    private Price lowestPrice;
+    private PriceData lowestPrice;
 
     private ResourceResolver resourceResolver;
 
@@ -257,8 +257,8 @@ public class CruiseModel {
         return title;
     }
 
-    private Price initLowestPrice(String geoMarketCode) {
-        Price lowestPrice = null;
+    private PriceData initLowestPrice(String geoMarketCode) {
+        PriceData lowestPrice = null;
         try {
             Node node = page.adaptTo(Node.class);
             Node lowestPricesNode = node.getNode("lowest-prices");
@@ -322,8 +322,8 @@ public class CruiseModel {
     }
 
     // TODO: duplicated code
-    Price initPrice(String geoMarketCode, String value) {
-        Price price = new Price();
+    PriceData initPrice(String geoMarketCode, String value) {
+        PriceData price = new PriceData();
         Currency currency = getCurrencyByMarKetCode(geoMarketCode);
         price.setCurrency(currency.getLabel());
         price.setValue(value);
@@ -420,7 +420,7 @@ public class CruiseModel {
         return features;
     }
 
-    public Price getLowestPrice() {
+    public PriceData getLowestPrice() {
         return lowestPrice;
     }
 

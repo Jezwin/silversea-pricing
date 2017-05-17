@@ -17,7 +17,7 @@ public interface ImportersConstants {
     
     String BASEPATH_BROCHURES ="/content/dam/siversea-com/brochures";
     
-    String BASEPATH_CRUISES = "/content/silversea-com/en/destinations/destination";
+    String BASEPATH_CRUISES = "/content/silversea-com/en/destinations/";
 
     // Just Add to test
     String BASEPATH_COUNTRY = "/content/silversea-com/en/country";

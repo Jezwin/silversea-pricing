@@ -1,13 +1,15 @@
 package com.silversea.aem.components.beans;
 
-public class Price {
+public class PriceData {
     
     private String value;
-    private boolean isWaitList;
     private String currency;
-    
-    public Price() {
+    private String marketCode;
+    private boolean isWaitList;
+ 
+    public PriceData() {
     }
+     
     public String getValue() {
         return value;
     }
@@ -26,4 +28,11 @@ public class Price {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+    public String getMarketCode() {
+        return marketCode;
+    }
+    public void setMarketCode(String marketCode) {
+        this.marketCode = marketCode;
+    }
+    
 }
