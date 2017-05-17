@@ -63,8 +63,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     private List<String> geoMarket;
 
-//    @Reference
-//    private TagManager tagManager;
+    // @Reference
+    // private TagManager tagManager;
 
     // @Activate
     // @Modified
@@ -154,17 +154,28 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                             offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
                             offersContentNode.setProperty("endDate", offers.getValidTo().toString());
                             // TODO decommenté la ligne
+//                            offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
+                            offersPage.getContentResource().adaptTo(Node.class).addMixin("cq:Taggable");
+//                         
                             
+                            
+//                            offersContentNode.addMixin("cq:Taggable");
                             geoMarket = offers.getMarkets();
-                            market = new ArrayList<>();
+                            market = new ArrayList<Tag>();
                             if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
                                 market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
                             }
-                            for (Tag tag : market) {
-                                offersContentNode.setProperty("cq:tags",market.toString());
-//                                tagManager.setTags(offersPage.getContentResource(), tag.t);
-                            }
-                            
+
+//                            tagManager.setTags(offersPage.adaptTo(Resource.class),
+//                                    market.stream().toArray((Tag[]::new)));
+
+                             offersContentNode.setProperty("cq:tags",market.stream().toArray((String[]::new)));
+
+                            // for (Tag tag : market) {
+                            // offersContentNode.setProperty("cq:tags",
+                            // tag.toString());
+                            // }
+
                             succesNumber = succesNumber + 1;
                             j++;
                         }

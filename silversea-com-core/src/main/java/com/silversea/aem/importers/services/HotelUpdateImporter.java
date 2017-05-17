@@ -9,5 +9,5 @@ import com.day.cq.replication.ReplicationException;
  */
 public interface HotelUpdateImporter {
 
-    void importUpdateHotel() throws IOException, ReplicationException;
+    void updateImporData() throws IOException, ReplicationException;
 }

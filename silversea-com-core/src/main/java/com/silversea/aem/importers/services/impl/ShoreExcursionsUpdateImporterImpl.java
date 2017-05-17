@@ -33,6 +33,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsUpdateImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShorexesApi;
@@ -47,6 +48,14 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ShoreExcursionsUpdateImporterImpl.class);
 
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
+
+    @Reference
+    private ApiConfigurationService apiConfig;
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -54,8 +63,11 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
     private Replicator replicat;
 
     @Override
-    public void importUpdateShoreExcursions() throws IOException, ReplicationException {
-        final String authorizationHeader = getAuthorizationHeader("/api/v1/shoreExcursions");
+    public void updateImporData() throws IOException, ReplicationException {
+
+        // final String authorizationHeader =
+        // getAuthorizationHeader("/api/v1/shoreExcursions");
+        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
 
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
@@ -63,7 +75,11 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
             Session session = resourceResolver.adaptTo(Session.class);
 
             // get parent content resource
-            Resource resParent = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
+            Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+
+            // Resource resParent =
+            // resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
+            Resource resParent = citiesRootPage.adaptTo(Resource.class);
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
             // get last importing date
@@ -80,7 +96,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                 int i = 1;
 
                 do {
-                    shorexes = shorexesApi.shorexesGetChanges(currentDate, i, 100, null);
+                    shorexes = shorexesApi.shorexesGetChanges(currentDate, i, pageSize, null);
 
                     int j = 0;
 
@@ -88,8 +104,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                         LOGGER.debug("Importing shorex: {}", shorex.getShorexCod());
 
                         Iterator<Resource> resources = resourceResolver.findResources(
-                                "//element(*,cq:Page)[jcr:content/shorexId=\"" + shorex.getShorexId() + "\"]",
-                                "xpath");
+                                "//element(*,cq:Page)[jcr:content/shorexId=\"" + shorex.getShorexId() + "\"]", "xpath");
 
                         Page excursionPage = null;
 
@@ -124,8 +139,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                                     shorex.getShorexCod()),
-                                            TemplateConstants.PATH_EXCURSION, shorex.getShorexCod(),
-                                            false);
+                                            TemplateConstants.PATH_EXCURSION, shorex.getShorexCod(), false);
 
                                     LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
                                 } else {
@@ -150,7 +164,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                             j++;
                         }
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();
@@ -166,7 +180,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 
                 if (session.hasPendingChanges()) {
                     try {
-                     // save migration date
+                        // save migration date
                         Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
                         rootNode.setProperty("lastModificationDate", Calendar.getInstance());
                         session.save();

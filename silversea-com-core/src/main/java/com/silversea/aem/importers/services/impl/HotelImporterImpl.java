@@ -84,6 +84,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
             // get authentification to the Hotels API
             HotelsApi hotelsApi = new HotelsApi();
             hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+            
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);

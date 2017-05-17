@@ -33,6 +33,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
+import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.CitiesApi;
@@ -46,6 +47,14 @@ import io.swagger.client.model.City77;
 public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpdateImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CitiesUpdateImporterImpl.class);
+    
+    private int errorNumber = 0;
+    private int succesNumber = 0;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
+    
+    @Reference
+    private ApiConfigurationService apiConfig;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -54,7 +63,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
     private Replicator replicat;
 
     @Override
-    public void importUpdateCities() throws IOException, ReplicationException {
+    public void updateImporData() throws IOException, ReplicationException {
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/cities/changesFrom/");
 
@@ -62,14 +71,33 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
             /**
              * authentification pour le swagger
              */
-//          getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+            getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+            /**
+             * Récuperation du domain de l'api Swager
+             */
+            getApiDomain(apiConfig.getApiBaseDomain());
+            /**
+             * Récuperation de la session refresh
+             */
+            if(apiConfig.getSessionRefresh() != 0){
+                sessionRefresh = apiConfig.getSessionRefresh();
+            }
+            /**
+             * Récuperation de per page
+             */
+            if(apiConfig.getPageSize() != 0){
+                pageSize = apiConfig.getPageSize();
+            }
             
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
             // get parent content resource
-            Resource resParent = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
+            Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+            
+//            Resource resParent = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
+            Resource resParent = citiesRootPage.adaptTo(Resource.class);
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
             // get last importing date
@@ -79,20 +107,20 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
             if (date != null) {
                 currentDate = formatter.format(date.getTime()).toString();
-
-//                final String authorizationHeader = getAuthorizationHeader("/api/v1/cities/changesFrom/" + currentDate);
-                final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
+                
+                final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
+//                final String authorizationHeader = getAuthorizationHeader("/api/v1/cities");
 
                 CitiesApi citiesApi = new CitiesApi();
                 citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
-                Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+//                Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
 
                 List<City77> cities;
                 int i = 1;
 
                 do {
-                    cities = citiesApi.citiesGetChanges(currentDate, i, 100, null, null, null);
+                    cities = citiesApi.citiesGetChanges(currentDate, i, pageSize, null, null, null);
 
                     int j = 0;
 
@@ -158,7 +186,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
                         j++;
 
-                        if (j % 100 == 0) {
+                        if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
                                     session.save();
