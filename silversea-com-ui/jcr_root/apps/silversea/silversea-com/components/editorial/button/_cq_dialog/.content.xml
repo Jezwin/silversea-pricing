@@ -90,6 +90,10 @@
                                                     jcr:primaryType="nt:unstructured"
                                                     text="small"
                                                     value="btn-sm" />
+                                                <large
+                                                    jcr:primaryType="nt:unstructured"
+                                                    text="large"
+                                                    value="btn-lg" />
                                             </items>
                                         </size>
                                         <analyticType

@@ -11,6 +11,6 @@
             jcr:primaryType="cq:DropTargetConfig"
             accept="[image/.*]"
             groups="[media]"
-            propertyName="./assetReference" />
+            propertyName="./fileReference" />
     </cq:dropTargets>
 </jcr:root>
