@@ -2,26 +2,4 @@
     <h3 class="c-cruise__subtitle">${'expedition-team' @ i18n}</h3>
     <p class="c-cruise__descr">${'expedition-team-descr' @ i18n}</p>
 </div>
-<div class="c-cruise-keypeople">
-    <div class="c-slider c-slider--default c-slider--style2 c-slider--arrowoutside keypeople__slider" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}' data-sly-list.keyPeoplePath="${pageProperties.reference}">
-        <div data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=keyPeoplePath}">
-            <div class="keypeople__slider-item" data-keypeople-toggle="keypeople-${keyPeoplePathList.index}">
-                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                     data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-                <div>
-                    <h4 class="keypeople--identity">${target.page.properties.jcr:title}</h4>
-                    <p class="keypeople--profession">${target.page.properties.profession}</p>
-                    <strong>${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></strong>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="keypeople__details" data-sly-list.keyPeoplePath="${pageProperties.reference}">
-        <div class="keypeople__details__inner-wrapper" id="keypeople-${keyPeoplePathList.index}" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=keyPeoplePath}">
-            <a class="btn-close" href="#"><i class="fa fa-times"></i><span>${'close' @ i18n}</span></a>
-            <h5 class="keypeople__details--identity">${target.page.properties.jcr:title}</h5>
-            <p class="keypeople__details--profession">${target.page.properties.profession}</p>
-            <p class="keypeople__details--descr">${target.page.properties.jcr:description}</p>
-        </div>
-    </div>
-</div>
+<sly data-sly-use.keyPeopleTemplate="silversea/silversea-com/components/editorial/keypeople/keypeopletemplate.html" data-sly-call="${keyPeopleTemplate.default @ list=properties.reference}" />
