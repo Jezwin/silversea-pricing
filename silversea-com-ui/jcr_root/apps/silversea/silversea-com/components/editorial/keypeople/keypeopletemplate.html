@@ -5,7 +5,7 @@
                 <div class="keypeople__slider-item" data-keypeople-toggle="keypeople-${keyPeoplePathList.index}">
                     <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                          data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-                    <div>
+                    <div class="wrapper">
                         <h4 class="keypeople--identity">${target.page.properties.jcr:title}</h4>
                         <p class="keypeople--profession">${target.page.properties.profession}</p>
                         <strong>${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></strong>
