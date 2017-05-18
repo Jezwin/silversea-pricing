@@ -67,9 +67,31 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
     public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/hotels");
-        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
+        
 
         try {
+            /**
+             * authentification pour le swagger
+             */
+            getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+            /**
+             * Récuperation du domain de l'api Swager
+             */
+            getApiDomain(apiConfig.getApiBaseDomain());
+            /**
+             * Récuperation de la session refresh
+             */
+            if (apiConfig.getSessionRefresh() != 0) {
+                sessionRefresh = apiConfig.getSessionRefresh();
+            }
+            /**
+             * Récuperation de per page
+             */
+            if (apiConfig.getPageSize() != 0) {
+                pageSize = apiConfig.getPageSize();
+            }
+            
+            final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);

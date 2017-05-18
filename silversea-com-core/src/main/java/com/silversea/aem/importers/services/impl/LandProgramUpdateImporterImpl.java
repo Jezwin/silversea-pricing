@@ -67,11 +67,12 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
     @Override
     public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
 
-        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
+        
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/landAdventures");
 
         try {
+            final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
