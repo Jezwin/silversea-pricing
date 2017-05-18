@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.beans.Duration;
 import com.silversea.aem.components.beans.Feature;
 
 /**
@@ -71,7 +72,7 @@ public class ExcursionModel {
 
     private List<Feature> features;
 
-    private String duration;
+    private Duration duration;
 
     private String schedule;
 
@@ -94,11 +95,26 @@ public class ExcursionModel {
         if (node != null) {
             try {
                 schedule = Objects.toString(node.getProperty("plannedDepartureTime").getValue());
-                duration = Objects.toString(node.getProperty("duration").getValue());
+                duration = formatDuration(Objects.toString(node.getProperty("duration").getValue()));
             } catch (RepositoryException e) {
                 LOGGER.error("Exception while initializing properties", e);
             }
         }
+    }
+    
+    private Duration formatDuration(String durationMinutes){
+        
+        Duration duration = null;
+        if(durationMinutes != null && !durationMinutes.isEmpty()){
+            int t = Integer.parseInt(durationMinutes);
+            int hours = t / 60;
+            int minutes = t % 60;
+            duration = new Duration();
+            duration.setHours(hours);
+            duration.setMinutes(minutes);
+        }
+        
+        return duration;   
     }
 
     private List<Feature> initFeatures() {
@@ -156,7 +172,7 @@ public class ExcursionModel {
         return features;
     }
 
-    public String getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 

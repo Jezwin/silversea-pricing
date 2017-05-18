@@ -121,6 +121,8 @@ public class CruiseModel {
     private String destinationFootNote;
 
     private String cruiseType;
+    
+    private String mapOverHead;
 
     private PriceData lowestPrice;
 
@@ -137,15 +139,10 @@ public class CruiseModel {
         destinationTitle = getPagereferenceTitle(page.getParent().getPath());
         destinationFootNote = page.getParent().getProperties().get("footnote", String.class);
         itineraries = initIteniraries();
-
-        if(StringUtils.isNotBlank(shipReference)) {
-            ship = initShip(shipReference);
-        }
-
-        //check if cruise has land Programs
-        for (int i = 0; i < itineraries.size() && !hasLandPrograms; i++) {
-            hasLandPrograms = itineraries.get(i).getLandprograms().size() > 0;
-        }
+        ship = initShip(shipReference);
+        hasLandPrograms = itineraries.stream().filter(e -> !e.getLandprograms().isEmpty())
+                                              .findFirst()
+                                              .isPresent();
     }
 
     public void initByGeoLocation(GeoLocation geolocation) {
@@ -153,6 +150,7 @@ public class CruiseModel {
         cruiseFareAdditions = parseCruiseFareAdditions();
         exclusiveFareAdditions = getAllExclusiveFareAdditions();
         lowestPrice = initLowestPrice(geolocation.getGeoMarketCode());
+        mapOverHead = initMapHover();
         suites = initSuites(geolocation.getGeoMarketCode());
     }
 
@@ -336,20 +334,31 @@ public class CruiseModel {
     }
 
     private ShipModel initShip(String path) {
-
         ShipModel shipModel = null;
-        Resource resource = resourceResolver.resolve(path);
-        if (resource != null) {
-            Page pa = resource.adaptTo(Page.class);
-            shipModel = pa.adaptTo(ShipModel.class);
+        if(StringUtils.isNotEmpty(path)){
+            Resource resource = resourceResolver.resolve(path);
+            if (resource != null) {
+                Page pa = resource.adaptTo(Page.class);
+                shipModel = pa.adaptTo(ShipModel.class);
+            }
         }
-
         return shipModel;
+    }
+
+    public String initMapHover() {
+        String value = null;
+        if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
+            value = exclusiveOffers.stream().filter(e -> !e.getMapOverHead().isEmpty())
+                    .map(ExclusiveOfferModel::getMapOverHead).findFirst()
+                    .orElseThrow(() -> new IllegalStateException());
+        }
+        return value;
     }
 
     // TODO: duplicated code
     private Currency getCurrencyByMarKetCode(String marKetCode) {
-        return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst().orElseThrow(() -> new IllegalStateException());
+        return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst()
+                .orElseThrow(() -> new IllegalStateException());
     }
 
     public String getTitle() {
@@ -446,5 +455,9 @@ public class CruiseModel {
 
     public boolean hasLandPrograms() {
         return hasLandPrograms;
+    }
+
+    public String getMapOverHead() {
+        return mapOverHead;
     }
 }

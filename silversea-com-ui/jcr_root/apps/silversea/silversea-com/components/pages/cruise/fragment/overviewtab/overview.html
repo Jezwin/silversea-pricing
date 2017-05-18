@@ -1,7 +1,7 @@
 <div class="row" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="col-sm-6 hidden-xs voyageimg">
         <div class="voyageimg__info">
-            <p>Book by 2 May and choose a two category upgrade, 50% saving on a second suite or $1,000* on board credit</p>
+            <p>${cruise.cruiseModel.mapOverHead}</p>
         </div>
         <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
         <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>

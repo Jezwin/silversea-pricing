@@ -68,7 +68,10 @@
                                         </li>
                                     </ul>
                                     <div class="c-accordion__subtitle">
-                                        ${'duration' @ i18n}: ${item.duration} ${'hours' @ i18n} <br>
+                                        ${'duration' @ i18n}: 
+                                        <span data-sly-test="${item.duration.hours}">${item.duration.hours} ${'hours' @ i18n} </span>
+                                        <span data-sly-test="${item.duration.minutes}">${item.duration.minutes} ${'minutes' @ i18n} </span>
+                                        <br>
                                         ${'excursion' @ i18n} ${'code' @ i18n}: ${item.codeExcursion}
                                     </div>
                                 </div>
@@ -90,7 +93,13 @@
                                         </li>
                                     </ul>
                                     <ul class="c-list-inline">
-                                        <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'duration' @ i18n}: ${item.duration} Minutes</strong></li>
+                                        <li class="c-list-inline__item c-list-inline__item--separated">
+                                           <strong>
+                                             ${'duration' @ i18n}: 
+                                             <span data-sly-test="${item.duration.hours}">${item.duration.hours} ${'hours' @ i18n} </span>
+                                             <span data-sly-test="${item.duration.minutes}">${item.duration.minutes} ${'minutes' @ i18n} </span>
+                                           </strong>
+                                        </li>
                                         <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'schedule' @ i18n}: ${item.schedule}</strong></li>
                                         <li class="c-list-inline__item c-list-inline__item--separated"><strong>${'code' @ i18n}: ${item.codeExcursion}</strong></li>
                                     </ul>

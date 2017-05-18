@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -24,7 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
 public class ItineraryModel {
@@ -40,6 +43,7 @@ public class ItineraryModel {
     private String departTime;
     private String thumbnail;
     private String description;
+    private String country;
 
     private List<ExcursionModel> excursions;
     private List<LandprogramModel> landprograms;
@@ -52,6 +56,7 @@ public class ItineraryModel {
         resourceResolver = page.getContentResource().getResourceResolver();
         thumbnail = page.getProperties().get("image/fileReference", String.class);
         description = initDescription();
+        country = page.getProperties().get("countryIso3", String.class);
     }
 
     public void initDate(Node itineraryNode) {
@@ -148,8 +153,7 @@ public class ItineraryModel {
     }
 
     public String getCountry() {
-        // TODO convert iso3 to country name
-        return page.getProperties().get("countryIso3", String.class) ;
+        return country ;
     }
 
     public Calendar getDate() {
