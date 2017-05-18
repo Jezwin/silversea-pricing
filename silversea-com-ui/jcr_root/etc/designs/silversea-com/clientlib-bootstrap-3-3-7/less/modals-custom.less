@@ -35,6 +35,10 @@
     background-color: @modal-content-bg;
     background-clip: padding-box;
     outline: 0;
+
+    &--transparent {
+        background-color: transparent;
+    }
 }
 
 .modal-backdrop {
@@ -56,7 +60,7 @@
 }
 
 .modal-header {
-    padding: @modal-title-padding;
+    padding: 15px @modal-title-padding 0;
     &:extend(.clearfix all);
 }
 
