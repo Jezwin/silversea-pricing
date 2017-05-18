@@ -153,28 +153,16 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                             offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
                             offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
                             offersContentNode.setProperty("endDate", offers.getValidTo().toString());
-                            // TODO decommenté la ligne
-//                            offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
-                            offersPage.getContentResource().adaptTo(Node.class).addMixin("cq:Taggable");
-//                         
                             
+                            offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
                             
-//                            offersContentNode.addMixin("cq:Taggable");
                             geoMarket = offers.getMarkets();
                             market = new ArrayList<Tag>();
                             if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
                                 market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
                             }
-
-//                            tagManager.setTags(offersPage.adaptTo(Resource.class),
-//                                    market.stream().toArray((Tag[]::new)));
-
-                             offersContentNode.setProperty("cq:tags",market.stream().toArray((String[]::new)));
-
-                            // for (Tag tag : market) {
-                            // offersContentNode.setProperty("cq:tags",
-                            // tag.toString());
-                            // }
+                            tagManager.setTags(offersPage.getContentResource(),
+                                    market.stream().toArray((Tag[]::new)));
 
                             succesNumber = succesNumber + 1;
                             j++;
