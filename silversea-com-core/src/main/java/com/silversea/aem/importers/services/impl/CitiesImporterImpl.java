@@ -176,7 +176,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         }
                     } catch (Exception e) {
                         errorNumber = errorNumber + 1;
-                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        LOGGER.debug("cities error, number of faulures :", errorNumber);
                         j++;
                     }
                 }
