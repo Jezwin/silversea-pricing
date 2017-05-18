@@ -1,16 +1,12 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,17 +31,21 @@ public class JournalArchiveMonthModel {
     private String title;
 
     private String path;
-    
+
     private int monthNumber;
 
     @PostConstruct
     private void init() {
-        path = page.getPath();
-        Iterator<Page> contMonth = page.listChildren();
-        monthNumber = 0;
-        while (contMonth.hasNext()) {
-            monthNumber = monthNumber+1;
-            contMonth.next();
+        try{
+            path = page.getPath();
+            Iterator<Page> contMonth = page.listChildren();
+            monthNumber = 0;
+            while (contMonth.hasNext()) {
+                monthNumber = monthNumber+1;
+                contMonth.next();
+            }
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
         }
     }
 
@@ -68,7 +68,7 @@ public class JournalArchiveMonthModel {
     public void setPath(String path) {
         this.path = path;
     }
-    
+
     public int getMonthNumber() {
         return monthNumber;
     }

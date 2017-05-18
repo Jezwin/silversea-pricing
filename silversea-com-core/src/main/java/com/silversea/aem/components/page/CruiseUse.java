@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
@@ -25,7 +23,6 @@ import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
 
 public class CruiseUse extends WCMUsePojo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
 
     // TODO : to change US AND FT by default
     private static final String DEFAULT_GEOLOCATION_COUTRY = "FR";

@@ -1,7 +1,5 @@
 package com.silversea.aem.models;
 
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +25,7 @@ public class JournalArchiveModel {
     @Inject
     @Self
     private Page page;
-    
+
     @Inject
     @Self
     private String archivePath;
@@ -40,10 +37,14 @@ public class JournalArchiveModel {
     private String path;
 
     private List<JournalArchiveMonthModel> archiveMonth;
-    
+
     @PostConstruct
     private void init() {
-        path = page.getPath();
+        try{
+            path = page.getPath();
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public String getTitle() {

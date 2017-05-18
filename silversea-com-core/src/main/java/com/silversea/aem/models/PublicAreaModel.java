@@ -4,18 +4,20 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 
 @Model(adaptables = Page.class)
-public class PublicAreaModel {
+public class PublicAreaModel extends AbstractModel{
+
+    static final private Logger LOGGER = LoggerFactory.getLogger(PublicAreaModel.class);
 
     @Inject
     @Self
@@ -42,35 +44,16 @@ public class PublicAreaModel {
 
     @PostConstruct
     private void init() {
-        resourceResolver = page.getContentResource().getResourceResolver();
-        title = initProperty("publicAreaReference", title, "title");
-        longDescription = initProperty("publicAreaReference", longDescription, "longDescription");
-        assetSelectionReference = initProperty("publicAreaReference", assetSelectionReference,
-                "assetSelectionReference");
-        thumbnail = page.getProperties().get("image/fileReference", String.class);
-    }
-
-    private String initProperty(String reference, String property, String referenceProperty) {
-        String value = property;
-        if (StringUtils.isEmpty(property)) {
-            Page page = getPageReference(reference);
-            if (page != null) {
-                value = page.getProperties().get(referenceProperty, String.class);
-            }
-
+        try{
+            resourceResolver = page.getContentResource().getResourceResolver();
+            title = initPropertyWithFallBack(page,"publicAreaReference", title, "title",resourceResolver);
+            longDescription = initPropertyWithFallBack(page,"publicAreaReference", longDescription, "longDescription",resourceResolver);
+            assetSelectionReference = initPropertyWithFallBack(page,"publicAreaReference", assetSelectionReference,
+                    "assetSelectionReference",resourceResolver);
+            thumbnail = page.getProperties().get("image/fileReference", String.class);
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
         }
-        return value;
-    }
-
-    private Page getPageReference(String reference) {
-        Page pageReference = null;
-        String path = page.getProperties().get(reference, String.class);
-        Resource resource = resourceResolver.resolve(path);
-        if (resource != null) {
-            pageReference = resource.adaptTo(Page.class);
-        }
-
-        return pageReference;
     }
 
     public String getLongDescription() {

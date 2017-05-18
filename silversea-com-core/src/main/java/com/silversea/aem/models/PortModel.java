@@ -1,19 +1,21 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
 
 /**
  * Created by aurelienolivier on 12/02/2017.
@@ -47,31 +49,34 @@ public class PortModel {
         excursions = new ArrayList<>();
         landprograms = new ArrayList<>();
         hotels = new ArrayList<>();
+        try{
+            final Iterator<Page> childs = page.listChildren();
 
-        final Iterator<Page> childs = page.listChildren();
+            while (childs.hasNext()) {
+                Page child = childs.next();
 
-        while (childs.hasNext()) {
-            Page child = childs.next();
+                if (child.getName().equals("excursions")) {
+                    Iterator<Page> excursionsPages = child.listChildren();
 
-            if (child.getName().equals("excursions")) {
-                Iterator<Page> excursionsPages = child.listChildren();
+                    while (excursionsPages.hasNext()) {
+                        excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
+                    }
+                } else if (child.getName().equals("land-programs")) {
+                    Iterator<Page> landProgramsPages = child.listChildren();
 
-                while (excursionsPages.hasNext()) {
-                    excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
-                }
-            } else if (child.getName().equals("land-programs")) {
-                Iterator<Page> landProgramsPages = child.listChildren();
+                    while (landProgramsPages.hasNext()) {
+                        landprograms.add(landProgramsPages.next().adaptTo(LandprogramModel.class));
+                    }
+                } else if (child.getName().equals("hotels")) {
+                    Iterator<Page> hotelsPages = child.listChildren();
 
-                while (landProgramsPages.hasNext()) {
-                    landprograms.add(landProgramsPages.next().adaptTo(LandprogramModel.class));
-                }
-            } else if (child.getName().equals("hotels")) {
-                Iterator<Page> hotelsPages = child.listChildren();
-
-                while (hotelsPages.hasNext()) {
-                    hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
+                    while (hotelsPages.hasNext()) {
+                        hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
+                    }
                 }
             }
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
         }
     }
 

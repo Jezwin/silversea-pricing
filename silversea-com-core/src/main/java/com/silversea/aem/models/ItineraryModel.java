@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -25,9 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
 public class ItineraryModel {
@@ -53,10 +50,14 @@ public class ItineraryModel {
 
     @PostConstruct
     private void init() {
-        resourceResolver = page.getContentResource().getResourceResolver();
-        thumbnail = page.getProperties().get("image/fileReference", String.class);
-        description = initDescription();
-        country = page.getProperties().get("countryIso3", String.class);
+        try{
+            resourceResolver = page.getContentResource().getResourceResolver();
+            thumbnail = page.getProperties().get("image/fileReference", String.class);
+            description = initDescription();
+            country = page.getProperties().get("countryIso3", String.class);
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public void initDate(Node itineraryNode) {
@@ -106,11 +107,16 @@ public class ItineraryModel {
                     String path = Objects.toString(node.getProperty(reference).getValue());
                     if (!StringUtils.isEmpty(path)) {
                         Resource resource = resourceResolver.resolve(path);
-                        Page pa = resource.adaptTo(Page.class);
-                        T model = pa.adaptTo(modelClass);
-                        callback(model, node, callBack, Node.class);
-                        list.add(model);
+                        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)  ){
+                            Page pa = resource.adaptTo(Page.class);
+                            T model = pa.adaptTo(modelClass);
+                            callback(model, node, callBack, Node.class);
+                            list.add(model);
+                        }
                     }
+                    else{
+                        LOGGER.warn("Page reference {} not found",path);
+                    } 
                 }
             }
         } catch (RepositoryException e) {

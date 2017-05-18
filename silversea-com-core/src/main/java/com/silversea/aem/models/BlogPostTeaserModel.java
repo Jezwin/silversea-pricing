@@ -1,29 +1,34 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.LanguageUtil;
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.helper.UrlHelper;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
-import org.apache.sling.models.annotations.injectorspecific.Self;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Calendar;
-import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.day.cq.commons.LanguageUtil;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.helper.UrlHelper;
 
 /**
  * Created by mbennabi on 20/02/2017.
  */
 @Model(adaptables = Page.class)
 public class BlogPostTeaserModel {
+
+    static final private Logger LOGGER = LoggerFactory.getLogger(BlogPostTeaserModel.class);
 
     @Inject
     @Self
@@ -77,22 +82,28 @@ public class BlogPostTeaserModel {
 
     public String getFormatPublicationDate() {
         String formatDate = "";
-        if (publicationDate != null) {
-            String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
-            String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
-            Calendar cal = DateUtils.toCalendar(publicationDate);
-            StringBuilder builder = new StringBuilder();
-            builder.append("<span class='number-value'>");
-            builder.append(cal.get(Calendar.DAY_OF_MONTH));
-            builder.append("</span>&nbsp;");
-            builder.append("<span class='span-date'>");
-            builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
-            builder.append("&nbsp;");
-            builder.append(cal.get(Calendar.YEAR));
-            builder.append("</span>");
-            formatDate = builder.toString();
+        try{
+
+            if (publicationDate != null) {
+                String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
+                String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
+                Calendar cal = DateUtils.toCalendar(publicationDate);
+                StringBuilder builder = new StringBuilder();
+                builder.append("<span class='number-value'>");
+                builder.append(cal.get(Calendar.DAY_OF_MONTH));
+                builder.append("</span>&nbsp;");
+                builder.append("<span class='span-date'>");
+                builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
+                builder.append("&nbsp;");
+                builder.append(cal.get(Calendar.YEAR));
+                builder.append("</span>");
+                formatDate = builder.toString();
+            }
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
         }
         return formatDate;
+
     }
 
     public String getPath() {
