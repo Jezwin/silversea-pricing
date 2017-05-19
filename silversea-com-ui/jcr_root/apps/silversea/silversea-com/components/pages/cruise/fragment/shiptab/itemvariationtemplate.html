@@ -1,7 +1,9 @@
 <template data-sly-template.default="${ @ list }">
     <div class="row c-cruise-ship-info__item" data-sly-repeat="${list}">
         <div class="col-sm-6 variationimg ${itemList.even ? ' col-sm-push-6' : ''}">
-            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
+            <a href="#" class="automatic-gallery-modal" data-target=".bs-modal-lg" data-gallery=".gallery">
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
+            </a>
         </div>
         <div class="col-sm-6 variationcontent ${itemList.even ? ' col-sm-pull-6' : ''}">
             <div class="ship-mobilewrapper">

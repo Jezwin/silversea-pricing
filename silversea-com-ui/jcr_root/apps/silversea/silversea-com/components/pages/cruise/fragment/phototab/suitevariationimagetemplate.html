@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ asset}">
-    <a href="#" class="c-cruise__gallery__item" data-sly-test="${asset}">
+    <a href="#" class="c-cruise__gallery__item automatic-gallery-modal" data-sly-test="${asset}" data-target=".bs-modal-lg" data-gallery=".gallery">
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=asset.path}" />
         <span class="c-cruise__gallery__item__caption" data-sly-test="${asset.metadata.dc:title}" data-sly-text="${asset.metadata.dc:title}"></span>
     </a>
