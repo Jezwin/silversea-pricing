@@ -1,0 +1,21 @@
+<template data-sly-template.default="${ @ list}">
+    <div class="hide">
+        <div class="modal-content modal-content--transparent">
+            <div class="modal-header">
+                <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+                <div class="c-slider c-slider--for" data-sly-list="${list}">
+                    <div>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
+                    </div>
+                </div>
+                <div class="c-slider c-slider--nav" data-sly-list="${list}">
+                    <div>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
