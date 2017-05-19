@@ -45,7 +45,7 @@ $(function(){
             var $modal = $(this);
 
             // Append gallery inside modal
-            $modal.find('.modal-content').replaceWith($link.siblings(':hidden').html());
+            $modal.find('.modal-content').replaceWith($link.siblings('.gallery:hidden').html());
 
             // Activate gallery
             $modal.find('.c-slider--for').slick({

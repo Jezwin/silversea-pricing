@@ -15,9 +15,9 @@
             <a href="#" type="button" data-target=".bs-modal-lg" class="automatic-gallery-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path}" />
             </a>
-            <strong class="hidden-xs">${'suite-location' @ i18n}</strong>
             <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
                 data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}" />
+            <strong class="hidden-xs">${'suite-location' @ i18n}</strong>
         </div>
         <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
             <strong class="visible-xs-block">${'virtual-tour' @ i18n}</strong>
