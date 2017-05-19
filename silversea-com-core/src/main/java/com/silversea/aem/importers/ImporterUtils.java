@@ -46,7 +46,7 @@ public class ImporterUtils {
 	 * @param resourceResolver: resource resolver
 	 * @return iterator of resources
 	 */
-	public static Iterator<Resource> findResourceById(String type,String property, String id,ResourceResolver resourceResolver){
+	public static Iterator<Resource> findResourceById(String path, String type,String property, String id,ResourceResolver resourceResolver){
 
 		Map<String, String> queryMap = new HashMap<String, String>();
 		//check if resource is a page or a node
@@ -54,7 +54,7 @@ public class ImporterUtils {
 		queryMap.put("type", type);
 		queryMap.put("property", property);
 		queryMap.put("id", id);
-		String queryTemplate = "/jcr:root/content/silversea-com/en//element(*,${type})[${property}=\'${id}\']";
+		String queryTemplate = path + "//element(*,${type})[${property}=\'${id}\']";
 		StrSubstitutor substitutor = new StrSubstitutor(queryMap);
 
 		//Execute query
@@ -134,9 +134,9 @@ public class ImporterUtils {
 	 * @param resourceResolver: resource resolver
 	 * @return a path
 	 */
-	public static String findReference(String property, String id,ResourceResolver resourceResolver){
+	public static String findReference(String path, String property, String id,ResourceResolver resourceResolver){
 
-		Iterator<Resource> res = findResourceById(NameConstants.NT_PAGE, property, id,resourceResolver);
+		Iterator<Resource> res = findResourceById(path, NameConstants.NT_PAGE, property, id,resourceResolver);
 		String reference = res.hasNext() ? res.next().getPath() : "";
 
 		return reference;
