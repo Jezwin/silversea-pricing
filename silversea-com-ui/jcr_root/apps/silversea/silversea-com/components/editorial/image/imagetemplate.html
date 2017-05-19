@@ -1,16 +1,21 @@
 <!--/* Responsive image */-->
-<template data-sly-template.default="${ @ imagePath, query }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+<template data-sly-template.default="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
     <picture data-sly-test="${imagePath}">
         <sly data-sly-test.imagePrefix="${'/is/image/'}" />
         <!--[if IE 9]><video style="display: none;"><![endif]-->
-        <source srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.mobileWidth}&fit=hfit,1, ${imagePath @ prependPath=imagePrefix}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x" media="(max-width: 767px)" />
-        <source srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1, ${imagePath @ prependPath=imagePrefix}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x" media="(min-width: 768px)" />
+        <source
+            srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.mobileWidth}&fit=hfit,1,
+            ${imagePath @ prependPath=imagePrefix}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x" media="(max-width: 767px)" />
+        <source
+            srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1,
+            ${imagePath @ prependPath=imagePrefix}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x" media="(min-width: 768px)" />
         <!--[if IE 9]></video><![endif]-->
         <img src="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
 
 <!--/* Image */-->
-<template data-sly-template.image="${ @ imagePath}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
-    <img src="${imagePath @ prependPath=imagePrefix}" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
+<template data-sly-template.image="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <sly data-sly-test.imagePrefix="${'/is/image/'}" />
+    <img src="${imagePath @ prependPath=imagePrefix}?wid=${width}&fit=hfit,1" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
 </template>

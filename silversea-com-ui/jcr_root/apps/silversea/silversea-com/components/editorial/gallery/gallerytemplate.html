@@ -7,12 +7,12 @@
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <div class="c-slider c-slider--for" data-sly-list="${list}">
                     <div>
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
+                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
                     </div>
                 </div>
                 <div class="c-slider c-slider--nav" data-sly-list="${list}">
                     <div>
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.path}" />
+                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
                     </div>
                 </div>
             </div>
