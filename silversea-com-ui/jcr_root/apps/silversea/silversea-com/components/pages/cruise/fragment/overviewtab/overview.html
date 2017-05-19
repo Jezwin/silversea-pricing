@@ -1,4 +1,4 @@
-<div class="row" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+<div class="row c-cruise__overview" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="col-sm-6 hidden-xs voyageimg">
         <div class="voyageimg__info">
             <p>${cruise.cruiseModel.mapOverHead}</p>
@@ -6,7 +6,7 @@
         <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
         <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-sm-6">
         <div class="row">
             <div class="col-xs-12 voyagetable">
                 <div class="voyagetable__elem">
@@ -42,8 +42,7 @@
             </div>
             <div class="col-xs-12 visible-xs voyageimg">
                 <div class="voyageimg__info">
-                    <!--/* TODO use getter when it will be available */-->
-                    <p>MapOverHead</p>
+                    <p>${cruise.cruiseModel.mapOverHead}</p>
                 </div>
                 <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
                 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
