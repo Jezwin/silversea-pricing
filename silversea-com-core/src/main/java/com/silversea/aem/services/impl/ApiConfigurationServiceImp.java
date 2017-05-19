@@ -55,7 +55,7 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
             "spetialOffersUrl:/content/silversea-com/en/exclusive-offers",
             "agenciesUrl:/content/silversea-com/en/other-resources/find-a-travel-agent",
             "citiesUrl:/content/silversea-com/en/other-resources/find-a-port",
-            "cruisesUrl:/content/silversea-com/en/destinations/destination", })
+            "cruisesUrl:/content/silversea-com/en/destinations/", })
     private static final String API_ROOT_PATH = "apiRootPath";
     private Map<String, String> api_root_path;
 

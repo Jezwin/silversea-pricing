@@ -267,7 +267,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
             }
 
             if (all || mode.equals(Mode.cruises)) {
-                cruisesImporter.importCruises();
+                cruisesImporter.loadData();;
                 response.getWriter().write("Cruises import Done<br/>");
                 response.getWriter().flush();
             }
