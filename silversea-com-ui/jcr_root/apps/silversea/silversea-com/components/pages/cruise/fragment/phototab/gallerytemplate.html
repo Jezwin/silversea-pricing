@@ -2,11 +2,11 @@
     <div class="c-cruise__gallery__featured clearfix" data-sly-repeat="${assetGroup}" data-sly-use.imageTemplate="suitevariationimagetemplate.html">
         <div class="c-cruise__gallery__featured__left">
             <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
-            <sly data-sly-call="${imageTemplate.default @ asset=item[1]}" />
+            <sly data-sly-call="${imageTemplate.default @ asset=item[3]}" />
         </div>
         <div class="c-cruise__gallery__featured__right">
+            <sly data-sly-call="${imageTemplate.default @ asset=item[1]}" />
             <sly data-sly-call="${imageTemplate.default @ asset=item[2]}" />
-            <sly data-sly-call="${imageTemplate.default @ asset=item[3]}" />
             <sly data-sly-call="${imageTemplate.default @ asset=item[4]}" />
         </div>
     </div>
