@@ -631,4 +631,16 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on"
         sling:message="available on" />
+    <find-your-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="find-your-cruise"
+        sling:message="find your cruise" />
+    <where-would-you-like-to-go
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="where-would-you-like-to-go"
+        sling:message="Where would you like to go?" />
+    <when-do-you-want-to-leave
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="when-do-you-want-to-leave"
+        sling:message="When do you want to leave?" />
 </jcr:root>

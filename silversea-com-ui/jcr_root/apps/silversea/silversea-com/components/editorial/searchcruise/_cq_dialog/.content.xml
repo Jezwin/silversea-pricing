@@ -13,7 +13,7 @@
         <items jcr:primaryType="nt:unstructured">
             <searchcruise
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Search cruise"
+                jcr:title="Search Cruise"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout
                     jcr:primaryType="nt:unstructured"
@@ -24,35 +24,16 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                            <title
-                                jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                fieldDescription="Title"
-                                fieldLabel="Title"
-                                name="./jcr:title" />
-                            <description
+                            <searchresultpage
                                 jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                fieldDescription="Description"
-                                fieldLabel="Description"
-                                name="./jcr:description" />
-                            <searchresult
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                    fieldDescription="Search result page"
-                                    fieldLabel="Search result page"
-                                    name="./pageReference"
-                                    rootPath="/content/silversea-com" />
-                            <brochures
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                    fieldDescription="Brochures page"
-                                    fieldLabel="Brochures page"
-                                    name="./brochuresReference"
-                                    rootPath="/content/silversea-com" />
+                                fieldLabel="Search result page"
+                                name="./pageReference"
+                                rootPath="/content/dam/siversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                         </items>
                     </column>
                 </items>
-            </searchcruise>
+            </herobanner>
         </items>
     </content>
 </jcr:root>
