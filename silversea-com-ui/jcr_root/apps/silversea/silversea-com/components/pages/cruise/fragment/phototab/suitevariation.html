@@ -3,6 +3,6 @@
     <p class="c-cruise__descr">${'restaurants-public-areas-descr' @ i18n}</p>
 
     <div class="c-cruise__gallery">
-        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetGroup = cruise.allAssetForSuite}" />
+        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetList = cruise.allAssetForSuite}" />
     </div>
 </div>

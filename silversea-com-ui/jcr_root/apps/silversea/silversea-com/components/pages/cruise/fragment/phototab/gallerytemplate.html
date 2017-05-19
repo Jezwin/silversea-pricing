@@ -1,5 +1,6 @@
-<template data-sly-template.default="${ @ assetGroup}">
-    <div class="c-cruise__gallery__featured clearfix" data-sly-repeat="${assetGroup}" data-sly-use.imageTemplate="suitevariationimagetemplate.html">
+<template data-sly-template.default="${ @ assetList}">
+    <sly data-sly-use.listHelper="${'com.silversea.aem.helper.ListHelper' @ list = assetList, size = 5}">
+    <div class="c-cruise__gallery__featured clearfix" data-sly-repeat="${listHelper.assetListGroup}" data-sly-use.imageTemplate="suitevariationimagetemplate.html">
         <div class="c-cruise__gallery__featured__left">
             <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
             <sly data-sly-call="${imageTemplate.default @ asset=item[3]}" />

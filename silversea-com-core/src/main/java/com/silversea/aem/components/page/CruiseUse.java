@@ -3,6 +3,8 @@ package com.silversea.aem.components.page;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,7 +13,6 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.google.common.collect.Lists;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
@@ -104,73 +105,74 @@ public class CruiseUse extends WCMUsePojo {
         return cruiseModel;
     }
 
-    public List<List<Asset>> getAllAssetForItinerary() {
-        if (cruiseModel != null) {
-            String assetSelectionReference;
-            List<Asset> assetList = new ArrayList<Asset>();
+    public List<Asset> getAllAssetForItinerary() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
 
-            // Add asset from several list inside the same list
-            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-            }
-
-            assetSelectionReference = cruiseModel.getAssetSelectionReference();
+        // Add asset from several list inside the same list
+        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
             if (StringUtils.isNotBlank(assetSelectionReference)) {
                 assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
             }
-
-            return buildAssetSListGroup(assetList);
         }
-        return null;
-    }
 
-    public List<List<Asset>> getAllAssetForSuite() {
-        if (cruiseModel != null) {
-            String assetSelectionReference;
-            List<Asset> assetList = new ArrayList<Asset>();
-
-            // Add asset from several list inside the same list
-            for (SuiteModel suite : cruiseModel.getSuites()) {
-                assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-            }
-
-            return buildAssetSListGroup(assetList);
+        assetSelectionReference = cruiseModel.getAssetSelectionReference();
+        if (StringUtils.isNotBlank(assetSelectionReference)) {
+            assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
         }
-        return null;
+
+        return assetList;
     }
 
-    public List<List<Asset>> getAllAssetForRestaturantNPublicAreas() {
-        if (cruiseModel != null) {
-            String assetSelectionReference;
-            List<Asset> assetList = new ArrayList<Asset>();
+    public List<Asset> getAllAssetForSuite() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
 
-            // Add asset from several list inside the same list
-            for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
-                assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
+        // Add asset from several list inside the same list
+        for (SuiteModel suite : cruiseModel.getSuites()) {
+            assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
+            if (StringUtils.isNotBlank(assetSelectionReference)) {
+                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
             }
-
-            for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
-                assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-            }
-
-            return buildAssetSListGroup(assetList);
         }
-        return null;
+
+        return assetList;
     }
 
-    private List<List<Asset>> buildAssetSListGroup(List<Asset> assetList) {
-        return Lists.partition(assetList, 5);
+    public List<Asset> getAllAssetForDinning() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
+
+        // Add asset from several list inside the same list
+        for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
+            assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
+            if (StringUtils.isNotBlank(assetSelectionReference)) {
+                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+            }
+        }
+
+        return assetList;
     }
+
+    public List<Asset> getAllAssetForPublicArea() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
+
+        // Add asset from several list inside the same list
+        for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
+            assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
+            if (StringUtils.isNotBlank(assetSelectionReference)) {
+                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+            }
+        }
+
+        return assetList;
+    }
+
+    public List<Asset> getAllAssetForDinningNPublicAreas() {
+        List<Asset> assetList = Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream()).collect(Collectors.toList());
+        return assetList;
+    }
+
 }
