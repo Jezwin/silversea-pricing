@@ -1,24 +1,25 @@
 $(function() {
-    $('.request-quote').on('click', function(e) {
+    $('.c-cruise .request-quote').on('click', function(e) {
         e.stopPropagation();
     })
 
-    // Force reinit slider when it was inside a hidden tab
+    // Force reinit slider when it was inside a hidden suite tab
     $('div[id^="suitelist-collapse"]').on('show.bs.collapse', function(e) {
         $(this).find('.c-tab__content[data-state="active"]').trigger('ctabcontent-shown');
     });
 
+    // Force reinit slider
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         var $currentSlider = $(this).find('.c-slider');
         $currentSlider.slick('unslick').slick(settingSlider);
     });
 
     // Force reinit slider for cruise for Enrichments and key people slider
-    $('.c-tab__content').on('ctabcontent-shown', function() {
+    $('.c-cruise .c-tab__content').on('ctabcontent-shown', function() {
         $(this).find('.c-slider').slick('unslick').slick(settingSlider);
     });
 
-    $('div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
+    $('.c-cruise div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
         var $currentCollapse = $(this);
         var $item = $('div[id^="suitelist-collapse"]').not($currentCollapse);
         $item.prev('.c-suitelist__heading').addClass('opacity');
@@ -34,14 +35,23 @@ $(function() {
     });
 
     // Open location tab on click event on tab
-    $('a[data-toggle="location-tab"]').on('click', function(e) {
+    $('.c-cruise a[data-toggle="location-tab"]').on('click', function(e) {
         e.preventDefault();
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
     })
 
     // Open tab from link other than tab
-    $('a[data-tab-target]').on('click', function() {
+    $('.c-cruise a[data-tab-target]').on('click', function(e) {
+        e.preventDefault();
         $('a[href="' + $(this).data('tab-target') + '"]').closest('li').trigger('click');
+    });
+
+    // Scroll to content
+    $('.c-cruise a[data-scroll-target]').on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop : $($(this).data('scroll-target')).offset().top - $('.c-header').height()
+        }, 500);
     });
 
     // Force Scroll top for highlight container on resize
