@@ -2,6 +2,7 @@ package com.silversea.aem.components.page;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -175,4 +176,25 @@ public class CruiseUse extends WCMUsePojo {
         return assetList;
     }
 
+    public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
+        LinkedHashMap<String, List<Asset>> gallery;
+        gallery = new LinkedHashMap<String, List<Asset>>();
+
+        if (getAllAssetForItinerary() != null) {
+            gallery.put("voyage", getAllAssetForItinerary());
+        }
+        if (getAllAssetForSuite() != null) {
+            gallery.put("suites", getAllAssetForSuite());
+        }
+        if (getAllAssetForDinning() != null) {
+            gallery.put("dinings", getAllAssetForDinning());
+        }
+        if (getAllAssetForPublicArea() != null) {
+            gallery.put("public-areas", getAllAssetForPublicArea());
+        }
+        // TODO : gallery.put("virtual-tours", value);
+        // TODO : gallery.put("ship-exteriors", value);
+
+        return gallery;
+    }
 }

@@ -22,29 +22,25 @@
 </template>
 
 <!--/* Gallery with Tab*/-->
-<template data-sly-template.galleryTab="${ @ list}">
-    <div class="gallery hide">
+<template data-sly-template.galleryTab="${ @ map}">
+    <div class="hide gallery">
         <div class="modal-content modal-content--transparent">
             <div class="modal-header">
                 <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-                <ul class="c-slider__tab">
-                    <li class="c-slider__tab__item" id="gallery-voyage"><a class="c-slider__tab__link active" href="#">${'voyage' @ i18n}</a></li>
-                    <li class="c-slider__tab__item" id="gallery-suites"><a class="c-slider__tab__link" href="#">${'suites' @ i18n}</a></li>
-                    <li class="c-slider__tab__item" id="gallery-dinnings"><a class="c-slider__tab__link" href="#">${'dinings' @ i18n}</a></li>
-                    <li class="c-slider__tab__item" id="gallery-public-areas"><a class="c-slider__tab__link" href="#">${'public-areas' @ i18n}</a></li>
-                    <li class="c-slider__tab__item" id="gallery-virtual-tours"><a class="c-slider__tab__link" href="#">${'virtual-tours' @ i18n}</a></li>
-                    <li class="c-slider__tab__item" id="gallery-ship-exteriors"><a class="c-slider__tab__link" href="#">${'ship-exteriors' @ i18n}</a></li>
+                <ul class="c-slider__tab" data-sly-list="${map}">
+                    <li class="c-slider__tab__item" data-category="${item}"><a class="c-slider__tab__link" href="#">${item}</a></li>
                 </ul>
-                <div class="c-slider c-slider--for" data-sly-list="${list}">
-                    <div>
+                <div class="c-slider c-slider--for" data-sly-list="${map}">
+                    <sly data-sly-test.category="${item}" />
+                    <div class="ratio-3-2" data-category-target="${category}" data-sly-repeat="${map[item]}">
                         <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
                     </div>
                 </div>
-                <div class="c-slider c-slider--nav" data-sly-list="${list}">
-                    <div>
-                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
+                <div class="c-slider c-slider--nav" data-sly-list="${map}">
+                    <div class="ratio-3-2" data-sly-repeat="${map[item]}">
+                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 105}" />
                     </div>
                 </div>
             </div>
