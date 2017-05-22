@@ -30,17 +30,17 @@
             </div>
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <ul class="c-slider__tab" data-sly-list="${map}">
-                    <li class="c-slider__tab__item" data-category="${item}"><a class="c-slider__tab__link" href="#">${item}</a></li>
+                    <li class="c-slider__tab__item"><a class="c-slider__tab__link" href="#" data-category="${item}">${item}</a></li>
                 </ul>
                 <div class="c-slider c-slider--for" data-sly-list="${map}">
                     <sly data-sly-test.category="${item}" />
-                    <div class="ratio-3-2" data-category-target="${category}" data-sly-repeat="${map[item]}">
-                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
+                    <div data-category-target="${category}" data-sly-repeat="${map[item]}">
+                        <div class="ratio" style="background-image:url(/is/image/${item.path @ context='uri'}?wid=970&fit=hfit,1)"></div>
                     </div>
                 </div>
                 <div class="c-slider c-slider--nav" data-sly-list="${map}">
-                    <div class="ratio-3-2" data-sly-repeat="${map[item]}">
-                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 105}" />
+                    <div data-sly-repeat="${map[item]}">
+                        <div class="ratio" style="background-image:url(/is/image/${item.path @ context='uri'}?wid=145&fit=hfit,1)"></div>
                     </div>
                 </div>
             </div>
