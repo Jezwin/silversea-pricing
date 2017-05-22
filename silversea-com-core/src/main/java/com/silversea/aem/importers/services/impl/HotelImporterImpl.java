@@ -21,6 +21,9 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
@@ -48,6 +51,9 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
     @Reference
     private ApiConfigurationService apiConfig;
 
+    @Reference
+    private Replicator replicat;
+
     private int errorNumber = 0;
     private int succesNumber = 0;
     private int sessionRefresh = 100;
@@ -58,23 +64,23 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
         /**
          * authentification pour le swagger
          */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         /**
-          * Récuperation du domain de l'api Swager
-          */
-         getApiDomain(apiConfig.getApiBaseDomain());
-         /**
-          * Récuperation de la session refresh
-          */
-         if(apiConfig.getSessionRefresh() != 0){
-             sessionRefresh = apiConfig.getSessionRefresh();
-         }
-         /**
-          * Récuperation de per page
-          */
-         if(apiConfig.getPageSize() != 0){
-             pageSize = apiConfig.getPageSize();
-         }
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        /**
+         * Récuperation du domain de l'api Swager
+         */
+        getApiDomain(apiConfig.getApiBaseDomain());
+        /**
+         * Récuperation de la session refresh
+         */
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
+        /**
+         * Récuperation de per page
+         */
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/hotels");
@@ -84,11 +90,12 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
             // get authentification to the Hotels API
             HotelsApi hotelsApi = new HotelsApi();
             hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-            
+
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            // Page citiesRootPage =
+            // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             int i = 1;
@@ -136,6 +143,9 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                                         hotelsPage = pageManager.create(portPage.getPath(), "hotels",
                                                 "/apps/silversea/silversea-com/templates/page", "Hotels", false);
                                     }
+                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
+                                        replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
+                                    }
 
                                     hotelPage = pageManager.create(hotelsPage.getPath(),
                                             JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
@@ -162,6 +172,15 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                             hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
                             j++;
                             succesNumber = succesNumber + 1;
+
+                            try {
+                                session.save();
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                        (hotelPage).getPath());
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
+
                         }
 
                         if (j % sessionRefresh == 0) {
@@ -192,6 +211,24 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
+            }
+
+            try {
+                // replicat.replicate(session,
+                // ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+                Iterator<Page> childPages = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS)
+                        .adaptTo(Page.class).listChildren();
+                while (childPages.hasNext()) {
+                    Page childPage = childPages.next();
+                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
+                    Iterator<Page> childs = childPage.listChildren();
+                    while (childs.hasNext()) {
+                        Page childP = childs.next();
+                        replicat.replicate(session, ReplicationActionType.ACTIVATE, childP.getPath());
+                    }
+                }
+            } catch (ReplicationException e) {
+                e.printStackTrace();
             }
 
             resourceResolver.close();

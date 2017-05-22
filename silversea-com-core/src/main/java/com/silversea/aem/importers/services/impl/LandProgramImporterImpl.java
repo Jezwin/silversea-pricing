@@ -21,6 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -54,6 +56,9 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
     @Reference
     private ApiConfigurationService apiConfig;
+    
+    @Reference
+    private Replicator replicat;
 
     @Override
     public void importData() throws IOException {
@@ -139,6 +144,9 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                                         landsPage = pageManager.create(portPage.getPath(), "land-programs",
                                                 "/apps/silversea/silversea-com/templates/page", "Land Program", false);
                                     }
+                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/land-programs").getPath()).isActivated()){
+                                        replicat.replicate(session,ReplicationActionType.ACTIVATE, landsPage.getPath());
+                                    }
 
                                     landPage = pageManager.create(landsPage.getPath(),
                                             JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
@@ -163,6 +171,15 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                             hotelPageContentNode.setProperty("landCode", land.getLandCod());
                             succesNumber = succesNumber + 1;
                             j++;
+                            
+                            try {
+                                session.save();
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                        (landPage).getPath());
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
+                            
                         }
 
                         if (j % sessionRefresh == 0) {

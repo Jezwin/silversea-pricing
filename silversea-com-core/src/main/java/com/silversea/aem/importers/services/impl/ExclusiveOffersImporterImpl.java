@@ -22,6 +22,9 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
@@ -29,6 +32,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -55,6 +59,9 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     @Reference
     private ApiConfigurationService apiConfig;
+    
+    @Reference
+    private Replicator replicat;
 
     // @Reference
     // private SlingHttpServletRequest request;
@@ -198,6 +205,19 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                 }
             }
 
+            try {
+//              replicat.replicate(session, ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+              Iterator<Page> childPages = resourceResolver.getResource(offersRootPage.getPath())
+                      .adaptTo(Page.class).listChildren();
+              while (childPages.hasNext()) {
+                  Page childPage = childPages.next();
+                  replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
+              }
+
+          } catch (ReplicationException e) {
+              e.printStackTrace();
+          }
+            
             resourceResolver.close();
         } catch (ApiException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing Exclusive offers", e);
