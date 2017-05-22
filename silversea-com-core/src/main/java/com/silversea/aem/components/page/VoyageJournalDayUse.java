@@ -1,7 +1,6 @@
 package com.silversea.aem.components.page;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.silversea.aem.models.PortModel;
 import com.silversea.aem.models.VoyageJournalDayModel;
 
 /**
