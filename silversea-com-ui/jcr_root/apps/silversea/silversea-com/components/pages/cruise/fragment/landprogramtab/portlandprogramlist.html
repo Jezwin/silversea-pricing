@@ -2,7 +2,11 @@
 <div class="row">
     <div class="col-xs-12">
         <!--/* TODO replace with getter */-->
-        <h3 class="c-cruise__subtitle">1 ${'land-programmes' @ i18n} ${'and' @ i18n} 4 ${'pre-post-hotels' @ i18n}</h3>
+        <h3 class="c-cruise__subtitle">
+             <span data-sly-test="${cruise.cruiseModel.itinerariesData.nbLandPrograms}">${cruise.cruiseModel.itinerariesData.nbLandPrograms} ${'land-programmes' @ i18n} </span>
+             <span data-sly-test="${cruise.cruiseModel.itinerariesData.nbLandPrograms && cruise.cruiseModel.itinerariesData.nbHotels}"> ${'and' @ i18n} </span>
+             <span data-sly-test="${cruise.cruiseModel.itinerariesData.nbHotels}">${cruise.cruiseModel.itinerariesData.nbHotels} ${'pre-post-hotels' @ i18n} </span>
+        </h3>
         <p class="c-cruise__descr">
             ${'land-programmes-description' @ i18n}
         </p>

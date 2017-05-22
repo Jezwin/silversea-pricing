@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -31,8 +30,6 @@ import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.ItinerariesData;
 import com.silversea.aem.components.beans.PriceData;
-
-import io.swagger.client.model.Itinerary;
 
 /**
  * Created by mbennabi on 17/02/2017.
