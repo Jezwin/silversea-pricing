@@ -1,3 +1,4 @@
+<!--/* Simple gallery */-->
 <template data-sly-template.default="${ @ list}">
     <div class="gallery hide">
         <div class="modal-content modal-content--transparent">
@@ -5,6 +6,37 @@
                 <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+                <div class="c-slider c-slider--for" data-sly-list="${list}">
+                    <div>
+                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
+                    </div>
+                </div>
+                <div class="c-slider c-slider--nav" data-sly-list="${list}">
+                    <div>
+                        <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!--/* Gallery with Tab*/-->
+<template data-sly-template.galleryTab="${ @ list}">
+    <div class="gallery hide">
+        <div class="modal-content modal-content--transparent">
+            <div class="modal-header">
+                <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+                <ul class="c-slider__tab">
+                    <li class="c-slider__tab__item" id="gallery-voyage"><a class="c-slider__tab__link active" href="#">${'voyage' @ i18n}</a></li>
+                    <li class="c-slider__tab__item" id="gallery-suites"><a class="c-slider__tab__link" href="#">${'suites' @ i18n}</a></li>
+                    <li class="c-slider__tab__item" id="gallery-dinnings"><a class="c-slider__tab__link" href="#">${'dinings' @ i18n}</a></li>
+                    <li class="c-slider__tab__item" id="gallery-public-areas"><a class="c-slider__tab__link" href="#">${'public-areas' @ i18n}</a></li>
+                    <li class="c-slider__tab__item" id="gallery-virtual-tours"><a class="c-slider__tab__link" href="#">${'virtual-tours' @ i18n}</a></li>
+                    <li class="c-slider__tab__item" id="gallery-ship-exteriors"><a class="c-slider__tab__link" href="#">${'ship-exteriors' @ i18n}</a></li>
+                </ul>
                 <div class="c-slider c-slider--for" data-sly-list="${list}">
                     <div>
                         <sly data-sly-call="${imageTemplate.image @ imagePath=item.path, width = 970}" />

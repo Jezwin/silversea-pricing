@@ -70,10 +70,14 @@
     </div>
     <!--/* Photos and videos gallery modal */-->
     <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
-        data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}" />
+        data-sly-call="${galleryTemplate.galleryTab @ list=cruise.allAssetForItinerary}" />
         <!--/* 
             cruise.allAssetForItinerary
             cruise.allAssetForSuite
-            cruise.allAssetForRestaturantNPublicAreas
+            cruise.allAssetForDinning
+            cruise.allAssetForPublicAreas
+
+            cruise.allVirtualTour
+            cruise.allAssetShipExterior
         */-->
 </div>
