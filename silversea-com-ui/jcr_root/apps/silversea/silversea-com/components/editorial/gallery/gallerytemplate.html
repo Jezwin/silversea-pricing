@@ -3,7 +3,7 @@
     <div class="gallery hide">
         <div class="modal-content modal-content--transparent">
             <div class="modal-header">
-                <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <div class="c-slider c-slider--for" data-sly-list="${list}">
@@ -24,9 +24,9 @@
 <!--/* Gallery with Tab*/-->
 <template data-sly-template.galleryTab="${ @ map}">
     <div class="hide gallery">
-        <div class="modal-content modal-content--transparent">
+        <div class="modal-content modal-content--transparent modal-content--gallery">
             <div class="modal-header">
-                <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <ul class="c-slider__tab" data-sly-list="${map}">
