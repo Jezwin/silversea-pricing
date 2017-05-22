@@ -31,6 +31,9 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.tagging.TagManager.FindResults;
@@ -58,16 +61,16 @@ import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Price;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.SpecialOfferByMarket;
-import io.swagger.client.model.Voyage;
+import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 import io.swagger.client.model.VoyageSpecialOffer;
 
 @Service
 @Component(label = "Silversea.com - Cruises importer")
-public class CruisesImporterImpl extends BaseImporter implements CruisesImporter {
+public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesUpdateImporterImpl.class);
     private static final int PER_PAGE = 10;
     // Api urls
     private static final String VOYAGE_API_URL = "/api/v1/voyages";
@@ -92,6 +95,10 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+
+    @Reference
+    Replicator replicator;
+
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     private TagManager tagManager;
@@ -118,7 +125,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
     public void loadData() throws IOException {
         try {
             voyagePricesComplete = new ArrayList<VoyagePriceComplete>();
-            List<Voyage> voyages;
+            List<Voyage77> voyages;
             int i = 1;
 
             init();
@@ -126,16 +133,16 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
             final String authorizationHeader = getAuthorizationHeader(VOYAGE_API_URL);
             VoyagesApi voyageApi = new VoyagesApi();
             voyageApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-
+            Page destinationPage = pageManager
+                    .getPage(apiConfig.apiRootPath("cruisesUrl"));
+            String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage);
             do {
-                voyages = voyageApi.voyagesGet(null, null, null, null, null, i, PER_PAGE, null, null);
+                voyages = voyageApi.voyagesGetChanges(lastModificationDate, i, PER_PAGE, null, null);
                 processData(voyages); 
             } while (!voyages.isEmpty());
-            
-            Page destinationsPage = pageManager
-                    .getPage(apiConfig.apiRootPath("cruisesUrl"));
+
             //Save date of last modification
-            ImporterUtils.saveUpdateDate(destinationsPage);
+            ImporterUtils.saveUpdateDate(destinationPage);
             ImporterUtils.saveSession(session, false);
 
         } catch (ApiException | WCMException | RepositoryException e) {
@@ -148,38 +155,49 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
         }
     }
 
-    private void processData(List<Voyage> voyages) throws WCMException, RepositoryException, IOException, ApiException{
-        for (Voyage voyage : voyages) {
+    private void processData(List<Voyage77> voyages) throws WCMException, RepositoryException, IOException, ApiException{
+        for (Voyage77 voyage : voyages) {
+            try{
+                // retrieve cruises root page dynamically
+                String destination = getDestination(voyage.getVoyageId());
 
-            // retrieve cruises root page dynamically
-            String destination = getDestination(voyage.getDestinationId());
+                if (destination != null) {
+                    // Instantiate new hashMap which will contains
+                    // lowest prices for the cruise
+                    lowestPrices = new HashMap<String, PriceData>();
 
-            if (destination != null) {
-                // Instantiate new hashMap which will contains
-                // lowest prices for the cruise
-                lowestPrices = new HashMap<String, PriceData>();
+                    Page destinationPage = pageManager
+                            .getPage(apiConfig.apiRootPath("cruisesUrl").concat(destination));
 
-                Page destinationPage = pageManager
-                        .getPage(apiConfig.apiRootPath("cruisesUrl").concat(destination));
+                    Page cruisePage = getCruisePage(destinationPage,voyage);
 
-                Page cruisePage = getCruisePage(destinationPage,voyage);
+                    updateCruisePage(cruisePage, voyage);
+                    // build itineraries nodes
+                    buildOrUpdateIteneraries(cruisePage, voyage);
+                    // Create or update suites nodes
+                    buildOrUpdateSuiteNodes(cruisePage, voyage);
+                    // Create or update lowest prices
+                    buildLowestPrices(cruisePage.adaptTo(Node.class), lowestPrices);
+                    //Persist data
+                    ImporterUtils.saveSession(session, false);
 
-                updateCruisePage(cruisePage, voyage);
-                // build itineraries nodes
-                buildOrUpdateIteneraries(cruisePage, voyage);
-                // Create or update suites nodes
-                buildOrUpdateSuiteNodes(cruisePage, voyage);
-                // Create or update lowest prices
-                buildLowestPrices(cruisePage.adaptTo(Node.class), lowestPrices);
-                //Persist data
-                ImporterUtils.saveSession(session, false);
-            } else {
-                LOGGER.error("Error destination with id {} not found", voyage.getVoyageId());
+                    if(voyage.getIsDeleted()){
+                        replicator.replicate(session, ReplicationActionType.DEACTIVATE, cruisePage.getPath());
+                    }
+                    else if(voyage.getIsVisible()){
+                        replicator.replicate(session, ReplicationActionType.ACTIVATE, cruisePage.getPath());
+                    }
+                } else {
+                    LOGGER.error("Error destination with id {} not found", voyage.getVoyageId());
+                }
+            } catch (ReplicationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
     }
 
-    private Page getCruisePage(Page destinationPage,Voyage voyage) throws WCMException, RepositoryException{
+    private Page getCruisePage(Page destinationPage,Voyage77 voyage) throws WCMException, RepositoryException{
 
         // Retrieve and create or update cruise page
         Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH,
@@ -190,7 +208,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
         return cruisePage;
     }
-    private void updateCruisePage(Page cruisePage, Voyage voyage)
+    private void updateCruisePage(Page cruisePage, Voyage77 voyage)
             throws RepositoryException, IOException, ApiException {
 
         List<VoyageSpecialOffer> voyageSpecialOffers = getVoyageSpecialOffers(SPECIAL_OFFERS_API_URL,
@@ -215,7 +233,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
 
     }
 
-    private void setCruiseTags(Voyage voyage, Page page) throws RepositoryException {
+    private void setCruiseTags(Voyage77 voyage, Page page) throws RepositoryException {
 
         List<Tag> tags = new ArrayList<Tag>();
         if (voyage.getFeatures() != null && !voyage.getFeatures().isEmpty()) {
@@ -242,7 +260,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
         }
     }
 
-    private void buildOrUpdateIteneraries(Page cruisePage, Voyage voyage)
+    private void buildOrUpdateIteneraries(Page cruisePage, Voyage77 voyage)
             throws RepositoryException, IOException, ApiException {
 
         // Retrieve or create itineraries node
@@ -441,7 +459,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
         return voyagePriceComplete;
     }
 
-    private void buildOrUpdateSuiteNodes(Page cruisePage, Voyage voyage)
+    private void buildOrUpdateSuiteNodes(Page cruisePage, Voyage77 voyage)
             throws RepositoryException, IOException, ApiException {
 
         // Create or update suites nodes
@@ -488,7 +506,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
                     .filter(item -> suiteCategoryCode.equals(item.getSuiteCategoryCod())).findAny().orElse(null);
 
             if (price != null) {
-               
+
                 String variationId = voyageCode + suiteCategoryCode + voyagePriceMarket.getMarketCod()
                 + voyagePriceMarket.getCurrencyCod();
                 Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH,

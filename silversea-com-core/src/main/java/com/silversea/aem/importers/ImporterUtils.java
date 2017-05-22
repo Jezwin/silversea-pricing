@@ -1,6 +1,8 @@
 package com.silversea.aem.importers;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -49,6 +51,24 @@ public class ImporterUtils {
             Node node = page.getContentResource().adaptTo(Node.class);
             node.setProperty("lastModificationDate", Calendar.getInstance());   
         }
+    }
+    
+    /**
+     * Retrieve the last modification date of a page
+     * @param page: modified page
+     * @return lastModificationDate : modification date
+     */
+    public static String getLastModificationDate(Page page){
+        String lastModificationDate = null;
+        if(page!=null){
+            Resource resource = page.adaptTo(Resource.class);
+            if(resource != null && !resource.equals(Resource.RESOURCE_TYPE_NON_EXISTING)){
+                Date date = resource.getChild(JcrConstants.JCR_TITLE).getValueMap().get("lastModificationDate", Date.class);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+                lastModificationDate = formatter.format(date);
+            }
+        }
+        return lastModificationDate;
     }
 
     /**
