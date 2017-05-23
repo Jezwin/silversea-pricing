@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.replication.ReplicationException;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
-import com.silversea.aem.importers.services.CruisesImporter;
+import com.silversea.aem.importers.services.CruisesUpdateImporter;
 import com.silversea.aem.importers.services.HotelUpdateImporter;
 import com.silversea.aem.importers.services.LandProgramUpdateImporter;
 import com.silversea.aem.importers.services.ShoreExcursionsUpdateImporter;
@@ -55,7 +55,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     ShoreExcursionsUpdateImporter updateImportShoreExcursion;
 
     @Reference
-    private CruisesImporter cruisesUpdateImporter;
+    private CruisesUpdateImporter cruisesUpdateImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
