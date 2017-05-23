@@ -1,9 +1,8 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Suite display properties"></div>
 <div class="o-area-property-display">
-    <div class="o-section">
-        <img class="o-slider" src="${pageProperties.assetSelectionReference}" alt=""/>
+    <div data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
+        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties.assetSelectionReference}"></sly>
         <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
-        <div class="o-section o-section--separator o-description">
+        <div class="o-description">
             ${pageProperties.longDescription || currentPage.description @ context='html'}
         </div>
     </div>

@@ -2,27 +2,28 @@
 * c- SUBSCRIBE
 */
 .c-subscribe {
-    
+
     /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         border: 0;
     }
-    
+
     &__form {
-        padding: 20px;
+        padding: 20px 20px 0 20px;
         border: solid 1px @grey--d;
-        
-        /* phone breakpoint */
-        @media screen and (max-width: @screen-sm) {
-            margin-top: 30px;
+
+        &:first-child {
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                margin-bottom: 30px;
+            }
         }
 
-        
         &--label {
             font-family: @f-theano_didot;
             text-transform: uppercase;
             display: block;
-            
+
             &-text {
                 display: block;
                 width: 100%;
@@ -36,22 +37,52 @@
                 font-size: 26px;
             }
         }
-        
-        &--inputs {
-            width: 100%;
-            position: relative;
-            
-            .c-btn {
-                width: 112px;
-                position: absolute;
-                right: 0;
-                top: 0;
-                max-width: 130px;
-                min-width: 100px;
-                margin-left: 20px;
-                padding: 2px;
-                height: 100%;
+
+        .btn {
+            position: absolute;
+            right: 15px;
+            top: 0;
+            max-width: 130px;
+            min-width: 100px;
+            padding: 6px 0 6px 10px;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                padding: 2px 0 2px 15px;
             }
+        }
+
+        .o-input--lg, .c-btn--lg {
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                height: 32px;
+            }
+        }
+
+        &--error {
+            min-height: 30px;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+        }
+
+        & .has-error.has-danger .o-input {
+            color: @red;
+            border: solid 1px @red;
+
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+               color: @red;
+             }
+             &::-moz-placeholder { /* Firefox 19+ */
+               color: @red;
+             }
+             &:-ms-input-placeholder { /* IE 10+ */
+               color: @red;
+             }
+             &:-moz-placeholder { /* Firefox 18- */
+               color: @red;
+             }
+
         }
     }
 }

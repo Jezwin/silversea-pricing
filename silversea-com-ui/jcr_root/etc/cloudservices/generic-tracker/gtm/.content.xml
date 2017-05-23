@@ -3,13 +3,9 @@
     jcr:primaryType="cq:Page">
     <jcr:content
         cq:cloudservicename="generictracker"
-        cq:lastModified="{Date}2017-03-21T14:16:15.386Z"
-        cq:lastModifiedBy="admin"
         cq:template="/libs/cq/analytics/templates/generictracker"
-        jcr:lastModified="{Date}2017-03-21T14:16:15.379Z"
-        jcr:lastModifiedBy="admin"
         jcr:primaryType="cq:PageContent"
         jcr:title="GTM"
         sling:resourceType="cq/analytics/components/generictrackerpage"
-        snippetCode="&lt;script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':&#xa;new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],&#xa;j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=&#xa;'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);&#xa;})(window,document,'script','dataLayer','GTM-5CN7PQ8');&lt;/script>&lt;noscript>&lt;iframe src=&quot;https://www.googletagmanager.com/ns.html?id=GTM-5CN7PQ8&quot;&#xa;height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hidden&quot;>&lt;/iframe>&lt;/noscript>"/>
+        snippetCode="&lt;script type=&quot;text/javascript&quot;>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':&#xa;new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],&#xa;j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=&#xa;'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);&#xa;})(window,document,'script','dataLayer','GTM-5CN7PQ8');&lt;/script>&lt;noscript>&lt;iframe src=&quot;https://www.googletagmanager.com/ns.html?id=GTM-5CN7PQ8&quot;&#xa;height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hidden&quot;>&lt;/iframe>&lt;/noscript>"/>
 </jcr:root>

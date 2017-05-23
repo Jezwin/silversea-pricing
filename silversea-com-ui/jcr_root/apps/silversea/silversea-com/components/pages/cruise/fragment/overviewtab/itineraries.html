@@ -1,0 +1,93 @@
+<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
+        <p class="c-cruise__descr">
+            ${'cruise-itinerary-description' @ i18n}
+            <br/>
+            <a href="#photonvideo" class="bound"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+        </p>
+
+        <div class="c-accordion c-accordion--expander c-cruise-itineraries"
+             data-multiview="false"
+             data-more="<span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>"
+             data-close="<span>${'close' @ i18n}</span> <i class='fa fa-angle-up'></i>"
+             data-sly-test="${cruise.cruiseModel.itineraries}"
+             data-sly-list="${cruise.cruiseModel.itineraries}">
+            <div class="c-accordion__elem">
+                <div class="c-accordion__header">
+
+                    <div class="c-accordion__title c-accordion__title--img">
+                        <div class="c-accordion__title--img_block">
+                            <sly data-sly-test.imagePrefix="${'/is/image/'}" />
+                            <div style="background-image: url(${item.thumbnail @ prependPath=imagePrefix, context='uri'})"></div>
+                        </div>
+                    </div>
+
+                    <div class="c-accordion__title c-accordion__title--header">
+                        <div class="c-accordion__title">
+                            <div class="c-accordion__title">
+                                <ul class="c-accordion__subtitle list">
+                                    <li class="c-accordion__subtitle veryimportant">${item.title}</li>
+                                    <li class="c-accordion__subtitle city">${item.country}</li>
+                                </ul>
+                                <ul class="c-accordion__subtitle list">
+                                    <li class="c-accordion__subtitle" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
+                                        ${date.value}
+                                    </li>
+                                    <li class="c-accordion__subtitle arrivals">
+                                        <span data-sly-test="${item.arriveTime}">${'arrive' @ i18n}: ${item.arriveTime},</span> <span data-sly-test="${item.departTime}">${'depart' @ i18n} ${item.departTime}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="c-accordion__action">
+                                <span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>
+                            </div>
+                        </div>
+                        <div class="c-accordion__title--body c-accordion__header--unclickable">
+                                ${item.description @ context='html'}
+
+                            <a data-sly-test="${item.excursions.size > 0}"
+                               href="#"
+                               class="c-btn c-btn--white"
+                               type="button"
+                               title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
+                                ${'view' @ i18n} ${item.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                            </a>
+
+                            <a data-sly-test="${item.landprograms.size > 0}"
+                               href="#"
+                               class="c-btn c-btn--white"
+                               type="button"
+                               title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
+                                ${'view' @ i18n} ${item.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-accordion__body">
+                    <div class="c-accordion__body--panel">
+                        ${item.description @ context='html'}
+
+                        <a data-sly-test="${item.excursions.size > 0}"
+                           href="#"
+                           class="c-btn c-btn--white"
+                           type="button"
+                           title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
+                            ${'view' @ i18n} ${item.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                        </a>
+
+                        <a data-sly-test="${item.landprograms.size > 0}"
+                           href="#"
+                           class="c-btn c-btn--white"
+                           type="button"
+                           title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
+                            ${'view' @ i18n} ${item.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

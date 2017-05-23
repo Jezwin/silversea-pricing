@@ -37,17 +37,6 @@
                     PROCESS="com.day.cq.dam.core.process.MetadataProcessorProcess"
                     PROCESS_AUTO_ADVANCE="true"/>
             </metadataprocessorpro>
-            <process2
-                jcr:description="Extracts video poster frame"
-                jcr:primaryType="nt:unstructured"
-                jcr:title="FFmpeg thumbnails"
-                sling:resourceType="cq/workflow/components/model/process">
-                <metaData
-                    jcr:primaryType="nt:unstructured"
-                    PROCESS="com.day.cq.dam.video.FFMpegThumbnailProcess"
-                    PROCESS_ARGS="count:4,index:2,[140:100],[48:48],[319:319]"
-                    PROCESS_AUTO_ADVANCE="true"/>
-            </process2>
             <commandlineprocess
                 jcr:created="{Date}2013-10-16T14:43:22.402Z"
                 jcr:createdBy="admin"
@@ -67,17 +56,6 @@
                     PROCESS_AUTO_ADVANCE="true"
                     THUMBNAILS="[48:48,140:100,319:319]"/>
             </commandlineprocess>
-            <process3
-                jcr:description="Create web enabled video formats"
-                jcr:primaryType="nt:unstructured"
-                jcr:title="FFmpeg transcoding"
-                sling:resourceType="cq/workflow/components/model/process">
-                <metaData
-                    jcr:primaryType="nt:unstructured"
-                    PROCESS="com.day.cq.dam.video.FFMpegTranscodeProcess"
-                    PROCESS_ARGS="profile:firefoxhq,profile:hq,profile:flv,profile:iehq"
-                    PROCESS_AUTO_ADVANCE="true"/>
-            </process3>
             <inddmediaextractproc
                 jcr:created="{Date}2013-12-11T17:28:35.496+05:30"
                 jcr:createdBy="admin"

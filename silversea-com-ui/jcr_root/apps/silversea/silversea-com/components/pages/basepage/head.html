@@ -4,6 +4,7 @@
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
 <meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
+<sly data-sly-include="datalayer.html"></sly>
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
 <sly data-sly-include="author.html" />
 <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp" />

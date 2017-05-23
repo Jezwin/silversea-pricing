@@ -1,8 +1,8 @@
-<div data-sly-use.cookieDisclaimerUse="${'com.silversea.aem.components.included.CookieDisclaimerUse'}"
+<div data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse"
      data-sly-test.empty="${!cookieDisclaimerUse.description && wcmmode.edit}"
      class="cq-placeholder" data-emptytext="cookie disclaimer"></div>
 
-<div id="c-cookie" class="c-floatingbar"
+<div id="c-cookie" class="c-floatingbar" data-show="false"
      data-sly-test="${(cookieDisclaimerUse.showCookieMsg || wcmmode.edit) && cookieDisclaimerUse.description}" >
     <div class="container">
         <p>${cookieDisclaimerUse.description}</p>

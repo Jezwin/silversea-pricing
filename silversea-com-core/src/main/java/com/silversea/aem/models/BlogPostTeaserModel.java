@@ -1,31 +1,29 @@
 package com.silversea.aem.models;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.LanguageUtil;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.helper.UrlHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.helper.UrlHelper;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mbennabi on 20/02/2017.
  */
 @Model(adaptables = Page.class)
 public class BlogPostTeaserModel {
-
-    @Inject
-    private ResourceResolverFactory resourceResolverFactory;
 
     @Inject
     @Self
@@ -55,7 +53,6 @@ public class BlogPostTeaserModel {
     @PostConstruct
     private void init() {
         path = page.getPath();
-
     }
 
     public Page getPage() {
@@ -79,17 +76,23 @@ public class BlogPostTeaserModel {
     }
 
     public String getFormatPublicationDate() {
-        Calendar cal = DateUtils.toCalendar(publicationDate);
-        StringBuilder builder = new StringBuilder();
-        builder.append("<span class='number-value'>");
-        builder.append(cal.get(Calendar.DAY_OF_MONTH));
-        builder.append("</span>&nbsp;");
-        builder.append("<span class='span-date'>");
-        builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH));
-        builder.append("&nbsp;");
-        builder.append(cal.get(Calendar.YEAR));
-        builder.append("</span>");
-        return builder.toString();
+        String formatDate = "";
+        if (publicationDate != null) {
+            String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
+            String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
+            Calendar cal = DateUtils.toCalendar(publicationDate);
+            StringBuilder builder = new StringBuilder();
+            builder.append("<span class='number-value'>");
+            builder.append(cal.get(Calendar.DAY_OF_MONTH));
+            builder.append("</span>&nbsp;");
+            builder.append("<span class='span-date'>");
+            builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
+            builder.append("&nbsp;");
+            builder.append(cal.get(Calendar.YEAR));
+            builder.append("</span>");
+            formatDate = builder.toString();
+        }
+        return formatDate;
     }
 
     public String getPath() {
@@ -98,6 +101,16 @@ public class BlogPostTeaserModel {
 
     public String getProperUrl() {
         return UrlHelper.getProperUrl(path);
+    }
+
+    public String getThumbnailImageUrl() {
+        Resource resource = page.getContentResource().getChild("image");
+        ValueMap value = resource.getValueMap();
+        String imagePath = value.get("fileReference", String.class);
+        if (!StringUtils.isNotEmpty(imagePath)) {
+            imagePath = "/content/dam/siversea-com/blog/noimage.png";
+        }
+        return imagePath;
     }
 
 }

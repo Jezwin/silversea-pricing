@@ -10,5 +10,12 @@
     <jcr:content
             jcr:primaryType="cq:PageContent"
             sling:resourceType="silversea/silversea-com/components/pages/dining">
+            <par jcr:primaryType="nt:unstructured" sling:resourceType="wcm/foundation/components/responsivegrid"
+                components="[group:displayproperties]">
+                <display
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="silversea/silversea-com/components/displayproperties/diningarea"
+                    text="Display properties" />
+            </par>
     </jcr:content>
 </jcr:root>

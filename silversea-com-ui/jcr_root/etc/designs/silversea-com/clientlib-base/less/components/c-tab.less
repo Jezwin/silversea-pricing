@@ -1,39 +1,46 @@
 .c-tab {
 
-
     &__nav {
         display: table;
         width: 100%;
+        margin-bottom: 30px;
 
         &--regular4 {
-
             .c-tab__link {
                 width: 25%;
             }
         }
-        &--regular5 {
 
+        &--regular5 {
             .c-tab__link {
                 width: 20%;
                 max-width: 190px;
             }
         }
+
+        &--regular6 {
+            .c-tab__link {
+                width: 100% / 6;
+            }
+        }
     }
+
     &__link {
         display: inline-block;
-        vertical-align: middle;
         text-align: center;
-        background-color: @grey--e6;
         border-bottom: solid 1px @grey--9;
+        padding-top: 15px;
 
         a {
             display: block;
-            padding: 10px;
+            background-color: @grey--e6;
+            height: 50px;
+            line-height: 50px;
             border-right: solid 1px @white;
-        }
 
-        &:hover {
-            background-color: @grey--e;
+            &:hover {
+                background-color: @grey--e;
+            }
         }
 
         &[data-state='active'] {
@@ -41,15 +48,154 @@
             border: 1px solid @grey--9;
             border-bottom: 0;
             font-weight: 700;
+            vertical-align: bottom;
+            padding-top: 0;
+
+            a {
+                background-color: @white;
+                height: 64px;
+                line-height: 64px;
+            }
+        }
+
+        @media screen and (min-width: @screen-md-min) {
+            &--button {
+                background: transparent;
+                border: 0;
+                padding: 0;
+
+                a {
+                    background: transparent;
+                    border: 0;
+                    color: @grey--7;
+                    font-size: 12px;
+                    height: auto;
+                    line-height: inherit;
+                    padding: 12px 10px;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        color: @black;
+                        background-color: @grey--ca;
+                    }
+                }
+
+                &:not(:last-child) a {
+                    border-right: 1px solid @grey--ca;
+                }
+
+                &[data-state='active'] {
+                    background: transparent;
+                    border: 2px solid @black;
+
+                    a {
+                        background-color: transparent;
+                        color: @black;
+                        height: auto;
+                        line-height: inherit;
+                        padding: 10px 8px;
+                    }
+                }
+            }
         }
     }
-    &__body {
-    }
+
     &__content {
         display: none;
 
         &[data-state='active'] {
             display: block;
+        }
+    }
+
+    &__accordion {
+        @media screen and (max-width: @screen-sm) {
+            position: relative;
+
+            .c-tab__nav {
+                display: block;
+                border: 0;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                padding-top: 52px;
+                position: absolute;
+                z-index:10;
+            }
+
+            .c-tab__body {
+                padding-top: 80px;
+            }
+
+            .c-tab__link {
+                display: none;
+                width: 100%;
+                max-width: inherit;
+                padding-top: 0;
+                text-align: left;
+                border-bottom: 1px solid @grey--d9;
+                border-left: 1px solid @grey--d9;
+                border-right: 1px solid @grey--d9;
+                position: relative;
+
+                &[data-state='active'] {
+                    display: block;
+                    border: 0;
+                    color: black;
+                    font-size: 18px;
+                    line-height: 28px;
+                    border: solid 1px @grey--d9;
+                    position: absolute;
+                    top: 0;
+
+                    &:hover {
+                        background-color: @white;
+                    }
+
+                    &::before {
+                        content: "\f107";
+                        font-family: FontAwesome;
+                        position: absolute;
+                        line-height: 52px;
+                        right: 10px;
+                    }
+                }
+
+                a {
+                    background-color: white;
+                    padding: 0;
+                    display: block;
+                    height: 50px;
+                    line-height: 20px;
+                    font-size: 14px;
+                    vertical-align: middle;
+                    padding: 15px 12px;
+                    color: @grey--3;
+
+                    &:hover {
+                        background-color: @white;
+                    }
+                }
+            }
+
+            &.open {
+                .c-tab__link {
+                    display: block;
+
+                    a:hover {
+                        background-color: @grey--e;
+                    }
+
+                    &[data-state='active'] {
+                        background-color: @white;
+
+                        a:hover, a:focus, a:active {
+                            background-color: @white;
+                        }
+                    }
+
+                }
+            }
         }
     }
 }

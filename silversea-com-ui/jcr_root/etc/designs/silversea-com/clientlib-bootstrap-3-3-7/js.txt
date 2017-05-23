@@ -1,3 +1,7 @@
 #base=js
 
 modal.js
+dropdown.js
+collapse.js
+transition.js
+tab.js

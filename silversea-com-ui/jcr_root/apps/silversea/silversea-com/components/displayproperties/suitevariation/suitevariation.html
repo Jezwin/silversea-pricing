@@ -2,8 +2,8 @@
 <div class="o-area-property-display">
     <sly data-sly-use.cpt="com.silversea.aem.components.displayProperties.SuiteAreaVariationDisplayPropertiesUse" />
     <div class="o-section" data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference, query='?wid=680'}"></sly>
-        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title@ context='html'}</h1>
+        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties.assetSelectionReference}"></sly>
+        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
         <div class="o-section o-section--separator o-description">
             <div class="row">
                 <div class="col-sm-6"> 

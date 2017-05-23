@@ -9,6 +9,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -62,7 +63,11 @@ public class BrochureModel {
     }
 
     public String getOnlineBrochureUrl() {
-        return asset.getMetadataValue("onlineBrochureUrl");
+        return getCustomMetatdate(WcmConstants.PN_BROCHURE_ONLINE_URL, String.class);
+    }
+
+    public Boolean isBrochureDigitalOnly() {
+        return getCustomMetatdate(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
     }
 
     public Tag getLanguage() {
@@ -79,5 +84,22 @@ public class BrochureModel {
         }
 
         return null;
+    }
+
+    /**
+     * Helper: retrieve custom asset's meta data
+     * @param propertyName: property name
+     * @param type: Object type
+     * @return: property's value
+     */
+    private <T> T getCustomMetatdate(String propertyName, Class<T> type) {
+        Resource metadataResource = assetResource.getChild("jcr:content/metadata");
+        T value = null;
+        if (metadataResource != null) {
+            ValueMap properties = ResourceUtil.getValueMap(metadataResource);
+            value = properties.get(propertyName, type);
+        }
+
+        return value;
     }
 }

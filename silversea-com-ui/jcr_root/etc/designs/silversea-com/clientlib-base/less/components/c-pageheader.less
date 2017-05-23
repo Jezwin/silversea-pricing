@@ -1,7 +1,11 @@
 .c-pageheader {
     display: table;
     width: 100%;
-    margin: 30px 0px;
+    font-size: 13px;
+
+    &--nomrg {
+        margin-bottom: 0;
+    }
 
     &__title {
         padding-right: 15px;
@@ -13,6 +17,7 @@
             vertical-align: middle;
         }
     }
+
     &__subtitle {
         vertical-align: middle;
         padding-right: 15px;
@@ -23,6 +28,28 @@
             display: table-cell;
             vertical-align: middle;
         }
+
+        &--small {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            border-bottom: 1px solid @grey--d;
+            
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                background-color: @grey--3;
+                color: #fff;
+                height: 40px;
+                padding: 0;
+                padding-left: 15px;
+                width: 100%;
+                line-height: 40px;
+                border-bottom: 0;
+                margin-bottom: 0;
+            }
+        }
     }
 
     &__links {
@@ -31,7 +58,6 @@
 
         .c-list-inline__item {
             padding: 0 10px;
-            font-size: 12px;
         }
     }
 
@@ -40,12 +66,8 @@
         display: inline-block;
         font-weight: 500;
     }
+
     &__properties {
-        font-size: 13px;
         padding-top: 10px;
-        margin-bottom: 20px;
-    }
-    p {
-        font-size: 13px;
     }
 }

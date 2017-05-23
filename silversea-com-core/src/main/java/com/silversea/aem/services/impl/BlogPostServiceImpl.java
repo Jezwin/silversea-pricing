@@ -26,12 +26,12 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.models.BlogPostModel;
 import com.silversea.aem.models.BlogPostTeaserModel;
 import com.silversea.aem.services.BlogPostService;
 
+@Deprecated
 @Component(immediate = true)
-@Service(value = BlogPostServiceImpl.class)
+@Service(value = BlogPostService.class)
 public class BlogPostServiceImpl implements BlogPostService {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BlogPostServiceImpl.class);
@@ -49,13 +49,6 @@ public class BlogPostServiceImpl implements BlogPostService {
     @Activate
     public void activate(final ComponentContext context) {
 
-    }
-
-    @Override
-    public List<BlogPostModel> getBlogPostModelList(String path, String propertyKey, String propertyValue,
-            String sortBy) {
-        List<BlogPostModel> blogPostModelList = new ArrayList<>();
-        return blogPostModelList;
     }
 
     @Override
@@ -84,33 +77,19 @@ public class BlogPostServiceImpl implements BlogPostService {
                     blogPostTeaserModelList.add(blogPostTeaserModel);
                 }
             }
-
-        } catch (Exception e) {
+            getResourceResolver().close();
+        } catch (LoginException e) {
             String errorMessage = "Some issues are happened ()";
             LOGGER.error(errorMessage, e);
         }
-
         return blogPostTeaserModelList;
     }
 
-    @Override
-    public List<BlogPostModel> getBlogPostModel(String pagePath) {
-        // TODO Auto-generated method stub
-        return null;
+    private ResourceResolver getResourceResolver() throws LoginException {
+        return resourceResolverFactory.getAdministrativeResourceResolver(null);
     }
 
-    private ResourceResolver getResourceResolver() {
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-        } catch (LoginException e) {
-            String errorMessage = "Please contact administrator as something went wrong in activate()";
-            LOGGER.error(errorMessage, e);
-        }
-        return resourceResolver;
-    }
-
-    private Session getSession() {
+    private Session getSession() throws LoginException {
         return getResourceResolver().adaptTo(Session.class);
     }
 

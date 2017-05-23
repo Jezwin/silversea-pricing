@@ -1,0 +1,34 @@
+<div class="cruise__header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
+    <h1 class="cruise__header_title">
+        ${cruise.cruiseModel.title}
+        <span class="cruise_header_subtitle">${cruise.cruiseModel.destinationTitle}</span>
+    </h1>
+    <div class="cruise__header_desc">
+        <div class="cruise__header_txt">
+            <p>${cruise.cruiseModel.description}</p>
+        </div>
+        <div class="cruise__header_cta">
+            <a class="btn btn-thin btn-dark effect visible-xs" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            <a class="btn btn-thin btn-red effect" href="#"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+    <div class="cruise__header_meta hidden-xs">
+        <div class="cruise__header_nextprev">
+            <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html'}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
+            <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="cruise__header_metainfo">
+            <span>${cruise.cruiseModel.cruiseType}</span>
+            <span>${cruise.cruiseModel.ship.title}</span>
+            <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
+            <ul data-sly-list="${cruise.cruiseModel.features}">
+                <li class="meta_feature_inner">
+                    <span class="feature">
+                        <i class="${item.icon}"></i>
+                        <span class="tooltip"><i></i>${item.title}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

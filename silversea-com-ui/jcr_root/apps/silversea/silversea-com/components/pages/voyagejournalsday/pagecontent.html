@@ -1,7 +1,7 @@
 <section class="o-section">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8 c-voyagejournalsday" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
+            <div class="col-sm-8 c-voyagejournals" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
                 <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
 
                 <div class="c-pageheader">
@@ -23,7 +23,7 @@
                                 <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnit' @ i18n}
                             </li>
                             <li class="c-list-inline__item" data-sly-test="${compnt.weather}">
-                                <strong>${'weather' @ i18n}:</strong> ${compnt.weather} ${'weatherUnit' @ i18n}
+                                <strong>${'weather' @ i18n}:</strong> ${compnt.weather}
                             </li>
                             <li class="c-list-inline__item" data-sly-test="${compnt.wind}">
                                 <strong>${'wind' @ i18n}:</strong> ${compnt.wind} ${'windUnit' @ i18n}
@@ -32,8 +32,8 @@
                     </div>
                 </div>
 
-                <div class="c-voyagejournalsday__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                <div class="c-voyagejournalsday__info"></div>
+                <div class="c-voyagejournals__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                <div class="c-voyagejournals__info"></div>
                 <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
                     <a href="${cpt.previousPath}"
                         class="c-pagination--previous"

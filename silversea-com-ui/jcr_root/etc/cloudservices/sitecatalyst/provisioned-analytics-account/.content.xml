@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:cloudservicename="sitecatalyst"
+        cq:lastModified="{Date}2017-04-25T14:14:40.317Z"
+        cq:lastModifiedBy="mbennabi"
+        cq:template="/libs/cq/analytics/templates/sitecatalyst"
+        jcr:lastModified="{Date}2017-04-25T14:14:40.313Z"
+        jcr:lastModifiedBy="mbennabi"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Provisioned Analytics Account"
+        sling:resourceType="cq/analytics/components/sitecatalystpage"
+        company="Silversea"
+        connectedWhen="username"
+        disableImportPageImpressionsPublish="true"
+        password="\{fbca8619fb3dab57bbf69cfd781e41590983b986e7ebc302519e634cf57d6ed5}"
+        secret="\{deaa413c956d93c5de32e7c29b424cb141eb5a070da1d647b15ada7b67bf52c5d4d03d503e9fcb695441cf2ad0919561a8b572a0074ddd74875e93ecc1ac8742}"
+        server="https://api3.omniture.com/admin/1.4/rest/"
+        username="aem_user">
+        <public
+            jcr:primaryType="nt:unstructured"
+            disableTrackingCode="true"/>
+    </jcr:content>
+    <analytics/>
+</jcr:root>

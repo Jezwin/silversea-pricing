@@ -28,6 +28,7 @@
                                             cq-msm-lockable="suiteReference"
                                             fieldLabel="Suite reference"
                                             renderReadOnly="{Boolean}true"
+                                            rootPath="/content/silversea-com"
                                             name="./suiteReference"/>
                                     <suitefeatures
                                             jcr:primaryType="nt:unstructured"
@@ -62,7 +63,7 @@
                                             cq-msm-lockable="plan"
                                             fieldLabel="Plan"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             name="./plan"/>
                                     <virtualtour
                                             jcr:primaryType="nt:unstructured"
@@ -71,7 +72,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Virtual Tour"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             name="./virtualTour"/>
                                     <locationimage
                                             jcr:primaryType="nt:unstructured"
@@ -80,7 +81,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Location Image"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             name="./locationImage"/>
                                     <bedroomsinformation
                                             jcr:primaryType="nt:unstructured"
@@ -90,6 +91,12 @@
                                             fieldLabel="Bedrooms Information"
                                             renderReadOnly="{Boolean}true"
                                             name="./bedroomsInformation"/>
+                                    <suitesubtitle
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            name="./suiteSubTitle"
+                                            fieldLabel="Suite sub title"
+                                            required="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>

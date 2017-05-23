@@ -3,64 +3,648 @@
     jcr:language="en"
     jcr:mixinTypes="[mix:language]"
     jcr:primaryType="sling:Folder">
-    <select-the-brochure-language
+    <and
         jcr:primaryType="sling:MessageEntry"
-        sling:key="select-the-brochure-language"
-        sling:message="Select the brochure language" />
-    <suite-plan
+        sling:key="and"
+        sling:message="and" />
+    <avaible-on
         jcr:primaryType="sling:MessageEntry"
-        sling:key="suite-plan"
-        sling:message="Suite plan" />
-    <suite-location
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suite-location"
-        sling:message="Suite location" />
-    <virtual-tour
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="virtual-tour"
-        sling:message="Virtual tour" />
+        sling:key="avaible-on"
+        sling:message="Avaible on" />
     <archives
         jcr:primaryType="sling:MessageEntry"
         sling:key="archives"
         sling:message="Archives" />
-    <day
+    <arrive
         jcr:primaryType="sling:MessageEntry"
-        sling:key="day"
-        sling:message="Day" />
-    <features
+        sling:key="arrive"
+        sling:message="Arrive" />
+    <built-date
         jcr:primaryType="sling:MessageEntry"
-        sling:key="features"
-        sling:message="Features" />
-    <more-info
+        sling:key="built-date"
+        sling:message="Built date" />
+    <by
         jcr:primaryType="sling:MessageEntry"
-        sling:key="more-info"
-        sling:message="More info" />
+        sling:key="by"
+        sling:message="By" />
+    <click-to-call
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="click-to-call"
+        sling:message="Click to call" />
     <close
         jcr:primaryType="sling:MessageEntry"
         sling:key="close"
         sling:message="Close" />
-    <voyages
+    <code
         jcr:primaryType="sling:MessageEntry"
-        sling:key="voyages"
-        sling:message="Voyages" />
-    <suites
+        sling:key="code"
+        sling:message="code" />
+    <coordinates
         jcr:primaryType="sling:MessageEntry"
-        sling:key="suites"
-        sling:message="Suites" />
-    <dining
+        sling:key="coordinates"
+        sling:message="Coordinates" />
+    <crew-capacity
         jcr:primaryType="sling:MessageEntry"
-        sling:key="dining"
-        sling:message="Dining" />
-    <public-areas
+        sling:key="crew-capacity"
+        sling:message="Crew capacity" />
+    <cruise-itinerary
         jcr:primaryType="sling:MessageEntry"
-        sling:key="public-areas"
-        sling:message="Public Areas" />
+        sling:key="cruise-itinerary"
+        sling:message="Cruise itinerary" />
+    <cruise-excursion-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-excursion-description"
+        sling:message="Shore excursions provide the highlight of any cruise and allow you to gather a 360° vision of your destination. You may also make your own bespoke arrangements with the Silver Shore Concierge at least two weeks prior to sailing." />
+    <cruise-itinerary-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit" />
+    <cruise-itinerary-link
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-link"
+        sling:message="Click here to see all photos and videos." />
+    <date
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="date"
+        sling:message="Date" />
+    <day
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="day"
+        sling:message="Day" />
+    <days
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="days"
+        sling:message="Days" />
     <deck-plan-details
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
         sling:message="Deck Plan and Details" />
-    <keyfact
+    <depart
         jcr:primaryType="sling:MessageEntry"
-        sling:key="keyfact"
+        sling:key="depart"
+        sling:message="Depart" />
+    <departure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="departure"
+        sling:message="Departure" />
+    <destination-discover-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="destination-discover-more"
+        sling:message="Discover more about this destination" />
+    <destination-view-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="destination-view-cruise"
+        sling:message="View cruises for this destination" />
+    <dining
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining"
+        sling:message="Dining" />
+    <discover-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="discover-more"
+        sling:message="Discover more" />
+    <duration
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="duration"
+        sling:message="Duration" />
+    <enrichments
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="enrichments"
+        sling:message="Enrichments" />
+    <excursions
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="excursions"
+        sling:message="Excursions" />
+    <excursion-s
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="excursion-s"
+        sling:message="Excursion(s)" />
+    <fares-from
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-from"
+        sling:message="Fares from" />
+    <features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="features"
+        sling:message="Features" />
+    <find-a-port
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="find-a-port"
+        sling:message="Find a port" />
+    <footnotes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="footnotes"
+        sling:message="Footnotes" />
+    <follow-us
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="follow-us"
+        sling:message="Follow us" />
+    <free-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="free-brochure"
+        sling:message="Free brochure" />
+    <guests-capacity
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="guests-capacity"
+        sling:message="Guests capacity" />
+    <hours
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hours"
+        sling:message="Hours" />
+    <hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hotels"
+        sling:message="Hotels" />
+    <in
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="in"
+        sling:message="in" />
+    <incorrect-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="incorrect-email-address"
+        sling:message="Incorrect email address" />
+    <itineraries
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="itineraries"
+        sling:message="Itineraries" />
+    <key-fact
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="key-fact"
         sling:message="Key Fact" />
+    <land-programmes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programmes"
+        sling:message="Land programmes" />
+    <land-programme-s
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programme-s"
+        sling:message="Land programme(s)" />
+    <land-programmes-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programmes-description"
+        sling:message="Our land programmes (multi-day mid-, pre- or post-cruise) provide additional opportunities to discover more of the highlights and hidden treasures of the lands you visit." />
+    <land-and-hotel
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-and-hotel"
+        sling:message="Land and hotel" />
+    <location-images
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="location-images"
+        sling:message="Location images" />
+    <mail-me-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="mail-me-brochure"
+        sling:message="MAIL ME THIS BROCHURE" />
+    <menu
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="menu"
+        sling:message="Menu" />
+    <more-info
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more-info"
+        sling:message="More info" />
+    <more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more"
+        sling:message="More" />
+    <next
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="next"
+        sling:message="Next" />
+    <other-recent-journals
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-recent-journals"
+        sling:message="Other recent journals" />
+    <other-recent-story
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-recent-story"
+        sling:message="Other recent stories" />
+    <overview
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="overview"
+        sling:message="Overview" />
+    <plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="plan"
+        sling:message="Plan" />
+    <per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="per-guest"
+        sling:message="Per guest" />
+    <pre-post-hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-post-hotels"
+        sling:message="Pre-post hotels" />
+    <pressure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pressure"
+        sling:message="Pressure" />
+    <pressureUnit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pressureUnit"
+        sling:message="hPa" />
+    <previous
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="previous"
+        sling:message="Previous" />
+    <public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas"
+        sling:message="Public Areas" />
+    <read-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="read-more"
+        sling:message="Read more" />
+    <read-less
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="read-less"
+        sling:message="Read less" />
+    <request-or-download
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-or-download"
+        sling:message="Request or download" />
+    <required-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-email-address"
+        sling:message="Email address is required" />
+    <select-language
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-language"
+        sling:message="Select language" />
+    <search-more
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="search-more"
+        sling:message="Search more" />
+    <select-the-brochure-language
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-the-brochure-language"
+        sling:message="Select the brochure language" />
+    <schedule
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="schedule"
+        sling:message="Schedule" />
+    <silversea-voyage-journal
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="silversea-voyage-journal"
+        sling:message="Silversea voyage journal" />
+    <submit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="submit"
+        sling:message="Submit" />
+    <sign-up
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up"
+        sling:message="Sign-up" />
+    <suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites"
+        sling:message="Suites" />
+    <suites-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-fares"
+        sling:message="Suites and fares" />
+    <suite-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-location"
+        sling:message="Suite location" />
+    <suite-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-plan"
+        sling:message="Suite plan" />
+    <temperature
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="temperature"
+        sling:message="Temperature" />
+    <temperatureUnit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="temperatureUnit"
+        sling:message="C" />
+    <tonnage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="tonnage"
+        sling:message="Tonnage" />
+    <tons
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="tons"
+        sling:message="Tons" />
+    <view-online
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-online"
+        sling:message="VIEW ONLINE" />
+    <virtual-tour
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="virtual-tour"
+        sling:message="Virtual tour" />
+    <voyages
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyages"
+        sling:message="Voyages" />
+    <voyage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage"
+        sling:message="Voyage" />
+    <weather
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="weather"
+        sling:message="Weather" />
+    <wind
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="wind"
+        sling:message="Km" />
+    <windUnit
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="windUnit"
+        sling:message="Km" />
+    <your-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="your-email-address"
+        sling:message="Your email address" />
+    <phone
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="phone"
+        sling:message="phone" />
+    <fares-shown-are-per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-shown-are-per-guest"
+        sling:message="Fares shown are per guest" />
+    <fax
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fax"
+        sling:message="fax" />
+    <feature-exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feature-exclusive-offers"
+        sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
+    <suites-and-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-and-fares"
+        sling:message="Suites and fares" />
+    <ship
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ship"
+        sling:message="Ship" />
+    <highlight
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="highlight"
+        sling:message="Highlight" />
+    <photos-and-videos
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="photos-and-videos"
+        sling:message="Photos and videos" />
+    <included-cruise-fare
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="included-cruise-fare"
+        sling:message="included in the cruise fare" />
+    <view-all
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all"
+        sling:message="View all" />
+    <view-less
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-less"
+        sling:message="View less" />
+    <pre-cruise-hotels
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="pre-cruise-hotels"
+        sling:message="Pre-cruise hotels" />
+    <previous-voyage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="previous-voyage"
+        sling:message="previous voyage" />
+    <next-voyage
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="next-voyage"
+        sling:message="next voyage" />
+    <refurb-date
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="refurb-date"
+        sling:message="Last refurbishement" />
+    <request-quote
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-quote"
+        sling:message="request a quote" />
+    <fares-from
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-from"
+        sling:message="Fares from" />
+    <waitlist
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="waitlist"
+        sling:message="Waitlist" />
+    <per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="per-guest"
+        sling:message="Per guest" />
+    <cruise-enrichments-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-enrichments-description"
+        sling:message="Silversea's cruises offer you a chance to indulge your passions and enjoy experiences not found on a typical cruise" />
+    <view-deck-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-deck-plan"
+        sling:message="View the deck plan" />
+    <guests
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="guests"
+        sling:message="guests" />
+    <guests-capacity
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="guests-capacity"
+        sling:message="Guests capacity" />
+    <crew
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="crew"
+        sling:message="crew" />
+    <length
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="length"
+        sling:message="length" />
+    <feet
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feet"
+        sling:message="Feet" />
+    <meters
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="meters"
+        sling:message="Meters" />
+    <view-all-ship-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-ship-descr"
+        sling:message="View all ship description" />
+    <view-all-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-suites"
+        sling:message="View all suites" />
+    <view-all-restaurants
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-restaurants"
+        sling:message="View all restaurants" />
+    <view-all-public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-public-areas"
+        sling:message="View all public areas" />
+    <voyage-highlights
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage-highlights"
+        sling:message="voyage highlights" />
+    <expedition-team
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team"
+        sling:message="expedition team" />
+    <expedition-team-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team-descr"
+        sling:message="Between 11 and 13 qualified specialists, many with a PhD or Professor to their name, will be on hand during every voyage and shore excursion. They’ll give lecuters, run workshops, lead Zodiac trips and guide nature walks." />
+    <o1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="O1"
+        sling:message="Owner's" />
+    <o2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="O2"
+        sling:message="Owner" />
+    <cv
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CV"
+        sling:message="Classic Veranda" />
+    <sv
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="SV"
+        sling:message="Superior Veranda" />
+    <r1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="R1"
+        sling:message="Royal" />
+    <vs
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VS"
+        sling:message="View" />
+    <vr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VR"
+        sling:message="Veranda" />
+    <vi
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="VI"
+        sling:message="Vista" />
+    <ts
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="TS"
+        sling:message="Terrace" />
+    <sl
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="SL"
+        sling:message="Silver" />
+    <r2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="R2"
+        sling:message="Royal" />
+    <me
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ME"
+        sling:message="Medallion" />
+    <g2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="G2"
+        sling:message="Grand" />
+    <g1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="G1"
+        sling:message="Grand" />
+    <ex
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EX"
+        sling:message="Expedition" />
+    <es
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ES"
+        sling:message="Explorer" />
+    <ec
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EC"
+        sling:message="Explorer Class" />
+    <dx
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="DX"
+        sling:message="Deluxe Veranda" />
+    <dv
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="DV"
+        sling:message="Midship Veranda" />
+    <b6
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B6"
+        sling:message="Veranda 6" />
+    <b5
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B5"
+        sling:message="Veranda 5" />
+    <b4
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B4"
+        sling:message="Veranda 4" />
+    <b3
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B3"
+        sling:message="Veranda 3" />
+    <b2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B2"
+        sling:message="Veranda 2" />
+    <b1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="B1"
+        sling:message="Veranda 1" />
+    <ac
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="AC"
+        sling:message="Adventurer Class" />
+    <cruise-ship-suite-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-suite-description"
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite." />
+    <cruise-ship-publicarea-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-publicarea-description"
+        sling:message="Renowned for culinary excellence and innovative spirit, Silversea's luxury cruises offer a choice of open-seating dining options throughout the fleet, as well as several specialty venues aboard all non-expedition ships." />
+    <cruise-ship-restaurant-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-restaurant-description"
+        sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service." />
+    <restaurants-public-areas
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas"
+        sling:message="restaurants &amp; publics areas" />
+    <restaurants-public-areas-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas-descr"
+        sling:message="Your time on board will be time well-spent. Discover the dining options where you'll savour culinary excellence, and the exciting venues where you'll mingle with international travellers while enjoying our all-inclusive lifestyle." />
+    <suites-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants-public-areas-descr"
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />7*
+    <cruise-itinerary
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary"
+        sling:message="Cruise itinerary" />
+    <cruise-itinerary-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-descr"
+        sling:message="At the heart of any cruise are the destinations you visit - discover more in the gallery below." />
+    <select-your-suite-and-request-a-quote
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-your-suite-and-request-a-quote"
+        sling:message="SELECT YOUR SUITE AND REQUEST A QUOTE" />
+    <the-difference-between-each-single-suite
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship"
+        sling:message="The difference between each single Suite is available in the deck plan of the ship." />
+    <note
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="note"
+        sling:message="note" />
+    <available-on
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="available-on"
+        sling:message="available on" />
 </jcr:root>

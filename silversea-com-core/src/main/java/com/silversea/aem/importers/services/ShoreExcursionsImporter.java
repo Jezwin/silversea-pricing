@@ -7,5 +7,9 @@ import java.io.IOException;
  */
 public interface ShoreExcursionsImporter {
 
-    void importShoreExcursions() throws IOException;
+    void importData() throws IOException;
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

@@ -1,0 +1,44 @@
+.c-cruise__fare {
+    border-top: 1px solid #E9E9E9;
+    margin-bottom: 30px;
+
+    /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            border-top: none;
+        }
+
+    .c-list {
+        width: 100%;
+        float: left;
+        margin-left: 40px;
+        padding-right: 55px;
+        column-count: 2;
+        column-gap: 45px;
+        font-size: 13px;
+
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            column-count: 1;
+            column-gap: 0;
+            margin: 0 0 0 15px;
+            padding-right: 15px;
+        }
+
+        li {
+            list-style-type: square;
+            width: 100%;
+            float: left;
+            padding-right: 25px;
+            margin-bottom: 2px;
+        }
+    }
+
+    .c-list__expand {
+        text-align: center;
+        font-size: 12px;
+        padding: 20px 0 20px 0;
+        clear: both;
+    }
+}
+
+

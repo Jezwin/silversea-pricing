@@ -1,12 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <div data-sly-resource="${'sidemenu' @ resourceType='silversea/silversea-com/components/editorial/sidemenu'}"></div>
+            <div data-sly-resource="${'menu' @ resourceType='silversea/silversea-com/components/editorial/sidemenu'}"></div>
         </div>
         <div class="col-sm-9">
             <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
         </div>
     </div>
-    <hr />
     <div data-sly-resource="${'variationassetdisplay' @ resourceType='silversea/silversea-com/components/included/variationassetsdisplay', wcmmode='disabled'}" data-sly-unwrap="${!wcmmode.edit}"></div>
 </div>

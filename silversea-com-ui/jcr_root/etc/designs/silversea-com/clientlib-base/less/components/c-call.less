@@ -15,29 +15,25 @@
     &__inner {
         display: table-cell;
         vertical-align: middle;
-        
+
         .c-call__title {
             text-transform: uppercase;
             display: none;
             font-size: 12px;
-            
+
             @media screen and (max-width: @screen-sm) {
                 display: block;
             }
-            
+
         }
         .c-call__number {
             float: right;
             font-size: 14px;
             font-weight: @bold;
             display: block;
-            
+
             .c-call__number_icon {
                 font-size: 11px;
-                
-                @media screen and (max-width: @screen-sm) {
-                    display: none;
-                }
             }
         }
         .c-call__msg {
@@ -48,9 +44,6 @@
             padding-top: 5px;
             display: block;
 
-            @media screen and (max-width: @screen-sm) {
-                display: none;
-            }
             @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
                 display: none;
             }
@@ -103,7 +96,7 @@
         font-size: 18px;
         font-weight: 700;
         margin-left: 30px;
-        
+
         /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             display: block;

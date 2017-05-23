@@ -1,22 +1,22 @@
 package com.silversea.aem.components.editorial;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.RangeIterator;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.AssetManager;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.TagHelper;
 import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.services.GeolocationTagService;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -32,7 +32,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     private List<BrochureModel> brochuresNotLanguageFiltered;
 
-    private List<Tag> languages;
+    private HashMap<String, String> languages;
 
     private String currentLanguage;
 
@@ -67,7 +67,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         // Searching for brochures
         brochuresNotLanguageFiltered = new ArrayList<>();
         brochures = new ArrayList<>();
-        languages = new ArrayList<>();
+        languages = new HashMap<String, String>();
 
         LOGGER.debug("Searching brochures with tags: {}", tagList);
 
@@ -102,7 +102,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
                 if (language != null) {
                     LOGGER.debug("Adding language {} to language list", language.getTagID());
 
-                    languages.add(language);
+                    languages.put(language.getName(), language.getTitle());
                 }
             }
         }
@@ -112,7 +112,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         return brochures;
     }
 
-    public List<Tag> getLanguages() {
+    public HashMap<String,String> getLanguages() {
         return languages;
     }
 

@@ -1,44 +1,46 @@
-/**
- * 
- */
 package com.silversea.aem.components.page;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.sling.api.resource.Resource;
-
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.adobe.cq.social.journal.client.api.Journal;
 import com.day.cq.wcm.api.Page;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * @author mbennabi 14/03/2017
+ * TODO merge with {@link DiningUse}
  *
+ * @author mbennabi 14/03/2017
  */
 public class SuiteUse extends WCMUsePojo {
-    
 
-    private Map<String, String> suiteReferenceList;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SuiteUse.class);
+
+    private List<Page> suiteReferenceList = new ArrayList<>();
 
     @Override
     public void activate() throws Exception {
-        final String SHIPS_PATH = "/jcr:root/content/silversea-com/"+getCurrentPage().getAbsoluteParent(2).getName()+"/ships";
-        String suiteReferenc = getCurrentPage().getPath();
-        suiteReferenceList = new HashMap<String, String>();
-
-        Iterator<Resource> resources = getResourceResolver()
-                .findResources(SHIPS_PATH + "//*[jcr:content/@suiteReference=\"" + suiteReferenc + "\"]", "xpath");
+        Iterator<Resource> resources = getResourceResolver().findResources(
+                "//element(*, cq:Page)[" +
+                        "jcr:content/@sling:resourceType=\"silversea/silversea-com/components/pages/suitevariation\"" +
+                        " and jcr:content/@suiteReference=\"" + getCurrentPage().getPath() + "\"]",
+                "xpath");
 
         while (resources.hasNext()) {
-            Page node = resources.next().adaptTo(Page.class);
-            if (node.getParent() != null)
-                suiteReferenceList.put(node.getParent(2).getTitle(), node.getParent(2).getPath() + Journal.URL_SUFFIX);
+            Page page = resources.next().adaptTo(Page.class);
+
+            if (page != null && page.getParent(2) != null) {
+                LOGGER.debug("Found page {} on ship {}", page.getPath(), page.getParent(2).getPath());
+
+                suiteReferenceList.add(page.getParent(2));
+            }
         }
     }
 
-    public Map<String, String> getSuiteReferenceList() {
+    public List<Page> getSuiteReferenceList() {
         return suiteReferenceList;
     }
 }

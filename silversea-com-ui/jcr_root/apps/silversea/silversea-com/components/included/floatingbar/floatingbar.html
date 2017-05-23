@@ -1,11 +1,11 @@
-<sly data-sly-use.floatingBar="${'com.silversea.aem.components.included.FloatingBarUse'}"></sly>
-<div data-sly-test.empty="${!floatingBar.calltoActionList && wcmmode.edit}" class="cq-placeholder" data-emptytext="Floating bar"></div>
+<sly data-sly-use.button="com.silversea.aem.components.editorial.ButtonUse"></sly>
+<div data-sly-test="${!button.calltoActionList && wcmmode.edit}" class="cq-placeholder" data-emptytext="Floating bar"></div>
 
-<div data-sly-test="${!empty}" class="c-floatingbar">
-    <div class="container text-center" data-sly-list="${floatingBar.calltoActionList}">
-        <a href="${item.reference @ extension='html'}" class="btn btn-${item.color}" type="button">
-           <span class="visible-xs-inline">${item.titleTablet}</span>
-           <span class="hidden-xs">${item.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+<div data-sly-test.list="${button.calltoActionList}" data-sly-test="${pageProperties.showFloatingBar}" class="c-floatingbar hidden-xs">
+    <div class="container text-center" data-sly-list="${list}">
+        <a href="${item.reference @ extension='html'}" class="btn btn-${item.color} ${item.size}" type="button" data-sscclicktype="${item.analyticType}">
+           <span class="visible-xs-inline visible-sm-inline">${item.titleTablet || item.title}</span>
+           <span class="hidden-xs hidden-sm">${item.title}</span> <i class="fa fa-lg fa-angle-right"></i>
         </a>
     </div>
 </div>

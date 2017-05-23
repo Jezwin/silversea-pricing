@@ -1,0 +1,128 @@
+/*
+* c- ANNOUCEMENT
+*/
+
+.c-annoucement {
+    position: relative;
+
+    .wrapperhover {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    &__content {
+        width: 37%;
+        padding: 15px 10px 5px 10px;
+        color: #fff;
+        background-color: rgba(0,0,0,.5);
+        position: absolute;
+        left: 13%;
+        top: 20%;
+
+        /* phone breakpoint */
+        @media screen and (max-width: @screen-sm) {
+            border: 1px solid @grey--d;
+            width: 100%;
+            position: static;
+            padding: 20px 20px 15px 20px;
+            color: @black;
+            background-color: transparent;
+        }
+
+        &__title {
+            display: block;
+            margin: 0 0 20px;
+            font-family: @f-theano_didot;
+            line-height: 1;
+            text-transform: uppercase;
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                margin: 0 0 30px;
+            }
+
+            h2 {
+                font-size: 41px;
+                margin: 0;
+
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    font-size: 28px;
+                }
+
+                sup {
+                    font-size: 17px;
+                    position: relative;
+                    top: -20px;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        font-size: 11px;
+                        top: -16px;
+                    }
+                }
+            }
+
+            a {
+                display: block;
+                text-transform: none;
+                font-weight: bold;
+                font-size: 20px;
+                text-decoration: underline;
+                font-family: @f-sans_serif;
+                margin-bottom: 26px;
+
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    font-size: 15px;
+                    margin-top: 15px;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                sup {
+                    font-size: 11px;
+                    text-transform: uppercase;
+                    font-family: @f-theano_didot;
+                    top: -6px;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        font-size: 9px;
+                        top: -4px;
+                    }
+                }
+            }
+
+            h3 {
+                font-size: 32px;
+                margin: 0;
+                line-height: 1.2;
+
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        &__cta {
+
+            a {
+                position: relative;
+                z-index: 2;
+
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    background-color: @black;
+                    color: @white;
+                }
+            }
+        }
+    }
+}

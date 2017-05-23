@@ -10,13 +10,22 @@ import com.day.cq.wcm.api.Page;
 public class PageHelper extends WCMUsePojo {
 
     private Page page;
+    private String thumbnail;
 
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
         Resource resource = getResourceResolver().getResource(path);
+
         if (resource != null) {
             page = resource.adaptTo(Page.class);
+
+            if(page != null) {
+                Resource imageRes = page.getContentResource("image");
+                if (imageRes != null) {
+                    thumbnail = imageRes.getValueMap().get("fileReference", String.class);
+                }
+            }
         }
     }
 
@@ -45,5 +54,13 @@ public class PageHelper extends WCMUsePojo {
         }
 
         return path.substring(path.lastIndexOf('/') + 1);
+    }
+    
+
+    /**
+     * @return the page for a given path
+     */
+    public String getThumbnail() {
+        return thumbnail;
     }
 }

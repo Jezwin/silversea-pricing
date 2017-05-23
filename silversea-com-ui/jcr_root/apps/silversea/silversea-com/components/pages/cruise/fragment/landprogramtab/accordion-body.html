@@ -1,0 +1,30 @@
+<template data-sly-template.default="${ @ list }">
+
+    <sly data-sly-list="${list}">
+        <div  class="c-accordion__elem" >
+            <div class="c-accordion__header c-accordion__header--center-xs">
+                <div class="c-accordion__title">
+                    <p><strong>${item.title || item.name}</strong></p>
+                    <div class="c-accordion__subtitle hidden-xs">
+                        <p data-sly-test="${item.name}" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=80}">
+                            ${description.textTruncate || item.description}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
+                        </p>
+                        <sly data-sly-test="${!item.name}">
+                            ${item.shortDescription || 'shortDescription'}
+                        </sly>
+                    </div>
+                </div>
+
+                <div class="c-accordion__title c-accordion__action c-accordion__action--light">
+                    ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
+                </div>
+            </div>
+            <div class="c-accordion__body">
+                <div class="c-accordion__body--panel">
+                    ${item.description @ context='html'}
+                </div>
+            </div>
+        </div>
+    </sly>
+
+</template>

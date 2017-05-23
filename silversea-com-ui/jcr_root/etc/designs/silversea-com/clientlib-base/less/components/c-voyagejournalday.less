@@ -1,6 +1,9 @@
-/**/
+.c-voyagejournals {
 
-.c-voyagejournalsday {
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        padding: 0;
+    }
 
     &__header {
         border-bottom: 1px solid @black;
@@ -11,11 +14,13 @@
             font-size: 14px;
             margin: 0;
         }
+
         h1 {
             font-size: 24px;
             font-weight: 400;
             margin: 5px 0 10px 0;
         }
+
         p {
             font-size: 13px;
         }
@@ -26,12 +31,136 @@
         margin-bottom: 20px;
     }
 
-    &__content {
-        font-size: 13px;
-        line-height: 18px;
-    }
+    .c-list {
+        margin: 0 -5px;
+        overflow: hidden;
 
-    &__info {
+        &__item {
+            float: left;
+            position: relative;
+            width: 50%;
+            padding-bottom: 25px;
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-bottom: 25px;
 
+            &:nth-child(odd) { 
+                clear: both;
+
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    float: none;
+                }
+            }
+
+            &:nth-child(even) {
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    float: none;
+                }
+            }
+
+            &:hover .overlay img {
+                opacity: 0.5;
+
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    opacity: 1;
+                }
+            }
+
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                width: 100%;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-top: 1px solid @grey--d;
+            }
+
+            a {
+                display: block;
+                color: @white;
+
+                > * { padding: 0 15px; }
+
+                .voyage-ship-name {
+                    position: absolute;
+                    top: 50%;
+                    z-index: 2;
+                    font-style: italic;
+                    font-size: 18px;
+                    font-weight: 400;
+                    text-transform: capitalize;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        display: none;
+                    }
+                }
+
+                .voyage-journal-title {
+                    font-size: 18px;
+                    z-index: 2;
+                    position: absolute;
+                    bottom: 13%;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        font-size: 16px;
+                        bottom: 10%;
+                    }
+                }
+
+                .voyage-date {
+                    position: absolute;
+                    bottom: 3px;
+                    font-size: 14px;
+                    font-weight: @bold;
+                    color: @black;
+                    text-transform: uppercase;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        color: @white;
+                        font-size: 12px;
+                        bottom: 10px;
+                    }
+                }
+
+                .voyage-id {
+                    position: absolute;
+                    bottom: 3px;
+                    right: 3px;
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: @black;
+                    text-transform: uppercase;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        color: @white;
+                        font-size: 12px;
+                        bottom: 10px;
+                    }
+                }
+
+                .overlay {
+                    display: block;
+                    background: @black;
+                    padding: 0;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        padding: 0;
+                        -moz-transition: 0.3s ease;
+                        -o-transition: 0.3s ease;
+                        -ms-transition: 0.3s ease;
+                        transition: 0.3s ease;
+                        webkit-transition: 0.3s ease;
+                    }
+                }
+            }
+        }
     }
 }

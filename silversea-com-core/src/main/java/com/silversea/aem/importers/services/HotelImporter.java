@@ -7,5 +7,9 @@ import java.io.IOException;
  */
 public interface HotelImporter {
 
-    void importHotel() throws IOException;
+    void importData() throws IOException;
+
+    int getErrorNumber();
+    
+    int getSuccesNumber();
 }

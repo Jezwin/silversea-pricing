@@ -14,7 +14,7 @@
         _elems = _self.children('.c-accordion__elem'),
         _links = _elems.children('.c-accordion__header'),
         _contents = _self.find(_data.content),
-        _multiple = (_self.attr('data-multiview') == 'true') || false;
+        _multiple = (_self.attr('data-multiview') === 'true') || false;
 
         /*
         ** Link Click Event to show content
@@ -22,17 +22,22 @@
         _links.click(function (e) {
             e.preventDefault();
 
+            if($(e.target).hasClass('c-accordion__header--unclickable') || $(e.target).parent().hasClass('c-accordion__header--unclickable')){
+                return;
+            }
+
             var elem = $(this).parent().children(_data.content);
-            var isCollapsed = (elem.attr('data-collapsed') == 'true');
-            var value = (!isCollapsed) ? _data.close : _data.more;
+            var isCollapsed = ($(this).attr('data-state') === 'true');
+            var currentAction = (!isCollapsed) ? _data.close : _data.more;
 
             if (!_multiple) {
                 _contents.attr('data-collapsed', 'false');
+                _links.children(_data.action).html(_data.more);
                 _links.attr('data-state', 'false');
             }
             elem.attr('data-collapsed', !isCollapsed);
             $(this).attr('data-state', !isCollapsed);
-            $(this).children(_data.action).html(value);
+            $(this).find(_data.action).html(currentAction);
 
         });
     };

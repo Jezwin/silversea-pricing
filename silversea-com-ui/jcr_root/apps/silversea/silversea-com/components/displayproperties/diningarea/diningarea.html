@@ -1,14 +1,9 @@
 <div class="o-area-property-display">
-    <div class="o-section">
-        <!-- Image -->
-        <img class="o-slider" src="${pageProperties.assetSelectionReference}" alt=""/>
-        
-        <!-- Title -->
-        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
-       
-        <!-- Description -->
-        <div class="o-section o-description">
-            ${pageProperties.longDescription || currentPage.description @ context='html'}
+    <div data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
+        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}"></sly>
+        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
+        <div class="o-description">
+            ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
         </div>
     </div>
 </div>

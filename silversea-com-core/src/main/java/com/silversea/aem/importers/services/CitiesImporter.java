@@ -7,7 +7,11 @@ import java.io.IOException;
  */
 public interface CitiesImporter {
 
-    void importCities() throws IOException;
+    void importData() throws IOException;
 
     void importCity(final String cityId);
+
+    int getErrorNumber();
+
+    int getSuccesNumber();
 }

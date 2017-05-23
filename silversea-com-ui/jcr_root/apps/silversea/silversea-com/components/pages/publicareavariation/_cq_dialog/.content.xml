@@ -28,6 +28,7 @@
                                             fieldLabel="Public Area reference"
                                             name="./publicAreaReference"
                                             required="{Boolean}true"
+                                            rootPath="/content/silversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                     <plan
                                             jcr:primaryType="nt:unstructured"
@@ -36,7 +37,7 @@
                                             cq-msm-lockable="plan"
                                             fieldLabel="Plan"
                                             name="./plan"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                     <virtualtour
                                             jcr:primaryType="nt:unstructured"
@@ -45,7 +46,7 @@
                                             cq-msm-lockable="virtualTour"
                                             fieldLabel="Virtual Tour"
                                             name="./virtualTour"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                     <locationimage
                                             jcr:primaryType="nt:unstructured"
@@ -54,7 +55,7 @@
                                             cq-msm-lockable="locationImage"
                                             fieldLabel="Location Image"
                                             name="./locationImage"
-                                            rootPath="/content/dam/"
+                                            rootPath="/content/dam/siversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                 </items>
                             </column>

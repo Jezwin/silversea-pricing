@@ -9,5 +9,5 @@ import com.day.cq.replication.ReplicationException;
  */
 public interface ShoreExcursionsUpdateImporter {
 
-    void importUpdateShoreExcursions() throws IOException, ReplicationException;
+    void updateImporData() throws IOException, ReplicationException;
 }

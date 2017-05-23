@@ -1,19 +1,20 @@
 
-.blogpost {
+.blogpostlist {
     .c-sidebar {
         .text + .separator {
             margin: 20px 0 0;
-            
+
             hr {
                 margin: -15px 0 15px;
             }
         }
     }
-    
+
     h1 {
-        font: 400 30px 'Open Sans',arial,helvetica,sans-serif;
+        font: 400 30px @f-sans_serif;
         margin: 0 0 10px;
         word-break: break-word;
+
     }
     .blogpostfirst {
         &__img {
@@ -24,7 +25,7 @@
             font-weight: @bold;
             margin: 12px 0;
             max-width: 80%;
-            
+
             span {
                 display: inline;
                 font-size: 16px;
@@ -38,26 +39,21 @@
             line-height: 1;
             margin: 0 0 15px;
         }
-        &__descr {
-            
-        }
-        
     }
-    .blogpostlist {
-     
+    .blogpostwrapper {
         h3 {
             border-bottom: 1px solid #d9d9d9;
-            font: 700 12px "Open Sans",arial,helvetica,sans-serif;
+            font: 700 12px @f-sans_serif;
             margin-bottom: 20px;
             padding-bottom: 5px;
             padding-top: 30px;
             text-transform: uppercase;
         }
     }
-    
+
     .read-more {
         display: inline-block;
-        font-family: Open Sans,arial,helvetica,sans-serif;
+        font-family: @f-sans_serif;
         font-weight: 700;
         position: relative;
         width: auto;
@@ -72,15 +68,10 @@
             border-bottom: 1px solid #e6e6e6;
             width: 100%;
         }
-        
+
         i {
             position: relative;
             left: 15px;
-
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                display: none;
-            }
         }
     }
 }

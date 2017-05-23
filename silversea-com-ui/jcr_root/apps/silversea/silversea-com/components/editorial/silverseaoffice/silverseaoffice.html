@@ -1,22 +1,13 @@
+<div data-sly-test="${wcmmode.edit && !properties.jcr:title}" class="cq-placeholder" data-emptytext="Silversea Office"></div>
 <div class="c-office">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="c-office__title">${properties.jcr:title}</h3>
-                <p class="c-office__address">${properties.jcr:description}</p>
-                <div class="c-office__contact">
-                    <div data-sly-test="${properties.phone}" data-sly-unwrap>
-                        <p class="c-office__contact__phone">
-                            <span>phone: </span>${properties.phone}
-                        </p>
-                    </div>
-                    <div data-sly-test="${properties.fax}" data-sly-unwrap>
-                        <p class="c-office__contact__fax">
-                            <span>fax: </span>${properties.fax}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <h3 class="c-office__title" data-sly-text="${properties.jcr:title}"></h3>
+    <address class="c-office__address" data-sly-text="${properties.jcr:description}"></address>
+    <div class="c-office__contact">
+        <p  data-sly-test="${properties.phone}" class="c-office__contact__phone">
+            <b>${'phone' @ i18n}: </b>${properties.phone}
+        </p>
+        <p data-sly-test="${properties.fax}" class="c-office__contact__fax">
+            <b>${'fax' @ i18n}: </b>${properties.fax}
+        </p>
     </div>
 </div>

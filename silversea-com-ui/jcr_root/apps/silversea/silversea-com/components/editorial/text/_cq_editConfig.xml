@@ -5,7 +5,9 @@
         jcr:primaryType="cq:InplaceEditingConfig"
         active="{Boolean}true"
         editorType="text">
-        <config jcr:primaryType="nt:unstructured">
+        <config
+            jcr:primaryType="nt:unstructured"
+            externalStyleSheets="/etc/designs/silversea-com/clientlib-rte.min.css">
             <rtePlugins jcr:primaryType="nt:unstructured">
                 <subsuperscript
                     jcr:primaryType="nt:unstructured"
@@ -13,24 +15,32 @@
                 <paraformat
                     jcr:primaryType="nt:unstructured"
                     features="*">
-                    <format jcr:primaryType="nt:unstructured">
+                    <formats jcr:primaryType="cq:WidgetCollection">
                         <p
                             jcr:primaryType="nt:unstructured"
-                            description="This is my Paragraph"
+                            description="Paragraph"
                             tag="p" />
                         <h1
                             jcr:primaryType="nt:unstructured"
-                            description="Header 1"
+                            description="Heading 1"
                             tag="h1" />
                         <h2
                             jcr:primaryType="nt:unstructured"
-                            description="Header 2"
+                            description="Heading 2"
                             tag="h2" />
                         <h3
                             jcr:primaryType="nt:unstructured"
-                            description="Header 3"
+                            description="Heading 3"
                             tag="h3" />
-                    </format>
+                        <h4
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 4"
+                            tag="h4" />
+                        <h5
+                            jcr:primaryType="nt:unstructured"
+                            description="Heading 5"
+                            tag="h5" />
+                    </formats>
                 </paraformat>
                 <misctools
                     jcr:primaryType="nt:unstructured"
@@ -124,6 +134,14 @@
                             jcr:primaryType="nt:unstructured"
                             cssName="lead"
                             text="Lead" />
+                        <red
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-text-red"
+                            text="red" />
+                        <serif
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h-serif"
+                            text="serif" />
                     </styles>
                 </styles>
             </rtePlugins>

@@ -49,4 +49,8 @@ public class HotelModel {
     public String getCode() {
         return code;
     }
+
+    public Page getPage() {
+        return page;
+    }
 }

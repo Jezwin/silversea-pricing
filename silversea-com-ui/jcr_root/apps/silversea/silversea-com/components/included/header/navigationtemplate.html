@@ -3,7 +3,7 @@
     <li class="c-main-nav__subnav--col"><ul class="c-main-nav__subnav--list">
 </template>
 <template data-sly-template.ITEM_BEGIN="${ @ item }">
-    <li class="${item.page.depth > 4 ? 'c-main-nav__subnav--item' : 'c-main-nav__bottom--item'} ${item.page.name =='exclusive-offers' && item.page.depth == 4 ? 'hidden-md hidden-lg' : ''}">
+    <li class="${item.page.depth > 4 ? 'c-main-nav__subnav--item' : 'c-main-nav__bottom--item'} ${item.page.name =='exclusive-offers' && item.page.depth == 4 ? 'hidden-md hidden-lg' : ''} ${item.isOnTrail && item.page.depth == 4 ? 'c-main-nav__bottom--item--ontrail' : ''}">
         <a href="${item.path @ extension='html'}" role="menuitem" itemprop="url" class="${item.page.depth > 4 ? 'c-main-nav__subnav--link' : 'c-main-nav__bottom--link'}">
             <span itemprop="name">${item.title @ context='html'}</span>
         </a>

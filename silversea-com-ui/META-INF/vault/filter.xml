@@ -6,6 +6,8 @@
     <filter root="/etc/dam/dynamicmediaconfig" />
     <filter root="/etc/cloudservices/generic-tracker" />
     <filter root="/etc/cloudservices/dynamictagmanagement" />
+    <filter root="/etc/languages" />
+    <filter root="/etc/tags/rep:policy" />
 <!--     <filter root="/etc/clientlibs/dtm" /> -->
     <filter root="/etc/designs/silversea-com">
         <exclude pattern="/etc/designs/silversea-com/jcr:content(.*)" />

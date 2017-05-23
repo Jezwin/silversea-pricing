@@ -1,0 +1,114 @@
+.c-slider .c-hero-banner {
+    margin-bottom: 0;
+
+    @media screen and (max-width: @screen-sm) {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+.c-hero-banner {
+    margin: 0 auto 20px;
+    max-width: 930px;
+    position: relative;
+
+    &__content--white {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    &__title {
+        font-family: @f-theano_didot;
+        font-size: 30px;
+        line-height: 0.95;
+        margin-bottom: 20px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &__buttons {
+        text-align: center;
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__title {
+            font-size: 37px;
+            text-align: left;
+        }
+
+        &__image {
+            .full-width;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            height: 330px;
+            overflow: hidden;
+
+            .o-img {
+                left: 50%;
+                min-height: 330px;
+                max-width: none;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                width: auto;
+            }
+        }
+
+        &__image + .row &__content {
+            bottom: 0;
+            position: absolute;
+            top: 20px;
+            z-index: 1;
+        }
+
+        &__buttons {
+            bottom: 0;
+            position: absolute;
+            text-align: left;
+            width: 150px;
+
+            .btn {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        &__video-link {
+            color: @white;
+            height: 100%;
+            left: 50%;
+            opacity: .8;
+            position: absolute;
+            top: 0;
+            transition: opacity 300ms;
+            width: 100vw;
+            transform: translateX(-50%);
+
+            .fa-play {
+                font-size: 50px;
+                left: 50%;
+                position: absolute;
+                top: 50%;
+                transform: translate(-45%,-50%);
+
+                &:after {
+                    border: 3px solid @white;
+                    border-radius: 50%;
+                    content: "";
+                    display: block;
+                    left: 50%;
+                    height: 84px;
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(-55%,-50%);
+                    width: 84px;
+                }
+            }
+
+            &:hover, &:focus, &:active {
+                color: @white;
+                opacity: 1;
+            }
+        }
+    }
+}
