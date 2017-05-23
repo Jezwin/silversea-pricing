@@ -65,7 +65,7 @@ mvn_build_release_author:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://34.194.113.231:4502
+        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user  -Dcq.url=http://34.194.113.231:4502
     only:
         - /^[0-9]\.[0-9]\.[0-9]$/
 
@@ -74,7 +74,7 @@ mvn_build_release_publish1:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://34.196.202.218:4503
+        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.196.202.218:4503
     only:
         - /^[0-9]\.[0-9]\.[0-9]$/
 
@@ -83,6 +83,6 @@ mvn_build_release_publish2:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://34.192.200.203:4503
+        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.192.200.203:4503
     only:
         - /^[0-9]\.[0-9]\.[0-9]$/
