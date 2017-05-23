@@ -206,7 +206,9 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
             }
 
             try {
-//              replicat.replicate(session, ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+                if(!replicat.getReplicationStatus(session, offersRootPage.getPath()).isActivated()){
+                    replicat.replicate(session, ReplicationActionType.ACTIVATE, offersRootPage.getPath());
+                }
               Iterator<Page> childPages = resourceResolver.getResource(offersRootPage.getPath())
                       .adaptTo(Page.class).listChildren();
               while (childPages.hasNext()) {

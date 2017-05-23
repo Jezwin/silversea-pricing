@@ -206,7 +206,10 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             }
 
             try {
-                replicat.replicate(session, ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+                if(!replicat.getReplicationStatus(session, pageManager.getPage(ImportersConstants.BASEPATH_PORTS).getPath()).isActivated()){
+                    replicat.replicate(session, ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+                }
+                
                 Iterator<Page> childPages = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS)
                         .adaptTo(Page.class).listChildren();
                 while (childPages.hasNext()) {
