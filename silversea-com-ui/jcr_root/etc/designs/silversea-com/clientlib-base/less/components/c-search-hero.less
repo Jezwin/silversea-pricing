@@ -1,0 +1,187 @@
+.c-hero-banner__search {
+    margin: 0 auto;
+
+    .c-hero-banner__image {
+
+        @media screen and (max-width: @screen-sm) {
+            .full-width;
+            height: 195px;
+            background-position: center 0;
+        }
+    }
+
+    @media screen and (min-width: @screen-sm) {
+        .c-hero-banner__content:not(.c-hero-banner__content--white) {
+            color: @black;
+        }
+    }
+}
+
+.c-search-hero {
+    position: relative;
+    max-width: 930px;
+    margin: 0 auto 20px;
+
+    &__band {
+        .full-width;
+        height: 74px;
+        background-color: @grey--d;
+
+        @media screen and (max-width: @screen-sm) {
+            height: 241px;
+        }
+    }
+
+    &__form {
+        position: absolute;
+        top: 17px;
+        left: 15px;
+        width: 100%;
+
+        @media screen and (max-width: @screen-sm) {
+            top: 30px;
+        }
+
+        .col-sm-3 {
+            padding: 0 5px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+
+            @media screen and (max-width: @screen-sm) {
+                margin-bottom: 15px;
+                padding: 0;
+            }
+        }
+
+        .chosen-container {
+            width: 100% !important;
+
+            &.chosen-with-drop {
+
+                .chosen-single {
+                    border: 1px solid @black;
+                    border-bottom: 0;
+                    border-radius: 0;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                }
+            }
+
+            .chosen-single {
+                background: @white;
+                position: relative;
+                z-index: 2;
+                display: block;
+                width: 100%;
+                box-shadow: none;
+                border: 1px solid @white;
+                padding: 12px 40px 12px 12px;
+                height: 40px;
+                border-radius: 5px;
+
+                @media screen and (max-width: @screen-sm) {
+                    height: 34px;
+                    padding: 8px 12px 0;
+                }
+
+                span {
+                    color: @grey;
+                    font-size: 14px;
+                    line-height: initial;
+                    margin: 0;
+                    font-weight: 600;
+                    display: block;
+                    vertical-align: middle;
+
+                    @media screen and (max-width: @screen-sm) {
+                        font-weight: 400;
+                        font-size: 13px;
+                    }
+                }
+
+                div b {
+                    &:before {
+                        content: "\f107";
+                        font-family: FontAwesome;
+                        color: @black;
+                        font-size: 18px;
+                        font-weight: 400;
+                        position: relative;
+                        top: 8px;
+                        right: 10px;
+
+                        @media screen and (max-width: @screen-sm) {
+                            top: 5px;
+                        }
+                    }
+                }
+            }
+
+            .chosen-drop {
+                margin: -1px 4px 4px 0;
+                border-radius: 0;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border: 1px solid @black;
+                border-top: 0;
+                box-shadow: none;
+
+                .chosen-search {
+                    display: none;
+                }
+
+                .chosen-results {
+                    margin: 5px 4px 4px 0;
+                    max-height: 270px;
+
+                    li {
+                        font-size: 13px;
+                        line-height: 24px;
+                        margin: 0 15px 0 4px;
+
+                        &.result-selected {
+                            background: @black !important;
+                            color: @white;
+                            font-weight: @bold;
+                        }
+
+                        &.highlighted {
+                            background: @black !important;
+                            color: @white;
+                        }
+                    }
+                }
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            height: 40px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            margin-bottom: 0;
+
+            @media screen and (max-width: @screen-sm) {
+                height: 34px;
+                font-size: 12px;
+            }
+
+            i {
+                position: absolute;
+                right: 18px;
+                top: 50%;
+                font-size: 18px;
+                font-weight: 400;
+                margin-top: -9px;
+            }
+        }
+    }
+}

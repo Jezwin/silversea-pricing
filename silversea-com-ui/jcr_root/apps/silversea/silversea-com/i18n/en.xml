@@ -643,4 +643,12 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="when-do-you-want-to-leave"
         sling:message="When do you want to leave?" />
+    <all-destinations
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="all-destinations"
+        sling:message="All Destinations" />
+    <all-ships
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="all-ships"
+        sling:message="All Ships" />
 </jcr:root>

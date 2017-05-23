@@ -1,0 +1,70 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search hero"></div>
+<div class="c-hero-banner c-hero-banner__search" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+    data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
+    <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+    </div>
+    <div class="row c-hero-banner__row hidden-xs">
+        <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
+            <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+            <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+            <sly data-sly-test.btn1="${banner.btn1}" />
+            <sly data-sly-test.btn2="${banner.btn2}" />
+            <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+                <a data-sly-test="${btn1.reference}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+                    <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+                    <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+                </a>
+                <a data-sly-test="${btn2.reference}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+                    <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+                    <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+                </a>
+            </p>
+        </div>
+    </div>
+    <a data-sly-test="${properties.videoReference}" class="c-hero-banner__video-link hidden-xs" href="#">
+        <i class="fa fa-play"></i>
+    </a>
+</div>
+<div class="c-search-hero">
+    <div class="c-search-hero__band"></div>
+    <form class="row c-search-hero__form" action="${properties.pageReference}">
+        <div class="col-sm-3" data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
+            <select class="chosen form-control" name="destinations">
+                <option value="all">${'all-destinations' @ i18n}</option>
+                <option value="" data-sly-repeat="${destinations.page.listChildren}">${item.title}</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <select class="chosen form-control" name="dates">
+                <option value="all">All Departure Dates</option>
+                <option value="2017.05" data-uuid="filters_a_date_2017-05" data-sscclicktype="filters">May 2017</option>
+                <option value="2017.06" data-uuid="filters_a_date_2017-06" data-sscclicktype="filters">June 2017</option>
+                <option value="2017.07" data-uuid="filters_a_date_2017-07" data-sscclicktype="filters">July 2017</option>
+                <option value="2017.08" data-uuid="filters_a_date_2017-08" data-sscclicktype="filters">August 2017</option>
+                <option value="2017.09" data-uuid="filters_a_date_2017-09" data-sscclicktype="filters">September 2017</option>
+                <option value="2017.10" data-uuid="filters_a_date_2017-10" data-sscclicktype="filters">October 2017</option>
+                <option value="2017.11" data-uuid="filters_a_date_2017-11" data-sscclicktype="filters">November 2017</option>
+                <option value="2017.12" data-uuid="filters_a_date_2017-12" data-sscclicktype="filters">December 2017</option>
+                <option value="2018.01" data-uuid="filters_a_date_2018-01" data-sscclicktype="filters">January 2018</option>
+                <option value="2018.02" data-uuid="filters_a_date_2018-02" data-sscclicktype="filters">February 2018</option>
+                <option value="2018.03" data-uuid="filters_a_date_2018-03" data-sscclicktype="filters">March 2018</option>
+                <option value="2018.04" data-uuid="filters_a_date_2018-04" data-sscclicktype="filters">April 2018</option>
+                <option value="2018.05" data-uuid="filters_a_date_2018-05" data-sscclicktype="filters">May 2018</option>
+                <option value="2018.06" data-uuid="filters_a_date_2018-06" data-sscclicktype="filters">June 2018</option>
+                <option value="2018.07" data-uuid="filters_a_date_2018-07" data-sscclicktype="filters">July 2018</option>
+                <option value="2018.08" data-uuid="filters_a_date_2018-08" data-sscclicktype="filters">August 2018</option>
+                <option value="2018.09" data-uuid="filters_a_date_2018-09" data-sscclicktype="filters">September 2018</option>
+            </select>
+        </div>
+        <div class="col-sm-3" data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
+            <select class="chosen form-control" name="ships">
+                <option value="all">${'all-ships' @ i18n}</option>
+                <option value="" data-sly-repeat="${ships.page.listChildren}">${item.title}</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
+        </div>
+    </form>
+</div>
