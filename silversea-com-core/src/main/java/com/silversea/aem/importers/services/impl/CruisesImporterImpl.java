@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.jcr.Node;
@@ -31,6 +34,9 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.tagging.TagManager.FindResults;
@@ -84,11 +90,15 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
     private static final String PRICE_WAITLIST = "Waitlist:";
 
     private static final String DAM_PATH = "/content/dam/siversea-com/api-provided/";
+    private static final String QUERY_JCR_ROOT_PATH = "/jcr:root";
     private static final String QUERY_CONTENT_PATH = "/jcr:root/content/silversea-com/en";
     private static final String QUERY_TAGS_PATH = "/jcr:root/etc/tags";
 
     @Reference
     private ApiConfigurationService apiConfig;
+
+    @Reference
+    Replicator replicator;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -130,8 +140,9 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
             do {
                 voyages = voyageApi.voyagesGet(null, null, null, null, null, i, PER_PAGE, null, null);
                 processData(voyages); 
+                i++;
             } while (!voyages.isEmpty());
-            
+
             Page destinationsPage = pageManager
                     .getPage(apiConfig.apiRootPath("cruisesUrl"));
             //Save date of last modification
@@ -173,8 +184,10 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
                 buildLowestPrices(cruisePage.adaptTo(Node.class), lowestPrices);
                 //Persist data
                 ImporterUtils.saveSession(session, false);
+                //Replicate page
+                replicateResource(cruisePage);
             } else {
-                LOGGER.error("Error destination with id {} not found", voyage.getVoyageId());
+                LOGGER.error("Error destination with id {} not found", voyage.getDestinationId());
             }
         }
     }
@@ -222,9 +235,11 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
             voyage.getFeatures().forEach(item -> {
                 Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_TAGS_PATH, "cq:Tag", "featureId",
                         Objects.toString(item), resourceResolver);
-                Resource resource = resources.next();
-                if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
-                    tags.add(resource.adaptTo(Tag.class));
+                if(resources.hasNext()){
+                    Resource resource = resources.next();
+                    if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                        tags.add(resource.adaptTo(Tag.class));
+                    } 
                 }
             });
         }
@@ -233,7 +248,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
                 : CruiseType.SILVERSEA_EXPEDITION_CTUISE;
 
         FindResults findResults = tagManager.findByTitle(cruiseType.getValue());
-        if (findResults != null && ArrayUtils.isEmpty(findResults.tags)) {
+        if (findResults != null && !ArrayUtils.isEmpty(findResults.tags)) {
             tags.addAll(Arrays.asList(tagManager.findByTitle(cruiseType.getValue()).tags));
         }
         if (!tags.isEmpty() && page != null) {
@@ -273,6 +288,16 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
             updateExcursionsNode(excursions, itinerairesNode, itinerary);
         }
         ImporterUtils.saveSession(session, false);
+    }
+
+    private void replicateResource(Page page) throws RepositoryException{
+        try{
+            if(page != null){
+                replicator.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
+            }
+        } catch (ReplicationException e) {
+            LOGGER.error("Replication error",e);
+        }
     }
 
     private List<Itinerary> getCruiseIteneraries(String apiUrl, Integer voyageId) throws IOException, ApiException {
@@ -466,7 +491,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
         Node suiteGroupingNode = ImporterUtils.findOrCreateNode(rootNode, suiteRef.getName());
         suiteGroupingNode.setProperty("suiteReference", suiteRef.getPath());
 
-        Iterator<Resource> res = ImporterUtils.findResourceById(QUERY_CONTENT_PATH, JcrConstants.NT_UNSTRUCTURED,
+        Iterator<Resource> res = ImporterUtils.findResourceById(QUERY_JCR_ROOT_PATH + rootNode.getPath(), JcrConstants.NT_UNSTRUCTURED,
                 "suiteCategoryCod", price.getSuiteCategoryCod(), resourceResolver);
         Node suiteNode = ImporterUtils.adaptOrCreateNode(res, suiteGroupingNode, price.getSuiteCategoryCod());
         suiteNode.setProperty("suiteCategoryCod", price.getSuiteCategoryCod());
@@ -488,7 +513,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
                     .filter(item -> suiteCategoryCode.equals(item.getSuiteCategoryCod())).findAny().orElse(null);
 
             if (price != null) {
-               
+
                 String variationId = voyageCode + suiteCategoryCode + voyagePriceMarket.getMarketCod()
                 + voyagePriceMarket.getCurrencyCod();
                 Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH,
@@ -562,7 +587,7 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
         List<String> references = new ArrayList<String>();
 
         if (voyageSpecialOffers != null && !voyageSpecialOffers.isEmpty()) {
-            voyageSpecialOffers.get(0).getSpecialOffers().stream().distinct()
+            voyageSpecialOffers.get(0).getSpecialOffers().stream().filter(distinctByKey(e->e.getVoyageSpecialOfferId())).distinct()
             .map(SpecialOfferByMarket::getVoyageSpecialOfferId).collect(Collectors.toList()).forEach(id -> {
                 references.add(ImporterUtils.findReference(QUERY_CONTENT_PATH, "exclusiveOfferId",
                         Objects.toString(id), resourceResolver));
@@ -572,6 +597,11 @@ public class CruisesImporterImpl extends BaseImporter implements CruisesImporter
         }
 
         return references.stream().toArray(String[]::new);
+    }
+    
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object,Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
     private String downloadAndSaveAsset(String path, String imageName) {

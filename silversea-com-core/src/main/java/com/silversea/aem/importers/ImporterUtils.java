@@ -60,10 +60,10 @@ public class ImporterUtils {
      */
     public static String getLastModificationDate(Page page){
         String lastModificationDate = null;
-        if(page!=null){
+        if(page != null){
             Resource resource = page.adaptTo(Resource.class);
             if(resource != null && !resource.equals(Resource.RESOURCE_TYPE_NON_EXISTING)){
-                Date date = resource.getChild(JcrConstants.JCR_TITLE).getValueMap().get("lastModificationDate", Date.class);
+                Date date = page.getContentResource().getValueMap().get("lastModificationDate", Date.class);
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
                 lastModificationDate = formatter.format(date);
             }

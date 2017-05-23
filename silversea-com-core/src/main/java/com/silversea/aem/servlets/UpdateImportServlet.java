@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.replication.ReplicationException;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
+import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.services.HotelUpdateImporter;
 import com.silversea.aem.importers.services.LandProgramUpdateImporter;
 import com.silversea.aem.importers.services.ShoreExcursionsUpdateImporter;
@@ -52,6 +53,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     ShoreExcursionsUpdateImporter updateImportShoreExcursion;
+
+    @Reference
+    private CruisesImporter cruisesUpdateImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -275,11 +279,11 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 // response.getWriter().flush();
                 // }
                 //
-                // if (all || mode.equals(Mode.cruises)) {
-                // cruisesImporter.importCruises();
-                // response.getWriter().write("Cruises import Done<br/>");
-                // response.getWriter().flush();
-                // }
+                if (all || mode.equals(Mode.cruises)) {
+                    cruisesUpdateImporter.loadData();
+                    response.getWriter().write("Cruises import Done<br/>");
+                    response.getWriter().flush();
+                }
 
             } else {
                 response.getWriter().write("<br/>an other import is aleready run<br />");
