@@ -26,19 +26,53 @@ $(function() {
      * Form cookie value
      **************************************************************************/
     // On submit store mandatory value
-    var cookieValues = ['email', 'firstname', 'lastname'];
+    var cookieValues = ['firstname', 'lastname', 'email', 'phone', 'description'];
     $('.c-formcookie').validator()
                         .off('input.bs.validator change.bs.validator focusout.bs.validator')
                         .on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
-            for ( var value in cookieValues ) {
-                if (this[cookieValues[value]] !== undefined) {
-                    $.CookieManager.setCookie(cookieValues[value], this[cookieValues[value]].value);
+
+            var leadApiData = {},
+                currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
+
+            for ( var i in cookieValues ) {
+
+                if (this[cookieValues[i]] && this[cookieValues[i]].value !== undefined) {
+                    leadApiData[cookieValues[i]] = this[cookieValues[i]].value;
                 }
             }
+
+            console.log('window ', window._ssc_dl.page);
+
+            $.ajax({
+                type: "POST",
+                url: "/content/silversea/en.lead.json",
+                data: JSON.stringify(leadApiData),
+                contentType: "application/json",
+                dataType: "json",
+                success: function(data) {
+                    currentData = Object.assign(currentData, leadApiData);
+//                    console.log('--> succes', data, currentData);
+                    $.CookieManager.setCookie('userInfo',  JSON.stringify(currentData));
+                },
+                failure: function(errMsg) {
+                   console.log('error LeadAPI', errMsg);
+                }
+            });
+
             if (this.className.match(/c-formcookie--redirect/) !== null) {
                 e.preventDefault();
                 window.location.href = this.action;
+            }
+            else if (this.className.match(/c-formcookie--modal/) !== null) {
+                e.preventDefault();
+
+                var target = this.dataset.target;
+                $(target + ' .modal-content').load(this.action, function (response, status, xhr) {
+                    if (status == "success") {
+                        $(target).modal('show');
+                    }
+                });
             }
         }
     });

@@ -139,6 +139,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="free-brochure"
         sling:message="Free brochure" />
+    <for-exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="for-exclusive-offers"
+        sling:message="for exclusive offers &amp; news" />
     <hours
         jcr:primaryType="sling:MessageEntry"
         sling:key="hours"
@@ -286,7 +290,7 @@
     <sign-up
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up"
-        sling:message="Sign-up" />
+        sling:message="Sign up" />
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"

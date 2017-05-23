@@ -1,0 +1,36 @@
+<div data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
+     class="cq-placeholder"
+     data-emptytext="SFO Widget"></div>
+
+<form class="c-subscribe__form form-inline c-formcookie c-formcookie--modal"
+      action="${inheritedPageProperties.pageReference || properties.pageReference @ extension='html', selectors='modalcontent'}"
+      data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
+      data-disable="false">
+    <div class="row form-group">
+        <div class="col-xs-12">
+            <label class="c-subscribe__form--label">
+                <span class="c-subscribe__form--label-important">${'sign-up' @ i18n}</span>
+                <span class="c-subscribe__form--label-text">${'for-exclusive-offers' @ i18n}</span>
+            </label>
+        </div>
+        <div class="col-xs-9">
+            <input class="o-input o-input--dark o-input--lg col-xs-12"
+                   name="email"
+                   placeholder="${'your-email-address' @ i18n}"
+                   type="email"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                   data-required-error="${'required-email-address' @ i18n}"
+                   data-error="${'incorrect-email-address' @ i18n}" required/>
+        </div>
+        <div class="col-xs-3">
+            <button
+                    class="btn btn-default pull-right c-btn--lg" type="submit">
+                ${'sign-up' @ i18n}
+                <i class="fa fa-lg fa-angle-right"></i>
+            </button>
+        </div>
+        <div class="col-xs-12">
+            <div class="help-block with-errors c-subscribe__form--error"></div>
+        </div>
+    </div>
+</form>
