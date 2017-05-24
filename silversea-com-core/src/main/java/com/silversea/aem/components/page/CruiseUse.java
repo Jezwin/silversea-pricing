@@ -183,9 +183,9 @@ public class CruiseUse extends WCMUsePojo {
         if (getAllAssetForItinerary() != null) {
             gallery.put("voyage", getAllAssetForItinerary());
         }
-//        if (getAllAssetForSuite() != null) {
-//            gallery.put("suites", getAllAssetForSuite());
-//        }
+        if (getAllAssetForSuite() != null) {
+            gallery.put("suites", getAllAssetForSuite());
+        }
         if (getAllAssetForDinning() != null) {
             gallery.put("dinings", getAllAssetForDinning());
         }
