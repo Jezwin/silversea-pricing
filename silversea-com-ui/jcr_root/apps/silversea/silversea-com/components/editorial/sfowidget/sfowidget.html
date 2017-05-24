@@ -1,9 +1,12 @@
-<div data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
+<div data-sly-use.SignUpUse="com.silversea.aem.components.editorial.SignUpUse"
+     data-sly-test.refPath="${SignUpUse.pageReference ||  properties.pageReference}"
+     data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"
+     data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
      data-emptytext="SFO Widget"></div>
 
 <form class="c-subscribe__form form-inline c-formcookie c-formcookie--modal"
-      action="${inheritedPageProperties.pageReference || properties.pageReference @ extension='html', selectors='modalcontent'}"
+      action="${refPath @ extension='html', selectors='modalcontent'}"
       data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
       data-disable="false">
     <div class="row form-group">

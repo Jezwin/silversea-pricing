@@ -6,9 +6,9 @@ import com.day.cq.commons.inherit.InheritanceValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RabWidgetUse extends WCMUsePojo {
+public class SignUpUse extends WCMUsePojo {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(RabWidgetUse.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(SignUpUse.class);
 
     private String pageReference;
 

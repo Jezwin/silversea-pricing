@@ -42,18 +42,18 @@ $(function() {
                 }
             }
 
-            console.log('window ', window._ssc_dl.page);
+//            console.log('window ', window._ssc_dl.page);
 
             $.ajax({
                 type: "POST",
-                url: "/content/silversea/en.lead.json",
+                url: "/content/silversea/data.lead.json",
                 data: JSON.stringify(leadApiData),
                 contentType: "application/json",
                 dataType: "json",
                 success: function(data) {
                     currentData = Object.assign(currentData, leadApiData);
-//                    console.log('--> succes', data, currentData);
                     $.CookieManager.setCookie('userInfo',  JSON.stringify(currentData));
+                    $.CookieManager.setCookie('api_indiv_id',  data);
                 },
                 failure: function(errMsg) {
                    console.log('error LeadAPI', errMsg);
