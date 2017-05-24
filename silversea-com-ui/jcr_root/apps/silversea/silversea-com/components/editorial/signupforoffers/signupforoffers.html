@@ -1,37 +1,93 @@
-<div data-sly-use.rabWidgetUse="com.silversea.aem.components.editorial.RabWidgetUse"
+<div data-sly-use.SignUpUse="com.silversea.aem.components.editorial.SignUpUse"
+     data-sly-test.refPath="${SignUpUse.pageReference ||  properties.pageReference}"
+     data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"
      data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
-     data-emptytext="RAB Widget"></div>
+     data-emptytext="Sign up for offers"></div>
 
-<form class="c-subscribe__form form-inline c-formcookie c-formcookie--redirect"
+<form class="c-formcookie c-formcookie--redirect"
       data-disable="false"
       action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
-            <label class="c-subscribe__form--label">
-                <span class="c-subscribe__form--label-text">${'request-or-download' @ i18n}</span>
-                <span class="c-subscribe__form--label-important">${'free-brochure' @ i18n}</span>
-            </label>
-        </div>
-        <div class="col-xs-9">
-            <input class="o-input o-input--dark o-input--lg col-xs-12"
-                   name="email"
-                   placeholder="${'your-email-address' @ i18n}"
-                   type="email"
-                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                   data-required-error="${'required-email-address' @ i18n}"
-                   data-error="${'incorrect-email-address' @ i18n}" required />
-        </div>
-        <div class="col-xs-3">
-            <button class="btn btn-default pull-right c-btn--lg"
-                    type="submit"
-                    data-sscclicktype="rab">
-                ${'submit' @ i18n}
-                <i class="fa fa-lg fa-angle-right"></i>
-            </button>
-        </div>
-        <div class="col-xs-12">
-            <div class="help-block with-errors c-subscribe__form--error"></div>
+            <div class="form-group valid_success">
+                <select class="chosen form-control">
+                    <option value="">Title*</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs." selected="">Mrs.</option>
+                    <option value="Miss">Miss</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Sir">Sir</option>
+                    <option value="Lady">Lady</option>
+                    <option value="Prof.">Prof.</option>
+                    <option value="Lord">Lord</option>
+                </select>
+                <div class="form-helper-error-text live">
+                    <!--Please enter your first name						-->
+                </div>
+            </div>
+
+            <div class="form-group has-feedback">
+                <div class="input-group">
+                    <input type="text"
+                           name="firstname"
+                           class="form-control o-input--lg"
+                           placeholder="First Name*"
+                           data-required-error="${'required-firstname' @ i18n}"
+                           required />
+                    </div>
+                <span class="form-control-feedback" aria-hidden="true"></span>
+                <div class="fa form-helper-error-text live help-block with-errors">
+                    <!--Please enter your first name-->
+                </div>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input type="text"
+                       name="lastname"
+                       class="form-control o-input--lg"
+                       placeholder="Last Name*"
+                       data-required-error="${'required-lastname' @ i18n}"
+                       required />
+                <span class="form-control-feedback" aria-hidden="true"></span>
+                <div class="fa form-helper-error-text live help-block with-errors">
+                    <!--Please enter your last name-->
+                </div>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input type="email"
+                       name="email"
+                       class="form-control o-input--lg"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                       data-required-error="${'required-email-address' @ i18n}"
+                       data-error="${'incorrect-email-address' @ i18n}"
+                       placeholder="Email Address*"
+                       required />
+                <span class="form-control-feedback" aria-hidden="true"></span>
+                <div class="fa form-helper-error-text live help-block with-errors">
+                   <!-- Please enter your email
+                    Incorrect Email Address	-->					</div>
+            </div>
+
+            <p class="small text-muted">* Required Fields</p>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label class="">
+                        <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" name="already_travelling" value="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>I am currently booked on a Silversea cruise                    </label>
+                </div>
+            </div>
+
+            <div class="col-xs-3 pull-right">
+                <button class="btn btn-default pull-right c-btn--lg"
+                        type="submit"
+                        data-sscclicktype="rab">
+                    ${'submit' @ i18n}
+                    <i class="fa fa-lg fa-angle-right"></i>
+                </button>
+            </div>
         </div>
     </div>
 </form>

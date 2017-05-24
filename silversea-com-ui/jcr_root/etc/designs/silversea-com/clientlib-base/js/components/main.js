@@ -42,8 +42,6 @@ $(function() {
                 }
             }
 
-//            console.log('window ', window._ssc_dl.page);
-
             $.ajax({
                 type: "POST",
                 url: "/content/silversea/data.lead.json",

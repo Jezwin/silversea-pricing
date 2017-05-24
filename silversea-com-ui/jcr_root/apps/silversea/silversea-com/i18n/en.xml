@@ -263,6 +263,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
+    <required-lastname
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-lastname"
+        sling:message="Lastname is required" />
+    <required-firstname
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-firstname"
+        sling:message="Firstname is required" />
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
