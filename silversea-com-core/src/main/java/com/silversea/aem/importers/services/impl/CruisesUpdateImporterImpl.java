@@ -349,7 +349,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
 
                 // Retrieve and update or create excursions
                 List<ShorexItinerary> excursions = getExcursions(SHORE_EXCURSIONS_API_URL, itinerary);
-                updateExcursionsNode(excursions, itinerairesNode, itinerary);
+                updateExcursionsNode(excursions, itineraryNode, itinerary);
             }
             ImporterUtils.saveSession(session, false);
 
@@ -398,12 +398,12 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
     private void updateLandNodes(List<LandItinerary> landProgramList, Node itineraryNode, Itinerary itinerary)
             throws RepositoryException {
         if (landProgramList != null && !landProgramList.isEmpty()) {
-            LOGGER.debug("Cruise importer -- Start updating land programs for itenirary with id {}", itinerary.getCityId());
+            LOGGER.debug("Cruise importer -- Start updating land programs for itenirary with id {}", itinerary.getItineraryId());
             Node landsNode = ImporterUtils.findOrCreateNode(itineraryNode, "land-programs");
 
             for (LandItinerary land : landProgramList) {
                 if(land!=null){
-                    Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH,
+                    Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_JCR_ROOT_PATH + itineraryNode.getParent().getPath(),
                             JcrConstants.NT_UNSTRUCTURED, "landItineraryId", Objects.toString(land.getLandItineraryId()),
                             resourceResolver);
                     Node landNode = ImporterUtils.adaptOrCreateNode(resources, landsNode,
@@ -416,7 +416,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
                 }
 
             }
-            LOGGER.debug("Cruise importer -- Updating land programs for itenirary with id {} finished", itinerary.getCityId());
+            LOGGER.debug("Cruise importer -- Updating land programs for itenirary with id {} finished", itinerary.getItineraryId());
         } else {
             LOGGER.error("No land program found for the itinerary {}", itinerary.getItineraryId());
         }
@@ -437,12 +437,12 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             throws RepositoryException {
 
         if (hotels != null && !hotels.isEmpty()) {
-            LOGGER.debug("Cruise importer -- Start updating hotels for itenirary with id {}", itinerary.getCityId());
+            LOGGER.debug("Cruise importer -- Start updating hotels for itenirary with id {}", itinerary.getItineraryId());
             Node HotelsNode = ImporterUtils.findOrCreateNode(itineraryNode, "hotels");
 
             for (HotelItinerary hotel : hotels) {
                 if(hotel != null){
-                    Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH,
+                    Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_JCR_ROOT_PATH + itineraryNode.getParent().getPath(),
                             JcrConstants.NT_UNSTRUCTURED, "hotelItineraryId", Objects.toString(hotel.getHotelItineraryId()),
                             resourceResolver);
                     Node hotelNode = ImporterUtils.adaptOrCreateNode(resources, HotelsNode,
@@ -456,7 +456,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
                     // TODO : availableTo
                 }
             }
-            LOGGER.debug("Cruise importer -- Updating hotels for itenirary with id {} finished", itinerary.getCityId());
+            LOGGER.debug("Cruise importer -- Updating hotels for itenirary with id {} finished", itinerary.getItineraryId());
         } else {
             LOGGER.error("Cruise importer -- No hotel found for the itinerary {}", itinerary.getItineraryId());
         }
@@ -476,12 +476,12 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
     private void updateExcursionsNode(List<ShorexItinerary> excursions, Node itineraryNode, Itinerary itinerary)
             throws RepositoryException {
         if (excursions != null && !excursions.isEmpty()) {
-            LOGGER.debug("Cruise importer -- Start updating excursions for itenirary with id {}", itinerary.getCityId());
+            LOGGER.debug("Cruise importer -- Start updating excursions for itenirary with id {}", itinerary.getItineraryId());
             Node excursionsNode = ImporterUtils.findOrCreateNode(itineraryNode, "excursions");
 
             for (ShorexItinerary excursion : excursions) {
                 if(excursion != null){
-                    Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH,
+                    Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_JCR_ROOT_PATH + itineraryNode.getParent().getPath(),
                             JcrConstants.NT_UNSTRUCTURED, "shorexItineraryId",
                             Objects.toString(excursion.getShorexItineraryId()), resourceResolver);
                     Node excursionNode = ImporterUtils.adaptOrCreateNode(resources, excursionsNode,
@@ -498,7 +498,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
                     excursionNode.setProperty("duration", excursion.getDuration());
                 }
             }
-            LOGGER.debug("Cruise importer -- Updating excursions for itenirary with id {} finished", itinerary.getCityId());
+            LOGGER.debug("Cruise importer -- Updating excursions for itenirary with id {} finished", itinerary.getItineraryId());
         } else {
             LOGGER.error("Cruise importer -- No excursion found for the itinerary {}", itinerary.getItineraryId());
         }
