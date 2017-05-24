@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 /**
  * ShorexItinerary
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-24T15:10:03.211Z")
 public class ShorexItinerary {
   @SerializedName("shorex_itinerary_id")
   private Integer shorexItineraryId = null;

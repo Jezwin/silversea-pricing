@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * SpecialVoyage
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-24T15:10:03.211Z")
 public class SpecialVoyage {
   @SerializedName("special_voyage_id")
   private String specialVoyageId = null;

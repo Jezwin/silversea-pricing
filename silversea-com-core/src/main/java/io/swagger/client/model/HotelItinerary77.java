@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 /**
  * HotelItinerary77
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-24T15:10:03.211Z")
 public class HotelItinerary77 {
   @SerializedName("is_deleted")
   private Boolean isDeleted = null;

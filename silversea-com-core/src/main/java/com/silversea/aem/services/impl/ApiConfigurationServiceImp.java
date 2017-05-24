@@ -45,7 +45,7 @@ public class ApiConfigurationServiceImp implements ApiConfigurationService {
     @Property(description = "SSC API Paths", value = { "shipUrl:/api/v1/ships", "brochureUrl:/api/v1/brochures",
             "featuresUrl:/api/v1/features", "contriesUrl:/api/v1/countries", "spetialOffersUrl:/api/v1/specialOffers",
             "landProgramUrl:/api/v1/landAdventures", "shorexUrl:/api/v1/shoreExcursions",
-            "hotelUrl:/api/v1/shoreExcursions", "agenciesUrl:/api/v1/agencies", "citiesUrl:/apit/v1/cities", })
+            "hotelUrl:/api/v1/shoreExcursions", "agenciesUrl:/api/v1/agencies", "citiesUrl:/api/v1/cities", })
     private static final String API_PATH = "apiPath";
     private Map<String, String> api_path;
 
