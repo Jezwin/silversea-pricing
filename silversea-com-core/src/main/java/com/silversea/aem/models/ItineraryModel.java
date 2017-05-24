@@ -24,7 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
 public class ItineraryModel {
@@ -47,14 +50,19 @@ public class ItineraryModel {
     private List<HotelModel> hotels;
 
     private ResourceResolver resourceResolver;
+    private TagManager tagManager;
+    
+    @Inject
+    private GeolocationTagService geolocationTagService;
 
     @PostConstruct
     private void init() {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
+            tagManager = resourceResolver.adaptTo(TagManager.class);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
             description = initDescription();
-            country = page.getProperties().get("countryIso3", String.class);
+            country = initCountry();
         }catch(RuntimeException e){
             LOGGER.error("Error while initializing model {}",e);
         }
@@ -152,6 +160,17 @@ public class ItineraryModel {
             value = Objects.toString(str.insert(2, ":"));
         }
         return value;
+    }
+
+    private String initCountry(){
+        String country = null;
+        String countryId = page.getProperties().get("countryIso2", String.class);
+        String tagId = geolocationTagService.getTagFromCountryId(countryId);
+        Tag tag = tagManager.resolve(tagId);
+        if(tag != null){
+            country = tag.getTitle();
+        }
+        return country;
     }
 
     public Page getPage() {

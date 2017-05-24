@@ -240,8 +240,8 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
         cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
 
         setCruiseTags(voyage, cruisePage);
-        // TODO voyageHighlights ?
-        cruisePageContentNode.setProperty("voyageHighlights", "");
+        // Update node properties
+        cruisePageContentNode.setProperty("voyageHighlights", voyage.getVoyageHighlights());
         cruisePageContentNode.setProperty("exclusiveOffers",
                 findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId()));
         cruisePageContentNode.setProperty("startDate", voyage.getArriveDate().toString());
