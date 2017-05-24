@@ -272,16 +272,10 @@
                                 name="./destinationsReference"
                                 rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
-                            <dates
-                                jcr:primaryType="nt:unstructured"
-                                fieldLabel="Ships"
-                                name="./shipsReference"
-                                rootPath="/content/silversea-com"
-                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <ships
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Dates"
-                                name="./datesReference"
+                                name="./shipsReference"
                                 rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <searchresultpage
