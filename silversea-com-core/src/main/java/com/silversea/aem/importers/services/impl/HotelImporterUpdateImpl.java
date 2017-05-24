@@ -161,6 +161,9 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                             hotelsPage = pageManager.create(portPage.getPath(), "hotels",
                                                     "/apps/silversea/silversea-com/templates/page", "Hotels", false);
                                         }
+                                        if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
+                                            replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
+                                        }
 
                                         hotelPage = pageManager.create(hotelsPage.getPath(),
                                                 JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
@@ -187,6 +190,13 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                 hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
                                 succesNumber = succesNumber + 1;
                                 j++;
+                                try {
+                                    session.save();
+                                    replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                            (hotelPage).getPath());
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
                             }
 
                             if (j % sessionRefresh == 0) {

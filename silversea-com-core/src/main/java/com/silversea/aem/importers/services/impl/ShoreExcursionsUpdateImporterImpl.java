@@ -68,10 +68,9 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 
         // final String authorizationHeader =
         // getAuthorizationHeader("/api/v1/shoreExcursions");
-        
 
         try {
-            
+
             /**
              * authentification pour le swagger
              */
@@ -92,7 +91,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
             if (apiConfig.getPageSize() != 0) {
                 pageSize = apiConfig.getPageSize();
             }
-            
+
             final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -163,6 +162,13 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                                                     "/apps/silversea/silversea-com/templates/page", "Excursions",
                                                     false);
                                         }
+                                        if (!replicat
+                                                .getReplicationStatus(session, pageManager
+                                                        .getPage(portPage.getPath() + "/excursions").getPath())
+                                                .isActivated()) {
+                                            replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                                    excursionsPage.getPath());
+                                        }
 
                                         excursionPage = pageManager.create(excursionsPage.getPath(),
                                                 JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
@@ -190,6 +196,14 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                                 excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
                                 succesNumber = succesNumber + 1;
                                 j++;
+                                try {
+                                    session.save();
+                                    replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                            (excursionPage).getPath());
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
+
                             }
 
                             if (j % sessionRefresh == 0) {
@@ -223,7 +237,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
                 }
 
                 resourceResolver.close();
-            }else{
+            } else {
                 throw new UpdateImporterExceptions();
             }
         } catch (ApiException | LoginException | RepositoryException e) {

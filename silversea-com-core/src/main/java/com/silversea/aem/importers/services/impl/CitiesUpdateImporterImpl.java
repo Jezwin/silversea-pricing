@@ -148,6 +148,10 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
                                 LOGGER.debug("Creating page {}", portFirstLetterName);
                             }
+                            
+//                            if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
+//                                replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
+//                            }
 
                             Iterator<Resource> resources = resourceResolver.findResources(
                                     "//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]", "xpath");
