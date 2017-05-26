@@ -10,47 +10,16 @@
     <div class="col-sm-5 c-search-cruise__form">
         <h3>${'find-your-cruise' @ i18n}</h3>
         <form action="${properties.pageReference}">
-            <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}">
-                <option></option>
-                <option value="35062" data-uuid="filters_a_destination_africaindianocean" data-sscclicktype="filters" class="active-result">Africa &amp; Indian Ocean</option>
-                <option value="35074" data-uuid="filters_a_destination_alaska" data-sscclicktype="filters" class="active-result">Alaska</option>
-                <option value="1079728" data-uuid="filters_a_destination_americanwestcoast" data-sscclicktype="filters" class="active-result">American West Coast</option>
-                <option value="35076" data-uuid="filters_a_destination_antarctica" data-sscclicktype="filters" class="active-result">Antarctica</option>
-                <option value="35078" data-uuid="filters_a_destination_arcticandgreenland" data-sscclicktype="filters" class="active-result">Arctic and Greenland </option>
-                <option value="35082" data-uuid="filters_a_destination_asia" data-sscclicktype="filters" class="active-result">Asia</option>
-                <option value="35102" data-uuid="filters_a_destination_australianewzealand" data-sscclicktype="filters" class="active-result">Australia &amp; New Zealand</option>
-                <option value="35066" data-uuid="filters_a_destination_canadanewengland" data-sscclicktype="filters" class="active-result">Canada &amp; New England</option>
-                <option value="35068" data-uuid="filters_a_destination_caribbeancentralamerica" data-sscclicktype="filters" class="active-result">Caribbean &amp; Central America</option>
-                <option value="35098" data-uuid="filters_a_destination_galpagosislands" data-sscclicktype="filters" class="active-result">Galápagos Islands</option>
-                <option value="35058" data-uuid="filters_a_destination_mediterranean" data-sscclicktype="filters" class="active-result">Mediterranean</option>
-                <option value="35060" data-uuid="filters_a_destination_northerneuropebritishisles" data-sscclicktype="filters" class="active-result">Northern Europe &amp; British Isles</option>
-                <option value="35094" data-uuid="filters_a_destination_russianfareast" data-sscclicktype="filters" class="active-result">Russian Far East</option>
-                <option value="35070" data-uuid="filters_a_destination_southamerica" data-sscclicktype="filters" class="active-result">South America</option>
-                <option value="35104" data-uuid="filters_a_destination_southpacificislands" data-sscclicktype="filters" class="active-result">South Pacific Islands</option>
-                <option value="35072" data-uuid="filters_a_destination_transoceanic" data-sscclicktype="filters" class="active-result">Transoceanic</option>
+            <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}"
+                data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
+                <option value="">${'all-destinations' @ i18n}</option>
+                <option data-sly-repeat.destination="${destinations.page.listChildren}" value="${destination.name}">${destination.title}</option>
             </select>
-
-            <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}">
+            <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}"
+                data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
                 <option></option>
-                <option value="2017.05" data-uuid="filters_a_date_2017-05" data-sscclicktype="filters">May 2017</option>
-                <option value="2017.06" data-uuid="filters_a_date_2017-06" data-sscclicktype="filters">June 2017</option>
-                <option value="2017.07" data-uuid="filters_a_date_2017-07" data-sscclicktype="filters">July 2017</option>
-                <option value="2017.08" data-uuid="filters_a_date_2017-08" data-sscclicktype="filters">August 2017</option>
-                <option value="2017.09" data-uuid="filters_a_date_2017-09" data-sscclicktype="filters">September 2017</option>
-                <option value="2017.10" data-uuid="filters_a_date_2017-10" data-sscclicktype="filters">October 2017</option>
-                <option value="2017.11" data-uuid="filters_a_date_2017-11" data-sscclicktype="filters">November 2017</option>
-                <option value="2017.12" data-uuid="filters_a_date_2017-12" data-sscclicktype="filters">December 2017</option>
-                <option value="2018.01" data-uuid="filters_a_date_2018-01" data-sscclicktype="filters">January 2018</option>
-                <option value="2018.02" data-uuid="filters_a_date_2018-02" data-sscclicktype="filters">February 2018</option>
-                <option value="2018.03" data-uuid="filters_a_date_2018-03" data-sscclicktype="filters">March 2018</option>
-                <option value="2018.04" data-uuid="filters_a_date_2018-04" data-sscclicktype="filters">April 2018</option>
-                <option value="2018.05" data-uuid="filters_a_date_2018-05" data-sscclicktype="filters">May 2018</option>
-                <option value="2018.06" data-uuid="filters_a_date_2018-06" data-sscclicktype="filters">June 2018</option>
-                <option value="2018.07" data-uuid="filters_a_date_2018-07" data-sscclicktype="filters">July 2018</option>
-                <option value="2018.08" data-uuid="filters_a_date_2018-08" data-sscclicktype="filters">August 2018</option>
-                <option value="2018.09" data-uuid="filters_a_date_2018-09" data-sscclicktype="filters">September 2018</option>
+                <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
             </select>
-
             <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
         </form>
     </div>

@@ -8,9 +8,9 @@
             </select>
         </div>
         <div class="col-sm-3">
-            <select class="chosen form-control" name="dates">
+            <select class="chosen form-control" name="dates" data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
                 <option value="">${'all-departure-dates' @i18n}</option>
-                <option></option>
+                <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
             </select>
         </div>
         <div class="col-sm-3" data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
