@@ -19,7 +19,9 @@ $(function() {
      **************************************************************************/
     // Activate chosen plugin
     jQuery(document).ready(function() {
-        jQuery(".chosen").chosen();
+        $('.chosen').chosen({
+            'disable_search': true
+        });
     });
 
     /***************************************************************************
