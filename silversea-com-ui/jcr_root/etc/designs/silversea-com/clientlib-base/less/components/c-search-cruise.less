@@ -7,17 +7,18 @@
     max-width: 930px;
     position: relative;
 
+    @media screen and (min-width: @screen-md-min) {
+        &:not(.no-image) &__content {
+            left: 0;
+            position: absolute;
+            top: 100px;
+            z-index: 1;
+        }
+    }
+
     &__content {
         padding-right: 25px;
         padding-left: 0;
-        position: absolute;
-        top: 100px;
-        left: 0;
-        z-index: 1;
-
-        @media screen and (max-width: @screen-sm) {
-            position: static;
-        }
 
         h1 {
             font-family: @f-theano_didot;
@@ -84,15 +85,19 @@
         }
     }
 
+    @media screen and (min-width: @screen-md-min) {
+        &:not(.no-image) &__form {
+            bottom: 75px;
+            position: absolute;
+            right: 0;
+        }
+    }
+
     &__form {
         padding: 25px;
         background: rgba(0,0,0,.6) none repeat scroll 0 0;
-        position: absolute;
-        bottom: 75px;
-        right: 0;
 
         @media screen and (max-width: @screen-sm) {
-            position: static;
             background: transparent;
         }
 
@@ -124,44 +129,37 @@
 
             .chosen-single {
                 background: @white;;
-                position: relative;
-                z-index: 2;
-                display: block;
-                width: 100%;
+                border-color: @black;
+                border-radius: 0;
                 box-shadow: none;
-                border: 1px solid @black;
                 padding: 12px 40px 12px 20px;
                 height: 48px;
-                border-radius: 0;
 
                 span {
                     color: @black;
                     font-size: 16px;
-                    line-height: 25px;
-                    margin: 0;
                     font-weight: 600;
-                    display: block;
-                    vertical-align: middle;
+                    line-height: 25px;
+                    margin-right: 0;
                 }
 
                 div b {
                     &:before {
                         content: "\f107";
-                        font-family: FontAwesome;
                         color: @black;
+                        font-family: FontAwesome;
                         font-size: 18px;
                         font-weight: 400;
                         position: relative;
-                        top: 12px;
                         right: 10px;
+                        top: 12px;
                     }
                 }
             }
 
             .chosen-drop {
-                margin: -1px 4px 4px 0;
                 border-radius: 0;
-                border: 1px solid @black;
+                border-color: @black;
                 border-top: 0;
                 box-shadow: none;
 
@@ -178,15 +176,13 @@
                         line-height: 24px;
                         margin: 0 15px 0 4px;
 
-                        &.result-selected {
-                            background: @black !important;
+                        &.highlighted, &.result-selected {
+                            background: @black;
                             color: @white;
-                            font-weight: @bold;
                         }
 
-                        &.highlighted {
-                            background: @black !important;
-                            color: @white;
+                        &.result-selected {
+                            font-weight: @bold;
                         }
                     }
                 }
