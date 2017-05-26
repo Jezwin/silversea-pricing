@@ -1,7 +1,6 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search hero"></div>
 <sly data-sly-use.heroBannerTemplate="silversea/silversea-com/components/editorial/herobanner/herobannertemplate.html" data-sly-call="${heroBannerTemplate.home}" />
 <div class="c-search-hero">
-    <div class="c-search-hero__band"></div>
     <form class="row c-search-hero__form" action="${properties.pageReference @ extension='html'}">
         <div class="col-sm-3" data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
             <select class="chosen form-control" name="destinations">
