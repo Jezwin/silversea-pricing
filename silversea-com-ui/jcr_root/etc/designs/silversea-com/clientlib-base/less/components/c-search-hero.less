@@ -61,25 +61,18 @@
 
             &.chosen-with-drop {
                 .chosen-single {
-                    border: 1px solid @black;
-                    border-bottom: 0;
-                    border-radius: 0;
-                    border-top-left-radius: 5px;
-                    border-top-right-radius: 5px;
+                    border-color: @black;
                 }
             }
 
             .chosen-single {
                 background: @white;
-                position: relative;
-                z-index: 2;
-                display: block;
-                width: 100%;
-                box-shadow: none;
                 border: 1px solid @white;
-                padding: 12px 40px 12px 12px;
+                box-shadow: none;
+                color: @grey;
                 height: 40px;
-                border-radius: 5px;
+                padding: 12px 40px 12px 12px;
+                width: 100%;
 
                 @media screen and (max-width: @screen-sm) {
                     height: 34px;
@@ -87,13 +80,10 @@
                 }
 
                 span {
-                    color: @grey;
                     font-size: 14px;
+                    font-weight: 600;
                     line-height: initial;
                     margin: 0;
-                    font-weight: 600;
-                    display: block;
-                    vertical-align: middle;
 
                     @media screen and (max-width: @screen-sm) {
                         font-weight: 400;
@@ -102,15 +92,17 @@
                 }
 
                 div b {
+                    background: none;
+
                     &:before {
+                        color: @grey--3;
                         content: "\f107";
                         font-family: FontAwesome;
-                        color: @black;
                         font-size: 18px;
                         font-weight: 400;
                         position: relative;
-                        top: 8px;
                         right: 10px;
+                        top: 8px;
 
                         @media screen and (max-width: @screen-sm) {
                             top: 5px;
@@ -120,17 +112,9 @@
             }
 
             .chosen-drop {
-                margin: -1px 4px 4px 0;
-                border-radius: 0;
-                border-bottom-left-radius: 5px;
-                border-bottom-right-radius: 5px;
-                border: 1px solid @black;
-                border-top: 0;
+                border-radius: 0 0 5px 5px;
+                border-color: @black;
                 box-shadow: none;
-
-                .chosen-search {
-                    display: none;
-                }
 
                 .chosen-results {
                     margin: 5px 4px 4px 0;
@@ -141,15 +125,13 @@
                         line-height: 24px;
                         margin: 0 15px 0 4px;
 
-                        &.result-selected {
-                            background: @black !important;
+                        &.highlighted, &.result-selected {
+                            background: @black;
                             color: @white;
-                            font-weight: @bold;
                         }
 
-                        &.highlighted {
-                            background: @black !important;
-                            color: @white;
+                        &.result-selected {
+                            font-weight: @bold;
                         }
                     }
                 }
