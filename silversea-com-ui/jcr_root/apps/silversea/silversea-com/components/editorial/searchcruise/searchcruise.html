@@ -13,7 +13,7 @@
             <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}"
                 data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
                 <option value="">${'all-destinations' @ i18n}</option>
-                <option data-sly-repeat.destination="${destinations.page.listChildren}" value="${destination.name}">${destination.title}</option>
+                <option data-sly-repeat.destination="${destinations.page.listChildren}" value="${destination.name}">${destination.title @ context='html'}</option>
             </select>
             <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}"
                 data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">

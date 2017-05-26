@@ -4,7 +4,7 @@
         <div class="col-sm-3" data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
             <select class="chosen form-control" name="destinations">
                 <option value="">${'all-destinations' @ i18n}</option>
-                <option data-sly-repeat.destination="${destinations.page.listChildren}" value="${destination.name}">${destination.title}</option>
+                <option data-sly-repeat.destination="${destinations.page.listChildren}" value="${destination.name}">${destination.title @ context='html'}</option>
             </select>
         </div>
         <div class="col-sm-3">
