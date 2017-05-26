@@ -60,4 +60,7 @@ public interface WcmConstants {
     // Responsive
     Integer DEFAULT_WIDTH_DESKTOP = 930;
     Integer DEFAULT_WIDTH_MOBILE = 737;
+    
+    //Prefix of geolocation tags
+    String GEOLOCATION_TAGS_PREFIX = "geotagging:";
 }

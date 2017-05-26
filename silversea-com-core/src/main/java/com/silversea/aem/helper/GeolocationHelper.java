@@ -10,6 +10,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
 
 /**
  * Helper class used to deal with geolocation, mainly via country selector
@@ -35,8 +36,8 @@ public class GeolocationHelper {
         String geoMarketCode = null;
         List<Tag> tags = new ArrayList<>();
         for (int i = 0; i < geolocationTag.size(); i++) {
-            if (tagManager.resolve("geotagging:" + geolocationTag.get(i).toLowerCase()) != null) {
-                tags.add(tagManager.resolve("geotagging:" + geolocationTag.get(i).toLowerCase()));
+            if (tagManager.resolve(WcmConstants.GEOLOCATION_TAGS_PREFIX + geolocationTag.get(i).toLowerCase()) != null) {
+                tags.add(tagManager.resolve(WcmConstants.GEOLOCATION_TAGS_PREFIX  + geolocationTag.get(i).toLowerCase()));
             }
         }
         return tags;
