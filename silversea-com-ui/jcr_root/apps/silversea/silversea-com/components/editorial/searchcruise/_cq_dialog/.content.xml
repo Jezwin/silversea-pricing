@@ -34,7 +34,7 @@
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Search result page"
                                 name="./pageReference"
-                                rootPath="/content/dam/silversea-com"
+                                rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                         </items>
                     </column>
