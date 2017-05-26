@@ -663,4 +663,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-ships"
         sling:message="All Ships" />
+    <all-departure-dates
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="all-departure-dates"
+        sling:message="All Departure Dates" />
 </jcr:root>
