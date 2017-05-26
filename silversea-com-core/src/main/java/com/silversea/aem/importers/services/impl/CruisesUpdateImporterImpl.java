@@ -179,15 +179,12 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
                 if(voyage != null){
                     LOGGER.debug("Cruise importer -- Start import cruise with id {}",voyage.getVoyageId());
                     // retrieve cruises root page dynamically
-                    String destination = getDestination(voyage.getDestinationId());
+                    Page destinationPage = getDestination(voyage.getDestinationId());
 
-                    if (destination != null) {
+                    if (destinationPage != null) {
                         // Instantiate new hashMap which will contains
                         // lowest prices for the cruise
                         lowestPrices = new HashMap<String, PriceData>();
-
-                        Page destinationPage = pageManager
-                                .getPage(apiConfig.apiRootPath(CRUISES_DESTINATIONS_URL_KEY).concat(destination));
 
                         Page cruisePage = getCruisePage(destinationPage,voyage);
 
@@ -639,14 +636,18 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
         return null;
     }
 
-    private String getDestination(Integer destinationId) {
-        String destination = null;
+    private Page getDestination(Integer destinationId) {
+        Page destinationPage = null;
         Iterator<Resource> resources = ImporterUtils.findResourceById(QUERY_CONTENT_PATH, NameConstants.NT_PAGE,
                 "destinationId", Objects.toString(destinationId), resourceResolver);
-        if (resources.hasNext()) {
-            destination = StringUtils.substringAfterLast(resources.next().getPath(), "/");
+        if (resources != null && resources.hasNext()) {
+            Resource resource = resources.next();
+            if(resource!=null){
+                destinationPage = pageManager.getPage(resource.getPath());
+            }
+           
         }
-        return destination;
+        return destinationPage;
     }
 
     private List<VoyageSpecialOffer> getVoyageSpecialOffers(String apiUrl, Integer voyageId)
