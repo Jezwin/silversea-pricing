@@ -4,8 +4,10 @@
         <li data-sly-repeat="${cruise.cruiseModel.exclusiveFareAdditions}"><strong>${item.addition}</strong></li>
         <li data-sly-repeat="${cruise.cruiseModel.cruiseFareAdditions}">${item}</li>
     </ul>
-    <div class="c-list__expand">
+    <!--/*
+    <div class="c-list__expand" data-sly-test="${cruise.cruiseModel.getTotalFareAddictions >= 8}">
         <a href="#" class="view_all">${'view-all' @ i18n} <i class="fa fa-angle-down"></i></a>
-        <!--/* <a href="#" class="view_less">${'view-less' @ i18n} <i class="fa fa-angle-up"></i></a> */-->
+        <a href="#" class="view_less">${'view-less' @ i18n} <i class="fa fa-angle-up"></i></a>
     </div>
+    */-->
 </div>

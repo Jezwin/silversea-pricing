@@ -458,4 +458,11 @@ public class CruiseModel extends AbstractModel {
         return itinerariesData;
     }
 
+    public Integer getTotalFareAddictions() {
+        if (getExclusiveFareAdditions() != null && getCruiseFareAdditions() != null) {
+            return getExclusiveFareAdditions().size() + getCruiseFareAdditions().length;
+        }
+
+        return null;
+    }
 }
