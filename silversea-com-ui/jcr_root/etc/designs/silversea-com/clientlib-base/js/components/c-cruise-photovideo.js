@@ -18,7 +18,7 @@ $(function() {
     }
 
     // Gallery expander
-    $('.c-cruise-photovideo .expander-open, .c-cruise-photovideo .expander-close').on('click', function(e) {
+    $('.c-cruise .expander-open, .c-cruise .expander-close').on('click', function(e) {
         e.preventDefault();
         var $trigger = $(this), $wrapper = $trigger.closest('.c-cruise__gallery');
         var totalHeight = 0;
@@ -28,9 +28,11 @@ $(function() {
 
             // Animate for slide effect (slide up)
             $wrapper.animate({
-                'height' : $wrapper.find('.c-cruise__gallery__featured').first().outerHeight()
+                'height' : $wrapper.find('> div').first().outerHeight()
             }, 600, function() {
-                $wrapper.css('height', $wrapper.height()).find('.c-cruise__gallery__featured:not(:eq(0))').hide();
+                var defaultItem = $wrapper.closest('.c-cruise-ship-info').length ? 1 : 0;
+                $wrapper.css('height', $wrapper.height()).find('> div:gt('+ defaultItem +'):not(.c-cruise__item-expander)').hide();
+
                 $(this).css('height', '').removeClass('open');
 
                 // After animation, launch scrollTo
@@ -40,7 +42,7 @@ $(function() {
             });
         } else {
             // show hidden image group
-            $wrapper.css('height', $wrapper.height()).find('.c-cruise__gallery__featured').show();
+            $wrapper.css('height', $wrapper.height()).find('> div').show();
 
             // Calculate full height
             $wrapper.children().each(function() {
