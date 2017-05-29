@@ -32,7 +32,7 @@
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <ships
                                 jcr:primaryType="nt:unstructured"
-                                fieldLabel="Dates"
+                                fieldLabel="Ships"
                                 name="./shipsReference"
                                 rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
