@@ -1,10 +1,9 @@
-<div data-sly-use.SignUpUse="com.silversea.aem.components.editorial.SignUpUse"
-     data-sly-test.refPath="${SignUpUse.pageReference ||  properties.pageReference}"
+<div data-sly-use.signUpUse="com.silversea.aem.components.editorial.signUpUse"
      data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"
-     data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
+     data-sly-test="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
      data-emptytext="SFO Widget"></div>
-
+<sly data-sly-test.refPath="${signUpUse.pageReference || properties.pageReference}" />
 <form class="c-subscribe__form form-inline c-formcookie c-formcookie--modal"
       action="${refPath @ extension='html', selectors='modalcontent'}"
       data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
@@ -23,11 +22,10 @@
                    type="email"
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                    data-required-error="${'required-email-address' @ i18n}"
-                   data-error="${'incorrect-email-address' @ i18n}" required/>
+                   data-error="${'incorrect-email-address' @ i18n}" required />
         </div>
         <div class="col-xs-3">
-            <button
-                    class="btn btn-default pull-right c-btn--lg" type="submit">
+            <button class="btn btn-default pull-right c-btn--lg" type="submit">
                 ${'sign-up' @ i18n}
                 <i class="fa fa-lg fa-angle-right"></i>
             </button>

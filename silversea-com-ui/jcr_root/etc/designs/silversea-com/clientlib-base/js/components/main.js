@@ -28,47 +28,44 @@ $(function() {
      * Form cookie value
      **************************************************************************/
     // On submit store mandatory value
-    var cookieValues = ['firstname', 'lastname', 'email', 'phone', 'description'];
+    var cookieValues = [ 'firstname', 'lastname', 'email', 'phone', 'description' ];
     $('.c-formcookie').validator()
-                        .off('input.bs.validator change.bs.validator focusout.bs.validator')
-                        .on('submit', function (e) {
+        .off('input.bs.validator change.bs.validator focusout.bs.validator')
+        .on('submit', function(e) {
         if (!e.isDefaultPrevented()) {
-
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
 
-            for ( var i in cookieValues ) {
-
+            for (var i in cookieValues) {
                 if (this[cookieValues[i]] && this[cookieValues[i]].value !== undefined) {
                     leadApiData[cookieValues[i]] = this[cookieValues[i]].value;
                 }
             }
 
             $.ajax({
-                type: "POST",
-                url: "/content/silversea/data.lead.json",
-                data: JSON.stringify(leadApiData),
-                contentType: "application/json",
-                dataType: "json",
-                success: function(data) {
+                type : "POST",
+                url : "/content/silversea/data.lead.json",
+                data : JSON.stringify(leadApiData),
+                contentType : "application/json",
+                dataType : "json",
+                success : function(data) {
                     currentData = Object.assign(currentData, leadApiData);
-                    $.CookieManager.setCookie('userInfo',  JSON.stringify(currentData));
-                    $.CookieManager.setCookie('api_indiv_id',  data);
+                    $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
+                    $.CookieManager.setCookie('api_indiv_id', data);
                 },
-                failure: function(errMsg) {
-                   console.log('error LeadAPI', errMsg);
+                failure : function(errMsg) {
+                    console.log('error LeadAPI', errMsg);
                 }
             });
 
             if (this.className.match(/c-formcookie--redirect/) !== null) {
                 e.preventDefault();
                 window.location.href = this.action;
-            }
-            else if (this.className.match(/c-formcookie--modal/) !== null) {
+            } else if (this.className.match(/c-formcookie--modal/) !== null) {
                 e.preventDefault();
 
                 var target = this.dataset.target;
-                $(target + ' .modal-content').load(this.action, function (response, status, xhr) {
+                $(target + ' .modal-content').load(this.action, function(response, status, xhr) {
                     if (status == "success") {
                         $(target).modal('show');
                     }
