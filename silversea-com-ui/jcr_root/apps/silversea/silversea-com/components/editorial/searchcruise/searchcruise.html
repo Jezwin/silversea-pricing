@@ -2,7 +2,7 @@
 <div class="c-search-cruise ${!properties.fileReference ? 'no-image' : ''}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="col-sm-7 c-search-cruise__content">
         ${properties.text @ context="html"}
-        <div class="hidden-xs" data-sly-resource="${'./btn1' @ resourceType='silversea/silversea-com/components/editorial/button'}"></div>
+        <div class="hidden-xs" data-sly-resource="${'./btn1' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
     </div>
     <div class="c-search-cruise__image" data-sly-test.reference="${properties.fileReference}">
         <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
