@@ -10,7 +10,7 @@
             <div class="c-accordion__header">
                 <div class="c-accordion__title">
                     <p class="c-accordion__title--veryimportant">${item.title}</p>
-                    <p class="c-accordion__subtitle">${item.shortDescription @ context='unsafe'}</p>
+                    <p class="c-accordion__subtitle">${item.description @ context='unsafe'}</p>
                 </div>
                 <div class="c-accordion__action c-accordion__action--light">
                     ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
@@ -18,7 +18,7 @@
             </div>
             <div class="c-accordion__body">
                 <div class="c-accordion__body--panel">
-                    ${item.description @ context='html'}
+                    ${item.longtDescription @ context='html'}
                 </div>
             </div>
         </div>
