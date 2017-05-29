@@ -387,6 +387,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
         sling:message="Ship" />
+    <routes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="routes"
+        sling:message="Routes" />
+    <benefits-and-events
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="benefits-and-events"
+        sling:message="Benefits and events" />
     <highlight
         jcr:primaryType="sling:MessageEntry"
         sling:key="highlight"
