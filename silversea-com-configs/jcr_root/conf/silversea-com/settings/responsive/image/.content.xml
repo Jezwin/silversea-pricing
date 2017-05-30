@@ -91,9 +91,14 @@
                     </image>
                     <herobanner jcr:primaryType="nt:unstructured">
                         <desktop-12
-                                jcr:primaryType="nt:unstructured"
-                                width="1920" />
+                            jcr:primaryType="nt:unstructured"
+                            width="1920" />
                     </herobanner>
+                    <searchcruise jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="1920" />
+                    </searchcruise>
                 </editorial>
                 <included jcr:primaryType="nt:unstructured">
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">
