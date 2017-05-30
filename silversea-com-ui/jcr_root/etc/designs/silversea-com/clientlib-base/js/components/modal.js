@@ -59,9 +59,16 @@ $(function() {
 
             var $slideNav = $modal.find('.c-slider--nav').slick({
                 slidesToShow : 6,
-                slidesToScroll : 6,
+                slidesToScroll : 1,
                 asNavFor : '.modal .c-slider--for',
                 focusOnSelect : true
+            });
+
+            // Show counter 
+            var slideTotalItem = $slideFor.find('.slick-slide:not(.slick-cloned)').length;
+            $slideFor.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-total').html(slideTotalItem);
+            $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide){
+                $(this).closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
             });
 
             // Tab gallery
