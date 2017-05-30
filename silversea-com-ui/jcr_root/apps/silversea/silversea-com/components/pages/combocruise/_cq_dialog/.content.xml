@@ -72,34 +72,42 @@
                                             renderReadOnly="{Boolean}true"/>
                                     <duration
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="duration"
                                             fieldLabel="Duration"
+                                            min="1"
+                                            max="100"
                                             name="./duration"
                                             renderReadOnly="{Boolean}true"/>
                                     <portsamount
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="portsAmount"
                                             fieldLabel="Ports amount"
+                                            min="1"
+                                            max="100"
                                             name="./portsAmount"
                                             renderReadOnly="{Boolean}true"/>
                                     <routesamount
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="routesAmount"
                                             fieldLabel="Routes amount"
+                                            min="1"
+                                            max="100"
                                             name="./routesAmount"
                                             renderReadOnly="{Boolean}true"/>
                                     <countriesamount
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="countriesAmount"
                                             fieldLabel="Countries amount"
+                                            min="1"
+                                            max="100"
                                             name="./countriesAmount"
                                             renderReadOnly="{Boolean}true"/>
                                     <shipReference
