@@ -53,7 +53,7 @@
                                     <startdate
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                            displayedFormat="MMMM DD, YYYY hh:mm a"
+                                            displayedFormat="MMMM DD, YYYY"
                                             type="datetime"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="startDate"
@@ -63,7 +63,7 @@
                                     <enddate
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                            displayedFormat="MMMM DD, YYYY hh:mm a"
+                                            displayedFormat="MMMM DD, YYYY"
                                             type="datetime"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="endDate"
