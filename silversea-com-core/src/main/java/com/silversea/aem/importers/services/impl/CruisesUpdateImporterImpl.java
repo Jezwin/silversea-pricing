@@ -15,13 +15,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import javax.jcr.AccessDeniedException;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -206,13 +202,13 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
 
                         LOGGER.debug("Cruise importer -- Import cruise with id {} finished",voyage.getVoyageId());
                     } else {
-                        LOGGER.error("Cruise importer -- Error destination with id {} not found", voyage.getDestinationId());
+                        LOGGER.debug("Cruise importer -- Error destination with id {} not found", voyage.getDestinationId());
                     }
                 }
             }
         }
         else {
-            LOGGER.error("Cruise importer -- List cruises is empty");
+            LOGGER.debug("Cruise importer -- List cruises is empty");
         }
     }
 
@@ -284,7 +280,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             });
         }
         else{
-            LOGGER.error("Cruise importer -- No feature found for cruise with id", voyage.getVoyageId());
+            LOGGER.debug("Cruise importer -- No feature found for cruise with id", voyage.getVoyageId());
         }
 
         CruiseType cruiseType = voyage.getIsExpedition() ? CruiseType.SILVERSEA_CTUISE
@@ -353,7 +349,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             LOGGER.debug("Cruise importer -- Updating iteniraries for voyage with id {} finished", voyage.getVoyageId());
         }
         else{
-            LOGGER.error("Cruise importer  -- List iteniraries is empty for cruise id {}", voyage.getVoyageId());
+            LOGGER.debug("Cruise importer  -- List iteniraries is empty for cruise id {}", voyage.getVoyageId());
         }
     }
 
@@ -415,7 +411,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             }
             LOGGER.debug("Cruise importer -- Updating land programs for itenirary with id {} finished", itinerary.getItineraryId());
         } else {
-            LOGGER.error("No land program found for the itinerary {}", itinerary.getItineraryId());
+            LOGGER.debug("Cruise importer -- No land program found for the itinerary {}", itinerary.getItineraryId());
         }
     }
 
@@ -455,7 +451,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             }
             LOGGER.debug("Cruise importer -- Updating hotels for itenirary with id {} finished", itinerary.getItineraryId());
         } else {
-            LOGGER.error("Cruise importer -- No hotel found for the itinerary {}", itinerary.getItineraryId());
+            LOGGER.debug("Cruise importer -- No hotel found for the itinerary {}", itinerary.getItineraryId());
         }
     }
 
@@ -497,7 +493,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             }
             LOGGER.debug("Cruise importer -- Updating excursions for itenirary with id {} finished", itinerary.getItineraryId());
         } else {
-            LOGGER.error("Cruise importer -- No excursion found for the itinerary {}", itinerary.getItineraryId());
+            LOGGER.debug("Cruise importer -- No excursion found for the itinerary {}", itinerary.getItineraryId());
         }
     }
 
@@ -548,7 +544,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             LOGGER.debug("Cruise importer -- Updating suites variations and prices for voyage with id {} finished", voyage.getVoyageId());
         }
         else{
-            LOGGER.error("Cruise importer -- No price found for cruise with id {}", voyage.getVoyageId());
+            LOGGER.debug("Cruise importer -- No price found for cruise with id {}", voyage.getVoyageId());
         }
     }
 
@@ -608,7 +604,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
             }
         }
         else{
-            LOGGER.error("Cruise importer -- No price found for cruise with code {}", voyageCode);
+            LOGGER.debug("Cruise importer -- No price found for cruise with code {}", voyageCode);
         }
     }
 
@@ -632,7 +628,7 @@ public class CruisesUpdateImporterImpl extends BaseImporter implements CruisesUp
                 }
             }
         }
-        LOGGER.error("Cruise importer -- Suite reference with suiteCategoryCode {} not found", suiteCategoryCode);
+        LOGGER.debug("Cruise importer -- Suite reference with suiteCategoryCode {} not found", suiteCategoryCode);
         return null;
     }
 
