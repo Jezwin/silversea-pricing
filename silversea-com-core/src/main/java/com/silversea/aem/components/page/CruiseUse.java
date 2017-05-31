@@ -180,8 +180,12 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     public List<Asset> getAllAssetForDinningNPublicAreas() {
-        List<Asset> assetList = Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream()).collect(Collectors.toList());
-        return assetList;
+        if(getAllAssetForDinning() != null && getAllAssetForPublicArea() != null) {
+            List<Asset> assetList = Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream()).collect(Collectors.toList());
+            return assetList;
+        }
+
+        return null;
     }
 
     public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
