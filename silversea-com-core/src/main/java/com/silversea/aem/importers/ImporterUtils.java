@@ -174,5 +174,18 @@ public class ImporterUtils {
 
         return reference;
     }
+    
+    /**
+     * Add mixinTypes type to a page
+     * @param page 
+     * @throws RepositoryException
+     */
+    public static void addMixin(Page page,String mixinType) throws RepositoryException{
+        if(page != null){
+            Node node = page.adaptTo(Node.class);
+            Node jcrContent = node.getNode(JcrConstants.JCR_CONTENT);
+            jcrContent.addMixin(mixinType);
+        }
+    }
 
 }
