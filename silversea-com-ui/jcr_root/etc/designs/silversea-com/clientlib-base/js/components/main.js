@@ -33,6 +33,10 @@ $(function() {
         .off('input.bs.validator change.bs.validator focusout.bs.validator')
         .on('submit', function(e) {
         if (!e.isDefaultPrevented()) {
+            
+            var cooks = JSON.stringify(cookieValues);
+            document.cookie = "userInfo=" + cooks;
+            
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
 
