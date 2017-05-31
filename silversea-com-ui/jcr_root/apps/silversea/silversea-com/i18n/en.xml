@@ -3,6 +3,10 @@
     jcr:language="en"
     jcr:mixinTypes="[mix:language]"
     jcr:primaryType="sling:Folder">
+    <aboard
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="aboard"
+        sling:message="aboard" />
     <and
         jcr:primaryType="sling:MessageEntry"
         sling:key="and"
@@ -19,6 +23,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="arrive"
         sling:message="Arrive" />
+    <benefits-and-events
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="benefits-and-events"
+        sling:message="Benefits and events" />
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"
@@ -43,6 +51,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"
         sling:message="Coordinates" />
+    <countries
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="countries"
+        sling:message="Countries" />
     <crew-capacity
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew-capacity"
@@ -115,10 +127,30 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
         sling:message="Excursion(s)" />
+    <expedition-team
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team"
+        sling:message="expedition team" />
+    <expedition-team-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team-descr"
+        sling:message="Between 11 and 13 qualified specialists, many with a PhD or Professor to their name, will be on hand during every voyage and shore excursion. They’ll give lecuters, run workshops, lead Zodiac trips and guide nature walks." />
     <fares-from
         jcr:primaryType="sling:MessageEntry"
         sling:key="fares-from"
         sling:message="Fares from" />
+    <fares-shown-are-per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-shown-are-per-guest"
+        sling:message="Fares shown are per guest" />
+    <fax
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fax"
+        sling:message="fax" />
+    <feature-exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feature-exclusive-offers"
+        sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
     <features
         jcr:primaryType="sling:MessageEntry"
         sling:key="features"
@@ -139,6 +171,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="free-brochure"
         sling:message="Free brochure" />
+    <from
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="from"
+        sling:message="From" />
     <for-exclusive-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="for-exclusive-offers"
@@ -219,6 +255,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
         sling:message="Overview" />
+    <phone
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="phone"
+        sling:message="phone" />
     <plan
         jcr:primaryType="sling:MessageEntry"
         sling:key="plan"
@@ -271,6 +311,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
         sling:message="Firstname is required" />
+    <routes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="routes"
+        sling:message="Routes" />
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
@@ -303,9 +347,9 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
         sling:message="Suites" />
-    <suites-fares
+    <suites-and-fares
         jcr:primaryType="sling:MessageEntry"
-        sling:key="suites-fares"
+        sling:key="suites-and-fares"
         sling:message="Suites and fares" />
     <suite-location
         jcr:primaryType="sling:MessageEntry"
@@ -363,38 +407,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-email-address"
         sling:message="Your email address" />
-    <phone
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="phone"
-        sling:message="phone" />
-    <fares-shown-are-per-guest
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fares-shown-are-per-guest"
-        sling:message="Fares shown are per guest" />
-    <fax
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fax"
-        sling:message="fax" />
-    <feature-exclusive-offers
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="feature-exclusive-offers"
-        sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
-    <suites-and-fares
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suites-and-fares"
-        sling:message="Suites and fares" />
     <ship
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
         sling:message="Ship" />
+    <starting
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="starting"
+        sling:message="Starting" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
         sling:message="Routes" />
-    <benefits-and-events
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="benefits-and-events"
-        sling:message="Benefits and events" />
     <highlight
         jcr:primaryType="sling:MessageEntry"
         sling:key="highlight"
@@ -491,14 +515,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
         sling:message="voyage highlights" />
-    <expedition-team
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="expedition-team"
-        sling:message="expedition team" />
-    <expedition-team-descr
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="expedition-team-descr"
-        sling:message="Between 11 and 13 qualified specialists, many with a PhD or Professor to their name, will be on hand during every voyage and shore excursion. They’ll give lecuters, run workshops, lead Zodiac trips and guide nature walks." />
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
