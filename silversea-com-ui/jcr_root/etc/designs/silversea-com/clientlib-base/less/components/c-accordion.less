@@ -377,7 +377,11 @@
         display: table-cell;
         vertical-align: middle;
         padding: 15px;
-
+        @media screen and (max-width: @screen-sm) {
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
         &.valigntop {
             vertical-align: top;
         }
@@ -442,6 +446,10 @@
         font-size: 12px;
         text-align: right;
         text-transform: uppercase;
+        @media screen and (max-width: @screen-sm) {
+            text-align: center;
+            width: 100%;
+        }
 
         &--light {
             color: #828282;
