@@ -111,16 +111,18 @@ public class CruiseUse extends WCMUsePojo {
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
-        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-            assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
+        if (cruiseModel.getItineraries() != null) {
+            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+            }
+
+            assetSelectionReference = cruiseModel.getAssetSelectionReference();
             if (StringUtils.isNotBlank(assetSelectionReference)) {
                 assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
             }
-        }
-
-        assetSelectionReference = cruiseModel.getAssetSelectionReference();
-        if (StringUtils.isNotBlank(assetSelectionReference)) {
-            assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
         }
 
         return assetList;
@@ -131,10 +133,12 @@ public class CruiseUse extends WCMUsePojo {
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
-        for (SuiteModel suite : cruiseModel.getSuites()) {
-            assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
-            if (StringUtils.isNotBlank(assetSelectionReference)) {
-                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+        if (cruiseModel.getSuites() != null) {
+            for (SuiteModel suite : cruiseModel.getSuites()) {
+                assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
             }
         }
 
@@ -146,10 +150,12 @@ public class CruiseUse extends WCMUsePojo {
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
-        for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
-            assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
-            if (StringUtils.isNotBlank(assetSelectionReference)) {
-                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+        if (cruiseModel.getShip().getDinings() != null) {
+            for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
+                assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
             }
         }
 
@@ -161,10 +167,12 @@ public class CruiseUse extends WCMUsePojo {
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
-        for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
-            assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
-            if (StringUtils.isNotBlank(assetSelectionReference)) {
-                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+        if (cruiseModel.getShip().getPublicAreas() != null) {
+            for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
+                assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
             }
         }
 
