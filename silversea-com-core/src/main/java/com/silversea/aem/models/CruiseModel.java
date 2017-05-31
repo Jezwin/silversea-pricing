@@ -312,8 +312,9 @@ public class CruiseModel extends AbstractModel {
     private ShipModel initShip(String path) {
         ShipModel shipModel = null;
         if (StringUtils.isNotEmpty(path)) {
-            Resource resource = resourceResolver.resolve(path);
-            if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+            Resource resource = resourceResolver.getResource(path);
+
+            if (resource != null) {
                 Page pa = resource.adaptTo(Page.class);
                 shipModel = pa.adaptTo(ShipModel.class);
             } else {
