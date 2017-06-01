@@ -34,9 +34,9 @@ $(function() {
         .on('submit', function(e) {
         if (!e.isDefaultPrevented()) {
             
-            var cooks = JSON.stringify(cookieValues);
-            document.cookie = "userInfo=" + cooks;
-            
+        
+            $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues) );
+             
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
 
@@ -53,7 +53,12 @@ $(function() {
                 contentType : "application/json",
                 dataType : "json",
                 success : function(data) {
-                    currentData = Object.assign(currentData, leadApiData);
+                    
+                    var obj = {};
+                    currentData.forEach(function(data, index){
+                         obj[currentData[index]] = '';
+                    });
+                    currentData = Object.assign(obj, leadApiData);
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
                     $.CookieManager.setCookie('api_indiv_id', data);
                 },
@@ -85,4 +90,6 @@ $(function() {
     $('#selectBrochureListLangId').on('change', function() {
         window.location.href = this.value;
     });
+    
+    
 });
