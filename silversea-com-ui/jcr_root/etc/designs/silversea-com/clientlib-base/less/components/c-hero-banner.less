@@ -1,3 +1,41 @@
+.video-link {
+    color: @white;
+    height: 100%;
+    left: 50%;
+    opacity: .8;
+    position: absolute;
+    top: 0;
+    transition: opacity 300ms;
+    width: 100vw;
+    transform: translateX(-50%);
+
+    .fa-play {
+        font-size: 50px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-45%,-50%);
+
+        &:after {
+            border: 3px solid @white;
+            border-radius: 50%;
+            content: "";
+            display: block;
+            left: 50%;
+            height: 84px;
+            position: absolute;
+            top: 50%;
+            transform: translate(-55%,-50%);
+            width: 84px;
+        }
+    }
+
+    &:hover, &:focus, &:active {
+        color: @white;
+        opacity: 1;
+    }
+}
+
 .c-slider .c-hero-banner {
     margin-bottom: 0;
 
@@ -44,44 +82,6 @@
             position: absolute;
             top: 50%;
             transform: translate(-50%,-50%);
-        }
-    }
-
-    &__video-link {
-        color: @white;
-        height: 100%;
-        left: 50%;
-        opacity: .8;
-        position: absolute;
-        top: 0;
-        transition: opacity 300ms;
-        width: 100vw;
-        transform: translateX(-50%);
-
-        .fa-play {
-            font-size: 50px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-45%,-50%);
-
-            &:after {
-                border: 3px solid @white;
-                border-radius: 50%;
-                content: "";
-                display: block;
-                left: 50%;
-                height: 84px;
-                position: absolute;
-                top: 50%;
-                transform: translate(-55%,-50%);
-                width: 84px;
-            }
-        }
-
-        &:hover, &:focus, &:active {
-            color: @white;
-            opacity: 1;
         }
     }
 
