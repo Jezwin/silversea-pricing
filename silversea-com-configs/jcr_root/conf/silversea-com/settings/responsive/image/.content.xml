@@ -99,6 +99,11 @@
                             jcr:primaryType="nt:unstructured"
                             width="1920" />
                     </searchcruise>
+                    <combocruiseheader jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="1920" />
+                    </combocruiseheader>
                 </editorial>
                 <included jcr:primaryType="nt:unstructured">
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">
