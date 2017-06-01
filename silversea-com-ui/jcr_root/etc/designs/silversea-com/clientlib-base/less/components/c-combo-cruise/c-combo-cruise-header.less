@@ -12,7 +12,7 @@
         }
     }
 
-    .c-combo-cruise__content {
+    &__content {
         text-align: center;
         color: @white;
         position: absolute;
@@ -55,20 +55,20 @@
         }
 
         &__resume {
-                max-width: 100%;
-                padding: 20px 0;
-                margin: 20px auto 30px;
-                border: 2px solid @black;
-                display: inline-block;
-                overflow: hidden;
-                color: @black;
+            max-width: 100%;
+            padding: 20px 0;
+            margin: 20px auto 30px;
+            border: 2px solid @black;
+            display: inline-block;
+            overflow: hidden;
+            color: @black;
 
-                @media screen and (max-width: @screen-xs) {
-                    border: none;
-                    padding: 10px;
-                    margin: 10px auto;
-                    display: block;
-                }
+            @media screen and (max-width: @screen-xs) {
+                border: none;
+                padding: 10px;
+                margin: 10px auto;
+                display: block;
+            }
 
             th {
                 font-size: 12px;
@@ -137,7 +137,7 @@
         }
     }
 
-    .c-combo-cruise__image {
+    &__image {
         .full-width;
         background-repeat: no-repeat;
         background-size: cover;
@@ -159,11 +159,11 @@
                 transform: translate(-50%,-50%);
                 width: auto;
             }
+
             @media screen and (max-width: @screen-sm) {
                 height: auto;
                 min-height: inherit;
                 width: 100%
-
             }
         }
     }
