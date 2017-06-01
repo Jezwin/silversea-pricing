@@ -22,7 +22,6 @@ public class JournalArchiveUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        String s = getProperties().get("archivePath", String.class);
         archiveYear = new ArrayList<>();
         Resource resource = getResourceResolver().getResource(getProperties().get("archivePath", String.class));
         Page parentPage = resource.adaptTo(Page.class);
@@ -40,11 +39,9 @@ public class JournalArchiveUse extends WCMUsePojo {
             archive.setArchiveMonth(archiveMonth);
             archiveYear.add(archive);
         }
-
     }
 
     public List<JournalArchiveModel> getArchiveYear() {
         return archiveYear;
     }
-
 }
