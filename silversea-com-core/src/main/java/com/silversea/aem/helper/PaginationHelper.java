@@ -1,13 +1,11 @@
 package com.silversea.aem.helper;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.wcm.api.Page;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.wcm.api.Page;
 
 /**
  * Created by asiba on 28/03/2017.
