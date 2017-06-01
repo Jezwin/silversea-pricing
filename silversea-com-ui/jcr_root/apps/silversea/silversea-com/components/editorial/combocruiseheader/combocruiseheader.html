@@ -1,20 +1,29 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Combo Cruise header"></div>
-<div class="c-combo-cruise-header" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+<sly data-sly-use.comboCruise="${'com.silversea.aem.helper.PageHelper' @ path=properties.pageReference}" />
+<sly data-sly-test.comboCruisePage="${properties.pageReference ? comboCruise.page : currentPage}" />
+<sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=comboCruisePage.path}" />
+
+<div class="c-combo-cruise-header ${!pageHelper.thumbnail ? 'no-image' : ''}"
+    data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=pagePpties.path}">
     <div class="c-combo-cruise-header__content">
-        <h1 class="c-combo-cruise-header__content__title">${pageProperties.jcr:title @ context="html"}</h1>
+        <h1 class="c-combo-cruise-header__content__title">
+            ${comboCruisePage.title @ context="html"}
+        </h1>
         <div class="c-combo-cruise-header__content__details">
-            <span class="c-list-inline__item--bigger">${'starting' @ i18n}</span> <strong>[CC START DATE] ${'in' @ i18n} [CC DEPARTURE PORT]<br />
+            <span class="c-list-inline__item--bigger">${'starting' @ i18n}</span>
+            <strong>[CC START DATE] ${'in' @ i18n} [CC DEPARTURE PORT]<br />
             ${'aboard' @ i18n} [CC SHIP NAME]</strong><br />
-            <span class="c-list-inline__item--bigger">${'from' @ i18n}</span> <strong>[CC PRICE]</strong> (${'per-guest' @ i18n})
+            <span class="c-list-inline__item--bigger">${'from' @ i18n}</span>
+            <strong>[CC PRICE]</strong> (${'per-guest' @ i18n})
         </div>
         <div class="c-combo-cruise-header__content__resume">
             <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tbody>
                     <tr>
-                        <td>${pageProperties.duration}</td>
-                        <td>${pageProperties.portsAmount}</td>
-                        <td>${pageProperties.routesAmount}</td>
-                        <td>${pageProperties.countriesAmount}</td>
+                        <td>${pagePpties.duration}00</td>
+                        <td>${pagePpties.portsAmount}00</td>
+                        <td>${pagePpties.routesAmount}00</td>
+                        <td>${pagePpties.countriesAmount}00</td>
                     </tr>
                     <tr>
                         <th>${'days' @ i18n}</th>
@@ -26,10 +35,14 @@
             </table>
         </div>
         <div data-sly-test="${properties.pageReference}" class="hidden-xs">
-            <a href="${properties.pageReference}" class="c-btn--dark c-combo-cruise-header__content__btn">${'discover-more' @ i18n} <i class="fa fa-angle-right"></i></a>
+            <a href="${properties.pageReference @ extension='html'}" class="c-btn--dark c-combo-cruise-header__content__btn">
+                ${'discover-more' @ i18n} <i class="fa fa-angle-right"></i>
+            </a>
         </div>
     </div>
-    <div class="c-combo-cruise-header__image">
-        <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
+
+    <div class="c-combo-cruise-header__image" data-sly-test="${pageHelper.thumbnail}">
+        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+            data-sly-call="${imageTemplate.default @ imagePath=pageHelper.thumbnail}" />
     </div>
 </div>
