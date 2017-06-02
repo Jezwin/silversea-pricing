@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
@@ -24,6 +26,8 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 
 public class ImporterUtils {
+    
+    static final private Logger LOGGER = LoggerFactory.getLogger(ImporterUtils.class);
 
     /**
      * Save session
@@ -185,6 +189,22 @@ public class ImporterUtils {
             Node node = page.adaptTo(Node.class);
             Node jcrContent = node.getNode(JcrConstants.JCR_CONTENT);
             jcrContent.addMixin(mixinType);
+        }
+    }
+    
+    public static void clean(Page page,String nodeName,Session session) throws  RepositoryException{
+        if(page != null){
+            Resource resource = page.adaptTo(Resource.class);
+            if(resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)){
+                Resource child = resource.getChild(nodeName);
+                if(child != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(child)){
+                    LOGGER.debug("Remove node {}", page.getPath());
+                    Node node = child.adaptTo(Node.class);
+                    node.remove();
+                    //Persist data
+                    ImporterUtils.saveSession(session, false);
+                }
+            }
         }
     }
 
