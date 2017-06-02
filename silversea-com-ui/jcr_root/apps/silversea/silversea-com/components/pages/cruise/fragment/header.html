@@ -9,7 +9,7 @@
         </div>
         <div class="cruise__header_cta">
             <a class="btn btn-thin btn-dark effect visible-xs" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-            <a class="btn btn-thin btn-red effect" href="${cruise.requestQuotePagePath @ extension='html'}" data-sscclicktype="RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            <a class="btn btn-thin btn-red effect" href="${cruise.requestQuotePagePath @ extension='html', selectors=[pageProperties.cruiseId]}" data-sscclicktype="RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
         </div>
     </div>
     <div class="cruise__header_meta hidden-xs">
