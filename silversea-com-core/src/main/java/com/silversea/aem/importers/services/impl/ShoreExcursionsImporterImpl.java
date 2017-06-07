@@ -80,8 +80,6 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             pageSize = apiConfig.getPageSize();
         }
 
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/shoreExcursions");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
 
         ShorexesApi shorexesApi = new ShorexesApi();
@@ -91,8 +89,6 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            // Page citiesRootPage =
-            // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             List<Shorex> shorexes;
@@ -127,7 +123,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                                 Iterator<Resource> portsResources = resourceResolver.findResources(
                                         "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
 
-                                if (portsResources.hasNext()) {
+								if (portsResources.hasNext()) {
                                     Page portPage = portsResources.next().adaptTo(Page.class);
 
                                     LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
@@ -139,7 +135,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                                         excursionsPage = pageManager.create(portPage.getPath(), "excursions",
                                                 "/apps/silversea/silversea-com/templates/page", "Excursions", false);
                                     }
-
+                                    session.save();
                                     if (!replicat
                                             .getReplicationStatus(session,
                                                     excursionsPage.getPath())

@@ -39,7 +39,6 @@ import io.swagger.client.model.Ship;
 public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ShipsImporterImpl.class);
-    // private static final String SHIP_PATH = "/api/v1/ships";
 
     private int errorNumber = 0;
     private int succesNumber = 0;
@@ -73,14 +72,12 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             }
 
             final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
-            // final String authorizationHeader = getAuthorizationHeader(url);
             ShipsApi shipsApi = new ShipsApi();
             shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             Session session = resourceResolver.adaptTo(Session.class);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            // Page shipsRootPage =
-            // pageManager.getPage(ImportersConstants.BASEPATH_SHIP);
+            
             Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
             List<Ship> listShips;
             listShips = shipsApi.shipsGet(null);
@@ -111,6 +108,16 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                             shipPageContentNode.setProperty("shipType", ship.getShipType());
                             shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
                             session.save();
+                            if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
+                            }
+                            try {
+                                session.save();
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                		shipPage.getPath());
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
                             LOGGER.debug("Updated ship with {} ", ship.getShipCod());
                         }
                     }
@@ -146,20 +153,20 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             }
             LOGGER.debug("Fin de l'import");
 
-            try {
-                if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
-                    replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
-                }
-                Iterator<Page> childPages = resourceResolver.getResource(shipsRootPage.getPath()).adaptTo(Page.class)
-                        .listChildren();
-                while (childPages.hasNext()) {
-                    Page childPage = childPages.next();
-                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
-                }
-
-            } catch (ReplicationException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
+//                    replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
+//                }
+//                Iterator<Page> childPages = resourceResolver.getResource(shipsRootPage.getPath()).adaptTo(Page.class)
+//                        .listChildren();
+//                while (childPages.hasNext()) {
+//                    Page childPage = childPages.next();
+//                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
+//                }
+//
+//            } catch (ReplicationException e) {
+//                e.printStackTrace();
+//            }
 
             resourceResolver.close();
         } catch (Exception e) {

@@ -83,8 +83,6 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
              pageSize = apiConfig.getPageSize();
          }
         
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/landAdventures");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
 
         // get authentification to the Land API
@@ -95,7 +93,6 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             int i = 1;
@@ -112,11 +109,6 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                 for (Land land : lands) {
 
                     try {
-                        // TODO remove this conditions, just to test
-                        // if(j==2){
-                        // String test = null;
-                        // test.toString();
-                        // }
 
                         Iterator<Resource> resources = resourceResolver.findResources(
                                 "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]", "xpath");
@@ -144,6 +136,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                                         landsPage = pageManager.create(portPage.getPath(), "land-programs",
                                                 "/apps/silversea/silversea-com/templates/page", "Land Program", false);
                                     }
+                                    session.save();
                                     if(!replicat.getReplicationStatus(session, landsPage.getPath()).isActivated()){
                                         replicat.replicate(session,ReplicationActionType.ACTIVATE, landsPage.getPath());
                                     }
@@ -175,7 +168,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                             try {
                                 session.save();
                                 replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                        (landPage).getPath());
+                                        landPage.getPath());
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
