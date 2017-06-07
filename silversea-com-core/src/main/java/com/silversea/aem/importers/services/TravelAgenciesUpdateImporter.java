@@ -5,11 +5,11 @@ import java.io.IOException;
 import com.silversea.aem.components.beans.ImporterStatus;
 
 /**
- * Created by mbennabi on 09/03/2017.
+ * Created by mbennabi on 08/03/2017.
  */
-public interface ExclusiveOffersImporter {
+public interface TravelAgenciesUpdateImporter {
 
-    ImporterStatus importData() throws IOException;
+    ImporterStatus updateImporData() throws IOException;
 
 //    int getErrorNumber();
 //

@@ -2,8 +2,10 @@ package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -25,24 +27,25 @@ import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
+import com.silversea.aem.importers.services.ShipsUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.api.ShipsApi;
 import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Ship importer", metatype = true)
-@Service(value = ShipsImporter.class)
-public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
+@Service(value = ShipsUpdateImporter.class)
+public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdateImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ShipsImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(ShipsUpdateImporterImpl.class);
     // private static final String SHIP_PATH = "/api/v1/ships";
 
-    private int errorNumber = 0;
-    private int succesNumber = 0;
+    // private int errorNumber = 0;
+    // private int succesNumber = 0;
     private int sessionRefresh = 100;
 
     @Reference
@@ -53,7 +56,14 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
     private Replicator replicat;
 
     @Override
-    public void importData() throws IOException {
+    public ImporterStatus updateImporData() throws IOException {
+
+        ImporterStatus status = new ImporterStatus();
+
+        Set<Integer> diff = new HashSet<Integer>();
+
+        int errorNumber = 0;
+        int succesNumber = 0;
         LOGGER.debug("Début de l'import");
 
         try {
@@ -100,7 +110,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                                 TemplateConstants.PATH_SHIP,
                                 StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
                     }
-
+                    diff.add(ship.getShipId());
                     if (shipPage != null) {
                         Node shipPageContentNode = shipPage.getContentResource().adaptTo(Node.class);
                         if (shipPageContentNode != null) {
@@ -113,6 +123,9 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                             session.save();
                             LOGGER.debug("Updated ship with {} ", ship.getShipCod());
                         }
+                    }
+                    if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
+                        replicat.replicate(session, ReplicationActionType.ACTIVATE, shipPage.getPath());
                     }
                     LOGGER.debug("Check ship with {} ", ship.getShipCod());
                     i++;
@@ -134,6 +147,21 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
                 }
             }
 
+            // TODO duplication des pages supprimé dans le retour d'api
+            Iterator<Page> resourcess = shipsRootPage.listChildren();
+            while (resourcess.hasNext()) {
+                Page page = resourcess.next();
+
+                if (page.getContentResource().getValueMap().get("shipId") != null &&!diff
+                        .contains(Integer.parseInt(page.getContentResource().getValueMap().get("shipId").toString()))) {
+                    try {
+                        replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
+                    } catch (ReplicationException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             if (session.hasPendingChanges()) {
                 try {
                     // save migration date
@@ -146,34 +174,23 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
             }
             LOGGER.debug("Fin de l'import");
 
-            try {
-                if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
-                    replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
-                }
-                Iterator<Page> childPages = resourceResolver.getResource(shipsRootPage.getPath()).adaptTo(Page.class)
-                        .listChildren();
-                while (childPages.hasNext()) {
-                    Page childPage = childPages.next();
-                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
-                }
-
-            } catch (ReplicationException e) {
-                e.printStackTrace();
-            }
-
             resourceResolver.close();
         } catch (Exception e) {
             String errorMessage = "Import Ship Errors : {} ";
             LOGGER.error(errorMessage, e);
         }
+
+        status.setErrorNumber(errorNumber);
+        status.setSuccesNumber(succesNumber);
+        return status;
     }
 
-    public int getErrorNumber() {
-        return errorNumber;
-    }
-
-    public int getSuccesNumber() {
-        return succesNumber;
-    }
+    // public int getErrorNumber() {
+    // return errorNumber;
+    // }
+    //
+    // public int getSuccesNumber() {
+    // return succesNumber;
+    // }
 
 }

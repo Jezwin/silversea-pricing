@@ -2,8 +2,10 @@ package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -20,24 +22,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.FeaturesImporter;
+import com.silversea.aem.importers.services.FeaturesUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.FeaturesApi;
 import io.swagger.client.model.Feature;
 
-@Component(immediate = true, label = "Silversea.com - Cities importer")
-@Service(value = FeaturesImporter.class)
-public class FeaturesImporterImpl extends BaseImporter implements FeaturesImporter {
+@Component(immediate = true, label = "Silversea.com - features update importer")
+@Service(value = FeaturesUpdateImporter.class)
+public class FeaturesUpdateImporterImpl extends BaseImporter implements FeaturesUpdateImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesImporterImpl.class);
-//    private static final String FEATURE_PATH = "/api/v1/features";
-    
+    static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesUpdateImporterImpl.class);
+    // private static final String FEATURE_PATH = "/api/v1/features";
+
     private int errorNumber = 0;
     private int succesNumber = 0;
     private int sessionRefresh = 100;
@@ -47,9 +54,18 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 
     @Reference
     private ApiConfigurationService apiConfig;
+    
+    @Reference
+    private Replicator replicat;
 
     @Override
-    public void importData() throws IOException {
+    public ImporterStatus updateImporData() throws IOException {
+        ImporterStatus status = new ImporterStatus();
+
+        Set<Integer> diff = new HashSet<Integer>();
+
+        int errorNumber = 0;
+        int succesNumber = 0;
         /**
          * authentification pour le swagger
          */
@@ -61,7 +77,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
         /**
          * Récuperation de la session refresh
          */
-        if(apiConfig.getSessionRefresh() != 0){
+        if (apiConfig.getSessionRefresh() != 0) {
             sessionRefresh = apiConfig.getSessionRefresh();
         }
 
@@ -96,7 +112,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                                 TemplateConstants.PATH_FEATURE,
                                 StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
                     }
-
+                    diff.add(feature.getFeatureId());
                     if (featurePage != null) {
                         Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
                         if (featurePageContentNode != null) {
@@ -107,6 +123,9 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                             featurePageContentNode.setProperty("apiTitle", feature.getName());
                             featurePageContentNode.setProperty("featureOrder", feature.getOrder());
                             session.save();
+                            if (!replicat.getReplicationStatus(session, featuresRootPage.getPath()).isActivated()) {
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE, featurePage.getPath());
+                            }
                             LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
                         }
                     }
@@ -137,11 +156,32 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
                     session.refresh(false);
                 }
             }
+            
+         // TODO duplication des pages supprimé dans le retour d'api
+            Iterator<Page> resourcess = featuresRootPage.listChildren();
+            while (resourcess.hasNext()) {
+                Page page = resourcess.next();
+
+                if (page.getContentResource().getValueMap().get("featureId").toString()!= null &&!diff.contains(
+                        Integer.parseInt(page.getContentResource().getValueMap().get("featureId").toString()))) {
+                    try {
+                        replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
+                    } catch (ReplicationException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            
             resourceResolver.close();
         } catch (ApiException | LoginException | RepositoryException e) {
             String errorMessage = "Import Feature Errors : {} ";
             LOGGER.error(errorMessage, e);
         }
+        status.setErrorNumber(errorNumber);
+        status.setSuccesNumber(succesNumber);
+
+        return status;
     }
 
 }

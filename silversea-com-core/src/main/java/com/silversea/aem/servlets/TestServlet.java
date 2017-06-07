@@ -213,8 +213,8 @@ public class TestServlet extends SlingSafeMethodsServlet {
                 watch.reset();
                 watch.start();
                 exclusiveOffersImporter.importData();
-                nbrError = exclusiveOffersImporter.getErrorNumber();
-                nbrSucces = exclusiveOffersImporter.getSuccesNumber();
+                nbrError = exclusiveOffersImporter.importData().getErrorNumber();
+                nbrSucces = exclusiveOffersImporter.importData().getSuccesNumber();
                 response.getWriter().write("Exclusive offers import failure number : <p>" + nbrError + "</p>");
                 response.getWriter().write("<br/>");
                 response.getWriter().write("Exclusives offers import succes number : <p>" + nbrSucces + "</p>");

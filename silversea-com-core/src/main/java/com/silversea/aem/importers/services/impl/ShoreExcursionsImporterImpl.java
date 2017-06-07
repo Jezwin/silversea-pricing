@@ -53,7 +53,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
     @Reference
     private ApiConfigurationService apiConfig;
-    
+
     @Reference
     private Replicator replicat;
 
@@ -139,12 +139,14 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                                         excursionsPage = pageManager.create(portPage.getPath(), "excursions",
                                                 "/apps/silversea/silversea-com/templates/page", "Excursions", false);
                                     }
-                                    
-                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/excursions").getPath()).isActivated()){
-                                        replicat.replicate(session,ReplicationActionType.ACTIVATE, excursionsPage.getPath());
+
+                                    if (!replicat
+                                            .getReplicationStatus(session,
+                                                    excursionsPage.getPath())
+                                            .isActivated()) {
+                                        replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                                excursionsPage.getPath());
                                     }
-                                    
-                                    
 
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
@@ -174,17 +176,15 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
                             excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
                             succesNumber = succesNumber + 1;
-                            j++;
-                            
+
                             try {
                                 session.save();
-                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                        (excursionPage).getPath());
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE, excursionPage.getPath());
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
-                            
-                            
+                            j++;
+
                         }
 
                         if (j % sessionRefresh == 0) {

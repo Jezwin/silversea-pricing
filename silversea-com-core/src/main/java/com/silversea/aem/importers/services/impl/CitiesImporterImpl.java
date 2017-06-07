@@ -135,6 +135,18 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
                             LOGGER.debug("Creating page {}", portFirstLetterName);
                         }
+                        
+                        if (replicat.getReplicationStatus(session, citiesRootPage.getPath()).isActivated()) {
+                            try {
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE, portFirstLetterPage.getPath());
+                            } catch (ReplicationException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                        
+                        
+                        
 
                         Iterator<Resource> resources = resourceResolver.findResources(
                                 "//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]", "xpath");

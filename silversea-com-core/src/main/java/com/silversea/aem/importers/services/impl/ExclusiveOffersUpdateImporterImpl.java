@@ -3,8 +3,10 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -33,7 +35,7 @@ import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.services.ExclusiveOffersImporter;
+import com.silversea.aem.importers.services.ExclusiveOffersUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -45,10 +47,9 @@ import io.swagger.client.model.SpecialOffer;
  */
 @Service
 @Component(label = "Silversea.com - Exclusive Offers importer")
-public class ExclusiveOffersImporterImpl extends BaseImporter implements ExclusiveOffersImporter {
+public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements ExclusiveOffersUpdateImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersImporterImpl.class);
-
+    static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersUpdateImporterImpl.class);
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
@@ -58,11 +59,9 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
     @Reference
     private ApiConfigurationService apiConfig;
-    
+
     @Reference
     private Replicator replicat;
-    
-    
 
     // @Reference
     // private SlingHttpServletRequest request;
@@ -81,12 +80,14 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
     // }
 
     @Override
-    public ImporterStatus importData() throws IOException {
-        
+    public ImporterStatus updateImporData() throws IOException {
+
         ImporterStatus status = new ImporterStatus();
-        
-         int errorNumber = 0;
-         int succesNumber = 0;
+
+        Set<Integer> diff = new HashSet<Integer>();
+
+        int errorNumber = 0;
+        int succesNumber = 0;
         /**
          * authentification pour le swagger
          */
@@ -160,24 +161,28 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                             // offers
                         }
 
+                        diff.add(offers.getVoyageSpecialOfferId());
+
                         if (offersPage != null) {
                             Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
                             offersContentNode.setProperty(JcrConstants.JCR_TITLE, offers.getVoyageSpecialOffer());
                             offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
                             offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
                             offersContentNode.setProperty("endDate", offers.getValidTo().toString());
-                            
+
                             offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
-                            
+
                             geoMarket = offers.getMarkets();
                             market = new ArrayList<Tag>();
                             if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
                                 market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
                             }
-                            tagManager.setTags(offersPage.getContentResource(),
-                                    market.stream().toArray((Tag[]::new)));
+                            tagManager.setTags(offersPage.getContentResource(), market.stream().toArray((Tag[]::new)));
 
                             succesNumber = succesNumber + 1;
+                            if (!replicat.getReplicationStatus(session, offersRootPage.getPath()).isActivated()) {
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE, offersPage.getPath());
+                            }
                             j++;
                         }
 
@@ -200,6 +205,21 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                 i++;
             } while (specialOffers.size() > 0);
 
+            // TODO duplication des pages supprimé dans le retour d'api
+            Iterator<Page> resourcess = offersRootPage.listChildren();
+            while (resourcess.hasNext()) {
+                Page page = resourcess.next();
+
+                if (!diff.contains(
+                        Integer.parseInt(page.getContentResource().getValueMap().get("exclusiveOfferId").toString()))) {
+                    try {
+                        replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
+                    } catch (ReplicationException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             if (session.hasPendingChanges()) {
                 try {
                     // save migration date
@@ -211,38 +231,41 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
                 }
             }
 
-            try {
-                if(!replicat.getReplicationStatus(session, offersRootPage.getPath()).isActivated()){
-                    replicat.replicate(session, ReplicationActionType.ACTIVATE, offersRootPage.getPath());
-                }
-              Iterator<Page> childPages = resourceResolver.getResource(offersRootPage.getPath())
-                      .adaptTo(Page.class).listChildren();
-              while (childPages.hasNext()) {
-                  Page childPage = childPages.next();
-                  replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
-                  session.save();
-              }
+            // try {
+            // if(!replicat.getReplicationStatus(session,
+            // offersRootPage.getPath()).isActivated()){
+            // replicat.replicate(session, ReplicationActionType.ACTIVATE,
+            // offersRootPage.getPath());
+            // }
+            // Iterator<Page> childPages =
+            // resourceResolver.getResource(offersRootPage.getPath())
+            // .adaptTo(Page.class).listChildren();
+            // while (childPages.hasNext()) {
+            // Page childPage = childPages.next();
+            // replicat.replicate(session, ReplicationActionType.ACTIVATE,
+            // childPage.getPath());
+            // }
+            //
+            // } catch (ReplicationException e) {
+            // e.printStackTrace();
+            // }
 
-          } catch (ReplicationException e) {
-              e.printStackTrace();
-          }
-            
             resourceResolver.close();
         } catch (ApiException | LoginException | RepositoryException e) {
             LOGGER.error("Exception importing Exclusive offers", e);
         }
-        
+
         status.setErrorNumber(errorNumber);
         status.setSuccesNumber(succesNumber);
-        
-       return status;
+
+        return status;
     }
 
-//    public int getErrorNumber() {
-//        return errorNumber;
-//    }
-//
-//    public int getSuccesNumber() {
-//        return succesNumber;
-//    }
+    // public int getErrorNumber() {
+    // return errorNumber;
+    // }
+    //
+    // public int getSuccesNumber() {
+    // return succesNumber;
+    // }
 }

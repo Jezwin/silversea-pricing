@@ -144,7 +144,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                                         landsPage = pageManager.create(portPage.getPath(), "land-programs",
                                                 "/apps/silversea/silversea-com/templates/page", "Land Program", false);
                                     }
-                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/land-programs").getPath()).isActivated()){
+                                    if(!replicat.getReplicationStatus(session, landsPage.getPath()).isActivated()){
                                         replicat.replicate(session,ReplicationActionType.ACTIVATE, landsPage.getPath());
                                     }
 

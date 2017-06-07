@@ -7,9 +7,9 @@ import com.silversea.aem.components.beans.ImporterStatus;
 /**
  * Created by mbennabi on 09/03/2017.
  */
-public interface ExclusiveOffersImporter {
+public interface ExclusiveOffersUpdateImporter {
 
-    ImporterStatus importData() throws IOException;
+    ImporterStatus updateImporData() throws IOException;
 
 //    int getErrorNumber();
 //

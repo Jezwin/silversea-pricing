@@ -143,7 +143,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                                         hotelsPage = pageManager.create(portPage.getPath(), "hotels",
                                                 "/apps/silversea/silversea-com/templates/page", "Hotels", false);
                                     }
-                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
+                                    if(!replicat.getReplicationStatus(session, hotelsPage.getPath()).isActivated()){
                                         replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
                                     }
 

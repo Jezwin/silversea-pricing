@@ -19,6 +19,9 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -48,13 +51,16 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
     @Reference
     private QueryBuilder builder;
 
+    @Reference
+    private Replicator replicat;
+
     @Override
     public void importData() throws IOException {
         /**
          * authentification pour le swagger
          */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         
+        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+
         // final String authorizationHeader =
         // getAuthorizationHeader(COUNTRY_PATH);
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("contriesUrl"));
@@ -90,8 +96,15 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
                             node.setProperty("market", country.getMarket());
                             node.setProperty("region_id", country.getRegionId());
                             session.save();
-                            // LOGGER.debug("Country with iso 2 : " +
-                            // country.getCountryIso2() + " added.");
+                            if (!replicat.getReplicationStatus(session, node.getParent().getPath()).isActivated()) {
+                                try {
+                                    replicat.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
+                                } catch (ReplicationException e) {
+                                    // TODO Auto-generated catch block
+                                    LOGGER.debug("error during réplication node :" + country.getCountryName());
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     }
                 }
