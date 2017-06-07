@@ -47,8 +47,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
     static final private Logger LOGGER = LoggerFactory.getLogger(TravelAgenciesUpdateImporterImpl.class);
 
-    // private int errorNumber = 0;
-    // private int succesNumber = 0;
     private int sessionRefresh = 100;
     private int pageSize = 100;
 
@@ -89,12 +87,8 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
         if (apiConfig.getPageSize() != 0) {
             pageSize = apiConfig.getPageSize();
         }
-
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/agencies");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
 
-        // get authentification to the Travel Agencies API
         AgenciesApi travelAgenciesApi = new AgenciesApi();
         travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
@@ -102,8 +96,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            // Page travelRootPage =
-            // pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES);
             Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 
             int i = 1;
@@ -111,23 +103,11 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
             List<Agency> travelAgencies;
 
             do {
-
-                // gets all lands
                 travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
-
-                // get root parent travel agencies
-
                 int j = 0;
 
                 for (Agency agency : travelAgencies) {
-
                     try {
-                        // TODO remove this conditions, just to test
-                        // if(j==2){
-                        // String test = null;
-                        // test.toString();
-                        // }
-
                         Iterator<Resource> resources = resourceResolver.findResources(
                                 "//element(*,cq:Page)[jcr:content/agencyId=\"" + agency.getAgencyId() + "\"]", "xpath");
 
@@ -138,9 +118,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                         }
 
                         else {
-                            // sous quel neouds faut créer les pages !!!!!
-                            // BASEPATH_TRAVEL_AGENCIES
-                            // TODO vérifié si le noeud pays existe
                             Page agencyTravelContryPage = pageManager
                                     .getPage("/content/silversea-com/en/other-resources/find-a-travel-agent/"
                                             + agency.getCountryIso3().toLowerCase());
@@ -152,11 +129,11 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                                         StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
                             }
                             if (agencyTravelContryPage != null) {
-                                // replication de la page travel agence et des
-                                // noeuds pays
                                 if (!replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
+                                	if (!replicat.getReplicationStatus(session, agencyTravelContryPage.getPath()).isActivated()) {
                                     replicat.replicate(session, ReplicationActionType.ACTIVATE,
                                             agencyTravelContryPage.getPath());
+                                	}
                                 }
                                 agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
                                         JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
@@ -184,8 +161,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                             agencyContentNode.setProperty("longitude", agency.getLon());
                             succesNumber = succesNumber + 1;
 
-                            // replication de la page travel agence et des
-                            // noeuds pays
                             if (!replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
                                 replicat.replicate(session, ReplicationActionType.ACTIVATE, agencyTravelPage.getPath());
                             }
@@ -247,11 +222,4 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
         return status;
     }
 
-    // public int getErrorNumber() {
-    // return errorNumber;
-    // }
-    //
-    // public int getSuccesNumber() {
-    // return succesNumber;
-    // }
 }

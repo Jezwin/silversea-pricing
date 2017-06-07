@@ -164,6 +164,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                             j++;
                             succesNumber = succesNumber + 1;
 
+
                             try {
                                 session.save();
                                 replicat.replicate(session, ReplicationActionType.ACTIVATE,

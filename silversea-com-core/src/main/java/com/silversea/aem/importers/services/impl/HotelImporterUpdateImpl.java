@@ -65,9 +65,6 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
 
     @Override
     public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/hotels");
-        
 
         try {
             /**
@@ -96,18 +93,13 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
-            // get authentification to the Hotels API
             HotelsApi hotelsApi = new HotelsApi();
             hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
-            // get parent content resource
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
             Resource resParent = citiesRootPage.adaptTo(Resource.class);
-            // Resource resParent =
-            // resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
-            // get last importing date
             String dateFormat = "yyyyMMdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
             String currentDate;
@@ -119,7 +111,6 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                 List<Hotel77> hotels;
 
                 do {
-                    // gets all hotels changes
                     hotels = hotelsApi.hotelsGetChanges(currentDate, i, pageSize, null);
 
                     int j = 0;
@@ -135,9 +126,6 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
 
                             if (resources.hasNext()) {
                                 hotelPage = resources.next().adaptTo(Page.class);
-
-                                // désactivation de la page si le boolean est a
-                                // true
                                 if (BooleanUtils.isTrue(hotel.getIsDeleted())) {
                                     replicat.replicate(session, ReplicationActionType.DEACTIVATE, hotelPage.getPath());
                                 }
@@ -161,7 +149,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                             hotelsPage = pageManager.create(portPage.getPath(), "hotels",
                                                     "/apps/silversea/silversea-com/templates/page", "Hotels", false);
                                         }
-                                        if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
+                                        if(!replicat.getReplicationStatus(session, hotelsPage.getPath()).isActivated()){
                                             replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
                                         }
 
@@ -180,8 +168,6 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                             }
 
                             if (hotelPage != null && BooleanUtils.isFalse(hotel.getIsDeleted())) {
-                                // Test if hotel are deleted
-
                                 Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
                                 hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
                                 hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
@@ -193,7 +179,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                 try {
                                     session.save();
                                     replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                            (hotelPage).getPath());
+                                            hotelPage.getPath());
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
