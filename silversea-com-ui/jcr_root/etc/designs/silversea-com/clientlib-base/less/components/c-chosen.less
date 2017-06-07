@@ -11,14 +11,9 @@
         background: @white;
         box-shadow: none;
         color: @grey;
-        height: 40px;
-        padding: 12px 40px 12px 12px;
+        height: 42px;
+        padding: 10px 40px 10px 12px;
         width: 100%;
-
-        @media screen and (max-width: @screen-sm) {
-            height: 34px;
-            padding: 8px 12px 0;
-        }
 
         span {
             font-size: 14px;
@@ -76,5 +71,11 @@
                 }
             }
         }
+    }
+}
+
+.chosen-container-active.chosen-with-drop {
+    .chosen-single {
+        background-image: none;
     }
 }

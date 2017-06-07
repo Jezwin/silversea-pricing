@@ -53,7 +53,7 @@ public class SearchCruiseUse extends WCMUsePojo {
         for (Hit hit : result.getHits()) {
             page = hit.getResource().adaptTo(Page.class);
 
-            startDate = page.getProperties().get(WcmConstants.START_DATE, Calendar.class);
+            startDate = page.getProperties().get(WcmConstants.PN_START_DATE, Calendar.class);
             formatDateValue = formaterValue.format(startDate.getTime()).toString();
             formatDateKey = formaterKey.format(startDate.getTime()).toString();
 
