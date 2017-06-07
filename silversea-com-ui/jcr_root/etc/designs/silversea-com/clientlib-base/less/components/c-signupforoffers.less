@@ -1,12 +1,13 @@
 .c-signupforoffer {
+    
+    width: 80%;
+    margin: auto;
+    
     .form-control-feedback {
         font: normal normal normal 14px/1 FontAwesome;
 
         &.success {
-            &:before {
-                content: "\f00c";
-                line-height: 37px;
-            }
+            background: url('/etc/designs/silversea-com/clientlib-base/images/raq_input_valid.png') no-repeat;
         }
         &.error {
             &:before {
@@ -15,4 +16,36 @@
             }
         }
     }
+    
+    .help-block{
+        position: absolute;
+        right: 22px;
+        top: 7px;
+    }
+    
+    .form-control-feedback {
+        right: -40px;
+    }
+
+}
+
+
+
+.modal-lg {
+    width: 50%;
+}  
+
+
+
+@media screen and (max-width: @screen-sm) {
+        .modal-dialog,
+        .modal-content {
+            height: 100%;
+            width: 100%;
+        }
+
+        .modal-body {
+            max-height: 100%;
+            overflow-y: scroll;
+        }
 }

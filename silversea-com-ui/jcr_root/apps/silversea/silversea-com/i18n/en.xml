@@ -311,14 +311,19 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
+        
+    <required-title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-title"
+        sling:message="Please enter your title" />
     <required-lastname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-lastname"
-        sling:message="Lastname is required" />
+        sling:message="Please enter your lastname" />
     <required-firstname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
-        sling:message="Firstname is required" />
+        sling:message="Please enter your firtname" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"

@@ -10,11 +10,14 @@
       action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
-            <div class="form-group valid_success">
-                <select class="chosen form-control">
-                    <option value="">Title*</option>
+            <div class="form-group has-feedback">
+                <select class="chosen form-control"
+                            name="title"
+                            data-required-error="${'required-title' @ i18n}"
+                            required>
+                    <option value="" selected disabled hidden>Title*</option>
                     <option value="Mr.">Mr.</option>
-                    <option value="Mrs." selected="">Mrs.</option>
+                    <option value="Mrs." >Mrs.</option>
                     <option value="Miss">Miss</option>
                     <option value="Ms.">Ms.</option>
                     <option value="Dr.">Dr.</option>
@@ -23,7 +26,8 @@
                     <option value="Prof.">Prof.</option>
                     <option value="Lord">Lord</option>
                 </select>
-                <div class="form-helper-error-text live">
+                <span class="form-control-feedback" aria-hidden="true"></span>
+                <div class="form-helper-error-text live help-block with-errors">
                     <!--Please enter your first name						-->
                 </div>
             </div>
@@ -81,11 +85,11 @@
             </div>
 
             <div class="col-xs-3 pull-right">
-                <button class="btn btn-default pull-right c-btn--lg"
+                <button class="btn btn-red btn-default pull-right c-btn--lg"
                         type="submit"
                         data-sscclicktype="rab">
                     ${'submit' @ i18n}
-                    <i class="fa fa-lg fa-angle-right"></i>
+                    <i class="fa fa-lg fa-carret-right"></i>
                 </button>
             </div>
         </div>

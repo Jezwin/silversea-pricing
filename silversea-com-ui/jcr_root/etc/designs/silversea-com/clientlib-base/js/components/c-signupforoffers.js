@@ -1,20 +1,23 @@
 $(function() {
 
-    $('.modal').on('shown.bs.modal', function ()
-    {
+    $('.modal').on('shown.bs.modal', function (){
+        
+    setTimeout(function(){
+        var userInfo = JSON.parse($.CookieManager.getCookie('userInfo'))
+        $('.c-signupforoffer [name="email"]').val(userInfo.email);
+    },300)
 
-        console.log('--->', this, $(this).find('.chosen'));
-//      $(".chosen").chosen();
-        $(this).find('.chosen').chosen();
+        var opt = {
+            feedback: {
+              success: 'success',
+              error: 'error'
+            },
+            custom: {
 
-      var opt = {
-        feedback: {
-          success: 'success',
-          error: 'error'
-        }
-      };
+            }
+        };
 
-      $('.c-formcookie').validator(opt);
+        $('.c-formcookie').validator(opt);
     });
 
 });
