@@ -28,58 +28,14 @@ $(function() {
      * Form cookie value
      **************************************************************************/
     // On submit store mandatory value
-    var cookieValues = [ 'firstname', 'lastname', 'email', 'phone', 'description' ];
+    
+    
     $('.c-formcookie').validator()
         .off('input.bs.validator change.bs.validator focusout.bs.validator')
         .on('submit', function(e) {
-        if (!e.isDefaultPrevented()) {
-            
         
-            $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues) );
-             
-            var leadApiData = {},
-                currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
-
-            for (var i in cookieValues) {
-                if (this[cookieValues[i]] && this[cookieValues[i]].value !== undefined) {
-                    leadApiData[cookieValues[i]] = this[cookieValues[i]].value;
-                }
-            }
-
-            $.ajax({
-                type : "POST",
-                url : "/content/silversea/data.lead.json",
-                data : JSON.stringify(leadApiData),
-                contentType : "application/json",
-                dataType : "json",
-                success : function(data) {
-                    
-                    var obj = {};
-                    currentData.forEach(function(data, index){
-                         obj[currentData[index]] = '';
-                    });
-                    currentData = Object.assign(obj, leadApiData);
-                    $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
-                    $.CookieManager.setCookie('api_indiv_id', data);
-                },
-                failure : function(errMsg) {
-                    console.log('error LeadAPI', errMsg);
-                }
-            });
-
-            if (this.className.match(/c-formcookie--redirect/) !== null) {
-                e.preventDefault();
-                window.location.href = this.action;
-            } else if (this.className.match(/c-formcookie--modal/) !== null) {
-                e.preventDefault();
-
-                var target = this.dataset.target;
-                $(target + ' .modal-content').load(this.action, function(response, status, xhr) {
-                    if (status == "success") {
-                        $(target).modal('show');
-                    }
-                });
-            }
+        if (!e.isDefaultPrevented()) {
+            $.signUp.signUpOffers(this, e);
         }
     });
 
@@ -93,3 +49,68 @@ $(function() {
     
     
 });
+
+
+
++function($) {
+    'use strict';
+    
+    $.signUp = {
+        signUpOffers: function (elem, event) {
+            
+            var cookieValues = [ 'title','firstname', 'lastname', 'email', 'phone', 'description' ];
+            
+            var pos = document.cookie.indexOf( "userInfo=" );
+            if( pos <= 0){        
+                $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues) );
+            }
+                                       
+            var leadApiData = {},
+                currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
+            
+            for (var i in cookieValues) {
+
+                if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
+                    leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
+                }
+            }
+            
+  
+            event.preventDefault();
+            $.ajax({
+                type : "POST",
+                url : "/content/silversea/aa.lead.json",
+                data : JSON.stringify(leadApiData),
+                contentType : "application/json",
+                dataType : "json",
+                success : function(data) {
+                    var obj = {};
+                    cookieValues.forEach(function(dat, index){
+                         obj[cookieValues[index]] = '';
+                    });
+                    currentData = Object.assign(obj, leadApiData);
+                    $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
+                    $.CookieManager.setCookie('api_indiv_id', data);
+                    
+                },
+                failure : function(errMsg) {
+                    console.log('error LeadAPI', errMsg);
+                }
+            });
+            
+            if (elem.className.match(/c-formcookie--redirect/) !== null) {
+                //event.preventDefault();
+                setTimeout(function(){ window.location.href = elem.action; }, 1000);
+            } else if (elem.className.match(/c-formcookie--modal/) !== null) {
+                event.preventDefault();
+                var target = elem.dataset.target;
+                $(target + ' .modal-content').load(elem.action, function(response, status, xhr) {
+                    if (status == "success") {
+                        $(target).modal('show');
+                    }
+                });
+            }
+            
+        }
+    }
+}(jQuery);

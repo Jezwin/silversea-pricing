@@ -7,10 +7,11 @@
 
 <form class="c-formcookie c-formcookie--redirect c-signupforoffer"
       data-disable="false"
-      action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
+      action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}"
+      novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
-            <div class="form-group has-feedback">
+            <div class="form-group valid_success">
                 <select class="chosen form-control"
                             name="title"
                             data-required-error="${'required-title' @ i18n}"
@@ -88,8 +89,8 @@
                 <button class="btn btn-red btn-default pull-right c-btn--lg"
                         type="submit"
                         data-sscclicktype="rab">
-                    ${'submit' @ i18n}
-                    <i class="fa fa-lg fa-carret-right"></i>
+                    ${'sign-up-for-offers' @ i18n}
+                    <i class="fa fa-lg fa-caret-right"></i>
                 </button>
             </div>
         </div>

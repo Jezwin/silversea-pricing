@@ -344,6 +344,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
         sling:message="Please enter your firtname" />
+    <sign-up-for-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up-for-offers"
+        sling:message="Sign up for offers and news" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
