@@ -36,7 +36,7 @@
                                             fieldLabel="Slider Images"
                                             name="./assetSelectionReference"
                                             renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/siversea-com"/>
+                                            rootPath="/content/dam/silversea-com"/>
                                 </items>
                             </column>
                         </items>

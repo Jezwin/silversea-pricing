@@ -111,7 +111,7 @@
                                         fieldLabel="Hero Banner"
                                         name="./heroAssetSelectionReference"
                                         renderReadOnly="{Boolean}true"
-                                        rootPath="/content/dam/siversea-com"
+                                        rootPath="/content/dam/silversea-com"
                                         required="{Boolean}true" />
                                     <author
                                         jcr:primaryType="nt:unstructured"
@@ -128,7 +128,7 @@
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Gallery"
-                                        rootPath="/content/dam/siversea-com"
+                                        rootPath="/content/dam/silversea-com"
                                         name="./assetSelectionReference"
                                         renderReadOnly="{Boolean}true" />
                                 </items>
