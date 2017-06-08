@@ -47,10 +47,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="by"
         sling:message="By" />
-    <call-reservations-team
+    <call-reservations-team-1
         jcr:primaryType="sling:MessageEntry"
-        sling:key="call-reservations-team"
-        sling:message="Call our Reservations Team or your travel agent" />
+        sling:key="call-reservations-team-1"
+        sling:message="Call our Reservations Team" />
+    <call-reservations-team-2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-2"
+        sling:message="or your travel agent" />
     <click-to-call
         jcr:primaryType="sling:MessageEntry"
         sling:key="click-to-call"
