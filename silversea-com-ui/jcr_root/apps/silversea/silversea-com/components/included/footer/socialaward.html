@@ -1,4 +1,4 @@
-<section class="o-section">
+<section class="o-section" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
     <div class="row">
         <div class="col-sm-6">
             <!--/* AWARD */-->
@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <p class="c-list-inline__title">
-                                Silversea is regularly lauded by leading consumer and trade publications
+                                ${'award-label' @ i18n}
                             </p>
                         </div>
                         <div class="col-sm-6">
@@ -38,22 +38,22 @@
                     <ul class="c-list-inline__group c-list-inline__group--social">
                         <li class="c-list-inline__title c-list-inline__title--important">${'follow-us' @ i18n}</li>
                         <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="${footer.pageFacebook.path}.html"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         </li>
                         <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="#" ><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                            <a href="${footer.pageYoutube.path}.html" ><i class="fa fa-youtube" aria-hidden="true"></i></a>
                         </li>
                         <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="${footer.pageTwitter.path}.html"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                         </li>
                         <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="#"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="${footer.pageInstagram.path}.html"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
                         </li>
                         <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                            <a href="${footer.pagePinterest.path}.html"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                         </li>
                         <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="#">Our blog</a>
+                            <a href="${footer.pageBlog.path}.html">Our blog</a>
                         </li>
                     </ul>
                 </div>

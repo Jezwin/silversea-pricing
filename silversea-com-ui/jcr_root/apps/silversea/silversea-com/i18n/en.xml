@@ -23,6 +23,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="arrive"
         sling:message="Arrive" />
+    <award-label
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="award-label"
+        sling:message="Silversea is regularly lauded by leading consumer and trade publications" />
     <benefits-and-events
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events"
@@ -43,6 +47,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="by"
         sling:message="By" />
+    <call-reservations-team
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team"
+        sling:message="Call our Reservations Team or your travel agent" />
     <click-to-call
         jcr:primaryType="sling:MessageEntry"
         sling:key="click-to-call"
@@ -59,6 +67,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"
         sling:message="Coordinates" />
+    <copyright
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="copyright"
+        sling:message="&#169; 2017 Silversea Cruises Ltd." />
     <countries
         jcr:primaryType="sling:MessageEntry"
         sling:key="countries"
@@ -131,6 +143,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="exclusive-offers"
+        sling:message="Exclusive Offers" />
     <excursion-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"

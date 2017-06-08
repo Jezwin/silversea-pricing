@@ -8,7 +8,10 @@ import org.apache.sling.api.resource.Resource;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.services.GeolocationTagService;
 
 /**
  * Model for the footer mbennabi 31/05/2017
@@ -16,6 +19,7 @@ import com.day.cq.wcm.api.Page;
 public class FooterUse extends WCMUsePojo {
  
     private Iterator<Page> pagesMainColIterator;
+    private Iterator<Page> pagesBottomLineIterator;
     
     private Page pageSubCol1;
     private Page pageSubCol2;
@@ -30,8 +34,7 @@ public class FooterUse extends WCMUsePojo {
     private Page pageInstagram;
     private Page pagePinterest;
     private Page pageBlog;
-
-    private String[] bottomLine;
+    private String phone;
 
     /**
      * Initialize the component.
@@ -76,7 +79,27 @@ public class FooterUse extends WCMUsePojo {
         pageBlog = getPageFromPath(blogReference);
         pageSubCol1.listChildren();
         
-        bottomLine = properties.getInherited("bottomLine", String[].class);
+        final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
+        ArrayList<Page> pagesBottomLine = new ArrayList<Page>();
+        for (int i = 0; i < bottomLine.length; i++) {
+        	pagesBottomLine.add(getPageFromPath(bottomLine[i]));
+        }
+        pagesBottomLineIterator = pagesBottomLine.iterator();
+        
+        // Getting context
+    	GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
+        
+        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+
+        if (geolocationTagId != null) {
+            Tag geolocationTag = tagManager.resolve(geolocationTagId);
+
+            if (geolocationTag != null) {
+            	Resource node = geolocationTag.adaptTo(Resource.class);
+            	phone = node.getValueMap().get("phone", String.class);
+            }
+        }
     }
     
     /**
@@ -145,11 +168,15 @@ public class FooterUse extends WCMUsePojo {
         return pageBlog;
     }
 
-    public String[] getBottomLine() {
-        return bottomLine;
-    }
+	public Iterator<Page> getPagesBottomLineIterator() {
+		return pagesBottomLineIterator;
+	}
 
 	public Iterator<Page> getPagesMainColIterator() {
 		return pagesMainColIterator;
 	}
+	
+    public String getPhone() {
+        return phone;
+    }
 }
