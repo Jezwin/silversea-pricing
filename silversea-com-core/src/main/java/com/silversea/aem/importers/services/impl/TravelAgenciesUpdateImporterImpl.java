@@ -178,7 +178,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                         }
                     } catch (Exception e) {
                         errorNumber = errorNumber + 1;
-                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        LOGGER.debug("Travel agency error, number of faulures :", errorNumber);
                         j++;
                     }
                 }
@@ -186,7 +186,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                 i++;
             } while (travelAgencies.size() > 0);
 
-            // TODO duplication des pages supprimé dans le retour d'api
+            // TODO Depublication of deleted pages
             Iterator<Page> resourcess = travelRootPage.listChildren();
             while (resourcess.hasNext()) {
                 Page page = resourcess.next();
@@ -214,7 +214,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
             resourceResolver.close();
         } catch (ApiException | LoginException | RepositoryException e) {
-            LOGGER.error("Exception importing shorexes", e);
+            LOGGER.error("Exception importing travel agencies", e);
         }
         status.setErrorNumber(errorNumber);
         status.setSuccesNumber(succesNumber);

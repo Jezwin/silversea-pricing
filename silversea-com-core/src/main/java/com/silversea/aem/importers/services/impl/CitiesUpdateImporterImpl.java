@@ -29,7 +29,6 @@ import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.ImportersConstants;
@@ -157,7 +156,6 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
                             if (resources.hasNext()) {
                                 portPage = resources.next().adaptTo(Page.class);
-                                // TODO Descativation for deleted page
                                 if (BooleanUtils.isTrue(city.getIsDeleted())) {
                                     replicat.replicate(session, ReplicationActionType.DEACTIVATE, portPage.getPath());
                                 }

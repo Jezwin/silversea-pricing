@@ -29,10 +29,8 @@ import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -158,12 +156,12 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                                         hotel.getHotelName()),
                                                 TemplateConstants.PATH_HOTEL, hotel.getHotelName(), false);
 
-                                        LOGGER.debug("Creating excursion {}", hotel.getHotelName());
+                                        LOGGER.debug("Creating hotel {}", hotel.getHotelName());
                                     } else {
                                         LOGGER.debug("No city found with id {}", cityId);
                                     }
                                 } else {
-                                    LOGGER.debug("Excursion have no city attached, not imported");
+                                    LOGGER.debug("hotel have no city attached, not imported");
                                 }
                             }
 
@@ -196,7 +194,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                             }
                         } catch (Exception e) {
                             errorNumber = errorNumber + 1;
-                            LOGGER.debug("cities error, number of faulures :", errorNumber);
+                            LOGGER.debug("hotel error, number of faulures :", errorNumber);
                             j++;
                         }
                     }

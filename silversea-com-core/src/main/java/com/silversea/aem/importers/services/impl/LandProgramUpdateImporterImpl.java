@@ -29,16 +29,13 @@ import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.LandsApi;
-import io.swagger.client.model.Land;
 import io.swagger.client.model.Land77;
 
 /**
@@ -146,7 +143,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 										LOGGER.debug("No city found with id {}", cityId);
 									}
 								} else {
-									LOGGER.debug("Excursion have no city attached, not imported");
+									LOGGER.debug("land program have no city attached, not imported");
 								}
 							}
 
@@ -180,7 +177,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 							}
 						} catch (Exception e) {
 							errorNumber = errorNumber + 1;
-							LOGGER.debug("cities error, number of faulures :", errorNumber);
+							LOGGER.debug("land program error, number of faulures :", errorNumber);
 							j++;
 						}
 					}
@@ -204,7 +201,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 				throw new UpdateImporterExceptions();
 			}
 		} catch (ApiException | LoginException | RepositoryException e) {
-			LOGGER.error("Exception importing shorexes", e);
+			LOGGER.error("Exception importing land program", e);
 		}
 	}
 

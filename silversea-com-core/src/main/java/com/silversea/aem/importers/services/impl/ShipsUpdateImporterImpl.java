@@ -30,7 +30,6 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.services.ShipsImporter;
 import com.silversea.aem.importers.services.ShipsUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -42,10 +41,6 @@ import io.swagger.client.model.Ship;
 public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdateImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ShipsUpdateImporterImpl.class);
-    // private static final String SHIP_PATH = "/api/v1/ships";
-
-    // private int errorNumber = 0;
-    // private int succesNumber = 0;
     private int sessionRefresh = 100;
 
     @Reference
@@ -83,14 +78,11 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
             }
 
             final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
-            // final String authorizationHeader = getAuthorizationHeader(url);
             ShipsApi shipsApi = new ShipsApi();
             shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             Session session = resourceResolver.adaptTo(Session.class);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            // Page shipsRootPage =
-            // pageManager.getPage(ImportersConstants.BASEPATH_SHIP);
             Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
             List<Ship> listShips;
             listShips = shipsApi.shipsGet(null);
@@ -184,13 +176,5 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
         status.setSuccesNumber(succesNumber);
         return status;
     }
-
-    // public int getErrorNumber() {
-    // return errorNumber;
-    // }
-    //
-    // public int getSuccesNumber() {
-    // return succesNumber;
-    // }
 
 }
