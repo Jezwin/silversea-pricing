@@ -31,12 +31,28 @@
             .map--link {
                 background-color: @grey--e;
 
+                @media screen and (max-width: @screen-sm) {
+                    padding-bottom: 25px;
+                }
+
                 .c-btn {
                     margin: 10px;
                     line-height: 16px;
                     font-size: 11px;
                 }
             }
+        }
+    }
+
+    .slick-dots {
+        bottom: 10px;
+
+        li button:before {
+            background: @grey--ca;
+        }
+
+        li.slick-active button:before {
+            background-color: @black;
         }
     }
 }
