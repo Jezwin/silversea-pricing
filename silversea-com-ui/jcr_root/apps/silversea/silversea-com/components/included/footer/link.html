@@ -7,7 +7,7 @@
                </a>
                 <ul class="c-list__group c-list__group--important" data-sly-list.child="${footer.pagesMainColIterator}">
                     <li class="c-list__item">
-                        <a href="${child.path}.html">${child.title}</a>
+                        <a href="${child.path @ extension='html'}">${child.title}</a>
                     </li>
                 </ul>
             </div>
@@ -16,41 +16,41 @@
             <div class="aem-Grid aem-Grid--12">
                 <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12">
                     <div class="c-list c-list__accordion">
-                        <a class="c-list__title" href="${footer.pageSubCol1.path}.html">
+                        <a class="c-list__title" href="${footer.pageSubCol1.path @ extension='html'}">
                           ${footer.pageSubCol1.title}
                         </a>
                         <ul class="c-list__group c-list__group--phone-hide c-list__accordion--content" data-sly-list.child="${footer.pageSubCol1.listChildren}">
                             <li class="c-list__item">
-                                <a href="${child.path}.html">${child.title}</a>
+                                <a href="${child.path @ extension='html'}">${child.title}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12">
                     <div class="c-list c-list__accordion">
-                        <a class="c-list__title" href="${footer.pageSubCol2.path}.html">
+                        <a class="c-list__title" href="${footer.pageSubCol2.path @ extension='html'}">
                           ${footer.pageSubCol2.title}
                         </a>
                         <ul class="c-list__group c-list__group--phone-hide c-list__accordion--content" data-sly-list.child="${footer.pageSubCol2.listChildren}">
                             <li class="c-list__item">
-                                <a href="${child.path}.html">${child.title}</a>
+                                <a href="${child.path @ extension='html'}">${child.title}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12">
                     <div class="c-list c-list__accordion c-list__accordion--full">
-                        <a class="c-list__title" href="${footer.pageSubCol3.path}.html">
+                        <a class="c-list__title" href="${footer.pageSubCol3.path @ extension='html'}">
                           ${footer.pageSubCol3.title}
                         </a>
                         <ul class="c-list__group c-list__accordion--content" data-sly-list.child="${footer.pageSubCol3.listChildren}">
                             <li class="c-list__item">
-                                <a href="${child.path}.html">${child.title}</a>
+                                <a href="${child.path @ extension='html'}">${child.title}</a>
                             </li>
                         </ul>
                         <ul class="c-list__group c-list__accordion--content">
                             <li class="c-list__item c-list__item--special">
-                                <a href="${footer.pageMySilversea.path}.html">
+                                <a href="${footer.pageMySilversea.path @ extension='html'}">
                                     <i class="fa fa-user"></i>
                                     ${footer.pageMySilversea.title}
                                 </a>

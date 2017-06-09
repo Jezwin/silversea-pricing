@@ -5,7 +5,7 @@
         </li>
         <div data-sly-list.child="${footer.pagesBottomLineIterator}"  data-sly-unwrap>
         <li class="c-list--legal__item">
-            <a href="${child.path}.html"><strong>${child.title}</strong></a>
+            <a href="${child.path @ extension='html'}"><strong>${child.title}</strong></a>
         </li>
         </div>
         <li class="c-list--legal__item c-callbox__msg--mobile visible-xs-inline-block">
