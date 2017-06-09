@@ -82,20 +82,15 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
             pageSize = apiConfig.getPageSize();
         }
 
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/hotels");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
 
         try {
-            // get authentification to the Hotels API
             HotelsApi hotelsApi = new HotelsApi();
             hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            // Page citiesRootPage =
-            // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             int i = 1;
@@ -111,11 +106,6 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                 for (Hotel hotel : hotels) {
 
                     try {
-                        // TODO remove this conditions, just to test
-                        // if(j==2){
-                        // String test = null;
-                        // test.toString();
-                        // }
 
                         Iterator<Resource> resources = resourceResolver.findResources(
                                 "//element(*,cq:Page)[jcr:content/hotelId=\"" + hotel.getHotelId() + "\"]", "xpath");
@@ -143,7 +133,8 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                                         hotelsPage = pageManager.create(portPage.getPath(), "hotels",
                                                 "/apps/silversea/silversea-com/templates/page", "Hotels", false);
                                     }
-                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
+                                    session.save();
+                                    if(!replicat.getReplicationStatus(session, hotelsPage.getPath()).isActivated()){
                                         replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
                                     }
 
@@ -173,10 +164,11 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                             j++;
                             succesNumber = succesNumber + 1;
 
+
                             try {
                                 session.save();
                                 replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                        (hotelPage).getPath());
+                                        hotelPage.getPath());
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -213,23 +205,23 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                 }
             }
 
-            try {
-                // replicat.replicate(session,
-                // ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
-                Iterator<Page> childPages = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS)
-                        .adaptTo(Page.class).listChildren();
-                while (childPages.hasNext()) {
-                    Page childPage = childPages.next();
-                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
-                    Iterator<Page> childs = childPage.listChildren();
-                    while (childs.hasNext()) {
-                        Page childP = childs.next();
-                        replicat.replicate(session, ReplicationActionType.ACTIVATE, childP.getPath());
-                    }
-                }
-            } catch (ReplicationException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                // replicat.replicate(session,
+//                // ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+//                Iterator<Page> childPages = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS)
+//                        .adaptTo(Page.class).listChildren();
+//                while (childPages.hasNext()) {
+//                    Page childPage = childPages.next();
+//                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
+//                    Iterator<Page> childs = childPage.listChildren();
+//                    while (childs.hasNext()) {
+//                        Page childP = childs.next();
+//                        replicat.replicate(session, ReplicationActionType.ACTIVATE, childP.getPath());
+//                    }
+//                }
+//            } catch (ReplicationException e) {
+//                e.printStackTrace();
+//            }
 
             resourceResolver.close();
         } catch (ApiException | LoginException | RepositoryException e) {

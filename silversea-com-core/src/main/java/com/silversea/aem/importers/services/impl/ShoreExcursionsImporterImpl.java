@@ -53,7 +53,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
     @Reference
     private ApiConfigurationService apiConfig;
-    
+
     @Reference
     private Replicator replicat;
 
@@ -80,8 +80,6 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             pageSize = apiConfig.getPageSize();
         }
 
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/shoreExcursions");
         final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
 
         ShorexesApi shorexesApi = new ShorexesApi();
@@ -91,8 +89,6 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
-            // Page citiesRootPage =
-            // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             List<Shorex> shorexes;
@@ -127,7 +123,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                                 Iterator<Resource> portsResources = resourceResolver.findResources(
                                         "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
 
-                                if (portsResources.hasNext()) {
+								if (portsResources.hasNext()) {
                                     Page portPage = portsResources.next().adaptTo(Page.class);
 
                                     LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
@@ -139,12 +135,14 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                                         excursionsPage = pageManager.create(portPage.getPath(), "excursions",
                                                 "/apps/silversea/silversea-com/templates/page", "Excursions", false);
                                     }
-                                    
-                                    if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/excursions").getPath()).isActivated()){
-                                        replicat.replicate(session,ReplicationActionType.ACTIVATE, excursionsPage.getPath());
+                                    session.save();
+                                    if (!replicat
+                                            .getReplicationStatus(session,
+                                                    excursionsPage.getPath())
+                                            .isActivated()) {
+                                        replicat.replicate(session, ReplicationActionType.ACTIVATE,
+                                                excursionsPage.getPath());
                                     }
-                                    
-                                    
 
                                     excursionPage = pageManager.create(excursionsPage.getPath(),
                                             JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
@@ -174,17 +172,15 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
                             excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
                             succesNumber = succesNumber + 1;
-                            j++;
-                            
+
                             try {
                                 session.save();
-                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                        (excursionPage).getPath());
+                                replicat.replicate(session, ReplicationActionType.ACTIVATE, excursionPage.getPath());
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
-                            
-                            
+                            j++;
+
                         }
 
                         if (j % sessionRefresh == 0) {

@@ -23,6 +23,7 @@ import com.silversea.aem.models.PublicAreaModel;
 import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
+import com.silversea.aem.utils.PathUtils;
 
 public class CruiseUse extends WCMUsePojo {
 
@@ -208,5 +209,12 @@ public class CruiseUse extends WCMUsePojo {
         // TODO : gallery.put("ship-exteriors", value);
 
         return gallery;
+    }
+
+    /**
+     * Return path for request quote page
+     */
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
     }
 }

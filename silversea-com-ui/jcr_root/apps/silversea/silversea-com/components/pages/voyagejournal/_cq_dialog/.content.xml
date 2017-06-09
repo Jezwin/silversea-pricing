@@ -60,7 +60,7 @@
                                             cq-msm-lockable="assetSelectionReference"
                                             fieldLabel="Hero images"
                                             name="./assetSelectionReference"
-                                            rootPath="/content/dam/siversea-com"
+                                            rootPath="/content/dam/silversea-com"
                                             renderReadOnly="{Boolean}true"/>
                                      <shipReference
                                             jcr:primaryType="nt:unstructured"

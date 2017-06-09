@@ -21,7 +21,7 @@
                     <strong class="text-uppercase" data-sly-test="{!isWaitList}">${item.price.currency} ${item.price.value}</strong>
                 </td>
                 <td>
-                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="#" data-sscclicktype="RAQ">
+                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${cruise.requestQuotePagePath @ extension='html', selectors=[pageProperties.cruiseId]}" data-sscclicktype="RAQ">
                         <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                     </a>
                 </td>

@@ -29,7 +29,6 @@ import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.ImportersConstants;
@@ -65,8 +64,6 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
     @Override
     public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
-        // final String authorizationHeader =
-        // getAuthorizationHeader("/api/v1/cities/changesFrom/");
 
         try {
             /**
@@ -94,11 +91,8 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
-            // get parent content resource
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
-            // Resource resParent =
-            // resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS);
             Resource resParent = citiesRootPage.adaptTo(Resource.class);
             Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
 
@@ -111,14 +105,9 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
                 currentDate = formatter.format(date.getTime()).toString();
 
                 final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
-                // final String authorizationHeader =
-                // getAuthorizationHeader("/api/v1/cities");
 
                 CitiesApi citiesApi = new CitiesApi();
                 citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-
-                // Page citiesRootPage =
-                // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
 
                 List<City77> cities;
                 int i = 1;
@@ -148,11 +137,18 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
                                 LOGGER.debug("Creating page {}", portFirstLetterName);
                             }
-                            
-//                            if(!replicat.getReplicationStatus(session, pageManager.getPage(portPage.getPath() + "/hotels").getPath()).isActivated()){
-//                                replicat.replicate(session,ReplicationActionType.ACTIVATE, hotelsPage.getPath());
-//                            }
-
+    						session.save();
+    						if (replicat.getReplicationStatus(session, citiesRootPage.getPath()).isActivated()) {
+    							try {
+    								if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
+    										.isActivated()) {
+    									replicat.replicate(session, ReplicationActionType.ACTIVATE,
+    											portFirstLetterPage.getPath());
+    								}
+    							} catch (ReplicationException e) {
+    								e.printStackTrace();
+    							}
+    						}
                             Iterator<Resource> resources = resourceResolver.findResources(
                                     "//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]", "xpath");
 
@@ -160,7 +156,6 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
                             if (resources.hasNext()) {
                                 portPage = resources.next().adaptTo(Page.class);
-                                // TODO Descativation for deleted page
                                 if (BooleanUtils.isTrue(city.getIsDeleted())) {
                                     replicat.replicate(session, ReplicationActionType.DEACTIVATE, portPage.getPath());
                                 }
@@ -194,6 +189,14 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
                             portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
                             succesNumber = succesNumber + 1;
                             j++;
+                            
+                            
+                            
+                            
+                            if (BooleanUtils.isFalse(city.getIsDeleted())) {
+                            	session.save();
+        						replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
+                            }
 
                             if (j % sessionRefresh == 0) {
                                 if (session.hasPendingChanges()) {

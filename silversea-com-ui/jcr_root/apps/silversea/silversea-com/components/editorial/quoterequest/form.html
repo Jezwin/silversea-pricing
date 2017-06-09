@@ -1,0 +1,49 @@
+<sly data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequest" />
+<form id="request-quote-form" action="" method="post" data-toggle="validator" class="c-form">
+    <div class="form-group form-group-lg">
+        <select name="title" class="form-control chosen">
+            <option value="">Title*</option>
+            <option value="Mr.">Mr.</option>
+            <option value="Mrs.">Mrs.</option>
+            <option value="Miss">Miss</option>
+            <option value="Ms.">Ms.</option>
+            <option value="Dr.">Dr.</option>
+            <option value="Sir">Sir</option>
+            <option value="Lady">Lady</option>
+            <option value="Prof.">Prof.</option>
+            <option value="Lord">Lord</option>
+        </select>
+        <div class="form-helper-error-text live">Please enter your title</div>
+    </div>
+    <div class="form-group form-group-lg">
+        <input type="text" name="firstName" class="form-control" placeholder="First Name*">
+        <div class="form-helper-error-text live">Please enter your first name</div>
+    </div>
+    <div class="form-group form-group-lg">
+        <input type="text" id="InputLastName" name="lastName" class="form-control" value="" placeholder="Last Name*">
+        <div class="form-helper-error-text live">Please enter your last name</div>
+    </div>
+    <div class="form-group form-group-lg">
+        <input type="email" id="InputEmail" name="email" class="form-control" value="" placeholder="Email Address*">
+        <div class="form-helper-error-text live empty">Please enter your email</div>
+        <div class="form-helper-error-text live incorrect">Incorrect Email Address</div>
+    </div>
+
+    <sly data-sly-include="selectcountry.html" />
+
+    <div class="form-group form-group-lg textarea_autogrow">
+        <textarea class="form-control" name="requestDetails" placeholder="Details About Your Request"></textarea>
+        <div class="textarea_autogrow-size"></div>
+    </div>
+    <p class="small text-muted">${'required-fields' @ i18n}</p>
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label><input type="checkbox" name="subscribe" checked> Yes! I would like to receive emails with news and special offers from Silversea.</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></button>
+        </div>
+    </div>
+</form>

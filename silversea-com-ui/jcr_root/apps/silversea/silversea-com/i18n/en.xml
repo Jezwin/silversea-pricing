@@ -23,6 +23,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="arrive"
         sling:message="Arrive" />
+    <award-label
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="award-label"
+        sling:message="Silversea is regularly lauded by leading consumer and trade publications" />
     <benefits-and-events
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events"
@@ -43,6 +47,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="by"
         sling:message="By" />
+    <call-reservations-team-1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-1"
+        sling:message="Call our Reservations Team" />
+    <call-reservations-team-2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-2"
+        sling:message="or your travel agent" />
     <click-to-call
         jcr:primaryType="sling:MessageEntry"
         sling:key="click-to-call"
@@ -59,6 +71,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"
         sling:message="Coordinates" />
+    <copyright
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="copyright"
+        sling:message="&#169; 2017 Silversea Cruises Ltd." />
     <countries
         jcr:primaryType="sling:MessageEntry"
         sling:key="countries"
@@ -131,6 +147,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="exclusive-offers"
+        sling:message="Exclusive Offers" />
     <excursion-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
@@ -311,14 +331,23 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
+        
+    <required-title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-title"
+        sling:message="Please enter your title" />
     <required-lastname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-lastname"
-        sling:message="Lastname is required" />
+        sling:message="Please enter your lastname" />
     <required-firstname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
-        sling:message="Firstname is required" />
+        sling:message="Please enter your firtname" />
+    <sign-up-for-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up-for-offers"
+        sling:message="Sign up for offers and news" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"

@@ -1,0 +1,31 @@
+<div data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequest" class="raqm__country_phone">
+    <div class="raqm__countrycode">
+        <div class="raqm__countrycode_selector">
+            <span class="flag_wrapper"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  class="flag flag-fr"></span>
+            <span class="countrycode_wrapper"> <span> (+33) </span> <i class="fa fa-caret-down"> </i></span>
+        </div>
+        <div id="countryCodeContainer" class="form-group" style="display: none;">
+            <select name="countryCode" id="countryCode" class="form-control">
+                <option value="">Country Code*</option>
+                <option value="AF">Afghanistan (+93)</option>
+                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">
+                    ${country.valueMap.name}
+                    (${country.valueMap.country_prefix})
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="raqm__phone">
+        <div class="form-group">
+            <input type="text" id="InputTelephoneNumber" name="phone" class="form-control" value="">
+            <div class="valid_icon">
+                <img src="http://static.silversea.com/wp-content/themes/silversea/images/raq_modal/raq_input_valid.png" />
+            </div>
+            <div class="invalid_icon">
+                <img src="http://static.silversea.com/wp-content/themes/silversea/ssc_open/images/raq_modal/cross.fw.png" />
+            </div>
+            <div class="form-helper-error-text live empty">Please enter your phone number</div>
+            <div class="form-helper-error-text live incorrect">Please check the phone format</div>
+        </div>
+    </div>
+</div>
