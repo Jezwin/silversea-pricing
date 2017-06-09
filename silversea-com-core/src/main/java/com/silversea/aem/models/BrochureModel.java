@@ -47,8 +47,9 @@ public class BrochureModel {
         if (asset != null) {
             RenditionPicker renditionPicker = new PrefixRenditionPicker("cover");
             Rendition rendition = asset.getRendition(renditionPicker);
-
-            return rendition.getPath();
+            if (rendition != null) {
+                return rendition.getPath();
+            }
         }
 
         return null;
