@@ -17,10 +17,10 @@ import com.silversea.aem.services.GeolocationTagService;
  * Model for the footer mbennabi 31/05/2017
  */
 public class FooterUse extends WCMUsePojo {
- 
+
     private Iterator<Page> pagesMainColIterator;
     private Iterator<Page> pagesBottomLineIterator;
-    
+
     private Page pageSubCol1;
     private Page pageSubCol2;
     private Page pageSubCol3;
@@ -40,16 +40,18 @@ public class FooterUse extends WCMUsePojo {
      * Initialize the component.
      */
     @Override
-	public void activate() throws Exception {
+    public void activate() throws Exception {
         InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
 
         final String[] mainCol = properties.getInherited("reference", String[].class);
         ArrayList<Page> pagesMainCol = new ArrayList<Page>();
-        for (int i = 0; i < mainCol.length; i++) {
-        	pagesMainCol.add(getPageFromPath(mainCol[i]));
+        if (mainCol != null) {
+            for (int i = 0; i < mainCol.length; i++) {
+                pagesMainCol.add(getPageFromPath(mainCol[i]));
+            }
         }
         pagesMainColIterator = pagesMainCol.iterator();
-        
+
         final String subCol1 = properties.getInherited("subCol1", String.class);
         final String subCol2 = properties.getInherited("subCol2", String.class);
         final String subCol3 = properties.getInherited("subCol3", String.class);
@@ -63,7 +65,7 @@ public class FooterUse extends WCMUsePojo {
         final String instagramReference = properties.getInherited("instagramReference", String.class);
         final String pinterestReference = properties.getInherited("pinterestReference", String.class);
         final String blogReference = properties.getInherited("blogReference", String.class);
-        
+
         pageSubCol1 = getPageFromPath(subCol1);
         pageSubCol2 = getPageFromPath(subCol2);
         pageSubCol3 = getPageFromPath(subCol3);
@@ -78,30 +80,30 @@ public class FooterUse extends WCMUsePojo {
         pagePinterest = getPageFromPath(pinterestReference);
         pageBlog = getPageFromPath(blogReference);
         pageSubCol1.listChildren();
-        
+
         final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
         ArrayList<Page> pagesBottomLine = new ArrayList<Page>();
         for (int i = 0; i < bottomLine.length; i++) {
-        	pagesBottomLine.add(getPageFromPath(bottomLine[i]));
+            pagesBottomLine.add(getPageFromPath(bottomLine[i]));
         }
         pagesBottomLineIterator = pagesBottomLine.iterator();
-        
+
         // Getting context
-    	GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
         final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
-        
+
         TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
         if (geolocationTagId != null) {
             Tag geolocationTag = tagManager.resolve(geolocationTagId);
 
             if (geolocationTag != null) {
-            	Resource node = geolocationTag.adaptTo(Resource.class);
-            	phone = node.getValueMap().get("phone", String.class);
+                Resource node = geolocationTag.adaptTo(Resource.class);
+                phone = node.getValueMap().get("phone", String.class);
             }
         }
     }
-    
+
     /**
      * get Page from path
      *
@@ -168,14 +170,14 @@ public class FooterUse extends WCMUsePojo {
         return pageBlog;
     }
 
-	public Iterator<Page> getPagesBottomLineIterator() {
-		return pagesBottomLineIterator;
-	}
+    public Iterator<Page> getPagesBottomLineIterator() {
+        return pagesBottomLineIterator;
+    }
 
-	public Iterator<Page> getPagesMainColIterator() {
-		return pagesMainColIterator;
-	}
-	
+    public Iterator<Page> getPagesMainColIterator() {
+        return pagesMainColIterator;
+    }
+
     public String getPhone() {
         return phone;
     }
