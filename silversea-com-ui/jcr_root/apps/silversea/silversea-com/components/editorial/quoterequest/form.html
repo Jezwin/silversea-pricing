@@ -28,28 +28,14 @@
         <div class="form-helper-error-text live empty">Please enter your email</div>
         <div class="form-helper-error-text live incorrect">Incorrect Email Address</div>
     </div>
-    <div class="raqm__country_phone">
-        <div class="raqm__countrycode">
-            <div class="raqm__countrycode_selector">
-                <span class="flag_wrapper"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-fr"></span>
-                <span class="countrycode_wrapper"> <span> (+33) </span> <i class="fa fa-caret-down"> </i></span>
-            </div>
-            <select name="countryCode" class="form-control chosen">
-                <option value="">Country Code*</option>
-                <option value="AF" data-country-code="(+93)">Afghanistan (+93)</option>
-                <option data-sly-repeat.country="${use.countries}" value="${country.properties}" data-country-code="">${country.valueMap.name}</option>
-            </select>
-        </div>
-        <div class="form-group form-group-lg">
-            <input type="text" id="InputTelephoneNumber" name="phone" class="form-control" value="">
-            <div class="form-helper-error-text live empty">Please enter your phone number</div>
-            <div class="form-helper-error-text live incorrect">Please check the phone format</div>
-        </div>
-    </div>
+
+    <sly data-sly-include="selectcountry.html" />
+
     <div class="form-group form-group-lg textarea_autogrow">
         <textarea class="form-control" name="requestDetails" placeholder="Details About Your Request"></textarea>
+        <div class="textarea_autogrow-size"></div>
     </div>
-    <p class="small text-muted">* Required Fields</p>
+    <p class="small text-muted">${'required-fields' @ i18n}</p>
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label><input type="checkbox" name="subscribe" checked> Yes! I would like to receive emails with news and special offers from Silversea.</label>
