@@ -29,6 +29,8 @@ public class FooterUse extends WCMUsePojo {
     private Page pageExclusiveOffer;
     private Page pageAaward;
     private Page pageBlog;
+    private Page pageMySilversea;
+    
     private String phone;
     
     private String facebookReference;
@@ -36,7 +38,7 @@ public class FooterUse extends WCMUsePojo {
     private String twitterReference;
     private String instagramReference;
     private String pinterestReference;
-    private String mySilverseaReference;
+    
 
     /**
      * Initialize the component.
@@ -62,6 +64,7 @@ public class FooterUse extends WCMUsePojo {
         final String exclusiveOfferReference = properties.getInherited("exclusiveOfferReference", String.class);
         final String awardReference = properties.getInherited("awardReference", String.class);
         final String blogReference = properties.getInherited("blogReference", String.class);
+        final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
         
         pageSubCol1 = getPageFromPath(subCol1);
         pageSubCol2 = getPageFromPath(subCol2);
@@ -71,9 +74,9 @@ public class FooterUse extends WCMUsePojo {
         pageAaward = getPageFromPath(awardReference);
         pageBlog = getPageFromPath(blogReference);
         pageSubCol1.listChildren();
+        pageMySilversea = getPageFromPath(mySilverseaReference);
         
         //external links
-        mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
         facebookReference = properties.getInherited("facebookReference", String.class);
         youtubeReference = properties.getInherited("youtubeReference", String.class);
         twitterReference = properties.getInherited("twitterReference", String.class);
@@ -129,8 +132,8 @@ public class FooterUse extends WCMUsePojo {
         return pageSubCol3;
     }
 
-    public String getPageMySilversea() {
-        return getExternalLinkUrl(mySilverseaReference);
+    public Page getPageMySilversea() {
+        return pageMySilversea;
     }
     
     public String getExternalLinkUrl(String path) {
