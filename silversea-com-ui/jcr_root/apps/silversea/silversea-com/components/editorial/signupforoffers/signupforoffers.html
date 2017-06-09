@@ -11,12 +11,12 @@
       novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
-            <div class="form-group valid_success">
+            <div class="form-group has-feedback">
                 <select class="chosen form-control"
                             name="title"
                             data-required-error="${'required-title' @ i18n}"
                             required>
-                    <option value="" selected disabled hidden>Title*</option>
+                    <option value="" disabled selected>Title*</option>
                     <option value="Mr.">Mr.</option>
                     <option value="Mrs." >Mrs.</option>
                     <option value="Miss">Miss</option>
@@ -27,8 +27,7 @@
                     <option value="Prof.">Prof.</option>
                     <option value="Lord">Lord</option>
                 </select>
-                <span class="form-control-feedback" aria-hidden="true"></span>
-                <div class="form-helper-error-text live help-block with-errors">
+                <div class="form-helper-error-text live">
                     <!--Please enter your first name						-->
                 </div>
             </div>
@@ -80,8 +79,8 @@
 
             <div class="form-group">
                 <div class="checkbox">
-                    <label class="">
-                        <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" name="already_travelling" value="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>I am currently booked on a Silversea cruise                    </label>
+                    <input class="c-accept" type="checkbox" id="minimal-checkbox-1">
+                    <label for="minimal-checkbox-1">I am currently booked on a Silversea cruise</label>
                 </div>
             </div>
 

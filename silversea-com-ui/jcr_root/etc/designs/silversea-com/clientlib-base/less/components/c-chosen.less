@@ -17,7 +17,6 @@
 
         span {
             font-size: 14px;
-            font-weight: 600;
             line-height: initial;
             margin: 0;
 
@@ -31,8 +30,8 @@
             background: 0;
 
             &:before {
-                color: @grey--3;
-                content: "\f107";
+                color: @grey;
+                content: "\f0d7";
                 font-family: FontAwesome;
                 font-size: 18px;
                 font-weight: 400;
@@ -58,7 +57,7 @@
 
             li {
                 font-size: 13px;
-                line-height: 24px;
+                line-height: 24spx;
                 margin: 0 15px 0 4px;
 
                 &.highlighted, &.result-selected {
@@ -71,8 +70,10 @@
                 }
             }
         }
+        
     }
 }
+
 
 .chosen-container-active.chosen-with-drop {
     .chosen-single {
