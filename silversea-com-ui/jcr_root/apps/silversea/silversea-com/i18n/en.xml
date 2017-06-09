@@ -327,11 +327,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-or-download"
         sling:message="Request or download" />
+    <request-a-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-a-brochure"
+        sling:message="Request a brochure" />
     <required-email-address
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
-        
     <required-title
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-title"
