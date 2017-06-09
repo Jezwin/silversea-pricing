@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
+    jcr:primaryType="rep:SystemUser"
+    jcr:uuid="97bbb2a8-26b3-3098-9799-ffd65208cb39"
+    rep:authorizableId="ssc-importer"
+    rep:principalName="ssc-importer"/>

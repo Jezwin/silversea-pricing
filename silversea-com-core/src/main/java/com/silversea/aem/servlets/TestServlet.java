@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import com.silversea.aem.importers.services.BrochuresImporter;
 import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.importers.services.ComboCruisesImporter;
 import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
@@ -77,6 +78,8 @@ public class TestServlet extends SlingSafeMethodsServlet {
 
     @Reference
     CruisesImporter cruisesImporter;
+    @Reference
+    ComboCruisesImporter comboCruisesImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -271,6 +274,11 @@ public class TestServlet extends SlingSafeMethodsServlet {
                 response.getWriter().write("Cruises import Done<br/>");
                 response.getWriter().flush();
             }
+            if (all || mode.equals(Mode.cc)) {
+                comboCruisesImporter.importData();
+                response.getWriter().write("Combo cruises import Done<br/>");
+                response.getWriter().flush();
+            }
             
         }else{
             response.getWriter().write("<br/>an other import is aleready run<br />");
@@ -313,7 +321,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
     }
 
     enum Mode {
-        cities, ex, hotels, lp, ta, eo, ships, countries, ft, brochures, cruises;
+        cities, ex, hotels, lp, ta, eo, ships, countries, ft, brochures, cruises, cc;
 
     }
 }

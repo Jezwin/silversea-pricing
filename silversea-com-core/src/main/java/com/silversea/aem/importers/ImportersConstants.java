@@ -24,8 +24,11 @@ public interface ImportersConstants {
 
     String API_DOMAIN = "https://shop.silversea.com";
     
+    //Sub service name
+    String SUB_SERVICE_IMPORT_DATA = "import-data";
     // Templates
     String CUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
+    String CUISE_SEGEMENT_TEMPLATE = "/apps/silversea/silversea-com/templates/combosegment";
     // Tags path
     String GEOTAGGING_TAG_PREFIX = "geotagging:";
     // Constants

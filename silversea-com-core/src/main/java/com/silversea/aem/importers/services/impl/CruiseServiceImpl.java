@@ -1,11 +1,10 @@
-package com.silversea.aem.services.impl;
+package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -44,14 +44,15 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.components.beans.LowestPrice;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.enums.CruiseType;
 import com.silversea.aem.enums.PriceVariations;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.CruiseService;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
-import com.silversea.aem.services.CruiseService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.HotelItinerary;
@@ -72,24 +73,21 @@ public class CruiseServiceImpl implements CruiseService{
 
     @Reference
     private ApiConfigurationService apiConfig;
-    
+
     @Reference
     private ApiCallService apiCallService;
 
     @Reference
     Replicator replicator;
-    
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
-    
+
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     private TagManager tagManager;
     private AssetManager assetManager;
     private Session session;
-
-    private Map<String, PriceData> lowestPrices;
-    private Map<String, PriceData> variationLowestPrices;
 
     public void init() {
         try {
@@ -110,7 +108,7 @@ public class CruiseServiceImpl implements CruiseService{
                 NameConstants.NT_PAGE, "cruiseId", Objects.toString(voyageId),
                 resourceResolver);
         Page cruisePage = ImporterUtils.adaptOrCreatePage(resources, ImportersConstants.CUISE_TEMPLATE, destinationPage,
-                voyageName, pageManager);
+                (voyageName + " " +voyageId), pageManager);
 
         return cruisePage;
     }
@@ -146,7 +144,7 @@ public class CruiseServiceImpl implements CruiseService{
             tagManager.setTags(page.getContentResource(), tags.stream().toArray(Tag[]::new));
         }
     }
-    
+
     public void buildOrUpdateIteneraries(Page cruisePage,Integer voyageId,String url)
             throws RepositoryException, IOException, ApiException {
 
@@ -200,7 +198,19 @@ public class CruiseServiceImpl implements CruiseService{
         }
     }
 
-    
+    public void replicatePageWithChildren(Page page)throws RepositoryException{
+
+        if(page != null && page.listChildren()!=null){
+            replicateResource(page.getPath());
+            page.listChildren().forEachRemaining(child -> {
+                try {
+                    replicateResource(child.getPath());
+                } catch (RepositoryException e) {
+                    LOGGER.error("Replication error",e);
+                }
+            });
+        }
+    }
 
     public void updateItineraryNode(Node itineraryNode, Itinerary itinerary) throws RepositoryException {
         itineraryNode.setProperty("portReference", ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "cityId",
@@ -242,7 +252,7 @@ public class CruiseServiceImpl implements CruiseService{
             LOGGER.debug("Cruise importer -- No land program found for the itinerary {}", itinerary.getItineraryId());
         }
     }
-    
+
     public void updateHotelNodes(List<HotelItinerary> hotels, Node itineraryNode, Itinerary itinerary)
             throws RepositoryException {
 
@@ -306,14 +316,15 @@ public class CruiseServiceImpl implements CruiseService{
     public VoyagePriceComplete getVoyagePriceById(List<VoyagePriceComplete> voyagePrices, Integer voyageId) {
         VoyagePriceComplete voyagePriceComplete = null;
         if (voyagePrices != null && !voyagePrices.isEmpty()) {
-
-            voyagePriceComplete = voyagePrices.stream().filter(item -> voyageId.equals(item.getVoyageId())).findAny()
+            voyagePriceComplete = voyagePrices.stream()
+                                              .filter(item -> voyageId.equals(item.getVoyageId()))
+                                              .findAny()
                     .orElse(null);
         }
         return voyagePriceComplete;
     }
 
-    public void buildOrUpdateSuiteNodes(Page cruisePage,Integer voyageId,Integer shipId,List<VoyagePriceComplete> voyagePricesComplete)
+    public void buildOrUpdateSuiteNodes(LowestPrice lowestPrice,Page cruisePage,Integer voyageId,Integer shipId,List<VoyagePriceComplete> voyagePricesComplete)
             throws RepositoryException, IOException, ApiException {
 
         // Create or update suites nodes
@@ -321,15 +332,17 @@ public class CruiseServiceImpl implements CruiseService{
         VoyagePriceComplete voyagePrice = getVoyagePriceById(voyagePrices, voyageId);
         Node suitesNode = ImporterUtils.findOrCreateNode(cruisePage.adaptTo(Node.class), ImportersConstants.SUITES_NODE);
         ImporterUtils.saveSession(session, false);
-
+        lowestPrice.initVariationPrices();
         if (voyagePrice != null && !voyagePrice.getMarketCurrency().isEmpty()) {
             LOGGER.debug("Cruise importer -- Start updating suites variations and prices for voyage with id {}", voyageId);
             for (Price price : voyagePrice.getMarketCurrency().get(0).getCruiseOnlyPrices()) {
                 Page suiteReference = findSuiteReference(shipId, price.getSuiteCategoryCod());
                 if (suiteReference != null) {
-                    buildSuitesGrouping(suitesNode, suiteReference, price, voyagePrice);
+                    buildSuitesGrouping(lowestPrice,suitesNode, suiteReference, price, voyagePrice);
                 }
             }
+            //Build variation lowest prices
+            buildVariationsLowestPrices(suitesNode, lowestPrice);
             LOGGER.debug("Cruise importer -- Updating suites variations and prices for voyage with id {} finished", voyageId);
         }
         else{
@@ -337,11 +350,12 @@ public class CruiseServiceImpl implements CruiseService{
         }
     }
 
-    public void buildSuitesGrouping(Node rootNode, Page suiteRef, Price price, VoyagePriceComplete voyagePrice)
+    public void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price, VoyagePriceComplete voyagePrice)
             throws RepositoryException {
-        variationLowestPrices = new HashMap<String, PriceData>();
+
         Node suiteGroupingNode = ImporterUtils.findOrCreateNode(rootNode, suiteRef.getName());
         if(suiteGroupingNode != null){
+            lowestPrice.addVariation(suiteRef.getName());
             suiteGroupingNode.setProperty("suiteReference", suiteRef.getPath());
 
             Iterator<Resource> res = ImporterUtils.findResourceById(ImportersConstants.QUERY_JCR_ROOT_PATH + rootNode.getPath(), JcrConstants.NT_UNSTRUCTURED,
@@ -351,22 +365,21 @@ public class CruiseServiceImpl implements CruiseService{
                 suiteNode.setProperty("suiteCategoryCod", price.getSuiteCategoryCod());
                 ImporterUtils.saveSession(session, false);
                 // Create variationNode
-                buildOrUpdateVariationNodes(voyagePrice.getMarketCurrency(), suiteNode, price.getSuiteCategoryCod(),
+                buildOrUpdateVariationNodes(suiteRef.getName(),lowestPrice,voyagePrice.getMarketCurrency(), suiteNode, price.getSuiteCategoryCod(),
                         voyagePrice.getVoyageCod());
-                // build variations lowest prices node
-                buildLowestPrices(suiteGroupingNode, variationLowestPrices);
-                ImporterUtils.saveSession(session, false);
             }
         }
     }
 
-    public void buildOrUpdateVariationNodes(List<VoyagePriceMarket> voyagePriceMarketList, Node suiteNode,
+    public void buildOrUpdateVariationNodes(String suiteRef,LowestPrice lowestPrice,List<VoyagePriceMarket> voyagePriceMarketList, Node suiteNode,
             String suiteCategoryCode, String voyageCode) throws RepositoryException {
         if(voyagePriceMarketList != null && !voyagePriceMarketList.isEmpty()){
             for (VoyagePriceMarket voyagePriceMarket : voyagePriceMarketList) {
 
                 Price price = voyagePriceMarket.getCruiseOnlyPrices().stream()
-                        .filter(item -> suiteCategoryCode.equals(item.getSuiteCategoryCod())).findAny().orElse(null);
+                                               .filter(item -> suiteCategoryCode.equals(item.getSuiteCategoryCod()))
+                                               .findAny()
+                                               .orElse(null);
 
                 if (price != null) {
                     String variationId = voyageCode + suiteCategoryCode + voyagePriceMarket.getMarketCod()
@@ -384,9 +397,9 @@ public class CruiseServiceImpl implements CruiseService{
                         variationNode.setProperty(NameConstants.PN_TAGS, geotaggingTags);
                         variationNode.setProperty("variationId", variationId);
                         // Calculate the global lowest price
-                        calculateLowestPrice(lowestPrices, price, voyagePriceMarket.getMarketCod());
+                        calculateLowestPrice(lowestPrice.getGlobalPrices(), price, voyagePriceMarket.getMarketCod());
                         // Calculation variation lowest price
-                        calculateLowestPrice(variationLowestPrices, price, voyagePriceMarket.getMarketCod());
+                        calculateLowestPrice(lowestPrice.getVariationPrices().get(suiteRef).getVariationPrices(), price, voyagePriceMarket.getMarketCod());
                     }
                 }
             }
@@ -434,18 +447,19 @@ public class CruiseServiceImpl implements CruiseService{
         return destinationPage;
     }
 
-   
-
     public String[] findSpecialOffersReferences(List<VoyageSpecialOffer> voyageSpecialOffers, Integer voyageId) {
 
         List<String> references = new ArrayList<String>();
 
         if (voyageSpecialOffers != null && !voyageSpecialOffers.isEmpty()) {
-            voyageSpecialOffers.get(0).getSpecialOffers().stream().filter(distinctByKey(e -> e.getVoyageSpecialOfferId()))
-            .map(SpecialOfferByMarket::getVoyageSpecialOfferId).collect(Collectors.toList()).forEach(id -> {
-                references.add(ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "exclusiveOfferId",
-                        Objects.toString(id), resourceResolver));
-            });
+            voyageSpecialOffers.get(0).getSpecialOffers()
+                                      .stream()
+                                      .filter(distinctByKey(e -> e.getVoyageSpecialOfferId()))
+                                      .map(SpecialOfferByMarket::getVoyageSpecialOfferId)
+                                      .collect(Collectors.toList()).forEach(id -> {
+                                           references.add(ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "exclusiveOfferId",
+                                           Objects.toString(id), resourceResolver));
+                                      });
         } else {
             LOGGER.debug("Cruise importer -- No special offer found for voyage id {}", voyageId);
         }
@@ -485,7 +499,8 @@ public class CruiseServiceImpl implements CruiseService{
             String variation = marketCode + "_" + price.getCurrencyCod();
             if (Arrays.stream(PriceVariations.values()).anyMatch(e -> e.name().equals(variation))
                     && (!lowestPrices.containsKey(variation)
-                            || price.getCruiseOnlyFare() < Integer.parseInt(lowestPrices.get(variation).getValue()))) {
+                            || (lowestPrices.get(variation) != null && 
+                            price.getCruiseOnlyFare() < Integer.parseInt(lowestPrices.get(variation).getValue())))) {
                 PriceData priceData = new PriceData();
                 priceData.setCurrency(price.getCurrencyCod());
                 priceData.setMarketCode(marketCode);
@@ -513,7 +528,17 @@ public class CruiseServiceImpl implements CruiseService{
         }
 
     }
-    
+
+    public void buildVariationsLowestPrices(Node suitesNode, LowestPrice lowestPrice) throws RepositoryException{
+        if(suitesNode!=null){
+            NodeIterator nodes = suitesNode.getNodes();
+            while(nodes.hasNext()){
+                Node node = nodes.nextNode();
+                buildLowestPrices(node, lowestPrice.getVariation(node.getName()));
+            }
+        }
+    }
+
     public void updateReplicationStatus(Boolean isDeleted, Boolean isVisible,Page page) throws RepositoryException{
         try{
             if(page != null){
@@ -529,6 +554,5 @@ public class CruiseServiceImpl implements CruiseService{
         } catch (ReplicationException e) {
             LOGGER.error("Replication error",e);
         }
-    }
-    
+    }    
 }

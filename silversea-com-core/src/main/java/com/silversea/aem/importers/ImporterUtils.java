@@ -24,6 +24,7 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.helper.StringHelper;
 
 public class ImporterUtils {
     
@@ -118,8 +119,9 @@ public class ImporterUtils {
             page = resources.next().adaptTo(Page.class);
         } else {
             page = pageManager.create(RootPage.getPath(),
-                    JcrUtil.createValidChildName(RootPage.adaptTo(Node.class),title),
-                    template, title, false);
+                    JcrUtil.createValidChildName(RootPage.adaptTo(Node.class),
+                            StringHelper.getFormatWithoutSpecialCharcters(title)),
+                            template, title, false);
         }
 
         return page;
