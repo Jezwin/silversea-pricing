@@ -2,7 +2,6 @@ $(function() {
 
     $('.modal').on('shown.bs.modal', function (){
 		
-			$(".chosen").chosen();
             $(".chosen").chosen();
 
             $('.c-signupforoffer .c-accept').iCheck({
