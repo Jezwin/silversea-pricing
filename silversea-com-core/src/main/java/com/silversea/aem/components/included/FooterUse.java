@@ -146,7 +146,7 @@ public class FooterUse extends WCMUsePojo {
                 return path + ".html";
             }
         } else {
-            return "#";
+            return "";
         }
     }
 

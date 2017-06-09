@@ -45,21 +45,31 @@
                 <div class="c-list-inline c-list-inline--social c-list-inline--center">
                     <ul class="c-list-inline__group c-list-inline__group--social">
                         <li class="c-list-inline__title c-list-inline__title--important">${'follow-us' @ i18n}</li>
-                        <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="${footer.pageTwitter}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="${footer.pageInstagram}" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social">
-                            <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                        </li>
+                        <div data-sly-test="${footer.pageFacebook != ''}" data-sly-unwrap>
+	                        <li class="c-list-inline__item c-list-inline__item--social">
+	                            <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+	                        </li>
+                        </div>
+                        <div data-sly-test="${footer.pageYoutube != ''}" data-sly-unwrap>
+	                        <li class="c-list-inline__item c-list-inline__item--social">
+	                            <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+	                        </li>
+                        </div>
+                        <div data-sly-test="${footer.pageTwitter != ''}" data-sly-unwrap>
+	                        <li class="c-list-inline__item c-list-inline__item--social">
+	                            <a href="${footer.pageTwitter}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+	                        </li>
+	                    </div>
+	                    <div data-sly-test="${footer.pageInstagram != ''}" data-sly-unwrap>
+	                        <li class="c-list-inline__item c-list-inline__item--social">
+	                            <a href="${footer.pageInstagram}" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+	                        </li>
+	                    </div>
+	                    <div data-sly-test="${footer.pagePinterest != ''}" data-sly-unwrap>
+	                        <li class="c-list-inline__item c-list-inline__item--social">
+	                            <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+	                        </li>
+                        </div>
                         <li class="c-list-inline__item c-list-inline__item--social">
                             <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">${'blog' @ i18n}</a>
                         </li>
