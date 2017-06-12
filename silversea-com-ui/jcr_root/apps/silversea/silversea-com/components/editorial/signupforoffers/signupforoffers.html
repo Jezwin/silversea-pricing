@@ -12,23 +12,26 @@
     <div class="row form-group">
         <div class="col-xs-12">
             <div class="form-group has-feedback">
-                <select class="chosen form-control"
-                            name="title"
-                            data-required-error="${'required-title' @ i18n}"
-                            required>
-                    <option value="" disabled selected>Title*</option>
-                    <option value="Mr.">Mr.</option>
-                    <option value="Mrs." >Mrs.</option>
-                    <option value="Miss">Miss</option>
-                    <option value="Ms.">Ms.</option>
-                    <option value="Dr.">Dr.</option>
-                    <option value="Sir">Sir</option>
-                    <option value="Lady">Lady</option>
-                    <option value="Prof.">Prof.</option>
-                    <option value="Lord">Lord</option>
-                </select>
-                <div class="form-helper-error-text live">
-                    <!--Please enter your first name						-->
+                   <div>
+                        <select class="chosen form-control"
+                                    name="title"
+                                    data-required-error="${'required-title' @ i18n}"
+                                    required>
+                            <option value="">Title*</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs." >Mrs.</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Dr.">Dr.</option>
+                            <option value="Sir">Sir</option>
+                            <option value="Lady">Lady</option>
+                            <option value="Prof.">Prof.</option>
+                            <option value="Lord">Lord</option>
+                        </select>  
+                    </div>              
+                <span class="form-control-feedback" aria-hidden="true"></span>
+                <div class="fa form-helper-error-text live help-block with-errors">
+                    <!--Please select you title					-->
                 </div>
             </div>
 
@@ -79,7 +82,7 @@
 
             <div class="form-group">
                 <div class="checkbox">
-                    <input class="c-accept" type="checkbox" id="minimal-checkbox-1">
+                    <input name="isbooked" type="checkbox" id="minimal-checkbox-1">
                     <label for="minimal-checkbox-1">I am currently booked on a Silversea cruise</label>
                 </div>
             </div>

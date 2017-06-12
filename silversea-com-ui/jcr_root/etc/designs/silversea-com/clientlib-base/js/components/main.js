@@ -58,39 +58,47 @@ $(function() {
     $.signUp = {
         signUpOffers: function (elem, event) {
             
-            var cookieValues = [ 'title','firstname', 'lastname', 'email', 'phone', 'description' ];
+            var cookieValues = [ 'title','firstname', 'lastname', 'email', 'phone', 'description', 'isbooked' ];
             
             var pos = document.cookie.indexOf( "userInfo=" );
-            if( pos <= 0){        
+            if( pos <= 0){  
                 $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues) );
             }
                                        
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
+                
             
             for (var i in cookieValues) {
-
                 if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
                     leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
+                    
+                    if( elem[cookieValues[i]].name == "isbooked" ){ 
+                        var checkbox = document.querySelector('.c-signupforoffer [name="isbooked"]');
+                        leadApiData[elem[cookieValues[i]].name] = checkbox.checked;
+                    }
                 }
             }
             
-  
-            event.preventDefault();
             $.ajax({
                 type : "POST",
-                url : "/content/silversea/aa.lead.json",
+                url : "/content/silversea/cc.lead.json",
                 data : JSON.stringify(leadApiData),
                 contentType : "application/json",
                 dataType : "json",
                 success : function(data) {
                     var obj = {};
+                    
                     cookieValues.forEach(function(dat, index){
-                         obj[cookieValues[index]] = '';
+                        if( currentData[dat] != undefined ){
+                            obj[cookieValues[index]] = currentData[dat];
+                        }
                     });
                     currentData = Object.assign(obj, leadApiData);
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
-                    $.CookieManager.setCookie('api_indiv_id', data);
+                    if (elem.className.match(/c-formcookie--redirect/) !== null) {
+                        $.CookieManager.setCookie('api_indiv_id', data);
+                    }
                     
                 },
                 failure : function(errMsg) {
@@ -100,7 +108,7 @@ $(function() {
             
             if (elem.className.match(/c-formcookie--redirect/) !== null) {
                 //event.preventDefault();
-                setTimeout(function(){ window.location.href = elem.action; }, 1000);
+                setTimeout(function(){ window.location.href = elem.action; }, 1000000000);
             } else if (elem.className.match(/c-formcookie--modal/) !== null) {
                 event.preventDefault();
                 var target = elem.dataset.target;
