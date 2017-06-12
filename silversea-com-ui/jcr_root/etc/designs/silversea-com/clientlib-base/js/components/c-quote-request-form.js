@@ -2,8 +2,8 @@ $(function() {
     // Autogrow Textarea
     $('.textarea_autogrow').each(function() {
         var $autogrow = $(this),
-        $autogrowSize = $autogrow.find('.textarea_autogrow-size'),
-        $input = $autogrow.find('textarea');
+        $autogrowSize = $autogrow.find('.textarea_autogrow__size'),
+        $input = $autogrow.find('.textarea_autogrow__field');
 
         var autoSize = (function autoSize() {
             $autogrowSize.html($input.val() + '\n');
@@ -28,34 +28,36 @@ $(function() {
     });
 
     $('.countrycode').each(function() {
-        $countryCode = $(this);
+        $countryCodeWrapper = $(this);
 
-        $countryCode.find('#countryCode').on('change', function() {
-            $("#InputTelephoneNumber").intlTelInput("setCountry", $(this).val());
+        $countryCodeWrapper.find('#countryCode').on('change', function() {
+            $inputTelephoneNumber = $countryCodeWrapper.find("#InputTelephoneNumber");
+            $inputTelephoneNumber.intlTelInput("setCountry", $(this).val());
 
-            if ($('#InputTelephoneNumber').val() !== '') {
-                $('#InputTelephoneNumber').blur();
+            // If value exists on page load
+            if ($inputTelephoneNumber.val() !== '') {
+                $inputTelephoneNumber.blur();
             }
         });
 
         // Active intlTelInput plugin (combo box with flag)
-        $countryCode.find('#InputTelephoneNumber').intlTelInput('setCountry', $('#countryCode').val());
+        $countryCodeWrapper.find('#InputTelephoneNumber').intlTelInput('setCountry', $('#countryCode').val());
 
         // Trigger open chosen event on flag click
         var openChosen = (function openChosen() {
-            $countryCode.find('.flag-container').on('click', function(event) {
+            $countryCodeWrapper.find('.flag-container').on('click', function(event) {
                 event.stopPropagation();
-                $countryCode.find('#countryCode').trigger('chosen:open');
+                $countryCodeWrapper.find('#countryCode').trigger('chosen:open');
 
                 // Unbind click on flag
-                $countryCode.find('.flag-container').off('click');
+                $(this).off('click');
             });
 
             return openChosen;
         }());
 
         // Bind click on flag
-        $countryCode.find('#countryCode').on('chosen:hiding_dropdown', function() {
+        $countryCodeWrapper.find('#countryCode').on('chosen:hiding_dropdown', function() {
             openChosen();
         })
     });
