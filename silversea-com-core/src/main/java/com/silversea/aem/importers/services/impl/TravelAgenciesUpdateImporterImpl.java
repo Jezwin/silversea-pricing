@@ -129,12 +129,12 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                                         StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
                             }
                             if (agencyTravelContryPage != null) {
-                                if (!replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
-                                	if (!replicat.getReplicationStatus(session, agencyTravelContryPage.getPath()).isActivated()) {
+//                                if (!replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
+//                                	if (!replicat.getReplicationStatus(session, agencyTravelContryPage.getPath()).isActivated()) {
                                     replicat.replicate(session, ReplicationActionType.ACTIVATE,
                                             agencyTravelContryPage.getPath());
-                                	}
-                                }
+//                                	}
+//                                }
                                 agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
                                         JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
@@ -161,9 +161,9 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                             agencyContentNode.setProperty("longitude", agency.getLon());
                             succesNumber = succesNumber + 1;
 
-                            if (!replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
+//                            if (!replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
                                 replicat.replicate(session, ReplicationActionType.ACTIVATE, agencyTravelPage.getPath());
-                            }
+//                            }
                             j++;
                         }
 
