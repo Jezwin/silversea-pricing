@@ -1,15 +1,17 @@
 $(function() {
-     // Autogrow Textarea
     // Autogrow Textarea
-    var textContainer, textareaSize, input;
-    var autoSize = function() {
-        textareaSize.innerHTML = input.value + '\n';
-    };
-    textContainer = document.querySelector('.textarea_autogrow');
-    textareaSize = textContainer.querySelector('.textarea_autogrow-size');
-    input = textContainer.querySelector('textarea');
-    autoSize();
-    input.addEventListener('input', autoSize);
+    $('.textarea_autogrow').each(function() {
+        var $autogrow = $(this),
+        $autogrowSize = $autogrow.find('.textarea_autogrow-size'),
+        $input = $autogrow.find('textarea');
+
+        var autoSize = (function autoSize() {
+            $autogrowSize.html($input.val() + '\n');
+            return autoSize; 
+        })();
+
+        $input.bind('input', autoSize());
+    });
 
     // Init intl Tel Input Plugin
     $('#InputTelephoneNumber').intlTelInput({
