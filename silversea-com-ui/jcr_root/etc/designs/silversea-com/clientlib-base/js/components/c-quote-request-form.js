@@ -13,22 +13,22 @@ $(function() {
         $input.bind('input', autoSize());
     });
 
-    // Init intl Tel Input Plugin
-    $('#InputTelephoneNumber').intlTelInput({
-        allowDropdown : false,
-        // geoIpLookup: function(callback) {
-        // $.get("http://ipinfo.io", function() {},
-        // "jsonp").always(function(resp) {
-        // var countryCode = (resp && resp.country) ? resp.country : "";
-        // callback(countryCode);
-        // });
-        // },
-        // initialCountry: 'auto',
-        separateDialCode : true
-    });
-
     $('.countrycode').each(function() {
         $countryCodeWrapper = $(this);
+
+        // Init intl Tel Input Plugin
+        $countryCodeWrapper.find('#InputTelephoneNumber').intlTelInput({
+            allowDropdown : false,
+            // geoIpLookup: function(callback) {
+            // $.get("http://ipinfo.io", function() {},
+            // "jsonp").always(function(resp) {
+            // var countryCode = (resp && resp.country) ? resp.country : "";
+            // callback(countryCode);
+            // });
+            // },
+            //initialCountry: 'auto',
+            separateDialCode : true
+        });
 
         $countryCodeWrapper.find('#countryCode').on('change', function() {
             $inputTelephoneNumber = $countryCodeWrapper.find("#InputTelephoneNumber");
@@ -60,5 +60,14 @@ $(function() {
         $countryCodeWrapper.find('#countryCode').on('chosen:hiding_dropdown', function() {
             openChosen();
         })
+    });
+
+    // Validator !
+    $('.request-quote-form').validator({
+        focus : false,
+        feedback : {
+            success : 'feedback-success',
+            error : 'feedback-error'
+        }
     });
 });
