@@ -1,16 +1,29 @@
 <div class="container" data-sly-use.brochure="com.silversea.aem.components.editorial.BrochureThankYouUse">
-<h1>Brochure thank you component</h1>
-
-<img class="c-brochure__img" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}" />
-<h2 class="c-brochure__title visible-lg visible-md">${brochure.brochure.assetTitle}</h2>
-<p class="c-brochure__description">${brochure.brochure.assetDescription}</p>
-<p class="c-brochure__btnwrapper">
-    <a data-sly-test="${brochure.brochure.onlineBrochureUrl}"
-       href="${brochure.brochure.onlineBrochureUrl}"
-       class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal">
-        <i class="fa fa-search"></i>
-        <strong>${'view-online' @i18n}</strong>
-    </a>
-</p>
-
+<table>
+    <tr>
+        <td>
+            <img class="c-brochure__img" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}" />
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <h2 class="c-brochure__title">${brochure.brochure.assetTitle}</h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="c-brochure__description">${brochure.brochure.assetDescription}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <p class="c-brochure__btnwrapper">
+                <a data-sly-test="${brochure.brochure.onlineBrochureUrl}"
+                       href="${brochure.brochure.onlineBrochureUrl}" class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal">
+                    <i class="fa fa-search"></i><strong>${'view-online' @i18n}</strong>
+                </a>
+            </p>
+        </td>
+    </tr>
+</table>
 </div>
