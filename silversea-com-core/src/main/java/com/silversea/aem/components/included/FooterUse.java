@@ -83,8 +83,10 @@ public class FooterUse extends WCMUsePojo {
 
         final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
         ArrayList<Page> pagesBottomLine = new ArrayList<Page>();
-        for (int i = 0; i < bottomLine.length; i++) {
-            pagesBottomLine.add(getPageFromPath(bottomLine[i]));
+        if (bottomLine != null) {
+            for (int i = 0; i < bottomLine.length; i++) {
+                pagesBottomLine.add(getPageFromPath(bottomLine[i]));
+            }
         }
         pagesBottomLineIterator = pagesBottomLine.iterator();
 
