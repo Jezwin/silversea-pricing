@@ -1,14 +1,12 @@
-<div data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequest" class="raqm__country_phone">
-    <div class="raqm__countrycode">
-        <input type="text" id="InputTelephoneNumber" name="phone" class="form-control" value="">
-        <div class="form-helper-error-text live empty">Please enter your phone number</div>
-        <div class="form-helper-error-text live incorrect">Please check the phone format</div>
-        <select name="countryCode" id="countryCode" class="form-control chosen">
-            <option value="">Country Code*</option>
-            <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">
-                ${country.valueMap.name}
-                (${country.valueMap.country_prefix})
-            </option>
-        </select>
-    </div>
+<div data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequest" class="countrycode">
+    <input type="text" id="InputTelephoneNumber" name="phone" class="form-control" />
+    <select name="countryCode" id="countryCode" class="form-control chosen">
+        <option value="">Country Code*</option>
+        <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">
+            ${country.valueMap.name}
+            (${country.valueMap.country_prefix})
+        </option>
+    </select>
+    <div class="form-helper-error-text live empty">Please enter your phone number</div>
+    <div class="form-helper-error-text live incorrect">Please check the phone format</div>
 </div>

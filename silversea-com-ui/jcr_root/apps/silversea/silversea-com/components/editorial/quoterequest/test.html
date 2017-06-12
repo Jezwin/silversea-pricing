@@ -206,6 +206,14 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="clearfix"></div>
+                                            <div class="form-group textarea_autogrow">
+                                                <textarea class="form-control" name="requestDetails" placeholder="Details About Your Request"></textarea>
+                                                <div class="textarea_autogrow-size"></div>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                            <div id="ss_forms_security"></div>
 
                                             <div class="col-md-7 col-sm-7 col-xs-12 col-md-offset-5 col-sm-offset-5">
                                                 <button type="submit" class="btn_base btn_base-red btn_base-arrow btn_base-md btn_base-fullw fire-modal cta_newraq_submit_button">
@@ -281,6 +289,8 @@
                                     //test nb #raqm #requestQuoteForm .valid_success .valid_icon
                                     if ($('#raqm #requestQuoteForm .valid_success .valid_icon').length == 5) {
                                         updateForm(container.find('*').serialize());
+                                    } else {
+                                        //error message to display
                                     }
                                 };
 
@@ -452,6 +462,24 @@
                                     $(this).blur();
                                 }
                             });
+
+                            setTimeout(function() {
+                                phoneActivated = true;
+                                $('#requestQuoteForm').find('input').each(function() {
+                                    if ($(this).val() != '') {
+                                        $(this).blur();
+                                    }
+                                });
+                            }, 4500);
+
+                            setTimeout(function() {
+                                phoneActivated = true;
+                                $('#requestQuoteForm').find('input').each(function() {
+                                    if ($(this).val() != '') {
+                                        $(this).blur();
+                                    }
+                                });
+                            }, 5000);
                         </script>
                     </div>
                 </div>

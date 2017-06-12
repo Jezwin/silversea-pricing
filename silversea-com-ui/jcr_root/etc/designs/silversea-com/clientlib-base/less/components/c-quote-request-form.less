@@ -7,6 +7,40 @@
     }
 
     &__form {
-        
+        .intl-tel-input {
+            display: block;
+        }
+
+        .countrycode {
+            .chosen-single {
+                display: none;
+            }
+        }
+    }
+
+    .textarea_autogrow {
+        margin-bottom: 10px;
+        position: relative;
+
+        textarea {
+            font-size: 14px;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            resize: none;
+            top: 0;
+            white-space: normal;
+        }
+
+        .textarea_autogrow-size {
+            box-sizing: border-box;
+            min-height: 76px;
+            overflow: hidden;
+            padding: 10px 20px;
+            width: 100%;
+            visibility: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
     }
 }
