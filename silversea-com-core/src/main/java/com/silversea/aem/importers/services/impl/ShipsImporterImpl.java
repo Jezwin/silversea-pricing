@@ -38,149 +38,133 @@ import io.swagger.client.model.Ship;
 @Service(value = ShipsImporter.class)
 public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ShipsImporterImpl.class);
+	static final private Logger LOGGER = LoggerFactory.getLogger(ShipsImporterImpl.class);
 
-    private int errorNumber = 0;
-    private int succesNumber = 0;
-    private int sessionRefresh = 100;
+	private int errorNumber = 0;
+	private int succesNumber = 0;
+	private int sessionRefresh = 100;
 
-    @Reference
-    private ResourceResolverFactory resourceResolverFactory;
-    @Reference
-    private ApiConfigurationService apiConfig;
-    @Reference
-    private Replicator replicat;
+	@Reference
+	private ResourceResolverFactory resourceResolverFactory;
+	@Reference
+	private ApiConfigurationService apiConfig;
+	@Reference
+	private Replicator replicat;
 
-    @Override
-    public void importData() throws IOException {
-        LOGGER.debug("Début de l'import");
+	@Override
+	public void importData() throws IOException {
+		LOGGER.debug("Début de l'import");
 
-        try {
-            /**
-             * authentification pour le swagger
-             */
-            getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-            /**
-             * Récuperation du domain de l'api Swager
-             */
-            getApiDomain(apiConfig.getApiBaseDomain());
-            /**
-             * Récuperation de la session refresh
-             */
-            if (apiConfig.getSessionRefresh() != 0) {
-                sessionRefresh = apiConfig.getSessionRefresh();
-            }
+		try {
+			/**
+			 * authentification pour le swagger
+			 */
+			getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+			/**
+			 * Récuperation du domain de l'api Swager
+			 */
+			getApiDomain(apiConfig.getApiBaseDomain());
+			/**
+			 * Récuperation de la session refresh
+			 */
+			if (apiConfig.getSessionRefresh() != 0) {
+				sessionRefresh = apiConfig.getSessionRefresh();
+			}
 
-            final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
-            ShipsApi shipsApi = new ShipsApi();
-            shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-            ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-            Session session = resourceResolver.adaptTo(Session.class);
-            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            
-            Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
-            List<Ship> listShips;
-            listShips = shipsApi.shipsGet(null);
-            int i = 0;
-            for (Ship ship : listShips) {
-                try {
-                    Iterator<Resource> resources = resourceResolver.findResources(
-                            "//element(*,cq:Page)[jcr:content/shipId=\"" + ship.getShipId() + "\"]", "xpath");
-                    Page shipPage = null;
+			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
+			ShipsApi shipsApi = new ShipsApi();
+			shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+			Session session = resourceResolver.adaptTo(Session.class);
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-                    if (resources.hasNext()) {
-                        shipPage = resources.next().adaptTo(Page.class);
-                    } else {
-                        shipPage = pageManager.create(shipsRootPage.getPath(),
-                                JcrUtil.createValidChildName(shipsRootPage.adaptTo(Node.class),
-                                        StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName())),
-                                TemplateConstants.PATH_SHIP,
-                                StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
-                    }
+			Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
+			List<Ship> listShips;
+			listShips = shipsApi.shipsGet(null);
+			int i = 0;
+			for (Ship ship : listShips) {
+				try {
+					Iterator<Resource> resources = resourceResolver.findResources(
+							"//element(*,cq:Page)[jcr:content/shipId=\"" + ship.getShipId() + "\"]", "xpath");
+					Page shipPage = null;
 
-                    if (shipPage != null) {
-                        Node shipPageContentNode = shipPage.getContentResource().adaptTo(Node.class);
-                        if (shipPageContentNode != null) {
-                            shipPageContentNode.setProperty(JcrConstants.JCR_TITLE, ship.getShipName());
-                            shipPageContentNode.setProperty("shipId", ship.getShipId());
-                            shipPageContentNode.setProperty("shipCode", ship.getShipCod());
-                            shipPageContentNode.setProperty("shipName", ship.getShipName());
-                            shipPageContentNode.setProperty("shipType", ship.getShipType());
-                            shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
-                            session.save();
-                            if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
-                                replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
-                            }
-                            try {
-                                session.save();
-                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                		shipPage.getPath());
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
-                            }
-                            LOGGER.debug("Updated ship with {} ", ship.getShipCod());
-                        }
-                    }
-                    LOGGER.debug("Check ship with {} ", ship.getShipCod());
-                    i++;
-                    succesNumber = succesNumber + 1;
-                    if (i % sessionRefresh == 0) {
-                        if (session.hasPendingChanges()) {
-                            try {
-                                session.save();
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
-                            }
-                        }
+					if (resources.hasNext()) {
+						shipPage = resources.next().adaptTo(Page.class);
+					} else {
+						shipPage = pageManager.create(shipsRootPage.getPath(),
+								JcrUtil.createValidChildName(shipsRootPage.adaptTo(Node.class),
+										StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName())),
+								TemplateConstants.PATH_SHIP,
+								StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
+					}
 
-                    }
-                } catch (Exception e) {
-                    errorNumber = errorNumber + 1;
-                    LOGGER.debug("Ship import error, number of faulures :", errorNumber);
-                    i++;
-                }
-            }
+					if (shipPage != null) {
+						Node shipPageContentNode = shipPage.getContentResource().adaptTo(Node.class);
+						if (shipPageContentNode != null) {
+							shipPageContentNode.setProperty(JcrConstants.JCR_TITLE, ship.getShipName());
+							shipPageContentNode.setProperty("shipId", ship.getShipId());
+							shipPageContentNode.setProperty("shipCode", ship.getShipCod());
+							shipPageContentNode.setProperty("shipName", ship.getShipName());
+							shipPageContentNode.setProperty("shipType", ship.getShipType());
+							shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
+							session.save();
+							if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
+								replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
+							}
+							try {
+								session.save();
+								replicat.replicate(session, ReplicationActionType.ACTIVATE, shipPage.getPath());
+							} catch (RepositoryException e) {
+								session.refresh(true);
+							}
+							LOGGER.debug("Updated ship with {} ", ship.getShipCod());
+						}
+					}
+					LOGGER.debug("Check ship with {} ", ship.getShipCod());
+					i++;
+					succesNumber = succesNumber + 1;
+					if (i % sessionRefresh == 0) {
+						if (session.hasPendingChanges()) {
+							try {
+								session.save();
+							} catch (RepositoryException e) {
+								session.refresh(true);
+							}
+						}
 
-            if (session.hasPendingChanges()) {
-                try {
-                    // save migration date
-                    Node rootNode = shipsRootPage.getContentResource().adaptTo(Node.class);
-                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-                    session.save();
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
-            LOGGER.debug("Fin de l'import");
+					}
+				} catch (Exception e) {
+					errorNumber = errorNumber + 1;
+					LOGGER.debug("Ship import error, number of faulures :", errorNumber);
+					i++;
+				}
+			}
 
-//            try {
-//                if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
-//                    replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
-//                }
-//                Iterator<Page> childPages = resourceResolver.getResource(shipsRootPage.getPath()).adaptTo(Page.class)
-//                        .listChildren();
-//                while (childPages.hasNext()) {
-//                    Page childPage = childPages.next();
-//                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
-//                }
-//
-//            } catch (ReplicationException e) {
-//                e.printStackTrace();
-//            }
+			if (session.hasPendingChanges()) {
+				try {
+					// save migration date
+					Node rootNode = shipsRootPage.getContentResource().adaptTo(Node.class);
+					rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+					session.save();
+				} catch (RepositoryException e) {
+					session.refresh(false);
+				}
+			}
+			LOGGER.debug("Fin de l'import");
 
-            resourceResolver.close();
-        } catch (Exception e) {
-            String errorMessage = "Import Ship Errors : {} ";
-            LOGGER.error(errorMessage, e);
-        }
-    }
+			resourceResolver.close();
+		} catch (Exception e) {
+			String errorMessage = "Import Ship Errors : {} ";
+			LOGGER.error(errorMessage, e);
+		}
+	}
 
-    public int getErrorNumber() {
-        return errorNumber;
-    }
+	public int getErrorNumber() {
+		return errorNumber;
+	}
 
-    public int getSuccesNumber() {
-        return succesNumber;
-    }
+	public int getSuccesNumber() {
+		return succesNumber;
+	}
 
 }

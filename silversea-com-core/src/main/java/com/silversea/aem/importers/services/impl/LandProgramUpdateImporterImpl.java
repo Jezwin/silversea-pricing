@@ -31,6 +31,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.LandProgramUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -134,9 +135,10 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 										}
 
 										landPage = pageManager.create(landsPage.getPath(),
-												JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
-														land.getLandName()),
-												TemplateConstants.PATH_LANDPROGRAM, land.getLandName(), false);
+	                                            JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
+	                                                    StringHelper.getFormatWithoutSpecialCharcters(land.getLandName())),
+	                                            TemplateConstants.PATH_LANDPROGRAM,
+	                                            StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()), false);
 
 										LOGGER.debug("Creating land {}", land.getLandCod());
 									} else {
@@ -155,7 +157,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 								hotelPageContentNode.setProperty("landCode", land.getLandCod());
 								succesNumber = succesNumber + 1;
 								j++;
-								if (BooleanUtils.isFalse(land.getIsDeleted())) {
+								if (BooleanUtils.isNotTrue(land.getIsDeleted())) {
 									try {
 										session.save();
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,

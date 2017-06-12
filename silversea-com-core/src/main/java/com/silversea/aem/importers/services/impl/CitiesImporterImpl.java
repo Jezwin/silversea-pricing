@@ -187,14 +187,14 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 					} catch (Exception e) {
 						errorNumber = errorNumber + 1;
 						LOGGER.debug("cities error, number of faulures :", errorNumber);
-						j++;
+						j++; 
 					}
 				}
 
 				i++;
 			} while (cities.size() > 0);
 
-			if (session.hasPendingChanges()) {
+//			if (session.hasPendingChanges()) {
 				try {
 					// save migration date
 					Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
@@ -203,7 +203,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 				} catch (RepositoryException e) {
 					session.refresh(false);
 				}
-			}
+//			}
 
 //			try {
 //				if (!replicat

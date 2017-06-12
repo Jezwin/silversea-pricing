@@ -116,7 +116,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
                             LOGGER.debug("Updated ship with {} ", ship.getShipCod());
                         }
                     }
-                    if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
+                    if (replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
                         replicat.replicate(session, ReplicationActionType.ACTIVATE, shipPage.getPath());
                     }
                     LOGGER.debug("Check ship with {} ", ship.getShipCod());

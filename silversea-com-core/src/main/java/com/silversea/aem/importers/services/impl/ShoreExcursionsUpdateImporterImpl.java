@@ -31,6 +31,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.ShoreExcursionsUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -160,9 +161,12 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 										}
 
 										excursionPage = pageManager.create(excursionsPage.getPath(),
-												JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-														shorex.getShorexCod()),
-												TemplateConstants.PATH_EXCURSION, shorex.getShorexCod(), false);
+	                                            JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
+	                                                    StringHelper
+	                                                            .getFormatWithoutSpecialCharcters(shorex.getShorexName())),
+	                                            TemplateConstants.PATH_EXCURSION,
+	                                            StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()),
+	                                            false);
 
 										LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
 									} else {
@@ -185,7 +189,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 								excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
 								succesNumber = succesNumber + 1;
 								j++;
-								if (BooleanUtils.isFalse(shorex.getIsDeleted())) {
+								if (BooleanUtils.isNotTrue(shorex.getIsDeleted())) {
 									try {
 										session.save();
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,

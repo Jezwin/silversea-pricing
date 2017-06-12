@@ -31,6 +31,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.HotelUpdateImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -153,8 +154,10 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
 
                                         hotelPage = pageManager.create(hotelsPage.getPath(),
                                                 JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                        hotel.getHotelName()),
-                                                TemplateConstants.PATH_HOTEL, hotel.getHotelName(), false);
+                                                        StringHelper
+                                                                .getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                                TemplateConstants.PATH_HOTEL,
+                                                StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                         LOGGER.debug("Creating hotel {}", hotel.getHotelName());
                                     } else {
@@ -165,7 +168,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                 }
                             }
 
-                            if (hotelPage != null && BooleanUtils.isFalse(hotel.getIsDeleted())) {
+                            if (hotelPage != null && (BooleanUtils.isFalse(hotel.getIsDeleted()) || hotel.getIsDeleted() == null)) {
                                 Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
                                 hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
                                 hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
