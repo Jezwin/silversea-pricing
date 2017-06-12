@@ -3,11 +3,11 @@
 </h1>
 <div class="cc-tab_header_desc row">
     <div class="cc-tab_header_desc_txt col-sm-9">
-        ${pageProperties.jcr:description || pageProperties.longDescription @ context='html'}
+        ${pageProperties.jcr:description @ context='html'}
     </div>
     <div class="cc-tab_header_desc_cta col-sm-3">
         <a class="btn btn-thin btn-red effect" href=""><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-        <a class="btn btn-thin btn-dark effect" href=""><span>${'request-a-brochure' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        <div data-sly-resource="${'./btn1' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
         <a class="btn btn-thin btn-dark effect" data-tab-target="#suitenfare"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
     </div>
 </div>

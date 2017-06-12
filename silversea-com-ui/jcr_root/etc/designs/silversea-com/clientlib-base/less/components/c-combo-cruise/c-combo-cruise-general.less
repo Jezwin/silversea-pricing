@@ -19,7 +19,7 @@
         &_desc {
             display: table;
             width: 100%;
-            margin: 0;
+            margin: 0 0 25px;
 
             &_txt {
                 padding-bottom: 10px;
@@ -48,15 +48,17 @@
                 @media screen and (max-width: @screen-sm) {
                     display: block;
                     padding: 10px 0 0;
-                    margin: 0 0 35px;
+                    margin: 0 0 10px;
                     text-align: center;
                 }
 
-                a {
+                a, .btn {
                     width: 100%;
                     padding: 10px 20px;
                     margin: 0 0 10px 0;
                     position: relative;
+                    font-size: 11px;
+                    font-weight: 400;
 
                     @media screen and (max-width: @screen-sm) {
                         max-width: 90%;
@@ -65,10 +67,25 @@
                         display: block;
                     }
 
-                    i {
+                    i, .btn i.fa-lg {
                         position: absolute;
                         top: 8px;
                         right: 20px;
+                        font-size: 16px;
+                        line-height: normal;
+                        vertical-align: inherit;
+                    }
+                }
+
+                div {
+                    margin: 0;
+
+                    .btn-default {
+                        transition: background 1s;
+
+                        &:hover {
+                            background: @grey--9;
+                        }
                     }
                 }
             }
