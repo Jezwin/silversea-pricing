@@ -39,7 +39,7 @@
                             <image
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Image"
-                                name="./imgReference"
+                                name="./assetReference"
                                 rootPath="/content/dam/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <targetpath
