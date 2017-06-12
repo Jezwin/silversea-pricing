@@ -30,15 +30,14 @@ public class FooterUse extends WCMUsePojo {
     private Page pageAaward;
     private Page pageBlog;
     private Page pageMySilversea;
-    
+
     private String phone;
-    
+
     private String facebookReference;
     private String youtubeReference;
     private String twitterReference;
     private String instagramReference;
     private String pinterestReference;
-    
 
     /**
      * Initialize the component.
@@ -56,7 +55,7 @@ public class FooterUse extends WCMUsePojo {
         }
         pagesMainColIterator = pagesMainCol.iterator();
 
-        //internal pages
+        // internal pages
         final String subCol1 = properties.getInherited("subCol1", String.class);
         final String subCol2 = properties.getInherited("subCol2", String.class);
         final String subCol3 = properties.getInherited("subCol3", String.class);
@@ -65,7 +64,7 @@ public class FooterUse extends WCMUsePojo {
         final String awardReference = properties.getInherited("awardReference", String.class);
         final String blogReference = properties.getInherited("blogReference", String.class);
         final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
-        
+
         pageSubCol1 = getPageFromPath(subCol1);
         pageSubCol2 = getPageFromPath(subCol2);
         pageSubCol3 = getPageFromPath(subCol3);
@@ -73,10 +72,9 @@ public class FooterUse extends WCMUsePojo {
         pageExclusiveOffer = getPageFromPath(exclusiveOfferReference);
         pageAaward = getPageFromPath(awardReference);
         pageBlog = getPageFromPath(blogReference);
-        pageSubCol1.listChildren();
         pageMySilversea = getPageFromPath(mySilverseaReference);
-        
-        //external links
+
+        // external links
         facebookReference = properties.getInherited("facebookReference", String.class);
         youtubeReference = properties.getInherited("youtubeReference", String.class);
         twitterReference = properties.getInherited("twitterReference", String.class);
@@ -135,14 +133,14 @@ public class FooterUse extends WCMUsePojo {
     public Page getPageMySilversea() {
         return pageMySilversea;
     }
-    
+
     public String getExternalLinkUrl(String path) {
         if (!StringUtils.isEmpty(path)) {
             if (!path.startsWith("/")) {
-                //lien externe saisi à la main
+                // manually entered external link
                 return path;
             } else {
-                //lien interne
+                // internal link
                 return path + ".html";
             }
         } else {
