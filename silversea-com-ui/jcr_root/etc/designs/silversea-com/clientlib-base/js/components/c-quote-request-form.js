@@ -7,7 +7,7 @@ $(function() {
 
         var autoSize = (function autoSize() {
             $autogrowSize.html($input.val() + '\n');
-            return autoSize; 
+            return autoSize;
         })();
 
         $input.bind('input', autoSize());
@@ -17,21 +17,20 @@ $(function() {
         $countryCodeWrapper = $(this);
 
         // Init intl Tel Input Plugin
-        $countryCodeWrapper.find('#InputTelephoneNumber').intlTelInput({
+        var countryGeolocalized = $('#InputTelephoneNumber').data('country-geolocalized'),
+        $inputTelephoneNumber = $countryCodeWrapper.find("#InputTelephoneNumber");
+
+        $inputTelephoneNumber.intlTelInput({
             allowDropdown : false,
-            // geoIpLookup: function(callback) {
-            // $.get("http://ipinfo.io", function() {},
-            // "jsonp").always(function(resp) {
-            // var countryCode = (resp && resp.country) ? resp.country : "";
-            // callback(countryCode);
-            // });
-            // },
-            //initialCountry: 'auto',
+            geoIpLookup: function(callback) {
+                callback(countryGeolocalized);
+            },
+            initialCountry: 'auto',
             separateDialCode : true
         });
 
+        // Update flag according to select (chosen)
         $countryCodeWrapper.find('#countryCode').on('change', function() {
-            $inputTelephoneNumber = $countryCodeWrapper.find("#InputTelephoneNumber");
             $inputTelephoneNumber.intlTelInput("setCountry", $(this).val());
 
             // If value exists on page load
@@ -39,9 +38,6 @@ $(function() {
                 $inputTelephoneNumber.blur();
             }
         });
-
-        // Active intlTelInput plugin (combo box with flag)
-        $countryCodeWrapper.find('#InputTelephoneNumber').intlTelInput('setCountry', $('#countryCode').val());
 
         // Trigger open chosen event on flag click
         var openChosen = (function openChosen() {
@@ -60,14 +56,29 @@ $(function() {
         $countryCodeWrapper.find('#countryCode').on('chosen:hiding_dropdown', function() {
             openChosen();
         })
-    });
 
-    // Validator !
-    $('.request-quote-form').validator({
-        focus : false,
-        feedback : {
-            success : 'feedback-success',
-            error : 'feedback-error'
-        }
+        // Validator !
+        $('.request-quote-form').validator({
+            focus : false,
+            feedback : {
+                success : 'feedback-success',
+                error : 'feedback-error'
+            },
+            custom : {
+                countrycodeformat : function($el) {
+                    console.log($el.intlTelInput("isValidNumber"));
+
+//                    if ($el.val() !== "" && $el.val() !== matchValue) {
+//                        return "error format";
+//                    }
+                    
+                    if ($.trim($el.val())) {
+                        if (!$el.intlTelInput("isValidNumber")) {
+                            return "error format";
+                        }
+                    }
+                }
+            }
+        });
     });
 });

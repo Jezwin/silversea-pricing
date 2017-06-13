@@ -1,8 +1,9 @@
 <div data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequest" class="countrycode">
     <div class="form-group form-group-lg has-feedback">
         <input type="text" id="InputTelephoneNumber" name="phone" class="form-control" required
+        data-country-geolocalized="FR"
         data-required-error="${'Please enter your phone number' @ i18n}"
-        data-error="${'Please check the phone format' @ i18n}" />
+        data-countrycodeformat-error="${'Please check the phone format' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>

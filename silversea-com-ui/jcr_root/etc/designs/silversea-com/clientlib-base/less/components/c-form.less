@@ -22,4 +22,90 @@
             width: 26px;
         }
     }
+
+    .intl-tel-input {
+        display: block;
+    }
+
+    .countrycode {
+        .form-group {
+            z-index: 2;
+        }
+
+        .chosen-container {
+            z-index: 1;
+        }
+
+        .chosen-single {
+            display: none;
+        }
+
+        .chosen-drop {
+            top: -30px;
+        }
+    }
+
+    .with-errors {
+        font-size: 13px;
+    }
+
+    .has-error ~ .chosen-container {
+        .chosen-drop {
+            border-color: @red;
+        }
+    }
+
+    .has-success ~ .chosen-container {
+        .chosen-drop {
+            border-color: #3c763d;
+        }
+    }
+
+    .has-error {
+        .chosen-container {
+            .chosen-single, .chosen-drop {
+                border-color: @red;
+            }
+
+            .chosen-single span{
+                color: @red;
+            }
+        }
+
+        ::-webkit-input-placeholder {
+            color: @red;
+        }
+
+        ::-moz-placeholder {
+            color: @red;
+        }
+
+        :-ms-input-placeholder {
+            color: @red;
+        }
+
+        :-moz-placeholder {
+            color: @red;
+        }
+    }
+
+    .has-success {
+        .chosen-container {
+            .chosen-single, .chosen-drop {
+                border-color: #3c763d;
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        .with-errors {
+            position: absolute;
+            top: 9px;
+            right: 10px;
+        }
+
+        .input--title .with-errors {
+            right: 30px;
+        }
+    }
 }
