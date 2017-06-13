@@ -1,17 +1,13 @@
 package com.silversea.aem.components.editorial;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.filter.BlogPostPageFilter;
-import com.silversea.aem.models.BlogPostTeaserModel;
-import com.silversea.aem.services.BlogPostService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.filter.BlogPostPageFilter;
+import com.silversea.aem.models.BlogPostTeaserModel;
 
 public class BlogPostTeaserListUse extends WCMUsePojo {
 
@@ -61,5 +57,4 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
     public BlogPostTeaserModel getFirstBlogPostTeaser() {
         return firstBlogPostTeaser;
     }
-
 }

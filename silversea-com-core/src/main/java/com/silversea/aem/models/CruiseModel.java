@@ -28,14 +28,14 @@ import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.CruiseFareAddition;
 import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.components.beans.GeoLocation;
+import com.silversea.aem.components.beans.ItinerariesData;
 import com.silversea.aem.components.beans.PriceData;
-import com.silversea.aem.enums.Currency;
 
 /**
  * Created by mbennabi on 17/02/2017.
  */
 @Model(adaptables = { Page.class })
-public class CruiseModel {
+public class CruiseModel extends AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseModel.class);
 
@@ -114,6 +114,8 @@ public class CruiseModel {
 
     private List<ItineraryModel> itineraries;
 
+    private ItinerariesData itinerariesData;
+
     private ShipModel ship;
 
     private String[] cruiseFareAdditions;
@@ -121,6 +123,8 @@ public class CruiseModel {
     private String destinationFootNote;
 
     private String cruiseType;
+
+    private String mapOverHead;
 
     private PriceData lowestPrice;
 
@@ -130,29 +134,27 @@ public class CruiseModel {
 
     @PostConstruct
     private void init() {
-
-        resourceResolver = page.getContentResource().getResourceResolver();
-        features = initFeatures();
-        cruiseType = initCruiseType();
-        destinationTitle = getPagereferenceTitle(page.getParent().getPath());
-        destinationFootNote = page.getParent().getProperties().get("footnote", String.class);
-        itineraries = initIteniraries();
-
-        if(StringUtils.isNotBlank(shipReference)) {
+        try {
+            resourceResolver = page.getContentResource().getResourceResolver();
+            features = initFeatures(page);
+            cruiseType = initCruiseType();
+            destinationTitle = getPagereferenceTitle(page.getParent().getPath());
+            destinationFootNote = page.getParent().getProperties().get("footnote", String.class);
+            itineraries = initIteniraries();
             ship = initShip(shipReference);
-        }
-
-        //check if cruise has land Programs
-        for (int i = 0; i < itineraries.size() && !hasLandPrograms; i++) {
-            hasLandPrograms = itineraries.get(i).getLandprograms().size() > 0;
+            itinerariesData = initItinerariesData();
+            hasLandPrograms = itineraries.stream().filter(e -> !e.getLandprograms().isEmpty()).findFirst().isPresent();
+        } catch (RuntimeException e) {
+            LOGGER.error("Error while initializing model {}", e);
         }
     }
 
     public void initByGeoLocation(GeoLocation geolocation) {
         exclusiveOffers = initExclusiveOffersByGeoLocation(geolocation.getGeoMarketCode(), geolocation.getCountry());
-        cruiseFareAdditions = parseCruiseFareAdditions();
+        cruiseFareAdditions = parseText(page, "cruiseFareAdditions");
         exclusiveFareAdditions = getAllExclusiveFareAdditions();
         lowestPrice = initLowestPrice(geolocation.getGeoMarketCode());
+        mapOverHead = initMapHover();
         suites = initSuites(geolocation.getGeoMarketCode());
     }
 
@@ -165,11 +167,15 @@ public class CruiseModel {
             Arrays.asList(exclusiveOfferUrls).forEach((item) -> {
                 if (!StringUtils.isEmpty(item)) {
                     Resource resource = resourceResolver.resolve(item);
-                    Page pa = resource.adaptTo(Page.class);
-                    ExclusiveOfferModel exclusiveOfferModel = pa.adaptTo(ExclusiveOfferModel.class);
-                    if (exclusiveOfferModel.isValid(geoMarketCode)) {
-                        exclusiveOfferModel.initDescription(country, destination);
-                        exclusiveOffers.add(exclusiveOfferModel);
+                    if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                        Page pa = resource.adaptTo(Page.class);
+                        ExclusiveOfferModel exclusiveOfferModel = pa.adaptTo(ExclusiveOfferModel.class);
+                        if (exclusiveOfferModel.isValid(geoMarketCode)) {
+                            exclusiveOfferModel.initDescription(country, destination);
+                            exclusiveOffers.add(exclusiveOfferModel);
+                        }
+                    } else {
+                        LOGGER.warn("Page reference {} not found", item);
                     }
                 }
             });
@@ -190,10 +196,14 @@ public class CruiseModel {
                     String path = Objects.toString(node.getProperty("portReference").getValue());
                     if (!StringUtils.isEmpty(path)) {
                         Resource resource = resourceResolver.resolve(path);
-                        Page pa = resource.adaptTo(Page.class);
-                        ItineraryModel itineraryModel = pa.adaptTo(ItineraryModel.class);
-                        itineraryModel.init(node);
-                        iteniraries.add(itineraryModel);
+                        if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                            Page pa = resource.adaptTo(Page.class);
+                            ItineraryModel itineraryModel = pa.adaptTo(ItineraryModel.class);
+                            itineraryModel.init(node);
+                            iteniraries.add(itineraryModel);
+                        } else {
+                            LOGGER.warn("Page reference {} not found", path);
+                        }
                     }
                 }
             }
@@ -202,34 +212,6 @@ public class CruiseModel {
         }
 
         return iteniraries;
-    }
-
-    private String[] parseCruiseFareAdditions() {
-        String[] cruiseFareAdditions = null;
-        String text = page.getProperties().get("cruiseFareAdditions", String.class);
-        if (StringUtils.isNotEmpty(text)) {
-            cruiseFareAdditions = text.split("\\r?\\n");
-        }
-        return cruiseFareAdditions;
-    }
-
-    // TODO :duplicated code
-    private List<Feature> initFeatures() {
-        List<Feature> features = new ArrayList<Feature>();
-        Tag[] tags = page.getTags();
-        if (tags != null) {
-            for (Tag tag : tags) {
-                if (StringUtils.contains(tag.getTagID(), "features:")) {
-                    Resource resource = tag.adaptTo(Resource.class);
-                    Feature feature = new Feature();
-                    feature.setTitle(tag.getTitle());
-                    feature.setIcon(resource.getValueMap().get("icon", String.class));
-                    features.add(feature);
-                }
-            }
-        }
-
-        return features;
     }
 
     private String initCruiseType() {
@@ -249,9 +231,11 @@ public class CruiseModel {
     private String getPagereferenceTitle(String pagePath) {
         String title = null;
         Resource resource = resourceResolver.resolve(pagePath);
-        if (resource != null) {
+        if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
             Page pa = resource.adaptTo(Page.class);
             title = pa.getProperties().get(JcrConstants.JCR_TITLE, String.class);
+        } else {
+            LOGGER.warn("Page reference {} not found", pagePath);
         }
 
         return title;
@@ -305,12 +289,16 @@ public class CruiseModel {
                     String path = Objects.toString(node.getProperty("suiteReference").getValue());
                     if (!StringUtils.isEmpty(path)) {
                         Resource resource = resourceResolver.resolve(path);
-                        Page pa = resource.adaptTo(Page.class);
-                        SuiteModel suiteModel = pa.adaptTo(SuiteModel.class);
-                        Node lowestPriceNode = node.getNode("lowest-prices");
-                        suiteModel.initLowestPrice(lowestPriceNode, geoMarketCode);
-                        suiteModel.initVarirations(node, geoMarketCode);
-                        suiteList.add(suiteModel);
+                        if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                            Page pa = resource.adaptTo(Page.class);
+                            SuiteModel suiteModel = pa.adaptTo(SuiteModel.class);
+                            Node lowestPriceNode = node.getNode("lowest-prices");
+                            suiteModel.initLowestPrice(lowestPriceNode, geoMarketCode);
+                            suiteModel.initVarirations(node, geoMarketCode);
+                            suiteList.add(suiteModel);
+                        } else {
+                            LOGGER.warn("Page reference {} not found", path);
+                        }
                     }
                 }
             }
@@ -321,35 +309,50 @@ public class CruiseModel {
         return suiteList;
     }
 
-    // TODO: duplicated code
-    PriceData initPrice(String geoMarketCode, String value) {
-        PriceData price = new PriceData();
-        Currency currency = getCurrencyByMarKetCode(geoMarketCode);
-        price.setCurrency(currency.getLabel());
-        price.setValue(value);
-        if (StringUtils.isNumeric(value)) {
-            price.setWaitList(false);
-        } else {
-            price.setWaitList(true);
-        }
-        return price;
-    }
-
     private ShipModel initShip(String path) {
-
         ShipModel shipModel = null;
-        Resource resource = resourceResolver.resolve(path);
-        if (resource != null) {
-            Page pa = resource.adaptTo(Page.class);
-            shipModel = pa.adaptTo(ShipModel.class);
-        }
+        if (StringUtils.isNotEmpty(path)) {
+            Resource resource = resourceResolver.getResource(path);
 
+            if (resource != null) {
+                Page pa = resource.adaptTo(Page.class);
+                shipModel = pa.adaptTo(ShipModel.class);
+            } else {
+                LOGGER.warn("Page reference {} not found", path);
+            }
+        }
         return shipModel;
     }
 
-    // TODO: duplicated code
-    private Currency getCurrencyByMarKetCode(String marKetCode) {
-        return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst().orElseThrow(() -> new IllegalStateException());
+    public String initMapHover() {
+        String value = null;
+        if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
+            value = exclusiveOffers.stream().filter(e -> !e.getMapOverHead().isEmpty())
+                    .map(ExclusiveOfferModel::getMapOverHead).findFirst()
+                    .orElseThrow(() -> new IllegalStateException());
+        }
+        return value;
+    }
+
+    public ItinerariesData initItinerariesData() {
+
+        int nbHotels = 0;
+        int nbExcursions = 0;
+        int nbLandPrograms = 0;
+
+        for (ItineraryModel itinerary : itineraries) {
+            if (itinerary != null 
+                    && itinerary.getHotels() != null 
+                    && itinerary.getExcursions() != null
+                    && itinerary.getLandprograms() != null) {
+                
+                nbHotels += itinerary.getHotels().size();
+                nbExcursions += itinerary.getExcursions().size();
+                nbLandPrograms += itinerary.getLandprograms().size();
+            } 
+        }
+
+        return new ItinerariesData(nbHotels, nbExcursions, nbLandPrograms);
     }
 
     public String getTitle() {
@@ -446,5 +449,21 @@ public class CruiseModel {
 
     public boolean hasLandPrograms() {
         return hasLandPrograms;
+    }
+
+    public String getMapOverHead() {
+        return mapOverHead;
+    }
+
+    public ItinerariesData getItinerariesData() {
+        return itinerariesData;
+    }
+
+    public Integer getTotalFareAddictions() {
+        if (getExclusiveFareAdditions() != null && getCruiseFareAdditions() != null) {
+            return getExclusiveFareAdditions().size() + getCruiseFareAdditions().length;
+        }
+
+        return null;
     }
 }

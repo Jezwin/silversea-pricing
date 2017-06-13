@@ -21,6 +21,9 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
@@ -53,6 +56,9 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
     @Reference
     private ApiConfigurationService apiConfig;
 
+    @Reference
+    private Replicator replicat;
+
     @Override
     public void importData() throws IOException {
 
@@ -69,13 +75,13 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
         /**
          * Récuperation de la session refresh
          */
-        if(apiConfig.getSessionRefresh() != 0){
+        if (apiConfig.getSessionRefresh() != 0) {
             sessionRefresh = apiConfig.getSessionRefresh();
         }
         /**
          * Récuperation de per page
          */
-        if(apiConfig.getPageSize() != 0){
+        if (apiConfig.getPageSize() != 0) {
             pageSize = apiConfig.getPageSize();
         }
 
@@ -87,7 +93,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
-//            Page citiesRootPage = pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
+            // Page citiesRootPage =
+            // pageManager.getPage(ImportersConstants.BASEPATH_PORTS);
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
             List<City> cities;
@@ -160,10 +167,14 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         portPageContentNode.setProperty("latitude", city.getLatitude());
                         portPageContentNode.setProperty("longitude", city.getLongitude());
                         portPageContentNode.setProperty("countryId", city.getCountryId());
+                        portPageContentNode.setProperty("countryIso2", city.getCountryIso2());
                         portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
                         succesNumber = succesNumber + 1;
                         j++;
-
+                        // session.save();
+                        // replicat.replicate(session,
+                        // ReplicationActionType.ACTIVATE,
+                        // portPage.getPath());
                         if (j % sessionRefresh == 0) {
                             if (session.hasPendingChanges()) {
                                 try {
@@ -176,7 +187,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         }
                     } catch (Exception e) {
                         errorNumber = errorNumber + 1;
-                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+                        LOGGER.debug("cities error, number of faulures :", errorNumber);
                         j++;
                     }
                 }
@@ -193,6 +204,27 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
+            }
+
+            try {
+                if(!replicat.getReplicationStatus(session, pageManager.getPage(ImportersConstants.BASEPATH_PORTS).getPath()).isActivated()){
+                    replicat.replicate(session, ReplicationActionType.ACTIVATE,resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS).getPath());
+                }
+                
+                Iterator<Page> childPages = resourceResolver.getResource(ImportersConstants.BASEPATH_PORTS)
+                        .adaptTo(Page.class).listChildren();
+                while (childPages.hasNext()) {
+                    Page childPage = childPages.next();
+                    replicat.replicate(session, ReplicationActionType.ACTIVATE, childPage.getPath());
+                    Iterator<Page> childs = childPage.listChildren();
+                    while (childs.hasNext()) {
+                        Page childP = childs.next();
+                        replicat.replicate(session, ReplicationActionType.ACTIVATE, childP.getPath());
+                    }
+
+                }
+            } catch (ReplicationException e) {
+                e.printStackTrace();
             }
 
             resourceResolver.close();

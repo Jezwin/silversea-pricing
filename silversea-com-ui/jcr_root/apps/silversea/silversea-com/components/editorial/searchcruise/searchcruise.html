@@ -1,16 +1,26 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search cruise"></div>
-<div class="c-search-cruise" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-    <div class="c-search-cruise__image hidden-xs" data-sly-test.reference="${properties.fileReference}">
+<div class="c-search-cruise ${!properties.fileReference ? 'no-image' : ''}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="col-sm-7 c-search-cruise__content">
+        ${properties.text @ context="html"}
+        <div class="hidden-xs" data-sly-resource="${'./btn1' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
+    </div>
+    <div class="c-search-cruise__image" data-sly-test.reference="${properties.fileReference}">
         <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
     </div>
-    <div class="row c-search-cruise__row">
-        <div class="col-sm-9 c-search-cruise__content">
-            <h1 class="c-search-cruise__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-            <p class="c-search-cruise__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
-        </div>
-        <div class="col-sm-3 c-search-cruise__form">
-
-        </div>
+    <div class="col-sm-5 c-search-cruise__form">
+        <h3>${'find-your-cruise' @ i18n}</h3>
+        <form action="${properties.pageReference @ extension='html'}">
+            <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}"
+                data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
+                <option value="">${'all-destinations' @ i18n}</option>
+                <option data-sly-repeat.destination="${destinations.page.listChildren}" value="${destination.name}">${destination.title @ context='html'}</option>
+            </select>
+            <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}"
+                data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
+                <option></option>
+                <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
+            </select>
+            <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
+        </form>
     </div>
 </div>
-

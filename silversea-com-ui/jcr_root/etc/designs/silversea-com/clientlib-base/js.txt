@@ -12,3 +12,5 @@ components/c-slider.js
 components/c-herobanner.js
 components/c-cruise-suitelist.js
 components/c-cruise-photovideo.js
+components/c-signupforoffers.js
+components/c-ship.js

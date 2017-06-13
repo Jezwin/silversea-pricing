@@ -6,6 +6,15 @@
     .keypeople__slider {
         margin-bottom: 0;
 
+        .slick-track{
+            display: flex;
+
+            .slick-slide{
+                display: flex;
+                height: auto;
+            }
+        }
+
         &-item {
             border: 1px solid @grey--d;
             cursor: pointer;
@@ -20,8 +29,12 @@
                 width: 100%;
             }
 
-            div {
+            .wrapper {
                 padding: 20px 20px 15px;
+
+                @media screen and (min-width: @screen-md-min) {
+                    padding-bottom: 35px;
+                }
 
                 .keypeople--identity {
                     font-size: 13px;
@@ -44,6 +57,11 @@
 
                     i {
                         padding-left: 5px;
+                    }
+
+                    @media screen and (min-width: @screen-md-min) {
+                        bottom: 15px;
+                        position: absolute;
                     }
                 }
             }

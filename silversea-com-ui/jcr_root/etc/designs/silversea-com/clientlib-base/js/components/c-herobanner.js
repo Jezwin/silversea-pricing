@@ -20,19 +20,19 @@ $(function() {
 
     // On viewport change
     $('body').on('trigger.viewport.changed', function() {
-        setBackgroundHero();
+        setBackgroundImage();
     });
 
     // On page load
-    setBackgroundHero();
+    setBackgroundImage();
 
-    function setBackgroundHero() {
-        var $imageBannerList = $('.c-hero-banner .o-img');
+    function setBackgroundImage() {
+        var $imageBannerList = $('.c-hero-banner__image, .c-search-cruise__image, .c-combo-cruise-header__image').find('.o-img');
 
         $imageBannerList.each(function() {
-            var $imageBanner = $(this);
-            $imageBanner.closest('.c-hero-banner__image').css('background-image', 'url(' + $imageBanner.prop("currentSrc") + ')');
-            $imageBanner.css('visibility', 'hidden');
+            var $image = $(this);
+            $image.closest('div[class*=__image]').css('background-image', 'url(' + $image.prop("currentSrc") + ')');
+            $image.css('visibility', 'hidden');
         });
     }
 });

@@ -1,0 +1,43 @@
+.c-gallery {
+    &__wrappertop {
+        position: relative;
+    }
+
+    &__counter {
+        bottom: 38px;
+        color: @white;
+        font-size: 18px;
+        position: absolute;
+        right: 40px;
+    }
+
+    &__tab {
+        background-color: @black;
+        font-size: 0;
+
+        &__item {
+            display: inline-block;
+        }
+
+        &__link {
+            color: @white;
+            display: inline-block;
+            font-size: 13px;
+            padding: 12px;
+            text-transform: uppercase;
+
+            &.active {
+                background-color: rgba(255,255,255,0.53);
+            }
+
+            &:hover {
+                background-color: rgba(255,255,255,0.3);
+                color: @white;
+            }
+
+            &:focus {
+                color: @white;
+            }
+        }
+    } 
+}

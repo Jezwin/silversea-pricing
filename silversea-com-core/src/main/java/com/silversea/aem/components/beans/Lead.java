@@ -8,7 +8,8 @@ public class Lead {
     private String email;
     private String phone;
     private String description;
-    
+//    private Boolean isBooked;
+
     public Lead() {
        
     }
@@ -48,5 +49,11 @@ public class Lead {
     public void setEmail(String email) {
         this.email = email;
     }
+//    public Boolean getIsBooked() {
+//        return isBooked;
+//    }
+//    public void setIsBooked(Boolean isBooked) {
+//        this.isBooked = isBooked;
+//    }
     
 }

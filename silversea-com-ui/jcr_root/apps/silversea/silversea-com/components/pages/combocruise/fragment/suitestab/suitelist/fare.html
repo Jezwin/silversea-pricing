@@ -1,0 +1,31 @@
+<template data-sly-template.default="${ @ variations, index }">
+    <h3 class="c-suitelist__collapse__title">${'select-your-suite-and-request-a-quote' @ i18n}</h3>
+    <table class="table c-suitelist__suite-table">
+        <caption>
+            <strong>${'note' @ i18n}:</strong> ${'the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship' @ i18n}
+        </caption>
+        <thead>
+            <tr>
+                <th>${'suite' @ i18n}</th>
+                <th>${'location' @ i18n}</th>
+                <th>${'fares' @ i18n} (${'per-guest' @ i18n})</th>
+                <th>${'select-your-suite' @ i18n}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-sly-repeat="${variations}">
+                <td><strong class="text-uppercase">${item.name @ i18n }</strong></td>
+                <td><a href="#" class="text-uppercase" data-toggle="location-tab">${'view-deck' @ i18n}</a></td>
+                <td>
+                    <strong class="text-uppercase" data-sly-test.isWaitList="">${'waitlist' @ i18n}</strong>
+                    <strong class="text-uppercase" data-sly-test="{!isWaitList}">${item.price.currency} ${item.price.value}</strong>
+                </td>
+                <td>
+                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="#">
+                        <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</template>

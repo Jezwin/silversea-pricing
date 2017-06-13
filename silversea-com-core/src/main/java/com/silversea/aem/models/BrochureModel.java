@@ -35,8 +35,12 @@ public class BrochureModel {
 
     @PostConstruct
     private void init() {
-        assetResource = asset.adaptTo(Resource.class);
-        tagManager = assetResource.getResourceResolver().adaptTo(TagManager.class);
+        try{
+            assetResource = asset.adaptTo(Resource.class);
+            tagManager = assetResource.getResourceResolver().adaptTo(TagManager.class);
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public String getCover() {

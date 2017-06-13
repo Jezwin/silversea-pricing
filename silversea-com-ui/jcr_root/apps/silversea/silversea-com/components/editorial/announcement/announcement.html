@@ -4,12 +4,11 @@
     <div class="c-annoucement__image" data-sly-test.reference="${properties.fileReference}">
         <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
     </div>
-    <div class="c-annoucement__content">
+    <div class="c-annoucement__content" data-sly-test="${properties.fileReference}">
         <span class="c-annoucement__content__title">${properties.text @ context="html"}</span>
         <div class="c-annoucement__content__cta">
-            <a href="#" class="btn btn-white">BROCHURE<i class="fa fa-angle-right"></i></a>
-            <a href="#" class="btn btn-white">DISCOVER MORE<i class="fa fa-angle-right"></i></a>
+            <div data-sly-unwrap="${!wcmmode.edit}" data-sly-resource="${'btn1' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
+            <div data-sly-unwrap="${!wcmmode.edit}" data-sly-resource="${'btn2' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
         </div>
     </div>
 </div>
-

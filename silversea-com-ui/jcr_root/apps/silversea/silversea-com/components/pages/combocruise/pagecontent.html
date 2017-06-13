@@ -1,0 +1,60 @@
+<div data-sly-use.cruise="com.silversea.aem.components.page.ComboCruiseUse" class="container c-cruise c-combo-cruise">
+    <div class="row">
+        <div class="col-md-12">
+            <div data-sly-resource="${'header-combocruise' @ resourceType='silversea/silversea-com/components/editorial/combocruiseheader'}"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="c-tab c-tab__accordion">
+                <ul class="c-tab__nav c-tab__nav--regular5 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+                    <li class="c-tab__link c-tab__link--clear" data-state="active">
+                        <a href="#overview"><span>${'overview' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--clear">
+                        <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--clear">
+                        <a href="#route"><span>${'routes' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--clear">
+                        <a href="#ship"><span>${'ship' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--clear">
+                        <a href="#benefitsnevents"><span>${'benefits and events' @i18n}</span></a>
+                    </li>
+                </ul>
+                <div class="c-tab__body">
+                    <div class="c-tab__content c-tab__content--overview" id="overview" data-state="active">
+                        <!--/* Overview tab */-->
+                        <sly data-sly-include="fragment/overviewtab/overview.html" />
+                        <sly data-sly-include="fragment/overviewtab/map.html" />
+                        <sly data-sly-include="fragment/overviewtab/gallery.html" />
+                        <sly data-sly-include="fragment/suitetab/suitelist.html" />
+                        <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html" />
+                        <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+                    </div>
+                    <div class="c-tab__content" id="suitenfare">
+                        <!--/* Suites and fares tab */-->
+                        <sly data-sly-include="fragment/suitetab/suitelist.html" />
+                    </div>
+                    <div class="c-tab__content" id="route">
+                        <!--/* Routes tab */-->
+                        <sly data-sly-include="fragment/routetab/overview.html" />
+                        <sly data-sly-include="fragment/routetab/routes.html" />
+                        <sly data-sly-include="fragment/routetab/poislider.html" />
+                        <sly data-sly-include="fragment/routetab/focusedmap.html" />
+                        <sly data-sly-include="fragment/routetab/itinerary.html" />
+                    </div>
+                    <div class="c-tab__content" id="ship">
+                        <!--/* Ship tab */-->
+                        <sly data-sly-include="fragment/shiptab/overview.html" />
+                        <sly data-sly-include="fragment/shiptab/suitevariation.html" />
+                        <sly data-sly-include="fragment/shiptab/diningvariation.html" />
+                        <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
+                    </div>
+                    <div class="c-tab__content" id="benefitsnevents">
+                        <!--/* Benefits and events tab */-->
+                        <sly data-sly-include="fragment/benefitstab/benefitsandevents.html" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

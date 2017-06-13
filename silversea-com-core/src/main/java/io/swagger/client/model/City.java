@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * City
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-24T15:10:03.211Z")
 public class City {
   @SerializedName("city_id")
   private Integer cityId = null;
@@ -51,6 +51,9 @@ public class City {
 
   @SerializedName("country_iso3")
   private String countryIso3 = null;
+
+  @SerializedName("country_iso2")
+  private String countryIso2 = null;
 
   @SerializedName("voyages")
   private List<VoyageSimple> voyages = new ArrayList<VoyageSimple>();
@@ -280,6 +283,24 @@ public class City {
     this.countryIso3 = countryIso3;
   }
 
+  public City countryIso2(String countryIso2) {
+    this.countryIso2 = countryIso2;
+    return this;
+  }
+
+   /**
+   * Get countryIso2
+   * @return countryIso2
+  **/
+  @ApiModelProperty(value = "")
+  public String getCountryIso2() {
+    return countryIso2;
+  }
+
+  public void setCountryIso2(String countryIso2) {
+    this.countryIso2 = countryIso2;
+  }
+
   public City voyages(List<VoyageSimple> voyages) {
     this.voyages = voyages;
     return this;
@@ -394,6 +415,7 @@ public class City {
         Objects.equals(this.countryId, city.countryId) &&
         Objects.equals(this.countryUrl, city.countryUrl) &&
         Objects.equals(this.countryIso3, city.countryIso3) &&
+        Objects.equals(this.countryIso2, city.countryIso2) &&
         Objects.equals(this.voyages, city.voyages) &&
         Objects.equals(this.shoreExcursions, city.shoreExcursions) &&
         Objects.equals(this.landAdventures, city.landAdventures) &&
@@ -402,7 +424,7 @@ public class City {
 
   @Override
   public int hashCode() {
-    return Objects.hash(cityId, cityUrl, cityCod, wingsCod, cityName, latitude, longitude, description, shortDescription, countryId, countryUrl, countryIso3, voyages, shoreExcursions, landAdventures, hotels);
+    return Objects.hash(cityId, cityUrl, cityCod, wingsCod, cityName, latitude, longitude, description, shortDescription, countryId, countryUrl, countryIso3, countryIso2, voyages, shoreExcursions, landAdventures, hotels);
   }
 
 
@@ -423,6 +445,7 @@ public class City {
     sb.append("    countryId: ").append(toIndentedString(countryId)).append("\n");
     sb.append("    countryUrl: ").append(toIndentedString(countryUrl)).append("\n");
     sb.append("    countryIso3: ").append(toIndentedString(countryIso3)).append("\n");
+    sb.append("    countryIso2: ").append(toIndentedString(countryIso2)).append("\n");
     sb.append("    voyages: ").append(toIndentedString(voyages)).append("\n");
     sb.append("    shoreExcursions: ").append(toIndentedString(shoreExcursions)).append("\n");
     sb.append("    landAdventures: ").append(toIndentedString(landAdventures)).append("\n");

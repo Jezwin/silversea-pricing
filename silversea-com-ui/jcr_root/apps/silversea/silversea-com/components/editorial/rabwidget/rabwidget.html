@@ -1,11 +1,11 @@
-<div data-sly-use.rabWidgetUse="com.silversea.aem.components.editorial.RabWidgetUse"
+<div data-sly-use.SignUpUse="com.silversea.aem.components.editorial.SignUpUse"
      data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
      data-emptytext="RAB Widget"></div>
 
 <form class="c-subscribe__form form-inline c-formcookie c-formcookie--redirect"
       data-disable="false"
-      action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
+      action="${SignUpUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">

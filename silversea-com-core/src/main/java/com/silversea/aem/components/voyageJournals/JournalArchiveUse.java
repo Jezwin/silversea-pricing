@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
@@ -21,12 +20,8 @@ public class JournalArchiveUse extends WCMUsePojo {
     private List<JournalArchiveModel> archiveYear;
     private List<JournalArchiveMonthModel> archiveMonth;
 
-    private static final String VOYAGE_JOURNALS = "voyage-journals";
-    
-
     @Override
     public void activate() throws Exception {
-        String s = getProperties().get("archivePath", String.class);
         archiveYear = new ArrayList<>();
         Resource resource = getResourceResolver().getResource(getProperties().get("archivePath", String.class));
         Page parentPage = resource.adaptTo(Page.class);
@@ -44,11 +39,9 @@ public class JournalArchiveUse extends WCMUsePojo {
             archive.setArchiveMonth(archiveMonth);
             archiveYear.add(archive);
         }
-
     }
 
     public List<JournalArchiveModel> getArchiveYear() {
         return archiveYear;
     }
-
 }

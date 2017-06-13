@@ -1,0 +1,75 @@
+.cc-tab {
+
+    &_header {
+
+        &_title {
+            color: @black;
+            font-size: 30px;
+            font-weight: 400;
+            font-family: @f-theano_didot;
+            text-transform: uppercase;
+            line-height: 28px;
+            margin: 10px 0;
+
+            @media screen and (max-width: @screen-xs) {
+                font-size: 23px;
+            }
+        }
+
+        &_desc {
+            display: table;
+            width: 100%;
+            margin: 0;
+
+            &_txt {
+                padding-bottom: 10px;
+                padding-left: 0;
+                display: table-cell;
+                vertical-align: top;
+                font-size: 14px;
+                margin-bottom: 20px;
+
+                @media screen and (max-width: @screen-sm) {
+                    display: block;
+                    margin-bottom: 0;
+                }
+
+                p {
+                    margin: 10px 0;
+                    font-size: 14px;
+                }
+            }
+
+            &_cta {
+                padding: 0 0 0 30px;
+                display: table-cell;
+                vertical-align: top;
+
+                @media screen and (max-width: @screen-sm) {
+                    display: block;
+                    padding: 0;
+                    text-align: center;
+                }
+
+                a {
+                    width: 100%;
+                    padding: 10px 20px;
+                    margin: 0 0 10px 0;
+                    position: relative;
+
+                    @media screen and (max-width: @screen-sm) {
+                        max-width: 90%;
+                        margin: 0 0 20px;
+                    }
+
+                    i {
+                        position: absolute;
+                        top: 8px;
+                        right: 20px;
+                    }
+                }
+            }
+        }
+
+    }
+}

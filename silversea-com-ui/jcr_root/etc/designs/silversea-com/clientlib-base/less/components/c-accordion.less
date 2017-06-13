@@ -26,6 +26,44 @@
         padding-left: 0px;
     }
 }
+/*
+** Overview && Execursion && landnhotel Accordin PORT
+*/
+#Overview,
+#excursion,
+#landnhotel{
+    .c-accordion__header--parent{
+        padding: 0;
+        .c-accordion{
+            &__title{
+                @media screen and (max-width: @screen-sm) {
+                    width: 41%;
+                    text-align: left;
+                }
+                
+                p{
+                    @media screen and (max-width: @screen-xs) {
+                        line-height: 14px;
+                        font-size: 14px;
+                    }
+                }
+
+                &--thumbnail img {
+                    @media screen and (max-width: @screen-sm) {
+                        width: 100%;
+                    }
+                }
+            }
+            &__action{
+                @media screen and (max-width: @screen-sm) {
+                    width: 10%;
+                    min-width: 10%;
+                    vertical-align: middle;
+                }
+            }
+         }
+    }
+}
 
 /*
 ** Component Accordion
@@ -39,6 +77,9 @@
 
         .c-accordion__header {
             padding-left: 25px;
+            @media screen and (max-width: @screen-xs) {
+                 padding-left: 0;
+            }
         }
 
         .c-accordion__body--panel {
@@ -377,7 +418,11 @@
         display: table-cell;
         vertical-align: middle;
         padding: 15px;
-
+        @media screen and (max-width: @screen-sm) {
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
         &.valigntop {
             vertical-align: top;
         }
@@ -442,6 +487,10 @@
         font-size: 12px;
         text-align: right;
         text-transform: uppercase;
+        @media screen and (max-width: @screen-sm) {
+            text-align: center;
+            width: 100%;
+        }
 
         &--light {
             color: #828282;

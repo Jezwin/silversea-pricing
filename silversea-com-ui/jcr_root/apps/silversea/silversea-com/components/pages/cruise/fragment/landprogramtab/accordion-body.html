@@ -10,7 +10,7 @@
                             ${description.textTruncate || item.description}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
                         </p>
                         <sly data-sly-test="${!item.name}">
-                            ${item.shortDescription || 'shortDescription'}
+                            ${item.shortDescription}
                         </sly>
                     </div>
                 </div>

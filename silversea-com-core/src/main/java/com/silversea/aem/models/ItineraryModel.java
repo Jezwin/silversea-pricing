@@ -24,7 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
 public class ItineraryModel {
@@ -40,18 +43,29 @@ public class ItineraryModel {
     private String departTime;
     private String thumbnail;
     private String description;
+    private String country;
 
     private List<ExcursionModel> excursions;
     private List<LandprogramModel> landprograms;
     private List<HotelModel> hotels;
 
     private ResourceResolver resourceResolver;
+    private TagManager tagManager;
+    
+    @Inject
+    private GeolocationTagService geolocationTagService;
 
     @PostConstruct
     private void init() {
-        resourceResolver = page.getContentResource().getResourceResolver();
-        thumbnail = page.getProperties().get("image/fileReference", String.class);
-        description = initDescription();
+        try{
+            resourceResolver = page.getContentResource().getResourceResolver();
+            tagManager = resourceResolver.adaptTo(TagManager.class);
+            thumbnail = page.getProperties().get("image/fileReference", String.class);
+            description = initDescription();
+            country = initCountry();
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public void initDate(Node itineraryNode) {
@@ -101,11 +115,16 @@ public class ItineraryModel {
                     String path = Objects.toString(node.getProperty(reference).getValue());
                     if (!StringUtils.isEmpty(path)) {
                         Resource resource = resourceResolver.resolve(path);
-                        Page pa = resource.adaptTo(Page.class);
-                        T model = pa.adaptTo(modelClass);
-                        callback(model, node, callBack, Node.class);
-                        list.add(model);
+                        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)  ){
+                            Page pa = resource.adaptTo(Page.class);
+                            T model = pa.adaptTo(modelClass);
+                            callback(model, node, callBack, Node.class);
+                            list.add(model);
+                        }
                     }
+                    else{
+                        LOGGER.warn("Page reference {} not found",path);
+                    } 
                 }
             }
         } catch (RepositoryException e) {
@@ -143,13 +162,23 @@ public class ItineraryModel {
         return value;
     }
 
+    private String initCountry(){
+        String country = null;
+        String countryId = page.getProperties().get("countryIso2", String.class);
+        String tagId = geolocationTagService.getTagFromCountryId(countryId);
+        Tag tag = tagManager.resolve(tagId);
+        if(tag != null){
+            country = tag.getTitle();
+        }
+        return country;
+    }
+
     public Page getPage() {
         return page;
     }
 
     public String getCountry() {
-        // TODO convert iso3 to country name
-        return page.getProperties().get("countryIso3", String.class) ;
+        return country ;
     }
 
     public Calendar getDate() {

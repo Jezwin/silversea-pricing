@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 /**
  * SpecialOfferByMarket
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-24T15:10:03.211Z")
 public class SpecialOfferByMarket {
   @SerializedName("voyage_special_offer_id")
   private Integer voyageSpecialOfferId = null;

@@ -23,6 +23,9 @@ public class PublicAreaVariationDisplayPropertiesUse extends WCMUsePojo {
     }
 
     public Page getAreaPage() {
-        return area.adaptTo(Page.class);
+        if (area != null) {
+            return area.adaptTo(Page.class);
+        }
+        return null;
     }
 }

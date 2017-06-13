@@ -1,8 +1,6 @@
 package com.silversea.aem.components.editorial;
 
 import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
@@ -10,8 +8,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.silversea.aem.constants.WcmConstants;
 
 public class ImageUse extends WCMUsePojo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ImageUse.class);
-
     private Integer desktopWidth = WcmConstants.DEFAULT_WIDTH_DESKTOP;
     private Integer mobileWidth = WcmConstants.DEFAULT_WIDTH_MOBILE;
     private static final String SLASH_DESKTOP_DASH = "/desktop-";

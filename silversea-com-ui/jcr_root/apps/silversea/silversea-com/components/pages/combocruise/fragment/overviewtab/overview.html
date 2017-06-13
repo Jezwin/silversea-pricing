@@ -1,0 +1,12 @@
+<h1 class="cc-tab_header_title">
+    ${pageProperties.jcr:title @ context="html"}
+</h1>
+<div class="cc-tab_header_desc row">
+    <div class="cc-tab_header_desc_txt col-sm-9">
+        ${pageProperties.jcr:description || pageProperties.longDescription @ context='html'}
+    </div>
+    <div class="cc-tab_header_desc_cta col-sm-3">
+        <a class="btn btn-thin btn-red effect" href="#"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        <a class="btn btn-thin btn-dark effect" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+    </div>
+</div>

@@ -13,6 +13,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
@@ -22,6 +24,9 @@ import com.day.cq.wcm.api.Page;
  */
 @Model(adaptables = Page.class)
 public class ShipModel {
+
+    static final private Logger LOGGER = LoggerFactory.getLogger(ShipModel.class);
+
     @Inject
     @Self
     private Page page;
@@ -64,15 +69,19 @@ public class ShipModel {
     private List<DiningModel> dinings;
 
     private List<PublicAreaModel> publicAreas;
-    
+
     private List<SuiteModel> suites;
 
     @PostConstruct
     private void init() {
-        resourceResolver = page.getContentResource().getResourceResolver();
-        dinings = initModels(DiningModel.class,"dining");
-        publicAreas = initModels(PublicAreaModel.class,"public-areas");
-        suites = initModels(SuiteModel.class,"suites");
+        try{
+            resourceResolver = page.getContentResource().getResourceResolver();
+            dinings = initModels(DiningModel.class,"dining");
+            publicAreas = initModels(PublicAreaModel.class,"public-areas");
+            suites = initModels(SuiteModel.class,"suites");
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public String getTitle() {
@@ -84,17 +93,20 @@ public class ShipModel {
         pages.forEachRemaining(item -> {
             list.add(item.adaptTo(modelClass));
         });
-        
+
         return list;
     }
     private Iterator<Page> getPages(String root) {
         Iterator<Page> pages = null;
         Resource resource = resourceResolver.resolve(root);
-        if (resource != null) {
+        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)){
             Page pa = resource.adaptTo(Page.class);
             if (pa != null) {
                 pages = pa.listChildren();
             }
+        }
+        else{
+            LOGGER.warn("Page reference {} not found",root);
         }
         return pages;
     }

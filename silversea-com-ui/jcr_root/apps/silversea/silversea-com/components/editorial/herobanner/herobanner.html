@@ -1,28 +1,4 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Hero banner"></div>
-<div class="c-hero-banner" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-    data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
-    <div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${properties.assetReference}">
-        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
-    </div>
-    <div class="row c-hero-banner__row">
-        <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-            <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-            <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
-            <sly data-sly-test.btn1="${banner.btn1}" />
-            <sly data-sly-test.btn2="${banner.btn2}" />
-            <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
-                <a data-sly-test="${btn1.reference}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
-                    <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
-                    <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                </a>
-                <a data-sly-test="${btn2.reference}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
-                    <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
-                    <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                </a>
-            </p>
-        </div>
-    </div>
-    <a data-sly-test="${properties.videoReference}" class="c-hero-banner__video-link hidden-xs" href="#">
-        <i class="fa fa-play"></i>
-    </a>
-</div>
+<sly data-sly-use.heroBannerTemplate="silversea/silversea-com/components/editorial/herobanner/herobannertemplate.html" />
+<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default}" />
+<sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home}" />

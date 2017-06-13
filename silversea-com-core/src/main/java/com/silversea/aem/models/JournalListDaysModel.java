@@ -7,6 +7,8 @@ import javax.inject.Named;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
@@ -16,6 +18,8 @@ import com.day.cq.wcm.api.Page;
  */
 @Model(adaptables = Page.class)
 public class JournalListDaysModel {
+
+    static final private Logger LOGGER = LoggerFactory.getLogger(JournalListDaysModel.class);
 
     @Inject
     @Self
@@ -34,7 +38,11 @@ public class JournalListDaysModel {
 
     @PostConstruct
     private void init() {
-        path = page.getPath();
+        try{
+            path = page.getPath();
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public String getTitle() {

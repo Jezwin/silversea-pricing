@@ -1,8 +1,5 @@
 package com.silversea.aem.services;
 
-import java.io.IOException;
-import java.util.Map;
-
 public interface ApiConfigurationService {
 
     String apiUrlConfiguration(String api);

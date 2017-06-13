@@ -1,123 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
-          xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-          jcr:primaryType="nt:unstructured">
+<jcr:root
+    xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+    xmlns:cq="http://www.day.com/jcr/cq/1.0"
+    xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured">
     <content jcr:primaryType="nt:unstructured">
         <items jcr:primaryType="nt:unstructured">
             <tabs jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
                     <port
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="Port"
-                            cq:showOnCreate="{Boolean}false"
-                            sling:resourceType="granite/ui/components/foundation/section">
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Port"
+                        cq:showOnCreate="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/section">
                         <layout
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                margin="{Boolean}false"/>
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            margin="{Boolean}false" />
                         <items jcr:primaryType="nt:unstructured">
                             <column
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/container">
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
                                     <apititle
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="apiTitle"
-                                            fieldLabel="API Title"
-                                            name="./apiTitle"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="apiTitle"
+                                        fieldLabel="API Title"
+                                        name="./apiTitle"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <apidescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="apiDescription"
-                                            fieldLabel="API Description"
-                                            name="./apiDescription"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="apiDescription"
+                                        fieldLabel="API Description"
+                                        name="./apiDescription"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <apilongdescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="apiLongDescription"
-                                            fieldLabel="API Long Description"
-                                            name="./apiLongDescription"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="apiLongDescription"
+                                        fieldLabel="API Long Description"
+                                        name="./apiLongDescription"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <longdescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="longDescription"
-                                            fieldLabel="Long Description"
-                                            renderReadOnly="{Boolean}true"
-                                            name="./longDescription"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="longDescription"
+                                        fieldLabel="Long Description"
+                                        renderReadOnly="{Boolean}true"
+                                        name="./longDescription" />
                                     <citycode
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="cityCode"
-                                            fieldLabel="City code"
-                                            name="./cityCode"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="cityCode"
+                                        fieldLabel="City code"
+                                        name="./cityCode"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <cityid
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="cityId"
-                                            fieldLabel="City ID"
-                                            name="./cityId"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="cityId"
+                                        fieldLabel="City ID"
+                                        name="./cityId"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <latitude
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="latitude"
-                                            fieldLabel="Latitude"
-                                            name="./latitude"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="latitude"
+                                        fieldLabel="Latitude"
+                                        name="./latitude"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <longitude
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="longitude"
-                                            fieldLabel="Longitude"
-                                            name="./longitude"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="longitude"
+                                        fieldLabel="Longitude"
+                                        name="./longitude"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <countryid
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="countryId"
-                                            fieldLabel="Country id"
-                                            name="./countryId"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="countryId"
+                                        fieldLabel="Country id"
+                                        name="./countryId"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
+                                    <countryiso2
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="countryIso2"
+                                        fieldLabel="Country iso2"
+                                        name="./countryIso2"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <countryiso3
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="countryIso3"
-                                            fieldLabel="Country iso3"
-                                            name="./countryIso3"
-                                            renderReadOnly="{Boolean}true"
-                                            disabled="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="countryIso3"
+                                        fieldLabel="Country iso3"
+                                        name="./countryIso3"
+                                        renderReadOnly="{Boolean}true"
+                                        disabled="{Boolean}true" />
                                     <assetselectionreference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="assetSelectionReference"
-                                            fieldLabel="Extra Gallery"
-                                            renderReadOnly="{Boolean}true"
-                                            rootPath="/content/dam/siversea-com"
-                                            name="./assetSelectionReference"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="assetSelectionReference"
+                                        fieldLabel="Extra Gallery"
+                                        renderReadOnly="{Boolean}true"
+                                        rootPath="/content/dam/siversea-com"
+                                        name="./assetSelectionReference" />
                                 </items>
                             </column>
                         </items>

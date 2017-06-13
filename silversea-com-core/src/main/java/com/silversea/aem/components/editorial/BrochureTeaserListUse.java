@@ -47,7 +47,6 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         if (currentLanguage == null) {
             currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
         }
-        final String languageTagId = "languages:" + currentLanguage;
 
         final String brochuresPath = getProperties().get("folderReference", "/content/dam/siversea-com/brochures");
 

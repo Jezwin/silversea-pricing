@@ -6,24 +6,11 @@ button:focus {
     outline:0;
 }
 
-.c-btn {
-    &--close {
-        &:before {
-            border: solid 1px #000;
-            border-radius: 20px;
-            content: "\00D7";
-            display: block;
-            font-size: 32px;
-            font-weight: 200;
-            height: 22px;
-            line-height: 19px;
-            width: 22px;
-            @media screen and (min-width: @screen-sm) {
-                .modal-content--transparent & {
-                    border-color: @white;
-                    color: @white;
-                }
-            }
-        }
+
+.view_all_mobile{
+    display: none;
+    /* phone breakpoint */
+    @media screen and (max-width: @screen-sm) {
+        display: block;
     }
 }

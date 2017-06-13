@@ -3,6 +3,10 @@
     jcr:language="en"
     jcr:mixinTypes="[mix:language]"
     jcr:primaryType="sling:Folder">
+    <aboard
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="aboard"
+        sling:message="aboard" />
     <and
         jcr:primaryType="sling:MessageEntry"
         sling:key="and"
@@ -19,6 +23,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="arrive"
         sling:message="Arrive" />
+    <benefits-and-events
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="benefits-and-events"
+        sling:message="Benefits and events" />
+    <benefits-and-events-title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="benefits-and-events-title"
+        sling:message="A host of added-value amenities" />
+    <benefits-and-events-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="benefits-and-events-description"
+        sling:message="In addition to our all-inclusive fares, you will enjoy exclusive attention and services reserved for our World Cruise 2019 guests. An impressive array of value-added benefits and exclusive cultural events all designed to make this truly a voyage of a lifetime." />
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"
@@ -43,14 +59,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"
         sling:message="Coordinates" />
+    <countries
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="countries"
+        sling:message="Countries" />
     <crew-capacity
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew-capacity"
         sling:message="Crew capacity" />
-    <cruise-itinerary
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="cruise-itinerary"
-        sling:message="Cruise itinerary" />
     <cruise-excursion-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-excursion-description"
@@ -119,10 +135,30 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
         sling:message="Excursion(s)" />
+    <expedition-team
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team"
+        sling:message="expedition team" />
+    <expedition-team-descr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-team-descr"
+        sling:message="Between 11 and 13 qualified specialists, many with a PhD or Professor to their name, will be on hand during every voyage and shore excursion. They’ll give lecuters, run workshops, lead Zodiac trips and guide nature walks." />
     <fares-from
         jcr:primaryType="sling:MessageEntry"
         sling:key="fares-from"
         sling:message="Fares from" />
+    <fares-shown-are-per-guest
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares-shown-are-per-guest"
+        sling:message="Fares shown are per guest" />
+    <fax
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fax"
+        sling:message="fax" />
+    <feature-exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feature-exclusive-offers"
+        sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
     <features
         jcr:primaryType="sling:MessageEntry"
         sling:key="features"
@@ -143,10 +179,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="free-brochure"
         sling:message="Free brochure" />
-    <guests-capacity
+    <from
         jcr:primaryType="sling:MessageEntry"
-        sling:key="guests-capacity"
-        sling:message="Guests capacity" />
+        sling:key="from"
+        sling:message="From" />
+    <for-exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="for-exclusive-offers"
+        sling:message="for exclusive offers &amp; news" />
     <hours
         jcr:primaryType="sling:MessageEntry"
         sling:key="hours"
@@ -223,6 +263,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
         sling:message="Overview" />
+    <phone
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="phone"
+        sling:message="phone" />
     <plan
         jcr:primaryType="sling:MessageEntry"
         sling:key="plan"
@@ -267,6 +311,22 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
+    <required-lastname
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-lastname"
+        sling:message="Lastname is required" />
+    <required-firstname
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-firstname"
+        sling:message="Firstname is required" />
+    <routes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="routes"
+        sling:message="Routes" />
+    <routes-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="routes-description"
+        sling:message="Leaving from San Francisco and arriving in London, the Tale of Tales is our most audacious world cruise to date. 5 continents, 31 countries, 52 ports and 17 overnights in just 132-days mean that this journey is your tale to tell." />
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
@@ -294,14 +354,14 @@
     <sign-up
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up"
-        sling:message="Sign-up" />
+        sling:message="Sign up" />
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
         sling:message="Suites" />
-    <suites-fares
+    <suites-and-fares
         jcr:primaryType="sling:MessageEntry"
-        sling:key="suites-fares"
+        sling:key="suites-and-fares"
         sling:message="Suites and fares" />
     <suite-location
         jcr:primaryType="sling:MessageEntry"
@@ -359,30 +419,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-email-address"
         sling:message="Your email address" />
-    <phone
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="phone"
-        sling:message="phone" />
-    <fares-shown-are-per-guest
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fares-shown-are-per-guest"
-        sling:message="Fares shown are per guest" />
-    <fax
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fax"
-        sling:message="fax" />
-    <feature-exclusive-offers
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="feature-exclusive-offers"
-        sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
-    <suites-and-fares
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suites-and-fares"
-        sling:message="Suites and fares" />
     <ship
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
         sling:message="Ship" />
+    <starting
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="starting"
+        sling:message="Starting" />
+    <routes
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="routes"
+        sling:message="Routes" />
     <highlight
         jcr:primaryType="sling:MessageEntry"
         sling:key="highlight"
@@ -423,18 +471,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote" />
-    <fares-from
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fares-from"
-        sling:message="Fares from" />
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
         sling:message="Waitlist" />
-    <per-guest
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="per-guest"
-        sling:message="Per guest" />
     <cruise-enrichments-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-enrichments-description"
@@ -487,14 +527,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
         sling:message="voyage highlights" />
-    <expedition-team
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="expedition-team"
-        sling:message="expedition team" />
-    <expedition-team-descr
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="expedition-team-descr"
-        sling:message="Between 11 and 13 qualified specialists, many with a PhD or Professor to their name, will be on hand during every voyage and shore excursion. They’ll give lecuters, run workshops, lead Zodiac trips and guide nature walks." />
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
@@ -647,4 +679,28 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on"
         sling:message="available on" />
+    <find-your-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="find-your-cruise"
+        sling:message="find your cruise" />
+    <where-would-you-like-to-go
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="where-would-you-like-to-go"
+        sling:message="Where would you like to go?" />
+    <when-do-you-want-to-leave
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="when-do-you-want-to-leave"
+        sling:message="When do you want to leave?" />
+    <all-destinations
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="all-destinations"
+        sling:message="All Destinations" />
+    <all-ships
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="all-ships"
+        sling:message="All Ships" />
+    <all-departure-dates
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="all-departure-dates"
+        sling:message="All Departure Dates" />
 </jcr:root>

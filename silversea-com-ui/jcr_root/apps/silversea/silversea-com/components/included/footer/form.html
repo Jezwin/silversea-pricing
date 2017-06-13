@@ -4,32 +4,7 @@
             <div data-sly-resource="${'rabwidget' @ resourceType='silversea/silversea-com/components/editorial/rabwidget'}"></div>
         </div>
         <div class="col-sm-6 c-subscribe">
-            <form class="c-subscribe__form form-inline">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <label class="c-subscribe__form--label">
-                            <span class="c-subscribe__form--label-important">Sign up</span>
-                            <span class="c-subscribe__form--label-text">for exclusive offers & news</span>
-                        </label>
-                    </div>
-                    <div class="col-xs-9">
-                        <input class="o-input o-input--dark col-xs-12 o-input--lg"
-                               name="email"
-                               placeholder="Your email address"
-                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                               type="email" />
-                    </div>
-                    <div class="col-xs-3">
-                        <button class="btn btn-default pull-right c-btn--lg" type="button">
-                            <span class="in-text">Submit</span>
-                            <span class="in-arrow"><i class="fa fa-lg fa-angle-right"></i></span>
-                        </button>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="help-block with-errors c-subscribe__form--error"></div>
-                    </div>
-                </div>
-            </form>
+            <div data-sly-resource="${'sfowidget' @ resourceType='silversea/silversea-com/components/editorial/sfowidget'}"></div>
         </div>
     </div>
 </section>

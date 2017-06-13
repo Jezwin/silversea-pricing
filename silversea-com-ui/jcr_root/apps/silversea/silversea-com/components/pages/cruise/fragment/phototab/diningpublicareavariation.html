@@ -1,8 +1,8 @@
-<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-test="${cruise.allAssetForRestaturantNPublicAreas}">
+<div class="c-cruise-photovideo" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-test="${cruise.allAssetForDinningNPublicAreas}">
     <h3 class="c-cruise__subtitle">${'restaurants-public-areas' @ i18n}</h3>
     <p class="c-cruise__descr">${'restaurants-public-areas-descr' @ i18n}</p>
 
     <div class="c-cruise__gallery">
-        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetGroup = cruise.allAssetForRestaturantNPublicAreas}" />
+        <sly data-sly-use.galleryTemplate="gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetList = cruise.allAssetForDinningNPublicAreas}" />
     </div>
 </div>

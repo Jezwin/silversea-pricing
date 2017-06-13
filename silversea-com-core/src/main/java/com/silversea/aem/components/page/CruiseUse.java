@@ -2,18 +2,18 @@ package com.silversea.aem.components.page;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.google.common.collect.Lists;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
@@ -25,7 +25,6 @@ import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
 
 public class CruiseUse extends WCMUsePojo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
 
     // TODO : to change US AND FT by default
     private static final String DEFAULT_GEOLOCATION_COUTRY = "FR";
@@ -107,12 +106,12 @@ public class CruiseUse extends WCMUsePojo {
         return cruiseModel;
     }
 
-    public List<List<Asset>> getAllAssetForItinerary() {
-        if (cruiseModel != null) {
-            String assetSelectionReference;
-            List<Asset> assetList = new ArrayList<Asset>();
+    public List<Asset> getAllAssetForItinerary() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
 
-            // Add asset from several list inside the same list
+        // Add asset from several list inside the same list
+        if (cruiseModel.getItineraries() != null) {
             for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
                 assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
@@ -124,56 +123,90 @@ public class CruiseUse extends WCMUsePojo {
             if (StringUtils.isNotBlank(assetSelectionReference)) {
                 assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
             }
-
-            return buildAssetSListGroup(assetList);
         }
-        return null;
+
+        return assetList;
     }
 
-    public List<List<Asset>> getAllAssetForSuite() {
-        if (cruiseModel != null) {
-            String assetSelectionReference;
-            List<Asset> assetList = new ArrayList<Asset>();
+    public List<Asset> getAllAssetForSuite() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
 
-            // Add asset from several list inside the same list
+        // Add asset from several list inside the same list
+        if (cruiseModel.getSuites() != null) {
             for (SuiteModel suite : cruiseModel.getSuites()) {
                 assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
                 }
             }
-
-            return buildAssetSListGroup(assetList);
         }
-        return null;
+
+        return assetList;
     }
 
-    public List<List<Asset>> getAllAssetForRestaturantNPublicAreas() {
-        if (cruiseModel != null) {
-            String assetSelectionReference;
-            List<Asset> assetList = new ArrayList<Asset>();
+    public List<Asset> getAllAssetForDinning() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
 
-            // Add asset from several list inside the same list
+        // Add asset from several list inside the same list
+        if (cruiseModel.getShip().getDinings() != null) {
             for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
                 assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
                 }
             }
+        }
 
+        return assetList;
+    }
+
+    public List<Asset> getAllAssetForPublicArea() {
+        String assetSelectionReference;
+        List<Asset> assetList = new ArrayList<Asset>();
+
+        // Add asset from several list inside the same list
+        if (cruiseModel.getShip().getPublicAreas() != null) {
             for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
                 assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
                 }
             }
-
-            return buildAssetSListGroup(assetList);
         }
+
+        return assetList;
+    }
+
+    public List<Asset> getAllAssetForDinningNPublicAreas() {
+        if(getAllAssetForDinning() != null && getAllAssetForPublicArea() != null) {
+            List<Asset> assetList = Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream()).collect(Collectors.toList());
+            return assetList;
+        }
+
         return null;
     }
 
-    private List<List<Asset>> buildAssetSListGroup(List<Asset> assetList) {
-        return Lists.partition(assetList, 5);
+    public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
+        LinkedHashMap<String, List<Asset>> gallery;
+        gallery = new LinkedHashMap<String, List<Asset>>();
+
+        if (getAllAssetForItinerary() != null) {
+            gallery.put("voyage", getAllAssetForItinerary());
+        }
+        if (getAllAssetForSuite() != null) {
+            gallery.put("suites", getAllAssetForSuite());
+        }
+        if (getAllAssetForDinning() != null) {
+            gallery.put("dinings", getAllAssetForDinning());
+        }
+        if (getAllAssetForPublicArea() != null) {
+            gallery.put("public-areas", getAllAssetForPublicArea());
+        }
+        // TODO : gallery.put("virtual-tours", value);
+        // TODO : gallery.put("ship-exteriors", value);
+
+        return gallery;
     }
 }

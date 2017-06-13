@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * City77
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-10T09:30:12.774Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2017-05-24T15:10:03.211Z")
 public class City77 {
   @SerializedName("pic_url")
   private String picUrl = null;
@@ -57,6 +57,9 @@ public class City77 {
 
   @SerializedName("country_iso3")
   private String countryIso3 = null;
+
+  @SerializedName("country_iso2")
+  private String countryIso2 = null;
 
   @SerializedName("voyages")
   private List<VoyageSimple> voyages = new ArrayList<VoyageSimple>();
@@ -322,6 +325,24 @@ public class City77 {
     this.countryIso3 = countryIso3;
   }
 
+  public City77 countryIso2(String countryIso2) {
+    this.countryIso2 = countryIso2;
+    return this;
+  }
+
+   /**
+   * Get countryIso2
+   * @return countryIso2
+  **/
+  @ApiModelProperty(value = "")
+  public String getCountryIso2() {
+    return countryIso2;
+  }
+
+  public void setCountryIso2(String countryIso2) {
+    this.countryIso2 = countryIso2;
+  }
+
   public City77 voyages(List<VoyageSimple> voyages) {
     this.voyages = voyages;
     return this;
@@ -438,6 +459,7 @@ public class City77 {
         Objects.equals(this.countryId, city77.countryId) &&
         Objects.equals(this.countryUrl, city77.countryUrl) &&
         Objects.equals(this.countryIso3, city77.countryIso3) &&
+        Objects.equals(this.countryIso2, city77.countryIso2) &&
         Objects.equals(this.voyages, city77.voyages) &&
         Objects.equals(this.shoreExcursions, city77.shoreExcursions) &&
         Objects.equals(this.landAdventures, city77.landAdventures) &&
@@ -446,7 +468,7 @@ public class City77 {
 
   @Override
   public int hashCode() {
-    return Objects.hash(picUrl, isDeleted, cityId, cityUrl, cityCod, wingsCod, cityName, latitude, longitude, description, shortDescription, countryId, countryUrl, countryIso3, voyages, shoreExcursions, landAdventures, hotels);
+    return Objects.hash(picUrl, isDeleted, cityId, cityUrl, cityCod, wingsCod, cityName, latitude, longitude, description, shortDescription, countryId, countryUrl, countryIso3, countryIso2, voyages, shoreExcursions, landAdventures, hotels);
   }
 
 
@@ -469,6 +491,7 @@ public class City77 {
     sb.append("    countryId: ").append(toIndentedString(countryId)).append("\n");
     sb.append("    countryUrl: ").append(toIndentedString(countryUrl)).append("\n");
     sb.append("    countryIso3: ").append(toIndentedString(countryIso3)).append("\n");
+    sb.append("    countryIso2: ").append(toIndentedString(countryIso2)).append("\n");
     sb.append("    voyages: ").append(toIndentedString(voyages)).append("\n");
     sb.append("    shoreExcursions: ").append(toIndentedString(shoreExcursions)).append("\n");
     sb.append("    landAdventures: ").append(toIndentedString(landAdventures)).append("\n");

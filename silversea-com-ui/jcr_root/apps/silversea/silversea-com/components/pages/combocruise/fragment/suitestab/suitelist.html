@@ -1,0 +1,86 @@
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="c-suitelist" role="tablist">
+    <div class="panel c-suitelist__item contains-slider" data-sly-repeat="${cruise.cruiseModel.suites}">
+        <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
+        data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
+            <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                    data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly> 
+            </div>
+            <div class="c-suitelist__detail">
+                <h3 class="c-suitelist__detail__title" data-sly-text="${item.page.title}"></h3>
+                <p class="c-suitelist__detail__description">
+                    <sly data-sly-repeat="${item.suiteSubTitle}">
+                        ${item}
+                        <br data-sly-test="${!itemList.last}" />
+                    </sly>
+                </p>
+            </div>
+            <div class="c-suitelist__price">
+                ${'fares-from' @ i18n}
+                <span data-sly-test.isisWaitList="${item.lowestPrice.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important">${'waitlist' @ i18n}</span>
+                <sly data-sly-test="${!isisWaitList}">
+                    <span class="c-suitelist__price__text c-suitelist__price__text--important2">${item.lowestPrice.currency} ${item.lowestPrice.value}</span>
+                    ${'per-guest' @ i18n}
+                </sly>
+            </div>
+            <div class="c-suitelist__button">
+                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="#">
+                    <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
+                </a>
+                <button class="btn btn-thin btn-white btn-thin effect hidden-xs">
+                    <span>${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+        <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
+            <div class="c-tab c-tab__accordion">
+                <a href="#suitelist-collapse-${itemList.index}" class="collapse-close text-uppercase" data-toggle="collapse"
+                data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
+                    <i class="fa fa-times"></i> ${'close' @ i18n}
+                </a>
+                <ul class="c-tab__nav dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+                    <li class="c-tab__link c-tab__link--button" data-state="active">
+                        <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.plan}">
+                        <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--button">
+                            <a href="#feature-${itemList.index}"><span>${'features' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.locationImage}">
+                            <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.virtualTour}">
+                        <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
+                    </li>
+                </ul>
+                <div class="c-tab__body">
+                    <div class="c-tab__content c-tab__content--description" id="description-${itemList.index}" data-state="active">
+                        <!--/* Description tab */-->
+                        <sly data-sly-use.descriptionTemplate="suitelist/description.html"
+                            data-sly-call="${descriptionTemplate.default @ suite=item}" />
+                    </div>
+                    <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}" data-sly-test="${item.plan}">
+                        <!--/* Suite plan tab */-->
+                        <sly data-sly-use.suitePlanTemplate="suitelist/suiteplan.html"
+                            data-sly-call="${suitePlanTemplate.default @ suite=item}" />
+                    </div>
+                    <div class="c-tab__content c-tab__content--feature" id="feature-${itemList.index}">
+                        <!--/* Features tab */-->
+                        <sly data-sly-use.featureTemplate="suitelist/feature.html"
+                            data-sly-call="${featureTemplate.default @ suite=item}" />
+                    </div>
+                    <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}" data-sly-test="${item.locationImage}">
+                        <!--/* Suite location tab */-->
+                        <sly data-sly-use.suiteLocationTemplate="suitelist/suitelocation.html"
+                            data-sly-call="${suiteLocationTemplate.default @ suite=item, index=itemList.index}" />
+                    </div>
+                    <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}" data-sly-test="${item.virtualTour}">
+                        <!--/* Virtual tour tab */-->
+                        <sly data-sly-use.virtualTourTemplate="suitelist/virtualtour.html"
+                            data-sly-call="${virtualTourTemplate.default @ suite=item}" />
+                    </div>
+                </div>
+                <sly data-sly-use.fareTemplate="suitelist/fare.html"
+                    data-sly-call="${fareTemplate.default @ variations=item.variations}" />
+            </div>
+        </div>
+    </div>
+</div>

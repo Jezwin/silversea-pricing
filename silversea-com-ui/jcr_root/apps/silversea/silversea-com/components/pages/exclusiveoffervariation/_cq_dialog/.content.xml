@@ -22,7 +22,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <longdescription
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="longDescription"
                                         fieldLabel="Long description"
@@ -89,7 +89,8 @@
                                         fieldLabel="Start date"
                                         disabled="{Boolean}true"
                                         required="{Boolean}true"
-                                        name="./startDate" />
+                                        name="./startDate"
+                                        type="datetime" />
                                     <enddate
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/datepicker"
@@ -98,7 +99,8 @@
                                         fieldLabel="End Date"
                                         disabled="{Boolean}true"
                                         required="{Boolean}true"
-                                        name="./endDate" />
+                                        name="./endDate"
+                                        type="datetime" />
                                 </items>
                             </column>
                         </items>

@@ -1,7 +1,6 @@
 package com.silversea.aem.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +13,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -31,7 +29,7 @@ import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.enums.Currency;
 
 @Model(adaptables = Page.class)
-public class SuiteModel {
+public class SuiteModel extends AbstractModel{
 
     static final private Logger LOGGER = LoggerFactory.getLogger(SuiteModel.class);
 
@@ -93,50 +91,21 @@ public class SuiteModel {
 
     @PostConstruct
     private void init() {
-        resourceResolver = page.getContentResource().getResourceResolver();
-        tagManager = resourceResolver.adaptTo(TagManager.class);
-        thumbnail = page.getProperties().get("image/fileReference", String.class);
-        suiteSubTitle = parseSuitesSubtitle();
-        title = initProperty("suiteReference", title, "title");
-        longDescription = initProperty("suiteReference", longDescription, "longDescription");
-        assetSelectionReference = initProperty("suiteReference", assetSelectionReference, "assetSelectionReference");
+        try{
+            resourceResolver = page.getContentResource().getResourceResolver();
+            tagManager = resourceResolver.adaptTo(TagManager.class);
+            thumbnail = page.getProperties().get("image/fileReference", String.class);
+            suiteSubTitle = parseText(page, "suiteSubTitle");
+            title = initPropertyWithFallBack(page,"suiteReference", title, "title",resourceResolver);
+            longDescription = initPropertyWithFallBack(page,"suiteReference", longDescription, "longDescription",resourceResolver);
+            assetSelectionReference = initPropertyWithFallBack(page,"suiteReference", assetSelectionReference, "assetSelectionReference",resourceResolver);
+        }catch(RuntimeException e){
+            LOGGER.error("Error while initializing model {}",e);
+        }
     }
 
     public void initLowestPrice(Node lowestPriceNode, String geoMarketCode) {
         lowestPrice = getPriceByGeoMarketCode(lowestPriceNode, geoMarketCode, "priceMarketCode");
-    }
-
-    // TODO: duplicated code
-    private String[] parseSuitesSubtitle() {
-        String[] subTitle = null;
-        String text = page.getProperties().get("suiteSubTitle", String.class);
-        if (StringUtils.isNotEmpty(text)) {
-            subTitle = text.split("\\r?\\n");
-        }
-        return subTitle;
-    }
-
-    private String initProperty(String reference, String property, String referenceProperty) {
-        String value = property;
-        if (StringUtils.isEmpty(property)) {
-            Page page = getPageReference(reference);
-            if (page != null) {
-                value = page.getProperties().get(referenceProperty, String.class);
-            }
-
-        }
-        return value;
-    }
-
-    private Page getPageReference(String reference) {
-        Page pageReference = null;
-        String path = page.getProperties().get(reference, String.class);
-        Resource resource = resourceResolver.resolve(path);
-        if (resource != null) {
-            pageReference = resource.adaptTo(Page.class);
-        }
-
-        return pageReference;
     }
 
     public void initVarirations(Node suiteNode, String geoMarketCode) {
@@ -212,26 +181,6 @@ public class SuiteModel {
         }
 
         return price;
-    }
-
-    // TODO: duplicated code
-    PriceData initPrice(String geoMarketCode, String value) {
-        PriceData price = new PriceData();
-        Currency currency = getCurrencyByMarKetCode(geoMarketCode);
-        price.setCurrency(currency.getLabel());
-        price.setValue(value);
-        if (StringUtils.isNumeric(value)) {
-            price.setWaitList(false);
-        } else {
-            price.setWaitList(true);
-        }
-        return price;
-    }
-
-    // TODO: duplicated code
-    private Currency getCurrencyByMarKetCode(String marKetCode) {
-        return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst()
-                .orElseThrow(() -> new IllegalStateException());
     }
 
     public String getTitle() {

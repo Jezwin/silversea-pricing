@@ -68,4 +68,8 @@
             </div>
         </div>
     </div>
+
+    <!--/* Photos and videos gallery modal */-->
+    <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
+        data-sly-call="${galleryTemplate.galleryTab @ map=cruise.cruiseGallery}" />
 </div>

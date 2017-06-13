@@ -24,6 +24,22 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
+                            <type
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Type"
+                                name="./type">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="default (no image on mobile)"
+                                        value="" />
+                                    <home
+                                        jcr:primaryType="nt:unstructured"
+                                        text="home (no text on mobile)"
+                                        value="home" />
+                                </items>
+                            </type>
                             <description
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Description"
@@ -33,13 +49,13 @@
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Background"
                                 name="./assetReference"
-                                rootPath="/content/dam/siversea-com"
+                                rootPath="/content/dam/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <video
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Video"
                                 name="./videoReference"
-                                rootPath="/content/dam/siversea-com"
+                                rootPath="/content/dam/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                             <disabledTextBackground
                                 jcr:primaryType="nt:unstructured"

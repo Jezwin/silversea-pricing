@@ -1,4 +1,3 @@
 #base=js
 
 chosen.jquery.js
-chosen.proto.js
