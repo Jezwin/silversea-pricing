@@ -1,6 +1,6 @@
 <sly data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequest" />
 <form class="request-quote-form c-form" action="" method="post">
-    <div class="form-group form-group-lg has-feedback">
+    <div class="form-group form-group-lg has-feedback input--title">
         <select name="title" class="form-control chosen" required data-error="${'Please enter your title' @ i18n}">
             <option value="">${'title*' @ i18n}</option>
             <option value="Mr.">${'Mr.' @i18n}</option>
@@ -13,19 +13,19 @@
             <option value="Prof.">${'Prof.' @ i18n}</option>
             <option value="Lord">${'Lord' @ i18n}</option>
         </select>
-        <span class="form-control-feedback" aria-hidden="true"></span>
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
         <input type="text" name="firstName" class="form-control" value="" placeholder="${'First Name*' @ i18n}" required data-error="${'Please enter your first name' @ i18n}" />
-        <span class="form-control-feedback" aria-hidden="true"></span>
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
         <input type="text" name="lastName" class="form-control" value="" placeholder="${'Last Name*' @ i18n}" required  data-error="${'Please enter your last name' @ i18n}" />
-        <span class="form-control-feedback" aria-hidden="true"></span>
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
 
@@ -34,11 +34,11 @@
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         data-required-error="${'Please enter your email' @ i18n}"
         data-error="${'Incorrect Email Address' @ i18n}" />
-        <span class="form-control-feedback" aria-hidden="true"></span>
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors incorrect"></div>
     </div>
 
-    <div class="form-group form-group-lg has-feedback" data-sly-include="selectcountry.html"></div>
+    <sly data-sly-include="selectcountry.html" />
 
     <div class="form-group form-group-lg textarea_autogrow">
         <textarea class="form-control textarea_autogrow__field" name="requestDetails" placeholder="${'Details About Your Request' @ i18n}"></textarea>
