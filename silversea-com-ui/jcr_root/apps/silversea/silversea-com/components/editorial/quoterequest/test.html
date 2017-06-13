@@ -289,6 +289,8 @@
                                     //test nb #raqm #requestQuoteForm .valid_success .valid_icon
                                     if ($('#raqm #requestQuoteForm .valid_success .valid_icon').length == 5) {
                                         updateForm(container.find('*').serialize());
+                                    } else {
+                                        //error message to display
                                     }
                                 };
 
@@ -460,6 +462,24 @@
                                     $(this).blur();
                                 }
                             });
+
+                            setTimeout(function() {
+                                phoneActivated = true;
+                                $('#requestQuoteForm').find('input').each(function() {
+                                    if ($(this).val() != '') {
+                                        $(this).blur();
+                                    }
+                                });
+                            }, 4500);
+
+                            setTimeout(function() {
+                                phoneActivated = true;
+                                $('#requestQuoteForm').find('input').each(function() {
+                                    if ($(this).val() != '') {
+                                        $(this).blur();
+                                    }
+                                });
+                            }, 5000);
                         </script>
                     </div>
                 </div>

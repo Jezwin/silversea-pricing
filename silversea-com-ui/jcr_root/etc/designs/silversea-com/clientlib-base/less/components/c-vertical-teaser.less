@@ -98,4 +98,34 @@
             }
         }
     }
+
+    &--manual {
+        margin-bottom: 20px;
+
+        .c-vertical-teaser__caption {
+            padding: 20px 20px 40px;
+            height: 290px;
+
+            @media screen and (max-width: @screen-sm) {
+                height: auto;
+            }
+
+            .c-vertical-teaser {
+                &__title {
+                    margin-bottom: 15px;
+                }
+
+                &__link__label {
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        &:hover {
+            .o-img {
+                opacity: 1;
+            }
+        }
+    }
 }

@@ -1,16 +1,35 @@
-<div class="container" data-sly-use.brochure="com.silversea.aem.components.editorial.BrochureThankYouUse">
-<h1>Brochure thank you component</h1>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Brochure thank you component"></div>
+<div class="c-brochure" data-sly-use.brochure="com.silversea.aem.components.editorial.BrochureThankYouUse">
 
-<img class="c-brochure__img" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}" />
-<h2 class="c-brochure__title visible-lg visible-md">${brochure.brochure.assetTitle}</h2>
-<p class="c-brochure__description">${brochure.brochure.assetDescription}</p>
-<p class="c-brochure__btnwrapper">
-    <a data-sly-test="${brochure.brochure.onlineBrochureUrl}"
-       href="${brochure.brochure.onlineBrochureUrl}"
-       class="btn btn-dark c-brochure__btn effect" type="button" data-toggle="modal">
-        <i class="fa fa-search"></i>
-        <strong>${'view-online' @i18n}</strong>
-    </a>
-</p>
+    <div class="col-sm-12 c-brochure__thankyou">  
+       <div class="table-responsive">
+           <table>
+                <tbody>
+                    <tr>
+                       <img class="" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}"/> 
+                    </tr>
+                    <tr>
+                        <td> <h2 class="c-brochure__title"> 
+                            ${brochure.brochure.assetTitle} </h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                         <p class="c-brochure__description">${brochure.brochure.assetDescription}</p>
+                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a data-sly-test="${brochure.brochure.onlineBrochureUrl}" href="${brochure.brochure.onlineBrochureUrl}" target="_blank" class="btn btn-dark effect" type="button">
+                                ${'view-online' @i18n}
+                                <i class="fa fa-lg fa-angle-right"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+       </div>
+    </div>
 
+   
 </div>

@@ -45,4 +45,31 @@
             text-align: left;
         }
     }
+    
+    
+    
+    &__thankyou{
+        text-align: center;
+        .table-responsive img {
+	        width: 100%;
+        }
+        
+        .btn{
+            position: relative;
+            min-width: 200px;
+            
+            @media screen and (max-width: @screen-xs) {
+                width: 100%;
+            }
+            .fa-angle-right{
+                position: absolute;
+                right: 10px;
+                top: 8px;
+            }
+        }
+        
+    }
+    .table-responsive{
+        border: 0px;
+    }
 }

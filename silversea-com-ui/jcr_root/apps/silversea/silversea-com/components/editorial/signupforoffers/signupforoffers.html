@@ -11,25 +11,27 @@
       novalidate>
     <div class="row form-group">
         <div class="col-xs-12">
-            <div class="form-group valid_success">
-                <select class="chosen form-control"
-                            name="title"
-                            data-required-error="${'required-title' @ i18n}"
-                            required>
-                    <option value="" selected disabled hidden>Title*</option>
-                    <option value="Mr.">Mr.</option>
-                    <option value="Mrs." >Mrs.</option>
-                    <option value="Miss">Miss</option>
-                    <option value="Ms.">Ms.</option>
-                    <option value="Dr.">Dr.</option>
-                    <option value="Sir">Sir</option>
-                    <option value="Lady">Lady</option>
-                    <option value="Prof.">Prof.</option>
-                    <option value="Lord">Lord</option>
-                </select>
+            <div class="form-group has-feedback">
+                   <div>
+                        <select class="chosen form-control"
+                                    name="title"
+                                    data-required-error="${'required-title' @ i18n}"
+                                    required>
+                            <option value="">Title*</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs." >Mrs.</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Dr.">Dr.</option>
+                            <option value="Sir">Sir</option>
+                            <option value="Lady">Lady</option>
+                            <option value="Prof.">Prof.</option>
+                            <option value="Lord">Lord</option>
+                        </select>  
+                    </div>              
                 <span class="form-control-feedback" aria-hidden="true"></span>
-                <div class="form-helper-error-text live help-block with-errors">
-                    <!--Please enter your first name						-->
+                <div class="fa form-helper-error-text live help-block with-errors">
+                    <!--Please select you title					-->
                 </div>
             </div>
 
@@ -80,8 +82,8 @@
 
             <div class="form-group">
                 <div class="checkbox">
-                    <label class="">
-                        <div class="icheckbox_minimal-grey" style="position: relative;"><input type="checkbox" name="already_travelling" value="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>I am currently booked on a Silversea cruise                    </label>
+                    <input class="isbooked"  type="checkbox" id="minimal-checkbox-1">
+                    <label for="minimal-checkbox-1">I am currently booked on a Silversea cruise</label>
                 </div>
             </div>
 

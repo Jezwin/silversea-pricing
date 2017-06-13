@@ -117,9 +117,9 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 							featurePageContentNode.setProperty("apiTitle", feature.getName());
 							featurePageContentNode.setProperty("featureOrder", feature.getOrder());
 							session.save();
-							if (!replicat.getReplicationStatus(session, featuresRootPage.getPath()).isActivated()) {
+//							if (!replicat.getReplicationStatus(session, featuresRootPage.getPath()).isActivated()) {
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, featurePage.getPath());
-							}
+//							}
 							LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
 						}
 					}

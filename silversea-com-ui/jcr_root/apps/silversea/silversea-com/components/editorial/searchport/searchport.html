@@ -1,0 +1,26 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Search a port component"></div>
+<div class="container" data-sly-use.search="com.silversea.aem.components.editorial.SearchPortUse">
+<h2>SEARCH ALPHABETICALLY</h2>
+<table>
+    <tr>
+        <td data-sly-repeat="${['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']}">
+            <a href="${search.portRoot @ extension='html', appendPath=item}">
+                ${item}<span data-sly-test="${search.selectedLetter == item}"> * </span>
+            </a>
+        </td>
+    </tr>
+</table>
+<h2>RESULTS</h2>
+<table border="1">
+    <tr>
+        <td><b>PORT NAME</b></td>
+        <td><b>COUNTRY</b></td>
+    </tr>
+    <div data-sly-list.child="${search.resultsPortList}">
+    <tr>
+        <td>${child.portName}</td>
+        <td>${child.portCountry}</td>
+    </tr>
+    </div>
+</table>
+</div>

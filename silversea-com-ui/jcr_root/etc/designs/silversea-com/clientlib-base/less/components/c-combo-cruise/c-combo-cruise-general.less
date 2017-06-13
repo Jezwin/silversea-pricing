@@ -2,14 +2,14 @@
 
     &_header {
 
-        &_title {
+        &_title, &_title > * {
             color: @black;
             font-size: 30px;
             font-weight: 400;
             font-family: @f-theano_didot;
             text-transform: uppercase;
             line-height: 28px;
-            margin: 10px 0 20px;
+            margin: 10px 0;
 
             @media screen and (max-width: @screen-xs) {
                 margin: 0 0 20px;
@@ -19,7 +19,7 @@
         &_desc {
             display: table;
             width: 100%;
-            margin: 0;
+            margin: 0 0 25px;
 
             &_txt {
                 padding-bottom: 10px;
@@ -28,6 +28,7 @@
                 vertical-align: top;
                 font-size: 13px;
                 margin-bottom: 20px;
+                margin-top: 10px;
 
                 @media screen and (max-width: @screen-sm) {
                     display: block;
@@ -35,7 +36,7 @@
                 }
 
                 p {
-                    margin: 10px 0;
+                    margin: 0 0 20px;
                     font-size: 14px;
                 }
             }
@@ -48,27 +49,45 @@
                 @media screen and (max-width: @screen-sm) {
                     display: block;
                     padding: 10px 0 0;
-                    margin: 0 0 35px;
+                    margin: 0 0 10px;
                     text-align: center;
                 }
 
-                a {
-                    width: 100%;
+                a, .btn {
+                    width: 200px;
+                    max-width: 100%;
+                    float: right;
                     padding: 10px 20px;
                     margin: 0 0 10px 0;
                     position: relative;
+                    font-size: 11px;
+                    font-weight: 400;
 
                     @media screen and (max-width: @screen-sm) {
-                        max-width: 90%;
-                        width: 200px;
                         margin: 0 auto 15px;
                         display: block;
+                        float: none;
                     }
 
-                    i {
+                    i, .btn i.fa-lg {
                         position: absolute;
                         top: 8px;
                         right: 20px;
+                        font-size: 16px;
+                        line-height: normal;
+                        vertical-align: inherit;
+                    }
+                }
+
+                div {
+                    margin: 0;
+
+                    .btn-default {
+                        transition: background 1s;
+
+                        &:hover {
+                            background: @grey--9;
+                        }
                     }
                 }
             }

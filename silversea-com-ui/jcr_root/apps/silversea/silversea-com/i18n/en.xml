@@ -39,6 +39,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events-description"
         sling:message="In addition to our all-inclusive fares, you will enjoy exclusive attention and services reserved for our World Cruise 2019 guests. An impressive array of value-added benefits and exclusive cultural events all designed to make this truly a voyage of a lifetime." />
+    <blog
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="blog"
+        sling:message="Our blog" />
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"
@@ -267,6 +271,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="more"
         sling:message="More" />
+    <my-silversea
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="my-silversea"
+        sling:message="My Silversea" />
     <next
         jcr:primaryType="sling:MessageEntry"
         sling:key="next"
@@ -327,11 +335,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-or-download"
         sling:message="Request or download" />
+    <request-a-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-a-brochure"
+        sling:message="Request a brochure" />
     <required-email-address
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
-        
     <required-title
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-title"
@@ -343,7 +354,7 @@
     <required-firstname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
-        sling:message="Please enter your firtname" />
+        sling:message="Please enter your firstname" />
     <sign-up-for-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up-for-offers"
