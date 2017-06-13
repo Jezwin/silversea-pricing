@@ -4,6 +4,8 @@ package com.silversea.aem.importers;
  * @author aurelienolivier
  */
 public interface ImportersConstants {
+	
+	String SILVERSEA_ROOT ="/content/silversea-com";
 
     String BASEPATH_PORTS = "/content/silversea-com/en/other-resources/find-a-port";
 
