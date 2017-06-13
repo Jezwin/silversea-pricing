@@ -26,7 +26,10 @@ $(function() {
                 callback(countryGeolocalized);
             },
             initialCountry: 'auto',
-            separateDialCode : true
+            separateDialCode : true,
+            customPlaceholder : function(selectedCountryPlaceholder, selectedCountryData) {
+                return $inputTelephoneNumber.data('prepend-placeholder') + ": 0" + selectedCountryPlaceholder;
+            }
         });
 
         // Update flag according to select (chosen)
@@ -66,12 +69,6 @@ $(function() {
             },
             custom : {
                 countrycodeformat : function($el) {
-                    console.log($el.intlTelInput("isValidNumber"));
-
-//                    if ($el.val() !== "" && $el.val() !== matchValue) {
-//                        return "error format";
-//                    }
-                    
                     if ($.trim($el.val())) {
                         if (!$el.intlTelInput("isValidNumber")) {
                             return "error format";
