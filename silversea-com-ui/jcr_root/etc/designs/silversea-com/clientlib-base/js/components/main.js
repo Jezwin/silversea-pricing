@@ -80,7 +80,7 @@ $(function() {
             
             $.ajax({
                 type : "POST",
-                url : "/content/silversea/mm.lead.json",
+                url : "/content/silversea/data.lead.json",
                 data : JSON.stringify(leadApiData),
                 contentType : "application/json",
                 dataType : "json",
