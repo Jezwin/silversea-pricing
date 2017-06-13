@@ -37,7 +37,7 @@ public class LeadServiceImpl implements LeadService {
     private String username;
 
     @Property(label = "Webservice Lead password", value = DEFAULT_PASSWORD)
-    private static final String PASSWORD = DEFAULT_PASSWORD;
+    private static final String PASSWORD = "password";
     private String password;
 
     @Activate
