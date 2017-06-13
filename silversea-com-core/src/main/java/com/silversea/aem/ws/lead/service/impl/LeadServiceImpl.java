@@ -18,7 +18,7 @@ import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020ArgumentsResponse
 import com.silversea.aem.ws.client.factory.JaxWsClientFactory;
 import com.silversea.aem.ws.lead.service.LeadService;
 
-@Component(immediate = true, metatype = true, label = "Silversea Lead Service")
+@Component(immediate = true, metatype = false, label = "Silversea Lead Service")
 @Service(LeadService.class)
 public class LeadServiceImpl implements LeadService {
 
