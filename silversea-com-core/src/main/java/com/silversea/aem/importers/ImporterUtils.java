@@ -280,7 +280,7 @@ public class ImporterUtils {
 		return allPages;
 	}
 
-	public static List<String> finAllLocal(ResourceResolver resourceResolver) {
+	public static List<String> finAllLanguageCopies(ResourceResolver resourceResolver) {
 		Page page;
 		List<String> locales = new ArrayList<String>();
 		Iterator<Resource> listLocal = resourceResolver.getResource(ImportersConstants.SILVERSEA_ROOT).listChildren();

@@ -93,17 +93,17 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 
 					List<Page> shipPages = new ArrayList<Page>();
 					List<String> local = new ArrayList<>();
-					local = ImporterUtils.finAllLocal(resourceResolver);
+					local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 //					local.add("en");
 					if (resources.hasNext()) {
-						shipPage = resources.next().adaptTo(Page.class);
+//						shipPage = resources.next().adaptTo(Page.class);
 						shipPages = ImporterUtils.findPagesById(resources);
 					} else {
-						shipPage = pageManager.create(shipsRootPage.getPath(),
-								JcrUtil.createValidChildName(shipsRootPage.adaptTo(Node.class),
-										StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName())),
-								TemplateConstants.PATH_SHIP,
-								StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
+//						shipPage = pageManager.create(shipsRootPage.getPath(),
+//								JcrUtil.createValidChildName(shipsRootPage.adaptTo(Node.class),
+//										StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName())),
+//								TemplateConstants.PATH_SHIP,
+//								StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
 						shipPages = ImporterUtils.createPagesLanguageCopies(pageManager, resourceResolver, shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
 					}
 
