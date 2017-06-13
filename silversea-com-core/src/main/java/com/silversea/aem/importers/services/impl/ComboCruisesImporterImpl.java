@@ -155,8 +155,8 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             for (VoyageWithItinerary voyage : voyages) {
                 if(voyage != null){
                     LOGGER.debug("Combo cruise -- Update segment with id {}",voyage.getVoyageId());
-                    String cruiseReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
-                            Objects.toString(voyage.getShipId()),resourceResolver);
+                    String cruiseReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "cruiseId",
+                            Objects.toString(voyage.getVoyageId()),resourceResolver);
 
                     Page segementPage =  getSegmentPage(cruisePage,voyage.getVoyageId(),voyage.getVoyageName());
                     Node jcrContent = segementPage.getContentResource().adaptTo(Node.class);
