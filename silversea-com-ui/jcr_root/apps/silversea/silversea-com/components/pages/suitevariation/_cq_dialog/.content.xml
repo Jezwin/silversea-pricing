@@ -97,6 +97,15 @@
                                             name="./suiteSubTitle"
                                             fieldLabel="Suite sub title"
                                             required="{Boolean}true"/>
+                                    <assetselectionreference
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="assetSelectionReference"
+                                            fieldLabel="Slider Images"
+                                            name="./assetSelectionReference"
+                                            renderReadOnly="{Boolean}true"
+                                            rootPath="/content/dam/silversea-com/suitevariation"/>
                                 </items>
                             </column>
                         </items>
