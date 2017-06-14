@@ -87,7 +87,7 @@ public class SearchPortUse extends WCMUsePojo {
             if (tag != null) {
                 portCountry = tag.getTitle();
             }
-            resultsPortList.add(new SearchPortDisplay(portPage.getTitle(), portCountry));
+            resultsPortList.add(new SearchPortDisplay(portPage.getTitle(), portCountry, portPage.getPath()));
         }
     }
 
@@ -115,10 +115,12 @@ public class SearchPortUse extends WCMUsePojo {
 
         private String portName;
         private String portCountry;
+        private String portPath;
 
-        public SearchPortDisplay(String name, String country) {
+        public SearchPortDisplay(String name, String country, String path) {
             portName = name;
             portCountry = country;
+            portPath = path;
         }
 
         public String getPortName() {
@@ -127,6 +129,10 @@ public class SearchPortUse extends WCMUsePojo {
 
         public String getPortCountry() {
             return portCountry;
+        }
+        
+        public String getPortPath() {
+            return portPath;
         }
     }
 }

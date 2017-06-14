@@ -303,6 +303,22 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="per-guest"
         sling:message="Per guest" />
+    <port-search-alphabetically
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-search-alphabetically"
+        sling:message="search alphabetically" />
+    <port-results
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-results"
+        sling:message="results" />
+    <port-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-name"
+        sling:message="port name" />
+    <port-country
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-country"
+        sling:message="country" />
     <pre-post-hotels
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-hotels"
@@ -743,20 +759,4 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-departure-dates"
         sling:message="All Departure Dates" />
-    <search-alphabetically
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="search-alphabetically"
-        sling:message="search alphabetically" />
-    <results
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="results"
-        sling:message="results" />
-    <port-name
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="port-name"
-        sling:message="port name" />
-    <destination
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="destination"
-        sling:message="destination" />
 </jcr:root>
