@@ -19,17 +19,18 @@ $(function() {
      **************************************************************************/
     // Activate chosen plugin
     jQuery(document).ready(function() {
-        $('.chosen').chosen({
+        $('.chosen:not(.chosen-with-search)').chosen({
             'disable_search': true
         });
-    });
 
+        $('.chosen.chosen-with-search').chosen({
+            'disable_search': false
+        });
+    });
     /***************************************************************************
      * Form cookie value
      **************************************************************************/
     // On submit store mandatory value
-    
-    
     $('.c-formcookie').validator({
         focus : false
     }).off('input.bs.validator change.bs.validator focusout.bs.validator')
@@ -49,8 +50,9 @@ $(function() {
     });
 });
 
-
-
+/***************************************************************************
+ * Auto fill form with data from cookie and post data to lead API
+ **************************************************************************/
 +function($){
     'use strict';
     $.signUp = {
@@ -58,17 +60,15 @@ $(function() {
             event.preventDefault();
             var cookieValues = [ 'title','firstname', 'lastname', 'email', 'phone', 'description' ];
             var pos = document.cookie.indexOf( "userInfo=" );
-            /**
-            * set cookie if not created
-            **/
+
+            // Set cookie if not created
             if( pos <= 0){
                 $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues) );
             }
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
-            /**
-            * Browse the form fields and extract values to leadApiData
-            **/
+
+            // Browse the form fields and extract values to leadApiData
             for (var i in cookieValues) {
                 if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
                     leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
@@ -78,7 +78,7 @@ $(function() {
                     }*/
                 }
             }
-            
+
             $.ajax({
                 type : "POST",
                 url : "/content/silversea/data.lead.json",
@@ -87,17 +87,15 @@ $(function() {
                 dataType : "json",
                 success : function(data) {
                     var obj = {};
-                    /**
-                    * convert currentData to object
-                    **/
+
+                    // Convert currentData to object
                     cookieValues.forEach(function(dat, index){
                         if( currentData[dat] !== undefined ){
                             obj[cookieValues[index]] = currentData[dat];
                         }
                     });
-                    /**
-                    * affect leadApiData values to currentData object
-                    **/
+
+                    // Affect leadApiData values to currentData object
                     currentData = Object.assign(obj, leadApiData);
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
                     if (elem.className.match(/c-formcookie--redirect/) !== null) {
