@@ -12,7 +12,7 @@
         <div class="help-block with-errors"></div>
     </div>
     <input id="hidden" type="hidden" name="phone-full">
-    <select name="countryCode" id="countryCode" class="form-control chosen">
+    <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
         <option value="">Country Code*</option>
         <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">
             ${country.valueMap.name}

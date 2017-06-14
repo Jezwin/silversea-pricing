@@ -1,12 +1,25 @@
-.form-control {
-    border-color: @grey--8;
-}
-
 .c-form {
+    .chosen-single {
+        color: @grey--7;
+    }
+
+    .chosen-drop {
+        border-color: @grey--8;
+    }
+
     .form-group-lg {
-        input {
+         input:not([type="checkbox"]) {
             font-size: 14px;
+            height: 42px;
         }
+
+        .chosen-search  input {
+            height: inherit;
+        }
+    }
+
+    .chosen-container-single .chosen-search input[type="text"] {
+        border: 0;
     }
 
     .form-group {
@@ -48,8 +61,7 @@
         }
 
         .chosen-drop {
-            border-color: @grey--8;
-            top: 42px;
+            top: 39px;
         }
 
         .intl-tel-input .selected-flag {
@@ -99,24 +111,22 @@
             }
         }
 
-        ::-webkit-input-placeholder {
-            color: @red;
-            font-size: 13px;
-        }
+        .form-control {
+            &::-webkit-input-placeholder {
+                color: @red;
+            }
 
-        ::-moz-placeholder {
-            color: @red;
-            font-size: 13px;
-        }
+            &::-moz-placeholder {
+                color: @red;
+            }
 
-        :-ms-input-placeholder {
-            color: @red;
-            font-size: 13px;
-        }
+            &:-ms-input-placeholder {
+                color: @red;
+            }
 
-        :-moz-placeholder {
-            color: @red;
-            font-size: 13px;
+            &:-moz-placeholder {
+                color: @red;
+            }
         }
     }
 
@@ -138,5 +148,29 @@
         .input--title .with-errors {
             right: 30px;
         }
+    }
+}
+
+.form-control {
+    border-color: @grey--8;
+
+    &::-webkit-input-placeholder {
+        color: @grey--7;
+        font-size: 13px;
+    }
+
+    &::-moz-placeholder {
+        color: @grey--7;
+        font-size: 13px;
+    }
+
+    &:-ms-input-placeholder {
+        color: @grey--7;
+        font-size: 13px;
+    }
+
+    &:-moz-placeholder {
+        color: @grey--7;
+        font-size: 13px;
     }
 }
