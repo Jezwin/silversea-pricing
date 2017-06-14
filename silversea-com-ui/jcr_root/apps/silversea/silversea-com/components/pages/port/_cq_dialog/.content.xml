@@ -128,7 +128,7 @@
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Extra Gallery"
                                         renderReadOnly="{Boolean}true"
-                                        rootPath="/content/dam"
+                                        rootPath="/content/dam/silversea-com"
                                         name="./assetSelectionReference" />
                                 </items>
                             </column>
