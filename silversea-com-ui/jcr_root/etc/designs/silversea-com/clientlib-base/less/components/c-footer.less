@@ -9,16 +9,28 @@
             font-size: 11px;
             text-align: center;
         }
+
         &__item {
             margin: 15px 0;
+
             @media screen and (min-width: @screen-sm) {
                 display: inline-block;
                 margin: 0 14px 10px;
             }
         }
+
         strong {
             font-size: 10px;
             text-transform: uppercase;
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        .c-links {
+            .c-list__accordion--content {
+                display: block!important;
+                height: 100%!important;
+            }
         }
     }
 }

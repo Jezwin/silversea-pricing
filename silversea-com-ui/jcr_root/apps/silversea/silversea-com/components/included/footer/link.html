@@ -1,4 +1,4 @@
-<section class="o-section o-section--separator" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
+<section class="o-section o-section--separator c-links" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
     <div class="aem-Grid aem-Grid--12">
         <div class="aem-GridColumn aem-GridColumn--default--3 aem-GridColumn--phone--hide">
             <div class="c-list">
@@ -14,42 +14,16 @@
         </div>
         <div class="aem-GridColumn aem-GridColumn--default--9 aem-GridColumn--phone--12">
             <div class="aem-Grid aem-Grid--12">
-                <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12">
-                    <div class="c-list c-list__accordion">
-                        <span class="c-list__title">
-                          ${footer.pageSubCol1.title}
+                <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12" data-sly-repeat="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
+                    <div class="c-list c-list__accordion ${itemList.last ? 'c-list__accordion--full' : ''}">
+                        <span class="c-list__title" data-toggle="collapse" data-target="#collapseFooter-${itemList.index}">
+                          ${item.title}
                         </span>
-                        <ul class="c-list__group c-list__group--phone-hide c-list__accordion--content" data-sly-list.child="${footer.pageSubCol1.listChildren}">
-                            <li class="c-list__item">
+                        <ul class="c-list__group c-list__accordion--content" id="collapseFooter-${itemList.index}">
+                            <li class="c-list__item" data-sly-repeat.child="${item.listChildren}">
                                 <a href="${child.path @ extension='html'}">${child.title}</a>
                             </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12">
-                    <div class="c-list c-list__accordion">
-                        <span class="c-list__title">
-                          ${footer.pageSubCol2.title}
-                        </span>
-                        <ul class="c-list__group c-list__group--phone-hide c-list__accordion--content" data-sly-list.child="${footer.pageSubCol2.listChildren}">
-                            <li class="c-list__item">
-                                <a href="${child.path @ extension='html'}">${child.title}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12">
-                    <div class="c-list c-list__accordion c-list__accordion--full">
-                        <span class="c-list__title">
-                          ${footer.pageSubCol3.title}
-                        </span>
-                        <ul class="c-list__group c-list__accordion--content" data-sly-list.child="${footer.pageSubCol3.listChildren}">
-                            <li class="c-list__item">
-                                <a href="${child.path @ extension='html'}">${child.title}</a>
-                            </li>
-                        </ul>
-                        <ul class="c-list__group c-list__accordion--content" data-sly-test="${footer.pageMySilversea.path}">
-                            <li class="c-list__item c-list__item--special">
+                            <li class="c-list__item c-list__item--special" data-sly-test="${itemList.last && footer.pageMySilversea.path}">
                                 <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
                                     <i class="fa fa-user"></i>
                                     ${footer.pageMySilversea.title}

@@ -18,7 +18,7 @@ $(function() {
      * Chosen
      **************************************************************************/
     // Activate chosen plugin
-    jQuery(document).ready(function() {
+    $(document).ready(function() {
         $('.chosen:not(.chosen-with-search)').chosen({
             'disable_search': true
         });
@@ -47,6 +47,15 @@ $(function() {
     // Redirect to page with brochure in the current language
     $('#selectBrochureListLangId').on('change', function() {
         window.location.href = this.value;
+    });
+
+    /***************************************************************************
+     * Footer link collapse behavior according to the viewport
+     **************************************************************************/
+    $('body').on('trigger.viewport.changed', function() {
+        if ($.viewportDetect() === 'xs') {
+            $('.c-links .c-list__accordion--content').collapse('hide');
+        }
     });
 });
 
