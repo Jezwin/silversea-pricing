@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -34,8 +33,6 @@ public class ComboCruiseModel extends AbstractModel {
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     
-    private GeoLocation geoLocation;
-
     @PostConstruct
     private void init() {
         try {
@@ -48,7 +45,6 @@ public class ComboCruiseModel extends AbstractModel {
     }
 
     public void initByGeoLocation(GeoLocation geoLocation) {
-        this.geoLocation = geoLocation;
         lowestPrice = initLowestPrice(geoLocation.getGeoMarketCode(),page);
         initCruises(geoLocation);
         LOGGER.debug("");
@@ -72,4 +68,13 @@ public class ComboCruiseModel extends AbstractModel {
     public PriceData getLowestPrice() {
         return lowestPrice;
     }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public List<CruiseModel> getCruises() {
+        return cruises;
+    }
+    
 }

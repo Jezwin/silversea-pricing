@@ -90,10 +90,12 @@ public class ShipModel {
     private <T> List<T> initModels(Class<T> modelClass, String root){
         List<T> list  = new ArrayList<T>();
         Iterator<Page> pages = getPages(page.getPath() + "/" + root);
-        pages.forEachRemaining(item -> {
-            list.add(item.adaptTo(modelClass));
-        });
-
+        if(pages != null && pages.hasNext()){
+            pages.forEachRemaining(item -> {
+                list.add(item.adaptTo(modelClass));
+            });  
+        }
+       
         return list;
     }
     private Iterator<Page> getPages(String root) {

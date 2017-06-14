@@ -115,7 +115,7 @@ public class SuiteModel extends AbstractModel{
             if (variationNodes != null && variationNodes.hasNext()) {
                 while (variationNodes.hasNext()) {
                     Node node = variationNodes.nextNode();
-                    if (!StringUtils.equals(node.getName(), "lowest-price")) {
+                    if (!StringUtils.equals(node.getName(), "lowest-prices")) {
                         PriceData price = getPrice(node, geoMarketCode);
                         String name = Objects.toString(node.getProperty("suiteCategoryCod").getValue());
                         SuiteVariation suiteVariation = new SuiteVariation();
