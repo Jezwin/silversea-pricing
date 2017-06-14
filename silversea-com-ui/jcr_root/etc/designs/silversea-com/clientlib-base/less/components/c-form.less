@@ -1,3 +1,7 @@
+.form-control {
+    border-color: @grey--8;
+}
+
 .c-form {
     .form-group-lg {
         input {
@@ -28,11 +32,14 @@
     }
 
     .countrycode {
+        position: relative;
+
         .form-group {
             z-index: 2;
         }
 
         .chosen-container {
+            position: static;
             z-index: 1;
         }
 
@@ -41,7 +48,27 @@
         }
 
         .chosen-drop {
-            top: -30px;
+            border-color: @grey--8;
+            top: 42px;
+        }
+
+        .intl-tel-input .selected-flag {
+            width: 100px;
+
+            &:after {
+                color: @grey--8;
+                content: "\f0d7";
+                font-family: FontAwesome;
+                font-size: 18px;
+                font-weight: 400;
+                position: relative;
+                right: 10px;
+                top: 8px;
+            }
+        }
+
+        #InputTelephoneNumber {
+            padding-left: 110px;
         }
     }
 
@@ -74,18 +101,22 @@
 
         ::-webkit-input-placeholder {
             color: @red;
+            font-size: 13px;
         }
 
         ::-moz-placeholder {
             color: @red;
+            font-size: 13px;
         }
 
         :-ms-input-placeholder {
             color: @red;
+            font-size: 13px;
         }
 
         :-moz-placeholder {
             color: @red;
+            font-size: 13px;
         }
     }
 
