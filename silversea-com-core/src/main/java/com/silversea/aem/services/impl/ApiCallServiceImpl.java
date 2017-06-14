@@ -121,6 +121,7 @@ public class ApiCallServiceImpl  implements ApiCallService {
             final DigestAuthenticator authenticator = new DigestAuthenticator(new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
             final Map<String, CachingAuthenticator> authCache = new ConcurrentHashMap<>();
             apiClient.setDebugging(LOGGER.isDebugEnabled());
+            apiClient.setConnectTimeout(apiConfig.getTimeout());
             apiClient.getHttpClient().interceptors().add(new AuthenticationCacheInterceptor(authCache));
             apiClient.getHttpClient().setAuthenticator(new CachingAuthenticatorDecorator(authenticator, authCache));
         }
