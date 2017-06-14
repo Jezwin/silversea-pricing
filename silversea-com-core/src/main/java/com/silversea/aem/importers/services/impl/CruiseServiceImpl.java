@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -90,8 +91,10 @@ public class CruiseServiceImpl implements CruiseService{
     private Session session;
 
     public void init() {
-        try {
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+        try {      
+            Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+            authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             pageManager = resourceResolver.adaptTo(PageManager.class);
             tagManager = resourceResolver.adaptTo(TagManager.class);
             assetManager = resourceResolver.adaptTo(AssetManager.class);
@@ -295,7 +298,7 @@ public class CruiseServiceImpl implements CruiseService{
                             Objects.toString(excursion.getShorexItineraryId()));
                     String excursionReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH,
                             "shorexId", Objects.toString(excursion.getShorexId()), resourceResolver);
-                    
+
                     excursionNode.setProperty("excursionReference", excursionReference);
                     excursionNode.setProperty("shorexItineraryId", excursion.getShorexItineraryId());
                     excursionNode.setProperty("cityId", excursion.getCityId());
@@ -316,9 +319,9 @@ public class CruiseServiceImpl implements CruiseService{
         VoyagePriceComplete voyagePriceComplete = null;
         if (voyagePrices != null && !voyagePrices.isEmpty()) {
             voyagePriceComplete = voyagePrices.stream()
-                                              .filter(item -> voyageId.equals(item.getVoyageId()))
-                                              .findAny()
-                                              .orElse(null);
+                    .filter(item -> voyageId.equals(item.getVoyageId()))
+                    .findAny()
+                    .orElse(null);
         }
         return voyagePriceComplete;
     }
@@ -376,9 +379,9 @@ public class CruiseServiceImpl implements CruiseService{
             for (VoyagePriceMarket voyagePriceMarket : voyagePriceMarketList) {
 
                 Price price = voyagePriceMarket.getCruiseOnlyPrices().stream()
-                                               .filter(item -> suiteCategoryCode.equals(item.getSuiteCategoryCod()))
-                                               .findAny()
-                                               .orElse(null);
+                        .filter(item -> suiteCategoryCode.equals(item.getSuiteCategoryCod()))
+                        .findAny()
+                        .orElse(null);
 
                 if (price != null) {
                     String variationId = voyageCode + suiteCategoryCode + voyagePriceMarket.getMarketCod()
@@ -452,13 +455,13 @@ public class CruiseServiceImpl implements CruiseService{
 
         if (voyageSpecialOffers != null && !voyageSpecialOffers.isEmpty()) {
             voyageSpecialOffers.get(0).getSpecialOffers()
-                                      .stream()
-                                      .filter(distinctByKey(e -> e.getVoyageSpecialOfferId()))
-                                      .map(SpecialOfferByMarket::getVoyageSpecialOfferId)
-                                      .collect(Collectors.toList()).forEach(id -> {
-                                           references.add(ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "exclusiveOfferId",
-                                           Objects.toString(id), resourceResolver));
-                                      });
+            .stream()
+            .filter(distinctByKey(e -> e.getVoyageSpecialOfferId()))
+            .map(SpecialOfferByMarket::getVoyageSpecialOfferId)
+            .collect(Collectors.toList()).forEach(id -> {
+                references.add(ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "exclusiveOfferId",
+                        Objects.toString(id), resourceResolver));
+            });
         } else {
             LOGGER.debug("Cruise importer -- No special offer found for voyage id {}", voyageId);
         }
@@ -491,7 +494,6 @@ public class CruiseServiceImpl implements CruiseService{
         return imagePath;
     }
 
-    // TODO:Store WAITLIST if prices not exits
     public void calculateLowestPrice(Map<String, PriceData> lowestPrices, Price price, String marketCode) {
         LOGGER.debug("Cruise importer -- Start calculate lowest prices");
         if (price != null && !StringUtils.equals(ImportersConstants.PRICE_WAITLIST, Objects.toString(price.getCruiseOnlyFare()))) {

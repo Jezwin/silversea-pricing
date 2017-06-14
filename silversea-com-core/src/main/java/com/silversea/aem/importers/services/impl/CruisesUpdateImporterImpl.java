@@ -2,7 +2,9 @@ package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.jcr.Node;
@@ -67,8 +69,9 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
 
     private void init() {
         try {
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-            pageManager = resourceResolver.adaptTo(PageManager.class);
+            Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+            authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);            pageManager = resourceResolver.adaptTo(PageManager.class);
             session = resourceResolver.adaptTo(Session.class);
             cruiseService.init();
         } catch (LoginException e) {
