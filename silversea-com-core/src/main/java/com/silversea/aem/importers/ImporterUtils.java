@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 
 public class ImporterUtils {
@@ -212,7 +212,9 @@ public class ImporterUtils {
 
 		Iterator<Resource> res = findResourceById(path, NameConstants.NT_PAGE, property, id, resourceResolver);
 		String reference = res.hasNext() ? res.next().getPath() : "";
-
+		if(reference == null){
+		    LOGGER.error("Importer -- Reference to page with id [{} = {}] not found",property,id);
+		}
 		return reference;
 	}
 
@@ -290,6 +292,14 @@ public class ImporterUtils {
 		}
 		return locales;
 
+	}
+	
+	public static Calendar convertToCalendar(DateTime dateTime){
+	    Calendar calendar = null;
+	    if(dateTime != null){
+	        calendar = dateTime.toGregorianCalendar(); 
+	    }
+	    return calendar;
 	}
 
 }

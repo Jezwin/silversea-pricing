@@ -139,13 +139,13 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                         LOGGER.debug("Cruise importer -- Import cruise with id {} finished",voyage.getVoyageId());
                     } else {
-                        LOGGER.debug("Cruise importer -- Destination with id {} not found", voyage.getDestinationId());
+                        LOGGER.error("Cruise importer -- Destination with id {} not found", voyage.getDestinationId());
                     }
                 }
             }
         }
         else {
-            LOGGER.debug("Cruise importer: List cruises is empty");
+            LOGGER.warn("Cruise importer -- List cruises is empty");
         }
     }
 
@@ -165,8 +165,8 @@ public class CruisesImporterImpl implements CruisesImporter {
         //Update node properties
         cruisePageContentNode.setProperty("voyageHighlights", voyage.getVoyageHighlights());
         cruisePageContentNode.setProperty("exclusiveOffers",specialOffers);
-        cruisePageContentNode.setProperty("startDate", voyage.getArriveDate().toString());
-        cruisePageContentNode.setProperty("endDate", voyage.getDepartDate().toString());
+        cruisePageContentNode.setProperty("startDate", ImporterUtils.convertToCalendar(voyage.getArriveDate()));
+        cruisePageContentNode.setProperty("endDate", ImporterUtils.convertToCalendar(voyage.getDepartDate()));
         cruisePageContentNode.setProperty("duration", voyage.getDays());
         cruisePageContentNode.setProperty("shipReference", shipReference);
         cruisePageContentNode.setProperty("cruiseCode", voyage.getVoyageCod());

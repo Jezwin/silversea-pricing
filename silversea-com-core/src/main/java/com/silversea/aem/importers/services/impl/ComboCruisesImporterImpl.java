@@ -133,13 +133,13 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
 
                         LOGGER.debug("Cruise importer -- Import cruise with id {} finished",specialVoyage.getSpecialVoyageId());
                     } else {
-                        LOGGER.debug("Combo cruise importer -- Combo cruise page with id {} not found",specialVoyage.getSpecialVoyageId());
+                        LOGGER.error("Combo cruise importer -- Combo cruise page with id {} not found",specialVoyage.getSpecialVoyageId());
                     }
                 }
             }
         }
         else {
-            LOGGER.debug("Cruise importer: List cruises is empty");
+            LOGGER.warn("Cruise importer -- List cruises is empty");
         }
     }
 
