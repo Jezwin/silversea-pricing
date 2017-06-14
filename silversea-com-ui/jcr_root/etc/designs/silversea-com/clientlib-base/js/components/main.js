@@ -30,9 +30,10 @@ $(function() {
     // On submit store mandatory value
     
     
-    $('.c-formcookie').validator()
-        .off('input.bs.validator change.bs.validator focusout.bs.validator')
-        .on('submit', function(e) {
+    $('.c-formcookie').validator({
+        focus : false
+    }).off('input.bs.validator change.bs.validator focusout.bs.validator')
+      .on('submit', function(e) {
         
         if (!e.isDefaultPrevented()) {
             $.signUp.signUpOffers(this, e);

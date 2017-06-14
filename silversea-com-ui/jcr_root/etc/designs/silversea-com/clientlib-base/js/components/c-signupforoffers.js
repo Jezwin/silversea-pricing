@@ -15,6 +15,7 @@ $(function(){
             $('.c-signupforoffer [name="isbooked"]').iCheck('check');
         }*/
         var opt = {
+            focus : false,
             feedback: {
                 success: 'success',
                 error: 'error'
