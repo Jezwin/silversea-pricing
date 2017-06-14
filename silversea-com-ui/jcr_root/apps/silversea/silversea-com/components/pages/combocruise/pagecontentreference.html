@@ -5,4 +5,11 @@
       	<p>${item.country}</p>
       </li>
    </ul>
+   SUITES
+   <ul data-sly-list="${cruise.comboCruiseModel.suites}">
+      <li data-sly-list=${item.variations}>
+      	<p>${item.name}</p>
+      	<p>${item.price.value}</p>
+      </li>
+   </ul>
 </div>

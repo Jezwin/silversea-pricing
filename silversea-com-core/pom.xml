@@ -49,7 +49,7 @@
 							com.silversea.aem.helper
 						</Sling-Model-Packages>
 						<Include-Resource>{maven-resources}</Include-Resource>
-						<Embed-Dependency>*;scope=compile|runtime;inline=true</Embed-Dependency>
+						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
 						<Embed-Transitive>true</Embed-Transitive>
 						<Import-Package>
 							android.util.*;resolution:=optional,

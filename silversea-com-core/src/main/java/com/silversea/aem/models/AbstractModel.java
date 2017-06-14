@@ -128,4 +128,37 @@ public abstract class AbstractModel {
         }
         return page;
     }
+    
+    protected List<SuiteModel> initSuites(Page page,String geoMarketCode,ResourceResolver resourceResolver) {
+        List<SuiteModel> suiteList = new ArrayList<SuiteModel>();
+        Node cruiseNode = page.adaptTo(Node.class);
+        Node suitesNode;
+        try {
+            suitesNode = cruiseNode.getNode("suites");
+            NodeIterator suites = suitesNode.getNodes();
+            if (suites != null && suites.hasNext()) {
+                while (suites.hasNext()) {
+                    Node node = suites.nextNode();
+                    String path = Objects.toString(node.getProperty("suiteReference").getValue());
+                    if (!StringUtils.isEmpty(path)) {
+                        Resource resource = resourceResolver.resolve(path);
+                        if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                            Page pa = resource.adaptTo(Page.class);
+                            SuiteModel suiteModel = pa.adaptTo(SuiteModel.class);
+                            Node lowestPriceNode = node.getNode("lowest-prices");
+                            suiteModel.initLowestPrice(lowestPriceNode, geoMarketCode);
+                            suiteModel.initVarirations(node, geoMarketCode);
+                            suiteList.add(suiteModel);
+                        } else {
+                            LOGGER.warn("Page reference {} not found", path);
+                        }
+                    }
+                }
+            }
+        } catch (RepositoryException e) {
+            LOGGER.error("Exception while building suites", e);
+        }
+
+        return suiteList;
+    }
 }

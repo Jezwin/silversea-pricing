@@ -30,6 +30,7 @@ public class ComboCruiseModel extends AbstractModel {
 
     private PriceData lowestPrice;
     private List<CruiseModel> cruises;
+    private List<SuiteModel> suites;
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     
@@ -47,7 +48,7 @@ public class ComboCruiseModel extends AbstractModel {
     public void initByGeoLocation(GeoLocation geoLocation) {
         lowestPrice = initLowestPrice(geoLocation.getGeoMarketCode(),page);
         initCruises(geoLocation);
-        LOGGER.debug("");
+        suites = initSuites(page,geoLocation.getGeoMarketCode(),resourceResolver);
     }
 
     private void initCruises(GeoLocation geoLocation){
@@ -75,6 +76,10 @@ public class ComboCruiseModel extends AbstractModel {
 
     public List<CruiseModel> getCruises() {
         return cruises;
+    }
+
+    public List<SuiteModel> getSuites() {
+        return suites;
     }
     
 }
