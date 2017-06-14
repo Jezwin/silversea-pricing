@@ -59,23 +59,23 @@ $(function() {
         $countryCodeWrapper.find('#countryCode').on('chosen:hiding_dropdown', function() {
             openChosen();
         })
+    });
 
-        // Validator !
-        $('.request-quote-form').validator({
-            focus : false,
-            feedback : {
-                success : 'feedback-success',
-                error : 'feedback-error'
-            },
-            custom : {
-                countrycodeformat : function($el) {
-                    if ($.trim($el.val())) {
-                        if (!$el.intlTelInput("isValidNumber")) {
-                            return "error format";
-                        }
+    // Validator !
+    $('.request-quote-form').validator({
+        focus : false,
+        feedback : {
+            success : 'feedback-success',
+            error : 'feedback-error'
+        },
+        custom : {
+            countrycodeformat : function($el) {
+                if ($.trim($el.val())) {
+                    if (!$el.intlTelInput("isValidNumber")) {
+                        return "error format";
                     }
                 }
             }
-        });
+        }
     });
 });
