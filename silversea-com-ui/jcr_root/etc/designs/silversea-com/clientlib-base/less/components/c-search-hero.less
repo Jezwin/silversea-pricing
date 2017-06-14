@@ -35,20 +35,19 @@
         width: 100vw;
     }
 
-    .chosen-container {
+    .chosen-container  {
         .chosen-single {
             background: @white;
             border: 1px solid @white;
-        }
+            height: 40px;
 
-        .chosen-single {
             @media screen and (max-width: @screen-sm) {
                 height: 34px;
                 padding: 8px 12px 0;
             }
         }
 
-        &.chosen-container-active {
+        &.chosen-with-drop {
             .chosen-single {
                 border: 1px solid @black;
             }
