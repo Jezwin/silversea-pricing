@@ -184,7 +184,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                 }
 
                 i++;
-            } while (travelAgencies.size() > 0);
+            } while (travelAgencies.size() > 0 && i<1);
 
             // TODO Depublication of deleted pages
             Iterator<Page> resourcess = travelRootPage.listChildren();
@@ -192,7 +192,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                 Page page = resourcess.next();
 
                 if (page.getContentResource().getValueMap().get("agencyId")!= null &&!diff.contains(
-                        Integer.parseInt(page.getContentResource().getValueMap().get("agencyId").toString()))) {
+                        Integer.parseInt(page.getContentResource().getValueMap().get("va").toString()))) {
                     try {
                         replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
                     } catch (ReplicationException e) {

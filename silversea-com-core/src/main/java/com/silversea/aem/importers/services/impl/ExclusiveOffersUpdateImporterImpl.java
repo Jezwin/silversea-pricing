@@ -158,9 +158,9 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 							tagManager.setTags(offersPage.getContentResource(), market.stream().toArray((Tag[]::new)));
 
 							succesNumber = succesNumber + 1;
-							if (!replicat.getReplicationStatus(session, offersRootPage.getPath()).isActivated()) {
+//							if (!replicat.getReplicationStatus(session, offersRootPage.getPath()).isActivated()) {
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, offersPage.getPath());
-							}
+//							}
 							j++;
 						}
 
@@ -181,7 +181,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 				}
 
 				i++;
-			} while (specialOffers.size() > 0);
+			} while (specialOffers.size() > 0 && i<1);
 
 			// TODO duplication of deleted page
 			Iterator<Page> resourcess = offersRootPage.listChildren();
