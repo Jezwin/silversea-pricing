@@ -188,7 +188,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 				}
 
 				i++;
-			} while (travelAgencies.size() > 0);
+			} while (travelAgencies.size() > 0 && i<1);
 
 			// TODO Depublication of deleted pages
 			Iterator<Page> resourcess = travelRootPage.listChildren();
