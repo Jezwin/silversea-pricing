@@ -145,7 +145,7 @@ public class CruiseModel extends AbstractModel {
             destinationTitle = getPagereferenceTitle(page.getParent().getPath());
             destinationFootNote = page.getParent().getProperties().get("footnote", String.class);
             itineraries = initIteniraries();
-            ship = initShip(shipReference);
+            ship = initShip(shipReference,pageManager);
             itinerariesData = initItinerariesData();
             hasLandPrograms = hasLandProgram();
         } catch (RuntimeException e) {
@@ -254,19 +254,6 @@ public class CruiseModel extends AbstractModel {
         }
 
         return CruiseFareAddition;
-    }
-
-    private ShipModel initShip(String path) {
-        ShipModel shipModel = null;
-        if (StringUtils.isNotEmpty(path)) {
-            Page page = getPage(path, pageManager);
-            if (page != null) {
-                shipModel = page.adaptTo(ShipModel.class);
-            } else {
-                LOGGER.warn("Page reference {} not found", path);
-            }
-        }
-        return shipModel;
     }
 
     public String initMapHover() {

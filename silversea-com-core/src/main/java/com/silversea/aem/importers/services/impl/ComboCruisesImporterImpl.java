@@ -146,7 +146,10 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     private void updateCruisePage(Page cruisePage, SpecialVoyage specialVoyage)
             throws RepositoryException, IOException, ApiException {
         Node jcrContent = cruisePage.getContentResource().adaptTo(Node.class);
+        String shipReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
+                Objects.toString(getShipId(specialVoyage)), resourceResolver);
         jcrContent.setProperty("apiTitle", specialVoyage.getSpecialVoyageName());
+        jcrContent.setProperty("shipReference", shipReference);
     }
 
     private void buildOrUpdateSegments(Page cruisePage, List<VoyageWithItinerary> voyages,String voayageId) throws WCMException, RepositoryException{

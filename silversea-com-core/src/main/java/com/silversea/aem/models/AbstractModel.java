@@ -161,4 +161,17 @@ public abstract class AbstractModel {
 
         return suiteList;
     }
+    
+    protected ShipModel initShip(String path,PageManager pageManager) {
+        ShipModel shipModel = null;
+        if (StringUtils.isNotEmpty(path)) {
+            Page page = getPage(path, pageManager);
+            if (page != null) {
+                shipModel = page.adaptTo(ShipModel.class);
+            } else {
+                LOGGER.warn("Page reference {} not found", path);
+            }
+        }
+        return shipModel;
+    }
 }

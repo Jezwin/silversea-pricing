@@ -31,6 +31,8 @@ public class ComboCruiseModel extends AbstractModel {
     private PriceData lowestPrice;
     private List<CruiseModel> cruises;
     private List<SuiteModel> suites;
+    private ShipModel ship;
+
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     
@@ -39,7 +41,9 @@ public class ComboCruiseModel extends AbstractModel {
         try {
             resourceResolver = page.getContentResource().getResourceResolver();
             pageManager = resourceResolver.adaptTo(PageManager.class);
-            
+            String shipReference = page.getProperties().get("shipReference",String.class);
+            ship = initShip(shipReference, pageManager);
+            LOGGER.debug("");
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
         }
@@ -66,6 +70,7 @@ public class ComboCruiseModel extends AbstractModel {
             });
         }
     }
+    
     public PriceData getLowestPrice() {
         return lowestPrice;
     }
@@ -81,5 +86,8 @@ public class ComboCruiseModel extends AbstractModel {
     public List<SuiteModel> getSuites() {
         return suites;
     }
-    
+
+    public ShipModel getShip() {
+        return ship;
+    }   
 }
