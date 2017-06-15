@@ -6,4 +6,5 @@ import com.silversea.aem.components.beans.GeoLocation;
 
 public interface GeolocationService {
     GeoLocation initGeolocation(SlingHttpServletRequest request);
+    String getLocalizedPhone(SlingHttpServletRequest request);
 }

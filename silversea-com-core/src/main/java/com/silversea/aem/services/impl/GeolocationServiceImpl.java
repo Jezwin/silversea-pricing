@@ -13,6 +13,7 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.commons.osgi.PropertiesUtil;
@@ -29,9 +30,9 @@ import com.silversea.aem.services.GeolocationService;
 import com.silversea.aem.services.GeolocationTagService;
 
 @Service
-@Component(immediate = true, metatype=true)
+@Component(immediate = true, metatype = true)
 public class GeolocationServiceImpl implements GeolocationService {
-    
+
     static final private Logger LOGGER = LoggerFactory.getLogger(GeolocationServiceImpl.class);
 
     // TODO : to change US AND FT by default
@@ -55,30 +56,30 @@ public class GeolocationServiceImpl implements GeolocationService {
     private ResourceResolver resourceResolver;
     private TagManager tagManager;
 
-
     @Activate
     @Modified
     public void activate(final ComponentContext context) {
         init();
         Dictionary<?, ?> properties = context.getProperties();
         defaultCountryCode = PropertiesUtil.toString(properties.get(COUNTRY_GELOCATION_KEY), DEFAULT_GEOLOCATION_COUTRY);
-        defaultGeoMarketCode = PropertiesUtil.toString(properties.get(GEO_MARKET_CODE_KEY), DEFAULT_GEOLOCATION_GEO_MARKET_CODE);       
+        defaultGeoMarketCode = PropertiesUtil.toString(properties.get(GEO_MARKET_CODE_KEY), DEFAULT_GEOLOCATION_GEO_MARKET_CODE);
     }
-    private void init(){
-        try{
+
+    private void init() {
+        try {
             Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-            //TODO to change
+            // TODO to change
             authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
             resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             tagManager = resourceResolver.adaptTo(TagManager.class);
         } catch (LoginException e) {
             LOGGER.error("Geolocation service -- Login exception ", e);
-        } finally {
+        }/* finally {
             if (resourceResolver != null && resourceResolver.isLive()) {
                 resourceResolver.close();
                 resourceResolver = null;
             }
-        }
+        }*/
     }
 
     public GeoLocation initGeolocation(SlingHttpServletRequest request) {
@@ -97,6 +98,26 @@ public class GeolocationServiceImpl implements GeolocationService {
         return geoLocation;
     }
 
+    /*
+     * @return the geolocalized phone number
+     */
+    public String getLocalizedPhone(SlingHttpServletRequest request) {
+        String localizedPhone = "";
+        String geolocationTagId = geolocationTagService.getTagFromRequest(request);
+        if (geolocationTagId == null) {
+            //use default country
+            geolocationTagId = geolocationTagService.getTagFromCountryId(DEFAULT_GEOLOCATION_COUTRY);
+        }
+        if (geolocationTagId != null) {
+            Tag geolocationTag = tagManager.resolve(geolocationTagId);
+            if (geolocationTag != null) {
+                Resource node = geolocationTag.adaptTo(Resource.class);
+                localizedPhone = node.getValueMap().get("phone", String.class);
+            }
+        }
+        return localizedPhone;
+    }
+
     private String getGeoMarketCode(String geolocationTag) {
         String geoMarketCode = null;
 
@@ -106,6 +127,5 @@ public class GeolocationServiceImpl implements GeolocationService {
         }
         return geoMarketCode;
     }
-
 
 }
