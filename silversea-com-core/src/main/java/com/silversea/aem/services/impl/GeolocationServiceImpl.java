@@ -68,18 +68,16 @@ public class GeolocationServiceImpl implements GeolocationService {
     private void init() {
         try {
             Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-            // TODO to change
+            // TODO to change user
             authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
             resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             tagManager = resourceResolver.adaptTo(TagManager.class);
         } catch (LoginException e) {
             LOGGER.error("Geolocation service -- Login exception ", e);
-        }/* finally {
             if (resourceResolver != null && resourceResolver.isLive()) {
                 resourceResolver.close();
-                resourceResolver = null;
             }
-        }*/
+        }
     }
 
     public GeoLocation initGeolocation(SlingHttpServletRequest request) {

@@ -122,20 +122,6 @@ public class ApiCallServiceImpl  implements ApiCallService {
         return specialVoyagesApi.specialVoyagesGet(null);
     }
 
-    public void configureClient(ApiClient apiClient){
-        if(apiClient !=null){
-            final DigestAuthenticator authenticator = new DigestAuthenticator(new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
-            final Map<String, CachingAuthenticator> authCache = new ConcurrentHashMap<>();
-            apiClient.setDebugging(LOGGER.isDebugEnabled());
-            apiClient.setConnectTimeout(apiConfig.getTimeout());
-            apiClient.getHttpClient().interceptors().add(new AuthenticationCacheInterceptor(authCache));
-            apiClient.getHttpClient().setAuthenticator(new CachingAuthenticatorDecorator(authenticator, authCache));
-        }
-        else{
-            LOGGER.error("Api call service -- Api client is null");
-        }
-    }
-
 	@Override
 	public List<Agency> getTravelAgencies(int index, int pageSize, AgenciesApi travelAgenciesApi) throws IOException, ApiException {
 		configureClient(travelAgenciesApi.getApiClient());
@@ -155,4 +141,18 @@ public class ApiCallServiceImpl  implements ApiCallService {
 		configureClient(spetialOffersApi.getApiClient());
 		return spetialOffersApi.specialOffersGet(index, pageSize, null);
 	}
+	
+    public void configureClient(ApiClient apiClient){
+        if(apiClient !=null){
+            final DigestAuthenticator authenticator = new DigestAuthenticator(new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
+            final Map<String, CachingAuthenticator> authCache = new ConcurrentHashMap<>();
+            apiClient.setDebugging(LOGGER.isDebugEnabled());
+            apiClient.setConnectTimeout(apiConfig.getTimeout());
+            apiClient.getHttpClient().interceptors().add(new AuthenticationCacheInterceptor(authCache));
+            apiClient.getHttpClient().setAuthenticator(new CachingAuthenticatorDecorator(authenticator, authCache));
+        }
+        else{
+            LOGGER.error("Api call service -- Api client is null");
+        }
+    }
 }
