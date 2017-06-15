@@ -192,7 +192,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
                 Page page = resourcess.next();
 
                 if (page.getContentResource().getValueMap().get("agencyId")!= null &&!diff.contains(
-                        Integer.parseInt(page.getContentResource().getValueMap().get("va").toString()))) {
+                        Integer.parseInt(page.getContentResource().getValueMap().get("agencyId").toString()))) {
                     try {
                         replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
                     } catch (ReplicationException e) {

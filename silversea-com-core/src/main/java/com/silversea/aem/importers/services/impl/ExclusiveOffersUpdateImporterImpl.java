@@ -181,7 +181,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 				}
 
 				i++;
-			} while (specialOffers.size() > 0 && i<1);
+			} while (specialOffers.size() > 0);
 
 			// TODO duplication of deleted page
 			Iterator<Page> resourcess = offersRootPage.listChildren();
