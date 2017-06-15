@@ -58,7 +58,7 @@
     <call-reservations-team-2
         jcr:primaryType="sling:MessageEntry"
         sling:key="call-reservations-team-2"
-        sling:message="or your travel agent" />
+        sling:message="or contact your travel agent" />
     <click-to-call
         jcr:primaryType="sling:MessageEntry"
         sling:key="click-to-call"

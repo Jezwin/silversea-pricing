@@ -9,10 +9,7 @@ import org.apache.sling.api.resource.Resource;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.services.GeolocationTagService;
 
 /**
  * Model for the footer mbennabi 31/05/2017
@@ -30,8 +27,6 @@ public class FooterUse extends WCMUsePojo {
     private Page pageAaward;
     private Page pageBlog;
     private Page pageMySilversea;
-
-    private String phone;
 
     private String facebookReference;
     private String youtubeReference;
@@ -89,21 +84,6 @@ public class FooterUse extends WCMUsePojo {
             }
         }
         pagesBottomLineIterator = pagesBottomLine.iterator();
-
-        // Getting context
-        GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
-        final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
-
-        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-
-        if (geolocationTagId != null) {
-            Tag geolocationTag = tagManager.resolve(geolocationTagId);
-
-            if (geolocationTag != null) {
-                Resource node = geolocationTag.adaptTo(Resource.class);
-                phone = node.getValueMap().get("phone", String.class);
-            }
-        }
     }
 
     /**
@@ -192,9 +172,5 @@ public class FooterUse extends WCMUsePojo {
 
     public Iterator<Page> getPagesMainColIterator() {
         return pagesMainColIterator;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 }
