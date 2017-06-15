@@ -145,6 +145,9 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 										StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
 							}
 						}
+						if(agency.getAgencyId() == 41216){
+							LOGGER.debug("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww existe :", agency.getAgencyId());
+						}
 
 						diff.add(agency.getAgencyId());
 
@@ -188,7 +191,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 				}
 
 				i++;
-			} while (travelAgencies.size() > 0 && i<1);
+			} while (travelAgencies.size() > 0);
 
 			// TODO Depublication of deleted pages
 			Iterator<Page> resourcess = travelRootPage.listChildren();
