@@ -118,6 +118,8 @@ public class ImporterUtils {
 
 		return resources;
 	}
+	
+	
 
 	/**
 	 * Create a new page or adapt it from a resource

@@ -80,7 +80,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
     }
 
     @Override
-    public void loadData() throws IOException {
+    public void importData() throws IOException {
         try {
             init();
             voyagePricesComplete = new ArrayList<VoyagePriceComplete>();

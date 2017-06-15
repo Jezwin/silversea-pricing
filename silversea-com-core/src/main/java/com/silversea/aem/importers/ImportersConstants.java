@@ -31,6 +31,11 @@ public interface ImportersConstants {
     // Templates
     String CUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
     String CUISE_SEGEMENT_TEMPLATE = "/apps/silversea/silversea-com/templates/combosegment";
+    String COMBO_CRUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/combocruise";
+    //Resources type
+    String COMBO_CRUISE_RESOURCE_TYPE = "silversea/silversea-com/components/pages/combocruise";
+    //Sling resource type property
+    String SLIN_RESOURCE_TYPE= "jcr:content/sling:resourceType";
     // Tags path
     String GEOTAGGING_TAG_PREFIX = "geotagging:";
     // Constants

@@ -38,6 +38,11 @@ import com.day.cq.dam.api.AssetManager;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
+import com.day.cq.search.PredicateGroup;
+import com.day.cq.search.Query;
+import com.day.cq.search.QueryBuilder;
+import com.day.cq.search.result.Hit;
+import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.tagging.TagManager.FindResults;
@@ -80,6 +85,9 @@ public class CruiseServiceImpl implements CruiseService{
 
     @Reference
     Replicator replicator;
+    
+    @Reference
+    private QueryBuilder queryBuilder;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -372,6 +380,77 @@ public class CruiseServiceImpl implements CruiseService{
             }
         }
     }
+    
+    /**
+     * Build suite for combo cruises
+     * @param cruisePage
+     * @param voyageId
+     * @param shipId
+     * @param voyagesPriceMarket
+     * @throws RepositoryException
+     * @throws IOException
+     * @throws ApiException
+     */
+    public void buildOrUpdateSuiteNodes(LowestPrice lowestPrice,Page cruisePage,String voyageId,Integer shipId,List<VoyagePriceMarket>  voyagesPriceMarket)
+            throws RepositoryException, IOException, ApiException {
+
+        if (voyagesPriceMarket != null 
+                && voyagesPriceMarket.get(0) !=null 
+                && !voyagesPriceMarket.get(0).getCruiseOnlyPrices().isEmpty()) {
+
+            lowestPrice.initVariationPrices();
+            List<Price> prices = voyagesPriceMarket.get(0).getCruiseOnlyPrices();
+            Node suitesNode = ImporterUtils.findOrCreateNode(cruisePage.adaptTo(Node.class), ImportersConstants.SUITES_NODE);
+            ImporterUtils.saveSession(session, false);
+
+
+            LOGGER.debug("Combo cruise -- Start updating suites variations and prices for voyage with id {}", voyageId);
+            for (Price price : prices) {
+                Page suiteReference = findSuiteReference(shipId, price.getSuiteCategoryCod());
+                if (suiteReference != null) {
+                    buildSuitesGrouping(lowestPrice,suitesNode, suiteReference, price, voyageId, voyagesPriceMarket);
+                }
+            }
+            //Build variation lowest prices
+            buildVariationsLowestPrices(suitesNode,lowestPrice);
+            LOGGER.debug("Combo cruise importer -- Updating suites variations and prices for voyage with id {} finished", voyageId);
+        }
+        else{
+            LOGGER.debug("Combo cruise -- No price found for cruise with id {}", voyageId);
+        }
+    }
+
+    /**
+     * Build suite groups for combo cruises
+     * @param rootNode
+     * @param suiteRef
+     * @param price
+     * @param voyageId
+     * @param voyagesPriceMarket
+     * @throws RepositoryException
+     */
+    public void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price,String voyageId, List<VoyagePriceMarket> voyagesPriceMarket)
+            throws RepositoryException {
+
+        Node suiteGroupingNode = ImporterUtils.findOrCreateNode(rootNode, suiteRef.getName());
+
+        if(suiteGroupingNode != null){
+
+            lowestPrice.addVariation(suiteRef.getName());
+            suiteGroupingNode.setProperty("suiteReference", suiteRef.getPath());
+
+            Iterator<Resource> res = ImporterUtils.findResourceById(ImportersConstants.QUERY_JCR_ROOT_PATH + rootNode.getPath(), JcrConstants.NT_UNSTRUCTURED,
+                    "suiteCategoryCod", price.getSuiteCategoryCod(), resourceResolver);
+            Node suiteNode = ImporterUtils.adaptOrCreateNode(res, suiteGroupingNode, price.getSuiteCategoryCod());
+            if(suiteNode != null){
+                suiteNode.setProperty("suiteCategoryCod", price.getSuiteCategoryCod());
+                ImporterUtils.saveSession(session, false);
+                // Create variationNode
+               buildOrUpdateVariationNodes(suiteRef.getName(), lowestPrice,voyagesPriceMarket, suiteNode, price.getSuiteCategoryCod(),
+                        voyageId);
+            }
+        }
+    }
 
     public void buildOrUpdateVariationNodes(String suiteRef,LowestPrice lowestPrice,List<VoyagePriceMarket> voyagePriceMarketList, Node suiteNode,
             String suiteCategoryCode, String voyageCode) throws RepositoryException {
@@ -540,7 +619,7 @@ public class CruiseServiceImpl implements CruiseService{
         }
     }
 
-    public void updateReplicationStatus(Boolean isDeleted, Boolean isVisible,Page page) throws RepositoryException{
+    public void updateReplicationStatus(Boolean isDeleted, Boolean isVisible,Page page){
         try{
             if(page != null){
                 if(isDeleted){
@@ -555,5 +634,32 @@ public class CruiseServiceImpl implements CruiseService{
         } catch (ReplicationException e) {
             LOGGER.error("Replication error",e);
         }
-    }    
+    }  
+    
+    public List<Page> getPagesByResourceType(String resourceType) throws RepositoryException{
+        List<Page> pages = null ;
+        Map<String, String> map = new HashMap<String, String>();
+        
+            //Build query
+            map.put("type", NameConstants.NT_PAGE);
+            map.put("property", ImportersConstants.SLIN_RESOURCE_TYPE); 
+            map.put("property.value", resourceType); 
+     
+            //Create builder
+            Query query = queryBuilder.createQuery(PredicateGroup.create(map), session);
+            //fetch pages
+            SearchResult result = query.getResult();
+            if(result != null && result.getHits() != null && !result.getHits().isEmpty()){
+                pages = new ArrayList<Page>();
+                for(Hit hit : result.getHits()){
+                    if(hit != null && hit.getResource() != null){
+                        Page page = hit.getResource().adaptTo(Page.class);
+                        if(page!=null){
+                            pages.add(page);
+                        }       
+                    }
+                }
+            }
+        return pages;
+    }
 }
