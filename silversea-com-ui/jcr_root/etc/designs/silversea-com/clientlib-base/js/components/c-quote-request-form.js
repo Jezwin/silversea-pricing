@@ -13,6 +13,17 @@ $(function() {
         $input.bind('input', autoSize());
     });
 
+    // Autocomplete form with data from cookie
+    $('.request-quote-form').each(function() {
+        var $form = $(this),
+        userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+        $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
+        $form.find('[name="firstname"]').val(userInfo.firstname);
+        $form.find('[name="lastname"]').val(userInfo.lastname);
+        $form.find('[name="phone"]').val(userInfo.phone);
+        $form.find('[name="email"]').val(userInfo.email);
+    });
+
     $('.countrycode').each(function() {
         $countryCodeWrapper = $(this);
 
@@ -77,5 +88,9 @@ $(function() {
                 }
             }
         }
+    }).on('submit', function(e) {
+        // TODO save data in cookie
+        // TODO submit date to lead api !
+        console.log('submit !!')
     });
 });
