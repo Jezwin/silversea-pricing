@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.jcr.Session;
 
 import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
@@ -26,8 +24,9 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
 import com.silversea.aem.constants.WcmConstants;
 
-public class QuoteRequest extends WCMUsePojo {
+public class QuoteRequestUse extends WCMUsePojo {
     private List<Resource> countries;
+    private Boolean isChecked = true;
 
     @Override
     public void activate() throws Exception {
@@ -36,11 +35,12 @@ public class QuoteRequest extends WCMUsePojo {
         // create query description as hash map
         queryMap.put(PathPredicateEvaluator.PATH, WcmConstants.PATH_TAGS_GEOLOCATION);
         queryMap.put(TypePredicateEvaluator.TYPE, TagConstants.NT_TAG);
-        queryMap.put(JcrPropertyPredicateEvaluator.PROPERTY, WcmConstants.PN_COUNTRY_ID);
-        queryMap.put(JcrPropertyPredicateEvaluator.PROPERTY + "." + JcrPropertyPredicateEvaluator.OPERATION, "exists");
+        queryMap.put(JcrPropertyPredicateEvaluator.PROPERTY, "name");
+        queryMap.put(JcrPropertyPredicateEvaluator.PROPERTY + "." + JcrPropertyPredicateEvaluator.OPERATION, JcrPropertyPredicateEvaluator.OP_EXISTS);
         queryMap.put(Predicate.ORDER_BY, "@" + JcrConstants.JCR_TITLE);
         queryMap.put(Predicate.ORDER_BY + "." + Predicate.PARAM_SORT, Predicate.SORT_ASCENDING);
         queryMap.put(PredicateConverter.GROUP_PARAMETER_PREFIX + "." + Predicate.PARAM_LIMIT, "-1");
+
 
         // Do query
         Session session = getResourceResolver().adaptTo(Session.class);
@@ -50,7 +50,6 @@ public class QuoteRequest extends WCMUsePojo {
 
         // Get result from Query
         countries = new ArrayList<Resource>();
-
         for (Hit hit : result.getHits()) {
             countries.add(hit.getResource());
         }
@@ -61,5 +60,13 @@ public class QuoteRequest extends WCMUsePojo {
      */
     public List<Resource> getCountries() {
         return countries;
+    }
+
+    /**
+     * @return the isChecked
+     */
+    public Boolean getIsChecked() {
+        
+        return isChecked;
     }
 }

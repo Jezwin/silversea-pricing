@@ -25,6 +25,7 @@ public interface WcmConstants {
     String PN_DESTINATION_REFERENCE = "destinationsReference";
     String PN_START_DATE = "startDate";
     String PN_COUNTRY_ID = "country_id";
+    String PN_COUNTRY_NAME = "country_name";
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";
