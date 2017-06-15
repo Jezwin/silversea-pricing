@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
+import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
 import io.swagger.client.model.HotelItinerary;
@@ -12,6 +13,7 @@ import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
 import io.swagger.client.model.ShorexItinerary;
+import io.swagger.client.model.SpecialOffer;
 import io.swagger.client.model.SpecialVoyage;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
@@ -39,8 +41,10 @@ public interface ApiCallService {
     
     List<SpecialVoyage> getSpecialVoyages()throws IOException, ApiException;
     
-    List<Agency> getTravelAgencies(int index, int perPage, AgenciesApi travelAgenciesApi)throws IOException, ApiException;
+    List<Agency> getTravelAgencies(int index, int pageSize, AgenciesApi travelAgenciesApi)throws IOException, ApiException;
     
     List<Ship> getShips()throws IOException, ApiException;
+    
+    List<SpecialOffer> getExclusiveOffers(int index, int pageSize, SpecialOffersApi spetialOffersApi)throws IOException, ApiException;
 
 }

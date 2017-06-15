@@ -34,7 +34,6 @@ import com.silversea.aem.importers.services.ShipsUpdateImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
-import io.swagger.client.api.ShipsApi;
 import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Ship importer Update", metatype = true)

@@ -28,6 +28,7 @@ import io.swagger.client.api.LandsApi;
 import io.swagger.client.api.PricesApi;
 import io.swagger.client.api.ShipsApi;
 import io.swagger.client.api.ShorexesApi;
+import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.api.SpecialVoyagesApi;
 import io.swagger.client.api.VoyageSpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
@@ -37,6 +38,7 @@ import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
 import io.swagger.client.model.ShorexItinerary;
+import io.swagger.client.model.SpecialOffer;
 import io.swagger.client.model.SpecialVoyage;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
@@ -135,9 +137,9 @@ public class ApiCallServiceImpl  implements ApiCallService {
     }
 
 	@Override
-	public List<Agency> getTravelAgencies(int index, int perPage, AgenciesApi travelAgenciesApi) throws IOException, ApiException {
+	public List<Agency> getTravelAgencies(int index, int pageSize, AgenciesApi travelAgenciesApi) throws IOException, ApiException {
 		configureClient(travelAgenciesApi.getApiClient());
-		return travelAgenciesApi.agenciesGet(null, null, null, null, null, index, perPage);
+		return travelAgenciesApi.agenciesGet(null, null, null, null, null, index, pageSize);
 	}
 
 	@Override
@@ -145,5 +147,12 @@ public class ApiCallServiceImpl  implements ApiCallService {
 		ShipsApi shipsApi = new ShipsApi();
 		configureClient(shipsApi.getApiClient());
 		return shipsApi.shipsGet(null);
+	}
+
+	@Override
+	public List<SpecialOffer> getExclusiveOffers(int index, int pageSize, SpecialOffersApi spetialOffersApi)
+			throws IOException, ApiException {
+		configureClient(spetialOffersApi.getApiClient());
+		return spetialOffersApi.specialOffersGet(index, pageSize, null);
 	}
 }

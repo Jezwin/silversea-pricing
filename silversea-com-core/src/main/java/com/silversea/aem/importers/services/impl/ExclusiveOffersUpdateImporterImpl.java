@@ -36,6 +36,7 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.ExclusiveOffersUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -66,6 +67,9 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 	private List<Tag> market;
 
 	private List<String> geoMarket;
+	
+    @Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public ImporterStatus updateImporData() throws IOException {
@@ -96,10 +100,11 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
+		
 		try {
+//			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
 			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-			spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//			spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -113,7 +118,8 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 			do {
 
-				specialOffers = spetialOffersApi.specialOffersGet(i, pageSize, null);
+//				specialOffers = spetialOffersApi.specialOffersGet(i, pageSize, null);
+				specialOffers = apiCallService.getExclusiveOffers(i, pageSize, spetialOffersApi);
 
 				int j = 0;
 
