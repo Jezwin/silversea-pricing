@@ -22,16 +22,20 @@ import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
+import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.api.HotelsApi;
 import io.swagger.client.api.LandsApi;
 import io.swagger.client.api.PricesApi;
+import io.swagger.client.api.ShipsApi;
 import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.SpecialVoyagesApi;
 import io.swagger.client.api.VoyageSpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
+import io.swagger.client.model.Agency;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.LandItinerary;
+import io.swagger.client.model.Ship;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.SpecialVoyage;
 import io.swagger.client.model.Voyage;
@@ -129,4 +133,17 @@ public class ApiCallServiceImpl  implements ApiCallService {
             LOGGER.error("Api call service -- Api client is null");
         }
     }
+
+	@Override
+	public List<Agency> getTravelAgencies(int index, int perPage, AgenciesApi travelAgenciesApi) throws IOException, ApiException {
+		configureClient(travelAgenciesApi.getApiClient());
+		return travelAgenciesApi.agenciesGet(null, null, null, null, null, index, perPage);
+	}
+
+	@Override
+	public List<Ship> getShips() throws IOException, ApiException {
+		ShipsApi shipsApi = new ShipsApi();
+		configureClient(shipsApi.getApiClient());
+		return shipsApi.shipsGet(null);
+	}
 }

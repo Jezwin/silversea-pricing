@@ -32,6 +32,7 @@ import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.TravelAgenciesUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -58,6 +59,9 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 	@Reference
 	private Replicator replicat;
+	
+    @Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public ImporterStatus updateImporData() throws IOException {
@@ -87,10 +91,11 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
-
+		
+		
+//		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
 		AgenciesApi travelAgenciesApi = new AgenciesApi();
-		travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//		travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 		try {
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
@@ -103,7 +108,8 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 			List<Agency> travelAgencies;
 
 			do {
-				travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
+//				travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
+				travelAgencies = apiCallService.getTravelAgencies(i, pageSize, travelAgenciesApi);
 				int j = 0;
 
 				for (Agency agency : travelAgencies) {

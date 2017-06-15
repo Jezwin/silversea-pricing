@@ -31,6 +31,7 @@ import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.services.ShipsUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.api.ShipsApi;
@@ -49,6 +50,8 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 	private ApiConfigurationService apiConfig;
 	@Reference
 	private Replicator replicat;
+    @Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public ImporterStatus updateImporData() throws IOException {
@@ -77,16 +80,23 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 				sessionRefresh = apiConfig.getSessionRefresh();
 			}
 
-			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
-			ShipsApi shipsApi = new ShipsApi();
-			shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+			
+
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			Session session = resourceResolver.adaptTo(Session.class);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
 			List<Ship> listShips;
-			listShips = shipsApi.shipsGet(null);
-
+			
+//			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
+//			ShipsApi shipsApi = new ShipsApi();
+//			shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//			
+//			listShips = shipsApi.shipsGet(null);
+			
+			listShips = apiCallService.getShips();
+			
+			Page rootPathByLocal;
 			List<Page> shipPages = new ArrayList<Page>();
 			List<String> local = new ArrayList<>();
 
@@ -182,9 +192,11 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 					i++;
 				}
 			}
+			
 			for (String loc : local) {
-				for (Page ship : shipPages) {
-					Iterator<Page> resourcess = ship.getParent().listChildren();
+				rootPathByLocal = ImporterUtils.findPagesLanguageCopies(pageManager, resourceResolver, shipsRootPage, loc);
+//				for (Page ship : shipPages) {
+					Iterator<Page> resourcess = rootPathByLocal.listChildren();
 					while (resourcess.hasNext()) {
 						Page page = resourcess.next();
 
@@ -197,7 +209,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 							}
 						}
 					}
-				}
+//				}
 			}
 
 			// // TODO duplication des pages supprimé dans le retour d'api

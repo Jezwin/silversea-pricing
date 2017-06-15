@@ -212,8 +212,8 @@ public class ImporterUtils {
 
 		Iterator<Resource> res = findResourceById(path, NameConstants.NT_PAGE, property, id, resourceResolver);
 		String reference = res.hasNext() ? res.next().getPath() : "";
-		if(reference == null){
-		    LOGGER.error("Importer -- Reference to page with id [{} = {}] not found",property,id);
+		if (reference == null) {
+			LOGGER.error("Importer -- Reference to page with id [{} = {}] not found", property, id);
 		}
 		return reference;
 	}
@@ -257,8 +257,8 @@ public class ImporterUtils {
 		return pages;
 	}
 
-	public static List<Page> createPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver, Page rootPage,
-			List<String> local, String templatePath, String pageName) {
+	public static List<Page> createPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
+			Page rootPage, List<String> local, String templatePath, String pageName) {
 		Page page = null;
 		String root;
 		Page rootPageLocal;
@@ -282,6 +282,17 @@ public class ImporterUtils {
 		return allPages;
 	}
 
+	public static Page findPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
+			Page rootPage, String local) {
+		String root;
+		Page rootPageLocal;
+
+		root = StringUtils.replace(rootPage.getPath(), "/en/", "/" + local + "/");
+		rootPageLocal = resourceResolver.getResource(root).adaptTo(Page.class);
+
+		return rootPageLocal;
+	}
+
 	public static List<String> finAllLanguageCopies(ResourceResolver resourceResolver) {
 		Page page;
 		List<String> locales = new ArrayList<String>();
@@ -293,13 +304,13 @@ public class ImporterUtils {
 		return locales;
 
 	}
-	
-	public static Calendar convertToCalendar(DateTime dateTime){
-	    Calendar calendar = null;
-	    if(dateTime != null){
-	        calendar = dateTime.toGregorianCalendar(); 
-	    }
-	    return calendar;
+
+	public static Calendar convertToCalendar(DateTime dateTime) {
+		Calendar calendar = null;
+		if (dateTime != null) {
+			calendar = dateTime.toGregorianCalendar();
+		}
+		return calendar;
 	}
 
 }
