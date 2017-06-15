@@ -6,7 +6,7 @@ $(function() {
         $(this).find('.c-signupforoffer').each(function() {
             var $signUpForm = $(this);
 
-            $signUpForm.find('.isbooked').iCheck({
+            $signUpForm.find('.custom-checkbox').iCheck({
                 checkboxClass : 'icheckbox_minimal',
             });
 
@@ -34,9 +34,7 @@ $(function() {
             });
 
             // Launch plugin after modal content loaded.
-            $(document).ready(function() {
-                $('.chosen').chosen();
-            });
+            $('.chosen').chosen();
         });
     });
 });
