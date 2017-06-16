@@ -4,7 +4,7 @@
         <!-- Image -->
         <!-- <img class="o-slider" src="${pageProperties.assetSelectionReference}" alt="" /> -->
  
-        <div> ${pageProperties.longDescription @ context='html'} </div>
+        <div> ${pageProperties.longDescription ||  pageProperties.jcr:description @ context='html'} </div>
         
         <div data-sly-resource="${'inlinegallery' @ resourceType='silversea/silversea-com/components/editorial/inlinegallery'}"> </div>
 
