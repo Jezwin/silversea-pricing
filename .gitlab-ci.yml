@@ -3,9 +3,9 @@ stages:
     - build-author
     - build-publishes
 variables:
-#   GITLAB_GROUP_PROD: "silversea-prod"
     GITLAB_GROUP_PROD: "silversea-prod"
-    GIT_PROD_USER: "ci-user"
+    #GIT_PROD_USER: "ci-user"
+    GIT_PROD_USER: "jabenichou"
 ### DEV Build
 mvn_build_dev_author:
     stage: build-author
