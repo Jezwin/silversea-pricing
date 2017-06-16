@@ -1,38 +1,23 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="find your port"></div>
-<div data-sly-use.search="com.silversea.aem.components.editorial.SearchPortUse">
-    <div class="c-find-port">
-        <div class="table filter-abc">
-            <div class="header-h6"> ${'port-search-alphabetically' @ i18n} </div>
-            <div class="clearfix">
-               <div class="lettre" data-sly-repeat="${search.portsRootPage.listChildren}">
-                        <a class="${search.portIndexPage.path == item.path && 'letter-active'}"  href="${search.portsRootPage.path @ extension='html', appendPath=item.name}">
-                            ${item.name}
-                        </a>
-                </div>
-                
-            </div>
+<div data-sly-use.search="com.silversea.aem.components.editorial.SearchPortUse" class="c-find-port">
+    <div class="c-find-port__filter">
+        <div class="c-find-port__title">${'port-search-alphabetically' @ i18n}</div>
+        <div class="clearfix">
+            <a data-sly-repeat="${search.portsRootPage.listChildren}" class="${search.portIndexPage.path == item.path ? 'active' : ''}"
+                href="${search.portsRootPage.path @ extension='html', appendPath=item.name}">${item.name}</a>
         </div>
-
-
-
-        <div class="filter-port-results">
-            <div class="header-h6">${'port-results' @ i18n}</div>
-            <div class="table" >
-                <div class="thead">
-                    <div class="row">
-                        <div class="col-md-5 col-sm-5 col-xs-12">${'port-name' @ i18n}</div>
-                        <div class="col-md-7 col-sm-7 col-xs-12 hidden-xs">${'port-country' @ i18n}</div>
-                    </div>
-                </div>
-                <div class="tbody" data-sly-list.child="${search.resultsPortList}">
-                    <div class="row">
-                        <a href="${child.portPath @ extension='html'}">
-                            <div class="col-md-5 col-sm-5 col-xs-12">${child.portName}</div>
-                            <div class="col-md-7 col-sm-7 col-xs-12">${child.portCountry}</div>
-                        </a>
-                    </div>
+    </div>
+    <div class="c-find-port__result">
+        <div class="c-find-port__title">${'port-results' @ i18n}</div>
+            <div class="container hidden-xs">
+                <div class="row c-find-port__result__header">
+                    <div class="col-sm-5">${'port-name' @ i18n}</div>
+                    <div class="col-sm-7">${'destination' @ i18n}</div>
                 </div>
             </div>
-        </div>
+            <a data-sly-repeat.child="${search.resultsPortList}" href="${child.portPath @ extension='html'}" class="clearfix c-find-port__result__link">
+                <span class="col-sm-5 c-find-port__result__city">${child.portName}</span>
+                <span class="col-sm-7 c-find-port__result__destination">${child.portCountry}</span>
+            </a>
     </div>
 </div>

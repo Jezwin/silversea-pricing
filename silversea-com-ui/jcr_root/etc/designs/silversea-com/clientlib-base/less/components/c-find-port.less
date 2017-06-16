@@ -1,102 +1,80 @@
-.c-find-port{
-    .filter-abc{
-        td{
-            padding: 0px;
-            border: 0px;
+.c-find-port {
+    &__title {
+        font-size: 12px;
+        font-weight: 700;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+
+        .c-find-port__result & {
+            border-bottom: 1px solid @black;
+            margin-bottom: 20px;
         }
-        a{
-            background: #333;
-            color: #fff;
-            cursor: pointer;
+    }
+
+    &__filter {
+        a {
+            background: @grey--3;
+            color: @white;
             display: block;
             float: left;
-            font: 700 14px 'Open Sans',arial,helvetica,sans-serif;
-            margin-bottom: 2px;
-            margin-right: 2px;
-            padding: 7px 0;
+            font-weight: 700;
+            margin: 0 0 2px 2px;
+            padding: 6px 0;
             text-align: center;
             text-transform: uppercase;
             width: 33px;
-            &:hover{
+
+            &:hover, &.active {
                 background: @grey--9;
             }
         }
-        .letter-active{
-            background: @grey--9;
-        }
     }
-    .filter-port-results{
-        .header-h6{
-            border-bottom: 1px solid @black;
-            margin-bottom: 20px;
-            padding-bottom: 5px;
-        }
-        a{
-            &:hover{
-                background: @black;
+
+    &__result {
+        margin-top: 20px;
+
+        &__link {
+            border-bottom: 1px solid @grey--d9;
+            display: block;
+            padding: 5px 0;
+
+            &:hover {
+                background: @grey--3;
+                color: @white;
             }
         }
-    }
-}
 
+        &__city, &__destination {
+            display: block;
+        }
 
-
-.table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
-}
-div.table .tbody, div.table .thead {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.filter-port-results .thead {
-    cursor: default;
-}
-.filter-port-results div.table .tbody .row {
-    padding: 0;
-}
-div.table .row {
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-div.table .thead .row {
-    border-bottom: 1px solid @grey--d9;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-div.table .tbody .row div:last-child {
-    color: @grey--9;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 1.1;
-}
-
-div.table .tbody .row a:hover div:first-child{
-    color: @white;
-}
-
-div.table .tbody .row {
-    border-bottom: 1px solid @grey--d9;
-}
-
-
-@media (min-width: @screen-md-min) {
-    .summary-header {
-        float:left
+        &__destination, &__header {
+            color: @grey--9;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
     }
 
-    .filter-port-results .tbody a {
-        display: block;
-        min-height: 42px;
-        vertical-align: top
-    }
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            &__link, &__header {
+                border-bottom: 1px solid @grey--d9;
+                display: block;
+                padding: 10px 0;
+            }
 
-    .filter-port-results .tbody a div {
-        font-size: 13px;
-        line-height: 20px;
-        padding: 10px 15px;
+            &__header {
+                color: @black;
+            }
+
+            &__city {
+                font-size: 13px;
+            }
+
+            &__destination, &__header {
+                font-size: 12px;
+            }
+        }
     }
 }
