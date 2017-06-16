@@ -5,11 +5,11 @@
         </a>
         <p data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
             <span class="hidden-xs">
-                ${'call-reservations-team-1' @ i18n}: <a href="tel:${countryHelper.localizedPhone}"><strong>${countryHelper.localizedPhone}</strong></a><br/>
+                ${'call-reservations-team-1' @ i18n}: <a href="tel:${countryHelper.clickableLocalizedPhone}"><strong>${countryHelper.localizedPhone}</strong></a><br/>
                 ${'call-reservations-team-2' @ i18n}
             </span>
             <span class="visible-xs-block">
-                <a href="tel:${countryHelper.localizedPhone}">${'click-to-call' @ i18n}: <strong>${countryHelper.localizedPhone}</strong></a>
+                <a href="tel:${countryHelper.clickableLocalizedPhone}">${'click-to-call' @ i18n}: <strong>${countryHelper.localizedPhone}</strong></a>
             </span>
         </p>
     </section>
