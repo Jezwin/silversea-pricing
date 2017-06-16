@@ -1,8 +1,5 @@
 <div class="c-main-nav__top" data-sly-use.navTop="com.silversea.aem.components.page.HeaderModel">
     <ul class="c-main-nav__top--list">
-       <li class=" c-main-nav__top--item hidden-md c-quote-request" data-sly-use.navTop="com.silversea.aem.components.page.HeaderModel" data-sly-test.page1="${navTop.link1Page}">
-                    <a href="${page1.path @ extension = 'html'}" class="c-quote-request-link">${page1.navigationTitle || page1.title}</a>
-        </li>
         <li class="c-main-nav__top--item hidden-md hidden-lg" data-sly-test.page1="${navTop.link1Page}">
             <a href="${page1.path @ extension = 'html'}" class="c-main-nav__top--link">
                 <span>${page1.navigationTitle || page1.title}</span>
@@ -16,6 +13,11 @@
         <li class="c-main-nav__top--item hidden-lg hidden-md">
             <a href="#" class="c-main-nav__top--link">
                 <span>Sign up for offers</span>
+            </a>
+        </li>
+        <li class="c-main-nav__top--item c-main-nav__top--item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
+            <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top--link">
+                <span>${page3.navigationTitle || page3.title}</span>
             </a>
         </li>
         <li class="c-main-nav__top--item c-main-nav__top--item--small-md">
