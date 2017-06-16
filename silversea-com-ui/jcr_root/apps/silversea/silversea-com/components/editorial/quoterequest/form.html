@@ -1,4 +1,4 @@
-<form class="request-quote-form c-form" action="" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse">
+<form class="request-quote-form c-form" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     <div class="form-group form-group-lg has-feedback input--title">
         <select name="title" class="form-control chosen chosen-with-search" required data-error="${'Please enter your title' @ i18n}">
             <option value="">${'Title*' @ i18n}</option>
