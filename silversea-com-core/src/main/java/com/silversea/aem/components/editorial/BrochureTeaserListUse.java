@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ import com.silversea.aem.services.GeolocationTagService;
 public class BrochureTeaserListUse extends WCMUsePojo {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserListUse.class);
+    public static final String SELECTOR_BROCHURE_GROUP_PREFIX = "brochure_group_";
+    public static final String DEFAULT_BROCHURE_GROUP = "default";
 
     /**
      * List of brochure paths, based on selected language and geolocation
@@ -35,6 +38,8 @@ public class BrochureTeaserListUse extends WCMUsePojo {
     private HashMap<String, String> languages;
 
     private String currentLanguage;
+    
+    private String brochureGroup;
 
     @Override
     public void activate() throws Exception {
@@ -47,8 +52,10 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         if (currentLanguage == null) {
             currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
         }
-
-        final String brochuresPath = getProperties().get("folderReference", "/content/dam/siversea-com/brochures");
+        
+        brochureGroup = getBrochureGroup(getRequest());
+        
+        final String brochuresPath = getProperties().get("folderReference", "/content/dam/silversea-com/brochures");
 
         // Building tag list
         List<String> tagList = new ArrayList<>();
@@ -70,6 +77,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         LOGGER.debug("Searching brochures with tags: {}", tagList);
 
+        //get brochures with the tagged localization
         RangeIterator<Resource> resources = tagManager.find(brochuresPath,
                 tagList.toArray(new String[tagList.size()]), true);
 
@@ -85,9 +93,18 @@ public class BrochureTeaserListUse extends WCMUsePojo {
             }
 
             // Building brochures list for current selected language
+            List<BrochureModel> allGroupBrochures = new ArrayList<>();
             for (BrochureModel brochure : brochuresNotLanguageFiltered) {
                 // Checking if found brochure correspond to the current language
                 if (brochure.getLanguage().getName().equals(currentLanguage)) {
+                    allGroupBrochures.add(brochure);
+                }
+            }
+            
+            // filter the list of brochures on the chosen brochure group tag
+            for (BrochureModel brochure : allGroupBrochures) {
+                // Checking if found brochure correspond to the chosen group
+                if (brochure.getGroupNames().contains(brochureGroup)) {
                     brochures.add(brochure);
                 }
             }
@@ -117,5 +134,15 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     public String getCurrentLanguage() {
         return currentLanguage;
+    }
+    
+    public String getBrochureGroup(SlingHttpServletRequest request) {
+        String[] selectors = request.getRequestPathInfo().getSelectors();
+        for (String selector : selectors) {
+            if (selector.startsWith(SELECTOR_BROCHURE_GROUP_PREFIX)) {
+                return selector.replace(SELECTOR_BROCHURE_GROUP_PREFIX, "");
+            }
+        }
+        return DEFAULT_BROCHURE_GROUP;
     }
 }

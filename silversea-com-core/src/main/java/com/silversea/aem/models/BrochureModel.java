@@ -16,6 +16,8 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 import javax.annotation.PostConstruct;
 
 /**
@@ -89,6 +91,29 @@ public class BrochureModel {
         }
 
         return null;
+    }
+    
+    public ArrayList<Tag> getGroups() {
+        Resource metadataResource = assetResource.getChild("jcr:content/metadata");
+        ArrayList<Tag> groupTags = new ArrayList<Tag>();
+        if (metadataResource != null) {
+            Tag[] tags = tagManager.getTags(metadataResource);
+            for (Tag tag : tags) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_BROCHURE_GROUPS)) {
+                    groupTags.add(tag);
+                }
+            }
+        }
+        return groupTags;
+    }
+    
+    public ArrayList<String> getGroupNames() {
+        ArrayList<Tag> groupTags = getGroups();
+        ArrayList<String> groupNames = new ArrayList<String>();
+        for (Tag tag : groupTags) {
+            groupNames.add(tag.getName());
+        }
+        return groupNames;
     }
 
     /**

@@ -41,6 +41,7 @@ public interface WcmConstants {
 
     // Tags
     String TAG_NAMESPACE_LANGUAGES = "languages:";
+    String TAG_NAMESPACE_BROCHURE_GROUPS = "brochure-groups:";
 
     // Default Value
     String PAGINATION_LIMIT = "10";
