@@ -13,85 +13,13 @@
     <h2>${'select-and-view-the-route' @ i18n}</h2>
     <dl>
         <dt>${'select-and-view-the-route' @ i18n}</dt>
-        <dd class="active">
-            <a id="segment-1" href="#segment-1">
-                <time>6 Jan</time>
-                <time>22 Jan</time>
-                <strong>LOS ANGELES, CALIFORNIA</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>PAPEETE, TAHITI</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-2" href="#segment-2">
-                <time>22 Jan</time>
-                <time>4 Feb</time>
-                <strong>PAPEETE, TAHITI</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>AUCKLAND</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-3" href="#segment-3">
-                <time>4 Feb</time>
-                <time>20 Feb</time>
-                <strong>AUCKLAND</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>SYDNEY</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-4" href="#segment-4">
-                <time>20 Feb</time>
-                <time>5 Mar</time>
-                <strong>SYDNEY</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>BALI (BENOA)</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-5" href="#segment-5">
-                <time>5 Mar</time>
-                <time>20 Mar</time>
-                <strong>BALI (BENOA)</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>HONG KONG</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-6" href="#segment-6">
-                <time>20 Mar</time>
-                <time>4 Apr</time>
-                <strong>HONG KONG</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>SINGAPORE</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-7" href="#segment-7">
-                <time>4 Apr</time>
-                <time>19 Apr</time>
-                <strong>SINGAPORE</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>MUSCAT</strong>
-            </a>
-        </dd>
-        <dd>
-            <a id="segment-8" href="#segment-8">
-                <time>19 Apr</time>
-                <time>8 May</time>
-                <strong>MUSCAT</strong>
-                <span>${'to' @ i18n}</span>
-                <strong>CIVITAVECCHIA (ROME)</strong>
+        <dd data-sly-repeat="${currentPage.listChildren}">
+            <sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.cruiseReference}" />
+            <a href="">
+                <time data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=target.page.properties.startDate}">${startDate.value}</time>
+                <time data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=target.page.properties.endDate}">${endDate.value}</time>
+                <strong>${item.properties.jcr:title}</strong>
             </a>
         </dd>
     </dl>
-</div>
-
-<div class="segment-section">
-    <div class="segment-intro">
-        <time>${'from' @ i18n} <strong>19 APRIL</strong> ${'to' @ i18n} <strong>8 MAY</strong></time>
-        <h3>MUSCAT TO CIVITAVECCHIA (ROME)</h3>
-        <p>ALL ROUTES LEAD TO ROME</p>
-    </div>
 </div>

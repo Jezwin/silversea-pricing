@@ -1,0 +1,13 @@
+
+<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"/>
+<section class="segment-section" data-sly-list="${currentPage.listChildren}">
+    <sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.cruiseReference}" />
+    <div class="segment-intro">
+        <time>${'from' @ i18n} <strong data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=target.page.properties.startDate}">${startDate.value}</strong> ${'to' @ i18n} <strong data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=target.page.properties.endDate}">${endDate.value}</strong></time>
+        <h3>${item.properties.jcr:title}</h3>
+        <p>${item.properties.subTitle}</p>
+    </div>
+    <sly data-sly-test.poiname="${'poi-slider{0}' @ format=[itemList.count]}" />
+    <div data-sly-resource="${poiname @ resourceType='silversea/silversea-com/components/editorial/slider'}"></div>
+    <sly data-sly-call="${imageTemplate.default @ imagePath=item.properties.focusedMapReference}" />
+</section>
