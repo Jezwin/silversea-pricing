@@ -18,14 +18,8 @@ $(function() {
      * Chosen (custom <select> look and feel)
      **************************************************************************/
     // Activate chosen plugin
-    $(document).ready(function() {
-        $('.chosen:not(.chosen-with-search)').chosen({
-            'disable_search' : true
-        });
-
-        $('.chosen.chosen-with-search').chosen({
-            'disable_search' : false
-        });
+    $('.chosen:not(.chosen-with-search)').chosen({
+        'disable_search' : true
     });
 
     /***************************************************************************
@@ -67,13 +61,15 @@ $(function() {
 });
 
 /*******************************************************************************
- * Auto fill form with data from cookie and post data to lead API
+ * Save data form to cookie and post data to lead API
  ******************************************************************************/
 +function($) {
     'use strict';
     $.signUp = {
         signUpOffers : function(elem, event) {
+            // Cancel synchrone submit
             event.preventDefault();
+
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'description' ];
             var pos = document.cookie.indexOf("userInfo=");
 
@@ -110,9 +106,18 @@ $(function() {
                         }
                     });
 
-                    // Affect leadApiData values to currentData object
-                    currentData = Object.assign(obj, leadApiData);
+                    // Merge object
+                    var objs = [obj, leadApiData];
+                    currentData = objs.reduce(function(r, o) {
+                        Object.keys(o).forEach(function(k) {
+                            r[k] = o[k];
+                        });
+                        return r;
+                    }, {});
+
+                    // Store object merged in the cookie
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
+
                     if (elem.className.match(/c-formcookie--redirect/) !== null) {
                         $.CookieManager.setCookie('api_indiv_id', data);
                         window.location.href = elem.action;
