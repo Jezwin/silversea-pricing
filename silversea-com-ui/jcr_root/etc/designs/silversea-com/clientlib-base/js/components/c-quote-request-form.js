@@ -17,11 +17,13 @@ $(function() {
     $('.request-quote-form').each(function() {
         var $form = $(this),
         userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
-        $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
-        $form.find('[name="firstname"]').val(userInfo.firstname);
-        $form.find('[name="lastname"]').val(userInfo.lastname);
-        $form.find('[name="phone"]').val(userInfo.phone);
-        $form.find('[name="email"]').val(userInfo.email);
+        if (userInfo) {
+            $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
+            $form.find('[name="firstname"]').val(userInfo.firstname);
+            $form.find('[name="lastname"]').val(userInfo.lastname);
+            $form.find('[name="phone"]').val(userInfo.phone);
+            $form.find('[name="email"]').val(userInfo.email);
+        }
     });
 
     $('.countrycode').each(function() {
@@ -33,10 +35,7 @@ $(function() {
 
         $inputTelephoneNumber.intlTelInput({
             allowDropdown : false,
-            geoIpLookup: function(callback) {
-                callback(countryGeolocalized);
-            },
-            initialCountry: 'auto',
+            initialCountry: countryGeolocalized,
             separateDialCode : true,
             customPlaceholder : function(selectedCountryPlaceholder, selectedCountryData) {
                 return $inputTelephoneNumber.data('prepend-placeholder') + ": 0" + selectedCountryPlaceholder;
@@ -89,8 +88,12 @@ $(function() {
             }
         }
     }).on('submit', function(e) {
-        // TODO save data in cookie
-        // TODO submit date to lead api !
-        console.log('submit !!')
+        if (!e.isDefaultPrevented()) {
+            $.signUp.signUpOffers(this, e);
+        }
+    });
+
+    $('.chosen.chosen-with-search').chosen({
+        'disable_search' : false
     });
 });
