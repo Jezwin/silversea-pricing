@@ -3,7 +3,9 @@ stages:
     - build-author
     - build-publishes
 variables:
+#   GITLAB_GROUP_PROD: "silversea-prod"
     GITLAB_GROUP_PROD: "silversea-prod"
+    GIT_PROD_USER: "ci-user"
 ### DEV Build
 mvn_build_dev_author:
     stage: build-author
@@ -112,10 +114,11 @@ sync_prod_author:
     environment:
         name: Production
     when: manual
+    allow_failure: false
     tags:
         - maven
     script:
-        - git remote add upstream https://gitlab-paris.sqli.com/$GITLAB_GROUP_PROD/silversea-batch-migration.git
+        - git remote add upstream https://$GIT_PROD_USER:$GIT_PROD_PWD@gitlab-paris.sqli.com/$GITLAB_GROUP_PROD/silversea-batch-migration.git
         - git push upstream --tags
         - git remote remove upstream
     only:
