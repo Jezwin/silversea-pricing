@@ -21,7 +21,7 @@ $(function() {
             $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
             $form.find('[name="firstname"]').val(userInfo.firstname);
             $form.find('[name="lastname"]').val(userInfo.lastname);
-            $form.find('[name="phone"]').val(userInfo.phone);
+            $form.find('[name="localphone"]').val(userInfo.phone);
             $form.find('[name="email"]').val(userInfo.email);
         }
     });
@@ -88,6 +88,8 @@ $(function() {
             }
         }
     }).on('submit', function(e) {
+        $(this).find('[name="phone"]').val($('#InputTelephoneNumber').intlTelInput("getNumber"));
+
         if (!e.isDefaultPrevented()) {
             $.signUp.signUpOffers(this, e);
         }

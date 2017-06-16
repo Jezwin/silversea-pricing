@@ -13,10 +13,12 @@ $(function() {
 
             // Autocomplete form with data from cookie
             var userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
-            $signUpForm.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
-            $signUpForm.find('[name="firstname"]').val(userInfo.firstname);
-            $signUpForm.find('[name="lastname"]').val(userInfo.lastname);
-            $signUpForm.find('[name="email"]').val(userInfo.email);
+            if (userInfo) {
+                $signUpForm.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
+                $signUpForm.find('[name="firstname"]').val(userInfo.firstname);
+                $signUpForm.find('[name="lastname"]').val(userInfo.lastname);
+                $signUpForm.find('[name="email"]').val(userInfo.email);
+            }
 
             // if( userInfo.isbooked == 1 ){
             // $signUpForm.find('[name="isbooked"]').iCheck('check'); }
