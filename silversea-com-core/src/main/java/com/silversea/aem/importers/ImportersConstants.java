@@ -29,8 +29,8 @@ public interface ImportersConstants {
     //Sub service name
     String SUB_SERVICE_IMPORT_DATA = "import-data";
     // Templates
-    String CUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
-    String CUISE_SEGEMENT_TEMPLATE = "/apps/silversea/silversea-com/templates/combosegment";
+    String CRUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
+    String CRUISE_SEGEMENT_TEMPLATE = "/apps/silversea/silversea-com/templates/combosegment";
     String COMBO_CRUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/combocruise";
     //Resources type
     String COMBO_CRUISE_RESOURCE_TYPE = "silversea/silversea-com/components/pages/combocruise";

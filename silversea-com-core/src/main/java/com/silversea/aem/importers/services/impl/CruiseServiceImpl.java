@@ -118,7 +118,7 @@ public class CruiseServiceImpl implements CruiseService{
         Iterator<Resource> resources = ImporterUtils.findResourceById(ImportersConstants.QUERY_CONTENT_PATH,
                 NameConstants.NT_PAGE, "cruiseId", Objects.toString(voyageId),
                 resourceResolver);
-        Page cruisePage = ImporterUtils.adaptOrCreatePage(resources, ImportersConstants.CUISE_TEMPLATE, destinationPage,
+        Page cruisePage = ImporterUtils.adaptOrCreatePage(resources, ImportersConstants.CRUISE_TEMPLATE, destinationPage,
                 (voyageName + " " +voyageId), pageManager);
 
         return cruisePage;
@@ -381,77 +381,6 @@ public class CruiseServiceImpl implements CruiseService{
         }
     }
     
-    /**
-     * Build suite for combo cruises
-     * @param cruisePage
-     * @param voyageId
-     * @param shipId
-     * @param voyagesPriceMarket
-     * @throws RepositoryException
-     * @throws IOException
-     * @throws ApiException
-     */
-    public void buildOrUpdateSuiteNodes(LowestPrice lowestPrice,Page cruisePage,String voyageId,Integer shipId,List<VoyagePriceMarket>  voyagesPriceMarket)
-            throws RepositoryException, IOException, ApiException {
-
-        if (voyagesPriceMarket != null 
-                && voyagesPriceMarket.get(0) !=null 
-                && !voyagesPriceMarket.get(0).getCruiseOnlyPrices().isEmpty()) {
-
-            lowestPrice.initVariationPrices();
-            List<Price> prices = voyagesPriceMarket.get(0).getCruiseOnlyPrices();
-            Node suitesNode = ImporterUtils.findOrCreateNode(cruisePage.adaptTo(Node.class), ImportersConstants.SUITES_NODE);
-            ImporterUtils.saveSession(session, false);
-
-
-            LOGGER.debug("Combo cruise -- Start updating suites variations and prices for voyage with id {}", voyageId);
-            for (Price price : prices) {
-                Page suiteReference = findSuiteReference(shipId, price.getSuiteCategoryCod());
-                if (suiteReference != null) {
-                    buildSuitesGrouping(lowestPrice,suitesNode, suiteReference, price, voyageId, voyagesPriceMarket);
-                }
-            }
-            //Build variation lowest prices
-            buildVariationsLowestPrices(suitesNode,lowestPrice);
-            LOGGER.debug("Combo cruise importer -- Updating suites variations and prices for voyage with id {} finished", voyageId);
-        }
-        else{
-            LOGGER.debug("Combo cruise -- No price found for cruise with id {}", voyageId);
-        }
-    }
-
-    /**
-     * Build suite groups for combo cruises
-     * @param rootNode
-     * @param suiteRef
-     * @param price
-     * @param voyageId
-     * @param voyagesPriceMarket
-     * @throws RepositoryException
-     */
-    public void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price,String voyageId, List<VoyagePriceMarket> voyagesPriceMarket)
-            throws RepositoryException {
-
-        Node suiteGroupingNode = ImporterUtils.findOrCreateNode(rootNode, suiteRef.getName());
-
-        if(suiteGroupingNode != null){
-
-            lowestPrice.addVariation(suiteRef.getName());
-            suiteGroupingNode.setProperty("suiteReference", suiteRef.getPath());
-
-            Iterator<Resource> res = ImporterUtils.findResourceById(ImportersConstants.QUERY_JCR_ROOT_PATH + rootNode.getPath(), JcrConstants.NT_UNSTRUCTURED,
-                    "suiteCategoryCod", price.getSuiteCategoryCod(), resourceResolver);
-            Node suiteNode = ImporterUtils.adaptOrCreateNode(res, suiteGroupingNode, price.getSuiteCategoryCod());
-            if(suiteNode != null){
-                suiteNode.setProperty("suiteCategoryCod", price.getSuiteCategoryCod());
-                ImporterUtils.saveSession(session, false);
-                // Create variationNode
-               buildOrUpdateVariationNodes(suiteRef.getName(), lowestPrice,voyagesPriceMarket, suiteNode, price.getSuiteCategoryCod(),
-                        voyageId);
-            }
-        }
-    }
-
     public void buildOrUpdateVariationNodes(String suiteRef,LowestPrice lowestPrice,List<VoyagePriceMarket> voyagePriceMarketList, Node suiteNode,
             String suiteCategoryCode, String voyageCode) throws RepositoryException {
         if(voyagePriceMarketList != null && !voyagePriceMarketList.isEmpty()){
@@ -489,7 +418,6 @@ public class CruiseServiceImpl implements CruiseService{
             LOGGER.debug("Cruise importer -- No price found for cruise with code {}", voyageCode);
         }
     }
-
     public Page findSuiteReference(Integer shipId, String suiteCategoryCode) throws RepositoryException {
 
         Iterator<Resource> resources = ImporterUtils.findResourceById(ImportersConstants.QUERY_CONTENT_PATH, NameConstants.NT_PAGE,

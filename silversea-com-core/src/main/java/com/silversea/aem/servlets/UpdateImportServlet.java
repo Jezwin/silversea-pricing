@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.replication.ReplicationException;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
-import com.silversea.aem.importers.services.ComboCruisesUpdateImporter;
+import com.silversea.aem.importers.services.ComboCruisesImporter;
 import com.silversea.aem.importers.services.CruisesUpdateImporter;
 import com.silversea.aem.importers.services.ExclusiveOffersUpdateImporter;
 import com.silversea.aem.importers.services.FeaturesUpdateImporter;
@@ -75,7 +75,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 	private FeaturesUpdateImporter updateFeatures;
 	  
 	@Reference
-	ComboCruisesUpdateImporter ComboCruisesUpdateImporter;
+	ComboCruisesImporter ComboCruisesImporter;
 
 	@Override
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -296,7 +296,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 					response.getWriter().flush();
 				}
 				if (all || mode.equals(Mode.cc)) {
-				    ComboCruisesUpdateImporter.importData();
+				    ComboCruisesImporter.importData(true);
                     response.getWriter().write("Cruises import Done<br/>");
                     response.getWriter().flush();
                 }

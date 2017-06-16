@@ -278,7 +278,7 @@ public class TestServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                 }
                 if (all || mode.equals(Mode.cc)) {
-                    comboCruisesImporter.importData();
+                    comboCruisesImporter.importData(false);
                     response.getWriter().write("Combo cruises Cruises import Done<br/>");
                     response.getWriter().flush();
                 }

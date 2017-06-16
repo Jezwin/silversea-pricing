@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public interface ComboCruisesImporter {
     
-   void importData() throws IOException;
+   void importData(boolean update) throws IOException;
 
 }

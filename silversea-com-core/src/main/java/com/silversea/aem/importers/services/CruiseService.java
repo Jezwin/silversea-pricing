@@ -56,31 +56,6 @@ public interface CruiseService {
     void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price, VoyagePriceComplete voyagePrice)
             throws RepositoryException ;
 
-    /**
-     * Build suite for combo cruises
-     * @param cruisePage
-     * @param voyageId
-     * @param shipId
-     * @param voyagesPriceMarket
-     * @throws RepositoryException
-     * @throws IOException
-     * @throws ApiException
-     */
-    void buildOrUpdateSuiteNodes(LowestPrice lowestPrice,Page cruisePage,String voyageId,Integer shipId,List<VoyagePriceMarket>  voyagesPriceMarket)
-            throws RepositoryException, IOException, ApiException;
-    
-    /**
-     * Build suite groups for combo cruises
-     * @param rootNode
-     * @param suiteRef
-     * @param price
-     * @param voyageId
-     * @param voyagesPriceMarket
-     * @throws RepositoryException
-     */
-    void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price,String voyageId, List<VoyagePriceMarket> voyagesPriceMarket)
-            throws RepositoryException;
-    
     void buildOrUpdateVariationNodes(String suiteRef,LowestPrice lowestPrice,List<VoyagePriceMarket> voyagePriceMarketList, Node suiteNode,
             String suiteCategoryCode, String voyageCode) throws RepositoryException ;
 
