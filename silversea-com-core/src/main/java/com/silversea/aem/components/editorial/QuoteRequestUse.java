@@ -22,11 +22,13 @@ import com.day.cq.search.eval.TypePredicateEvaluator;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.TagConstants;
+import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.NameConstants;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.GeolocationHelper;
 
 public class QuoteRequestUse extends WCMUsePojo {
     private List<Resource> countries;
-    private Boolean isChecked = true;
 
     @Override
     public void activate() throws Exception {
@@ -40,7 +42,6 @@ public class QuoteRequestUse extends WCMUsePojo {
         queryMap.put(Predicate.ORDER_BY, "@" + JcrConstants.JCR_TITLE);
         queryMap.put(Predicate.ORDER_BY + "." + Predicate.PARAM_SORT, Predicate.SORT_ASCENDING);
         queryMap.put(PredicateConverter.GROUP_PARAMETER_PREFIX + "." + Predicate.PARAM_LIMIT, "-1");
-
 
         // Do query
         Session session = getResourceResolver().adaptTo(Session.class);
@@ -66,7 +67,16 @@ public class QuoteRequestUse extends WCMUsePojo {
      * @return the isChecked
      */
     public Boolean getIsChecked() {
-        
-        return isChecked;
+        String[] tags = getProperties().get(NameConstants.PN_TAGS, String[].class);
+        TagManager tagManager;
+        if (tags != null) {
+            tagManager = getResourceResolver().adaptTo(TagManager.class);
+            for (String tagId : tags) {
+                if (tagManager.resolve(tagId).getName().equals(GeolocationHelper.getCountryCode(getRequest()))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
