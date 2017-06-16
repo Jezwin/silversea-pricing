@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import javax.inject.Inject;
 
-import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import com.day.cq.wcm.api.Page;
 import com.silversea.aem.services.GeolocationTagService;
 
 /**
- *
+ * Use class for the Find your port component
  */
 public class SearchPortUse extends WCMUsePojo {
 
@@ -25,22 +24,18 @@ public class SearchPortUse extends WCMUsePojo {
     // if empty, current page path will be used by default
     private String portReference;
 
-    // path of the parent page to all port index (letter) pages
-    private String portRoot;
+    // ports root page
+    private Page portsRootPage;
+
+    //the selected ports list page
+    private Page portIndexPage;
 
     // port pages beginning with the letter searched
     private Iterator<Page> resultsPageList;
-
+    
     // list of port results to display (title and country)
     private ArrayList<SearchPortDisplay> resultsPortList;
 
-    // the name of the current page
-    private String currentPageName;
-
-    // the selected letter
-    private String selectedLetter;
-
-    private ResourceResolver resourceResolver;
     private TagManager tagManager;
 
     @Inject
@@ -50,32 +45,16 @@ public class SearchPortUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        resourceResolver = getCurrentPage().getContentResource().getResourceResolver();
-        tagManager = resourceResolver.adaptTo(TagManager.class);
-
-        String currentPagePath = getCurrentPage().getPath();
-        currentPageName = currentPagePath.substring(currentPagePath.lastIndexOf('/') + 1, currentPagePath.length());
-
         portReference = getProperties().get("portReference", String.class);
-
-        if (currentPageName.length() == 1) {
-            // the current page is a letter index page
-            // set the port root to the current page's parent
-            portRoot = currentPagePath.substring(0, currentPagePath.lastIndexOf('/') + 1);
-        } else {
-            // the current page is the root page
-            portRoot = currentPagePath;
-        }
 
         // get ports with searched letter (children of the portReference page)
         // if portReference is empty, return the children of the current page by
         // default
-        Page portIndexPage = portReference != null ? getPageManager().getPage(portReference) : getCurrentPage();
-        String portIndexPath = portIndexPage.getPath();
-        selectedLetter = portIndexPath.substring(portIndexPath.lastIndexOf('/') + 1, portIndexPath.length());
+        portIndexPage = portReference != null ? getPageManager().getPage(portReference) : getCurrentPage();
         resultsPageList = portIndexPage.listChildren();
 
         // prepare results for display
+        tagManager = getResourceResolver().adaptTo(TagManager.class);
         resultsPortList = new ArrayList<SearchPortDisplay>();
         while (resultsPageList.hasNext()) {
             Page portPage = resultsPageList.next();
@@ -89,6 +68,11 @@ public class SearchPortUse extends WCMUsePojo {
             }
             resultsPortList.add(new SearchPortDisplay(portPage.getTitle(), portCountry, portPage.getPath()));
         }
+
+        //set the parent page - the parent of all the ports list (letter) pages
+        //if portReference is empty, the parent of the current page, if not, the parent of 
+        //the configured portReference page
+        portsRootPage = portIndexPage.getParent();
     }
 
     public Iterator<Page> getResultsPageList() {
@@ -99,16 +83,12 @@ public class SearchPortUse extends WCMUsePojo {
         return resultsPortList;
     }
 
-    public String getPortRoot() {
-        return portRoot;
+    public Page getPortsRootPage() {
+        return portsRootPage;
     }
 
-    public String getCurrentPageName() {
-        return currentPageName;
-    }
-
-    public String getSelectedLetter() {
-        return selectedLetter;
+    public Page getPortIndexPage() {
+        return portIndexPage;
     }
 
     public class SearchPortDisplay {
@@ -130,7 +110,7 @@ public class SearchPortUse extends WCMUsePojo {
         public String getPortCountry() {
             return portCountry;
         }
-        
+
         public String getPortPath() {
             return portPath;
         }

@@ -4,17 +4,17 @@
         <div class="table filter-abc">
             <div class="header-h6"> ${'port-search-alphabetically' @ i18n} </div>
             <div class="clearfix">
-               <div class="lettre" data-sly-repeat="${['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']}">
-                        <a class="${search.selectedLetter == item && 'letter-active'}"  href="${search.portRoot @ extension='html', appendPath=item}">
-                            ${item}
+               <div class="lettre" data-sly-repeat="${search.portsRootPage.listChildren}">
+                        <a class="${search.portIndexPage.path == item.path && 'letter-active'}"  href="${search.portsRootPage.path @ extension='html', appendPath=item.name}">
+                            ${item.name}
                         </a>
                 </div>
                 
             </div>
         </div>
-        
-        
-        
+
+
+
         <div class="filter-port-results">
             <div class="header-h6">${'port-results' @ i18n}</div>
             <div class="table" >
