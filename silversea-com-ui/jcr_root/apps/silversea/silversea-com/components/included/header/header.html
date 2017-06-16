@@ -19,6 +19,11 @@
                     <sly data-sly-include="mainnavtop.html" />
                     <div class="c-main-nav__backdrop"></div>
                 </nav>
+                <li class="c-main-nav__top--item c-main-nav__top--item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
+            <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top--link">
+                <span>${page3.navigationTitle || page3.title}</span>
+            </a>
+        </li>
                 
                 <sly data-sly-include="call.html"></sly>
             </div>
