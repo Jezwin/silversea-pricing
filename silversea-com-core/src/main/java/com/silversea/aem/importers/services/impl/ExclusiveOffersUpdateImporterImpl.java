@@ -67,9 +67,9 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 	private List<Tag> market;
 
 	private List<String> geoMarket;
-	
-    @Reference
-    private ApiCallService apiCallService;
+
+	@Reference
+	private ApiCallService apiCallService;
 
 	@Override
 	public ImporterStatus updateImporData() throws IOException {
@@ -100,11 +100,13 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-		
+
 		try {
-//			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
+			// final String authorizationHeader =
+			// getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
 			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-//			spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+			// spetialOffersApi.getApiClient().addDefaultHeader("Authorization",
+			// authorizationHeader);
 
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -118,7 +120,8 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 			do {
 
-//				specialOffers = spetialOffersApi.specialOffersGet(i, pageSize, null);
+				// specialOffers = spetialOffersApi.specialOffersGet(i,
+				// pageSize, null);
 				specialOffers = apiCallService.getExclusiveOffers(i, pageSize, spetialOffersApi);
 
 				int j = 0;
@@ -143,6 +146,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 									TemplateConstants.PATH_EXCLUSIVE_OFFERT,
 									StringHelper.getFormatWithoutSpecialCharcters(offers.getVoyageSpecialOffer()),
 									false);
+							LOGGER.debug("Create of exclusive offers : {} ",  offers.getVoyageSpecialOffer());
 						}
 
 						diff.add(offers.getVoyageSpecialOfferId());
@@ -164,10 +168,12 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 							tagManager.setTags(offersPage.getContentResource(), market.stream().toArray((Tag[]::new)));
 
 							succesNumber = succesNumber + 1;
-//							if (!replicat.getReplicationStatus(session, offersRootPage.getPath()).isActivated()) {
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, offersPage.getPath());
-//							}
+							// if (!replicat.getReplicationStatus(session,
+							// offersRootPage.getPath()).isActivated()) {
+							replicat.replicate(session, ReplicationActionType.ACTIVATE, offersPage.getPath());
+							// }
 							j++;
+							LOGGER.debug("Update of exclusive offers : {} , succes numbers {}",  offers.getVoyageSpecialOffer() , +succesNumber);
 						}
 
 						if (j % sessionRefresh == 0) {
@@ -181,7 +187,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 						}
 					} catch (Exception e) {
 						errorNumber = errorNumber + 1;
-						LOGGER.debug("Exclusive offer falure error, number of faulures :", errorNumber);
+						LOGGER.debug("Exclusive offer failure error, number of failures : {}", errorNumber);
 						j++;
 					}
 				}
@@ -199,7 +205,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 					try {
 						replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
 					} catch (ReplicationException e) {
-						e.printStackTrace();
+						LOGGER.debug("Exclusive offer failure desactivation {} :", page.getPath());
 					}
 				}
 			}

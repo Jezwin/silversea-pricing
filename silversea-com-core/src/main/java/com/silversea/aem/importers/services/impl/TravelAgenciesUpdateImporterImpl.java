@@ -149,11 +149,12 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 												StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
 										TemplateConstants.PATH_TRAVEL_AGENCY,
 										StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
+								LOGGER.debug("Create of travel agency : {} ",  agency.getAgency());
 							}
 						}
-						if(agency.getAgencyId() == 41216){
-							LOGGER.debug("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww existe :", agency.getAgencyId());
-						}
+//						if(agency.getAgencyId() == 41216){
+//							LOGGER.debug("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww existe :", agency.getAgencyId());
+//						}
 
 						diff.add(agency.getAgencyId());
 
@@ -178,6 +179,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 							replicat.replicate(session, ReplicationActionType.ACTIVATE, agencyTravelPage.getPath());
 							// }
 							j++;
+							LOGGER.debug("update of travel agency : {} ",  agency.getAgency());
 						}
 
 						if (j % sessionRefresh == 0) {
@@ -191,7 +193,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 						}
 					} catch (Exception e) {
 						errorNumber = errorNumber + 1;
-						LOGGER.debug("Travel agency error, number of faulures :", errorNumber);
+						LOGGER.debug("Travel agency error, number of faulures : {}", errorNumber);
 						j++;
 					}
 				}

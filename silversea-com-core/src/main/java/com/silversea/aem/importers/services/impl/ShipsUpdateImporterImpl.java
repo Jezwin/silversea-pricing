@@ -121,6 +121,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 						// false);
 						shipPages = ImporterUtils.createPagesLanguageCopies(pageManager, resourceResolver,
 								shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
+						LOGGER.debug("create ships with {} ", ship.getShipId());
 					}
 					diff.add(ship.getShipId());
 
@@ -139,9 +140,10 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 									session.save();
 									replicat.replicate(session, ReplicationActionType.ACTIVATE, shiPage.getPath());
 								} catch (RepositoryException e) {
+									LOGGER.debug("error replication ships  {} ", shiPage.getPath());
 									session.refresh(true);
 								}
-								LOGGER.debug("Updated ship with {} ", ship.getShipCod());
+								LOGGER.debug("Updated ship with {} ", shiPage.getPath());
 							}
 						}
 					}
@@ -187,7 +189,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 					}
 				} catch (Exception e) {
 					errorNumber = errorNumber + 1;
-					LOGGER.debug("Ship import error, number of faulures :", errorNumber);
+					LOGGER.debug("Ship import error, number of faulures : {}", errorNumber);
 					i++;
 				}
 			}
@@ -204,8 +206,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 							try {
 								replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
 							} catch (ReplicationException e) {
-								e.printStackTrace();
-							}
+								LOGGER.debug("error replication ships  {} ", page.getPath());							}
 						}
 					}
 //				}
@@ -239,7 +240,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 					session.refresh(false);
 				}
 			}
-			LOGGER.debug("Fin de l'import");
+			LOGGER.debug("End of import for ships");
 
 			resourceResolver.close();
 		} catch (Exception e) {
