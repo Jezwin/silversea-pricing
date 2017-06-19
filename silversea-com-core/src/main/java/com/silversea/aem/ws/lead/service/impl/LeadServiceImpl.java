@@ -50,7 +50,7 @@ public class LeadServiceImpl implements LeadService {
         password = PropertiesUtil.toString(properties.get(PASSWORD), DEFAULT_PASSWORD);
     }
 
-    /**{@inheritDoc}}**/
+    /** {@inheritDoc}} **/
     @Override
     public String sendLead(Lead lead) {
 
@@ -71,16 +71,20 @@ public class LeadServiceImpl implements LeadService {
     }
 
     public void adaptLeadRequest(NewX0020MethodX0020WithX002052X0020Arguments request, Lead lead) {
+        request.setAtt02(lead.getRequestsource());
+
         request.setTitle(lead.getTitle());
         request.setNameFirst(lead.getFirstname());
         request.setNameLast(lead.getLastname());
         request.setEmail(lead.getEmail());
         request.setPhone(lead.getPhone());
-        request.setComments(lead.getDescription());
+        request.setComments(lead.getComments());
+        // Subscribe newsletter
+        request.setAtt02(lead.getAtt02());
+        request.setWorkingWithAgent(lead.getWorkingwithagent());
     }
 
     private LeadFromWeb03Soap getClientProxy() {
         return JaxWsClientFactory.create(LeadFromWeb03Soap.class, url, BINDING, username, password);
     }
-
 }
