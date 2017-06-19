@@ -23,6 +23,7 @@ import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
+import io.swagger.client.api.BrochuresApi;
 import io.swagger.client.api.CitiesApi;
 import io.swagger.client.api.FeaturesApi;
 import io.swagger.client.api.HotelsApi;
@@ -35,6 +36,7 @@ import io.swagger.client.api.SpecialVoyagesApi;
 import io.swagger.client.api.VoyageSpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
+import io.swagger.client.model.Brochure;
 import io.swagger.client.model.City;
 import io.swagger.client.model.City77;
 import io.swagger.client.model.Feature;
@@ -187,6 +189,13 @@ public class ApiCallServiceImpl  implements ApiCallService {
 			throws IOException, ApiException {
 		configureClient(landsApi.getApiClient());
 		return landsApi.landsGetChanges(currentDate, null, index, pageSize, null);
+	}
+	
+	@Override
+	public List<Brochure> getBrochures(int index, int pageSize, BrochuresApi brochuresApi)
+			throws IOException, ApiException {
+		configureClient(brochuresApi.getApiClient());
+		return brochuresApi.brochuresGet(null, index, PER_PAGE, null);
 	}
 	
 	

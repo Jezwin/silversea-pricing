@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
+import io.swagger.client.api.BrochuresApi;
 import io.swagger.client.api.CitiesApi;
 import io.swagger.client.api.HotelsApi;
 import io.swagger.client.api.LandsApi;
@@ -12,6 +13,7 @@ import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
+import io.swagger.client.model.Brochure;
 import io.swagger.client.model.City;
 import io.swagger.client.model.City77;
 import io.swagger.client.model.Feature;
@@ -66,6 +68,8 @@ public interface ApiCallService {
     List<Shorex77> getShorexUpdate(String currentDate,int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
     
     List<Land77> getLandProgramUpdate(String currentDate,int index, int pageSize, LandsApi landsApi)throws IOException, ApiException;
+    
+    List<Brochure> getBrochures(int index, int pageSize, BrochuresApi brochuresApi)throws IOException, ApiException;
     
     List<Feature> getFeatures()throws IOException, ApiException;
 

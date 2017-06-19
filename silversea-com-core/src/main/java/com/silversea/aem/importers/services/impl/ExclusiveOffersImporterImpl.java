@@ -97,10 +97,12 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-//		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
+		// final String authorizationHeader =
+		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
 		try {
 			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-//			spetialOffersApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+			// spetialOffersApi.getApiClient().addDefaultHeader("Authorization",
+			// authorizationHeader);
 
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -125,7 +127,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 					do {
 
 						// gets all special Offers
-//						specialOffers = spetialOffersApi.specialOffersGet(i, pageSize, null);
+						// specialOffers = spetialOffersApi.specialOffersGet(i,
+						// pageSize, null);
 						specialOffers = apiCallService.getExclusiveOffers(i, pageSize, spetialOffersApi);
 
 						int j = 0;
@@ -135,7 +138,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 							try {
 
 								Iterator<Resource> resources = resourceResolver
-										.findResources("//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
+										.findResources("/jcr:root/content/silversea-com/" + loc
+												+ "//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
 												+ offers.getVoyageSpecialOfferId() + "\"]", "xpath");
 
 								Page offersPage = null;
@@ -150,7 +154,8 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 											TemplateConstants.PATH_EXCLUSIVE_OFFERT, StringHelper
 													.getFormatWithoutSpecialCharcters(offers.getVoyageSpecialOffer()),
 											false);
-									LOGGER.debug("create page {} Exclusive offers for langue : {}",offers.getVoyageSpecialOfferId(), loc);
+									LOGGER.debug("create page {} Exclusive offers for langue : {}",
+											offers.getVoyageSpecialOfferId(), loc);
 								}
 
 								if (offersPage != null) {
@@ -173,8 +178,9 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
 									succesNumber = succesNumber + 1;
 									j++;
-									
-									LOGGER.debug("update page {} Exclusive offers for langue : {}",offers.getVoyageSpecialOfferId(), loc);
+
+									LOGGER.debug("update page {} Exclusive offers for langue : {}",
+											offers.getVoyageSpecialOfferId(), loc);
 
 									if (!replicat.getReplicationStatus(session, offersRootPage.getPath())
 											.isActivated()) {
@@ -185,9 +191,12 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 										session.save();
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												offersPage.getPath());
-										LOGGER.debug("replication page Exclusive offers id {} ,  for langue : {}",offers.getVoyageSpecialOfferId(), loc);
+										LOGGER.debug("replication page Exclusive offers id {} ,  for langue : {}",
+												offers.getVoyageSpecialOfferId(), loc);
 									} catch (RepositoryException e) {
-										LOGGER.debug("replication page Exclusive offers id {} *** ERROR ***,  for langue : {}",offers.getVoyageSpecialOfferId(), loc);
+										LOGGER.debug(
+												"replication page Exclusive offers id {} *** ERROR ***,  for langue : {}",
+												offers.getVoyageSpecialOfferId(), loc);
 										session.refresh(true);
 									}
 								}
