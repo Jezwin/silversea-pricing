@@ -31,7 +31,7 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
             comboCruiseModel = initComboCruise(pageReference);
         }
         else{
-            comboCruiseModel = get("model", ComboCruiseModel.class);
+            comboCruiseModel =  getCurrentPage().adaptTo(ComboCruiseModel.class);
         }
         
         if(comboCruiseModel != null){
@@ -59,7 +59,7 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
             if(cruiseModel!=null){
                 List<ItineraryModel> itineraries = cruiseModel.getItineraries();
                 if(itineraries!=null && !itineraries.isEmpty()){
-                    port = itineraries.get(0).getCountry();
+                    port = itineraries.get(0).getTitle();
                 }
             }
         }
