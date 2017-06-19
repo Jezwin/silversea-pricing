@@ -10,6 +10,7 @@ import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
 import io.swagger.client.model.City;
+import io.swagger.client.model.Feature;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.LandItinerary;
@@ -50,5 +51,7 @@ public interface ApiCallService {
     List<SpecialOffer> getExclusiveOffers(int index, int pageSize, SpecialOffersApi spetialOffersApi)throws IOException, ApiException;
     
     List<City> getCities(int index, int pageSize, CitiesApi citiesApi)throws IOException, ApiException;
+    
+    List<Feature> getFeatures()throws IOException, ApiException;
 
 }

@@ -30,6 +30,7 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -53,6 +54,9 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
     @Reference
     private Replicator replicat;
+    
+    @Reference
+    private ApiCallService apiCallService;
 
     private int errorNumber = 0;
     private int succesNumber = 0;

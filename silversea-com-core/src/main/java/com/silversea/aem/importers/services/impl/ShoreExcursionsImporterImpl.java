@@ -28,6 +28,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -56,6 +57,9 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 
     @Reference
     private Replicator replicat;
+    
+    @Reference
+    private ApiCallService apiCallService;
 
     @Override
     public void importData() throws IOException {

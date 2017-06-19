@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -26,8 +27,10 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -54,6 +57,9 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 	@Reference
 	private Replicator replicat;
 
+	@Reference
+	private ApiCallService apiCallService;
+
 	@Override
 	public void importData() throws IOException {
 		/**
@@ -71,83 +77,104 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
 
-		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("featuresUrl"));
-		FeaturesApi featuresApi = new FeaturesApi();
-		featuresApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("featuresUrl"));
+//		FeaturesApi featuresApi = new FeaturesApi();
+//		featuresApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 		try {
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			Session session = resourceResolver.adaptTo(Session.class);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Page featuresRootPage = pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
+			
+			// Page featuresRootPage =
+			// pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
+			Page featuresRootPage;
 			List<Feature> features;
-			features = featuresApi.featuresGet(null);
-			int i = 0;
-			for (Feature feature : features) {
-				try {
+//			features = featuresApi.featuresGet(null);
+			features = apiCallService.getFeatures();
 
-					LOGGER.debug("Importing Feature: {}", feature.getName());
-					Iterator<Resource> resources = resourceResolver.findResources(
-							"//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
-					Page featurePage = null;
+			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
+			List<String> local = new ArrayList<>();
+			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
-					if (resources.hasNext()) {
-						featurePage = resources.next().adaptTo(Page.class);
-					} else {
-						featurePage = pageManager.create(featuresRootPage.getPath(),
-								StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
-								TemplateConstants.PATH_FEATURE,
-								StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
-					}
+			for (String loc : local) {
+				featuresRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
+				LOGGER.debug("Importing features for langue : {}", loc);
 
-					if (featurePage != null) {
-						Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
-						if (featurePageContentNode != null) {
-							featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
-							featurePageContentNode.setProperty("featureId", feature.getFeatureId());
-							featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
-							featurePageContentNode.setProperty("featureName", feature.getName());
-							featurePageContentNode.setProperty("apiTitle", feature.getName());
-							featurePageContentNode.setProperty("featureOrder", feature.getOrder());
-							session.save();
-							LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
+				if (featuresRootPage != null) {
 
-							try {
-								session.save();
-								if (!replicat.getReplicationStatus(session, featuresRootPage.getPath()).isActivated()) {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE,
-											featuresRootPage.getPath());
+					int i = 0;
+					for (Feature feature : features) {
+						try {
+
+							LOGGER.debug("Importing Feature: {}", feature.getName());
+							Iterator<Resource> resources = resourceResolver.findResources(
+									"//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]",
+									"xpath");
+							Page featurePage = null;
+
+							if (resources.hasNext()) {
+								featurePage = resources.next().adaptTo(Page.class);
+							} else {
+								featurePage = pageManager.create(featuresRootPage.getPath(),
+										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
+										TemplateConstants.PATH_FEATURE,
+										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
+							}
+
+							if (featurePage != null) {
+								Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
+								if (featurePageContentNode != null) {
+									featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
+									featurePageContentNode.setProperty("featureId", feature.getFeatureId());
+									featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
+									featurePageContentNode.setProperty("featureName", feature.getName());
+									featurePageContentNode.setProperty("apiTitle", feature.getName());
+									featurePageContentNode.setProperty("featureOrder", feature.getOrder());
+									session.save();
+									LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
+
+									try {
+										session.save();
+										if (!replicat.getReplicationStatus(session, featuresRootPage.getPath())
+												.isActivated()) {
+											replicat.replicate(session, ReplicationActionType.ACTIVATE,
+													featuresRootPage.getPath());
+										}
+										replicat.replicate(session, ReplicationActionType.ACTIVATE,
+												featurePage.getPath());
+									} catch (RepositoryException e) {
+										session.refresh(true);
+									}
 								}
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, featurePage.getPath());
-							} catch (RepositoryException e) {
-								session.refresh(true);
 							}
+							LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
+							i++;
+							if (i % sessionRefresh == 0) {
+								if (session.hasPendingChanges()) {
+									try {
+										session.save();
+									} catch (RepositoryException e) {
+										session.refresh(true);
+									}
+								}
+							}
+						} catch (Exception e) {
+							// errorNumber = errorNumber + 1;
+							LOGGER.debug("Features error, number of faulures :", e);
+							i++;
 						}
 					}
-					LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
-					i++;
-					if (i % sessionRefresh == 0) {
-						if (session.hasPendingChanges()) {
-							try {
-								session.save();
-							} catch (RepositoryException e) {
-								session.refresh(true);
-							}
+					if (session.hasPendingChanges()) {
+						try {
+							// save migration date
+							Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
+							rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+							session.save();
+						} catch (RepositoryException e) {
+							session.refresh(false);
 						}
 					}
-				} catch (Exception e) {
-					// errorNumber = errorNumber + 1;
-					LOGGER.debug("Features error, number of faulures :", e);
-					i++;
-				}
-			}
-			if (session.hasPendingChanges()) {
-				try {
-					// save migration date
-					Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
-					rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-					session.save();
-				} catch (RepositoryException e) {
-					session.refresh(false);
+
 				}
 			}
 			resourceResolver.close();

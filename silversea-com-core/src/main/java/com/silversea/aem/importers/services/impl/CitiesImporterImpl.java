@@ -96,15 +96,16 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			Session session = resourceResolver.adaptTo(Session.class);
-
-			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 			Page citiesRootPage;
+			
+			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 			List<String> local = new ArrayList<>();
 			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
 			for (String loc : local) {
 				citiesRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
 				LOGGER.debug("Importing city for langue : {}",loc);
+				
 				if (citiesRootPage != null) {
 					List<City> cities;
 					int i = 1;
@@ -219,6 +220,9 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 					// end
 				}
 			}
+			
+			
+			
 			resourceResolver.close();
 		} catch (ApiException | LoginException | RepositoryException e) {
 			LOGGER.error("Exception importing cities", e);

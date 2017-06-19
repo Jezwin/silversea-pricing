@@ -32,6 +32,7 @@ import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.api.ShipsApi;
@@ -53,6 +54,9 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 	private ApiConfigurationService apiConfig;
 	@Reference
 	private Replicator replicat;
+	
+	@Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public void importData() throws IOException {
