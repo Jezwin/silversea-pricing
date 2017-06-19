@@ -2,16 +2,18 @@ package com.silversea.aem.components.editorial;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.RangeIterator;
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.helper.LanguageHelper;
@@ -26,6 +28,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserListUse.class);
     public static final String SELECTOR_BROCHURE_GROUP_PREFIX = "brochure_group_";
+    public static final String SELECTOR_LANGUAGE_PREFIX = "language_";
     public static final String DEFAULT_BROCHURE_GROUP = "default";
 
     /**
@@ -38,8 +41,10 @@ public class BrochureTeaserListUse extends WCMUsePojo {
     private HashMap<String, String> languages;
 
     private String currentLanguage;
-    
+
     private String brochureGroup;
+
+    private List<String> geolocationTags;
 
     @Override
     public void activate() throws Exception {
@@ -52,13 +57,13 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         if (currentLanguage == null) {
             currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
         }
-        
+
         brochureGroup = getBrochureGroup(getRequest());
-        
+
         final String brochuresPath = getProperties().get("folderReference", "/content/dam/silversea-com/brochures");
 
         // Building tag list
-        List<String> tagList = new ArrayList<>();
+        geolocationTags = new ArrayList<>();
 
         TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
@@ -66,7 +71,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
             Tag geolocationTag = tagManager.resolve(geolocationTagId);
 
             if (geolocationTag != null) {
-                tagList.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
+                geolocationTags.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
             }
         }
 
@@ -75,67 +80,90 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         brochures = new ArrayList<>();
         languages = new HashMap<String, String>();
 
-        LOGGER.debug("Searching brochures with tags: {}", tagList);
+        LOGGER.debug("Searching brochures with tags: {}", geolocationTags);
 
-        //get brochures with the tagged localization
-        RangeIterator<Resource> resources = tagManager.find(brochuresPath,
-                tagList.toArray(new String[tagList.size()]), true);
+        // get all brochures listed in order
+        Resource brochuresRoot = getResourceResolver().getResource(brochuresPath);
 
-        if (resources != null) {
-            while (resources.hasNext()) {
-                Resource resource = resources.next();
-                Asset asset = resource.getParent().getParent().adaptTo(Asset.class);
+        //filter brochures by localization, language, and group
+        Iterator<Resource> resources = brochuresRoot.listChildren();
+        filterResources(resources);
 
-                if (asset != null) {
-                    BrochureModel brochure = asset.adaptTo(BrochureModel.class);
-                    brochuresNotLanguageFiltered.add(brochure);
-                }
-            }
+        // build language list
+        for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+            Tag language = brochure.getLanguage();
 
-            // Building brochures list for current selected language
-            List<BrochureModel> allGroupBrochures = new ArrayList<>();
-            for (BrochureModel brochure : brochuresNotLanguageFiltered) {
-                // Checking if found brochure correspond to the current language
-                if (brochure.getLanguage().getName().equals(currentLanguage)) {
-                    allGroupBrochures.add(brochure);
-                }
-            }
-            
-            // filter the list of brochures on the chosen brochure group tag
-            for (BrochureModel brochure : allGroupBrochures) {
-                // Checking if found brochure correspond to the chosen group
-                if (brochure.getGroupNames().contains(brochureGroup)) {
-                    brochures.add(brochure);
-                }
-            }
+            LOGGER.debug("Searching language for brochure: {}", brochure.getBrochurePath());
 
-            // build language list
-            for (BrochureModel brochure : brochuresNotLanguageFiltered) {
-                Tag language = brochure.getLanguage();
+            if (language != null) {
+                LOGGER.debug("Adding language {} to language list", language.getTagID());
 
-                LOGGER.debug("Searching language for brochure: {}", brochure.getBrochurePath());
-
-                if (language != null) {
-                    LOGGER.debug("Adding language {} to language list", language.getTagID());
-
-                    languages.put(language.getName(), language.getTitle());
-                }
+                languages.put(language.getName(), language.getTitle());
             }
         }
+    }
+
+    public void filterResources(Iterator<Resource> resources) {
+        while (resources.hasNext()) {
+            Resource resource = resources.next();
+            String type = resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class);
+            if (type.equals(DamConstants.NT_DAM_ASSET)) {
+                Asset asset = resource.adaptTo(Asset.class);
+                if (asset != null) {
+                    BrochureModel brochure = asset.adaptTo(BrochureModel.class);
+                    // check localization
+                    if (isMatchingLocation(brochure, geolocationTags)) {
+                        // check group
+                        if (isMatchingGroup(brochure, brochureGroup)) {
+                            brochuresNotLanguageFiltered.add(brochure);
+                            // check language
+                            if (isMatchingLanguage(brochure, currentLanguage)) {
+                                // brochure matches all criteria
+                                brochures.add(brochure);
+                            }
+                        }
+                    }
+                }
+            } else if (type.equals(DamConstants.NT_SLING_ORDEREDFOLDER)) {
+                filterResources(resource.listChildren());
+            }
+        }
+    }
+
+    public boolean isMatchingLocation(BrochureModel brochure, List<String> localizationTags) {
+        ArrayList<Tag> brochureLocations = brochure.getLocalizations();
+        for (Tag brochureLocation : brochureLocations) {
+            if (localizationTags.contains(brochureLocation.getTagID())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isMatchingGroup(BrochureModel brochure, String groupName) {
+        return brochure.getGroupNames().contains(groupName);
+    }
+
+    public boolean isMatchingLanguage(BrochureModel brochure, String languageName) {
+        Tag brochureLang = brochure.getLanguage();
+        if (brochureLang != null) {
+            return brochureLang.getName().equals(languageName);
+        }
+        return false;
     }
 
     public List<BrochureModel> getBrochures() {
         return brochures;
     }
 
-    public HashMap<String,String> getLanguages() {
+    public HashMap<String, String> getLanguages() {
         return languages;
     }
 
     public String getCurrentLanguage() {
         return currentLanguage;
     }
-    
+
     public String getBrochureGroup(SlingHttpServletRequest request) {
         String[] selectors = request.getRequestPathInfo().getSelectors();
         for (String selector : selectors) {
@@ -144,5 +172,15 @@ public class BrochureTeaserListUse extends WCMUsePojo {
             }
         }
         return DEFAULT_BROCHURE_GROUP;
+    }
+    
+    public String getRequestedLanguage(SlingHttpServletRequest request) {
+        String[] selectors = request.getRequestPathInfo().getSelectors();
+        for (String selector : selectors) {
+            if (selector.startsWith(SELECTOR_LANGUAGE_PREFIX)) {
+                return selector.replace(SELECTOR_LANGUAGE_PREFIX, "");
+            }
+        }
+        return null;
     }
 }
