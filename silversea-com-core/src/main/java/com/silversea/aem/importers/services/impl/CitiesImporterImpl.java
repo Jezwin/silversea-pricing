@@ -145,11 +145,11 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								// if (replicat.getReplicationStatus(session,
 								// citiesRootPage.getPath()).isActivated()) {
 								try {
-									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
-											.isActivated()) {
+//									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
+//											.isActivated()) {
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												portFirstLetterPage.getPath());
-									}
+//									}
 								} catch (ReplicationException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -224,7 +224,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 						}
 
 						i++;
-					} while (cities.size() > 0);
+					} while (cities.size() > 0 && cities !=null);
 
 					try {
 						Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
