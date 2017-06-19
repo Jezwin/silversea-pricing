@@ -61,9 +61,9 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
 	@Reference
 	private Replicator replicat;
-	
-    @Reference
-    private ApiCallService apiCallService;
+
+	@Reference
+	private ApiCallService apiCallService;
 
 	@Override
 	public void importData() throws IOException {
@@ -89,29 +89,32 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 			pageSize = apiConfig.getPageSize();
 		}
 
-//		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
+		// final String authorizationHeader =
+		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
 		CitiesApi citiesApi = new CitiesApi();
-//		citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+		// citiesApi.getApiClient().addDefaultHeader("Authorization",
+		// authorizationHeader);
 		try {
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			Session session = resourceResolver.adaptTo(Session.class);
 			Page citiesRootPage;
-			
+
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 			List<String> local = new ArrayList<>();
 			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
 			for (String loc : local) {
 				citiesRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-				LOGGER.debug("Importing city for langue : {}",loc);
-				
+				LOGGER.debug("Importing city for langue : {}", loc);
+
 				if (citiesRootPage != null) {
 					List<City> cities;
 					int i = 1;
 
 					do {
-//						cities = citiesApi.citiesGet(null, null, i, pageSize, null, null, null);
+						// cities = citiesApi.citiesGet(null, null, i, pageSize,
+						// null, null, null);
 						cities = apiCallService.getCities(i, pageSize, citiesApi);
 						int j = 0;
 						for (City city : cities) {
@@ -139,29 +142,31 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								}
 
 								session.save();
-								if (replicat.getReplicationStatus(session, citiesRootPage.getPath()).isActivated()) {
-									try {
-										if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
-												.isActivated()) {
-											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													portFirstLetterPage.getPath());
-										}
-									} catch (ReplicationException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+								// if (replicat.getReplicationStatus(session,
+								// citiesRootPage.getPath()).isActivated()) {
+								try {
+									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
+											.isActivated()) {
+										replicat.replicate(session, ReplicationActionType.ACTIVATE,
+												portFirstLetterPage.getPath());
 									}
+								} catch (ReplicationException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 								}
+								// }
 
-								Iterator<Resource> resources = resourceResolver.findResources(
-										"/jcr:root/content/silversea-com/"+loc+"//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]",
-										"xpath");
+								Iterator<Resource> resources = resourceResolver
+										.findResources("/jcr:root/content/silversea-com/" + loc
+												+ "//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId()
+												+ "\"]", "xpath");
 
 								Page portPage;
 
 								if (resources.hasNext()) {
 									portPage = resources.next().adaptTo(Page.class);
-									LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(),
-											city.getCityCod());
+									LOGGER.debug("Port page {} with ID {} already exists, for language :{}",
+											city.getCityName(), city.getCityCod(), loc);
 								} else {
 									portPage = pageManager.create(portFirstLetterPage.getPath(),
 											JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
@@ -169,7 +174,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 											TemplateConstants.PATH_PORT,
 											StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
 
-									LOGGER.debug("Creating port {}", city.getCityName());
+									LOGGER.debug("Creating port {} for language {}", city.getCityName(), loc);
 								}
 
 								Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
@@ -188,7 +193,19 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								succesNumber = succesNumber + 1;
 								j++;
 								session.save();
+
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
+
+								try {
+									replicat.replicate(session, ReplicationActionType.ACTIVATE,
+											portFirstLetterPage.getPath());
+									LOGGER.debug("Activation of port {} for language {}", city.getCityName(),loc);
+								} catch (ReplicationException e) {
+									// TODO Auto-generated catch block
+									LOGGER.debug("Error of port {} for language {}", city.getCityName(),loc);
+									e.printStackTrace();
+								}
+
 								if (j % sessionRefresh == 0) {
 									if (session.hasPendingChanges()) {
 										try {
@@ -220,9 +237,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 					// end
 				}
 			}
-			
-			
-			
+
 			resourceResolver.close();
 		} catch (ApiException | LoginException | RepositoryException e) {
 			LOGGER.error("Exception importing cities", e);
