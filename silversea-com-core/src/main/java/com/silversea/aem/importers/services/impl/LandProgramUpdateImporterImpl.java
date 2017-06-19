@@ -33,6 +33,7 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.LandProgramUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -61,18 +62,21 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 
 	@Reference
 	private Replicator replicat;
+	
+    @Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
 
 		try {
-			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
+//			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			Session session = resourceResolver.adaptTo(Session.class);
 
 			LandsApi landsApi = new LandsApi();
-			landsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//			landsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 			Resource resParent = citiesRootPage.adaptTo(Resource.class);
@@ -90,7 +94,9 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 
 				do {
 
-					lands = landsApi.landsGetChanges(currentDate, null, i, pageSize, null);
+//					lands = landsApi.landsGetChanges(currentDate, null, i, pageSize, null);
+					
+					lands = apiCallService.getLandProgramUpdate(currentDate, i, pageSize, landsApi);
 
 					int j = 0;
 
@@ -106,6 +112,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 								landPage = resources.next().adaptTo(Page.class);
 								if (BooleanUtils.isTrue(land.getIsDeleted())) {
 									replicat.replicate(session, ReplicationActionType.DEACTIVATE, landPage.getPath());
+									LOGGER.debug("Desactivation of land  {} ",land);
 								}
 							} else {
 								Integer cityId = land.getCities().size() > 0 ? land.getCities().get(0).getCityId()
@@ -162,7 +169,9 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 										session.save();
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												(landPage).getPath());
+										LOGGER.debug("Replication of land  {} ",land);
 									} catch (RepositoryException e) {
+										LOGGER.debug("Replication Error of land  {} ",land);
 										session.refresh(true);
 									}
 								}
@@ -191,7 +200,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 					try {
 						// save migration date
 						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+//						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
 						session.save();
 					} catch (RepositoryException e) {
 						session.refresh(false);

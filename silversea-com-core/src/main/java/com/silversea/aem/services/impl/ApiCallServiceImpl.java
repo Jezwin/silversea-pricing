@@ -36,11 +36,15 @@ import io.swagger.client.api.VoyageSpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
 import io.swagger.client.model.City;
+import io.swagger.client.model.City77;
 import io.swagger.client.model.Feature;
+import io.swagger.client.model.Hotel77;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
+import io.swagger.client.model.Land77;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
+import io.swagger.client.model.Shorex77;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.SpecialOffer;
 import io.swagger.client.model.SpecialVoyage;
@@ -146,6 +150,53 @@ public class ApiCallServiceImpl  implements ApiCallService {
 		return spetialOffersApi.specialOffersGet(index, pageSize, null);
 	}
 	
+	@Override
+	public List<City> getCities(int index, int pageSize, CitiesApi citiesApi) throws IOException, ApiException {
+		configureClient(citiesApi.getApiClient());
+		return citiesApi.citiesGet(null, null, index, pageSize, null, null, null);
+	}
+	
+	@Override
+	public List<City77> getCitiesUpdates(String currentDate, int index, int pageSize, CitiesApi citiesApi) throws IOException, ApiException {
+		configureClient(citiesApi.getApiClient());
+		return citiesApi.citiesGetChanges(currentDate, index, pageSize, null, null, null);
+	}
+
+	@Override
+	public List<Feature> getFeatures() throws IOException, ApiException {
+		FeaturesApi featuresApi = new FeaturesApi();
+		configureClient(featuresApi.getApiClient());
+		return featuresApi.featuresGet(null);
+	}
+	
+	@Override
+	public List<Hotel77> getHotelsUpdate(String currentDate, int index, int pageSize, HotelsApi hotelsApi) throws IOException, ApiException{
+	configureClient(hotelsApi.getApiClient());
+	return hotelsApi.hotelsGetChanges(currentDate, index, pageSize, null);
+	}
+	
+	@Override
+	public List<Shorex77> getShorexUpdate(String currentDate, int index, int pageSize, ShorexesApi shorexesApi)
+			throws IOException, ApiException {
+		configureClient(shorexesApi.getApiClient());
+		return shorexesApi.shorexesGetChanges(currentDate, index, pageSize, null);
+	}
+
+	@Override
+	public List<Land77> getLandProgramUpdate(String currentDate, int index, int pageSize, LandsApi landsApi)
+			throws IOException, ApiException {
+		configureClient(landsApi.getApiClient());
+		return landsApi.landsGetChanges(currentDate, null, index, pageSize, null);
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param apiClient
+	 */
+	
     public void configureClient(ApiClient apiClient){
         if(apiClient !=null){
             final DigestAuthenticator authenticator = new DigestAuthenticator(new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
@@ -160,16 +211,5 @@ public class ApiCallServiceImpl  implements ApiCallService {
         }
     }
 
-	@Override
-	public List<City> getCities(int index, int pageSize, CitiesApi citiesApi) throws IOException, ApiException {
-		configureClient(citiesApi.getApiClient());
-		return citiesApi.citiesGet(null, null, index, pageSize, null, null, null);
-	}
 
-	@Override
-	public List<Feature> getFeatures() throws IOException, ApiException {
-		FeaturesApi featuresApi = new FeaturesApi();
-		configureClient(featuresApi.getApiClient());
-		return featuresApi.featuresGet(null);
-	}
 }

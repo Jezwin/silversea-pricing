@@ -108,17 +108,19 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 
 							LOGGER.debug("Importing Feature: {}", feature.getName());
 							Iterator<Resource> resources = resourceResolver.findResources(
-									"//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]",
+									"/jcr:root/content/silversea-com/"+loc+"//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]",
 									"xpath");
 							Page featurePage = null;
 
 							if (resources.hasNext()) {
 								featurePage = resources.next().adaptTo(Page.class);
+								LOGGER.debug(" Feature with {} existe for langue : {}", feature.getFeatureCod(),loc);
 							} else {
 								featurePage = pageManager.create(featuresRootPage.getPath(),
 										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
 										TemplateConstants.PATH_FEATURE,
 										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
+								LOGGER.debug("create Feature with {} for langue : {}", feature.getFeatureCod(),loc);
 							}
 
 							if (featurePage != null) {
@@ -131,7 +133,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 									featurePageContentNode.setProperty("apiTitle", feature.getName());
 									featurePageContentNode.setProperty("featureOrder", feature.getOrder());
 									session.save();
-									LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
+									LOGGER.debug("Updated Feature with {} for langue : {}", feature.getFeatureCod(),loc);
 
 									try {
 										session.save();
@@ -142,12 +144,13 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 										}
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												featurePage.getPath());
+										LOGGER.debug("replicate Feature with {} for langue : {}", feature.getFeatureCod(),loc);
 									} catch (RepositoryException e) {
+										LOGGER.debug("replication ERROR Feature with {} for langue : {}", feature.getFeatureCod(),loc);
 										session.refresh(true);
 									}
 								}
 							}
-							LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
 							i++;
 							if (i % sessionRefresh == 0) {
 								if (session.hasPendingChanges()) {
@@ -176,7 +179,9 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 					}
 
 				}
+				LOGGER.debug("************************************************************************");
 			}
+			LOGGER.debug("****************************End of features import******************************");
 			resourceResolver.close();
 		} catch (ApiException | LoginException | RepositoryException e) {
 			String errorMessage = "Import Feature Errors : {} ";

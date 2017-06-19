@@ -34,6 +34,7 @@ import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -62,6 +63,9 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 	@Reference
 	private Replicator replicat;
+	
+    @Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
@@ -105,16 +109,17 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 			if (date != null) {
 				currentDate = formatter.format(date.getTime()).toString();
 
-				final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
+//				final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
 
 				CitiesApi citiesApi = new CitiesApi();
-				citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//				citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 				List<City77> cities;
 				int i = 1;
 
 				do {
-					cities = citiesApi.citiesGetChanges(currentDate, i, pageSize, null, null, null);
+//					cities = citiesApi.citiesGetChanges(currentDate, i, pageSize, null, null, null);
+					cities = apiCallService.getCitiesUpdates(currentDate, i, pageSize, citiesApi);
 
 					int j = 0;
 
@@ -131,6 +136,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 								portPage = resources.next().adaptTo(Page.class);
 								if (BooleanUtils.isTrue(city.getIsDeleted())) {
 									replicat.replicate(session, ReplicationActionType.DEACTIVATE, portPage.getPath());
+									LOGGER.debug(" Desactivation of Port page {}  ", city);
 								}
 
 								LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(),
@@ -174,8 +180,9 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 												StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
 										TemplateConstants.PATH_PORT,
 										StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
+								LOGGER.debug(" create Port page {} with ID {} ", city.getCityName(),
+										city.getCityId());
 
-								LOGGER.debug("Creating port {}", city.getCityName());
 							}
 
 							Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
@@ -197,6 +204,8 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 							if (BooleanUtils.isFalse(city.getIsDeleted()) || city.getIsDeleted() == null) {
 								session.save();
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
+								LOGGER.debug(" Activation of Port page {} with ID {} ", city.getCityName(),
+										city.getCityId());
 							}
 
 							if (j % sessionRefresh == 0) {
@@ -210,7 +219,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 							}
 						} catch (Exception e) {
 							errorNumber = errorNumber + 1;
-							LOGGER.debug("cities error, number of faulures :", errorNumber);
+							LOGGER.debug("cities import error {}, number of faulures : {}",city, +errorNumber);
 							j++;
 						}
 					}

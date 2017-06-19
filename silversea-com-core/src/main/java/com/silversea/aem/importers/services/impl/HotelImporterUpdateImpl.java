@@ -33,6 +33,7 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.HotelUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -61,6 +62,9 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
 
     @Reference
     private Replicator replicat;
+    
+    @Reference
+    private ApiCallService apiCallService;
 
     @Override
     public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
@@ -87,13 +91,13 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                 pageSize = apiConfig.getPageSize();
             }
             
-            final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
+//            final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("hotelUrl"));
             ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
             HotelsApi hotelsApi = new HotelsApi();
-            hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//            hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
             Resource resParent = citiesRootPage.adaptTo(Resource.class);
@@ -110,7 +114,8 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                 List<Hotel77> hotels;
 
                 do {
-                    hotels = hotelsApi.hotelsGetChanges(currentDate, i, pageSize, null);
+//                    hotels = hotelsApi.hotelsGetChanges(currentDate, i, pageSize, null);
+                	hotels = apiCallService.getHotelsUpdate(currentDate, i, pageSize, hotelsApi);
 
                     int j = 0;
 
@@ -127,6 +132,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                 hotelPage = resources.next().adaptTo(Page.class);
                                 if (BooleanUtils.isTrue(hotel.getIsDeleted())) {
                                     replicat.replicate(session, ReplicationActionType.DEACTIVATE, hotelPage.getPath());
+                                    LOGGER.debug("Desactivation of hotel  {} ", hotel);
                                 }
                             } else {
                                 Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId()
@@ -158,8 +164,9 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                                                 .getFormatWithoutSpecialCharcters(hotel.getHotelName())),
                                                 TemplateConstants.PATH_HOTEL,
                                                 StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                        
+                                        LOGGER.debug("create hotel  {} with ID {}", hotel.getHotelName(), hotel.getHotelId());
 
-                                        LOGGER.debug("Creating hotel {}", hotel.getHotelName());
                                     } else {
                                         LOGGER.debug("No city found with id {}", cityId);
                                     }
@@ -177,11 +184,14 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                                 hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
                                 succesNumber = succesNumber + 1;
                                 j++;
+                                LOGGER.debug("update hotel  {} with ID {}", hotel.getHotelName(), hotel.getHotelId());
                                 try {
                                     session.save();
                                     replicat.replicate(session, ReplicationActionType.ACTIVATE,
                                             hotelPage.getPath());
+                                    LOGGER.debug("replicate hotel  {} with ID {}", hotel.getHotelName(), hotel.getHotelId());
                                 } catch (RepositoryException e) {
+                                	  LOGGER.debug("replicatn ERROR, hotel  {} with ID {}", hotel.getHotelName(), hotel.getHotelId());
                                     session.refresh(true);
                                 }
                             }

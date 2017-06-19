@@ -33,6 +33,7 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.services.ShoreExcursionsUpdateImporter;
+import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
@@ -61,6 +62,9 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 
 	@Reference
 	private Replicator replicat;
+	
+    @Reference
+    private ApiCallService apiCallService;
 
 	@Override
 	public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
@@ -88,7 +92,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 				pageSize = apiConfig.getPageSize();
 			}
 
-			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
+//			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shorexUrl"));
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			Session session = resourceResolver.adaptTo(Session.class);
@@ -105,14 +109,14 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 				currentDate = formatter.format(date.getTime()).toString();
 
 				ShorexesApi shorexesApi = new ShorexesApi();
-				shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//				shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 				List<Shorex77> shorexes;
 				int i = 1;
 
 				do {
-					shorexes = shorexesApi.shorexesGetChanges(currentDate, i, pageSize, null);
-
+//					shorexes = shorexesApi.shorexesGetChanges(currentDate, i, pageSize, null);
+					shorexes = apiCallService.getShorexUpdate(currentDate, i, pageSize, shorexesApi);
 					int j = 0;
 
 					for (Shorex77 shorex : shorexes) {
@@ -130,6 +134,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 								if (BooleanUtils.isTrue(shorex.getIsDeleted())) {
 									replicat.replicate(session, ReplicationActionType.DEACTIVATE,
 											excursionPage.getPath());
+									LOGGER.debug("Desactivation of shorex  {} ", shorex);
 								}
 								LOGGER.debug("Shorex page {} with ID {} already exists", shorex.getShorexName(),
 										shorex.getShorexId());
@@ -168,7 +173,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 	                                            StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()),
 	                                            false);
 
-										LOGGER.debug("Creating excursion {}", shorex.getShorexCod());
+										LOGGER.debug("Desactivation of shorex  {} ", shorex.getShorexId());
 									} else {
 										LOGGER.debug("No city found with id {}", cityId);
 									}
@@ -194,8 +199,10 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 										session.save();
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												excursionPage.getPath());
+										LOGGER.debug("Replication of shorex  {} ", shorex.getShorexId());
 									} catch (RepositoryException e) {
 										session.refresh(true);
+										LOGGER.debug("Replication Error of shorex  {} ", shorex.getShorexId());
 									}
 								}
 
@@ -212,7 +219,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 							}
 						} catch (Exception e) {
 							errorNumber = errorNumber + 1;
-							LOGGER.debug("shorex update error, number of faulures :", errorNumber);
+							LOGGER.debug("shorex update error, number of faulures :", +errorNumber);
 							j++;
 						}
 					}

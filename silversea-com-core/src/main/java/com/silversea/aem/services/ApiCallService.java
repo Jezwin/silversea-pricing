@@ -6,15 +6,22 @@ import java.util.List;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.api.CitiesApi;
+import io.swagger.client.api.HotelsApi;
+import io.swagger.client.api.LandsApi;
+import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
 import io.swagger.client.model.City;
+import io.swagger.client.model.City77;
 import io.swagger.client.model.Feature;
+import io.swagger.client.model.Hotel77;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
+import io.swagger.client.model.Land77;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
+import io.swagger.client.model.Shorex77;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.SpecialOffer;
 import io.swagger.client.model.SpecialVoyage;
@@ -51,6 +58,14 @@ public interface ApiCallService {
     List<SpecialOffer> getExclusiveOffers(int index, int pageSize, SpecialOffersApi spetialOffersApi)throws IOException, ApiException;
     
     List<City> getCities(int index, int pageSize, CitiesApi citiesApi)throws IOException, ApiException;
+    
+    List<City77> getCitiesUpdates(String currentDate,int index, int pageSize, CitiesApi citiesApi)throws IOException, ApiException;
+    
+    List<Hotel77> getHotelsUpdate(String currentDate,int index, int pageSize, HotelsApi hotelsApi)throws IOException, ApiException;
+    
+    List<Shorex77> getShorexUpdate(String currentDate,int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
+    
+    List<Land77> getLandProgramUpdate(String currentDate,int index, int pageSize, LandsApi landsApi)throws IOException, ApiException;
     
     List<Feature> getFeatures()throws IOException, ApiException;
 
