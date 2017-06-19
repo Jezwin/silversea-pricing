@@ -31,7 +31,8 @@ $(function() {
 
         $imageBannerList.each(function() {
             var $image = $(this);
-            $image.closest('div[class*=__image]').css('background-image', 'url(' + $image.prop("currentSrc") + ')');
+            var src = $image.prop("currentSrc") || $image.prop("src");
+            $image.closest('div[class*=__image]').css('background-image', 'url(' + src + ')');
             $image.css('visibility', 'hidden');
         });
     }
