@@ -104,7 +104,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 //										StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName())),
 //								TemplateConstants.PATH_SHIP,
 //								StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
-						shipPages = ImporterUtils.createPagesLanguageCopies(pageManager, resourceResolver, shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
+						shipPages = ImporterUtils.createPagesALLLanguageCopies(pageManager, resourceResolver, shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
 					}
 
 //					if (shipPage != null) {

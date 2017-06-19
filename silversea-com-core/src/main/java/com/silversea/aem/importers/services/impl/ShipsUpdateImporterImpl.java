@@ -119,7 +119,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 						// TemplateConstants.PATH_SHIP,
 						// StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()),
 						// false);
-						shipPages = ImporterUtils.createPagesLanguageCopies(pageManager, resourceResolver,
+						shipPages = ImporterUtils.createPagesALLLanguageCopies(pageManager, resourceResolver,
 								shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
 						LOGGER.debug("create ships with {} ", ship.getShipId());
 					}

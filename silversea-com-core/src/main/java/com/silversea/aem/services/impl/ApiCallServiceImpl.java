@@ -23,6 +23,7 @@ import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
+import io.swagger.client.api.CitiesApi;
 import io.swagger.client.api.HotelsApi;
 import io.swagger.client.api.LandsApi;
 import io.swagger.client.api.PricesApi;
@@ -33,6 +34,7 @@ import io.swagger.client.api.SpecialVoyagesApi;
 import io.swagger.client.api.VoyageSpecialOffersApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
+import io.swagger.client.model.City;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.LandItinerary;
@@ -155,4 +157,10 @@ public class ApiCallServiceImpl  implements ApiCallService {
             LOGGER.error("Api call service -- Api client is null");
         }
     }
+
+	@Override
+	public List<City> getCities(int index, int pageSize, CitiesApi citiesApi) throws IOException, ApiException {
+		configureClient(citiesApi.getApiClient());
+		return citiesApi.citiesGet(null, null, index, pageSize, null, null, null);
+	}
 }

@@ -226,6 +226,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 					response.getWriter().write("TravelAgencies import Done<br/>");
 					watch.stop();
 					time = watch.toString();
+					LOGGER.debug("total time to execute import off travel agency : {}",time);
 					response.getWriter().write("Time :<br/>" + time);
 					response.getWriter().write("<br/> ---------------- <br />");
 					response.getWriter().flush();

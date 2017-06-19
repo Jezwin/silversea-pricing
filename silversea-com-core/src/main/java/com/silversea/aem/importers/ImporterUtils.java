@@ -23,6 +23,9 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -118,8 +121,6 @@ public class ImporterUtils {
 
 		return resources;
 	}
-	
-	
 
 	/**
 	 * Create a new page or adapt it from a resource
@@ -250,6 +251,20 @@ public class ImporterUtils {
 		}
 	}
 
+	public static Calendar convertToCalendar(DateTime dateTime) {
+		Calendar calendar = null;
+		if (dateTime != null) {
+			calendar = dateTime.toGregorianCalendar();
+		}
+		return calendar;
+	}
+
+	/**
+	 * 
+	 * @param resources
+	 * @return
+	 */
+
 	public static List<Page> findPagesById(Iterator<Resource> resources) {
 		List<Page> pages = new ArrayList<Page>();
 		while (resources != null && resources.hasNext()) {
@@ -259,7 +274,18 @@ public class ImporterUtils {
 		return pages;
 	}
 
-	public static List<Page> createPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
+	/**
+	 * create page under all local language
+	 * 
+	 * @param pageManager
+	 * @param resourceResolver
+	 * @param rootPage
+	 * @param local
+	 * @param templatePath
+	 * @param pageName
+	 * @return
+	 */
+	public static List<Page> createPagesALLLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
 			Page rootPage, List<String> local, String templatePath, String pageName) {
 		Page page = null;
 		String root;
@@ -282,6 +308,46 @@ public class ImporterUtils {
 			allPages.add(page);
 		}
 		return allPages;
+	}
+
+	/**
+	 * Create page under a given local language
+	 * 
+	 * @param pageManager
+	 * @param resourceResolver
+	 * @param replicat
+	 * @param session
+	 * @param rootPage
+	 * @param local
+	 * @param templatePath
+	 * @param pageName
+	 * @return
+	 */
+	public static Page createPageLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
+			Replicator replicat, Session session, Page rootPage, String local, String templatePath, String pageName) {
+		Page page = null;
+		String root;
+		Page rootPageLocal;
+		root = StringUtils.replace(rootPage.getPath(), "/en/", "/" + local + "/");
+		rootPageLocal = resourceResolver.getResource(root).adaptTo(Page.class);
+		try {
+			page = pageManager.create(root,
+					JcrUtil.createValidChildName(rootPageLocal.adaptTo(Node.class),
+							StringHelper.getFormatWithoutSpecialCharcters(pageName)),
+					templatePath, StringHelper.getFormatWithoutSpecialCharcters(pageName), false);
+			LOGGER.debug("creation of page : {}", page.getPath());
+		} catch (WCMException | RepositoryException e) {
+			LOGGER.debug("Error durnig creation page : {}", pageName);
+		}
+		if (page != null) {
+			try {
+				session.save();
+				replicat.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
+			} catch (ReplicationException | RepositoryException e) {
+				LOGGER.debug("Error durnig activation page : {}", pageName);
+			}
+		}
+		return page;
 	}
 
 	public static Page findPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
@@ -307,12 +373,47 @@ public class ImporterUtils {
 
 	}
 
-	public static Calendar convertToCalendar(DateTime dateTime) {
-		Calendar calendar = null;
-		if (dateTime != null) {
-			calendar = dateTime.toGregorianCalendar();
-		}
-		return calendar;
+	/**
+	 * 
+	 * @param enPage
+	 * @param local
+	 * @return
+	 */
+	public static Page getPagePathByLocale(ResourceResolver resourceResolver, Page enPage, String local) {
+		return resourceResolver.getResource(StringUtils.replace(enPage.getPath(), "/en/", "/" + local + "/")).adaptTo(Page.class);
 	}
+
+	// public static void createJCRName(Page path,Template template, PageManager
+	// pageManager,Replicator replicat, String jcrName, String local){
+	//
+	// Page portFirstLetterPage;
+	// if (citiesRootPage.hasChild(portFirstLetterName)) {
+	// portFirstLetterPage = pageManager
+	// .getPage(ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
+	//
+	// LOGGER.debug("Page {} already exists", portFirstLetterName);
+	// } else {
+	// portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
+	// portFirstLetterName,
+	// TemplateConstants.PATH_PAGE_PORT, portFirstLetter, false);
+	// LOGGER.debug("Creating page {}", portFirstLetterName);
+	// }
+	//
+	// session.save();
+	// if (replicat.getReplicationStatus(session,
+	// citiesRootPage.getPath()).isActivated()) {
+	// try {
+	// if (!replicat.getReplicationStatus(session,
+	// portFirstLetterPage.getPath())
+	// .isActivated()) {
+	// replicat.replicate(session, ReplicationActionType.ACTIVATE,
+	// portFirstLetterPage.getPath());
+	// }
+	// } catch (ReplicationException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+	// }
 
 }
