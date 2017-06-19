@@ -22,7 +22,8 @@ public class CountryHelper extends WCMUsePojo {
         localizedPhone = geolocationService.getLocalizedPhone(getRequest());
         clickableLocalizedPhone = localizedPhone;
         if (!StringUtils.isEmpty(localizedPhone)) {
-            clickableLocalizedPhone = localizedPhone.replaceAll("\\s", "").replaceAll("-", "");
+            // Remove any non-digit
+            clickableLocalizedPhone = localizedPhone.replaceAll("\\D", "");
         }
     }
 
