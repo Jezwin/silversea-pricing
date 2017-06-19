@@ -364,9 +364,9 @@ public class ImporterUtils {
 	public static List<String> finAllLanguageCopies(ResourceResolver resourceResolver) {
 		Page page;
 		List<String> locales = new ArrayList<String>();
-		Iterator<Resource> listLocal = resourceResolver.getResource(ImportersConstants.SILVERSEA_ROOT).listChildren();
+		Iterator<Page> listLocal = resourceResolver.getResource(ImportersConstants.SILVERSEA_ROOT).adaptTo(Page.class).listChildren();
 		while (listLocal != null && listLocal.hasNext()) {
-			page = listLocal.next().adaptTo(Page.class);
+			page = listLocal.next();
 			locales.add(page.getName());
 		}
 		return locales;
