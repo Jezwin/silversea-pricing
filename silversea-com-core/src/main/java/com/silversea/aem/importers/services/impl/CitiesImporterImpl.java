@@ -153,7 +153,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								}
 
 								Iterator<Resource> resources = resourceResolver.findResources(
-										"//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]",
+										"/jcr:root/content/silversea-com/"+loc+"//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId() + "\"]",
 										"xpath");
 
 								Page portPage;
