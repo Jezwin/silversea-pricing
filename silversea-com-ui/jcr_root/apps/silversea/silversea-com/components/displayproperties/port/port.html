@@ -3,11 +3,12 @@
 <div class="o-property-display"
      data-sly-test="${cpt.displayProperty}"
      data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-     data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=pageProperties.assetSelectionReference}" />
+     data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=pageProperties.assetSelectionReference}"
+     data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
 
     <div class="o-section double-column">
-        <sly data-sly-test="${setImage.renditionList[0] || pageProperties.assetSelectionReference}"
-             data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path || pageProperties.assetSelectionReference}" />
+        <sly data-sly-test="${setImage.renditionList[0] || pageProperties.assetSelectionReference || hpage.thumbnail}"
+             data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path || pageProperties.assetSelectionReference || hpage.thumbnail}" />
 
         ${cpt.displayProperty @ context='html'}
     </div>
