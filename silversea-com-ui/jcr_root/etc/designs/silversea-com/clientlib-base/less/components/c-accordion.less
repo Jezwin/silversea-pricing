@@ -237,6 +237,10 @@
             &--img {
                 width: 135px;
 
+                @media screen and (max-width: @screen-sm) {
+                    display: table-cell;
+                }
+
                 &_block {
                     width: 100%;
                     min-height: 80px;
@@ -265,6 +269,7 @@
                             -webkit-transition: inherit;
                             transition: inherit;
                             -webkit-transform: inherit;
+                            height: 86px;
                         }
                     }
                 }
@@ -300,13 +305,29 @@
                     padding-bottom: 20px;
 
                     @media screen and (max-width: @screen-sm) {
-                        width: calc(100% - 145px);
+                        display: table;
+                        width: 100%;
+                        /*width: calc(100% - 145px);
                         display: table-row;
                         vertical-align: middle;
+                        text-align: left;*/
+                    }
+
+                    .c-accordion__action {
+
+                        @media screen and (max-width: @screen-sm) {
+                            display: table-cell;
+                            padding: 0;
+                            text-align: right;
+                        }
                     }
 
                     .c-accordion__title {
                         width: 100%;
+
+                        @media screen and (max-width: @screen-sm) {
+                            display: table-cell;
+                        }
                     }
                 }
             }
@@ -328,11 +349,23 @@
                 @media screen and (max-width: @screen-sm) {
                     width: 100%;
                 }
+
+                li {
+
+                    @media screen and (max-width: @screen-sm) {
+                        text-align: left;
+                    }
+                }
             }
         }
 
         .c-accordion__action {
             vertical-align: top;
+            padding: 0;
+
+            @media screen and (max-width: @screen-sm) {
+                text-align: left;
+            }
         }
 
         .c-accordion__body {

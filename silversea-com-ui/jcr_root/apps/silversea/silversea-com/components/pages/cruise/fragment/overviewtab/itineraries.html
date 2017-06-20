@@ -21,7 +21,7 @@
                     <div class="c-accordion__title c-accordion__title--img">
                         <div class="c-accordion__title--img_block">
                             <sly data-sly-test.imagePrefix="${'/is/image/'}" />
-                            <div data-sly-test="${item.thumbnail}" style="background-image: url(${item.thumbnail @ prependPath=imagePrefix, context='uri'})"></div>
+                            <div data-sly-test="${item.thumbnail}" style="background-image: url(${item.thumbnail @ prependPath=imagePrefix, context='uri'}?wid=468&fit=hfit)"></div>
                         </div>
                     </div>
 
@@ -46,8 +46,8 @@
                             </div>
                         </div>
                         <div class="c-accordion__title--body c-accordion__header--unclickable">
-                                ${item.description @ context='html'}
-
+                            ${item.description @ context='html'}
+        
                             <a data-sly-test="${item.excursions.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
