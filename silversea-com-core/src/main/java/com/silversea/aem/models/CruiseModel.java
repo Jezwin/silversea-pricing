@@ -159,7 +159,7 @@ public class CruiseModel extends AbstractModel {
         exclusiveFareAdditions = getAllExclusiveFareAdditions();
         lowestPrice = initLowestPrice(geolocation.getGeoMarketCode(),page);
         mapOverHead = initMapHover();
-        suites = initSuites(page,geolocation.getGeoMarketCode(),resourceResolver);
+        suites = initSuites(page,geolocation.getGeoMarketCode(),pageManager);
     }
 
     private List<ExclusiveOfferModel> initExclusiveOffersByGeoLocation(String geoMarketCode, String country) {
@@ -170,16 +170,15 @@ public class CruiseModel extends AbstractModel {
         if (exclusiveOfferUrls != null) {
             Arrays.asList(exclusiveOfferUrls).forEach((item) -> {
                 if (!StringUtils.isEmpty(item)) {
-                    Resource resource = resourceResolver.resolve(item);
-                    if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
-                        Page pa = resource.adaptTo(Page.class);
-                        ExclusiveOfferModel exclusiveOfferModel = pa.adaptTo(ExclusiveOfferModel.class);
+                    Page page = pageManager.getPage(item);
+                    if (page != null) {
+                        ExclusiveOfferModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferModel.class);
                         if (exclusiveOfferModel.isValid(geoMarketCode)) {
                             exclusiveOfferModel.initDescription(country, destination);
                             exclusiveOffers.add(exclusiveOfferModel);
                         }
                     } else {
-                        LOGGER.warn("Page reference {} not found", item);
+                        LOGGER.warn("Port reference {} not found", item);
                     }
                 }
             });
@@ -199,10 +198,9 @@ public class CruiseModel extends AbstractModel {
                     Node node = itinerariesNodes.nextNode();
                     String path = Objects.toString(node.getProperty("portReference").getValue());
                     if (!StringUtils.isEmpty(path)) {
-                        Resource resource = resourceResolver.resolve(path);
-                        if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
-                            Page pa = resource.adaptTo(Page.class);
-                            ItineraryModel itineraryModel = pa.adaptTo(ItineraryModel.class);
+                        Page page = pageManager.getPage(path);
+                        if (page != null) {
+                            ItineraryModel itineraryModel = page.adaptTo(ItineraryModel.class);
                             itineraryModel.init(node);
                             iteniraries.add(itineraryModel);
                         } else {

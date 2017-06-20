@@ -11,7 +11,6 @@ import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,24 +25,20 @@ public abstract class AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(AbstractModel.class);
 
-    protected Page getPageReference(Page page, String reference, ResourceResolver resourceResolver) {
+    protected Page getPageReference(Page page, String reference, PageManager pageManager) {
         Page pageReference = null;
         String path = page.getProperties().get(reference, String.class);
-        Resource resource = resourceResolver.resolve(path);
-        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)  ){
-            pageReference = resource.adaptTo(Page.class);
+        Page pa = getPage(path, pageManager);
+        if(pa != null){
+            pageReference = pa.adaptTo(Page.class);
         }
-        else{
-            LOGGER.warn("Page reference {} not found",path);
-        } 
-
         return pageReference;
     }
 
-    protected String initPropertyWithFallBack(Page page, String reference, String property, String referenceProperty,ResourceResolver resourceResolver) {
+    protected String initPropertyWithFallBack(Page page, String reference, String property, String referenceProperty,PageManager pageManger) {
         String value = property;
         if (StringUtils.isEmpty(property)) {
-            Page pageRef = getPageReference(page,reference,resourceResolver);
+            Page pageRef = getPageReference(page,reference,pageManger);
             if (pageRef != null) {
                 value = pageRef.getProperties().get(referenceProperty, String.class);
             }
@@ -129,7 +124,7 @@ public abstract class AbstractModel {
         return page;
     }
     
-    protected List<SuiteModel> initSuites(Page page,String geoMarketCode,ResourceResolver resourceResolver) {
+    protected List<SuiteModel> initSuites(Page page,String geoMarketCode,PageManager pageManager) {
         List<SuiteModel> suiteList = new ArrayList<SuiteModel>();
         Node cruiseNode = page.adaptTo(Node.class);
         Node suitesNode;
@@ -141,16 +136,15 @@ public abstract class AbstractModel {
                     Node node = suites.nextNode();
                     String path = Objects.toString(node.getProperty("suiteReference").getValue());
                     if (!StringUtils.isEmpty(path)) {
-                        Resource resource = resourceResolver.resolve(path);
-                        if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
-                            Page pa = resource.adaptTo(Page.class);
-                            SuiteModel suiteModel = pa.adaptTo(SuiteModel.class);
+                        Page pageReference = pageManager.getPage(path);
+                        if (pageReference != null) {
+                            SuiteModel suiteModel = pageReference.adaptTo(SuiteModel.class);
                             Node lowestPriceNode = node.getNode("lowest-prices");
                             suiteModel.initLowestPrice(lowestPriceNode, geoMarketCode);
                             suiteModel.initVarirations(node, geoMarketCode);
                             suiteList.add(suiteModel);
                         } else {
-                            LOGGER.warn("Page reference {} not found", path);
+                            LOGGER.warn("Suite reference {} not found", path);
                         }
                     }
                 }
@@ -169,7 +163,7 @@ public abstract class AbstractModel {
             if (page != null) {
                 shipModel = page.adaptTo(ShipModel.class);
             } else {
-                LOGGER.warn("Page reference {} not found", path);
+                LOGGER.warn("Ship reference {} not found", path);
             }
         }
         return shipModel;

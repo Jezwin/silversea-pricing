@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 
 @Model(adaptables = Page.class)
 public class PublicAreaModel extends AbstractModel{
@@ -39,6 +40,7 @@ public class PublicAreaModel extends AbstractModel{
     private String assetSelectionReference;
 
     private ResourceResolver resourceResolver;
+    private PageManager pageManager;
 
     private String thumbnail;
 
@@ -46,10 +48,11 @@ public class PublicAreaModel extends AbstractModel{
     private void init() {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
-            title = initPropertyWithFallBack(page,"publicAreaReference", title, "title",resourceResolver);
-            longDescription = initPropertyWithFallBack(page,"publicAreaReference", longDescription, "longDescription",resourceResolver);
+            pageManager = resourceResolver.adaptTo(PageManager.class);
+            title = initPropertyWithFallBack(page,"publicAreaReference", title, "title",pageManager);
+            longDescription = initPropertyWithFallBack(page,"publicAreaReference", longDescription, "longDescription",pageManager);
             assetSelectionReference = initPropertyWithFallBack(page,"publicAreaReference", assetSelectionReference,
-                    "assetSelectionReference",resourceResolver);
+                    "assetSelectionReference",pageManager);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
         }catch(RuntimeException e){
             LOGGER.error("Error while initializing model {}",e);

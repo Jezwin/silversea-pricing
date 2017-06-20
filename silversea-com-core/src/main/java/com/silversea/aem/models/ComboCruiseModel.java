@@ -52,7 +52,7 @@ public class ComboCruiseModel extends AbstractModel {
     public void initByGeoLocation(GeoLocation geoLocation) {
         lowestPrice = initLowestPrice(geoLocation.getGeoMarketCode(),page);
         initCruises(geoLocation);
-        suites = initSuites(page,geoLocation.getGeoMarketCode(),resourceResolver);
+        suites = initSuites(page,geoLocation.getGeoMarketCode(),pageManager);
     }
 
     private void initCruises(GeoLocation geoLocation){
@@ -62,10 +62,13 @@ public class ComboCruiseModel extends AbstractModel {
             children.forEachRemaining(segment ->{
                 String cruiseReference = segment.getProperties().get("cruiseReference",String.class);
                 Page cruisePage = getPage(cruiseReference,pageManager);
-                if(cruisePage!=null){
+                if(cruisePage != null){
                     CruiseModel cruiseModel = cruisePage.adaptTo(CruiseModel.class);
                     cruiseModel.initByGeoLocation(geoLocation);
                     cruises.add(cruiseModel);
+                }
+                else{
+                    LOGGER.debug("Cruise reference {} not found",cruiseReference); 
                 }
             });
         }

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 
 /**
  * Created by mbennabi on 17/02/2017.
@@ -72,10 +73,13 @@ public class ShipModel {
 
     private List<SuiteModel> suites;
 
+    private PageManager pageManager; 
+
     @PostConstruct
     private void init() {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
+            pageManager = resourceResolver.adaptTo(PageManager.class);
             dinings = initModels(DiningModel.class,"dining");
             publicAreas = initModels(PublicAreaModel.class,"public-areas");
             suites = initModels(SuiteModel.class,"suites");
@@ -95,17 +99,14 @@ public class ShipModel {
                 list.add(item.adaptTo(modelClass));
             });  
         }
-       
+
         return list;
     }
     private Iterator<Page> getPages(String root) {
         Iterator<Page> pages = null;
-        Resource resource = resourceResolver.resolve(root);
-        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)){
-            Page pa = resource.adaptTo(Page.class);
-            if (pa != null) {
-                pages = pa.listChildren();
-            }
+        Page page = pageManager.getPage(root);
+        if(page != null){
+            pages = page.listChildren();
         }
         else{
             LOGGER.warn("Page reference {} not found",root);

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 
 @Model(adaptables = Page.class)
 public class DiningModel extends AbstractModel{
@@ -37,18 +38,19 @@ public class DiningModel extends AbstractModel{
     @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
     @Optional
     private String assetSelectionReference;
-
-    private ResourceResolver resourceResolver;
-
     private String thumbnail;
+    
+    private ResourceResolver resourceResolver;
+    private PageManager pageManager;
 
     @PostConstruct
     private void init() {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
-            title = initPropertyWithFallBack(page,"diningReference", title, "title",resourceResolver);
-            longDescription = initPropertyWithFallBack(page,"diningReference", longDescription, "longDescription",resourceResolver);
-            assetSelectionReference = initPropertyWithFallBack(page,"diningReference", assetSelectionReference, "assetSelectionReference",resourceResolver);
+            pageManager = resourceResolver.adaptTo(PageManager.class);
+            title = initPropertyWithFallBack(page,"diningReference", title, "title",pageManager);
+            longDescription = initPropertyWithFallBack(page,"diningReference", longDescription, "longDescription",pageManager);
+            assetSelectionReference = initPropertyWithFallBack(page,"diningReference", assetSelectionReference, "assetSelectionReference",pageManager);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
         }catch(RuntimeException e){
             LOGGER.error("Error while initializing model {}",e);
