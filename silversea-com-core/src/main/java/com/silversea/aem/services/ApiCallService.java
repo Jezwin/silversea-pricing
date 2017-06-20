@@ -17,12 +17,14 @@ import io.swagger.client.model.Brochure;
 import io.swagger.client.model.City;
 import io.swagger.client.model.City77;
 import io.swagger.client.model.Feature;
+import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Hotel77;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.Land77;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
+import io.swagger.client.model.Shorex;
 import io.swagger.client.model.Shorex77;
 import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.SpecialOffer;
@@ -63,7 +65,11 @@ public interface ApiCallService {
     
     List<City77> getCitiesUpdates(String currentDate,int index, int pageSize, CitiesApi citiesApi)throws IOException, ApiException;
     
+    List<Hotel> getHotels(int index, int pageSize, HotelsApi hotelsApi)throws IOException, ApiException;
+    
     List<Hotel77> getHotelsUpdate(String currentDate,int index, int pageSize, HotelsApi hotelsApi)throws IOException, ApiException;
+    
+    List<Shorex> getShorex(int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
     
     List<Shorex77> getShorexUpdate(String currentDate,int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
     
