@@ -1,7 +1,7 @@
 $(function() {
     $(window).on('resize load', function() {
         var $col = $('.c-hero-banner__content');
-        var $row = $('.c-hero-banner__row');
+        var $row = $('.slick-active .c-hero-banner__row');
 
         if ($col.length > 0) {
             var offsetLeft = $row.offset().left;
