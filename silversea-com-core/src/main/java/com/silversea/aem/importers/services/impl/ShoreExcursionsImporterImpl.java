@@ -86,7 +86,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 			pageSize = apiConfig.getPageSize();
 		}
 
-		ShorexesApi shorexesApi = new ShorexesApi();
+//		ShorexesApi shorexesApi = new ShorexesApi();
 
 		try {
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
@@ -109,7 +109,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 					do {
 						// shorexes = shorexesApi.shorexesGet(null, i, pageSize,
 						// null);
-						shorexes = apiCallService.getShorex(i, pageSize, shorexesApi);
+						shorexes = apiCallService.getShorex(i, pageSize);
 
 						int j = 0;
 

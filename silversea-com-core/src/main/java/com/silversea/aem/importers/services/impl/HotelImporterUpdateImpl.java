@@ -96,7 +96,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Session session = resourceResolver.adaptTo(Session.class);
 
-            HotelsApi hotelsApi = new HotelsApi();
+//            HotelsApi hotelsApi = new HotelsApi();
 //            hotelsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
@@ -115,7 +115,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
 
                 do {
 //                    hotels = hotelsApi.hotelsGetChanges(currentDate, i, pageSize, null);
-                	hotels = apiCallService.getHotelsUpdate(currentDate, i, pageSize, hotelsApi);
+                	hotels = apiCallService.getHotelsUpdate(currentDate, i, pageSize);
 
                     int j = 0;
 

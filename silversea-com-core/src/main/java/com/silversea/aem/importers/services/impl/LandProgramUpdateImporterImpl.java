@@ -75,7 +75,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			Session session = resourceResolver.adaptTo(Session.class);
 
-			LandsApi landsApi = new LandsApi();
+//			LandsApi landsApi = new LandsApi();
 //			landsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
@@ -96,7 +96,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 
 //					lands = landsApi.landsGetChanges(currentDate, null, i, pageSize, null);
 					
-					lands = apiCallService.getLandProgramUpdate(currentDate, i, pageSize, landsApi);
+					lands = apiCallService.getLandProgramUpdate(currentDate, i, pageSize);
 
 					int j = 0;
 

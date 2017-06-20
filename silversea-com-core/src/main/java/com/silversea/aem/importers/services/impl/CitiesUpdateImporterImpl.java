@@ -111,7 +111,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 //				final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
 
-				CitiesApi citiesApi = new CitiesApi();
+//				CitiesApi citiesApi = new CitiesApi();
 //				citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 				List<City77> cities;
@@ -119,7 +119,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 				do {
 //					cities = citiesApi.citiesGetChanges(currentDate, i, pageSize, null, null, null);
-					cities = apiCallService.getCitiesUpdates(currentDate, i, pageSize, citiesApi);
+					cities = apiCallService.getCitiesUpdates(currentDate, i, pageSize);
 
 					int j = 0;
 

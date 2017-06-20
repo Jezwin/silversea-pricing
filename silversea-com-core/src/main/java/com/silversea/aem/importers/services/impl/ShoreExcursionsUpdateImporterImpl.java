@@ -108,7 +108,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 			if (date != null) {
 				currentDate = formatter.format(date.getTime()).toString();
 
-				ShorexesApi shorexesApi = new ShorexesApi();
+//				ShorexesApi shorexesApi = new ShorexesApi();
 //				shorexesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 				List<Shorex77> shorexes;
@@ -116,7 +116,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 
 				do {
 //					shorexes = shorexesApi.shorexesGetChanges(currentDate, i, pageSize, null);
-					shorexes = apiCallService.getShorexUpdate(currentDate, i, pageSize, shorexesApi);
+					shorexes = apiCallService.getShorexUpdate(currentDate, i, pageSize);
 					int j = 0;
 
 					for (Shorex77 shorex : shorexes) {

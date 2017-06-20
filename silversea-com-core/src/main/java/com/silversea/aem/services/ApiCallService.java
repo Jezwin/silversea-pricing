@@ -61,21 +61,21 @@ public interface ApiCallService {
     
     List<SpecialOffer> getExclusiveOffers(int index, int pageSize, SpecialOffersApi spetialOffersApi)throws IOException, ApiException;
     
-    List<City> getCities(int index, int pageSize, CitiesApi citiesApi)throws IOException, ApiException;
+    List<City> getCities(int index, int pageSize)throws IOException, ApiException;
     
-    List<City77> getCitiesUpdates(String currentDate,int index, int pageSize, CitiesApi citiesApi)throws IOException, ApiException;
+    List<City77> getCitiesUpdates(String currentDate,int index, int pageSize)throws IOException, ApiException;
     
-    List<Hotel> getHotels(int index, int pageSize, HotelsApi hotelsApi)throws IOException, ApiException;
+    List<Hotel> getHotels(int index, int pageSize)throws IOException, ApiException;
     
-    List<Hotel77> getHotelsUpdate(String currentDate,int index, int pageSize, HotelsApi hotelsApi)throws IOException, ApiException;
+    List<Hotel77> getHotelsUpdate(String currentDate,int index, int pageSize)throws IOException, ApiException;
     
-    List<Shorex> getShorex(int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
+    List<Shorex> getShorex(int index, int pageSize)throws IOException, ApiException;
     
-    List<Shorex77> getShorexUpdate(String currentDate,int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
+    List<Shorex77> getShorexUpdate(String currentDate,int index, int pageSize)throws IOException, ApiException;
     
-    List<Land77> getLandProgramUpdate(String currentDate,int index, int pageSize, LandsApi landsApi)throws IOException, ApiException;
+    List<Land> getLandProgram(int index, int pageSize)throws IOException, ApiException;
     
-    List<Land> getLandProgram(int index, int pageSize, LandsApi landsApi)throws IOException, ApiException;
+    List<Land77> getLandProgramUpdate(String currentDate,int index, int pageSize)throws IOException, ApiException;
     
     List<Brochure> getBrochures(int index, int pageSize, BrochuresApi brochuresApi)throws IOException, ApiException;
     

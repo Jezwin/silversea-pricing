@@ -91,7 +91,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
 		// final String authorizationHeader =
 		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
-		CitiesApi citiesApi = new CitiesApi();
+//		CitiesApi citiesApi = new CitiesApi();
 		// citiesApi.getApiClient().addDefaultHeader("Authorization",
 		// authorizationHeader);
 		try {
@@ -114,7 +114,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 					int i = 1;
 
 					do {
-						cities = apiCallService.getCities(i, pageSize, citiesApi);
+						cities = apiCallService.getCities(i, pageSize);
 						int j = 0;
 						for (City city : cities) {
 							try {

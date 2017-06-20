@@ -86,7 +86,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 			pageSize = apiConfig.getPageSize();
 		}
 
-		LandsApi landsApi = new LandsApi();
+//		LandsApi landsApi = new LandsApi();
 
 		try {
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
@@ -110,7 +110,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
 					do {
 
-						lands = apiCallService.getLandProgram(i, pageSize, landsApi);
+						lands = apiCallService.getLandProgram(i, pageSize);
 
 						int j = 0;
 

@@ -86,7 +86,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 			pageSize = apiConfig.getPageSize();
 		}
 		try {
-			HotelsApi hotelsApi = new HotelsApi();
+//			HotelsApi hotelsApi = new HotelsApi();
 
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
@@ -107,7 +107,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 					List<Hotel> hotels;
 
 					do {
-						hotels = apiCallService.getHotels(i, pageSize, hotelsApi);
+						hotels = apiCallService.getHotels(i, pageSize);
 
 						int j = 0;
 
