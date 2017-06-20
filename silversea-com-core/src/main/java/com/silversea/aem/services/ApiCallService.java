@@ -11,7 +11,6 @@ import io.swagger.client.api.HotelsApi;
 import io.swagger.client.api.LandsApi;
 import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.SpecialOffersApi;
-import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Agency;
 import io.swagger.client.model.Brochure;
 import io.swagger.client.model.City;
@@ -50,9 +49,9 @@ public interface ApiCallService {
 
     List<HotelItinerary> getHotels(Itinerary itinerary) throws IOException, ApiException;
     
-    List<Voyage77> getChangedVoyages(int index,VoyagesApi voyageApi,String lastModificationDate)throws IOException, ApiException;
+    List<Voyage77> getChangedVoyages(int index, String lastModificationDate)throws IOException, ApiException;
 
-    List<Voyage> getVoyages(int index,VoyagesApi voyageApi)throws IOException, ApiException;
+    List<Voyage> getVoyages(int index)throws IOException, ApiException;
     
     List<SpecialVoyage> getSpecialVoyages()throws IOException, ApiException;
     

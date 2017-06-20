@@ -34,7 +34,6 @@ import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyageSpecialOffer;
@@ -86,13 +85,12 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             voyagePricesComplete = new ArrayList<VoyagePriceComplete>();
             List<Voyage77> voyages;
             int index = 1;
-            VoyagesApi voyageApi = new VoyagesApi();
             Page destinationPage = pageManager
                     .getPage(apiConfig.apiRootPath(ImportersConstants.CRUISES_DESTINATIONS_URL_KEY));
             String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage);
             LOGGER.debug("Cruise importer -- Start import data");
             do {
-                voyages = apiCallService.getChangedVoyages(index,voyageApi, lastModificationDate);
+                voyages = apiCallService.getChangedVoyages(index, lastModificationDate);
                 processData(voyages); 
                 index++;
             } while (voyages!=null && !voyages.isEmpty());

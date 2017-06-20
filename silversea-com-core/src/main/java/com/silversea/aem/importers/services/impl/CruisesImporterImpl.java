@@ -87,10 +87,9 @@ public class CruisesImporterImpl implements CruisesImporter {
             voyagePricesComplete = new ArrayList<VoyagePriceComplete>();
             List<Voyage> voyages;
             int index = 1;            
-            VoyagesApi voyageApi = new VoyagesApi();
-          
+            
             do {
-                voyages = apiCallService.getVoyages(index,voyageApi);
+                voyages = apiCallService.getVoyages(index);
                 processData(voyages); 
                 index++;
             } while (voyages!=null &&!voyages.isEmpty());
