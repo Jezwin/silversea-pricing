@@ -123,10 +123,13 @@ public class ItineraryModel {
                             callback(model, node, callBack, Resource.class);
                             list.add(model);
                         }
+                        else{
+                            LOGGER.debug("Page reference {} not found",path);
+                        }
                     }
                     else{
-                        LOGGER.debug("Page reference {} not found",reference);
-                    } 
+                        LOGGER.debug("Property  {} is empty",reference);
+                    }
                 }
             }
         } 

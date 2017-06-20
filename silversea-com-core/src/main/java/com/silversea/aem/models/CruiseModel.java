@@ -178,7 +178,7 @@ public class CruiseModel extends AbstractModel {
                             exclusiveOffers.add(exclusiveOfferModel);
                         }
                     } else {
-                        LOGGER.warn("Port reference {} not found", item);
+                        LOGGER.warn("Exclusive offer reference {} not found", item);
                     }
                 }
             });
@@ -198,13 +198,13 @@ public class CruiseModel extends AbstractModel {
                     Node node = itinerariesNodes.nextNode();
                     String path = Objects.toString(node.getProperty("portReference").getValue());
                     if (!StringUtils.isEmpty(path)) {
-                        Page page = pageManager.getPage(path);
-                        if (page != null) {
-                            ItineraryModel itineraryModel = page.adaptTo(ItineraryModel.class);
+                        Page pageReference = pageManager.getPage(path);
+                        if (pageReference != null) {
+                            ItineraryModel itineraryModel = pageReference.adaptTo(ItineraryModel.class);
                             itineraryModel.init(node);
                             iteniraries.add(itineraryModel);
                         } else {
-                            LOGGER.warn("Page reference {} not found", path);
+                            LOGGER.warn("Port reference {} not found", path);
                         }
                     }
                 }
