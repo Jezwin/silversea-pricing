@@ -119,7 +119,9 @@ public class ApiCallServiceImpl  implements ApiCallService {
     }
 
     public List<Voyage> getVoyages(int index,VoyagesApi voyageApi)throws IOException, ApiException{
-        configureClient(voyageApi.getApiClient());
+        if(index == 1){
+            configureClient(voyageApi.getApiClient());
+        }
         return voyageApi.voyagesGet(null, null, null, null, null, index, PER_PAGE, null, null);
     }
 
@@ -213,14 +215,6 @@ public class ApiCallServiceImpl  implements ApiCallService {
 	}
 	
 	
-	
-	
-	
-	/**
-	 * 
-	 * @param apiClient
-	 */
-	
     public void configureClient(ApiClient apiClient){
         if(apiClient !=null){
             final DigestAuthenticator authenticator = new DigestAuthenticator(new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
@@ -234,8 +228,4 @@ public class ApiCallServiceImpl  implements ApiCallService {
             LOGGER.error("Api call service -- Api client is null");
         }
     }
-
-	
-
-
 }
