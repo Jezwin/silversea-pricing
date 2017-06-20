@@ -268,9 +268,41 @@
             display: block !important;
             height: 0;
             overflow: hidden;
- 
+
          &.in {
             height: auto !important;
          }
+    }
+}
+
+/* POI Slider for ComboCruise */
+.segment-section {
+    .c-slider.slick-dotted {
+        margin-bottom: 5px;
+
+        @media screen and (max-width: @screen-sm) {
+            margin: 30px auto;
+        }
+
+        .slick-list {
+            border: 1px solid @grey--d;
+        }
+
+        .slick-dots {
+            display: none !important;
+
+            @media screen and (max-width: @screen-sm) {
+                display: block !important;
+                bottom: -18px;
+
+                li button:before {
+                    background-color: @grey--ca;
+                }
+
+                li.slick-active button:before {
+                    background-color: @black;
+                }
+            }
+        }
     }
 }
