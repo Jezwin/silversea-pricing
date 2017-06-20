@@ -85,7 +85,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         // get all brochures listed in order
         Resource brochuresRoot = getResourceResolver().getResource(brochuresPath);
 
-        //filter brochures by localization, language, and group
+        // filter brochures by localization, language, and group
         Iterator<Resource> resources = brochuresRoot.listChildren();
         filterResources(resources);
 
@@ -164,6 +164,10 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         return currentLanguage;
     }
 
+    public String getCurrentBrochureGroupSelector() {
+        return SELECTOR_BROCHURE_GROUP_PREFIX + brochureGroup;
+    }
+
     public String getBrochureGroup(SlingHttpServletRequest request) {
         String[] selectors = request.getRequestPathInfo().getSelectors();
         for (String selector : selectors) {
@@ -173,7 +177,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         }
         return DEFAULT_BROCHURE_GROUP;
     }
-    
+
     public String getRequestedLanguage(SlingHttpServletRequest request) {
         String[] selectors = request.getRequestPathInfo().getSelectors();
         for (String selector : selectors) {
