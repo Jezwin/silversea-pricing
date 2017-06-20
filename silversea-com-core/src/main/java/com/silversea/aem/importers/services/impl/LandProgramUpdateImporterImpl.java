@@ -80,7 +80,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 
 			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 			Resource resParent = citiesRootPage.adaptTo(Resource.class);
-			Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
+			Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDateLp", Date.class);
 
 			String dateFormat = "yyyyMMdd";
 			SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -200,7 +200,7 @@ public class LandProgramUpdateImporterImpl extends BaseImporter implements LandP
 					try {
 						// save migration date
 						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-//						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+						rootNode.setProperty("lastModificationDateLp", Calendar.getInstance());
 						session.save();
 					} catch (RepositoryException e) {
 						session.refresh(false);

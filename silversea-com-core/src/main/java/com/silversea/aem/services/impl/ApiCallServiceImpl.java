@@ -44,6 +44,7 @@ import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Hotel77;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
+import io.swagger.client.model.Land;
 import io.swagger.client.model.Land77;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
@@ -214,6 +215,20 @@ public class ApiCallServiceImpl  implements ApiCallService {
 		return shorexesApi.shorexesGet(null, index, PER_PAGE, null);
 	}
 	
+	@Override
+	public List<Land> getLandProgram(int index, int pageSize, LandsApi landsApi) throws IOException, ApiException {
+		configureClient(landsApi.getApiClient());
+		return landsApi.landsGet(null, index, PER_PAGE, null);
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param apiClient
+	 */
 	
     public void configureClient(ApiClient apiClient){
         if(apiClient !=null){
@@ -228,4 +243,7 @@ public class ApiCallServiceImpl  implements ApiCallService {
             LOGGER.error("Api call service -- Api client is null");
         }
     }
+
+
+
 }

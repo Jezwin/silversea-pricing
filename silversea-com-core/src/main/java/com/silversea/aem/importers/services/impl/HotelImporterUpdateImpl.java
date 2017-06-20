@@ -101,7 +101,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
 
             Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
             Resource resParent = citiesRootPage.adaptTo(Resource.class);
-            Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
+            Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDateHotel", Date.class);
 
             String dateFormat = "yyyyMMdd";
             SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -219,7 +219,7 @@ public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdate
                     try {
                         // save migration date
                         Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-                        rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+                        rootNode.setProperty("lastModificationDateHotel", Calendar.getInstance());
                         session.save();
                     } catch (RepositoryException e) {
                         session.refresh(false);

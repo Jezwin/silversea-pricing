@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -25,17 +26,15 @@ import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.services.LandProgramImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.LandsApi;
-import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Land;
 
 /**
@@ -45,181 +44,196 @@ import io.swagger.client.model.Land;
 @Component(label = "Silversea.com - Land Program importer")
 public class LandProgramImporterImpl extends BaseImporter implements LandProgramImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramImporterImpl.class);
+	static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramImporterImpl.class);
 
-    private int errorNumber = 0;
-    private int succesNumber = 0;
-    private int sessionRefresh = 100;
-    private int pageSize = 100;
+	private int errorNumber = 0;
+	private int succesNumber = 0;
+	private int sessionRefresh = 100;
+	private int pageSize = 100;
 
-    @Reference
-    private ResourceResolverFactory resourceResolverFactory;
+	@Reference
+	private ResourceResolverFactory resourceResolverFactory;
 
-    @Reference
-    private ApiConfigurationService apiConfig;
-    
-    @Reference
-    private Replicator replicat;
-    
-    @Reference
-    private ApiCallService apiCallService;
+	@Reference
+	private ApiConfigurationService apiConfig;
 
-    @Override
-    public void importData() throws IOException {
-        /**
-         * authentification pour le swagger
-         */
-         getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-         /**
-          * Récuperation du domain de l'api Swager
-          */
-         getApiDomain(apiConfig.getApiBaseDomain());
-         /**
-          * Récuperation de la session refresh
-          */
-         if(apiConfig.getSessionRefresh() != 0){
-             sessionRefresh = apiConfig.getSessionRefresh();
-         }
-         /**
-          * Récuperation de per page
-          */
-         if(apiConfig.getPageSize() != 0){
-             pageSize = apiConfig.getPageSize();
-         }
-        
-        final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("landProgramUrl"));
+	@Reference
+	private Replicator replicat;
 
-        // get authentification to the Land API
-        LandsApi landsApi = new LandsApi();
-        landsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+	@Reference
+	private ApiCallService apiCallService;
 
-        try {
-            ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-            PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            Session session = resourceResolver.adaptTo(Session.class);
-            Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+	@Override
+	public void importData() throws IOException {
+		/**
+		 * authentification pour le swagger
+		 */
+		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+		/**
+		 * Récuperation du domain de l'api Swager
+		 */
+		getApiDomain(apiConfig.getApiBaseDomain());
+		/**
+		 * Récuperation de la session refresh
+		 */
+		if (apiConfig.getSessionRefresh() != 0) {
+			sessionRefresh = apiConfig.getSessionRefresh();
+		}
+		/**
+		 * Récuperation de per page
+		 */
+		if (apiConfig.getPageSize() != 0) {
+			pageSize = apiConfig.getPageSize();
+		}
 
-            int i = 1;
+		LandsApi landsApi = new LandsApi();
 
-            List<Land> lands;
+		try {
+			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+			Session session = resourceResolver.adaptTo(Session.class);
 
-            do {
+			Page citiesRootPage;
+			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+			List<String> local = new ArrayList<>();
+			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
-                // gets all lands
-                lands = landsApi.landsGet(null, i, pageSize, null);
+			for (String loc : local) {
+				citiesRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
+				LOGGER.debug("Importing city for langue : {}", loc);
 
-                int j = 0;
+				if (citiesRootPage != null) {
 
-                for (Land land : lands) {
+					int i = 1;
 
-                    try {
+					List<Land> lands;
 
-                        Iterator<Resource> resources = resourceResolver.findResources(
-                                "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]", "xpath");
+					do {
 
-                        Page landPage = null;
+						lands = apiCallService.getLandProgram(i, pageSize, landsApi);
 
-                        if (resources.hasNext()) {
-                            landPage = resources.next().adaptTo(Page.class);
-                        } else {
-                            Integer cityId = land.getCities().size() > 0 ? land.getCities().get(0).getCityId() : null;
+						int j = 0;
 
-                            if (cityId != null) {
-                                Iterator<Resource> portsResources = resourceResolver.findResources(
-                                        "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
+						for (Land land : lands) {
 
-                                if (portsResources.hasNext()) {
-                                    Page portPage = portsResources.next().adaptTo(Page.class);
+							try {
 
-                                    LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
+								Iterator<Resource> resources = resourceResolver.findResources(
+										"/jcr:root/content/silversea-com/" + loc
+												+ "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]",
+										"xpath");
 
-                                    Page landsPage;
-                                    if (portPage.hasChild("landprogram")) {
-                                        landsPage = pageManager.getPage(portPage.getPath() + "/land-programs");
-                                    } else {
-                                        landsPage = pageManager.create(portPage.getPath(), "land-programs",
-                                                "/apps/silversea/silversea-com/templates/page", "Land Program", false);
-                                    }
-                                    session.save();
-                                    if(!replicat.getReplicationStatus(session, landsPage.getPath()).isActivated()){
-                                        replicat.replicate(session,ReplicationActionType.ACTIVATE, landsPage.getPath());
-                                    }
+								Page landPage = null;
 
-                                    landPage = pageManager.create(landsPage.getPath(),
-                                            JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
-                                                    StringHelper.getFormatWithoutSpecialCharcters(land.getLandName())),
-                                            TemplateConstants.PATH_LANDPROGRAM,
-                                            StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()), false);
+								if (resources.hasNext()) {
+									landPage = resources.next().adaptTo(Page.class);
+								} else {
+									Integer cityId = land.getCities().size() > 0 ? land.getCities().get(0).getCityId()
+											: null;
 
-                                    LOGGER.debug("Creating land {}", land.getLandCod());
-                                } else {
-                                    LOGGER.debug("No city found with id {}", cityId);
-                                }
-                            } else {
-                                LOGGER.debug("Excursion have no city attached, not imported");
-                            }
-                        }
+									if (cityId != null) {
+										Iterator<Resource> portsResources = resourceResolver.findResources(
+												"/jcr:root/content/silversea-com/" + loc
+												+ "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
 
-                        if (landPage != null) {
-                            Node hotelPageContentNode = landPage.getContentResource().adaptTo(Node.class);
-                            hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, land.getLandName());
-                            hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, land.getDescription());
-                            hotelPageContentNode.setProperty("landId", land.getLandId());
-                            hotelPageContentNode.setProperty("landCode", land.getLandCod());
-                            succesNumber = succesNumber + 1;
-                            j++;
-                            
-                            try {
-                                session.save();
-                                replicat.replicate(session, ReplicationActionType.ACTIVATE,
-                                        landPage.getPath());
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
-                            }
-                            
-                        }
+										if (portsResources.hasNext()) {
+											Page portPage = portsResources.next().adaptTo(Page.class);
 
-                        if (j % sessionRefresh == 0) {
-                            if (session.hasPendingChanges()) {
-                                try {
-                                    session.save();
-                                } catch (RepositoryException e) {
-                                    session.refresh(true);
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        errorNumber = errorNumber + 1;
-                        LOGGER.debug("Hotel error, number of faulures :", errorNumber);
-                        j++;
-                    }
-                }
+											LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
 
-                i++;
-            } while (lands.size() > 0);
+											Page landsPage;
+											if (portPage.hasChild("landprogram")) {
+												landsPage = pageManager.getPage(portPage.getPath() + "/land-programs");
+											} else {
+												landsPage = pageManager.create(portPage.getPath(), "land-programs",
+														"/apps/silversea/silversea-com/templates/page", "Land Program",
+														false);
+											}
+											session.save();
+											if (!replicat.getReplicationStatus(session, landsPage.getPath())
+													.isActivated()) {
+												replicat.replicate(session, ReplicationActionType.ACTIVATE,
+														landsPage.getPath());
+											}
 
-            if (session.hasPendingChanges()) {
-                try {
-                    // save migration date
-                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-                    rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-                    session.save();
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
+											landPage = pageManager.create(landsPage.getPath(),
+													JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
+															StringHelper.getFormatWithoutSpecialCharcters(
+																	land.getLandName())),
+													TemplateConstants.PATH_LANDPROGRAM,
+													StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()),
+													false);
 
-            resourceResolver.close();
-        } catch (ApiException | LoginException | RepositoryException e) {
-            LOGGER.error("Exception importing shorexes", e);
-        }
-    }
+											LOGGER.debug("Creating land {}", land.getLandCod());
+										} else {
+											LOGGER.debug("No city found with id {}", cityId);
+										}
+									} else {
+										LOGGER.debug("Excursion have no city attached, not imported");
+									}
+								}
 
-    public int getErrorNumber() {
-        return errorNumber;
-    }
+								if (landPage != null) {
+									Node hotelPageContentNode = landPage.getContentResource().adaptTo(Node.class);
+									hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, land.getLandName());
+									hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
+											land.getDescription());
+									hotelPageContentNode.setProperty("landId", land.getLandId());
+									hotelPageContentNode.setProperty("landCode", land.getLandCod());
+									succesNumber = succesNumber + 1;
+									j++;
 
-    public int getSuccesNumber() {
-        return succesNumber;
-    }
+									try {
+										session.save();
+										replicat.replicate(session, ReplicationActionType.ACTIVATE, landPage.getPath());
+									} catch (RepositoryException e) {
+										session.refresh(true);
+									}
+
+								}
+
+								if (j % sessionRefresh == 0) {
+									if (session.hasPendingChanges()) {
+										try {
+											session.save();
+										} catch (RepositoryException e) {
+											session.refresh(true);
+										}
+									}
+								}
+							} catch (Exception e) {
+								errorNumber = errorNumber + 1;
+								LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+								j++;
+							}
+						}
+
+						i++;
+					} while (lands.size() > 0);
+
+					if (session.hasPendingChanges()) {
+						try {
+							// save migration date
+							Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
+							rootNode.setProperty("lastModificationDateLp", Calendar.getInstance());
+							session.save();
+						} catch (RepositoryException e) {
+							session.refresh(false);
+						}
+					}
+				}
+			}
+			resourceResolver.close();
+		} catch (ApiException | LoginException | RepositoryException e) {
+			LOGGER.error("Exception importing shorexes", e);
+		}
+	}
+
+	public int getErrorNumber() {
+		return errorNumber;
+	}
+
+	public int getSuccesNumber() {
+		return succesNumber;
+	}
 }

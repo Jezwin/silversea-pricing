@@ -23,14 +23,12 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -218,7 +216,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 						try {
 							// save migration date
 							Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-							rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+							rootNode.setProperty("lastModificationDateHotel", Calendar.getInstance());
 							session.save();
 						} catch (RepositoryException e) {
 							session.refresh(false);

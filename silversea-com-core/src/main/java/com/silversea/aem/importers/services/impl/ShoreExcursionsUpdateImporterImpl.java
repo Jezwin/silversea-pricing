@@ -100,7 +100,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
 			Resource resParent = citiesRootPage.adaptTo(Resource.class);
-			Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
+			Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDateEx", Date.class);
 
 			String dateFormat = "yyyyMMdd";
 			SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
@@ -231,7 +231,7 @@ public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements S
 					try {
 						// save migration date
 						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+						rootNode.setProperty("lastModificationDateEx", Calendar.getInstance());
 						session.save();
 					} catch (RepositoryException e) {
 						session.refresh(false);

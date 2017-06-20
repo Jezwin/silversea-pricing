@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -97,20 +96,13 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-		// final String authorizationHeader =
-		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
 		try {
 			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-			// spetialOffersApi.getApiClient().addDefaultHeader("Authorization",
-			// authorizationHeader);
-
 			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 			Session session = resourceResolver.adaptTo(Session.class);
 
-			// Page offersRootPage =
-			// pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
 			Page offersRootPage;
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
 			List<String> local = new ArrayList<>();
@@ -126,9 +118,6 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 					List<SpecialOffer> specialOffers;
 					do {
 
-						// gets all special Offers
-						// specialOffers = spetialOffersApi.specialOffersGet(i,
-						// pageSize, null);
 						specialOffers = apiCallService.getExclusiveOffers(i, pageSize, spetialOffersApi);
 
 						int j = 0;

@@ -114,8 +114,6 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 					int i = 1;
 
 					do {
-						// cities = citiesApi.citiesGet(null, null, i, pageSize,
-						// null, null, null);
 						cities = apiCallService.getCities(i, pageSize, citiesApi);
 						int j = 0;
 						for (City city : cities) {

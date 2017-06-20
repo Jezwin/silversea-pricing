@@ -21,6 +21,7 @@ import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Hotel77;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.Itinerary;
+import io.swagger.client.model.Land;
 import io.swagger.client.model.Land77;
 import io.swagger.client.model.LandItinerary;
 import io.swagger.client.model.Ship;
@@ -74,6 +75,8 @@ public interface ApiCallService {
     List<Shorex77> getShorexUpdate(String currentDate,int index, int pageSize, ShorexesApi shorexesApi)throws IOException, ApiException;
     
     List<Land77> getLandProgramUpdate(String currentDate,int index, int pageSize, LandsApi landsApi)throws IOException, ApiException;
+    
+    List<Land> getLandProgram(int index, int pageSize, LandsApi landsApi)throws IOException, ApiException;
     
     List<Brochure> getBrochures(int index, int pageSize, BrochuresApi brochuresApi)throws IOException, ApiException;
     

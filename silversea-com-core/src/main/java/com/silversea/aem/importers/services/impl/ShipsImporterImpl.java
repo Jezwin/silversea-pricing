@@ -54,9 +54,9 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 	private ApiConfigurationService apiConfig;
 	@Reference
 	private Replicator replicat;
-	
+
 	@Reference
-    private ApiCallService apiCallService;
+	private ApiCallService apiCallService;
 
 	@Override
 	public void importData() throws IOException {
@@ -86,6 +86,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
 			Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
+
 			List<Ship> listShips;
 			listShips = shipsApi.shipsGet(null);
 			int i = 0;
@@ -98,42 +99,13 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 					List<Page> shipPages = new ArrayList<Page>();
 					List<String> local = new ArrayList<>();
 					local = ImporterUtils.finAllLanguageCopies(resourceResolver);
-//					local.add("en");
 					if (resources.hasNext()) {
-//						shipPage = resources.next().adaptTo(Page.class);
 						shipPages = ImporterUtils.findPagesById(resources);
 					} else {
-//						shipPage = pageManager.create(shipsRootPage.getPath(),
-//								JcrUtil.createValidChildName(shipsRootPage.adaptTo(Node.class),
-//										StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName())),
-//								TemplateConstants.PATH_SHIP,
-//								StringHelper.getFormatWithoutSpecialCharcters(ship.getShipName()), false);
-						shipPages = ImporterUtils.createPagesALLLanguageCopies(pageManager, resourceResolver, shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
+						shipPages = ImporterUtils.createPagesALLLanguageCopies(pageManager, resourceResolver,
+								shipsRootPage, local, TemplateConstants.PATH_SHIP, ship.getShipName());
 					}
 
-//					if (shipPage != null) {
-//						Node shipPageContentNode = shipPage.getContentResource().adaptTo(Node.class);
-//						if (shipPageContentNode != null) {
-//							shipPageContentNode.setProperty(JcrConstants.JCR_TITLE, ship.getShipName());
-//							shipPageContentNode.setProperty("shipId", ship.getShipId());
-//							shipPageContentNode.setProperty("shipCode", ship.getShipCod());
-//							shipPageContentNode.setProperty("shipName", ship.getShipName());
-//							shipPageContentNode.setProperty("shipType", ship.getShipType());
-//							shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
-//							session.save();
-//							if (!replicat.getReplicationStatus(session, shipsRootPage.getPath()).isActivated()) {
-//								replicat.replicate(session, ReplicationActionType.ACTIVATE, shipsRootPage.getPath());
-//							}
-//							try {
-//								session.save();
-//								replicat.replicate(session, ReplicationActionType.ACTIVATE, shipPage.getPath());
-//							} catch (RepositoryException e) {
-//								session.refresh(true);
-//							}
-//							LOGGER.debug("Updated ship with {} ", ship.getShipCod());
-//						}
-//					}
-					
 					for (Page shiPage : shipPages) {
 						if (shiPage != null) {
 							Node shipPageContentNode = shiPage.getContentResource().adaptTo(Node.class);
@@ -155,11 +127,6 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 							}
 						}
 					}
-			
-					
-					
-					
-					
 					LOGGER.debug("Check ship with {} ", ship.getShipCod());
 					i++;
 					succesNumber = succesNumber + 1;
