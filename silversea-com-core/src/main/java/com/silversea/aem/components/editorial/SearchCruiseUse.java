@@ -74,6 +74,7 @@ public class SearchCruiseUse extends WCMUsePojo {
         destinations = destinationList.stream()
                 .filter(item -> item.getProperties().get("sling:resourceType", String.class).equals(WcmConstants.RT_DESTINATION))
                 .collect(Collectors.toList());
+
     }
 
     public Map<String, String> getDates() {

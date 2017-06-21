@@ -151,6 +151,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <exclusive-offer-not-available
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="exclusive-offer-not-available"
+        sling:message="Exclusive offer not available in this country" />
     <exclusive-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="exclusive-offers"
