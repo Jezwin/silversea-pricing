@@ -9,16 +9,15 @@
         <a class="btn btn-thin btn-dark effect" data-tab-target="#suitenfare"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
     </div>
 </div>
-<div class="select-segment">
+<div class="select-segment" data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse">
     <h2>${'select-and-view-the-route' @ i18n}</h2>
     <dl>
         <dt>${'select-and-view-the-route' @ i18n}</dt>
-        <dd data-sly-repeat="${currentPage.listChildren}">
-            <sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.cruiseReference}" />
-            <a href="">
-                <time data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=target.page.properties.startDate}">${startDate.value}</time>
-                <time data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=target.page.properties.endDate}">${endDate.value}</time>
-                <strong>${item.properties.jcr:title}</strong>
+        <dd data-sly-repeat.segment="${comboCruise.comboCruiseModel.segments}">
+            <a href="#" data-sly-test.cruiseModel="${segment.cruise}">
+                <time data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=cruiseModel.startDate}">${startDate.value}</time>
+                <time data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=cruiseModel.endDate}">${endDate.value}</time>
+                <strong>${segment.page.title}</strong>
             </a>
         </dd>
     </dl>
