@@ -70,8 +70,8 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 	private PageManager pageManager;
 	private Session session;
 
-	@Activate
-	public void Activate() {
+	
+	public void init() {
 		try {
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
 			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -85,6 +85,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
 	@Override
 	public void importData() throws IOException {
+		init();
 		/**
 		 * authentification pour le swagger
 		 */

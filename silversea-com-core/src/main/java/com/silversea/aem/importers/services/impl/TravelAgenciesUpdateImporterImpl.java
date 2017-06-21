@@ -71,8 +71,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 	private PageManager pageManager;
 	private Session session;
 
-	@Activate
-	public void Activate() {
+	public void init() {
 		try {
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
 			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -86,6 +85,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 	@Override
 	public ImporterStatus updateImporData() throws IOException {
+		init();
 		ImporterStatus status = new ImporterStatus();
 
 		Set<Integer> diff = new HashSet<Integer>();
@@ -115,9 +115,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 
 		try {
-//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-//			Session session = resourceResolver.adaptTo(Session.class);
 			Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 
 			int i = 1;
@@ -125,8 +122,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 			List<Agency> travelAgencies;
 
 			do {
-				// travelAgencies = travelAgenciesApi.agenciesGet(null, null,
-				// null, null, null, i, pageSize);
+				
 				travelAgencies = apiCallService.getTravelAgencies(i, pageSize);
 				int j = 0;
 
