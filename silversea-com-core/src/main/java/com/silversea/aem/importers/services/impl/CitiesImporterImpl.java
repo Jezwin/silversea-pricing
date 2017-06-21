@@ -71,8 +71,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 	private PageManager pageManager;
 	private Session session;
 
-	@Activate
-	public void Activate() {
+	public void init() {
 		try {
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
 			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -86,6 +85,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
 	@Override
 	public void importData() throws IOException {
+		init();
 
 		/**
 		 * authentification pour le swagger

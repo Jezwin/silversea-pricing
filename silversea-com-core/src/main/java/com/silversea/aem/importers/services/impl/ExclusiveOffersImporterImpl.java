@@ -72,14 +72,13 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
 	@Reference
 	private ApiCallService apiCallService;
-	
+
 	private ResourceResolver resourceResolver;
 	private PageManager pageManager;
 	private Session session;
-	TagManager tagManager ;
+	TagManager tagManager;
 
-	@Activate
-	public void Activate() {
+	public void init() {
 		try {
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
 			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -94,7 +93,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
 	@Override
 	public ImporterStatus importData() throws IOException {
-
+		init();
 		ImporterStatus status = new ImporterStatus();
 
 		int errorNumber = 0;
@@ -120,11 +119,6 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 			pageSize = apiConfig.getPageSize();
 		}
 		try {
-//			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-//			TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-//			Session session = resourceResolver.adaptTo(Session.class);
 
 			Page offersRootPage;
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
