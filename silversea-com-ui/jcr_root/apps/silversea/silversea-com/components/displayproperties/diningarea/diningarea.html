@@ -1,9 +1,10 @@
-<div class="o-area-property-display">
+<div class="o-area-property-display"
+	data-sly-use.cpt="com.silversea.aem.components.displayProperties.DiningVariationDisplayPropertiesUse">
     <div data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}"></sly>
-        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
+        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.diningPage.properties['assetSelectionReference']}"></sly>
+        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.diningPage.navigationTitle || cpt.diningPage.title @ context='html'}</h1>
         <div class="o-description">
-            ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
+            ${pageProperties.longDescription || currentPage.description || cpt.diningPage.properties['longDescription'] || cpt.diningPage.description @ context='html'}
         </div>
     </div>
 </div>
