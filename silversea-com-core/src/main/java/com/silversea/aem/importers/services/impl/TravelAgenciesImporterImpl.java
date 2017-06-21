@@ -2,13 +2,16 @@ package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -62,6 +65,23 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 	
 	@Reference
     private ApiCallService apiCallService;
+	
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	@Activate
+	public void Activate() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("travel agencies importer login exception ", e);
+		}
+	}
 
 	@Override
 	public void importData() throws IOException {
@@ -86,15 +106,17 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 			pageSize = apiConfig.getPageSize();
 		}
 
-		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
+//		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
 
-		AgenciesApi travelAgenciesApi = new AgenciesApi();
-		travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+//		AgenciesApi travelAgenciesApi = new AgenciesApi();
+//		travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
 
 		try {
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
+//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+//			Session session = resourceResolver.adaptTo(Session.class);
+			
+			
 			Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 
 			int i = 1;
@@ -103,7 +125,9 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
 			do {
 
-				travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
+//				travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
+				
+				travelAgencies = apiCallService.getTravelAgencies(i, pageSize);
 
 				int j = 0;
 
@@ -130,6 +154,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 												StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3())),
 										"/apps/silversea/silversea-com/templates/page",
 										StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
+								LOGGER.debug("createa travel agency contry page : {}", agency.getCountryIso3());
 							}
 
 							session.save();
@@ -140,7 +165,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, resourceResolver
 										.getResource(ImportersConstants.BASEPATH_TRAVEL_AGENCIES).getPath());
 							}
-							if (replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
+//							if (replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
 								try {
 									if (!replicat.getReplicationStatus(session, agencyTravelContryPage.getPath())
 											.isActivated()) {
@@ -150,7 +175,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 								} catch (ReplicationException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
-								}
+//								}
 							}
 
 							if (agencyTravelContryPage != null) {
@@ -159,6 +184,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 												StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
 										TemplateConstants.PATH_TRAVEL_AGENCY,
 										StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
+								LOGGER.debug("createa  travel agency  page : {}", agency.getAgency());
 							}
 						}
 
@@ -182,7 +208,9 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 							try {
 								session.save();
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, agencyTravelPage.getPath());
+								LOGGER.debug("replication of travel agency  page : {}", agency.getAgency());
 							} catch (RepositoryException e) {
+								LOGGER.debug("replication error of travel agency  page : {}", agency.getAgency());
 								session.refresh(true);
 							}
 
@@ -199,7 +227,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 						}
 					} catch (Exception e) {
 						errorNumber = errorNumber + 1;
-						LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+						LOGGER.debug("Travel agency error, number of faulures : {}", +errorNumber);
 						j++;
 					}
 				}
@@ -219,7 +247,7 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 			}
 
 			resourceResolver.close();
-		} catch (ApiException | LoginException | RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing shorexes", e);
 		}
 	}

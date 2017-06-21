@@ -3,13 +3,16 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -33,6 +36,7 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -68,6 +72,25 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
 	@Reference
 	private ApiCallService apiCallService;
+	
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+	TagManager tagManager ;
+
+	@Activate
+	public void Activate() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			tagManager = resourceResolver.adaptTo(TagManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("travel agencies importer login exception ", e);
+		}
+	}
 
 	@Override
 	public ImporterStatus importData() throws IOException {
@@ -97,11 +120,11 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 			pageSize = apiConfig.getPageSize();
 		}
 		try {
-			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
+//			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
+//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+//			TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+//			Session session = resourceResolver.adaptTo(Session.class);
 
 			Page offersRootPage;
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
@@ -118,7 +141,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 					List<SpecialOffer> specialOffers;
 					do {
 
-						specialOffers = apiCallService.getExclusiveOffers(i, pageSize, spetialOffersApi);
+						specialOffers = apiCallService.getExclusiveOffers(i, pageSize);
 
 						int j = 0;
 
@@ -224,7 +247,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 			}
 
 			resourceResolver.close();
-		} catch (ApiException | LoginException | RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing Exclusive offers", e);
 		}
 

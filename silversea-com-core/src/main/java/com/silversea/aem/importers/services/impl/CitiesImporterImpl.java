@@ -3,13 +3,16 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -36,7 +39,6 @@ import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.CitiesApi;
 import io.swagger.client.model.City;
 
 /**
@@ -65,6 +67,23 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 	@Reference
 	private ApiCallService apiCallService;
 
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	@Activate
+	public void Activate() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("cities importer login exception ", e);
+		}
+	}
+
 	@Override
 	public void importData() throws IOException {
 
@@ -89,16 +108,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 			pageSize = apiConfig.getPageSize();
 		}
 
-		// final String authorizationHeader =
-		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
-//		CitiesApi citiesApi = new CitiesApi();
-		// citiesApi.getApiClient().addDefaultHeader("Authorization",
-		// authorizationHeader);
 		try {
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
-			
+
 			Page citiesRootPage;
 
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
@@ -130,25 +141,23 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								Page portFirstLetterPage;
 								if (citiesRootPage.hasChild(portFirstLetterName)) {
 									portFirstLetterPage = pageManager
-											.getPage(ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
+											.getPage(citiesRootPage.getPath() + "/" + portFirstLetterName);
 
-//									LOGGER.debug("Page {} already exists", portFirstLetterName);
 								} else {
 									portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
 											portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
 											false);
-//									LOGGER.debug("Creating page {}", portFirstLetterName);
 								}
 
 								session.save();
 								// if (replicat.getReplicationStatus(session,
 								// citiesRootPage.getPath()).isActivated()) {
 								try {
-//									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
-//											.isActivated()) {
+									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
+											.isActivated()) {
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												portFirstLetterPage.getPath());
-//									}
+									}
 								} catch (ReplicationException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -193,15 +202,19 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								j++;
 								session.save();
 
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
+								// replicat.replicate(session,
+								// ReplicationActionType.ACTIVATE,
+								// portPage.getPath());
 
 								try {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE,
-											portFirstLetterPage.getPath());
-									LOGGER.debug("Activation of port {} for language {}", city.getCityName(),loc);
+									// replicat.replicate(session,
+									// ReplicationActionType.ACTIVATE,
+									// portFirstLetterPage.getPath());
+									replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
+									LOGGER.debug("Activation of port {} for language {}", city.getCityName(), loc);
 								} catch (ReplicationException e) {
 									// TODO Auto-generated catch block
-									LOGGER.debug("Error of port {} for language {}", city.getCityName(),loc);
+									LOGGER.debug("Error of port {} for language {}", city.getCityName(), loc);
 									e.printStackTrace();
 								}
 
@@ -217,13 +230,13 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								}
 							} catch (Exception e) {
 								errorNumber = errorNumber + 1;
-								LOGGER.debug("cities error, number of faulures :", errorNumber);
+								LOGGER.debug("cities {} error, number of faulures :",city ,+errorNumber);
 								j++;
 							}
 						}
 
 						i++;
-					} while (cities.size() > 0 && cities !=null);
+					} while (cities.size() > 0 && cities != null);
 
 					try {
 						Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
@@ -238,7 +251,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 			}
 
 			resourceResolver.close();
-		} catch (ApiException | LoginException | RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing cities", e);
 		}
 	}

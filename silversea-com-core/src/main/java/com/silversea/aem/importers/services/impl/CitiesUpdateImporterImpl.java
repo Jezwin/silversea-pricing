@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -66,6 +68,22 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 	
     @Reference
     private ApiCallService apiCallService;
+    
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	public void init() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("Cruise importer login exception ", e);
+		}
+	}
 
 	@Override
 	public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
@@ -92,9 +110,9 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 				pageSize = apiConfig.getPageSize();
 			}
 
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
+//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
+//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+//			Session session = resourceResolver.adaptTo(Session.class);
 
 			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
 
@@ -241,7 +259,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 			} else {
 				throw new UpdateImporterExceptions();
 			}
-		} catch (ApiException | LoginException | RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing cities", e);
 		}
 	}

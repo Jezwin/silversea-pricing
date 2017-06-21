@@ -55,11 +55,14 @@ public interface ApiCallService {
     
     List<SpecialVoyage> getSpecialVoyages()throws IOException, ApiException;
     
-    List<Agency> getTravelAgencies(int index, int pageSize, AgenciesApi travelAgenciesApi)throws IOException, ApiException;
+    
+    List<Agency> getTravelAgencies(int index, int pageSize)throws IOException, ApiException;
+    
+//    List<Agency> getTravelAgenciesUpdate(int index, int pageSize)throws IOException, ApiException;
     
     List<Ship> getShips()throws IOException, ApiException;
     
-    List<SpecialOffer> getExclusiveOffers(int index, int pageSize, SpecialOffersApi spetialOffersApi)throws IOException, ApiException;
+    List<SpecialOffer> getExclusiveOffers(int index, int pageSize)throws IOException, ApiException;
     
     List<City> getCities(int index, int pageSize)throws IOException, ApiException;
     
@@ -77,7 +80,7 @@ public interface ApiCallService {
     
     List<Land77> getLandProgramUpdate(String currentDate,int index, int pageSize)throws IOException, ApiException;
     
-    List<Brochure> getBrochures(int index, int pageSize, BrochuresApi brochuresApi)throws IOException, ApiException;
+    List<Brochure> getBrochures(int index, int pageSize)throws IOException, ApiException;
     
     List<Feature> getFeatures()throws IOException, ApiException;
 

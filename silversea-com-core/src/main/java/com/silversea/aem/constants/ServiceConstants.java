@@ -11,6 +11,7 @@ public interface ServiceConstants {
     String SPECIAL_VOYAGES_API_KEY = "specialVoyagesApi";
     
     String CITIES_API_KEY = "citiesApi";
+    
     String TRAVEL_AGENCIES_API_KEY = "travelAgenciesApi";
     String EXCLUSIVE_OFFERS_API_KEY = "exclusiveOffersApi";
     String BROCHURES_API_KEY = "brochuresApi";
