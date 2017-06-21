@@ -119,8 +119,11 @@
             type="PROCESS">
             <metaData
                 jcr:primaryType="nt:unstructured"
+                HEIGHT="1280"
                 PROCESS="com.adobe.cq.dam.dm.process.workflow.DMImageProcess"
-                PROCESS_AUTO_ADVANCE="true"/>
+                PROCESS_AUTO_ADVANCE="true"
+                QUALITY="90"
+                WIDTH="1280"/>
         </node8>
         <node9
             jcr:primaryType="cq:WorkflowNode"
