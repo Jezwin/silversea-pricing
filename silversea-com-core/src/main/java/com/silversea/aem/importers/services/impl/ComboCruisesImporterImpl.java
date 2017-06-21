@@ -204,7 +204,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     public Page getComboCruisePage(String voyageId) throws WCMException, RepositoryException{
         Page page = null;
         Iterator<Resource> resources = ImporterUtils.findResourceById(ImportersConstants.QUERY_CONTENT_PATH,
-                NameConstants.NT_PAGE, "comboCruiseId", Objects.toString(voyageId),
+                NameConstants.NT_PAGE, "comboCruiseCode", Objects.toString(voyageId),
                 resourceResolver);
         if(resources!= null && resources.hasNext()){
             Resource resource = resources.next();
@@ -292,7 +292,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             LOGGER.debug("Combo Cruise importer -- Start calculate diff");
             pages.forEach(page ->{
                 
-              String comboCruiseId = page.getProperties().get("comboCruiseId",String.class);
+              String comboCruiseId = page.getProperties().get("comboCruiseCode",String.class);
               if(!cruises.contains(comboCruiseId)){
                   LOGGER.debug("Combo Cruise importer -- Combo cruise with id {} no longer exists",comboCruiseId);
                   cruiseService.updateReplicationStatus(true, false, page);
