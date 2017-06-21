@@ -214,7 +214,7 @@ public class ImporterUtils {
 	public static String findReference(String path, String property, String id, ResourceResolver resourceResolver) {
 
 		Iterator<Resource> res = findResourceById(path, NameConstants.NT_PAGE, property, id, resourceResolver);
-		String reference = res.hasNext() ? res.next().getPath() : "";
+		String reference = res.hasNext() ? res.next().getPath() : null;
 		if (reference == null) {
 			LOGGER.error("Importer -- Reference to page with id [{} = {}] not found", property, id);
 		}
