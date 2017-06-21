@@ -238,6 +238,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         String voyageId = specialVoyage.getSpecialVoyageId();
         
         if (voyagesPriceMarket != null 
+                && !voyagesPriceMarket.isEmpty()
                 && voyagesPriceMarket.get(0) !=null 
                 && !voyagesPriceMarket.get(0).getCruiseOnlyPrices().isEmpty()) {
 
