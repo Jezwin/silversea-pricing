@@ -34,6 +34,7 @@ public interface WcmConstants {
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
     String RT_IMAGE_CPT = "silversea/silversea-com/components/editorial/image";
     String RT_TAG = "cq/tagging/components/tag";
+    String RT_DESTINATION = "silversea/silversea-com/components/pages/destination";
 
     // Node name
     String NN_DEFAULT = "default";

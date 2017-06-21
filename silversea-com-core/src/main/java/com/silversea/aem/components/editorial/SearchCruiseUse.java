@@ -1,11 +1,8 @@
 package com.silversea.aem.components.editorial;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.jcr.Session;
 
@@ -18,16 +15,22 @@ import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.google.common.collect.Lists;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 
 public class SearchCruiseUse extends WCMUsePojo {
     private Map<String, String> dates;
+    private List<Page> destinations = new ArrayList<>();
 
     @Override
     public void activate() throws Exception {
         String destinationPath = getProperties().get(WcmConstants.PN_DESTINATION_REFERENCE, String.class);
         Map<String, String> map = new HashMap<String, String>();
+
+        // set destination list
+        setDestinationList(destinationPath);
 
         // create query description as hash map
         map.put("path", destinationPath);
@@ -59,9 +62,25 @@ public class SearchCruiseUse extends WCMUsePojo {
 
             dates.put(formatDateKey, formatDateValue);
         }
+
+    }
+
+    public void setDestinationList (String destinationPath) {
+
+        PageManager pageManager = getResourceResolver().adaptTo(PageManager.class);
+        Page destination = pageManager.getPage(destinationPath);
+        Iterator<Page> iteratorDestination = destination.listChildren();
+        List<Page> destinationList = Lists.newArrayList(iteratorDestination);
+        destinations = destinationList.stream()
+                .filter(item -> item.getProperties().get("sling:resourceType", String.class).equals(WcmConstants.RT_DESTINATION))
+                .collect(Collectors.toList());
     }
 
     public Map<String, String> getDates() {
         return new TreeMap<String, String>(dates);
+    }
+
+    public List<Page> getDestinations() {
+        return destinations;
     }
 }
