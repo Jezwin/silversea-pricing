@@ -298,9 +298,10 @@ picture {
 }
 
 .o-property-display {
-
     .double-column {
-        column-count: 2;
+        @media screen and (min-width: @screen-md-min) {
+            column-count: 2;
+        }
 
         picture {
             margin-bottom: 20px;
