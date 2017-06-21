@@ -44,7 +44,6 @@ import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.model.SpecialOffer;
 
 /**
@@ -207,7 +206,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 				}
 
 				i++;
-			} while (specialOffers.size() > 0);
+			} while (specialOffers.size() > 0 && specialOffers != null);
 
 			// TODO duplication of deleted page
 			Iterator<Page> resourcess = offersRootPage.listChildren();
