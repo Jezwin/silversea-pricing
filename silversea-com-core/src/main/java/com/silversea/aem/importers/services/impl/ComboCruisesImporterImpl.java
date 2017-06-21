@@ -173,9 +173,9 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                 if(voyage != null){
                     LOGGER.debug("Combo cruise -- Update segment with id {}",voyage.getVoyageId());
                     String segementId = voayageId + voyage.getVoyageId();
-                    String cruiseReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "cruiseId", segementId,resourceResolver);
+                    String cruiseReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "cruiseId", Objects.toString(voyage.getVoyageId()),resourceResolver);
 
-                    Page segementPage =  getSegmentPage(cruisePage,voyage.getVoyageId(),voyage.getVoyageName());
+                    Page segementPage =  getSegmentPage(cruisePage,voyage.getVoyageName(),segementId);
                     Node jcrContent = segementPage.getContentResource().adaptTo(Node.class);
                     //Update node's properties
                     jcrContent.setProperty("cruiseReference", cruiseReference);
@@ -190,10 +190,9 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         }
     }
  
-    public Page getSegmentPage(Page root,Integer voyageId,String voyageName) throws WCMException, RepositoryException{
-
+    public Page getSegmentPage(Page root,String voyageName,String segmentId) throws WCMException, RepositoryException{
         Iterator<Resource> resources = ImporterUtils.findResourceById(ImportersConstants.QUERY_CONTENT_PATH,
-                NameConstants.NT_PAGE, "CruiseSegmentId", Objects.toString(voyageId),
+                NameConstants.NT_PAGE, "CruiseSegmentId", segmentId,
                 resourceResolver);
         Page segmentPage = ImporterUtils.adaptOrCreatePage(resources, ImportersConstants.CRUISE_SEGEMENT_TEMPLATE, root,
                 voyageName, pageManager);
