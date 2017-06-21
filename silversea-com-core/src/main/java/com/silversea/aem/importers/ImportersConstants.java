@@ -41,7 +41,7 @@ public interface ImportersConstants {
     // Constants
     String PRICE_WAITLIST = "Waitlist:";
 
-    String CRUISES_DAM_PATH = "/content/dam/siversea-com/api-provided/";
+    String CRUISES_DAM_PATH = "/content/dam/silversea-com/api-provided/cruises/";
     String QUERY_JCR_ROOT_PATH = "/jcr:root";
     String QUERY_CONTENT_PATH = "/jcr:root/content/silversea-com/en";
     String QUERY_TAGS_PATH = "/jcr:root/etc/tags";

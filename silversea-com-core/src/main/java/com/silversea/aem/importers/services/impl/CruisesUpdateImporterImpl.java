@@ -74,7 +74,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             session = resourceResolver.adaptTo(Session.class);
             cruiseService.init();
         } catch (LoginException e) {
-            LOGGER.debug("Cruise importer -- login exception ", e);
+            LOGGER.debug("Cruise update importer -- login exception ", e);
         }
     }
 
@@ -88,7 +88,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             Page destinationPage = pageManager
                     .getPage(apiConfig.apiRootPath(ImportersConstants.CRUISES_DESTINATIONS_URL_KEY));
             String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage);
-            LOGGER.debug("Cruise importer -- Start import data");
+            LOGGER.debug("Cruise update importer -- Start import data");
             do {
                 voyages = apiCallService.getChangedVoyages(index, lastModificationDate);
                 processData(voyages); 
@@ -99,7 +99,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             ImporterUtils.saveUpdateDate(destinationPage);
             ImporterUtils.saveSession(session, false);
 
-            LOGGER.debug("Cruise importer -- Importing data finished");
+            LOGGER.debug("Cruise update importer -- Importing data finished");
 
         } catch (ApiException | WCMException | RepositoryException e) {
             LOGGER.error("Exception importing cruises", e);
@@ -115,7 +115,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
         if(voyages != null && !voyages.isEmpty()){
             for (Voyage77 voyage : voyages) {
                 if(voyage != null){
-                    LOGGER.debug("Cruise importer -- Start import cruise with id {}",voyage.getVoyageId());
+                    LOGGER.debug("Cruise update importer -- Start import cruise with id {}",voyage.getVoyageId());
                     // retrieve cruises root page dynamically
                     Page destinationPage = cruiseService.getDestination(voyage.getDestinationId());
 
@@ -143,15 +143,15 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
                         //Replication management
                         cruiseService.updateReplicationStatus(voyage.getIsDeleted(), voyage.getIsVisible(), cruisePage);
 
-                        LOGGER.debug("Cruise importer -- Import cruise with id {} finished",voyage.getVoyageId());
+                        LOGGER.debug("Cruise update importer -- Import cruise with id {} finished",voyage.getVoyageId());
                     } else {
-                        LOGGER.error("Cruise importer -- Error destination with id {} not found", voyage.getDestinationId());
+                        LOGGER.error("Cruise update importer -- Error destination with id {} not found", voyage.getDestinationId());
                     }
                 }
             }
         }
         else {
-            LOGGER.warn("Cruise importer -- List cruises is empty");
+            LOGGER.warn("Cruise update importer -- List cruises is empty");
         }
     }
 

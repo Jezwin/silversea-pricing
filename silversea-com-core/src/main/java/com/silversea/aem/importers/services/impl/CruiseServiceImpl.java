@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -54,6 +55,7 @@ import com.silversea.aem.components.beans.LowestPrice;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.enums.CruiseType;
 import com.silversea.aem.enums.PriceVariations;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruiseService;
@@ -486,10 +488,16 @@ public class CruiseServiceImpl implements CruiseService{
         if (path != null && !path.isEmpty() && imageName != null && !imageName.isEmpty()) {
             try {
                 LOGGER.debug("Cruise importer -- Start download image with name {}", imageName);
-                String fileDest = ImportersConstants.CRUISES_DAM_PATH + imageName.replaceAll("\\s","_");
+                
+                String fileDest = ImportersConstants.CRUISES_DAM_PATH.concat(StringHelper.getFormatWithoutSpecialCharcters(imageName));
                 URL url = new URL(path);
                 InputStream is = url.openStream();
-                Asset asset = assetManager.createAsset(fileDest, is, "image/jpeg", true);
+                File folder = new File(fileDest);
+                //Create folder if not exists
+                if (! folder.exists()){
+                    folder.mkdir();
+                }
+                Asset asset = assetManager.createAsset(folder.getPath(), is, "image/jpeg", true);
                 imagePath = asset.getPath();
                 //Replicate image
                 replicateResource(imagePath);
