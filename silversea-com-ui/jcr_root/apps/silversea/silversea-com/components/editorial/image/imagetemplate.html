@@ -1,14 +1,14 @@
 <!--/* Responsive image */-->
 <template data-sly-template.default="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
-    <picture data-sly-test="${imagePath}">
+    <picture data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-test.imagePrefix="${'/is/image/'}" />
         <source
-            srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.mobileWidth}&fit=hfit,1,
-            ${imagePath @ prependPath=imagePrefix}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x" media="(max-width: 767px)" />
+            srcset="${imageUrl @ prependPath=imagePrefix, context='uri'}?wid=${image.mobileWidth}&fit=hfit,1,
+            ${imageUrl @ prependPath=imagePrefix, context='uri'}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x" media="(max-width: 767px)" />
         <source
-            srcset="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1,
-            ${imagePath @ prependPath=imagePrefix}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x" media="(min-width: 768px)" />
-        <img src="${imagePath @ prependPath=imagePrefix}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+            srcset="${imageUrl @ prependPath=imagePrefix, context='uri'}?wid=${image.desktopWidth}&fit=hfit,1,
+            ${imageUrl @ prependPath=imagePrefix, context='uri'}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x" media="(min-width: 768px)" />
+        <img src="${imageUrl @ prependPath=imagePrefix, context='uri'}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
 
