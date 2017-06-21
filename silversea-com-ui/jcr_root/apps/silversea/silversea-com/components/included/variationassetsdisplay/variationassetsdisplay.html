@@ -7,7 +7,7 @@
             <a href="${planLightboxPath @ prependPath='/is/image/'}?wid=930&fit=fit,1" data-target=".bs-modal-md" class="automatic-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath}"></sly>
             </a>
-            <strong class="hidden-xs">${'suite-plan' @ i18n}</strong>
+            <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-plan' @ i18n}</strong>
         </div>
         <div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}"
             data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}">
@@ -17,14 +17,14 @@
             </a>
             <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
                 data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}" />
-            <strong class="hidden-xs">${'suite-location' @ i18n}</strong>
+            <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-location' @ i18n}</strong>
         </div>
         <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
             <strong class="visible-xs-block">${'virtual-tour' @ i18n}</strong>
             <a href="${virualtourLightboxPath @ prependPath='/is/image/'}?wid=930&fit=fit,1" data-target=".bs-modal-md" class="virtual-tour-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath}" />
             </a>
-            <strong class="hidden-xs">${'virtual-tour' @ i18n}</strong>
+            <strong class="c-variationassetdisplay--label_asset hidden-xs">${'virtual-tour' @ i18n}</strong>
         </div>
     </div>
     <hr />
