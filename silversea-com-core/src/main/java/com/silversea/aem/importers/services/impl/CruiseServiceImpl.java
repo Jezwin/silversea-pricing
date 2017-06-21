@@ -1,6 +1,5 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -34,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.replication.ReplicationActionType;
@@ -488,16 +488,17 @@ public class CruiseServiceImpl implements CruiseService{
         if (path != null && !path.isEmpty() && imageName != null && !imageName.isEmpty()) {
             try {
                 LOGGER.debug("Cruise importer -- Start download image with name {}", imageName);
-                
-                String fileDest = ImportersConstants.CRUISES_DAM_PATH.concat(StringHelper.getFormatWithoutSpecialCharcters(imageName));
+                String formattedImageName = StringHelper.getFormatWithoutSpecialCharcters(imageName);
+                String folderPath = ImportersConstants.CRUISES_DAM_PATH.concat(formattedImageName);
                 URL url = new URL(path);
                 InputStream is = url.openStream();
-                File folder = new File(fileDest);
-                //Create folder if not exists
-                if (! folder.exists()){
-                    folder.mkdir();
-                }
-                Asset asset = assetManager.createAsset(folder.getPath(), is, "image/jpeg", true);
+                Node folder = JcrUtil.createPath(folderPath, "sling:OrderedFolder", session);
+                String imageDest = folder.getPath()
+                                         .concat("/")
+                                         .concat(formattedImageName);
+                //Save folder
+                ImporterUtils.saveSession(session, false);
+                Asset asset = assetManager.createAsset(imageDest, is, "image/jpeg", true);
                 imagePath = asset.getPath();
                 //Replicate image
                 replicateResource(imagePath);
