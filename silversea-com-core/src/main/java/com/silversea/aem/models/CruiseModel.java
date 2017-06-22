@@ -257,9 +257,13 @@ public class CruiseModel extends AbstractModel {
     public String initMapHover() {
         String value = null;
         if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
-            value = exclusiveOffers.stream().filter(e -> !StringUtils.isEmpty(e.getMapOverHead()))
-                    .map(ExclusiveOfferModel::getMapOverHead).findFirst()
-                    .orElseThrow(() -> new IllegalStateException());
+            
+            java.util.Optional<String> optValue = exclusiveOffers.stream().filter(e -> !StringUtils.isEmpty(e.getMapOverHead()))
+                    .map(ExclusiveOfferModel::getMapOverHead).findFirst();
+            
+            if (optValue != null && optValue.isPresent()) {
+                value = optValue.get();
+            }
         }
         return value;
     }
