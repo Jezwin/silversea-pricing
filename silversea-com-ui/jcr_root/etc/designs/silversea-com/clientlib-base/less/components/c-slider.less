@@ -84,6 +84,7 @@
             .ratio {
                 background-position: center center;
                 background-size: cover;
+                position: relative;
 
                 &:before {
                     content: ' ';
@@ -99,6 +100,14 @@
                 .ratio {
                     border: 1px solid @white;
                 }
+            }
+        }
+
+        .video-link .fa-play {
+            transform: translate(-45%,-50%) scale(0.5);
+
+            @media screen and (min-width: @screen-lg-min) {
+                transform: translate(-45%,-50%) scale(0.8);
             }
         }
     }
@@ -118,6 +127,7 @@
                 height: 0;
                 margin: 0;
                 padding-bottom: 55%;
+                position: relative;
                 width: 100%;
             }
         }
