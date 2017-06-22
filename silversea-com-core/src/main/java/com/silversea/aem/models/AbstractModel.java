@@ -55,7 +55,7 @@ public abstract class AbstractModel {
                 if (StringUtils.contains(tag.getTagID(), "features:")) {
                     Resource resource = tag.adaptTo(Resource.class);
                     Feature feature = new Feature();
-                    feature.setTitle(tag.getTitle());
+                    feature.setTitle(tag.getTitle(page.getLanguage(false)));
                     feature.setIcon(resource.getValueMap().get("icon", String.class));
                     features.add(feature);
                 }
