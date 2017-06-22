@@ -1,9 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,13 +32,13 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesUpdateImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.CitiesApi;
 import io.swagger.client.model.City77;
 
 /**
@@ -65,10 +63,10 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 	@Reference
 	private Replicator replicat;
-	
-    @Reference
-    private ApiCallService apiCallService;
-    
+
+	@Reference
+	private ApiCallService apiCallService;
+
 	private ResourceResolver resourceResolver;
 	private PageManager pageManager;
 	private Session session;
@@ -81,62 +79,34 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cruise importer login exception ", e);
+			LOGGER.debug("Cities importer login exception ", e);
 		}
 	}
 
 	@Override
 	public void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions {
+		init();
 
 		try {
-			/**
-			 * authentification pour le swagger
-			 */
-			getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-			/**
-			 * Récuperation du domain de l'api Swager
-			 */
-			getApiDomain(apiConfig.getApiBaseDomain());
-			/**
-			 * Récuperation de la session refresh
-			 */
+
 			if (apiConfig.getSessionRefresh() != 0) {
 				sessionRefresh = apiConfig.getSessionRefresh();
 			}
-			/**
-			 * Récuperation de per page
-			 */
+
 			if (apiConfig.getPageSize() != 0) {
 				pageSize = apiConfig.getPageSize();
 			}
 
-//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-//			Session session = resourceResolver.adaptTo(Session.class);
-
 			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-
 			Resource resParent = citiesRootPage.adaptTo(Resource.class);
-			Date date = resParent.getChild("jcr:content").getValueMap().get("lastModificationDate", Date.class);
-
-			// get last importing date
-			String dateFormat = "yyyyMMdd";
-			SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 			String currentDate;
-
-			if (date != null) {
-				currentDate = formatter.format(date.getTime()).toString();
-
-//				final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("citiesUrl"));
-
-//				CitiesApi citiesApi = new CitiesApi();
-//				citiesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
+			currentDate = ImporterUtils.getLastModificationDate(citiesRootPage,"lastModificationDate");
+			if (currentDate != null) {
 
 				List<City77> cities;
 				int i = 1;
 
 				do {
-//					cities = citiesApi.citiesGetChanges(currentDate, i, pageSize, null, null, null);
 					cities = apiCallService.getCitiesUpdates(currentDate, i, pageSize);
 
 					int j = 0;
@@ -152,9 +122,10 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 							if (resources.hasNext()) {
 								portPage = resources.next().adaptTo(Page.class);
+
 								if (BooleanUtils.isTrue(city.getIsDeleted())) {
-									replicat.replicate(session, ReplicationActionType.DEACTIVATE, portPage.getPath());
-									LOGGER.debug(" Desactivation of Port page {}  ", city);
+									ImporterUtils.updateReplicationStatus(replicat, session, city.getIsDeleted(),
+											portPage.getPath());
 								}
 
 								LOGGER.debug("Port page {} with ID {} already exists", city.getCityName(),
@@ -178,35 +149,21 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 									LOGGER.debug("Creating page {}", portFirstLetterName);
 								}
 								session.save();
-								// if (replicat.getReplicationStatus(session,
-								// citiesRootPage.getPath()).isActivated()) {
-								try {
-									// if
-									// (!replicat.getReplicationStatus(session,
-									// portFirstLetterPage.getPath())
-									// .isActivated()) {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE,
-											portFirstLetterPage.getPath());
-									// }
-								} catch (ReplicationException e) {
-									e.printStackTrace();
-								}
-								// }
+								ImporterUtils.updateReplicationStatus(replicat, session, false,
+										portFirstLetterPage.getPath());
 
 								portPage = pageManager.create(portFirstLetterPage.getPath(),
 										JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
 												StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
 										TemplateConstants.PATH_PORT,
 										StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
-								LOGGER.debug(" create Port page {} with ID {} ", city.getCityName(),
-										city.getCityId());
+								LOGGER.debug(" create Port page {} with ID {} ", city.getCityName(), city.getCityId());
 
 							}
 
 							Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
 
 							portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
-
 							portPageContentNode.setProperty("apiTitle", city.getCityName());
 							portPageContentNode.setProperty("apiDescription", city.getShortDescription());
 							portPageContentNode.setProperty("apiLongDescription", city.getDescription());
@@ -221,9 +178,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 							if (BooleanUtils.isFalse(city.getIsDeleted()) || city.getIsDeleted() == null) {
 								session.save();
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
-								LOGGER.debug(" Activation of Port page {} with ID {} ", city.getCityName(),
-										city.getCityId());
+								ImporterUtils.updateReplicationStatus(replicat, session, false, portPage.getPath());
 							}
 
 							if (j % sessionRefresh == 0) {
@@ -237,7 +192,7 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 							}
 						} catch (Exception e) {
 							errorNumber = errorNumber + 1;
-							LOGGER.debug("cities import error {}, number of faulures : {}",city, +errorNumber);
+							LOGGER.debug("cities import error {}, number of faulures : {}", city, +errorNumber);
 							j++;
 						}
 					}
@@ -246,7 +201,6 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 
 				if (session.hasPendingChanges()) {
 					try {
-						// save migration date
 						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
 						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
 						session.save();
@@ -275,4 +229,5 @@ public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpda
 	public int getSuccesNumber() {
 		return succesNumber;
 	}
+
 }

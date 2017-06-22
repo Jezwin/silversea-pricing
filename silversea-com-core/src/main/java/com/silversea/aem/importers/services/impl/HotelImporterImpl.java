@@ -3,8 +3,10 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -29,6 +31,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -62,36 +65,35 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 	private int succesNumber = 0;
 	private int sessionRefresh = 100;
 	private int pageSize = 100;
+	
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	public void init() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("Cities importer login exception ", e);
+		}
+	}
 
 	@Override
 	public void importData() throws IOException {
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+		init();
+		
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
+		
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
 		try {
-//			HotelsApi hotelsApi = new HotelsApi();
-
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
-
 			Page citiesRootPage;
 
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
@@ -149,8 +151,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 											session.save();
 											if (!replicat.getReplicationStatus(session, hotelsPage.getPath())
 													.isActivated()) {
-												replicat.replicate(session, ReplicationActionType.ACTIVATE,
-														hotelsPage.getPath());
+												ImporterUtils.updateReplicationStatus(replicat, session, false, hotelsPage.getPath());
 											}
 
 											hotelPage = pageManager.create(hotelsPage.getPath(),
@@ -181,16 +182,8 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 									j++;
 									succesNumber = succesNumber + 1;
 
-									try {
-										session.save();
-										replicat.replicate(session, ReplicationActionType.ACTIVATE,
-												hotelPage.getPath());
-										LOGGER.debug("replication of hotel : {} for language {}", hotel.getHotelId(), loc);
-									} catch (RepositoryException e) {
-										LOGGER.debug("replication ERROR of hotel : {} for language {}", hotel.getHotelId(),loc);
-										session.refresh(true);
-									}
-
+									session.save();
+									ImporterUtils.updateReplicationStatus(replicat, session, false, hotelPage.getPath());
 								}
 
 								if (j % sessionRefresh == 0) {
@@ -214,7 +207,6 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
 					if (session.hasPendingChanges()) {
 						try {
-							// save migration date
 							Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
 							rootNode.setProperty("lastModificationDateHotel", Calendar.getInstance());
 							session.save();
@@ -226,9 +218,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 				}
 			}
 			resourceResolver.close();
-		} catch (ApiException | LoginException |
-
-				RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing shorexes", e);
 		}
 	}

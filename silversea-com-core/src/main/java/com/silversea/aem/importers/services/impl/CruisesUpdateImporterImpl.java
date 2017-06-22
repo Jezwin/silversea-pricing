@@ -87,7 +87,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             int index = 1;
             Page destinationPage = pageManager
                     .getPage(apiConfig.apiRootPath(ImportersConstants.CRUISES_DESTINATIONS_URL_KEY));
-            String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage);
+            String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage,"lastModificationDate");
             LOGGER.debug("Cruise update importer -- Start import data");
             do {
                 voyages = apiCallService.getChangedVoyages(index, lastModificationDate);

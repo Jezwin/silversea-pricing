@@ -78,12 +78,12 @@ public class ImporterUtils {
 	 *            modified page
 	 * @return lastModificationDate : modification date
 	 */
-	public static String getLastModificationDate(Page page) {
+	public static String getLastModificationDate(Page page, String property) {
 		String lastModificationDate = null;
 		if (page != null) {
 			Resource resource = page.adaptTo(Resource.class);
 			if (resource != null && !resource.equals(Resource.RESOURCE_TYPE_NON_EXISTING)) {
-				Date date = page.getContentResource().getValueMap().get("lastModificationDate", Date.class);
+				Date date = page.getContentResource().getValueMap().get(property, Date.class);
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 				lastModificationDate = formatter.format(date);
 			}
@@ -258,6 +258,22 @@ public class ImporterUtils {
 		}
 		return calendar;
 	}
+	
+	public static void updateReplicationStatus(Replicator replicator, Session session, Boolean isDeleted, String path) {
+		try {
+			if (path != null) {
+				if (isDeleted) {
+					LOGGER.debug("Unpublish resource with path {}", path);
+					replicator.replicate(session, ReplicationActionType.DEACTIVATE, path);
+				} else {
+					LOGGER.debug("Replicate resource with path {}", path);
+					replicator.replicate(session, ReplicationActionType.ACTIVATE, path);
+				}
+			}
+		} catch (ReplicationException e) {
+			LOGGER.error("Replication error", e);
+		}
+	}
 
 	/**
 	 * 
@@ -383,37 +399,6 @@ public class ImporterUtils {
 		return resourceResolver.getResource(StringUtils.replace(enPage.getPath(), "/en/", "/" + local + "/")).adaptTo(Page.class);
 	}
 
-	// public static void createJCRName(Page path,Template template, PageManager
-	// pageManager,Replicator replicat, String jcrName, String local){
-	//
-	// Page portFirstLetterPage;
-	// if (citiesRootPage.hasChild(portFirstLetterName)) {
-	// portFirstLetterPage = pageManager
-	// .getPage(ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
-	//
-	// LOGGER.debug("Page {} already exists", portFirstLetterName);
-	// } else {
-	// portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
-	// portFirstLetterName,
-	// TemplateConstants.PATH_PAGE_PORT, portFirstLetter, false);
-	// LOGGER.debug("Creating page {}", portFirstLetterName);
-	// }
-	//
-	// session.save();
-	// if (replicat.getReplicationStatus(session,
-	// citiesRootPage.getPath()).isActivated()) {
-	// try {
-	// if (!replicat.getReplicationStatus(session,
-	// portFirstLetterPage.getPath())
-	// .isActivated()) {
-	// replicat.replicate(session, ReplicationActionType.ACTIVATE,
-	// portFirstLetterPage.getPath());
-	// }
-	// } catch (ReplicationException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-	// }
+
 
 }
