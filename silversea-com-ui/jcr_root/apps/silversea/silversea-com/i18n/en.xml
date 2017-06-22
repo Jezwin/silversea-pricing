@@ -591,6 +591,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
         sling:message="voyage highlights" />
+    <voyage-highlights-introduction
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage-highlights-introduction"
+        sling:message="Your expedition will lead to one discovery after another. A complimentary programme of unique, small-group shore experiences, led by team of expert guides and lectures, allows you to fully experience the lands you'll visit." />
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
