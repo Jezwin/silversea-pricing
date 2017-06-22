@@ -79,7 +79,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("travel agencies importer login exception ", e);
+			LOGGER.debug("travel agencies updates importer login exception ", e);
 		}
 	}
 
@@ -155,18 +155,8 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 									LOGGER.debug("createa travel agency contry page : {}", agency.getCountryIso3());
 								}
 								if (agencyTravelContryPage != null) {
-									// if
-									// (!replicat.getReplicationStatus(session,
-									// travelRootPage.getPath()).isActivated())
-									// {
-									// if
-									// (!replicat.getReplicationStatus(session,
-									// agencyTravelContryPage.getPath()).isActivated())
-									// {
 									replicat.replicate(session, ReplicationActionType.ACTIVATE,
 											agencyTravelContryPage.getPath());
-									// }
-									// }
 									agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
 											JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
 													StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
@@ -175,10 +165,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 									LOGGER.debug("createa  travel agency  page : {}", agency.getAgency());
 								}
 							}
-							// if(agency.getAgencyId() == 41216){
-							// LOGGER.debug("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-							// existe :", agency.getAgencyId());
-							// }
 
 							diff.add(agency.getAgencyId());
 
@@ -197,9 +183,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 								agencyContentNode.setProperty("latitude", agency.getLat());
 								agencyContentNode.setProperty("longitude", agency.getLon());
 								succesNumber = succesNumber + 1;
-
-								// if (!replicat.getReplicationStatus(session,
-								// travelRootPage.getPath()).isActivated()) {
 
 								try {
 									replicat.replicate(session, ReplicationActionType.ACTIVATE,

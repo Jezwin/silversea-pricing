@@ -161,9 +161,9 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 													StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()),
 													false);
 
-											LOGGER.debug("Creating hotel {}", hotel.getHotelName());
+											LOGGER.debug("Creating hotel {} for language {}", hotel.getHotelName(),loc);
 										} else {
-											LOGGER.debug("No city found with id {}", cityId);
+											LOGGER.debug("No city found with id {}for language {}", cityId,loc);
 										}
 									} else {
 										LOGGER.debug("Hotel have no city attached, not imported");
@@ -185,9 +185,9 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 										session.save();
 										replicat.replicate(session, ReplicationActionType.ACTIVATE,
 												hotelPage.getPath());
-										LOGGER.debug("replication of hotel : {}", hotel.getHotelId());
+										LOGGER.debug("replication of hotel : {} for language {}", hotel.getHotelId(), loc);
 									} catch (RepositoryException e) {
-										LOGGER.debug("replication ERROR of hotel : {}", hotel.getHotelId());
+										LOGGER.debug("replication ERROR of hotel : {} for language {}", hotel.getHotelId(),loc);
 										session.refresh(true);
 									}
 
@@ -204,7 +204,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 								}
 							} catch (Exception e) {
 								errorNumber = errorNumber + 1;
-								LOGGER.debug("Hotel error, number of faulures :", errorNumber);
+								LOGGER.debug("Hotel error, for language {} number of failures :{}",loc, +errorNumber);
 								j++;
 							}
 						}
