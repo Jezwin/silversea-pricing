@@ -154,7 +154,7 @@
     <exclusive-offer-not-available
         jcr:primaryType="sling:MessageEntry"
         sling:key="exclusive-offer-not-available"
-        sling:message="Exclusive offer not available in this country" />
+        sling:message="This exclusive offer is not available in your country." />
     <exclusive-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="exclusive-offers"
