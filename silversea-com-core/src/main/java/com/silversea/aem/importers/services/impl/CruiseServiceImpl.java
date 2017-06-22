@@ -231,7 +231,7 @@ public class CruiseServiceImpl implements CruiseService{
         itineraryNode.setProperty("voyageId", itinerary.getVoyageId());
         itineraryNode.setProperty("itineraryId", itinerary.getItineraryId());
         itineraryNode.setProperty("cityId", itinerary.getCityId());
-        itineraryNode.setProperty("date", itinerary.getItineraryDate().toString());
+        itineraryNode.setProperty("date", ImporterUtils.convertToCalendar(itinerary.getItineraryDate()));
         itineraryNode.setProperty("arriveTime", itinerary.getArriveTime());
         itineraryNode.setProperty("arriveAmPm", itinerary.getArriveTimeAmpm());
         itineraryNode.setProperty("departTime", itinerary.getDepartTime());
@@ -254,7 +254,7 @@ public class CruiseServiceImpl implements CruiseService{
                             "landProgramId", Objects.toString(land.getLandItineraryId()), resourceResolver);
                     Node landNode = ImporterUtils.adaptOrCreateNode(resources, landsNode, Objects.toString(land.getLandItineraryId()));
                     landNode.setProperty("landProgramReference", landProgramReference);
-                    landNode.setProperty("date", land.getDate().toString());
+                    landNode.setProperty("date", ImporterUtils.convertToCalendar(land.getDate()));
                     landNode.setProperty("cityId", land.getCityId());
                     landNode.setProperty("landItineraryId", land.getLandItineraryId());
                 }
@@ -313,7 +313,7 @@ public class CruiseServiceImpl implements CruiseService{
                     excursionNode.setProperty("shorexItineraryId", excursion.getShorexItineraryId());
                     excursionNode.setProperty("cityId", excursion.getCityId());
                     excursionNode.setProperty("voyageId", excursion.getVoyageId());
-                    excursionNode.setProperty("date", excursion.getDate().toString());
+                    excursionNode.setProperty("date",ImporterUtils.convertToCalendar(excursion.getDate()));
                     excursionNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());
                     excursionNode.setProperty("generalDepartureTime", excursion.getGeneralDepartureTime());
                     excursionNode.setProperty("duration", excursion.getDuration());
