@@ -1,7 +1,7 @@
 <template data-sly-template.default="${ @ list }">
     <div class="row c-cruise-ship-info__item" data-sly-repeat="${list}">
         <div class="col-sm-6 variationimg ${itemList.even ? ' col-sm-push-6' : ''}">
-            <a href="/is/image${item.thumbnail}" class="automatic-gallery-modal" data-target=".bs-modal-lg" data-gallery=".gallery">
+            <a>
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
             </a>
         </div>

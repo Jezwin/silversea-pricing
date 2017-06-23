@@ -26,8 +26,6 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -37,6 +35,7 @@ import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersUpdateImporter;
 import com.silversea.aem.services.ApiCallService;
@@ -166,7 +165,8 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 										market.stream().toArray((Tag[]::new)));
 
 								succesNumber = succesNumber + 1;
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, offersPage.getPath());
+								session.save();
+								ImporterUtils.updateReplicationStatus(replicat, session, false, offersPage.getPath());
 								j++;
 								LOGGER.debug("Update of exclusive offers : {} , succes numbers {}",
 										offers.getVoyageSpecialOffer(), +succesNumber);
@@ -198,11 +198,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 				if (!diff.contains(
 						Integer.parseInt(page.getContentResource().getValueMap().get("exclusiveOfferId").toString()))) {
-					try {
-						replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
-					} catch (ReplicationException e) {
-						LOGGER.debug("Exclusive offer failure desactivation {} :", page.getPath());
-					}
+					ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 				}
 			}
 

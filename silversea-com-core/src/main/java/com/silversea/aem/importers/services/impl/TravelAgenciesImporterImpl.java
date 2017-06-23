@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,7 +12,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -31,13 +31,13 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.model.Agency;
 
 /**
@@ -62,15 +62,14 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 
 	@Reference
 	private Replicator replicat;
-	
+
 	@Reference
-    private ApiCallService apiCallService;
-	
+	private ApiCallService apiCallService;
+
 	private ResourceResolver resourceResolver;
 	private PageManager pageManager;
 	private Session session;
 
-	
 	public void init() {
 		try {
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
@@ -86,167 +85,157 @@ public class TravelAgenciesImporterImpl extends BaseImporter implements TravelAg
 	@Override
 	public void importData() throws IOException {
 		init();
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
+
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
 
-//		final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
-
-//		AgenciesApi travelAgenciesApi = new AgenciesApi();
-//		travelAgenciesApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-
 		try {
-//			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-//			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-//			Session session = resourceResolver.adaptTo(Session.class);
-			
-			
-			Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 
-			int i = 1;
+			Page travelRootPage;
 
-			List<Agency> travelAgencies;
+			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
+			List<String> local = new ArrayList<>();
+			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
-			do {
+			for (String loc : local) {
+				travelRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
+				LOGGER.debug("Importing Exclusive offers for langue : {}", loc);
 
-//				travelAgencies = travelAgenciesApi.agenciesGet(null, null, null, null, null, i, pageSize);
-				
-				travelAgencies = apiCallService.getTravelAgencies(i, pageSize);
+				if (travelRootPage != null) {
 
-				int j = 0;
+					int i = 1;
+					List<Agency> travelAgencies;
+					do {
 
-				for (Agency agency : travelAgencies) {
+						travelAgencies = apiCallService.getTravelAgencies(i, pageSize);
 
-					try {
+						int j = 0;
 
-						Iterator<Resource> resources = resourceResolver.findResources(
-								"//element(*,cq:Page)[jcr:content/agencyId=\"" + agency.getAgencyId() + "\"]", "xpath");
-
-						Page agencyTravelPage = null;
-
-						if (resources.hasNext()) {
-							agencyTravelPage = resources.next().adaptTo(Page.class);
-						}
-
-						else {
-							Page agencyTravelContryPage = pageManager
-									.getPage("/content/silversea-com/en/other-resources/find-a-travel-agent/"
-											+ agency.getCountryIso3().toLowerCase());
-							if (agencyTravelContryPage == null) {
-								agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
-										JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
-												StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3())),
-										"/apps/silversea/silversea-com/templates/page",
-										StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()), false);
-								LOGGER.debug("createa travel agency contry page : {}", agency.getCountryIso3());
-							}
-
-							session.save();
-							if (!replicat
-									.getReplicationStatus(session,
-											pageManager.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES).getPath())
-									.isActivated()) {
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, resourceResolver
-										.getResource(ImportersConstants.BASEPATH_TRAVEL_AGENCIES).getPath());
-							}
-//							if (replicat.getReplicationStatus(session, travelRootPage.getPath()).isActivated()) {
-								try {
-									if (!replicat.getReplicationStatus(session, agencyTravelContryPage.getPath())
-											.isActivated()) {
-										replicat.replicate(session, ReplicationActionType.ACTIVATE,
-												agencyTravelContryPage.getPath());
-									}
-								} catch (ReplicationException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-//								}
-							}
-
-							if (agencyTravelContryPage != null) {
-								agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
-										JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
-												StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
-										TemplateConstants.PATH_TRAVEL_AGENCY,
-										StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
-								LOGGER.debug("createa  travel agency  page : {}", agency.getAgency());
-							}
-						}
-
-						if (agencyTravelPage != null) {
-							Node agencyContentNode = agencyTravelPage.getContentResource().adaptTo(Node.class);
-							agencyContentNode.setProperty(JcrConstants.JCR_TITLE, agency.getAgency());
-							agencyContentNode.setProperty("agencyId", agency.getAgencyId());
-							agencyContentNode.setProperty("address", agency.getAddress());
-							agencyContentNode.setProperty("city", agency.getCity());
-							agencyContentNode.setProperty("zip", agency.getZip());
-							agencyContentNode.setProperty("zip4", agency.getZip4());
-							agencyContentNode.setProperty("countryIso3", agency.getCountryIso3());
-							agencyContentNode.setProperty("stateCode", agency.getStateCod());
-							agencyContentNode.setProperty("county", agency.getCounty());
-							agencyContentNode.setProperty("phone", agency.getPhone());
-							agencyContentNode.setProperty("latitude", agency.getLat());
-							agencyContentNode.setProperty("longitude", agency.getLon());
-							succesNumber = succesNumber + 1;
-							j++;
+						for (Agency agency : travelAgencies) {
 
 							try {
-								session.save();
-								replicat.replicate(session, ReplicationActionType.ACTIVATE, agencyTravelPage.getPath());
-								LOGGER.debug("replication of travel agency  page : {}", agency.getAgency());
-							} catch (RepositoryException e) {
-								LOGGER.debug("replication error of travel agency  page : {}", agency.getAgency());
-								session.refresh(true);
-							}
 
-						}
+								Iterator<Resource> resources = resourceResolver
+										.findResources("/jcr:root/content/silversea-com/" + loc
+												+ "//element(*,cq:Page)[jcr:content/agencyId=\"" + agency.getAgencyId()
+												+ "\"]", "xpath");
 
-						if (j % sessionRefresh == 0) {
-							if (session.hasPendingChanges()) {
-								try {
-									session.save();
-								} catch (RepositoryException e) {
-									session.refresh(true);
+								Page agencyTravelPage = null;
+
+								if (resources.hasNext()) {
+									agencyTravelPage = resources.next().adaptTo(Page.class);
 								}
+
+								else {
+									Page agencyTravelContryPage = pageManager
+											.getPage("/content/silversea-com/en/other-resources/find-a-travel-agent/"
+													+ agency.getCountryIso3().toLowerCase());
+									if (agencyTravelContryPage == null) {
+										agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
+												JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
+														StringHelper.getFormatWithoutSpecialCharcters(
+																agency.getCountryIso3())),
+												"/apps/silversea/silversea-com/templates/page",
+												StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()),
+												false);
+										LOGGER.debug("createa travel agency contry page : {}", agency.getCountryIso3());
+									}
+
+									session.save();
+									if (!replicat
+											.getReplicationStatus(session, pageManager
+													.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES).getPath())
+											.isActivated()) {
+										replicat.replicate(session, ReplicationActionType.ACTIVATE, resourceResolver
+												.getResource(ImportersConstants.BASEPATH_TRAVEL_AGENCIES).getPath());
+									}
+									try {
+										if (!replicat.getReplicationStatus(session, agencyTravelContryPage.getPath())
+												.isActivated()) {
+											replicat.replicate(session, ReplicationActionType.ACTIVATE,
+													agencyTravelContryPage.getPath());
+										}
+									} catch (ReplicationException e) {
+										e.printStackTrace();
+									}
+
+									if (agencyTravelContryPage != null) {
+										agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
+												JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
+														StringHelper
+																.getFormatWithoutSpecialCharcters(agency.getAgency())),
+												TemplateConstants.PATH_TRAVEL_AGENCY,
+												StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()),
+												false);
+										LOGGER.debug("createa  travel agency  page : {}", agency.getAgency());
+									}
+								}
+
+								if (agencyTravelPage != null) {
+									Node agencyContentNode = agencyTravelPage.getContentResource().adaptTo(Node.class);
+									agencyContentNode.setProperty(JcrConstants.JCR_TITLE, agency.getAgency());
+									agencyContentNode.setProperty("agencyId", agency.getAgencyId());
+									agencyContentNode.setProperty("address", agency.getAddress());
+									agencyContentNode.setProperty("city", agency.getCity());
+									agencyContentNode.setProperty("zip", agency.getZip());
+									agencyContentNode.setProperty("zip4", agency.getZip4());
+									agencyContentNode.setProperty("countryIso3", agency.getCountryIso3());
+									agencyContentNode.setProperty("stateCode", agency.getStateCod());
+									agencyContentNode.setProperty("county", agency.getCounty());
+									agencyContentNode.setProperty("phone", agency.getPhone());
+									agencyContentNode.setProperty("latitude", agency.getLat());
+									agencyContentNode.setProperty("longitude", agency.getLon());
+									succesNumber = succesNumber + 1;
+									j++;
+
+									try {
+										session.save();
+										replicat.replicate(session, ReplicationActionType.ACTIVATE,
+												agencyTravelPage.getPath());
+										LOGGER.debug("replication of travel agency  page : {}", agency.getAgency());
+									} catch (RepositoryException e) {
+										LOGGER.debug("replication error of travel agency  page : {}",
+												agency.getAgency());
+										session.refresh(true);
+									}
+
+								}
+
+								if (j % sessionRefresh == 0) {
+									if (session.hasPendingChanges()) {
+										try {
+											session.save();
+										} catch (RepositoryException e) {
+											session.refresh(true);
+										}
+									}
+								}
+							} catch (Exception e) {
+								errorNumber = errorNumber + 1;
+								LOGGER.debug("Travel agency error, number of faulures : {}", +errorNumber);
+								j++;
 							}
 						}
-					} catch (Exception e) {
-						errorNumber = errorNumber + 1;
-						LOGGER.debug("Travel agency error, number of faulures : {}", +errorNumber);
-						j++;
+
+						i++;
+					} while (travelAgencies.size() > 0);
+
+					if (session.hasPendingChanges()) {
+						try {
+							Node rootNode = travelRootPage.getContentResource().adaptTo(Node.class);
+							rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+							session.save();
+						} catch (RepositoryException e) {
+							session.refresh(false);
+						}
 					}
 				}
-
-				i++;
-			} while (travelAgencies.size() > 0);
-
-			if (session.hasPendingChanges()) {
-				try {
-					// save migration date
-					Node rootNode = travelRootPage.getContentResource().adaptTo(Node.class);
-					rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-					session.save();
-				} catch (RepositoryException e) {
-					session.refresh(false);
-				}
 			}
-
 			resourceResolver.close();
 		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing shorexes", e);

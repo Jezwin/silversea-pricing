@@ -12,7 +12,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -42,7 +41,6 @@ import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.model.SpecialOffer;
 
 /**
@@ -98,23 +96,10 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+		
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
