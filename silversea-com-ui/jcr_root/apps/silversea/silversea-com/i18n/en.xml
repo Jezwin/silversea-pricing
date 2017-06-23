@@ -78,7 +78,7 @@
     <copyright
         jcr:primaryType="sling:MessageEntry"
         sling:key="copyright"
-        sling:message="&#169; 2017 Silversea Cruises Ltd." />
+        sling:message="Silversea Cruises Ltd." />
     <countries
         jcr:primaryType="sling:MessageEntry"
         sling:key="countries"
