@@ -1,4 +1,16 @@
 $(function() {
+    $('.modal').on('shown.bs.modal', function(event) {
+        event.preventDefault();
+        requestForm();
+        $(this).find('.custom-checkbox').iCheck({
+                checkboxClass : 'icheckbox_minimal',
+        });
+    });
+    requestForm();
+});
+
+//make code in function to call on modal shown
+function requestForm(){
     // Autogrow Textarea
     $('.textarea_autogrow').each(function() {
         var $autogrow = $(this),
@@ -98,4 +110,5 @@ $(function() {
     $('.chosen.chosen-with-search').chosen({
         'disable_search' : false
     });
-});
+    
+}
