@@ -44,6 +44,11 @@
                     <embeddeds>
                         <embedded>
                             <groupId>${project.groupId}</groupId>
+                            <artifactId>silversea-com-cache-tools</artifactId>
+                            <target>${bundle.install.directory}</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>silversea-com-core</artifactId>
                             <target>${bundle.install.directory}</target>
                         </embedded>
@@ -90,6 +95,11 @@
     <!-- ====================================================================== -->
     <dependencies>
         <!-- Project dependencies -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>silversea-com-cache-tools</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>silversea-com-core</artifactId>
