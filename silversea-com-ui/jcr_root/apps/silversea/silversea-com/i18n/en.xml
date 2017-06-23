@@ -375,6 +375,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
         sling:message="Please enter your firstname" />
+    <required-postal-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-code"
+        sling:message="Please enter your postal code" />
+    <required-city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-city"
+        sling:message="Please enter your city" />
     <sign-up-for-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up-for-offers"
@@ -539,6 +547,22 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-a-call"
         sling:message="request a call" />
+    <get-our-free-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="get-our-free-brochures"
+        sling:message="Get our free brochures" />
+    <view-our-free-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-our-free-brochures"
+        sling:message="View our free brochures" />
+    <postal-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="postal-code"
+        sling:message="Postal code" />
+    <city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="city"
+        sling:message="city" />
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
