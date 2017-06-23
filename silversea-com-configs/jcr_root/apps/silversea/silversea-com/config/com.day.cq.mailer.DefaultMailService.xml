@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="sling:OsgiConfig"
-    smtp.host="10.234.4.1"
-    smtp.port="25"
-    smtp.user=""
-    smtp.password=""
-    from.address="dev-scc-aem@sqli.com"
-    smtp.ssl="{Boolean}false"/>
+          jcr:primaryType="sling:OsgiConfig"
+          smtp.host="10.234.4.1"
+          smtp.port="25"
+          smtp.user=""
+          smtp.password=""
+          from.address="dev-scc-aem@sqli.com"
+          smtp.ssl="{Boolean}false"/>
