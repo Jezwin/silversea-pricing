@@ -1,5 +1,10 @@
+<sly data-sly-use.comboCruise="${'com.silversea.aem.helper.PageHelper' @ path=properties.pageReference}" />
+<sly data-sly-test.comboCruisePage="${properties.pageReference ? comboCruise.page : currentPage}" />
+<sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=comboCruisePage.path}" />
+<sly data-sly-test.ppties="${comboCruisePage.properties}" />
+
 <h1 class="cc-tab_header_title">
-    ${pageProperties.jcr:title @ context="html"}
+    ${ppties.apiTitle || ppties.jcr:title @ context="html"}
 </h1>
 <div class="cc-tab_header_desc row">
     <div class="cc-tab_header_desc_txt col-md-9">
