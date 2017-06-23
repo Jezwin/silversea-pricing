@@ -11,9 +11,6 @@
     <filter root="/content/silversea-com/en/robots.txt"/>
     <filter root="/content/elb.txt"/>
 
-    <filter root="/etc">
-        <include pattern="/etc/map(.*)" />
-    </filter>
     <filter root="/etc/tags/geotagging/rep:policy"/>
 
     <filter root="/etc/workflow/launcher/config/dam_xmp_writeback"/>
