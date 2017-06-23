@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -90,78 +91,96 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 		}
 
 		try {
-			Page featuresRootPage = pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
+			Page featuresRootPage;
 			List<Feature> features;
-			features = apiCallService.getFeatures();
-			int i = 0;
-			for (Feature feature : features) {
-				try {
 
-					LOGGER.debug("Importing Feature: {}", feature.getName());
-					Iterator<Resource> resources = resourceResolver.findResources(
-							"//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId() + "\"]", "xpath");
-					Page featurePage = null;
+			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
+			List<String> local = new ArrayList<>();
+			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
-					if (resources.hasNext()) {
-						featurePage = resources.next().adaptTo(Page.class);
-					} else {
-						featurePage = pageManager.create(featuresRootPage.getPath(),
-								StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
-								TemplateConstants.PATH_FEATURE,
-								StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
-					}
-					diff.add(feature.getFeatureId());
-					if (featurePage != null) {
-						Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
-						if (featurePageContentNode != null) {
-							featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
-							featurePageContentNode.setProperty("featureId", feature.getFeatureId());
-							featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
-							featurePageContentNode.setProperty("featureName", feature.getName());
-							featurePageContentNode.setProperty("apiTitle", feature.getName());
-							featurePageContentNode.setProperty("featureOrder", feature.getOrder());
-							session.save();
-							ImporterUtils.updateReplicationStatus(replicat, session, false, featurePage.getPath());
-							LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
-						}
-					}
-					LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
-					i++;
-					if (i % sessionRefresh == 0) {
-						if (session.hasPendingChanges()) {
-							try {
-								session.save();
-							} catch (RepositoryException e) {
-								session.refresh(true);
+			for (String loc : local) {
+				featuresRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
+				LOGGER.debug("Importing Exclusive offers for langue : {}", loc);
+
+				if (featuresRootPage != null) {
+
+					features = apiCallService.getFeatures();
+					int i = 0;
+					for (Feature feature : features) {
+						try {
+
+							LOGGER.debug("Importing Feature: {}", feature.getName());
+							Iterator<Resource> resources = resourceResolver
+									.findResources("/jcr:root/content/silversea-com/" + loc
+											+ "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId()
+											+ "\"]", "xpath");
+							Page featurePage = null;
+
+							if (resources.hasNext()) {
+								featurePage = resources.next().adaptTo(Page.class);
+							} else {
+								featurePage = pageManager.create(featuresRootPage.getPath(),
+										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
+										TemplateConstants.PATH_FEATURE,
+										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
 							}
+							diff.add(feature.getFeatureId());
+							if (featurePage != null) {
+								Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
+								if (featurePageContentNode != null) {
+									featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
+									featurePageContentNode.setProperty("featureId", feature.getFeatureId());
+									featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
+									featurePageContentNode.setProperty("featureName", feature.getName());
+									featurePageContentNode.setProperty("apiTitle", feature.getName());
+									featurePageContentNode.setProperty("featureOrder", feature.getOrder());
+									session.save();
+									ImporterUtils.updateReplicationStatus(replicat, session, false,
+											featurePage.getPath());
+									LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
+								}
+							}
+							LOGGER.debug("Check Feature with {} ", feature.getFeatureCod());
+							i++;
+							if (i % sessionRefresh == 0) {
+								if (session.hasPendingChanges()) {
+									try {
+										session.save();
+									} catch (RepositoryException e) {
+										session.refresh(true);
+									}
+								}
+							}
+						} catch (Exception e) {
+							LOGGER.debug("Features error, number of faulures :", e);
+							i++;
 						}
 					}
-				} catch (Exception e) {
-					LOGGER.debug("Features error, number of faulures :", e);
-					i++;
-				}
-			}
-			if (session.hasPendingChanges()) {
-				try {
-					Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
-					rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-					session.save();
-				} catch (RepositoryException e) {
-					session.refresh(false);
-				}
-			}
+					if (session.hasPendingChanges()) {
+						try {
+							Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
+							rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+							session.save();
+						} catch (RepositoryException e) {
+							session.refresh(false);
+						}
+					}
 
-			Iterator<Page> resourcess = featuresRootPage.listChildren();
-			while (resourcess.hasNext()) {
-				Page page = resourcess.next();
-
-				if (page.getContentResource().getValueMap().get("featureId").toString() != null && !diff.contains(
-						Integer.parseInt(page.getContentResource().getValueMap().get("featureId").toString()))) {
-					ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
+					Iterator<Page> resourcess = featuresRootPage.listChildren();
+					while (resourcess.hasNext()) {
+						Page page = resourcess.next();
+						if (page.getContentResource().getValueMap().get("featureId").toString() != null
+								&& !diff.contains(Integer.parseInt(
+										page.getContentResource().getValueMap().get("featureId").toString()))) {
+							ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
+						}
+					}
 				}
 			}
 			resourceResolver.close();
-		} catch (ApiException | RepositoryException e) {
+		} catch (ApiException |
+
+				RepositoryException e) {
 			String errorMessage = "Import Feature Errors : {} ";
 			LOGGER.error(errorMessage, e);
 		}
