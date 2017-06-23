@@ -14,7 +14,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -101,23 +100,11 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+		
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
+		
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
@@ -131,9 +118,6 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 			List<SpecialOffer> specialOffers;
 
 			do {
-
-				// specialOffers = spetialOffersApi.specialOffersGet(i,
-				// pageSize, null);
 				specialOffers = apiCallService.getExclusiveOffers(i, pageSize);
 
 				int j = 0;
@@ -182,10 +166,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 										market.stream().toArray((Tag[]::new)));
 
 								succesNumber = succesNumber + 1;
-								// if (!replicat.getReplicationStatus(session,
-								// offersRootPage.getPath()).isActivated()) {
 								replicat.replicate(session, ReplicationActionType.ACTIVATE, offersPage.getPath());
-								// }
 								j++;
 								LOGGER.debug("Update of exclusive offers : {} , succes numbers {}",
 										offers.getVoyageSpecialOffer(), +succesNumber);
@@ -227,7 +208,6 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 			if (session.hasPendingChanges()) {
 				try {
-					// save migration date
 					Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class);
 					rootNode.setProperty("lastModificationDate", Calendar.getInstance());
 					session.save();

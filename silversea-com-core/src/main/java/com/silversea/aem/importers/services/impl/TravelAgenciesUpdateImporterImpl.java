@@ -13,7 +13,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -40,7 +39,6 @@ import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.model.Agency;
 
 /**
@@ -66,7 +64,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 	@Reference
 	private ApiCallService apiCallService;
-	
+
 	private ResourceResolver resourceResolver;
 	private PageManager pageManager;
 	private Session session;
@@ -92,27 +90,14 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
+
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-
 
 		try {
 			Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
@@ -122,7 +107,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 			List<Agency> travelAgencies;
 
 			do {
-				
+
 				travelAgencies = apiCallService.getTravelAgencies(i, pageSize);
 				int j = 0;
 
@@ -217,7 +202,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 				i++;
 			} while (travelAgencies != null && travelAgencies.size() > 0);
 
-			// TODO Depublication of deleted pages
 			Iterator<Page> resourcess = travelRootPage.listChildren();
 			while (resourcess.hasNext()) {
 				Page page = resourcess.next();
