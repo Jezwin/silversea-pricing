@@ -24,14 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesUpdateImporter;
 import com.silversea.aem.services.ApiCallService;
@@ -122,7 +121,7 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 							featurePageContentNode.setProperty("apiTitle", feature.getName());
 							featurePageContentNode.setProperty("featureOrder", feature.getOrder());
 							session.save();
-							replicat.replicate(session, ReplicationActionType.ACTIVATE, featurePage.getPath());
+							ImporterUtils.updateReplicationStatus(replicat, session, false, featurePage.getPath());
 							LOGGER.debug("Updated Feature with {} ", feature.getFeatureCod());
 						}
 					}
@@ -158,11 +157,7 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 
 				if (page.getContentResource().getValueMap().get("featureId").toString() != null && !diff.contains(
 						Integer.parseInt(page.getContentResource().getValueMap().get("featureId").toString()))) {
-					try {
-						replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
-					} catch (ReplicationException e) {
-						e.printStackTrace();
-					}
+					ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 				}
 			}
 			resourceResolver.close();

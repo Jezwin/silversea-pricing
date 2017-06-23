@@ -25,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -127,13 +125,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 								shipPageContentNode.setProperty("shipType", ship.getShipType());
 								shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
 								session.save();
-								try {
-									session.save();
-									replicat.replicate(session, ReplicationActionType.ACTIVATE, shiPage.getPath());
-								} catch (RepositoryException e) {
-									LOGGER.debug("error replication ships  {} ", shiPage.getPath());
-									session.refresh(true);
-								}
+								ImporterUtils.updateReplicationStatus(replicat, session, false, shiPage.getPath());
 								LOGGER.debug("Updated ship with {} ", shiPage.getPath());
 							}
 						}
@@ -167,11 +159,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 
 					if (page.getContentResource().getValueMap().get("shipId") != null && !diff.contains(
 							Integer.parseInt(page.getContentResource().getValueMap().get("shipId").toString()))) {
-						try {
-							replicat.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
-						} catch (ReplicationException e) {
-							LOGGER.debug("error replication ships  {} ", page.getPath());
-						}
+							ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 					}
 				}
 			}

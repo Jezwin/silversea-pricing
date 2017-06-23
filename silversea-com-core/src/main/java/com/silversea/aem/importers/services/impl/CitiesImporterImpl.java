@@ -12,7 +12,6 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -87,23 +86,11 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 	public void importData() throws IOException {
 		init();
 
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+		
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
+		
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
@@ -150,8 +137,6 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								}
 
 								session.save();
-								// if (replicat.getReplicationStatus(session,
-								// citiesRootPage.getPath()).isActivated()) {
 								try {
 									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
 											.isActivated()) {
@@ -159,10 +144,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 												portFirstLetterPage.getPath());
 									}
 								} catch (ReplicationException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								// }
 
 								Iterator<Resource> resources = resourceResolver
 										.findResources("/jcr:root/content/silversea-com/" + loc
@@ -202,18 +185,11 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 								j++;
 								session.save();
 
-								// replicat.replicate(session,
-								// ReplicationActionType.ACTIVATE,
-								// portPage.getPath());
 
 								try {
-									// replicat.replicate(session,
-									// ReplicationActionType.ACTIVATE,
-									// portFirstLetterPage.getPath());
 									replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
 									LOGGER.debug("Activation of port {} for language {}", city.getCityName(), loc);
 								} catch (ReplicationException e) {
-									// TODO Auto-generated catch block
 									LOGGER.debug("Error of port {} for language {}", city.getCityName(), loc);
 									e.printStackTrace();
 								}
