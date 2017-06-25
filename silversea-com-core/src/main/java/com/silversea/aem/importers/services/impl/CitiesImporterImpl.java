@@ -1,17 +1,21 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.services.ApiCallService;
+import com.silversea.aem.services.ApiConfigurationService;
+import io.swagger.client.ApiException;
+import io.swagger.client.model.City;
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -19,228 +23,225 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
-import com.day.cq.replication.Replicator;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.constants.TemplateConstants;
-import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.CitiesImporter;
-import com.silversea.aem.services.ApiCallService;
-import com.silversea.aem.services.ApiConfigurationService;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import java.util.*;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.model.City;
-
-/**
- * @author aurelienolivier
- */
 @Service
 @Component(label = "Silversea.com - Cities importer")
 public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(CitiesImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(CitiesImporterImpl.class);
 
-	private int errorNumber = 0;
-	private int succesNumber = 0;
-	private int sessionRefresh = 100;
-	private int pageSize = 100;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private ApiConfigurationService apiConfig;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-	@Reference
-	private Replicator replicat;
+    @Reference
+    private ApiCallService apiCallService;
 
-	@Reference
-	private ApiCallService apiCallService;
+    @Activate
+    protected void activate(final ComponentContext context) {
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
 
-	private ResourceResolver resourceResolver;
-	private PageManager pageManager;
-	private Session session;
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
+    }
 
-	public void init() {
-		try {
-			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			pageManager = resourceResolver.adaptTo(PageManager.class);
-			session = resourceResolver.adaptTo(Session.class);
-		} catch (LoginException e) {
-			LOGGER.debug("cities importer login exception ", e);
-		}
-	}
+    @Override
+    public ImportResult importAllCities() {
+        LOGGER.debug("Starting cities import");
 
-	@Override
-	public void importData() throws IOException {
-		init();
+        int successNumber = 0;
+        int errorNumber = 0;
 
-		
-		if (apiConfig.getSessionRefresh() != 0) {
-			sessionRefresh = apiConfig.getSessionRefresh();
-		}
-		
-		if (apiConfig.getPageSize() != 0) {
-			pageSize = apiConfig.getPageSize();
-		}
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-		try {
+        try {
+            // Session initialization
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
 
-			Page citiesRootPage;
+            if (pageManager == null || session == null) {
+                throw new ImporterException("Cannot initialize pageManager and session");
+            }
 
-			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-			List<String> local = new ArrayList<>();
-			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
+            // Getting paths to import data
+            LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("citiesUrl"));
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 
-			for (String loc : local) {
-				citiesRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-				LOGGER.debug("Importing city for langue : {}", loc);
+            // Iterating over locales to import cities
+            for (String locale : locales) {
+                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
-				if (citiesRootPage != null) {
-					List<City> cities;
-					int i = 1;
+                LOGGER.debug("Cleaning already imported cities");
 
-					do {
-						cities = apiCallService.getCities(i, pageSize);
-						int j = 0;
-						for (City city : cities) {
-							try {
+                Iterator<Page> children = citiesRootPage.listChildren();
+                while (children.hasNext()) {
+                    final Page child = children.next();
 
-								LOGGER.debug("Importing city: {}", city.getCityName());
-								String portFirstLetter = "";
-								if (city.getCityName() != null) {
-									portFirstLetter = String.valueOf(city.getCityName().charAt(0));
-								}
+                    try {
+                        LOGGER.trace("trying to remove {}", child.getPath());
 
-								final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
+                        session.removeItem(child.getPath());
+                        session.save();
+                    } catch (RepositoryException e) {
+                        LOGGER.error("Cannot clean already existing cities");
+                    }
+                }
 
-								Page portFirstLetterPage;
-								if (citiesRootPage.hasChild(portFirstLetterName)) {
-									portFirstLetterPage = pageManager
-											.getPage(citiesRootPage.getPath() + "/" + portFirstLetterName);
+                LOGGER.debug("Importing cities for locale \"{}\"", locale);
 
-								} else {
-									portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
-											portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
-											false);
-								}
+                int j = 0;
 
-								session.save();
-								try {
-									if (!replicat.getReplicationStatus(session, portFirstLetterPage.getPath())
-											.isActivated()) {
-										replicat.replicate(session, ReplicationActionType.ACTIVATE,
-												portFirstLetterPage.getPath());
-									}
-								} catch (ReplicationException e) {
-									e.printStackTrace();
-								}
+                if (citiesRootPage != null) {
+                    List<City> cities;
+                    int i = 1;
 
-								Iterator<Resource> resources = resourceResolver
-										.findResources("/jcr:root/content/silversea-com/" + loc
-												+ "//element(*,cq:Page)[jcr:content/cityId=\"" + city.getCityId()
-												+ "\"]", "xpath");
+                    do {
+                        cities = apiCallService.getCities(i, pageSize);
 
-								Page portPage;
+                        for (City city : cities) {
+                            LOGGER.trace("Importing city: {}", city.getCityName());
 
-								if (resources.hasNext()) {
-									portPage = resources.next().adaptTo(Page.class);
-									LOGGER.debug("Port page {} with ID {} already exists, for language :{}",
-											city.getCityName(), city.getCityCod(), loc);
-								} else {
-									portPage = pageManager.create(portFirstLetterPage.getPath(),
-											JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-													StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
-											TemplateConstants.PATH_PORT,
-											StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
+                            try {
+                                String portFirstLetter;
 
-									LOGGER.debug("Creating port {} for language {}", city.getCityName(), loc);
-								}
+                                if (city.getCityName() == null) {
+                                    throw new ImporterException("City name is null");
+                                }
 
-								Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
+                                // Port parent page initialization
+                                portFirstLetter = String.valueOf(city.getCityName().charAt(0));
 
-								portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
-								portPageContentNode.setProperty("apiTitle", city.getCityName());
-								portPageContentNode.setProperty("apiDescription", city.getShortDescription());
-								portPageContentNode.setProperty("apiLongDescription", city.getDescription());
-								portPageContentNode.setProperty("cityCode", city.getCityCod());
-								portPageContentNode.setProperty("cityId", city.getCityId());
-								portPageContentNode.setProperty("latitude", city.getLatitude());
-								portPageContentNode.setProperty("longitude", city.getLongitude());
-								portPageContentNode.setProperty("countryId", city.getCountryId());
-								portPageContentNode.setProperty("countryIso2", city.getCountryIso2());
-								portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
-								succesNumber = succesNumber + 1;
-								j++;
-								session.save();
+                                final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
 
+                                Page portFirstLetterPage = pageManager
+                                        .getPage(citiesRootPage.getPath() + "/" + portFirstLetterName);
 
-								try {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE, portPage.getPath());
-									LOGGER.debug("Activation of port {} for language {}", city.getCityName(), loc);
-								} catch (ReplicationException e) {
-									LOGGER.debug("Error of port {} for language {}", city.getCityName(), loc);
-									e.printStackTrace();
-								}
+                                if (portFirstLetterPage == null) {
+                                    portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
+                                            portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
+                                            false);
 
-								if (j % sessionRefresh == 0) {
-									if (session.hasPendingChanges()) {
-										try {
-											session.save();
-										} catch (RepositoryException e) {
-											session.refresh(true);
-										}
-									}
+                                    LOGGER.trace("{} page is not existing, creating it", portFirstLetterName);
+                                }
 
-								}
-							} catch (Exception e) {
-								errorNumber = errorNumber + 1;
-								LOGGER.debug("cities {} error, number of faulures :",city ,+errorNumber);
-								j++;
-							}
-						}
+                                // Creating port page
+                                final Page portPage = pageManager.create(portFirstLetterPage.getPath(),
+                                        JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
+                                                StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
+                                        TemplateConstants.PATH_PORT,
+                                        StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
 
-						i++;
-					} while (cities.size() > 0 && cities != null);
+                                LOGGER.trace("Creating port {}", city.getCityName());
 
-					try {
-						Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-						session.save();
-					} catch (RepositoryException e) {
-						session.refresh(false);
-					}
+                                // If port is created, set the properties
+                                if (portPage == null) {
+                                    throw new ImporterException("Cannot create port page for city " + city.getCityName());
+                                }
 
-					// end
-				}
-			}
+                                Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
 
-			resourceResolver.close();
-		} catch (ApiException | RepositoryException e) {
-			LOGGER.error("Exception importing cities", e);
-		}
-	}
+                                if (portPageContentNode == null) {
+                                    throw new ImporterException("Cannot set properties for city " + city.getCityName());
+                                }
 
-	@Override
-	public void importCity(final String cityId) {
-	}
+                                portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
+                                portPageContentNode.setProperty("apiTitle", city.getCityName());
+                                portPageContentNode.setProperty("apiDescription", city.getShortDescription());
+                                portPageContentNode.setProperty("apiLongDescription", city.getDescription());
+                                portPageContentNode.setProperty("cityCode", city.getCityCod());
+                                portPageContentNode.setProperty("cityId", city.getCityId());
+                                portPageContentNode.setProperty("latitude", city.getLatitude());
+                                portPageContentNode.setProperty("longitude", city.getLongitude());
+                                portPageContentNode.setProperty("countryId", city.getCountryId());
+                                portPageContentNode.setProperty("countryIso2", city.getCountryIso2());
+                                portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
 
-	public int getErrorNumber() {
-		return errorNumber;
-	}
+                                LOGGER.trace("Port {} successfully created", portPage.getPath());
 
-	public int getSuccesNumber() {
-		return succesNumber;
-	}
+                                successNumber++;
+                                j++;
+
+                                if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                    try {
+                                        session.save();
+
+                                        LOGGER.debug("{} cities imported, saving session", +j);
+                                    } catch (RepositoryException e) {
+                                        session.refresh(true);
+                                    }
+                                }
+                            } catch (WCMException | RepositoryException e) {
+                                throw new ImporterException("Error writing data for city " + city.getCityName());
+                            } catch (ImporterException e) {
+                                errorNumber++;
+
+                                LOGGER.error("Import error", e);
+                            }
+                        }
+
+                        i++;
+                    } while (cities.size() > 0 && cities != null);
+
+                    // Setting last modification date
+                    // after import
+                    try {
+                        Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
+
+                        if (rootNode != null) {
+                            rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+
+                            session.save();
+                        } else {
+                            LOGGER.debug("Cannot set lastModificationDate");
+                        }
+                    } catch (RepositoryException e) {
+                        LOGGER.error("Cannot set last modification date", e);
+
+                        try {
+                            session.refresh(false);
+                        } catch (RepositoryException e1) {
+                            LOGGER.debug("Cannot refresh session", e1);
+                        }
+                    }
+                }
+            }
+
+            resourceResolver.close();
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read cities from API", e);
+        }
+
+        LOGGER.debug("Ending cities import, success: {}, error: {}", +successNumber, +errorNumber);
+
+        return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public void updateCities() {
+    }
+
+    @Override
+    public void importOneCity(final String cityId) {
+    }
 }

@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.silversea.aem.constants.ServletConstant;
 import com.silversea.aem.services.MigrationContentService;
 
+@Deprecated
 @SlingServlet(paths = ServletConstant.PATH_UPDATE_NODE_SERVLET, methods = "POST", metatype = true)
 @Property(name = "sling.auth.requirements", value = ServletConstant.PATH_UPDATE_NODE_SERVLET)
 public class UpdateNodeServlet extends SlingAllMethodsServlet {

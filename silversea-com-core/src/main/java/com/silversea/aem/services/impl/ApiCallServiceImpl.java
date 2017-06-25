@@ -223,7 +223,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 	}
 
 	@Override
-	public List<City> getCities(int index, int pageSize) throws IOException, ApiException {
+	public List<City> getCities(int index, int pageSize) throws ApiException {
 		LOGGER.debug("Api call service -- Start call cities api");
 		CitiesApi citiesApi = (CitiesApi) apiInstances.get(ServiceConstants.CITIES_API_KEY);
 		LOGGER.debug("Api call service -- Finish call cities api");
