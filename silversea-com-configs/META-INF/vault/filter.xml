@@ -12,6 +12,7 @@
     <filter root="/content/elb.txt"/>
 
     <filter root="/etc/tags/geotagging/rep:policy"/>
+    <filter root="/etc/dam/imageserver/configuration/jcr:content/settings"/>
 
     <filter root="/etc/workflow/launcher/config/dam_xmp_writeback"/>
     <filter root="/etc/workflow/launcher/config/metadata_set_lastmodified"/>
