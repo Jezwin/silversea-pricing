@@ -141,7 +141,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 
-                            // If port is created, set the properties
+                            // If hotel is created, set the properties
                             if (hotelPage == null) {
                                 throw new ImporterException("Cannot create hotel page for hotel " + hotel.getHotelName());
                             }
@@ -173,9 +173,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                                 session.refresh(true);
                             }
                         }
-                    } catch (WCMException | RepositoryException e) {
-                        throw new ImporterException("Error writing data for hotel " + hotel.getHotelName());
-                    } catch (ImporterException e) {
+                    } catch (WCMException | RepositoryException | ImporterException e) {
                         errorNumber++;
 
                         LOGGER.error("Import error", e);
@@ -183,38 +181,10 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
                 }
 
                 i++;
-            } while (hotels.size() > 0 && hotels != null);
+            } while (hotels.size() > 0);
 
-            // Setting modification date for each language
-            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
-
-            // Iterating over locales to import cities
-            for (String locale : locales) {
-                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
-
-                // Setting last modification date
-                // after import
-                try {
-                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-
-                    if (rootNode != null) {
-                        rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-
-                        session.save();
-                    } else {
-                        LOGGER.debug("Cannot set lastModificationDate");
-                    }
-                } catch (RepositoryException e) {
-                    LOGGER.error("Cannot set last modification date", e);
-
-                    try {
-                        session.refresh(false);
-                    } catch (RepositoryException e1) {
-                        LOGGER.debug("Cannot refresh session", e1);
-                    }
-                }
-            }
+            setLastModificationDate(pageManager, session,
+                    apiConfig.apiRootPath("citiesUrl"), "lastModificationDateHotels");
 
             resourceResolver.close();
         } catch (LoginException | ImporterException e) {

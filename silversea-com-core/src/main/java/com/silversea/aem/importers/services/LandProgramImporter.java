@@ -9,12 +9,14 @@ public interface LandProgramImporter {
 
     /**
      * Import all land programs, used in first data import
+     * @return import result
      */
     ImportResult importAllLandPrograms();
 
     /**
      * Update the land programs based on the last import date
      * stored in the cities root page
+     * @return import result
      */
     ImportResult updateLandPrograms();
 

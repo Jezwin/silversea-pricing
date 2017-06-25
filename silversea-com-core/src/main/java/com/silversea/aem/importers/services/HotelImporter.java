@@ -14,7 +14,7 @@ public interface HotelImporter {
 
     /**
      * Update the hotels based on the last import date
-     * stored in the hotels root page
+     * stored in the cities root page
      */
     void updateHotels();
 

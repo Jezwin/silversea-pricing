@@ -189,9 +189,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                                         session.refresh(true);
                                     }
                                 }
-                            } catch (WCMException | RepositoryException e) {
-                                throw new ImporterException("Error writing data for city " + city.getCityName());
-                            } catch (ImporterException e) {
+                            } catch (WCMException | RepositoryException | ImporterException e) {
                                 errorNumber++;
 
                                 LOGGER.error("Import error", e);
@@ -201,27 +199,8 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         i++;
                     } while (cities.size() > 0 && cities != null);
 
-                    // Setting last modification date
-                    // after import
-                    try {
-                        Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-
-                        if (rootNode != null) {
-                            rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-
-                            session.save();
-                        } else {
-                            LOGGER.debug("Cannot set lastModificationDate");
-                        }
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot set last modification date", e);
-
-                        try {
-                            session.refresh(false);
-                        } catch (RepositoryException e1) {
-                            LOGGER.debug("Cannot refresh session", e1);
-                        }
-                    }
+                    setLastModificationDate(pageManager, session,
+                            apiConfig.apiRootPath("citiesUrl"), "lastModificationDate");
                 }
             }
 

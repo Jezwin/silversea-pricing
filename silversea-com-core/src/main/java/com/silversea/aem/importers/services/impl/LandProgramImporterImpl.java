@@ -63,7 +63,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 
     @Override
     public ImportResult importAllLandPrograms() {
-        LOGGER.debug("Starting hotels import");
+        LOGGER.debug("Starting land programs import");
 
         int successNumber = 0;
         int errorNumber = 0;
@@ -180,44 +180,16 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
                 }
 
                 i++;
-            } while (landPrograms.size() > 0 && landPrograms != null);
+            } while (landPrograms.size() > 0);
 
-            // Setting modification date for each language
-            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
-
-            // Iterating over locales to import cities
-            for (String locale : locales) {
-                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
-
-                // Setting last modification date
-                // after import
-                try {
-                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-
-                    if (rootNode != null) {
-                        rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-
-                        session.save();
-                    } else {
-                        LOGGER.debug("Cannot set lastModificationDate");
-                    }
-                } catch (RepositoryException e) {
-                    LOGGER.error("Cannot set last modification date", e);
-
-                    try {
-                        session.refresh(false);
-                    } catch (RepositoryException e1) {
-                        LOGGER.debug("Cannot refresh session", e1);
-                    }
-                }
-            }
+            setLastModificationDate(pageManager, session,
+                    apiConfig.apiRootPath("citiesUrl"), "lastModificationDateLandPrograms");
 
             resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
-            LOGGER.error("Cannot read hotels from API", e);
+            LOGGER.error("Cannot read land programs from API", e);
         }
 
         LOGGER.debug("Ending land programs import, success: {}, error: {}", +successNumber, +errorNumber);
