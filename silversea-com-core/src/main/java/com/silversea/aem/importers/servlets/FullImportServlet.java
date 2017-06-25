@@ -34,17 +34,13 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(FullImportServlet.class);
 
-    private boolean isAllRuning = false;
+    private boolean isRunning = false;
 
-    private int nbrError = 0;
+    private StopWatch watch = new StopWatch();
+    private String time = "";
 
-    private int nbrSucces = 0;
-
-    StopWatch watch = new StopWatch();
-    String time = "";
-
-    StopWatch watchAll = new StopWatch();
-    String timeAll = "";
+    private StopWatch watchAll = new StopWatch();
+    private String timeAll = "";
 
     @Reference
     private CitiesImporter citiesImporter;
@@ -62,25 +58,25 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private TravelAgenciesImporter travelAgenciesImporter;
 
     @Reference
-    ExclusiveOffersImporter exclusiveOffersImporter;
+    private ExclusiveOffersImporter exclusiveOffersImporter;
 
     @Reference
-    CountriesImporter countriesImporter;
+    private CountriesImporter countriesImporter;
 
     @Reference
-    FeaturesImporter featuresImporter;
+    private FeaturesImporter featuresImporter;
 
     @Reference
-    ShipsImporter shipsImporter;
+    private ShipsImporter shipsImporter;
 
     @Reference
-    BrochuresImporter brochuresImporter;
+    private BrochuresImporter brochuresImporter;
 
     @Reference
-    CruisesImporter cruisesImporter;
+    private CruisesImporter cruisesImporter;
     
     @Reference
-    ComboCruisesImporter comboCruisesImporter;
+    private ComboCruisesImporter comboCruisesImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -98,12 +94,12 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 try {
                     mode = Mode.valueOf(modeParam);
                 } catch (IllegalArgumentException e) {
-                    LOGGER.error("the mode parameter must be among the values : {}",
-                            StringUtils.join(Mode.values(), ", "));
-                    response.getWriter().write(
-                            "the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
+                    LOGGER.error("the mode parameter must be among the values : {}", StringUtils.join(Mode.values(), ", "));
+
+                    response.getWriter().write("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
                     response.getWriter().flush();
                     response.getWriter().close();
+
                     return;
                 }
             } else {
@@ -111,9 +107,14 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 watchAll.start();
             }
             // End To Extract
-            if (!isAllRuning) {
-                isAllRuning = true;
-                if ((all || mode.equals(Mode.cities))) {
+
+            if (!isRunning) {
+                isRunning = true;
+
+                int nbrError;
+                int nbrSucces;
+
+                if (all || mode.equals(Mode.cities)) {
                     response.getWriter().write("Init import of cities ...<br/>");
                     response.getWriter().flush();
                     watch.reset();
@@ -174,12 +175,10 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    landProgramImporter.importData();
-                    nbrError = landProgramImporter.getErrorNumber();
-                    nbrSucces = landProgramImporter.getSuccesNumber();
-                    response.getWriter().write("Land program import failure number : <p>" + nbrError + "</p>");
+                    ImportResult importResult = landProgramImporter.importAllLandPrograms();
+                    response.getWriter().write("Land program import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     response.getWriter().write("<br/>");
-                    response.getWriter().write("land program import succes number : <p>" + nbrSucces + "</p>");
+                    response.getWriter().write("land program import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
                     response.getWriter().write("<br/>");
                     response.getWriter().write("LandPrograms import Done<br/>");
                     watch.stop();
@@ -270,7 +269,6 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
                 if (all || mode.equals(Mode.cruises)) {
                     cruisesImporter.importData();
-                    ;
                     response.getWriter().write("Cruises import Done<br/>");
                     response.getWriter().flush();
                 }
@@ -281,7 +279,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
             } else {
-                response.getWriter().write("<br/>an other import is aleready run<br />");
+                response.getWriter().write("<br/>an other import is already running<br />");
                 response.getWriter().flush();
             }
 
@@ -293,6 +291,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 response.getWriter().write("<br/> ---------------- <br />");
                 response.getWriter().flush();
             }
+
             closeDocument(response.getWriter());
         } catch (RuntimeException e) {
             // watchAll.stop();
@@ -303,10 +302,9 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
             response.getWriter().write("<br/> ---------------- <br />");
             response.getWriter().flush();
 
-
             LOGGER.error("Error during import", e);
         } finally {
-            isAllRuning = false;
+            isRunning = false;
         }
     }
 

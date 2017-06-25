@@ -43,6 +43,7 @@ import io.swagger.client.model.Land77;
 /**
  * Created by mbennabi on 17/03/2017.
  */
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Land Program Update importer")
 public class LandProgramUpdateImporterImpl extends BaseImporter implements LandProgramUpdateImporter {

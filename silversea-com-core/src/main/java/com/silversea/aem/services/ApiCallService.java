@@ -48,7 +48,7 @@ public interface ApiCallService {
 
     List<Shorex77> getShorexUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
 
-    List<Land> getLandProgram(int index, int pageSize) throws IOException, ApiException;
+    List<Land> getLandProgram(int index, int pageSize) throws ApiException;
 
     List<Land77> getLandProgramUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
 

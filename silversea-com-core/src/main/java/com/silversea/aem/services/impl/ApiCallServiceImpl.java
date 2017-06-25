@@ -173,7 +173,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 	 * 
 	 */
 	@Override
-	public List<Land> getLandProgram(int index, int pageSize) throws IOException, ApiException {
+	public List<Land> getLandProgram(int index, int pageSize) throws ApiException {
 		LOGGER.debug("Api call service -- Start call land program api");
 		LandsApi landProgramApi = (LandsApi) apiInstances.get(ServiceConstants.LAND_API_KEY);
 		LOGGER.debug("Api call service -- Finish call land program api");
