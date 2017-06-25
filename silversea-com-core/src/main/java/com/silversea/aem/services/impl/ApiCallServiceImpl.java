@@ -207,7 +207,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 	}
 
 	@Override
-	public List<Hotel> getHotels(int index, int pageSize) throws IOException, ApiException {
+	public List<Hotel> getHotels(int index, int pageSize) throws ApiException {
 		LOGGER.debug("Api call service -- Start call hotels api");
 		HotelsApi hotelsApi = (HotelsApi) apiInstances.get(ServiceConstants.HOTELS_API_KEY);
 		LOGGER.debug("Api call service -- Finish call hotels api");

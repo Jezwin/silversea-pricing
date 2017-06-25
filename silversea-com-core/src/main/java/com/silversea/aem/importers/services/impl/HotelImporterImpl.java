@@ -1,17 +1,21 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.HotelImporter;
+import com.silversea.aem.services.ApiCallService;
+import com.silversea.aem.services.ApiConfigurationService;
+import io.swagger.client.ApiException;
+import io.swagger.client.model.Hotel;
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -19,216 +23,216 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.Replicator;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.constants.TemplateConstants;
-import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.HotelImporter;
-import com.silversea.aem.services.ApiCallService;
-import com.silversea.aem.services.ApiConfigurationService;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import java.util.*;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.api.HotelsApi;
-import io.swagger.client.model.Hotel;
-
-/**
- * Created by mbennabi on 08/03/2017.
- */
 @Service
 @Component(label = "Silversea.com - Hotels importer")
 public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(HotelImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(HotelImporterImpl.class);
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
-	@Reference
-	private ApiConfigurationService apiConfig;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private Replicator replicat;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-	@Reference
-	private ApiCallService apiCallService;
+    @Reference
+    private ApiCallService apiCallService;
 
-	private int errorNumber = 0;
-	private int succesNumber = 0;
-	private int sessionRefresh = 100;
-	private int pageSize = 100;
-	
-	private ResourceResolver resourceResolver;
-	private PageManager pageManager;
-	private Session session;
+    @Activate
+    protected void activate(final ComponentContext context) {
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
 
-	public void init() {
-		try {
-			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			pageManager = resourceResolver.adaptTo(PageManager.class);
-			session = resourceResolver.adaptTo(Session.class);
-		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
-		}
-	}
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
+    }
 
-	@Override
-	public void importData() throws IOException {
-		init();
-		
-		if (apiConfig.getSessionRefresh() != 0) {
-			sessionRefresh = apiConfig.getSessionRefresh();
-		}
-		
-		if (apiConfig.getPageSize() != 0) {
-			pageSize = apiConfig.getPageSize();
-		}
-		try {
-			Page citiesRootPage;
+    @Override
+    public ImportResult importAllHotels() {
+        LOGGER.debug("Starting hotels import");
 
-			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-			List<String> local = new ArrayList<>();
-			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
+        int successNumber = 0;
+        int errorNumber = 0;
 
-			for (String loc : local) {
-				citiesRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-				LOGGER.debug("Importing city for langue : {}", loc);
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-				if (citiesRootPage != null) {
-					int i = 1;
-					List<Hotel> hotels;
+        try {
+            // Session initialization
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
 
-					do {
-						hotels = apiCallService.getHotels(i, pageSize);
+            if (pageManager == null || session == null) {
+                throw new ImporterException("Cannot initialize pageManager and session");
+            }
 
-						int j = 0;
+            List<Hotel> hotels;
+            int i = 1, j = 0;
 
-						for (Hotel hotel : hotels) {
+            LOGGER.debug("Importing hotels");
 
-							try {
+            do {
+                hotels = apiCallService.getHotels(i, pageSize);
 
-								Iterator<Resource> resources = resourceResolver
-										.findResources("/jcr:root/content/silversea-com/" + loc
-												+ "//element(*,cq:Page)[jcr:content/hotelId=\"" + hotel.getHotelId()
-												+ "\"]", "xpath");
+                for (Hotel hotel : hotels) {
+                    LOGGER.trace("Importing hotel: {}", hotel.getHotelName());
 
-								Page hotelPage = null;
+                    try {
+                        // Getting cities with the city id read from the hotel
+                        Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
 
-								if (resources.hasNext()) {
-									hotelPage = resources.next().adaptTo(Page.class);
-								} else {
-									Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId()
-											: null;
+                        if (cityId == null) {
+                            throw new ImporterException("Hotel have no city");
+                        }
 
-									if (cityId != null) {
-										Iterator<Resource> portsResources = resourceResolver.findResources(
-												"/jcr:root/content/silversea-com/" + loc
-												+ "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
+                        Iterator<Resource> portsResources = resourceResolver.findResources(
+                                "/jcr:root/content/silversea-com"
+                                        + "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
 
-										if (portsResources.hasNext()) {
-											Page portPage = portsResources.next().adaptTo(Page.class);
+                        if (!portsResources.hasNext()) {
+                            throw new ImporterException("Cannot find city with id " + cityId);
+                        }
 
-											LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
+                        while (portsResources.hasNext()) {
+                            // Getting port page
+                            Page portPage = portsResources.next().adaptTo(Page.class);
 
-											Page hotelsPage;
-											if (portPage.hasChild("hotels")) {
-												hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
-											} else {
-												hotelsPage = pageManager.create(portPage.getPath(), "hotels",
-														"/apps/silversea/silversea-com/templates/page", "Hotels",
-														false);
-											}
-											session.save();
-											if (!replicat.getReplicationStatus(session, hotelsPage.getPath())
-													.isActivated()) {
-												ImporterUtils.updateReplicationStatus(replicat, session, false, hotelsPage.getPath());
-											}
+                            if (portPage == null) {
+                                throw new ImporterException("Error getting port page " + portPage.getPath());
+                            }
 
-											hotelPage = pageManager.create(hotelsPage.getPath(),
-													JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-															StringHelper.getFormatWithoutSpecialCharcters(
-																	hotel.getHotelName())),
-													TemplateConstants.PATH_HOTEL,
-													StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()),
-													false);
+                            LOGGER.trace("Found port {} with id {}", portPage.getTitle(), cityId);
 
-											LOGGER.debug("Creating hotel {} for language {}", hotel.getHotelName(),loc);
-										} else {
-											LOGGER.debug("No city found with id {}for language {}", cityId,loc);
-										}
-									} else {
-										LOGGER.debug("Hotel have no city attached, not imported");
-									}
-								}
+                            // Creating subpage "hotel" if not present
+                            Page hotelsPage;
+                            if (portPage.hasChild("hotels")) {
+                                hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
+                            } else {
+                                hotelsPage = pageManager.create(portPage.getPath(), "hotels",
+                                        "/apps/silversea/silversea-com/templates/page", "Hotels",
+                                        false);
 
-								if (hotelPage != null) {
-									Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
-									hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
-									hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
-											hotel.getDescription());
-									hotelPageContentNode.setProperty("image", hotel.getImageUrl());
-									hotelPageContentNode.setProperty("code", hotel.getHotelCod());
-									hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
-									j++;
-									succesNumber = succesNumber + 1;
+                                LOGGER.trace("{} page is not existing, creating it", hotelsPage.getPath());
+                            }
 
-									session.save();
-									ImporterUtils.updateReplicationStatus(replicat, session, false, hotelPage.getPath());
-								}
+                            // Creating hotel page
+                            final Page hotelPage = pageManager.create(hotelsPage.getPath(),
+                                    JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
+                                            StringHelper.getFormatWithoutSpecialCharcters(
+                                                    hotel.getHotelName())),
+                                    TemplateConstants.PATH_HOTEL,
+                                    StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()),
+                                    false);
 
-								if (j % sessionRefresh == 0) {
-									if (session.hasPendingChanges()) {
-										try {
-											session.save();
-										} catch (RepositoryException e) {
-											session.refresh(true);
-										}
-									}
-								}
-							} catch (Exception e) {
-								errorNumber = errorNumber + 1;
-								LOGGER.debug("Hotel error, for language {} number of failures :{}",loc, +errorNumber);
-								j++;
-							}
-						}
+                            LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 
-						i++;
-					} while (hotels.size() > 0);
+                            // If port is created, set the properties
+                            if (hotelPage == null) {
+                                throw new ImporterException("Cannot create hotel page for hotel " + hotel.getHotelName());
+                            }
 
-					if (session.hasPendingChanges()) {
-						try {
-							Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-							rootNode.setProperty("lastModificationDateHotel", Calendar.getInstance());
-							session.save();
-						} catch (RepositoryException e) {
-							session.refresh(false);
-						}
-					}
+                            Node hotelPageContentNode = hotelPage.getContentResource().adaptTo(Node.class);
 
-				}
-			}
-			resourceResolver.close();
-		} catch (ApiException | RepositoryException e) {
-			LOGGER.error("Exception importing shorexes", e);
-		}
-	}
+                            if (hotelPageContentNode == null) {
+                                throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName());
+                            }
 
-	public int getErrorNumber() {
-		return errorNumber;
-	}
+                            hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, hotel.getHotelName());
+                            hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION, hotel.getDescription());
+                            hotelPageContentNode.setProperty("image", hotel.getImageUrl());
+                            hotelPageContentNode.setProperty("code", hotel.getHotelCod());
+                            hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
 
-	public int getSuccesNumber() {
-		return succesNumber;
-	}
+                            LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
 
+                            successNumber++;
+                            j++;
+                        }
+
+                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                            try {
+                                session.save();
+
+                                LOGGER.debug("{} hotels imported, saving session", +j);
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
+                        }
+                    } catch (WCMException | RepositoryException e) {
+                        throw new ImporterException("Error writing data for hotel " + hotel.getHotelName());
+                    } catch (ImporterException e) {
+                        errorNumber++;
+
+                        LOGGER.error("Import error", e);
+                    }
+                }
+
+                i++;
+            } while (hotels.size() > 0 && hotels != null);
+
+            // Setting modification date for each language
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+
+            // Iterating over locales to import cities
+            for (String locale : locales) {
+                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+
+                // Setting last modification date
+                // after import
+                try {
+                    Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
+
+                    if (rootNode != null) {
+                        rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+
+                        session.save();
+                    } else {
+                        LOGGER.debug("Cannot set lastModificationDate");
+                    }
+                } catch (RepositoryException e) {
+                    LOGGER.error("Cannot set last modification date", e);
+
+                    try {
+                        session.refresh(false);
+                    } catch (RepositoryException e1) {
+                        LOGGER.debug("Cannot refresh session", e1);
+                    }
+                }
+            }
+
+            resourceResolver.close();
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read hotels from API", e);
+        }
+
+        LOGGER.debug("Ending hotels import, success: {}, error: {}", +successNumber, +errorNumber);
+
+        return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public void updateHotels() {
+    }
+
+    @Override
+    public void importOneHotel(String hotelId) {
+    }
 }

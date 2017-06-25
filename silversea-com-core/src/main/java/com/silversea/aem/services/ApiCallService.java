@@ -40,7 +40,7 @@ public interface ApiCallService {
 
     List<City77> getCitiesUpdates(String currentDate, int index, int pageSize) throws IOException, ApiException;
 
-    List<Hotel> getHotels(int index, int pageSize) throws IOException, ApiException;
+    List<Hotel> getHotels(int index, int pageSize) throws ApiException;
 
     List<Hotel77> getHotelsUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
 

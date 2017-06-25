@@ -1,15 +1,26 @@
 package com.silversea.aem.importers.services;
 
-import java.io.IOException;
+import com.silversea.aem.importers.services.impl.ImportResult;
 
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
 public interface HotelImporter {
 
-    void importData() throws IOException;
+    /**
+     * Import all cities, used in first data import
+     */
+    ImportResult importAllHotels();
 
-    int getErrorNumber();
-    
-    int getSuccesNumber();
+    /**
+     * Update the hotels based on the last import date
+     * stored in the hotels root page
+     */
+    void updateHotels();
+
+    /**
+     * Import only one hotel
+     * @param hotelId the hotel ID of the hotel to import
+     */
+    void importOneHotel(final String hotelId);
 }

@@ -43,6 +43,7 @@ import io.swagger.client.model.Hotel77;
 /**
  * Created by mbennabi on 08/03/2017.
  */
+@Deprecated
 @Service
 @Component(label = "Silversea.com - HotelsMAJ importer")
 public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdateImporter {
