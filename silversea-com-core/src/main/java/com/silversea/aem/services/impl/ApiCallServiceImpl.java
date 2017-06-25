@@ -190,7 +190,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 	}
 
 	@Override
-	public List<Shorex> getShorex(int index, int pageSize) throws IOException, ApiException {
+	public List<Shorex> getShorex(int index, int pageSize) throws ApiException {
 		LOGGER.debug("Api call service -- Start call shorex api");
 		ShorexesApi shorexApi = (ShorexesApi) apiInstances.get(ServiceConstants.SHOREX_API_KEY);
 		LOGGER.debug("Api call service -- Finish call shorex api");

@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface ApiCallService {
 
-
     List<Itinerary> getCruiseIteneraries(String apiUrl, Integer voyageId) throws IOException, ApiException;
 
     List<LandItinerary> getLandsProgram(Itinerary itinerary) throws IOException, ApiException;
@@ -27,7 +26,6 @@ public interface ApiCallService {
 
     List<SpecialVoyage> getSpecialVoyages() throws IOException, ApiException;
 
-
     List<Agency> getTravelAgencies(int index, int pageSize) throws IOException, ApiException;
 
 //    List<Agency> getTravelAgenciesUpdate(int index, int pageSize)throws IOException, ApiException;
@@ -44,7 +42,7 @@ public interface ApiCallService {
 
     List<Hotel77> getHotelsUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
 
-    List<Shorex> getShorex(int index, int pageSize) throws IOException, ApiException;
+    List<Shorex> getShorex(int index, int pageSize) throws ApiException;
 
     List<Shorex77> getShorexUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
 

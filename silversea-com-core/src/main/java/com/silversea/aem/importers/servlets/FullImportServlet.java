@@ -137,12 +137,10 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    shoreExcursionsImporter.importData();
-                    nbrError = shoreExcursionsImporter.getErrorNumber();
-                    nbrSucces = shoreExcursionsImporter.getSuccesNumber();
-                    response.getWriter().write("Shorex import failure number : <p>" + nbrError + "</p>");
+                    ImportResult importResult = shoreExcursionsImporter.importAllShoreExcursions();
+                    response.getWriter().write("Shorex import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     response.getWriter().write("<br/>");
-                    response.getWriter().write("Shorex import succes number : <p>" + nbrSucces + "</p>");
+                    response.getWriter().write("Shorex import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
                     response.getWriter().write("<br/>");
                     response.getWriter().write("ShoreExcursions import Done<br/>");
                     watch.stop();
