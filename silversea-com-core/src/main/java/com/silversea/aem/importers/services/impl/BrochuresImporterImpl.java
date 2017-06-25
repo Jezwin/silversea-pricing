@@ -74,7 +74,7 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
         /**
          * authentification pour le swagger
          */
-        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        getAuthentication(apiConfig.getLogin(), apiConfig.getPassword());
 
         List<Brochure> brochures = null;
         ResourceResolver resourceResolver = null;

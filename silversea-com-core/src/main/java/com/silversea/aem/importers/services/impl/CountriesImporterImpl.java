@@ -59,7 +59,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
         /**
          * authentification pour le swagger
          */
-        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        getAuthentication(apiConfig.getLogin(), apiConfig.getPassword());
 
         // final String authorizationHeader =
         // getAuthorizationHeader(COUNTRY_PATH);

@@ -9,7 +9,6 @@ import java.util.List;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.lang.model.element.NestingKind;
 
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -21,16 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
@@ -66,7 +61,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 			/**
 			 * authentification pour le swagger
 			 */
-			getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+			getAuthentication(apiConfig.getLogin(), apiConfig.getPassword());
 			/**
 			 * Récuperation du domain de l'api Swager
 			 */

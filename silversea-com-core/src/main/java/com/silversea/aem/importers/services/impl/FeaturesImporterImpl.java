@@ -28,13 +28,11 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.FeaturesApi;
 import io.swagger.client.model.Feature;
 
 @Component(immediate = true, label = "Silversea.com - Cities importer")
@@ -65,7 +63,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 		/**
 		 * authentification pour le swagger
 		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+		getAuthentication(apiConfig.getLogin(), apiConfig.getPassword());
 		/**
 		 * Récuperation du domain de l'api Swager
 		 */
