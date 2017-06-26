@@ -245,14 +245,6 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		LOGGER.debug("Api call service -- Finish call voyage api");
 		return travelAgenciesApi.agenciesGet(null, null, null, null, null, index, pageSize);
 	}
-	
-//	@Override
-//	public List<Agency> getTravelAgenciesUpdate(int index, int pageSize) throws IOException, ApiException {
-//		LOGGER.debug("Api call service -- Start call Travel agencies api");
-//		AgenciesApi travelAgenciesApi = (AgenciesApi) apiInstances.get(ServiceConstants.TRAVEL_AGENCIES_API_KEY);
-//		LOGGER.debug("Api call service -- Finish call voyage api");
-//		return travelAgenciesApi.get (index, pageSize);;
-//	}
 
 	@Override
 	public List<Ship> getShips() throws IOException, ApiException {

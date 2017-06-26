@@ -46,7 +46,7 @@ import io.swagger.client.model.Land77;
 @Deprecated
 @Service
 @Component(label = "Silversea.com - Land Program Update importer")
-public class LandProgramUpdateImporterImpl extends BaseImporter implements LandProgramUpdateImporter {
+public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramUpdateImporterImpl.class);
 

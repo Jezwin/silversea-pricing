@@ -46,7 +46,7 @@ import io.swagger.client.model.Shorex77;
 @Deprecated
 @Service
 @Component(label = "Silversea.com - Shorexes Update importer")
-public class ShoreExcursionsUpdateImporterImpl extends BaseImporter implements ShoreExcursionsUpdateImporter {
+public class ShoreExcursionsUpdateImporterImpl implements ShoreExcursionsUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ShoreExcursionsUpdateImporterImpl.class);
 

@@ -46,7 +46,7 @@ import io.swagger.client.model.Hotel77;
 @Deprecated
 @Service
 @Component(label = "Silversea.com - HotelsMAJ importer")
-public class HotelImporterUpdateImpl extends BaseImporter implements HotelUpdateImporter {
+public class HotelImporterUpdateImpl implements HotelUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(HotelImporterUpdateImpl.class);
 

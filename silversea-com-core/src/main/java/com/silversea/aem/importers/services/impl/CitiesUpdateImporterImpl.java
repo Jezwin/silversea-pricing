@@ -39,7 +39,7 @@ import java.util.*;
 @Deprecated
 @Service
 @Component(label = "Silversea.com - Cities Update importer")
-public class CitiesUpdateImporterImpl extends BaseImporter implements CitiesUpdateImporter {
+public class CitiesUpdateImporterImpl implements CitiesUpdateImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CitiesUpdateImporterImpl.class);
 
