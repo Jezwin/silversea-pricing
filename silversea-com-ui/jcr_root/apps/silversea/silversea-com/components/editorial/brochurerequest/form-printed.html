@@ -1,9 +1,5 @@
-<form  class="request-quote-form c-form c-formcookie--redirect"
-       action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled"
-       method="post"
-       data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
-    <input name="requestsource" type="hidden" value="RAC" />
-    
+<form  class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
+    <input name="requestsource" type="hidden" value="RAQ" />
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
@@ -42,10 +38,14 @@
         <div class="help-block with-errors"></div>
     </div>
     
-    <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
+     <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
         <div class="form-group form-group-lg has-feedback">
-            <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control" 
-            data-countrycodeformat-error="${'Please check the phone format' @ i18n}" /> 
+            <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control" required
+            data-countrycodeformat=""
+            data-prepend-placeholder="${'Example' @ i18n}"
+            data-country-geolocalized="${helper.country || 'US'}"
+            data-required-error="${'Please enter your phone number' @ i18n}"
+            data-countrycodeformat-error="${'Please check the phone format' @ i18n}" />
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
@@ -65,33 +65,34 @@
         <div class="help-block with-errors incorrect"></div>
     </div>
     
-    <div class="col-md-4 form-group form-group-lg has-feedback">
-        <input type="text" name="postalcode" class="form-control" value="" placeholder="${'postal-code' @ i18n}*" required data-error="${'required-postal-code' @ i18n}"/>
+    <div class="form-group form-group-lg has-feedback">
+        <input id="postalAddress" type="text" name="postaladdress" class="form-control" value="" placeholder="${'Postal Address' @ i18n}*" required  data-error="${'Please enter your postal address' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
-    <div class="col-md-8 form-group form-group-lg has-feedback">
-        <input type="text" name="city" class="form-control" value="" placeholder="${'city' @ i18n}*" required data-error="${'required-city' @ i18n}" />
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors"></div>
+    <div class="hideArea" style="display:none;">
+        <div class="form-group form-group-lg has-feedback">
+            <div class="" style="float: left; width:35%;">
+                <input type="text" name="postalcode" class="form-control" value="" placeholder="${'postal-code' @ i18n}*" required data-error="${'required-postal-code' @ i18n}"/>
+            </div>
+            <div class="" style="float: right; width:63%;">
+                <input type="text" name="city" class="form-control" value="" placeholder="${'city' @ i18n}*" required data-error="${'please enter your postal code and city' @ i18n}" />
+            </div>
+            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group form-group-lg has-feedback input--state" style="width:50%; margin-top:15px;" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
+            <select name="country" class="form-control chosen chosen-with-search" required data-error="${'Please enter your state' @ i18n}">
+                <option value="">${'country' @ i18n}*</option>
+                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" >${country.valueMap.name}</option>
+            </select>
+            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
+        </div>
     </div>
     
-    <div class="form-group form-group-lg has-feedback input--state">
-        <select name="state" class="form-control chosen chosen-with-search" required data-error="${'Please enter your state' @ i18n}">
-            <option value="">${'state/Province' @ i18n}*</option>
-        </select>
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors"></div>
-    </div>
-    
-    <div class="form-group form-group-lg has-feedback input--country">
-        <select name="country" class="form-control chosen chosen-with-search" required data-error="${'Please enter your country' @ i18n}">
-            <option value="">${'' @ i18n}*</option>
-        </select>
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors"></div>
-    </div>
-    
+    <div class="clearfix"></div>
     <p class="small text-muted">${'* Required Fields' @ i18n}</p>
     
     <div class="form-group form-group-lg">
@@ -102,10 +103,18 @@
             </label>
         </div>
     </div>
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label>
+                <input class="custom-checkbox" type="checkbox" name="isbooked">
+                ${'I am currently booked on a Silversea cruise' @ i18n}
+            </label>
+        </div>
+    </div>
     
      <div class="row">
         <div class="col-sm-7 col-sm-offset-5">
-            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="RAC"><span>${'get-our-free-brochures' @ i18n}</span><i class="fa fa-angle-right"></i></button>
+            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="RAQ"><span>${'get-our-free-brochures' @ i18n}</span><i class="fa fa-caret-right"></i></button>
         </div>
     </div>
     

@@ -34,6 +34,10 @@ function requestForm(){
             $form.find('[name="lastname"]').val(userInfo.lastname);
             $form.find('[name="localphone"]').val(userInfo.phone);
             $form.find('[name="email"]').val(userInfo.email);
+            $form.find('[name="postaladdress"]').val(userInfo.postaladdress);
+            $form.find('[name="postalcode"]').val(userInfo.postalcode);
+            $form.find('[name="city"]').val(userInfo.city);
+            $form.find('[name="country"]').val(userInfo.country);
         }
     });
 
@@ -81,7 +85,13 @@ function requestForm(){
             openChosen();
         })
     });
-
+    
+    //Display Postal code, city, and country fields when postal adress focused.
+    $('#postalAddress').focus(function () {
+        $('.hideArea').show();
+    });
+    (($('#postalAddress').val() == undefined) || ($('#postalAddress').val() == '')) ? $('.hideArea').hide() : $('.hideArea').show();
+    
     // Validator !
     $('.request-quote-form').validator({
         focus : false,
@@ -109,5 +119,5 @@ function requestForm(){
     $('.chosen.chosen-with-search').chosen({
         'disable_search' : false
     });
-    
+
 }

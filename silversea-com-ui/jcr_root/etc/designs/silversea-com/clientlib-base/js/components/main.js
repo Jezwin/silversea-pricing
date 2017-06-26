@@ -70,7 +70,7 @@ $(function() {
             // Cancel synchrone submit
             event.preventDefault();
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'att02', 'workingwithagent' ];
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country' ];
             var pos = document.cookie.indexOf("userInfo=");
 
             // Set cookie if not created
