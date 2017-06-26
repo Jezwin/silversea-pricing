@@ -3,7 +3,7 @@ $(function() {
         var $col = $('.c-hero-banner__content');
         var $row = $('.slick-active .c-hero-banner__row');
 
-        if ($col.length > 0) {
+        if ($col.length > 0 && $row.length) {
             var offsetLeft = $row.offset().left;
 
             if ($.viewportDetect() === 'sm' || $.viewportDetect() === 'md') {
