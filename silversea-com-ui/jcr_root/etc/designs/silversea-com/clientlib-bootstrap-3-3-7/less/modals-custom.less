@@ -32,12 +32,17 @@
 
 .modal-content {
     position: relative;
-    background-color: @modal-content-bg;
     background-clip: padding-box;
     outline: 0;
 
+    .modal-header, .modal-body {
+        background-color: @modal-content-bg;
+    }
+
     &--transparent {
-        background-color: transparent;
+        .modal-header, .modal-body {
+            background-color: transparent;
+        }
     }
 
     &--gallery {
