@@ -203,9 +203,8 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 				Iterator<Page> resourcesContry = page.listChildren();
 				while (resourcesContry.hasNext()) {
 					Page pageAgency = resourcesContry.next();
-
-					if (pageAgency.getContentResource().getValueMap().get("agencyId") != null && !diff.contains(Integer
-							.parseInt(pageAgency.getContentResource().getValueMap().get("agencyId").toString()))) {
+					Integer id = Integer.parseInt(page.getContentResource().getValueMap().get("agencyId").toString());
+					if (id != null && !diff.contains(id)) {
 						ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
 					}
 				}

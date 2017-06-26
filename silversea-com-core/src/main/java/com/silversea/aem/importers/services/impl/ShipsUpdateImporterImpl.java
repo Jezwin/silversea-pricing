@@ -145,7 +145,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 					}
 				} catch (Exception e) {
 					errorNumber = errorNumber + 1;
-					LOGGER.debug("Ship import error, number of faulures : {}", errorNumber);
+					LOGGER.debug("Ship import error, number of failures : {}", errorNumber);
 					i++;
 				}
 			}
@@ -156,10 +156,9 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 				Iterator<Page> resourcess = rootPathByLocal.listChildren();
 				while (resourcess.hasNext()) {
 					Page page = resourcess.next();
-
-					if (page.getContentResource().getValueMap().get("shipId") != null && !diff.contains(
-							Integer.parseInt(page.getContentResource().getValueMap().get("shipId").toString()))) {
-							ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
+					Integer id = Integer.parseInt(page.getContentResource().getValueMap().get("shipId").toString());
+					if (id != null && !diff.contains(id)) {
+						ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 					}
 				}
 			}
@@ -177,8 +176,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 
 			resourceResolver.close();
 		} catch (Exception e) {
-			String errorMessage = "Import Ship Errors : {} ";
-			LOGGER.error(errorMessage, e);
+			LOGGER.error("Import Ship Errors : {} ", e);
 		}
 
 		status.setErrorNumber(errorNumber);

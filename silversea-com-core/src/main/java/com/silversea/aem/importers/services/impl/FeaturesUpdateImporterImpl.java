@@ -169,20 +169,17 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 					Iterator<Page> resourcess = featuresRootPage.listChildren();
 					while (resourcess.hasNext()) {
 						Page page = resourcess.next();
-						if (page.getContentResource().getValueMap().get("featureId").toString() != null
-								&& !diff.contains(Integer.parseInt(
-										page.getContentResource().getValueMap().get("featureId").toString()))) {
+						Integer id = Integer
+								.parseInt(page.getContentResource().getValueMap().get("featureId").toString());
+						if (id != null && !diff.contains(id)) {
 							ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 						}
 					}
 				}
 			}
 			resourceResolver.close();
-		} catch (ApiException |
-
-				RepositoryException e) {
-			String errorMessage = "Import Feature Errors : {} ";
-			LOGGER.error(errorMessage, e);
+		} catch (ApiException | RepositoryException e) {
+			LOGGER.error("Import Feature Errors : {}", e);
 		}
 		status.setErrorNumber(errorNumber);
 		status.setSuccesNumber(succesNumber);

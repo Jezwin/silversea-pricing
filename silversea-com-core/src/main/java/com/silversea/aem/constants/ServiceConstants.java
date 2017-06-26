@@ -17,5 +17,6 @@ public interface ServiceConstants {
     String BROCHURES_API_KEY = "brochuresApi";
     String FEATURES_API_KEY = "featuresApi";
     String SHIPS_API_KEY = "shipsApi";
+    String COUNTRY_API_KEY = "contryApi";
     
 }

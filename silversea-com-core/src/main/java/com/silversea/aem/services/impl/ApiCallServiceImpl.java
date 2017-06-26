@@ -31,6 +31,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.api.BrochuresApi;
 import io.swagger.client.api.CitiesApi;
+import io.swagger.client.api.CountriesApi;
 import io.swagger.client.api.FeaturesApi;
 import io.swagger.client.api.HotelsApi;
 import io.swagger.client.api.LandsApi;
@@ -45,6 +46,7 @@ import io.swagger.client.model.Agency;
 import io.swagger.client.model.Brochure;
 import io.swagger.client.model.City;
 import io.swagger.client.model.City77;
+import io.swagger.client.model.Country;
 import io.swagger.client.model.Feature;
 import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Hotel77;
@@ -282,6 +284,14 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		LOGGER.debug("Api call service -- Finish call brochures api");
 		return brochuresApi.brochuresGet(null, index, PER_PAGE, null);
 	}
+	
+	@Override
+	public List<Country> getContries() throws IOException, ApiException {
+		LOGGER.debug("Api call service -- Start call contry api");
+		CountriesApi countriesApi = (CountriesApi) apiInstances.get(ServiceConstants.COUNTRY_API_KEY);
+		LOGGER.debug("Api call service -- Finish call contry api");
+		return countriesApi.countriesGet(null, null);
+	}
 
 	
 	private void configureClient(ApiClient apiClient) {
@@ -331,6 +341,8 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		configureClient(brochuresApi.getApiClient());
 		SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
 		configureClient(spetialOffersApi.getApiClient());
+		CountriesApi countriesApi = new CountriesApi();
+		configureClient(countriesApi.getApiClient());
 
 		apiInstances.put(ServiceConstants.VOYAGE_API_KEY, (T) voyagesApi);
 		apiInstances.put(ServiceConstants.HOTELS_API_KEY, (T) hotelsApi);
@@ -346,6 +358,9 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		apiInstances.put(ServiceConstants.FEATURES_API_KEY, (T) featuresApi);
 		apiInstances.put(ServiceConstants.BROCHURES_API_KEY, (T) brochuresApi);
 		apiInstances.put(ServiceConstants.EXCLUSIVE_OFFERS_API_KEY, (T) spetialOffersApi);
+		apiInstances.put(ServiceConstants.COUNTRY_API_KEY, (T) countriesApi);
 	}
+
+
 
 }

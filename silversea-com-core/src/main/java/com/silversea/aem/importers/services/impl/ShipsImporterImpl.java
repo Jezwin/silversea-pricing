@@ -3,8 +3,10 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -13,6 +15,7 @@ import javax.jcr.Session;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
@@ -26,11 +29,11 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShipsImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
-import io.swagger.client.api.ShipsApi;
 import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Ship importer", metatype = true)
@@ -53,43 +56,42 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 	@Reference
 	private ApiCallService apiCallService;
 
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	public void init() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("land program update importer login exception ", e);
+		}
+	}
+
 	@Override
 	public void importData() throws IOException {
+		init();
 		LOGGER.debug("Début de l'import");
 
 		try {
-			/**
-			 * authentification pour le swagger
-			 */
-			getAuthentication(apiConfig.getLogin(), apiConfig.getPassword());
-			/**
-			 * Récuperation du domain de l'api Swager
-			 */
-			getApiDomain(apiConfig.getApiBaseDomain());
-			/**
-			 * Récuperation de la session refresh
-			 */
+
 			if (apiConfig.getSessionRefresh() != 0) {
 				sessionRefresh = apiConfig.getSessionRefresh();
 			}
 
-			final String authorizationHeader = getAuthorizationHeader(apiConfig.apiUrlConfiguration("shipUrl"));
-			ShipsApi shipsApi = new ShipsApi();
-			shipsApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			Session session = resourceResolver.adaptTo(Session.class);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-
 			Page shipsRootPage = pageManager.getPage(apiConfig.apiRootPath("shipUrl"));
 
 			List<Ship> listShips;
-			listShips = shipsApi.shipsGet(null);
+			listShips = apiCallService.getShips();
 			int i = 0;
 			for (Ship ship : listShips) {
 				try {
 					Iterator<Resource> resources = resourceResolver.findResources(
 							"//element(*,cq:Page)[jcr:content/shipId=\"" + ship.getShipId() + "\"]", "xpath");
-					Page shipPage = null;
 
 					List<Page> shipPages = new ArrayList<Page>();
 					List<String> local = new ArrayList<>();

@@ -1,5 +1,25 @@
 package com.silversea.aem.importers.services.impl;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.ComponentContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
@@ -13,24 +33,9 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.model.City;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.osgi.service.component.ComponentContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import java.util.*;
 
 @Service
 @Component(label = "Silversea.com - Cities importer")
@@ -60,22 +65,32 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             pageSize = apiConfig.getPageSize();
         }
     }
+    
+    private ResourceResolver resourceResolver;
+    private PageManager pageManager;
+    private Session session;
+
+    public void init() {
+        try {
+            Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+            authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+            pageManager = resourceResolver.adaptTo(PageManager.class);
+            session = resourceResolver.adaptTo(Session.class);
+        } catch (LoginException e) {
+            LOGGER.debug("Cities importer login exception ", e);
+        }
+    }
 
     @Override
     public ImportResult importAllCities() {
+    	init();
         LOGGER.debug("Starting cities import");
 
         int successNumber = 0;
         int errorNumber = 0;
 
-        Map<String, Object> authenticationParams = new HashMap<>();
-        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-
         try {
-            // Session initialization
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
-            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            final Session session = resourceResolver.adaptTo(Session.class);
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -205,7 +220,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
             }
 
             resourceResolver.close();
-        } catch (LoginException | ImporterException e) {
+        } catch (ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read cities from API", e);

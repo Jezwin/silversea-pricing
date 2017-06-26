@@ -99,11 +99,11 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		
+
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		
+
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
@@ -195,9 +195,9 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 			Iterator<Page> resourcess = offersRootPage.listChildren();
 			while (resourcess.hasNext()) {
 				Page page = resourcess.next();
-
-				if (!diff.contains(
-						Integer.parseInt(page.getContentResource().getValueMap().get("exclusiveOfferId").toString()))) {
+				Integer id = Integer
+						.parseInt(page.getContentResource().getValueMap().get("exclusiveOfferId").toString());
+				if (id != null && !diff.contains(id)) {
 					ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 				}
 			}
