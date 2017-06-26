@@ -36,4 +36,9 @@ $(function() {
             $image.css('visibility', 'hidden');
         });
     }
+
+    // init Video after modal load
+    $('.modal').on('shown.bs.modal', function(event) {
+        $(this).find('.c-video').initVideo();
+    });
 });

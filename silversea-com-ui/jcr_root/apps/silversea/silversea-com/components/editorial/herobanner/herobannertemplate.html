@@ -23,7 +23,8 @@
                 </p>
             </div>
         </div>
-        <a data-sly-test="${properties.videoReference}" class="video-link hidden-xs" href="#">
+        <a data-sly-test="${properties.videoReference}" class="video-link hidden-xs " href="${currentNode.path @ selectors='video', extension='html'}"
+            data-toggle="modal" data-target=".bs-modal-lg">
             <i class="fa fa-play"></i>
         </a>
     </div>
@@ -54,7 +55,8 @@
                 </p>
             </div>
         </div>
-        <a data-sly-test="${properties.videoReference}" class="video-link" href="#">
+        <a data-sly-test="${properties.videoReference}" class="video-link hidden-xs " href="${currentNode.path @ selectors='video', extension='html'}"
+            data-toggle="modal" data-target=".bs-modal-lg">
             <i class="fa fa-play"></i>
         </a>
     </div>
