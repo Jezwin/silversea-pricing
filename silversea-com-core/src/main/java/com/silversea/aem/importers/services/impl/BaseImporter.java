@@ -4,23 +4,21 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.importers.ImporterUtils;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.felix.scr.annotations.Reference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
-import com.silversea.aem.services.ApiConfigurationService;
-
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
 
 /**
  * Created by aurelienolivier on 13/02/2017.
