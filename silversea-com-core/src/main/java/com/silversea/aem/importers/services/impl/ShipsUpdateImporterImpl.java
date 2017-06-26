@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -156,7 +157,8 @@ public class ShipsUpdateImporterImpl implements ShipsUpdateImporter {
 				Iterator<Page> resourcess = rootPathByLocal.listChildren();
 				while (resourcess.hasNext()) {
 					Page page = resourcess.next();
-					Integer id = Integer.parseInt(page.getContentResource().getValueMap().get("shipId").toString());
+					Integer id = Integer
+							.parseInt(Objects.toString(page.getContentResource().getValueMap().get("shipId")));
 					if (id != null && !diff.contains(id)) {
 						ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 					}

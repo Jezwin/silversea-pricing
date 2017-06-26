@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -203,7 +204,7 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 				Iterator<Page> resourcesContry = page.listChildren();
 				while (resourcesContry.hasNext()) {
 					Page pageAgency = resourcesContry.next();
-					Integer id = Integer.parseInt(page.getContentResource().getValueMap().get("agencyId").toString());
+					Integer id = Integer.parseInt(Objects.toString(page.getContentResource().getValueMap().get("agencyId")));
 					if (id != null && !diff.contains(id)) {
 						ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
 					}

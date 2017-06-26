@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -196,7 +197,7 @@ public class ExclusiveOffersUpdateImporterImpl implements ExclusiveOffersUpdateI
 			while (resourcess.hasNext()) {
 				Page page = resourcess.next();
 				Integer id = Integer
-						.parseInt(page.getContentResource().getValueMap().get("exclusiveOfferId").toString());
+						.parseInt(Objects.toString(page.getContentResource().getValueMap().get("exclusiveOfferId")));
 				if (id != null && !diff.contains(id)) {
 					ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 				}
