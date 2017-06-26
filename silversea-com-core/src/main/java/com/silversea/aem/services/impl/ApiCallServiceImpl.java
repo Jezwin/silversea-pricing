@@ -80,6 +80,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 
 	private Map<String, T> apiInstances;
 
+	@Override
 	public List<Itinerary> getCruiseIteneraries(String apiUrl, Integer voyageId) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start voyage itinineraries api");
 		VoyagesApi voyagesApi = (VoyagesApi) apiInstances.get(ServiceConstants.VOYAGE_API_KEY);
@@ -88,6 +89,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return itinineraries;
 	}
 
+	@Override
 	public List<LandItinerary> getLandsProgram(Itinerary itinerary) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call land program api");
 		LandsApi landProgramApi = (LandsApi) apiInstances.get(ServiceConstants.LAND_API_KEY);
@@ -97,6 +99,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return landPrograms;
 	}
 
+	@Override
 	public List<VoyageSpecialOffer> getVoyageSpecialOffers(Integer voyageId) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call voyage special offers api");
 		VoyageSpecialOffersApi voyageSpecialOffersApi = (VoyageSpecialOffersApi) apiInstances
@@ -107,6 +110,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return specialOffers;
 	}
 
+	@Override
 	public List<VoyagePriceComplete> getVoyagePrices(List<VoyagePriceComplete> voyagePricesComplete)
 			throws IOException, ApiException {
 		if (voyagePricesComplete.isEmpty()) {
@@ -125,6 +129,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return voyagePricesComplete;
 	}
 
+	@Override
 	public List<ShorexItinerary> getExcursions(Itinerary itinerary) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call shorex api");
 		ShorexesApi shorexApi = (ShorexesApi) apiInstances.get(ServiceConstants.SHOREX_API_KEY);
@@ -134,6 +139,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return excurions;
 	}
 
+	@Override
 	public List<HotelItinerary> getHotels(Itinerary itinerary) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call hotel api");
 		HotelsApi hotelsApi = (HotelsApi) apiInstances.get(ServiceConstants.HOTELS_API_KEY);
@@ -143,6 +149,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return hotels;
 	}
 
+	@Override
 	public List<Voyage> getVoyages(int index) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call voyage api");
 		VoyagesApi voyageApi = (VoyagesApi) apiInstances.get(ServiceConstants.VOYAGE_API_KEY);
@@ -151,6 +158,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return voyages;
 	}
 
+	@Override
 	public List<Voyage77> getChangedVoyages(int index, String lastModificationDate) throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call changed voyage api");
 		VoyagesApi voyageApi = (VoyagesApi) apiInstances.get(ServiceConstants.VOYAGE_API_KEY);
@@ -159,6 +167,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return voyages;
 	}
 
+	@Override
 	public List<SpecialVoyage> getSpecialVoyages() throws IOException, ApiException {
 		LOGGER.debug("Api call service -- Start call special voyage api");
 		SpecialVoyagesApi specialVoyagesApi = (SpecialVoyagesApi) apiInstances
@@ -168,10 +177,6 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return specialVoyageList;
 	}
 
-	/**
-	 * 
-	 * 
-	 */
 	@Override
 	public List<Land> getLandProgram(int index, int pageSize) throws ApiException {
 		LOGGER.debug("Api call service -- Start call land program api");
@@ -189,7 +194,6 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return landProgramApi.landsGetChanges(currentDate, null, index, pageSize, null);
 	}
 
-	@Override
 	public List<Shorex> getShorex(int index, int pageSize) throws ApiException {
 		LOGGER.debug("Api call service -- Start call shorex api");
 		ShorexesApi shorexApi = (ShorexesApi) apiInstances.get(ServiceConstants.SHOREX_API_KEY);
@@ -279,11 +283,8 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
 		return brochuresApi.brochuresGet(null, index, PER_PAGE, null);
 	}
 
-	/**
-	 * 
-	 * @param apiClient
-	 */
-	public void configureClient(ApiClient apiClient) {
+	
+	private void configureClient(ApiClient apiClient) {
 		if (apiClient != null) {
 			final DigestAuthenticator authenticator = new DigestAuthenticator(
 					new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
