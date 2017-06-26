@@ -44,10 +44,10 @@ public class QuoteRequestUse extends WCMUsePojo {
     private List<Resource> countries;
 
     private String selectedCruiseCode;
-    // private String selectedSuiteParam;
     private CruiseModel selectedCruise;
     private SuiteModel selectedSuite;
     private String selectedSuiteCategoryCode;
+    private Page cruisePage;
     private Page suitePage;
     private GeolocationTagService geolocationTagService;
     private TagManager tagManager;
@@ -113,17 +113,6 @@ public class QuoteRequestUse extends WCMUsePojo {
         }
     }
 
-    /*
-     * private void initSuiteModel() { Node suiteNode =
-     * suitePage.adaptTo(Node.class); if (suitePage != null) { selectedSuite =
-     * suitePage.adaptTo(SuiteModel.class); try { Node lowestPriceNode =
-     * suiteNode.getNode("lowest-prices"); String geoMarketCode =
-     * getGeoMarketCode(geolocationTagService.getTagFromRequest(getRequest()));
-     * selectedSuite.initLowestPrice(lowestPriceNode, geoMarketCode); } catch
-     * (RepositoryException e) { LOGGER.error("Exception while building suites",
-     * e); } } }
-     */
-
     /**
      * @return the countries
      */
@@ -157,7 +146,7 @@ public class QuoteRequestUse extends WCMUsePojo {
         Iterator<Resource> resources = getResourceResolver()
                 .findResources("//element(*, cq:Page)[jcr:content/@sling:resourceType='silversea/silversea-com/components/pages/cruise' and jcr:content/@cruiseCode='" + cruiseCode + "']", "xpath");
         while (resources.hasNext()) {
-            Page cruisePage = resources.next().adaptTo(Page.class);
+            cruisePage = resources.next().adaptTo(Page.class);
             if (cruisePage != null) {
                 result = cruisePage.adaptTo(CruiseModel.class);
                 break;
@@ -192,6 +181,17 @@ public class QuoteRequestUse extends WCMUsePojo {
             geoMarketCode = tag.getParent().getParent().getName();
         }
         return geoMarketCode;
+    }
+
+    public String getCruiseThumbnail() {
+        String thumbnail = "";
+        if (cruisePage != null) {
+            Resource imageRes = cruisePage.getContentResource("image");
+            if (imageRes != null) {
+                thumbnail = imageRes.getValueMap().get("fileReference", String.class);
+            }
+        }
+        return thumbnail;
     }
 
     public Calendar getCruiseDepartureDate() {
@@ -248,11 +248,11 @@ public class QuoteRequestUse extends WCMUsePojo {
         }
         return price;
     }
-    
+
     public boolean isSuiteRequested() {
         return selectedSuite != null;
     }
-    
+
     public boolean isSuiteCategoryRequested() {
         return selectedSuiteCategoryCode != null;
     }
