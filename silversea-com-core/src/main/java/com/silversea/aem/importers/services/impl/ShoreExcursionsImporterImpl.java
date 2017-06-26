@@ -29,6 +29,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.services.ApiCallService;
@@ -39,7 +40,7 @@ import io.swagger.client.model.Shorex;
 
 @Service
 @Component(label = "Silversea.com - Shorexes importer")
-public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreExcursionsImporter {
+public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ShoreExcursionsImporterImpl.class);
 
@@ -67,7 +68,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Excursions importer login exception ", e);
 		}
 	}
 
@@ -200,7 +201,7 @@ public class ShoreExcursionsImporterImpl extends BaseImporter implements ShoreEx
 				i++;
 			} while (shorexes.size() > 0);
 
-			setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+			ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
 					"lastModificationDateShoreExcursions");
 
 			resourceResolver.close();

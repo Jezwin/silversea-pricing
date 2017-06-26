@@ -40,7 +40,7 @@ import io.swagger.client.model.Feature;
 
 @Component(immediate = true, label = "Silversea.com - Cities importer")
 @Service(value = FeaturesImporter.class)
-public class FeaturesImporterImpl extends BaseImporter implements FeaturesImporter {
+public class FeaturesImporterImpl implements FeaturesImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesImporterImpl.class);
 
@@ -70,7 +70,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Features importer login exception ", e);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class FeaturesImporterImpl extends BaseImporter implements FeaturesImport
 								}
 							}
 						} catch (Exception e) {
-							LOGGER.debug("Features error, number of faulures :", e);
+							LOGGER.debug("Features error, number of failures :", e);
 							i++;
 						}
 					}

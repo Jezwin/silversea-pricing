@@ -48,7 +48,7 @@ import io.swagger.client.model.SpecialOffer;
  */
 @Service
 @Component(label = "Silversea.com - Exclusive Offers importer")
-public class ExclusiveOffersImporterImpl extends BaseImporter implements ExclusiveOffersImporter {
+public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersImporterImpl.class);
 
@@ -85,7 +85,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 			tagManager = resourceResolver.adaptTo(TagManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("travel agencies importer login exception ", e);
+			LOGGER.debug("exclusive offers importer login exception ", e);
 		}
 	}
 

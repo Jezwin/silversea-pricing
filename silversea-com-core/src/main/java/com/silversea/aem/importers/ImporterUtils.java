@@ -392,4 +392,47 @@ public class ImporterUtils {
 
 		return null;
 	}
+	
+    /**
+     * Set the last modification date on the defined <code>rootPath</code>
+     *
+     * @param pageManager the page manager
+     * @param session the session
+     * @param rootPath path of the page where to set the last modification date property
+     * @param propertyName the property name to write
+     */
+    public static void setLastModificationDate(PageManager pageManager, Session session,
+                                           final String rootPath, final String propertyName) {
+        // Setting modification date for each language
+        final Page rootPage = pageManager.getPage(rootPath);
+        final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+
+        // Iterating over locales to import cities
+        for (String locale : locales) {
+            final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+
+            // Setting last modification date
+            // after import
+            try {
+                Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
+
+                if (rootNode != null) {
+                    rootNode.setProperty(propertyName, Calendar.getInstance());
+
+                    session.save();
+                } else {
+                    LOGGER.error("Cannot set {} on {}", propertyName, rootPath);
+                }
+            } catch (RepositoryException e) {
+                LOGGER.error("Cannot set last modification date", e);
+
+                try {
+                    session.refresh(false);
+                } catch (RepositoryException e1) {
+                    LOGGER.debug("Cannot refresh session", e1);
+                }
+            }
+        }
+    }
+    
 }

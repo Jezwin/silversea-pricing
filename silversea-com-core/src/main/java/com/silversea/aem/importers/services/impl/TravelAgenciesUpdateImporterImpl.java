@@ -45,7 +45,7 @@ import io.swagger.client.model.Agency;
  */
 @Service
 @Component(label = "Silversea.com - Travel Agencies update importer")
-public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements TravelAgenciesUpdateImporter {
+public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(TravelAgenciesUpdateImporterImpl.class);
 

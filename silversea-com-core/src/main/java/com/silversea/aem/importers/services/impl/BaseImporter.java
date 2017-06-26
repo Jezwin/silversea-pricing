@@ -26,6 +26,7 @@ import javax.jcr.Session;
  * Created by aurelienolivier on 13/02/2017.
  */
 
+@Deprecated
 public class BaseImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BaseImporter.class);
@@ -85,6 +86,7 @@ public class BaseImporter {
      * @param rootPath path of the page where to set the last modification date property
      * @param propertyName the property name to write
      */
+    @Deprecated
     protected void setLastModificationDate(PageManager pageManager, Session session,
                                            final String rootPath, final String propertyName) {
         // Setting modification date for each language

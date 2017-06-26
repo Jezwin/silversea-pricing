@@ -39,7 +39,7 @@ import io.swagger.client.model.City;
 
 @Service
 @Component(label = "Silversea.com - Cities importer")
-public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
+public class CitiesImporterImpl implements CitiesImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CitiesImporterImpl.class);
 
@@ -214,7 +214,7 @@ public class CitiesImporterImpl extends BaseImporter implements CitiesImporter {
                         i++;
                     } while (cities.size() > 0 && cities != null);
 
-                    setLastModificationDate(pageManager, session,
+                    ImporterUtils.setLastModificationDate(pageManager, session,
                             apiConfig.apiRootPath("citiesUrl"), "lastModificationDate");
                 }
             }

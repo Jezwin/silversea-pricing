@@ -38,7 +38,7 @@ import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Ship importer", metatype = true)
 @Service(value = ShipsImporter.class)
-public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
+public class ShipsImporterImpl implements ShipsImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ShipsImporterImpl.class);
 
@@ -68,7 +68,7 @@ public class ShipsImporterImpl extends BaseImporter implements ShipsImporter {
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("land program update importer login exception ", e);
+			LOGGER.debug("Ships importer login exception ", e);
 		}
 	}
 

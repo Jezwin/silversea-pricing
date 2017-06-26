@@ -29,6 +29,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelImporter;
 import com.silversea.aem.services.ApiCallService;
@@ -39,7 +40,7 @@ import io.swagger.client.model.Hotel;
 
 @Service
 @Component(label = "Silversea.com - Hotels importer")
-public class HotelImporterImpl extends BaseImporter implements HotelImporter {
+public class HotelImporterImpl implements HotelImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(HotelImporterImpl.class);
 
@@ -67,7 +68,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Hotels importer login exception ", e);
 		}
 	}
 
@@ -196,7 +197,7 @@ public class HotelImporterImpl extends BaseImporter implements HotelImporter {
 				i++;
 			} while (hotels.size() > 0);
 
-			setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+			ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
 					"lastModificationDateHotels");
 
 			resourceResolver.close();

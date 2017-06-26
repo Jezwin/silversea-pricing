@@ -19,15 +19,13 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
-import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.services.ApiCallService;
@@ -38,10 +36,9 @@ import io.swagger.client.model.Country;
 
 @Component(immediate = true, label = "Silversea.com - Contries importer")
 @Service(value = CountriesImporter.class)
-public class CountriesImporterImpl extends BaseImporter implements CountriesImporter {
+public class CountriesImporterImpl implements CountriesImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
-	private static final String COUNTRY_PATH = "/api/v1/countries";
 	private static final String GEOTAGGING_PATH = "/etc/tags/geotagging";
 
 	@Reference
@@ -60,7 +57,6 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 	private ApiCallService apiCallService;
 
 	private ResourceResolver resourceResolver;
-	private PageManager pageManager;
 	private Session session;
 
 	public void init() {
@@ -68,10 +64,9 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
 			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Contries importer login exception ", e);
 		}
 	}
 
@@ -107,12 +102,7 @@ public class CountriesImporterImpl extends BaseImporter implements CountriesImpo
 							node.setProperty("region_id", country.getRegionId());
 							session.save();
 							if (!replicat.getReplicationStatus(session, node.getParent().getPath()).isActivated()) {
-								try {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
-								} catch (ReplicationException e) {
-									LOGGER.debug("error during réplication node :" + country.getCountryName());
-									e.printStackTrace();
-								}
+								ImporterUtils.updateReplicationStatus(replicat, session, false, node.getPath());
 							}
 						}
 					}

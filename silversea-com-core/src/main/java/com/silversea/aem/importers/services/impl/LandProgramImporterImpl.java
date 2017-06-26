@@ -29,6 +29,7 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramImporter;
 import com.silversea.aem.services.ApiCallService;
@@ -39,7 +40,7 @@ import io.swagger.client.model.Land;
 
 @Service
 @Component(label = "Silversea.com - Land Program importer")
-public class LandProgramImporterImpl extends BaseImporter implements LandProgramImporter {
+public class LandProgramImporterImpl implements LandProgramImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramImporterImpl.class);
 
@@ -67,7 +68,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Land Program importer login exception ", e);
 		}
 	}
 
@@ -198,7 +199,7 @@ public class LandProgramImporterImpl extends BaseImporter implements LandProgram
 				i++;
 			} while (landPrograms.size() > 0);
 
-			setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+			ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
 					"lastModificationDateLandPrograms");
 
 			resourceResolver.close();
