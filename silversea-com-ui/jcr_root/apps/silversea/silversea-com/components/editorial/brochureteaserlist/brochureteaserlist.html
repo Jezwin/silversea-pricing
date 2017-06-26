@@ -13,7 +13,7 @@
                         <option
                             data-sly-use.languageHelper="${'com.silversea.aem.helper.LanguageHelper' @ language=child}"
                             selected="${brochureTeaserListUse.currentLanguage == child ? 'selected' : ''}"
-                            value="${currentPage.path @ selectors=[languageHelper.selector], extension='html'}">
+                            value="${currentPage.path @ selectors=[languageHelper.selector, brochureTeaserListUse.currentBrochureGroupSelector], extension='html'}">
                             ${language[child]}
                         </option>
                     </select>

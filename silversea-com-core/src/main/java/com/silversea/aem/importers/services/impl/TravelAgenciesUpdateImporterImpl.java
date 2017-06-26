@@ -2,9 +2,11 @@ package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -23,20 +25,19 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.ImporterStatus;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesUpdateImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.AgenciesApi;
 import io.swagger.client.model.Agency;
 
 /**
@@ -63,45 +64,41 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 	@Reference
 	private ApiCallService apiCallService;
 
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	public void init() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("travel agencies updates importer login exception ", e);
+		}
+	}
+
 	@Override
 	public ImporterStatus updateImporData() throws IOException {
+		init();
 		ImporterStatus status = new ImporterStatus();
 
 		Set<Integer> diff = new HashSet<Integer>();
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
+
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
 
-		// final String authorizationHeader =
-		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("agenciesUrl"));
-		AgenciesApi travelAgenciesApi = new AgenciesApi();
-		// travelAgenciesApi.getApiClient().addDefaultHeader("Authorization",
-		// authorizationHeader);
-
 		try {
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
 			Page travelRootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 
 			int i = 1;
@@ -109,9 +106,8 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 			List<Agency> travelAgencies;
 
 			do {
-				// travelAgencies = travelAgenciesApi.agenciesGet(null, null,
-				// null, null, null, i, pageSize);
-				travelAgencies = apiCallService.getTravelAgencies(i, pageSize, travelAgenciesApi);
+
+				travelAgencies = apiCallService.getTravelAgencies(i, pageSize);
 				int j = 0;
 
 				if (travelAgencies != null) {
@@ -140,32 +136,20 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 											"/apps/silversea/silversea-com/templates/page",
 											StringHelper.getFormatWithoutSpecialCharcters(agency.getCountryIso3()),
 											false);
+									LOGGER.debug("createa travel agency contry page : {}", agency.getCountryIso3());
 								}
 								if (agencyTravelContryPage != null) {
-									// if
-									// (!replicat.getReplicationStatus(session,
-									// travelRootPage.getPath()).isActivated())
-									// {
-									// if
-									// (!replicat.getReplicationStatus(session,
-									// agencyTravelContryPage.getPath()).isActivated())
-									// {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE,
+									session.save();
+									ImporterUtils.updateReplicationStatus(replicat, session, false,
 											agencyTravelContryPage.getPath());
-									// }
-									// }
 									agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
 											JcrUtil.createValidChildName(agencyTravelContryPage.adaptTo(Node.class),
 													StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency())),
 											TemplateConstants.PATH_TRAVEL_AGENCY,
 											StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()), false);
-									LOGGER.debug("Create of travel agency : {} ", agency.getAgency());
+									LOGGER.debug("createa  travel agency  page : {}", agency.getAgency());
 								}
 							}
-							// if(agency.getAgencyId() == 41216){
-							// LOGGER.debug("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-							// existe :", agency.getAgencyId());
-							// }
 
 							diff.add(agency.getAgencyId());
 
@@ -185,17 +169,10 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 								agencyContentNode.setProperty("longitude", agency.getLon());
 								succesNumber = succesNumber + 1;
 
-								// if (!replicat.getReplicationStatus(session,
-								// travelRootPage.getPath()).isActivated()) {
+								session.save();
+								ImporterUtils.updateReplicationStatus(replicat, session, false,
+										agencyTravelPage.getPath());
 
-								try {
-									replicat.replicate(session, ReplicationActionType.ACTIVATE,
-											agencyTravelPage.getPath());
-								} catch (ReplicationException e) {
-									LOGGER.debug("replication Failed of travel agency : {} ",
-											agencyTravelPage.getPath());
-								}
-								// }
 								j++;
 								LOGGER.debug("update of travel agency : {} ", agency.getAgency());
 							}
@@ -211,7 +188,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 							}
 						} catch (Exception e) {
 							errorNumber = errorNumber + 1;
-							LOGGER.debug("Travel agency error, number of faulures : {}", errorNumber);
+							LOGGER.debug("Travel agency error, number of failures : {}", +errorNumber);
 							j++;
 						}
 					}
@@ -220,7 +197,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 				i++;
 			} while (travelAgencies != null && travelAgencies.size() > 0);
 
-			// TODO Depublication of deleted pages
 			Iterator<Page> resourcess = travelRootPage.listChildren();
 			while (resourcess.hasNext()) {
 				Page page = resourcess.next();
@@ -230,11 +206,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 					if (pageAgency.getContentResource().getValueMap().get("agencyId") != null && !diff.contains(Integer
 							.parseInt(pageAgency.getContentResource().getValueMap().get("agencyId").toString()))) {
-						try {
-							replicat.replicate(session, ReplicationActionType.DEACTIVATE, pageAgency.getPath());
-						} catch (ReplicationException e) {
-							LOGGER.debug("Travel agency Desactivation error : {}", pageAgency.getPath());
-						}
+						ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
 					}
 				}
 
@@ -242,7 +214,6 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 
 			if (session.hasPendingChanges()) {
 				try {
-					// save migration date
 					Node rootNode = travelRootPage.getContentResource().adaptTo(Node.class);
 					rootNode.setProperty("lastModificationDate", Calendar.getInstance());
 					session.save();
@@ -252,7 +223,7 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 			}
 
 			resourceResolver.close();
-		} catch (ApiException | LoginException | RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing travel agencies", e);
 		}
 		status.setErrorNumber(errorNumber);

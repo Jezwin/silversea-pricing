@@ -1,6 +1,7 @@
 package com.silversea.aem.components.included;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import org.apache.cxf.common.util.StringUtils;
@@ -172,5 +173,9 @@ public class FooterUse extends WCMUsePojo {
 
     public Iterator<Page> getPagesMainColIterator() {
         return pagesMainColIterator;
+    }
+    
+    public int getYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
     }
 }

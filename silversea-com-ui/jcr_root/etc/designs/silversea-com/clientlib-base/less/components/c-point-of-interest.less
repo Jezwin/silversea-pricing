@@ -1,75 +1,45 @@
-.segment-section {
-    .c-slider.slick-dotted {
-        margin-bottom: 5px;
+.c-poi {
+    overflow: hidden;
+    margin: 0 !important;
+
+    &__image {
+        width: 33%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        float: left;
 
         @media screen and (max-width: @screen-sm) {
-            margin: 30px auto;
+            float: none;
+            width: auto;
+            height: auto;
+        }
+    }
+
+    &__content {
+        width: 67%;
+        padding: 20px 60px 20px 30px;
+        font-size: 16px;
+        white-space: normal;
+        float: right;
+
+        @media screen and (max-width: @screen-sm) {
+            float: none;
+            width: auto;
+            padding: 20px;
         }
 
-        .slick-list {
-            border: 1px solid @grey--d;
-
-            .c-poi {
-                overflow: hidden;
-                margin: 0 !important;
-
-                &__image {
-                    width: 33%;
-                    height: 100%;
-                    background-position: center;
-                    background-size: cover;
-                    float: left;
-
-                    @media screen and (max-width: @screen-sm) {
-                        float: none;
-                        width: auto;
-                        height: auto;
-                    }
-                }
-
-                &__content {
-                    width: 67%;
-                    padding: 20px 60px 20px 30px;
-                    font-size: 16px;
-                    white-space: normal;
-                    float: right;
-
-                    @media screen and (max-width: @screen-sm) {
-                        float: none;
-                        width: auto;
-                        padding: 20px;
-                    }
-
-                    h4 {
-                        font-weight: 700;
-                        text-transform: uppercase;
-                    }
-
-                    h4, p {
-                        margin: 0;
-                        text-align: left;
-                        font-size: 13px;
-                        font-family: @f-sans_serif;
-                    }
-                }
-            }
+        h4 {
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
-        .slick-dots {
-            display: none !important;
-
-            @media screen and (max-width: @screen-sm) {
-                display: block !important;
-                bottom: -18px;
-
-                li button:before {
-                    background-color: @grey--ca;
-                }
-
-                li.slick-active button:before {
-                    background-color: @black;
-                }
-            }
+        h4, p {
+            margin: 0;
+            text-align: left;
+            font-size: 13px;
+            font-family: @f-sans_serif;
         }
     }
 }
+

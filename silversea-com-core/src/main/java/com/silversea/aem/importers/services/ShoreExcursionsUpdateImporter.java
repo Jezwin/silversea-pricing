@@ -8,6 +8,7 @@ import com.silversea.aem.exceptions.UpdateImporterExceptions;
 /**
  * Created by mbennabi on 17/03/2017.
  */
+@Deprecated
 public interface ShoreExcursionsUpdateImporter {
 
     void updateImporData() throws IOException, ReplicationException, UpdateImporterExceptions;

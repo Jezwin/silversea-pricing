@@ -113,7 +113,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 					watch.reset();
 					watch.start();
 					try {
-						updateImportCities.updateImporData();
+						updateImportCities.updateImportData();
 						nbrError = updateImportCities.getErrorNumber();
 						nbrSucces = updateImportCities.getSuccesNumber();
 						response.getWriter().write("Cities import failure number : <p>" + nbrError + "</p>");
@@ -274,7 +274,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 				}
 				//
 				// if (all || mode.equals(Mode.countries)) {
-				// countriesImporter.importData();
+				// countriesImporter.importAllCities();
 				// response.getWriter().write("Countries import Done<br/>");
 				// response.getWriter().flush();
 				// }

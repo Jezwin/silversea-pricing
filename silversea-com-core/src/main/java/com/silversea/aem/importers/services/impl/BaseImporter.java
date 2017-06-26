@@ -1,13 +1,16 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
 
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.importers.ImporterUtils;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,26 +18,21 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
 import com.silversea.aem.services.ApiConfigurationService;
 
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
 
 public class BaseImporter {
 
+    static final private Logger LOGGER = LoggerFactory.getLogger(BaseImporter.class);
+
     private String login;
     private String password;
     private String apiDomain;
-
-    // public BaseImporter(String login, String password) {
-    // super();
-    // this.login = login;
-    // this.password = password;
-    // }
-
-    @Reference
-    private ApiConfigurationService apiConf;
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(BaseImporter.class);
 
     protected String getAuthorizationHeader(final String path) throws IOException {
         // Get server data used to generate digest authentication
@@ -70,7 +68,7 @@ public class BaseImporter {
         return null;
     }
 
-    protected void getAuthentification(String log, String pass) {
+    protected void getAuthentication(String log, String pass) {
         login = log;
         password = pass;
     }
@@ -79,4 +77,45 @@ public class BaseImporter {
         apiDomain = domain;
     }
 
+    /**
+     * Set the last modification date on the defined <code>rootPath</code>
+     *
+     * @param pageManager the page manager
+     * @param session the session
+     * @param rootPath path of the page where to set the last modification date property
+     * @param propertyName the property name to write
+     */
+    protected void setLastModificationDate(PageManager pageManager, Session session,
+                                           final String rootPath, final String propertyName) {
+        // Setting modification date for each language
+        final Page rootPage = pageManager.getPage(rootPath);
+        final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+
+        // Iterating over locales to import cities
+        for (String locale : locales) {
+            final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+
+            // Setting last modification date
+            // after import
+            try {
+                Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
+
+                if (rootNode != null) {
+                    rootNode.setProperty(propertyName, Calendar.getInstance());
+
+                    session.save();
+                } else {
+                    LOGGER.error("Cannot set {} on {}", propertyName, rootPath);
+                }
+            } catch (RepositoryException e) {
+                LOGGER.error("Cannot set last modification date", e);
+
+                try {
+                    session.refresh(false);
+                } catch (RepositoryException e1) {
+                    LOGGER.debug("Cannot refresh session", e1);
+                }
+            }
+        }
+    }
 }

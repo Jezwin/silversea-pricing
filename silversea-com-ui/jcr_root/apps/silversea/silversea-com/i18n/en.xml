@@ -78,7 +78,7 @@
     <copyright
         jcr:primaryType="sling:MessageEntry"
         sling:key="copyright"
-        sling:message="&#169; 2017 Silversea Cruises Ltd." />
+        sling:message="Silversea Cruises Ltd." />
     <countries
         jcr:primaryType="sling:MessageEntry"
         sling:key="countries"
@@ -151,6 +151,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <exclusive-offer-not-available
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="exclusive-offer-not-available"
+        sling:message="This exclusive offer is not available in your country." />
     <exclusive-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="exclusive-offers"
@@ -371,6 +375,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
         sling:message="Please enter your firstname" />
+    <required-postal-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-code"
+        sling:message="Please enter your postal code" />
+    <required-city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-city"
+        sling:message="Please enter your city" />
     <sign-up-for-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up-for-offers"
@@ -411,6 +423,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up"
         sling:message="Sign up" />
+    <suite
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite"
+        sling:message="Suite" />
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
@@ -527,6 +543,26 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote" />
+    <request-a-call
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-a-call"
+        sling:message="request a call" />
+    <get-our-free-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="get-our-free-brochures"
+        sling:message="Get our free brochures" />
+    <view-our-free-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-our-free-brochures"
+        sling:message="View our free brochures" />
+    <postal-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="postal-code"
+        sling:message="Postal code" />
+    <city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="city"
+        sling:message="city" />
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
@@ -583,6 +619,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
         sling:message="voyage highlights" />
+    <voyage-highlights-introduction
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage-highlights-introduction"
+        sling:message="Your expedition will lead to one discovery after another. A complimentary programme of unique, small-group shore experiences, led by team of expert guides and lectures, allows you to fully experience the lands you'll visit." />
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"

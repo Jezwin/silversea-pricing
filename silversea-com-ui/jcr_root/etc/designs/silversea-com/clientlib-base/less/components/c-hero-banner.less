@@ -1,13 +1,12 @@
 .video-link {
     color: @white;
     height: 100%;
-    left: 50%;
+    left: 0;
     opacity: .8;
     position: absolute;
     top: 0;
     transition: opacity 300ms;
-    width: 100vw;
-    transform: translateX(-50%);
+    width: 100%;
 
     .fa-play {
         font-size: 50px;
@@ -49,6 +48,14 @@
     margin: 0 auto 20px;
     max-width: 930px;
     position: relative;
+
+    .video-link {
+        left: 50%;
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        transform: translateX(-50%);
+    }
 
     &__content--white {
         background-color: rgba(255, 255, 255, 0.8);

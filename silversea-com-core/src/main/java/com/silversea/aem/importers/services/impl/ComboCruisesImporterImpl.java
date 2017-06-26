@@ -85,13 +85,13 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     @Override
     public void importData(boolean update) throws IOException {
         try {
+            LOGGER.debug("Combo Cruise importer -- Start import data");
             init();
             initDiffSet(update);
             List<SpecialVoyage> specialVoyages = apiCallService.getSpecialVoyages();
             processData(specialVoyages,update); 
             ImporterUtils.saveSession(session, false);
-
-            LOGGER.debug("Cruise importer -- Importing data finished");
+            LOGGER.debug("Combo Cruise importer -- Importing data finished");
 
         } catch (ApiException | WCMException | RepositoryException | LoginException e) {
             LOGGER.error("Exception while importing cruises", e);
@@ -117,7 +117,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         if(specialVoyages != null && !specialVoyages.isEmpty()){
             for (SpecialVoyage specialVoyage : specialVoyages) {
                 if(specialVoyage != null){
-                    LOGGER.debug("Combo cruise importer -- Sart import cruise with id {}",specialVoyage.getSpecialVoyageId());
+                    LOGGER.debug("Combo cruise importer -- Sart import combo cruise with id {}",specialVoyage.getSpecialVoyageId());
                     // retrieve cruises root page dynamically
                     Page cruisePage = getComboCruisePage(specialVoyage.getSpecialVoyageId());
 
@@ -149,7 +149,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             }
         }
         else {
-            LOGGER.warn("Cruise importer -- List cruises is empty");
+            LOGGER.warn("Combo Cruise importer -- List combo cruises is empty");
         }
     }
 
@@ -172,14 +172,14 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             for (VoyageWithItinerary voyage : voyages) {
                 if(voyage != null){
                     LOGGER.debug("Combo cruise -- Update segment with id {}",voyage.getVoyageId());
-                    String cruiseReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "cruiseId",
-                            Objects.toString(voyage.getVoyageId()),resourceResolver);
+                    String segementId = voayageId + voyage.getVoyageId();
+                    String cruiseReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "cruiseId", Objects.toString(voyage.getVoyageId()),resourceResolver);
 
-                    Page segementPage =  getSegmentPage(cruisePage,voyage.getVoyageId(),voyage.getVoyageName());
+                    Page segementPage =  getSegmentPage(cruisePage,voyage.getVoyageName(),segementId);
                     Node jcrContent = segementPage.getContentResource().adaptTo(Node.class);
                     //Update node's properties
                     jcrContent.setProperty("cruiseReference", cruiseReference);
-                    jcrContent.setProperty("CruiseSegmentId", voyage.getVoyageId());
+                    jcrContent.setProperty("CruiseSegmentId", segementId);
                     updateSet(update,segments,voyage.getVoyageId());
                 }
             }
@@ -190,10 +190,9 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         }
     }
  
-    public Page getSegmentPage(Page root,Integer voyageId,String voyageName) throws WCMException, RepositoryException{
-
+    public Page getSegmentPage(Page root,String voyageName,String segmentId) throws WCMException, RepositoryException{
         Iterator<Resource> resources = ImporterUtils.findResourceById(ImportersConstants.QUERY_CONTENT_PATH,
-                NameConstants.NT_PAGE, "CruiseSegmentId", Objects.toString(voyageId),
+                NameConstants.NT_PAGE, "CruiseSegmentId", segmentId,
                 resourceResolver);
         Page segmentPage = ImporterUtils.adaptOrCreatePage(resources, ImportersConstants.CRUISE_SEGEMENT_TEMPLATE, root,
                 voyageName, pageManager);
@@ -204,7 +203,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     public Page getComboCruisePage(String voyageId) throws WCMException, RepositoryException{
         Page page = null;
         Iterator<Resource> resources = ImporterUtils.findResourceById(ImportersConstants.QUERY_CONTENT_PATH,
-                NameConstants.NT_PAGE, "comboCruiseId", Objects.toString(voyageId),
+                NameConstants.NT_PAGE, "comboCruiseCode", Objects.toString(voyageId),
                 resourceResolver);
         if(resources!= null && resources.hasNext()){
             Resource resource = resources.next();
@@ -238,6 +237,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         String voyageId = specialVoyage.getSpecialVoyageId();
         
         if (voyagesPriceMarket != null 
+                && !voyagesPriceMarket.isEmpty()
                 && voyagesPriceMarket.get(0) !=null 
                 && !voyagesPriceMarket.get(0).getCruiseOnlyPrices().isEmpty()) {
 
@@ -292,7 +292,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             LOGGER.debug("Combo Cruise importer -- Start calculate diff");
             pages.forEach(page ->{
                 
-              String comboCruiseId = page.getProperties().get("comboCruiseId",String.class);
+              String comboCruiseId = page.getProperties().get("comboCruiseCode",String.class);
               if(!cruises.contains(comboCruiseId)){
                   LOGGER.debug("Combo Cruise importer -- Combo cruise with id {} no longer exists",comboCruiseId);
                   cruiseService.updateReplicationStatus(true, false, page);

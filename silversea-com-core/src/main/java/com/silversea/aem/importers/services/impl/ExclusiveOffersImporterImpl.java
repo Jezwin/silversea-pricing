@@ -3,8 +3,10 @@ package com.silversea.aem.importers.services.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -23,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -34,12 +35,12 @@ import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.model.SpecialOffer;
 
 /**
@@ -70,47 +71,40 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 	@Reference
 	private ApiCallService apiCallService;
 
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+	TagManager tagManager;
+
+	public void init() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			tagManager = resourceResolver.adaptTo(TagManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("travel agencies importer login exception ", e);
+		}
+	}
+
 	@Override
 	public ImporterStatus importData() throws IOException {
-
+		init();
 		ImporterStatus status = new ImporterStatus();
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		/**
-		 * authentification pour le swagger
-		 */
-		getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
-		/**
-		 * Récuperation du domain de l'api Swager
-		 */
-		getApiDomain(apiConfig.getApiBaseDomain());
-		/**
-		 * Récuperation de la session refresh
-		 */
+		
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		/**
-		 * Récuperation de per page
-		 */
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
-		// final String authorizationHeader =
-		// getAuthorizationHeader(apiConfig.apiUrlConfiguration("spetialOffersUrl"));
 		try {
-			SpecialOffersApi spetialOffersApi = new SpecialOffersApi();
-			// spetialOffersApi.getApiClient().addDefaultHeader("Authorization",
-			// authorizationHeader);
 
-			ResourceResolver resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-			TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-			Session session = resourceResolver.adaptTo(Session.class);
-
-			// Page offersRootPage =
-			// pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
 			Page offersRootPage;
 			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
 			List<String> local = new ArrayList<>();
@@ -126,10 +120,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 					List<SpecialOffer> specialOffers;
 					do {
 
-						// gets all special Offers
-						// specialOffers = spetialOffersApi.specialOffersGet(i,
-						// pageSize, null);
-						specialOffers = apiCallService.getExclusiveOffers(i, pageSize, spetialOffersApi);
+						specialOffers = apiCallService.getExclusiveOffers(i, pageSize);
 
 						int j = 0;
 
@@ -235,7 +226,7 @@ public class ExclusiveOffersImporterImpl extends BaseImporter implements Exclusi
 			}
 
 			resourceResolver.close();
-		} catch (ApiException | LoginException | RepositoryException e) {
+		} catch (ApiException | RepositoryException e) {
 			LOGGER.error("Exception importing Exclusive offers", e);
 		}
 

@@ -89,6 +89,37 @@ a {
         }
     }
 }
+/*
+** Properties display
+*/
+.o-description{
+    li{
+        list-style-type: inherit;
+    }
+    a{
+        color: initial;
+        font-weight: 700;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+.destinationproperties .o-section{
+    li{
+        list-style-type: inherit;
+    }
+    a{
+        color: initial;
+        font-weight: 700;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
 
 /*
 ** Button
@@ -267,9 +298,10 @@ picture {
 }
 
 .o-property-display {
-
     .double-column {
-        column-count: 2;
+        @media screen and (min-width: @screen-md-min) {
+            column-count: 2;
+        }
 
         picture {
             margin-bottom: 20px;

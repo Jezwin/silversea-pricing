@@ -32,21 +32,30 @@
             </div>
             <div class="modal-body" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <div class="c-gallery">
-                    <ul class="c-gallery__tab" data-sly-list="${map}">
+                    <ul class="c-gallery__tab hidden-xs" data-sly-list="${map}">
                         <li class="c-gallery__tab__item"><a class="c-gallery__tab__link" href="#" data-category="${item}">${item}</a></li>
                     </ul>
                     <div class="c-gallery__wrappertop">
                         <div class="c-slider c-slider--for" data-sly-list="${map}">
                             <sly data-sly-test.category="${item}" />
-                            <div data-category-target="${category}" data-image="/is/image${item.path}" data-sly-repeat="${map[item]}">
-                                <div class="ratio" style="background-image:url(/is/image${item.path @ context='uri'}?wid=970&fit=hfit,1)"></div>
+                            <div data-category-target="${category}" data-sly-repeat.asset="${map[item]}" data-image="/is/image${asset.path}">
+                                <div class="ratio"
+                                    style="background-image:url(/is/image${asset.path @ context='uri'}?wid=970&fit=hfit,1)">
+                                    <a data-sly-test="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#">
+                                        <i data-sly-test="isVideo" class="fa fa-play"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="c-gallery__counter"><span class="slide-item-current"></span> / <span class="slide-item-total"></span></div>
                     </div>
-                    <div class="c-slider c-slider--nav" data-sly-list="${map}">
-                        <div data-sly-repeat="${map[item]}">
-                            <div class="ratio" style="background-image:url(/is/image${item.path @ context='uri'}?wid=145&fit=hfit,1)"></div>
+                    <div class="c-slider c-slider--nav hidden-xs" data-sly-list="${map}">
+                        <div data-sly-repeat.asset="${map[item]}">
+                            <div class="ratio" style="background-image:url(/is/image${asset.path @ context='uri'}?wid=145&fit=hfit,1)">
+                                <a data-sly-test="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#">
+                                    <i data-sly-test="isVideo" class="fa fa-play"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

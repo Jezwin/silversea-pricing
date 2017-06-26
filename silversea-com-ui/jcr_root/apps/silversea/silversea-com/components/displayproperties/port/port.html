@@ -2,14 +2,13 @@
 <div data-sly-test="${!cpt.displayProperty && wcmmode.edit}" class="cq-placeholder" data-emptytext="Port display properties"></div>
 <div class="o-property-display"
      data-sly-test="${cpt.displayProperty}"
-     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-     data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=pageProperties.assetSelectionReference}"
-     data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+     data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
+     data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=pageProperties.assetSelectionReference}">
+
+    <sly data-sly-test.imagePath="${setImage.renditionList[0].path || hpage.thumbnail}" />
 
     <div class="o-section double-column">
-        <sly data-sly-test="${setImage.renditionList[0] || pageProperties.assetSelectionReference || hpage.thumbnail}"
-             data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path || pageProperties.assetSelectionReference || hpage.thumbnail}" />
-
+        <sly data-sly-test="${imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=imagePath}" />
         ${cpt.displayProperty @ context='html'}
     </div>
 </div>

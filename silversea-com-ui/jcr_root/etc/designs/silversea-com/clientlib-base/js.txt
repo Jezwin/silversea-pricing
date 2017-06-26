@@ -16,3 +16,5 @@ components/c-signupforoffers.js
 components/c-ship.js
 components/c-quote-request-form.js
 components/c-destination.js
+components/c-combo-cruise.js
+components/c-video.js

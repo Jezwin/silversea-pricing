@@ -33,10 +33,6 @@
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
             </plugin>
-            <!-- <plugin>
-                <groupId>org.apache.sling</groupId>
-                <artifactId>maven-jspc-plugin</artifactId>
-            </plugin> -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
             </plugin>

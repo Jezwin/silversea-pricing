@@ -88,19 +88,19 @@
                         <raq
                             jcr:primaryType="nt:unstructured"
                             text="Quote request"
-                            value="clic-RAQ" />
+                            value="RAQ" />
                         <bro
                             jcr:primaryType="nt:unstructured"
                             text="Brochure request"
-                            value="clic-BRO" />
+                            value="BRO" />
                         <rac
                             jcr:primaryType="nt:unstructured"
                             text="Call request"
-                            value="clic-RAC" />
+                            value="RAC" />
                         <sfo
                             jcr:primaryType="nt:unstructured"
                             text="Signup for offer"
-                            value="clic-SFO" />
+                            value="SFO" />
                     </items>
                 </analyticType>
             </items>

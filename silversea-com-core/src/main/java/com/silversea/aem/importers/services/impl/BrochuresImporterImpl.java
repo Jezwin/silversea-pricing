@@ -1,8 +1,10 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -24,7 +26,9 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
+import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.BrochuresImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -48,13 +52,29 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
     private ApiConfigurationService apiConfig;
     @Reference
     private Replicator replicat;
+    
+	private ResourceResolver resourceResolver;
+	private PageManager pageManager;
+	private Session session;
+
+	public void init() {
+		try {
+			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+			pageManager = resourceResolver.adaptTo(PageManager.class);
+			session = resourceResolver.adaptTo(Session.class);
+		} catch (LoginException e) {
+			LOGGER.debug("Cruise importer login exception ", e);
+		}
+	}
 
     /** {@inheritDoc} **/
     public void importBrochures() throws IOException {
         /**
          * authentification pour le swagger
          */
-        getAuthentification(apiConfig.getLogin(), apiConfig.getPassword());
+        getAuthentication(apiConfig.getLogin(), apiConfig.getPassword());
 
         List<Brochure> brochures = null;
         ResourceResolver resourceResolver = null;
@@ -66,9 +86,6 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
         BrochuresApi brochuresApi = new BrochuresApi();
         brochuresApi.getApiClient().addDefaultHeader("Authorization", authorizationHeader);
         try {
-
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-            Session session = resourceResolver.adaptTo(Session.class);
 
             do {
                 LOGGER.debug("[Importing brochure]: Start importing brochures");
@@ -85,7 +102,7 @@ public class BrochuresImporterImpl extends BaseImporter implements BrochuresImpo
             } while (brochures.size() > 0);
             saveSession(session, false);
 
-        } catch (LoginException | ApiException | RepositoryException e) {
+        } catch ( ApiException | RepositoryException e) {
             LOGGER.error("[Importing brochure] Error while importing brochure {}", e);
         } finally {
             if (resourceResolver != null && resourceResolver.isLive()) {

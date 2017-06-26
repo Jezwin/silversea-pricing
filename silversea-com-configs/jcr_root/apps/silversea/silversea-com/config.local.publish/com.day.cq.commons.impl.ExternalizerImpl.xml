@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="sling:OsgiConfig"
-    username="Agency1002015"
-    password="Th1nk2015Test"
-    url="http://servicest.silversea.com/LeadFromWeb03.asmx"/>
+    externalizer.domains="[local http://localhost:8081,author http://localhost:8080,publish http://localhost:8081]"
+    externalizer.host=""
+    externalizer.contextpath=""/>

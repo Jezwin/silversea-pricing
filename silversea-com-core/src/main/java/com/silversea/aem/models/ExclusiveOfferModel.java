@@ -8,6 +8,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import com.silversea.aem.components.beans.GeoLocation;
+import com.silversea.aem.services.GeolocationService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -38,6 +40,8 @@ public class ExclusiveOfferModel {
 
     private String description;
 
+    private Boolean availableForCountry;
+
     private List<CruiseFareAddition> cruiseFareAdditions;
 
     @PostConstruct
@@ -47,10 +51,18 @@ public class ExclusiveOfferModel {
             title = page.getProperties().get(JcrConstants.JCR_TITLE, String.class);
             String[] fareAdditons = page.getProperties().get("cruiseFareAdditions", String[].class);
             cruiseFareAdditions = initFareAdditions(fareAdditons);
+            availableForCountry = false;
 
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
         }
+    }
+
+    public void initByGeoLocation(GeoLocation geolocation) {
+        String destination = page.getParent().getPath();
+        if (isValid(geolocation.getGeoMarketCode()))
+            availableForCountry = true;
+        initDescription(geolocation.getCountry(), destination);
     }
 
     public boolean isValid(String geoMarketCode) {
@@ -144,5 +156,9 @@ public class ExclusiveOfferModel {
 
     public List<CruiseFareAddition> getCruiseFareAdditions() {
         return cruiseFareAdditions;
+    }
+
+    public Boolean getAvailableForCountry() {
+        return availableForCountry;
     }
 }

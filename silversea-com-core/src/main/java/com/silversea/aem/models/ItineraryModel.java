@@ -27,6 +27,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
@@ -51,6 +52,7 @@ public class ItineraryModel {
 
     private ResourceResolver resourceResolver;
     private TagManager tagManager;
+    private PageManager pageManager;
     
     @Inject
     private GeolocationTagService geolocationTagService;
@@ -60,6 +62,7 @@ public class ItineraryModel {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
             tagManager = resourceResolver.adaptTo(TagManager.class);
+            pageManager= resourceResolver.adaptTo(PageManager.class);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
             description = initDescription();
             country = initCountry();
@@ -114,17 +117,19 @@ public class ItineraryModel {
                     Resource node = children.next();
                     String path = Objects.toString(node.getValueMap().get(reference));
                     if (!StringUtils.isEmpty(path)) {
-                        Resource resource = resourceResolver.resolve(path);
-                        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)  ){
-                            Page pa = resource.adaptTo(Page.class);
-                            T model = pa.adaptTo(modelClass);
+                        Page page = pageManager.getPage(path);
+                        if(page != null){
+                            T model = page.adaptTo(modelClass);
                             callback(model, node, callBack, Resource.class);
                             list.add(model);
                         }
+                        else{
+                            LOGGER.debug("Page reference {} not found",path);
+                        }
                     }
                     else{
-                        LOGGER.debug("Page reference {} not found",reference);
-                    } 
+                        LOGGER.debug("Property  {} is empty",reference);
+                    }
                 }
             }
         } 

@@ -17,19 +17,19 @@
         webkit-transition: opacity 0.3s ease;
     }
 
-    &:hover .o-img {
-        opacity: .5;
-    }
-
     .thumbnail &__caption {
-        height: 150px;
-        padding: 7px 10px 30px;
+        height: 290px;
+        padding: 20px 20px 40px;
+
+        @media screen and (max-width: @screen-sm) {
+            height: auto;
+        }
     }
 
     &__title {
         font-family: @f-theano_didot;
-        font-size: 18px;
-        margin: 0;
+        font-size: 20px;
+        margin: 0 0 10px 0;
         text-transform: uppercase;
     }
 

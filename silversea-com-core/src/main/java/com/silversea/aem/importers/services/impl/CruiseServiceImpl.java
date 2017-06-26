@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.replication.ReplicationActionType;
@@ -54,6 +55,7 @@ import com.silversea.aem.components.beans.LowestPrice;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.enums.CruiseType;
 import com.silversea.aem.enums.PriceVariations;
+import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruiseService;
@@ -229,7 +231,7 @@ public class CruiseServiceImpl implements CruiseService{
         itineraryNode.setProperty("voyageId", itinerary.getVoyageId());
         itineraryNode.setProperty("itineraryId", itinerary.getItineraryId());
         itineraryNode.setProperty("cityId", itinerary.getCityId());
-        itineraryNode.setProperty("date", itinerary.getItineraryDate().toString());
+        itineraryNode.setProperty("date", ImporterUtils.convertToCalendar(itinerary.getItineraryDate()));
         itineraryNode.setProperty("arriveTime", itinerary.getArriveTime());
         itineraryNode.setProperty("arriveAmPm", itinerary.getArriveTimeAmpm());
         itineraryNode.setProperty("departTime", itinerary.getDepartTime());
@@ -252,7 +254,7 @@ public class CruiseServiceImpl implements CruiseService{
                             "landProgramId", Objects.toString(land.getLandItineraryId()), resourceResolver);
                     Node landNode = ImporterUtils.adaptOrCreateNode(resources, landsNode, Objects.toString(land.getLandItineraryId()));
                     landNode.setProperty("landProgramReference", landProgramReference);
-                    landNode.setProperty("date", land.getDate().toString());
+                    landNode.setProperty("date", ImporterUtils.convertToCalendar(land.getDate()));
                     landNode.setProperty("cityId", land.getCityId());
                     landNode.setProperty("landItineraryId", land.getLandItineraryId());
                 }
@@ -311,7 +313,7 @@ public class CruiseServiceImpl implements CruiseService{
                     excursionNode.setProperty("shorexItineraryId", excursion.getShorexItineraryId());
                     excursionNode.setProperty("cityId", excursion.getCityId());
                     excursionNode.setProperty("voyageId", excursion.getVoyageId());
-                    excursionNode.setProperty("date", excursion.getDate().toString());
+                    excursionNode.setProperty("date",ImporterUtils.convertToCalendar(excursion.getDate()));
                     excursionNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());
                     excursionNode.setProperty("generalDepartureTime", excursion.getGeneralDepartureTime());
                     excursionNode.setProperty("duration", excursion.getDuration());
@@ -486,10 +488,17 @@ public class CruiseServiceImpl implements CruiseService{
         if (path != null && !path.isEmpty() && imageName != null && !imageName.isEmpty()) {
             try {
                 LOGGER.debug("Cruise importer -- Start download image with name {}", imageName);
-                String fileDest = ImportersConstants.CRUISES_DAM_PATH + imageName.replaceAll("\\s","_");
+                String formattedImageName = StringHelper.getFormatWithoutSpecialCharcters(imageName);
+                String folderPath = ImportersConstants.CRUISES_DAM_PATH.concat(formattedImageName);
                 URL url = new URL(path);
                 InputStream is = url.openStream();
-                Asset asset = assetManager.createAsset(fileDest, is, "image/jpeg", true);
+                Node folder = JcrUtil.createPath(folderPath, "sling:OrderedFolder", session);
+                String imageDest = folder.getPath()
+                                         .concat("/")
+                                         .concat(formattedImageName);
+                //Save folder
+                ImporterUtils.saveSession(session, false);
+                Asset asset = assetManager.createAsset(imageDest, is, "image/jpeg", true);
                 imagePath = asset.getPath();
                 //Replicate image
                 replicateResource(imagePath);

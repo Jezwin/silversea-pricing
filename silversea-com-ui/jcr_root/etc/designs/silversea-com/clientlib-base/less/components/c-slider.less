@@ -1,6 +1,9 @@
 .c-slider {
     margin-bottom: 20px;
-
+    visibility: hidden;
+    &.slick-initialized{
+        visibility: visible !important;
+    }
     .parbase {
         margin-bottom: 0!important;
     }
@@ -84,6 +87,7 @@
             .ratio {
                 background-position: center center;
                 background-size: cover;
+                position: relative;
 
                 &:before {
                     content: ' ';
@@ -99,6 +103,14 @@
                 .ratio {
                     border: 1px solid @white;
                 }
+            }
+        }
+
+        .video-link .fa-play {
+            transform: translate(-45%,-50%) scale(0.5);
+
+            @media screen and (min-width: @screen-lg-min) {
+                transform: translate(-45%,-50%) scale(0.8);
             }
         }
     }
@@ -118,6 +130,7 @@
                 height: 0;
                 margin: 0;
                 padding-bottom: 55%;
+                position: relative;
                 width: 100%;
             }
         }
@@ -268,9 +281,42 @@
             display: block !important;
             height: 0;
             overflow: hidden;
- 
+
          &.in {
             height: auto !important;
          }
     }
 }
+
+/* POI Slider for ComboCruise */
+.segment-section {
+    .c-slider.slick-dotted {
+        margin-bottom: 5px;
+
+        @media screen and (max-width: @screen-sm) {
+            margin: 30px auto;
+        }
+
+        .slick-list {
+            border: 1px solid @grey--d;
+        }
+
+        .slick-dots {
+            display: none !important;
+
+            @media screen and (max-width: @screen-sm) {
+                display: block !important;
+                bottom: -18px;
+
+                li button:before {
+                    background-color: @grey--ca;
+                }
+
+                li.slick-active button:before {
+                    background-color: @black;
+                }
+            }
+        }
+    }
+}
+

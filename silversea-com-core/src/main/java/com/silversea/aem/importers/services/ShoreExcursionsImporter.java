@@ -1,15 +1,31 @@
 package com.silversea.aem.importers.services;
 
-import java.io.IOException;
+import com.silversea.aem.importers.services.impl.ImportResult;
 
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
 public interface ShoreExcursionsImporter {
 
-    void importData() throws IOException;
+    /**
+     * Import all shore excursions, used in first data import
+     *
+     * @return import result
+     */
+    ImportResult importAllShoreExcursions();
 
-    int getErrorNumber();
+    /**
+     * Update the shore excursions based on the last import date
+     * stored in the cities root page
+     *
+     * @return import result
+     */
+    ImportResult updateShoreExcursions();
 
-    int getSuccesNumber();
+    /**
+     * Import only one shore excursion
+     *
+     * @param shoreExcursionId the shore excursion ID of the shore excursion to import
+     */
+    void importOneShoreExcursion(final String shoreExcursionId);
 }

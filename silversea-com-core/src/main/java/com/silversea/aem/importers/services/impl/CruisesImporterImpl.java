@@ -34,7 +34,6 @@ import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyageSpecialOffer;
@@ -87,10 +86,9 @@ public class CruisesImporterImpl implements CruisesImporter {
             voyagePricesComplete = new ArrayList<VoyagePriceComplete>();
             List<Voyage> voyages;
             int index = 1;            
-            VoyagesApi voyageApi = new VoyagesApi();
-          
+            
             do {
-                voyages = apiCallService.getVoyages(index,voyageApi);
+                voyages = apiCallService.getVoyages(index);
                 processData(voyages); 
                 index++;
             } while (voyages!=null &&!voyages.isEmpty());
@@ -162,7 +160,7 @@ public class CruisesImporterImpl implements CruisesImporter {
         //set cruise's tags
         cruiseService.setCruiseTags(voyage.getFeatures(),voyage.getVoyageId(),voyage.getIsExpedition(), cruisePage);
         
-        String mapUrl = cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName());
+        String mapUrl = cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName()+" "+voyage.getVoyageId());
         String[] specialOffers = cruiseService.findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId());
         String shipReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
                 Objects.toString(voyage.getShipId()), resourceResolver);

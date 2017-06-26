@@ -10,8 +10,8 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.models.ComboCruiseModel;
-import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.ItineraryModel;
+import com.silversea.aem.models.SegmentModel;
 import com.silversea.aem.services.GeolocationService;
 
 public class ComboCruiseHeaderUse  extends WCMUsePojo{
@@ -53,11 +53,11 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
     
     private String initPort(ComboCruiseModel comboCruiseModel){
         String port = null;
-        List<CruiseModel> cruises = comboCruiseModel.getCruises();
-        if(cruises != null && !cruises.isEmpty()){
-            CruiseModel cruiseModel = cruises.get(0);
-            if(cruiseModel!=null){
-                List<ItineraryModel> itineraries = cruiseModel.getItineraries();
+        List<SegmentModel> segments = comboCruiseModel.getSegments();
+        if(segments != null && !segments.isEmpty()){
+            SegmentModel segment = segments.get(0);
+            if(segment !=null &&  segment.getCruise() != null){
+                List<ItineraryModel> itineraries = segment.getCruise().getItineraries();
                 if(itineraries!=null && !itineraries.isEmpty()){
                     port = itineraries.get(0).getTitle();
                 }

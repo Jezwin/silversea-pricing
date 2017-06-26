@@ -28,11 +28,10 @@ public class ComboCruiseModel extends AbstractModel {
     @Self
     private Page page;
 
-    private PriceData lowestPrice;
-    private List<CruiseModel> cruises;
-    private List<SuiteModel> suites;
     private ShipModel ship;
-
+    private List<SegmentModel> segments;
+    private PriceData lowestPrice;
+    private List<SuiteModel> suites;
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     
@@ -43,7 +42,6 @@ public class ComboCruiseModel extends AbstractModel {
             pageManager = resourceResolver.adaptTo(PageManager.class);
             String shipReference = page.getProperties().get("shipReference",String.class);
             ship = initShip(shipReference, pageManager);
-            LOGGER.debug("");
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
         }
@@ -51,21 +49,19 @@ public class ComboCruiseModel extends AbstractModel {
 
     public void initByGeoLocation(GeoLocation geoLocation) {
         lowestPrice = initLowestPrice(geoLocation.getGeoMarketCode(),page);
-        initCruises(geoLocation);
-        suites = initSuites(page,geoLocation.getGeoMarketCode(),resourceResolver);
+        initSegments(geoLocation);
+        suites = initSuites(page,geoLocation.getGeoMarketCode(),pageManager);
     }
-
-    private void initCruises(GeoLocation geoLocation){
+ 
+    private void initSegments(GeoLocation geoLocation){
         Iterator<Page> children = page.listChildren();
         if(children != null){
-            cruises = new ArrayList<CruiseModel>();
+            segments = new ArrayList<SegmentModel>();
             children.forEachRemaining(segment ->{
-                String cruiseReference = segment.getProperties().get("cruiseReference",String.class);
-                Page cruisePage = getPage(cruiseReference,pageManager);
-                if(cruisePage!=null){
-                    CruiseModel cruiseModel = cruisePage.adaptTo(CruiseModel.class);
-                    cruiseModel.initByGeoLocation(geoLocation);
-                    cruises.add(cruiseModel);
+                if(segment != null){
+                    SegmentModel segmentModel = segment.adaptTo(SegmentModel.class);
+                    segmentModel.initByGeoLocation(geoLocation);
+                    segments.add(segmentModel);
                 }
             });
         }
@@ -79,8 +75,8 @@ public class ComboCruiseModel extends AbstractModel {
         return page;
     }
 
-    public List<CruiseModel> getCruises() {
-        return cruises;
+    public List<SegmentModel> getSegments() {
+        return segments;
     }
 
     public List<SuiteModel> getSuites() {
