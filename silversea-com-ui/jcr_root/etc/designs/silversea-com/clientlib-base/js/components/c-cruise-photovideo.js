@@ -11,8 +11,10 @@ $(function() {
         var $imageList = $('.c-cruise__gallery__item .o-img');
 
         $imageList.each(function() {
-            var $image = $(this);
-            $image.closest('.c-cruise__gallery__item').css('background-image', 'url(' + $image.prop('currentSrc') + ')');
+            var $image = $(this),
+            mediaSrc = $image.prop('currentSrc') || $image.prop('src');
+
+            $image.closest('.c-cruise__gallery__item').css('background-image', 'url(' + mediaSrc + ')');
             $image.css('visibility', 'hidden');
         });
     }
@@ -31,7 +33,7 @@ $(function() {
                 'height' : $wrapper.find('> div').first().outerHeight()
             }, 600, function() {
                 var defaultItem = $wrapper.closest('.c-cruise-ship-info').length ? 1 : 0;
-                $wrapper.css('height', $wrapper.height()).find('> div:gt('+ defaultItem +'):not(.c-cruise__item-expander)').hide();
+                $wrapper.css('height', $wrapper.height()).find('> div:gt(' + defaultItem + '):not(.c-cruise__item-expander)').hide();
 
                 $(this).css('height', '').removeClass('open');
 
