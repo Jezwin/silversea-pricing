@@ -1,9 +1,18 @@
 package com.silversea.aem.ws.lead.service.impl;
 
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Dictionary;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.apache.cxf.binding.soap.SoapBindingFactory;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
@@ -82,6 +91,28 @@ public class LeadServiceImpl implements LeadService {
         // Subscribe newsletter
         request.setAtt02(lead.getAtt02());
         request.setWorkingWithAgent(lead.getWorkingwithagent());
+
+        // request a quote
+        request.setVoyage(lead.getVoyagename());
+        String departureDate = lead.getDeparturedate();
+        if (!StringUtils.isEmpty(departureDate)) {
+            DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+            try {
+                Date departDate = df.parse(departureDate);
+                GregorianCalendar c = new GregorianCalendar();
+                c.setTime(departDate);
+                XMLGregorianCalendar sailDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                request.setSailDate(sailDate);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        request.setShip(lead.getShipname());
+        request.setAtt07(lead.getSuitecategory());
+        request.setAtt08(lead.getSuitevariation());
+        request.setAtt09(lead.getPrice());
+
     }
 
     private LeadFromWeb03Soap getClientProxy() {
