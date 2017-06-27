@@ -96,7 +96,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		
+
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
@@ -111,117 +111,121 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
 			for (String loc : local) {
-				offersRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-				LOGGER.debug("Importing Exclusive offers for langue : {}", loc);
+				if (loc != null) {
+					offersRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
+					LOGGER.debug("Importing Exclusive offers for langue : {}", loc);
 
-				if (offersRootPage != null) {
+					if (offersRootPage != null) {
 
-					int i = 1;
-					List<SpecialOffer> specialOffers;
-					do {
+						int i = 1;
+						List<SpecialOffer> specialOffers;
+						do {
 
-						specialOffers = apiCallService.getExclusiveOffers(i, pageSize);
+							specialOffers = apiCallService.getExclusiveOffers(i, pageSize);
 
-						int j = 0;
+							int j = 0;
 
-						for (SpecialOffer offers : specialOffers) {
+							for (SpecialOffer offers : specialOffers) {
 
-							try {
+								try {
 
-								Iterator<Resource> resources = resourceResolver
-										.findResources("/jcr:root/content/silversea-com/" + loc
-												+ "//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
-												+ offers.getVoyageSpecialOfferId() + "\"]", "xpath");
+									Iterator<Resource> resources = resourceResolver
+											.findResources("/jcr:root/content/silversea-com/" + loc
+													+ "//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
+													+ offers.getVoyageSpecialOfferId() + "\"]", "xpath");
 
-								Page offersPage = null;
+									Page offersPage = null;
 
-								if (resources.hasNext()) {
-									offersPage = resources.next().adaptTo(Page.class);
-								} else {
-									offersPage = pageManager.create(offersRootPage.getPath(),
-											JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
-													StringHelper.getFormatWithoutSpecialCharcters(
-															offers.getVoyageSpecialOffer())),
-											TemplateConstants.PATH_EXCLUSIVE_OFFERT, StringHelper
-													.getFormatWithoutSpecialCharcters(offers.getVoyageSpecialOffer()),
-											false);
-									LOGGER.debug("create page {} Exclusive offers for langue : {}",
-											offers.getVoyageSpecialOfferId(), loc);
-								}
-
-								if (offersPage != null) {
-									Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
-									offersContentNode.setProperty(JcrConstants.JCR_TITLE,
-											offers.getVoyageSpecialOffer());
-									offersContentNode.setProperty("exclusiveOfferId", offers.getVoyageSpecialOfferId());
-									offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
-									offersContentNode.setProperty("endDate", offers.getValidTo().toString());
-
-									offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
-
-									geoMarket = offers.getMarkets();
-									market = new ArrayList<Tag>();
-									if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
-										market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
-									}
-									tagManager.setTags(offersPage.getContentResource(),
-											market.stream().toArray((Tag[]::new)));
-
-									succesNumber = succesNumber + 1;
-									j++;
-
-									LOGGER.debug("update page {} Exclusive offers for langue : {}",
-											offers.getVoyageSpecialOfferId(), loc);
-
-									if (!replicat.getReplicationStatus(session, offersRootPage.getPath())
-											.isActivated()) {
-										replicat.replicate(session, ReplicationActionType.ACTIVATE,
-												offersRootPage.getPath());
-									}
-									try {
-										session.save();
-										replicat.replicate(session, ReplicationActionType.ACTIVATE,
-												offersPage.getPath());
-										LOGGER.debug("replication page Exclusive offers id {} ,  for langue : {}",
+									if (resources.hasNext()) {
+										offersPage = resources.next().adaptTo(Page.class);
+									} else {
+										offersPage = pageManager.create(offersRootPage.getPath(),
+												JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
+														StringHelper.getFormatWithoutSpecialCharcters(
+																offers.getVoyageSpecialOffer())),
+												TemplateConstants.PATH_EXCLUSIVE_OFFERT,
+												StringHelper.getFormatWithoutSpecialCharcters(
+														offers.getVoyageSpecialOffer()),
+												false);
+										LOGGER.debug("create page {} Exclusive offers for langue : {}",
 												offers.getVoyageSpecialOfferId(), loc);
-									} catch (RepositoryException e) {
-										LOGGER.debug(
-												"replication page Exclusive offers id {} *** ERROR ***,  for langue : {}",
-												offers.getVoyageSpecialOfferId(), loc);
-										session.refresh(true);
 									}
-								}
 
-								if (j % sessionRefresh == 0) {
-									if (session.hasPendingChanges()) {
+									if (offersPage != null) {
+										Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
+										offersContentNode.setProperty(JcrConstants.JCR_TITLE,
+												offers.getVoyageSpecialOffer());
+										offersContentNode.setProperty("exclusiveOfferId",
+												offers.getVoyageSpecialOfferId());
+										offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
+										offersContentNode.setProperty("endDate", offers.getValidTo().toString());
+
+										offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
+
+										geoMarket = offers.getMarkets();
+										market = new ArrayList<Tag>();
+										if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
+											market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
+										}
+										tagManager.setTags(offersPage.getContentResource(),
+												market.stream().toArray((Tag[]::new)));
+
+										succesNumber = succesNumber + 1;
+										j++;
+
+										LOGGER.debug("update page {} Exclusive offers for langue : {}",
+												offers.getVoyageSpecialOfferId(), loc);
+
+										if (!replicat.getReplicationStatus(session, offersRootPage.getPath())
+												.isActivated()) {
+											replicat.replicate(session, ReplicationActionType.ACTIVATE,
+													offersRootPage.getPath());
+										}
 										try {
 											session.save();
+											replicat.replicate(session, ReplicationActionType.ACTIVATE,
+													offersPage.getPath());
+											LOGGER.debug("replication page Exclusive offers id {} ,  for langue : {}",
+													offers.getVoyageSpecialOfferId(), loc);
 										} catch (RepositoryException e) {
+											LOGGER.debug(
+													"replication page Exclusive offers id {} *** ERROR ***,  for langue : {}",
+													offers.getVoyageSpecialOfferId(), loc);
 											session.refresh(true);
 										}
 									}
+
+									if (j % sessionRefresh == 0) {
+										if (session.hasPendingChanges()) {
+											try {
+												session.save();
+											} catch (RepositoryException e) {
+												session.refresh(true);
+											}
+										}
+									}
+								} catch (Exception e) {
+									errorNumber = errorNumber + 1;
+									LOGGER.debug("Exclusive offer falure error, number of faulures :", +errorNumber);
+									j++;
 								}
-							} catch (Exception e) {
-								errorNumber = errorNumber + 1;
-								LOGGER.debug("Exclusive offer falure error, number of faulures :", +errorNumber);
-								j++;
+							}
+
+							i++;
+						} while (specialOffers.size() > 0);
+
+						if (session.hasPendingChanges()) {
+							try {
+								// save migration date
+								Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class);
+								rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+								session.save();
+							} catch (RepositoryException e) {
+								session.refresh(false);
 							}
 						}
 
-						i++;
-					} while (specialOffers.size() > 0);
-
-					if (session.hasPendingChanges()) {
-						try {
-							// save migration date
-							Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class);
-							rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-							session.save();
-						} catch (RepositoryException e) {
-							session.refresh(false);
-						}
 					}
-
 				}
 			}
 

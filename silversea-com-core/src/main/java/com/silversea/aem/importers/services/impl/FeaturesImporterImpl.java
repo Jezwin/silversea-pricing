@@ -93,91 +93,95 @@ public class FeaturesImporterImpl implements FeaturesImporter {
 			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
 
 			for (String loc : local) {
-				featuresRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-				LOGGER.debug("Importing features for langue : {}", loc);
+				if (loc != null) {
+					featuresRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
+					LOGGER.debug("Importing features for langue : {}", loc);
 
-				if (featuresRootPage != null) {
+					if (featuresRootPage != null) {
 
-					int i = 0;
-					for (Feature feature : features) {
-						try {
+						int i = 0;
+						for (Feature feature : features) {
+							try {
 
-							LOGGER.debug("Importing Feature: {}", feature.getName());
-							Iterator<Resource> resources = resourceResolver
-									.findResources("/jcr:root/content/silversea-com/" + loc
-											+ "//element(*,cq:Page)[jcr:content/featureId=\"" + feature.getFeatureId()
-											+ "\"]", "xpath");
-							Page featurePage = null;
+								LOGGER.debug("Importing Feature: {}", feature.getName());
+								Iterator<Resource> resources = resourceResolver
+										.findResources("/jcr:root/content/silversea-com/" + loc
+												+ "//element(*,cq:Page)[jcr:content/featureId=\""
+												+ feature.getFeatureId() + "\"]", "xpath");
+								Page featurePage = null;
 
-							if (resources.hasNext()) {
-								featurePage = resources.next().adaptTo(Page.class);
-								LOGGER.debug(" Feature with {} existe for langue : {}", feature.getFeatureCod(), loc);
-							} else {
-								featurePage = pageManager.create(featuresRootPage.getPath(),
-										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
-										TemplateConstants.PATH_FEATURE,
-										StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
-								LOGGER.debug("create Feature with {} for langue : {}", feature.getFeatureCod(), loc);
-							}
-
-							if (featurePage != null) {
-								Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
-								if (featurePageContentNode != null) {
-									featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
-									featurePageContentNode.setProperty("featureId", feature.getFeatureId());
-									featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
-									featurePageContentNode.setProperty("featureName", feature.getName());
-									featurePageContentNode.setProperty("apiTitle", feature.getName());
-									featurePageContentNode.setProperty("featureOrder", feature.getOrder());
-									session.save();
-									LOGGER.debug("Updated Feature with {} for langue : {}", feature.getFeatureCod(),
+								if (resources.hasNext()) {
+									featurePage = resources.next().adaptTo(Page.class);
+									LOGGER.debug(" Feature with {} existe for langue : {}", feature.getFeatureCod(),
 											loc);
+								} else {
+									featurePage = pageManager.create(featuresRootPage.getPath(),
+											StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
+											TemplateConstants.PATH_FEATURE,
+											StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
+									LOGGER.debug("create Feature with {} for langue : {}", feature.getFeatureCod(),
+											loc);
+								}
 
-									try {
+								if (featurePage != null) {
+									Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
+									if (featurePageContentNode != null) {
+										featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
+										featurePageContentNode.setProperty("featureId", feature.getFeatureId());
+										featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
+										featurePageContentNode.setProperty("featureName", feature.getName());
+										featurePageContentNode.setProperty("apiTitle", feature.getName());
+										featurePageContentNode.setProperty("featureOrder", feature.getOrder());
 										session.save();
-										if (!replicat.getReplicationStatus(session, featuresRootPage.getPath())
-												.isActivated()) {
+										LOGGER.debug("Updated Feature with {} for langue : {}", feature.getFeatureCod(),
+												loc);
+
+										try {
+											session.save();
+											if (!replicat.getReplicationStatus(session, featuresRootPage.getPath())
+													.isActivated()) {
+												replicat.replicate(session, ReplicationActionType.ACTIVATE,
+														featuresRootPage.getPath());
+											}
 											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													featuresRootPage.getPath());
+													featurePage.getPath());
+											LOGGER.debug("replicate Feature with {} for langue : {}",
+													feature.getFeatureCod(), loc);
+										} catch (RepositoryException e) {
+											LOGGER.debug("replication ERROR Feature with {} for langue : {}",
+													feature.getFeatureCod(), loc);
+											session.refresh(true);
 										}
-										replicat.replicate(session, ReplicationActionType.ACTIVATE,
-												featurePage.getPath());
-										LOGGER.debug("replicate Feature with {} for langue : {}",
-												feature.getFeatureCod(), loc);
-									} catch (RepositoryException e) {
-										LOGGER.debug("replication ERROR Feature with {} for langue : {}",
-												feature.getFeatureCod(), loc);
-										session.refresh(true);
 									}
 								}
-							}
-							i++;
-							if (i % sessionRefresh == 0) {
-								if (session.hasPendingChanges()) {
-									try {
-										session.save();
-									} catch (RepositoryException e) {
-										session.refresh(true);
+								i++;
+								if (i % sessionRefresh == 0) {
+									if (session.hasPendingChanges()) {
+										try {
+											session.save();
+										} catch (RepositoryException e) {
+											session.refresh(true);
+										}
 									}
 								}
+							} catch (Exception e) {
+								LOGGER.debug("Features error, number of failures :", e);
+								i++;
 							}
-						} catch (Exception e) {
-							LOGGER.debug("Features error, number of failures :", e);
-							i++;
 						}
-					}
-					if (session.hasPendingChanges()) {
-						try {
-							Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
-							rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-							session.save();
-						} catch (RepositoryException e) {
-							session.refresh(false);
+						if (session.hasPendingChanges()) {
+							try {
+								Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
+								rootNode.setProperty("lastModificationDate", Calendar.getInstance());
+								session.save();
+							} catch (RepositoryException e) {
+								session.refresh(false);
+							}
 						}
-					}
 
+					}
+					LOGGER.debug("************************************************************************");
 				}
-				LOGGER.debug("************************************************************************");
 			}
 			LOGGER.debug("****************************End of features import******************************");
 			resourceResolver.close();
