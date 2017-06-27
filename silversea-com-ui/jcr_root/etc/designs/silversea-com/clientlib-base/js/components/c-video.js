@@ -2,7 +2,7 @@ $(function() {
     $.fn.initVideo = function() {
         this.each(function() {
             var $video = $(this);
-            var asset = $video.data('asset');
+            var asset = $video.data('video-asset');
             var s7videoviewer = new s7viewers.VideoViewer({
                 'containerId' : $video.attr('id'),
                 'params' : {
@@ -11,7 +11,8 @@ $(function() {
                     'config' : '/etc/dam/presets/viewer/Video',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
                     'posterimage' : asset,
-                    'asset' : asset
+                    'asset' : asset,
+                    'autoplay' : '1'
                 }
             }).init();
         });
