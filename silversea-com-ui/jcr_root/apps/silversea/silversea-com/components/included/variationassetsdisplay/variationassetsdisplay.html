@@ -10,13 +10,12 @@
             <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-plan' @ i18n}</strong>
         </div>
         <div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}"
+            data-gallery-path="${currentPage.path @ extension='html', selectors='gallery', appendPath='/jcr:content'}"
             data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}">
             <strong class="visible-xs-block">${'suite-location' @ i18n}</strong>
             <a href="#" data-target=".bs-modal-lg" data-gallery=".gallery" class="automatic-gallery-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path}" />
             </a>
-            <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
-                data-sly-call="${galleryTemplate.default @ list=setImage.renditionList}" />
             <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-location' @ i18n}</strong>
         </div>
         <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
