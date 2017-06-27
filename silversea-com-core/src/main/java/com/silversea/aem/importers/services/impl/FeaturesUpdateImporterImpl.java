@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -42,7 +43,7 @@ import io.swagger.client.model.Feature;
 
 @Component(immediate = true, label = "Silversea.com - features update importer")
 @Service(value = FeaturesUpdateImporter.class)
-public class FeaturesUpdateImporterImpl extends BaseImporter implements FeaturesUpdateImporter {
+public class FeaturesUpdateImporterImpl implements FeaturesUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesUpdateImporterImpl.class);
 
@@ -72,7 +73,7 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Features importer login exception ", e);
 		}
 	}
 
@@ -169,20 +170,17 @@ public class FeaturesUpdateImporterImpl extends BaseImporter implements Features
 					Iterator<Page> resourcess = featuresRootPage.listChildren();
 					while (resourcess.hasNext()) {
 						Page page = resourcess.next();
-						if (page.getContentResource().getValueMap().get("featureId").toString() != null
-								&& !diff.contains(Integer.parseInt(
-										page.getContentResource().getValueMap().get("featureId").toString()))) {
+						Integer id = Integer
+								.parseInt(Objects.toString(page.getContentResource().getValueMap().get("featureId")));
+						if (id != null && !diff.contains(id)) {
 							ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 						}
 					}
 				}
 			}
 			resourceResolver.close();
-		} catch (ApiException |
-
-				RepositoryException e) {
-			String errorMessage = "Import Feature Errors : {} ";
-			LOGGER.error(errorMessage, e);
+		} catch (ApiException | RepositoryException e) {
+			LOGGER.error("Import Feature Errors : {}", e);
 		}
 		status.setErrorNumber(errorNumber);
 		status.setSuccesNumber(succesNumber);

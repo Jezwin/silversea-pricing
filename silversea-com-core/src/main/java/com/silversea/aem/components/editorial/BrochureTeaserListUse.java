@@ -63,17 +63,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         final String brochuresPath = getProperties().get("folderReference", "/content/dam/silversea-com/brochures");
 
         // Building tag list
-        geolocationTags = new ArrayList<>();
-
-        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-
-        if (geolocationTagId != null) {
-            Tag geolocationTag = tagManager.resolve(geolocationTagId);
-
-            if (geolocationTag != null) {
-                geolocationTags.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
-            }
-        }
+        buildGeolocationTagList(geolocationTagId);
 
         // Searching for brochures
         brochuresNotLanguageFiltered = new ArrayList<>();
@@ -90,6 +80,24 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         filterResources(resources);
 
         // build language list
+        buildLanguageList();
+    }
+
+    private void buildGeolocationTagList(String geolocationTagId) {
+        geolocationTags = new ArrayList<>();
+
+        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+
+        if (geolocationTagId != null) {
+            Tag geolocationTag = tagManager.resolve(geolocationTagId);
+
+            if (geolocationTag != null) {
+                geolocationTags.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
+            }
+        }
+    }
+
+    private void buildLanguageList() {
         for (BrochureModel brochure : brochuresNotLanguageFiltered) {
             Tag language = brochure.getLanguage();
 

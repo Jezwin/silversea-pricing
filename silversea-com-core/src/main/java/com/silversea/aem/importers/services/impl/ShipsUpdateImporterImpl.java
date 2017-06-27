@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -40,7 +41,7 @@ import io.swagger.client.model.Ship;
 
 @Component(immediate = true, label = "Silversea.com - Ship importer Update", metatype = true)
 @Service(value = ShipsUpdateImporter.class)
-public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdateImporter {
+public class ShipsUpdateImporterImpl implements ShipsUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ShipsUpdateImporterImpl.class);
 	private int sessionRefresh = 100;
@@ -66,7 +67,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("Cities importer login exception ", e);
+			LOGGER.debug("Ships update importer login exception ", e);
 		}
 	}
 
@@ -145,7 +146,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 					}
 				} catch (Exception e) {
 					errorNumber = errorNumber + 1;
-					LOGGER.debug("Ship import error, number of faulures : {}", errorNumber);
+					LOGGER.debug("Ship import error, number of failures : {}", errorNumber);
 					i++;
 				}
 			}
@@ -156,10 +157,10 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 				Iterator<Page> resourcess = rootPathByLocal.listChildren();
 				while (resourcess.hasNext()) {
 					Page page = resourcess.next();
-
-					if (page.getContentResource().getValueMap().get("shipId") != null && !diff.contains(
-							Integer.parseInt(page.getContentResource().getValueMap().get("shipId").toString()))) {
-							ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
+					Integer id = Integer
+							.parseInt(Objects.toString(page.getContentResource().getValueMap().get("shipId")));
+					if (id != null && !diff.contains(id)) {
+						ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 					}
 				}
 			}
@@ -177,8 +178,7 @@ public class ShipsUpdateImporterImpl extends BaseImporter implements ShipsUpdate
 
 			resourceResolver.close();
 		} catch (Exception e) {
-			String errorMessage = "Import Ship Errors : {} ";
-			LOGGER.error(errorMessage, e);
+			LOGGER.error("Import Ship Errors : {} ", e);
 		}
 
 		status.setErrorNumber(errorNumber);

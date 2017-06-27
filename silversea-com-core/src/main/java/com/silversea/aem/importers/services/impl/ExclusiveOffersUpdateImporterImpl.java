@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -49,7 +50,7 @@ import io.swagger.client.model.SpecialOffer;
  */
 @Service
 @Component(label = "Silversea.com - Exclusive Offers importer")
-public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements ExclusiveOffersUpdateImporter {
+public class ExclusiveOffersUpdateImporterImpl implements ExclusiveOffersUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersUpdateImporterImpl.class);
 
@@ -86,7 +87,7 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 			tagManager = resourceResolver.adaptTo(TagManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("travel agencies importer login exception ", e);
+			LOGGER.debug("Exclusive offers importer login exception ", e);
 		}
 	}
 
@@ -99,11 +100,11 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 
 		int errorNumber = 0;
 		int succesNumber = 0;
-		
+
 		if (apiConfig.getSessionRefresh() != 0) {
 			sessionRefresh = apiConfig.getSessionRefresh();
 		}
-		
+
 		if (apiConfig.getPageSize() != 0) {
 			pageSize = apiConfig.getPageSize();
 		}
@@ -195,9 +196,9 @@ public class ExclusiveOffersUpdateImporterImpl extends BaseImporter implements E
 			Iterator<Page> resourcess = offersRootPage.listChildren();
 			while (resourcess.hasNext()) {
 				Page page = resourcess.next();
-
-				if (!diff.contains(
-						Integer.parseInt(page.getContentResource().getValueMap().get("exclusiveOfferId").toString()))) {
+				Integer id = Integer
+						.parseInt(Objects.toString(page.getContentResource().getValueMap().get("exclusiveOfferId")));
+				if (id != null && !diff.contains(id)) {
 					ImporterUtils.updateReplicationStatus(replicat, session, true, page.getPath());
 				}
 			}

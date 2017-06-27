@@ -45,7 +45,7 @@ import io.swagger.client.model.Shorex77;
  */
 @Deprecated
 @Service
-@Component(label = "Silversea.com - Shorexes Update importer")
+@Component(label = "Silversea.com - Excursions Update importer")
 public class ShoreExcursionsUpdateImporterImpl implements ShoreExcursionsUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(ShoreExcursionsUpdateImporterImpl.class);
@@ -79,7 +79,7 @@ public class ShoreExcursionsUpdateImporterImpl implements ShoreExcursionsUpdateI
 			pageManager = resourceResolver.adaptTo(PageManager.class);
 			session = resourceResolver.adaptTo(Session.class);
 		} catch (LoginException e) {
-			LOGGER.debug("land program update importer login exception ", e);
+			LOGGER.debug("Excursions update importer login exception ", e);
 		}
 	}
 

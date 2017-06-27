@@ -71,6 +71,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="code"
         sling:message="code" />
+    <combocruise-suite-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="combocruise-suite-description"
+        sling:message="Broad decks, panoramic lounges, gourmet dining options and all-suite accommodations ensure the most comfortable journey. Along with the incomparable luxury that has made Silversea the preferred choice for today’s discerning travellers." />
     <coordinates
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"

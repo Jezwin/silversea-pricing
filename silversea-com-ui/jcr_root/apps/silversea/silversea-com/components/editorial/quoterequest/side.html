@@ -1,16 +1,22 @@
 <!--/* html content if path as suffix for ship and [suite] */-->
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Quote request destination parameters"></div>
 <div class="c-brochure row" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
-
-<h3>Title</h3>${quoteRequest.cruiseTitle}
-<h3 data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=quoteRequest.cruiseDepartureDate}">${'departure' @ i18n}</h3>${startDate.value}
-<h3>${'duration' @ i18n}</h3>${quoteRequest.cruiseDuration} ${'days' @ i18n}
-<h3>${'ship' @ i18n}</h3>${quoteRequest.cruiseShipName}
-<h3>${'suite' @ i18n}</h3>
-<div data-sly-test="${quoteRequest.isSuiteRequested}">${quoteRequest.suiteName}</div>
-<div data-sly-test="${quoteRequest.isSuiteCategoryRequested}">${quoteRequest.suiteName @ i18n}</div>
-<h3>${'fares-from' @ i18n}</h3>${quoteRequest.cruisePrice.currency} ${quoteRequest.cruisePrice.value}
-
-
-
+    <img src="${quoteRequest.cruiseThumbnail}" />
+    <div class="c-brochure__inner">
+        <h3 class="c-brochure__inner__title">${quoteRequest.cruiseTitle}</h3>
+        <ul class="c-brochure__list">
+            <li class="c-brochure__list__departure" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=quoteRequest.cruiseDepartureDate}">${'departure' @ i18n}: <strong>${startDate.value}</strong></li>
+            <li class="c-brochure__list__duration">${'duration' @ i18n}: <strong>${quoteRequest.cruiseDuration} ${'days' @ i18n}</strong></li>
+            <li class="c-brochure__list__ship">${'ship' @ i18n}: <strong>${quoteRequest.cruiseShipName}</strong></li>
+            <li data-sly-test="${quoteRequest.isSuiteRequested}" class="c-brochure__list__suite">${'suite' @ i18n}:
+                <strong data-sly-test="${quoteRequest.isSuiteVariationRequested}"> ${quoteRequest.suiteName}</strong>
+                <strong data-sly-test="${quoteRequest.isSuiteCategoryRequested}"> ${quoteRequest.suiteName @ i18n}</strong>
+            </li>
+        </ul>
+    </div>
+    <div class="c-brochure__price">
+        ${'fares-from' @ i18n}
+        <strong>${quoteRequest.cruisePrice.currency} ${quoteRequest.cruisePrice.value}</strong>
+        (${'per-guest' @ i18n})
+    </div>
 </div>

@@ -250,10 +250,18 @@ public class QuoteRequestUse extends WCMUsePojo {
     }
 
     public boolean isSuiteRequested() {
+        return isSuiteVariationRequested() || isSuiteCategoryRequested();
+    }
+
+    public boolean isSuiteVariationRequested() {
         return selectedSuite != null;
     }
 
     public boolean isSuiteCategoryRequested() {
         return selectedSuiteCategoryCode != null;
+    }
+
+    public boolean isCruiseRequested() {
+        return selectedCruise != null;
     }
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.jcr.Node;
@@ -45,7 +46,7 @@ import io.swagger.client.model.Agency;
  */
 @Service
 @Component(label = "Silversea.com - Travel Agencies update importer")
-public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements TravelAgenciesUpdateImporter {
+public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImporter {
 
 	static final private Logger LOGGER = LoggerFactory.getLogger(TravelAgenciesUpdateImporterImpl.class);
 
@@ -203,9 +204,8 @@ public class TravelAgenciesUpdateImporterImpl extends BaseImporter implements Tr
 				Iterator<Page> resourcesContry = page.listChildren();
 				while (resourcesContry.hasNext()) {
 					Page pageAgency = resourcesContry.next();
-
-					if (pageAgency.getContentResource().getValueMap().get("agencyId") != null && !diff.contains(Integer
-							.parseInt(pageAgency.getContentResource().getValueMap().get("agencyId").toString()))) {
+					Integer id = Integer.parseInt(Objects.toString(page.getContentResource().getValueMap().get("agencyId")));
+					if (id != null && !diff.contains(id)) {
 						ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
 					}
 				}

@@ -12,4 +12,10 @@
                 sling:resourceType="silversea/silversea-com/components/editorial/video" />
         </image>
     </cq:dropTargets>
+    <cq:listeners
+            jcr:primaryType="cq:EditListenersConfig"
+            afterdelete="REFRESH_PAGE"
+            afteredit="REFRESH_PAGE"
+            afterinsert="REFRESH_PAGE"
+            afterMove="REFRESH_PAGE" />
 </jcr:root>

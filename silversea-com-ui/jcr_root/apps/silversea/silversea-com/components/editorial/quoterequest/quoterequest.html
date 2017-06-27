@@ -1,9 +1,9 @@
-<div class="c-quote-request-form">
+<div class="c-quote-request-form" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
     <div class="row">
         <!--/*
         include side.html if path has suffix for ship and [suite]*/-->
-        <div class="col-sm-4 c-quote-request-form__side" data-sly-include="./side.html"></div>
-        
-        <div class="col-sm-8 col-sm-offset-2 c-quote-request-form__form" data-sly-include="./form.html"></div>
+        <div data-sly-test="${quoteRequest.isCruiseRequested}" class="col-sm-5 c-quote-request-form__side" data-sly-include="./side.html"></div>
+
+        <div class="col-sm-7 c-quote-request-form__form" data-sly-include="./form.html"></div>
     </div>
 </div>

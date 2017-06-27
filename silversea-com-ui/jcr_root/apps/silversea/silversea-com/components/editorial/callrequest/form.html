@@ -1,7 +1,4 @@
-<form  class="request-quote-form c-form c-formcookie--modal"
-       action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled"
-       method="post"
-       data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
+<form  class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     <input name="requestsource" type="hidden" value="RAC" />
     
     <div class="form-group form-group-lg has-feedback input--title">
@@ -40,7 +37,7 @@
             data-prepend-placeholder="${'Example' @ i18n}"
             data-country-geolocalized="${helper.country || 'US'}"
             data-required-error="${'Please enter your phone number' @ i18n}"
-            data-countrycodeformat-error="${'Please check the phone format' @ i18n}" /> 
+            data-countrycodeformat-error="${'Please check the phone format' @ i18n}" />
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
