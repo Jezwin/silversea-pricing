@@ -393,6 +393,10 @@ public class ImporterUtils {
 		return null;
 	}
 	
+	public static String findPageLangauge(PageManager pageManager, final Page masterPage, Page currentPage){
+		return currentPage.getParent(4).getName();
+	}
+	
     /**
      * Set the last modification date on the defined <code>rootPath</code>
      *
