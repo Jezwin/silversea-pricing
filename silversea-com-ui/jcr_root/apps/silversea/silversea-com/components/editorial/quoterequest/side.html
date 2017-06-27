@@ -8,8 +8,8 @@
             <li class="c-brochure__list__departure" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=quoteRequest.cruiseDepartureDate}">${'departure' @ i18n}: <strong>${startDate.value}</strong></li>
             <li class="c-brochure__list__duration">${'duration' @ i18n}: <strong>${quoteRequest.cruiseDuration} ${'days' @ i18n}</strong></li>
             <li class="c-brochure__list__ship">${'ship' @ i18n}: <strong>${quoteRequest.cruiseShipName}</strong></li>
-            <li class="c-brochure__list__suite">${'suite' @ i18n}:
-                <strong data-sly-test="${quoteRequest.isSuiteRequested}"> ${quoteRequest.suiteName}</strong>
+            <li data-sly-test="${quoteRequest.isSuiteRequested}" class="c-brochure__list__suite">${'suite' @ i18n}:
+                <strong data-sly-test="${quoteRequest.isSuiteVariationRequested}"> ${quoteRequest.suiteName}</strong>
                 <strong data-sly-test="${quoteRequest.isSuiteCategoryRequested}"> ${quoteRequest.suiteName @ i18n}</strong>
             </li>
         </ul>
