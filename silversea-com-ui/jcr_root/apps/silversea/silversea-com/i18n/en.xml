@@ -427,6 +427,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up"
         sling:message="Sign up" />
+    <sign-up-button
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up-button"
+        sling:message="Sign up" />
     <suite
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite"
