@@ -79,7 +79,7 @@ $(function() {
                     // Kill video if current slide contains video
                     var $video = $slide.find('.slick-current .c-video');
                     $video.find('.s7playpausebutton[selected="false"]').trigger('click');
-                    //$video.attr('class', 'c-video').empty();
+                    $video.attr('class', 'c-video').empty();
                 });
 
                 // Tab gallery
