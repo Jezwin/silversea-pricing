@@ -15,14 +15,17 @@
             type="home"
             disabledTextBackground="true" />
             
-       <display
-           jcr:primaryType="nt:unstructured"
-           sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers"
-           text="Display properties"/>
+       <par1
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/responsivegrid">
+	       <display
+	           jcr:primaryType="nt:unstructured"
+	           sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers"
+	           text="Display properties"/>
+        </par1>
            
         <par
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="wcm/foundation/components/responsivegrid">
-        </par>
+            sling:resourceType="wcm/foundation/components/responsivegrid"/>
     </jcr:content>
 </jcr:root>
