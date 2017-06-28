@@ -11,7 +11,7 @@ public class Lead {
     // Subscribe to newletters
     private String att02;
     private Short workingwithagent;
-    //Request a quote
+    // Request a quote
     private String voyagename;
     private String departuredate;
     private String voyagelength;
@@ -19,6 +19,43 @@ public class Lead {
     private String suitecategory;
     private String suitevariation;
     private String price;
+    // Request a brochure
+    private String postaladdress;
+    private String postalcode;
+    private String city;
+    private String country;
+
+    public String getPostaladdress() {
+        return postaladdress;
+    }
+
+    public void setPostaladdress(String postaladdress) {
+        this.postaladdress = postaladdress;
+    }
+
+    public String getPostalcode() {
+        return postalcode;
+    }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getSuitecategory() {
         return suitecategory;
@@ -76,8 +113,6 @@ public class Lead {
         this.shipname = shipname;
     }
 
-    
-
     public Lead() {
     }
 
@@ -89,7 +124,8 @@ public class Lead {
     }
 
     /**
-     * @param title the title to set
+     * @param title
+     *            the title to set
      */
     public void setTitle(String title) {
         this.title = title;
@@ -103,7 +139,8 @@ public class Lead {
     }
 
     /**
-     * @param firstname the firstname to set
+     * @param firstname
+     *            the firstname to set
      */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -117,7 +154,8 @@ public class Lead {
     }
 
     /**
-     * @param lastname the lastname to set
+     * @param lastname
+     *            the lastname to set
      */
     public void setLastname(String lastname) {
         this.lastname = lastname;
@@ -131,7 +169,8 @@ public class Lead {
     }
 
     /**
-     * @param email the email to set
+     * @param email
+     *            the email to set
      */
     public void setEmail(String email) {
         this.email = email;
@@ -145,7 +184,8 @@ public class Lead {
     }
 
     /**
-     * @param phone the phone to set
+     * @param phone
+     *            the phone to set
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -159,7 +199,8 @@ public class Lead {
     }
 
     /**
-     * @param comments the comments to set
+     * @param comments
+     *            the comments to set
      */
     public void setComments(String comments) {
         this.comments = comments;
@@ -173,7 +214,8 @@ public class Lead {
     }
 
     /**
-     * @param requestsource the requestsource to set
+     * @param requestsource
+     *            the requestsource to set
      */
     public void setRequestsource(String requestsource) {
         this.requestsource = requestsource;
@@ -187,7 +229,8 @@ public class Lead {
     }
 
     /**
-     * @param att02 the att02 to set
+     * @param att02
+     *            the att02 to set
      */
     public void setAtt02(String att02) {
         this.att02 = att02;
@@ -201,7 +244,8 @@ public class Lead {
     }
 
     /**
-     * @param workingwithagent the workingwithagent to set
+     * @param workingwithagent
+     *            the workingwithagent to set
      */
     public void setWorkingwithagent(Short workingwithagent) {
         this.workingwithagent = workingwithagent;

@@ -1,6 +1,5 @@
 package com.silversea.aem.ws.lead.service.impl;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -112,6 +111,12 @@ public class LeadServiceImpl implements LeadService {
         request.setAtt07(lead.getSuitecategory());
         request.setAtt08(lead.getSuitevariation());
         request.setAtt09(lead.getPrice());
+
+        // request a brochure
+        request.setAddress1(lead.getPostaladdress());
+        request.setZip(lead.getPostalcode());
+        request.setCity(lead.getCity());
+        request.setCountry(lead.getCountry());
 
     }
 
