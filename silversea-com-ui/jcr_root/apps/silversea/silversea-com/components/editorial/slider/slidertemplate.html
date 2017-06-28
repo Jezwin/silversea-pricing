@@ -11,9 +11,6 @@
         <div data-slide-type="${item.metadata.dc:format}">
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
             data-sly-call="${imageTemplate.default @ imagePath=item.path, query=query}" />
-            <a data-sly-test="${item.metadata.dc:format == 'video/mp4'}" class="video-link" href="${item.path}" >
-                <i class="fa fa-play"></i>
-            </a>
         </div>
     </div>
 </template>
