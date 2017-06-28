@@ -70,7 +70,7 @@ $(function() {
             // Cancel synchrone submit
             event.preventDefault();
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price'];
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country' ];
             var pos = document.cookie.indexOf("userInfo=");
 
             // Set cookie if not created
@@ -92,7 +92,7 @@ $(function() {
 
             $.ajax({
                 type : "POST",
-                url : "/content/silversea/data.lead.json",
+                url : "/content/silversea/ab.lead.json",
                 data : JSON.stringify(leadApiData),
                 contentType : "application/json",
                 dataType : "json",
