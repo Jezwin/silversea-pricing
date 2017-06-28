@@ -4,6 +4,7 @@
         <include pattern="/apps/silversea/silversea-com/config(.*)" />
         <include pattern="/apps/silversea/silversea-com/rep:policy" />
     </filter>
+
     <filter root="/apps/silversea/config/rewriter"/>
 
     <filter root="/conf/global/settings/dam/adminui-extension/metadataschema/brochures"/>

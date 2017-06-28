@@ -3,6 +3,9 @@
     <filter root="/apps/silversea/silversea-com">
         <exclude pattern="/apps/silversea/silversea-com/config(.*)" />
     </filter>
+
+    <filter root="/apps/sling/servlet/errorhandler"/>
+
     <filter root="/etc/dam/dynamicmediaconfig" />
     <filter root="/etc/cloudservices/generic-tracker" />
     <filter root="/etc/cloudservices/dynamictagmanagement" />

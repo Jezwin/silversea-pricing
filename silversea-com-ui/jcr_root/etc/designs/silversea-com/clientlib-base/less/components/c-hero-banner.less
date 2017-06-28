@@ -2,10 +2,8 @@
     color: @white;
     height: 100%;
     left: 0;
-    opacity: .8;
     position: absolute;
     top: 0;
-    transition: opacity 300ms;
     width: 100%;
 
     .fa-play {
@@ -51,10 +49,12 @@
 
     .video-link {
         left: 50%;
+        opacity: .8;
         position: absolute;
         top: 0;
-        width: 100vw;
         transform: translateX(-50%);
+        transition: opacity 300ms;
+        width: 100vw;
     }
 
     &__content--white {

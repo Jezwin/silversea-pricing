@@ -11,6 +11,72 @@ public class Lead {
     // Subscribe to newletters
     private String att02;
     private Short workingwithagent;
+    //Request a quote
+    private String voyagename;
+    private String departuredate;
+    private String voyagelength;
+    private String shipname;
+    private String suitecategory;
+    private String suitevariation;
+    private String price;
+
+    public String getSuitecategory() {
+        return suitecategory;
+    }
+
+    public void setSuitecategory(String suitecategory) {
+        this.suitecategory = suitecategory;
+    }
+
+    public String getSuitevariation() {
+        return suitevariation;
+    }
+
+    public void setSuitevariation(String suitevariation) {
+        this.suitevariation = suitevariation;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getVoyagename() {
+        return voyagename;
+    }
+
+    public void setVoyagename(String voyagename) {
+        this.voyagename = voyagename;
+    }
+
+    public String getDeparturedate() {
+        return departuredate;
+    }
+
+    public void setDeparturedate(String departuredate) {
+        this.departuredate = departuredate;
+    }
+
+    public String getVoyagelength() {
+        return voyagelength;
+    }
+
+    public void setVoyagelength(String voyagelength) {
+        this.voyagelength = voyagelength;
+    }
+
+    public String getShipname() {
+        return shipname;
+    }
+
+    public void setShipname(String shipname) {
+        this.shipname = shipname;
+    }
+
+    
 
     public Lead() {
     }
