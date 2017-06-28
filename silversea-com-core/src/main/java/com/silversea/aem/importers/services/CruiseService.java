@@ -28,7 +28,7 @@ public interface CruiseService {
     
     Page getCruisePage(Page destinationPage,Integer voyageId,String voyageName) throws WCMException, RepositoryException;
 
-    void setCruiseTags(List<Integer> features,Integer voyageId,boolean isExpedition, Page page) throws RepositoryException ;
+    void setCruiseTags(List<Integer> features,Integer voyageId,boolean isExpedition,Integer days, Page page) throws RepositoryException ;
     
     void buildOrUpdateIteneraries(Page cruisePage,Integer voyageId,String url)
             throws RepositoryException, IOException, ApiException ;
@@ -52,7 +52,9 @@ public interface CruiseService {
 
     void buildOrUpdateSuiteNodes(LowestPrice lowestPrice,Page cruisePage,Integer voyageId,Integer shipId,List<VoyagePriceComplete> voyagePricesComplete)
             throws RepositoryException, IOException, ApiException ;
-
+     
+    String calculateDurationCategory(Integer days);
+    
     void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price, VoyagePriceComplete voyagePrice)
             throws RepositoryException ;
 

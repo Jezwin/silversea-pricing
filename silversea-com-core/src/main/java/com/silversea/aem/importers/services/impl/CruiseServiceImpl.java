@@ -10,9 +10,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.jcr.Node;
@@ -126,7 +128,7 @@ public class CruiseServiceImpl implements CruiseService{
         return cruisePage;
     }
 
-    public void setCruiseTags(List<Integer> features,Integer voyageId,boolean isExpedition, Page page) throws RepositoryException {
+    public void setCruiseTags(List<Integer> features,Integer voyageId,boolean isExpedition,Integer days, Page page) throws RepositoryException {
 
         List<Tag> tags = new ArrayList<Tag>();
         if (features != null && !features.isEmpty()) {
@@ -158,6 +160,41 @@ public class CruiseServiceImpl implements CruiseService{
         }
     }
 
+    public String calculateDurationCategory(Integer days){
+        String duration = null;
+        Tag tagRoot = tagManager.resolve(ImportersConstants.DURATIONS_TAGS_PATH);
+        Iterator<Tag> durationTags = tagRoot.listChildren();
+        if(durationTags != null && durationTags.hasNext()){
+            List<Tag> list = new ArrayList<Tag>();
+            durationTags.forEachRemaining(list::add);
+            Optional<Tag>  durationTag = list.stream().filter(element ->{
+                boolean value = false;
+                String  title = element.getTitle();
+                if(title != null){
+    
+                    Pattern pattern = Pattern.compile(ImportersConstants.TAG_DURATIONS_SEPARATOR);
+                    List<Integer> values = pattern.splitAsStream(title)
+                                                  .filter(e->StringUtils.isNumeric(e))
+                                                  .map(Integer::valueOf)
+                                                  .collect(Collectors.toList());
+                    
+                   if(values != null && values.size() == 2){
+                      value = values.get(0) <= days && days <= values.get(1);
+                   }else if(values != null && values.size() == 1){
+                       value = values.get(0) <= days;
+                   }
+                                                
+                }
+                return value;
+            })
+            .findFirst();
+            if(durationTag != null && durationTag.isPresent()){
+                duration = durationTag.get().getTitle();
+            }
+        }
+        return duration;
+    }
+    
     public void buildOrUpdateIteneraries(Page cruisePage,Integer voyageId,String url)
             throws RepositoryException, IOException, ApiException {
 
@@ -166,7 +203,7 @@ public class CruiseServiceImpl implements CruiseService{
         ImporterUtils.saveSession(session, false);
         List<Itinerary> itinerairesCruise = apiCallService.getCruiseIteneraries(url, voyageId);
         if(itinerairesCruise != null && !itinerairesCruise.isEmpty()){
-
+            List<String> cities = new ArrayList<String>();
             LOGGER.debug("Cruise importer -- Start update iteniraries for voyage with id {}", voyageId);
 
             for (Itinerary itinerary : itinerairesCruise) {
@@ -190,7 +227,14 @@ public class CruiseServiceImpl implements CruiseService{
                 // Retrieve and update or create excursions
                 List<ShorexItinerary> excursions = apiCallService.getExcursions(itinerary);
                 updateExcursionsNode(excursions, itineraryNode, itinerary);
+                
+                //Store cities
+                cities.add(Objects.toString(itinerary.getCityId()));
             }
+            //Add cities id to cruises
+            //its uses for cruises search
+            Node cruiseNode = cruisePage.getContentResource().adaptTo(Node.class);
+            cruiseNode.setProperty("cmp-cities", cities.stream().toArray(String[]::new));
             ImporterUtils.saveSession(session, false);
 
             LOGGER.debug("Cruise importer -- Updating iteniraries for voyage with id {} finished", voyageId);
