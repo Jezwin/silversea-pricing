@@ -1,13 +1,8 @@
 package com.silversea.aem.ws.lead.service.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Dictionary;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.cxf.binding.soap.SoapBindingFactory;
@@ -20,6 +15,7 @@ import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.osgi.service.component.ComponentContext;
 
 import com.silversea.aem.components.beans.Lead;
+import com.silversea.aem.utils.DateUtils;
 import com.silversea.aem.ws.LeadFromWeb03Soap;
 import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020Arguments;
 import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020ArgumentsResponse;
@@ -95,17 +91,9 @@ public class LeadServiceImpl implements LeadService {
         request.setVoyage(lead.getVoyagename());
         String departureDate = lead.getDeparturedate();
         if (!StringUtils.isEmpty(departureDate)) {
-            DateFormat df = new SimpleDateFormat("dd MMM yyyy");
-            try {
-                Date departDate = df.parse(departureDate);
-                GregorianCalendar c = new GregorianCalendar();
-                c.setTime(departDate);
-                XMLGregorianCalendar sailDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-                request.setSailDate(sailDate);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            XMLGregorianCalendar sailDate = 
+                    DateUtils.getXmlGregorianCalendar(departureDate, "dd MMM yyyy");
+            request.setSailDate(sailDate);
         }
         request.setShip(lead.getShipname());
         request.setAtt07(lead.getSuitecategory());
