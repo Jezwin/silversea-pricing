@@ -2,7 +2,7 @@
 <div class="o-area-property-display"
      data-sly-use.cpt="com.silversea.aem.components.displayProperties.PublicAreaVariationDisplayPropertiesUse"
      data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-    <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties['assetSelectionReference']}"></sly>
+    <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties['assetSelectionReference']}" />
     <h1 class="o-title"
         data-sly-test="${currentPage.navigationTitle || currentPage.title}">
         ${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}
