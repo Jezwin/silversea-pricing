@@ -16,6 +16,7 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.TagHelper;
 import com.silversea.aem.models.BrochureModel;
@@ -60,7 +61,8 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         brochureGroup = getBrochureGroup(getRequest());
 
-        final String brochuresPath = getProperties().get("folderReference", "/content/dam/silversea-com/brochures");
+        final String brochuresPath = getProperties().get("folderReference", 
+                WcmConstants.PATH_DAM_SILVERSEA + "/" + WcmConstants.FOLDER_BROCHURES);
 
         // Building tag list
         buildGeolocationTagList(geolocationTagId);

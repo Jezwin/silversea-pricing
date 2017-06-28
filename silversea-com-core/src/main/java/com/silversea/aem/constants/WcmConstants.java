@@ -73,4 +73,6 @@ public interface WcmConstants {
     
     // Content Path
     String PATH_TAGS_GEOLOCATION = "/etc/tags/geotagging";
+    String PATH_DAM_SILVERSEA = "/content/dam/silversea-com";
+    String FOLDER_BROCHURES = "brochures";
 }
