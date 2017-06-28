@@ -383,6 +383,11 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
         sling:message="Please enter your first name" />
+    <required-email
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-email"
+        sling:message="Please enter your email" />
+        
     <required-phone-number
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-phone-number"
