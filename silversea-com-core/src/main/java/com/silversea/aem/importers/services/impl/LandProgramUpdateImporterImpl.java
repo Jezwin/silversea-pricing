@@ -88,12 +88,13 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 		init();
 		try {
 
-			Page citiesRootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-			Resource resParent = citiesRootPage.adaptTo(Resource.class);
+			Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+			Resource resParent = rootPage.adaptTo(Resource.class);
 			String currentDate;
-			currentDate = ImporterUtils.getLastModificationDate(citiesRootPage, "lastModificationDateLp");
-			if (currentDate != null) {
 
+			currentDate = ImporterUtils.getLastModificationDate(rootPage, "lastModificationDateLp");
+			if (currentDate != null) {
+				final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 				int i = 1;
 				List<Land77> lands;
 
@@ -102,102 +103,117 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 
 					int j = 0;
 					if (lands != null) {
-						for (Land77 land : lands) {
 
-							try {
+						for (String loc : locales) {
+							if (loc != null) {
 
-								Iterator<Resource> resources = resourceResolver.findResources(
-										"//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]",
-										"xpath");
+								for (Land77 land : lands) {
 
-								Page landPage = null;
-								Integer cityId = null;
-								if (resources.hasNext()) {
-									landPage = resources.next().adaptTo(Page.class);
-									if (BooleanUtils.isTrue(land.getIsDeleted())) {
-										ImporterUtils.updateReplicationStatus(replicat, session, true,
-												landPage.getPath());
-									}
-								} else {
-									if (land.getCities() != null && !land.getCities().isEmpty()) {
-										cityId = land.getCities().get(0).getCityId();
-									}
-									if (cityId != null) {
-										Iterator<Resource> portsResources = resourceResolver.findResources(
-												"//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
+									try {
 
-										if (portsResources.hasNext()) {
-											Page portPage = portsResources.next().adaptTo(Page.class);
+										Iterator<Resource> resources = resourceResolver.findResources(
+												"/jcr:root/content/silversea-com/" + loc
+														+ "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]",
+												"xpath");
 
-											LOGGER.debug("Found port {} with ID {}", portPage.getTitle(), cityId);
-
-											Page landsPage;
-											if (portPage.hasChild("landprogram")) {
-												landsPage = pageManager.getPage(portPage.getPath() + "/land-programs");
-											} else {
-												landsPage = pageManager.create(portPage.getPath(), "land-programs",
-														"/apps/silversea/silversea-com/templates/page", "Land Program",
-														false);
+										Page landPage = null;
+										Integer cityId = null;
+										if (resources.hasNext()) {
+											landPage = resources.next().adaptTo(Page.class);
+											if (BooleanUtils.isTrue(land.getIsDeleted())) {
+												ImporterUtils.updateReplicationStatus(replicat, session, true,
+														landPage.getPath());
 											}
-											if (!replicat.getReplicationStatus(session, landsPage.getPath())
-													.isActivated()) {
-												session.save();
-												ImporterUtils.updateReplicationStatus(replicat, session, false,
-														landsPage.getPath());
-											}
-
-											landPage = pageManager.create(landsPage.getPath(),
-													JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
-															StringHelper.getFormatWithoutSpecialCharcters(
-																	land.getLandName())),
-													TemplateConstants.PATH_LANDPROGRAM,
-													StringHelper.getFormatWithoutSpecialCharcters(land.getLandName()),
-													false);
-
-											LOGGER.debug("Creating land {}", land.getLandCod());
 										} else {
-											LOGGER.debug("No city found with id {}", cityId);
+											if (land.getCities() != null && !land.getCities().isEmpty()) {
+												cityId = land.getCities().get(0).getCityId();
+											}
+											if (cityId != null) {
+												Iterator<Resource> portsResources = resourceResolver.findResources(
+														"/jcr:root/content/silversea-com/" + loc
+														+ "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]",
+														"xpath");
+
+												if (portsResources.hasNext()) {
+													Page portPage = portsResources.next().adaptTo(Page.class);
+
+													LOGGER.debug("Found port {} with ID {}", portPage.getTitle(),
+															cityId);
+
+													Page landsPage;
+													if (portPage.hasChild("landprogram")) {
+														landsPage = pageManager
+																.getPage(portPage.getPath() + "/land-programs");
+													} else {
+														landsPage = pageManager.create(portPage.getPath(),
+																"land-programs",
+																"/apps/silversea/silversea-com/templates/page",
+																"Land Program", false);
+													}
+													if (!replicat.getReplicationStatus(session, landsPage.getPath())
+															.isActivated()) {
+														session.save();
+														ImporterUtils.updateReplicationStatus(replicat, session, false,
+																landsPage.getPath());
+													}
+
+													landPage = pageManager.create(landsPage.getPath(),
+															JcrUtil.createValidChildName(landsPage.adaptTo(Node.class),
+																	StringHelper.getFormatWithoutSpecialCharcters(
+																			land.getLandName())),
+															TemplateConstants.PATH_LANDPROGRAM,
+															StringHelper.getFormatWithoutSpecialCharcters(
+																	land.getLandName()),
+															false);
+
+													LOGGER.debug("Creating land {}", land.getLandCod());
+												} else {
+													LOGGER.debug("No city found with id {}", cityId);
+												}
+											} else {
+												LOGGER.debug("land program have no city attached, not imported");
+											}
 										}
-									} else {
-										LOGGER.debug("land program have no city attached, not imported");
-									}
-								}
 
-								if (landPage != null
-										&& (BooleanUtils.isFalse(land.getIsDeleted()) || land.getIsDeleted() == null)) {
-									Node hotelPageContentNode = landPage.getContentResource().adaptTo(Node.class);
-									hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE, land.getLandName());
-									hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
-											land.getDescription());
-									hotelPageContentNode.setProperty("landId", land.getLandId());
-									hotelPageContentNode.setProperty("landCode", land.getLandCod());
-									succesNumber = succesNumber + 1;
-									j++;
+										if (landPage != null && (BooleanUtils.isFalse(land.getIsDeleted())
+												|| land.getIsDeleted() == null)) {
+											Node hotelPageContentNode = landPage.getContentResource()
+													.adaptTo(Node.class);
+											hotelPageContentNode.setProperty(JcrConstants.JCR_TITLE,
+													land.getLandName());
+											hotelPageContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
+													land.getDescription());
+											hotelPageContentNode.setProperty("landId", land.getLandId());
+											hotelPageContentNode.setProperty("landCode", land.getLandCod());
+											succesNumber = succesNumber + 1;
+											j++;
 
-									if (BooleanUtils.isNotTrue(land.getIsDeleted())) {
-										ImporterUtils.updateReplicationStatus(replicat, session, false,
-												landPage.getPath());
-									}
-								}
-
-								if (j % sessionRefresh == 0) {
-									if (session.hasPendingChanges()) {
-										try {
-											session.save();
-										} catch (RepositoryException e) {
-											session.refresh(true);
+											if (BooleanUtils.isNotTrue(land.getIsDeleted())) {
+												ImporterUtils.updateReplicationStatus(replicat, session, false,
+														landPage.getPath());
+											}
 										}
+
+										if (j % sessionRefresh == 0) {
+											if (session.hasPendingChanges()) {
+												try {
+													session.save();
+												} catch (RepositoryException e) {
+													session.refresh(true);
+												}
+											}
+										}
+									} catch (Exception e) {
+										errorNumber = errorNumber + 1;
+										LOGGER.debug("land program error, number of faulures :", errorNumber);
+										j++;
 									}
+
 								}
-							} catch (Exception e) {
-								errorNumber = errorNumber + 1;
-								LOGGER.debug("land program error, number of faulures :", errorNumber);
-								j++;
+								i++;
+
 							}
-
 						}
-						i++;
-
 					}
 				} while (lands.size() > 0);
 
