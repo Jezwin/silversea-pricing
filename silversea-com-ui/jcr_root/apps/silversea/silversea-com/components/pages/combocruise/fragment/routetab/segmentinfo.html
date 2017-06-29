@@ -3,15 +3,22 @@
     <section data-sly-repeat.segment="${comboCruise.comboCruiseModel.segments}" id="segmentinfo-${segmentList.count}" class="segment-section tab-pane ${segmentList.count == 1 ? 'active' : ''}">
         <sly data-sly-test.cruiseModel="${segment.cruise}" />
         <div class="segment-intro">
-            <time>${'from' @ i18n}
-                <strong data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=cruiseModel.startDate}">
+            <span class="time">
+                ${'from' @ i18n}
+                <time data-sly-test.startDateRaw="${cruiseModel.startDate}"
+                    data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=startDateRaw}"
+                    data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=startDateRaw}"
+                    datetime="${startDateTime.value}">
                     ${startDate.value}
-                </strong>
+                </time>
                 ${'to' @ i18n}
-                <strong data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=cruiseModel.endDate}">
+                <time data-sly-test.endDateRaw="${cruiseModel.endDate}"
+                    data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=endDateRaw}"
+                    data-sly-use.endDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=endDateRaw}"
+                    datetime="${endDateTime.value}">
                     ${endDate.value}
-                </strong>
-            </time>
+                </time>
+            </span>
             <h3>${segment.page.title}</h3>
             <p>${segment.subTitle}</p>
         </div>
