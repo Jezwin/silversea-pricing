@@ -55,7 +55,7 @@
                                                 value="online-form"/>
                                             <printed
                                                 jcr:primaryType="nt:unstructured"
-                                                text="printed form"
+                                                text="Printed form"
                                                 value="printed-form"/>
                                     </items>
                                 </typeForm>

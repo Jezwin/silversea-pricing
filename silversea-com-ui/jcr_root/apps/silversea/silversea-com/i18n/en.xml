@@ -431,6 +431,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up-for-offers"
         sling:message="Sign up for offers and news" />
+    <details-about-your-request
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="details-about-your-request"
+        sling:message="Details About Your Request" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
