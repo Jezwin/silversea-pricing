@@ -83,7 +83,6 @@ $(function() {
             for ( var i in cookieValues) {
                 if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
                     if( elem[cookieValues[i]].name != "isbooked"){
-                        alert( elem[cookieValues[i]].name );
                         leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
                     }
                     /*if( elem[cookieValues[i]].name == "isbooked" ){
