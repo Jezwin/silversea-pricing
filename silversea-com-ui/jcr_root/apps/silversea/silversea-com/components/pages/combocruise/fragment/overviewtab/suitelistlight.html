@@ -1,6 +1,6 @@
 <div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" class="c-suitelist" role="tablist">
-    <div class="panel c-suitelist__item contains-slider" data-sly-repeat="${comboCruise.comboCruiseModel.suites}">
-        <div class="clearfix c-suitelist__heading collapsed">
+    <div class="c-suitelist__item" data-sly-repeat="${comboCruise.comboCruiseModel.suites}">
+        <div class="clearfix c-suitelist__heading">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                     data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
