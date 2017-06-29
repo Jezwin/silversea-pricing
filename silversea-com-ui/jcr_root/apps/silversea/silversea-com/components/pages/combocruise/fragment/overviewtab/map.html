@@ -1,11 +1,32 @@
-<section class="cc-overview__map" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+<section data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse"
+    class="cc-overview__map">
     <div class="c-slider c-slider--style2 map__slider" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "fade": true, "dots": true}'>
-        <div class="map__slider-item" data-sly-repeat="${currentPage.listChildren}">
-            <sly data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.cruiseReference}" />
-            <h4 class="map__title"><span>${'from' @ i18n} <strong data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=target.page.properties.startDate}">${startDate.value}</strong> ${'to' @ i18n} <strong data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=target.page.properties.endDate}">${endDate.value}</strong></span>${item.properties.jcr:title}<span>${item.properties.subTitle}</span></h4>
-            <sly data-sly-call="${imageTemplate.default @ imagePath=item.properties.mapReference}" />
+        <div class="map__slider-item" data-sly-repeat.segment="${comboCruise.comboCruiseModel.segments}">
+            <sly data-sly-test.cruiseModel="${segment.cruise}" />
+            <h4 class="map__title">
+            <span class="time">
+                ${'from' @ i18n}
+                <strong><time data-sly-test.startDateRaw="${cruiseModel.startDate}"
+                    data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=startDateRaw}"
+                    data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=startDateRaw}"
+                    datetime="${startDateTime.value}">
+                    ${startDate.value}
+                </time></strong>
+                ${'to' @ i18n}
+                <strong><time data-sly-test.endDateRaw="${cruiseModel.endDate}"
+                    data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=endDateRaw}"
+                    data-sly-use.endDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=endDateRaw}"
+                    datetime="${endDateTime.value}">
+                    ${endDate.value}
+                </time></strong>
+            </span>
+                ${segment.page.properties.jcr:title}
+                <span>${segment.page.properties.subTitle}</span>
+            </h4>
+            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                data-sly-call="${imageTemplate.default @ imagePath=segment.page.properties.mapReference}" />
             <div class="map__link">
-                <a href="${properties.cruiseReference}" class="c-btn c-btn--dark">${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
+                <a href="#" class="c-btn c-btn--dark">${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
             </div>
         </div>
     </div>
