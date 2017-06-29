@@ -9,9 +9,9 @@
 </div>
 <div class="select-segment" data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse">
     <h2>${'select-and-view-the-route' @ i18n}</h2>
-    <dl class="nav nav-tabs" role="tablist">
+    <dl class="nav nav-tabs">
         <dt>${'select-and-view-the-route' @ i18n}</dt>
-        <dd data-sly-repeat.segment="${comboCruise.comboCruiseModel.segments}" role="tab" class="${segmentlist.count == 1 ? 'active' : ''}">
+        <dd data-sly-repeat.segment="${comboCruise.comboCruiseModel.segments}" class="${segmentlist.count == 1 ? 'active' : ''}">
             <sly data-sly-test.cruiseModel="${segment.cruise}" />
             <a href="#segmentinfo-${segmentlist.count}" data-toggle="tab">
                 <time data-sly-test.startDateRaw="${cruiseModel.startDate}"
