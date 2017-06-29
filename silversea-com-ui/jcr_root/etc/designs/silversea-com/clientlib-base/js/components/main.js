@@ -82,7 +82,10 @@ $(function() {
             // Browse the form fields and extract values to leadApiData
             for ( var i in cookieValues) {
                 if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
-                    leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
+                    if( elem[cookieValues[i]].name != "isbooked"){
+                        alert( elem[cookieValues[i]].name );
+                        leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
+                    }
                     /*if( elem[cookieValues[i]].name == "isbooked" ){
                         var checkbox = document.querySelector('.c-signupforoffer [name="isbooked"]');
                         leadApiData[elem[cookieValues[i]].name] = checkbox.checked;
