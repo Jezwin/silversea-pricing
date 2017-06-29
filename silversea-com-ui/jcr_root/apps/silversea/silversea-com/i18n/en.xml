@@ -819,10 +819,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas-descr"
         sling:message="Your time on board will be time well-spent. Discover the dining options where you'll savour culinary excellence, and the exciting venues where you'll mingle with international travellers while enjoying our all-inclusive lifestyle." />
-    <suites-descr
+    <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
-        sling:key="restaurants-public-areas-descr"
-        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />7*
+        sling:key="cruise-suites-and-fares-descr"
+        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite" />
     <cruise-itinerary
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary"

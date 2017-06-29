@@ -1,4 +1,8 @@
 <div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="c-suitelist" role="tablist">
+    <div class="sv_v3__suites_header">
+        <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
+        <p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr' @i18n}</p>
+    </div>
     <div class="panel c-suitelist__item contains-slider" data-sly-repeat="${cruise.cruiseModel.suites}">
         <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
         data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
@@ -82,5 +86,8 @@
                     data-sly-call="${fareTemplate.default @ variations=item.variations, requestQuotePath=cruise.requestQuotePagePath}" />
             </div>
         </div>
+    </div>
+        <div class="c-cruise__footnotes">
+        <i>${'fares-shown-are-per-guest' @i18n}</i>
     </div>
 </div>
