@@ -24,7 +24,7 @@
                 </sly>
             </div>
             <div class="c-suitelist__button">
-                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="clic-RAQ">
+                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=item.page.path}" data-sscclicktype="clic-RAQ">
                     <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                 </a>
                 <button class="btn btn-thin btn-white btn-thin effect hidden-xs">
@@ -55,7 +55,7 @@
                     <div class="c-tab__content c-tab__content--description" id="description-${itemList.index}" data-state="active">
                         <!--/* Description tab */-->
                         <sly data-sly-use.descriptionTemplate="suitelist/description.html"
-                            data-sly-call="${descriptionTemplate.default @ suite=item}" />
+                            data-sly-call="${descriptionTemplate.default @ suite=item, requestQuotePath=cruise.requestQuotePagePath}" />
                     </div>
                     <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}" data-sly-test="${item.plan}">
                         <!--/* Suite plan tab */-->
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <sly data-sly-use.fareTemplate="suitelist/fare.html"
-                    data-sly-call="${fareTemplate.default @ variations=item.variations}" />
+                    data-sly-call="${fareTemplate.default @ variations=item.variations, requestQuotePath=cruise.requestQuotePagePath}" />
             </div>
         </div>
     </div>
