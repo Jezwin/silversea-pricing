@@ -41,7 +41,7 @@ mvn_build_dev_publish2:
         - develop
 
 ### TEST Build
-mvn_build_dev_author:
+mvn_build_test_author:
     stage: build-author
     environment:
         name: Test
@@ -53,7 +53,7 @@ mvn_build_dev_author:
     only:
         - develop
 
-mvn_build_dev_publish1:
+mvn_build_test_publish1:
     stage: build-publishes
     environment:
         name: Test
@@ -65,7 +65,7 @@ mvn_build_dev_publish1:
     only:
         - develop
 
-mvn_build_dev_publish2:
+mvn_build_test_publish2:
     stage: build-publishes
     environment:
         name: Test
