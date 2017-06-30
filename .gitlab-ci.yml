@@ -1,14 +1,16 @@
 stages:
     - sync-fork
-    - build-author
-    - build-publishes
+    - build-author-dev
+    - build-publishes-dev
+    - build-author-test
+    - build-publishes-test
 variables:
     GITLAB_GROUP_PROD: "silversea-prod"
     GIT_PROD_USER: "ci-user"
 
 ### DEV Build
 mvn_build_dev_author:
-    stage: build-author
+    stage: build-author-dev
     environment:
         name: Dev
     tags:
@@ -19,7 +21,7 @@ mvn_build_dev_author:
         - develop
 
 mvn_build_dev_publish1:
-    stage: build-publishes
+    stage: build-publishes-dev
     environment:
         name: Dev
     tags:
@@ -30,7 +32,7 @@ mvn_build_dev_publish1:
         - develop
 
 mvn_build_dev_publish2:
-    stage: build-publishes
+    stage: build-publishes-dev
     environment:
         name: Dev
     tags:
@@ -42,7 +44,7 @@ mvn_build_dev_publish2:
 
 ### TEST Build
 mvn_build_test_author:
-    stage: build-author
+    stage: build-author-test
     environment:
         name: Test
     when: manual
@@ -54,10 +56,9 @@ mvn_build_test_author:
         - develop
 
 mvn_build_test_publish1:
-    stage: build-publishes
+    stage: build-publishes-test
     environment:
         name: Test
-    when: manual
     tags:
         - maven
     script:
@@ -66,10 +67,9 @@ mvn_build_test_publish1:
         - develop
 
 mvn_build_test_publish2:
-    stage: build-publishes
+    stage: build-publishes-test
     environment:
         name: Test
-    when: manual
     tags:
         - maven
     script:
