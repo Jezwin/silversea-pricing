@@ -50,6 +50,7 @@ mvn_build_test_author:
     environment:
         name: Test
     when: manual
+    allow_failure: false
     tags:
         - maven
     script:
