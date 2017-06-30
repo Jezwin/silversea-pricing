@@ -57,6 +57,7 @@ public abstract class AbstractModel {
                     Feature feature = new Feature();
                     feature.setTitle(tag.getTitle());
                     feature.setIcon(resource.getValueMap().get("icon", String.class));
+                    feature.setDescription(tag.getDescription());
                     features.add(feature);
                 }
             }
