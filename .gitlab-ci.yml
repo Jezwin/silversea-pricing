@@ -4,6 +4,8 @@ stages:
     - build-publishes-dev
     - build-author-test
     - build-publishes-test
+    - build-author
+    - build-publishes
 variables:
     GITLAB_GROUP_PROD: "silversea-prod"
     GIT_PROD_USER: "ci-user"
