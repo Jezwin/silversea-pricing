@@ -222,7 +222,6 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 								Objects.toString(pageAgency.getContentResource().getValueMap().get("agencyId")));
 						if (id != null && !diff.contains(id)) {
 							ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
-
 						}
 					}
 				}
