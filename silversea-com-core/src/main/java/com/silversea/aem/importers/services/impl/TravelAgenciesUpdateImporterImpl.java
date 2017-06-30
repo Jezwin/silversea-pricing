@@ -218,10 +218,11 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 					Iterator<Page> resourcesContry = page.listChildren();
 					while (resourcesContry.hasNext()) {
 						Page pageAgency = resourcesContry.next();
-						Integer id = Integer
-								.parseInt(Objects.toString(page.getContentResource().getValueMap().get("agencyId")));
+						Integer id = Integer.parseInt(
+								Objects.toString(pageAgency.getContentResource().getValueMap().get("agencyId")));
 						if (id != null && !diff.contains(id)) {
 							ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
+
 						}
 					}
 				}
