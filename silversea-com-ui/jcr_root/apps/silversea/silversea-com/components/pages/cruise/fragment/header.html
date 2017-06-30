@@ -1,7 +1,12 @@
 <div class="cruise__header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h1 class="cruise__header__title">
         ${cruise.cruiseModel.title}
-        <span class="cruise_header__subtitle">${cruise.cruiseModel.destinationTitle}</span>
+        <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage == 'en'}">
+            ${cruise.cruiseModel.destinationTitle} ${cruise.cruiseModel.cruiseType @ i18n}
+        </span>
+        <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage != 'en'}">
+            ${cruise.cruiseModel.cruiseType @ i18n} ${cruise.cruiseModel.destinationTitle}
+        </span>
     </h1>
     <div class="cruise__header__desc">
         <div class="cruise__header__txt">
