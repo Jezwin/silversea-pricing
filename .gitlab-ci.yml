@@ -5,6 +5,7 @@ stages:
 variables:
     GITLAB_GROUP_PROD: "silversea-prod"
     GIT_PROD_USER: "ci-user"
+
 ### DEV Build
 mvn_build_dev_author:
     stage: build-author
@@ -36,6 +37,43 @@ mvn_build_dev_publish2:
         - maven
     script:
         - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.21.95:4503
+    only:
+        - develop
+
+### TEST Build
+mvn_build_dev_author:
+    stage: build-author
+    environment:
+        name: Test
+    when: manual
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.0.113:4502
+    only:
+        - develop
+
+mvn_build_dev_publish1:
+    stage: build-publishes
+    environment:
+        name: Test
+    when: manual
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.13.79:4503
+    only:
+        - develop
+
+mvn_build_dev_publish2:
+    stage: build-publishes
+    environment:
+        name: Test
+    when: manual
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.4.121:4503
     only:
         - develop
 
