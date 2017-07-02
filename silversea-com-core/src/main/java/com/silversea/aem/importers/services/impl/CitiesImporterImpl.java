@@ -2,6 +2,9 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.s7dam.set.ImageSet;
+import com.day.cq.dam.commons.util.S7SetHelper;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -19,9 +22,10 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +33,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Component(label = "Silversea.com - Cities importer")
@@ -203,7 +204,7 @@ public class CitiesImporterImpl implements CitiesImporter {
                             }
 
                             i++;
-                        } while (cities.size() > 0 && cities != null);
+                        } while (cities.size() > 0);
 
                         ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                                 "lastModificationDate");
@@ -225,9 +226,237 @@ public class CitiesImporterImpl implements CitiesImporter {
 
     @Override
     public void updateCities() {
+        // TODO
     }
 
     @Override
     public void importOneCity(final String cityId) {
+        // TODO
+    }
+
+    @Override
+    public JSONObject getCitiesMapping() {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+
+            Iterator<Resource> cities = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "xpath");
+
+            while (cities.hasNext()) {
+                Resource city = cities.next();
+
+                Resource childContent = city.getChild(JcrConstants.JCR_CONTENT);
+
+                if (childContent != null) {
+                    ValueMap childContentProperties = childContent.getValueMap();
+                    String cityId = childContentProperties.get("cityId", String.class);
+
+                    if (cityId != null) {
+                        try {
+                            if (jsonObject.has(cityId)) {
+                                final JSONArray jsonArray = jsonObject.getJSONArray(cityId);
+                                jsonArray.put(city.getPath());
+
+                                jsonObject.put(cityId, jsonArray);
+                            } else {
+                                jsonObject.put(cityId, Collections.singletonList(city.getPath()));
+                            }
+                        } catch (JSONException e) {
+                            LOGGER.error("Cannot add city {} with path {} to cities array", cityId, city.getPath(), e);
+                        }
+                    }
+                }
+            }
+
+        } catch (LoginException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        }
+
+        return jsonObject;
+    }
+
+    @Override
+    public void updateCitiesAfterMigration() {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final Session session = resourceResolver.adaptTo(Session.class);
+
+            if (session == null) {
+                throw new ImporterException("Cannot initialize pageManager and session");
+            }
+
+            // Building assets mapping list
+            Iterator<Resource> assets = resourceResolver.findResources("/jcr:root/content/dam/silversea-com"
+                    + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]", "xpath");
+
+            Map<String, String> assetsMapping = new HashMap<>();
+            while (assets.hasNext()) {
+                final Resource assetResource = assets.next();
+                final ValueMap assetProperties = assetResource.getChild("jcr:content/metadata").getValueMap();
+
+                if (assetProperties.get("initialPath", String.class) != null) {
+                    assetsMapping.put(assetProperties.get("initialPath", String.class), assetResource.getPath());
+
+                    LOGGER.trace("Adding {}/{} to assets mapping",
+                            assetProperties.get("initialPath", String.class), assetResource.getPath());
+                }
+            }
+
+            // Iterating over the cities to update properties
+            final Iterator<Resource> cities = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "xpath");
+
+            int i = 0;
+            while (cities.hasNext()) {
+                final Resource city = cities.next();
+                final Resource childContent = city.getChild(JcrConstants.JCR_CONTENT);
+
+                LOGGER.trace("Starting update of {}", city.getPath());
+
+                try {
+                    if (childContent == null) {
+                        throw new ImporterException("Cannot get jcr:content child for " + city.getPath());
+                    }
+
+                    final ValueMap childContentProperties = childContent.getValueMap();
+                    final Node childContentNode = childContent.adaptTo(Node.class);
+
+                    String thumbnail = childContentProperties.get("thumbnail", String.class);
+                    String[] assetSelectionReference = childContentProperties.get("assetSelectionReferenceImported", String[].class);
+
+                    LOGGER.trace("\nthumbnail {}\nassetSelectionRef : {}", thumbnail, Arrays.toString(assetSelectionReference));
+
+                    if (childContentNode == null) {
+                        throw new ImporterException("Cannot get node for " + city.getPath());
+                    }
+
+                    // Replacing thumbnail by image node with real path
+                    if (thumbnail != null && assetsMapping.containsKey(thumbnail)) {
+                        try {
+                            final Node imageNode = childContentNode.addNode("image", JcrConstants.NT_UNSTRUCTURED);
+                            imageNode.setProperty("fileReference", assetsMapping.get(thumbnail));
+
+                            LOGGER.trace("Updating thumbnail of city {} by {}", city.getPath(), assetsMapping.get(thumbnail));
+                        } catch (RepositoryException e) {
+                            LOGGER.error("Cannot change thumbnail property on city {}", city.getPath());
+                        }
+                    }
+
+                    i++;
+
+                    // Creating image set for assetReference
+                    if (assetSelectionReference != null && assetSelectionReference.length > 0) {
+                        try {
+                            // Image set will be created in the same folder than the first asset
+                            final String firstAssetInitialPath = assetSelectionReference[0];
+                            final String firstAssetPath = assetsMapping.get(firstAssetInitialPath);
+
+                            if (firstAssetPath == null) {
+                                throw new ImporterException("Cannot find asset in mapping : " + firstAssetInitialPath);
+                            }
+
+                            final String folderPath = ResourceUtil.getParent(firstAssetPath);
+
+                            if (folderPath == null) {
+                                throw new ImporterException("Cannot find parent folder in DAM");
+                            }
+
+                            final Resource folder = resourceResolver.getResource(folderPath);
+
+                            if (folder == null) {
+                                throw new ImporterException("Cannot get parent folder in DAM");
+                            }
+
+                            // if the image set already exists, associate it,
+                            // create it and associate it if not
+                            final Resource imageSetResource = folder.getChild(city.getName());
+
+                            if (imageSetResource != null) {
+                                childContentNode.setProperty("assetSelectionReference", imageSetResource.getPath());
+
+                                LOGGER.trace("ImageSet {} already exists, associating it", imageSetResource.getPath());
+                            } else {
+                                // Saving session due to conflicts in S7 helpers
+                                if (session.hasPendingChanges()) {
+                                    session.save();
+                                }
+
+                                // Creating image set
+                                Map<String, Object> setProperties = new HashMap<>();
+                                setProperties.put("dc:title", childContentProperties.get(JcrConstants.JCR_TITLE, city.getName()));
+
+                                final ImageSet s7ImageSet = S7SetHelper.createS7ImageSet(folder, city.getName(), setProperties);
+
+                                for (final String assetInitialPath : assetSelectionReference) {
+                                    final String assetPath = assetsMapping.get(assetInitialPath);
+
+                                    if (assetPath != null) {
+                                        final Resource assetResource = resourceResolver.getResource(assetPath);
+
+                                        if (assetResource != null) {
+                                            final Asset asset = assetResource.adaptTo(Asset.class);
+
+                                            if (asset != null) {
+                                                s7ImageSet.add(asset);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                childContentNode.setProperty("assetSelectionReference", s7ImageSet.getPath());
+
+                                LOGGER.trace("ImageSet {} created and associated", s7ImageSet.getPath());
+                            }
+                        } catch (ImporterException e) {
+                            LOGGER.error("Cannot update city {} with image set", city.getPath(), e);
+                        } catch (PersistenceException e) {
+                            LOGGER.error("Cannot create image set for {}", city.getPath(), e);
+                        }
+                    }
+
+                    i++;
+
+                    // Saving session
+                    if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        try {
+                            session.save();
+
+                            LOGGER.debug("{} cities updated, saving session", +i);
+                        } catch (RepositoryException e) {
+                            try {
+                                session.refresh(true);
+                            } catch (RepositoryException e1) {
+                                LOGGER.error("Cannot refresh session", e);
+                            }
+                        }
+                    }
+                } catch (ImporterException e) {
+                    LOGGER.error("Cannot update city {}", city.getPath(), e);
+                }
+
+                LOGGER.trace("Update of {} finished", city.getPath());
+            }
+
+            // final session save
+            try {
+                session.save();
+
+                LOGGER.debug("{} cities updated, saving session", +i);
+            } catch (RepositoryException e) {
+                session.refresh(false);
+            }
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Error during cities update", e);
+        }
     }
 }
