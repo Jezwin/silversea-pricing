@@ -66,6 +66,10 @@ import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyageSpecialOffer;
 
+/**
+ * TODO indentation
+ * TODO unchecked
+ */
 @Service
 @Component(label = "Silversea.com - Api call service")
 @SuppressWarnings("unchecked")

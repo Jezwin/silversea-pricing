@@ -22,6 +22,10 @@ import java.util.*;
 
 /**
  * Created by asiba on 28/03/2017.
+ *
+ * TODO review various NPE
+ * TODO review java coding style conventions
+ * TODO constants
  */
 public class PressreleaseslistUse extends WCMUsePojo {
     private List<Page> pressReleaseList;

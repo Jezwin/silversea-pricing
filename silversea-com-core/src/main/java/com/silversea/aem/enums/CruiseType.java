@@ -1,5 +1,8 @@
 package com.silversea.aem.enums;
 
+/**
+ * TODO typos
+ */
 public enum CruiseType {
     
     SILVERSEA_CTUISE("Silversea Cruise"),
@@ -7,7 +10,7 @@ public enum CruiseType {
 
     private String value;
     
-    private CruiseType(String value) {
+    CruiseType(String value) {
         this.value = value;
     }
 

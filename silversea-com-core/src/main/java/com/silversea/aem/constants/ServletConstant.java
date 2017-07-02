@@ -1,5 +1,8 @@
 package com.silversea.aem.constants;
 
+/**
+ * TODO put servlet constants in servlets itself
+ */
 public interface ServletConstant {
 
     // Path

@@ -14,31 +14,23 @@ public class RunModesServicesImpl implements RunModesService {
 
     @Reference
     private SlingSettingsService slingSettingsService;
-    /**
-     * Check runmode if author.
-     *
-     * @return
-     */
+
+    @Override
     public boolean isAuthor() {
         return slingSettingsService.getRunModes().contains("author");
     }
 
-    /**
-     * Check runmode if publish
-     *
-     * @return
-     */
+    @Override
     public boolean isPublish() {
         return slingSettingsService.getRunModes().contains("publish");
     }
 
-    public String getAuthorRunModeClass() {
-        return isAuthor() ? "runmode-author" : "";
-    }
     /**
-     * mbennabi 
-     * get current run mode
+     * TODO rename method
+     * TODO check the validity of run modes
+     * TODO add missing run modes
      */
+    @Override
     public String getCurrentRunMode() {
         String runMode = null;
         if(slingSettingsService.getRunModes().contains("prod")){

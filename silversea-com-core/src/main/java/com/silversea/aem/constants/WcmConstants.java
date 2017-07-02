@@ -1,9 +1,9 @@
-/**
- * 
- */
 package com.silversea.aem.constants;
 
 /**
+ * TODO clean and check if constants already exists
+ * https://docs.adobe.com/docs/en/aem/6-2/develop/ref/javadoc/constant-values.html
+ *
  * @author mjedli
  *
  */

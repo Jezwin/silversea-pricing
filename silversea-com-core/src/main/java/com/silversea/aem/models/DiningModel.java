@@ -15,6 +15,9 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 
+/**
+ * TODO remove unused/local variables
+ */
 @Model(adaptables = Page.class)
 public class DiningModel extends AbstractModel{
 

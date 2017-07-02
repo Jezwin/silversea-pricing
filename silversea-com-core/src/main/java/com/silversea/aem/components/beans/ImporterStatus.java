@@ -1,5 +1,9 @@
 package com.silversea.aem.components.beans;
 
+/**
+ * Deprecated, use {@link com.silversea.aem.importers.services.impl.ImportResult} instead
+ */
+@Deprecated
 public class ImporterStatus {
 
     private int errorNumber = 0;

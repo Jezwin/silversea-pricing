@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * Model Sitemap
+ * TODO review javadoc
  */
 @Model(adaptables = Page.class)
 public class SitemapEntryModel {

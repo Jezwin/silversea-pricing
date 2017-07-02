@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import com.silversea.aem.technical.json.JsonMapper;
 
+/**
+ * TODO naming
+ */
 public class ScServlet extends SlingAllMethodsServlet {
 
     private static final long serialVersionUID = 1L;

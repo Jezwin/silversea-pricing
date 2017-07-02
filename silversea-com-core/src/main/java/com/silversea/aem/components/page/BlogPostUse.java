@@ -6,6 +6,7 @@ import com.silversea.aem.models.BlogPostModel;
 /**
  * Created by mbennabi on 20/02/2017.
  */
+@Deprecated
 public class BlogPostUse extends WCMUsePojo {
 
     private BlogPostModel blog;

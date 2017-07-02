@@ -12,10 +12,7 @@ public class BlogPostPageFilter extends PageFilter {
     public boolean includes(Page page) {
         boolean included = super.includes(page);
 
-        if (included && page.getContentResource().getResourceType().equals("silversea/silversea-com/components/pages/blogpost")) {
-            return true;
-        }
-
-        return false;
+        return included && page.getContentResource().getResourceType()
+                .equals("silversea/silversea-com/components/pages/blogpost");
     }
 }
