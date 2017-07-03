@@ -69,16 +69,12 @@
             animation: fadeInFromNone 0.5s forwards;
             background: @black;
             display: block;
-            height: 100%;
+            height: ~"calc(100vh - 61px)";
             left: 0;
             position: absolute;
             top: 60px;
             width: 100%;
             z-index: 1;
-        }
-
-        @media screen (max-width: @screen-md-max) {
-            display: block;
         }
     }
 
@@ -132,6 +128,10 @@
                 border-bottom: solid 1px @white;
                 border-right: solid 1px @white;
 
+                &--right {
+                    border-right: 0;
+                }
+
                 &:hover, &:focus, &:active {
                     background: @grey--d3;
                 }
@@ -141,8 +141,8 @@
                 }
 
                 &--small-md {
-                    width: 50%;
                     border-right: solid 1px @white;
+                    width: 25%;
                 }
             }
 
@@ -263,6 +263,10 @@
                 width: 50%;
                 font-size: 12px;
                 text-align: left;
+
+                &:nth-child(even) {
+                    border-right: 0;
+                }
 
                 &:before {
                     display: none;
