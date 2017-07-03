@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="col-sm-8 col-xs-7 c-main-nav-wrapper">
-                <div class="c-nav-burger">
+                <div class="c-nav-burger hidden-md hidden-lg">
                     <button type="button" class="c-nav-burger__btn">
                         <span class="c-nav-burger__title hidden-xs">${'menu' @ i18n}</span>
                         <i class="fa fa-bars"></i>
@@ -17,12 +17,12 @@
                 <nav class="c-main-nav">
                     <sly data-sly-include="mainnavbottom.html" />
                     <sly data-sly-include="mainnavtop.html" />
-                    <div class="c-main-nav__backdrop"></div>
                 </nav>
+                <div class="c-main-nav__backdrop"></div>
                 <div class="c-quote-request" data-sly-use.navTop="com.silversea.aem.components.page.HeaderModel" data-sly-test.page1="${navTop.link1Page}">
                     <a href="${page1.path @ extension = 'html'}" class="c-quote-request-link">${page1.navigationTitle || page1.title}</a>
                 </div>
-                <sly data-sly-include="call.html"></sly>
+                <sly data-sly-include="call.html" />
             </div>
         </div>
     </div>
