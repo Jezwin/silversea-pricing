@@ -33,7 +33,7 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
             Iterator<Page> blogPostPages = page.listChildren(new BlogPostPageFilter(), true);
 
             int i = 0;
-            while (blogPostPages.hasNext() && i < 16) {
+            while (blogPostPages.hasNext() && i < 15) {
                 Page blogPostPage = blogPostPages.next();
 
                 BlogPostTeaserModel blogPost = blogPostPage.adaptTo(BlogPostTeaserModel.class);
