@@ -348,7 +348,14 @@ picture {
     width: 100%;
     z-index: 10;
     background-color: rgba(0,0,0,.75);
-
+	height: 50px;
+    margin-top: 1px;
+    
+    & .container{
+		max-width: 930px;
+	    padding: 10px 0 0;
+	}
+	
     &.editor {
         position: inherit;
 
@@ -356,6 +363,12 @@ picture {
             margin-bottom: 0px;
         }
     }
+    
+    @media screen and (max-width: @screen-sm) {
+  		& {
+  			display: none;
+  		}
+   }
 }
 
 
