@@ -221,4 +221,9 @@ public class CruiseUse extends WCMUsePojo {
     public String getPageLanguage() {
         return getCurrentPage().getLanguage(false).getLanguage();
     }
+    
+    public String getDescription() {
+        return StringUtils.isEmpty(cruiseModel.getDescription()) ? 
+                cruiseModel.getImporteddescription() : cruiseModel.getDescription();
+    }
 }
