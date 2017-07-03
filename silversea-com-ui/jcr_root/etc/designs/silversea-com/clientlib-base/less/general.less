@@ -355,7 +355,14 @@ picture {
     width: 100%;
     z-index: 10;
     background-color: rgba(0,0,0,.75);
-
+	height: 50px;
+    margin-top: 1px;
+    
+    & .container{
+		max-width: 930px;
+	    padding: 10px 0 0;
+	}
+	
     &.editor {
         position: inherit;
 
@@ -364,6 +371,12 @@ picture {
         }
     }
 
+    @media screen and (max-width: @screen-sm) {
+  		& {
+  			display: none;
+  		}
+   }
+   
     &__buttons {
         padding: 9px 0 4px;
     }
