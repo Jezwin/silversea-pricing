@@ -27,6 +27,9 @@
                             <size
                                 jcr:primaryType="nt:unstructured"
                                 sling:hideResource="{Boolean}true" />
+                            <linkURL
+                                jcr:primaryType="nt:unstructured"
+                                sling:hideResource="{Boolean}true" />
                         </items>
                     </column>
                 </items>
