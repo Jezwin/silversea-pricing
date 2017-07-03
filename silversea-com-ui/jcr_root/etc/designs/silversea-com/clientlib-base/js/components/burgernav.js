@@ -17,9 +17,9 @@
             $('.c-main-nav').stop().slideToggle(350, function() {
                 var $mainNav = $(this);
 
-                // Remove inline display value after animation
+                // Clear inline style after animation
                 if ($mainNav.css('display') == 'none') {
-                    $mainNav.css('display', '');
+                    $mainNav.attr('style', '');
                 }
             });
             $('.c-main-nav__backdrop').toggleClass('c-main-nav__backdrop--is-active');
