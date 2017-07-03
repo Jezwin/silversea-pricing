@@ -18,7 +18,7 @@
                     <div class="c-accordion__title w-title">
                         <p class="c-accordion__subtitle veryimportant">${item.title}</p>
                         <p>${item.country}</p>
-                        <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.date}">
+                        <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
                             ${date.value}
                         </p>
                     </div>

@@ -89,8 +89,9 @@ public class ItineraryModel {
         try {
             String time = Objects.toString(itineraryNode.getProperty(timeProperty).getValue());
             time = formatTime(time);
-            String amPm = Objects.toString(itineraryNode.getProperty(amPmProperty).getValue());
-            value = time + " " + amPm;
+            //String amPm = Objects.toString(itineraryNode.getProperty(amPmProperty).getValue());
+            //value = time + " " + amPm;
+            value = time;
         } catch (RepositoryException e) {
             LOGGER.error("Error while retrieving itinerary time", e);
         }
