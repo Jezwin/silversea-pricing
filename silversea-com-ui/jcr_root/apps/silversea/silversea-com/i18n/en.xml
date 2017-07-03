@@ -215,6 +215,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="from"
         sling:message="From" />
+    <to
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="to"
+        sling:message="To" />
     <for-exclusive-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="for-exclusive-offers"
@@ -884,4 +888,13 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-departure-dates"
         sling:message="All Departure Dates" />
+    <silversea-blog-archive
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="silversea-blog-archive"
+        sling:message="Silversea Blog Archive" />
+        
+    <blog-posts
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="blog-posts"
+        sling:message="Blog Posts" />
 </jcr:root>
