@@ -23,7 +23,7 @@
             <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
         </div>
         <div class="cruise__header__metainfo">
-            <span>${cruise.cruiseModel.cruiseType}</span>
+            <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
             <span>${cruise.cruiseModel.ship.title}</span>
             <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
             <ul data-sly-list="${cruise.cruiseModel.featuresForDisplay}">
