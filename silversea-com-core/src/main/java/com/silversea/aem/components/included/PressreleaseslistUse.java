@@ -76,7 +76,7 @@ public class PressreleaseslistUse extends WCMUsePojo {
         mapQuery.put(WcmConstants.SEARCH_KEY_TYPE, "cq:PageContent");
         mapQuery.put(WcmConstants.SEARCH_KEY_PROPERTY, "sling:resourceType");
         mapQuery.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, "silversea/silversea-com/components/pages/pressrelease");
-        mapQuery.put(WcmConstants.SEARCH_KEY_ORDER_BY, "@jcr:content/jcr:lastModified");
+        mapQuery.put(WcmConstants.SEARCH_KEY_ORDER_BY, "@jcr:content/publicationDate");
         mapQuery.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, "desc");
         mapQuery.put(WcmConstants.SEARCH_KEY_OFF_SET, String.valueOf(pageNum));
         mapQuery.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, limit);
