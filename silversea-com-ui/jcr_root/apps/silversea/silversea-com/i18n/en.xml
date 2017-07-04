@@ -892,9 +892,16 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="silversea-blog-archive"
         sling:message="Silversea Blog Archive" />
-        
     <blog-posts
         jcr:primaryType="sling:MessageEntry"
         sling:key="blog-posts"
         sling:message="Blog Posts" />
+    <silversea-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="silversea-cruise"
+        sling:message="Silversea Cruises" />
+    <silversea-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="silversea-expedition"
+        sling:message="Silversea Expeditions" />
 </jcr:root>
