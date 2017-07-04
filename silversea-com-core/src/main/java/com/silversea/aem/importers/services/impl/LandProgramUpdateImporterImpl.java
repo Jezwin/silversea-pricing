@@ -141,7 +141,7 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 															cityId);
 
 													Page landsPage;
-													if (portPage.hasChild("landprogram")) {
+													if (portPage.hasChild("land-programs")) {
 														landsPage = pageManager
 																.getPage(portPage.getPath() + "/land-programs");
 													} else {
