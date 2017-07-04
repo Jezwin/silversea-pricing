@@ -89,7 +89,6 @@ public class CitiesImporterImpl implements CitiesImporter {
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try {
-            authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
             final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
@@ -105,125 +104,120 @@ public class CitiesImporterImpl implements CitiesImporter {
 
             // Iterating over locales to import cities
             for (String locale : locales) {
-                if (locale != null) {
+                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
-                    final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+                if (citiesRootPage == null) {
+                    throw new ImporterException("Cities root page does not exists");
+                }
 
-                    LOGGER.debug("Cleaning already imported cities");
+                LOGGER.debug("Cleaning already imported cities");
 
-                    Iterator<Page> children = citiesRootPage.listChildren();
-                    while (children.hasNext()) {
-                        final Page child = children.next();
+                Iterator<Page> children = citiesRootPage.listChildren();
+                while (children.hasNext()) {
+                    final Page child = children.next();
+
+                    try {
+                        LOGGER.trace("trying to remove {}", child.getPath());
+
+                        session.removeItem(child.getPath());
+                        session.save();
+                    } catch (RepositoryException e) {
+                        LOGGER.error("Cannot clean already existing cities");
+                    }
+                }
+
+                LOGGER.debug("Importing cities for locale \"{}\"", locale);
+
+                int j = 0, i = 1;
+                List<City> cities;
+
+                do {
+                    cities = apiCallService.getCities(i, pageSize);
+
+                    for (City city : cities) {
+                        LOGGER.trace("Importing city: {}", city.getCityName());
 
                         try {
-                            LOGGER.trace("trying to remove {}", child.getPath());
+                            String portFirstLetter;
 
-                            session.removeItem(child.getPath());
-                            session.save();
-                        } catch (RepositoryException e) {
-                            LOGGER.error("Cannot clean already existing cities");
+                            if (city.getCityName() == null) {
+                                throw new ImporterException("City name is null");
+                            }
+
+                            // Port parent page initialization
+                            portFirstLetter = String.valueOf(city.getCityName().charAt(0));
+
+                            final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
+
+                            Page portFirstLetterPage = pageManager
+                                    .getPage(citiesRootPage.getPath() + "/" + portFirstLetterName);
+
+                            if (portFirstLetterPage == null) {
+                                portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
+                                        portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
+                                        false);
+
+                                LOGGER.trace("{} page is not existing, creating it", portFirstLetterName);
+                            }
+
+                            // Creating port page
+                            final Page portPage = pageManager.create(portFirstLetterPage.getPath(),
+                                    JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
+                                            StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
+                                    TemplateConstants.PATH_PORT,
+                                    StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
+
+                            LOGGER.trace("Creating port {}", city.getCityName());
+
+                            // If port is created, set the properties
+                            if (portPage == null) {
+                                throw new ImporterException("Cannot create port page for city " + city.getCityName());
+                            }
+
+                            Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
+
+                            if (portPageContentNode == null) {
+                                throw new ImporterException("Cannot set properties for city " + city.getCityName());
+                            }
+
+                            portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
+                            portPageContentNode.setProperty("apiTitle", city.getCityName());
+                            portPageContentNode.setProperty("apiDescription", city.getShortDescription());
+                            portPageContentNode.setProperty("apiLongDescription", city.getDescription());
+                            portPageContentNode.setProperty("cityCode", city.getCityCod());
+                            portPageContentNode.setProperty("cityId", city.getCityId());
+                            portPageContentNode.setProperty("latitude", city.getLatitude());
+                            portPageContentNode.setProperty("longitude", city.getLongitude());
+                            portPageContentNode.setProperty("countryId", city.getCountryId());
+                            portPageContentNode.setProperty("countryIso2", city.getCountryIso2());
+                            portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
+
+                            LOGGER.trace("Port {} successfully created", portPage.getPath());
+
+                            successNumber++;
+                            j++;
+
+                            if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+
+                                    LOGGER.debug("{} cities imported, saving session", +j);
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
+                            }
+                        } catch (WCMException | RepositoryException | ImporterException e) {
+                            errorNumber++;
+
+                            LOGGER.error("Import error", e);
                         }
                     }
 
-                    LOGGER.debug("Importing cities for locale \"{}\"", locale);
+                    i++;
+                } while (cities.size() > 0);
 
-                    int j = 0;
-
-                    if (citiesRootPage != null) {
-                        List<City> cities;
-                        int i = 1;
-
-                        do {
-                            cities = apiCallService.getCities(i, pageSize);
-
-                            for (City city : cities) {
-                                LOGGER.trace("Importing city: {}", city.getCityName());
-
-                                try {
-                                    String portFirstLetter;
-
-                                    if (city.getCityName() == null) {
-                                        throw new ImporterException("City name is null");
-                                    }
-
-                                    // Port parent page initialization
-                                    portFirstLetter = String.valueOf(city.getCityName().charAt(0));
-
-                                    final String portFirstLetterName = JcrUtil.createValidName(portFirstLetter);
-
-                                    Page portFirstLetterPage = pageManager
-                                            .getPage(citiesRootPage.getPath() + "/" + portFirstLetterName);
-
-                                    if (portFirstLetterPage == null) {
-                                        portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
-                                                portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
-                                                false);
-
-                                        LOGGER.trace("{} page is not existing, creating it", portFirstLetterName);
-                                    }
-
-                                    // Creating port page
-                                    final Page portPage = pageManager.create(portFirstLetterPage.getPath(),
-                                            JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-                                                    StringHelper.getFormatWithoutSpecialCharcters(city.getCityName())),
-                                            TemplateConstants.PATH_PORT,
-                                            StringHelper.getFormatWithoutSpecialCharcters(city.getCityName()), false);
-
-                                    LOGGER.trace("Creating port {}", city.getCityName());
-
-                                    // If port is created, set the properties
-                                    if (portPage == null) {
-                                        throw new ImporterException(
-                                                "Cannot create port page for city " + city.getCityName());
-                                    }
-
-                                    Node portPageContentNode = portPage.getContentResource().adaptTo(Node.class);
-
-                                    if (portPageContentNode == null) {
-                                        throw new ImporterException(
-                                                "Cannot set properties for city " + city.getCityName());
-                                    }
-
-                                    portPageContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
-                                    portPageContentNode.setProperty("apiTitle", city.getCityName());
-                                    portPageContentNode.setProperty("apiDescription", city.getShortDescription());
-                                    portPageContentNode.setProperty("apiLongDescription", city.getDescription());
-                                    portPageContentNode.setProperty("cityCode", city.getCityCod());
-                                    portPageContentNode.setProperty("cityId", city.getCityId());
-                                    portPageContentNode.setProperty("latitude", city.getLatitude());
-                                    portPageContentNode.setProperty("longitude", city.getLongitude());
-                                    portPageContentNode.setProperty("countryId", city.getCountryId());
-                                    portPageContentNode.setProperty("countryIso2", city.getCountryIso2());
-                                    portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
-
-                                    LOGGER.trace("Port {} successfully created", portPage.getPath());
-
-                                    successNumber++;
-                                    j++;
-
-                                    if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                        try {
-                                            session.save();
-
-                                            LOGGER.debug("{} cities imported, saving session", +j);
-                                        } catch (RepositoryException e) {
-                                            session.refresh(true);
-                                        }
-                                    }
-                                } catch (WCMException | RepositoryException | ImporterException e) {
-                                    errorNumber++;
-
-                                    LOGGER.error("Import error", e);
-                                }
-                            }
-
-                            i++;
-                        } while (cities.size() > 0);
-
-                        ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
-                                "lastModificationDate");
-                    }
-                }
+                ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+                        "lastModificationDate");
             }
 
             resourceResolver.close();

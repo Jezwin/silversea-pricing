@@ -48,9 +48,10 @@ public class GeneralPollImporter implements Runnable, Importer {
 
     private void initService() {
         try {
-            shipsImporter.importData();
-            featuresImporter.importData();
-            countriesImporter.importData();
+            // TODO temporary deactivation
+            //shipsImporter.importAllShips();
+            //featuresImporter.importData();
+            //countriesImporter.importData();
             LOGGER.debug("General Polling was executed.");
         } catch (Exception e) {
             String errorMessage = "General Polling Importer errors: ()";
