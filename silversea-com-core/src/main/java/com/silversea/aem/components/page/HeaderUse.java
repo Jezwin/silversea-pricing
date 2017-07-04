@@ -60,7 +60,7 @@ public class HeaderUse extends WCMUsePojo {
      * @return Page
      */
     private Page getPageFromPath(String path) {
-        Resource res = getResourceResolver().resolve(path);
+        Resource res = getResourceResolver().getResource(path);
         if (res != null) {
             return res.adaptTo(Page.class);
         }

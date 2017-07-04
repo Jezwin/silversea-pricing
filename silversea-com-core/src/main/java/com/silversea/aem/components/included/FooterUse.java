@@ -96,8 +96,7 @@ public class FooterUse extends WCMUsePojo {
      * @return Page
      */
     private Page getPageFromPath(String path) {
-        // TODO use get resource instead of resolve
-        Resource res = getResourceResolver().resolve(path);
+        Resource res = getResourceResolver().getResource(path);
         if (res != null) {
             return res.adaptTo(Page.class);
         }
