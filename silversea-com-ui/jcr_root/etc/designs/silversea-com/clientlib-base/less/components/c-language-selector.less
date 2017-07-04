@@ -1,0 +1,46 @@
+.c-language-selector {
+    @media screen and (min-width: @screen-lg-min) {
+        & > a:after {
+            bottom: 10px;
+            color: @grey--ba;
+            content: "\f107";
+            font: normal normal normal 14px/1 FontAwesome;
+            left: 0;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+        }
+    
+        &__list {
+            background-color: @black;
+            padding-bottom: 17px;
+            position: absolute;
+            top: 48px;
+
+            &:before {
+                bottom: 10px;
+                color: @grey--ba;
+                content: "\f106";
+                font: normal normal normal 14px/1 FontAwesome;
+                left: 0;
+                position: absolute;
+                text-align: center;
+                width: 100%;
+            }
+
+            .c-main-nav {
+                &__top {
+                    &__item {
+                        &:before {
+                            display: none;
+                        }
+                    }
+
+                    &__link {
+                        height: 32px;
+                    }
+                }
+            }
+        }
+    }
+}

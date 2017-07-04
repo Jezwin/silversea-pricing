@@ -21,10 +21,10 @@
             </a>
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md c-language-selector">
-            <a href="#" class="c-main-nav__top__link" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a href="#languageSelector" class="c-main-nav__top__link" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
                 <span data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">${pageHelper.homePage.navigationTitle || pageHelper.homePage.title}</span>
             </a>
-            <ul class="clearfix collapse" id="collapseExample"data-sly-list="${navTop.languagePageList}" style="position: absolute;">
+            <ul class="clearfix collapse c-language-selector__list" id="languageSelector" data-sly-list="${navTop.languagePageList}">
                 <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.title}</span></a></li>
             </ul>
         </li>
