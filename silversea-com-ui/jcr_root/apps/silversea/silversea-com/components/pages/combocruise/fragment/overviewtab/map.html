@@ -20,8 +20,7 @@
                     ${endDate.value}
                 </time></strong>
             </span>
-                ${segment.page.properties.jcr:title}
-                <span>${segment.page.properties.subTitle}</span>
+                ${cruiseModel.departurePortName} ${'to' @ i18n} ${cruiseModel.arrivalPortName}
             </h4>
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                 data-sly-call="${imageTemplate.default @ imagePath=segment.page.properties.mapReference}" />

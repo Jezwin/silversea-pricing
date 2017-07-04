@@ -422,4 +422,22 @@ public class CruiseModel extends AbstractModel {
 
         return null;
     }
+    
+    public String getDeparturePortName() {
+        String port = "";
+        if (itineraries.size() > 0) {
+            ItineraryModel itinerary = itineraries.get(0);
+            port = itinerary.getTitle();
+        }
+        return port;
+    }
+    
+    public String getArrivalPortName() {
+        String port = "";
+        if (itineraries.size() > 1) {
+            ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
+            port = itinerary.getTitle();
+        }
+        return port;
+    }
 }
