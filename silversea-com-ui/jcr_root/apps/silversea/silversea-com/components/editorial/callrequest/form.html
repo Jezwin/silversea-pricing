@@ -1,6 +1,6 @@
 <form  class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     <input name="requestsource" type="hidden" value="RAC" />
-    
+
     <div class="form-group form-group-lg has-feedback input--title">
         <select name="title" class="form-control chosen chosen-with-search" required data-error="${'Please enter your title' @ i18n}">
             <option value="">${'Title*' @ i18n}</option>
@@ -17,7 +17,7 @@
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
-    
+
     <div class="form-group form-group-lg has-feedback">
         <input type="text" name="firstname" class="form-control" value="" placeholder="${'First Name*' @ i18n}" required data-error="${'required-firstname' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
@@ -29,7 +29,7 @@
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
-    
+
     <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
         <div class="form-group form-group-lg has-feedback">
             <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control" required
@@ -47,7 +47,7 @@
             <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
         </select>
     </div>
-    
+
     <div class="form-group form-group-lg has-feedback">
         <input type="email" name="email" class="form-control" value="" placeholder="${'Email Address*' @ i18n}" required
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -56,14 +56,14 @@
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors incorrect"></div>
     </div>
-    
+
     <div class="form-group form-group-lg textarea_autogrow">
         <textarea class="form-control textarea_autogrow__field" name="comments" placeholder="${'details-about-your-request' @ i18n}"></textarea>
         <div class="textarea_autogrow__size"></div>
     </div>
-    
+
     <p class="small text-muted">* ${'required-fields' @ i18n}</p>
-    
+
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
@@ -72,11 +72,10 @@
             </label>
         </div>
     </div>
-    
+
      <div class="row">
         <div class="col-sm-7 col-sm-offset-5">
             <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="clic-RAC"><span>${'request-a-call' @ i18n}</span><i class="fa fa-angle-right"></i></button>
         </div>
     </div>
-    
 </form>
