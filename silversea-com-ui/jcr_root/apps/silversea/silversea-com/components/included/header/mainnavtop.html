@@ -1,4 +1,4 @@
-<div class="c-main-nav__top" data-sly-use.navTop="com.silversea.aem.components.page.HeaderModel">
+<div class="c-main-nav__top" data-sly-use.navTop="com.silversea.aem.components.page.HeaderUse">
     <ul class="c-main-nav__top__list clearfix">
         <li class="c-main-nav__top__item visible-xs-block" data-sly-test.page1="${navTop.link1Page}">
             <a href="${page1.path @ extension = 'html'}" class="c-main-nav__top__link">
@@ -20,16 +20,13 @@
                 <span>${page3.navigationTitle || page3.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top__item c-main-nav__top__item--small-md">
-            <a href="#" class="c-main-nav__top__link">
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md c-language-selector">
+            <a href="#" class="c-main-nav__top__link" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 <span>ENG</span>
             </a>
-<!--/*             <ul>
-                <li><a>POR</a></li>
-                <li><a>FRA</a></li>
-                <li><a>ESP</a></li>
-                <li><a>DEU</a></li>
-            </ul> */-->
+            <ul class="clearfix collapse" id="collapseExample">
+                <li class="c-main-nav__top__item" data-sly-repeat="${navTop.countryLinkList}"><a class="c-main-nav__top__link"><span>POR</span></a></li>
+            </ul>
         </li>
         <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
             <a href="${search.path @ extension ='html'}" class="c-main-nav__top__link">

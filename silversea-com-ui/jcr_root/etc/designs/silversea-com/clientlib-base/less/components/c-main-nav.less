@@ -15,23 +15,6 @@
     }
 }
 
-@keyframes fadeOutToNone {
-    0.001% {
-        display: block;
-        opacity: 0.7;
-    }
-
-    99.999% {
-        display: block;
-        opacity: 0;
-    }
-
-    100% {
-        display: none;
-        opacity: 0;
-    }
-}
-
 .c-main-nav-wrapper {
     position: static;
     padding: 0;
@@ -39,7 +22,6 @@
 
 .c-main-nav {
     float: right;
-    overflow: hidden;
 
     @media screen and (max-width: @screen-md-max) {
         display: none;
@@ -62,7 +44,6 @@
     }
 
     &__backdrop {
-        animation: fadeOutToNone 0.5s;
         z-index: -1;
 
         &--is-active {
@@ -161,12 +142,14 @@
                     display: none;
                 }
 
-                .c-main-nav__subnav {
-                    display: block;
+                @media screen and (min-width: @screen-lg-min) {
+                    .c-main-nav__subnav {
+                        display: block;
+                    }
                 }
             }
 
-            @media screen and (min-width: @screen-md-min) {
+            @media screen and (min-width: @screen-lg-min) {
                 &--ontrail {
                     background: @grey--e6;
     

@@ -1,14 +1,9 @@
 package com.silversea.aem.components.page;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.apache.jackrabbit.oak.commons.PathUtils;
-import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.models.annotations.Model;
 
+import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.Page;
@@ -16,77 +11,19 @@ import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.foundation.Navigation;
 import com.silversea.aem.constants.WcmConstants;
 
-/**
- * Model for the Navigation Menu
- */
-@Model(adaptables = SlingHttpServletRequest.class)
-public class HeaderModel {
+public class HeaderUse extends WCMUsePojo {
+    private String home;
+    private Navigation navigation;
+    private Page link1Page;
+    private Page link2Page;
+    private Page link3Page;
+    private Page searchPage;
+    private Page homePage;
 
-    /**
-     * Current Page
-     */
-    @Inject
-    protected Page currentPage;
-
-    /**
-     * Resource
-     */
-    @Inject
-    protected Resource resource;
-
-    /**
-     * Resource Resolver
-     */
-    @Inject
-    protected ResourceResolver resourceResolver;
-
-    /**
-     * SlingHttpServletRequest
-     */
-    @Inject
-    protected SlingHttpServletRequest request;
-
-    /**
-     * navigation
-     */
-    public Navigation navigation;
-
-    public Page homePage;
-
-    /**
-     * link 1 page (Request a quote page)
-     */
-    public Page link1Page;
-
-    /**
-     * link 2 page (brochure page)
-     */
-    public Page link2Page;
-
-    /**
-     * link 3 page (My Silversea page)
-     */
-    public Page link3Page;
-
-    /**
-     * Search Page
-     */
-    public Page searchPage;
-
-    /**
-     * Constructor NavigationModel
-     */
-    public HeaderModel(SlingHttpServletRequest request) {
-        // Empty
-    }
-
-    /**
-     * Initialize the component.
-     */
-    @PostConstruct
-    public void init() {
-        homePage = currentPage.getAbsoluteParent(2);
-        InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(resource);
+    @Override
+    public void activate() throws Exception {
+        homePage = getCurrentPage().getAbsoluteParent(2);
+        InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
         final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM, homePage.getPath());
         navigation = navigationBuild(rootPath, 2);
 
@@ -108,7 +45,7 @@ public class HeaderModel {
      * @return Page
      */
     private Page getPageFromPath(String path) {
-        Resource res = resourceResolver.resolve(path);
+        Resource res = getResourceResolver().resolve(path);
         if (res != null) {
             return res.adaptTo(Page.class);
         }
@@ -125,15 +62,64 @@ public class HeaderModel {
     private Navigation navigationBuild(String path, Integer maxLevel) {
         Navigation nav = null;
 
-        Resource resourceRoot = resourceResolver.getResource(path);
+        Resource resourceRoot = getResourceResolver().getResource(path);
 
         if (resourceRoot != null) {
             Page pageRoot = resourceRoot.adaptTo(Page.class);
 
-            Page selectPage = PathUtils.isAncestor(pageRoot.getPath(), currentPage.getPath()) ? currentPage : pageRoot;
+            Page selectPage = PathUtils.isAncestor(pageRoot.getPath(), getCurrentPage().getPath()) ? getCurrentPage() : pageRoot;
             nav = new Navigation(selectPage, PathUtils.getDepth(path) - 1, new PageFilter(), maxLevel);
         }
 
         return nav;
+    }
+
+    /**
+     * @return the home
+     */
+    public String getHome() {
+        return home;
+    }
+
+    /**
+     * @return the navigation
+     */
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    /**
+     * @return the link1Page
+     */
+    public Page getLink1Page() {
+        return link1Page;
+    }
+
+    /**
+     * @return the link2Page
+     */
+    public Page getLink2Page() {
+        return link2Page;
+    }
+
+    /**
+     * @return the link3Page
+     */
+    public Page getLink3Page() {
+        return link3Page;
+    }
+
+    /**
+     * @return the searchPage
+     */
+    public Page getSearchPage() {
+        return searchPage;
+    }
+
+    /**
+     * @return the homePage
+     */
+    public Page getHomePage() {
+        return homePage;
     }
 }
