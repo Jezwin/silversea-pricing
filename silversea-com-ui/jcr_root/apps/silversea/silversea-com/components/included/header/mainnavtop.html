@@ -22,10 +22,10 @@
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md c-language-selector">
             <a href="#" class="c-main-nav__top__link" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                <span>ENG</span>
+                <span data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">${pageHelper.homePage.navigationTitle || pageHelper.homePage.title}</span>
             </a>
-            <ul class="clearfix collapse" id="collapseExample">
-                <li class="c-main-nav__top__item" data-sly-repeat="${navTop.countryLinkList}"><a class="c-main-nav__top__link"><span>POR</span></a></li>
+            <ul class="clearfix collapse" id="collapseExample"data-sly-list="${navTop.languagePageList}" style="position: absolute;">
+                <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.title}</span></a></li>
             </ul>
         </li>
         <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">

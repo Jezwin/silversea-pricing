@@ -1,5 +1,10 @@
 package com.silversea.aem.components.page;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
 
@@ -12,13 +17,13 @@ import com.day.cq.wcm.foundation.Navigation;
 import com.silversea.aem.constants.WcmConstants;
 
 public class HeaderUse extends WCMUsePojo {
-    private String home;
     private Navigation navigation;
     private Page link1Page;
     private Page link2Page;
     private Page link3Page;
     private Page searchPage;
     private Page homePage;
+    private List<Page> languagePageList;
 
     @Override
     public void activate() throws Exception {
@@ -36,6 +41,16 @@ public class HeaderUse extends WCMUsePojo {
         link2Page = getPageFromPath(link2Reference);
         link3Page = getPageFromPath(link3Reference);
         searchPage = getPageFromPath(searchPageReference);
+
+        languagePageList = new ArrayList<Page>();
+        Iterator<Page> homeLangIt = homePage.getParent().listChildren(new PageFilter());
+        Page homeLang;
+        while(homeLangIt.hasNext()) {
+            homeLang = homeLangIt.next();
+            if(!homeLang.getPath().equals(homePage.getPath())){
+                languagePageList.add(homeLang);
+            }
+        }
     }
 
     /**
@@ -72,13 +87,6 @@ public class HeaderUse extends WCMUsePojo {
         }
 
         return nav;
-    }
-
-    /**
-     * @return the home
-     */
-    public String getHome() {
-        return home;
     }
 
     /**
@@ -121,5 +129,12 @@ public class HeaderUse extends WCMUsePojo {
      */
     public Page getHomePage() {
         return homePage;
+    }
+
+    /**
+     * @return the languagePageList
+     */
+    public List<Page> getLanguagePageList() {
+        return languagePageList;
     }
 }
