@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.Replicator;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
@@ -60,9 +58,6 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
 	@Reference
 	private ApiConfigurationService apiConfig;
-
-	@Reference
-	private Replicator replicat;
 
 	private List<Tag> market;
 
@@ -176,23 +171,6 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 										LOGGER.debug("update page {} Exclusive offers for langue : {}",
 												offers.getVoyageSpecialOfferId(), loc);
 
-										if (!replicat.getReplicationStatus(session, offersRootPage.getPath())
-												.isActivated()) {
-											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													offersRootPage.getPath());
-										}
-										try {
-											session.save();
-											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													offersPage.getPath());
-											LOGGER.debug("replication page Exclusive offers id {} ,  for langue : {}",
-													offers.getVoyageSpecialOfferId(), loc);
-										} catch (RepositoryException e) {
-											LOGGER.debug(
-													"replication page Exclusive offers id {} *** ERROR ***,  for langue : {}",
-													offers.getVoyageSpecialOfferId(), loc);
-											session.refresh(true);
-										}
 									}
 
 									if (j % sessionRefresh == 0) {

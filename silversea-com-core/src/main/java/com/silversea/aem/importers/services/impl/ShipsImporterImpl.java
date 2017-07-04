@@ -23,8 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
@@ -50,8 +48,6 @@ public class ShipsImporterImpl implements ShipsImporter {
 	private ResourceResolverFactory resourceResolverFactory;
 	@Reference
 	private ApiConfigurationService apiConfig;
-	@Reference
-	private Replicator replicat;
 
 	@Reference
 	private ApiCallService apiCallService;
@@ -114,12 +110,6 @@ public class ShipsImporterImpl implements ShipsImporter {
 								shipPageContentNode.setProperty("shipType", ship.getShipType());
 								shipPageContentNode.setProperty("shipUrl", ship.getShipUrl());
 								session.save();
-								try {
-									session.save();
-									replicat.replicate(session, ReplicationActionType.ACTIVATE, shiPage.getPath());
-								} catch (RepositoryException e) {
-									session.refresh(true);
-								}
 								LOGGER.debug("Updated ship with {} ", ship.getShipCod());
 							}
 						}
