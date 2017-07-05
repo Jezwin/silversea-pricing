@@ -35,9 +35,11 @@ public class LandprogramModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landCode") @Optional
     private String landCode;
 
-
+    private String shortDescription;
+    
     @PostConstruct
     private void init() {
+    	shortDescription = description != null ? description.substring(0, 200) : null;
         LOGGER.debug("{}", page.getPath());
     }
 
@@ -47,6 +49,10 @@ public class LandprogramModel {
 
     public String getDescription() {
         return description;
+    }
+    
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     public String getLandId() {

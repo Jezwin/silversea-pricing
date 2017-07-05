@@ -231,6 +231,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="hotels"
         sling:message="Hotels" />
+    <hotel
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="hotel"
+        sling:message="Hotel" />
     <in
         jcr:primaryType="sling:MessageEntry"
         sling:key="in"
@@ -251,6 +255,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="land-programmes"
         sling:message="Land programmes" />
+    <land-programme
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="land-programme"
+        sling:message="Land programme" />
     <land-programme-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="land-programme-s"
