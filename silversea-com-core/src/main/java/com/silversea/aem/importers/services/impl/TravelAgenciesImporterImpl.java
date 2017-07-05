@@ -127,9 +127,8 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 									}
 
 									else {
-										Page agencyTravelContryPage = pageManager.getPage(
-												"/content/silversea-com/en/other-resources/find-a-travel-agent/"
-														+ agency.getCountryIso3().toLowerCase());
+										Page agencyTravelContryPage = pageManager
+												.getPage(travelRootPage.getPath() + "/" +agency.getCountryIso3().toLowerCase());
 										if (agencyTravelContryPage == null) {
 											agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
 													JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
@@ -141,8 +140,6 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 											LOGGER.debug("createa travel agency contry page : {}",
 													agency.getCountryIso3());
 										}
-
-										session.save();
 
 										if (agencyTravelContryPage != null) {
 											agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
@@ -179,6 +176,7 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 												agency.getAgency(), loc);
 
 									}
+									// session.save();
 
 									if (j % sessionRefresh == 0) {
 										if (session.hasPendingChanges()) {

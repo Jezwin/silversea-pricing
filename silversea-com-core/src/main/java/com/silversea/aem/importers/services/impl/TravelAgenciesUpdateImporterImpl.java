@@ -131,9 +131,8 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 									}
 
 									else {
-										Page agencyTravelContryPage = pageManager.getPage(
-												"/content/silversea-com/en/other-resources/find-a-travel-agent/"
-														+ agency.getCountryIso3().toLowerCase());
+										Page agencyTravelContryPage = pageManager
+												.getPage(travelRootPage.getPath() + "/" +agency.getCountryIso3().toLowerCase());
 										if (agencyTravelContryPage == null) {
 											agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
 													JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
