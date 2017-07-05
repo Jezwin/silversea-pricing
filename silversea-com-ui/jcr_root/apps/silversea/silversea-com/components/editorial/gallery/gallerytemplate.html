@@ -10,14 +10,19 @@
                     <div>
                         <div class="ratio"
                             data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
-                            style="background-image:url(${assetPathFull @ context='uri'})"></div>
+                            style="background-image:url(${assetPathFull @ context='uri'})">
+                            <a data-sly-test.isVideo="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                            <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="c-slider c-slider--nav" data-sly-list.asset="${list}">
                     <div>
                         <div class="ratio"
                             data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
-                            style="background-image:url(${assetPathFullThumbnail @ context='uri'})"></div>
+                            style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
+                            <a data-sly-test="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,7 +48,7 @@
                                 data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
                                 style="background-image:url(${assetPathFull @ context='uri'})">
                                 <a data-sly-test.isVideo="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                                <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}"></div>
+                                <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
                             </div>
                         </div>
                     </div>

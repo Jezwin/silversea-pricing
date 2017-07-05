@@ -34,6 +34,7 @@ function requestForm(){
             $form.find('[name="lastname"]').val(userInfo.lastname);
             $form.find('[name="localphone"]').val(userInfo.phone);
             $form.find('[name="email"]').val(userInfo.email);
+            $form.find('[name="comments"]').val(userInfo.comments);
             $form.find('[name="postaladdress"]').val(userInfo.postaladdress);
             $form.find('[name="postalcode"]').val(userInfo.postalcode);
             $form.find('[name="city"]').val(userInfo.city);

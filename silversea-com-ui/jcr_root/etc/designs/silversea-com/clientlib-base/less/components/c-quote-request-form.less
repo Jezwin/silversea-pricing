@@ -6,6 +6,10 @@
         max-width: 750px;
     }
 
+    @media screen and (max-width: @screen-sm) {
+        max-width: 100%;
+    }
+
     &__form {
          margin: 0 auto;
          float: none;
@@ -13,6 +17,10 @@
 
      &__side + .c-quote-request-form__form {
          float: left;
+
+         @media screen and (max-width: @screen-sm) {
+            float: none;
+        }
      }
 
     .textarea_autogrow {

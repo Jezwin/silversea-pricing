@@ -3,4 +3,38 @@
     jcr:primaryType="nt:unstructured"
     jcr:title="SSC - Brochure thank you"
     sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
+        <items jcr:primaryType="nt:unstructured">
+            <brochurethankyou
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Brochure thank you"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <rootPage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldDescription="Path"
+                                fieldLabel="Call request lightbox"
+                                name="./lightboxReference"
+                                rootPath="/content/silversea-com" />
+                        </items>
+                    </column>
+                </items>
+            </brochurethankyou>
+        </items>
+    </content>
 </jcr:root>

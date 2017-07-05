@@ -8,8 +8,8 @@
             ${'view-online' @i18n} <i class="fa fa-lg fa-angle-right"></i>
         </a>
     
-        <div data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path='/content/silversea-com/en/call_a_request'}">
-            <a href="${'/content/silversea-com/en/call_a_request' @ extension='html', selectors='modalcontent'}" class="btn btn-red effect btn-block btn-lg" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+        <div data-sly-test="${ properties.lightboxReference }" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.lightboxReference}" >
+            <a href="${properties.lightboxReference @ extension='html', selectors='modalcontent'}" class="btn btn-red effect btn-block btn-lg" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                 <strong>${'request-a-call' @i18n}</strong>
                 <i class="fa fa-caret-right"></i>
             </a>

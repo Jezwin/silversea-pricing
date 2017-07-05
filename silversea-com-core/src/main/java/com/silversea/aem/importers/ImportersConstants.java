@@ -47,9 +47,13 @@ public interface ImportersConstants {
     String PRICE_WAITLIST = "Waitlist:";
 
     String CRUISES_DAM_PATH = "/content/dam/silversea-com/api-provided/cruises/";
+    String CRUISES_PAGE_RESOURCE_TYPE = "silversea/silversea-com/components/pages/cruise";
     String QUERY_JCR_ROOT_PATH = "/jcr:root";
     String QUERY_CONTENT_PATH = "/jcr:root/content/silversea-com/en";
     String QUERY_TAGS_PATH = "/jcr:root/etc/tags";
+    String DURATIONS_TAGS_PATH= "/etc/tags/cruises-durations";
+    String DATE_FORMAT_MMM_YYYY= "MMM yyyy";
+    String TAG_DURATIONS_SEPARATOR = "-";
 
     String ITINERARIES_NODE = "itineraries";
     String SUITES_NODE = "suites";

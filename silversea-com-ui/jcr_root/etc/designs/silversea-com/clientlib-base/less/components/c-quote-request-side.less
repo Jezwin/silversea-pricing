@@ -2,6 +2,11 @@
     padding-right: 45px;
     position: relative;
 
+    @media screen and (max-width: @screen-sm) {
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
     &:before {
         content: '';
         position: absolute;
@@ -11,6 +16,10 @@
         height: 509px;
         display: block;
         background: @grey--d;
+
+        @media screen and (max-width: @screen-sm) {
+            display: none;
+        }
     }
 
     img {
@@ -23,10 +32,20 @@
     }
 
     &__inner {
+
+        @media screen and (max-width: @screen-sm) {
+            margin: 0 15px;
+            text-align: center;
+        }
+
         &__title {
             font-size: 18px;
             font-weight: 700;
             margin: 0 0 5px 0;
+
+            @media screen and (max-width: @screen-xxs) {
+                font-size: 15px;
+            }
         }
     }
 
@@ -34,14 +53,40 @@
         margin: 10px 0 5px;
         padding: 0 0 0 18px;
 
+        @media screen and (max-width: @screen-sm) {
+            padding: 0;
+        }
+
         li {
             list-style-type: disc;
             font-size: 12px;
             margin-bottom: 5px;
             padding: 0 0 0 12px;
 
+            @media screen and (max-width: @screen-sm) {
+                list-style-type: none;
+                display: inline;
+                padding: 0;
+
+                &:after {
+                    content :" \2013 ";
+                }
+
+                strong {
+                    font-weight: inherit;
+                }
+            }
+
+            @media screen and (max-width: @screen-xxs) {
+                font-size: 11px;
+            }
+
             &:last-child {
                 margin-bottom: 0;
+
+                &:after {
+                    display: none;
+                }
             }
         }
     }

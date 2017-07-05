@@ -1,7 +1,7 @@
 <h3 class="cc-section-title">${'select-your-suite-and-request-a-quote' @ i18n}</h3>
 <p class="cc-section-description">${'combocruise-suite-description' @ i18n}</p>
-<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="c-suitelist" role="tablist">
-    <div class="panel c-suitelist__item contains-slider" data-sly-repeat="${cruise.cruiseModel.suites}">
+<div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" class="c-suitelist" role="tablist">
+    <div class="panel c-suitelist__item contains-slider" data-sly-repeat="${comboCruise.comboCruiseModel.suites}">
         <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
         data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
@@ -26,7 +26,7 @@
                 </sly>
             </div>
             <div class="c-suitelist__button">
-                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="RAQ">
+                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="clic-RAQ">
                     <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                 </a>
                 <button class="btn btn-thin btn-white btn-thin effect hidden-xs">

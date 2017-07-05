@@ -47,6 +47,10 @@
     max-width: 930px;
     position: relative;
 
+    &:not(.c-hero-banner__search) {
+        margin-bottom: 0;
+    }
+
     .video-link {
         left: 50%;
         opacity: .8;
@@ -93,6 +97,10 @@
     }
 
     @media screen and (min-width: @screen-md-min) {
+        &:not(.c-hero-banner__search) {
+            margin-bottom: 20px;
+        }
+
         &__content:not(.c-hero-banner__content--white) {
             color: @white;
         }

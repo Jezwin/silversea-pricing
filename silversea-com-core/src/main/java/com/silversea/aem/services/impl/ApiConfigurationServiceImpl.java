@@ -13,9 +13,9 @@ import java.util.Map;
 
 @Component(immediate = true, label = "Silversea.com - Api importer Configuration", metatype = true)
 @Service(value = ApiConfigurationService.class)
-public class ApiConfigurationServiceImp implements ApiConfigurationService {
+public class ApiConfigurationServiceImpl implements ApiConfigurationService {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ApiConfigurationServiceImp.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(ApiConfigurationServiceImpl.class);
 
     private static final String DEFAULT_API_DOMAIN = "https://shop.silversea.com";
     private static final String DEFAULT_LOGIN = "auolivier@sqli.com";

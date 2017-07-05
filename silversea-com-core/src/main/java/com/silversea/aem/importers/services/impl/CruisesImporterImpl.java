@@ -158,8 +158,8 @@ public class CruisesImporterImpl implements CruisesImporter {
         Node cruisePageContentNode = cruisePage.getContentResource().adaptTo(Node.class);
         cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
         //set cruise's tags
-        cruiseService.setCruiseTags(voyage.getFeatures(),voyage.getVoyageId(),voyage.getIsExpedition(), cruisePage);
-        
+        cruiseService.setCruiseTags(voyage.getFeatures(),voyage.getVoyageId(),voyage.getIsExpedition(),voyage.getDays(), cruisePage);
+        String durationCategory = cruiseService.calculateDurationCategory(voyage.getDays());
         String mapUrl = cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName()+" "+voyage.getVoyageId());
         String[] specialOffers = cruiseService.findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId());
         String shipReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
@@ -167,14 +167,17 @@ public class CruisesImporterImpl implements CruisesImporter {
         //Update node properties
         cruisePageContentNode.setProperty("voyageHighlights", voyage.getVoyageHighlights());
         cruisePageContentNode.setProperty("exclusiveOffers",specialOffers);
-        cruisePageContentNode.setProperty("startDate", ImporterUtils.convertToCalendar(voyage.getArriveDate()));
-        cruisePageContentNode.setProperty("endDate", ImporterUtils.convertToCalendar(voyage.getDepartDate()));
+        cruisePageContentNode.setProperty("startDate", ImporterUtils.convertToCalendar(voyage.getDepartDate()));
+        cruisePageContentNode.setProperty("endDate", ImporterUtils.convertToCalendar(voyage.getArriveDate()));
         cruisePageContentNode.setProperty("duration", voyage.getDays());
         cruisePageContentNode.setProperty("shipReference", shipReference);
         cruisePageContentNode.setProperty("cruiseCode", voyage.getVoyageCod());
         cruisePageContentNode.setProperty("cruiseId", voyage.getVoyageId());
         cruisePageContentNode.setProperty("itinerary",mapUrl);
-
+        //All properties prefixed by cmp(computed data) are used by search service
+        cruisePageContentNode.setProperty("cmp-destinationId", voyage.getDestinationId());
+        cruisePageContentNode.setProperty("cmp-ship", voyage.getShipId());
+        cruisePageContentNode.setProperty("cmp-duration",durationCategory);
+        cruisePageContentNode.setProperty("cmp-date",ImporterUtils.formatDateForSeach(voyage.getDepartDate()));
     }
-
 }

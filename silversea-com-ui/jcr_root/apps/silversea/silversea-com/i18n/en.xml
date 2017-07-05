@@ -367,6 +367,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
+    <incorrect-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="incorrect-email-address"
+        sling:message="Incorrect Email Address" />
     <required-title
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-title"
@@ -374,23 +378,63 @@
     <required-lastname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-lastname"
-        sling:message="Please enter your lastname" />
+        sling:message="Please enter your last name" />
     <required-firstname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
-        sling:message="Please enter your firstname" />
+        sling:message="Please enter your first name" />
+    <required-phone-number
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-phone-number"
+        sling:message="Please enter your phone number" />
+    <check-phone-format
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="check-phone-format"
+        sling:message="Please check the phone format" />
     <required-postal-code
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-postal-code"
         sling:message="Please enter your postal code" />
+    <required-postal-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-address"
+        sling:message="Please enter your postal address" />
+    <required-postal-code-and-city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-code-and-city"
+        sling:message="Please enter your postal code and city" />
     <required-city
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-city"
         sling:message="Please enter your city" />
+    <required-state
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-state"
+        sling:message="Please enter your state" />
+    <required-fields
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-fields"
+        sling:message="Required fields" />
+    <receive-emails-with-news
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="receive-emails-with-news"
+        sling:message="Yes! I would like to receive emails with news and special offers from Silversea." />
+    <i-m-currently-booked
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="i-m-currently-booked"
+        sling:message="I am currently booked on a Silversea cruise" />
+    <i-am-not-a-travel-agent
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="i-am-not-a-travel-agent"
+        sling:message="I am not a travel agent" />
     <sign-up-for-offers
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up-for-offers"
         sling:message="Sign up for offers and news" />
+    <details-about-your-request
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="details-about-your-request"
+        sling:message="Details About Your Request" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
@@ -426,6 +470,10 @@
     <sign-up
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up"
+        sling:message="Sign up" />
+    <sign-up-button
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up-button"
         sling:message="Sign up" />
     <suite
         jcr:primaryType="sling:MessageEntry"
@@ -495,6 +543,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-email-address"
         sling:message="Your email address" />
+    <email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="email-address"
+        sling:message="Email address" />
+    <first-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="first-name"
+        sling:message="First name" />
+    <last-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="last-name"
+        sling:message="Last name" />
     <ship
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
@@ -559,14 +619,26 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-our-free-brochures"
         sling:message="View our free brochures" />
+    <country-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="country-code"
+        sling:message="Country code" />
     <postal-code
         jcr:primaryType="sling:MessageEntry"
         sling:key="postal-code"
         sling:message="Postal code" />
+    <postal-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="postal-address"
+        sling:message="Postal address" />
     <city
         jcr:primaryType="sling:MessageEntry"
         sling:key="city"
-        sling:message="city" />
+        sling:message="City" />
+    <country
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="country"
+        sling:message="Country" />
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
@@ -751,10 +823,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas-descr"
         sling:message="Your time on board will be time well-spent. Discover the dining options where you'll savour culinary excellence, and the exciting venues where you'll mingle with international travellers while enjoying our all-inclusive lifestyle." />
-    <suites-descr
+    <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
-        sling:key="restaurants-public-areas-descr"
-        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />7*
+        sling:key="cruise-suites-and-fares-descr"
+        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite" />
     <cruise-itinerary
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary"
