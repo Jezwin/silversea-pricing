@@ -7,7 +7,7 @@
             <img class="c-brochure__img" alt="${brochure.title}" src="${brochure.cover}" />
         </div>
         <div class="col-md-5">
-            <div data-sly-test.countrySelector="${request.requestPathInfo.selectors[0]}" data-sly-unwrap></div>
+            <div data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper" data-sly-test.countrySelector="country_${countryHelper.country}" data-sly-unwrap></div>
             <h2 class="c-brochure__title visible-lg visible-md">${brochure.assetTitle}</h2>
             <p class="c-brochure__description">${brochure.assetDescription}</p>
             <p class="c-brochure__btnwrapper"
