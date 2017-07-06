@@ -91,8 +91,13 @@ public class SitemapModel {
             }
 
             if (page.getProperties() != null) {
+            	String resourceType = page.getContentResource().getResourceType();
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
-                        || page.getContentResource().getResourceType().endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE));
+                        || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
+                        || WcmConstants.RT_HOTEL.equals(resourceType)
+                        || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
+                        || WcmConstants.RT_EXCURSIONS.equals(resourceType)
+                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType));
             }
 
             return true;

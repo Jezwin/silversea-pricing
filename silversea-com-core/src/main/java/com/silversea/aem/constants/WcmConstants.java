@@ -35,6 +35,10 @@ public interface WcmConstants {
     String RT_IMAGE_CPT = "silversea/silversea-com/components/editorial/image";
     String RT_TAG = "cq/tagging/components/tag";
     String RT_DESTINATION = "silversea/silversea-com/components/pages/destination";
+    String RT_HOTEL = "silversea/silversea-com/components/pages/hotel";
+    String RT_LAND_PROGRAMS = "silversea/silversea-com/components/pages/landprogram";
+    String RT_EXCURSIONS = "silversea/silversea-com/components/pages/excursion";
+    String RT_TRAVEL_AGENT = "silversea/silversea-com/components/pages/travelagency";
 
     // Node name
     String NN_DEFAULT = "default";

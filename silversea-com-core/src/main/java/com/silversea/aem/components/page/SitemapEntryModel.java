@@ -1,20 +1,25 @@
 package com.silversea.aem.components.page;
 
-import com.adobe.cq.social.journal.client.api.Journal;
-import com.adobe.granite.confmgr.Conf;
-import com.day.cq.commons.Externalizer;
-import com.day.cq.wcm.api.Page;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Source;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.settings.SlingSettingsService;
+
+import com.adobe.cq.social.journal.client.api.Journal;
+import com.adobe.granite.confmgr.Conf;
+import com.day.cq.commons.Externalizer;
+import com.day.cq.wcm.api.Page;
 
 /**
  * Model Sitemap
@@ -37,6 +42,10 @@ public class SitemapEntryModel {
     @Inject
     private Externalizer externalizer;
 
+    @Inject
+    @Source("osgi-services")
+    private SlingSettingsService slingSettingsService;
+    
     /**
      * Depth Configuration
      */
@@ -73,7 +82,12 @@ public class SitemapEntryModel {
      */
     public String getExternalizedUrl() {
         ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
-        return externalizer.externalLink(resourceResolver, Externalizer.LOCAL, page.getPath()) + Journal.URL_SUFFIX;
+        Set<String> runModes = null;
+        if(slingSettingsService !=null){        	
+        	runModes = slingSettingsService.getRunModes();
+        }
+        String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
+        return externalizer.externalLink(resourceResolver, domain, page.getPath()) + Journal.URL_SUFFIX;
     }
 
     /**
