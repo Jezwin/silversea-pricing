@@ -532,6 +532,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="tons"
         sling:message="Tons" />
+    <in
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="in"
+        sling:message="in" />
+    <excursion-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="excursion-code"
+        sling:message="Excursion Code" />
     <view-online
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-online"
