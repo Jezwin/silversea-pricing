@@ -32,9 +32,11 @@ public class HotelModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/code") @Optional
     private String code;
 
+    private String shortDescription;
 
     @PostConstruct
     private void init() {
+    	shortDescription = description != null ? description.substring(0, 200) : null;
         LOGGER.debug("{}", page.getPath());
     }
 
@@ -44,6 +46,10 @@ public class HotelModel {
 
     public String getDescription() {
         return description;
+    }
+    
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     public String getCode() {
