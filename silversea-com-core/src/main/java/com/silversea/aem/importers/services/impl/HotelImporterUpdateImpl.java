@@ -115,7 +115,7 @@ public class HotelImporterUpdateImpl implements HotelUpdateImporter {
 					hotels = apiCallService.getHotelsUpdate(currentDate, i, pageSize);
 					int j = 0;
 					if (hotels != null) {
-						
+
 						for (String loc : locales) {
 							if (loc != null) {
 
@@ -235,22 +235,15 @@ public class HotelImporterUpdateImpl implements HotelUpdateImporter {
 
 				} while (hotels.size() > 0 && hotels != null);
 
-				if (session.hasPendingChanges()) {
-					try {
-						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-						rootNode.setProperty("lastModificationDateHotel", Calendar.getInstance());
-						session.save();
-					} catch (RepositoryException e) {
-						session.refresh(false);
-					}
-				}
+				ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+						"lastModificationDateHotel");
 
 				resourceResolver.close();
 
 			} else {
 				throw new UpdateImporterExceptions();
 			}
-		} catch (ApiException | RepositoryException e) {
+		} catch (ApiException e) {
 			LOGGER.error("Exception importing hotels", e);
 		}
 	}

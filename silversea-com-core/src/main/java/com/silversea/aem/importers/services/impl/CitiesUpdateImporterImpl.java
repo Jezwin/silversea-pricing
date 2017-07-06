@@ -139,7 +139,7 @@ public class CitiesUpdateImporterImpl implements CitiesUpdateImporter {
 
 											if (citiesRootPage.hasChild(portFirstLetterName)) {
 												portFirstLetterPage = pageManager.getPage(
-														ImportersConstants.BASEPATH_PORTS + "/" + portFirstLetterName);
+														citiesRootPage.getPath() + "/" + portFirstLetterName);
 
 												LOGGER.debug("Page {} already exists", portFirstLetterName);
 											} else {
@@ -179,7 +179,7 @@ public class CitiesUpdateImporterImpl implements CitiesUpdateImporter {
 										portPageContentNode.setProperty("countryId", city.getCountryId());
 										portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
 										succesNumber = succesNumber + 1;
-
+										session.save();
 										if (BooleanUtils.isFalse(city.getIsDeleted()) || city.getIsDeleted() == null) {
 											session.save();
 											ImporterUtils.updateReplicationStatus(replicat, session, false,
@@ -210,7 +210,7 @@ public class CitiesUpdateImporterImpl implements CitiesUpdateImporter {
 					i++;
 				} while (cities.size() > 0);
 
-				if (session.hasPendingChanges()) {
+//				if (session.hasPendingChanges()) {
 					try {
 						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
 						rootNode.setProperty("lastModificationDate", Calendar.getInstance());
@@ -218,7 +218,7 @@ public class CitiesUpdateImporterImpl implements CitiesUpdateImporter {
 					} catch (RepositoryException e) {
 						session.refresh(false);
 					}
-				}
+//				}
 
 				resourceResolver.close();
 			} else {

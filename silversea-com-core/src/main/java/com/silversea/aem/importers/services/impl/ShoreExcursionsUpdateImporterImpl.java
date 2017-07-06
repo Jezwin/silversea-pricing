@@ -236,21 +236,14 @@ public class ShoreExcursionsUpdateImporterImpl implements ShoreExcursionsUpdateI
 					}
 				} while (shorexes.size() > 0);
 
-				if (session.hasPendingChanges()) {
-					try {
-						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-						rootNode.setProperty("lastModificationDateEx", Calendar.getInstance());
-						session.save();
-					} catch (RepositoryException e) {
-						session.refresh(false);
-					}
-				}
+				ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+						"lastModificationDateEx");
 
 				resourceResolver.close();
 			} else {
 				throw new UpdateImporterExceptions();
 			}
-		} catch (ApiException | RepositoryException e) {
+		} catch (ApiException e) {
 			LOGGER.error("Exception importing shorexes", e);
 		}
 	}
