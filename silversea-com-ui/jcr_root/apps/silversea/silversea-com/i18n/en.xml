@@ -127,6 +127,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="departure"
         sling:message="Departure" />
+    <description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="description"
+        sling:message="Description" />
     <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-discover-more"
@@ -403,7 +407,7 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email"
         sling:message="Please enter your email" />
-        
+
     <required-phone-number
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-phone-number"
