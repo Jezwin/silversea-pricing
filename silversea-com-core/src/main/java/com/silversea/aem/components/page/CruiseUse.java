@@ -114,9 +114,17 @@ public class CruiseUse extends WCMUsePojo {
         // Add asset from several list inside the same list
         if (cruiseModel.getItineraries() != null) {
             for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                assetSelectionReference = itinerary.getPage().getProperties().get("assetSelectionReference", String.class);
+            	Page itinerayPage = itinerary.getPage();
+                assetSelectionReference = itinerayPage.getProperties().get("assetSelectionReference", String.class);
+                
+                
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+                
+                if(itinerayPage.getContentResource() != null && itinerayPage.getContentResource().getChild("image") != null){                	
+                	String thumbnail = itinerayPage.getContentResource().getChild("image").getValueMap().get("fileReference", String.class);
+                	assetList.add(getResourceResolver().getResource(thumbnail).adaptTo(Asset.class));
                 }
             }
 
@@ -127,27 +135,33 @@ public class CruiseUse extends WCMUsePojo {
         }
 
         return assetList;
-    }
+    } 
 
     public List<Asset> getAllAssetForSuite() {
-        String assetSelectionReference;
+        String assetSelectionReference,
+        		assetVirtualTour;
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
         if (cruiseModel.getSuites() != null) {
             for (SuiteModel suite : cruiseModel.getSuites()) {
-                assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
+            	assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+                
+                assetVirtualTour = suite.getPage().getProperties().get("virtualTour", String.class);
+                if (StringUtils.isNotBlank(assetVirtualTour)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetVirtualTour, getResourceResolver()));
                 }
             }
         }
 
         return assetList;
-    }
+    } 
 
     public List<Asset> getAllAssetForDinning() {
-        String assetSelectionReference;
+        String assetSelectionReference, assetVirtualTour;
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
@@ -157,6 +171,11 @@ public class CruiseUse extends WCMUsePojo {
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
                 }
+                
+                assetVirtualTour = dinning.getPage().getProperties().get("virtualTour", String.class);
+                if (StringUtils.isNotBlank(assetVirtualTour)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetVirtualTour, getResourceResolver()));
+                }
             }
         }
 
@@ -164,7 +183,7 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     public List<Asset> getAllAssetForPublicArea() {
-        String assetSelectionReference;
+        String assetSelectionReference, assetVirtualTour;
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
@@ -173,6 +192,11 @@ public class CruiseUse extends WCMUsePojo {
                 assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
+                
+                assetVirtualTour = publicArea.getPage().getProperties().get("virtualTour", String.class);
+                if (StringUtils.isNotBlank(assetVirtualTour)) {
+                    assetList.addAll(AssetUtils.buildAssetList(assetVirtualTour, getResourceResolver()));
                 }
             }
         }
