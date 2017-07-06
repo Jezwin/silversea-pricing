@@ -13,7 +13,7 @@
             <p class="c-brochure__btnwrapper"
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
                 <a data-sly-test="${currentStyle.onlineRequestFormReference}"
-                   href="${currentStyle.onlineRequestFormReference @ selectors=['modalcontent', countrySelector] , extension='html'}"
+                   href="${currentStyle.onlineRequestFormReference @ selectors=['modalcontent', countrySelector] , extension='html'}?brochurePath=${brochure.brochurePath}"
                    class="btn btn-dark c-brochure__btn effect" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                     <i class="fa fa-search"></i>
@@ -23,7 +23,7 @@
             <p class="c-brochure__btnwrapper"
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
                 <a data-sly-test="${currentStyle.printedRequestFormReference && !brochure.isBrochureDigitalOnly}"
-                   href="${currentStyle.printedRequestFormReference @ selectors=['modalcontent', countrySelector], extension='html'}"
+                   href="${currentStyle.printedRequestFormReference @ selectors=['modalcontent', countrySelector], extension='html'}?brochurePath=${brochure.brochurePath}"
                    class="btn btn-dark c-brochure__btn effect" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                     <i class="fa fa-envelope"></i>
