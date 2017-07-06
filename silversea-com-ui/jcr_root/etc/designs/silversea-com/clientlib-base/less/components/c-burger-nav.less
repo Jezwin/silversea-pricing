@@ -1,54 +1,45 @@
-.c-nav-burger {
-    background: @black;
-    color: @white;
-    height: @nav-top-height;
-    display: inline-block;
-    max-width: 120px;
-    float: right;
-    border-left: solid 1px @grey;
-    display: none;
-
-    &__btn {
-        .c-btn();
-        font-size: 18px;
-        border-radius: 0;
-        background-color: @black;
+@media screen and (max-width: @screen-md-max) {
+    .c-nav-burger {
+        background: @black;
+        border-left: solid 1px @grey;
         color: @white;
-        width: 100%;
-        height: 100%;
+        display: inline-block;
+        float: right;
+        height: @nav-top-height;
+        max-width: 120px;
 
-        &:focus {
-            outline: 0;
-        }
-    }
+        &__btn {
+            .c-btn();
+            background-color: @black;
+            border-radius: 0;
+            color: @white;
+            font-size: 18px;
+            height: 100%;
+            width: 100%;
 
-    &.is-active {
-        color: red;
-
-        .c-nav-burger__btn {
-            background: @white;
-            border-left: solid 1px @white;
-            color: @grey-l;
-
-            @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-                color: @black;
+            &:focus {
+                outline: 0;
             }
         }
-        .fa-bars {
-            display:none;
-        }
-        .fa-close {
-            display:inherit;
-        }
-    }
-    .fa-close {
-        display: none;
-    }
 
-    @media screen and (max-width: @screen-sm) {
-        display: block;
-    }
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        display: block;
+        &.is-active {
+            .c-nav-burger__btn {
+                background: @white;
+                border-left: solid 1px @white;
+                color: @black;
+            }
+
+            .fa-bars {
+                display: none;
+            }
+
+            .fa-close {
+                display: inherit;
+            }
+        }
+
+        .fa-close {
+            display: none;
+        }
     }
 }

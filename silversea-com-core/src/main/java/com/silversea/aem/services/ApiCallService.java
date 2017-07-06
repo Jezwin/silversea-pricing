@@ -1,32 +1,10 @@
 package com.silversea.aem.services;
 
+import io.swagger.client.ApiException;
+import io.swagger.client.model.*;
+
 import java.io.IOException;
 import java.util.List;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Agency;
-import io.swagger.client.model.Brochure;
-import io.swagger.client.model.City;
-import io.swagger.client.model.City77;
-import io.swagger.client.model.Country;
-import io.swagger.client.model.Feature;
-import io.swagger.client.model.Hotel;
-import io.swagger.client.model.Hotel77;
-import io.swagger.client.model.HotelItinerary;
-import io.swagger.client.model.Itinerary;
-import io.swagger.client.model.Land;
-import io.swagger.client.model.Land77;
-import io.swagger.client.model.LandItinerary;
-import io.swagger.client.model.Ship;
-import io.swagger.client.model.Shorex;
-import io.swagger.client.model.Shorex77;
-import io.swagger.client.model.ShorexItinerary;
-import io.swagger.client.model.SpecialOffer;
-import io.swagger.client.model.SpecialVoyage;
-import io.swagger.client.model.Voyage;
-import io.swagger.client.model.Voyage77;
-import io.swagger.client.model.VoyagePriceComplete;
-import io.swagger.client.model.VoyageSpecialOffer;
 
 public interface ApiCallService {
 
@@ -52,7 +30,7 @@ public interface ApiCallService {
 
 //    List<Agency> getTravelAgenciesUpdate(int index, int pageSize)throws IOException, ApiException;
 
-    List<Ship> getShips() throws IOException, ApiException;
+    List<Ship> getShips() throws ApiException;
 
     List<SpecialOffer> getExclusiveOffers(int index, int pageSize) throws IOException, ApiException;
 
@@ -75,7 +53,7 @@ public interface ApiCallService {
     List<Brochure> getBrochures(int index, int pageSize) throws IOException, ApiException;
 
     List<Feature> getFeatures() throws IOException, ApiException;
-    
+
     List<Country> getContries() throws IOException, ApiException;
 
 }

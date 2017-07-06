@@ -131,9 +131,8 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 									}
 
 									else {
-										Page agencyTravelContryPage = pageManager.getPage(
-												"/content/silversea-com/en/other-resources/find-a-travel-agent/"
-														+ agency.getCountryIso3().toLowerCase());
+										Page agencyTravelContryPage = pageManager
+												.getPage(travelRootPage.getPath() + "/" +agency.getCountryIso3().toLowerCase());
 										if (agencyTravelContryPage == null) {
 											agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
 													JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
@@ -218,8 +217,8 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 					Iterator<Page> resourcesContry = page.listChildren();
 					while (resourcesContry.hasNext()) {
 						Page pageAgency = resourcesContry.next();
-						Integer id = Integer
-								.parseInt(Objects.toString(page.getContentResource().getValueMap().get("agencyId")));
+						Integer id = Integer.parseInt(
+								Objects.toString(pageAgency.getContentResource().getValueMap().get("agencyId")));
 						if (id != null && !diff.contains(id)) {
 							ImporterUtils.updateReplicationStatus(replicat, session, true, pageAgency.getPath());
 						}

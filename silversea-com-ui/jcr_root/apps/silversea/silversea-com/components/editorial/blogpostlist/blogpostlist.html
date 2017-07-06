@@ -1,6 +1,7 @@
 <sly data-sly-use.blogPostTeaserListUse="com.silversea.aem.components.editorial.BlogPostTeaserListUse" />
 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
-<h1>${currentPage.title}</h1>
+<h1>${'silversea-blog-archive' @i18n}</h1>
+<h3 class="blogpostlist__subtitle">${'blog-posts' @i18n} ${'from' @i18n} 01 ${'to' @i18n} ${blogPostTeaserListUse.dayInMonth} ${currentPage.title} ${blogPostTeaserListUse.year}</h3>
 
 <div data-sly-test="${blogPostTeaserListUse.highLightFirst && blogPostTeaserListUse.firstBlogPostTeaser}" class="blogpostfirst">
     <sly data-sly-call="${imageTemplate.default @ imagePath=blogPostTeaserListUse.firstBlogPostTeaser.thumbnailImageUrl, query='?wid=280'}"></sly>

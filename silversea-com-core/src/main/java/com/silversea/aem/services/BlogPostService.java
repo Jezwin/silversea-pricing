@@ -4,6 +4,9 @@ import com.silversea.aem.models.BlogPostTeaserModel;
 
 import java.util.List;
 
+/**
+ * TODO review feature and remove service
+ */
 @Deprecated
 public interface BlogPostService {
 

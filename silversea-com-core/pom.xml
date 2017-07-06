@@ -121,20 +121,20 @@
     <!-- D E P E N D E N C I E S -->
     <!-- ====================================================================== -->
     <dependencies>
-        <!-- Api client -->
-        <dependency>
-            <groupId>com.silversea.aem</groupId>
-            <artifactId>ssc-api-client-auth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.silversea.aem</groupId>
-            <artifactId>ssc-api-client-swagger</artifactId>
-        </dependency>
-
         <!-- Apache Felix dependencies -->
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
+        </dependency>
+
+        <!-- OSGI dependencies -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
         </dependency>
 
         <!-- JAVAX dependencies -->
@@ -151,14 +151,10 @@
             <artifactId>jcr</artifactId>
         </dependency>
 
-        <!-- OSGI dependencies -->
+        <!-- Google dependencies -->
         <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.compendium</artifactId>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
 
         <!-- SLF4J dependencies -->
@@ -200,9 +196,17 @@
             <classifier>apis</classifier>
         </dependency>
 
+        <!-- Api client -->
+        <dependency>
+            <groupId>com.silversea.aem</groupId>
+            <artifactId>ssc-api-client-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.silversea.aem</groupId>
+            <artifactId>ssc-api-client-swagger</artifactId>
+        </dependency>
 
-
-
+        <!-- TODO review -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

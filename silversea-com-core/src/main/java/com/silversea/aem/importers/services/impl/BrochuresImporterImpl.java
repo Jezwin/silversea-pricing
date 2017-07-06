@@ -57,7 +57,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 	private ResourceResolver resourceResolver;
 	private Session session;
 
-	public void init() {
+	private void init() {
 		try {
 			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
 			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);

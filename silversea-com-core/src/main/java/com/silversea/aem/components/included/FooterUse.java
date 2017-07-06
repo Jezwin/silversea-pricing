@@ -14,6 +14,8 @@ import com.day.cq.wcm.api.Page;
 
 /**
  * Model for the footer mbennabi 31/05/2017
+ *
+ * TODO review footer management
  */
 public class FooterUse extends WCMUsePojo {
 
@@ -94,7 +96,7 @@ public class FooterUse extends WCMUsePojo {
      * @return Page
      */
     private Page getPageFromPath(String path) {
-        Resource res = getResourceResolver().resolve(path);
+        Resource res = getResourceResolver().getResource(path);
         if (res != null) {
             return res.adaptTo(Page.class);
         }

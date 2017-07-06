@@ -1,14 +1,12 @@
-/**
- * 
- */
 package com.silversea.aem.helper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 
 /**
- * @author mjedli
+ * TODO remove
  *
+ * @author mjedli
  */
 @Deprecated
 public class SilverseaHelper {

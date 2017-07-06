@@ -3,6 +3,7 @@ package com.silversea.aem.models;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -364,6 +365,19 @@ public class CruiseModel extends AbstractModel {
     public List<Feature> getFeatures() {
         return features;
     }
+    
+    public List<Feature> getFeaturesForDisplay() {
+        //do not display the venetian society feature on the overview tab
+        List<Feature> filteredFeatures = new ArrayList<Feature>();
+        Iterator<Feature> i = features.iterator();
+        while (i.hasNext()) {
+            Feature feature = i.next();
+            if (!feature.getTitle().toUpperCase().equals("VENETIAN SOCIETY")) {
+                filteredFeatures.add(feature);
+            }
+        }
+        return filteredFeatures;
+    }
 
     public PriceData getLowestPrice() {
         return lowestPrice;
@@ -407,5 +421,23 @@ public class CruiseModel extends AbstractModel {
         }
 
         return null;
+    }
+    
+    public String getDeparturePortName() {
+        String port = "";
+        if (itineraries.size() > 0) {
+            ItineraryModel itinerary = itineraries.get(0);
+            port = itinerary.getTitle();
+        }
+        return port;
+    }
+    
+    public String getArrivalPortName() {
+        String port = "";
+        if (itineraries.size() > 1) {
+            ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
+            port = itinerary.getTitle();
+        }
+        return port;
     }
 }

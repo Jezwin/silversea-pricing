@@ -2,6 +2,7 @@ package com.silversea.aem.components.editorial;
 
 /**
  * Button Object
+ * TODO move to beans package
  */
 public class Button {
     private String title;

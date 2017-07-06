@@ -231,13 +231,11 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    shipsImporter.importData();
-                    nbrError = shipsImporter.getErrorNumber();
-                    nbrSucces = shipsImporter.getSuccesNumber();
+                    final ImportResult importResult = shipsImporter.importAllShips();
                     response.getWriter().write("Ships import Done<br/>");
-                    response.getWriter().write("Ships import failure number : <p>" + nbrError + "</p>");
+                    response.getWriter().write("Ships import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     response.getWriter().write("<br/>");
-                    response.getWriter().write("Ships import succes number : <p>" + nbrSucces + "</p>");
+                    response.getWriter().write("Ships import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
                     response.getWriter().write("<br/>");
                     response.getWriter().write("<br/> ---------------- <br />");
                     watch.stop();

@@ -1,23 +1,22 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
+ * TODO review how to get childs
  * Created by aurelienolivier on 12/02/2017.
  */
 @Model(adaptables = Page.class)
@@ -49,7 +48,8 @@ public class PortModel {
         excursions = new ArrayList<>();
         landprograms = new ArrayList<>();
         hotels = new ArrayList<>();
-        try{
+
+        try {
             final Iterator<Page> childs = page.listChildren();
 
             while (childs.hasNext()) {
@@ -75,8 +75,8 @@ public class PortModel {
                     }
                 }
             }
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
+        } catch (RuntimeException e) {
+            LOGGER.error("Error while initializing model {}", e);
         }
     }
 

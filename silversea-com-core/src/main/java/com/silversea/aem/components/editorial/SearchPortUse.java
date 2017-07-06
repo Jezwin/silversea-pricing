@@ -91,6 +91,7 @@ public class SearchPortUse extends WCMUsePojo {
         return portIndexPage;
     }
 
+    // TODO replace by port model, and adapt it from a cq:page
     public class SearchPortDisplay {
 
         private String portName;

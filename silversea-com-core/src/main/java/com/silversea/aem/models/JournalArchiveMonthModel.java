@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import com.day.cq.wcm.api.Page;
 /**
  * Created by mbennabi on 20/02/2017.
  */
+@Deprecated
 @Model(adaptables = Page.class)
 public class JournalArchiveMonthModel {
 

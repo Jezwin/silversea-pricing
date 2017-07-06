@@ -163,34 +163,39 @@ public class CruiseServiceImpl implements CruiseService{
     public String calculateDurationCategory(Integer days){
         String duration = null;
         Tag tagRoot = tagManager.resolve(ImportersConstants.DURATIONS_TAGS_PATH);
-        Iterator<Tag> durationTags = tagRoot.listChildren();
-        if(durationTags != null && durationTags.hasNext()){
-            List<Tag> list = new ArrayList<Tag>();
-            durationTags.forEachRemaining(list::add);
-            Optional<Tag>  durationTag = list.stream().filter(element ->{
-                boolean value = false;
-                String  title = element.getTitle();
-                if(title != null){
-    
-                    Pattern pattern = Pattern.compile(ImportersConstants.TAG_DURATIONS_SEPARATOR);
-                    List<Integer> values = pattern.splitAsStream(title)
-                                                  .filter(e->StringUtils.isNumeric(e))
-                                                  .map(Integer::valueOf)
-                                                  .collect(Collectors.toList());
-                    
-                   if(values != null && values.size() == 2){
-                      value = values.get(0) <= days && days <= values.get(1);
-                   }else if(values != null && values.size() == 1){
-                       value = values.get(0) <= days;
-                   }
-                                                
+        if(tagRoot != null){
+            Iterator<Tag> durationTags = tagRoot.listChildren();
+            if(durationTags != null && durationTags.hasNext()){
+                List<Tag> list = new ArrayList<Tag>();
+                durationTags.forEachRemaining(list::add);
+                Optional<Tag>  durationTag = list.stream().filter(element ->{
+                    boolean value = false;
+                    String  title = element.getTitle();
+                    if(title != null){
+
+                        Pattern pattern = Pattern.compile(ImportersConstants.TAG_DURATIONS_SEPARATOR);
+                        List<Integer> values = pattern.splitAsStream(title)
+                                .filter(e->StringUtils.isNumeric(e))
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList());
+
+                        if(values != null && values.size() == 2){
+                            value = values.get(0) <= days && days <= values.get(1);
+                        }else if(values != null && values.size() == 1){
+                            value = values.get(0) <= days;
+                        }
+
+                    }
+                    return value;
+                })
+                        .findFirst();
+                if(durationTag != null && durationTag.isPresent()){
+                    duration = durationTag.get().getTitle();
                 }
-                return value;
-            })
-            .findFirst();
-            if(durationTag != null && durationTag.isPresent()){
-                duration = durationTag.get().getTitle();
             }
+        }
+        else{
+            LOGGER.error("Cruise importer -- Durations tags not found for id {}",ImportersConstants.DURATIONS_TAGS_PATH);
         }
         return duration;
     }

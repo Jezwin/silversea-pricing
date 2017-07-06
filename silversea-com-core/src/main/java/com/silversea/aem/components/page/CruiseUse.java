@@ -217,4 +217,13 @@ public class CruiseUse extends WCMUsePojo {
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
     }
+    
+    public String getPageLanguage() {
+        return getCurrentPage().getLanguage(false).getLanguage();
+    }
+    
+    public String getDescription() {
+        return StringUtils.isEmpty(cruiseModel.getDescription()) ? 
+                cruiseModel.getImporteddescription() : cruiseModel.getDescription();
+    }
 }

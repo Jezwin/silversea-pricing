@@ -24,9 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
-import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
@@ -59,9 +56,6 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 
 	@Reference
 	private ApiConfigurationService apiConfig;
-
-	@Reference
-	private Replicator replicat;
 
 	@Reference
 	private ApiCallService apiCallService;
@@ -133,9 +127,8 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 									}
 
 									else {
-										Page agencyTravelContryPage = pageManager.getPage(
-												"/content/silversea-com/en/other-resources/find-a-travel-agent/"
-														+ agency.getCountryIso3().toLowerCase());
+										Page agencyTravelContryPage = pageManager
+												.getPage(travelRootPage.getPath() + "/" +agency.getCountryIso3().toLowerCase());
 										if (agencyTravelContryPage == null) {
 											agencyTravelContryPage = pageManager.create(travelRootPage.getPath(),
 													JcrUtil.createValidChildName(travelRootPage.adaptTo(Node.class),
@@ -148,27 +141,6 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 													agency.getCountryIso3());
 										}
 
-										session.save();
-										if (!replicat
-												.getReplicationStatus(session, pageManager
-														.getPage(ImportersConstants.BASEPATH_TRAVEL_AGENCIES).getPath())
-												.isActivated()) {
-											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													resourceResolver
-															.getResource(ImportersConstants.BASEPATH_TRAVEL_AGENCIES)
-															.getPath());
-										}
-										try {
-											if (!replicat
-													.getReplicationStatus(session, agencyTravelContryPage.getPath())
-													.isActivated()) {
-												replicat.replicate(session, ReplicationActionType.ACTIVATE,
-														agencyTravelContryPage.getPath());
-											}
-										} catch (ReplicationException e) {
-											e.printStackTrace();
-										}
-
 										if (agencyTravelContryPage != null) {
 											agencyTravelPage = pageManager.create(agencyTravelContryPage.getPath(),
 													JcrUtil.createValidChildName(
@@ -178,7 +150,8 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 													TemplateConstants.PATH_TRAVEL_AGENCY,
 													StringHelper.getFormatWithoutSpecialCharcters(agency.getAgency()),
 													false);
-											LOGGER.debug("create a  travel agency  page : {} for language : {}", agency.getAgency(),loc);
+											LOGGER.debug("create a  travel agency  page : {} for language : {}",
+													agency.getAgency(), loc);
 										}
 									}
 
@@ -199,20 +172,11 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 										agencyContentNode.setProperty("longitude", agency.getLon());
 										succesNumber = succesNumber + 1;
 										j++;
-										LOGGER.debug("update a  travel agency  page : {} for language : {}", agency.getAgency() , loc);
-
-										try {
-											session.save();
-											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													agencyTravelPage.getPath());
-											LOGGER.debug("replication of travel agency  page : {} for language : {}", agency.getAgency(), loc);
-										} catch (RepositoryException e) {
-											LOGGER.debug("replication error of travel agency  page : {} for language : {}",
-													agency.getAgency(), loc);
-											session.refresh(true);
-										}
+										LOGGER.debug("update a  travel agency  page : {} for language : {}",
+												agency.getAgency(), loc);
 
 									}
+									// session.save();
 
 									if (j % sessionRefresh == 0) {
 										if (session.hasPendingChanges()) {

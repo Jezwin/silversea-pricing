@@ -59,7 +59,7 @@ public class DiningVariationAssetUse extends WCMUsePojo {
         }
     }
 
-    /* TODO replace by dynamic media */
+    // TODO replace by dynamic media
     public List<String> getThumbnailsPathList(SlingHttpServletRequest request) {
 
         List<String> list = new ArrayList<String>();

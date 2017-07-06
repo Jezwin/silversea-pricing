@@ -23,7 +23,6 @@ import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
-
 @Deprecated
 public class BaseImporter {
 
@@ -47,9 +46,7 @@ public class BaseImporter {
         Header wwwAuthenticateHeader = get.getResponseHeader("WWW-Authenticate");
 
         if (wwwAuthenticateHeader != null) {
-            DigestAuthenticationInfos digestAuthenticationInfos = new DigestAuthenticationInfos(
-                    wwwAuthenticateHeader.getValue());
-            // TODO remove de if else
+            DigestAuthenticationInfos digestAuthenticationInfos = new DigestAuthenticationInfos(wwwAuthenticateHeader.getValue());
             if (login != null && password != null) {
                 digestAuthenticationInfos.setCredentials(login, password);
             } else {

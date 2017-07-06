@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services;
 
 import com.silversea.aem.importers.services.impl.ImportResult;
+import org.apache.sling.commons.json.JSONObject;
 
 /**
  * @author aurelienolivier
@@ -24,4 +25,16 @@ public interface CitiesImporter {
      * @param cityId the city ID of the city to import
      */
     void importOneCity(final String cityId);
+
+    /**
+     * Get JSON object containing the mapping between city id and path
+     *
+     * @return a JSON object with id/path mapping
+     */
+    JSONObject getCitiesMapping();
+
+    /**
+     * Update cities informations after import (update thumbnail and add image set)
+     */
+    void updateCitiesAfterMigration();
 }

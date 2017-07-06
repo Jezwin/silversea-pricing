@@ -13,15 +13,17 @@ import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 
 public class ButtonUse extends WCMUsePojo {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ButtonUse.class);
+
     private List<Button> callToActionList;
 
     @Override
     public void activate() throws Exception {
         final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        String[] callToActions = properties.getInherited("callToActions", String[].class);
-        if (callToActions != null) {
+        final String[] callToActions = properties.getInherited("callToActions", String[].class);
 
+        if (callToActions != null) {
             String title, titleTablet, reference, color, analyticType, size;
             JSONObject json;
             callToActionList = new ArrayList<>();
@@ -30,12 +32,13 @@ public class ButtonUse extends WCMUsePojo {
                 for (String button : callToActions) {
                     json = new JSONObject(button);
 
-                    title = json.getString("title");
-                    titleTablet = json.getString("titleTablet");
-                    reference = json.getString("reference");
-                    color = json.getString("color");
-                    analyticType = json.getString("analyticType");
-                    size = json.getString("size");
+                    title = json.optString("title");
+                    titleTablet = json.optString("titleTablet");
+                    reference = json.optString("reference");
+                    color = json.optString("color");
+                    analyticType = json.optString("analyticType");
+                    size = json.optString("size");
+
                     Button buttonObj = new Button(title, titleTablet, reference, color, analyticType, size);
                     callToActionList.add(buttonObj);
                 }

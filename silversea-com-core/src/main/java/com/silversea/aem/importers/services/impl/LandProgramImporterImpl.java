@@ -40,6 +40,7 @@ import java.util.Map;
 public class LandProgramImporterImpl implements LandProgramImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramImporterImpl.class);
+    static final private String NN_LAND_PROGRAMS = "land-programs";
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
@@ -124,10 +125,10 @@ public class LandProgramImporterImpl implements LandProgramImporter {
 
                             // Creating subpage "land-programs" if not present
                             Page landProgramsPage;
-                            if (portPage.hasChild("land-programs")) {
-                                landProgramsPage = pageManager.getPage(portPage.getPath() + "/land-programs");
+                            if (portPage.hasChild(NN_LAND_PROGRAMS)) {
+                                landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + NN_LAND_PROGRAMS);
                             } else {
-                                landProgramsPage = pageManager.create(portPage.getPath(), "land-programs",
+                                landProgramsPage = pageManager.create(portPage.getPath(), NN_LAND_PROGRAMS,
                                         "/apps/silversea/silversea-com/templates/page", "Land Programs", false);
 
                                 LOGGER.trace("{} page is not existing, creating it", landProgramsPage.getPath());

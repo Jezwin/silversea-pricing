@@ -16,6 +16,7 @@ import com.day.cq.wcm.api.Page;
 /**
  * Created by mbennabi on 17/02/2017.
  */
+@Deprecated
 @Model(adaptables = Page.class)
 public class JournalListDaysModel {
 
