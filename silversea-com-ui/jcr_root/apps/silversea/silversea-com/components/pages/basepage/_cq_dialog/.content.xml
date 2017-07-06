@@ -214,15 +214,6 @@
 													fieldLabel="Alias"
 													name="./sling:alias"
 													renderReadOnly="{Boolean}true"/>
-											<errorpages
-													jcr:primaryType="nt:unstructured"
-													sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-													fieldDescription="Error pages for this content tree"
-													cq-msm-lockable="errorPages"
-													fieldLabel="Error Pages"
-													renderReadOnly="{Boolean}true"
-													name="./errorPages"
-													rootPath="/content/silversea-com" />
 										</items>
 									</section1>
 									<templates
