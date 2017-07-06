@@ -141,8 +141,6 @@ public class MigrationUtils {
 
                                     // Creating image set
                                     Map<String, Object> setProperties = new HashMap<>();
-                                    setProperties.put("dc:title", childContentProperties.get(JcrConstants.JCR_TITLE, page.getName()));
-
                                     final ImageSet s7ImageSet = S7SetHelper.createS7ImageSet(folder, setName, setProperties);
 
                                     for (final String assetInitialPath : assetReferencesValues) {
@@ -156,6 +154,15 @@ public class MigrationUtils {
 
                                                 if (asset != null) {
                                                     s7ImageSet.add(asset);
+
+                                                    final Resource setMetadata = s7ImageSet.getChild("jcr:content/metadata");
+                                                    if (setMetadata != null) {
+                                                        final Node setMetadataNode = setMetadata.adaptTo(Node.class);
+
+                                                        if (setMetadataNode != null) {
+                                                            setMetadataNode.setProperty("dc:title", setName);
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
