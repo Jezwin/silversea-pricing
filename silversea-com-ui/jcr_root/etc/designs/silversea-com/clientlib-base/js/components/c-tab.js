@@ -1,16 +1,40 @@
 +function($) {
-    'use strict';
+   'use strict';
 
     $.fn.cTab = function() {
         this.each(function(){
             var _self = $(this),
             _data = {
                 link : '.c-tab__link',
-                content : '.c-tab__content'
+                content : '.c-tab__content',
+                nav : '.c-tab__link'                
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
+            _orphan_link = $('.c-cruise__descr a.bound'),
             _contents = _self.find('.c-tab__body').first().children(_data.content);
+			
+            /*
+             * * Orphan Link Click Event to show content
+             */
+            _orphan_link.click(function(e) {
+                e.preventDefault();
+                              
+                var id = $(this).attr('href');
 
+                $(_contents).removeAttr('data-state', null);
+                $(_links).removeAttr('data-state', null);
+               
+                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
+                
+                $(_data.nav).each(function(){
+                 	var that = $(this);
+                 	if(that.find('a').attr('href') == id)
+                 		that.attr('data-state', 'active');                 	
+                 	
+                 });                               
+
+            });		
+            	
             /*
              * * Link Click Event to show content
              */
