@@ -1,0 +1,18 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Brochure thank you component"></div>
+<div class="c-brochure row" data-sly-use.brochure="com.silversea.aem.components.editorial.BrochureThankYouUse">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 c-brochure__thankyou">
+        <img class="o-img" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}" />
+        <h2 class="c-brochure__title">${brochure.brochure.assetTitle}</h2>
+        <p class="c-brochure__description">${brochure.brochure.assetDescription}</p>
+        <a data-sly-test="${brochure.brochure.onlineBrochureUrl}" href="${brochure.brochure.onlineBrochureUrl}" target="_blank" class="btn btn-dark effect">
+            ${'view-online' @i18n} <i class="fa fa-lg fa-angle-right"></i>
+        </a>
+    
+        <div data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path='/content/silversea-com/en/call_a_request'}">
+            <a href="${'/content/silversea-com/en/call_a_request' @ extension='html', selectors='modalcontent'}" class="btn btn-red effect btn-block btn-lg" type="button" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                <strong>${'request-a-call' @i18n}</strong>
+                <i class="fa fa-caret-right"></i>
+            </a>
+        </div>
+    </div>
+</div>

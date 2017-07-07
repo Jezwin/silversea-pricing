@@ -8,6 +8,9 @@
       action="${refPath @ extension='html', selectors='modalcontent'}"
       data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
       data-disable="false">
+
+    <input name="requestsource" type="hidden" value="SFO" />
+
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">
@@ -25,8 +28,8 @@
                    data-error="${'incorrect-email-address' @ i18n}" required />
         </div>
         <div class="col-xs-3">
-            <button class="btn btn-default pull-right c-btn--lg" type="submit">
-                ${'sign-up' @ i18n}
+            <button class="btn  btn-default pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO">
+                ${'sign-up-button' @ i18n}
                 <i class="fa fa-lg fa-angle-right"></i>
             </button>
         </div>

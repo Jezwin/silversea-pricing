@@ -25,16 +25,15 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.components.beans.PriceData;
+import com.silversea.aem.components.beans.LowestPrice;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.CruiseService;
 import com.silversea.aem.importers.services.CruisesUpdateImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
-import com.silversea.aem.services.CruiseService;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyageSpecialOffer;
@@ -44,13 +43,13 @@ import io.swagger.client.model.VoyageSpecialOffer;
 public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruisesUpdateImporterImpl.class);
-    
+
     @Reference
     private CruiseService cruiseService;
-    
+
     @Reference
     private ApiCallService apiCallService;
-    
+
     @Reference
     private ApiConfigurationService apiConfig;
 
@@ -58,40 +57,40 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
     private ResourceResolverFactory resourceResolverFactory;
 
     @Reference
-    Replicator replicator;
+    private Replicator replicator;
 
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     private Session session;
 
     private List<VoyagePriceComplete> voyagePricesComplete;
-    private Map<String, PriceData> lowestPrices;
+    private LowestPrice lowestPrice;
 
     private void init() {
         try {
-            resourceResolver = resourceResolverFactory.getAdministrativeResourceResolver(null);
-            pageManager = resourceResolver.adaptTo(PageManager.class);
+            Map<String, Object> authenticationPrams = new HashMap<String, Object>();
+            authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);            pageManager = resourceResolver.adaptTo(PageManager.class);
             session = resourceResolver.adaptTo(Session.class);
             cruiseService.init();
         } catch (LoginException e) {
-            LOGGER.debug("Cruise importer -- login exception ", e);
+            LOGGER.debug("Cruise update importer -- login exception ", e);
         }
     }
 
     @Override
-    public void loadData() throws IOException {
+    public void importData() throws IOException {
         try {
             init();
             voyagePricesComplete = new ArrayList<VoyagePriceComplete>();
             List<Voyage77> voyages;
             int index = 1;
-            VoyagesApi voyageApi = new VoyagesApi();
             Page destinationPage = pageManager
                     .getPage(apiConfig.apiRootPath(ImportersConstants.CRUISES_DESTINATIONS_URL_KEY));
-            String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage);
-            LOGGER.debug("Cruise importer -- Start import data");
+            String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage,"lastModificationDate");
+            LOGGER.debug("Cruise update importer -- Start import data");
             do {
-                voyages = apiCallService.getChangedVoyages(index,voyageApi, lastModificationDate);
+                voyages = apiCallService.getChangedVoyages(index, lastModificationDate);
                 processData(voyages); 
                 index++;
             } while (voyages!=null && !voyages.isEmpty());
@@ -100,7 +99,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             ImporterUtils.saveUpdateDate(destinationPage);
             ImporterUtils.saveSession(session, false);
 
-            LOGGER.debug("Cruise importer -- Importing data finished");
+            LOGGER.debug("Cruise update importer -- Importing data finished");
 
         } catch (ApiException | WCMException | RepositoryException e) {
             LOGGER.error("Exception importing cruises", e);
@@ -116,14 +115,15 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
         if(voyages != null && !voyages.isEmpty()){
             for (Voyage77 voyage : voyages) {
                 if(voyage != null){
-                    LOGGER.debug("Cruise importer -- Start import cruise with id {}",voyage.getVoyageId());
+                    LOGGER.debug("Cruise update importer -- Start import cruise with id {}",voyage.getVoyageId());
                     // retrieve cruises root page dynamically
                     Page destinationPage = cruiseService.getDestination(voyage.getDestinationId());
 
                     if (destinationPage != null) {
-                        // Instantiate new hashMap which will contains
+                        // Instantiate new lowest price
                         // lowest prices for the cruise
-                        lowestPrices = new HashMap<String, PriceData>();
+                        lowestPrice = new LowestPrice();
+                        lowestPrice.initGlobalPrices();
 
                         Page cruisePage = cruiseService.getCruisePage(destinationPage,voyage.getVoyageId(),voyage.getVoyageName());
 
@@ -134,24 +134,24 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
                         cruiseService.buildOrUpdateIteneraries(cruisePage, voyage.getVoyageId(),voyage.getVoyageUrl());
                         // Create or update suites nodes
                         ImporterUtils.clean(cruisePage,ImportersConstants.SUITES_NODE,session);
-                        cruiseService.buildOrUpdateSuiteNodes(cruisePage, voyage.getVoyageId(),voyage.getShipId(),voyagePricesComplete);
+                        cruiseService.buildOrUpdateSuiteNodes(lowestPrice,cruisePage,voyage.getVoyageId(),voyage.getShipId(),voyagePricesComplete);
                         // Create or update lowest prices
                         ImporterUtils.clean(cruisePage,ImportersConstants.LOWEST_PRICES_NODE,session);
-                        cruiseService.buildLowestPrices(cruisePage.adaptTo(Node.class), lowestPrices);
+                        cruiseService.buildLowestPrices(cruisePage.adaptTo(Node.class), lowestPrice.getGlobalPrices());
                         //Persist data
                         ImporterUtils.saveSession(session, false);
                         //Replication management
                         cruiseService.updateReplicationStatus(voyage.getIsDeleted(), voyage.getIsVisible(), cruisePage);
 
-                        LOGGER.debug("Cruise importer -- Import cruise with id {} finished",voyage.getVoyageId());
+                        LOGGER.debug("Cruise update importer -- Import cruise with id {} finished",voyage.getVoyageId());
                     } else {
-                        LOGGER.debug("Cruise importer -- Error destination with id {} not found", voyage.getDestinationId());
+                        LOGGER.error("Cruise update importer -- Error destination with id {} not found", voyage.getDestinationId());
                     }
                 }
             }
         }
         else {
-            LOGGER.debug("Cruise importer -- List cruises is empty");
+            LOGGER.warn("Cruise update importer -- List cruises is empty");
         }
     }
 
@@ -161,21 +161,27 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
         List<VoyageSpecialOffer> voyageSpecialOffers = apiCallService.getVoyageSpecialOffers(voyage.getVoyageId());
         Node cruisePageContentNode = cruisePage.getContentResource().adaptTo(Node.class);
         cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
-
-        cruiseService.setCruiseTags(voyage.getFeatures(),voyage.getVoyageId(),voyage.getIsExpedition(), cruisePage);
+        //set cruise's tags
+        cruiseService.setCruiseTags(voyage.getFeatures(),voyage.getVoyageId(),voyage.getIsExpedition(),voyage.getDays(), cruisePage);
+        String durationCategory = cruiseService.calculateDurationCategory(voyage.getDays());
+        String mapUrl = cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName());
+        String[] specialOffers = cruiseService.findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId());
+        String shipReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
+                Objects.toString(voyage.getShipId()), resourceResolver);
         // Update node properties
         cruisePageContentNode.setProperty("voyageHighlights", voyage.getVoyageHighlights());
-        cruisePageContentNode.setProperty("exclusiveOffers",
-                cruiseService.findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId()));
-        cruisePageContentNode.setProperty("startDate", voyage.getArriveDate().toString());
-        cruisePageContentNode.setProperty("endDate", voyage.getDepartDate().toString());
+        cruisePageContentNode.setProperty("exclusiveOffers", specialOffers);
+        cruisePageContentNode.setProperty("startDate", ImporterUtils.convertToCalendar(voyage.getDepartDate()));
+        cruisePageContentNode.setProperty("endDate", ImporterUtils.convertToCalendar(voyage.getArriveDate()));
         cruisePageContentNode.setProperty("duration", voyage.getDays());
-        cruisePageContentNode.setProperty("shipReference", ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
-                Objects.toString(voyage.getShipId()), resourceResolver));
+        cruisePageContentNode.setProperty("shipReference",shipReference);
         cruisePageContentNode.setProperty("cruiseCode", voyage.getVoyageCod());
         cruisePageContentNode.setProperty("cruiseId", voyage.getVoyageId());
-        cruisePageContentNode.setProperty("itinerary",
-                cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName()));
-
+        cruisePageContentNode.setProperty("itinerary",mapUrl);
+        //All properties prefixed by cmp(computed data) are used by search service
+        cruisePageContentNode.setProperty("cmp-destinationId", voyage.getDestinationId());
+        cruisePageContentNode.setProperty("cmp-ship", voyage.getShipId());
+        cruisePageContentNode.setProperty("cmp-duration",durationCategory);
+        cruisePageContentNode.setProperty("cmp-date",ImporterUtils.formatDateForSeach(voyage.getDepartDate()));
     }
 }

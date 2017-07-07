@@ -2,23 +2,23 @@ package com.silversea.aem.components.beans;
 
 public class Duration {
     
-    int hours;
-    int minutes;
+    double hours;
+    double minutes;
     
     public Duration(){
         
     }
     
-    public int getHours() {
+    public double getHours() {
         return hours;
     }
-    public void setHours(int hours) {
+    public void setHours(double hours) {
         this.hours = hours;
     }
-    public int getMinutes() {
+    public double getMinutes() {
         return minutes;
     }
-    public void setMinutes(int minutes) {
+    public void setMinutes(double minutes) {
         this.minutes = minutes;
     }
 }

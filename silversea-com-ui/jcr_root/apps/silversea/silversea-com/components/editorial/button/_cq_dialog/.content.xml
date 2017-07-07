@@ -86,6 +86,26 @@
                                         value="btn-lg" />
                                 </items>
                             </size>
+                            <textalign
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Button align"
+                                name="./textalign">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="left"
+                                        value="text-left" />
+                                    <center
+                                        jcr:primaryType="nt:unstructured"
+                                        text="center"
+                                        value="text-center" />
+                                    <right
+                                        jcr:primaryType="nt:unstructured"
+                                        text="right"
+                                        value="text-right" />
+                                </items>
+                            </textalign>
                             <analyticType
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/select"

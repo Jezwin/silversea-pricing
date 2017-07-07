@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ suite }">
+<template data-sly-template.default="${ @ suite, requestQuotePath }">
     <div class="row c-tab__content--description__row">
         <div class="col-sm-6">
             <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
@@ -24,7 +24,7 @@
                     </span>
                     
                 </p>
-                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="#" data-sscclicktype="RAQ">
+                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${requestQuotePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=suite.page.path}" data-sscclicktype="clic-RAQ">
                     <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                 </a>
             </div>

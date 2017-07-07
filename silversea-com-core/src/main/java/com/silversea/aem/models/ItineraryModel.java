@@ -6,13 +6,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +27,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
@@ -51,6 +52,7 @@ public class ItineraryModel {
 
     private ResourceResolver resourceResolver;
     private TagManager tagManager;
+    private PageManager pageManager;
     
     @Inject
     private GeolocationTagService geolocationTagService;
@@ -60,6 +62,7 @@ public class ItineraryModel {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
             tagManager = resourceResolver.adaptTo(TagManager.class);
+            pageManager= resourceResolver.adaptTo(PageManager.class);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
             description = initDescription();
             country = initCountry();
@@ -107,27 +110,30 @@ public class ItineraryModel {
             String callBack) {
         List<T> list = new ArrayList<T>();
         try {
-            Node root = itineraryNode.getNode(rootNode);
-            NodeIterator rootNodes = root.getNodes();
-            if (rootNodes != null && rootNodes.hasNext()) {
-                while (rootNodes.hasNext()) {
-                    Node node = rootNodes.nextNode();
-                    String path = Objects.toString(node.getProperty(reference).getValue());
+            Resource r = resourceResolver.resolve(itineraryNode.getPath()+"/"+rootNode);
+            Iterator<Resource> children = r.listChildren();
+            if (children != null && children.hasNext()) {
+                while (children.hasNext()) {
+                    Resource node = children.next();
+                    String path = Objects.toString(node.getValueMap().get(reference));
                     if (!StringUtils.isEmpty(path)) {
-                        Resource resource = resourceResolver.resolve(path);
-                        if(resource!= null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)  ){
-                            Page pa = resource.adaptTo(Page.class);
-                            T model = pa.adaptTo(modelClass);
-                            callback(model, node, callBack, Node.class);
+                        Page page = pageManager.getPage(path);
+                        if(page != null){
+                            T model = page.adaptTo(modelClass);
+                            callback(model, node, callBack, Resource.class);
                             list.add(model);
+                        }
+                        else{
+                            LOGGER.debug("Page reference {} not found",path);
                         }
                     }
                     else{
-                        LOGGER.warn("Page reference {} not found",path);
-                    } 
+                        LOGGER.debug("Property  {} is empty",reference);
+                    }
                 }
             }
-        } catch (RepositoryException e) {
+        } 
+        catch (RepositoryException e) {
             LOGGER.error("Error while initializing models", e);
         }
         return list;

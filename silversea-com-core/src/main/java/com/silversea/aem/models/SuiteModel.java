@@ -24,6 +24,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.enums.Currency;
@@ -88,17 +89,19 @@ public class SuiteModel extends AbstractModel{
     private ResourceResolver resourceResolver;
 
     private TagManager tagManager;
+    private PageManager pageManager;
 
     @PostConstruct
     private void init() {
         try{
             resourceResolver = page.getContentResource().getResourceResolver();
+            pageManager = resourceResolver.adaptTo(PageManager.class);
             tagManager = resourceResolver.adaptTo(TagManager.class);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
             suiteSubTitle = parseText(page, "suiteSubTitle");
-            title = initPropertyWithFallBack(page,"suiteReference", title, "title",resourceResolver);
-            longDescription = initPropertyWithFallBack(page,"suiteReference", longDescription, "longDescription",resourceResolver);
-            assetSelectionReference = initPropertyWithFallBack(page,"suiteReference", assetSelectionReference, "assetSelectionReference",resourceResolver);
+            title = initPropertyWithFallBack(page,"suiteReference", title, "title",pageManager);
+            longDescription = initPropertyWithFallBack(page,"suiteReference", longDescription, "longDescription",pageManager);
+            assetSelectionReference = initPropertyWithFallBack(page,"suiteReference", assetSelectionReference, "assetSelectionReference",pageManager);
         }catch(RuntimeException e){
             LOGGER.error("Error while initializing model {}",e);
         }
@@ -115,7 +118,7 @@ public class SuiteModel extends AbstractModel{
             if (variationNodes != null && variationNodes.hasNext()) {
                 while (variationNodes.hasNext()) {
                     Node node = variationNodes.nextNode();
-                    if (!StringUtils.equals(node.getName(), "lowest-price")) {
+                    if (!StringUtils.equals(node.getName(), "lowest-prices")) {
                         PriceData price = getPrice(node, geoMarketCode);
                         String name = Objects.toString(node.getProperty("suiteCategoryCod").getValue());
                         SuiteVariation suiteVariation = new SuiteVariation();
@@ -165,7 +168,6 @@ public class SuiteModel extends AbstractModel{
                     Value[] tags = node.getProperty("cq:tags").getValues();
                     Currency currency = getCurrencyByMarKetCode(geoMarketCode);
                     String suitePriceCurrency = Objects.toString(node.getProperty("currency").getValue());
-                    // TODO
                     Tag tag = tagManager.resolve(tags[0].getString());
                     if (StringUtils.equals(geoMarketCode, tag.getTitle())
                             && StringUtils.equals(suitePriceCurrency, currency.getValue())) {

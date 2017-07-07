@@ -37,7 +37,7 @@
                                     fieldLabel="Request a quote"
                                     renderReadOnly="{Boolean}true"
                                     name="./raqReference"
-                                    rootPath="/content/dam/"/>
+                                    rootPath="/content/dam/silversea-com"/>
                             <cruises
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/form/pathbrowser"

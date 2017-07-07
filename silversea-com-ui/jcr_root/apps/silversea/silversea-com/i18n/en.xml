@@ -23,6 +23,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="arrive"
         sling:message="Arrive" />
+    <award-label
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="award-label"
+        sling:message="Silversea is regularly lauded by leading consumer and trade publications" />
     <benefits-and-events
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events"
@@ -35,6 +39,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="benefits-and-events-description"
         sling:message="In addition to our all-inclusive fares, you will enjoy exclusive attention and services reserved for our World Cruise 2019 guests. An impressive array of value-added benefits and exclusive cultural events all designed to make this truly a voyage of a lifetime." />
+    <blog
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="blog"
+        sling:message="Our blog" />
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"
@@ -43,6 +51,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="by"
         sling:message="By" />
+    <call-reservations-team-1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-1"
+        sling:message="Call our Reservations Team" />
+    <call-reservations-team-2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="call-reservations-team-2"
+        sling:message="or contact your travel agent" />
     <click-to-call
         jcr:primaryType="sling:MessageEntry"
         sling:key="click-to-call"
@@ -55,10 +71,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="code"
         sling:message="code" />
+    <combocruise-suite-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="combocruise-suite-description"
+        sling:message="Broad decks, panoramic lounges, gourmet dining options and all-suite accommodations ensure the most comfortable journey. Along with the incomparable luxury that has made Silversea the preferred choice for today’s discerning travellers." />
     <coordinates
         jcr:primaryType="sling:MessageEntry"
         sling:key="coordinates"
         sling:message="Coordinates" />
+    <copyright
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="copyright"
+        sling:message="Silversea Cruises Ltd." />
     <countries
         jcr:primaryType="sling:MessageEntry"
         sling:key="countries"
@@ -131,6 +155,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursions"
         sling:message="Excursions" />
+    <exclusive-offer-not-available
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="exclusive-offer-not-available"
+        sling:message="This exclusive offer is not available in your country." />
+    <exclusive-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="exclusive-offers"
+        sling:message="Exclusive Offers" />
     <excursion-s
         jcr:primaryType="sling:MessageEntry"
         sling:key="excursion-s"
@@ -247,6 +279,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="more"
         sling:message="More" />
+    <my-silversea
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="my-silversea"
+        sling:message="My Silversea" />
     <next
         jcr:primaryType="sling:MessageEntry"
         sling:key="next"
@@ -275,6 +311,22 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="per-guest"
         sling:message="Per guest" />
+    <port-search-alphabetically
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-search-alphabetically"
+        sling:message="search alphabetically" />
+    <port-results
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-results"
+        sling:message="results" />
+    <port-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-name"
+        sling:message="port name" />
+    <port-country
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="port-country"
+        sling:message="country" />
     <pre-post-hotels
         jcr:primaryType="sling:MessageEntry"
         sling:key="pre-post-hotels"
@@ -307,18 +359,78 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-or-download"
         sling:message="Request or download" />
+    <request-a-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-a-brochure"
+        sling:message="Request a brochure" />
     <required-email-address
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email-address"
         sling:message="Email address is required" />
+    <incorrect-email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="incorrect-email-address"
+        sling:message="Incorrect Email Address" />
+    <required-title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-title"
+        sling:message="Please enter your title" />
     <required-lastname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-lastname"
-        sling:message="Lastname is required" />
+        sling:message="Please enter your last name" />
     <required-firstname
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-firstname"
-        sling:message="Firstname is required" />
+        sling:message="Please enter your first name" />
+    <required-phone-number
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-phone-number"
+        sling:message="Please enter your phone number" />
+    <check-phone-format
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="check-phone-format"
+        sling:message="Please check the phone format" />
+    <required-postal-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-code"
+        sling:message="Please enter your postal code" />
+    <required-postal-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-address"
+        sling:message="Please enter your postal address" />
+    <required-postal-code-and-city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-postal-code-and-city"
+        sling:message="Please enter your postal code and city" />
+    <required-city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-city"
+        sling:message="Please enter your city" />
+    <required-state
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-state"
+        sling:message="Please enter your state" />
+    <required-fields
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="required-fields"
+        sling:message="Required fields" />
+    <receive-emails-with-news
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="receive-emails-with-news"
+        sling:message="Yes! I would like to receive emails with news and special offers from Silversea." />
+    <i-m-currently-booked
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="i-m-currently-booked"
+        sling:message="I am currently booked on a Silversea cruise" />
+    <i-am-not-a-travel-agent
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="i-am-not-a-travel-agent"
+        sling:message="I am not a travel agent" />
+    <sign-up-for-offers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up-for-offers"
+        sling:message="Sign up for offers and news" />
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
@@ -355,6 +467,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="sign-up"
         sling:message="Sign up" />
+    <sign-up-button
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="sign-up-button"
+        sling:message="Sign up" />
+    <suite
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite"
+        sling:message="Suite" />
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
@@ -419,6 +539,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-email-address"
         sling:message="Your email address" />
+    <email-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="email-address"
+        sling:message="Email address" />
+    <first-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="first-name"
+        sling:message="First name" />
+    <last-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="last-name"
+        sling:message="Last name" />
     <ship
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
@@ -471,6 +603,38 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote" />
+    <request-a-call
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-a-call"
+        sling:message="request a call" />
+    <get-our-free-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="get-our-free-brochures"
+        sling:message="Get our free brochures" />
+    <view-our-free-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-our-free-brochures"
+        sling:message="View our free brochures" />
+    <country-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="country-code"
+        sling:message="Country code" />
+    <postal-code
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="postal-code"
+        sling:message="Postal code" />
+    <postal-address
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="postal-address"
+        sling:message="Postal address" />
+    <city
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="city"
+        sling:message="City" />
+    <country
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="country"
+        sling:message="Country" />
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"
@@ -527,6 +691,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights"
         sling:message="voyage highlights" />
+    <voyage-highlights-introduction
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="voyage-highlights-introduction"
+        sling:message="Your expedition will lead to one discovery after another. A complimentary programme of unique, small-group shore experiences, led by team of expert guides and lectures, allows you to fully experience the lands you'll visit." />
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
@@ -651,10 +819,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants-public-areas-descr"
         sling:message="Your time on board will be time well-spent. Discover the dining options where you'll savour culinary excellence, and the exciting venues where you'll mingle with international travellers while enjoying our all-inclusive lifestyle." />
-    <suites-descr
+    <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
-        sling:key="restaurants-public-areas-descr"
-        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler." />7*
+        sling:key="cruise-suites-and-fares-descr"
+        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite" />
     <cruise-itinerary
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary"

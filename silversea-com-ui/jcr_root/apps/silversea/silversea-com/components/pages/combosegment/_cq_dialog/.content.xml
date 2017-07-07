@@ -51,7 +51,7 @@
                                         fieldLabel="Itinerary map"
                                         renderReadOnly="{Boolean}true"
                                         name="./mapReference"
-                                        rootPath="/content/silversea-com" />
+                                        rootPath="/content/dam/silversea-com" />
                                     <itineraryFocusMap
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -60,7 +60,7 @@
                                         fieldLabel="Itinerary focused map"
                                         renderReadOnly="{Boolean}true"
                                         name="./focusedMapReference"
-                                        rootPath="/content/silversea-com" />
+                                        rootPath="/content/dam/silversea-com" />
                                 </items>
                             </column>
                         </items>

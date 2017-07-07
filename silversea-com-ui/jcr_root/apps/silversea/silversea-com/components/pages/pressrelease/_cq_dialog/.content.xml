@@ -60,7 +60,7 @@
                                         cq-msm-lockable="assetSelectionReference"
                                         fieldLabel="Slider image"
                                         renderReadOnly="{Boolean}true"
-                                        rootPath="/content/dam/siversea-com"
+                                        rootPath="/content/dam/silversea-com"
                                         name="./assetSelectionReference" />
                                 </items>
                             </column>

@@ -1,6 +1,5 @@
 package com.silversea.aem.servlets;
 
-
 import javax.servlet.ServletException;
 
 import org.apache.felix.scr.annotations.Reference;
@@ -23,16 +22,14 @@ public class LeadServlet extends ScServlet {
 
     @Reference
     private LeadService leadService;
-    
-    
-    protected final void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
-            throws ServletException {
-        //Retrieve body content from request
+
+    protected final void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws ServletException {
+        // Retrieve body content from request
         String body = getBodyFromRequest(request);
-        LOGGER.debug("Lead service request {}",body);
+        LOGGER.debug("Lead service request {}", body);
         Lead lead = JsonMapper.getDomainObject(body, Lead.class);
         String leadResponse = leadService.sendLead(lead);
-        LOGGER.debug("Lead service response {}",response);
+        LOGGER.debug("Lead service response {}", response);
         writeDomainObject(response, leadResponse);
     }
 }

@@ -1,20 +1,43 @@
 $(function() {
+    'use strict';
+    $('.modal').on('shown.bs.modal', function(event) {
+        event.preventDefault();
 
-    $('.modal').on('shown.bs.modal', function ()
-    {
+        $(this).find('.c-signupforoffer').each(function() {
+            var $signUpForm = $(this);
 
-        console.log('--->', this, $(this).find('.chosen'));
-//      $(".chosen").chosen();
-        $(this).find('.chosen').chosen();
+            // Call plugin to custom check box look and feel
+            $signUpForm.find('.custom-checkbox').iCheck({
+                checkboxClass : 'icheckbox_minimal',
+            });
 
-      var opt = {
-        feedback: {
-          success: 'success',
-          error: 'error'
-        }
-      };
+            // Autocomplete form with data from cookie
+            var userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+            if (userInfo) {
+                $signUpForm.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
+                $signUpForm.find('[name="firstname"]').val(userInfo.firstname);
+                $signUpForm.find('[name="lastname"]').val(userInfo.lastname);
+                $signUpForm.find('[name="email"]').val(userInfo.email);
+            }
 
-      $('.c-formcookie').validator(opt);
+            // if( userInfo.isbooked == 1 ){
+            // $signUpForm.find('[name="isbooked"]').iCheck('check'); }
+
+            // Call plugin validator
+            $('.c-formcookie').validator({
+                focus : false,
+                feedback : {
+                    success : 'feedback-success',
+                    error : 'feedback-error'
+                }
+            }).on('submit', function(e) {
+                if (!e.isDefaultPrevented()) {
+                    $.signUp.signUpOffers(this, e);
+                }
+            });
+
+            // Call plugin after validator plugin
+            $('.chosen').chosen();
+        });
     });
-
 });

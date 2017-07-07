@@ -1,9 +1,9 @@
 $(function() {
     $(window).on('resize load', function() {
         var $col = $('.c-hero-banner__content');
-        var $row = $('.c-hero-banner__row');
+        var $row = $('.slick-active .c-hero-banner__row');
 
-        if ($col.length > 0) {
+        if ($col.length > 0 && $row.length) {
             var offsetLeft = $row.offset().left;
 
             if ($.viewportDetect() === 'sm' || $.viewportDetect() === 'md') {
@@ -31,8 +31,14 @@ $(function() {
 
         $imageBannerList.each(function() {
             var $image = $(this);
-            $image.closest('div[class*=__image]').css('background-image', 'url(' + $image.prop("currentSrc") + ')');
+            var src = $image.prop("currentSrc") || $image.prop("src");
+            $image.closest('div[class*=__image]').css('background-image', 'url(' + src + ')');
             $image.css('visibility', 'hidden');
         });
     }
+
+    // init Video after modal load
+    $('.modal').on('shown.bs.modal', function(event) {
+        $(this).find('.c-video').initVideo();
+    });
 });

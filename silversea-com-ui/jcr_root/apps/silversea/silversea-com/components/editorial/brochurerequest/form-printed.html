@@ -1,0 +1,121 @@
+<form  class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
+    <input name="requestsource" type="hidden" value="EBRO" />
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label>
+                <input class="custom-checkbox" type="checkbox" name="att01" value="true" checked="true">
+                ${'i-am-not-a-travel-agent' @ i18n}
+            </label>
+        </div>
+    </div>
+    
+    <div class="form-group form-group-lg has-feedback input--title">
+        <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
+            <option value="">${'Title*' @ i18n}</option>
+            <option value="Mr.">${'Mr.' @i18n}</option>
+            <option value="Mrs.">${'Mrs.' @ i18n}</option>
+            <option value="Miss">${'Miss' @ i18n}</option>
+            <option value="Ms.">${'Ms.' @ i18n}</option>
+            <option value="Dr.">${'Dr.' @ i18n}</option>
+            <option value="Sir">${'Sir' @ i18n}</option>
+            <option value="Lady">${'Lady' @ i18n}</option>
+            <option value="Prof.">${'Prof.' @ i18n}</option>
+            <option value="Lord">${'Lord' @ i18n}</option>
+        </select>
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+    
+    <div class="form-group form-group-lg has-feedback">
+        <input type="text" name="firstname" class="form-control" value="" placeholder="${'First Name*' @ i18n}" required data-error="${'required-firstname' @ i18n}" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+
+    <div class="form-group form-group-lg has-feedback">
+        <input type="text" name="lastname" class="form-control" value="" placeholder="${'Last Name*' @ i18n}" required  data-error="${'required-lastname' @ i18n}" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+    
+     <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
+        <div class="form-group form-group-lg has-feedback">
+            <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control" required
+            data-countrycodeformat=""
+            data-prepend-placeholder="${'Example' @ i18n}"
+            data-country-geolocalized="${helper.country || 'US'}"
+            data-required-error="${'required-phone-number' @ i18n}"
+            data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
+            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
+        </div>
+        <input type="hidden" name="phone" />
+        <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
+            <option value="">${'country-code' @ i18n}*</option>
+            <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
+        </select>
+    </div>
+    
+    <div class="form-group form-group-lg has-feedback">
+        <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        data-required-error="${'required-email-address' @ i18n}"
+        data-error="${'incorrect-email-address' @ i18n}" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors incorrect"></div>
+    </div>
+    
+    <div class="form-group form-group-lg has-feedback">
+        <input id="postalAddress" type="text" name="postaladdress" class="form-control" value="" placeholder="${'postal-address' @ i18n}*" required  data-error="${'required-postal-address' @ i18n}" />
+        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+    </div>
+    <div class="hideArea" style="display:none;">
+        <div class="form-group form-group-lg has-feedback">
+            <div class="" style="float: left; width:35%;">
+                <input type="text" name="postalcode" class="form-control" value="" placeholder="${'postal-code' @ i18n}*" required data-error="${'required-postal-code' @ i18n}"/>
+            </div>
+            <div class="" style="float: right; width:63%;">
+                <input type="text" name="city" class="form-control" value="" placeholder="${'city' @ i18n}*" required data-error="${'required-postal-code-and-city' @ i18n}" />
+            </div>
+            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group form-group-lg has-feedback input--state" style="width:50%; margin-top:15px;" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
+            <select name="country" class="form-control chosen chosen-with-search" required data-error="${'required-state' @ i18n}">
+                <option value="">${'country' @ i18n}*</option>
+                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" >${country.valueMap.name}</option>
+            </select>
+            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    
+    <div class="clearfix"></div>
+    <p class="small text-muted">* ${'required-fields' @ i18n}</p>
+    
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label>
+                <input class="custom-checkbox" type="checkbox" name="att02" value="true" checked="true">
+                ${'Yes! I would like to receive emails with news and special offers from Silversea.' @ i18n}
+            </label>
+        </div>
+    </div>
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label>
+                <input class="custom-checkbox" type="checkbox" name="isbooked">
+                ${'i-m-currently-booked' @ i18n}
+            </label>
+        </div>
+    </div>
+    
+     <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="clic-EBRO"><span>${'get-our-free-brochures' @ i18n}</span><i class="fa fa-caret-right"></i></button>
+        </div>
+    </div>
+    
+</form>

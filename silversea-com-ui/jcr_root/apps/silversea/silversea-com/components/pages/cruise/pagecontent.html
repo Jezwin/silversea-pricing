@@ -1,4 +1,5 @@
-<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}"
+    data-gallery-path="${currentNode.path @ extension='html', selectors='gallery'}">
     <div class="row">
         <div class="col-md-12">
             <sly data-sly-include="fragment/header.html" />
@@ -68,8 +69,4 @@
             </div>
         </div>
     </div>
-
-    <!--/* Photos and videos gallery modal */-->
-    <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/editorial/gallery/gallerytemplate.html"
-        data-sly-call="${galleryTemplate.galleryTab @ map=cruise.cruiseGallery}" />
 </div>

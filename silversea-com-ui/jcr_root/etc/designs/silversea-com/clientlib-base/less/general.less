@@ -89,6 +89,37 @@ a {
         }
     }
 }
+/*
+** Properties display
+*/
+.o-description{
+    li{
+        list-style-type: inherit;
+    }
+    a{
+        color: initial;
+        font-weight: 700;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+.destinationproperties .o-section{
+    li{
+        list-style-type: inherit;
+    }
+    a{
+        color: initial;
+        font-weight: 700;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
 
 /*
 ** Button
@@ -266,6 +297,18 @@ picture {
     }
 }
 
+.o-property-display {
+    .double-column {
+        @media screen and (min-width: @screen-md-min) {
+            column-count: 2;
+        }
+
+        picture {
+            margin-bottom: 20px;
+        }
+    }
+}
+
 /*
 * l- LAYOUT GRID AEM
 */
@@ -304,4 +347,20 @@ picture {
     position: fixed;
     width: 100%;
     z-index: 10;
+    background-color: rgba(0,0,0,.75);
+
+    &.editor {
+        position: inherit;
+
+        .floating-bar {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+
+.header-h6 {
+    font: 700 12px 'Open Sans',arial,helvetica,sans-serif;
+    text-transform: uppercase;
+    padding-bottom: 5px;
 }

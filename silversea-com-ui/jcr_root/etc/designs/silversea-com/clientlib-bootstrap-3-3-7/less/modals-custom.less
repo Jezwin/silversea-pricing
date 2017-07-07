@@ -32,17 +32,24 @@
 
 .modal-content {
     position: relative;
-    background-color: @modal-content-bg;
     background-clip: padding-box;
     outline: 0;
 
-    &--transparent {
-        background-color: transparent;
+    .modal-header, .modal-body {
+        background-color: @modal-content-bg;
     }
-    
+
+    &--transparent {
+        .modal-header, .modal-body {
+            background-color: transparent;
+        }
+    }
+
     &--gallery {
         .modal-header {
             padding: 0;
+            position: relative;
+            z-index: 2;
         }
     }
 }
@@ -117,7 +124,8 @@
         margin: 0 auto;
         top: 50%;
         transform: translate(0,-50%);
-        width: @modal-md;
+        width: 90%;
+        max-width: 1000px;
     }
 
     .modal-sm {

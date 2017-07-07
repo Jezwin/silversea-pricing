@@ -11,7 +11,7 @@
             <sly data-sly-call="${imageTemplate.default @ asset=item[4]}" />
         </div>
     </div>
-    <div class="c-cruise__item-expander">
+    <div class="c-cruise__item-expander" data-sly-test="${assetList.size > 5}">
         <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all' @ i18n}</span><i class="fa fa-angle-down"></i></a>
         <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
     </div>

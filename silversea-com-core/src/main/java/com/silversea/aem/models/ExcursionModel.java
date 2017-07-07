@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -90,14 +91,10 @@ public class ExcursionModel extends AbstractModel{
         }
     }
 
-    public void initialize(Node node) {
-        if (node != null) {
-            try {
-                schedule = Objects.toString(node.getProperty("plannedDepartureTime").getValue());
-                duration = formatDuration(Objects.toString(node.getProperty("duration").getValue()));
-            } catch (RepositoryException e) {
-                LOGGER.error("Exception while initializing properties", e);
-            }
+    public void initialize(Resource resource) {
+        if (resource != null) {
+                schedule = resource.getValueMap().get("plannedDepartureTime",String.class);
+                duration = formatDuration(resource.getValueMap().get("duration",String.class));         
         }
     }
 
@@ -105,9 +102,10 @@ public class ExcursionModel extends AbstractModel{
 
         Duration duration = null;
         if(durationMinutes != null && !durationMinutes.isEmpty()){
-            int t = Integer.parseInt(durationMinutes);
-            int hours = t / 60;
-            int minutes = t % 60;
+           
+            double t =  Double.parseDouble(durationMinutes);
+            double hours = t / 60;
+            double minutes = t % 60;
             duration = new Duration();
             duration.setHours(hours);
             duration.setMinutes(minutes);

@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface CruisesUpdateImporter {
     
-    void loadData() throws IOException;
+    void importData() throws IOException;
 }

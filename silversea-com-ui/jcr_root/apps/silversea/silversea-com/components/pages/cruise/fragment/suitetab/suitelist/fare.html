@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ variations, index }">
+<template data-sly-template.default="${ @ variations, index, requestQuotePath }">
     <h3 class="c-suitelist__collapse__title">${'select-your-suite-and-request-a-quote' @ i18n}</h3>
     <table class="table c-suitelist__suite-table">
         <caption>
@@ -21,7 +21,7 @@
                     <strong class="text-uppercase" data-sly-test="{!isWaitList}">${item.price.currency} ${item.price.value}</strong>
                 </td>
                 <td>
-                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="#" data-sscclicktype="RAQ">
+                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${requestQuotePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=item.name}" data-sscclicktype="clic-RAQ">
                         <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                     </a>
                 </td>

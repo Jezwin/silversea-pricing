@@ -1,0 +1,9 @@
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Point of interest"></div>
+<div class="c-poi" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="c-poi__image" data-sly-test.reference="${properties.fileReference}">
+        <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+    </div>
+    <div class="c-poi__content">
+        <div data-sly-unwrap="${!wcmmode.edit}" data-sly-resource="${'description' @ resourceType='silversea/silversea-com/components/editorial/text'}"></div>
+    </div>
+</div>

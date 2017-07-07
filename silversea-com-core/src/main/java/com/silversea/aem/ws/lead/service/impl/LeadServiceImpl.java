@@ -3,7 +3,10 @@ package com.silversea.aem.ws.lead.service.impl;
 import java.util.Dictionary;
 import java.util.Objects;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.apache.cxf.binding.soap.SoapBindingFactory;
+import org.apache.cxf.common.util.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
@@ -12,6 +15,7 @@ import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.osgi.service.component.ComponentContext;
 
 import com.silversea.aem.components.beans.Lead;
+import com.silversea.aem.utils.DateUtils;
 import com.silversea.aem.ws.LeadFromWeb03Soap;
 import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020Arguments;
 import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020ArgumentsResponse;
@@ -37,7 +41,7 @@ public class LeadServiceImpl implements LeadService {
     private String username;
 
     @Property(label = "Webservice Lead password", value = DEFAULT_PASSWORD)
-    private static final String PASSWORD = DEFAULT_PASSWORD;
+    private static final String PASSWORD = "password";
     private String password;
 
     @Activate
@@ -50,7 +54,7 @@ public class LeadServiceImpl implements LeadService {
         password = PropertiesUtil.toString(properties.get(PASSWORD), DEFAULT_PASSWORD);
     }
 
-    /**{@inheritDoc}}**/
+    /** {@inheritDoc}} **/
     @Override
     public String sendLead(Lead lead) {
 
@@ -71,16 +75,40 @@ public class LeadServiceImpl implements LeadService {
     }
 
     public void adaptLeadRequest(NewX0020MethodX0020WithX002052X0020Arguments request, Lead lead) {
+        request.setAtt02(lead.getRequestsource());
+
         request.setTitle(lead.getTitle());
         request.setNameFirst(lead.getFirstname());
         request.setNameLast(lead.getLastname());
         request.setEmail(lead.getEmail());
         request.setPhone(lead.getPhone());
-        request.setComments(lead.getDescription());
+        request.setComments(lead.getComments());
+        // Subscribe newsletter
+        request.setAtt02(lead.getAtt02());
+        request.setWorkingWithAgent(lead.getWorkingwithagent());
+
+        // request a quote
+        request.setVoyage(lead.getVoyagename());
+        String departureDate = lead.getDeparturedate();
+        if (!StringUtils.isEmpty(departureDate)) {
+            XMLGregorianCalendar sailDate = 
+                    DateUtils.getXmlGregorianCalendar(departureDate, "dd MMM yyyy");
+            request.setSailDate(sailDate);
+        }
+        request.setShip(lead.getShipname());
+        request.setAtt07(lead.getSuitecategory());
+        request.setAtt08(lead.getSuitevariation());
+        request.setAtt09(lead.getPrice());
+
+        // request a brochure
+        request.setAddress1(lead.getPostaladdress());
+        request.setZip(lead.getPostalcode());
+        request.setCity(lead.getCity());
+        request.setCountry(lead.getCountry());
+
     }
 
     private LeadFromWeb03Soap getClientProxy() {
         return JaxWsClientFactory.create(LeadFromWeb03Soap.class, url, BINDING, username, password);
     }
-
 }

@@ -23,7 +23,9 @@ public interface WcmConstants {
     String PN_BROCHURE_ONLINE_URL = "onlineBrochureUrl";
     String PN_BROCHURE_IS_DIGITAL_ONLY = "brochureDigitalOnly";
     String PN_DESTINATION_REFERENCE = "destinationsReference";
-    String START_DATE = "startDate";
+    String PN_START_DATE = "startDate";
+    String PN_COUNTRY_ID = "country_id";
+    String PN_COUNTRY_NAME = "country_name";
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";
@@ -31,6 +33,8 @@ public interface WcmConstants {
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
     String RT_IMAGE_CPT = "silversea/silversea-com/components/editorial/image";
+    String RT_TAG = "cq/tagging/components/tag";
+    String RT_DESTINATION = "silversea/silversea-com/components/pages/destination";
 
     // Node name
     String NN_DEFAULT = "default";
@@ -38,6 +42,7 @@ public interface WcmConstants {
 
     // Tags
     String TAG_NAMESPACE_LANGUAGES = "languages:";
+    String TAG_NAMESPACE_BROCHURE_GROUPS = "brochure-groups:";
 
     // Default Value
     String PAGINATION_LIMIT = "10";
@@ -65,4 +70,9 @@ public interface WcmConstants {
 
     // Prefix of geolocation tags
     String GEOLOCATION_TAGS_PREFIX = "geotagging:";
+    
+    // Content Path
+    String PATH_TAGS_GEOLOCATION = "/etc/tags/geotagging";
+    String PATH_DAM_SILVERSEA = "/content/dam/silversea-com";
+    String FOLDER_BROCHURES = "brochures";
 }

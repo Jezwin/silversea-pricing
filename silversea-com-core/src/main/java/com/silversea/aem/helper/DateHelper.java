@@ -9,8 +9,9 @@ import com.adobe.cq.sightly.WCMUsePojo;
 public class DateHelper extends WCMUsePojo {
 
     /*
-    ** Doc for format date https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
-    * */
+     ** Doc for format date
+     * https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+     */
     public String value;
 
     @Override
@@ -19,7 +20,9 @@ public class DateHelper extends WCMUsePojo {
         String format = get("format", String.class);
         Locale locale = getCurrentPage().getLanguage(false);
         SimpleDateFormat formatter = new SimpleDateFormat(format, locale);
-        value = formatter.format(date.getTime());
+        if (date != null) {
+            value = formatter.format(date.getTime());
+        }
     }
 
     public String getValue() {

@@ -1,0 +1,51 @@
+.c-quote-request-form {
+    margin: 0 auto;
+    max-width: 500px;
+
+    @media screen and (min-width: @screen-md-min) {
+        max-width: 750px;
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        max-width: 100%;
+    }
+
+    &__form {
+         margin: 0 auto;
+         float: none;
+     }
+
+     &__side + .c-quote-request-form__form {
+         float: left;
+
+         @media screen and (max-width: @screen-sm) {
+            float: none;
+        }
+     }
+
+    .textarea_autogrow {
+        margin-bottom: 10px;
+        position: relative;
+
+        &__field {
+            font-size: 14px;
+            height: 100%!important;
+            left: 0;
+            position: absolute;
+            resize: none;
+            top: 0;
+            white-space: normal;
+        }
+
+        &__size {
+            box-sizing: border-box;
+            min-height: 76px;
+            overflow: hidden;
+            padding: 10px 20px;
+            width: 100%;
+            visibility: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    }
+}

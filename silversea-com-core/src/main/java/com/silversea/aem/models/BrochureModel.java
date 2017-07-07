@@ -1,13 +1,9 @@
 package com.silversea.aem.models;
 
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.DamConstants;
-import com.day.cq.dam.api.Rendition;
-import com.day.cq.dam.api.RenditionPicker;
-import com.day.cq.dam.commons.util.PrefixRenditionPicker;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.silversea.aem.constants.WcmConstants;
+import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceUtil;
 import org.apache.sling.api.resource.ValueMap;
@@ -16,7 +12,14 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.DamConstants;
+import com.day.cq.dam.api.Rendition;
+import com.day.cq.dam.api.RenditionPicker;
+import com.day.cq.dam.commons.util.PrefixRenditionPicker;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
 
 /**
  * Created by aurelienolivier on 19/03/2017.
@@ -35,11 +38,11 @@ public class BrochureModel {
 
     @PostConstruct
     private void init() {
-        try{
+        try {
             assetResource = asset.adaptTo(Resource.class);
             tagManager = assetResource.getResourceResolver().adaptTo(TagManager.class);
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
+        } catch (RuntimeException e) {
+            LOGGER.error("Error while initializing model {}", e);
         }
     }
 
@@ -47,8 +50,9 @@ public class BrochureModel {
         if (asset != null) {
             RenditionPicker renditionPicker = new PrefixRenditionPicker("cover");
             Rendition rendition = asset.getRendition(renditionPicker);
-
-            return rendition.getPath();
+            if (rendition != null) {
+                return rendition.getPath();
+            }
         }
 
         return null;
@@ -67,11 +71,11 @@ public class BrochureModel {
     }
 
     public String getOnlineBrochureUrl() {
-        return getCustomMetatdate(WcmConstants.PN_BROCHURE_ONLINE_URL, String.class);
+        return getCustomMetatdata(WcmConstants.PN_BROCHURE_ONLINE_URL, String.class);
     }
 
     public Boolean isBrochureDigitalOnly() {
-        return getCustomMetatdate(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
+        return getCustomMetatdata(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
     }
 
     public Tag getLanguage() {
@@ -90,13 +94,60 @@ public class BrochureModel {
         return null;
     }
 
+    public ArrayList<Tag> getGroups() {
+        return getBrochureTags(WcmConstants.TAG_NAMESPACE_BROCHURE_GROUPS);
+    }
+
+    public ArrayList<String> getGroupNames() {
+        return getBrochureTagValues(WcmConstants.TAG_NAMESPACE_BROCHURE_GROUPS);
+    }
+
+    public ArrayList<Tag> getLocalizations() {
+        return getBrochureTags(WcmConstants.GEOLOCATION_TAGS_PREFIX);
+    }
+
+    public ArrayList<String> getGetLocalizationNames() {
+        return getBrochureTagValues(WcmConstants.GEOLOCATION_TAGS_PREFIX);
+    }
+
+    public ArrayList<Tag> getBrochureTags(String tagName) {
+        Resource metadataResource = assetResource.getChild("jcr:content/metadata");
+        ArrayList<Tag> brochureTags = new ArrayList<Tag>();
+        if (metadataResource != null) {
+            Tag[] tags = tagManager.getTags(metadataResource);
+            for (Tag tag : tags) {
+                if (tag.getTagID().startsWith(tagName)) {
+                    brochureTags.add(tag);
+                }
+            }
+        }
+        return brochureTags;
+    }
+
+    public ArrayList<String> getBrochureTagValues(String tagName) {
+        Resource metadataResource = assetResource.getChild("jcr:content/metadata");
+        ArrayList<String> tagValues = new ArrayList<String>();
+        if (metadataResource != null) {
+            Tag[] tags = tagManager.getTags(metadataResource);
+            for (Tag tag : tags) {
+                if (tag.getTagID().startsWith(tagName)) {
+                    tagValues.add(tag.getName());
+                }
+            }
+        }
+        return tagValues;
+    }
+
     /**
      * Helper: retrieve custom asset's meta data
-     * @param propertyName: property name
-     * @param type: Object type
+     * 
+     * @param propertyName:
+     *            property name
+     * @param type:
+     *            Object type
      * @return: property's value
      */
-    private <T> T getCustomMetatdate(String propertyName, Class<T> type) {
+    private <T> T getCustomMetatdata(String propertyName, Class<T> type) {
         Resource metadataResource = assetResource.getChild("jcr:content/metadata");
         T value = null;
         if (metadataResource != null) {

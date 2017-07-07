@@ -1,24 +1,22 @@
 <div data-sly-test.empty="${(wcmmode.edit || wcmmode.design) && !pageProperties.longDescription && !pageProperties.suiteFeature}" class="cq-placeholder" data-emptytext="Suite variation properties display"></div>
-<div class="o-area-property-display">
-    <sly data-sly-use.cpt="com.silversea.aem.components.displayProperties.SuiteAreaVariationDisplayPropertiesUse" />
-    <div class="o-section" data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties.assetSelectionReference}"></sly>
-        <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
-        <div class="o-section o-section--separator o-description">
-            <div class="row">
-                <div class="col-sm-6"> 
-                    ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
-                </div>
-                <div class="col-sm-6">
-                    <div class="suitevariation__bedroominfo"> ${pageProperties.bedroomsInformation @ context='html'}</div>
-                </div>
+<div class="o-area-property-display" data-sly-use.cpt="com.silversea.aem.components.displayProperties.SuiteAreaVariationDisplayPropertiesUse">
+    <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
+        data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties.assetSelectionReference}"></sly>
+    <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
+    <div class="o-section o-section--separator o-description">
+        <div class="row">
+            <div class="col-sm-6"> 
+                ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
             </div>
-            <div class="suitevariation__features" data-sly-test="${pageProperties.suiteFeature}">
-                <h4>${'features' @ i18n}</h4>
-                <ul data-sly-list="${pageProperties.suiteFeature}">
-                    <li>${item}</li>
-                </ul>
+            <div class="col-sm-6">
+                <div class="suitevariation__bedroominfo"> ${pageProperties.bedroomsInformation @ context='html'}</div>
             </div>
+        </div>
+        <div class="suitevariation__features" data-sly-test="${pageProperties.suiteFeature}">
+            <h4>${'features' @ i18n}</h4>
+            <ul data-sly-list="${pageProperties.suiteFeature}">
+                <li>${item}</li>
+            </ul>
         </div>
     </div>
 </div>

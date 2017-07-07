@@ -1,6 +1,4 @@
 .c-hero-banner__search {
-    margin: 0 auto;
-
     .c-hero-banner__image {
         height: 450px;
 
@@ -35,6 +33,25 @@
         width: 100vw;
     }
 
+    .chosen-container  {
+        .chosen-single {
+            background: @white;
+            border: 1px solid @white;
+            height: 40px;
+
+            @media screen and (max-width: @screen-sm) {
+                height: 34px;
+                padding: 8px 12px 0;
+            }
+        }
+
+        &.chosen-with-drop {
+            .chosen-single {
+                border: 1px solid @black;
+            }
+        }
+    }
+
     &__form {
         .col-sm-3 {
             @media screen and (max-width: @screen-sm) {
@@ -52,86 +69,6 @@
 
                 &:not(:last-child) {
                     padding-right: 5px;
-                }
-            }
-        }
-
-        .chosen-container {
-            width: 100% !important;
-
-            &.chosen-with-drop {
-                .chosen-single {
-                    border-color: @black;
-                }
-            }
-
-            .chosen-single {
-                background: @white;
-                border: 1px solid @white;
-                box-shadow: none;
-                color: @grey;
-                height: 40px;
-                padding: 12px 40px 12px 12px;
-                width: 100%;
-
-                @media screen and (max-width: @screen-sm) {
-                    height: 34px;
-                    padding: 8px 12px 0;
-                }
-
-                span {
-                    font-size: 14px;
-                    font-weight: 600;
-                    line-height: initial;
-                    margin: 0;
-
-                    @media screen and (max-width: @screen-sm) {
-                        font-weight: 400;
-                        font-size: 13px;
-                    }
-                }
-
-                div b {
-                    &:before {
-                        color: @grey--3;
-                        content: "\f107";
-                        font-family: FontAwesome;
-                        font-size: 18px;
-                        font-weight: 400;
-                        position: relative;
-                        right: 10px;
-                        top: 8px;
-
-                        @media screen and (max-width: @screen-sm) {
-                            top: 5px;
-                        }
-                    }
-                }
-            }
-
-            .chosen-drop {
-                border-radius: 0 0 5px 5px;
-                border-color: @black;
-                box-shadow: none;
-
-                .chosen-results {
-                    margin: 5px 4px 4px 0;
-                    max-height: 270px;
-
-                    li {
-                        font-size: 13px;
-                        line-height: 24px;
-                        margin: 0 15px 0 4px;
-
-                        &.highlighted, &.result-selected {
-                            background: @black;
-                            color: @white;
-                        }
-
-                        &.result-selected {
-                            font-weight: @bold;
-                        }
-                    }
                 }
             }
         }
@@ -160,10 +97,6 @@
             }
         }
     }
-}
-
-.chosen-container .chosen-single div b {
-    background: 0;
 }
 
 .slider.aem-GridColumn--default--12 + .searchhero.aem-GridColumn--default--12 {

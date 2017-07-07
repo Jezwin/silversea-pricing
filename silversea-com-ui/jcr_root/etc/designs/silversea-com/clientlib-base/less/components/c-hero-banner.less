@@ -1,13 +1,10 @@
 .video-link {
     color: @white;
     height: 100%;
-    left: 50%;
-    opacity: .8;
+    left: 0;
     position: absolute;
     top: 0;
-    transition: opacity 300ms;
-    width: 100vw;
-    transform: translateX(-50%);
+    width: 100%;
 
     .fa-play {
         font-size: 50px;
@@ -50,6 +47,20 @@
     max-width: 930px;
     position: relative;
 
+    &:not(.c-hero-banner__search) {
+        margin-bottom: 0;
+    }
+
+    .video-link {
+        left: 50%;
+        opacity: .8;
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+        transition: opacity 300ms;
+        width: 100vw;
+    }
+
     &__content--white {
         background-color: rgba(255, 255, 255, 0.8);
     }
@@ -86,6 +97,10 @@
     }
 
     @media screen and (min-width: @screen-md-min) {
+        &:not(.c-hero-banner__search) {
+            margin-bottom: 20px;
+        }
+
         &__content:not(.c-hero-banner__content--white) {
             color: @white;
         }

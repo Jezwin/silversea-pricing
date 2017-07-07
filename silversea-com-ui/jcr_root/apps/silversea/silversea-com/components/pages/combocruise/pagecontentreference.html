@@ -1,0 +1,15 @@
+<div data-sly-use.cruise="com.silversea.aem.components.page.ComboCruiseUse" class="container c-cruise c-combo-cruise">
+      LOWEST PRICE  : ${cruise.comboCruiseModel.lowestPrice.value}
+    <ul data-sly-list="${cruise.comboCruiseModel.cruises}">
+      <li data-sly-list=${item.itineraries}>
+      	<p>${item.country}</p>
+      </li>
+   </ul>
+   SUITES
+   <ul data-sly-list="${cruise.comboCruiseModel.suites}">
+      <li data-sly-list=${item.variations}>
+      	<p>${item.name}</p>
+      	<p>${item.price.value}</p>
+      </li>
+   </ul>
+</div>

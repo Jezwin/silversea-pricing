@@ -32,12 +32,10 @@ $(function() {
         });
     });
 
-    // Build modal fragment for Gallery
+    // Modal Gallery for cruise page
     $('.automatic-gallery-modal').on('click', function(e) {
         e.preventDefault();
-        var $link = $(this),
-        modalTarget = $link.data('target'),
-        $modalContent = $(modalTarget)
+        var $link = $(this), ajaxContentPath = $link.closest('[data-gallery-path]').data('gallery-path'), modalTarget = $link.data('target'), $modalContent = $(modalTarget);
 
         // Activate Modal
         $modalContent.modal('show');
@@ -47,51 +45,67 @@ $(function() {
             var $modal = $(this);
             $modal.off('shown.bs.modal');
 
-            // Append gallery inside modal
-            $modal.find('.modal-content').replaceWith($($link.data('gallery')).html());
+            // Append html response inside modal
+            $modal.find('.modal-dialog').load(ajaxContentPath, function() {
+                // Activate gallery
+                var $slideFor = $modal.find('.c-slider--for').slick({
+                    slidesToShow : 1,
+                    slidesToScroll : 1,
+                    asNavFor : '.modal .c-slider--nav'
+                });
 
-            // Activate gallery
-            var $slideFor = $modal.find('.c-slider--for').slick({
-                slidesToShow : 1,
-                slidesToScroll : 1,
-                asNavFor : '.modal .c-slider--nav'
+                var $slideNav = $modal.find('.c-slider--nav').slick({
+                    slidesToShow : 6,
+                    slidesToScroll : 1,
+                    asNavFor : '.modal .c-slider--for',
+                    focusOnSelect : true
+                });
+
+                // Init video on click
+                $('.video-link').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).next('.c-video').initVideo();
+                })
+
+                // Code only for gallery with category
+                if($('.c-gallery__tab').length) {
+                    // Show / calc counter
+                    var slideTotalItem = $slideFor.find('.slick-slide:not(.slick-cloned)').length;
+                    // Set total number of slide
+                    $slideFor.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-total').html(slideTotalItem);
+                    $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                        var $slide = $(this);
+                        // Set counter according to the current slide
+                        $slide.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
+
+                        // Kill video if current slide contains video
+                        var $video = $slide.find('.slick-current .c-video');
+                        $video.find('.s7playpausebutton[selected="false"]').trigger('click');
+                        $video.attr('class', 'c-video').empty();
+                    });
+
+                    // Tab gallery
+                    var $sliderTab = $('.c-gallery__tab__link');
+                    $modal.find('.c-gallery__tab__link').on('click', function(e) {
+                        e.preventDefault();
+                        var $linkCategory = $(this), targetSlideIndex = $slideFor.find('.slick-slide:not(".slick-cloned")[data-category-target="' + $linkCategory.data('category') + '"]').index() - 1;
+
+                        // Slide to the first image of the current category
+                        $slideFor.slick('slickGoTo', targetSlideIndex);
+                    });
+
+                    // Update category tab according to the current slide
+                    $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+                        var currentCategory = $(this).find('.slick-slide:not(".slick-cloned")').eq(nextSlide).data('category-target');
+                        $('.c-gallery__tab__link:visible').removeClass('active');
+                        $('.c-gallery__tab__link:visible[data-category="' + currentCategory + '"]').addClass('active');
+                    });
+
+                    // Scroll to the target image
+                    var currentImagePath = $link.attr('href');
+                    $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), true);
+                }
             });
-
-            var $slideNav = $modal.find('.c-slider--nav').slick({
-                slidesToShow : 6,
-                slidesToScroll : 1,
-                asNavFor : '.modal .c-slider--for',
-                focusOnSelect : true
-            });
-
-            // Show counter 
-            var slideTotalItem = $slideFor.find('.slick-slide:not(.slick-cloned)').length;
-            $slideFor.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-total').html(slideTotalItem);
-            $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide){
-                $(this).closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
-            });
-
-            // Tab gallery
-            var $sliderTab = $('.c-gallery__tab__link');
-            $modal.find('.c-gallery__tab__link').on('click', function(e) {
-                e.preventDefault();
-                var $linkCategory = $(this),
-                targetSlideIndex = $slideFor.find('.slick-slide:not(".slick-cloned")[data-category-target="' + $linkCategory.data('category') + '"]').index() - 1;
-
-                // Slide to the first image of the current category
-                $slideFor.slick('slickGoTo', targetSlideIndex);
-            });
-
-            // Update category tab according to the current slide
-            $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-                var currentCategory = $(this).find('.slick-slide:not(".slick-cloned")').eq(nextSlide).data('category-target');
-                $('.c-gallery__tab__link:visible').removeClass('active');
-                $('.c-gallery__tab__link:visible[data-category="' + currentCategory + '"]').addClass('active');
-            });
-
-            // Scroll to the target image
-            var currentImagePath = $link.attr('href');
-            $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), true);
         });
     });
 });

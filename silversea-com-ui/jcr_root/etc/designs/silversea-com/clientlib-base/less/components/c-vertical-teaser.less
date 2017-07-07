@@ -17,19 +17,19 @@
         webkit-transition: opacity 0.3s ease;
     }
 
-    &:hover .o-img {
-        opacity: .5;
-    }
-
     .thumbnail &__caption {
-        height: 150px;
-        padding: 7px 10px 30px;
+        height: 290px;
+        padding: 20px 20px 40px;
+
+        @media screen and (max-width: @screen-sm) {
+            height: auto;
+        }
     }
 
     &__title {
         font-family: @f-theano_didot;
-        font-size: 18px;
-        margin: 0;
+        font-size: 20px;
+        margin: 0 0 10px 0;
         text-transform: uppercase;
     }
 
@@ -95,6 +95,36 @@
                 top: 50%;
                 transform: translateY(-50%);
                 width: 100%;
+            }
+        }
+    }
+
+    &--manual {
+        margin-bottom: 20px;
+
+        .c-vertical-teaser__caption {
+            padding: 20px 20px 40px;
+            height: 290px;
+
+            @media screen and (max-width: @screen-sm) {
+                height: auto;
+            }
+
+            .c-vertical-teaser {
+                &__title {
+                    margin-bottom: 15px;
+                }
+
+                &__link__label {
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        &:hover {
+            .o-img {
+                opacity: 1;
             }
         }
     }

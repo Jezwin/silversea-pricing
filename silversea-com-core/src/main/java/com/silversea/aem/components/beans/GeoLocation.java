@@ -3,6 +3,7 @@ package com.silversea.aem.components.beans;
 public class GeoLocation {
     
     String country;
+    String countryCode;
     String geoMarketCode;
     
     public GeoLocation() {
@@ -21,4 +22,13 @@ public class GeoLocation {
     public void setGeoMarketCode(String geoMarketCode) {
         this.geoMarketCode = geoMarketCode;
     }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+    
 }
