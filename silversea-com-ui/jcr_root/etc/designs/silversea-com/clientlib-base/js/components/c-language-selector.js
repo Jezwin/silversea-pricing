@@ -4,20 +4,23 @@ $(function() {
         $languageSelector = $('#c-language-selector'),
         $triggerContainer = $trigger.closest('.c-main-nav__top');
 
-        OpenLanguageSelector();
+        bindLanguageSelector();
 
         $('body').on('trigger.viewport.changed', function() {
-            OpenLanguageSelector();
+            bindLanguageSelector();
         });
 
         // Open language selector according to the viewport
-        function OpenLanguageSelector() {
+        function bindLanguageSelector() {
             // "sm" <==> tablet viewport
-            if ($.viewportDetect() == 'sm') {
+            if ($.viewportDetect() === 'sm') {
+                // Create specific language selector for tablet viewport
                 if (!$('.c-language-selector__list.cloned').length) {
                     $languageSelector.clone().addClass('cloned').attr('id', 'c-language-selector-cloned').appendTo('.c-main-nav__top');
                 }
             }
+
+            closeLanguageSelector();
 
             $trigger.on('click', function(e) {
                 e.preventDefault();
@@ -27,8 +30,12 @@ $(function() {
             })
         }
 
+        function closeLanguageSelector() {
+            $('#c-language-selector, #c-language-selector-cloned').collapse('hide');
+        }
+
         this.closeLanguageSelector = function() {
-            $('#c-language-selector').collapse('hide');
+            closeLanguageSelector()
         };
 
         return this
