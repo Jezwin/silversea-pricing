@@ -1,7 +1,10 @@
 package com.silversea.aem.components.editorial;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,12 +30,12 @@ public class SearchPortUse extends WCMUsePojo {
     // ports root page
     private Page portsRootPage;
 
-    //the selected ports list page
+    // the selected ports list page
     private Page portIndexPage;
 
     // port pages beginning with the letter searched
     private Iterator<Page> resultsPageList;
-    
+
     // list of port results to display (title and country)
     private ArrayList<SearchPortDisplay> resultsPortList;
 
@@ -69,9 +72,10 @@ public class SearchPortUse extends WCMUsePojo {
             resultsPortList.add(new SearchPortDisplay(portPage.getTitle(), portCountry, portPage.getPath()));
         }
 
-        //set the parent page - the parent of all the ports list (letter) pages
-        //if portReference is empty, the parent of the current page, if not, the parent of 
-        //the configured portReference page
+        // set the parent page - the parent of all the ports list (letter) pages
+        // if portReference is empty, the parent of the current page, if not,
+        // the parent of
+        // the configured portReference page
         portsRootPage = portIndexPage.getParent();
     }
 
@@ -85,6 +89,27 @@ public class SearchPortUse extends WCMUsePojo {
 
     public Page getPortsRootPage() {
         return portsRootPage;
+    }
+
+    public List<Page> getOrderedAlphabetPages() {
+        List<Page> alphabetList = new ArrayList<Page>();
+        Iterator<Page> alphabetIterator = portsRootPage.listChildren();
+        alphabetIterator.forEachRemaining(alphabetList::add);
+        Collections.sort(alphabetList, new Comparator<Page>() {
+            public int compare(Page p1, Page p2) {
+                return p1.getTitle().toUpperCase().compareTo(p2.getTitle().toUpperCase());
+            }
+        });
+        return alphabetList;
+    }
+
+    public ArrayList<SearchPortDisplay> getOrderedResultsPortList() {
+        Collections.sort(resultsPortList, new Comparator<SearchPortDisplay>() {
+            public int compare(SearchPortDisplay p1, SearchPortDisplay p2) {
+                return p1.getPortName().toUpperCase().compareTo(p2.getPortName().toUpperCase());
+            }
+        });
+        return resultsPortList;
     }
 
     public Page getPortIndexPage() {
