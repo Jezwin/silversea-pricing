@@ -135,6 +135,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-view-cruise"
         sling:message="View cruises for this destination" />
+    <destination
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="destination"
+        sling:message="destination" />
     <dining
         jcr:primaryType="sling:MessageEntry"
         sling:key="dining"
