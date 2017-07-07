@@ -5,6 +5,7 @@ import java.util.List;
 public class SearchResultData {
     
     private List<Cruise> cruises;
+    private long count;
     private List<SearchFilter> destinations;
     private List<SearchFilter> cities;
     private List<SearchFilter> ships;
@@ -75,6 +76,14 @@ public class SearchResultData {
 
     public void setDates(List<String> dates) {
         this.dates = dates;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     } 
     
 }

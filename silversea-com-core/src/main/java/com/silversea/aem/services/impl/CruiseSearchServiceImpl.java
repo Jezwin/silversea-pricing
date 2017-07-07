@@ -118,20 +118,21 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      */
     private SearchResultData executeQuery(Query query, SearchParameter searchParameter){
         SearchResult result = query.getResult();
-        List<Cruise> cruises = null;
+        SearchResultData searchResultData = null;
         if(result != null && result.getHits() != null && !result.getHits().isEmpty()){
-            
+            List<Cruise> cruises = null;
             List<Hit> hits = result.getHits();
             cruises = hits.stream()
                           .map(hit -> {
                                 return mapHits(hit,searchParameter);
                           })
                           .collect(Collectors.toList());
+            searchResultData = new SearchResultData();
+            searchResultData.setCount(result.getTotalMatches());
+            searchResultData.setCruises(cruises);
+            extractFacets(result,searchResultData);
         }
         
-        SearchResultData searchResultData = new SearchResultData();
-        searchResultData.setCruises(cruises);
-        extractFacets(result,searchResultData);
         return searchResultData;
     }
     
