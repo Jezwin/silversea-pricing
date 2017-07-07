@@ -118,8 +118,14 @@
 ** Callbox for simple page
 **/
 .simplepage {
+    .c-brochure{
+        &:before{
+            background: none;
+            width: 1px;
+        }
+    }
     .o-section--callbox {
-        border-top: 1px solid @grey--d;
+        border-top: 0px solid @grey--d;
         font-size: 16px;
         font-weight: 700;
         line-height: 28px;
@@ -134,7 +140,7 @@
         }
 
         @media screen and (max-width: @screen-sm) {
-            border-bottom: 1px solid @grey--d;
+            border-bottom: 0px solid @grey--d;
         }
     }
 }
