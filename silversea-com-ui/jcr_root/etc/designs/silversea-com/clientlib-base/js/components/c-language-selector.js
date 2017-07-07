@@ -26,16 +26,17 @@ $(function() {
                 e.preventDefault();
                 var $collapsible = $('#c-language-selector-cloned, #c-language-selector');
                 $collapsible.collapse('toggle');
-                $(this).attr('aria-expanded', $collapsible.attr('aria-expanded'));
+                $trigger.attr('aria-expanded', $collapsible.attr('aria-expanded'));
             })
         }
 
         function closeLanguageSelector() {
             $('#c-language-selector, #c-language-selector-cloned').collapse('hide');
+            $trigger.attr('aria-expanded', 'false');
         }
 
         this.closeLanguageSelector = function() {
-            closeLanguageSelector()
+            closeLanguageSelector();
         };
 
         return this
