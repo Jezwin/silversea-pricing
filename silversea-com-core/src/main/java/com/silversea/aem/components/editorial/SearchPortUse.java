@@ -1,10 +1,12 @@
 package com.silversea.aem.components.editorial;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -106,7 +108,7 @@ public class SearchPortUse extends WCMUsePojo {
     public ArrayList<SearchPortDisplay> getOrderedResultsPortList() {
         Collections.sort(resultsPortList, new Comparator<SearchPortDisplay>() {
             public int compare(SearchPortDisplay p1, SearchPortDisplay p2) {
-                return p1.getPortName().toUpperCase().compareTo(p2.getPortName().toUpperCase());
+                return p1.getNormalizedPortName().toUpperCase(Locale.ROOT).compareTo(p2.getNormalizedPortName().toUpperCase(Locale.ROOT));
             }
         });
         return resultsPortList;
@@ -139,6 +141,11 @@ public class SearchPortUse extends WCMUsePojo {
 
         public String getPortPath() {
             return portPath;
+        }
+
+        public String getNormalizedPortName() {
+            String normalizedPortName = Normalizer.normalize(portName, Normalizer.Form.NFD);
+            return normalizedPortName.replaceAll("[^\\p{ASCII}]", "");
         }
     }
 }
