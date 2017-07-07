@@ -1,6 +1,5 @@
-+function($) {
+$(function($) {
     'use strict';
-
 
     /***************************************************************************
      * CookieManager - Tools to manage cookie & disclamer
@@ -43,14 +42,13 @@
             return this.setCookie(this.disclamer, val);
         }
     };
-
-    $(function() {
         /***************************************************************************
          * Show/hide message according to the "cookieMessageDisclaimer" cookie
          **************************************************************************/
         var showCookie = function(val) {
             $("#c-cookie").attr('data-show', val);
         }
+
         if ($.CookieManager.getDisclamer() === null) {
             showCookie(true);
             $('#c-cookie__close').on('click', function() {
@@ -58,5 +56,4 @@
                 showCookie(false);
             });
         }
-    });
-}(jQuery);
+}(jQuery));
