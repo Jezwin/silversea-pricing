@@ -79,7 +79,7 @@ public class ExclusiveOfferModel {
                 mapOverHead = properties.getInherited("mapOverhead", String.class);
                 description = properties.getInherited("longDescription", String.class);
                 String[] fareAdditons = properties.getInherited("cruiseFareAdditions", String[].class);
-                initFareAdditions(fareAdditons);
+                cruiseFareAdditions = initFareAdditions(fareAdditons);
             } else {
                 description = page.getProperties().get("longDescription", String.class);
             }

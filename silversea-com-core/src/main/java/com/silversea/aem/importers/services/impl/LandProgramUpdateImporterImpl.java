@@ -111,10 +111,10 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 
 									try {
 
-										Iterator<Resource> resources = resourceResolver.findResources(
-												"/jcr:root/content/silversea-com/" + loc
-														+ "//element(*,cq:Page)[jcr:content/landId=\"" + land.getLandId() + "\"]",
-												"xpath");
+										Iterator<Resource> resources = resourceResolver
+												.findResources("/jcr:root/content/silversea-com/" + loc
+														+ "//element(*,cq:Page)[jcr:content/landId=\""
+														+ land.getLandId() + "\"]", "xpath");
 
 										Page landPage = null;
 										Integer cityId = null;
@@ -129,10 +129,10 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 												cityId = land.getCities().get(0).getCityId();
 											}
 											if (cityId != null) {
-												Iterator<Resource> portsResources = resourceResolver.findResources(
-														"/jcr:root/content/silversea-com/" + loc
-														+ "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]",
-														"xpath");
+												Iterator<Resource> portsResources = resourceResolver
+														.findResources("/jcr:root/content/silversea-com/" + loc
+																+ "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId
+																+ "\"]", "xpath");
 
 												if (portsResources.hasNext()) {
 													Page portPage = portsResources.next().adaptTo(Page.class);
@@ -217,21 +217,14 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 					}
 				} while (lands.size() > 0);
 
-				if (session.hasPendingChanges()) {
-					try {
-						Node rootNode = resParent.getChild(JcrConstants.JCR_CONTENT).adaptTo(Node.class);
-						rootNode.setProperty("lastModificationDateLp", Calendar.getInstance());
-						session.save();
-					} catch (RepositoryException e) {
-						session.refresh(false);
-					}
-				}
+				ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+						"lastModificationDateLp");
 
 				resourceResolver.close();
 			} else {
 				throw new UpdateImporterExceptions();
 			}
-		} catch (ApiException | RepositoryException e) {
+		} catch (ApiException e) {
 			LOGGER.error("Exception importing land program", e);
 		}
 	}

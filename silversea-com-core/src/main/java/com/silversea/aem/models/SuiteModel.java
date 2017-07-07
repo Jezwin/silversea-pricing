@@ -169,7 +169,7 @@ public class SuiteModel extends AbstractModel{
                     Currency currency = getCurrencyByMarKetCode(geoMarketCode);
                     String suitePriceCurrency = Objects.toString(node.getProperty("currency").getValue());
                     Tag tag = tagManager.resolve(tags[0].getString());
-                    if (StringUtils.equals(geoMarketCode, tag.getTitle())
+                    if (tag!=null && StringUtils.equals(geoMarketCode, tag.getTitle())
                             && StringUtils.equals(suitePriceCurrency, currency.getValue())) {
                         String value = Objects.toString(node.getProperty("price").getValue());
                         price = initPrice(geoMarketCode, value);

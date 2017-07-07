@@ -15,13 +15,13 @@
             <sly data-sly-test.cruiseModel="${segment.cruise}" />
             <a href="#segmentinfo-${segmentlist.count}" data-toggle="tab">
                 <time data-sly-test.startDateRaw="${cruiseModel.startDate}"
-                    data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=startDateRaw}"
+                    data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=startDateRaw}"
                     data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=startDateRaw}"
                     datetime="${startDateTime.value}">
                     ${startDate.value}
                 </time>
                 <time data-sly-test.endDateRaw="${cruiseModel.endDate}"
-                    data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM', date=endDateRaw}"
+                    data-sly-use.endDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=endDateRaw}"
                     data-sly-use.endDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=endDateRaw}"
                     datetime="${endDateTime.value}">
                     ${endDate.value}

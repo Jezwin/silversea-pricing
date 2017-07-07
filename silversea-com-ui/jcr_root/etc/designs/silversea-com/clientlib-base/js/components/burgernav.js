@@ -40,7 +40,6 @@
          * Clean listener for performance
          */
         this.cleanListener = function() {
-            $(window).off('resize');
             $('.c-main-nav__backdrop').off('click');
         }
 

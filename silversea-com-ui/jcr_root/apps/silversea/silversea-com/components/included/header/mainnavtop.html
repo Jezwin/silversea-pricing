@@ -21,12 +21,16 @@
             </a>
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md c-language-selector">
-            <a href="#languageSelector" class="c-main-nav__top__link" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
+            <a href="#" class="c-main-nav__top__link open-language-selector" aria-expanded="false">
                 <span data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">${pageHelper.homePage.navigationTitle || pageHelper.homePage.title}</span>
+                <i class="fa fa fa-angle-down hidden-md hidden-lg"></i><i class="fa fa-angle-up hidden-md hidden-lg"></i>
             </a>
-            <ul class="clearfix collapse c-language-selector__list" id="languageSelector" data-sly-list="${navTop.languagePageList}">
-                <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.title}</span></a></li>
+            <ul id="c-language-selector" class="clearfix collapse c-language-selector__list" data-sly-list="${navTop.languagePageList}">
+                <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.name}</span></a></li>
             </ul>
+        </li>
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs">
+            <a class="c-main-nav__top__link"></a>
         </li>
         <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
             <a href="${search.path @ extension ='html'}" class="c-main-nav__top__link">

@@ -1,4 +1,4 @@
-<form  class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html', selectors='modalcontent'}?wcmmode=disabled" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
+<form  class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html', selectors='modalcontent'}/${request.requestParameterMap['brochurePath'][0].toString}.html" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     <input name="requestsource" type="hidden" value="EBRO" />
     <div class="form-group form-group-lg">
         <div class="checkbox">

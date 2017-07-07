@@ -15,6 +15,7 @@
     <filter root="/content/silversea-com/en/robots.txt"/>
     <filter root="/content/dam/silversea-com/rep:policy"/>
 
+    <filter root="/etc/blueprints/silversea-com"/>
     <filter root="/etc/tags/geotagging/rep:policy"/>
     <filter root="/etc/dam/imageserver/configuration/jcr:content/settings"/>
 

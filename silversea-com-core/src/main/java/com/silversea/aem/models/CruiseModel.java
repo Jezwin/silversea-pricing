@@ -129,6 +129,8 @@ public class CruiseModel extends AbstractModel {
     private String mapOverHead;
 
     private PriceData lowestPrice;
+    
+    private String thumbnail;
 
     private ResourceResolver resourceResolver;
 
@@ -149,6 +151,7 @@ public class CruiseModel extends AbstractModel {
             ship = initShip(shipReference,pageManager);
             itinerariesData = initItinerariesData();
             hasLandPrograms = hasLandProgram();
+            thumbnail = page.getProperties().get("image/fileReference", String.class);
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
         }
@@ -439,5 +442,9 @@ public class CruiseModel extends AbstractModel {
             port = itinerary.getTitle();
         }
         return port;
+    }
+    
+    public String getThumbnail() {
+        return thumbnail;
     }
 }
