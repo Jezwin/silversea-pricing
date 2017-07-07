@@ -584,6 +584,51 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="last-name"
         sling:message="Last name" />
+    <example
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="example"
+        sling:message="Example" />
+    <title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="title"
+        sling:message="Title" />
+    <mr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="mr"
+        sling:message="Mr" />
+    <mrs
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="mrs"
+        sling:message="Mrs" />
+    <miss
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="miss"
+        sling:message="Miss" />
+    <ms
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ms"
+        sling:message="Ms" />
+    <dr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dr"
+        sling:message="Dr" />
+    <dir
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dir"
+        sling:message="Dir" />
+        
+    <lady
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="lady"
+        sling:message="Lady" />
+    <prof
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="prof"
+        sling:message="Prof" />
+    <lord
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="lord"
+        sling:message="Lord" />
     <ship
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"

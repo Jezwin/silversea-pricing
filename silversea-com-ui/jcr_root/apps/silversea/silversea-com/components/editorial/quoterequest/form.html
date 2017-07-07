@@ -3,37 +3,37 @@
 
     <div class="form-group form-group-lg has-feedback input--title">
         <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
-            <option value="">${'Title*' @ i18n}</option>
-            <option value="Mr.">${'Mr.' @i18n}</option>
-            <option value="Mrs.">${'Mrs.' @ i18n}</option>
-            <option value="Miss">${'Miss' @ i18n}</option>
-            <option value="Ms.">${'Ms.' @ i18n}</option>
-            <option value="Dr.">${'Dr.' @ i18n}</option>
-            <option value="Sir">${'Sir' @ i18n}</option>
-            <option value="Lady">${'Lady' @ i18n}</option>
-            <option value="Prof.">${'Prof.' @ i18n}</option>
-            <option value="Lord">${'Lord' @ i18n}</option>
+            <option value="">${'title' @ i18n}*</option>
+            <option value="Mr.">${'mr' @i18n}</option>
+            <option value="Mrs.">${'mrs' @ i18n}.</option>
+            <option value="Miss">${'miss' @ i18n}.</option>
+            <option value="Ms.">${'ms' @ i18n}.</option>
+            <option value="Dr.">${'dr' @ i18n}.</option>
+            <option value="Sir">${'dir' @ i18n}.</option>
+            <option value="Lady">${'lady' @ i18n}.</option>
+            <option value="Prof.">${'prof' @ i18n}.</option>
+            <option value="Lord">${'lord' @ i18n}.</option>
         </select>
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
-        <input type="text" name="firstname" class="form-control" value="" placeholder="${'First Name*' @ i18n}" required data-error="${'Please enter your first name' @ i18n}" />
+        <input type="text" name="firstname" class="form-control" value="" placeholder="${'first-name' @ i18n}*" required data-error="${'required-firstname' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
-        <input type="text" name="lastname" class="form-control" value="" placeholder="${'Last Name*' @ i18n}" required  data-error="${'Please enter your last name' @ i18n}" />
+        <input type="text" name="lastname" class="form-control" value="" placeholder="${'last-name' @ i18n}*" required  data-error="${'required-lastname' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors"></div>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
-        <input type="email" name="email" class="form-control" value="" placeholder="${'Email Address*' @ i18n}" required
+        <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        data-required-error="${'required-email' @ i18n}"
+        data-required-error="${'required-email-address' @ i18n}"
         data-error="${'incorrect-email-address' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors incorrect"></div>
@@ -43,31 +43,31 @@
         <div class="form-group form-group-lg has-feedback">
             <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control" required
             data-countrycodeformat=""
-            data-prepend-placeholder="${'Example' @ i18n}"
+            data-prepend-placeholder="${'example' @ i18n}"
             data-country-geolocalized="${helper.country || 'US'}"
-            data-required-error="${'Please enter your phone number' @ i18n}"
-            data-countrycodeformat-error="${'Please check the phone format' @ i18n}" /> 
+            data-required-error="${'required-phone-number' @ i18n}"
+            data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
         <input type="hidden" name="phone" />
         <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
-            <option value="">${'Country Code*' @ i18n}</option>
+            <option value="">${'country-code' @ i18n}*</option>
             <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
         </select>
     </div>
 
     <div class="form-group form-group-lg textarea_autogrow">
-        <textarea class="form-control textarea_autogrow__field" name="comments" placeholder="${'Details About Your Request' @ i18n}"></textarea>
+        <textarea class="form-control textarea_autogrow__field" name="comments" placeholder="${'details-about-your-request' @ i18n}"></textarea>
         <div class="textarea_autogrow__size"></div>
     </div>
 
-    <p class="small text-muted">${'* Required Fields' @ i18n}</p>
+    <p class="small text-muted">${'required-fields' @ i18n}*</p>
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
                 <input class="custom-checkbox" type="checkbox" name="att02" value="true" checked="${use.isChecked}">
-                ${'Yes! I would like to receive emails with news and special offers from Silversea.' @ i18n}
+                ${'receive-emails-with-news' @ i18n}
             </label>
         </div>
     </div>
