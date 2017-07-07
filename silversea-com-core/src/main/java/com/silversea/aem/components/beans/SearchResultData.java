@@ -9,7 +9,7 @@ public class SearchResultData {
     private List<SearchFilter> cities;
     private List<SearchFilter> ships;
     private List<SearchFilter> types;
-    private List<SearchFilter> features;
+    private List<Feature> features;
     private List<String> dates;
     private List<String> durations;
   
@@ -61,11 +61,11 @@ public class SearchResultData {
         this.types = types;
     }
 
-    public List<SearchFilter> getFeatures() {
+    public List<Feature> getFeatures() {
         return features;
     }
 
-    public void setFeatures(List<SearchFilter> features) {
+    public void setFeatures(List<Feature> features) {
         this.features = features;
     }
 

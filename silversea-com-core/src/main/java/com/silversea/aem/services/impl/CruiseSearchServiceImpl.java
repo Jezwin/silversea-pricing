@@ -23,8 +23,10 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.Cruise;
+import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.components.beans.SearchFilter;
 import com.silversea.aem.components.beans.SearchParameter;
 import com.silversea.aem.components.beans.SearchResultData;
@@ -57,6 +60,7 @@ import com.silversea.aem.utils.DateUtils;
 
 @Service
 @Component(label = "Silversea.com - Cruises Search service")
+@SuppressWarnings("unchecked")
 public class CruiseSearchServiceImpl implements CruiseSearchService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CruiseSearchServiceImpl.class);
@@ -223,30 +227,64 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
     
     /**
      * Build filters from tags
+     * @param <T>
      * @param tags: list of tag id
      * @param tagPrefix: tag's prefix
      * @return list of search filter
      */
-    private List<SearchFilter> getTagsFilter(List<String> tags,String tagPrefix){
-        List<SearchFilter> filters = null;
+    
+    private <T> List<T> getTagsFilter(List<String> tags,String tagPrefix){
+        List<T> filters = null;
         if(tags != null && !tags.isEmpty()){
             filters = tags.stream().map((tagId ->{
-                SearchFilter searchFilter = null;
+                T filter = null;
                 if (StringUtils.contains(tagId, tagPrefix)) {
                     Tag tag = tagManager.resolve(tagId);
-                    if(tag!=null){
-                        searchFilter= new SearchFilter();
-                        searchFilter.setTitle(tag.getTitle());
-                        searchFilter.setId(tagId);
+                    if(tag!=null && StringUtils.equals("cruise-type", tagPrefix)){
+                        filter = (T) createFilterFromTag(tag);
+                    }
+                    else{
+                        filter = (T) createFeatureFromTag(tag);
                     }
                 }
-                return searchFilter;
+                return filter;
             }))
             .filter(e-> e != null)
             .collect(Collectors.toList());
         }
         
         return filters;
+    }
+    
+    /**
+     * Create a new filter from a tag
+     * @param tag: tag
+     * @return SearchFilter: a searh filter
+     */
+    private SearchFilter createFilterFromTag(Tag tag){
+        SearchFilter searchFilter=  new SearchFilter();
+        searchFilter.setTitle(tag.getTitle());
+        searchFilter.setId(tag.getTagID());
+        
+        return searchFilter;
+    }
+    
+    /**
+     * Create a new feature from a tag 
+     * @param tag: tag
+     * @return feature: feature for exclusive offer
+     */
+    private Feature createFeatureFromTag(Tag tag){
+       
+        Feature feature =  new Feature();
+        Resource resource = tag.adaptTo(Resource.class);
+        if(resource != null && !ResourceUtil.isNonExistingResource(resource)){
+            feature.setId(tag.getTagID());
+            feature.setTitle(tag.getTitle());
+            feature.setIcon(resource.getValueMap().get("icon", String.class));
+            feature.setDescription(tag.getDescription());
+        }
+        return feature;
     }
     
     /**
@@ -408,6 +446,9 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
         cruise.setShip(cruiseModel.getShip().getTitle());
         cruise.setStartDate(startDate);
         cruise.setDuration(cruiseModel.getDuration());
+        cruise.setDestination(cruiseModel.getDestinationTitle());
+        cruise.setFeatures(cruiseModel.getFeatures());
+        cruise.setCruiseCode(cruiseModel.getCruiseCode());
         cruise.setLowestPrice(cruiseModel.getLowestPrice());
         cruise.setItitneraries(itineraries);
         
