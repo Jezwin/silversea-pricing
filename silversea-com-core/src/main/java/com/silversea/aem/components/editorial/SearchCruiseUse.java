@@ -62,11 +62,9 @@ public class SearchCruiseUse extends WCMUsePojo {
 
             dates.put(formatDateKey, formatDateValue);
         }
-
     }
 
-    public void setDestinationList (String destinationPath) {
-
+    public void setDestinationList(String destinationPath) {
         PageManager pageManager = getResourceResolver().adaptTo(PageManager.class);
         Page destination = pageManager.getPage(destinationPath);
         Iterator<Page> iteratorDestination = destination.listChildren();
