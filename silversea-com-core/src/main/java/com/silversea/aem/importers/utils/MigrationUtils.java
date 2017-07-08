@@ -2,7 +2,7 @@ package com.silversea.aem.importers.utils;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.s7dam.set.ImageSet;
+import com.day.cq.dam.api.s7dam.set.MediaSet;
 import com.day.cq.dam.commons.util.S7SetHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
@@ -141,7 +141,7 @@ public class MigrationUtils {
 
                                     // Creating image set
                                     Map<String, Object> setProperties = new HashMap<>();
-                                    final ImageSet s7ImageSet = S7SetHelper.createS7ImageSet(folder, setName, setProperties);
+                                    final MediaSet s7MediaSet = S7SetHelper.createS7MixedMediaSet(folder, setName, setProperties);
 
                                     for (final String assetInitialPath : assetReferencesValues) {
                                         final String assetPath = assetsMapping.get(assetInitialPath);
@@ -153,9 +153,9 @@ public class MigrationUtils {
                                                 final Asset asset = assetResource.adaptTo(Asset.class);
 
                                                 if (asset != null) {
-                                                    s7ImageSet.add(asset);
+                                                    s7MediaSet.add(asset);
 
-                                                    final Resource setMetadata = s7ImageSet.getChild("jcr:content/metadata");
+                                                    final Resource setMetadata = s7MediaSet.getChild("jcr:content/metadata");
                                                     if (setMetadata != null) {
                                                         final Node setMetadataNode = setMetadata.adaptTo(Node.class);
 
@@ -168,9 +168,9 @@ public class MigrationUtils {
                                         }
                                     }
 
-                                    childContentNode.setProperty(propertyName, s7ImageSet.getPath());
+                                    childContentNode.setProperty(propertyName, s7MediaSet.getPath());
 
-                                    LOGGER.trace("ImageSet {} created and associated", s7ImageSet.getPath());
+                                    LOGGER.trace("ImageSet {} created and associated", s7MediaSet.getPath());
                                 }
                             } catch (ImporterException e) {
                                 LOGGER.error("Cannot update city {} with image set", page.getPath(), e);
