@@ -50,21 +50,21 @@
                                         value="true" />
                                     <pageCategory1
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         cq-msm-lockable="pageCategory1"
                                         fieldLabel="Page category 1"
                                         name="./pageCategory1"
                                         renderReadOnly="{Boolean}true" />
                                     <pageCategory2
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         cq-msm-lockable="pageCategory2"
                                         fieldLabel="Page category 2"
                                         name="./pageCategory2"
                                         renderReadOnly="{Boolean}true" />
                                     <pageCategory3
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         cq-msm-lockable="pageCategory3"
                                         fieldLabel="Page category 3"
                                         name="./pageCategory3"
@@ -89,7 +89,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <agencyId
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="agencyId"
                                         fieldLabel="Id"
@@ -108,7 +108,7 @@
                                         disabled="{Boolean}true" />
                                     <city
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="city"
                                         fieldLabel="City"
@@ -117,7 +117,7 @@
                                         disabled="{Boolean}true" />
                                     <zip
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="zip"
                                         fieldLabel="Zip"
@@ -126,7 +126,7 @@
                                         disabled="{Boolean}true" />
                                     <zip4
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="zip4"
                                         fieldLabel="Zip 4"
@@ -135,7 +135,7 @@
                                         disabled="{Boolean}true" />
                                     <countryiso3
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="countryIso3"
                                         fieldLabel="Country iso 3"
@@ -144,7 +144,7 @@
                                         disabled="{Boolean}true" />
                                     <stateCode
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="stateCode"
                                         fieldLabel="State Code"
@@ -153,7 +153,7 @@
                                         disabled="{Boolean}true" />
                                     <county
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="county"
                                         fieldLabel="County"
@@ -162,7 +162,7 @@
                                         disabled="{Boolean}true" />
                                     <phone
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="phone"
                                         fieldLabel="Phone"
@@ -171,7 +171,7 @@
                                         disabled="{Boolean}true" />
                                     <latitude
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="latitude"
                                         fieldLabel="Latitude"
@@ -180,7 +180,7 @@
                                         disabled="{Boolean}true" />
                                     <longitude
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="longitude"
                                         fieldLabel="Longitude"
@@ -219,7 +219,7 @@
                                                 validation="foundation.jcr.name" />
                                             <title
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
                                                 cq-msm-lockable="jcr:title"
                                                 fieldLabel="Title"
                                                 name="./jcr:title"
@@ -369,7 +369,7 @@
                                                 renderReadOnly="{Boolean}true">
                                                 <field
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
                                                     name="./sling:vanityPath"
                                                     required="{Boolean}true" />
                                             </vanitypath>

@@ -30,7 +30,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <name
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         fieldDescription="Name"
                                         fieldLabel="Name"
                                         name="./jcr:title" />
@@ -42,13 +42,13 @@
                                         name="./jcr:description" />
                                     <phone
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         fieldDescription="Phone"
                                         fieldLabel="Phone"
                                         name="./phone" />
                                     <fax
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         fieldDescription="Fax"
                                         fieldLabel="Fax"
                                         name="./fax" />

@@ -28,7 +28,7 @@
                         fieldLabel="Countries excluded"
                         name="./cq:tags" />
                     <typeForm
-                        cr:primaryType="nt:unstructured"
+                        jcr:primaryType="nt:unstructured"
                         jcr:title="Type Form"
                         fieldLabel="Type Form"
                         sling:resourceType="granite/ui/components/foundation/form/select"
