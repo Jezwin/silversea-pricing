@@ -23,10 +23,10 @@ public class CitiesUpdaterServlet extends SlingSafeMethodsServlet {
         final String query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
                 "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]";
 
-        final String assetsQuery = "/jcr:root/content/dam/silversea-com/port"
+        final String assetsQuery = "/jcr:root/content/dam/silversea-com/ports"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
-                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"));
+                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), null);
     }
 }
