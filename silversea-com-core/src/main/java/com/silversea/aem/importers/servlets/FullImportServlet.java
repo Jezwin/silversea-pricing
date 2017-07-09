@@ -1,10 +1,6 @@
 package com.silversea.aem.importers.servlets;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-
+import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
@@ -16,18 +12,9 @@ import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.silversea.aem.importers.services.BrochuresImporter;
-import com.silversea.aem.importers.services.CitiesImporter;
-import com.silversea.aem.importers.services.ComboCruisesImporter;
-import com.silversea.aem.importers.services.CountriesImporter;
-import com.silversea.aem.importers.services.CruisesImporter;
-import com.silversea.aem.importers.services.ExclusiveOffersImporter;
-import com.silversea.aem.importers.services.FeaturesImporter;
-import com.silversea.aem.importers.services.HotelImporter;
-import com.silversea.aem.importers.services.LandProgramImporter;
-import com.silversea.aem.importers.services.ShipsImporter;
-import com.silversea.aem.importers.services.ShoreExcursionsImporter;
-import com.silversea.aem.importers.services.TravelAgenciesImporter;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @SlingServlet(paths = "/bin/api-import-test")
 public class FullImportServlet extends SlingSafeMethodsServlet {
@@ -65,9 +52,6 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private FeaturesImporter featuresImporter;
-
-    @Reference
-    private ShipsImporter shipsImporter;
 
     @Reference
     private BrochuresImporter brochuresImporter;
@@ -223,25 +207,6 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     time = watch.toString();
                     response.getWriter().write("Time :<br/>" + time);
                     response.getWriter().write("<br/> ---------------- <br />");
-                    response.getWriter().flush();
-                }
-
-                if (all || mode.equals(Mode.ships)) {
-                    response.getWriter().write("Init import of ships ...<br/>");
-                    response.getWriter().flush();
-                    watch.reset();
-                    watch.start();
-                    final ImportResult importResult = shipsImporter.importAllShips();
-                    response.getWriter().write("Ships import Done<br/>");
-                    response.getWriter().write("Ships import failure number : <p>" + importResult.getErrorNumber() + "</p>");
-                    response.getWriter().write("<br/>");
-                    response.getWriter().write("Ships import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
-                    response.getWriter().write("<br/>");
-                    response.getWriter().write("<br/> ---------------- <br />");
-                    watch.stop();
-                    time = watch.toString();
-                    response.getWriter().write("Time :<br/>" + time);
-                    response.getWriter().write("<br/>");
                     response.getWriter().flush();
                 }
 
