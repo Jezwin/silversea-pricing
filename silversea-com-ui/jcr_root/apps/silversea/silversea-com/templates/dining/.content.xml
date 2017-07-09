@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
-          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:mixinTypes="[mix:lockable]"
           jcr:primaryType="cq:Template"
           jcr:title="SSC - Dining"
-          jcr:description="Allow to manage generic dining"
+          jcr:description="Allows to manage generic dining"
           allowedPaths="[/content/silversea-com/.*]"
           ranking="{Long}0">
     <jcr:content
             jcr:primaryType="cq:PageContent"
             sling:resourceType="silversea/silversea-com/components/pages/dining">
-            <par jcr:primaryType="nt:unstructured" sling:resourceType="wcm/foundation/components/responsivegrid"
-                components="[group:displayproperties]">
-                <display
+        <par
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="wcm/foundation/components/responsivegrid">
+            <display
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="silversea/silversea-com/components/displayproperties/diningarea"
-                    text="Display properties" />
-            </par>
+                    sling:resourceType="silversea/silversea-com/components/displayproperties/diningarea"/>
+        </par>
     </jcr:content>
 </jcr:root>
