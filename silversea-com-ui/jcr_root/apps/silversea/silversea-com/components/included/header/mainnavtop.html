@@ -15,7 +15,7 @@
                 <span>${page3Mobile.navigationTitle || page3Mobile.title}</span>
             </a>
         </li> 
-        <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md ${navTop.link3MobilePage ? 'hidden-xs hidden-sm':''}" data-sly-test.page3="${navTop.link3Page}">
             <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3.navigationTitle || page3.title}</span>
             </a>

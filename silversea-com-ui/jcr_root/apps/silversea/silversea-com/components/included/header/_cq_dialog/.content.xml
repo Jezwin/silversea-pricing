@@ -42,7 +42,7 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldDescription="Will display the title navigation of the target page. Default value : Title of the target page"
-                                fieldLabel="Link 3"
+                                fieldLabel="Link 3 (Desktop)"
                                 name="./link3Reference"
                                 rootPath="/content/silversea-com/" />
                             <link3Mobile
