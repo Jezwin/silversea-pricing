@@ -8,6 +8,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
@@ -31,7 +32,7 @@ public class DataLayerUse extends WCMUsePojo {
     Map<String, String> listCat1;
     Map<String, String> listCat2;
 
-    private String geoLoc;
+    private String geoLoc = "";
     private MediaDataLayer media;
 
     @Override
@@ -143,11 +144,16 @@ public class DataLayerUse extends WCMUsePojo {
          */
         // TODO récuperer la bonne market
 //        geoLoc = "UK";
-        geoLoc= GeolocationHelper.getCountryCode(getRequest());
+        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        String contry = GeolocationHelper.getCountryCode(getRequest());
+        geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
+        if(geoLoc != null){
+        	geoLoc = geoLoc.toUpperCase();
+        }
         String adwords_conversion_label = "";
         String adwords_value = "1.0";
         String adwords_format = "";
-        if (geoLoc.equals("US")) {
+        if (geoLoc.equals("US") || (geoLoc.equals("FT") && (contry.equals("US") || contry.equals("CA")))) {
             if (pageCategory2.toLowerCase().equals("RAQ TY")) {
                 adwords_conversion_label = "XXW_CPmImQQQl5v74wM";
                 adwords_format = "2";
@@ -173,7 +179,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "GSvQCJnls1wQl5v74wM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("LAM")) {
+        if (geoLoc.equals("LAM") || (geoLoc.equals("FT") && (!contry.equals("US") && !contry.equals("CA")))) {
             if (pageCategory2.toLowerCase().equals("RAQ TY")) {
                 adwords_conversion_label = "2ro7CO-klggQ2cHp1QM";
                 adwords_format = "3";
@@ -199,7 +205,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "c5paCPzos1wQ2cHp1QM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("AP")) {
+        if (geoLoc.equals("AP") || geoLoc.equals("AS")) {
             if (pageCategory2.toUpperCase().equals("RAQ TY")) {
                 adwords_conversion_label = "7HNzCNzvkQgQ1MDT0AM";
                 adwords_format = "3";
@@ -251,7 +257,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "RzaaCPWMsFwQgL_7yAM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("EMEA")) {
+        if (geoLoc.equals("EMEA") || geoLoc.equals("EU")) {
             if (pageCategory2.toUpperCase().equals("RAQ TY")) {
                 adwords_conversion_label = "81HGCJzThggQzILD0AM";
                 adwords_format = "3";
