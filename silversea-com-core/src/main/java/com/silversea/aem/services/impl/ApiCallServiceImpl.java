@@ -251,7 +251,7 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
     }
 
     @Override
-    public List<Country> getContries() throws IOException, ApiException {
+    public List<Country> getCountries() throws IOException, ApiException {
         LOGGER.debug("Api call service -- Start call contry api");
         CountriesApi countriesApi = (CountriesApi) apiInstances.get(ServiceConstants.COUNTRY_API_KEY);
         LOGGER.debug("Api call service -- Finish call contry api");
