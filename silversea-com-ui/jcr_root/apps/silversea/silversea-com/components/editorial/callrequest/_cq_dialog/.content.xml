@@ -11,24 +11,35 @@
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"
             type="nav" />
         <items jcr:primaryType="nt:unstructured">
-            <column
+            <callrequest
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="granite/ui/components/foundation/container">
+                jcr:title="Call request"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
                 <items jcr:primaryType="nt:unstructured">
-                    <rootPage
+                    <column
                         jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                        fieldDescription="Path"
-                        fieldLabel="Thank you page"
-                        name="./pageReference"
-                        rootPath="/content/silversea-com" />
-                    <tags
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="cq/gui/components/common/tagspicker"
-                        fieldLabel="Countries excluded"
-                        name="./cq:tags" />
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <rootPage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldDescription="Path"
+                                fieldLabel="Thank you page"
+                                name="./pageReference"
+                                rootPath="/content/silversea-com" />
+                            <tags
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/common/tagspicker"
+                                fieldLabel="Countries excluded"
+                                name="./cq:tags" />
+                        </items>
+                    </column>
                 </items>
-            </column>
+            </callrequest>
         </items>
     </content>
 </jcr:root>
