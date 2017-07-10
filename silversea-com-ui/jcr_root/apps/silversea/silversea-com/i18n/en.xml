@@ -583,7 +583,7 @@
     <select-and-view-the-route
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-and-view-the-route"
-        sling:message="Select-and-view-the-route" />
+        sling:message="Select and view the route" />
     <first-name
         jcr:primaryType="sling:MessageEntry"
         sling:key="first-name"
