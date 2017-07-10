@@ -717,6 +717,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="country-code"
         sling:message="Country code" />
+    <ports
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ports"
+        sling:message="Ports" />
     <postal-code
         jcr:primaryType="sling:MessageEntry"
         sling:key="postal-code"
