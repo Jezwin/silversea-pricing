@@ -54,17 +54,17 @@
                                         name="./fax" />
                                     <latitude
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         fieldDescription="Latitude"
-                                        required="{Boolean}true"
+                                        required="{Boolean}false"
                                         fieldLabel="Latitude"
                                         name="./lat" />
                                     <longitude
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         fieldDescription="Longitude"
                                         fieldLabel="Longitude"
-                                        required="{Boolean}true"
+                                        required="{Boolean}false"
                                         name="./lon" />
                                 </items>
                             </column>
