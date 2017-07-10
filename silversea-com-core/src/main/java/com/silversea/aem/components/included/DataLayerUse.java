@@ -10,6 +10,7 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.services.RunModesService;
 
 /**
@@ -141,7 +142,8 @@ public class DataLayerUse extends WCMUsePojo {
          * media
          */
         // TODO récuperer la bonne market
-        geoLoc = "UK";
+//        geoLoc = "UK";
+        geoLoc= GeolocationHelper.getCountryCode(getRequest());
         String adwords_conversion_label = "";
         String adwords_value = "1.0";
         String adwords_format = "";
