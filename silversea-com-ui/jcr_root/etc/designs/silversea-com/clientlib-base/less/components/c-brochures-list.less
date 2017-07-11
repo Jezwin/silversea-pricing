@@ -1,17 +1,14 @@
-/*
-* c- BROCHURES LIST
-*/
 .brochureteaserlist {
     &__header {
         width: 100%;
         padding: 0 0 30px 0;
         text-align: center;
         display: table;
-        
-        /* phone breakpoint */
+
         @media screen and (max-width: @screen-sm) {
             display: block;
         }
+
         &__label {
             display: table-cell;
             vertical-align: middle;
@@ -22,8 +19,7 @@
             height: 40px;
             width: 50%;
             float: none;
-            
-            /* phone breakpoint */
+
             @media screen and (max-width: @screen-sm) {
                 text-align: center;
                 padding-right: 15px;
@@ -33,6 +29,7 @@
                 width: 100%;
             }
         }
+
         &__select {
             display: table-cell;
             vertical-align: middle;
@@ -40,18 +37,18 @@
             padding-left: 0;
             width: 50%;
             
-            /* phone breakpoint */
+
             @media screen and (max-width: @screen-sm) {
                 position: relative;
                 display: block;
                 text-align: center;
                 width: 100%;
             }
-            
+
             .chosen-container-single {
                 max-width: 240px;
                 width: 100% !important;
-                
+
                & .chosen-single {
                     border-radius: 0 !important;
                     width: 100%;
@@ -61,80 +58,19 @@
                     padding: 2px 12px;
                     height: 40px;
                     border: 1px solid @grey--d3;
-                   
-                       & span {
-                            display: table-cell;
-                            margin-right: 8px;
-                            vertical-align: middle;
-                            color: #555;
-                            font-weight: 700;
-                       }
-                       &:after {
-                            color: #777;
-                            content: '\f0d7';
-                            right: 20px;
-                            top: 10px!important;
-                            -ms-transform: scaleX(.9) scaleY(1.6);
-                            -o-transform: scaleX(.9) scaleY(1.6);
-                            -moz-transform: scaleX(.9) scaleY(1.6);
-                            -webkit-transform: scaleX(.9) scaleY(1.6);
-                            transform: scaleX(.9) scaleY(1.6);
-                            -ms-transform-origin: center center;
-                            -o-transform-origin: center center;
-                            -moz-transform-origin: center center;
-                            -webkit-transform-origin: center center;
-                            transform-origin: center center;
-                            font-family: FontAwesome;
-                            position: absolute;
-                            @media screen and (max-width: @screen-sm) {
-                                right: 15px;
-                                top: 6px !important;
-                            }
-                       }
+
+                   & span { 
+                        display: table-cell;
+                        margin-right: 8px;
+                        vertical-align: middle;
+                        font-weight: 700;
+                    }
                 }
+
                 & .chosen-drop {
-                    margin-top: -12px;
-                    border-color: #aaa !important;
-                    border-radius: 0;
-                    box-shadow: none;
-                    
-                    & .chosen-search {
-                        &:before {
-                            color: #666;
-                            content: "\f002";
-                            font-family: FontAwesome;
-                            left: 10px;
-                            position: absolute;
-                            top: 7px;
-                        }
-                        & input[type="text"] {
-                            background: #fff;
-                            border: 0;
-                            border-radius: 5px;
-                            padding-left: 25px;
-                        }
-                    }
-                    & .chosen-results {
-                        & li {
-                            font-size: 14px;
-                            line-height: 28px;
-                            font-weight: 700;
-                            
-                            &.result-selected {
-                                background: #000!important;
-                                color: #fff!important;
-                                font-weight: bold!important;
-                            }
-                            &.highlighted {
-                                background:none #eee;
-                                background:#000!important;
-                                color:inherit;
-                                color:#fff!important
-                            }
-                        }
-                    }
+                    border-color: @grey--d3;
                 }
             }
-        }    
+        }
     }
 }

@@ -538,7 +538,7 @@
         overflow: hidden;
     }
 
-    .fyc2_result__wrapper {
+    .result__wrapper {
 
         @media screen and (max-width: @screen-sm) {
             width: 50%;
@@ -565,7 +565,7 @@
             }
         }
 
-        .fyc2_result {
+        .result {
             font-weight: 400;
             border-bottom: 1px solid #D3D3D3;
             background: @white;
@@ -587,18 +587,18 @@
                     background: @white;
                 }
 
-                .fyc2_result__ports_ul {
+                .result__ports_ul {
 
-                    .fyc2__ports_more {
+                    .result_ports_more {
                         background: -moz-linear-gradient(left,rgba(238,238,238,0) 0%,rgba(238,238,238,1) 50%,rgba(238,238,238,1) 100%);
                         background: -webkit-linear-gradient(left,rgba(238,238,238,0) 0%,rgba(238,238,238,1) 50%,rgba(238,238,238,1) 100%);
                         background: linear-gradient(to right,rgba(238,238,238,0) 0%,rgba(238,238,238,1) 50%,rgba(238,238,238,1) 100%);
                     }
                 }
 
-                .fyc2_result__inner {
+                .result__inner {
 
-                    .fyc2_result__image {
+                    .result__image {
 
                         &_img a {
                             background: rgba(0,0,0,.5);
@@ -607,7 +607,7 @@
                 }
             }
 
-            &.fyc2_result-expedition .fyc2_result__inner .fyc2_result__content .fyc2_result__content_inner .fyc2_result__content_content .fyc2_result__meta {
+            &.result-expedition .result__inner .result__content .result__content_inner .result__content_content .result__meta {
 
                 @media screen and (max-width: @screen-sm) {
                     border-bottom: 1px solid #d60524;
@@ -635,7 +635,7 @@
                     position: static;
                 }
 
-                .fyc2_result__image {
+                .result__image {
                     max-width: 245px;
                     min-width: 245px;
                     width: 245px;
@@ -692,7 +692,7 @@
                     }
                 }
 
-                .fyc2_result__content {
+                .result__content {
                     display: table-cell;
                     vertical-align: top;
                     width: 100%;
@@ -728,7 +728,7 @@
                             padding: 0;
                         }
 
-                        .fyc2_result__title {
+                        .result__title {
                             font-size: 18px;
                             font-weight: 700;
                             text-transform: uppercase;
@@ -749,7 +749,7 @@
                             }
                         }
 
-                        .fyc2_result__meta {
+                        .result__meta {
 
                             @media screen and (max-width: @screen-sm) {
                                 border-bottom: 1px solid #72BEB4;
@@ -768,7 +768,7 @@
                                     margin-bottom: 5px;
                                 }
 
-                                &.fyc2_result__meta_dest {
+                                &.result__meta_dest {
 
                                     @media screen and (max-width: @screen-sm) {
                                         display: block;
@@ -792,7 +792,7 @@
                             }
                         }
 
-                        .fyc2_result__daysdate {
+                        .result__daysdate {
                             margin-bottom: 15px;
                             margin-top: 5px;
 
@@ -807,7 +807,7 @@
                             }
                         }
 
-                        .fyc2_result__daysdateship {
+                        .result__daysdateship {
                             display: none;
                             width: 100%;
                             float: left;
@@ -823,7 +823,7 @@
                                 float: left;
                                 border: 1px solid #D3D3D3;
 
-                                .fyc2_result__daysdateship_col {
+                                .result__daysdateship_col {
                                     display: block;
                                     width: 33.3%;
                                     height: 69px;
@@ -838,7 +838,7 @@
                                         border-right: none;
                                     }
 
-                                    .fyc2_result__daysdateship_line1 {
+                                    .result__daysdateship_line1 {
                                         color: @grey;
                                         font-size: 11px;
                                         font-weight: 700;
@@ -850,7 +850,7 @@
                                         }
                                     }
 
-                                    .fyc2_result__daysdateship_line2 {
+                                    .result__daysdateship_line2 {
                                         font-size: 16px;
                                         font-weight: 700;
                                         text-transform: uppercase;
@@ -860,7 +860,7 @@
                                         }
                                     }
 
-                                    .fyc2_result__daysdateship_line3 {
+                                    .result__daysdateship_line3 {
                                         text-transform: uppercase;
                                         font-size: 12px;
                                         margin-top: 5px;
@@ -869,7 +869,7 @@
                             }
                         }
 
-                        .fyc2_result__ports {
+                        .result__ports {
 
                             h4 {
                                 font-size: 12px;
@@ -886,7 +886,7 @@
                                 position: relative;
                                 width: 97%;
 
-                                .fyc2__ports_more {
+                                .result_ports_more {
                                     display: none;
                                     position: absolute;
                                     bottom: -1px;
@@ -895,9 +895,7 @@
                                     background: @white;
                                     font-weight: 400;
                                     text-transform: none;
-                                    background: -moz-linear-gradient(left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
-                                    background: -webkit-linear-gradient(left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
-                                    background: linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
+                                    background: none;
 
                                     span {
                                         &:first-child {
@@ -924,7 +922,7 @@
                                         line-height: inherit;
                                     }
 
-                                    &:nth-last-child(2) {
+                                    &:nth-last-child {
 
                                         &:after {
                                             display: none;
@@ -943,7 +941,7 @@
                                     height: 35px;
                                     overflow: hidden;
 
-                                    .fyc2__ports_more {
+                                    .result_ports_more {
                                         display: block;
                                     }
                                 }
@@ -951,7 +949,7 @@
                         }
                     }
 
-                    .fyc2_result__content_actions {
+                    .result__content_actions {
                         display: table-cell;
                         vertical-align: middle;
                         min-width: 165px;
@@ -971,14 +969,14 @@
                             padding-bottom: 0;
                         }
 
-                        .fyc2_result__actions {
+                        .result__actions {
 
                             &_price {
                                 padding-top: 18px;
                                 padding-bottom: 15px;
                                 min-height: 82px;
 
-                                .fyc2_result__price {
+                                .result__price {
                                     text-transform: uppercase;
                                     text-align: center;
 
@@ -1006,7 +1004,7 @@
                                 }
                             }
 
-                            .fyc2_result__actions_cta {
+                            .result__actions_cta {
                                 position: absolute;
                                 bottom: 8px;
                                 left: 0;
@@ -1071,9 +1069,9 @@
 
 // FYC V2
 
-.th-style {
+.fyc-v2 .th-style {
     position: relative;
-    height: 25px;
+    height: 40px;
     border-bottom: 1px solid @grey--d;
 
     span {
@@ -1082,7 +1080,7 @@
         top: 0;
         text-transform: uppercase;
         font-size: 11px;
-        color: @grey--7;
+        color: @grey--3;
         font-weight: @bold;
 
         &:nth-child(1) { left: 0px; }
@@ -1099,230 +1097,273 @@
     }
 }
 
+.c-fyc .voyage-overview.fyc-v2 {
+    .result__wrapper {
+        @media screen and (max-width: @screen-sm) {
+            &:nth-child(odd) {
+                padding-left: 8px;
+            }
+
+            &:nth-child(even) {
+                padding-right: 8px;
+            }
+        }
+
+        @media screen and (max-width: @screen-xs) {
+           width: 100%;
+
+            &:nth-child(odd) {
+                padding-left: 0;
+            }
+
+            &:nth-child(even) {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
 @media screen and (min-width: @screen-sm) {
-    .fyc-v2 .fyc2_result {
-        background: @grey--d;
-        border-bottom: 1px solid @grey--d;
 
-        &__inner {
-            border-top: 8px solid @white;
-            border-bottom: 8px solid @white;
-            padding: 0;
-        }
+    .c-fyc .voyage-overview.fyc-v2 {
+        .result__wrapper {
+            .result {
+                background: @grey--d;
+                border-bottom: 1px solid @grey--d;
 
-        &__content {
-            padding: 0;
+                &__inner {
+                    border-top: 10px solid @white;
+                    border-bottom: 10px solid @white;
+                    padding: 0;
 
-            &_content {
-                padding: 0;
-                position: relative;
-                left: 82px;
-                background: @white;
-
-                .fyc2_result__meta {
-                    margin-left: 15px;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    font-size: 11px;
-
-                    > span {
-                        display: block;
-
-                        &:after {
-                            display: none;
-                        }
-                    }
-
-                    &_ship {
-                        font-weight: @bold;
-                        position: relative;
-                        top: -15px;
-                        font-size: 12px;
-                    }
-
-                    &_type {
-                        font-style: italic;
-                        font-family: @f-theano_didot;
-                        position: relative;
-                        top: 15px;
-                    }
-
-                    &_code {
-                        font-weight: @bold;
-                        font-size: 11px;
-                    }
-
-                    .meta_feature {
-                        position: absolute;
-                        width: 65px;
-                        top: 0;
-                        left: 115px;
-                        text-align: center;
-                        background-color: @white;
-                        padding-bottom: 3px;
-
-                        li {
-                            margin: 3px;
-                        }
-                    }
-                }
-
-                .fyc2_result__daysdate {
-                    margin: 0;
-                    width: 82px;
-                    height: 100%;
-                    position: absolute;
-                    left: -82px;
-                    top: 0;
-
-                    h3 {
-                        width: 100%;
+                    .result__content {
                         padding: 0;
-                        margin: 0;
-                        position: absolute;
-                        top: 50%;
-                        margin-top: -17px;
-                        border: none;
-                        background: none;
-                        text-align: center;
-                        font-weight: normal;
-                        font-size: 11px;
 
-                        .date {
-                            display: block;
-                            font-size: 11px;
+                        &_content {
+                            padding: 0;
                             position: relative;
-                            padding-bottom: 5px;
-                            margin-bottom: 5px;
+                            left: 82px;
+                            background: @white;
 
-                            &:after {
-                                content:"";
-                                display: block;
-                                width: 10px;
-                                height: 1px;
+                            .result__meta {
+                                margin-left: 15px;
                                 position: absolute;
-                                bottom: 0;
-                                left: 50%;
-                                margin-left: -5px;
-                                background-color: @grey--ba;
+                                top: 0;
+                                left: 0;
+                                font-size: 11px;
+
+                                > span {
+                                    display: block;
+
+                                    &:after {
+                                        display: none;
+                                    }
+                                }
+
+                                &_ship {
+                                    font-weight: @bold;
+                                    position: relative;
+                                    top: -15px;
+                                    font-size: 12px;
+                                }
+
+                                &_type {
+                                    font-style: italic;
+                                    font-family: @f-theano_didot;
+                                    position: relative;
+                                    top: 15px;
+                                }
+
+                                &_code {
+                                    font-weight: @bold;
+                                    font-size: 11px;
+                                }
+
+                                .meta_feature {
+                                    position: absolute;
+                                    width: 65px;
+                                    top: 0;
+                                    left: 115px;
+                                    text-align: center;
+
+                                    li {
+                                        margin: 3px;
+
+                                        .feature-eo {
+                                            background-color: @white;
+                                            padding: 3px 6px 2px;
+                                            width: 100%;
+                                            height: auto;
+                                            display: block;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .result__daysdate {
+                                margin: 0;
+                                width: 82px;
+                                height: 100%;
+                                position: absolute;
+                                left: -82px;
+                                top: 0;
+
+                                h3 {
+                                    width: 100%;
+                                    padding: 0;
+                                    margin: 0;
+                                    position: absolute;
+                                    top: 50%;
+                                    margin-top: -17px;
+                                    border: none;
+                                    background: none;
+                                    text-align: center;
+                                    font-weight: normal;
+                                    font-size: 11px;
+
+                                    .date {
+                                        display: block;
+                                        font-size: 11px;
+                                        position: relative;
+                                        padding-bottom: 5px;
+                                        margin-bottom: 5px;
+
+                                        &:after {
+                                            content:"";
+                                            display: block;
+                                            width: 10px;
+                                            height: 1px;
+                                            position: absolute;
+                                            bottom: 0;
+                                            left: 50%;
+                                            margin-left: -5px;
+                                            background-color: @grey--ba;
+                                        }
+                                    }
+
+                                    span strong {
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+
+                            .result__ports {
+                                overflow: hidden;
+                                position: relative;
+                                padding-left: 208px;
+                                padding-right: 360px;
+                                min-height: 54px;
+
+                                ul {
+                                    width: 100%;
+
+                                    li {
+                                        font-size: 11px;
+
+                                        &:first-child, &:last-child {
+                                            font-weight: @bold;
+                                            font-size: 12px;
+                                            text-transform: uppercase;
+                                        }
+                                    }
+                                }
                             }
                         }
 
-                        span strong {
-                            font-size: 12px;
+                        .result__content_actions {
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            width: 200px;
+                            padding: 0;
+
+                            .result__actions {
+                                width: 270px;
+                                position: absolute;
+                                right: 0;
+
+                                &_price {
+                                    padding: 0;
+                                    min-height: inherit;
+
+                                    .result__price {
+                                        text-align: left;
+                                        float: left;
+                                        max-width: 130px;
+
+                                        &_line1, &_line2 span, &_line3 {
+                                            line-height: 1.4;
+                                            font-size: 9px;
+                                            white-space: normal;
+                                        }
+
+                                        &_line2 {
+                                            font-size: 14px;
+                                            line-height: 1;
+
+                                            span {
+                                                padding-left: 6px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .result__actions_cta {
+                                    float: right;
+                                    position: static;
+                                    width: auto;
+                                    margin-right: 10px;
+
+                                    .btn {
+                                        font-size: 9px;
+                                        padding: 5px 8px 4px 8px;
+                                        min-height: 21px;
+                                        margin-bottom: 10px;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
 
-                .fyc2_result__ports {
-                    overflow: hidden;
+                &:hover {
+                    background: @grey--3;
+                    color: @white;
                     position: relative;
-                    padding-left: 208px;
-                    padding-right: 360px;
-                    min-height: 46px;
 
-                    ul {
-                        width: 100%;
+                    .result__inner {
+                        border-top: 10px solid @grey--3;
+                        border-bottom: 10px solid @grey--3;
 
-                        li {
-                            font-size: 11px;
+                        .result__content_content {
+                            background: transparent;
 
-                            &:first-child, &:last-child {
-                                font-weight: @bold;
-                                font-size: 12px;
-                                text-transform: uppercase;
+                            .meta_feature {
+                                .feature-eo {
+                                    color: @black;
+                                }
                             }
                         }
                     }
-                }
-            }
 
-            &_actions {
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 200px;
-                padding: 0;
-
-                .fyc2_result__actions {
-                    width: 270px;
-                    position: absolute;
-                    right: 0;
-
-                    &_price {
-                        padding: 0;
-                        min-height: inherit;
-                    }
-
-                    .fyc2_result__price {
-                        text-align: left;
-                        float: left;
-                        max-width: 130px;
-
-                        &_line1 {
-                            line-height: 1.4;
-                            font-size: 9px;
-                            white-space: initial;
-                        }
-
-                        &_line2 {
-                            font-size: 14px;
-                            line-height: 1;
-                        }
-                    }
-
-                    &_cta {
-                        float: right;
-                        position: static;
-                        width: auto;
-                        margin-right: 8px;
-
-                        .btn {
-                            font-size: 9px;
-                            padding: 5px 8px 4px 8px;
-                            min-height: 21px;
-                            margin-bottom: 10px;
-                        }
+                    &:before {
+                        content: "";
+                        display: block;
+                        width: 1px;
+                        height: 100%;
+                        position: absolute;
+                        left: 82px;
+                        z-index: 1;
+                        background-color: @grey--ba;
                     }
                 }
-            }
-        }
-
-        &:hover {
-            background: @grey--3;
-            color: @white;
-            position: relative;
-
-            .fyc2_result__inner {
-                border-top: 8px solid @grey--3;
-                border-bottom: 8px solid @grey--3;
-
-                .fyc2_result__content_content {
-                    background: transparent;
-
-                    .meta_feature {
-                        color: @black;
-                    }
-                }
-            }
-
-            &:before {
-                content: "";
-                display: block;
-                width: 1px;
-                height: 100%;
-                position: absolute;
-                left: 82px;
-                z-index: 1;
-                background-color: @grey--ba;
             }
         }
     }
 }
 
 // HACK CSS FOR IE11
-_:-ms-lang(x), .fyc-v2 .fyc2_result__actions { top: 8px; }
+_:-ms-lang(x), .fyc-v2 .result__actions { top: 8px; }
 
 
 // ICONS FEATURES
@@ -1423,7 +1464,7 @@ _:-ms-lang(x), .fyc-v2 .fyc2_result__actions { top: 8px; }
 
 // END RESULT
 
-.fyc2_fares {
+.fares {
     font-size: 12px;
     font-style: italic;
     color: #646464;
