@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -52,6 +53,7 @@ import com.silversea.aem.components.beans.SearchParameter;
 import com.silversea.aem.components.beans.SearchResultData;
 import com.silversea.aem.constants.ServiceConstants;
 import com.silversea.aem.enums.FacetKey;
+import com.silversea.aem.enums.TagType;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.ItineraryModel;
@@ -91,7 +93,7 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
         } catch (LoginException e) {
             LOGGER.debug("Cruise search service --  login exception ", e);
         } catch (RepositoryException e) {
-       
+            LOGGER.debug("Cruise search service --  Exception while retrieving query manager", e);
         }
     }
 
@@ -130,7 +132,7 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
             searchResultData = new SearchResultData();
             searchResultData.setCount(result.getTotalMatches());
             searchResultData.setCruises(cruises);
-            extractFacets(result,searchResultData);
+            extractFacets(result,searchParameter,searchResultData);
         }
         
         return searchResultData;
@@ -163,11 +165,11 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      * @param result: search result
      * @param searchResultData: search result data
      */
-    private void extractFacets(SearchResult result,SearchResultData searchResultData){
+    private void extractFacets(SearchResult result,SearchParameter searchParameter,SearchResultData searchResultData){
         try {
             Map<String, Facet> facets = result.getFacets();
             if(facets != null && !facets.isEmpty()){
-                facets.forEach((k,v)->mapFilters(v,k,searchResultData));
+                facets.forEach((k,v)->mapFilters(v,k,searchParameter,searchResultData));
             }
         } catch (RepositoryException e) {
             LOGGER.error("Cruise search service -- exception while extracting facets",e); 
@@ -180,31 +182,35 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      * @param key: facet's key
      * @param searchResultData: search result data
      */
-    private void mapFilters(Facet facet,String key,SearchResultData searchResultData){
+    private void mapFilters(Facet facet,String key,SearchParameter params,SearchResultData result){
         
         if(facet != null && facet.getContainsHit()){
             List<SearchFilter> filters = null;
-            if(FacetKey.DESTINATION.getValue().equals(key)){        
-                 filters = mapSearchFilters(facet,ServiceConstants.SEARCH_CRUISE_ROOT_PATH,ServiceConstants.DESTINATION_RESOURCE_TYPE,"destinationId");
-                searchResultData.setDestinations(filters);
+            if(FacetKey.DESTINATION.getValue().equals(key)){ 
+                 String path = getSearchPath(params, ServiceConstants.SEARCH_CRUISE_ROOT_PATH);
+                 filters = mapSearchFilters(facet,path,ServiceConstants.DESTINATION_RESOURCE_TYPE,"destinationId");
+                 result.setDestinations(filters);
             }
             else if(FacetKey.CITIES.getValue().equals(key)){
-                filters = mapSearchFilters(facet, ServiceConstants.SEARCH_PORT_ROOT_PATH,ServiceConstants.PORT_RESOURCE_TYPE,"cityId");
-                searchResultData.setCities(filters);
+                String path = getSearchPath(params, ServiceConstants.SEARCH_PORT_ROOT_PATH);
+                filters = mapSearchFilters(facet,path,ServiceConstants.PORT_RESOURCE_TYPE,"cityId");
+                result.setCities(filters);
             }
             else if(FacetKey.SHIP.getValue().equals(key)){
-                filters = mapSearchFilters(facet, ServiceConstants.SEARCH_SHIP_ROOT_PATH,ServiceConstants.SHIP_RESOURCE_TYPE,"shipId");
-                searchResultData.setShips(filters);
+                String path = getSearchPath(params, ServiceConstants.SEARCH_SHIP_ROOT_PATH);
+                filters = mapSearchFilters(facet,path,ServiceConstants.SHIP_RESOURCE_TYPE,"shipId");
+                result.setShips(filters);
             }
             else if(FacetKey.DURATION.getValue().equals(key)){
-                searchResultData.setDurations(getBuckets(facet));
+                result.setDurations(buildDurations(facet, params.getLanguage()));
             }
             else if(FacetKey.DATES.getValue().equals(key)){
-                searchResultData.setDates(getBuckets(facet));
+                result.setDates(buildDates(facet,params.getLanguage()));
             }
             else if(FacetKey.TAGS.getValue().equals(key)){
-                searchResultData.setFeatures(getTagsFilter(getBuckets(facet),"features"));
-                searchResultData.setTypes(getTagsFilter(getBuckets(facet),"cruise-type"));
+                String locale = params.getLanguage();
+                result.setFeatures(getTagsFilter(getBuckets(facet),TagType.FEATURES.getValue(),locale));
+                result.setTypes(getTagsFilter(getBuckets(facet),TagType.CRUISES.getValue(),locale));
             }
         }
     }
@@ -234,18 +240,18 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      * @return list of search filter
      */
     
-    private <T> List<T> getTagsFilter(List<String> tags,String tagPrefix){
+    private <T> List<T> getTagsFilter(List<String> tags,String tagPrefix,String locale){
         List<T> filters = null;
         if(tags != null && !tags.isEmpty()){
             filters = tags.stream().map((tagId ->{
                 T filter = null;
                 if (StringUtils.contains(tagId, tagPrefix)) {
                     Tag tag = tagManager.resolve(tagId);
-                    if(tag!=null && StringUtils.equals("cruise-type", tagPrefix)){
-                        filter = (T) createFilterFromTag(tag);
+                    if(tag != null && StringUtils.equals(TagType.CRUISES.getValue(), tagPrefix)){
+                        filter = (T) createFilterFromTag(tag,locale);
                     }
                     else{
-                        filter = (T) createFeatureFromTag(tag);
+                        filter = (T) createFeatureFromTag(tag,locale);
                     }
                 }
                 return filter;
@@ -262,9 +268,9 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      * @param tag: tag
      * @return SearchFilter: a searh filter
      */
-    private SearchFilter createFilterFromTag(Tag tag){
+    private SearchFilter createFilterFromTag(Tag tag,String locale){
         SearchFilter searchFilter=  new SearchFilter();
-        searchFilter.setTitle(tag.getTitle());
+        searchFilter.setTitle(tag.getTitle(new Locale(locale)));
         searchFilter.setId(tag.getTagID());
         
         return searchFilter;
@@ -275,13 +281,13 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      * @param tag: tag
      * @return feature: feature for exclusive offer
      */
-    private Feature createFeatureFromTag(Tag tag){
+    private Feature createFeatureFromTag(Tag tag,String locale){
        
         Feature feature =  new Feature();
         Resource resource = tag.adaptTo(Resource.class);
         if(resource != null && !ResourceUtil.isNonExistingResource(resource)){
             feature.setId(tag.getTagID());
-            feature.setTitle(tag.getTitle());
+            feature.setTitle(tag.getTitle(new Locale(locale)));
             feature.setIcon(resource.getValueMap().get("icon", String.class));
             feature.setDescription(tag.getDescription());
         }
@@ -317,6 +323,51 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
     }
     
     /**
+     * Format dates with locale and build search filters
+     * @param facet: search facet
+     * @param locale: search locale
+     * @return filters: list of formatted dates
+     */
+    private List<SearchFilter> buildDates(Facet facet, String locale){
+        List<SearchFilter> filters = null;
+        if(facet != null){
+            filters = facet.getBuckets().stream().map(bucket ->{
+                String value = bucket.getValue();
+                SearchFilter searchFilter = new SearchFilter();
+                String date= DateUtils.formatDateByLocale(ServiceConstants.DATE_FORMAT_MMMM_YYYY, value, locale);
+                searchFilter.setTitle(date);
+                searchFilter.setId(value);
+                return searchFilter;
+            }).collect(Collectors.toList());
+        }
+        return filters;
+    }
+    
+    /**
+     * Build duration's filters
+     * @param facet: search duration facet
+     * @param locale: search locale
+     * @return filters: list search filters
+     */
+    private List<SearchFilter> buildDurations(Facet facet, String locale){
+        List<SearchFilter> filters = null;
+        if(facet != null){
+            filters = facet.getBuckets().stream().map(bucket ->{
+                String value = bucket.getValue();
+                SearchFilter searchFilter = new SearchFilter();
+                String tagId = ServiceConstants.DURATION_TAGS_PREFIX.concat(value);
+                Tag tag = tagManager.resolve(tagId);
+                if(tag!=null){
+                    searchFilter.setTitle(tag.getTitle(new Locale(locale)));
+                    searchFilter.setId(value);
+                }
+                return searchFilter;
+            }).collect(Collectors.toList());
+        }
+        return filters;
+    }
+    
+    /**
      * Map buckets to search filters
      * @param facet: result's facet
      * @param path: path for search resource  buckets
@@ -338,9 +389,11 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
      */
     private Query createQuery(SearchParameter searchParameter){
 
+        //Get search root path
+        String path = getSearchPath(searchParameter, ServiceConstants.SEARCH_CRUISE_ROOT_PATH);
         PredicateGroup predicateGroup = new PredicateGroup();
         //Build simple predicates property/value
-        createPredicate(ServiceConstants.SEARCH_PATH_PROPERTY, ServiceConstants.SEARCH_CRUISE_ROOT_PATH,false, predicateGroup);
+        createPredicate(ServiceConstants.SEARCH_PATH_PROPERTY, path,false, predicateGroup);
         createPredicate(ServiceConstants.SEARCH_TYPE_PROPERTY, NameConstants.NT_PAGE,false, predicateGroup);
         createPredicate(ServiceConstants.SLIN_RESOURCE_TYPE, ServiceConstants.CRUISE_RESOURCE_TYPE,true, predicateGroup);
         createPredicate(ServiceConstants.SEARCH_CMP_DESTINATION, searchParameter.getDestinationId(), true, predicateGroup);
@@ -395,13 +448,15 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
         if(hasProperty){
             predicate = new Predicate(JcrPropertyPredicateEvaluator.PROPERTY);
             predicate.set(JcrPropertyPredicateEvaluator.PROPERTY, name);
+            if(value != null){
+                predicate.set(JcrPropertyPredicateEvaluator.VALUE, value);
+            }
         }
         else{
             predicate = new Predicate(name);
+            predicate.set(name, value);
         }
-        if(value != null){
-            predicate.set(JcrPropertyPredicateEvaluator.VALUE, value);
-        }
+       
         predicateGroup.add(predicate);
     }
    
@@ -442,6 +497,7 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
         //Bean mapping
         Cruise cruise = new Cruise();
         cruise.setThumbnail(cruiseModel.getThumbnail());
+        cruise.setPath(cruiseModel.getPage().getPath());
         cruise.setTitle(cruiseModel.getTitle());
         cruise.setType(cruiseModel.getCruiseType());
         cruise.setShip(cruiseModel.getShip().getTitle());
@@ -482,5 +538,17 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
             LOGGER.error("Cruise search service -- exception while retrieving data with id {}",values,e); 
         }
         return queryResult; 
+    }
+    
+    /**
+     * Build search path by language
+     * @param searchParameter: search parameters
+     * @param path: root path
+     * @return search path
+     */
+    private String getSearchPath(SearchParameter searchParameter,String path){
+        String language = searchParameter.getLanguage();
+        String root = String.format(ServiceConstants.SEARCH_CONTENT_ROOT + "%s%s", language,path);
+        return root;
     }
 }

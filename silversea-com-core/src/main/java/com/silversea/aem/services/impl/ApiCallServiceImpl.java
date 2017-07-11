@@ -84,7 +84,6 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
             LOGGER.debug("Api call service -- Start call price api");
             List<VoyagePriceComplete> result = new ArrayList<VoyagePriceComplete>();
             PricesApi pricesApi = (PricesApi) apiInstances.get(ServiceConstants.PRICES_API_KEY);
-            configureClient(pricesApi.getApiClient());
             int index = 1;
             do {
                 result = pricesApi.pricesGet3(index, PER_PAGE, null);

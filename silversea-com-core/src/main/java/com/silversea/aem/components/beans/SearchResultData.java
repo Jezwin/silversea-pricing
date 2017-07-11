@@ -10,9 +10,10 @@ public class SearchResultData {
     private List<SearchFilter> cities;
     private List<SearchFilter> ships;
     private List<SearchFilter> types;
+    private List<SearchFilter> dates;
+    private List<SearchFilter> durations;
     private List<Feature> features;
-    private List<String> dates;
-    private List<String> durations;
+    
   
     public List<Cruise> getCruises() {
         return cruises;
@@ -46,11 +47,11 @@ public class SearchResultData {
         this.ships = ships;
     }
 
-    public List<String> getDurations() {
+    public List<SearchFilter> getDurations() {
         return durations;
     }
 
-    public void setDurations(List<String> durations) {
+    public void setDurations(List<SearchFilter> durations) {
         this.durations = durations;
     }
 
@@ -70,11 +71,11 @@ public class SearchResultData {
         this.features = features;
     }
 
-    public List<String> getDates() {
+    public List<SearchFilter> getDates() {
         return dates;
     }
 
-    public void setDates(List<String> dates) {
+    public void setDates(List<SearchFilter> dates) {
         this.dates = dates;
     }
 

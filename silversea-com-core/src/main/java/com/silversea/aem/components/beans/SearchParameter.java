@@ -19,6 +19,7 @@ public class SearchParameter {
     @JsonDeserialize(using=ArrayDeserializer.class)
     private String [] features;
     private GeoLocation geolocation;
+    private String language;
 
     public SearchParameter(){
         
@@ -103,5 +104,12 @@ public class SearchParameter {
     public void setGeolocation(GeoLocation geolocation) {
         this.geolocation = geolocation;
     }
-    
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

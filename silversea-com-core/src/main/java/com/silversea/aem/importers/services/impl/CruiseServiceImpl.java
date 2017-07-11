@@ -21,6 +21,7 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Workspace;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -101,6 +102,7 @@ public class CruiseServiceImpl implements CruiseService{
     private TagManager tagManager;
     private AssetManager assetManager;
     private Session session;
+    private Workspace workspace;
 
     public void init() {
         try {      
@@ -111,6 +113,7 @@ public class CruiseServiceImpl implements CruiseService{
             tagManager = resourceResolver.adaptTo(TagManager.class);
             assetManager = resourceResolver.adaptTo(AssetManager.class);
             session = resourceResolver.adaptTo(Session.class);
+            workspace = session.getWorkspace();
         } catch (LoginException e) {
             LOGGER.debug("Cruise importer login exception ", e);
         }
@@ -550,7 +553,8 @@ public class CruiseServiceImpl implements CruiseService{
                 Asset asset = assetManager.createAsset(imageDest, is, "image/jpeg", true);
                 imagePath = asset.getPath();
                 //Replicate image
-                replicateResource(imagePath);
+                //TODO
+                //replicateResource(imagePath);
                 LOGGER.debug("Cruise importer -- Downloading image with name {} finished", imageName);
             } catch (Exception e) {
                 LOGGER.error("Error while downloading cruise image", e);
@@ -647,5 +651,22 @@ public class CruiseServiceImpl implements CruiseService{
                 }
             }
         return pages;
+    }
+    
+    public void copyPage(Page page){
+
+        String path = page.getPath();
+        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        if(languages != null && !languages.isEmpty()){
+            languages.forEach(language ->{
+                try{
+                    String destPath = StringUtils.replace(path, "/en/", "/" + language + "/");
+                    workspace.copy(path, destPath);
+                }catch(RepositoryException e){
+                    LOGGER.error("Exception while copying pages to other languages",e);
+                }
+            });
+        }
+
     }
 }

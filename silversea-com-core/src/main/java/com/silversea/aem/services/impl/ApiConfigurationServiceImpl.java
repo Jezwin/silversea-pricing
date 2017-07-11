@@ -78,7 +78,7 @@ public class ApiConfigurationServiceImpl implements ApiConfigurationService {
     private static final String SESSION_REFRESH = "sessionRefresh";
     private int sessionRefresh;
 
-    @Property(value = "60000", label = "Timeout", description = "Timeout")
+    @Property(value = "100000", label = "Timeout", description = "Timeout")
     private static final String TIME_OUT = "timeout";
     private int timeout;
 

@@ -6,6 +6,7 @@ public class Cruise {
     
     private String thumbnail;
     private String title;
+    private String path;
     private String type;    
     private String ship;
     private String startDate;
@@ -106,5 +107,14 @@ public class Cruise {
 
     public void setCruiseCode(String cruiseCode) {
         this.cruiseCode = cruiseCode;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     } 
+    
 }

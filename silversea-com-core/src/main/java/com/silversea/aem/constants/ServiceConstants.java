@@ -17,9 +17,10 @@ public interface ServiceConstants {
     String SHIPS_API_KEY = "shipsApi";
     String COUNTRY_API_KEY = "contryApi";
     
-    String SEARCH_CRUISE_ROOT_PATH = "/content/silversea-com/en/destinations/";
-    String SEARCH_PORT_ROOT_PATH = "/content/silversea-com/en/other-resources/find-a-port";
-    String SEARCH_SHIP_ROOT_PATH ="/content/silversea-com/en/ships";
+    String SEARCH_CONTENT_ROOT= "/content/silversea-com/";
+    String SEARCH_CRUISE_ROOT_PATH = "/destinations/";
+    String SEARCH_PORT_ROOT_PATH = "/other-resources/find-a-port";
+    String SEARCH_SHIP_ROOT_PATH ="/ships";
     
     String CRUISE_RESOURCE_TYPE= "silversea/silversea-com/components/pages/cruise";
     String DESTINATION_RESOURCE_TYPE = "silversea/silversea-com/components/pages/destination";
@@ -38,9 +39,11 @@ public interface ServiceConstants {
     String SEARCH_CMP_DATE ="jcr:content/cmp-date";
     String SEARCH_CRUISE_DATE_FORMAT = "dd MMM YYYY";
     String DATE_FORMAT_MMM_YYYY= "MMM yyyy";
+    String DATE_FORMAT_MMMM_YYYY= "MMMM yyyy";
     String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
     String CRUISE_TYPE_TAGS_PREFIX="/etc/tags/cruise-type/";
     String FEATURE_TAGS_PREFIX="/etc/tags/features/";
+    String DURATION_TAGS_PREFIX="/etc/tags/cruises-durations/";
     
     String SEARCH_DATE_UPPER_BOUND = "upperBound";
     String SEARCH_DATE_PREDICATE = "daterange";

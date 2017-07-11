@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -66,5 +67,23 @@ public final class DateUtils {
             }
         }
         return parsedDate;
+    }
+    
+    /**
+     * parse date with a specific format by locale
+     * @param format: date's format
+     * @param date: date to format
+     * @param locale: date's locale
+     * @return: parsed date
+     */
+    public static String formatDateByLocale(String format,String date,String locale){
+        String formattedDate = null;
+        if (date != null && StringUtils.isNoneEmpty(format) 
+                && StringUtils.isNoneEmpty(locale)) {
+            SimpleDateFormat formatter = new SimpleDateFormat(format,new Locale(locale,StringUtils.upperCase(locale)));
+            Date parsedDate = parseDate(format,date);
+            formattedDate = formatter.format(parsedDate);
+        }
+        return formattedDate;
     }
 }

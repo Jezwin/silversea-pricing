@@ -447,4 +447,9 @@ public class CruiseModel extends AbstractModel {
     public String getThumbnail() {
         return thumbnail;
     }
+
+    public Page getPage() {
+        return page;
+    }
+    
 }

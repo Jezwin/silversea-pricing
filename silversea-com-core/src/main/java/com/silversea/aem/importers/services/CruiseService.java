@@ -78,4 +78,6 @@ public interface CruiseService {
     void buildVariationsLowestPrices(Node suitesNode, LowestPrice lowestPrice)throws RepositoryException;
     
     List<Page> getPagesByResourceType(String resourceType) throws RepositoryException;
+    
+    void copyPage(Page page);
 }
