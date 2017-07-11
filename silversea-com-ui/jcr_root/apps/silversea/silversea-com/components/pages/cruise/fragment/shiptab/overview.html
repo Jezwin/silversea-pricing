@@ -4,7 +4,7 @@
         <div class="col-sm-6 col-sm-push-6 pictureblock">
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                 data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-            <a href="" class="hidden-xs">${'view-deck-plan' @ i18n}</a>
+            <a href="${target.page.properties.deckPlan}" target="_blank" class="hidden-xs">${'view-deck-plan' @ i18n}</a>
         </div>
         <div class="col-sm-6 col-sm-pull-6 ship-overview__content">
             <div class="ship-mobilewrapper">
