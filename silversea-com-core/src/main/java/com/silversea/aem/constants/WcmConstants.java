@@ -39,6 +39,7 @@ public interface WcmConstants {
     String RT_LAND_PROGRAMS = "silversea/silversea-com/components/pages/landprogram";
     String RT_EXCURSIONS = "silversea/silversea-com/components/pages/excursion";
     String RT_TRAVEL_AGENT = "silversea/silversea-com/components/pages/travelagency";
+    String RT_EXCLUSIVE_OFFER = "silversea/silversea-com/pages/exclusiveoffer";
 
     // Node name
     String NN_DEFAULT = "default";

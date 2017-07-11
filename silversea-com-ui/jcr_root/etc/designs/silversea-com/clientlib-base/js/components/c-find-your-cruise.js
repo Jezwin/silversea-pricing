@@ -8,11 +8,11 @@ $(function() {
 
     $.fn.populateSelectFYC = function() {
         this.each(function() {
-            var selectsFilter = [ 'destinations', 'cities', 'ships', 'types'];
+            var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates'];
 
             $.ajax({
                 type : "GET",
-                url : "/bin/cruises/search",
+                url : "/bin/cruises/search?language=" + $('html').attr('lang'),
                 contentType : "application/json",
                 dataType : "json",
                 success : function(json) {

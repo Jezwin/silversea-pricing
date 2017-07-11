@@ -61,9 +61,9 @@
                         </button>
                         <div class="dropdown-menu">
                             <ul class="features-filter">
-                                <li data-sly-repeat.tag="${fyc.featureTags}">
-                                    <label class="feature-name" for="eo"><i class="${tag.icon}"></i>${tag.jcr:title}</label>
-                                    <input id="eo" type="checkbox" name="features[]" />
+                                <li data-sly-repeat.tagModel="${fyc.featureTags}">
+                                    <label class="feature-name" for="eo"><i class="${tagModel.resource.icon}"></i>${tagModel.tag.title}</label>
+                                    <input id="eo" type="checkbox" name="features[]" value="${tagModel.tag.tagID}" />
                                 </li>
                                 
                             </ul>
