@@ -1,5 +1,5 @@
 <form class="request-quote-form c-form c-formcookie--redirect"
-    action="${properties.pageReference @ extension='html', selectors='modalcontent'}${request.requestParameterMap['brochurePath'][0].toString}.html"
+    action="${properties.pageReference @ extension='html', selectors='modalcontent'}${request.requestPathInfo.suffix}.html"
     method="post"
     data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
 
