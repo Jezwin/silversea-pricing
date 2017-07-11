@@ -91,8 +91,7 @@ public class LeadServiceImpl implements LeadService {
         request.setVoyage(lead.getVoyagename());
         String departureDate = lead.getDeparturedate();
         if (!StringUtils.isEmpty(departureDate)) {
-            XMLGregorianCalendar sailDate = 
-                    DateUtils.getXmlGregorianCalendar(departureDate, "dd MMM yyyy");
+            XMLGregorianCalendar sailDate = DateUtils.getXmlGregorianCalendar(departureDate, "dd MMM yyyy");
             request.setSailDate(sailDate);
         }
         request.setShip(lead.getShipname());

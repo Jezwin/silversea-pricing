@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-          jcr:primaryType="nt:unstructured"
-          jcr:title="SSC - Cookie disclaimer"
-          sling:resourceType="cq/gui/components/authoring/dialog">
+    xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - Cookie disclaimer"
+    sling:resourceType="cq/gui/components/authoring/dialog">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/container">
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
         <layout
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-                type="nav"/>
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav" />
         <items jcr:primaryType="nt:unstructured">
             <cookiedisclaimer
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Cookie disclaimer"
-                    sling:resourceType="granite/ui/components/foundation/section">
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Cookie disclaimer"
+                sling:resourceType="granite/ui/components/foundation/section">
                 <layout
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                        margin="{Boolean}false"/>
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
                 <items jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/foundation/container">
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
                             <description
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                    fieldLabel="Text"
-                                    name="./jcr:description"/>
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                fieldLabel="Text"
+                                name="./jcr:description" />
                             <availablecountries
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="cq/gui/components/common/tagspicker"
-                                    fieldLabel="Available countries"
-                                    name="./cq:tags"/>
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="cq/gui/components/common/tagspicker"
+                                fieldLabel="Available countries"
+                                name="./cq:tags" />
                         </items>
                     </column>
                 </items>

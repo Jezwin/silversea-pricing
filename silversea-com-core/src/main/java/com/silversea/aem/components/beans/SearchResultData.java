@@ -5,11 +5,12 @@ import java.util.List;
 public class SearchResultData {
     
     private List<Cruise> cruises;
+    private long count;
     private List<SearchFilter> destinations;
     private List<SearchFilter> cities;
     private List<SearchFilter> ships;
     private List<SearchFilter> types;
-    private List<SearchFilter> features;
+    private List<Feature> features;
     private List<String> dates;
     private List<String> durations;
   
@@ -61,11 +62,11 @@ public class SearchResultData {
         this.types = types;
     }
 
-    public List<SearchFilter> getFeatures() {
+    public List<Feature> getFeatures() {
         return features;
     }
 
-    public void setFeatures(List<SearchFilter> features) {
+    public void setFeatures(List<Feature> features) {
         this.features = features;
     }
 
@@ -75,6 +76,14 @@ public class SearchResultData {
 
     public void setDates(List<String> dates) {
         this.dates = dates;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     } 
     
 }

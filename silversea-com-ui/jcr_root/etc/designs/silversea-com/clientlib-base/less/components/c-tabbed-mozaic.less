@@ -3,22 +3,25 @@
 }
 
 .c-tabbedmozaic {
-    position: relative;
     overflow: hidden;
+    position: relative;
 
-    &:hover .o-img {
-        -moz-transform: scale(1.05);
-        -o-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-        -webkit-transform: scale(1.05);
-        transform: scale(1.05);
-        opacity: 0.5;
+    picture {
+        background-color: @black;
+    }
+
+    &:hover {
+        .o-img {
+            -moz-transform: scale(1.05);
+            -o-transform: scale(1.05);
+            -ms-transform: scale(1.05);
+            -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+            opacity: 0.5;
+        }
     }
 
     &__image-wrapper {
-        picture {
-            background-color: @black;
-        }
         .o-img {
             height: auto;
             -moz-transform: scale(1);
@@ -37,22 +40,17 @@
 
     &__title {
         background-color: rgba(255, 255, 255, 0.8);
-        font-size: 20px;
+        font-family: @f-theano_didot;
+        font-size: 18px;
         height: 76px;
         left: 50%;
+        margin: 0 0 10px 0;
         position: absolute;
         text-align: center;
+        text-transform: uppercase;
         top: 50%;
         transform: translate(-50%, -50%);
         width: 80%;
-        font-family: @f-theano_didot;
-        font-size: 18px;
-        margin: 0 0 10px 0;
-        text-transform: uppercase;
-
-        @media screen and (max-width: @screen-sm) {
-            font-size: 18px;
-        }
 
         span {
             left: 0;

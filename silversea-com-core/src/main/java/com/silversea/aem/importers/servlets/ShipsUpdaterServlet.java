@@ -26,7 +26,7 @@ public class ShipsUpdaterServlet extends SlingSafeMethodsServlet {
         final String assetsQuery = "/jcr:root/content/dam/silversea-com/ships"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
-        MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
-                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported", "bannerReferenceImported"));
+        MigrationUtils.updatePagesAfterMigration(resourceResolverFactory, query, assetsQuery,
+                Arrays.asList("assetSelectionReferenceImported", "bannerReferenceImported"), Arrays.asList("deckPlanImported"));
     }
 }

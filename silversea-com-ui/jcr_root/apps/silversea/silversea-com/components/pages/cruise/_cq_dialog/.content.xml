@@ -35,7 +35,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <apititle
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="apiTitle"
                                             fieldLabel="Title (imported)"
@@ -90,7 +90,7 @@
                                             renderReadOnly="{Boolean}true"/>
                                     <duration
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="duration"
                                             fieldLabel="Duration"
@@ -109,7 +109,7 @@
                                             rootPath="/content/silversea-com"/>
                                     <cruisecode
                                             jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
                                             allowBulkEdit="{Boolean}true"
                                             cq-msm-lockable="cruiseCode"
                                             fieldLabel="Cruise Code"

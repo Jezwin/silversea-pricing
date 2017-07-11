@@ -54,6 +54,6 @@ public interface ApiCallService {
 
     List<Feature> getFeatures() throws IOException, ApiException;
 
-    List<Country> getContries() throws IOException, ApiException;
+    List<Country> getCountries() throws IOException, ApiException;
 
 }

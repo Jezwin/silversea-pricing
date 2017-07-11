@@ -8,8 +8,10 @@ import org.apache.sling.api.resource.ResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.services.RunModesService;
 
 /**
@@ -31,6 +33,7 @@ public class DataLayerUse extends WCMUsePojo {
     Map<String, String> listCat2;
 
     private String geoLoc;
+    String contry;
     private MediaDataLayer media;
 
     @Override
@@ -141,28 +144,42 @@ public class DataLayerUse extends WCMUsePojo {
          * media
          */
         // TODO récuperer la bonne market
-        geoLoc = "UK";
+//        geoLoc = "UK";
+        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        contry = GeolocationHelper.getCountryCode(getRequest());
+        if(contry != null){
+        geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
+        }else{
+        	contry = "US";
+        }
+        
+        if(geoLoc != null){
+        	geoLoc = geoLoc.toUpperCase();
+        }else{
+        	geoLoc = "FT";
+        }
+        	
         String adwords_conversion_label = "";
         String adwords_value = "1.0";
         String adwords_format = "";
-        if (geoLoc.equals("US")) {
-            if (pageCategory2.toLowerCase().equals("RAQ TY")) {
+        if (geoLoc.equals("US") || (geoLoc.equals("FT") && (contry.equals("US") || contry.equals("CA")))) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "XXW_CPmImQQQl5v74wM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "4ekHCIGahAQQl5v74wM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "kakUCIDVllcQl5v74wM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "tgx1COGdhAQQl5v74wM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
                 adwords_format = "2";
             }
@@ -171,24 +188,24 @@ public class DataLayerUse extends WCMUsePojo {
                     "GSvQCJnls1wQl5v74wM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("LAM")) {
-            if (pageCategory2.toLowerCase().equals("RAQ TY")) {
+        if (geoLoc.equals("LAM") || (geoLoc.equals("FT") && (!contry.equals("US") && !contry.equals("CA")))) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "2ro7CO-klggQ2cHp1QM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "LUfyCNenlggQ2cHp1QM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "eYA8CO-pllcQ2cHp1QM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "-YN5COellggQ2cHp1QM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
                 adwords_format = "3";
             }
@@ -197,24 +214,24 @@ public class DataLayerUse extends WCMUsePojo {
                     "c5paCPzos1wQ2cHp1QM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("AP")) {
-            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+        if (geoLoc.equals("AP") || geoLoc.equals("AS")) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "7HNzCNzvkQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "OW6VCMTykQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "GiVYCNv4lVcQ1MDT0AM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "8OO5CMzxkQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
                 adwords_format = "3";
             }
@@ -224,23 +241,23 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         if (geoLoc.equals("UK")) {
-            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "htdlCLDd2iMQgL_7yAM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "EcqGCIjAxSEQgL_7yAM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "f4dGCLz6lVcQgL_7yAM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "80vfCIDBxSEQgL_7yAM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
                 adwords_format = "3";
             }
@@ -249,24 +266,24 @@ public class DataLayerUse extends WCMUsePojo {
                     "RzaaCPWMsFwQgL_7yAM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("EMEA")) {
+        if (geoLoc.equals("EMEA") || geoLoc.equals("EU")) {
             if (pageCategory2.toUpperCase().equals("RAQ TY")) {
                 adwords_conversion_label = "81HGCJzThggQzILD0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "Fl7fCPTXhggQzILD0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "Pr99CPn0llcQzILD0AM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "We5mCITWhggQzILD0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
                 adwords_format = "3";
             }

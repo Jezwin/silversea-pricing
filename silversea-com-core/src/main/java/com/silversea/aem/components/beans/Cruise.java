@@ -9,7 +9,10 @@ public class Cruise {
     private String type;    
     private String ship;
     private String startDate;
+    private String destination;
     private String duration;
+    private String cruiseCode;
+    private List<Feature> features;
     private PriceData lowestPrice;
     private List<String> ititneraries;
     
@@ -79,5 +82,29 @@ public class Cruise {
 
     public void setItitneraries(List<String> ititneraries) {
         this.ititneraries = ititneraries;
-    }    
+    }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getCruiseCode() {
+        return cruiseCode;
+    }
+
+    public void setCruiseCode(String cruiseCode) {
+        this.cruiseCode = cruiseCode;
+    } 
 }

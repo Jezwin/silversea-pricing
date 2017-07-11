@@ -126,6 +126,16 @@ a {
 /*
 ** Button
 **/
+.btn{
+  	 padding: 7px 12px 6px;
+  	 
+  	 &-lg {
+	    padding: 12px 20px;
+	    font-size: 12px;
+	    font-weight: 600;
+	}
+  }
+
 .c-btn {
     border: 0px;
     border-radius: @button-radius;
@@ -251,9 +261,15 @@ a {
          @media screen and (max-width: @screen-xxs) {
             font-size: 12px;
         }
-        
-        
-        
+    }
+}
+
+/*
+* Form error
+*/
+.has-error {
+    select {
+        -webkit-text-fill-color: @red;
     }
 }
 

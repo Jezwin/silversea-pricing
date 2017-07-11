@@ -8,7 +8,7 @@
 <div class="c-combo-cruise-header ${!pageHelper.thumbnail ? 'no-image' : ''}">
     <div class="c-combo-cruise-header__content">
         <h1 class="c-combo-cruise-header__content__title">
-            ${ppties.apiTitle || ppties.jcr:title @ context="html"}
+            ${ppties.jcr:title || ppties.apiTitle @ context="html"}
         </h1>
         <div class="c-combo-cruise-header__content__details">
             <sly data-sly-use.pageHelperShip="${'com.silversea.aem.helper.PageHelper' @ path=ppties.shipReference}" />

@@ -25,7 +25,7 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <codeexcursion
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="codeExcursion"
                                         fieldLabel="Excursion code"
@@ -51,7 +51,7 @@
                                         name="./longDescription" />
                                     <pois
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="pois"
                                         fieldLabel="POIs"

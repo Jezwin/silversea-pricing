@@ -127,6 +127,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="departure"
         sling:message="Departure" />
+    <description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="description"
+        sling:message="Description" />
     <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-discover-more"
@@ -135,6 +139,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-view-cruise"
         sling:message="View cruises for this destination" />
+    <destination
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="destination"
+        sling:message="destination" />
     <dining
         jcr:primaryType="sling:MessageEntry"
         sling:key="dining"
@@ -191,6 +199,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="feature-exclusive-offers"
         sling:message="FEATURED EXCLUSIVE OFFERS / PROGRAMMES" />
+    <feature-no-exclusive-offers-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feature-no-exclusive-offers-description"
+        sling:message="When you plan ahead and book early, you will benefit from any future reduction in the voyage fare, upon request." />
+    <feature-no-exclusive-offers-title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="feature-no-exclusive-offers-title"
+        sling:message="Fare Guarantee Program:" />
     <features
         jcr:primaryType="sling:MessageEntry"
         sling:key="features"
@@ -399,7 +415,7 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-email"
         sling:message="Please enter your email" />
-        
+
     <required-phone-number
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-phone-number"
@@ -576,6 +592,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="email-address"
         sling:message="Email address" />
+    <select-and-view-the-route
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-and-view-the-route"
+        sling:message="Select and view the route" />
     <first-name
         jcr:primaryType="sling:MessageEntry"
         sling:key="first-name"
@@ -584,6 +604,51 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="last-name"
         sling:message="Last name" />
+    <example
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="example"
+        sling:message="Example" />
+    <title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="title"
+        sling:message="Title" />
+    <mr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="mr"
+        sling:message="Mr" />
+    <mrs
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="mrs"
+        sling:message="Mrs" />
+    <miss
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="miss"
+        sling:message="Miss" />
+    <ms
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ms"
+        sling:message="Ms" />
+    <dr
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dr"
+        sling:message="Dr" />
+    <dir
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dir"
+        sling:message="Dir" />
+        
+    <lady
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="lady"
+        sling:message="Lady" />
+    <prof
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="prof"
+        sling:message="Prof" />
+    <lord
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="lord"
+        sling:message="Lord" />
     <ship
         jcr:primaryType="sling:MessageEntry"
         sling:key="ship"
@@ -652,6 +717,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="country-code"
         sling:message="Country code" />
+    <ports
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="ports"
+        sling:message="Ports" />
     <postal-code
         jcr:primaryType="sling:MessageEntry"
         sling:key="postal-code"

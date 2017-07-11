@@ -32,9 +32,4 @@ public interface CitiesImporter {
      * @return a JSON object with id/path mapping
      */
     JSONObject getCitiesMapping();
-
-    /**
-     * Update cities informations after import (update thumbnail and add image set)
-     */
-    void updateCitiesAfterMigration();
 }

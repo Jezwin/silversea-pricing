@@ -2,6 +2,7 @@ package com.silversea.aem.components.beans;
 
 public class Feature {
 
+    private String id;
     private String title;
     private String icon;
     private String description;
@@ -34,4 +35,11 @@ public class Feature {
         this.icon = icon;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
