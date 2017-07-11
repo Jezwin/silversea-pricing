@@ -11,7 +11,6 @@
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"
             type="nav" />
         <items jcr:primaryType="nt:unstructured">
-            
             <references
                 jcr:primaryType="nt:unstructured"
                 jcr:title="References"
@@ -64,7 +63,6 @@
                     </column>
                 </items>
             </references>
-    
             <socialandaction
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Social actions"
@@ -100,17 +98,17 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="Facebook"
-                                name="./facebookReference"/>
+                                name="./facebookReference" />
                             <youtubeReference
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="Youtube"
-                                name="./youtubeReference"/>
+                                name="./youtubeReference" />
                             <twitterReference
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="Twitter"
-                                name="./twitterReference"/>
+                                name="./twitterReference" />
                             <instagramReference
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -131,7 +129,6 @@
                     </column>
                 </items>
             </socialandaction>
-    
             <Legalline
                 jcr:primaryType="nt:unstructured"
                 jcr:title="Legal line"

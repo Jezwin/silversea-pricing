@@ -43,20 +43,19 @@
                                 sling:resourceType="granite/ui/components/foundation/form/select"
                                 emptyText="Select a form type"
                                 name="./typeForm">
-                                <items
-                                    jcr:primaryType="nt:unstructured">
+                                <items jcr:primaryType="nt:unstructured">
                                     <selectform
                                         jcr:primaryType="nt:unstructured"
                                         text="Please select a form type"
-                                        value="online-form"/>
-                                        <online
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Online form"
-                                            value="online-form"/>
-                                        <printed
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Printed form"
-                                            value="printed-form"/>
+                                        value="online-form" />
+                                    <online
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Online form"
+                                        value="online-form" />
+                                    <printed
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Printed form"
+                                        value="printed-form" />
                                 </items>
                             </typeForm>
                         </items>
