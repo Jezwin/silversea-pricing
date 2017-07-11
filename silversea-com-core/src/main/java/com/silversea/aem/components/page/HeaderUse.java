@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
 
@@ -21,6 +20,7 @@ public class HeaderUse extends WCMUsePojo {
     private Page link1Page;
     private Page link2Page;
     private Page link3Page;
+    private Page link3MobilePage;
     private Page searchPage;
     private Page homePage;
     private List<Page> languagePageList;
@@ -35,11 +35,13 @@ public class HeaderUse extends WCMUsePojo {
         final String link1Reference = properties.getInherited("link1Reference", String.class);
         final String link2Reference = properties.getInherited("link2Reference", String.class);
         final String link3Reference = properties.getInherited("link3Reference", String.class);
+        final String link3MobileReference = properties.getInherited("link3MobileReference", String.class);
         final String searchPageReference = properties.getInherited("searchPageReference", String.class);
 
         link1Page = getPageFromPath(link1Reference);
         link2Page = getPageFromPath(link2Reference);
         link3Page = getPageFromPath(link3Reference);
+        link3MobilePage = getPageFromPath(link3MobileReference);
         searchPage = getPageFromPath(searchPageReference);
 
         languagePageList = new ArrayList<Page>();
@@ -115,6 +117,13 @@ public class HeaderUse extends WCMUsePojo {
      */
     public Page getLink3Page() {
         return link3Page;
+    }
+    
+    /**
+     * @return the link3MobilePage
+     */
+    public Page getLink3MobilePage() {
+        return link3MobilePage;
     }
 
     /**

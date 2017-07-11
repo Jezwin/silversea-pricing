@@ -10,12 +10,12 @@
                 <span>${page2.navigationTitle || page2.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right">
-            <a href="#" class="c-main-nav__top__link">
-                <span>Sign up for offers</span>
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right" data-sly-test.page3Mobile="${navTop.link3MobilePage}">
+            <a href="${page3Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
+                <span>${page3Mobile.navigationTitle || page3Mobile.title}</span>
             </a>
-        </li>
-        <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
+        </li> 
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md ${navTop.link3MobilePage ? 'hidden-xs hidden-sm':''}" data-sly-test.page3="${navTop.link3Page}">
             <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3.navigationTitle || page3.title}</span>
             </a>
