@@ -659,6 +659,7 @@ public class CruiseServiceImpl implements CruiseService{
         List<String> languages = ImporterUtils.getSiteLocales(pageManager);
         if(languages != null && !languages.isEmpty()){
             languages.forEach(language ->{
+                if(!language.equals(ImportersConstants.LANGUAGE_EN))
                 try{
                     String destPath = StringUtils.replace(path, "/en/", "/" + language + "/");
                     workspace.copy(path, destPath);
