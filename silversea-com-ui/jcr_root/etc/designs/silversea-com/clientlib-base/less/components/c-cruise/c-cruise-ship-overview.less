@@ -19,9 +19,19 @@
                 padding: 0;
                 list-style: none;
 
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    column-count: 2;
+                }
+
                 li {
                     display: inline-block;
                     padding: 0 2% 0 0;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        display: block;
+                    }
 
                     span {
                         text-transform: uppercase;

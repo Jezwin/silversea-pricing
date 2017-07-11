@@ -55,7 +55,7 @@ $(function() {
      **************************************************************************/
     $('body').on('trigger.viewport.changed', function() {
         if ($.viewportDetect() === 'xs') {
-            $('.c-links .c-list__accordion--content').collapse('hide');
+            $('.c-links .c-list__accordion--content, #ship-overview__content--collapsed').collapse('hide');
         }
     });
 });
