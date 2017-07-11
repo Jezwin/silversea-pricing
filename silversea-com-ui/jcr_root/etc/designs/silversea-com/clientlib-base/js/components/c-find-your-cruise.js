@@ -30,23 +30,13 @@ $(function() {
 
             // functions utils
             function buildOptions(json, filterName) {
-                if (filterName === 'features') {
-                    json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
-                        $('.' + filterName + '-filter').append($('<li>', {
-                            value : option.id,
-                            text : option.title,
-                            'data-sscclicktype' : 'filters'
-                        }));
-                    });
-                } else {
-                    json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
-                        $('.' + filterName + '-filter').append($('<option>', {
-                            value : option.id,
-                            text : option.title,
-                            'data-sscclicktype' : 'filters'
-                        }));
-                    });
-                }
+                json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
+                    $('.' + filterName + '-filter').append($('<option>', {
+                        value : option.id,
+                        text : option.title,
+                        'data-sscclicktype' : 'filters'
+                    }));
+                });
             }
         });
     };
