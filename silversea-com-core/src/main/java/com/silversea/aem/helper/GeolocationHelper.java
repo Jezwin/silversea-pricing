@@ -55,19 +55,13 @@ public class GeolocationHelper {
 				Tag tag2 = (Tag) tagsChild.next();
 				if (tagManager.resolve(tag2.getPath() + "/" + geolocationTag) != null) {
 
-					return tagManager.resolve(tag2.getPath() +"/"+ geolocationTag).getParent().getParent().getName().toString();
-					
+					return tagManager.resolve(tag2.getPath() + "/" + geolocationTag).getParent().getParent().getName()
+							.toString();
+
 				}
 			}
 		}
 
-	
-
-//	Tag tag;if(tagManager.findByTitle(WcmConstants.GEOLOCATION_TAGS_PREFIX+geolocationTag.toLowerCase())!=null)
-//	{
-//		tag = tagManager.resolveByTitle(WcmConstants.GEOLOCATION_TAGS_PREFIX + geolocationTag.toLowerCase());
-//		return tag.getParent().getParent().toString();
-//	}
-	
-	return null;
-}}
+		return null;
+	}
+}
