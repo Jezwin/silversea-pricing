@@ -55,14 +55,14 @@
                                     <latitude
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                        fieldDescription="Latitude"
+                                        fieldDescription="Latitude (eg: 43.729029)"
                                         required="{Boolean}false"
                                         fieldLabel="Latitude"
                                         name="./lat" />
                                     <longitude
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                        fieldDescription="Longitude"
+                                        fieldDescription="Longitude (eg: 7.414343)"
                                         fieldLabel="Longitude"
                                         required="{Boolean}false"
                                         name="./lon" />
