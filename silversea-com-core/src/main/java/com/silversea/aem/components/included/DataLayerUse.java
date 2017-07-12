@@ -61,6 +61,9 @@ public class DataLayerUse extends WCMUsePojo {
         userLanguage = locale.getLanguage();
 
         userContry = GeolocationHelper.getCountryCode(getRequest());
+        if(userContry == null){
+        	userContry = "US";
+        }
 
         ResourceResolver resourceResolver = getRequest().getResourceResolver();
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
