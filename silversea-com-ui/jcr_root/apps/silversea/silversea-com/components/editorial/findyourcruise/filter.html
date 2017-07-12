@@ -26,32 +26,32 @@
             <div class="filter-flex">
                 <div class="single-filter">
                     <select class="chosen destinations-filter" name="destinationId">
-                        <option>${'destination' @ i18n}</option>
+                        <option value="">${'destination' @ i18n}</option>
                     </select>
                 </div>
                <div class="single-filter">
                     <select class="chosen dates-filter" name="departureDate">
-                        <option>${'departure-date' @ i18n}</option>
+                        <option value="">${'departure-date' @ i18n}</option>
                     </select>
                 </div>
                 <div class="single-filter">
                     <select class="chosen durations-filter" name="duration">
-                        <option>${'duration' @ i18n}</option>
+                        <option value="">${'duration' @ i18n}</option>
                     </select>
                 </div>
                 <div class="single-filter">
                     <select class="chosen ships-filter" name="shipId">
-                        <option>${'ship' @ i18n}</option>
+                        <option value="">${'ship' @ i18n}</option>
                     </select>
                 </div>
                 <div class="single-filter">
                     <select class="chosen types-filter" name="cruiseType">
-                        <option>${'cruise-type' @ i18n}</option>
+                        <option value="">${'cruise-type' @ i18n}</option>
                     </select>
                 </div>
                 <div class="single-filter">
                     <select class="chosen chosen-with-search cities-filter" name="cityId">
-                        <option>${'port' @ i18n}</option>
+                        <option value="">${'port' @ i18n}</option>
                     </select>
                 </div>
                 <div class="single-filter">
@@ -61,7 +61,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <ul class="features-filter">
-                                <li data-sly-repeat.tagModel="${fyc.featureTags}">
+                                <li data-sly-repeat.tagModel="${fyc.featureTags}" class="disabled">
                                     <sly data-sly-test.tagID="${tagModel.tag.tagID}" />
                                     <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagID}" />
                                     <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" />
