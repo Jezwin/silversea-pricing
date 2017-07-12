@@ -64,8 +64,8 @@
                                 <li data-sly-repeat.tagModel="${fyc.featureTags}">
                                     <sly data-sly-test.tagID="${tagModel.tag.tagID}" />
                                     <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagID}" />
-                                    <label class="feature-name" for="${tagID}"><i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</label>
                                     <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" />
+                                    <label class="feature-name" for="${tagID}"><i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</label>
                                 </li>
                             </ul>
                         </div>
