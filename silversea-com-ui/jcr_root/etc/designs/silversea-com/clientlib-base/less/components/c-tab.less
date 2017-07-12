@@ -110,10 +110,11 @@
     }
 
     &__content {
-        display: none;
-
+      left: -9999px;
+      position: absolute;
         &[data-state='active'] {
-            display: block;
+		      left: 0px;
+		      position: relative;
         }
     }
 
