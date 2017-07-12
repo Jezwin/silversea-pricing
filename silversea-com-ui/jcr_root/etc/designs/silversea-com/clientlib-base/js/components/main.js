@@ -22,6 +22,10 @@ $(function() {
         'disable_search' : true
     });
 
+    $('.chosen.chosen-with-search').chosen({
+        'disable_search' : false
+    });
+
     /***************************************************************************
      * iCheck (custom <input type="checkbox"> look and feel)
      **************************************************************************/

@@ -221,7 +221,14 @@
                     background: #ebebeb;
 
                     .chosen-search {
-                        display: none;
+                        &:before {
+                            color: @grey;
+                            content: "\f002";
+                            font-family: FontAwesome;
+                            left: 10px;
+                            position: absolute;
+                            top: 7px;
+                        }
 
                         input[type="text"] {
                             background: @white;
