@@ -47,8 +47,8 @@ public class DataLayerUse extends WCMUsePojo {
         RunModesService run = getSlingScriptHelper().getService(RunModesService.class);
         runMode = run.getCurrentRunMode();
 
-        if (getCurrentPage().getProperties().get("eventValue") != null) {
-            event = getCurrentPage().getProperties().get("eventValue").toString();
+        if (getCurrentPage().getProperties().get("pageEvent") != null) {
+            event = getCurrentPage().getProperties().get("pageEvent").toString();
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)) {
             event = "searchresults";
@@ -101,6 +101,7 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(TemplateConstants.PATH_DINING_VARIATION, "single ship");
         listCat1.put(TemplateConstants.PATH_PAGE, "editorial pages");
 
+        //TODO Remove getCurrentTemplate and remplace it bay getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
         if (getCurrentPage().getTemplate().getPath() != null && pageCategory1.equals("")) {
             String value = listCat1.get(getCurrentPage().getTemplate().getPath());
             if (value != null) {
