@@ -4,11 +4,11 @@
 
     <div class="voyage-overview fyc-v2">
         <div class="th-style hidden-xs">
-            <span>departure</span>
-            <span>ship / voyage</span>
-            <span>features</span>
-            <span>ports</span>
-            <span>fares form <span>(per guest)</span></span>
+            <span>${'departure' @ i18n}</span>
+            <span>${'ship' @ i18n} / ${'voyage' @ i18n}</span>
+            <span>${'features' @ i18n}</span>
+            <span>${'ports' @ i18n}</span>
+            <span>${'fares-form'} <span>(${'per-guest' @ i18n})</span></span>
         </div>
 
         <div class="result__wrapper">
@@ -79,18 +79,18 @@
                                 <div class="result__daysdateship">
                                     <div class="result__daysdateship_inner">
                                         <div class="result__daysdateship_col">
-                                            <div class="result__daysdateship_line1">Departure</div>
-                                            <div class="result__daysdateship_line2">06 Dec</div>
-                                            <div class="result__daysdateship_line3">2017</div>
+                                            <div class="result__daysdateship_line1">${'departure' @ i18n}</div>
+                                            <div class="result__daysdateship_line2">20 Jan</div>
+                                            <div class="result__daysdateship_line3">2018</div>
                                         </div>
                                         <div class="result__daysdateship_col">
-                                            <div class="result__daysdateship_line1">Duration</div>
-                                            <div class="result__daysdateship_line2">12</div>
-                                            <div class="result__daysdateship_line3">days</div>
+                                            <div class="result__daysdateship_line1">${'duration' @ i18n}</div>
+                                            <div class="result__daysdateship_line2">7</div>
+                                            <div class="result__daysdateship_line3">${'days' @ i18n}</div>
                                         </div>
                                         <div class="result__daysdateship_col">
-                                            <div class="result__daysdateship_line1">Ship</div>
-                                            <div class="result__daysdateship_line2 result__shipname">Silver Muse</div>
+                                            <div class="result__daysdateship_line1">${'Ship' @ i18n}</div>
+                                            <div class="result__daysdateship_line2 result__shipname">Silver Galapagos</div>
                                         </div>
                                     </div>
                                 </div>
@@ -110,9 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="result__actions_cta">
-                                        <a href="#" class="btn btn-red effect" type="button">
-                                            Request a quote <i class="fa fa-lg fa-angle-right"></i>
-                                        </a>
+                                        <a href="#" class="btn btn-red effect" type="button"> ${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
