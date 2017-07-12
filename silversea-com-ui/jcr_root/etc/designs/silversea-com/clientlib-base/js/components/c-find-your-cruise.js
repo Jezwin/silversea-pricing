@@ -42,4 +42,9 @@ $(function() {
     };
 
     $('.c-find-your-cruise-filter').populateSelectFYC();
+
+    // Filter feature drop down
+    $('.features-filter').on('click', function(e) {
+        e.stopPropagation();
+    });
 });
