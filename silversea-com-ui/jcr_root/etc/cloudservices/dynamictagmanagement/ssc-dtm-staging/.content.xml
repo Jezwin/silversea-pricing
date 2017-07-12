@@ -13,8 +13,7 @@
         productionDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
         property="356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
         propertyDisplayValue="Silversea Revamp"
-        stagingDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
-        token="\{371335a34ab4a026bd8461d8bcdd2e8a10f85b3f25b14989db9096fc249656ebf6eb2a9ec6feb3f9fdccee64404186071567edc67d22715b3ab28eac0907c2cc}">
+        stagingDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model">
         <public
             jcr:primaryType="nt:unstructured"
             productionFooterCode="&lt;script type=&quot;text/javascript&quot;>_satellite.pageBottom();&lt;/script>"
