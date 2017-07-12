@@ -3,18 +3,28 @@
 
     &.chosen-with-drop {
         .chosen-single {
-            border-color: @black;
+            border-color: @black;       
+            color: @black;   
+            
+            &.chosen-default {
+				color: @black;   
+			}
         }
     }
 
     .chosen-single {
         background: @white;
         box-shadow: none;
-        color: @grey;
+        color: @black;
         height: 42px;
         padding: 10px 40px 10px 12px;
         width: 100%;
-
+		font-weight: 600;
+		
+		&.chosen-default {
+			 color: @grey;
+		}
+		
         span {
             font-size: 14px;
             line-height: initial;
@@ -31,7 +41,7 @@
 
             &:before {
                 color: @grey;
-                content: "\f0d7";
+                content: "\f107";
                 font-family: FontAwesome;
                 font-size: 18px;
                 font-weight: 400;
