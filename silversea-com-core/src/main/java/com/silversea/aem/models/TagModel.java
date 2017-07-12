@@ -19,6 +19,7 @@ public class TagModel {
 
     @PostConstruct
     private void init() {
+        // Need resource for extra properties (icon, description, ...)
         resource = tag.adaptTo(Resource.class);
     }
 
