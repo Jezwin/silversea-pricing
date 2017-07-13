@@ -112,9 +112,12 @@
     &__content {
       top: -9999px;
       position: absolute;
+      overflow:hidden;
+      height:0px;
         &[data-state='active'] {
 		      top: 0px;
 		      position: relative;
+		      height:inherit;
         }
     }
 
