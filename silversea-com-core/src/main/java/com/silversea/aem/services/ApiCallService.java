@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface ApiCallService {
 
+    /**
+     * TODO typo
+     */
     List<Itinerary> getCruiseIteneraries(String apiUrl, Integer voyageId) throws IOException, ApiException;
 
     List<LandItinerary> getLandsProgram(Itinerary itinerary) throws IOException, ApiException;
@@ -36,7 +39,7 @@ public interface ApiCallService {
 
     List<City> getCities(int index, int pageSize) throws ApiException;
 
-    List<City77> getCitiesUpdates(String currentDate, int index, int pageSize) throws IOException, ApiException;
+    List<City77> getCitiesUpdates(String currentDate, int index, int pageSize) throws ApiException;
 
     List<Hotel> getHotels(int index, int pageSize) throws ApiException;
 

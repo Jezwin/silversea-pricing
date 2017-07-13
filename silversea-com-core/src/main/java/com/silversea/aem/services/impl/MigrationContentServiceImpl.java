@@ -27,6 +27,7 @@ import com.silversea.aem.services.MigrationContentService;
 
 @Component(immediate = true)
 @Service(value = MigrationContentService.class)
+@Deprecated
 public class MigrationContentServiceImpl implements MigrationContentService {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(MigrationContentServiceImpl.class);
