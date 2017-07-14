@@ -18,7 +18,7 @@
                     <paginationlimit
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/form/numberfield"
-                        fieldLabel="Pagination limit"
+                        fieldLabel="Results per page"
                         defaultValue="10"
                         min="0"
                         name="./paginationLimit"/>
