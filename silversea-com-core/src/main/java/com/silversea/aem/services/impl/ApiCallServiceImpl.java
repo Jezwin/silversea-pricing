@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Component(label = "Silversea.com - Api call service")
 @SuppressWarnings("unchecked")
+@Deprecated
 public class ApiCallServiceImpl<T> implements ApiCallService {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ApiCallServiceImpl.class);
@@ -193,22 +194,6 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
     }
 
     @Override
-    public List<City> getCities(int index, int pageSize) throws ApiException {
-        LOGGER.debug("Api call service -- Start call cities api");
-        CitiesApi citiesApi = (CitiesApi) apiInstances.get(ServiceConstants.CITIES_API_KEY);
-        LOGGER.debug("Api call service -- Finish call cities api");
-        return citiesApi.citiesGet(null, null, index, pageSize, null, null, null);
-    }
-
-    @Override
-    public List<City77> getCitiesUpdates(String currentDate, int index, int pageSize) throws ApiException {
-        LOGGER.debug("Api call service -- Start call cities update api");
-        CitiesApi citiesApi = (CitiesApi) apiInstances.get(ServiceConstants.CITIES_API_KEY);
-        LOGGER.debug("Api call service -- Finish call cities updates api");
-        return citiesApi.citiesGetChanges(currentDate, index, pageSize, null, null, null);
-    }
-
-    @Override
     public List<Agency> getTravelAgencies(int index, int pageSize) throws IOException, ApiException {
         LOGGER.debug("Api call service -- Start call Travel agencies api");
         AgenciesApi travelAgenciesApi = (AgenciesApi) apiInstances.get(ServiceConstants.TRAVEL_AGENCIES_API_KEY);
@@ -262,9 +247,13 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
             final DigestAuthenticator authenticator = new DigestAuthenticator(
                     new Credentials(apiConfig.getLogin(), apiConfig.getPassword()));
             final Map<String, CachingAuthenticator> authCache = new ConcurrentHashMap<>();
+
             apiClient.setDebugging(LOGGER.isDebugEnabled());
+
+            // TODO connect and read timeout are not supposed to be the same !!
             apiClient.setConnectTimeout(apiConfig.getTimeout());
             apiClient.getHttpClient().setReadTimeout(apiConfig.getTimeout(), TimeUnit.MILLISECONDS);
+
             apiClient.getHttpClient().interceptors().add(new AuthenticationCacheInterceptor(authCache));
             apiClient.getHttpClient().setAuthenticator(new CachingAuthenticatorDecorator(authenticator, authCache));
         } else {

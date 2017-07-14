@@ -1,4 +1,4 @@
-package com.silversea.aem.importers.servlets;
+package com.silversea.aem.importers.servlets.updaters;
 
 import com.silversea.aem.importers.utils.MigrationUtils;
 import org.apache.felix.scr.annotations.Reference;

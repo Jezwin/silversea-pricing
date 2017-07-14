@@ -1,8 +1,9 @@
-package com.silversea.aem.servlets;
+package com.silversea.aem.importers.servlets;
 
 import com.day.cq.replication.ReplicationException;
 import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.services.*;
+import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.StopWatch;
@@ -38,7 +39,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     String timeAll = "";
 
     @Reference
-    CitiesUpdateImporter updateImportCities;
+    CitiesImporter updateImportCities;
 
     @Reference
     LandProgramUpdateImporter updateImporLandProgram;
@@ -99,23 +100,16 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    try {
-                        updateImportCities.updateImportData();
-                        nbrError = updateImportCities.getErrorNumber();
-                        nbrSucces = updateImportCities.getSuccesNumber();
-                        response.getWriter().write("Cities import failure number : <p>" + nbrError + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("Cities import succes number : <p>" + nbrSucces + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("cities import Done<br/>");
-                        watch.stop();
-                        time = watch.toString();
-                        response.getWriter().write("Time :<br/>" + time);
-                        response.getWriter().write("<br/> ---------------- <br />");
-                    } catch (UpdateImporterExceptions e) {
-                        response.getWriter().write(
-                                "<br/>--------------<br/> Cities import failure , please lunch full import before the diff <br/>--------------<br/>");
-                    }
+                    final ImportResult importResult = updateImportCities.updateCities();
+                    response.getWriter().write("Cities import failure number : <p>" + importResult.getErrorNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("Cities import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("cities import Done<br/>");
+                    watch.stop();
+                    time = watch.toString();
+                    response.getWriter().write("Time :<br/>" + time);
+                    response.getWriter().write("<br/> ---------------- <br />");
                     response.getWriter().flush();
                 }
 

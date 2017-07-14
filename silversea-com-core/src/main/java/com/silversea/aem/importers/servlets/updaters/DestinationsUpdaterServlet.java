@@ -1,4 +1,4 @@
-package com.silversea.aem.importers.servlets;
+package com.silversea.aem.importers.servlets.updaters;
 
 import com.silversea.aem.importers.utils.MigrationUtils;
 import org.apache.felix.scr.annotations.Reference;
@@ -12,8 +12,11 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Arrays;
 
-@SlingServlet(paths = "/bin/cities-updater", extensions = "html")
-public class CitiesUpdaterServlet extends SlingSafeMethodsServlet {
+/**
+ * @author aurelienolivier
+ */
+@SlingServlet(paths = "/bin/destinations-updater", extensions = "html")
+public class DestinationsUpdaterServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -21,9 +24,9 @@ public class CitiesUpdaterServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         final String query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
-                "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]";
+                "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/destination\"]";
 
-        final String assetsQuery = "/jcr:root/content/dam/silversea-com/ports"
+        final String assetsQuery = "/jcr:root/content/dam/silversea-com/destinations"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,

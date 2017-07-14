@@ -17,7 +17,7 @@ public interface CitiesImporter {
      * Update the cities based on the last import date
      * stored in the cities root page
      */
-    void updateCities();
+    ImportResult updateCities();
 
     /**
      * Import only one city

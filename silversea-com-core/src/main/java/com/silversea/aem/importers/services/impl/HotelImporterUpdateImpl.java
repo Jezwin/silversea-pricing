@@ -1,7 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -101,7 +100,7 @@ public class HotelImporterUpdateImpl implements HotelUpdateImporter {
 			Resource resParent = rootPage.adaptTo(Resource.class);
 			String currentDate;
 
-			currentDate = ImporterUtils.getLastModificationDate(rootPage, "lastModificationDateHotel");
+			currentDate = ImporterUtils.getDateFromPageProperties(rootPage, "lastModificationDateHotel");
 
 			if (currentDate != null) {
 

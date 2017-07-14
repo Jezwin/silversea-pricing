@@ -1,7 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -92,7 +91,7 @@ public class LandProgramUpdateImporterImpl implements LandProgramUpdateImporter 
 			Resource resParent = rootPage.adaptTo(Resource.class);
 			String currentDate;
 
-			currentDate = ImporterUtils.getLastModificationDate(rootPage, "lastModificationDateLp");
+			currentDate = ImporterUtils.getDateFromPageProperties(rootPage, "lastModificationDateLp");
 			if (currentDate != null) {
 				final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 				int i = 1;
