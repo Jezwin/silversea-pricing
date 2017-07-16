@@ -5,7 +5,14 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jcr.Node;
+import javax.jcr.PathNotFoundException;
+import javax.jcr.RepositoryException;
+import javax.jcr.ValueFormatException;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -133,8 +140,18 @@ public class VoyageJournalDayModel {
     public String getWind() {
         return wind;
     }
-
+    
+    
     public String getHeroAssetSelectionReference() {
+    	try {
+    		if(StringUtils.isBlank(heroAssetSelectionReference)){
+        		Resource res = page.getParent().getContentResource().getResourceResolver().getResource(page.getParent().getPath());
+        		Node node = res.adaptTo(Node.class);
+        		heroAssetSelectionReference = node.getProperty("assetSelectionReference").getValue().getString();
+        	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         return heroAssetSelectionReference;
     }
 
