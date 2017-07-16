@@ -66,7 +66,8 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         mapQuery.put("type", "cq:PageContent");
         mapQuery.put("property", "sling:resourceType");
         mapQuery.put("property.value", "silversea/silversea-com/components/pages/voyagejournal");
-        mapQuery.put("orderby", "@jcr:content/jcr:lastModified");
+        //mapQuery.put("orderby", "@jcr:content/jcr:lastModified");
+        mapQuery.put("orderby", "@jcr:content/jcr:title");
         mapQuery.put("orderby.sort", "desc");
         mapQuery.put("p.offset", String.valueOf(pageNum));
         mapQuery.put("p.limit", limit);
