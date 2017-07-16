@@ -14,6 +14,7 @@ import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
+import io.swagger.client.ApiResponse;
 import io.swagger.client.api.CitiesApi;
 import io.swagger.client.model.City;
 import io.swagger.client.model.City77;
@@ -41,7 +42,7 @@ import javax.wsdl.Import;
 import java.util.*;
 
 @Service
-@Component(label = "Silversea.com - Cities importer")
+@Component
 public class CitiesImporterImpl implements CitiesImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CitiesImporterImpl.class);
@@ -227,9 +228,11 @@ public class CitiesImporterImpl implements CitiesImporter {
             List<City77> cities;
 
             do {
-                cities = citiesApi.citiesGetChanges(lastModificationDate, i, pageSize, null, null, null);
+                final ApiResponse<List<City77>> apiResponse = citiesApi.citiesGetChangesWithHttpInfo(lastModificationDate, i, pageSize, null, null, null);
+                cities = apiResponse.getData();
 
-                LOGGER.trace("{} cities to update", cities.size());
+                // TODO replace by header
+                LOGGER.trace("Total cities : {}, page : {}, cities for this page : {}", cities.size(), i, cities.size());
 
                 for (City77 city : cities) {
                     LOGGER.debug("Updating city: {}", city.getCityName());
@@ -253,14 +256,20 @@ public class CitiesImporterImpl implements CitiesImporter {
                                     throw new ImporterException("Cannot set port page " + city.getCityName());
                                 }
 
-                                final Node portContentNode = updatePortContentNode(city, portPage);
-
                                 // depending of the city status, mark the page to be activated or deactivated
                                 if (BooleanUtils.isTrue(city.getIsDeleted())) {
+                                    final Node portContentNode = portPage.getContentResource().adaptTo(Node.class);
+
+                                    if (portContentNode == null) {
+                                        throw new ImporterException("Cannot set properties for city " + city.getCityName());
+                                    }
+
                                     portContentNode.setProperty("toDeactivate", true);
 
                                     LOGGER.trace("Port {} is marked to be deactivated", city.getCityName());
                                 } else {
+                                    final Node portContentNode = updatePortContentNode(city, portPage);
+
                                     portContentNode.setProperty("toActivate", true);
 
                                     LOGGER.trace("Port {} is marked to be activated", city.getCityName());

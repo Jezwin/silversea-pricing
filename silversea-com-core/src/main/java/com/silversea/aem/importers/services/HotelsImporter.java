@@ -5,7 +5,7 @@ import com.silversea.aem.importers.services.impl.ImportResult;
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
-public interface HotelImporter {
+public interface HotelsImporter {
 
     /**
      * Import all cities, used in first data import
@@ -16,7 +16,7 @@ public interface HotelImporter {
      * Update the hotels based on the last import date
      * stored in the cities root page
      */
-    void updateHotels();
+    ImportResult updateHotels();
 
     /**
      * Import only one hotel

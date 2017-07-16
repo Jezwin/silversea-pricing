@@ -39,13 +39,13 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     String timeAll = "";
 
     @Reference
-    CitiesImporter updateImportCities;
+    private CitiesImporter updateImportCities;
+
+    @Reference
+    private HotelsImporter updateImportHotel;
 
     @Reference
     LandProgramUpdateImporter updateImporLandProgram;
-
-    @Reference
-    HotelUpdateImporter updateImportHotel;
 
     @Reference
     ShoreExcursionsUpdateImporter updateImportShoreExcursion;
@@ -113,6 +113,25 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                 }
 
+                if (all || mode.equals(Mode.hotels)) {
+                    response.getWriter().write("Init update import of hotels ...<br/>");
+                    response.getWriter().flush();
+                    watch.reset();
+                    watch.start();
+                    final ImportResult importResult = updateImportHotel.updateHotels();
+                    response.getWriter().write("Hotels import failure number : <p>" + importResult.getErrorNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("hotels import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("Hotels import Done<br/>");
+                    watch.stop();
+                    time = watch.toString();
+                    response.getWriter().write("Time :<br/>" + time);
+                    response.getWriter().write("<br/> ---------------- <br />");
+
+                    response.getWriter().flush();
+                }
+
                 if (all || mode.equals(Mode.ex)) {
                     response.getWriter().write("Init update import of shorex ...<br/>");
                     response.getWriter().flush();
@@ -134,32 +153,6 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                     } catch (UpdateImporterExceptions e) {
                         response.getWriter().write(
                                 " <br/>--------------<br/> shorx import failure , please lunch full import before the diff <br/>--------------<br/>");
-                    }
-
-                    response.getWriter().flush();
-                }
-
-                if (all || mode.equals(Mode.hotels)) {
-                    response.getWriter().write("Init update import of hotels ...<br/>");
-                    response.getWriter().flush();
-                    watch.reset();
-                    watch.start();
-                    try {
-                        updateImportHotel.updateImporData();
-                        nbrError = updateImportHotel.getErrorNumber();
-                        nbrSucces = updateImportHotel.getSuccesNumber();
-                        response.getWriter().write("Hotels import failure number : <p>" + nbrError + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("hotels import succes number : <p>" + nbrSucces + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("Hotels import Done<br/>");
-                        watch.stop();
-                        time = watch.toString();
-                        response.getWriter().write("Time :<br/>" + time);
-                        response.getWriter().write("<br/> ---------------- <br />");
-                    } catch (UpdateImporterExceptions e) {
-                        response.getWriter().write(
-                                "<br/>--------------<br/> hotels import failure , please lunch full import before the diff <br/>--------------<br/>");
                     }
 
                     response.getWriter().flush();

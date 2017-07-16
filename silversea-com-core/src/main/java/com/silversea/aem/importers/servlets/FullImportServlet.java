@@ -36,7 +36,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private ShoreExcursionsImporter shoreExcursionsImporter;
 
     @Reference
-    private HotelImporter hotelImporter;
+    private HotelsImporter hotelsImporter;
 
     @Reference
     private LandProgramImporter landProgramImporter;
@@ -139,7 +139,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    ImportResult importResult = hotelImporter.importAllHotels();
+                    ImportResult importResult = hotelsImporter.importAllHotels();
                     response.getWriter().write("Hotels import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     response.getWriter().write("<br/>");
                     response.getWriter().write("hotels import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
