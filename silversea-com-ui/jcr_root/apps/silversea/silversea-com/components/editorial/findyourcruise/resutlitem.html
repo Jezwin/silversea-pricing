@@ -1,38 +1,53 @@
-<div class="c-fyc__result" data-sly-repeat="${['a', 'a']}" class="hide">
+<!--/* TODO : set class V2 accordinf to design properties */-->
+<div data-sly-repeat="${['a','a']}"  class="${itemList.count == 1 ? 'v2' : 'v1'}">
+<div class="c-fyc__result">
     <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image">
-            <img src="http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg" alt="" />
-        </div>
+        <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)"></div>
         <div class="c-fyc__result__content">
-            <h2 class="c-fyc__result__content__title">San Cristobal <span class="text-lowercase">to</span> Baltra, Galapagos</h2>
-            <ul>
-                <li>[destination]</li>
-                <li>[cruiseType]</li>
-                <li>[ship]</li>
-                <li>[features]</li>
+            <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
+            <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
+            <ul class="c-fyc__result__content__description clearfix silversea-expedition">
+                <li>Galapagos Islands<br /></li>
+                <li class="cruise-type">Silversea Expedition</li>
+                <li class="meta_feature_inner">
+                    <span class="feature feature-eo" data-sly-repeat="${['a','a','a']}">
+                        <i class="icon-star"></i>
+                        <span class="tooltip"><i></i>offer</span>
+                    </span>
+                </li>
             </ul>
-            <dl>
-                <dt>${'departure' @ i18n}</dt>
-                <dd><strong>13 jul</strong> 2017</dd>
-                <dt>${'duration' @ i18n}</dt>
-                <dd><strong>7</strong> ${'days' @ i18n}</dd>
-                <dt>${'ship' @ i18n}</dt>
-                <dd>[ship]</dd>
-            </dl>
-            <p>
-                <span>${'all-inclusive-package-from' @ i18n}</span>
-                <span>&euro; 6,165</span>
-                <span>${'with' @ i18n}</span>
-                <span>${'early-booking-bonus' @ i18n}</span>
+            <ul class="c-fyc__result__content__summary clearfix">
+                <li class="c-fyc__result__content__summary__item">
+                    <dl>
+                        <dt>${'departure' @ i18n}</dt>
+                        <dd><strong>13 jul</strong> 2017</dd>
+                    </dl>
+                </li>
+                <li class="c-fyc__result__content__summary__item">
+                    <dl>
+                        <dt>${'duration' @ i18n}</dt>
+                        <dd><strong>7</strong> ${'days' @ i18n}</dd>
+                    </dl>
+                </li>
+                <li class="c-fyc__result__content__summary__item">
+                    <dl>
+                        <dt>${'ship' @ i18n}</dt>
+                        <dd><strong>Silver Galapagos</strong></dd>
+                    </dl>
+                </li>
+            </ul>
+            <p class="c-fyc__result__content__price">
+                ${'all-inclusive-package-from' @ i18n}<br />
+                <strong>&euro; 6,165</strong>
             </p>
-            <p class="text-center">
-                <a href="#" class="btn btn-red effect btn-thin" type="button"> ${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+            <p class="c-fyc__result__content__button text-center">
+                <a href="#" class="btn btn-red effect btn-thin">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
             </p>
         </div>
         <a href="#"></a>
     </div>
 </div>
-
+</div>
 <div class="result__wrapper">
     <div class="result result-expedition">
         <div class="result__inner">
@@ -58,7 +73,7 @@
                                     <li class="meta_feature_inner">
                                         <span class="feature feature-eo">
                                             <i class="icon-star"></i>
-                                            <span class="tooltip"><i></i></span>
+                                            <span class="tooltip"><i></i>offer</span>
                                         </span>
                                     </li>
                                 </ul>
@@ -97,8 +112,7 @@
                             <div class="result__actions_price">
                                 <div class="result__price">
                                     <div class="result__price_line1">${'all-inclusive-package-from' @ i18n}</div>
-                                    <div class="result__price_line2">€ 6,165 <span>${'with' @ i18n}</span></div>
-                                    <div class="result__price_line3">${'early-booking-bonus' @ i18n}</div>
+                                    <div class="result__price_line2">€ 6,165</div>
                                 </div>
                             </div>
                             <div class="result__actions_cta">
