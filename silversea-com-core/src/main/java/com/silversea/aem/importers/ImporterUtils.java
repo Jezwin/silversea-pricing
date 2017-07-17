@@ -400,6 +400,8 @@ public class ImporterUtils {
 
         apiClient.setDebugging(LOGGER.isDebugEnabled());
 
+        apiClient.setBasePath(apiConfigurationService.apiBasePath());
+
         // TODO connect and read timeout are not supposed to be the same !!
         apiClient.setConnectTimeout(apiConfigurationService.getTimeout());
         apiClient.getHttpClient().setReadTimeout(apiConfigurationService.getTimeout(), TimeUnit.MILLISECONDS);
