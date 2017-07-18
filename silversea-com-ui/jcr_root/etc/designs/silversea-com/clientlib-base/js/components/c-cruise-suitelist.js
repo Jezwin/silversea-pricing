@@ -26,7 +26,7 @@ $(function() {
 
         // Scroll page to content
         var scrollTargetOffsetTop = $.viewportDetect() === 'xs' ? $currentCollapse.offset().top - 20 : $currentCollapse.prev('.c-suitelist__heading').offset().top - 10;
-        $('html, body').animate({
+        $('html, body').delay(500).animate({
             scrollTop : scrollTargetOffsetTop - $('.c-header').height()
         }, 500);
     }).on('hide.bs.collapse', function(e) {

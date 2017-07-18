@@ -22,6 +22,10 @@ import java.util.*;
 
 /**
  * Created by asiba on 28/03/2017.
+ *
+ * TODO review various NPE
+ * TODO review java coding style conventions
+ * TODO constants
  */
 public class PressreleaseslistUse extends WCMUsePojo {
     private List<Page> pressReleaseList;
@@ -72,7 +76,7 @@ public class PressreleaseslistUse extends WCMUsePojo {
         mapQuery.put(WcmConstants.SEARCH_KEY_TYPE, "cq:PageContent");
         mapQuery.put(WcmConstants.SEARCH_KEY_PROPERTY, "sling:resourceType");
         mapQuery.put(WcmConstants.SEARCH_KEY_PROPERTY_VALUE, "silversea/silversea-com/components/pages/pressrelease");
-        mapQuery.put(WcmConstants.SEARCH_KEY_ORDER_BY, "@jcr:content/jcr:lastModified");
+        mapQuery.put(WcmConstants.SEARCH_KEY_ORDER_BY, "@jcr:content/publicationDate");
         mapQuery.put(WcmConstants.SEARCH_KEY_ORDER_BY_SORT_ORDER, "desc");
         mapQuery.put(WcmConstants.SEARCH_KEY_OFF_SET, String.valueOf(pageNum));
         mapQuery.put(WcmConstants.SEARCH_KEY_PAGE_LIMIT, limit);

@@ -8,8 +8,11 @@ import org.apache.sling.api.resource.ResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.services.RunModesService;
 
 /**
@@ -23,6 +26,8 @@ public class DataLayerUse extends WCMUsePojo {
     private String userEmail = "";
     private String currentPageUrl = "";
 
+    private String userContry;
+
     private String userLanguage = "";
     private String pageCategory1 = "";
     private String pageCategory2 = "";
@@ -31,6 +36,7 @@ public class DataLayerUse extends WCMUsePojo {
     Map<String, String> listCat2;
 
     private String geoLoc;
+    String contry;
     private MediaDataLayer media;
 
     @Override
@@ -40,11 +46,11 @@ public class DataLayerUse extends WCMUsePojo {
          */
         RunModesService run = getSlingScriptHelper().getService(RunModesService.class);
         runMode = run.getCurrentRunMode();
-        
-        if (getCurrentPage().getProperties().get("eventValue") != null) {
-            event = getCurrentPage().getProperties().get("eventValue").toString();
+
+        if (getCurrentPage().getProperties().get("pageEvent") != null) {
+            event = getCurrentPage().getProperties().get("pageEvent").toString();
         }
-        if (getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_EXCLUSIVE_OFFERT)) {
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)) {
             event = "searchresults";
         }
 
@@ -54,13 +60,14 @@ public class DataLayerUse extends WCMUsePojo {
         Locale locale = getCurrentPage().getLanguage(false);
         userLanguage = locale.getLanguage();
 
+        userContry = GeolocationHelper.getCountryCode(getRequest());
+        if(userContry == null){
+        	userContry = "US";
+        }
+
         ResourceResolver resourceResolver = getRequest().getResourceResolver();
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
         currentPageUrl = externalizer.publishLink(resourceResolver, "http", getCurrentPage().getPath()) + ".html";
-
-        // if (getRequest().getCookie("email").getValue() != null) {
-        // userEmail = getRequest().getCookie("email").getValue();
-        // }
 
         /**
          * tree structure data
@@ -94,6 +101,7 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(TemplateConstants.PATH_DINING_VARIATION, "single ship");
         listCat1.put(TemplateConstants.PATH_PAGE, "editorial pages");
 
+        //TODO Remove getCurrentTemplate and remplace it bay getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
         if (getCurrentPage().getTemplate().getPath() != null && pageCategory1.equals("")) {
             String value = listCat1.get(getCurrentPage().getTemplate().getPath());
             if (value != null) {
@@ -141,137 +149,146 @@ public class DataLayerUse extends WCMUsePojo {
          * media
          */
         // TODO récuperer la bonne market
-        geoLoc = "UK";
+        // geoLoc = "UK";
+        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        contry = GeolocationHelper.getCountryCode(getRequest());
+        if (contry != null) {
+            geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
+        } else {
+            contry = "US";
+        }
+
+        if (geoLoc != null) {
+            geoLoc = geoLoc.toUpperCase();
+        } else {
+            geoLoc = "FT";
+        }
+
         String adwords_conversion_label = "";
         String adwords_value = "1.0";
         String adwords_format = "";
-        if (geoLoc.equals("US")) {
-            if (pageCategory2.toLowerCase().equals("RAQ TY")) {
+        if (geoLoc.equals("US") || (geoLoc.equals("FT") && (contry.equals("US") || contry.equals("CA")))) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "XXW_CPmImQQQl5v74wM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "4ekHCIGahAQQl5v74wM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "kakUCIDVllcQl5v74wM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "tgx1COGdhAQQl5v74wM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
                 adwords_format = "2";
             }
-            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwords_conversion_label,
-                    adwords_format, adwords_value, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127",
+            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwords_conversion_label, adwords_format, adwords_value, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127",
                     "GSvQCJnls1wQl5v74wM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("LAM")) {
-            if (pageCategory2.toLowerCase().equals("RAQ TY")) {
+        if (geoLoc.equals("LAM") || (geoLoc.equals("FT") && (!contry.equals("US") && !contry.equals("CA")))) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "2ro7CO-klggQ2cHp1QM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "LUfyCNenlggQ2cHp1QM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "eYA8CO-pllcQ2cHp1QM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "-YN5COellggQ2cHp1QM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwords_conversion_label,
-                    adwords_format, adwords_value, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017",
+            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwords_conversion_label, adwords_format, adwords_value, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017",
                     "c5paCPzos1wQ2cHp1QM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("AP")) {
-            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+        if (geoLoc.equals("AP") || geoLoc.equals("AS")) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "7HNzCNzvkQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "OW6VCMTykQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "GiVYCNv4lVcQ1MDT0AM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "8OO5CMzxkQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwords_conversion_label,
-                    adwords_format, adwords_value, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676",
+            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwords_conversion_label, adwords_format, adwords_value, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676",
                     "2n1oCOrpsFwQ1MDT0AM", "1000698659832", "39634");
         }
 
         if (geoLoc.equals("UK")) {
-            if (pageCategory2.toUpperCase().equals("RAQ TY")) {
+            if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "htdlCLDd2iMQgL_7yAM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "EcqGCIjAxSEQgL_7yAM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "f4dGCLz6lVcQgL_7yAM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "80vfCIDBxSEQgL_7yAM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwords_conversion_label,
-                    adwords_format, adwords_value, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608",
+            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwords_conversion_label, adwords_format, adwords_value, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608",
                     "RzaaCPWMsFwQgL_7yAM", "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("EMEA")) {
+        if (geoLoc.equals("EMEA") || geoLoc.equals("EU")) {
             if (pageCategory2.toUpperCase().equals("RAQ TY")) {
                 adwords_conversion_label = "81HGCJzThggQzILD0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAC TY")) {
+            if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "Fl7fCPTXhggQzILD0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("RAB TY")) {
+            if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "Pr99CPn0llcQzILD0AM";
                 adwords_format = "2";
             }
-            if (pageCategory2.toLowerCase().equals("SFO TY")) {
+            if (pageCategory2.equals("SFO TY")) {
                 adwords_conversion_label = "We5mCITWhggQzILD0AM";
                 adwords_format = "3";
             }
-            if (pageCategory2.toLowerCase().equals("Send E-mail TY")) {
+            if (pageCategory2.equals("Send E-mail TY")) {
                 adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwords_conversion_label,
-                    adwords_format, adwords_value, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
+            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwords_conversion_label, adwords_format, adwords_value, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
                     "Z58tCPSRsFwQzILD0AM", "1000698659832", "39634");
         }
 
@@ -280,6 +297,17 @@ public class DataLayerUse extends WCMUsePojo {
     /**
      * @return the current Run Mode
      */
+    public String getContry() {
+        return contry;
+    }
+
+    public String getGeoLoc() {
+        return geoLoc;
+    }
+
+    public String getUserContry() {
+        return userContry;
+    }
 
     public String getRunMode() {
         return runMode;

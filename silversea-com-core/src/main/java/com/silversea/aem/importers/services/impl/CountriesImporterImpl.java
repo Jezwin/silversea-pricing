@@ -1,133 +1,185 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.tagging.InvalidTagFormatException;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.CountriesImporter;
+import com.silversea.aem.services.ApiCallService;
+import com.silversea.aem.services.ApiConfigurationService;
+import io.swagger.client.ApiException;
+import io.swagger.client.model.Country;
+import org.apache.cxf.common.util.StringUtils;
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
+import org.osgi.service.component.ComponentContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.day.cq.replication.Replicator;
-import com.day.cq.search.PredicateGroup;
-import com.day.cq.search.Query;
-import com.day.cq.search.QueryBuilder;
-import com.day.cq.search.result.SearchResult;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.CountriesImporter;
-import com.silversea.aem.services.ApiCallService;
-import com.silversea.aem.services.ApiConfigurationService;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Country;
-
 @Component(immediate = true, label = "Silversea.com - Contries importer")
 @Service(value = CountriesImporter.class)
 public class CountriesImporterImpl implements CountriesImporter {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
-	private static final String GEOTAGGING_PATH = "/etc/tags/geotagging";
+    static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private ApiConfigurationService apiConfig;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-	@Reference
-	private QueryBuilder builder;
+    @Reference
+    private ApiCallService apiCallService;
 
-	@Reference
-	private Replicator replicat;
+    @Activate
+    protected void activate(final ComponentContext context) {
+        if (apiConfig.getSessionRefresh() != 0) {
+            int sessionRefresh = apiConfig.getSessionRefresh();
+        }
+    }
 
-	@Reference
-	private ApiCallService apiCallService;
+    @Override
+    public ImportResult importData() throws IOException {
+        LOGGER.debug("Starting countries import");
 
-	private ResourceResolver resourceResolver;
-	private Session session;
+        int successNumber = 0;
+        int errorNumber = 0;
 
-	public void init() {
-		try {
-			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			session = resourceResolver.adaptTo(Session.class);
-		} catch (LoginException e) {
-			LOGGER.debug("Contries importer login exception ", e);
-		}
-	}
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-	@Override
-	public void importData() throws IOException {
-		init();
-		try {
-			List<Country> countries;
-			countries = apiCallService.getContries();
-			int j = 0;
-			for (Country country : countries) {
-				LOGGER.debug("Importing Country: {}", country.getCountryName());
-				Map<String, String> map = new HashMap<>();
-				Iterator<Node> nodes = null;
-				map.put(WcmConstants.SEARCH_KEY_PATH, GEOTAGGING_PATH);
-				map.put(WcmConstants.SEARCH_KEY_TYPE, WcmConstants.DEFAULT_KEY_CQ_TAG);
-				map.put(WcmConstants.SEARCH_NODE_NAME, country.getCountryIso2());
-				Query query = builder.createQuery(PredicateGroup.create(map), session);
-				SearchResult searchResult = query.getResult();
-				nodes = searchResult.getNodes();
-				// Set result to current node
-				while (nodes.hasNext()) {
-					Node node = nodes.next();
-					if (node.getDepth() == 6) {
-						if (null != node) {
-							node.setProperty("country_id", country.getCountryId());
-							node.setProperty("country_url", country.getCountryUrl());
-							node.setProperty("country_iso2", country.getCountryIso2());
-							node.setProperty("country_iso3", country.getCountryIso3());
-							node.setProperty("country_name", country.getCountryName());
-							node.setProperty("country_prefix", country.getCountryPrefix());
-							node.setProperty("market", country.getMarket());
-							node.setProperty("region_id", country.getRegionId());
-							session.save();
-							if (!replicat.getReplicationStatus(session, node.getParent().getPath()).isActivated()) {
-								ImporterUtils.updateReplicationStatus(replicat, session, false, node.getPath());
-							}
-						}
-					}
-				}
-				j++;
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final Session session = resourceResolver.adaptTo(Session.class);
+            final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 
-				if (j % 100 == 0) {
-					if (session.hasPendingChanges()) {
-						try {
-							session.save();
-						} catch (RepositoryException e) {
-							session.refresh(true);
-						}
-					}
-				}
-			}
-			resourceResolver.close();
-		} catch (ApiException | RepositoryException e) {
-			LOGGER.error("Exception importing countries", e);
-		}
-	}
+            if (session == null || tagManager == null) {
+                throw new ImporterException("Cannot initialize tagManager or session");
+            }
 
-	@Override
-	public void importCountry(String id) {
+            List<Country> countries = apiCallService.getCountries();
 
-	}
+            for (Country country : countries) {
+                LOGGER.debug("Importing country: {}", country.getCountryName());
+
+                try {
+                    Tag market;
+                    if (StringUtils.isEmpty(country.getMarket())) {
+                        market = tagManager.createTag("geotagging:nomarket",
+                                "No market", null, false);
+                    } else {
+                        market = tagManager.createTag("geotagging:" + country.getMarket().toLowerCase(),
+                                country.getMarket().toUpperCase(), null, false);
+                    }
+
+                    Tag regionId;
+                    if (StringUtils.isEmpty(market.getTagID())) {
+                        regionId = tagManager.createTag(market.getTagID() + "/noregion",
+                                "No region", null, false);
+                    } else {
+                        regionId = tagManager.createTag(market.getTagID() + "/"
+                                        + String.valueOf(country.getRegionId()).toLowerCase(),
+                                String.valueOf(country.getRegionId()), null, false);
+                    }
+
+                    Tag countryTag = tagManager.createTag(regionId.getTagID() + "/"
+                            + country.getCountryIso2().toUpperCase(), country.getCountryName(), null, false);
+
+                    final Node countryNode = countryTag.adaptTo(Node.class);
+
+                    if (countryNode != null) {
+                        countryNode.setProperty("id", country.getCountryId());
+                        countryNode.setProperty("iso2", country.getCountryIso2());
+                        countryNode.setProperty("iso3", country.getCountryIso3());
+                        countryNode.setProperty("prefix", country.getCountryPrefix());
+                        countryNode.setProperty("market", country.getMarket());
+                        countryNode.setProperty("regionId", country.getRegionId());
+                    } else {
+                        throw new ImporterException("Cannot get country node");
+                    }
+
+                    successNumber++;
+                } catch (InvalidTagFormatException | ImporterException e) {
+                    LOGGER.error("Cannot create country {}", country.getCountryIso2(), e);
+
+                    errorNumber++;
+                }
+            }
+
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+
+            resourceResolver.close();
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read countries from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Cannot save modifications", e);
+        }
+
+        return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public void importCountry(String id) {
+
+    }
+
+    @Override
+    public JSONObject getCountriesMapping() {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+
+            Iterator<Resource> tags = resourceResolver.findResources("/jcr:root/etc/tags/geotagging//element(*,cq:Tag)", "xpath");
+
+            while (tags.hasNext()) {
+                Resource tagResource = tags.next();
+
+                final ValueMap tagProperties = tagResource.adaptTo(ValueMap.class);
+
+                if (tagProperties != null && tagProperties.containsKey("id")) {
+                    try {
+                        jsonObject.put(tagProperties.get("id", String.class),
+                                tagResource.getPath());
+                    } catch (JSONException e) {
+                        LOGGER.error("Cannot add country {} with path {} to countries mapping",
+                                tagProperties.get("id", String.class), tagResource.getPath(), e);
+                    }
+                }
+            }
+
+        } catch (LoginException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        }
+
+        return jsonObject;
+    }
 
 }

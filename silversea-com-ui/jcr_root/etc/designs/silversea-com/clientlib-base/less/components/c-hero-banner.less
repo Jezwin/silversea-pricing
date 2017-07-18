@@ -113,13 +113,13 @@
         &__image + .row &__content {
             bottom: 0;
             position: absolute;
-            top: 20px;
-            z-index: 1;
+			min-height: 240px;
+		    z-index: 1;
+		    max-height: 330px;
+		    overflow: auto;
         }
 
         &__buttons {
-            bottom: 0;
-            position: absolute;
             text-align: left;
             width: 150px;
 

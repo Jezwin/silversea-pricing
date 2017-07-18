@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:cloudservicename="dynamictagmanagement"
+        cq:template="/libs/cq/dtm/templates/dynamictagmanagement"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="SSC DTM Staging"
+        sling:resourceType="cq/dtm/components/dynamictagmanagementpage"
+        authorProdInclude="true"
+        company="9d4e44082d7fd2d78f157f39b9fda8add7b72a9e"
+        companyDisplayValue="Silversea"
+        productionDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model"
+        property="356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a"
+        propertyDisplayValue="Silversea Revamp"
+        stagingDownloadWorkflow="/etc/workflow/models/cloudservices/DTM_bundle_download/jcr:content/model">
+        <public
+            jcr:primaryType="nt:unstructured"
+            productionFooterCode="&lt;script type=&quot;text/javascript&quot;>_satellite.pageBottom();&lt;/script>"
+            productionHeaderCode="&lt;script src=&quot;//assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js&quot;>&lt;/script>"
+            stagingFooterCode="&lt;script type=&quot;text/javascript&quot;>_satellite.pageBottom();&lt;/script>"
+            stagingHeaderCode="&lt;script src=&quot;//assets.adobedtm.com/9d4e44082d7fd2d78f157f39b9fda8add7b72a9e/satelliteLib-356b8ad9c7866d439d6176e2ba5a0bbcb0b33a7a-staging.js&quot;>&lt;/script>"/>
+    </jcr:content>
+</jcr:root>

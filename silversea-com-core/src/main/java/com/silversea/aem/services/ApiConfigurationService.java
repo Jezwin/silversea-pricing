@@ -1,5 +1,8 @@
 package com.silversea.aem.services;
 
+/**
+ * TODO important service, add javadoc
+ */
 public interface ApiConfigurationService {
 
     String apiUrlConfiguration(String api);
@@ -12,9 +15,9 @@ public interface ApiConfigurationService {
 
     String getPassword();
     
-    public int getPageSize() ;
+    int getPageSize() ;
 
-    public int getSessionRefresh();
+    int getSessionRefresh();
 
-    public int getTimeout() ;
+    int getTimeout() ;
 }

@@ -3,6 +3,9 @@ package com.silversea.aem.helper;
 import com.adobe.cq.sightly.WCMUsePojo;
 import org.apache.sling.settings.SlingSettingsService;
 
+/**
+ * TODO review javadoc
+ */
 public class RunModesHelper extends WCMUsePojo {
 
     private SlingSettingsService slingSettingsService;

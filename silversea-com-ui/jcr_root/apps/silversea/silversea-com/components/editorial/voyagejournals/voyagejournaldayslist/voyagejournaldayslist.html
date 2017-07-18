@@ -3,7 +3,7 @@
         <sly data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=item.path}"></sly>
         <li class="c-list__item">
             <a href="${item.path @ extension='html'}">
-                <h2 class="voyage-journal-title">${item.title}</h2>
+                <h2 class="voyage-journal-title">${currentPage.title} ${'day' @ i18n} ${item.properties.dayNumber}</h2>
                 <span class="voyage-date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.properties.publicationDate}">
                     ${date.value}
                 </span>

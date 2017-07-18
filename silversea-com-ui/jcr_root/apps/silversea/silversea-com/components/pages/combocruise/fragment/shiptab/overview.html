@@ -1,18 +1,41 @@
 <div class="c-cruise__ship-overview" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
     <h3 class="c-cruise__subtitle">${target.page.properties.jcr:title}</h3>
     <div class="row">
-        <div class="col-sm-6 col-sm-push-6 pictureblock" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-            <sly class="shipimg" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-            <a href="" class="hidden-xs">${'view-deck-plan' @ i18n}</a>
+        <div class="col-sm-6 col-sm-push-6 pictureblock">
+            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
+            <a href="${target.page.properties.deckPlan}" target="_blank" class="hidden-xs">${'view-deck-plan' @ i18n}</a>
         </div>
         <div class="col-sm-6 col-sm-pull-6 ship-overview__content">
             <div class="ship-mobilewrapper">
-                ${target.page.properties.longDescription @ context='html'}
-                <ul class="shipinfo">
-                    <li><span>${'guests' @ i18n}:</span> ${target.page.properties.guestsCapacity}</li>
-                    <li><span>${'crew' @ i18n}:</span> ${target.page.properties.crewCapacity}</li>
-                    <li><span>${'lenght' @ i18n}:</span> ${target.page.properties.lengthFt} ${'feet' @ i18n} / ${target.page.properties.lengthM} ${'meters' @ i18n}</li>
-                </ul>
+                <sly data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=target.page.properties.longDescription, limit=250}"></sly>
+
+                <div class="hidden-xs">
+                    ${target.page.properties.longDescription @ context='html'}
+
+                    <ul class="shipinfo">
+                        <li><span>${'guests' @ i18n}:</span> ${target.page.properties.guestsCapacity}</li>
+                        <li><span>${'crew' @ i18n}:</span> ${target.page.properties.crewCapacity}</li>
+                        <li><span>${'length' @ i18n}:</span> ${target.page.properties.lengthFt} ${'feet' @ i18n} / ${target.page.properties.lengthM} ${'meters' @ i18n}</li>
+                    </ul>
+                </div>
+
+                <div class="visible-xs">
+                    ${description.textTruncateDot || target.page.properties.longDescription @ context='html'}
+                    <div class="collapse" id="ship-overview__content--collapsed">
+                        ${description.textTruncateDotEnd @ context='html'}
+
+                        <ul class="shipinfo">
+                            <li><span>${'guests' @ i18n}:</span> ${target.page.properties.guestsCapacity}</li>
+                            <li><span>${'crew' @ i18n}:</span> ${target.page.properties.crewCapacity}</li>
+                            <li><span>${'length' @ i18n}:</span> ${target.page.properties.lengthFt} ${'feet' @ i18n} / ${target.page.properties.lengthM} ${'meters' @ i18n}</li>
+                        </ul>
+                    </div>
+
+                    <div class="ship-overview__content_expand">
+                        <a role="button" data-toggle="collapse" href="#ship-overview__content--collapsed" aria-expanded="false" aria-controls="ship-overview__content--collapsed">${'view-all-ship-descr' @ i18n} <i class="fa fa-angle-down"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

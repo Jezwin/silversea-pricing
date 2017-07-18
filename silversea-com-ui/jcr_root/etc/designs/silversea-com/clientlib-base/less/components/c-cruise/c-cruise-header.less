@@ -67,15 +67,20 @@
             vertical-align: top;
             text-align: center;
 
-            /* phone breakpoint */
+            .btn {
+                padding: 8px 20px;
+
+                i {
+                    position: relative;
+                    top: 1px;
+                }
+            }
+
             @media screen and (max-width: @screen-sm) {
                 display: block;
                 padding: 0;
-            }
 
-            a {
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
+                a {
                     width: auto;
                     display: inline-block !important;
                     margin: 0 0 10px 0;

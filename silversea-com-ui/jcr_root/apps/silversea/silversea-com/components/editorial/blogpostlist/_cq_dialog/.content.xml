@@ -31,10 +31,7 @@
                                     <blogPostReference
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                        fieldDescription="Path"
-                                        cq-msm-lockable="blogPostReference"
                                         fieldLabel="Path"
-                                        renderReadOnly="{Boolean}true"
                                         name="./blogPostReference"
                                         rootPath="/content/silversea-com" />
                                     <highLightFirst

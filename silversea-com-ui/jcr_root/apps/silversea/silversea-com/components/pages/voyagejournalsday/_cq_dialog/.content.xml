@@ -44,7 +44,7 @@
                                         required="{Boolean}true" />
                                     <dayNumber
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="dayNumber"
                                         fieldLabel="Day number"
@@ -65,7 +65,7 @@
                                         required="{Boolean}true" />
                                     <coordinates
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="coordinates"
                                         fieldLabel="Coordinates"
@@ -73,7 +73,7 @@
                                         renderReadOnly="{Boolean}true" />
                                     <temperature
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="temperature"
                                         fieldLabel="Temperature"
@@ -81,7 +81,7 @@
                                         renderReadOnly="{Boolean}true" />
                                     <pressure
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="pressure"
                                         fieldLabel="Pressure"
@@ -89,7 +89,7 @@
                                         renderReadOnly="{Boolean}true" />
                                     <weather
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="weather"
                                         fieldLabel="Weather"
@@ -97,7 +97,7 @@
                                         renderReadOnly="{Boolean}true" />
                                     <wind
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="wind"
                                         fieldLabel="Wind"
@@ -115,7 +115,7 @@
                                         required="{Boolean}true" />
                                     <author
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
                                         cq-msm-lockable="author"
                                         fieldLabel="Author"
@@ -163,7 +163,7 @@
                                                 validation="foundation.jcr.name" />
                                             <title
                                                 jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                sling:resourceType="granite/ui/components/foundation/form/textfield"
                                                 cq-msm-lockable="jcr:title"
                                                 fieldLabel="Title"
                                                 name="./jcr:title"
@@ -313,7 +313,7 @@
                                                 renderReadOnly="{Boolean}true">
                                                 <field
                                                     jcr:primaryType="nt:unstructured"
-                                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
                                                     name="./sling:vanityPath"
                                                     required="{Boolean}true" />
                                             </vanitypath>

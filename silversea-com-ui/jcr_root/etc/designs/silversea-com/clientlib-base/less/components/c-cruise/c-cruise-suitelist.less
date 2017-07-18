@@ -4,19 +4,6 @@
         transition: background-color 300ms, opacity 300ms;
     }
 
-    &__image {
-        height: 150px;
-        overflow: hidden;
-        position: relative;
-
-        img {
-            top: 50%;
-            position: absolute;
-            left: 0;
-            transform: translateY(-50%);
-        }
-    }
-
     &__detail {
         &__title {
             font-family: @f-theano_didot;
@@ -212,6 +199,11 @@
 
                 .c-tab__body {
                     padding-top: 120px;
+                    #Hotels{
+                        .c-accordion__subtitle{
+                            display: none;
+                        }
+                    }
                 }
             }
         }
@@ -236,6 +228,7 @@
 
         &__image, &__detail, &__price, &__button {
             float: left;
+            min-height: 1px;
         }
 
         &__image {

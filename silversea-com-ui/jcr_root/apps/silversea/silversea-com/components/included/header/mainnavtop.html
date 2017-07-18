@@ -1,32 +1,36 @@
-<div class="c-main-nav__top" data-sly-use.navTop="com.silversea.aem.components.page.HeaderModel">
-    <ul class="c-main-nav__top--list">
-        <li class="c-main-nav__top--item hidden-md hidden-lg" data-sly-test.page1="${navTop.link1Page}">
-            <a href="${page1.path @ extension = 'html'}" class="c-main-nav__top--link">
+<div class="c-main-nav__top" data-sly-use.navTop="com.silversea.aem.components.page.HeaderUse">
+    <ul class="c-main-nav__top__list clearfix">
+        <li class="c-main-nav__top__item visible-xs-block" data-sly-test.page1="${navTop.link1Page}">
+            <a href="${page1.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page1.navigationTitle || page1.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item" data-sly-test.page2="${navTop.link2Page}">
-            <a href="${page2.path @ extension = 'html'}" class="c-main-nav__top--link">
+        <li class="c-main-nav__top__item" data-sly-test.page2="${navTop.link2Page}">
+            <a href="${page2.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page2.navigationTitle || page2.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item hidden-lg hidden-md">
-            <a href="#" class="c-main-nav__top--link">
-                <span>Sign up for offers</span>
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right" data-sly-test.page3Mobile="${navTop.link3MobilePage}">
+            <a href="${page3Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
+                <span>${page3Mobile.navigationTitle || page3Mobile.title}</span>
             </a>
-        </li>
-        <li class="c-main-nav__top--item c-main-nav__top--item--small-md hidden-xs hidden-sm" data-sly-test.page3="${navTop.link3Page}">
-            <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top--link">
+        </li> 
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md ${navTop.link3MobilePage ? 'hidden-xs hidden-sm':''}" data-sly-test.page3="${navTop.link3Page}">
+            <a href="${page3.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3.navigationTitle || page3.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top--item c-main-nav__top--item--small-md">
-            <a href="#" class="c-main-nav__top--link">
-                <span>ENG</span>
+        <li class="c-main-nav__top__item c-main-nav__top__item--small-md c-language-selector">
+            <a href="#" class="c-main-nav__top__link open-language-selector" aria-expanded="false">
+                <span data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">${pageHelper.homePage.navigationTitle || pageHelper.homePage.name}</span>
+                <i class="fa fa fa-angle-down hidden-md hidden-lg"></i><i class="fa fa-angle-up hidden-md hidden-lg"></i>
             </a>
+            <ul id="c-language-selector" class="clearfix collapse c-language-selector__list" data-sly-list="${navTop.languagePageList}">
+                <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.name}</span></a></li>
+            </ul>
         </li>
-        <li class="c-main-nav__top--item" data-sly-test.search="${navTop.searchPage}">
-            <a href="${search.path @ extension ='html'}" class="c-main-nav__top--link">
+        <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
+            <a href="${search.path @ extension ='html'}" class="c-main-nav__top__link">
                 <span><i class="fa fa-lg fa-search"></i></span>
             </a>
         </li>

@@ -9,7 +9,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.day.cq.wcm.designimporter.api.ImporterConstants;
 import com.silversea.aem.helper.StringHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -32,12 +31,9 @@ public class ImporterUtils {
     /**
      * Save session
      *
-     * @param session
-     *            : session to save
-     * @param isRefresh:
-     *            boolean indicates if we refresh session
-     * @throws RepositoryException:
-     *             throw a repository exception
+     * @param session   session to save
+     * @param isRefresh boolean indicates if we refresh session
+     * @throws RepositoryException: throw a repository exception
      */
     public static void saveSession(Session session, boolean isRefresh) throws RepositoryException {
         try {
@@ -52,10 +48,8 @@ public class ImporterUtils {
     /**
      * Save modification date
      *
-     * @param page
-     *            : modified resource
-     * @throws RepositoryException:
-     *             throw a repository exception
+     * @param page : modified resource
+     * @throws RepositoryException: throw a repository exception
      */
     public static void saveUpdateDate(Page page) throws RepositoryException {
         if (page != null) {
@@ -67,8 +61,7 @@ public class ImporterUtils {
     /**
      * Retrieve the last modification date of a page
      *
-     * @param page:
-     *            modified page
+     * @param page: modified page
      * @return lastModificationDate : modification date
      */
     public static String getLastModificationDate(Page page, String property) {
@@ -87,18 +80,14 @@ public class ImporterUtils {
     /**
      * Find a resource in the repository by its id
      *
-     * @param type:
-     *            resource's type
-     * @param property:
-     *            id's label
-     * @param id:
-     *            id's value
-     * @param resourceResolver:
-     *            resource resolver
+     * @param type:             resource's type
+     * @param property:         id's label
+     * @param id:               id's value
+     * @param resourceResolver: resource resolver
      * @return iterator of resources
      */
     public static Iterator<Resource> findResourceById(String path, String type, String property, String id,
-            ResourceResolver resourceResolver) {
+                                                      ResourceResolver resourceResolver) {
 
         Map<String, String> queryMap = new HashMap<String, String>();
         // check if resource is a page or a node
@@ -118,22 +107,17 @@ public class ImporterUtils {
     /**
      * Create a new page or adapt it from a resource
      *
-     * @param resources:
-     *            resource to adapt
-     * @param template:
-     *            page's template
-     * @param RootPage:
-     *            page parent
-     * @param title:
-     *            page's title
-     * @param pageManager:
-     *            page manager
+     * @param resources:   resource to adapt
+     * @param template:    page's template
+     * @param RootPage:    page parent
+     * @param title:       page's title
+     * @param pageManager: page manager
      * @return a page
      * @throws WCMException
      * @throws RepositoryException
      */
     public static Page adaptOrCreatePage(Iterator<Resource> resources, String template, Page RootPage, String title,
-            PageManager pageManager) throws WCMException, RepositoryException {
+                                         PageManager pageManager) throws WCMException, RepositoryException {
 
         Page page = null;
         if (resources.hasNext()) {
@@ -149,12 +133,9 @@ public class ImporterUtils {
     /**
      * Create a new node or adapt it from a resource
      *
-     * @param resources:
-     *            resource to adapt
-     * @param rootNode:
-     *            node's parent
-     * @param nodeName:
-     *            node's name
+     * @param resources: resource to adapt
+     * @param rootNode:  node's parent
+     * @param nodeName:  node's name
      * @return a node
      * @throws RepositoryException
      */
@@ -174,10 +155,8 @@ public class ImporterUtils {
     /**
      * Find or create a node by it's name
      *
-     * @param element:
-     *            node
-     * @param name:
-     *            node's name
+     * @param element: node
+     * @param name:    node's name
      * @return a node
      * @throws RepositoryException
      */
@@ -196,12 +175,9 @@ public class ImporterUtils {
     /**
      * Find a reference path
      *
-     * @param property:
-     *            id's label
-     * @param id:
-     *            id's value
-     * @param resourceResolver:
-     *            resource resolver
+     * @param property:         id's label
+     * @param id:               id's value
+     * @param resourceResolver: resource resolver
      * @return a path
      */
     public static String findReference(String path, String property, String id, ResourceResolver resourceResolver) {
@@ -251,7 +227,7 @@ public class ImporterUtils {
         }
         return calendar;
     }
-    
+
     public static String formatDateForSeach(DateTime dateTime) {
         String formattedDate = null;
         if (dateTime != null) {
@@ -287,7 +263,7 @@ public class ImporterUtils {
     }
 
     public static List<Page> createPagesALLLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
-            Page rootPage, List<String> local, String templatePath, String pageName) {
+                                                          Page rootPage, List<String> local, String templatePath, String pageName) {
         Page page = null;
         String root;
         Page rootPageLocal;
@@ -312,7 +288,7 @@ public class ImporterUtils {
     }
 
     public static Page createPageLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
-            Replicator replicat, Session session, Page rootPage, String local, String templatePath, String pageName) {
+                                                Replicator replicat, Session session, Page rootPage, String local, String templatePath, String pageName) {
         Page page = null;
         String root;
         Page rootPageLocal;
@@ -339,7 +315,7 @@ public class ImporterUtils {
     }
 
     public static Page findPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
-            Page rootPage, String local) {
+                                               Page rootPage, String local) {
         String root;
         Page rootPageLocal;
 
@@ -365,11 +341,15 @@ public class ImporterUtils {
 
     @Deprecated
     public static Page getPagePathByLocale(final ResourceResolver resourceResolver, final Page enPage,
-            final String locale) {
+                                           final String locale) {
         return resourceResolver.getResource(StringUtils.replace(enPage.getPath(), "/en/", "/" + locale + "/"))
                 .adaptTo(Page.class);
     }
 
+    /**
+     * @param pageManager
+     * @return
+     */
     public static List<String> getSiteLocales(final PageManager pageManager) {
         final Page rootPage = pageManager.getPage(ImportersConstants.SILVERSEA_ROOT);
         List<String> locales = new ArrayList<>();
@@ -389,6 +369,12 @@ public class ImporterUtils {
         return locales;
     }
 
+    /**
+     * @param pageManager
+     * @param masterPage
+     * @param locale
+     * @return
+     */
     public static Page getPagePathByLocale(final PageManager pageManager, final Page masterPage, final String locale) {
         if (pageManager != null && masterPage != null && locale != null) {
 
@@ -401,31 +387,30 @@ public class ImporterUtils {
 
         return null;
     }
-    
-    public static String findPageLangauge(PageManager pageManager, final Page masterPage, Page currentPage){
+
+    public static String findPageLangauge(PageManager pageManager, final Page masterPage, Page currentPage) {
         return currentPage.getParent(4).getName();
     }
-    
+
     /**
      * Set the last modification date on the defined <code>rootPath</code>
      *
-     * @param pageManager the page manager
-     * @param session the session
-     * @param rootPath path of the page where to set the last modification date property
+     * @param pageManager  the page manager
+     * @param session      the session
+     * @param rootPath     path of the page where to set the last modification date property
      * @param propertyName the property name to write
      */
     public static void setLastModificationDate(PageManager pageManager, Session session,
-                                           final String rootPath, final String propertyName) {
+                                               final String rootPath, final String propertyName) {
         // Setting modification date for each language
         final Page rootPage = pageManager.getPage(rootPath);
         final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 
-        // Iterating over locales to import cities
+        // Iterating over locales
         for (String locale : locales) {
             final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
             // Setting last modification date
-            // after import
             try {
                 Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
 
@@ -447,5 +432,5 @@ public class ImporterUtils {
             }
         }
     }
-    
+
 }

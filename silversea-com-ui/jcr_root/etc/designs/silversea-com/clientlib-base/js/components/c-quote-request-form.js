@@ -9,7 +9,7 @@ $(function() {
 });
 
 //make code in function to call on modal shown
-function requestForm(){
+function requestForm() {
     // Autogrow Textarea
     $('.textarea_autogrow').each(function() {
         var $autogrow = $(this),
@@ -26,8 +26,7 @@ function requestForm(){
 
     // Autocomplete form with data from cookie
     $('.request-quote-form').each(function() {
-        var $form = $(this),
-        userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+        var $form = $(this), userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
         if (userInfo) {
             $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
             $form.find('[name="firstname"]').val(userInfo.firstname);
@@ -51,7 +50,7 @@ function requestForm(){
 
         $inputTelephoneNumber.intlTelInput({
             allowDropdown : false,
-            initialCountry: countryGeolocalized,
+            initialCountry : countryGeolocalized,
             separateDialCode : true,
             customPlaceholder : function(selectedCountryPlaceholder, selectedCountryData) {
                 return $inputTelephoneNumber.data('prepend-placeholder') + ": 0" + selectedCountryPlaceholder;
@@ -86,13 +85,13 @@ function requestForm(){
             openChosen();
         })
     });
-    
+
     //Display Postal code, city, and country fields when postal adress focused.
-    $('#postalAddress').focus(function () {
+    $('#postalAddress').focus(function() {
         $('.hideArea').show();
     });
     (($('#postalAddress').val() == undefined) || ($('#postalAddress').val() == '')) ? $('.hideArea').hide() : $('.hideArea').show();
-    
+
     // Validator !
     $('.request-quote-form').validator({
         focus : false,
@@ -120,5 +119,4 @@ function requestForm(){
     $('.chosen.chosen-with-search').chosen({
         'disable_search' : false
     });
-
 }

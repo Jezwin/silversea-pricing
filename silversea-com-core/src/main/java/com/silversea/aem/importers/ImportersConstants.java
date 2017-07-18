@@ -68,4 +68,6 @@ public interface ImportersConstants {
     String VOYAGE_ITINERARY_EXCURSIONS_URL_KEY = "itineraryExcursionsUrl";
     String VOYAGE_PRICES_URL_KEY = "pricesUrl";
     String SPECIAL_VOYAGE_URL_KEY = "specialVoyagesUrl";
+    
+    String LANGUAGE_EN = "en";
 }

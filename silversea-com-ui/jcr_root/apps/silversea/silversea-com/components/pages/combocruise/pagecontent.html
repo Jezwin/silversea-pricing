@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="c-tab c-tab__accordion">
-                <ul class="c-tab__nav c-tab__nav--regular7 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+                <ul class="c-tab__nav c-tab__nav--regular7 dropdown-menu c-combo-cruise-tab" data-toggle="dropdown" aria-expanded="false">
                     <!--/* Don't add space  between </li> and next <li> */-->
                     <li class="c-tab__link c-tab__link--clear" data-state="active">
                         <a href="#overview"><span>${'overview' @i18n}</span></a>
@@ -31,7 +31,7 @@
                         <sly data-sly-include="fragment/overviewtab/overview.html" />
                         <sly data-sly-include="fragment/overviewtab/map.html" />
                         <sly data-sly-include="fragment/overviewtab/gallery.html" />
-                        <sly data-sly-include="fragment/suitestab/suitelist.html" />
+                        <sly data-sly-include="fragment/overviewtab/suitelistlight.html" />
                         <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
@@ -46,11 +46,11 @@
                     </div>
                     <div class="c-tab__content" id="excursions">
                         <!--/* Excursions tab */-->
-                        <sly data-sly-include="fragment/excursionstab/excursions.html" />
+                        <sly data-sly-include="fragment/excursionstab/portexcursionslist.html" />
                     </div>
-                    <div class="c-tab__content" id="land-and-hotel">
-                        <!--/* Land & Hotel tab */-->
-                        <sly data-sly-include="fragment/landandhoteltab/landandhotel.html" />
+                    <div class="c-tab__content" id="landnhotel">
+                        <!--/* Land and hotel tab */-->
+                        <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
                     </div>
                     <div class="c-tab__content" id="ship">
                         <!--/* Ship tab */-->

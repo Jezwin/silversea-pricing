@@ -1,5 +1,3 @@
-// HEADER
-
 #additionalFilters {
     position: relative;
 
@@ -13,7 +11,6 @@
         top: 7px;
         cursor: pointer;
 
-        /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             margin: 28px auto 17px;
             max-width: 100%;
@@ -44,8 +41,6 @@
         }
 
         .matching-wrapper {
-
-            /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 display: block;
                 padding: 12px 0 21px;
@@ -62,20 +57,14 @@
                      font-family: Theanodidot;
                     font-size: 22px;
 
-                    /* tablet breakpoint */
                     @media screen and (max-width: @screen-md-max) {
                         font-size: 15px;
                     }
 
-                    /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
                         font-size: 20px;
                     }
                 }
-            }
-
-            .hide-on-desctop {
-                display: none;
             }
 
             .matching-text {
@@ -85,13 +74,11 @@
                 font-weight: 300;
                 text-transform: uppercase;
 
-                /* tablet breakpoint */
                 @media screen and (max-width: @screen-md-max) {
                     font-size: 15px;
                     font-weight: 700;
                 }
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     font-size: 20px;
                     font-weight: 300;
@@ -137,12 +124,9 @@
     }
 }
 
-// FILTER
-
 .filter-flex-wrapper {
     height: 34px;
 
-    /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         height: auto;
     }
@@ -160,7 +144,6 @@
             padding: 0;
             position: relative;
 
-            /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 width: 100%;
                 float: none;
@@ -199,11 +182,11 @@
                         color: @black;
                         display: block;
                         line-height: 27px;
+                        font-size: 13px;
                         font-weight: 400;
                         vertical-align: middle;
                         text-transform: capitalize;
 
-                        /* tablet breakpoint */
                         @media screen and (max-width: @screen-md-max) {
                             margin-right: 8px;
                         }
@@ -232,7 +215,14 @@
                     background: #ebebeb;
 
                     .chosen-search {
-                        display: none;
+                        &:before {
+                            color: @grey;
+                            content: "\f002";
+                            font-family: FontAwesome;
+                            left: 10px;
+                            position: absolute;
+                            top: 7px;
+                        }
 
                         input[type="text"] {
                             background: @white;
@@ -251,22 +241,24 @@
                         li {
                             font-size: 12px;
                             line-height: 16px;
+                            margin: 0;
 
                             &.result-selected {
-                                background: @black !important;
+                                background: @black;
                                 color: @white;
                                 font-weight: bold;
                             }
 
                             &.highlighted {
                                 background: none #eee;
-                                background: @black !important;
+                                background: @black;
                                 color: @white;
                             }
                         }
                     }
                 }
             }
+
             .chosen-with-drop.chosen-container-active .chosen-single,
             .filter-flex .open .dropdown-toggle {
                 border-left: 1px solid #444!important;
@@ -290,6 +282,7 @@
                     text-transform: none;
                     text-align: left;
                     margin: 0;
+                    outline: none;
 
                     .text-selected {
                         color: @black;
@@ -337,7 +330,7 @@
                     text-align: left;
                     list-style: none;
 
-                    .limited-dropdown {
+                    .features-filter {
                         overflow-x: hidden;
                         overflow-y: auto;
                         -webkit-overflow-scrolling: touch;
@@ -377,7 +370,6 @@
                                 display: inline-block;
                                 font-weight: normal;
 
-                                /* tablet breakpoint */
                                 @media screen and (max-width: @screen-md-max) {
                                     padding-right: 13px;
                                 }
@@ -393,7 +385,6 @@
                                     border: 1px solid #666;
                                     z-index: 1;
 
-                                    /* tablet breakpoint */
                                     @media screen and (max-width: @screen-md-max) {
                                         width: 10px;
                                         height: 10px;
@@ -412,7 +403,6 @@
                                     background-color: #666;
                                     z-index: 2;
 
-                                    /* tablet breakpoint */
                                     @media screen and (max-width: @screen-md-max) {
                                         width: 6px;
                                         height: 6px;
@@ -431,7 +421,7 @@
                                     position: absolute;
                                     left: 0;
                                     top: 3px;
-                                    font-size: 12px;
+                                    font-size: 14px;
                                 }
                             }
 
@@ -455,7 +445,6 @@
                 }
 
                 &.open {
-
                     .dropdown-toggle {
                         border-left: 1px solid #444;
                         border-right: 1px solid #444;
@@ -500,7 +489,6 @@
     margin: 0 0 31px;
     position: relative;
 
-    /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         height: auto;
         text-align: center;
@@ -509,7 +497,6 @@
     button {
         display: none;
 
-        /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             display: block;
             font-weight: 300;
@@ -544,49 +531,43 @@
     }
 }
 
-// RESULT
-
-.voyage-overview {
-
-    /* phone breakpoint */
+.c-fyc .voyage-overview {
     @media screen and (max-width: @screen-sm) {
         overflow: hidden;
     }
 
-    .fyc2_result__wrapper {
-
-        /* phone breakpoint */
+    .result__wrapper {
         @media screen and (max-width: @screen-sm) {
             width: 50%;
            float: left;
 
             &:nth-child(odd) {
-                    padding-right: 8px;
+                padding-right: 8px;
             }
+
             &:nth-child(even) {
                 padding-left: 8px;
             }
         }
 
-        /* phone breakpoint */
         @media screen and (max-width: @screen-xs) {
            width: 100%;
 
             &:nth-child(odd) {
-                    padding-right: 0;
+                padding-right: 0;
             }
+
             &:nth-child(even) {
                 padding-left: 0;
             }
         }
 
-        .fyc2_result {
+        .result {
             font-weight: 400;
             border-bottom: 1px solid #D3D3D3;
             background: @white;
             cursor: pointer;
 
-            /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 border: 1px solid #D3D3D3;
                 margin: 0 auto 16px auto;
@@ -599,24 +580,20 @@
             &:hover {
                 background: #EEE;
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     background: @white;
                 }
 
-                .fyc2_result__ports_ul {
-
-                    .fyc2__ports_more {
+                .result__ports_ul {
+                    .result_ports_more {
                         background: -moz-linear-gradient(left,rgba(238,238,238,0) 0%,rgba(238,238,238,1) 50%,rgba(238,238,238,1) 100%);
                         background: -webkit-linear-gradient(left,rgba(238,238,238,0) 0%,rgba(238,238,238,1) 50%,rgba(238,238,238,1) 100%);
                         background: linear-gradient(to right,rgba(238,238,238,0) 0%,rgba(238,238,238,1) 50%,rgba(238,238,238,1) 100%);
                     }
                 }
 
-                .fyc2_result__inner {
-
-                    .fyc2_result__image {
-
+                .result__inner {
+                    .result__image {
                         &_img a {
                             background: rgba(0,0,0,.5);
                         }
@@ -624,15 +601,14 @@
                 }
             }
 
-            &.fyc2_result-expedition .fyc2_result__inner .fyc2_result__content .fyc2_result__content_inner .fyc2_result__content_content .fyc2_result__meta {
-
-                /* phone breakpoint */
+            &.result-expedition .result__inner .result__content .result__content_inner .result__content_content .result__meta {
                 @media screen and (max-width: @screen-sm) {
                     border-bottom: 1px solid #d60524;
                 }
 
                 &_type {
                     color: #d60524;
+
                     &:after {
                         color: @black;
                     }
@@ -645,7 +621,6 @@
                 width: 100%;
                 padding: 10px 0;
 
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     width: 100%;
                     float: left;
@@ -654,18 +629,16 @@
                     position: static;
                 }
 
-                .fyc2_result__image {
+                .result__image {
                     max-width: 245px;
                     min-width: 245px;
                     width: 245px;
                     display: table-cell;
                     vertical-align: top;
                     overflow: hidden;
-                    /*background-image: url(/wp-content/themes/silversea/images/loader-3.gif);*/
                     background-repeat: no-repeat;
                     background-position: center;
 
-                    /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
                         width: 100%;
                         min-width: 100%;
@@ -686,7 +659,6 @@
                         left: 0;
                         z-index: 1;
 
-                        /* phone breakpoint */
                         @media screen and (max-width: @screen-sm) {
                             position: static;
                             max-width: 100%;
@@ -707,7 +679,6 @@
                             -ms-transition: all .3s ease-in-out;
                             -moz-transition: all .3s ease-in-out;
 
-                            /* phone breakpoint */
                             @media screen and (max-width: @screen-sm) {
                                 background: rgba(0,0,0,0);
                             }
@@ -715,13 +686,12 @@
                     }
                 }
 
-                .fyc2_result__content {
-                    display: table-cell;
+                .result__content {
+                	display: table-cell;
                     vertical-align: top;
                     width: 100%;
                     padding: 5px 5px 5px 10px;
 
-                    /* phone breakpoint */
                     @media screen and (max-width: @screen-sm) {
                         width: 100%;
                         float: left;
@@ -731,12 +701,13 @@
 
                     &_inner {
                         display: table;
+                        position: relative;
                         width: 100%;
 
-                        /* phone breakpoint */
                         @media screen and (max-width: @screen-sm) {
                             display: block;
                             float: left;
+                            position: static;
                         }
                     }
 
@@ -746,7 +717,6 @@
                         width: 100%;
                         padding-right: 10px;
 
-                        /* phone breakpoint */
                         @media screen and (max-width: @screen-sm) {
                             width: 100%;
                             float: left;
@@ -754,18 +724,16 @@
                             padding: 0;
                         }
 
-                        .fyc2_result__title {
+                        .result__title {
                             font-size: 18px;
                             font-weight: 700;
                             text-transform: uppercase;
                             margin: 0 0 5px;
 
-                            /* phone breakpoint */
                             @media screen and (max-width: @screen-sm) {
                                 min-height: 38px;
                             }
 
-                            /* phone breakpoint */
                             @media screen and (max-width: @screen-xs) {
                                 min-height: auto;
                             }
@@ -777,9 +745,7 @@
                             }
                         }
 
-                        .fyc2_result__meta {
-
-                            /* phone breakpoint */
+                        .result__meta {
                             @media screen and (max-width: @screen-sm) {
                                 border-bottom: 1px solid #72BEB4;
 
@@ -792,15 +758,11 @@
                             }
 
                             > span {
-
-                                /* phone breakpoint */
                                 @media screen and (max-width: @screen-sm) {
                                     margin-bottom: 5px;
                                 }
 
-                                &.fyc2_result__meta_dest {
-
-                                    /* phone breakpoint */
+                                &.result__meta_dest {
                                     @media screen and (max-width: @screen-sm) {
                                         display: block;
                                         &:after {
@@ -823,7 +785,7 @@
                             }
                         }
 
-                        .fyc2_result__daysdate {
+                        .result__daysdate {
                             margin-bottom: 15px;
                             margin-top: 5px;
 
@@ -838,13 +800,12 @@
                             }
                         }
 
-                        .fyc2_result__daysdateship {
+                        .result__daysdateship {
                             display: none;
                             width: 100%;
                             float: left;
                             margin: 15px 0;
 
-                            /* phone breakpoint */
                             @media screen and (max-width: @screen-sm) {
                                 display: block;
                             }
@@ -855,7 +816,7 @@
                                 float: left;
                                 border: 1px solid #D3D3D3;
 
-                                .fyc2_result__daysdateship_col {
+                                .result__daysdateship_col {
                                     display: block;
                                     width: 33.3%;
                                     height: 69px;
@@ -870,31 +831,29 @@
                                         border-right: none;
                                     }
 
-                                    .fyc2_result__daysdateship_line1 {
+                                    .result__daysdateship_line1 {
                                         color: @grey;
                                         font-size: 11px;
                                         font-weight: 700;
                                         text-transform: uppercase;
                                         margin-bottom: 5px;
 
-                                        /* phone breakpoint */
                                         @media screen and (max-width: @screen-sm) {
                                             min-height: 10px;
                                         }
                                     }
 
-                                    .fyc2_result__daysdateship_line2 {
+                                    .result__daysdateship_line2 {
                                         font-size: 16px;
                                         font-weight: 700;
                                         text-transform: uppercase;
 
-                                        /* phone breakpoint */
                                         @media screen and (max-width: @screen-sm) {
                                             font-size: 13px;
                                         }
                                     }
 
-                                    .fyc2_result__daysdateship_line3 {
+                                    .result__daysdateship_line3 {
                                         text-transform: uppercase;
                                         font-size: 12px;
                                         margin-top: 5px;
@@ -903,7 +862,7 @@
                             }
                         }
 
-                        .fyc2_result__ports {
+                        .result__ports {
 
                             h4 {
                                 font-size: 12px;
@@ -920,7 +879,7 @@
                                 position: relative;
                                 width: 97%;
 
-                                .fyc2__ports_more {
+                                .result_ports_more {
                                     display: none;
                                     position: absolute;
                                     bottom: -1px;
@@ -929,9 +888,7 @@
                                     background: @white;
                                     font-weight: 400;
                                     text-transform: none;
-                                    background: -moz-linear-gradient(left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
-                                    background: -webkit-linear-gradient(left,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
-                                    background: linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 100%);
+                                    background: none;
 
                                     span {
                                         &:first-child {
@@ -958,7 +915,7 @@
                                         line-height: inherit;
                                     }
 
-                                    &:nth-last-child(2) {
+                                    &:nth-last-child {
 
                                         &:after {
                                             display: none;
@@ -977,7 +934,7 @@
                                     height: 35px;
                                     overflow: hidden;
 
-                                    .fyc2__ports_more {
+                                    .result_ports_more {
                                         display: block;
                                     }
                                 }
@@ -985,7 +942,7 @@
                         }
                     }
 
-                    .fyc2_result__content_actions {
+                    .result__content_actions {
                         display: table-cell;
                         vertical-align: middle;
                         min-width: 165px;
@@ -995,7 +952,6 @@
                         padding-bottom: 36px;
                         white-space: nowrap;
 
-                        /* phone breakpoint */
                         @media screen and (max-width: @screen-sm) {
                             display: block;
                             min-width: 100%;
@@ -1006,14 +962,14 @@
                             padding-bottom: 0;
                         }
 
-                        .fyc2_result__actions {
+                        .result__actions {
 
                             &_price {
                                 padding-top: 18px;
                                 padding-bottom: 15px;
                                 min-height: 82px;
 
-                                .fyc2_result__price {
+                                .result__price {
                                     text-transform: uppercase;
                                     text-align: center;
 
@@ -1041,7 +997,7 @@
                                 }
                             }
 
-                            .fyc2_result__actions_cta {
+                            .result__actions_cta {
                                 position: absolute;
                                 bottom: 8px;
                                 left: 0;
@@ -1049,7 +1005,6 @@
                                 width: 100%;
                                 text-align: center;
 
-                                /* phone breakpoint */
                                 @media screen and (max-width: @screen-sm) {
                                     max-width: 180px;
                                     margin: 0 auto;
@@ -1061,7 +1016,7 @@
 
                                 .btn {
                                     font-size: 10px;
-                                    padding: 6px 24px 4px 8px;
+                                    padding: 6px 8px 4px 8px;
                                     min-height: 26px;
                                     margin-bottom: 10px;
 
@@ -1073,10 +1028,6 @@
                                         &:hover {
                                             background: #eaeaea;
                                         }
-                                    }
-
-                                    &.voyage-details {
-                                        display: none;
                                     }
 
                                     span {
@@ -1091,7 +1042,6 @@
                                     &:last-child {
                                         margin-bottom: 0;
 
-                                        /* phone breakpoint */
                                         @media screen and (max-width: @screen-sm) {
                                             margin-bottom: 5px;
                                         }
@@ -1106,7 +1056,301 @@
     }
 }
 
-// ICONS FEATURES
+// FYC V2
+.fyc-v2 .th-style {
+    position: relative;
+    height: 40px;
+    border-bottom: 1px solid @grey--d;
+
+    span {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        text-transform: uppercase;
+        font-size: 11px;
+        color: @grey--3;
+        font-weight: @bold;
+
+        &:nth-child(1) { left: 0; }
+        &:nth-child(2) { left: 96px; }
+        &:nth-child(3) { left: 216px; }
+        &:nth-child(4) { left: 290px; }
+        &:nth-child(5) { right: 138px; }
+
+        span {
+            display: inline;
+            position: static;
+            text-transform: none;
+        }
+    }
+}
+
+.c-fyc .voyage-overview.fyc-v2 {
+    .result__wrapper {
+        @media screen and (max-width: @screen-sm) {
+            &:nth-child(odd) {
+                padding-left: 8px;
+            }
+
+            &:nth-child(even) {
+                padding-right: 8px;
+            }
+        }
+
+        @media screen and (max-width: @screen-xs) {
+           width: 100%;
+
+            &:nth-child(odd) {
+                padding-left: 0;
+            }
+
+            &:nth-child(even) {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: @screen-md-min) {
+    .c-fyc .voyage-overview.fyc-v2 {
+        .result__wrapper {
+            .result {
+                background: @grey--d;
+                border-bottom: 1px solid @grey--d;
+
+                &__inner {
+                    border-top: 10px solid @white;
+                    border-bottom: 10px solid @white;
+                    padding: 0;
+
+                    .result__content {
+                        padding: 0;
+
+                        &_content {
+                            padding: 0;
+                            position: relative;
+                            left: 82px;
+                            background: @white;
+
+                            .result__meta {
+                                margin-left: 15px;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                font-size: 11px;
+
+                                > span {
+                                    display: block;
+
+                                    &:after {
+                                        display: none;
+                                    }
+                                }
+
+                                &_ship {
+                                    font-weight: @bold;
+                                    position: relative;
+                                    top: -15px;
+                                    font-size: 12px;
+                                }
+
+                                &_type {
+                                    font-style: italic;
+                                    font-family: @f-theano_didot;
+                                    position: relative;
+                                    top: 15px;
+                                }
+
+                                &_code {
+                                    font-weight: @bold;
+                                    font-size: 11px;
+                                }
+
+                                .meta_feature {
+                                    position: absolute;
+                                    width: 65px;
+                                    top: 0;
+                                    left: 115px;
+                                    text-align: center;
+
+                                    li {
+                                        margin: 3px;
+
+                                        .feature-eo {
+                                            background-color: @white;
+                                            padding: 3px 6px 2px;
+                                            width: 100%;
+                                            height: auto;
+                                            display: block;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .result__daysdate {
+                                margin: 0;
+                                width: 82px;
+                                height: 100%;
+                                position: absolute;
+                                left: -82px;
+                                top: 0;
+
+                                h3 {
+                                    width: 100%;
+                                    padding: 0;
+                                    margin: 0;
+                                    position: absolute;
+                                    top: 50%;
+                                    margin-top: -17px;
+                                    border: none;
+                                    background: none;
+                                    text-align: center;
+                                    font-weight: normal;
+                                    font-size: 11px;
+
+                                    .date {
+                                        display: block;
+                                        font-size: 11px;
+                                        position: relative;
+                                        padding-bottom: 5px;
+                                        margin-bottom: 5px;
+
+                                        &:after {
+                                            content:"";
+                                            display: block;
+                                            width: 10px;
+                                            height: 1px;
+                                            position: absolute;
+                                            bottom: 0;
+                                            left: 50%;
+                                            margin-left: -5px;
+                                            background-color: @grey--ba;
+                                        }
+                                    }
+
+                                    span strong {
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+
+                            .result__ports {
+                                overflow: hidden;
+                                position: relative;
+                                padding-left: 208px;
+                                padding-right: 360px;
+                                min-height: 54px;
+
+                                ul {
+                                    width: 100%;
+
+                                    li {
+                                        font-size: 11px;
+
+                                        &:first-child, &:last-child {
+                                            font-weight: @bold;
+                                            font-size: 12px;
+                                            text-transform: uppercase;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .result__content_actions {
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            width: 200px;
+                            padding: 0;
+
+                            .result__actions {
+                                width: 270px;
+                                position: absolute;
+                                right: 0;
+
+                                &_price {
+                                    padding: 0;
+                                    min-height: inherit;
+
+                                    .result__price {
+                                        text-align: left;
+                                        float: left;
+                                        max-width: 130px;
+
+                                        &_line1, &_line2 span, &_line3 {
+                                            line-height: 1.4;
+                                            font-size: 9px;
+                                            white-space: normal;
+                                        }
+
+                                        &_line2 {
+                                            font-size: 14px;
+                                            line-height: 1;
+
+                                            span {
+                                                padding-left: 6px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .result__actions_cta {
+                                    float: right;
+                                    position: static;
+                                    width: auto;
+                                    margin-right: 10px;
+
+                                    .btn {
+                                        font-size: 9px;
+                                        padding: 5px 8px 4px 8px;
+                                        min-height: 21px;
+                                        margin-bottom: 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    background: @grey--3;
+                    color: @white;
+                    position: relative;
+
+                    .result__inner {
+                        border-top: 10px solid @grey--3;
+                        border-bottom: 10px solid @grey--3;
+
+                        .result__content_content {
+                            background: transparent;
+
+                            .meta_feature {
+                                .feature-eo {
+                                    color: @black;
+                                }
+                            }
+                        }
+                    }
+
+                    &:before {
+                        content: "";
+                        display: block;
+                        width: 1px;
+                        height: 100%;
+                        position: absolute;
+                        left: 82px;
+                        z-index: 1;
+                        background-color: @grey--ba;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// HACK CSS FOR IE11
+_:-ms-lang(x), .fyc-v2 .result__actions { top: 8px; }
 
 .meta_feature {
     position: relative;
@@ -1131,6 +1375,7 @@
             width: 12px;
             height: 12px;
             position: relative;
+            z-index: 1;
             cursor: pointer;
 
             &:last-child {
@@ -1179,48 +1424,35 @@
 
                 &:after {
                     border-color: rgba(255, 255, 255, 0);
-                    border-top-color: #ffffff;
+                    border-top-color: @white;
                     border-width: 6px;
                     margin-left: -6px;
                 }
                 &:before {
                     border-color: rgba(0, 0, 0, 0);
-                    border-top-color: #000000;
+                    border-top-color: @black;
                     border-width: 7px;
                     margin-left: -7px;
                 }
             }
-
-            &:hover.feature-eo .tooltip i:before { content: "Exclusive Offer"; }
-            &:hover.feature-gh .tooltip i:before { content: "Gentlemen Host"; }
-            &:hover.feature-ecgc .tooltip i:before { content: "L'Ecole des Chefs / Gourmet Cruises"; }
-            &:hover.feature-bs .tooltip i:before { content: "Bridge Sailings"; }
-            &:hover.feature-wsv .tooltip i:before { content: "Wine series Voyage"; }
-            &:hover.feature-vs .tooltip i:before { content: "Venetian Society"; }
         }
     }
 }
 
-// END RESULT
-
-.fyc2_fares {
+.fares {
     font-size: 12px;
     font-style: italic;
     color: #646464;
     margin-top: 12px;
 
-    /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         margin-top: 0;
     }
 }
 
-// PAGINATION
-
 #pagination {
     margin-bottom: 50px;
 
-    /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         line-height: 47px;
     }
@@ -1231,7 +1463,6 @@
         text-align: center;
         width: 100%;
 
-        /* tablet breakpoint */
         @media screen and (max-width: @screen-md-max) {
             margin: 35px 0 0;
         }
@@ -1240,8 +1471,6 @@
             display: inline;
 
             &:nth-child(2) a {
-
-                /* phone breakpoint */
                 @media screen and (max-width: @screen-sm) {
                     border-top-left-radius: 4px;
                     border-bottom-left-radius: 4px;
@@ -1270,6 +1499,7 @@
                     border-bottom: 4px solid #ddd;
                 }
             }
+
             &:first-child a, &:first-child a:hover {
                 border-top-left-radius: 4px;
                 border-bottom-left-radius: 4px;
@@ -1296,4 +1526,3 @@
         }
     }
 }
-

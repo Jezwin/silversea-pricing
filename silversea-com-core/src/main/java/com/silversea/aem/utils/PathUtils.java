@@ -6,6 +6,9 @@ import org.apache.sling.api.resource.Resource;
 
 import com.adobe.granite.confmgr.Conf;
 
+/**
+ * TODO NPE
+ */
 public class PathUtils {
 
     /**

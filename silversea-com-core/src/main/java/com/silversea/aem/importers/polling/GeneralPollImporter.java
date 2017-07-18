@@ -12,7 +12,6 @@ import com.day.cq.polling.importer.ImportException;
 import com.day.cq.polling.importer.Importer;
 import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.importers.services.FeaturesImporter;
-import com.silversea.aem.importers.services.ShipsImporter;
 
 @Component(metatype = false, enabled = true, label = "General Polling importer")
 @Service(value = Importer.class)
@@ -20,9 +19,6 @@ import com.silversea.aem.importers.services.ShipsImporter;
 public class GeneralPollImporter implements Runnable, Importer {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(GeneralPollImporter.class);
-
-    @Reference
-    ShipsImporter shipsImporter;
 
     @Reference
     CountriesImporter countriesImporter;
@@ -48,9 +44,10 @@ public class GeneralPollImporter implements Runnable, Importer {
 
     private void initService() {
         try {
-            shipsImporter.importData();
-            featuresImporter.importData();
-            countriesImporter.importData();
+            // TODO temporary deactivation
+            //shipsImporter.importAllShips();
+            //featuresImporter.importData();
+            //countriesImporter.importData();
             LOGGER.debug("General Polling was executed.");
         } catch (Exception e) {
             String errorMessage = "General Polling Importer errors: ()";

@@ -1,0 +1,7 @@
+<!--/* TODO : update feature legend according to the current page */-->
+<div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
+    class="feature-wrapper hidden-xs">
+    <span data-sly-repeat.tagModel="${fyc.featureTags}">
+        <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagModel.tag.tagID}" />
+        <i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</span>
+</div>

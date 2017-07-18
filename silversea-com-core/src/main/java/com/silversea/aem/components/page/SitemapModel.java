@@ -31,9 +31,6 @@ public class SitemapModel {
     public SitemapModel() {
     }
 
-    /**
-     * @return
-     */
     public List<SitemapEntryModel> getEntries() {
         List<SitemapEntryModel> entries = new ArrayList<>();
 
@@ -52,14 +49,10 @@ public class SitemapModel {
         return entries;
     }
 
-    /**
-     * @param page
-     * @return
-     */
     private List<SitemapEntryModel> getEntries(Page page) {
         List<SitemapEntryModel> entries = new ArrayList<>();
 
-        /* TODO should be test the parent page ? */
+        // TODO should be test the parent page ?
         if (page.getContentResource() != null && page.adaptTo(SitemapEntryModel.class) != null && isParentPage) {
             if (page.getProperties() != null && !page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false))
                 entries.add(page.adaptTo(SitemapEntryModel.class));
@@ -89,9 +82,6 @@ public class SitemapModel {
         return entries;
     }
 
-    /**
-     *
-     */
     private static class SitemapFilter implements Filter<Page> {
 
         @Override
@@ -101,8 +91,13 @@ public class SitemapModel {
             }
 
             if (page.getProperties() != null) {
+            	String resourceType = page.getContentResource().getResourceType();
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
-                        || page.getContentResource().getResourceType().endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE));
+                        || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
+                        || WcmConstants.RT_HOTEL.equals(resourceType)
+                        || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
+                        || WcmConstants.RT_EXCURSIONS.equals(resourceType)
+                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType));
             }
 
             return true;

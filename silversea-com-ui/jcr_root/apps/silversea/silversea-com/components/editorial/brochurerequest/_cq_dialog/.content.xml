@@ -36,29 +36,28 @@
                                 sling:resourceType="cq/gui/components/common/tagspicker"
                                 fieldLabel="Countries excluded"
                                 name="./cq:tags" />
-                                <typeForm
-                                    cr:primaryType="nt:unstructured"
-                                    jcr:title="Type Form"
-                                    fieldLabel="Type Form"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    emptyText="Select a form type"
-                                    name="./typeForm">
-                                    <items
-                                        jcr:primaryType="nt:unstructured">
-                                        <selectform
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Please select a form type"
-                                            value="online-form"/>
-                                            <online
-                                                jcr:primaryType="nt:unstructured"
-                                                text="Online form"
-                                                value="online-form"/>
-                                            <printed
-                                                jcr:primaryType="nt:unstructured"
-                                                text="printed form"
-                                                value="printed-form"/>
-                                    </items>
-                                </typeForm>
+                            <typeForm
+                                jcr:primaryType="nt:unstructured"
+                                jcr:title="Type Form"
+                                fieldLabel="Type Form"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                emptyText="Select a form type"
+                                name="./typeForm">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <selectform
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Please select a form type"
+                                        value="online-form" />
+                                    <online
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Online form"
+                                        value="online-form" />
+                                    <printed
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Printed form"
+                                        value="printed-form" />
+                                </items>
+                            </typeForm>
                         </items>
                     </column>
                 </items>

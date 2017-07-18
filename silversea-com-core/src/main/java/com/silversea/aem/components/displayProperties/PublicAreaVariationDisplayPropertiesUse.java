@@ -14,8 +14,8 @@ public class PublicAreaVariationDisplayPropertiesUse extends WCMUsePojo {
     Resource area;
 
     public void activate() throws Exception {
-
         Page currentPage = getCurrentPage();
+
         String pathArea = currentPage.getProperties().get("publicAreaReference", String.class);
         if (StringUtils.isNotEmpty(pathArea)) {
             area = getResourceResolver().getResource(pathArea);

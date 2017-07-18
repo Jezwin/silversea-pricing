@@ -49,7 +49,7 @@
             </div>
             <div class="col-xs-12 visible-xs">
                 <div class="cruise__header_metainfo">
-                    <span>${cruise.cruiseModel.cruiseType}</span>
+                    <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
                     <span>${cruise.cruiseModel.ship.title}</span>
                     <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
                     <ul data-sly-list="${cruise.cruiseModel.features}">
@@ -62,21 +62,32 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-xs-12" data-sly-test="${cruise.cruiseModel.exclusiveOffers}">
+            <div class="col-xs-12">
                 <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
+
                     <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
-                    <p data-sly-list="${cruise.cruiseModel.exclusiveOffers}">
+
+                    <div class="voyagefeature__offer" data-sly-list="${cruise.cruiseModel.exclusiveOffers}" data-sly-test.isEo="${cruise.cruiseModel.exclusiveOffers}">
                         <a data-sly-test="${item.lightboxReference}"
                            href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
                            data-toggle="modal"
                            data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                            <strong>${item.title}: </strong>
+                            <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
                         </a>
-                        <strong data-sly-test="${!item.lightboxReference}">${item.title}: </strong>${item.description @ context='html'}
-                    </p>
+                        <p data-sly-test="${!item.lightboxReference}">
+                            <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+                        </p>
+                    </div>
+
+                    <div class="voyagefeature__offer" data-sly-test="${!isEo}">
+                        <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
+                    </div>
+
+                    <div class="clearfix"></div>
                 </div>
                 <a class="btn btn-thin btn-dark effect pull-right hidden-xs" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
             </div>
+
         </div>
     </div>
 </div>

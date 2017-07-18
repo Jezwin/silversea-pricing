@@ -7,12 +7,13 @@
             <img class="c-brochure__img" alt="${brochure.title}" src="${brochure.cover}" />
         </div>
         <div class="col-md-5">
+            <div data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper" data-sly-test.countrySelector="country_${countryHelper.country}" data-sly-unwrap></div>
             <h2 class="c-brochure__title visible-lg visible-md">${brochure.assetTitle}</h2>
             <p class="c-brochure__description">${brochure.assetDescription}</p>
             <p class="c-brochure__btnwrapper"
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
                 <a data-sly-test="${currentStyle.onlineRequestFormReference}"
-                   href="${currentStyle.onlineRequestFormReference @ extension='html', selectors='modalcontent'}"
+                   href="${currentStyle.onlineRequestFormReference @ selectors=['modalcontent', countrySelector] , extension='html'}${brochure.brochurePath}"
                    class="btn btn-dark c-brochure__btn effect" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                     <i class="fa fa-search"></i>
@@ -22,7 +23,7 @@
             <p class="c-brochure__btnwrapper"
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.printedRequestFormReference}">
                 <a data-sly-test="${currentStyle.printedRequestFormReference && !brochure.isBrochureDigitalOnly}"
-                   href="${currentStyle.printedRequestFormReference @ extension='html', selectors='modalcontent'}"
+                   href="${currentStyle.printedRequestFormReference @ selectors=['modalcontent', countrySelector], extension='html'}${brochure.brochurePath}"
                    class="btn btn-dark c-brochure__btn effect" data-toggle="modal"
                    data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                     <i class="fa fa-envelope"></i>

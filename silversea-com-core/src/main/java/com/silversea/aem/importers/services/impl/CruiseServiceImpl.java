@@ -21,6 +21,7 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Workspace;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -101,6 +102,7 @@ public class CruiseServiceImpl implements CruiseService{
     private TagManager tagManager;
     private AssetManager assetManager;
     private Session session;
+    private Workspace workspace;
 
     public void init() {
         try {      
@@ -111,6 +113,7 @@ public class CruiseServiceImpl implements CruiseService{
             tagManager = resourceResolver.adaptTo(TagManager.class);
             assetManager = resourceResolver.adaptTo(AssetManager.class);
             session = resourceResolver.adaptTo(Session.class);
+            workspace = session.getWorkspace();
         } catch (LoginException e) {
             LOGGER.debug("Cruise importer login exception ", e);
         }
@@ -163,34 +166,39 @@ public class CruiseServiceImpl implements CruiseService{
     public String calculateDurationCategory(Integer days){
         String duration = null;
         Tag tagRoot = tagManager.resolve(ImportersConstants.DURATIONS_TAGS_PATH);
-        Iterator<Tag> durationTags = tagRoot.listChildren();
-        if(durationTags != null && durationTags.hasNext()){
-            List<Tag> list = new ArrayList<Tag>();
-            durationTags.forEachRemaining(list::add);
-            Optional<Tag>  durationTag = list.stream().filter(element ->{
-                boolean value = false;
-                String  title = element.getTitle();
-                if(title != null){
-    
-                    Pattern pattern = Pattern.compile(ImportersConstants.TAG_DURATIONS_SEPARATOR);
-                    List<Integer> values = pattern.splitAsStream(title)
-                                                  .filter(e->StringUtils.isNumeric(e))
-                                                  .map(Integer::valueOf)
-                                                  .collect(Collectors.toList());
-                    
-                   if(values != null && values.size() == 2){
-                      value = values.get(0) <= days && days <= values.get(1);
-                   }else if(values != null && values.size() == 1){
-                       value = values.get(0) <= days;
-                   }
-                                                
+        if(tagRoot != null){
+            Iterator<Tag> durationTags = tagRoot.listChildren();
+            if(durationTags != null && durationTags.hasNext()){
+                List<Tag> list = new ArrayList<Tag>();
+                durationTags.forEachRemaining(list::add);
+                Optional<Tag>  durationTag = list.stream().filter(element ->{
+                    boolean value = false;
+                    String  title = element.getTitle();
+                    if(title != null){
+
+                        Pattern pattern = Pattern.compile(ImportersConstants.TAG_DURATIONS_SEPARATOR);
+                        List<Integer> values = pattern.splitAsStream(title)
+                                .filter(e->StringUtils.isNumeric(e))
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList());
+
+                        if(values != null && values.size() == 2){
+                            value = values.get(0) <= days && days <= values.get(1);
+                        }else if(values != null && values.size() == 1){
+                            value = values.get(0) <= days;
+                        }
+
+                    }
+                    return value;
+                })
+                        .findFirst();
+                if(durationTag != null && durationTag.isPresent()){
+                    duration = durationTag.get().getTitle();
                 }
-                return value;
-            })
-            .findFirst();
-            if(durationTag != null && durationTag.isPresent()){
-                duration = durationTag.get().getTitle();
             }
+        }
+        else{
+            LOGGER.error("Cruise importer -- Durations tags not found for id {}",ImportersConstants.DURATIONS_TAGS_PATH);
         }
         return duration;
     }
@@ -545,7 +553,8 @@ public class CruiseServiceImpl implements CruiseService{
                 Asset asset = assetManager.createAsset(imageDest, is, "image/jpeg", true);
                 imagePath = asset.getPath();
                 //Replicate image
-                replicateResource(imagePath);
+                //TODO
+                //replicateResource(imagePath);
                 LOGGER.debug("Cruise importer -- Downloading image with name {} finished", imageName);
             } catch (Exception e) {
                 LOGGER.error("Error while downloading cruise image", e);
@@ -642,5 +651,23 @@ public class CruiseServiceImpl implements CruiseService{
                 }
             }
         return pages;
+    }
+    
+    public void copyPage(Page page){
+
+        String path = page.getPath();
+        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        if(languages != null && !languages.isEmpty()){
+            languages.forEach(language ->{
+                if(!language.equals(ImportersConstants.LANGUAGE_EN))
+                try{
+                    String destPath = StringUtils.replace(path, "/en/", "/" + language + "/");
+                    workspace.copy(path, destPath);
+                }catch(RepositoryException e){
+                    LOGGER.error("Exception while copying pages to other languages",e);
+                }
+            });
+        }
+
     }
 }

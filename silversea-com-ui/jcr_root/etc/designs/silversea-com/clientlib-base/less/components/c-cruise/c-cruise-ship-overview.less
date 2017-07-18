@@ -5,16 +5,13 @@
 
         .ship-overview__content {
             padding: 0 30px 10px 15px;
+            margin: 0 0 20px;
+            font-size: 13px;
+            line-height: 1.5;
 
             /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 padding: 0 15px 0;
-            }
-
-            p {
-                margin: 0 0 20px;
-                font-size: 13px;
-                line-height: 1.5;
             }
 
             .shipinfo {
@@ -22,9 +19,19 @@
                 padding: 0;
                 list-style: none;
 
+                /* phone breakpoint */
+                @media screen and (max-width: @screen-sm) {
+                    column-count: 2;
+                }
+
                 li {
                     display: inline-block;
                     padding: 0 2% 0 0;
+
+                    /* phone breakpoint */
+                    @media screen and (max-width: @screen-sm) {
+                        display: block;
+                    }
 
                     span {
                         text-transform: uppercase;
@@ -37,8 +44,12 @@
             .ship-overview__content_expand {
                 text-align: center;
                 font-size: 12px;
-                padding-bottom: 20px;
+
+                a[aria-expanded="true"] {
+                   display: none;
+                }
             }
+
         }
 
         .pictureblock {

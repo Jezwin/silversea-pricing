@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import com.silversea.aem.components.beans.GeoLocation;
-import com.silversea.aem.services.GeolocationService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -44,6 +43,8 @@ public class ExclusiveOfferModel {
 
     private List<CruiseFareAddition> cruiseFareAdditions;
 
+    private String lightboxReference;
+
     @PostConstruct
     private void init() {
         try {
@@ -52,6 +53,7 @@ public class ExclusiveOfferModel {
             String[] fareAdditons = page.getProperties().get("cruiseFareAdditions", String[].class);
             cruiseFareAdditions = initFareAdditions(fareAdditons);
             availableForCountry = false;
+            lightboxReference = page.getProperties().get("lightboxReference", String.class);
 
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
@@ -79,7 +81,8 @@ public class ExclusiveOfferModel {
                 mapOverHead = properties.getInherited("mapOverhead", String.class);
                 description = properties.getInherited("longDescription", String.class);
                 String[] fareAdditons = properties.getInherited("cruiseFareAdditions", String[].class);
-                initFareAdditions(fareAdditons);
+                cruiseFareAdditions = initFareAdditions(fareAdditons);
+                lightboxReference = properties.getInherited("lightboxReference", String.class);
             } else {
                 description = page.getProperties().get("longDescription", String.class);
             }
@@ -160,5 +163,9 @@ public class ExclusiveOfferModel {
 
     public Boolean getAvailableForCountry() {
         return availableForCountry;
+    }
+    
+    public String getLightboxReference() {
+        return lightboxReference;
     }
 }

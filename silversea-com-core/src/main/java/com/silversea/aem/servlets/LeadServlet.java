@@ -16,8 +16,7 @@ import com.silversea.aem.ws.lead.service.LeadService;
 @SlingServlet(methods = "POST", resourceTypes = "sling/servlet/default", selectors = "lead", extensions = "json")
 public class LeadServlet extends ScServlet {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(LeadServlet.class);
-
+    private static final  Logger LOGGER = LoggerFactory.getLogger(LeadServlet.class);
     private static final long serialVersionUID = 1L;
 
     @Reference
@@ -29,7 +28,7 @@ public class LeadServlet extends ScServlet {
         LOGGER.debug("Lead service request {}", body);
         Lead lead = JsonMapper.getDomainObject(body, Lead.class);
         String leadResponse = leadService.sendLead(lead);
-        LOGGER.debug("Lead service response {}", response);
+        LOGGER.debug("Lead service response {}", leadResponse);
         writeDomainObject(response, leadResponse);
     }
 }

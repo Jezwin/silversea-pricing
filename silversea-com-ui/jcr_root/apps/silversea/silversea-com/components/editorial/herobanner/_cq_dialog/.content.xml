@@ -57,6 +57,12 @@
                                 name="./videoReference"
                                 rootPath="/content/dam/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                            <disabledText
+                                jcr:primaryType="nt:unstructured"
+                                text="Disable text"
+                                name="./disabledText"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <disabledTextBackground
                                 jcr:primaryType="nt:unstructured"
                                 text="Disable text background"

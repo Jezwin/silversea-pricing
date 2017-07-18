@@ -113,8 +113,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     private void processData(List<Voyage> voyages) throws WCMException, RepositoryException, IOException, ApiException{
         if(voyages != null && !voyages.isEmpty()){
+            int i=0;
             for (Voyage voyage : voyages) {
-                if(voyage != null){
+                if(voyage != null && i<1){
                     LOGGER.debug("Cruise importer -- Sart import cruise with id {}",voyage.getVoyageId());
                     // retrieve cruises root page dynamically
                     Page destinationPage = cruiseService.getDestination(voyage.getDestinationId());
@@ -137,9 +138,12 @@ public class CruisesImporterImpl implements CruisesImporter {
                         //Persist data
                         ImporterUtils.saveSession(session, false);
                         //Replicate page
-                        cruiseService.replicateResource(cruisePage.getPath());
-
+                        //TODO
+                        //cruiseService.replicateResource(cruisePage.getPath());
+                        //Copy page to other languages
+                        cruiseService.copyPage(cruisePage);
                         LOGGER.debug("Cruise importer -- Import cruise with id {} finished",voyage.getVoyageId());
+                    i++;
                     } else {
                         LOGGER.error("Cruise importer -- Destination with id {} not found", voyage.getDestinationId());
                     }
@@ -179,5 +183,5 @@ public class CruisesImporterImpl implements CruisesImporter {
         cruisePageContentNode.setProperty("cmp-ship", voyage.getShipId());
         cruisePageContentNode.setProperty("cmp-duration",durationCategory);
         cruisePageContentNode.setProperty("cmp-date",ImporterUtils.formatDateForSeach(voyage.getDepartDate()));
-    }
+    } 
 }

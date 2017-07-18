@@ -1,16 +1,9 @@
 package com.silversea.aem.models;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.beans.Duration;
+import com.silversea.aem.components.beans.Feature;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -18,16 +11,18 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.Duration;
-import com.silversea.aem.components.beans.Feature;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by aurelienolivier on 12/02/2017.
  */
 @Model(adaptables = Page.class)
-public class ExcursionModel extends AbstractModel{
+public class ExcursionModel extends AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExcursionModel.class);
 
@@ -75,7 +70,7 @@ public class ExcursionModel extends AbstractModel{
 
     @PostConstruct
     private void init() {
-        try{
+        try {
             String html = description.trim().replaceAll("\\n ", "").replaceAll("<[^>]*>", "");
 
             Pattern pattern = Pattern.compile("(.{0,400}[.,;\\s\\!\\?])");
@@ -86,24 +81,23 @@ public class ExcursionModel extends AbstractModel{
                 shortDescription = matcher.group(0);
             }
             features = initFeatures(page);
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
+        } catch (RuntimeException e) {
+            LOGGER.error("Error while initializing model {}", e);
         }
     }
 
     public void initialize(Resource resource) {
         if (resource != null) {
-                schedule = resource.getValueMap().get("plannedDepartureTime",String.class);
-                duration = formatDuration(resource.getValueMap().get("duration",String.class));         
+            schedule = resource.getValueMap().get("plannedDepartureTime", String.class);
+            duration = formatDuration(resource.getValueMap().get("duration", String.class));
         }
     }
 
-    private Duration formatDuration(String durationMinutes){
-
+    private Duration formatDuration(String durationMinutes) {
         Duration duration = null;
-        if(durationMinutes != null && !durationMinutes.isEmpty()){
-           
-            double t =  Double.parseDouble(durationMinutes);
+        if (durationMinutes != null && !durationMinutes.isEmpty()) {
+
+            double t = Double.parseDouble(durationMinutes);
             double hours = t / 60;
             double minutes = t % 60;
             duration = new Duration();
@@ -111,7 +105,7 @@ public class ExcursionModel extends AbstractModel{
             duration.setMinutes(minutes);
         }
 
-        return duration;   
+        return duration;
     }
 
     public String getTitle() {
@@ -130,7 +124,6 @@ public class ExcursionModel extends AbstractModel{
         return apiLongDescription;
     }
 
-    //
     public String getLongDescription() {
         return longDescription;
     }

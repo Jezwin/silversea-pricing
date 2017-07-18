@@ -23,8 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.TemplateConstants;
@@ -51,9 +49,6 @@ public class FeaturesImporterImpl implements FeaturesImporter {
 
 	@Reference
 	private ApiConfigurationService apiConfig;
-
-	@Reference
-	private Replicator replicat;
 
 	@Reference
 	private ApiCallService apiCallService;
@@ -136,22 +131,6 @@ public class FeaturesImporterImpl implements FeaturesImporter {
 										LOGGER.debug("Updated Feature with {} for langue : {}", feature.getFeatureCod(),
 												loc);
 
-										try {
-											session.save();
-											if (!replicat.getReplicationStatus(session, featuresRootPage.getPath())
-													.isActivated()) {
-												replicat.replicate(session, ReplicationActionType.ACTIVATE,
-														featuresRootPage.getPath());
-											}
-											replicat.replicate(session, ReplicationActionType.ACTIVATE,
-													featurePage.getPath());
-											LOGGER.debug("replicate Feature with {} for langue : {}",
-													feature.getFeatureCod(), loc);
-										} catch (RepositoryException e) {
-											LOGGER.debug("replication ERROR Feature with {} for langue : {}",
-													feature.getFeatureCod(), loc);
-											session.refresh(true);
-										}
 									}
 								}
 								i++;

@@ -21,12 +21,18 @@
         position: absolute;
         right: 35px;
         top: 7px;
+        @media screen and (max-width: @screen-sm) {
+            position: relative;
+            right: inherit;
+            top: inherit;
+            padding-left: 10px;
+            font-size: 12px;
+        }
     }
     
     .form-control-feedback {
         right: -40px;
     }
-
 }
 
 

@@ -110,10 +110,14 @@
     }
 
     &__content {
-        display: none;
-
+      top: -9999px;
+      position: absolute;
+      overflow:hidden;
+      height:0px;
         &[data-state='active'] {
-            display: block;
+		      top: 0px;
+		      position: relative;
+		      height:inherit;
         }
     }
 
