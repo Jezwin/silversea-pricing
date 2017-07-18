@@ -7,46 +7,38 @@
             _data = {
                 link : '.c-tab__link',
                 content : '.c-tab__content',
-                nav : '.c-tab__link'                
+                nav : '.c-tab__link'
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
             _orphan_link = $('.c-cruise__descr a.bound'),
             _contents = _self.find('.c-tab__body').first().find(_data.content);
-			
+
             /*
              * * Orphan Link Click Event to show content
              */
             _orphan_link.click(function(e) {
                 e.preventDefault();
-                              
+
                 var id = $(this).attr('href');
 
                 $(_contents).removeAttr('data-state', null);
                 $(_links).removeAttr('data-state', null);
-               
-                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
-                
-                $(_data.nav).each(function(){
-                 	var that = $(this);
-                 	if(that.find('a').attr('href') == id)
-                 		that.attr('data-state', 'active');                 	
-                 	
-                 });                               
 
-            });		
-            	
+                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
+
+                $(_data.nav).each(function() {
+                    var that = $(this);
+                    if (that.find('a').attr('href') === id)
+                        that.attr('data-state', 'active');
+                });
+            });
+
             /*
              * * Link Click Event to show content
              */
             _links.click(function(e) {
                 e.preventDefault();
-//                var id = $(this).children('a').attr('href');
                 _showTab(this);
-//                $(_contents).removeAttr('data-state', null);
-//                $(_links).removeAttr('data-state', null);
-//
-//                $(this).attr('data-state', 'active');
-//                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
             });
 
             if (_self.hasClass('c-tab__accordion')) {
@@ -59,11 +51,14 @@
                 });
             }
 
-            _showTab = function (tab) {
+            _showTab = function(tab) {
                 var id = $(tab).children('a').attr('href');
 
-                $(_contents).attr('data-state', 'false');
-                $(_links).attr('data-state', 'false');
+                // "Hide" other tab and content
+                $(tab).siblings('.c-tab__link').attr('data-state', 'false');
+                $(_data.content + id).siblings('.c-tab__content').attr('data-state', 'false');
+
+                // "Show" current tab and content
                 $(tab).attr('data-state', 'active');
                 $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
 
@@ -73,7 +68,6 @@
                 var activeTab = $('.c-tab__link[data-state="active"]')[0];
                 _showTab(activeTab);
             }
-
         });
     };
 
