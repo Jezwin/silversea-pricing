@@ -229,7 +229,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesImporter.importData();
+                    cruisesImporter.importData(false);
                     response.getWriter().write("Cruises import Done<br/>");
                     response.getWriter().flush();
                 }

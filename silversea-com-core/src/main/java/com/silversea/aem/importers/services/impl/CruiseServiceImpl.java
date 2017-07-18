@@ -21,7 +21,6 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.Workspace;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +31,7 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +102,6 @@ public class CruiseServiceImpl implements CruiseService{
     private TagManager tagManager;
     private AssetManager assetManager;
     private Session session;
-    private Workspace workspace;
 
     public void init() {
         try {      
@@ -113,7 +112,6 @@ public class CruiseServiceImpl implements CruiseService{
             tagManager = resourceResolver.adaptTo(TagManager.class);
             assetManager = resourceResolver.adaptTo(AssetManager.class);
             session = resourceResolver.adaptTo(Session.class);
-            workspace = session.getWorkspace();
         } catch (LoginException e) {
             LOGGER.debug("Cruise importer login exception ", e);
         }
@@ -191,7 +189,7 @@ public class CruiseServiceImpl implements CruiseService{
                     }
                     return value;
                 })
-                        .findFirst();
+                .findFirst();
                 if(durationTag != null && durationTag.isPresent()){
                     duration = durationTag.get().getTitle();
                 }
@@ -595,6 +593,7 @@ public class CruiseServiceImpl implements CruiseService{
                 }
 
             });
+            ImporterUtils.saveSession(session, false);
         }
 
     }
@@ -653,21 +652,23 @@ public class CruiseServiceImpl implements CruiseService{
         return pages;
     }
     
-    public void copyPage(Page page){
-
-        String path = page.getPath();
-        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
-        if(languages != null && !languages.isEmpty()){
-            languages.forEach(language ->{
-                if(!language.equals(ImportersConstants.LANGUAGE_EN))
-                try{
-                    String destPath = StringUtils.replace(path, "/en/", "/" + language + "/");
-                    workspace.copy(path, destPath);
-                }catch(RepositoryException e){
-                    LOGGER.error("Exception while copying pages to other languages",e);
+    public void changeReferenceBylanguage(Node rootNode,String nodeName,String reference,String language)throws RepositoryException{
+        Resource resource = resourceResolver.resolve(rootNode.getPath()+"/"+nodeName);
+        Iterator<Resource> children = resource.listChildren();
+        if (children != null && children.hasNext()) {
+            while (children.hasNext()) {
+                Resource res = children.next();
+                String path = Objects.toString(res.getValueMap().get(reference));
+                if (!StringUtils.isEmpty(path)) {
+                    Node node = res.adaptTo(Node.class);
+                    node.setProperty(reference, formatPathByLanguage(path,language));
                 }
-            });
-        }
 
+            }
+        }
+    }
+    
+    private String formatPathByLanguage(String path,String language){
+        return StringUtils.replace(path, "/en/", "/" + language + "/");   
     }
 }

@@ -79,5 +79,6 @@ public interface CruiseService {
     
     List<Page> getPagesByResourceType(String resourceType) throws RepositoryException;
     
-    void copyPage(Page page);
+    void changeReferenceBylanguage(Node rootNode,String nodeName,String reference,String language)throws RepositoryException;
+    
 }

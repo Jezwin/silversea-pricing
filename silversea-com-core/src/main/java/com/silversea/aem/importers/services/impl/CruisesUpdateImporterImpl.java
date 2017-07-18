@@ -37,7 +37,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyageSpecialOffer;
-
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Cruises update importer")
 public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {

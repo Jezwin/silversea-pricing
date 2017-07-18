@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Workspace;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -229,6 +231,19 @@ public class ImporterUtils {
                     node.remove();
                     // Persist data
                     ImporterUtils.saveSession(session, false);
+                }
+            }
+        }
+    }
+    public static void copyNode(Page sourcePage,String destPath, String nodeName,Workspace workspace) throws RepositoryException {
+        if (sourcePage != null) {
+            Resource resource = sourcePage.adaptTo(Resource.class);
+            if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                Resource child = resource.getChild(nodeName);
+                if (child != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(child)) {
+                    LOGGER.debug("copy node {}", child.getPath());
+                    Node node = child.adaptTo(Node.class);
+                    workspace.copy(node.getPath(), destPath);
                 }
             }
         }
