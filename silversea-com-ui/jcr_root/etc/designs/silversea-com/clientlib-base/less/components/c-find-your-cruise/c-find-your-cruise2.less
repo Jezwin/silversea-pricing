@@ -1,0 +1,426 @@
+.c-fyc {
+    .meta_feature_inner .feature {
+        float: none;
+        margin-right: 0;
+    }
+
+    &__result {
+        &__wrapper {
+            cursor: pointer;
+        }
+
+        &__image {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: relative;
+
+            &:before {
+                background-color: @black;
+                content: "";
+                height: 100%;
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                transition: opacity .3s ease-in-out;
+                width: 100%;
+            }
+        }
+
+        &:hover {
+            .c-fyc__result__image {
+                &:before {
+                    opacity: .5;
+                }
+            }
+        }
+
+        &__content {
+            &__title {
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1;
+                margin: 0 0 3px;
+                text-transform: uppercase;
+            }
+            
+            .cruise-type {
+                color: @red-expedition;
+            }
+
+            &__price {
+                font-size: 10px;
+                text-transform: uppercase;
+            }
+
+            &__summary {
+                text-transform: uppercase;
+            }
+
+            dl {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        &__result {
+            float: left;
+            font-size: 12px;
+            margin-bottom: 16px;
+            width: 50%;
+
+            &:nth-child(odd) {
+                clear: both;
+                padding-right: 8px;
+            }
+
+            &:nth-child(even) {
+                padding-left: 8px;
+            }
+
+            &__wrapper {
+                border: 1px solid @grey--d3;
+            }
+
+            &__image {
+                padding-top: 50%;
+            }
+
+            &__content {
+                padding: 9px 10px 84px;
+                position: relative;
+
+                &__description {
+                    border-bottom: 1px solid @blue;
+                    line-height: 23px;
+                    padding-bottom: 2px;
+
+                    &.silversea-expedition {
+                        border-color: @red-expedition;
+                    }
+
+                    li {
+                        display: inline;
+
+                        &.meta_feature_inner:before {
+                            content: "|"
+                        }
+                    }
+                }
+
+                &__summary {
+                    border: 1px solid  @grey--d3;
+                    margin-top: 15px;
+                    text-align: center;
+
+                    &__item {
+                        float: left;
+                        padding: 10px 5px 9px;
+                        width: calc(100% / 3);
+
+                        &:not(:last-child) {
+                            border-right: 1px solid @grey--d3;
+                        }
+
+                        dl {
+                            dt, dd {
+                                line-height: 1;
+                            }
+
+                            dt {
+                                color: @grey;
+                                font-size: 11px;
+                                font-weight: 700;
+                            }
+
+                            strong {
+                                display: block;
+                                font-size: 13px;
+                                margin: 5px 0;
+                            }
+                        }
+                    }
+                }
+
+                &__price {
+                    line-height: 1;
+                    margin: 32px 0 0;
+                    text-align: center;
+
+                    strong {
+                        font-size: 18px;
+                        line-height: 1.6;
+                    }
+                }
+
+                &__button {
+                    bottom: 10px;
+                    left: 0;
+                    position: absolute;
+                    width: 100%;
+
+                    .btn {
+                        font-size: 10px;
+                        sont-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            border-bottom: 1px solid @grey--d9;
+            padding: 10px 0;
+
+            &__content {
+                &__itinerary {
+                    dd {
+                        display: inline;
+
+                        &:not(last-child):after {
+                            display: inline;
+                            content: "\00a0\f105\00a0";
+                            font-family: 'FontAwesome';
+                        }
+                    }
+                }
+
+                &__button {
+                    .btn {
+                        font-size: 10px;
+                        padding: 7px 8px 6px;
+
+                        i {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .v1 &__result {
+            border-bottom: 1px solid @grey--d3; 
+            font-size: 12px;
+            padding: 10px 0;
+
+            &:hover {
+                background-color: @grey--e;
+                cursor: pointer;
+            }
+
+            &__image {
+                display: table-cell;
+                width: 245px;
+            }
+
+            &__content {
+                display: table-cell;
+                padding: 5px 5px 5px 10px;
+
+                &__inner {
+                    float: left;
+                    width: calc(~"100% - 160px");
+                }
+
+                &__description {
+                    .cruise-code, .cruise-ship:first-of-type {
+                        display: none;
+                    }
+
+                    li {
+                        display: inline;
+
+                        &:not(:last-child):after {
+                            color: @black;
+                            content: " |";
+                        }
+                    }
+                }
+
+                &__summary { 
+                    background-color: @grey--f9;
+                    border: 1px solid @grey--e6;
+                    display: inline-block;
+                    font-weight: 700;
+                    margin-top: 5px;
+                    padding: 3px 6px;
+
+                    .fa {
+                        margin-right: 5px;
+                    }
+
+                    &__item, dl, dd {
+                        display: inline;
+                    }
+                }
+
+                &__feature {
+                    display: none;
+                }
+
+                &__itinerary {
+                    margin-top: 15px;
+
+                    dt {
+                        font-size: 12px;
+                        font-weight: 700;
+                        margin-bottom: 5px;
+                        text-transform: uppercase;
+                    }
+
+                    dd {
+                        &:not(last-child):after {
+                            font-size: 11px;
+                        }
+                    }
+                }
+
+                &__price, &__button {
+                    float: right;
+                    text-align: center;
+                    width: 160px;
+                }
+
+                &__price {
+                    margin-top: 24px;
+
+                    strong {
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+                }
+
+                &__button {
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        .v2 &__result {
+            font-size: 11px;
+
+            &:hover {
+                background-color: @grey--3;
+                color: @white;
+
+                .c-fyc__result__content__summary {
+                    background-color: transparent; 
+                }
+
+                .tooltip {
+                    color: @black
+                }
+            }
+
+            &__content {
+                > * {
+                    display: table-cell;
+                    vertical-align: top;
+                }
+
+                &__inner > * {
+                    display: table-cell;
+                    padding-right: 4px;
+                }
+
+                &__title {
+                    display: none;
+                }
+
+                &__description {
+                    left: 14.5%;
+                    position: relative;
+                    width: 19%;
+
+                    .cruise-destination {
+                        display: none;
+                    }
+
+                    .cruise-ship {
+                        font-size: 12px;
+                    }
+
+                    .cruise-code {
+                        font-size: 10px;
+                    }
+
+                    .cruise-type {
+                        font-family: @f-theano_didot;
+                        font-style: italic;
+                    }
+
+                    .meta_feature_inner, .cruise-ship:not(:first-of-type) {
+                        display: none;
+                    }
+                }
+
+                &__summary {
+                    background-color: @grey--eb;
+                    margin-right: 10px;
+                    padding: 10px 5px;
+                    position: relative;
+                    right: calc(~"19% - -4px");
+                    text-align: center;
+                    vertical-align: middle;
+                    width: 12.5%;
+
+                    &:before {
+                        content: "";
+                        border-right: 1px solid @white;
+                        bottom: -10px;
+                        display: block;
+                        position: absolute;
+                        right: 0;
+                        top: -10px;
+                    }
+
+                    strong {
+                        font-size: 12px;
+                    }
+
+                    .fa {
+                        display: none;
+                    }
+
+                    &__item--duration {
+                        strong {
+                            font-weight: 800;
+                        }
+
+                        &:before {
+                            background: @grey--c;
+                            content: '';
+                            display: block;
+                            height: 1px;
+                            margin: 5px auto;
+                            width: 10px;
+                        }
+                    }
+                }
+
+                &__feature {
+                    width: 11%;
+                }
+
+                &__itinerary {
+                    width: 55%;
+
+                    dt {
+                        display: none;
+                    }
+                }
+
+                &__price {
+                    width: 15%; 
+                }
+
+                &__button {
+                    width: 130px;
+                }
+            }
+        }
+    }
+}

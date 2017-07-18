@@ -1,53 +1,80 @@
-<!--/* TODO : set class V2 accordinf to design properties */-->
-<div data-sly-repeat="${['a','a']}"  class="${itemList.count == 1 ? 'v2' : 'v1'}">
-<div class="c-fyc__result">
-    <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)"></div>
-        <div class="c-fyc__result__content">
-            <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
-            <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
-            <ul class="c-fyc__result__content__description clearfix silversea-expedition">
-                <li>Galapagos Islands<br /></li>
-                <li class="cruise-type">Silversea Expedition</li>
-                <li class="meta_feature_inner">
-                    <span class="feature feature-eo" data-sly-repeat="${['a','a','a']}">
-                        <i class="icon-star"></i>
-                        <span class="tooltip"><i></i>offer</span>
-                    </span>
-                </li>
-            </ul>
-            <ul class="c-fyc__result__content__summary clearfix">
-                <li class="c-fyc__result__content__summary__item">
-                    <dl>
-                        <dt>${'departure' @ i18n}</dt>
-                        <dd><strong>13 jul</strong> 2017</dd>
-                    </dl>
-                </li>
-                <li class="c-fyc__result__content__summary__item">
-                    <dl>
-                        <dt>${'duration' @ i18n}</dt>
-                        <dd><strong>7</strong> ${'days' @ i18n}</dd>
-                    </dl>
-                </li>
-                <li class="c-fyc__result__content__summary__item">
-                    <dl>
-                        <dt>${'ship' @ i18n}</dt>
-                        <dd><strong>Silver Galapagos</strong></dd>
-                    </dl>
-                </li>
-            </ul>
-            <p class="c-fyc__result__content__price">
-                ${'all-inclusive-package-from' @ i18n}<br />
-                <strong>&euro; 6,165</strong>
-            </p>
-            <p class="c-fyc__result__content__button text-center">
-                <a href="#" class="btn btn-red effect btn-thin">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
-            </p>
-        </div>
-        <a href="#"></a>
+<div class="voyage-overview fyc-v2">
+    <div class="th-style hidden-xs">
+        <span>${'departure' @ i18n}</span>
+        <span>${'ship' @ i18n} / ${'voyage' @ i18n}</span>
+        <span>${'features' @ i18n}</span>
+        <span>${'ports' @ i18n}</span>
+        <span>${'fares-form'} <span>(${'per-guest' @ i18n})</span></span>
     </div>
 </div>
+<!--/* TODO : set class V2 accordinf to design properties */-->
+<div data-sly-repeat="${['a','a']}"  class="${itemList.count == 1 ? 'v2' : 'v1'}">
+    <div class="c-fyc__result">
+        <div class="c-fyc__result__wrapper">
+            <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)"></div>
+            <div class="c-fyc__result__content">
+                <div class="c-fyc__result__content__inner clearfix">
+                    <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
+                    <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
+                    <ul class="c-fyc__result__content__description clearfix silversea-expedition">
+                        <li class="cruise-ship hidden-xs"><strong>Silver Explorer</strong></li>
+                        <li class="cruise-destination">Galapagos Islands<br class="visible-xs" /></li>
+                        <li class="cruise-type">Silversea Expedition</li>
+                        <li class="cruise-code hidden-xs"><strong>9877</strong></li>
+                        <li class="cruise-ship hidden-xs">Silver Explorer</li>
+                        <li class="meta_feature_inner hidden-xs">
+                            <span class="feature" data-sly-repeat="${['a','a','a']}">
+                                <i class="icon-star"></i>
+                                <span class="tooltip"><i></i>offer</span>
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="c-fyc__result__content__summary clearfix">
+                        <li class="c-fyc__result__content__summary__item">
+                            <dl>
+                                <dt class="visible-xs">${'departure' @ i18n}</dt>
+                                <dd><i class="fa fa-calendar-o hidden-xs"></i><strong>13 jul</strong> 2017</dd>
+                            </dl>
+                        </li>
+                        <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
+                            <dl>
+                                <dt class="visible-xs">${'duration' @ i18n}</dt>
+                                <dd><i class="fa fa-clock-o hidden-xs"></i><strong>7</strong> ${'days' @ i18n}</dd>
+                            </dl>
+                        </li>
+                        <li class="c-fyc__result__content__summary__item visible-xs">
+                            <dl>
+                                <dt>${'ship' @ i18n}</dt>
+                                <dd><strong>Silver Galapagos</strong></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <ul class="c-fyc__result__content__feature">
+                        <li data-sly-repeat="${['a','a','a']}" class="meta_feature_inner">
+                            <span class="feature">
+                                <i class="icon-star"></i>
+                                <span class="tooltip"><i></i>offer</span>
+                            </span>
+                        </li>
+                    </ul>
+                    <dl class="c-fyc__result__content__itinerary hidden-xs">
+                        <dt>${'itinerary' @ i18n}</dt>
+                        <dd data-sly-repeat="${['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']}">s s s s s s s s </dd>
+                    </dl>
+                </div>
+                <p class="c-fyc__result__content__price">
+                    ${'all-inclusive-package-from' @ i18n}<br />
+                    <strong>&euro; 6,165</strong>
+                </p>
+                <p class="c-fyc__result__content__button text-center">
+                    <a href="#" class="btn btn-red effect btn-thin">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+                </p>
+            </div>
+            <a href="#"></a>
+        </div>
+    </div>
 </div>
+
 <div class="result__wrapper">
     <div class="result result-expedition">
         <div class="result__inner">
@@ -71,7 +98,7 @@
                             <span class="meta_feature">
                                 <ul>
                                     <li class="meta_feature_inner">
-                                        <span class="feature feature-eo">
+                                        <span class="feature">
                                             <i class="icon-star"></i>
                                             <span class="tooltip"><i></i>offer</span>
                                         </span>
@@ -116,7 +143,7 @@
                                 </div>
                             </div>
                             <div class="result__actions_cta">
-                                <a href="#" class="btn btn-red effect" type="button"> ${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+                                <a href="#" class="btn btn-red effect"> ${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
