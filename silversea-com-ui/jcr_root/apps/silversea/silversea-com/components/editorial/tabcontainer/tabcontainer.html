@@ -1,0 +1,22 @@
+<div data-sly-test.isEdit="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Tab container"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="c-tab c-tab__accordion ${isEdit ? 'c-tab__edit' : ''}">
+
+                <ul class="c-tab__nav c-tab__nav--regular5 dropdown-menu" data-toggle="dropdown" aria-expanded="false"
+                    data-sly-test="${!isEdit}"
+                    data-sly-use.TabContainerUse="com.silversea.aem.components.editorial.TabContainerUse" >
+
+                    <li class="c-tab__link" data-state="${itemList.index == 0 || isEdit ? 'active' : ''}" data-sly-repeat="${TabContainerUse.listParTab}">
+                        <a href="#${item.anchor}">${item.title}</a>
+                    </li>
+                </ul>
+
+                <div class="c-tab__body">
+                    <sly data-sly-resource="${'parTabcontainer' @ resourceType='wcm/foundation/components/responsivegrid'}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
