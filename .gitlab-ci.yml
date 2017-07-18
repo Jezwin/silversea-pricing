@@ -115,7 +115,7 @@ mvn_build_rc_publish2:
         - /^release-.*$/
 
 ### Release Build
-mvn_build_release_author:
+mvn_build_staging_author:
     stage: build-author-stage
     environment:
         name: Stage
@@ -126,7 +126,7 @@ mvn_build_release_author:
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
-mvn_build_release_publish1:
+mvn_build_staging_publish1:
     stage: build-publishes-stage
     environment:
         name: Stage
@@ -137,7 +137,7 @@ mvn_build_release_publish1:
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
-mvn_build_release_publish2:
+mvn_build_staging_publish2:
     stage: build-publishes-stage
     environment:
         name: Stage
