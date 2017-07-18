@@ -44,9 +44,11 @@
                 margin: 0 0 3px;
                 text-transform: uppercase;
             }
-            
-            .cruise-type {
-                color: @red-expedition;
+
+            &__description.silversea-expedition {
+                .cruise-type {
+                    color: @red-expedition;
+                }
             }
 
             &__price {
@@ -66,19 +68,8 @@
 
     @media screen and (max-width: @screen-sm) {
         &__result {
-            float: left;
             font-size: 12px;
             margin-bottom: 16px;
-            width: 50%;
-
-            &:nth-child(odd) {
-                clear: both;
-                padding-right: 8px;
-            }
-
-            &:nth-child(even) {
-                padding-left: 8px;
-            }
 
             &__wrapper {
                 border: 1px solid @grey--d3;

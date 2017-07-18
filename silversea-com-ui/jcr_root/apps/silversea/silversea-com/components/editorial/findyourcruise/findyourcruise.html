@@ -2,7 +2,17 @@
 <div id="destination-fyc-switchable-block" class="c-fyc destination-switchable-block">
     <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/filter.html" />
 
-    <div class="voyage-overview clearfix">
+    <div class="voyage-overview">
+        <div class="voyage-overview fyc-v2">
+            <!--/* TODO :  generate result header only for V2 */-->
+            <div class="th-style hidden-xs">
+                <span>${'departure' @ i18n}</span>
+                <span>${'ship' @ i18n} / ${'voyage' @ i18n}</span>
+                <span>${'features' @ i18n}</span>
+                <span>${'ports' @ i18n}</span>
+                <span>${'fares-form'} <span>(${'per-guest' @ i18n})</span></span>
+            </div>
+        </div>
         <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/resutlitem.html" />
     </div>
     <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />

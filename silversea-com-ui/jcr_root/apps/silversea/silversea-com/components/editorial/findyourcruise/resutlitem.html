@@ -1,12 +1,3 @@
-<div class="voyage-overview fyc-v2">
-    <div class="th-style hidden-xs">
-        <span>${'departure' @ i18n}</span>
-        <span>${'ship' @ i18n} / ${'voyage' @ i18n}</span>
-        <span>${'features' @ i18n}</span>
-        <span>${'ports' @ i18n}</span>
-        <span>${'fares-form'} <span>(${'per-guest' @ i18n})</span></span>
-    </div>
-</div>
 <!--/* TODO : set class V2 accordinf to design properties */-->
 <div data-sly-repeat="${['a','a']}"  class="${itemList.count == 1 ? 'v2' : 'v1'}">
     <div class="c-fyc__result">
@@ -16,7 +7,7 @@
                 <div class="c-fyc__result__content__inner clearfix">
                     <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
                     <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
-                    <ul class="c-fyc__result__content__description clearfix silversea-expedition">
+                    <ul class="c-fyc__result__content__description silversea-expedition">
                         <li class="cruise-ship hidden-xs"><strong>Silver Explorer</strong></li>
                         <li class="cruise-destination">Galapagos Islands<br class="visible-xs" /></li>
                         <li class="cruise-type">Silversea Expedition</li>
