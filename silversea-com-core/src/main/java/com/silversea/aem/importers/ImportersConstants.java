@@ -1,7 +1,7 @@
 package com.silversea.aem.importers;
 
 /**
- * @author aurelienolivier
+ * TODO naming conventions
  */
 public interface ImportersConstants {
 
@@ -13,6 +13,7 @@ public interface ImportersConstants {
     String SUB_SERVICE_IMPORT_DATA = "import-data";
 
     // Templates
+    // TODO merge with com.silversea.aem.constants.TemplateConstants
     String CRUISE_TEMPLATE = "/apps/silversea/silversea-com/templates/cruise";
     String CRUISE_SEGEMENT_TEMPLATE = "/apps/silversea/silversea-com/templates/combosegment";
 
@@ -20,7 +21,7 @@ public interface ImportersConstants {
     String COMBO_CRUISE_RESOURCE_TYPE = "silversea/silversea-com/components/pages/combocruise";
 
     //Sling resource type property
-    String SLIN_RESOURCE_TYPE = "jcr:content/sling:resourceType";
+    String PN_SLING_RESOURCE_TYPE = "jcr:content/sling:resourceType";
 
     // Tags path
     String GEOTAGGING_TAG_PREFIX = "geotagging:";
@@ -42,4 +43,8 @@ public interface ImportersConstants {
     String CRUISES_DESTINATIONS_URL_KEY = "cruisesUrl";
 
     String LANGUAGE_EN = "en";
+
+    // Property names
+    String PN_TO_ACTIVATE = "toActivate";
+    String PN_TO_DEACTIVATE = "toDeactivate";
 }

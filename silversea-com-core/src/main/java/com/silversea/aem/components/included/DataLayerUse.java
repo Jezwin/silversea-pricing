@@ -85,21 +85,21 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(TemplateConstants.PATH_DESTINATION, "destinations");
         listCat1.put(TemplateConstants.PATH_SUITE, "single accommodation");
         listCat1.put(TemplateConstants.PATH_SUITE_VARIATION, "single ship");
-        listCat1.put(TemplateConstants.PATH_EXCURSION, "single excursion");
+        listCat1.put(TemplateConstants.PAGE_TEMPLATE_EXCURSION, "single excursion");
         listCat1.put(TemplateConstants.PATH_SHIP, "single ship");
         listCat1.put(TemplateConstants.PATH_DINING, "single onboard");
         listCat1.put(TemplateConstants.PATH_PUBLIC_AREA, "single public areas");
         listCat1.put(TemplateConstants.PATH_VOYAGE_JOURNAL, "voyage journals");
         listCat1.put(TemplateConstants.PATH_PRESS_RELEASE, "press releases");
         listCat1.put(TemplateConstants.PATH_FEATURE, "single onboard");
-        listCat1.put(TemplateConstants.PATH_PORT, "single port");
+        listCat1.put(TemplateConstants.PAGE_TEMPLATE_PORT, "single port");
         listCat1.put(TemplateConstants.PATH_BLOG_POST, "blog");
         listCat1.put(TemplateConstants.PATH_KEY_PEPOLE, "single onboard");
         listCat1.put(TemplateConstants.PATH_VOYAGE_JOURNAL_DAY, "voyage journals");
         listCat1.put(TemplateConstants.PATH_PUBLIC_AREA_VARIATION, "single ship");
-        listCat1.put(TemplateConstants.PATH_LANDPROGRAM, "single land programmes");
+        listCat1.put(TemplateConstants.PAGE_TEMPLATE_LAND_PROGRAM, "single land programmes");
         listCat1.put(TemplateConstants.PATH_DINING_VARIATION, "single ship");
-        listCat1.put(TemplateConstants.PATH_PAGE, "editorial pages");
+        listCat1.put(TemplateConstants.PAGE_TEMPLATE_PAGE, "editorial pages");
 
         //TODO Remove getCurrentTemplate and remplace it bay getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
         if (getCurrentPage().getTemplate().getPath() != null && pageCategory1.equals("")) {

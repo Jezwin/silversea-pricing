@@ -11,7 +11,6 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
-import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
@@ -34,11 +33,6 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.ValueFormatException;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
-import javax.wsdl.Import;
 import java.util.*;
 
 @Service
@@ -264,13 +258,13 @@ public class CitiesImporterImpl implements CitiesImporter {
                                         throw new ImporterException("Cannot set properties for city " + city.getCityName());
                                     }
 
-                                    portContentNode.setProperty("toDeactivate", true);
+                                    portContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 
                                     LOGGER.trace("Port {} is marked to be deactivated", city.getCityName());
                                 } else {
                                     final Node portContentNode = updatePortContentNode(city, portPage);
 
-                                    portContentNode.setProperty("toActivate", true);
+                                    portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Port {} is marked to be activated", city.getCityName());
                                 }
@@ -289,7 +283,7 @@ public class CitiesImporterImpl implements CitiesImporter {
                                 }
 
                                 final Node portContentNode = updatePortContentNode(city, portPage);
-                                portContentNode.setProperty("toActivate", true);
+                                portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Port {} successfully created", portPage.getPath());
                             }
@@ -417,7 +411,7 @@ public class CitiesImporterImpl implements CitiesImporter {
             return pageManager.create(portFirstLetterPage.getPath(),
                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
                             StringHelper.getFormatWithoutSpecialCharcters(cityName)),
-                    TemplateConstants.PATH_PORT,
+                    TemplateConstants.PAGE_TEMPLATE_PORT,
                     StringHelper.getFormatWithoutSpecialCharcters(cityName), false);
         } catch (RepositoryException | WCMException e) {
             throw new ImporterException("Port page cannot be created", e);

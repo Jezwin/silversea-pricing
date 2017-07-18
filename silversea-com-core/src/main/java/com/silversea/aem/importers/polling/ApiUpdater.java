@@ -8,6 +8,8 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.importers.services.HotelsImporter;
+import com.silversea.aem.importers.services.LandProgramsImporter;
+import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.resource.*;
@@ -45,6 +47,12 @@ public class ApiUpdater implements Runnable {
     private HotelsImporter hotelsImporter;
 
     @Reference
+    private LandProgramsImporter landProgramsImporter;
+
+    @Reference
+    private ShoreExcursionsImporter shoreExcursionsImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -60,8 +68,13 @@ public class ApiUpdater implements Runnable {
             final ImportResult importResultHotels = hotelsImporter.updateHotels();
             LOGGER.info("Hotels import : {} success, {} errors", importResultHotels.getSuccessNumber(), importResultHotels.getErrorNumber());
 
-            // TODO update land programs
-            // TODO update excursions
+            // update land programs
+            final ImportResult importResultLandPrograms = landProgramsImporter.updateLandPrograms();
+            LOGGER.info("Land programs import : {} success, {} errors", importResultLandPrograms.getSuccessNumber(), importResultLandPrograms.getErrorNumber());
+
+            // update excursions
+            final ImportResult importResultExcursions = shoreExcursionsImporter.updateShoreExcursions();
+            LOGGER.info("Excursions import : {} success, {} errors", importResultExcursions.getSuccessNumber(), importResultExcursions.getErrorNumber());
 
             // replicate all modifications
             LOGGER.debug("Start replication on modified pages");
@@ -94,18 +107,18 @@ public class ApiUpdater implements Runnable {
                         final Node pageContentNode = page.getContentResource().adaptTo(Node.class);
 
                         try {
-                            if (pageProperties.get("toDeactivate", false)) {
+                            if (pageProperties.get(ImportersConstants.PN_TO_DEACTIVATE, false)) {
                                 replicator.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
 
-                                pageContentNode.getProperty("toDeactivate").remove();
+                                pageContentNode.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
                                 LOGGER.trace("{} page deactivated", page.getPath());
                             }
 
-                            if (pageProperties.get("toActivate", false)) {
+                            if (pageProperties.get(ImportersConstants.PN_TO_ACTIVATE, false)) {
                                 replicator.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
 
-                                pageContentNode.getProperty("toActivate").remove();
+                                pageContentNode.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
 
                                 LOGGER.trace("{} page activated", page.getPath());
                             }

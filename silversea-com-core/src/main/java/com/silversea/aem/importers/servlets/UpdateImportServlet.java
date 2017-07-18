@@ -45,10 +45,10 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private HotelsImporter updateImportHotel;
 
     @Reference
-    LandProgramUpdateImporter updateImporLandProgram;
+    private LandProgramsImporter updateImportLandProgram;
 
     @Reference
-    ShoreExcursionsUpdateImporter updateImportShoreExcursion;
+    private ShoreExcursionsImporter updateImportShoreExcursion;
 
     @Reference
     private CruisesUpdateImporter cruisesUpdateImporter;
@@ -137,23 +137,16 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    try {
-                        updateImportShoreExcursion.updateImporData();
-                        nbrError = updateImportShoreExcursion.getErrorNumber();
-                        nbrSucces = updateImportShoreExcursion.getSuccesNumber();
-                        response.getWriter().write("Shorex import failure number : <p>" + nbrError + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("Shorex import succes number : <p>" + nbrSucces + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("ShoreExcursions import Done<br/>");
-                        watch.stop();
-                        time = watch.toString();
-                        response.getWriter().write("Time :<br/>" + time);
-                        response.getWriter().write("<br/> ---------------- <br />");
-                    } catch (UpdateImporterExceptions e) {
-                        response.getWriter().write(
-                                " <br/>--------------<br/> shorx import failure , please lunch full import before the diff <br/>--------------<br/>");
-                    }
+                    final ImportResult importResult = updateImportShoreExcursion.updateShoreExcursions();
+                    response.getWriter().write("Shorex import failure number : <p>" + importResult.getErrorNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("Shorex import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("ShoreExcursions import Done<br/>");
+                    watch.stop();
+                    time = watch.toString();
+                    response.getWriter().write("Time :<br/>" + time);
+                    response.getWriter().write("<br/> ---------------- <br />");
 
                     response.getWriter().flush();
                 }
@@ -163,23 +156,17 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    try {
-                        updateImporLandProgram.updateImporData();
-                        nbrError = updateImporLandProgram.getErrorNumber();
-                        nbrSucces = updateImporLandProgram.getSuccesNumber();
-                        response.getWriter().write("Land program import failure number : <p>" + nbrError + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("land program import succes number : <p>" + nbrSucces + "</p>");
-                        response.getWriter().write("<br/>");
-                        response.getWriter().write("LandPrograms import Done<br/>");
-                        watch.stop();
-                        time = watch.toString();
-                        response.getWriter().write("Time :<br/>" + time);
-                        response.getWriter().write("<br/> ---------------- <br />");
-                    } catch (UpdateImporterExceptions e) {
-                        response.getWriter().write(
-                                " <br/>--------------<br/> land program import failure , please lunch full import before the diff <br/>--------------<br/>");
-                    }
+
+                    final ImportResult importResult = updateImportLandProgram.updateLandPrograms();
+                    response.getWriter().write("Land program import failure number : <p>" + importResult.getErrorNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("land program import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
+                    response.getWriter().write("<br/>");
+                    response.getWriter().write("LandPrograms import Done<br/>");
+                    watch.stop();
+                    time = watch.toString();
+                    response.getWriter().write("Time :<br/>" + time);
+                    response.getWriter().write("<br/> ---------------- <br />");
 
                     response.getWriter().flush();
                 }
@@ -269,7 +256,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 response.getWriter().flush();
             }
             closeDocument(response.getWriter());
-        } catch (RuntimeException | ReplicationException e) {
+        } catch (RuntimeException e) {
             // watchAll.stop();
             timeAll = watchAll.toString();
             response.getWriter().write("<br/> ---------------- <br />");

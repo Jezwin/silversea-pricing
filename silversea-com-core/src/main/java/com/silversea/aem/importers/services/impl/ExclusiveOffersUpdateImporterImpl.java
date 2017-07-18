@@ -48,6 +48,7 @@ import io.swagger.client.model.SpecialOffer;
 /**
  * Created by mbennabi on 09/03/2017.
  */
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Exclusive Offers importer")
 public class ExclusiveOffersUpdateImporterImpl implements ExclusiveOffersUpdateImporter {

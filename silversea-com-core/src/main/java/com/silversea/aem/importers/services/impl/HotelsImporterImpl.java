@@ -6,6 +6,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -125,10 +126,10 @@ public class HotelsImporterImpl implements HotelsImporter {
 
                             // Creating subpage "hotel" if not present
                             Page hotelsPage;
-                            if (portPage.hasChild("hotels")) {
+                            if (portPage.hasChild(WcmConstants.NN_HOTELS)) {
                                 hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
                             } else {
-                                hotelsPage = pageManager.create(portPage.getPath(), "hotels",
+                                hotelsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_HOTELS,
                                         "/apps/silversea/silversea-com/templates/page", "Hotels", false);
 
                                 LOGGER.trace("{} page is not existing, creating it", hotelsPage.getPath());
@@ -138,7 +139,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                             final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                     JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                    TemplateConstants.PATH_HOTEL,
+                                    TemplateConstants.PAGE_TEMPLATE_HOTEL,
                                     StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
@@ -203,7 +204,7 @@ public class HotelsImporterImpl implements HotelsImporter {
 
     @Override
     public ImportResult updateHotels() {
-        LOGGER.debug("Starting cities update");
+        LOGGER.debug("Starting hotels update");
 
         int successNumber = 0;
         int errorNumber = 0;
@@ -268,12 +269,12 @@ public class HotelsImporterImpl implements HotelsImporter {
                                         throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName());
                                     }
 
-                                    hotelContentNode.setProperty("toDeactivate", true);
+                                    hotelContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 
                                     LOGGER.trace("Hotel {} is marked to be deactivated", hotel.getHotelName());
                                 } else {
                                     final Node hotelContentNode = updateHotelContentNode(hotel, hotelPage);
-                                    hotelContentNode.setProperty("toActivate", true);
+                                    hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Hotel {} is marked to be activated", hotel.getHotelName());
                                 }
@@ -307,10 +308,10 @@ public class HotelsImporterImpl implements HotelsImporter {
 
                                 // Creating subpage "hotel" if not present
                                 Page hotelsPage;
-                                if (portPage.hasChild("hotels")) {
+                                if (portPage.hasChild(WcmConstants.NN_HOTELS)) {
                                     hotelsPage = pageManager.getPage(portPage.getPath() + "/hotels");
                                 } else {
-                                    hotelsPage = pageManager.create(portPage.getPath(), "hotels",
+                                    hotelsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_HOTELS,
                                             "/apps/silversea/silversea-com/templates/page", "Hotels", false);
 
                                     LOGGER.trace("{} page is not existing, creating it", hotelsPage.getPath());
@@ -320,7 +321,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                        TemplateConstants.PATH_HOTEL,
+                                        TemplateConstants.PAGE_TEMPLATE_HOTEL,
                                         StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                 LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
@@ -332,7 +333,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 }
 
                                 final Node hotelContentNode = updateHotelContentNode(hotel, hotelPage);
-                                hotelContentNode.setProperty("toActivate", true);
+                                hotelContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
                             }
@@ -375,6 +376,7 @@ public class HotelsImporterImpl implements HotelsImporter {
 
     @Override
     public void importOneHotel(String hotelId) {
+        // TODO implement
     }
 
     /**

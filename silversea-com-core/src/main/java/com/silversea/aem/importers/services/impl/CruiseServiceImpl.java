@@ -31,7 +31,6 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.apache.sling.api.resource.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -631,7 +630,7 @@ public class CruiseServiceImpl implements CruiseService{
         
             //Build query
             map.put("type", NameConstants.NT_PAGE);
-            map.put("property", ImportersConstants.SLIN_RESOURCE_TYPE); 
+            map.put("property", ImportersConstants.PN_SLING_RESOURCE_TYPE);
             map.put("property.value", resourceType); 
      
             //Create builder

@@ -44,6 +44,7 @@ import io.swagger.client.model.Agency;
 /**
  * Created by mbennabi on 08/03/2017.
  */
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Travel Agencies update importer")
 public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImporter {

@@ -2,17 +2,18 @@ package com.silversea.aem.constants;
 
 /**
  * TODO clean and check if constants already exists
+ * Before creating constant, check first this following page
  * https://docs.adobe.com/docs/en/aem/6-2/develop/ref/javadoc/constant-values.html
  *
  * @author mjedli
  *
  */
 public interface WcmConstants {
-    /*
-     * Before creating constant, check first this following page
-     * https://docs.adobe.com/docs/en/aem/6-2/develop/ref/javadoc/constant-
-     * values.html
-     */
+
+    // Node names
+    String NN_LAND_PROGRAMS = "land-programs";
+    String NN_HOTELS = "hotels";
+    String NN_EXCURSIONS = "excursions";
 
     // Properties
     String PN_NOT_IN_SITEMAP = "notInSitemap";
@@ -24,8 +25,6 @@ public interface WcmConstants {
     String PN_BROCHURE_IS_DIGITAL_ONLY = "brochureDigitalOnly";
     String PN_DESTINATION_REFERENCE = "destinationsReference";
     String PN_START_DATE = "startDate";
-    String PN_COUNTRY_ID = "country_id";
-    String PN_COUNTRY_NAME = "country_name";
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";
@@ -33,7 +32,6 @@ public interface WcmConstants {
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
     String RT_IMAGE_CPT = "silversea/silversea-com/components/editorial/image";
-    String RT_TAG = "cq/tagging/components/tag";
     String RT_DESTINATION = "silversea/silversea-com/components/pages/destination";
     String RT_HOTEL = "silversea/silversea-com/components/pages/hotel";
     String RT_LAND_PROGRAMS = "silversea/silversea-com/components/pages/landprogram";
@@ -54,7 +52,6 @@ public interface WcmConstants {
 
     // Use for QueryBuilder
     String SEARCH_KEY_PATH = "path";
-    String SEARCH_NODE_NAME = "nodename";
     String SEARCH_KEY_TYPE = "type";
     String SEARCH_KEY_OFF_SET = "p.offset";
     String SEARCH_KEY_PAGE_LIMIT = "p.limit";
@@ -62,12 +59,7 @@ public interface WcmConstants {
     String SEARCH_KEY_ORDER_BY_SORT_ORDER = "orderby.sort";
     String SEARCH_KEY_PROPERTY = "property";
     String SEARCH_KEY_PROPERTY_VALUE = "property.value";
-    String DEFAULT_KEY_CQ_TEMPLATE = "cq:template";
     String DEFAULT_KEY_CQ_PAGE = "cq:page";
-    String DEFAULT_KEY_CQ_TAG = "cq:tag";
-    String DEFAULT_KEY_CQ_COMPONENT = "cq:component";
-    String DEFAULT_VALUE_ORDER_BY_SORT_DESC = "desc";
-    String DEFAULT_VALUE_ORDER_BY_SORT_ASC = "asc";
 
     // Responsive
     Integer DEFAULT_WIDTH_DESKTOP = 930;

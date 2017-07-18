@@ -6,6 +6,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -14,7 +15,12 @@ import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
+import io.swagger.client.ApiResponse;
+import io.swagger.client.api.ShorexesApi;
+import io.swagger.client.model.Land77;
 import io.swagger.client.model.Shorex;
+import io.swagger.client.model.Shorex77;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -36,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Component(label = "Silversea.com - Shorexes importer")
+@Component
 public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ShoreExcursionsImporterImpl.class);
@@ -124,10 +130,10 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
                             // Creating subpage "excursions" if not present
                             Page excursionsPage;
-                            if (portPage.hasChild("excursions")) {
-                                excursionsPage = pageManager.getPage(portPage.getPath() + "/excursions");
+                            if (portPage.hasChild(WcmConstants.NN_EXCURSIONS)) {
+                                excursionsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_EXCURSIONS);
                             } else {
-                                excursionsPage = pageManager.create(portPage.getPath(), "excursions",
+                                excursionsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_EXCURSIONS,
                                         "/apps/silversea/silversea-com/templates/page", "Excursions", false);
 
                                 LOGGER.trace("{} page is not existing, creating it", excursionsPage.getPath());
@@ -136,7 +142,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                     JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName())),
-                                    TemplateConstants.PATH_EXCURSION,
+                                    TemplateConstants.PAGE_TEMPLATE_EXCURSION,
                                     StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()), false);
 
                             LOGGER.trace("Creating excursion {} in city {}", shorex.getShorexName(),
@@ -205,11 +211,211 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
     @Override
     public ImportResult updateShoreExcursions() {
-        return null;
+        LOGGER.debug("Starting shore excursions update");
+
+        int successNumber = 0;
+        int errorNumber = 0;
+
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
+
+            final ShorexesApi shorexesApi = new ShorexesApi(ImporterUtils.getApiClient(apiConfig));
+
+            if (pageManager == null || session == null) {
+                throw new ImporterException("Cannot initialize pageManager and session");
+            }
+
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+            final String lastModificationDate = ImporterUtils.getDateFromPageProperties(rootPage, "lastModificationDateShoreExcursions");
+
+            LOGGER.debug("Last import date for shore excursions {}", lastModificationDate);
+
+            int j = 0, i = 1;
+            List<Shorex77> excursions;
+
+            do {
+                final ApiResponse<List<Shorex77>> apiResponse = shorexesApi.shorexesGetChangesWithHttpInfo(lastModificationDate,
+                        i , pageSize, null);
+                excursions = apiResponse.getData();
+
+                // TODO replace by header
+                LOGGER.trace("Total excursions : {}, page : {}, excursions for this page : {}", excursions.size(), i, excursions.size());
+
+                for (Shorex77 excursion : excursions) {
+                    final String excursionName = excursion.getShorexName();
+
+                    LOGGER.debug("Updating excursion: {}", excursionName);
+
+                    try {
+                        // Getting all the excursion pages with the current shorexId
+                        Iterator<Resource> excursionsResources = resourceResolver
+                                .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
+                                        "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"" +
+                                        " and jcr:content/shorexId=\"" + excursion.getShorexId() + "\"]", "xpath");
+
+                        if (excursionsResources.hasNext()) {
+                            // if excursions are found, update it
+                            while (excursionsResources.hasNext()) {
+                                final Resource excursionResource = excursionsResources.next();
+                                final Page excursionPage = excursionResource.adaptTo(Page.class);
+
+                                LOGGER.trace("Updating excursion {}", excursionName);
+
+                                if (excursionPage == null) {
+                                    throw new ImporterException("Cannot set excursion page " + excursionName);
+                                }
+
+                                // depending of the city status, mark the page to be activated or deactivated
+                                if (BooleanUtils.isTrue(excursion.getIsDeleted())) {
+                                    final Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
+
+                                    if (excursionContentNode == null) {
+                                        throw new ImporterException("Cannot set properties for excursion " + excursionName);
+                                    }
+
+                                    excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+                                    LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
+                                } else {
+                                    final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage);
+                                    excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+                                    LOGGER.trace("Excursion {} is marked to be activated", excursionName);
+                                }
+                            }
+                        } else {
+                            // Getting cities with the city id read from the excursion
+                            Integer cityId = excursion.getCities().size() > 0 ? excursion.getCities().get(0).getCityId() : null;
+
+                            if (cityId == null) {
+                                throw new ImporterException("Land program have no city");
+                            }
+
+                            // else create excursion page for each language
+                            Iterator<Resource> portsResources = resourceResolver
+                                    .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
+                                            "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"" +
+                                            " and jcr:content/cityId=\"" + cityId + "\"]", "xpath");
+
+                            if (!portsResources.hasNext()) {
+                                throw new ImporterException("Cannot find city with id " + cityId);
+                            }
+
+                            while (portsResources.hasNext()) {
+                                // Getting port page
+                                Page portPage = portsResources.next().adaptTo(Page.class);
+
+                                if (portPage == null) {
+                                    throw new ImporterException("Error getting port page " + cityId);
+                                }
+
+                                LOGGER.trace("Found port {} with id {}", portPage.getTitle(), cityId);
+
+                                // Creating subpage "excursion" if not present
+                                Page excursionsPage;
+                                if (portPage.hasChild(WcmConstants.NN_EXCURSIONS)) {
+                                    excursionsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_EXCURSIONS);
+                                } else {
+                                    excursionsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_EXCURSIONS,
+                                            TemplateConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
+
+                                    LOGGER.trace("{} page is not existing, creating it", excursionsPage.getPath());
+                                }
+
+                                // Creating excursion page
+                                final Page excursionPage = pageManager.create(excursionsPage.getPath(),
+                                        JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
+                                                StringHelper.getFormatWithoutSpecialCharcters(excursionName)),
+                                        TemplateConstants.PAGE_TEMPLATE_EXCURSION,
+                                        StringHelper.getFormatWithoutSpecialCharcters(excursionName), false);
+
+                                LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());
+
+                                // If excursion is created, set the properties
+                                if (excursionPage == null) {
+                                    throw new ImporterException(
+                                            "Cannot create excursion page for excursion " + excursionName);
+                                }
+
+                                final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage);
+                                excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+                                LOGGER.trace("Excursion {} successfully created", excursionPage.getPath());
+                            }
+                        }
+
+                        successNumber++;
+                        j++;
+
+                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                            try {
+                                session.save();
+
+                                LOGGER.debug("{} excursions imported, saving session", +j);
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
+                        }
+                    } catch (RepositoryException | ImporterException | WCMException e) {
+                        errorNumber++;
+
+                        LOGGER.error("Import error", e);
+                    }
+                }
+
+                i++;
+            } while (excursions.size() > 0);
+
+            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+                    "lastModificationDateShoreExcursions");
+
+            resourceResolver.close();
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read excursions from API", e);
+        }
+
+        return new ImportResult(successNumber, errorNumber);
     }
 
     @Override
     public void importOneShoreExcursion(String shoreExcursionId) {
+        // TODO implement
+    }
 
+    /**
+     * Update excursion properties from API
+     *
+     * @param excursion excursion object from API
+     * @param excursionPage page of the excursion
+     * @return the content node of the excursion page, updated
+     * @throws ImporterException if the excursion page cannot be updated
+     */
+    private Node updateExcursionContentNode(final Shorex77 excursion, final Page excursionPage) throws ImporterException {
+        final Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
+
+        if (excursionContentNode == null) {
+            throw new ImporterException("Cannot set properties for excursion " + excursion.getShorexName());
+        }
+
+        try {
+            excursionContentNode.setProperty(JcrConstants.JCR_TITLE, excursion.getShorexName());
+            excursionContentNode.setProperty(JcrConstants.JCR_DESCRIPTION,
+                    excursion.getShortDescription());
+            excursionContentNode.setProperty("codeExcursion", excursion.getShorexCod());
+            excursionContentNode.setProperty("apiLongDescription", excursion.getDescription());
+            excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
+            excursionContentNode.setProperty("shorexId", excursion.getShorexId());
+        } catch (RepositoryException e) {
+            throw new ImporterException("Cannot set properties for excursion " + excursion.getShorexName(), e);
+        }
+
+        return excursionContentNode;
     }
 }

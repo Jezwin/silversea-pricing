@@ -31,8 +31,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@Component(immediate = true, label = "Silversea.com - Contries importer")
-@Service(value = CountriesImporter.class)
+@Component
+@Service
 public class CountriesImporterImpl implements CountriesImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
@@ -155,7 +155,6 @@ public class CountriesImporterImpl implements CountriesImporter {
 
         try {
             final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
-            final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 
             Iterator<Resource> tags = resourceResolver.findResources("/jcr:root/etc/tags/geotagging//element(*,cq:Tag)", "xpath");
 

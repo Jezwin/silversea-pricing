@@ -5,7 +5,7 @@ import com.silversea.aem.importers.services.impl.ImportResult;
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
-public interface LandProgramImporter {
+public interface LandProgramsImporter {
 
     /**
      * Import all land programs, used in first data import
