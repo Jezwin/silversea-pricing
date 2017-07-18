@@ -23,22 +23,12 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                transition: opacity .3s ease-in-out;
                 width: 100%;
-            }
-        }
-
-        &:hover {
-            .c-fyc__result__image {
-                &:before {
-                    opacity: .5;
-                }
             }
         }
 
         &__content {
             &__title {
-                font-size: 18px;
                 font-weight: 700;
                 line-height: 1;
                 margin: 0 0 3px;
@@ -70,6 +60,11 @@
         &__result {
             font-size: 12px;
             margin-bottom: 16px;
+            transition: background-color .3s ease-in-out;
+
+            &:hover {
+                background-color: @grey--d9;
+            }
 
             &__wrapper {
                 border: 1px solid @grey--d3;
@@ -80,39 +75,49 @@
             }
 
             &__content {
-                padding: 9px 10px 84px;
+                padding: 16px 16px 84px;
                 position: relative;
 
+                &__title {
+                    font-size: 16px;
+                    margin-bottom: 25px;
+                }
+
                 &__description {
-                    border-bottom: 1px solid @blue;
-                    line-height: 23px;
-                    padding-bottom: 2px;
+                    border-top: 2px solid @blue;
+                    font-weight: 700;
+                    line-height: 18px;
+                    padding-top: 10px;
+
+                    .cruise-type {
+                        color: @blue;
+                        font-style: italic;
+                    }
 
                     &.silversea-expedition {
                         border-color: @red-expedition;
                     }
-
-                    li {
-                        display: inline;
-
-                        &.meta_feature_inner:before {
-                            content: "|"
-                        }
-                    }
                 }
 
                 &__summary {
-                    border: 1px solid  @grey--d3;
-                    margin-top: 15px;
+                    border: 1px solid @grey--c;
+                    letter-spacing: -0.3px;
+                    margin-top: 7px;
                     text-align: center;
 
                     &__item {
                         float: left;
-                        padding: 10px 5px 9px;
+                        padding: 13px 5px 9px;
                         width: calc(100% / 3);
 
+                        &--ship {
+                            strong {
+                                font-style: italic;
+                            }
+                        }
+
                         &:not(:last-child) {
-                            border-right: 1px solid @grey--d3;
+                            border-right: 1px solid @grey--c;
                         }
 
                         dl {
@@ -121,9 +126,10 @@
                             }
 
                             dt {
-                                color: @grey;
+                                color: @grey--a3;
                                 font-size: 11px;
-                                font-weight: 700;
+                                font-weight: 600;
+                                padding-bottom: 6px;
                             }
 
                             strong {
@@ -136,11 +142,14 @@
                 }
 
                 &__price {
+                    color: @grey--a3;
+                    font-size: 11px;
                     line-height: 1;
                     margin: 32px 0 0;
                     text-align: center;
 
                     strong {
+                        color: @black;
                         font-size: 18px;
                         line-height: 1.6;
                     }
@@ -205,6 +214,18 @@
             &__image {
                 display: table-cell;
                 width: 245px;
+
+                &:before {
+                    transition: opacity .3s ease-in-out;
+                }
+            }
+
+            &:hover {
+                .c-fyc__result__image {
+                    &:before {
+                        opacity: .5;
+                    }
+                }
             }
 
             &__content {
@@ -214,6 +235,10 @@
                 &__inner {
                     float: left;
                     width: calc(~"100% - 160px");
+                }
+
+                &__title {
+                    font-size: 18px;
                 }
 
                 &__description {
