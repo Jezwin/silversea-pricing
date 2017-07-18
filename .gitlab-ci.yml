@@ -144,7 +144,7 @@ mvn_build_staging_publish2:
     tags:
         - maven
     script:
-        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_PROD_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.192.200.203:4503
+        - mvn clean install -Pauto-install-package -Dcq.password=$AUTHOR_STAGE_PASSWORD -Dcq.user=ci-user -Dcq.url=http://34.192.200.203:4503
     only:
         - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/
 
