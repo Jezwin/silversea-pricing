@@ -102,7 +102,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
             //Update import starategy
             else{
-                String lastModificationDate = ImporterUtils.getLastModificationDate(destinationsPage,"lastModificationDate");
+                String lastModificationDate = ImporterUtils.getDateFromPageProperties(destinationsPage,"lastModificationDate");
                 updateStrategy(lastModificationDate);
             }
             //Save date of last modification
