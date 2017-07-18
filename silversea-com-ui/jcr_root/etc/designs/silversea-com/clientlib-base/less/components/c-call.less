@@ -11,7 +11,11 @@
     text-align: right;
     float: right;
     color: @white;
-
+    
+	@media screen and (max-width: @screen-sm) {
+		padding-right: 10px;
+	}
+	
     &__inner {
         display: table-cell;
         vertical-align: middle;
