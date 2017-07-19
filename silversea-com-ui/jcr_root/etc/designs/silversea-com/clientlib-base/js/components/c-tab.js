@@ -11,7 +11,17 @@
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
             _orphan_link = $('.c-cruise__descr a.bound'),
-            _contents = _self.find('.c-tab__body').first().find(_data.content);
+            _contents = _self.find('.c-tab__body').first().find(_data.content),
+            _showTab = function (tab) {
+                var id = $(tab).children('a').attr('href');
+
+                $(_contents).removeAttr('data-state', null);
+                $(_links).removeAttr('data-state', null);
+                console.log($(_links), $(_contents));
+                $(tab).attr('data-state', 'active');
+                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
+
+            };
 
             /*
              * * Orphan Link Click Event to show content
@@ -50,19 +60,6 @@
                     }
                 });
             }
-
-            _showTab = function(tab) {
-                var id = $(tab).children('a').attr('href');
-
-                // "Hide" other tab and content
-                $(tab).siblings('.c-tab__link').attr('data-state', 'false');
-                $(_data.content + id).siblings('.c-tab__content').attr('data-state', 'false');
-
-                // "Show" current tab and content
-                $(tab).attr('data-state', 'active');
-                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
-
-            };
 
             if (!_self.hasClass('c-tab__edit')) {
                 var activeTab = $('.c-tab__link[data-state="active"]')[0];
