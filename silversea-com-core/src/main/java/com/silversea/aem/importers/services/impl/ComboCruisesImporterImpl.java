@@ -320,11 +320,12 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                   }
               }
             });
+            ImporterUtils.saveSession(session, false);
             LOGGER.debug("Combo Cruise importer -- Finish combo cruises diff");
         }
     }
     
-    public void updateLanguages(Page page,boolean update,SpecialVoyage voyage){
+    public void updateLanguages(Page page,boolean update,SpecialVoyage voyage) {
         LOGGER.debug(" Combo Cruise importer -- Sart updates page [{}] in other languages",page.getPath());
 
         String path = page.getPath();
@@ -360,10 +361,10 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                     }
                 }
             });
-        }
+        }  
         LOGGER.debug("Combo Cruise importer -- Finish updates page [{}] in other languages",page.getPath());
-
     }
+    
     private void cleanNodes(Page cruisePage,boolean update) throws RepositoryException{
         if(update){
             ImporterUtils.clean(cruisePage,ImportersConstants.SUITES_NODE,session);
@@ -392,7 +393,6 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         Node pageNode = page.adaptTo(Node.class);
         updateCruisesReferences(page,language);
         cruiseService.changeReferenceBylanguage(pageNode,ImportersConstants.SUITES_NODE,"suiteReference",language);
-        ImporterUtils.saveSession(session, false);
     }
     
     private void updateCruisesReferences(Page page,String language) throws RepositoryException{

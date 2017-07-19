@@ -666,6 +666,8 @@ public class CruiseServiceImpl implements CruiseService{
 
             }
         }
+        //save session
+        ImporterUtils.saveSession(session, false);
     }
     
     private String formatPathByLanguage(String path,String language){
