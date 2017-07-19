@@ -24,6 +24,22 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
+                            <type
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Type"
+                                name="./type">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <default
+                                        jcr:primaryType="nt:unstructured"
+                                        text="V1"
+                                        value="v1" />
+                                    <v2
+                                        jcr:primaryType="nt:unstructured"
+                                        text="V2"
+                                        value="v2" />
+                                </items>
+                            </type>
                             <availablefeatures
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="cq/gui/components/common/tagspicker"
