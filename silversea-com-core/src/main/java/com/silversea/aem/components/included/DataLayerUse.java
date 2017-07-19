@@ -79,84 +79,85 @@ public class DataLayerUse extends WCMUsePojo {
         if (getCurrentPage().getProperties().get("pageCategory3") != null)
             pageCategory3 = getCurrentPage().getProperties().get("pageCategory3").toString();
 
-        listCat1 = new HashMap<>();
-        listCat1.put(TemplateConstants.PATH_VOYAGE, "voyages");
-        listCat1.put(TemplateConstants.PATH_EXCLUSIVE_OFFERT, "single exclusive offer");
-        listCat1.put(TemplateConstants.PATH_DESTINATION, "destinations");
-        listCat1.put(TemplateConstants.PATH_SUITE, "single accommodation");
-        listCat1.put(TemplateConstants.PATH_SUITE_VARIATION, "single ship");
-        listCat1.put(TemplateConstants.PAGE_TEMPLATE_EXCURSION, "single excursion");
-        listCat1.put(TemplateConstants.PATH_SHIP, "single ship");
-        listCat1.put(TemplateConstants.PATH_DINING, "single onboard");
-        listCat1.put(TemplateConstants.PATH_PUBLIC_AREA, "single public areas");
-        listCat1.put(TemplateConstants.PATH_VOYAGE_JOURNAL, "voyage journals");
-        listCat1.put(TemplateConstants.PATH_PRESS_RELEASE, "press releases");
-        listCat1.put(TemplateConstants.PATH_FEATURE, "single onboard");
-        listCat1.put(TemplateConstants.PAGE_TEMPLATE_PORT, "single port");
-        listCat1.put(TemplateConstants.PATH_BLOG_POST, "blog");
-        listCat1.put(TemplateConstants.PATH_KEY_PEPOLE, "single onboard");
-        listCat1.put(TemplateConstants.PATH_VOYAGE_JOURNAL_DAY, "voyage journals");
-        listCat1.put(TemplateConstants.PATH_PUBLIC_AREA_VARIATION, "single ship");
-        listCat1.put(TemplateConstants.PAGE_TEMPLATE_LAND_PROGRAM, "single land programmes");
-        listCat1.put(TemplateConstants.PATH_DINING_VARIATION, "single ship");
-        listCat1.put(TemplateConstants.PAGE_TEMPLATE_PAGE, "editorial pages");
+		listCat1 = new HashMap<>();
+		listCat1.put(TemplateConstants.VOYAGE, "voyages");
+		listCat1.put(TemplateConstants.EXCLUSIVE_OFFERT, "single exclusive offer");
+		listCat1.put(TemplateConstants.DESTINATION, "destinations");
+		listCat1.put(TemplateConstants.SUITE, "single accommodation");
+		listCat1.put(TemplateConstants.SUITE_VARIATION, "single ship");
+		listCat1.put(TemplateConstants.EXCURSION, "single excursion");
+		listCat1.put(TemplateConstants.SHIP, "single ship");
+		listCat1.put(TemplateConstants.DINING, "single onboard");
+		listCat1.put(TemplateConstants.PUBLIC_AREA, "single public areas");
+		listCat1.put(TemplateConstants.VOYAGE_JOURNAL, "voyage journals");
+		listCat1.put(TemplateConstants.PRESS_RELEASE, "press releases");
+		listCat1.put(TemplateConstants.FEATURE, "single onboard");
+		listCat1.put(TemplateConstants.PORT, "single port");
+		listCat1.put(TemplateConstants.BLOG_POST, "blog");
+		listCat1.put(TemplateConstants.KEY_PEPOLE, "single onboard");
+		listCat1.put(TemplateConstants.VOYAGE_JOURNAL_DAY, "voyage journals");
+		listCat1.put(TemplateConstants.PUBLIC_AREA_VARIATION, "single ship");
+		listCat1.put(TemplateConstants.LANDPROGRAM, "single land programmes");
+		listCat1.put(TemplateConstants.DINING_VARIATION, "single ship");
+		listCat1.put(TemplateConstants.PAGE, "editorial pages");
 
-        //TODO Remove getCurrentTemplate and remplace it bay getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
-        if (getCurrentPage().getTemplate().getPath() != null && pageCategory1.equals("")) {
-            String value = listCat1.get(getCurrentPage().getTemplate().getPath());
-            if (value != null) {
-                pageCategory1 = value;
-            }
-        }
-        if (pageCategory1.equals("")) {
-            pageCategory1 = getCurrentPage().getTemplate().getName();
-        }
+		// TODO Remove getCurrentTemplate and remplace it bay
+		// getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
+		if (pageCategory1.equals("")) {
+			String value = listCat1.get(getCurrentPage().getContentResource().getResourceType());
+			if (value != null) {
+				pageCategory1 = value;
+			} else {
+				pageCategory1 = StringUtils
+						.substringAfterLast(getCurrentPage().getProperties().get("cq:template", String.class), "/");
+			}
+		}
 
-        // CAT2
-        if (getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_KEY_PEPOLE)) {
-            if (pageCategory2.equals("")) {
-                pageCategory2 = "enrichments";
-            }
-        }
-        if (getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_SUITE_VARIATION)) {
-            if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
-            }
-            if (pageCategory3.equals("")) {
-                pageCategory3 = "suites";
-            }
-        }
-        if (getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_PUBLIC_AREA_VARIATION)) {
-            if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
-            }
-            if (pageCategory3.equals("")) {
-                pageCategory3 = "public areas";
-            }
-        }
-        if (getCurrentPage().getTemplate().getPath().equals(TemplateConstants.PATH_DINING_VARIATION)) {
-            if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
-            }
-            if (pageCategory3.equals("")) {
-                pageCategory3 = "dining";
-            }
-        }
-        if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
-            pageCategory2 = getCurrentPage().getName();
-        }
-        /**
-         * media
-         */
-        // TODO récuperer la bonne market
-        // geoLoc = "UK";
-        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-        contry = GeolocationHelper.getCountryCode(getRequest());
-        if (contry != null) {
-            geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
-        } else {
-            contry = "US";
-        }
+		// CAT2
+		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.KEY_PEPOLE)) {
+			if (pageCategory2.equals("")) {
+				pageCategory2 = "enrichments";
+			}
+		}
+		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.SUITE_VARIATION)) {
+			if (pageCategory2.equals("")) {
+				pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+			}
+			if (pageCategory3.equals("")) {
+				pageCategory3 = "suites";
+			}
+		}
+		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.PUBLIC_AREA_VARIATION)) {
+			if (pageCategory2.equals("")) {
+				pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+			}
+			if (pageCategory3.equals("")) {
+				pageCategory3 = "public areas";
+			}
+		}
+		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.DINING_VARIATION)) {
+			if (pageCategory2.equals("")) {
+				pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+			}
+			if (pageCategory3.equals("")) {
+				pageCategory3 = "dining";
+			}
+		}
+		if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
+			pageCategory2 = getCurrentPage().getName();
+		}
+		/**
+		 * media
+		 */
+		// TODO récuperer la bonne market
+		// geoLoc = "UK";
+		TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+		contry = GeolocationHelper.getCountryCode(getRequest());
+		if (contry != null) {
+			geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
+		} else {
+			contry = "US";
+		}
 
         if (geoLoc != null) {
             geoLoc = geoLoc.toUpperCase();

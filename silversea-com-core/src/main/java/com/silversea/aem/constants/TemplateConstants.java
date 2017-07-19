@@ -31,4 +31,29 @@ public interface TemplateConstants {
     String PATH_DINING_VARIATION = "/apps/silversea/silversea-com/templates/diningvariation";
     String PATH_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
     String PATH_PAGE_PORT = "/apps/silversea/silversea-com/templates/portslist";
+    
+    //resource Type
+    String PAGE = "silversea/silversea-com/components/pages/page";
+    String DESTINATION = "silversea/silversea-com/components/pages/destination";
+    String VOYAGE = "silversea/silversea-com/components/pages/cruise";
+    String EXCLUSIVE_OFFERT = "silversea/silversea-com/components/pages/exclusiveoffer";
+    String SUITE = "silversea/silversea-com/components/pages/suite";
+    String SUITE_VARIATION = "silversea/silversea-com/components/pages/suitevariation";
+    String EXCURSION = "silversea/silversea-com/components/pages/excursion";
+    String SHIP = "silversea/silversea-com/components/pages/ship";
+    String DINING = "silversea/silversea-com/components/pages/dining";
+    String PUBLIC_AREA = "silversea/silversea-com/components/pages/publicarea";
+    String VOYAGE_JOURNAL = "silversea/silversea-com/components/pages/voyagejournal";
+    String PRESS_RELEASE = "silversea/silversea-com/components/pages/pressrelease";
+    String FEATURE = "silversea/silversea-com/components/pages/feature";
+    String PORT = "silversea/silversea-com/components/pages/port";
+    String BLOG_POST = "silversea/silversea-com/components/pages/blogpost";
+    String KEY_PEPOLE = "silversea/silversea-com/components/pages/keypeople";
+    String VOYAGE_JOURNAL_DAY = "silversea/silversea-com/components/pages/voyagejournalsday";
+    String PUBLIC_AREA_VARIATION = "silversea/silversea-com/components/pages/publicareavariation";
+    String LANDPROGRAM = "silversea/silversea-com/components/pages/landprogram";
+    String DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
+    String HOTEL = "silversea/silversea-com/components/pages/hotel";
+    String TRAVEL_AGENCY = "silversea/silversea-com/components/pages/travelagency";
+    String PAGE_PORT = "silversea/silversea-com/components/pages/portslist";
 }
