@@ -25,6 +25,49 @@
                 top: 0;
                 width: 100%;
             }
+
+            .flag {
+                color: @white;
+                display: block;
+                left: 0;
+                height: 75px;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                transform: rotate(-45deg);
+                width: 75px;
+
+                &:before {
+                    border-top: 75px solid @black;
+                    border-right: 75px solid transparent;
+                    content: " ";
+                    display: block;
+                    height: 0;
+                    position: absolute;
+                    transform: rotate(45deg);
+                    width: 0;
+                }
+
+                &__icon, &__text {
+                    display: block;
+                    margin: 0 auto;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                &__icon {
+                    font-size: 16px;
+                    margin-bottom: 2px;
+                }
+
+                &__text {
+                    font-size: 8px;
+                    font-weight: 600;
+                    line-height: 1;
+                    text-transform: uppercase;
+                    width: 72px;
+                }
+            }
         }
 
         &__content {
@@ -64,19 +107,48 @@
     @media screen and (max-width: @screen-sm) {
         &__result {
             font-size: 12px;
+            float: left;
             margin-bottom: 16px;
-            transition: background-color .3s ease-in-out;
+            width: 50%;
 
-            &:hover {
-                background-color: @grey--d9;
+            &:nth-child(odd) {
+                clear: both;
+                padding-right: 8px;
+            }
+
+            &:nth-child(even) {
+                padding-left: 8px;
             }
 
             &__wrapper {
                 border: 1px solid @grey--d3;
+                transition: background-color .3s ease-in-out;
+
+                &:hover{
+                    background-color: @grey--d9;
+                }
             }
 
             &__image {
                 padding-top: 50%;
+
+                .flag {
+                    height: 82px;
+                    left: auto;
+                    right: 0;
+                    transform: rotate(45deg);
+                    width: 82px;
+
+                    &:before {
+                        border-top: 82px solid @black;
+                        border-right: 85px solid transparent;
+                        transform: rotate(45deg);
+                    }
+
+                    &__text {
+                        font-size: 9px;
+                    }
+                }
             }
 
             &__content {
@@ -106,14 +178,14 @@
 
                 &__summary {
                     border: 1px solid @grey--c;
+                    display: flex;
                     letter-spacing: -0.3px;
                     margin-top: 7px;
                     text-align: center;
 
                     &__item {
-                        float: left;
                         padding: 13px 5px 9px;
-                        width: calc(100% / 3);
+                        width: 100% / 3;
 
                         &:not(:last-child) {
                             border-right: 1px solid @grey--c;
@@ -174,6 +246,17 @@
                         sont-weight: 600;
                     }
                 }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-xs) {
+        &__result {
+            float: none;
+            width: 100%;
+
+            &:nth-child(odd), &:nth-child(even) {
+                padding: 0;
             }
         }
     }
@@ -341,6 +424,10 @@
                 .price-suffixe {
                     color: @white;
                 }
+            }
+
+            .flag {
+                display: none;
             }
 
             &__content {
