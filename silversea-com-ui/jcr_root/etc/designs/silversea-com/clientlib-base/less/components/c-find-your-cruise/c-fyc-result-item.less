@@ -5,6 +5,16 @@
     }
 
     &__result {
+        position: relative;
+
+        &__link {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
         &__wrapper {
             cursor: pointer;
         }
@@ -82,6 +92,11 @@
                 .cruise-type {
                     color: @red-expedition;
                 }
+            }
+
+            &__button {
+                position: relative;
+                z-index: 1;
             }
 
             &__price {
