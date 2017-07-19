@@ -103,7 +103,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             //Update import starategy
             else{
                 String lastModificationDate = ImporterUtils.getDateFromPageProperties(destinationsPage,"lastModificationDate");
-                updateStrategy(lastModificationDate);
+                updateStrategy("20160101");
             }
             //Save date of last modification
             ImporterUtils.saveUpdateDate(destinationsPage);
@@ -244,11 +244,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                             updateProperties(destPage, voyage);
                             cleanNodes(destPage,update);
                             //Update itineraries nodes
-                            ImporterUtils.copyNode(page,destPath, ImportersConstants.ITINERARIES_NODE, workspace);
+                            ImporterUtils.copyNode(page,destPath.concat("/"+ImportersConstants.ITINERARIES_NODE), ImportersConstants.ITINERARIES_NODE, workspace);
                             //Update suites nodes
-                            ImporterUtils.copyNode(page,destPath, ImportersConstants.SUITES_NODE, workspace);
+                            ImporterUtils.copyNode(page,destPath.concat("/"+ImportersConstants.SUITES_NODE), ImportersConstants.SUITES_NODE, workspace);
                             //Update lowest prices
-                            ImporterUtils.copyNode(page,destPath, ImportersConstants.LOWEST_PRICES_NODE, workspace);
+                            ImporterUtils.copyNode(page,destPath.concat("/"+ImportersConstants.LOWEST_PRICES_NODE), ImportersConstants.LOWEST_PRICES_NODE, workspace);
                             //Updates cruise reference 
                             // exclusive offers,ship,port,suites,excursions,landprograms,hotels
                             updateReferences(destPage,language);

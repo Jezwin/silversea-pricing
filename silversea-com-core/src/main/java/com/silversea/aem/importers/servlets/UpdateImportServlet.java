@@ -51,7 +51,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private ShoreExcursionsImporter updateImportShoreExcursion;
 
     @Reference
-    private CruisesUpdateImporter cruisesUpdateImporter;
+    private CruisesImporter cruisesImporter;
 
     @Reference
     private TravelAgenciesUpdateImporter updateTravalAgencies;
@@ -232,7 +232,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 // }
                 //
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesUpdateImporter.importData();
+                    cruisesImporter.importData(true);
                     response.getWriter().write("Cruises import Done<br/>");
                     response.getWriter().flush();
                 }
