@@ -226,7 +226,7 @@ public class ImporterUtils {
             if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
                 Resource child = resource.getChild(nodeName);
                 if (child != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(child)) {
-                    LOGGER.debug("Remove node {}", page.getPath());
+                    LOGGER.debug("Remove node {}", page.getPath()+"/"+nodeName);
                     Node node = child.adaptTo(Node.class);
                     node.remove();
                     // Persist data

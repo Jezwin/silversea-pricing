@@ -79,7 +79,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
 
     private LowestPrice lowestPrice;
     private Set<String> cruises; 
-    private Set<Integer> segments;
+    private Set<String> segments;
     private Workspace workspace;
 
     private void init() throws LoginException {
@@ -100,6 +100,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             initDiffSet(update);
             List<SpecialVoyage> specialVoyages = apiCallService.getSpecialVoyages();
             processData(specialVoyages,update); 
+            excuteUpdate(update);
             ImporterUtils.saveSession(session, false);
             LOGGER.debug("Combo Cruise importer -- Importing data finished");
 
@@ -115,10 +116,10 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     private void initDiffSet(boolean update){
         if(update){
             cruises = new HashSet<String>();
-            segments = new HashSet<Integer>();
+            segments = new HashSet<String>();
         }
     }
-    private <T> void updateSet(boolean update,Set<T> set, T element){
+    private void updateSet(boolean update,Set<String> set, String element){
         if(update && set != null){
             set.add(element);
         }
@@ -149,8 +150,6 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                         ImporterUtils.saveSession(session, false);
                         //TODO:Replicate page with segments
                         //cruiseService.replicatePageWithChildren(cruisePage);
-                        //Deactivate pages that no longer exist 
-                        calculatePagesDiff(update);
                         //Update page in other languages
                         updateLanguages(cruisePage, update,specialVoyage);
                         LOGGER.debug("Combo cruise importer -- Import cruise with id {} finished",specialVoyage.getSpecialVoyageId());
@@ -192,7 +191,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                     //Update node's properties
                     jcrContent.setProperty("cruiseReference", cruiseReference);
                     jcrContent.setProperty("CruiseSegmentId", segementId);
-                    updateSet(update,segments,voyage.getVoyageId());
+                    updateSet(update,segments,segementId);
                 }
             }
             LOGGER.debug("Combo cruise -- Updating segments finished");
@@ -297,31 +296,33 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         }
     }
       
-    private void calculatePagesDiff(boolean update) throws RepositoryException{
-        List<Page> pages = cruiseService.getPagesByResourceType(ImportersConstants.COMBO_CRUISE_RESOURCE_TYPE);
-        if(pages != null && !pages.isEmpty() && update){
-            LOGGER.debug("Combo Cruise importer -- Start calculate diff");
-            pages.forEach(page ->{
-                
-              String comboCruiseId = page.getProperties().get("comboCruiseCode",String.class);
-              if(!cruises.contains(comboCruiseId)){
-                  LOGGER.debug("Combo Cruise importer -- Combo cruise with id {} no longer exists",comboCruiseId);
-                  cruiseService.updateReplicationStatus(true, false, page);
-              }
-              else{
-                  Iterator<Page> children = page.listChildren();
-                  while(children.hasNext()){
-                      Page segement = children.next();
-                      Integer cruiseSegmentId = segement.getProperties().get("CruiseSegmentId",Integer.class);
-                      if(!segments.contains(cruiseSegmentId)){
-                          LOGGER.debug("Combo Cruise importer -- Segement page with id {} no longer exists",cruiseSegmentId);
-                          cruiseService.updateReplicationStatus(true, false, segement);
-                      }
-                  }
-              }
-            });
-            ImporterUtils.saveSession(session, false);
-            LOGGER.debug("Combo Cruise importer -- Finish combo cruises diff");
+    private void calculatePagesDiff(boolean update,String language) throws RepositoryException{
+        if(update){
+            List<Page> pages = cruiseService.getPagesByResourceType(ImportersConstants.COMBO_CRUISE_RESOURCE_TYPE,language);
+            if(pages != null && !pages.isEmpty()){
+                LOGGER.debug("Combo Cruise importer -- Start calculate diff");
+                pages.forEach(page ->{
+
+                    String comboCruiseId = page.getProperties().get("comboCruiseCode",String.class);
+                    if(!cruises.contains(comboCruiseId)){
+                        LOGGER.debug("Combo Cruise importer -- Combo cruise with id {} no longer exists",comboCruiseId);
+                        cruiseService.updateReplicationStatus(true, false, page);
+                    }
+                    else{
+                        Iterator<Page> children = page.listChildren();
+                        while(children.hasNext()){
+                            Page segement = children.next();
+                            String cruiseSegmentId = segement.getProperties().get("CruiseSegmentId",String.class);
+                            if(!segments.contains(cruiseSegmentId)){
+                                LOGGER.debug("Combo Cruise importer -- Segement page with id {} no longer exists",cruiseSegmentId);
+                                cruiseService.updateReplicationStatus(true, false, segement);
+                            }
+                        }
+                    }
+                });
+                ImporterUtils.saveSession(session, false);
+                LOGGER.debug("Combo Cruise importer -- Finish combo cruises diff");
+            }
         }
     }
     
@@ -338,17 +339,20 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                         LOGGER.debug("Combo Cruise importer -- Updtae to language [{}] , destination path [{}]",language,destPath);
                         Page destPage =  pageManager.getPage(destPath);
                         if(update && destPage != null){
+                            String suitesPath = destPath.concat("/"+ImportersConstants.SUITES_NODE);
+                            String lowestPricesPath = destPath.concat("/"+ImportersConstants.LOWEST_PRICES_NODE);
                             updateCruisePage(destPage, voyage,update); 
                             cleanSegments(destPage);
-                            cleanNodes(destPage,update);
+                            //copy segments
+                            copySegements(page,language);
+                            cleanNodes(destPage,update);                   
                             //Update suites nodes
-                            ImporterUtils.copyNode(page,destPath, ImportersConstants.SUITES_NODE, workspace);
+                            ImporterUtils.copyNode(page,suitesPath, ImportersConstants.SUITES_NODE, workspace);
                             //Update lowest prices
-                            ImporterUtils.copyNode(page,destPath, ImportersConstants.LOWEST_PRICES_NODE, workspace);
+                            ImporterUtils.copyNode(page,lowestPricesPath, ImportersConstants.LOWEST_PRICES_NODE, workspace);
                             //Updates cruise reference 
                             // exclusive offers,ship,port,suites,excursions,landprograms,hotels
                             updateReferences(destPage,language);
-                            //TODO: Calculate diff
                         }
                         else{
                             workspace.copy(path, destPath);
@@ -365,6 +369,19 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         LOGGER.debug("Combo Cruise importer -- Finish updates page [{}] in other languages",page.getPath());
     }
     
+    private void excuteUpdate(boolean update){
+        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        if(languages != null && !languages.isEmpty()){
+            languages.forEach(language ->{
+                try {
+                    calculatePagesDiff(update, language);
+                } catch (RepositoryException e) {
+                    LOGGER.debug("Error while updating pages");
+                }
+            });
+        }  
+    }
+    
     private void cleanNodes(Page cruisePage,boolean update) throws RepositoryException{
         if(update){
             ImporterUtils.clean(cruisePage,ImportersConstants.SUITES_NODE,session);
@@ -372,17 +389,36 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         }
     }
     
-    private void cleanSegments(Page page) {
+    private void cleanSegments(Page page) throws RepositoryException {
         Iterator<Page> children = page.listChildren();
         if(children != null){
             children.forEachRemaining(element ->{
-                try {
-                    pageManager.delete(element,true);
-                } catch (WCMException e) {
+                try {      
+                    Node node = element.adaptTo(Node.class);
+                    LOGGER.debug("Combo Cruise importer -- Remove segment {}",node.getPath());
+                    node.remove();
+                } catch (RepositoryException e) {
                    LOGGER.error("Error while deleting segments",e);
                 }
             });
+            ImporterUtils.saveSession(session, false);
         } 
+    }
+    
+    private void copySegements(Page page,String language){
+        Iterator<Page> children = page.listChildren();
+        if(children != null){
+            children.forEachRemaining(element ->{
+                try {      
+                    String srcPath = element.getPath();
+                    String dest = formatPathByLanguage(srcPath, language);
+                    LOGGER.debug("Combo Cruise importer -- Copy segment to [{}]",dest);
+                    workspace.copy(srcPath,dest);
+                } catch (RepositoryException e) {
+                   LOGGER.error("Error while deleting segments",e);
+                }
+            });
+        }
     }
     
     private void updateReferences(Page page,String language) throws RepositoryException{
