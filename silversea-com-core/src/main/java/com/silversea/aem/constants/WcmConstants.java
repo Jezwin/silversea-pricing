@@ -38,7 +38,24 @@ public interface WcmConstants {
     String RT_EXCURSIONS = "silversea/silversea-com/components/pages/excursion";
     String RT_TRAVEL_AGENT = "silversea/silversea-com/components/pages/travelagency";
     String RT_EXCLUSIVE_OFFER = "silversea/silversea-com/pages/exclusiveoffer";
-
+    String RT_PAGE = "silversea/silversea-com/components/pages/page";
+    String RT_VOYAGE = "silversea/silversea-com/components/pages/cruise";
+    String RT_SUITE = "silversea/silversea-com/components/pages/suite";
+    String RT_SUITE_VARIATION = "silversea/silversea-com/components/pages/suitevariation";
+    String RT_SHIP = "silversea/silversea-com/components/pages/ship";
+    String RT_DINING = "silversea/silversea-com/components/pages/dining";
+    String RT_PUBLIC_AREA = "silversea/silversea-com/components/pages/publicarea";
+    String RT_VOYAGE_JOURNAL = "silversea/silversea-com/components/pages/voyagejournal";
+    String RT_PRESS_RELEASE = "silversea/silversea-com/components/pages/pressrelease";
+    String RT_FEATURE = "silversea/silversea-com/components/pages/feature";
+    String RT_PORT = "silversea/silversea-com/components/pages/port";
+    String RT_BLOG_POST = "silversea/silversea-com/components/pages/blogpost";
+    String RT_KEY_PEPOLE = "silversea/silversea-com/components/pages/keypeople";
+    String RT_VOYAGE_JOURNAL_DAY = "silversea/silversea-com/components/pages/voyagejournalsday";
+    String RT_PUBLIC_AREA_VARIATION = "silversea/silversea-com/components/pages/publicareavariation";
+    String RT_DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
+    String RT_PAGE_PORT = "silversea/silversea-com/components/pages/portslist";
+    
     // Node name
     String NN_DEFAULT = "default";
     String NN_PHONE = "phone";

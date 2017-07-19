@@ -62,8 +62,8 @@ public class DataLayerUse extends WCMUsePojo {
         userLanguage = locale.getLanguage();
 
         userContry = GeolocationHelper.getCountryCode(getRequest());
-        if(userContry == null){
-        	userContry = "US";
+        if (userContry == null) {
+            userContry = "US";
         }
 
         ResourceResolver resourceResolver = getRequest().getResourceResolver();
@@ -80,85 +80,85 @@ public class DataLayerUse extends WCMUsePojo {
         if (getCurrentPage().getProperties().get("pageCategory3") != null)
             pageCategory3 = getCurrentPage().getProperties().get("pageCategory3").toString();
 
-		listCat1 = new HashMap<>();
-		listCat1.put(TemplateConstants.VOYAGE, "voyages");
-		listCat1.put(TemplateConstants.EXCLUSIVE_OFFERT, "single exclusive offer");
-		listCat1.put(TemplateConstants.DESTINATION, "destinations");
-		listCat1.put(TemplateConstants.SUITE, "single accommodation");
-		listCat1.put(TemplateConstants.SUITE_VARIATION, "single ship");
-		listCat1.put(TemplateConstants.EXCURSION, "single excursion");
-		listCat1.put(TemplateConstants.SHIP, "single ship");
-		listCat1.put(TemplateConstants.DINING, "single onboard");
-		listCat1.put(TemplateConstants.PUBLIC_AREA, "single public areas");
-		listCat1.put(TemplateConstants.VOYAGE_JOURNAL, "voyage journals");
-		listCat1.put(TemplateConstants.PRESS_RELEASE, "press releases");
-		listCat1.put(TemplateConstants.FEATURE, "single onboard");
-		listCat1.put(TemplateConstants.PORT, "single port");
-		listCat1.put(TemplateConstants.BLOG_POST, "blog");
-		listCat1.put(TemplateConstants.KEY_PEPOLE, "single onboard");
-		listCat1.put(TemplateConstants.VOYAGE_JOURNAL_DAY, "voyage journals");
-		listCat1.put(TemplateConstants.PUBLIC_AREA_VARIATION, "single ship");
-		listCat1.put(TemplateConstants.LANDPROGRAM, "single land programmes");
-		listCat1.put(TemplateConstants.DINING_VARIATION, "single ship");
-		listCat1.put(TemplateConstants.PAGE, "editorial pages");
+        listCat1 = new HashMap<>();
+        listCat1.put(WcmConstants.RT_VOYAGE, "voyages");
+        listCat1.put(WcmConstants.RT_EXCLUSIVE_OFFER, "single exclusive offer");
+        listCat1.put(WcmConstants.RT_DESTINATION, "destinations");
+        listCat1.put(WcmConstants.RT_SUITE, "single accommodation");
+        listCat1.put(WcmConstants.RT_SUITE_VARIATION, "single ship");
+        listCat1.put(WcmConstants.RT_EXCURSIONS, "single excursion");
+        listCat1.put(WcmConstants.RT_SHIP, "single ship");
+        listCat1.put(WcmConstants.RT_DINING, "single onboard");
+        listCat1.put(WcmConstants.RT_PUBLIC_AREA, "single public areas");
+        listCat1.put(WcmConstants.RT_VOYAGE_JOURNAL, "voyage journals");
+        listCat1.put(WcmConstants.RT_PRESS_RELEASE, "press releases");
+        listCat1.put(WcmConstants.RT_FEATURE, "single onboard");
+        listCat1.put(WcmConstants.RT_PORT, "single port");
+        listCat1.put(WcmConstants.RT_BLOG_POST, "blog");
+        listCat1.put(WcmConstants.RT_KEY_PEPOLE, "single onboard");
+        listCat1.put(WcmConstants.RT_VOYAGE_JOURNAL_DAY, "voyage journals");
+        listCat1.put(WcmConstants.RT_PUBLIC_AREA_VARIATION, "single ship");
+        listCat1.put(WcmConstants.RT_LAND_PROGRAMS, "single land programmes");
+        listCat1.put(WcmConstants.RT_DINING_VARIATION, "single ship");
+        listCat1.put(WcmConstants.RT_PAGE, "editorial pages");
 
-		// TODO Remove getCurrentTemplate and remplace it bay
-		// getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
-		if (pageCategory1.equals("")) {
-			String value = listCat1.get(getCurrentPage().getContentResource().getResourceType());
-			if (value != null) {
-				pageCategory1 = value;
-			} else {
-				pageCategory1 = StringUtils
-						.substringAfterLast(getCurrentPage().getProperties().get("cq:template", String.class), "/");
-			}
-		}
+        // TODO Remove getCurrentTemplate and remplace it bay
+        // getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
+        if (pageCategory1.equals("")) {
+            String value = listCat1.get(getCurrentPage().getContentResource().getResourceType());
+            if (value != null) {
+                pageCategory1 = value;
+            } else {
+                pageCategory1 = StringUtils
+                        .substringAfterLast(getCurrentPage().getProperties().get("cq:template", String.class), "/");
+            }
+        }
 
-		// CAT2
-		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.KEY_PEPOLE)) {
-			if (pageCategory2.equals("")) {
-				pageCategory2 = "enrichments";
-			}
-		}
-		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.SUITE_VARIATION)) {
-			if (pageCategory2.equals("")) {
-				pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
-			}
-			if (pageCategory3.equals("")) {
-				pageCategory3 = "suites";
-			}
-		}
-		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.PUBLIC_AREA_VARIATION)) {
-			if (pageCategory2.equals("")) {
-				pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
-			}
-			if (pageCategory3.equals("")) {
-				pageCategory3 = "public areas";
-			}
-		}
-		if (getCurrentPage().getContentResource().isResourceType(TemplateConstants.DINING_VARIATION)) {
-			if (pageCategory2.equals("")) {
-				pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
-			}
-			if (pageCategory3.equals("")) {
-				pageCategory3 = "dining";
-			}
-		}
-		if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
-			pageCategory2 = getCurrentPage().getName();
-		}
-		/**
-		 * media
-		 */
-		// TODO récuperer la bonne market
-		// geoLoc = "UK";
-		TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-		contry = GeolocationHelper.getCountryCode(getRequest());
-		if (contry != null) {
-			geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
-		} else {
-			contry = "US";
-		}
+        // CAT2
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_KEY_PEPOLE)) {
+            if (pageCategory2.equals("")) {
+                pageCategory2 = "enrichments";
+            }
+        }
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_SUITE_VARIATION)) {
+            if (pageCategory2.equals("")) {
+                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+            }
+            if (pageCategory3.equals("")) {
+                pageCategory3 = "suites";
+            }
+        }
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_PUBLIC_AREA_VARIATION)) {
+            if (pageCategory2.equals("")) {
+                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+            }
+            if (pageCategory3.equals("")) {
+                pageCategory3 = "public areas";
+            }
+        }
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_DINING_VARIATION)) {
+            if (pageCategory2.equals("")) {
+                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+            }
+            if (pageCategory3.equals("")) {
+                pageCategory3 = "dining";
+            }
+        }
+        if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
+            pageCategory2 = getCurrentPage().getName();
+        }
+        /**
+         * media
+         */
+        // TODO récuperer la bonne market
+        // geoLoc = "UK";
+        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        contry = GeolocationHelper.getCountryCode(getRequest());
+        if (contry != null) {
+            geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
+        } else {
+            contry = "US";
+        }
 
         if (geoLoc != null) {
             geoLoc = geoLoc.toUpperCase();
@@ -190,8 +190,9 @@ public class DataLayerUse extends WCMUsePojo {
                 adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
                 adwords_format = "2";
             }
-            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwords_conversion_label, adwords_format, adwords_value, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127",
-                    "GSvQCJnls1wQl5v74wM", "1000698659832", "39634");
+            media = new MediaDataLayer("US", "US", "337dc751", "1014943127", adwords_conversion_label, adwords_format,
+                    adwords_value, "1014943127", "6sX6CLfmsFwQl5v74wM", "1014943127", "GSvQCJnls1wQl5v74wM",
+                    "1000698659832", "39634");
         }
 
         if (geoLoc.equals("LAM") || (geoLoc.equals("FT") && (!contry.equals("US") && !contry.equals("CA")))) {
@@ -215,8 +216,9 @@ public class DataLayerUse extends WCMUsePojo {
                 adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwords_conversion_label, adwords_format, adwords_value, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017",
-                    "c5paCPzos1wQ2cHp1QM", "1000698659832", "39634");
+            media = new MediaDataLayer("LAM", "LAM", "337dc751", "985293017", adwords_conversion_label, adwords_format,
+                    adwords_value, "985293017", "19tjCL3os1wQ2cHp1QM", "985293017", "c5paCPzos1wQ2cHp1QM",
+                    "1000698659832", "39634");
         }
 
         if (geoLoc.equals("AP") || geoLoc.equals("AS")) {
@@ -240,8 +242,9 @@ public class DataLayerUse extends WCMUsePojo {
                 adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwords_conversion_label, adwords_format, adwords_value, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676",
-                    "2n1oCOrpsFwQ1MDT0AM", "1000698659832", "39634");
+            media = new MediaDataLayer("AP", "AP", "337dc751", "974446676", adwords_conversion_label, adwords_format,
+                    adwords_value, "974446676", "4DSFCNLmsFwQ1MDT0AM", "974446676", "2n1oCOrpsFwQ1MDT0AM",
+                    "1000698659832", "39634");
         }
 
         if (geoLoc.equals("UK")) {
@@ -265,8 +268,9 @@ public class DataLayerUse extends WCMUsePojo {
                 adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwords_conversion_label, adwords_format, adwords_value, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608",
-                    "RzaaCPWMsFwQgL_7yAM", "1000698659832", "39634");
+            media = new MediaDataLayer("UK", "UK", "337dc751", "958324608", adwords_conversion_label, adwords_format,
+                    adwords_value, "958324608", "I_N0CIiOsFwQgL_7yAM", "958324608", "RzaaCPWMsFwQgL_7yAM",
+                    "1000698659832", "39634");
         }
 
         if (geoLoc.equals("EMEA") || geoLoc.equals("EU")) {
@@ -290,7 +294,8 @@ public class DataLayerUse extends WCMUsePojo {
                 adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
                 adwords_format = "3";
             }
-            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwords_conversion_label, adwords_format, adwords_value, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
+            media = new MediaDataLayer("EMEA", "EMEA", "337dc751", "974176588", adwords_conversion_label,
+                    adwords_format, adwords_value, "974176588", "uPZUCPPpsFwQzILD0AM", "974176588",
                     "Z58tCPSRsFwQzILD0AM", "1000698659832", "39634");
         }
 
