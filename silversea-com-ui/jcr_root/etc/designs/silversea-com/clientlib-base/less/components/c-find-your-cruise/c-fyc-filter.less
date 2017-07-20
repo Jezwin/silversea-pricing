@@ -1,123 +1,59 @@
-#additionalFilters {
-    position: relative;
+.c-fyc-filter {
+    &__header {
+        position: relative;
+    }
 
-    > .filter-action {
-        border-bottom: 1px solid @black;
-        color: black;
+    &__action {
+        border-bottom: 1px solid;
+        color: @black;
         font-size: 12px;
         font-weight: 700;
         position: absolute;
-        text-transform: uppercase;
         top: 7px;
-        cursor: pointer;
 
         @media screen and (max-width: @screen-sm) {
-            margin: 28px auto 17px;
-            max-width: 100%;
-            width: 100%;
-            border-bottom: 0;
-            display: block;
-            position: relative;
-            top: 0;
-            text-align: center;
-            text-decoration: underline;
-        }
-    }
+            border: none;
+            margin-top: 28px;
+            position: static;
 
-    .header-h3 {
-        color: #252525;
-        font-size: 22px;
-        margin-bottom: 0;
-        margin-top: 0;
-        font: 20px Theanodidot;
-        text-align: center;
-        text-transform: uppercase;
-
-        .matching-title {
-            display: block;
-            text-transform: uppercase;
-            color: #252525;
-            font-size: 22px;
-        }
-
-        .matching-wrapper {
-            @media screen and (max-width: @screen-sm) {
-                display: block;
-                padding: 12px 0 21px;
-            }
-
-            .matching-cruises-number {
-                font-family: Arial;
-                font-weight: 700;
-                font-size: 100%;
-                color: @grey--3;
-                display: inline-block;
-
-                #total_cruises {
-                     font-family: Theanodidot;
-                    font-size: 22px;
-
-                    @media screen and (max-width: @screen-md-max) {
-                        font-size: 15px;
-                    }
-
-                    @media screen and (max-width: @screen-sm) {
-                        font-size: 20px;
-                    }
-                }
-            }
-
-            .matching-text {
-                color: @grey--3;
-                display: inline-block;
-                font-size: 22px;
-                font-weight: 300;
-                text-transform: uppercase;
-
-                @media screen and (max-width: @screen-md-max) {
-                    font-size: 15px;
-                    font-weight: 700;
-                }
-
-                @media screen and (max-width: @screen-sm) {
-                    font-size: 20px;
-                    font-weight: 300;
-                }
+            a {
+                text-decoration: underline;
             }
         }
     }
 
-    .filter-flex-title {
-        padding: 0 0 18px;
-        text-align: center;
-        text-transform: uppercase;
-        margin-bottom: 0;
-        color: @black;
-        font-size: 14px;
-        font-weight: 400;
+    &__title {
+        font-family: @f-theano_didot;
+        font-size: 22px
+    }
 
-        #clearButton {
-            text-transform: initial;
-            cursor: pointer;
-            margin-top: -5px;
-            margin-left: 10px;
-            padding: 0 0 19px;
+    &__text {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 15px;
+        font-weight: bold;
 
-            &.no-selection, &.no-selection .clear-selection {
-                color: #ccc;
-                pointer-events: none;
-                cursor: default;
-                text-decoration: none;
+        @media screen and (max-width: @screen-sm) {
+            font-size: 20px;
+            font-weight: normal;
+
+            #matching-value {
+                font-weight: bold;
             }
+        }
+    }
 
-            .clear-selection {
-                border: 0;
+    &__reset {
+        a {
+            color: @grey--b2;
+            cursor: text;
+            font-size: 14px;
+            font-weight: 600;
+
+            &.active {
                 color: @black;
-                position: inherit;
-                top: 45px;
+                cursor: pointer;
                 font-size: 13px;
                 font-weight: 700;
-                line-height: 30px;
                 text-decoration: underline;
             }
         }

@@ -1,26 +1,19 @@
-<div id="additionalFilters" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
-    <span class="filter-action">
-        <i class="fa fa-mail-reply"></i> ${'perform-a-new-search' @ i18n}
-    </span>
-    <div class="header-h3">
-        <span class="matching-title">${'your-search-results' @ i18n} :</span>
-        <span class="matching-wrapper">
-            <span class="matching-cruises-number">
-                <span id="total_cruises">[total cruise number]</span>
+<div class="c-fyc-filter" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+    <div class="c-fyc-filter__header text-center text-uppercase">
+        <p class="c-fyc-filter__action">
+            <i class="fa fa-mail-reply"></i> <a href="#">${'perform-a-new-search' @ i18n}</a>
+        </p>
+        <p>
+            <span class="c-fyc-filter__title">${'your-search-results' @ i18n} :</span><br />
+            <span class="c-fyc-filter__text">
+                <span id="matching-value">[total cruise number]</span> ${'results' @ i18n}
             </span>
-            <span class="matching-text">
-                <span class="hide-on-desctop">${'matching' @ i18n}</span> ${'results' @ i18n}
-            </span>
-        </span>
+        </p>
+        <p class="c-fyc-filter__reset hidden-xs">
+            ${'adjust-your-search-filters' @ i18n}
+            <a href="#"><i class="fa fa-undo"></i> <span class="text-capitalize">${'clear-all-filters' @ i18n}</span></a>
+        </p>
     </div>
-    <div class="filter-flex-title hidden-xs">
-        ${'adjust-your-search-filters' @ i18n}
-        <span id="clearButton" class="no-selection">
-            <i class="fa fa-undo"></i>
-            <a class="filter-action clear-selection">${'clear-all-filters' @ i18n}</a>
-        </span>
-    </div>
-
     <form class="c-find-your-cruise-filter" action="/">
         <div class="filter-flex-wrapper">
             <div class="filter-flex">
