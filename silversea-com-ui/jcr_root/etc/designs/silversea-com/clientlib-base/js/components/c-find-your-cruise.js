@@ -59,8 +59,16 @@ $(function() {
         var resetState, $currentForm = $(this), featureNumber = 0;
 
         $($currentForm.serializeArray()).each(function(i, field) {
+            var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
+
             if (field.value !== 'all') {
                 resetState = true;
+
+                // Highlight filter
+                $fieldwrapper.addClass('active');
+            } else {
+                // Remove highlight filter
+                $fieldwrapper.removeClass('active');
             }
 
             if (field.name === 'features[]') {
@@ -76,16 +84,19 @@ $(function() {
 
         // Show number of feature selected
         var $featureLabel = $currentForm.find('.features-filter').closest('.single-filter').find('.text-selected');
+        var $featureFieldWrapper = $featureLabel.closest('.single-filter');
+
+        // Highlight features filter
         if (featureNumber === 0) {
             $featureLabel.text($featureLabel.data('default-text'));
+            $featureFieldWrapper.removeClass('active');
         } else if (featureNumber === 1) {
             $featureLabel.text(featureNumber + ' ' + $featureLabel.data('feature-text'));
+            $featureFieldWrapper.addClass('active');
         } else {
             $featureLabel.text(featureNumber + ' ' + $featureLabel.data('features-text'));
+            $featureFieldWrapper.addClass('active');
         }
-
-        // Highlight select when its value is not the defaut one
-        // ...
 
         // Do request
         // ...
