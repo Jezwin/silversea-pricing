@@ -185,7 +185,7 @@ public class CruisesImporterImpl implements CruisesImporter {
     }
  
     private void buildCruisePage(Page cruisePage, VoyageWrapper voyage,boolean update) throws RepositoryException, IOException, ApiException{
-        updateProperties(cruisePage, voyage);
+        updateProperties(cruisePage, voyage,false);
         //Clean nodes for diff
         cleanNodes(cruisePage, update);
         // build itineraries nodes
@@ -198,29 +198,34 @@ public class CruisesImporterImpl implements CruisesImporter {
         ImporterUtils.saveSession(session, false);
     }
     
-    private void updateProperties(Page cruisePage, VoyageWrapper voyage)
+    private void updateProperties(Page cruisePage, VoyageWrapper voyage,boolean isCopy)
             throws RepositoryException, IOException, ApiException {
-
-        List<VoyageSpecialOffer> voyageSpecialOffers = apiCallService.getVoyageSpecialOffers(voyage.getVoyageId());
+       
         Node cruisePageContentNode = cruisePage.getContentResource().adaptTo(Node.class);
+        //If is not a copy for other language
+        //Download map url and retrive special offers from api for the first time
+        //It will be the same data for copies in other languages
+        if(!isCopy){
+            List<VoyageSpecialOffer> voyageSpecialOffers = apiCallService.getVoyageSpecialOffers(voyage.getVoyageId());
+            String[] specialOffers = cruiseService.findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId());
+            String mapUrl = cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName()+" "+voyage.getVoyageId());
+            cruisePageContentNode.setProperty("itinerary",mapUrl);
+            cruisePageContentNode.setProperty("exclusiveOffers",specialOffers);
+        }
         cruisePageContentNode.setProperty(JcrConstants.JCR_TITLE, voyage.getVoyageName());
         //set cruise's tags
         cruiseService.setCruiseTags(voyage.getFeatures(),voyage.getVoyageId(),voyage.getIsExpedition(),voyage.getDays(), cruisePage);
         String durationCategory = cruiseService.calculateDurationCategory(voyage.getDays());
-        String mapUrl = cruiseService.downloadAndSaveAsset(voyage.getMapUrl(), voyage.getVoyageName()+" "+voyage.getVoyageId());
-        String[] specialOffers = cruiseService.findSpecialOffersReferences(voyageSpecialOffers, voyage.getVoyageId());
         String shipReference = ImporterUtils.findReference(ImportersConstants.QUERY_CONTENT_PATH, "shipId",
                 Objects.toString(voyage.getShipId()), resourceResolver);
         //Update node properties
         cruisePageContentNode.setProperty("voyageHighlights", voyage.getVoyageHighlights());
-        cruisePageContentNode.setProperty("exclusiveOffers",specialOffers);
         cruisePageContentNode.setProperty("startDate", ImporterUtils.convertToCalendar(voyage.getDepartDate()));
         cruisePageContentNode.setProperty("endDate", ImporterUtils.convertToCalendar(voyage.getArriveDate()));
         cruisePageContentNode.setProperty("duration", voyage.getDays());
         cruisePageContentNode.setProperty("shipReference", shipReference);
         cruisePageContentNode.setProperty("cruiseCode", voyage.getVoyageCod());
         cruisePageContentNode.setProperty("cruiseId", voyage.getVoyageId());
-        cruisePageContentNode.setProperty("itinerary",mapUrl);
         //All properties prefixed by cmp(computed data) are used by search service
         cruisePageContentNode.setProperty("cmp-destinationId", voyage.getDestinationId());
         cruisePageContentNode.setProperty("cmp-ship", voyage.getShipId());
@@ -241,7 +246,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                         LOGGER.debug("Cruise importer -- Updtae to language [{}] , destination path [{}]",language,destPath);
                         Page destPage =  pageManager.getPage(destPath);
                         if(update && destPage != null){
-                            updateProperties(destPage, voyage);
+                            updateProperties(destPage, voyage,true);
                             cleanNodes(destPage,update);
                             //Update itineraries nodes
                             ImporterUtils.copyNode(page,destPath.concat("/"+ImportersConstants.ITINERARIES_NODE), ImportersConstants.ITINERARIES_NODE, workspace);
