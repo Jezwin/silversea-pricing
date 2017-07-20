@@ -10,10 +10,12 @@ import org.apache.sling.api.resource.ResourceResolver;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.services.GeolocationService;
 import com.silversea.aem.services.RunModesService;
 
 /**
@@ -50,7 +52,7 @@ public class DataLayerUse extends WCMUsePojo {
     private String geoLoc;
     String contry;
     private MediaDataLayer media;
-
+    
     @Override
     public void activate() throws Exception {
         /**
@@ -164,11 +166,14 @@ public class DataLayerUse extends WCMUsePojo {
 
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_VOYAGE)) {
             CruiseModel cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
+            GeolocationService geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
+            GeoLocation geoLocation = geolocationService.initGeolocation(getRequest());
+            cruiseModel.initByGeoLocation(geoLocation);
             destinationId = getCurrentPage().getProperties().get("cmp-destinationId").toString();
             destinationName = getCurrentPage().getParent().getName();
             voyageId = getCurrentPage().getProperties().get("cruiseId").toString();
-            departureDay = getCurrentPage().getProperties().get("startDate").toString();
-            voyageDuration = getCurrentPage().getProperties().get("duration").toString();
+            departureDay = cruiseModel.getStartDate().getTime().toString();
+            voyageDuration = cruiseModel.getDuration();
             
             voyageDepartureHarbor =  cruiseModel.getDeparturePortName(); 
             voyageArrivalHarbor = cruiseModel.getArrivalPortName();   
@@ -176,8 +181,12 @@ public class DataLayerUse extends WCMUsePojo {
             
             shipName = StringUtils
                     .substringAfterLast(getCurrentPage().getProperties().get("shipReference", String.class), "/");
+            String price = cruiseModel.getLowestPrice().getValue();
+            String currency = cruiseModel.getLowestPrice().getCurrency();
+            if(price !=null && currency !=null){
+                revenue = price+"-"+currency;
+            }
             
-            revenue = cruiseModel.getLowestPrice().getValue()+"-"+cruiseModel.getLowestPrice().getCurrency();
         }
 
         /**
