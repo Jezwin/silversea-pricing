@@ -11,7 +11,6 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.MediaDataLayer;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.services.RunModesService;
