@@ -42,4 +42,49 @@ $(function() {
             }
         });
     });
+
+
+    // read/less more variations
+    var variation_block = $('.ship-mobilewrapper'),
+        variationHeight = $('.variationimg img').height() - 70,
+        moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</i></a>',
+        lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</i></a>';
+    
+
+    if ($.viewportDetect() !== "xs") {
+        variation_block.readmore({
+            speed: 75,
+            collapsedHeight: variationHeight ,
+            moreLink: moreLink,
+            lessLink: lessLink
+        });
+    }
+
+    $('.c-cruise .expander-open').on('click', function(e) {
+        if ($.viewportDetect() !== "xs") {
+            variation_block.readmore({
+                speed: 75,
+                collapsedHeight: variationHeight ,
+                moreLink: moreLink,
+                lessLink: lessLink
+            });
+        }
+    });
+
+    // destroy or initialize readmore on window resize
+    $(window).on("resize", function() {
+        if ($.viewportDetect() === "xs") {
+            // Destroy readmore on XS viewport after window resize
+            variation_block.readmore('destroy');
+        } else {
+            var variationNexHeight = $('.variationimg img').height() - 70;
+            variation_block.readmore({
+                speed: 75,
+                collapsedHeight: variationNexHeight ,
+                moreLink: moreLink,
+                lessLink: lessLink
+            });
+        }
+    });
+
 });
