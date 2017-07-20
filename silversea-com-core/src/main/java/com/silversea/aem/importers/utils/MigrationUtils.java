@@ -7,12 +7,17 @@ import com.day.cq.dam.commons.util.S7SetHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import org.apache.sling.api.resource.*;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
+import javax.jcr.*;
+import javax.jcr.lock.LockException;
+import javax.jcr.nodetype.ConstraintViolationException;
+import javax.jcr.nodetype.NoSuchNodeTypeException;
+import javax.jcr.version.VersionException;
 import java.util.*;
 
 /**
@@ -67,7 +72,6 @@ public class MigrationUtils {
                 }
             }
 
-            // Iterating over the cities to update properties
             final Iterator<Resource> pages = resourceResolver.findResources(query, "xpath");
 
             int i = 0;
@@ -134,87 +138,59 @@ public class MigrationUtils {
                         for (final String assetReferencesProperty : assetReferences.keySet()) {
                             final String[] assetReferencesValues = assetReferences.get(assetReferencesProperty);
 
-                            if (assetReferencesValues != null && assetReferencesValues.length > 0) {
-                                try {
-                                    // Image set will be created in the same folder than the first asset
-                                    final String firstAssetInitialPath = assetReferencesValues[0];
-                                    final String firstAssetPath = assetsMapping.get(firstAssetInitialPath);
-
-                                    if (firstAssetPath == null) {
-                                        throw new ImporterException("Cannot find asset in mapping : " + firstAssetInitialPath);
-                                    }
-
-                                    final String folderPath = ResourceUtil.getParent(firstAssetPath);
-
-                                    if (folderPath == null) {
-                                        throw new ImporterException("Cannot find parent folder in DAM");
-                                    }
-
-                                    final Resource folder = resourceResolver.getResource(folderPath);
-
-                                    if (folder == null) {
-                                        throw new ImporterException("Cannot get parent folder in DAM");
-                                    }
-
-                                    // if the image set already exists, associate it,
-                                    // create it and associate it if not
-                                    final String setName = page.getName() + "-" + assetReferencesProperty.replace("ReferenceImported", "");
-                                    final Resource imageSetResource = folder.getChild(setName);
-
-                                    final String propertyName = assetReferencesProperty.replace("Imported", "");
-
-                                    if (imageSetResource != null) {
-                                        childContentNode.setProperty(propertyName, imageSetResource.getPath());
-
-                                        LOGGER.trace("ImageSet {} already exists, associating it", imageSetResource.getPath());
-                                    } else {
-                                        // Saving session due to conflicts in S7 helpers
-                                        if (session.hasPendingChanges()) {
-                                            session.save();
-                                        }
-
-                                        // Creating image set
-                                        Map<String, Object> setProperties = new HashMap<>();
-                                        final MediaSet s7MediaSet = S7SetHelper.createS7MixedMediaSet(folder, setName, setProperties);
-
-                                        for (final String assetInitialPath : assetReferencesValues) {
-                                            final String assetPath = assetsMapping.get(assetInitialPath);
-
-                                            if (assetPath != null) {
-                                                final Resource assetResource = resourceResolver.getResource(assetPath);
-
-                                                if (assetResource != null) {
-                                                    final Asset asset = assetResource.adaptTo(Asset.class);
-
-                                                    if (asset != null) {
-                                                        s7MediaSet.add(asset);
-
-                                                        final Resource setMetadata = s7MediaSet.getChild("jcr:content/metadata");
-                                                        if (setMetadata != null) {
-                                                            final Node setMetadataNode = setMetadata.adaptTo(Node.class);
-
-                                                            if (setMetadataNode != null) {
-                                                                setMetadataNode.setProperty("dc:title", setName);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        childContentNode.setProperty(propertyName, s7MediaSet.getPath());
-
-                                        LOGGER.trace("ImageSet {} created and associated", s7MediaSet.getPath());
-                                    }
-                                } catch (ImporterException e) {
-                                    LOGGER.error("Cannot update city {} with image set", page.getPath(), e);
-                                } catch (PersistenceException e) {
-                                    LOGGER.error("Cannot create image set for {}", page.getPath(), e);
-                                }
-                            }
+                            createOrAssociateMediaSet(resourceResolver, session, assetsMapping, page, childContentNode,
+                                    assetReferencesProperty, assetReferencesValues);
 
                             i++;
                         }
+                    }
+
+                    // managing exception for locationImage stored as JSON Object
+                    final String[] locationImagesImported = childContentProperties.get("locationImageImported", String[].class);
+
+                    if (childContentNode.hasProperty("locationImage")) {
+                        childContentNode.getProperty("locationImage").remove();
+                        session.save();
+                    }
+
+                    if (locationImagesImported != null) {
+                        LOGGER.trace("Dealing with specific property 'locationImage'");
+
+                        List<String> imagePathsList = new ArrayList<>();
+
+                        for (final String locationImageImported : locationImagesImported) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(locationImageImported);
+
+                                final String image = jsonObject.getString("image");
+                                final String deckNumber = jsonObject.getString("deckNumber");
+
+                                if (assetsMapping.containsKey(image)) {
+                                    imagePathsList.add(image);
+
+                                    final Resource assetMetadataResource = resourceResolver
+                                            .getResource(assetsMapping.get(image) + "/jcr:content/metadata");
+
+                                    if (assetMetadataResource != null) {
+                                        final Node assetMetadataNode = assetMetadataResource.adaptTo(Node.class);
+
+                                        if (assetMetadataNode != null) {
+                                            assetMetadataNode.setProperty("deckNumber", deckNumber);
+
+                                            LOGGER.trace("Writing deckNumber {} to asset {}", deckNumber, assetMetadataResource.getPath());
+                                        }
+                                    }
+
+                                }
+                            } catch (JSONException e) {
+                                LOGGER.error("Cannot read JSON object for {}", locationImageImported, e);
+                            }
+                        }
+
+                        createOrAssociateMediaSet(resourceResolver, session, assetsMapping, page, childContentNode,
+                                "locationImageImported", imagePathsList.toArray(new String[imagePathsList.size()]));
+
+                        i++;
                     }
 
                     // Saving session
@@ -250,6 +226,91 @@ public class MigrationUtils {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException e) {
             LOGGER.error("Error during pages update", e);
+        }
+    }
+
+    private static void createOrAssociateMediaSet(ResourceResolver resourceResolver, Session session,
+                                                  Map<String, String> assetsMapping, Resource page, Node childContentNode,
+                                                  String assetReferencesProperty, String[] assetReferencesValues) {
+        if (assetReferencesValues != null && assetReferencesValues.length > 0) {
+            try {
+                // Image set will be created in the same folder than the first asset
+                final String firstAssetInitialPath = assetReferencesValues[0];
+                final String firstAssetPath = assetsMapping.get(firstAssetInitialPath);
+
+                if (firstAssetPath == null) {
+                    throw new ImporterException("Cannot find asset in mapping : " + firstAssetInitialPath);
+                }
+
+                final String folderPath = ResourceUtil.getParent(firstAssetPath);
+
+                if (folderPath == null) {
+                    throw new ImporterException("Cannot find parent folder in DAM");
+                }
+
+                final Resource folder = resourceResolver.getResource(folderPath);
+
+                if (folder == null) {
+                    throw new ImporterException("Cannot get parent folder in DAM");
+                }
+
+                // if the image set already exists, associate it,
+                // create it and associate it if not
+                final String setName = page.getName() + "-" + assetReferencesProperty.replace("ReferenceImported", "");
+                final Resource imageSetResource = folder.getChild(setName);
+
+                final String propertyName = assetReferencesProperty.replace("Imported", "");
+
+                if (imageSetResource != null) {
+                    childContentNode.setProperty(propertyName, imageSetResource.getPath());
+
+                    LOGGER.trace("ImageSet {} already exists, associating it", imageSetResource.getPath());
+                } else {
+                    // Saving session due to conflicts in S7 helpers
+                    if (session.hasPendingChanges()) {
+                        session.save();
+                    }
+
+                    // Creating image set
+                    Map<String, Object> setProperties = new HashMap<>();
+                    final MediaSet s7MediaSet = S7SetHelper.createS7MixedMediaSet(folder, setName, setProperties);
+
+                    for (final String assetInitialPath : assetReferencesValues) {
+                        final String assetPath = assetsMapping.get(assetInitialPath);
+
+                        if (assetPath != null) {
+                            final Resource assetResource = resourceResolver.getResource(assetPath);
+
+                            if (assetResource != null) {
+                                final Asset asset = assetResource.adaptTo(Asset.class);
+
+                                if (asset != null) {
+                                    s7MediaSet.add(asset);
+
+                                    final Resource setMetadata = s7MediaSet.getChild("jcr:content/metadata");
+                                    if (setMetadata != null) {
+                                        final Node setMetadataNode = setMetadata.adaptTo(Node.class);
+
+                                        if (setMetadataNode != null) {
+                                            setMetadataNode.setProperty("dc:title", setName);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    childContentNode.setProperty(propertyName, s7MediaSet.getPath());
+
+                    LOGGER.trace("ImageSet {} created and associated", s7MediaSet.getPath());
+                }
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot update city {} with image set", page.getPath(), e);
+            } catch (PersistenceException e) {
+                LOGGER.error("Cannot create image set for {}", page.getPath(), e);
+            } catch (RepositoryException e) {
+                LOGGER.error("Cannot write data to repository for {}", page.getPath(), e);
+            }
         }
     }
 }
