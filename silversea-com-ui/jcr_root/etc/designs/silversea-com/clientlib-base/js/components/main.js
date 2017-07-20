@@ -89,19 +89,15 @@ $(function() {
                     if( elem[cookieValues[i]].name != "isbooked"){
                         leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
                     }
-                    /*if( elem[cookieValues[i]].name == "isbooked" ){
-                        var checkbox = document.querySelector('.c-signupforoffer [name="isbooked"]');
-                        leadApiData[elem[cookieValues[i]].name] = checkbox.checked;
-                    }*/
                 }
             }
 
             $.ajax({
-                type : "POST",
-                url : "/content/silversea/ab.lead.json",
+                type : 'POST',
+                url: window.location.href.replace('.html', '.lead.json'),
                 data : JSON.stringify(leadApiData),
-                contentType : "application/json",
-                dataType : "json",
+                contentType : 'application/json',
+                dataType : 'json',
                 success : function(data) {
                     var obj = {};
 
