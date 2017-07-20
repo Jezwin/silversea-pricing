@@ -7,5 +7,6 @@ $(function() {
     
 //    $(window).on('resize', function() {
 //        window.dataLayer.env_channel = $.viewportDetect();
+//        console.log('test resize');
 //    });
 });

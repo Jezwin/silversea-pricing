@@ -13,6 +13,7 @@ import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
+import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.services.RunModesService;
 
 /**
@@ -34,6 +35,17 @@ public class DataLayerUse extends WCMUsePojo {
     private String pageCategory3 = "";
     Map<String, String> listCat1;
     Map<String, String> listCat2;
+
+    private String destinationId = "";
+    private String destinationName = "";
+    private String voyageId = "";
+    private String departureDay = "";
+    private String voyageDuration = "";
+    private String voyageDepartureHarbor = "";
+    private String voyageArrivalHarbor = "";
+    private String voyageType = "";
+    private String shipName = "";
+    private String revenue = "";
 
     private String geoLoc;
     String contry;
@@ -146,6 +158,28 @@ public class DataLayerUse extends WCMUsePojo {
         if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
             pageCategory2 = getCurrentPage().getName();
         }
+        /**
+         * Cruise détails
+         */
+
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_VOYAGE)) {
+            CruiseModel cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
+            destinationId = getCurrentPage().getProperties().get("cmp-destinationId").toString();
+            destinationName = getCurrentPage().getParent().getName();
+            voyageId = getCurrentPage().getProperties().get("cruiseId").toString();
+            departureDay = getCurrentPage().getProperties().get("startDate").toString();
+            voyageDuration = getCurrentPage().getProperties().get("duration").toString();
+            
+            voyageDepartureHarbor =  cruiseModel.getDeparturePortName(); 
+            voyageArrivalHarbor = cruiseModel.getArrivalPortName();   
+            voyageType = cruiseModel.getCruiseType();
+            
+            shipName = StringUtils
+                    .substringAfterLast(getCurrentPage().getProperties().get("shipReference", String.class), "/");
+            
+            revenue = cruiseModel.getLowestPrice().getValue()+"-"+cruiseModel.getLowestPrice().getCurrency();
+        }
+
         /**
          * media
          */
@@ -350,5 +384,47 @@ public class DataLayerUse extends WCMUsePojo {
     public String getCurrentPageUrl() {
         return currentPageUrl;
     }
+
+    public String getDestinationId() {
+        return destinationId;
+    }
+
+    public String getDestinationName() {
+        return destinationName;
+    }
+
+    public String getVoyageId() {
+        return voyageId;
+    }
+
+    public String getDepartureDay() {
+        return departureDay;
+    }
+
+    public String getVoyageDuration() {
+        return voyageDuration;
+    }
+
+    public String getVoyageDepartureHarbor() {
+        return voyageDepartureHarbor;
+    }
+
+    public String getVoyageArrivalHarbor() {
+        return voyageArrivalHarbor;
+    }
+
+    public String getVoyageType() {
+        return voyageType;
+    }
+
+    public String getShipName() {
+        return shipName;
+    }
+
+    public String getRevenue() {
+        return revenue;
+    }
+    
+    
 
 }
