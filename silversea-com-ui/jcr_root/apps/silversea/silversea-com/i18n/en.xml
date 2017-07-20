@@ -347,6 +347,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="port-results"
         sling:message="results" />
+    <results
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="results"
+        sling:message="results" />
+    <result
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="result"
+        sling:message="result" />
     <port-name
         jcr:primaryType="sling:MessageEntry"
         sling:key="port-name"
@@ -993,4 +1001,36 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="silversea-expedition"
         sling:message="Silversea Expeditions" />
+    <your-search-results
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="your-search-results"
+        sling:message="your search results" />
+    <clear-all-filters
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="clear-all-filters"
+        sling:message="clear all filters" />
+    <adjust-your-search-filters
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="adjust-your-search-filters"
+        sling:message="adjust your search filters" />
+    <perform-a-new-search
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="perform-a-new-search"
+        sling:message="perform a new search" />
+    <departure-date
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="departure-date"
+        sling:message="departure date" />
+    <cruise-type
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-type"
+        sling:message="cruise type" />
+    <more-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="more-features"
+        sling:message="more features" />
+    <refine-your-search
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="refine-your-search"
+        sling:message="refine your search" />
 </jcr:root>
