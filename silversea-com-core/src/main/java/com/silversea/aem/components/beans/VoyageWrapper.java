@@ -156,14 +156,14 @@ public class VoyageWrapper {
     
     public Boolean getIsDeleted(){
         Boolean isDeleted = false;
-        if(voyage77 != null)
+        if(voyage77 != null && voyage77.getIsDeleted() != null)
             isDeleted = voyage77.getIsDeleted();
         return isDeleted;
     }
     
     public Boolean getIsVisible(){
         Boolean isVisible = false;
-        if(voyage77 != null)
+        if(voyage77 != null && voyage77.getIsVisible() != null)
             isVisible = voyage77.getIsVisible();
         return isVisible;
     }

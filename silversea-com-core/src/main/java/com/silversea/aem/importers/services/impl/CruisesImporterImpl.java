@@ -103,7 +103,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             //Update import starategy
             else{
                 String lastModificationDate = ImporterUtils.getDateFromPageProperties(destinationsPage,"lastModificationDate");
-                updateStrategy("20160101");
+                updateStrategy(lastModificationDate);
             }
             //Save date of last modification
             ImporterUtils.saveUpdateDate(destinationsPage);
@@ -319,6 +319,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             Node  pageContentNode = page.getContentResource().adaptTo(Node.class);
             pageContentNode.setProperty("exclusiveOffers", urls);
         }
+        ImporterUtils.saveSession(session, false);
     }
     
     private String formatPathByLanguage(String path,String language){
