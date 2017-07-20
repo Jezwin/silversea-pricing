@@ -1,5 +1,7 @@
 $(function() {
-    var $form = $('form.c-find-your-cruise-filter');
+    var $filter = $('.c-fyc-filter');
+    var $btnReset = $filter.find('.c-fyc-filter__reset a');
+    var $form = $filter.find('form.c-find-your-cruise-filter');
 
     // Sort alphabetically
     function sortAlphabetically(a, b) {
@@ -35,7 +37,7 @@ $(function() {
             function buildOptions(json, filterName) {
                 json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
                     $('.' + filterName + '-filter').append($('<option>', {
-                        value : option.id,
+                        value : '/' + option.id + '/a/', // add slash only for testing url encoding
                         text : option.title,
                         'data-sscclicktype' : 'filters'
                     }));
@@ -51,11 +53,48 @@ $(function() {
         e.stopPropagation();
     });
 
-    // Filter : set active state / show number of feature selected
-
+    // Filter : behavior on form change
     $form.on('change', function() {
-        
+        // Set active state on reset button
+        var resetState, $currentForm = $(this);
+
+        $($currentForm.serializeArray()).each(function(i, field) {
+            if (field.value !== 'all') {
+                resetState = true;
+                return false;
+            }
+        });
+
+        if (resetState) {
+            $btnReset.addClass('active');
+        } else {
+            $btnReset.removeClass('active');
+        }
+
+        // Show number of feature selected
+        // ...
+
+        // Do request
+        // ...
     });
 
-    // Filter :  reset form
+    // Filter : reset form
+    $btnReset.on('click', function(e) {
+        e.preventDefault();
+        var $btn = $(this);
+
+        if ($btn.hasClass('active')) {
+            // Reset form
+            $form.trigger('reset');
+
+            // Update select chosen plugin
+            $form.find('.chosen').trigger('chosen:updated');
+
+            // Force change event on form
+            $form.trigger('change');
+
+            // Set disable style on reset button
+            $btn.removeClass('active');
+        }
+    });
 });
