@@ -56,12 +56,15 @@ $(function() {
     // Filter : behavior on form change
     $form.on('change', function() {
         // Set active state on reset button
-        var resetState, $currentForm = $(this);
+        var resetState, $currentForm = $(this), featureNumber = 0;
 
         $($currentForm.serializeArray()).each(function(i, field) {
             if (field.value !== 'all') {
                 resetState = true;
-                return false;
+            }
+
+            if (field.name === 'features[]') {
+                featureNumber++;
             }
         });
 
@@ -72,6 +75,16 @@ $(function() {
         }
 
         // Show number of feature selected
+        var $featureLabel = $currentForm.find('.features-filter').closest('.single-filter').find('.text-selected');
+        if (featureNumber === 0) {
+            $featureLabel.text($featureLabel.data('default-text'));
+        } else if (featureNumber === 1) {
+            $featureLabel.text(featureNumber + ' ' + $featureLabel.data('feature-text'));
+        } else {
+            $featureLabel.text(featureNumber + ' ' + $featureLabel.data('features-text'));
+        }
+
+        // Highlight select when its value is not the defaut one
         // ...
 
         // Do request

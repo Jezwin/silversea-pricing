@@ -50,7 +50,9 @@
                 <div class="single-filter">
                     <div class="dropdown">
                         <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="text-selected">${'more-features' @ i18n}</span><i class="fa fa-angle-down"></i>
+                            <span class="text-selected" data-default-text="${'more-features' @ i18n}" data-feature-text="${'feature' @ i18n}" data-features-text="${'features' @ i18n}">
+                                ${'more-features' @ i18n}
+                            </span><i class="fa fa-angle-down"></i>
                         </button>
                         <div class="dropdown-menu">
                             <ul class="features-filter">
