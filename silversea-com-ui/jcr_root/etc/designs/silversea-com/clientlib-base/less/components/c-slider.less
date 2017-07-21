@@ -1,11 +1,19 @@
 .c-slider {
     margin-bottom: 20px;
     visibility: hidden;
+
     &.slick-initialized{
         visibility: visible !important;
     }
+
     .parbase {
         margin-bottom: 0!important;
+    }
+
+    .slick-slide {
+        > * {
+            margin-bottom: 0!important;
+        }
     }
 
     &:not(.c-slider--full-width) .slick-slide > *{
@@ -14,8 +22,8 @@
 
     .slick-prev, .slick-next {
         height: 100%;
-        z-index: 1;
         width: 80px;
+        z-index: 1;
 
         &:before, &:after {
             content: " ";
