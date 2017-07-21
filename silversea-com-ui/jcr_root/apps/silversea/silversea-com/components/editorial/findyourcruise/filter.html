@@ -15,62 +15,64 @@
         </p>
     </div>
     <form class="c-find-your-cruise-filter" action="/">
-        <div class="filter-flex-wrapper">
-            <div class="filter-flex">
-                <div class="single-filter">
-                    <select class="chosen destinations-filter" name="destination">
-                        <option value="all">${'destination' @ i18n}</option>
-                    </select>
-                </div>
-               <div class="single-filter">
-                    <select class="chosen dates-filter" name="date">
-                        <option value="all">${'departure-date' @ i18n}</option>
-                    </select>
-                </div>
-                <div class="single-filter">
-                    <select class="chosen durations-filter" name="duration">
-                        <option value="all">${'duration' @ i18n}</option>
-                    </select>
-                </div>
-                <div class="single-filter">
-                    <select class="chosen ships-filter" name="ship">
-                        <option value="all">${'ship' @ i18n}</option>
-                    </select>
-                </div>
-                <div class="single-filter">
-                    <select class="chosen types-filter" name="cruisetype">
-                        <option value="all">${'cruise-type' @ i18n}</option>
-                    </select>
-                </div>
-                <div class="single-filter">
-                    <select class="chosen chosen-with-search cities-filter" name="port">
-                        <option value="all">${'port' @ i18n}</option>
-                    </select>
-                </div>
-                <div class="single-filter">
-                    <div class="dropdown">
-                        <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                            <span class="text-selected" data-default-text="${'more-features' @ i18n}" data-feature-text="${'feature' @ i18n}" data-features-text="${'features' @ i18n}">
-                                ${'more-features' @ i18n}
-                            </span><i class="fa fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <ul class="features-filter">
-                                <li data-sly-repeat.tagModel="${fyc.featureTags}">
-                                    <sly data-sly-test.tagID="${tagModel.tag.tagID}" />
-                                    <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagID}" />
-                                    <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" />
-                                    <label class="feature-name" for="${tagID}"><i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</label>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="filter-flex-wrapper collapse clearfix" id="filter-collapse">
+            <div class="single-filter">
+                <select class="chosen destinations-filter" name="destination">
+                    <option value="all">${'destination' @ i18n}</option>
+                </select>
+            </div>
+           <div class="single-filter">
+                <select class="chosen dates-filter" name="date">
+                    <option value="all">${'departure-date' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter">
+                <select class="chosen durations-filter" name="duration">
+                    <option value="all">${'duration' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter">
+                <select class="chosen ships-filter" name="ship">
+                    <option value="all">${'ship' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter">
+                <select class="chosen types-filter" name="cruisetype">
+                    <option value="all">${'cruise-type' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter">
+                <select class="chosen chosen-with-search cities-filter" name="port">
+                    <option value="all">${'port' @ i18n}</option>
+                </select>
+            </div>
+            <div class="single-filter">
+                <div class="dropdown">
+                    <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="text-selected" data-default-text="${'more-features' @ i18n}" data-feature-text="${'feature' @ i18n}" data-features-text="${'features' @ i18n}">
+                            ${'more-features' @ i18n}
+                        </span><i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul class="features-filter">
+                            <li data-sly-repeat.tagModel="${fyc.featureTags}">
+                                <sly data-sly-test.tagID="${tagModel.tag.tagID}" />
+                                <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagID}" />
+                                <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" />
+                                <label class="feature-name" for="${tagID}"><i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</label>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="search-header-under">
-            <button class="btn btn-dark btn-block effect">${'close' @ i18n}<span><i class="fa fa-angle-up slider-fa"></i></span></button>
-            <button class="btn btn-dark btn-block effect">${'refine-your-search' @ i18n}<span><i class="fa fa-angle-down slider-fa"></i></span></button>
+        <div class="c-fyc-filter__button visible-xs text-center">
+            <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse"
+                data-text-closed="${'refine-your-search' @ i18n}"
+                data-text-opened="${'close' @ i18n}">
+                <i class='fa fa-angle-up'></i>
+                <i class='fa fa-angle-down'></i>
+            </button>
         </div>
     </form>
 </div>

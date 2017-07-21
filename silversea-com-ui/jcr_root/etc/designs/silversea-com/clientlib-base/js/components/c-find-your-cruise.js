@@ -3,14 +3,18 @@ $(function() {
     var $btnReset = $filter.find('.c-fyc-filter__reset a');
     var $form = $filter.find('form.c-find-your-cruise-filter');
 
-    // Sort alphabetically
+    /***************************************************************************
+     * Sort alphabetically
+     **************************************************************************/
     function sortAlphabetically(a, b) {
         var x = a.title.toLowerCase();
         var y = b.title.toLowerCase();
         return x < y ? -1 : x > y ? 1 : 0;
     }
 
-    // Filter : get/update filter from json response
+    /***************************************************************************
+     * Filter : get/update filter from json response
+     **************************************************************************/
     $.fn.populateSelectFYC = function() {
         this.each(function() {
             var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates'];
@@ -53,7 +57,9 @@ $(function() {
         e.stopPropagation();
     });
 
-    // Filter : behavior on form change
+    /***************************************************************************
+     * Filter : behavior on form change
+     **************************************************************************/
     $form.on('change', function() {
         // Set active state on reset button
         var resetState, $currentForm = $(this), featureNumber = 0;
@@ -102,7 +108,9 @@ $(function() {
         // ...
     });
 
-    // Filter : reset form
+    /***************************************************************************
+     * Filter : reset form
+     **************************************************************************/
     $btnReset.on('click', function(e) {
         e.preventDefault();
         var $btn = $(this);
