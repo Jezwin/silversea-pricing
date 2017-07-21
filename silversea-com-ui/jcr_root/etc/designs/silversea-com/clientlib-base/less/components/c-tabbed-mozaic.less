@@ -7,17 +7,25 @@
     position: relative;
 
     picture {
-        background-color: @black;
+        -moz-transition: .6s ease-in-out;
+        -o-transition: .6s ease-in-out;
+        -ms-transition: .6s ease-in-out;
+        -webkit-transition: .6s ease-in-out;
+        transition: .6s ease-in-out;
     }
 
     &:hover {
-        .o-img {
-            -moz-transform: scale(1.05);
-            -o-transform: scale(1.05);
-            -ms-transform: scale(1.05);
-            -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-            opacity: 0.5;
+        picture {
+            background-color: @black;
+
+            .o-img {
+                -moz-transform: scale(1.05);
+                -o-transform: scale(1.05);
+                -ms-transform: scale(1.05);
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05);
+                opacity: 0.5;
+            }
         }
     }
 
