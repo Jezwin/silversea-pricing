@@ -1,6 +1,7 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Find your cruise"></div>
 <div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
     id="destination-fyc-switchable-block" class="c-fyc destination-switchable-block">
+
     <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/filter.html" />
 
     <sly data-sly-test.type="${fyc.type || 'v2'}" />
@@ -14,8 +15,8 @@
         <span class="c-fyc__header__inner">${'fares-from'} <span>(${'per-guest' @ i18n})</span></span>
     </div>
 
-    <div class="voyage-overview clearfix ${type}">
-        <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/resutlitem.html" />
+    <div class="c-fyc__result-wrapper clearfix ${type}">
+        <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/results.html" />
     </div>
     <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
     <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />

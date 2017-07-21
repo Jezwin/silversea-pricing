@@ -20,17 +20,17 @@ $(function() {
             var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates'];
 
             $.ajax({
-                type : "GET",
-                url : "/bin/cruises/search?language=" + $('html').attr('lang'),
-                contentType : "application/json",
-                dataType : "json",
+                type : 'GET',
+                url : '/bin/cruises/search?language=' + $('html').attr('lang'),
+                contentType : 'application/json',
+                dataType : 'json',
                 success : function(json) {
                     selectsFilter.forEach(function(filterName) {
                         // Append option in select filter
                         buildOptions(json, filterName);
 
                         // update Chosen with the new content
-                        $('.c-find-your-cruise-filter .chosen').trigger("chosen:updated");
+                        $('.c-find-your-cruise-filter .chosen').trigger('chosen:updated');
                     });
                 },
                 failure : function(errMsg) {
@@ -41,7 +41,7 @@ $(function() {
             function buildOptions(json, filterName) {
                 json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
                     $('.' + filterName + '-filter').append($('<option>', {
-                        value : '/' + option.id + '/a/', // add slash only for testing url encoding
+                        value : '/' + option.id + '/a/b/', // add slash only for testing url encoding
                         text : option.title,
                         'data-sscclicktype' : 'filters'
                     }));
@@ -62,9 +62,9 @@ $(function() {
      **************************************************************************/
     $form.on('change', function() {
         // Set active state on reset button
-        var resetState, $currentForm = $(this), featureNumber = 0;
+        var resetState, $currentForm = $(this), featureNumber = 0, $filterValue = $($currentForm.serializeArray());
 
-        $($currentForm.serializeArray()).each(function(i, field) {
+        $filterValue.each(function(i, field) {
             var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
 
             if (field.value !== 'all') {
@@ -104,8 +104,24 @@ $(function() {
             $featureFieldWrapper.addClass('active');
         }
 
-        // Do request
+        // Build request URL with filter, pagination and number of result per page.
+        var requestUrl = $currentForm.data('url');
+
+        $filterValue.each(function(i, field) {
+            // Add filter
+            requestUrl = requestUrl + '.' + field.name + '_' + field.value;
+        });
+
+        // Add pagination
+        //...
+
+        // Add limit
         // ...
+
+        console.log(requestUrl);
+
+        // Do request
+        // Awesomeness voilà 
     });
 
     /***************************************************************************

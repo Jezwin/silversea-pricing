@@ -1,16 +1,8 @@
 <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
-<div id="pagination">
-    <nav>
-        <ul class="pagination">
-            <li class="hidden-xs"><a href="#">${'first' @ i18n}</a></li>
-            <li><a href="#">${'previous' @ i18n}</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li class="active"><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">${'next' @ i18n}</a></li>
-            <li><a href="#">${'last' @ i18n}</a></li>
-        </ul>
-    </nav>
-</div>
+<nav class="c-fyc-pagination">
+    <ul>
+        <li data-sly-repeat="${['first', 'previous', '2', '3', '4', '5', '6', 'next', 'last']}">
+            <a href="#" data-pagination="${item}">${item @ i18n}</a>
+        </li>
+    </ul>
+</nav>
