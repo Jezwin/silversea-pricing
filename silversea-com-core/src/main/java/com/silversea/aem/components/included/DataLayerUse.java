@@ -5,10 +5,12 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.MediaDataLayer;
@@ -52,7 +54,7 @@ public class DataLayerUse extends WCMUsePojo {
     private String geoLoc;
     String contry;
     private MediaDataLayer media;
-    
+
     @Override
     public void activate() throws Exception {
         /**
@@ -80,6 +82,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         ResourceResolver resourceResolver = getRequest().getResourceResolver();
+        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
         currentPageUrl = externalizer.publishLink(resourceResolver, "http", getCurrentPage().getPath()) + ".html";
 
@@ -114,9 +117,24 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(WcmConstants.RT_LAND_PROGRAMS, "single land programmes");
         listCat1.put(WcmConstants.RT_DINING_VARIATION, "single ship");
         listCat1.put(WcmConstants.RT_PAGE, "editorial pages");
+        String comboTag = null;
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_COMBO_CRUISE)) {
+            Resource resource = getCurrentPage().getContentResource();
+            Tag[] listTag = tagManager.getTags(resource);
+            for (Tag tag : listTag) {
+                if (tag.getNamespace().toString().equals("/etc/tags/combo-cruise-types")) {
+                    comboTag = tag.getName();
+                }
+            }
+            if (comboTag != null) {
+                listCat1.put(WcmConstants.RT_COMBO_CRUISE, comboTag);
+            } else {
+                listCat1.put(WcmConstants.RT_COMBO_CRUISE, "");
+            }
+
+        }
 
         // TODO Remove getCurrentTemplate and remplace it bay
-        // getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
         if (pageCategory1.equals("")) {
             String value = listCat1.get(getCurrentPage().getContentResource().getResourceType());
             if (value != null) {
@@ -174,19 +192,19 @@ public class DataLayerUse extends WCMUsePojo {
             voyageId = getCurrentPage().getProperties().get("cruiseId").toString();
             departureDay = cruiseModel.getStartDate().getTime().toString();
             voyageDuration = cruiseModel.getDuration();
-            
-            voyageDepartureHarbor =  cruiseModel.getDeparturePortName(); 
-            voyageArrivalHarbor = cruiseModel.getArrivalPortName();   
+
+            voyageDepartureHarbor = cruiseModel.getDeparturePortName();
+            voyageArrivalHarbor = cruiseModel.getArrivalPortName();
             voyageType = cruiseModel.getCruiseType();
-            
+
             shipName = StringUtils
                     .substringAfterLast(getCurrentPage().getProperties().get("shipReference", String.class), "/");
             String price = cruiseModel.getLowestPrice().getValue();
             String currency = cruiseModel.getLowestPrice().getCurrency();
-            if(price !=null && currency !=null){
-                revenue = price+"-"+currency;
+            if (price != null && currency != null) {
+                revenue = price + "-" + currency;
             }
-            
+
         }
 
         /**
@@ -194,7 +212,7 @@ public class DataLayerUse extends WCMUsePojo {
          */
         // TODO récuperer la bonne market
         // geoLoc = "UK";
-        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+        // TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         contry = GeolocationHelper.getCountryCode(getRequest());
         if (contry != null) {
             geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
@@ -433,7 +451,5 @@ public class DataLayerUse extends WCMUsePojo {
     public String getRevenue() {
         return revenue;
     }
-    
-    
 
 }
