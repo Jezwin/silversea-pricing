@@ -1,5 +1,5 @@
 <sly data-sly-use.comboCruiseHeader="com.silversea.aem.components.editorial.ComboCruiseHeaderUse"/>
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Combo Cruise header"></div>
+<div data-sly-test.empty="${wcmmode.edit && (!properties.pageReference)}" class="cq-placeholder cq-dd-image" data-emptytext="Combo Cruise header"></div>
 <sly data-sly-use.comboCruise="${'com.silversea.aem.helper.PageHelper' @ path=properties.pageReference}" />
 <sly data-sly-test.comboCruisePage="${properties.pageReference ? comboCruise.page : currentPage}" />
 <sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=comboCruisePage.path}" />
