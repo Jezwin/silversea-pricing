@@ -25,30 +25,30 @@ public class VariationsUpdater extends SlingSafeMethodsServlet {
         String query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
                 "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/publicareavariation\"]";
 
-        String assetsQuery = "/jcr:root/content/dam/silversea-com/ships"
+        String assetsQuery = "/jcr:root/content/dam/silversea-com/variations/public-areas"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
-                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), null);
+                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), null, true);
 
         // Dinings
         query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
                 "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/diningvariation\"]";
 
-        assetsQuery = "/jcr:root/content/dam/silversea-com/ships"
+        assetsQuery = "/jcr:root/content/dam/silversea-com/variations/dinings"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
-                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), null);
+                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), null, true);
 
         // Suites
         query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
                 "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/suitevariation\"]";
 
-        assetsQuery = "/jcr:root/content/dam/silversea-com/ships"
+        assetsQuery = "/jcr:root/content/dam/silversea-com/variations/suites"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
-                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), Arrays.asList("plan"));
+                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), Arrays.asList("plan"), true);
     }
 }
