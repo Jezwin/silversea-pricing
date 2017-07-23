@@ -1,5 +1,8 @@
 package com.silversea.aem.enums;
 
+/**
+ * TODO typos
+ */
 public enum TagType {
 
     CRUISES("cruise-type"),

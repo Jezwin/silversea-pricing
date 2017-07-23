@@ -6,14 +6,18 @@ package com.silversea.aem.constants;
  * https://docs.adobe.com/docs/en/aem/6-2/develop/ref/javadoc/constant-values.html
  *
  * @author mjedli
- *
  */
 public interface WcmConstants {
 
     // Node names
+    String NN_DEFAULT = "default";
+    String NN_PHONE = "phone";
+
     String NN_LAND_PROGRAMS = "land-programs";
     String NN_HOTELS = "hotels";
     String NN_EXCURSIONS = "excursions";
+
+    String FOLDER_BROCHURES = "brochures"; // TODO naming convention
 
     // Properties
     String PN_NOT_IN_SITEMAP = "notInSitemap";
@@ -29,8 +33,17 @@ public interface WcmConstants {
     // HTML Suffix
     String HTML_SUFFIX = ".html";
 
+    // Templates
+    String PAGE_TEMPLATE_PAGE = "/apps/silversea/silversea-com/templates/page";
+    String PAGE_TEMPLATE_PORT = "/apps/silversea/silversea-com/templates/port";
+    String PAGE_TEMPLATE_HOTEL = "/apps/silversea/silversea-com/templates/hotel";
+    String PAGE_TEMPLATE_LAND_PROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
+    String PAGE_TEMPLATE_EXCURSION = "/apps/silversea/silversea-com/templates/excursion";
+    String PAGE_TEMPLATE_EXCLUSIVE_OFFER = "/apps/silversea/silversea-com/templates/exclusiveoffer";
+
     // Resource Type
-    String RT_SUB_REDIRECT_PAGE = "subRedirectPage";
+    String RT_SUB_REDIRECT_PAGE = "subRedirectPage"; // TODO not a resource type
+
     String RT_IMAGE_CPT = "silversea/silversea-com/components/editorial/image";
     String RT_DESTINATION = "silversea/silversea-com/components/pages/destination";
     String RT_HOTEL = "silversea/silversea-com/components/pages/hotel";
@@ -56,16 +69,11 @@ public interface WcmConstants {
     String RT_DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
     String RT_PAGE_PORT = "silversea/silversea-com/components/pages/portslist";
     String RT_COMBO_CRUISE = "silversea/silversea-com/components/pages/combocruise";
-    
-    
-    
-    // Node name
-    String NN_DEFAULT = "default";
-    String NN_PHONE = "phone";
 
-    // Tags
+    // Tags TODO naming convention
     String TAG_NAMESPACE_LANGUAGES = "languages:";
     String TAG_NAMESPACE_BROCHURE_GROUPS = "brochure-groups:";
+    String GEOLOCATION_TAGS_PREFIX = "geotagging:";
 
     // Default Value
     String PAGINATION_LIMIT = "10";
@@ -86,10 +94,8 @@ public interface WcmConstants {
     Integer DEFAULT_WIDTH_MOBILE = 737;
 
     // Prefix of geolocation tags
-    String GEOLOCATION_TAGS_PREFIX = "geotagging:";
-    
+
     // Content Path
     String PATH_TAGS_GEOLOCATION = "/etc/tags/geotagging";
     String PATH_DAM_SILVERSEA = "/content/dam/silversea-com";
-    String FOLDER_BROCHURES = "brochures";
 }

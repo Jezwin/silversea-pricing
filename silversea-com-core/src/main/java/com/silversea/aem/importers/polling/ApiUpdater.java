@@ -27,7 +27,7 @@ import java.util.Map;
 @Component(label = "Silversea - API Updater", metatype = true)
 @Service(value = Runnable.class)
 @Properties({
-        @Property(name = "scheduler.expression", value = "0 * * * * ?"),
+        @Property(name = "scheduler.expression", value = "0 0 0 * * ?"),
         @Property(name = "scheduler.concurrent", boolValue = false)
 })
 public class ApiUpdater implements Runnable {

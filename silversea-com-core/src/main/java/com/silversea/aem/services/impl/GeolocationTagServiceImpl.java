@@ -79,13 +79,15 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
     }
 
     @Override
-    public String getTagFromCountryId(String countryId) {
+    public String getTagFromCountryId(final String countryId) {
+        LOGGER.trace("Searching for {} in tags mapping, found {}", countryId, tagIdMapping.get(countryId));
+
         return tagIdMapping.get(countryId);
     }
 
     @Override
-    public String getTagFromRequest(SlingHttpServletRequest request) {
-        String countryCode = GeolocationHelper.getCountryCode(request);
+    public String getTagFromRequest(final SlingHttpServletRequest request) {
+        final String countryCode = GeolocationHelper.getCountryCode(request);
 
         if (countryCode != null) {
             return tagIdMapping.get(countryCode);

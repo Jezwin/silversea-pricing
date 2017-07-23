@@ -5,7 +5,6 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -139,7 +138,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                             final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                     JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                    TemplateConstants.PAGE_TEMPLATE_HOTEL,
+                                    WcmConstants.PAGE_TEMPLATE_HOTEL,
                                     StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
@@ -321,7 +320,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                        TemplateConstants.PAGE_TEMPLATE_HOTEL,
+                                        WcmConstants.PAGE_TEMPLATE_HOTEL,
                                         StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                 LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());

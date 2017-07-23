@@ -6,6 +6,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -411,7 +412,7 @@ public class CitiesImporterImpl implements CitiesImporter {
             return pageManager.create(portFirstLetterPage.getPath(),
                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
                             StringHelper.getFormatWithoutSpecialCharcters(cityName)),
-                    TemplateConstants.PAGE_TEMPLATE_PORT,
+                    WcmConstants.PAGE_TEMPLATE_PORT,
                     StringHelper.getFormatWithoutSpecialCharcters(cityName), false);
         } catch (RepositoryException | WCMException e) {
             throw new ImporterException("Port page cannot be created", e);

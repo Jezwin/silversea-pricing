@@ -39,7 +39,7 @@ public class ApiConfigurationServiceImpl implements ApiConfigurationService {
             "brochureUrl:/content/dam/siversea-com/brochures",
             "featuresUrl:/content/silversea-com/en/features",
             "contriesUrl:/content/silversea-com/en/country",
-            "spetialOffersUrl:/content/silversea-com/en/exclusive-offers",
+            "exclusiveOffersUrl:/content/silversea-com/en/exclusive-offers",
             "agenciesUrl:/content/silversea-com/en/other-resources/find-a-travel-agent",
             "citiesUrl:/content/silversea-com/en/other-resources/find-a-port",
             "cruisesUrl:/content/silversea-com/en/destinations"

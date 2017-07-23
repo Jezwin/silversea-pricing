@@ -1,17 +1,11 @@
 package com.silversea.aem.importers.services;
 
-import java.io.IOException;
-
-import com.silversea.aem.components.beans.ImporterStatus;
+import com.silversea.aem.importers.services.impl.ImportResult;
 
 /**
  * Created by mbennabi on 09/03/2017.
  */
 public interface ExclusiveOffersImporter {
 
-    ImporterStatus importData() throws IOException;
-
-//    int getErrorNumber();
-//
-//    int getSuccesNumber();
+    ImportResult importExclusiveOffers();
 }

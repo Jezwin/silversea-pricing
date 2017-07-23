@@ -7,10 +7,9 @@ import org.apache.sling.settings.SlingSettingsService;
 
 import com.silversea.aem.services.RunModesService;
 
+@Service
 @Component(immediate = true)
-@Service(value = RunModesService.class)
 public class RunModesServicesImpl implements RunModesService {
-
 
     @Reference
     private SlingSettingsService slingSettingsService;

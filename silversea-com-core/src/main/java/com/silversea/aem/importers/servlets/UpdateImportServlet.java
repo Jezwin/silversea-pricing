@@ -1,7 +1,5 @@
 package com.silversea.aem.importers.servlets;
 
-import com.day.cq.replication.ReplicationException;
-import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.commons.lang3.StringUtils;

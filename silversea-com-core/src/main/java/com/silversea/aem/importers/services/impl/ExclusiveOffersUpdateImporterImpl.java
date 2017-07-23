@@ -15,6 +15,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.silversea.aem.constants.WcmConstants;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -148,7 +149,7 @@ public class ExclusiveOffersUpdateImporterImpl implements ExclusiveOffersUpdateI
 												JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
 														StringHelper.getFormatWithoutSpecialCharcters(
 																offers.getVoyageSpecialOffer())),
-												TemplateConstants.PATH_EXCLUSIVE_OFFERT,
+												WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
 												StringHelper.getFormatWithoutSpecialCharcters(
 														offers.getVoyageSpecialOffer()),
 												false);
@@ -171,8 +172,8 @@ public class ExclusiveOffersUpdateImporterImpl implements ExclusiveOffersUpdateI
 
 										geoMarket = offers.getMarkets();
 										market = new ArrayList<Tag>();
-										if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
-											market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
+										if (GeolocationHelper.getGeomarketCode(tagManager, geoMarket) != null) {
+											market = GeolocationHelper.getGeomarketCode(tagManager, geoMarket);
 										}
 										tagManager.setTags(offersPage.getContentResource(),
 												market.stream().toArray((Tag[]::new)));

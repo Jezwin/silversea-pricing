@@ -20,13 +20,14 @@ import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.silversea.aem.constants.ServletConstant;
 import com.silversea.aem.services.MigrationContentService;
 
 @Deprecated
-@SlingServlet(paths = ServletConstant.PATH_UPDATE_NODE_SERVLET, methods = "POST", metatype = true)
-@Property(name = "sling.auth.requirements", value = ServletConstant.PATH_UPDATE_NODE_SERVLET)
+@SlingServlet(paths = UpdateNodeServlet.PATH_UPDATE_NODE_SERVLET, methods = "POST", metatype = true)
+@Property(name = "sling.auth.requirements", value = UpdateNodeServlet.PATH_UPDATE_NODE_SERVLET)
 public class UpdateNodeServlet extends SlingAllMethodsServlet {
+
+    public static final String PATH_UPDATE_NODE_SERVLET = "/bin/updateNode";
 
     private static final long serialVersionUID = 1L;
     static final private Logger LOGGER = LoggerFactory.getLogger(UpdateNodeServlet.class);

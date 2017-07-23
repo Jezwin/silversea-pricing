@@ -5,7 +5,6 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -17,7 +16,6 @@ import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.ShorexesApi;
-import io.swagger.client.model.Land77;
 import io.swagger.client.model.Shorex;
 import io.swagger.client.model.Shorex77;
 import org.apache.commons.lang3.BooleanUtils;
@@ -142,7 +140,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                     JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName())),
-                                    TemplateConstants.PAGE_TEMPLATE_EXCURSION,
+                                    WcmConstants.PAGE_TEMPLATE_EXCURSION,
                                     StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()), false);
 
                             LOGGER.trace("Creating excursion {} in city {}", shorex.getShorexName(),
@@ -322,7 +320,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                     excursionsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_EXCURSIONS);
                                 } else {
                                     excursionsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_EXCURSIONS,
-                                            TemplateConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
+                                            WcmConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
 
                                     LOGGER.trace("{} page is not existing, creating it", excursionsPage.getPath());
                                 }
@@ -331,7 +329,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                         JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(excursionName)),
-                                        TemplateConstants.PAGE_TEMPLATE_EXCURSION,
+                                        WcmConstants.PAGE_TEMPLATE_EXCURSION,
                                         StringHelper.getFormatWithoutSpecialCharcters(excursionName), false);
 
                                 LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());

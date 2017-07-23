@@ -5,14 +5,12 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
-import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
@@ -132,7 +130,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
                             } else {
                                 landProgramsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
-                                        TemplateConstants.PAGE_TEMPLATE_PAGE, "Land Programs", false);
+                                        WcmConstants.PAGE_TEMPLATE_PAGE, "Land Programs", false);
 
                                 LOGGER.trace("{} page is not existing, creating it", landProgramsPage.getPath());
                             }
@@ -140,7 +138,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                     JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(landProgram.getLandName())),
-                                    TemplateConstants.PAGE_TEMPLATE_LAND_PROGRAM,
+                                    WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
                                     StringHelper.getFormatWithoutSpecialCharcters(landProgram.getLandName()), false);
 
                             LOGGER.trace("Creating land program {} in city {}", landProgram.getLandName(),
@@ -318,7 +316,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
                                 } else {
                                     landProgramsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
-                                            TemplateConstants.PAGE_TEMPLATE_PAGE, "Land programs", false);
+                                            WcmConstants.PAGE_TEMPLATE_PAGE, "Land programs", false);
 
                                     LOGGER.trace("{} page is not existing, creating it", landProgramsPage.getPath());
                                 }
@@ -327,7 +325,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                         JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(landProgramName)),
-                                        TemplateConstants.PAGE_TEMPLATE_LAND_PROGRAM,
+                                        WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
                                         StringHelper.getFormatWithoutSpecialCharcters(landProgramName), false);
 
                                 LOGGER.trace("Creating landProgram {} in city {}", landProgramName, portPage.getPath());

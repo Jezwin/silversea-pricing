@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.silversea.aem.services;
 
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -14,6 +11,8 @@ public interface GeolocationTagService {
     String PATH_TAGS_GEOLOCATION = "/etc/tags/geotagging";
 
     /**
+     * TODO rename tag -> tagId
+     *
      * Get a tag id from country ID
      * @param countryId
      * @return tag
@@ -21,6 +20,8 @@ public interface GeolocationTagService {
     String getTagFromCountryId(final String countryId);
 
     /**
+     * TODO rename tag -> tagId
+     *
      * Get a tag id from the sling request
      * @param request
      * @return tag
