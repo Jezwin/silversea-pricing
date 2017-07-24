@@ -1,10 +1,19 @@
+<sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"
       data-sly-use.head="head.js"
       data-sly-use.headlibRenderer="headlibs.html"
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
 <meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
-<sly data-sly-include="datalayer.html"></sly>
+<!--/* open graph tag */-->
+<meta property="fb:app_id" content="1502411653342377" />
+<meta property="og:title" content="${currentPage.title}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="${currentPage.path @ extension='html'}" />
+<meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${pageHelper.thumbnail @ prependPath='/is/image'}?wid=1200" />
+<meta property="og:description" data-sly-test="${currentPage.description}" content="${currentPage.description}" />
+<!--/* /open graph tag */-->
+<sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
 <sly data-sly-include="author.html" />
 <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp" />
