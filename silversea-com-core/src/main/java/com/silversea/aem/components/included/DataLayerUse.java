@@ -156,7 +156,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_SUITE_VARIATION)) {
             if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+                pageCategory2 = getCurrentPage().getParent(2).getName();
             }
             if (pageCategory3.equals("")) {
                 pageCategory3 = "suites";
@@ -164,7 +164,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_PUBLIC_AREA_VARIATION)) {
             if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+                pageCategory2 = getCurrentPage().getParent(2).getName();
             }
             if (pageCategory3.equals("")) {
                 pageCategory3 = "public areas";
@@ -172,7 +172,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_DINING_VARIATION)) {
             if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+                pageCategory2 = getCurrentPage().getParent(2).getName();
             }
             if (pageCategory3.equals("")) {
                 pageCategory3 = "dining";
@@ -180,6 +180,12 @@ public class DataLayerUse extends WCMUsePojo {
         }
         if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
             pageCategory2 = getCurrentPage().getName();
+        }
+        
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_PAGE)) {
+            if (pageCategory3.equals("")) {
+                pageCategory3 = getCurrentPage().getParent().getName();
+            }
         }
         /**
          * Cruise détails
