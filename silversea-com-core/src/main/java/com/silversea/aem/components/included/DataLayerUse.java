@@ -66,8 +66,11 @@ public class DataLayerUse extends WCMUsePojo {
         if (getCurrentPage().getProperties().get("pageEvent") != null) {
             event = getCurrentPage().getProperties().get("pageEvent").toString();
         }
-        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)) {
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) && event.equals("")) {
             event = "searchresults";
+        }
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_DESTINATION) && event.equals("")) {
+            event = "offerdetail";
         }
 
         /**
