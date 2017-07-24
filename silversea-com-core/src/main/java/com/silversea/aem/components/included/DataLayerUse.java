@@ -198,7 +198,7 @@ public class DataLayerUse extends WCMUsePojo {
             cruiseModel.initByGeoLocation(geoLocation);
             destinationId = getCurrentPage().getProperties().get("cmp-destinationId").toString();
             destinationName = getCurrentPage().getParent().getName();
-            voyageId = getCurrentPage().getProperties().get("cruiseId").toString();
+            voyageId = getCurrentPage().getProperties().get("cruiseCode").toString();
             departureDay = cruiseModel.getStartDate().getTime().toString();
             voyageDuration = cruiseModel.getDuration();
 
@@ -211,7 +211,7 @@ public class DataLayerUse extends WCMUsePojo {
             String price = cruiseModel.getLowestPrice().getValue();
             String currency = cruiseModel.getLowestPrice().getCurrency();
             if (price != null && currency != null) {
-                revenue = price + "-" + currency;
+                revenue = currency + price;
             }
 
         }
