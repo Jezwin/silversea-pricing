@@ -10,7 +10,7 @@
                 nav : '.c-tab__link'
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
-            _orphan_link = $('.c-cruise__descr a.bound, a[href^="#"]'),
+            _orphan_link = $('.c-cruise__descr a.bound, .parbase a[href^="#"]'),
             _contents = _self.find('.c-tab__body').first().find(_data.content),
             _showTab = function (tab) {
                 var id = $(tab).children('a').attr('href');
@@ -28,14 +28,9 @@
              */
             _orphan_link.click(function(e) {
                 e.preventDefault();
-                var id = $(this).attr('href');
-
-                $(_data.nav).each(function() {
-                    var that = $(this);
-                    if (that.find('a').attr('href') === id) {
-                        _showTab(that);
-                    }
-                });
+                var tab = _self.find('.c-tab__link a[href="' + $(this).attr('href') + '"]');
+                if (tab.length > 0)
+                    _showTab($(tab[0]).parent());
             });
 
             /*
@@ -57,7 +52,7 @@
             }
 
             if (!_self.hasClass('c-tab__edit')) {
-                var activeTab = $('.c-tab__link[data-state="active"]')[0];
+                var activeTab = _self.find('.c-tab__nav').first().children(_data.link + '[data-state="active"]')[0];
                 if (activeTab)
                     _showTab(activeTab);
             }
