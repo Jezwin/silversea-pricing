@@ -93,7 +93,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                 final Page exclusiveOffersRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
                 if (exclusiveOffersRootPage == null) {
-                    throw new ImporterException("Exclusive offers root page does not exists");
+                    throw new ImporterException("Exclusive offers root page does not exists " + rootPage + " for lang " + locale);
                 }
 
                 LOGGER.debug("Cleaning already imported exclusive offers");
