@@ -1,16 +1,14 @@
 <div data-sly-use.signUpUse="com.silversea.aem.components.editorial.SignUpUse"
-     data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"
      data-sly-test="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
      data-emptytext="SFO Widget"></div>
 <sly data-sly-test.refPath="${signUpUse.pageReference || properties.pageReference}" />
+<sly data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"/>
 <form class="c-subscribe__form form-inline c-formcookie c-formcookie--modal"
       action="${refPath @ extension='html', selectors='modalcontent'}"
       data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
       data-disable="false">
-
     <input name="requestsource" type="hidden" value="SFO" />
-
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">
