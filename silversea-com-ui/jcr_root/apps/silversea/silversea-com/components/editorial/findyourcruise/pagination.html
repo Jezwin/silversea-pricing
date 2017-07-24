@@ -2,7 +2,7 @@
 <nav class="c-fyc-pagination">
     <ul>
         <li data-sly-repeat="${['first', 'previous', '2', '3', '4', '5', '6', 'next', 'last']}">
-            <a href="#" data-pagination="${item}">${item @ i18n}</a>
+            <a href="#" data-page="${item}" class="${item == 'previous' ? 'previous': ''} ${item == 'next' ? 'next': ''} ${item == '2' ? 'active' : ''}">${item @ i18n}</a>
         </li>
     </ul>
 </nav>

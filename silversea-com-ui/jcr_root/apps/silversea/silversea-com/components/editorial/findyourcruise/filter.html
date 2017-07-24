@@ -14,7 +14,7 @@
             <a href="#"><i class="fa fa-undo"></i> <span class="text-capitalize">${'clear-all-filters' @ i18n}</span></a>
         </p>
     </div>
-    <form class="c-find-your-cruise-filter" action="/" data-url="${currentNode.path @ selectors='results'}">
+    <form class="c-find-your-cruise-filter" action="/" data-url="${currentNode.path @ selectors='results'}" data-limit="${currentStyle.paginationLimit || 10}">
         <div class="filter-wrapper collapse clearfix" id="filter-collapse">
             <div class="single-filter">
                 <select class="chosen destinations-filter" name="destination">
