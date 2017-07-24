@@ -157,7 +157,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
     public boolean isMatchingLanguage(BrochureModel brochure, String languageName) {
         Tag brochureLang = brochure.getLanguage();
         if (brochureLang != null) {
-            return brochureLang.getName().equals(languageName);
+            return brochureLang.getName().toUpperCase().equals(languageName.toUpperCase());
         }
         return false;
     }
