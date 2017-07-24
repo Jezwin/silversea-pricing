@@ -8,7 +8,9 @@
         </div>
         <div class="col-sm-6 c-blogpostteaser__descr">
             <div class="info">
-                <div class="date">${blogTeaser.formatPublicationDate  @context = 'html'}</div>
+                <div class="date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=blogTeaser.publicationDate}">
+                    ${date.value}
+                </div>
                 <h4>${blogTeaser.title}</h4>
                 <h6>${blogPostReferenceParam}</h6>
             </div>
