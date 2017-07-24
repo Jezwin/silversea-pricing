@@ -1,78 +1,75 @@
-<sly data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse" />
-<div class="c-fyc__result-wrapper clearfix ${fyc.type || 'v2'}">
-    <!--/* TODO : set class V2 according to design properties */-->
-    <div class="c-fyc__result" data-sly-repeat="${['a','a','a','a','a','a','a','a','a','a']}">
-        <div class="c-fyc__result__wrapper">
-            <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)">
-                <!--/* TODO : generated if exclusive offer */-->
-                <span class="flag">
-                    <span class="flag__icon icon-star"></span>
-                    <span class="flag__text">EXCLUSIVE OFFER</span>
-                </span>
-            </div>
-            <div class="c-fyc__result__content">
-                <div class="c-fyc__result__content__inner clearfix">
-                    <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
-                    <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
-                    <ul class="c-fyc__result__content__description silversea-expedition">
-                        <li class="cruise-ship hidden-xs"><strong>Silver Explorer</strong></li>
-                        <li class="cruise-destination">Galapagos Islands</li>
-                        <li class="cruise-type">Silversea Expedition</li>
-                        <li class="cruise-code hidden-xs"><strong>9877</strong></li>
-                        <li class="cruise-ship hidden-xs">Silver Explorer</li>
-                        <li class="meta_feature_inner hidden-xs">
-                            <span class="feature" data-sly-repeat="${['a','a','a']}">
-                                <i class="icon-star"></i>
-                                <span class="tooltip"><i></i>offer</span>
-                            </span>
-                        </li>
-                    </ul>
-                    <ul class="c-fyc__result__content__summary clearfix">
-                        <li class="c-fyc__result__content__summary__item">
-                            <dl>
-                                <dt class="visible-xs">${'departure' @ i18n}</dt>
-                                <dd><i class="fa fa-calendar-o hidden-xs"></i><strong>jul 13,</strong> 2017</dd>
-                            </dl>
-                        </li>
-                        <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
-                            <dl>
-                                <dt class="visible-xs">${'duration' @ i18n}</dt>
-                                <dd><i class="fa fa-clock-o hidden-xs"></i><strong>7</strong> ${'days' @ i18n}</dd>
-                            </dl>
-                        </li>
-                        <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--ship visible-xs">
-                            <dl>
-                                <dt>${'ship' @ i18n}</dt>
-                                <dd><strong class="text-capitalize">Silver Galapagos</strong></dd>
-                            </dl>
-                        </li>
-                    </ul>
-                    <ul class="c-fyc__result__content__feature hidden-xs">
-                        <li data-sly-repeat="${['a','a','a']}" class="meta_feature_inner">
-                            <span class="feature">
-                                <i class="icon-star"></i>
-                                <span class="tooltip"><i></i>offer</span>
-                            </span>
-                        </li>
-                    </ul>
-                    <dl class="c-fyc__result__content__itinerary hidden-xs">
-                        <dt>${'itinerary' @ i18n}</dt>
-                        <dd data-sly-repeat="${['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']}">Bridgetowns </dd>
-                    </dl>
-                </div>
-                <p class="c-fyc__result__content__price">
-                    <!--/* TODO : generate all-inclusive-package-from OR fare-from message*/-->
-                    <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n} <em class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span>
-                    <strong>&euro; 6,165</strong>
-                    <span class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
-                </p>
-                <p class="c-fyc__result__content__button text-center">
-                    <a href="#" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
-                </p>
-            </div>
+<!--/* TODO : set class V2 according to design properties */-->
+<div class="c-fyc__result" data-sly-repeat="${['a','a','a','a','a','a','a','a','a','a']}">
+    <div class="c-fyc__result__wrapper">
+        <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)">
+            <!--/* TODO : generated if exclusive offer */-->
+            <span class="flag">
+                <span class="flag__icon icon-star"></span>
+                <span class="flag__text">EXCLUSIVE OFFER</span>
+            </span>
         </div>
-        <a class="c-fyc__result__link" href="#"></a>
+        <div class="c-fyc__result__content">
+            <div class="c-fyc__result__content__inner clearfix">
+                <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
+                <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
+                <ul class="c-fyc__result__content__description silversea-expedition">
+                    <li class="cruise-ship hidden-xs"><strong>Silver Explorer</strong></li>
+                    <li class="cruise-destination">Galapagos Islands</li>
+                    <li class="cruise-type">Silversea Expedition</li>
+                    <li class="cruise-code hidden-xs"><strong>9877</strong></li>
+                    <li class="cruise-ship hidden-xs">Silver Explorer</li>
+                    <li class="meta_feature_inner hidden-xs">
+                        <span class="feature" data-sly-repeat="${['a','a','a']}">
+                            <i class="icon-star"></i>
+                            <span class="tooltip"><i></i>offer</span>
+                        </span>
+                    </li>
+                </ul>
+                <ul class="c-fyc__result__content__summary clearfix">
+                    <li class="c-fyc__result__content__summary__item">
+                        <dl>
+                            <dt class="visible-xs">${'departure' @ i18n}</dt>
+                            <dd><i class="fa fa-calendar-o hidden-xs"></i><strong>jul 13,</strong> 2017</dd>
+                        </dl>
+                    </li>
+                    <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
+                        <dl>
+                            <dt class="visible-xs">${'duration' @ i18n}</dt>
+                            <dd><i class="fa fa-clock-o hidden-xs"></i><strong>7</strong> ${'days' @ i18n}</dd>
+                        </dl>
+                    </li>
+                    <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--ship visible-xs">
+                        <dl>
+                            <dt>${'ship' @ i18n}</dt>
+                            <dd><strong class="text-capitalize">Silver Galapagos</strong></dd>
+                        </dl>
+                    </li>
+                </ul>
+                <ul class="c-fyc__result__content__feature hidden-xs">
+                    <li data-sly-repeat="${['a','a','a']}" class="meta_feature_inner">
+                        <span class="feature">
+                            <i class="icon-star"></i>
+                            <span class="tooltip"><i></i>offer</span>
+                        </span>
+                    </li>
+                </ul>
+                <dl class="c-fyc__result__content__itinerary hidden-xs">
+                    <dt>${'itinerary' @ i18n}</dt>
+                    <dd data-sly-repeat="${['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']}">Bridgetowns </dd>
+                </dl>
+            </div>
+            <p class="c-fyc__result__content__price">
+                <!--/* TODO : generate all-inclusive-package-from OR fare-from message*/-->
+                <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n} <em class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span>
+                <strong>&euro; 6,165</strong>
+                <span class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
+            </p>
+            <p class="c-fyc__result__content__button text-center">
+                <a href="#" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+            </p>
+        </div>
     </div>
+    <a class="c-fyc__result__link" href="#"></a>
 </div>
 
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />

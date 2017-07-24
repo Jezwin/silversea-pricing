@@ -14,6 +14,7 @@
         </span>
         <span class="c-fyc__header__inner">${'fares-from'} <span>(${'per-guest' @ i18n})</span></span>
     </div>
-
-    <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/results.html" />
+    <div class="c-fyc__result-wrapper clearfix ${fyc.type || 'v2'}">
+        <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/results.html" />
+    </div>
 </div>
