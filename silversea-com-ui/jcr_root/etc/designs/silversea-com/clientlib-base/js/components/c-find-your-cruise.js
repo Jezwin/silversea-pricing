@@ -2,6 +2,8 @@ $(function() {
     var $filter = $('.c-fyc-filter');
     var $btnReset = $filter.find('.c-fyc-filter__reset a');
     var $form = $filter.find('form.c-find-your-cruise-filter');
+    var $paginationWrapper = $('.c-fyc-pagination');
+    var $resultWrapper = $('.c-fyc__result-wrapper');
 
     /***************************************************************************
      * Sort alphabetically
@@ -58,6 +60,50 @@ $(function() {
     });
 
     /***************************************************************************
+     * Pagination
+     **************************************************************************/
+    var pagination = (function pagination() {
+        $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
+            e.preventDefault();
+            var $currentPage = $(e.target);
+            if ($currentPage.is('a')) {
+                $paginationWrapper.find('a').removeClass('active');
+                $currentPage.addClass('active');
+
+                $form.trigger('change');
+
+                // Scroll to filter
+                $('html, body').animate({
+                    scrollTop : $('.c-fyc-filter').first().offset().top - $('.c-header').offset().top
+                }, 800);
+            }
+        });
+        return pagination;
+    })();
+
+    /***************************************************************************
+     * Filter : reset form
+     **************************************************************************/
+    $btnReset.on('click', function(e) {
+        e.preventDefault();
+        var $btn = $(this);
+
+        if ($btn.hasClass('active')) {
+            // Reset form
+            $form.trigger('reset');
+
+            // Update select chosen plugin
+            $form.find('.chosen').trigger('chosen:updated');
+
+            // Force change event on form
+            $form.trigger('change');
+
+            // Set disable style on reset button
+            $btn.removeClass('active');
+        }
+    });
+
+    /***************************************************************************
      * Filter : behavior on form change
      **************************************************************************/
     $form.on('change', function() {
@@ -109,40 +155,27 @@ $(function() {
 
         $filterValue.each(function(i, field) {
             // Add filter
-            requestUrl = requestUrl + '.' + field.name + '_' + field.value;
+            requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+            //requestUrl = requestUrl + '.' + field.name + '_' + field.value;
         });
 
         // Add pagination
-        //...
+        requestUrl = requestUrl + '.page_' + $paginationWrapper.find('a.active').data('page');
 
         // Add limit
-        // ...
+        requestUrl = requestUrl + '.limit_' + $form.data('limit');
 
-        console.log(requestUrl);
+        // Add extension
+        requestUrl = requestUrl + '.html';
 
-        // Do request
-        // Awesomeness voilà 
-    });
-
-    /***************************************************************************
-     * Filter : reset form
-     **************************************************************************/
-    $btnReset.on('click', function(e) {
-        e.preventDefault();
-        var $btn = $(this);
-
-        if ($btn.hasClass('active')) {
-            // Reset form
-            $form.trigger('reset');
-
-            // Update select chosen plugin
-            $form.find('.chosen').trigger('chosen:updated');
-
-            // Force change event on form
-            $form.trigger('change');
-
-            // Set disable style on reset button
-            $btn.removeClass('active');
-        }
+        // Update result according to the request URL
+        $.ajax({
+            type : 'GET',
+            url : requestUrl,
+            success : function(result) {
+                console.log('request sucess');
+                $resultWrapper.html(result);
+            }
+        });
     });
 });
