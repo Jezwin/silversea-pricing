@@ -35,4 +35,24 @@ $(function(){
             $(".c-slider.c-slider--first-slide-only:not(.slick-initialized)").slick(settingSlider);
         }
     });
+    
+    
+    $( ".slider" ).parent().css('display', 'block');
+    const tabs = document.getElementsByClassName('mozaicItem');
+    $( ".slider" ).parent().after( "<div class='mobileSlider'></div>" );
+    
+    $( ".mobileSlider" ).css('background', '#ebebeb');
+    for (let i = 0; i < tabs.length; i++) {
+        console.log(tabs[i]);
+        $('.mobileSlider').append(tabs[i].innerHTML);
+    }
+    
+    $('.mobileSlider').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        fade: true,
+    });
+
+
 });

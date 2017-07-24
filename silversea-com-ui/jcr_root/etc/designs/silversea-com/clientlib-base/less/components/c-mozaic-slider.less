@@ -58,3 +58,17 @@
         }
     }
 }
+
+div > .slider{
+    display: block;
+    @media screen and (max-width: @screen-xs) {
+        display: none;
+    }
+}
+
+.mobileSlider{
+    display: none;
+    @media screen and (max-width: @screen-xs) {
+        display: block;
+    }
+}
