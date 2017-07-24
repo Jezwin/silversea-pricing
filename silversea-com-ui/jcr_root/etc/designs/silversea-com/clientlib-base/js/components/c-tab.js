@@ -10,14 +10,14 @@
                 nav : '.c-tab__link'
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
-            _orphan_link = $('.c-cruise__descr a.bound'),
+            _orphan_link = $('.c-cruise__descr a.bound, a[href^="#"]'),
             _contents = _self.find('.c-tab__body').first().find(_data.content),
             _showTab = function (tab) {
                 var id = $(tab).children('a').attr('href');
 
                 $(_contents).removeAttr('data-state', null);
                 $(_links).removeAttr('data-state', null);
-                console.log($(_links), $(_contents));
+
                 $(tab).attr('data-state', 'active');
                 $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
 
@@ -28,18 +28,13 @@
              */
             _orphan_link.click(function(e) {
                 e.preventDefault();
-
                 var id = $(this).attr('href');
-
-                $(_contents).removeAttr('data-state', null);
-                $(_links).removeAttr('data-state', null);
-
-                $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
 
                 $(_data.nav).each(function() {
                     var that = $(this);
-                    if (that.find('a').attr('href') === id)
-                        that.attr('data-state', 'active');
+                    if (that.find('a').attr('href') === id) {
+                        _showTab(that);
+                    }
                 });
             });
 
@@ -63,7 +58,8 @@
 
             if (!_self.hasClass('c-tab__edit')) {
                 var activeTab = $('.c-tab__link[data-state="active"]')[0];
-                _showTab(activeTab);
+                if (activeTab)
+                    _showTab(activeTab);
             }
         });
     };
