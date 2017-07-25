@@ -19,31 +19,37 @@
             <div class="single-filter">
                 <select class="chosen destinations-filter" name="destination">
                     <option value="all">${'destination' @ i18n}</option>
+                    <!--/* <option data-sly-repeat="${filterUse.destinations}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
                 </select>
             </div>
            <div class="single-filter">
                 <select class="chosen dates-filter" name="date">
                     <option value="all">${'departure-date' @ i18n}</option>
+                    <!--/* <option data-sly-repeat="${filterUse.dates}" value="${item.path}" data-value="yyyyMMdd">${item.title}</option>*/-->
                 </select>
             </div>
             <div class="single-filter">
                 <select class="chosen durations-filter" name="duration">
                     <option value="all">${'duration' @ i18n}</option>
+                    <!--/* <option data-sly-repeat="${filterUse.durations}" value="${item.path}" data-value="int-int">${item.title}</option> */-->
                 </select>
             </div>
             <div class="single-filter">
                 <select class="chosen ships-filter" name="ship">
                     <option value="all">${'ship' @ i18n}</option>
+                    <!--/* <option data-sly-repeat="${filterUse.ships}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
                 </select>
             </div>
             <div class="single-filter">
                 <select class="chosen types-filter" name="cruisetype">
                     <option value="all">${'cruise-type' @ i18n}</option>
+                    <!--/* <option data-sly-repeat="${filterUse.cruiseTypes}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
                 </select>
             </div>
             <div class="single-filter">
                 <select class="chosen chosen-with-search cities-filter" name="port">
                     <option value="all">${'port' @ i18n}</option>
+                    <!--/* <option data-sly-repeat="${filterUse.ports}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
                 </select>
             </div>
             <div class="single-filter">
@@ -58,7 +64,7 @@
                             <li data-sly-repeat.tagModel="${fyc.featureTags}">
                                 <sly data-sly-test.tagID="${tagModel.tag.tagID}" />
                                 <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagID}" />
-                                <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" />
+                                <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" data-value="${tagModel.tag.name}" />
                                 <label class="feature-name" for="${tagID}"><i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</label>
                             </li>
                         </ul>
