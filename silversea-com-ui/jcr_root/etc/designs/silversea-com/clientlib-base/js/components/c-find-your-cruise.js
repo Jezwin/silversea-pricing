@@ -106,14 +106,14 @@ $(function() {
         $cruise = $resultWrapper.find('.c-fyc__result:first');
         dataLayer.track_destination_id ='';
         dataLayer.track_destination_name = '';
-        dataLayer.track_voyage_id = '';
-        dataLayer.track_departure_date = '';
-        dataLayer.track_voyage_duration = '',
-        dataLayer.track_voyage_departure_harbor = '';
-        dataLayer.track_voyage_arrival_harbor = '';
-        dataLayer.track_voyage_type = '';
-        dataLayer.track_shipname = '';
-        dataLayer.track_revenue = '';
+        dataLayer.track_voyage_id = $cruise.find('.cruise-code').text().trim();
+        dataLayer.track_departure_date = $cruise.find('c-fyc__result__content__summary__item:first').text().trim();
+        dataLayer.track_voyage_duration = $cruise.find('.c-fyc__result__content__summary__item--duration dd strong').text().trim(),
+        dataLayer.track_voyage_departure_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:first').text().trim();
+        dataLayer.track_voyage_arrival_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:last').text().trim();
+        dataLayer.track_voyage_type = $cruise.find('.cruise-type').text().trim();
+        dataLayer.track_shipname = $cruise.find('.cruise-ship').text().trim();
+        dataLayer.track_revenue = $cruise.find('.c-fyc__result__content__price strong').text().trim();
         dataLayer.track_suite = '';
 
         return searchAnalytics;
