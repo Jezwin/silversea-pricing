@@ -15,7 +15,10 @@ public class PageHelper extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
-        Resource resource = getResourceResolver().getResource(path);
+        Resource resource = null;
+        if (path != null) {
+            resource = getResourceResolver().getResource(path);
+        }
 
         if (resource != null) {
             page = resource.adaptTo(Page.class);
