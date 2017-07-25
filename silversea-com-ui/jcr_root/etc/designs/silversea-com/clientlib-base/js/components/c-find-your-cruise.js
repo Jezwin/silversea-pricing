@@ -2,7 +2,7 @@ $(function() {
     var $filter = $('.c-fyc-filter');
     var $btnReset = $filter.find('.c-fyc-filter__reset a');
     var $form = $filter.find('form.c-find-your-cruise-filter');
-    var $paginationWrapper = $('.c-fyc-pagination');
+    var $paginationWrapper;
     var $resultWrapper = $('.c-fyc__result-wrapper');
 
     /***************************************************************************
@@ -83,12 +83,16 @@ $(function() {
     /***************************************************************************
      * Filter : analytics, set datalayer object according to the filter
      **************************************************************************/
-    // TODO : awesomeness
+    var searchAnalytics = (function searchAnalytics() {
+        
+        return searchAnalytics;
+    })();
 
     /***************************************************************************
      * Pagination
      **************************************************************************/
     var pagination = (function pagination() {
+        $paginationWrapper = $('.c-fyc-pagination');
         $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
             e.preventDefault();
             var $currentPage = $(e.target);
@@ -134,7 +138,11 @@ $(function() {
      **************************************************************************/
     $form.on('change', function() {
         // Set active state on reset button
-        var resetState, $currentForm = $(this), featureNumber = 0, $filterValue = $($currentForm.serializeArray());
+        var resetState,
+        $currentForm = $(this),
+        featureNumber = 0,
+        $filterValue = $($currentForm.serializeArray()),
+        $paginationWrapper = $('.c-fyc-pagination');
 
         $filterValue.each(function(i, field) {
             var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
@@ -201,7 +209,12 @@ $(function() {
             url : requestUrl,
             success : function(result) {
                 $resultWrapper.html(result);
+
+                // Build feature legend according to the current result
                 featureListBuild();
+
+                // Set data layer key according to the current result
+                searchAnalytics();
             }
         });
     });
