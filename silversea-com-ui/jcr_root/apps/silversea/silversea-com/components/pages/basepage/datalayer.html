@@ -1,7 +1,7 @@
 <sly data-sly-use.datalayer="com.silversea.aem.components.included.DataLayerUse" />
 <script type="text/javascript">
-    window.dataLayer = {
-        page : {
+    window.dataLayer = [{
+        
             env_work : '${datalayer.runMode @context='scriptString'}',
             env_channel : '',
             event : '${datalayer.event @context='scriptString'}',
@@ -52,6 +52,6 @@
             Google_tr_num_label: '${datalayer.media.Google_tr_num_label @context='scriptString'}',
             Yahoo_project_id: '${datalayer.media.Yahoo_project_id @context='scriptString'}',
             Yahoo_pixel_id: '${datalayer.media.Yahoo_pixel_id @context='scriptString'}'
-        }
-    }
+        
+    }];
 </script>
