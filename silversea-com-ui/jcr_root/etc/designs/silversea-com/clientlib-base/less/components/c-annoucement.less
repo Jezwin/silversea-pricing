@@ -37,7 +37,7 @@
             font-family: @f-theano_didot;
             line-height: 1;
             text-transform: uppercase;
-
+    		
             @media screen and (max-width: @screen-sm) {
                 margin: 0 0 30px;
             }
@@ -64,11 +64,8 @@
 
             a {
                 display: block;
-                text-transform: none;
-                font-weight: @bold;
-                font-size: 20px;
-                text-decoration: underline;
-                font-family: @f-sans_serif;
+                font-size: 31px;
+    			text-decoration: none;
                 margin-bottom: 26px;
 
                 @media screen and (max-width: @screen-sm) {
@@ -110,8 +107,12 @@
             a {
                 position: relative;
                 z-index: 2;
-
+				float: left;
+				margin-right: 2px;
+				padding: 8px 20px;
+    
                 @media screen and (max-width: @screen-sm) {
+                	float: none;
                     background-color: @black;
                     color: @white;
                 }
