@@ -60,7 +60,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="publicAreaReference"
+                                            cq-msm-lockable="assetSelectionReference"
                                             fieldLabel="Slider Image"
                                             name="./assetSelectionReference"
                                             required="{Boolean}true"
