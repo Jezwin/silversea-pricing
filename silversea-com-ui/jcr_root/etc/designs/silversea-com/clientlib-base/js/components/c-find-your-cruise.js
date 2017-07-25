@@ -59,6 +59,35 @@ $(function() {
         e.stopPropagation();
     });
 
+
+    /***************************************************************************
+     * Features : show features legend according to the current page
+     **************************************************************************/
+    var featureListBuild = (function featureListBuild() {
+        var template = '<span><i></i></span>';
+        var featureList = {};
+        var $featureWrapper = $('.feature-wrapper');
+
+        // Create feature list without doublon
+        $resultWrapper.find('.meta_feature_inner').each(function() {
+            var $currentFeature = $(this);
+            featureList[$currentFeature.find('i').attr('class')] = $currentFeature.find('.tooltip').text();
+        });
+
+        for (var key in featureList) {
+            $featureWrapper.append(template);
+            $featureWrapper.find('span:last i').addClass(key);
+            $featureWrapper.find('span:last').append(featureList[key]);
+        }
+
+        return featureListBuild;
+    })();
+
+    /***************************************************************************
+     * Filter : analytics, set datalayer object according to the filter
+     **************************************************************************/
+    // TODO : awesomeness
+
     /***************************************************************************
      * Pagination
      **************************************************************************/
@@ -173,8 +202,8 @@ $(function() {
             type : 'GET',
             url : requestUrl,
             success : function(result) {
-                console.log('request sucess');
                 $resultWrapper.html(result);
+                featureListBuild();
             }
         });
     });
