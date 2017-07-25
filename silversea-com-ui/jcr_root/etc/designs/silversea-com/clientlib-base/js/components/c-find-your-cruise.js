@@ -19,7 +19,7 @@ $(function() {
      **************************************************************************/
     $.fn.populateSelectFYC = function() {
         this.each(function() {
-            var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates'];
+            var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates' ];
 
             $.ajax({
                 type : 'GET',
@@ -34,8 +34,6 @@ $(function() {
                         // update Chosen with the new content
                         $('.c-find-your-cruise-filter .chosen').trigger('chosen:updated');
                     });
-                },
-                failure : function(errMsg) {
                 }
             });
 
@@ -43,7 +41,7 @@ $(function() {
             function buildOptions(json, filterName) {
                 json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
                     $('.' + filterName + '-filter').append($('<option>', {
-                        value : '/' + option.id + '/a/b/', // add slash only for testing url encoding
+                        value : '/' + option.id + '/a/b/', // TODO : remove this test later : add slash only for testing url encoding
                         text : option.title,
                         'data-sscclicktype' : 'filters'
                     }));
@@ -59,7 +57,6 @@ $(function() {
         e.stopPropagation();
     });
 
-
     /***************************************************************************
      * Features : show features legend according to the current page
      **************************************************************************/
@@ -74,7 +71,7 @@ $(function() {
             featureList[$currentFeature.find('i').attr('class')] = $currentFeature.find('.tooltip').text();
         });
 
-        for (var key in featureList) {
+        for ( var key in featureList) {
             $featureWrapper.append(template);
             $featureWrapper.find('span:last i').addClass(key);
             $featureWrapper.find('span:last').append(featureList[key]);
@@ -179,13 +176,14 @@ $(function() {
             $featureFieldWrapper.addClass('active');
         }
 
-        // Build request URL with filter, pagination and number of result per page.
+        // Build request URL with filter, pagination and number of result per
+        // page.
         var requestUrl = $currentForm.data('url');
 
         $filterValue.each(function(i, field) {
             // Add filter
             requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
-            //requestUrl = requestUrl + '.' + field.name + '_' + field.value;
+            // requestUrl = requestUrl + '.' + field.name + '_' + field.value;
         });
 
         // Add pagination
