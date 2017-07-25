@@ -15,7 +15,7 @@
         <div class="suitevariation__features" data-sly-test="${pageProperties.suiteFeature}">
             <h4>${'features' @ i18n}</h4>
             <ul data-sly-list="${pageProperties.suiteFeature}">
-                <li>${item}</li>
+                <li>${item @ context='html'}</li>
             </ul>
         </div>
     </div>
