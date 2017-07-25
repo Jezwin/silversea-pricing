@@ -129,7 +129,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             voyages = apiCallService.getVoyages(index);
             processData(voyages,false); 
             index++;
-        } while (voyages!=null &&!voyages.isEmpty() && index==1);
+        } while (voyages!=null &&!voyages.isEmpty());
         
         LOGGER.debug("Cruise importer -- End full strategy import");
     }
