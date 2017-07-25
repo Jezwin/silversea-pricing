@@ -1,4 +1,5 @@
-<sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}" />
+<sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
+    data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=true}" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"
       data-sly-use.head="head.js"
       data-sly-use.headlibRenderer="headlibs.html"
@@ -9,7 +10,7 @@
 <meta property="fb:app_id" content="1502411653342377" />
 <meta property="og:title" content="${currentPage.title}" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="${currentPage.path @ extension='html'}" />
+<meta property="og:url" content="${externalizerHelper.externalizedUrl @ extension='html'}" />
 <meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${pageHelper.thumbnail @ prependPath='/is/image'}?wid=1200" />
 <meta property="og:description" data-sly-test="${currentPage.description}" content="${currentPage.description}" />
 <!--/* /open graph tag */-->
