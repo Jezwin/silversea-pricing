@@ -59,16 +59,55 @@
     }
 }
 
-div > .slider{
+.slick-mozaic{
     display: block;
-    @media screen and (max-width: @screen-xs) {
+    @media screen and (max-width: @screen-sm) {
         display: none;
     }
 }
 
-.mobileSlider{
+.mozaicHeader {
     display: none;
-    @media screen and (max-width: @screen-xs) {
+    @media screen and (max-width: @screen-sm) {
         display: block;
+    }
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    .c-mozaicslider__title{
+        text-transform: uppercase;
+        font-size: 30px;
+    }
+    .c-mozaicslider__descr{
+        font-size: 13px;
+    }
+}
+
+.mobileSlider{
+    background: #ebebeb;
+    display: none;
+    @media screen and (max-width: @screen-sm) {
+        display: block;
+    }
+    .slick-dots li button:before{
+        background-color: #bababa ;
+    }
+    .slick-dots li.slick-active button:before {
+        background-color: #000;
+    }
+    .slick-dots li{
+        @media screen and (max-width: @screen-sm) {
+            margin: 0 1px;
+            height: 8px;
+            width: 8px;
+        }
+    }
+    .c-tabbedmozaic__title{
+        @media screen and (max-width: @screen-sm) {
+            width: 50%;
+        }
+        @media screen and (max-width: @screen-xs) {
+            width: 80%;
+        }
     }
 }
