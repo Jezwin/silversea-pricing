@@ -49,6 +49,6 @@ public class VariationsUpdater extends SlingSafeMethodsServlet {
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
-                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), Arrays.asList("plan"), true);
+                query, assetsQuery, Arrays.asList("assetSelectionReferenceImported"), Arrays.asList("planImported"), true);
     }
 }
