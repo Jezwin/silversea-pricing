@@ -1,9 +1,10 @@
 $(function() {
-    var $filter = $('.c-fyc-filter');
-    var $btnReset = $filter.find('.c-fyc-filter__reset a');
-    var $form = $filter.find('form.c-find-your-cruise-filter');
-    var $paginationWrapper;
-    var $resultWrapper = $('.c-fyc__result-wrapper');
+    var $filter = $('.c-fyc-filter'),
+    $btnReset = $filter.find('.c-fyc-filter__reset a'),
+    $form = $filter.find('form.c-find-your-cruise-filter'),
+    $paginationWrapper = $('.c-fyc-pagination'),
+    $resultWrapper = $('.c-fyc__result-wrapper'),
+    $page = $paginationWrapper.find('a.active').data('page');
 
     /***************************************************************************
      * Sort alphabetically
@@ -43,7 +44,8 @@ $(function() {
                     $('.' + filterName + '-filter').append($('<option>', {
                         value : '/' + option.id + '/a/b/', // TODO : remove this test later : add slash only for testing url encoding
                         text : option.title,
-                        'data-sscclicktype' : 'filters'
+                        'data-sscclicktype' : 'filters',
+                        'data-value' : 'hello'
                     }));
                 });
             }
@@ -84,7 +86,36 @@ $(function() {
      * Filter : analytics, set datalayer object according to the filter
      **************************************************************************/
     var searchAnalytics = (function searchAnalytics() {
-        
+        var dataLayer = window.dataLayer[0];
+
+        // Data search
+        var filterOjb = {};
+        $('.c-find-your-cruise-filter').find('select').each(function(i, element) {
+            filterOjb[element.name] = $(element).find(':selected').data('value') || element.value;
+        });
+
+        $('.c-find-your-cruise-filter').find('input:checked').each(function(i, element) {
+            filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
+        });
+
+        dataLayer.search_filters = filterOjb;
+        dataLayer.search_page_number = $page;
+        dataLayer.search_results_number = $('#matching-value').text();
+
+        // Data from first result
+        $cruise = $resultWrapper.find('.c-fyc__result:first');
+        dataLayer.track_destination_id ='';
+        dataLayer.track_destination_name = '';
+        dataLayer.track_voyage_id = '';
+        dataLayer.track_departure_date = '';
+        dataLayer.track_voyage_duration = '',
+        dataLayer.track_voyage_departure_harbor = '';
+        dataLayer.track_voyage_arrival_harbor = '';
+        dataLayer.track_voyage_type = '';
+        dataLayer.track_shipname = '';
+        dataLayer.track_revenue = '';
+        dataLayer.track_suite = '';
+
         return searchAnalytics;
     })();
 
@@ -96,7 +127,8 @@ $(function() {
         $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
             e.preventDefault();
             var $currentPage = $(e.target);
-            if ($currentPage.is('a')) {
+
+            if ($currentPage.is('.c-fyc-pagination a')) {
                 $paginationWrapper.find('a').removeClass('active');
                 $currentPage.addClass('active');
 
@@ -191,11 +223,11 @@ $(function() {
         $filterValue.each(function(i, field) {
             // Add filter
             requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
-            // requestUrl = requestUrl + '.' + field.name + '_' + field.value;
+            //requestUrl = requestUrl + '.' + field.name + '_' + encodeURIComponent(field.value);
         });
 
         // Add pagination
-        requestUrl = requestUrl + '.page_' + $paginationWrapper.find('a.active').data('page');
+        requestUrl = requestUrl + '.page_' + $page;
 
         // Add limit
         requestUrl = requestUrl + '.limit_' + $form.data('limit');
