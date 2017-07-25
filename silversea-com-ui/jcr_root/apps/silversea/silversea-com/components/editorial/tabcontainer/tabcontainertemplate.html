@@ -1,0 +1,22 @@
+<template data-sly-template.default>
+
+    <div class="c-tab__body">
+        <div data-sly-resource="${'parTabcontainer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    </div>
+
+</template>
+
+
+<template data-sly-template.preview>
+
+    <ul class="c-tab__nav c-tab__nav--regular5 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+        <li class="c-tab__link" data-state="active">
+            <a href="#Overview">${'overview' @i18n}</a>
+        </li>
+    </ul>
+
+    <div class="c-tab__body">
+        <div data-sly-resource="${'parTabcontainer' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    </div>
+
+</template>

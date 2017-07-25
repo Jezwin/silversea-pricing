@@ -15,12 +15,14 @@
                         <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise'}">
                             <a href="#excursion"><span>${'excursions' @i18n}</span></a>
+                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
+                        <a href="#highlight" data-sly-test.tabname="${properties.reference && properties.voyageHighlights ? 'voyage-highlights-expedition' : 'voyage-highlights'}">
+                            <span data-sly-test.tabname="${!properties.voyageHighlights ? 'expedition-team' : tabname}">${tabname @i18n}</span>
+                        </a>
                     </li><li class="c-tab__link c-tab__link--dark">
                             <a href="#ship"><span>${'ship' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#landnhotel"><span>${'land-and-hotel' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
-                        <a href="#highlight"><span>${'highlight' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#photonvideo"><span>${'photos-and-videos' @i18n}</span></a>
                     </li>
@@ -31,6 +33,7 @@
                         <sly data-sly-include="fragment/overviewtab/overview.html" />
                         <sly data-sly-include="fragment/overviewtab/fare.html" />
                         <sly data-sly-include="fragment/overviewtab/itineraries.html" />
+                        <sly data-sly-include="fragment/overviewtab/cta.html" />
                         <sly data-sly-include="fragment/overviewtab/enrichements.html" />
                         <sly data-sly-include="fragment/overviewtab/footnotes.html" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
@@ -56,8 +59,8 @@
                     </div>
                     <div class="c-tab__content" id="highlight" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
                         <!--/* Highlight tab */-->
-                        <sly data-sly-include="fragment/highlighttab/hightlight.html" />
-                        <sly data-sly-include="fragment/highlighttab/keypeople.html" />
+                        <sly data-sly-test="${properties.voyageHighlights}" data-sly-include="fragment/highlighttab/hightlight.html" />
+                        <sly data-sly-test="${properties.reference}" data-sly-include="fragment/highlighttab/keypeople.html" />
                     </div>
                     <div class="c-tab__content" id="photonvideo">
                         <!--/* Photos and videos tab */-->

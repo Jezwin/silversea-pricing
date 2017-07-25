@@ -37,7 +37,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyageSpecialOffer;
-
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Cruises update importer")
 public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
@@ -87,7 +87,7 @@ public class CruisesUpdateImporterImpl  implements CruisesUpdateImporter {
             int index = 1;
             Page destinationPage = pageManager
                     .getPage(apiConfig.apiRootPath(ImportersConstants.CRUISES_DESTINATIONS_URL_KEY));
-            String lastModificationDate = ImporterUtils.getLastModificationDate(destinationPage,"lastModificationDate");
+            String lastModificationDate = ImporterUtils.getDateFromPageProperties(destinationPage,"lastModificationDate");
             LOGGER.debug("Cruise update importer -- Start import data");
             do {
                 voyages = apiCallService.getChangedVoyages(index, lastModificationDate);

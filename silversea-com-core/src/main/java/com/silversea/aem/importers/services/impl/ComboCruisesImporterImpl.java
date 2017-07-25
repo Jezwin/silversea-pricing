@@ -11,9 +11,16 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.ValueFormatException;
+import javax.jcr.Workspace;
+import javax.jcr.lock.LockException;
+import javax.jcr.nodetype.ConstraintViolationException;
+import javax.jcr.version.VersionException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -31,6 +38,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.components.beans.LowestPrice;
+import com.silversea.aem.components.beans.VoyageWrapper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ComboCruisesImporter;
@@ -71,7 +79,8 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
 
     private LowestPrice lowestPrice;
     private Set<String> cruises; 
-    private Set<Integer> segments;
+    private Set<String> segments;
+    private Workspace workspace;
 
     private void init() throws LoginException {
         Map<String, Object> authenticationPrams = new HashMap<String, Object>();
@@ -79,6 +88,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
         pageManager = resourceResolver.adaptTo(PageManager.class);
         session = resourceResolver.adaptTo(Session.class);
+        workspace = session.getWorkspace();
         cruiseService.init();
     }
 
@@ -90,6 +100,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             initDiffSet(update);
             List<SpecialVoyage> specialVoyages = apiCallService.getSpecialVoyages();
             processData(specialVoyages,update); 
+            excuteUpdate(update);
             ImporterUtils.saveSession(session, false);
             LOGGER.debug("Combo Cruise importer -- Importing data finished");
 
@@ -105,10 +116,10 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     private void initDiffSet(boolean update){
         if(update){
             cruises = new HashSet<String>();
-            segments = new HashSet<Integer>();
+            segments = new HashSet<String>();
         }
     }
-    private <T> void updateSet(boolean update,Set<T> set, T element){
+    private void updateSet(boolean update,Set<String> set, String element){
         if(update && set != null){
             set.add(element);
         }
@@ -137,10 +148,10 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                         cruiseService.buildLowestPrices(cruisePageNode, lowestPrice.getGlobalPrices());
                         //Persist data
                         ImporterUtils.saveSession(session, false);
-                        //Replicate page with segments
-                        cruiseService.replicatePageWithChildren(cruisePage);
-                        //Deactivate pages that no longer exist 
-                        calculatePagesDiff(update);
+                        //TODO:Replicate page with segments
+                        //cruiseService.replicatePageWithChildren(cruisePage);
+                        //Update page in other languages
+                        updateLanguages(cruisePage, update,specialVoyage);
                         LOGGER.debug("Combo cruise importer -- Import cruise with id {} finished",specialVoyage.getSpecialVoyageId());
                     } else {
                         LOGGER.error("Combo cruise importer -- Combo cruise page with id {} not found",specialVoyage.getSpecialVoyageId());
@@ -180,7 +191,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
                     //Update node's properties
                     jcrContent.setProperty("cruiseReference", cruiseReference);
                     jcrContent.setProperty("CruiseSegmentId", segementId);
-                    updateSet(update,segments,voyage.getVoyageId());
+                    updateSet(update,segments,segementId);
                 }
             }
             LOGGER.debug("Combo cruise -- Updating segments finished");
@@ -246,7 +257,6 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
             Node suitesNode = ImporterUtils.findOrCreateNode(cruisePage.adaptTo(Node.class), ImportersConstants.SUITES_NODE);
             ImporterUtils.saveSession(session, false);
 
-
             LOGGER.debug("Combo cruise -- Start updating suites variations and prices for voyage with id {}", voyageId);
             for (Price price : prices) {
                 Page suiteReference = cruiseService.findSuiteReference(getShipId(specialVoyage), price.getSuiteCategoryCod());
@@ -286,30 +296,159 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         }
     }
       
-    private void calculatePagesDiff(boolean update) throws RepositoryException{
-        List<Page> pages = cruiseService.getPagesByResourceType(ImportersConstants.COMBO_CRUISE_RESOURCE_TYPE);
-        if(pages != null && !pages.isEmpty() && update){
-            LOGGER.debug("Combo Cruise importer -- Start calculate diff");
-            pages.forEach(page ->{
-                
-              String comboCruiseId = page.getProperties().get("comboCruiseCode",String.class);
-              if(!cruises.contains(comboCruiseId)){
-                  LOGGER.debug("Combo Cruise importer -- Combo cruise with id {} no longer exists",comboCruiseId);
-                  cruiseService.updateReplicationStatus(true, false, page);
-              }
-              else{
-                  Iterator<Page> children = page.listChildren();
-                  while(children.hasNext()){
-                      Page segement = children.next();
-                      Integer cruiseSegmentId = segement.getProperties().get("CruiseSegmentId",Integer.class);
-                      if(!segments.contains(cruiseSegmentId)){
-                          LOGGER.debug("Combo Cruise importer -- Segement page with id {} no longer exists",cruiseSegmentId);
-                          cruiseService.updateReplicationStatus(true, false, segement);
-                      }
-                  }
-              }
-            });
-            LOGGER.debug("Combo Cruise importer -- Finish combo cruises diff");
+    private void calculatePagesDiff(boolean update,String language) throws RepositoryException{
+        if(update){
+            List<Page> pages = cruiseService.getPagesByResourceType(ImportersConstants.COMBO_CRUISE_RESOURCE_TYPE,language);
+            if(pages != null && !pages.isEmpty()){
+                LOGGER.debug("Combo Cruise importer -- Start calculate diff");
+                pages.forEach(page ->{
+
+                    String comboCruiseId = page.getProperties().get("comboCruiseCode",String.class);
+                    if(!cruises.contains(comboCruiseId)){
+                        LOGGER.debug("Combo Cruise importer -- Combo cruise with id {} no longer exists",comboCruiseId);
+                        cruiseService.updateReplicationStatus(true, false, page);
+                    }
+                    else{
+                        Iterator<Page> children = page.listChildren();
+                        while(children.hasNext()){
+                            Page segement = children.next();
+                            String cruiseSegmentId = segement.getProperties().get("CruiseSegmentId",String.class);
+                            if(!segments.contains(cruiseSegmentId)){
+                                LOGGER.debug("Combo Cruise importer -- Segement page with id {} no longer exists",cruiseSegmentId);
+                                cruiseService.updateReplicationStatus(true, false, segement);
+                            }
+                        }
+                    }
+                });
+                ImporterUtils.saveSession(session, false);
+                LOGGER.debug("Combo Cruise importer -- Finish combo cruises diff");
+            }
         }
     }
+    
+    public void updateLanguages(Page page,boolean update,SpecialVoyage voyage) {
+        LOGGER.debug(" Combo Cruise importer -- Sart updates page [{}] in other languages",page.getPath());
+
+        String path = page.getPath();
+        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        if(languages != null && !languages.isEmpty()){
+            languages.forEach(language ->{
+                if(!language.equals(ImportersConstants.LANGUAGE_EN)){
+                    try{
+                        String destPath = StringUtils.replace(path, "/en/", "/" + language + "/");
+                        LOGGER.debug("Combo Cruise importer -- Updtae to language [{}] , destination path [{}]",language,destPath);
+                        Page destPage =  pageManager.getPage(destPath);
+                        if(update && destPage != null){
+                            String suitesPath = destPath.concat("/"+ImportersConstants.SUITES_NODE);
+                            String lowestPricesPath = destPath.concat("/"+ImportersConstants.LOWEST_PRICES_NODE);
+                            updateCruisePage(destPage, voyage,update); 
+                            cleanSegments(destPage);
+                            //copy segments
+                            copySegements(page,language);
+                            cleanNodes(destPage,update);                   
+                            //Update suites nodes
+                            ImporterUtils.copyNode(page,suitesPath, ImportersConstants.SUITES_NODE, workspace);
+                            //Update lowest prices
+                            ImporterUtils.copyNode(page,lowestPricesPath, ImportersConstants.LOWEST_PRICES_NODE, workspace);
+                            //Updates cruise reference 
+                            // exclusive offers,ship,port,suites,excursions,landprograms,hotels
+                            updateReferences(destPage,language);
+                        }
+                        else{
+                            workspace.copy(path, destPath);
+                            Page pa = pageManager.getPage(destPath);
+                            updateReferences(pa,language);
+                        }
+
+                    }catch(RepositoryException | IOException | ApiException e){
+                        LOGGER.error("Exception while updating pages in other languages",e);
+                    }
+                }
+            });
+        }  
+        LOGGER.debug("Combo Cruise importer -- Finish updates page [{}] in other languages",page.getPath());
+    }
+    
+    private void excuteUpdate(boolean update){
+        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        if(languages != null && !languages.isEmpty()){
+            languages.forEach(language ->{
+                try {
+                    calculatePagesDiff(update, language);
+                } catch (RepositoryException e) {
+                    LOGGER.debug("Error while updating pages");
+                }
+            });
+        }  
+    }
+    
+    private void cleanNodes(Page cruisePage,boolean update) throws RepositoryException{
+        if(update){
+            ImporterUtils.clean(cruisePage,ImportersConstants.SUITES_NODE,session);
+            ImporterUtils.clean(cruisePage,ImportersConstants.LOWEST_PRICES_NODE,session);
+        }
+    }
+    
+    private void cleanSegments(Page page) throws RepositoryException {
+        Iterator<Page> children = page.listChildren();
+        if(children != null){
+            children.forEachRemaining(element ->{
+                try {      
+                    Node node = element.adaptTo(Node.class);
+                    LOGGER.debug("Combo Cruise importer -- Remove segment {}",node.getPath());
+                    node.remove();
+                } catch (RepositoryException e) {
+                   LOGGER.error("Error while deleting segments",e);
+                }
+            });
+            ImporterUtils.saveSession(session, false);
+        } 
+    }
+    
+    private void copySegements(Page page,String language){
+        Iterator<Page> children = page.listChildren();
+        if(children != null){
+            children.forEachRemaining(element ->{
+                try {      
+                    String srcPath = element.getPath();
+                    String dest = formatPathByLanguage(srcPath, language);
+                    LOGGER.debug("Combo Cruise importer -- Copy segment to [{}]",dest);
+                    workspace.copy(srcPath,dest);
+                } catch (RepositoryException e) {
+                   LOGGER.error("Error while deleting segments",e);
+                }
+            });
+        }
+    }
+    
+    private void updateReferences(Page page,String language) throws RepositoryException{
+        String shipReference = page.getProperties().get("shipReference", String.class);
+        shipReference = formatPathByLanguage(shipReference,language);
+        Node  pageContentNode = page.getContentResource().adaptTo(Node.class);
+        pageContentNode.setProperty("shipReference", shipReference);
+        Node pageNode = page.adaptTo(Node.class);
+        updateCruisesReferences(page,language);
+        cruiseService.changeReferenceBylanguage(pageNode,ImportersConstants.SUITES_NODE,"suiteReference",language);
+    }
+    
+    private void updateCruisesReferences(Page page,String language) throws RepositoryException{
+        Iterator<Page> children = page.listChildren();
+        if(children != null){
+            children.forEachRemaining(element ->{
+                try {
+                    String cruiseReference = element.getProperties().get("cruiseReference", String.class);
+                    cruiseReference = formatPathByLanguage(cruiseReference,language);
+                    Node  pageContentNode = element.getContentResource().adaptTo(Node.class);
+                    pageContentNode.setProperty("cruiseReference", cruiseReference);
+                }catch (RepositoryException e) {
+                    LOGGER.error("Error while updating cruises references in segments",e);
+                }
+            });
+        }
+        ImporterUtils.saveSession(session, false);
+    }
+
+    private String formatPathByLanguage(String path,String language){
+        return StringUtils.replace(path, "/en/", "/" + language + "/");   
+   }
 }

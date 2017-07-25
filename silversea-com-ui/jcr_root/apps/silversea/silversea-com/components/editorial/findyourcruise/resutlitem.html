@@ -1,113 +1,75 @@
-<div class="c-fyc__result" data-sly-repeat="${['a', 'a']}" class="hide">
+<!--/* TODO : set class V2 according to design properties */-->
+<div class="c-fyc__result" data-sly-repeat="${['a','a','a','a','a','a','a','a','a','a']}">
     <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image">
-            <img src="http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg" alt="" />
+        <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)">
+            <!--/* TODO : generated if exclusive offer */-->
+            <span class="flag">
+                <span class="flag__icon icon-star"></span>
+                <span class="flag__text">EXCLUSIVE OFFER</span>
+            </span>
         </div>
         <div class="c-fyc__result__content">
-            <h2 class="c-fyc__result__content__title">San Cristobal <span class="text-lowercase">to</span> Baltra, Galapagos</h2>
-            <ul>
-                <li>[destination]</li>
-                <li>[cruiseType]</li>
-                <li>[ship]</li>
-                <li>[features]</li>
-            </ul>
-            <dl>
-                <dt>${'departure' @ i18n}</dt>
-                <dd><strong>13 jul</strong> 2017</dd>
-                <dt>${'duration' @ i18n}</dt>
-                <dd><strong>7</strong> ${'days' @ i18n}</dd>
-                <dt>${'ship' @ i18n}</dt>
-                <dd>[ship]</dd>
-            </dl>
-            <p>
-                <span>${'all-inclusive-package-from' @ i18n}</span>
-                <span>&euro; 6,165</span>
-                <span>${'with' @ i18n}</span>
-                <span>${'early-booking-bonus' @ i18n}</span>
+            <div class="c-fyc__result__content__inner clearfix">
+                <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
+                <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
+                <ul class="c-fyc__result__content__description silversea-expedition">
+                    <li class="cruise-ship hidden-xs"><strong>Silver Explorer</strong></li>
+                    <li class="cruise-destination">Galapagos Islands</li>
+                    <li class="cruise-type">Silversea Expedition</li>
+                    <li class="cruise-code hidden-xs"><strong>9877</strong></li>
+                    <li class="cruise-ship hidden-xs">Silver Explorer</li>
+                    <li class="meta_feature_inner hidden-xs">
+                        <span class="feature" data-sly-repeat="${['a','a','a']}">
+                            <i class="icon-star"></i>
+                            <span class="tooltip"><i></i>offer</span>
+                        </span>
+                    </li>
+                </ul>
+                <ul class="c-fyc__result__content__summary clearfix">
+                    <li class="c-fyc__result__content__summary__item">
+                        <dl>
+                            <dt class="visible-xs">${'departure' @ i18n}</dt>
+                            <dd><i class="fa fa-calendar-o hidden-xs"></i><strong>jul 13,</strong> 2017</dd>
+                        </dl>
+                    </li>
+                    <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
+                        <dl>
+                            <dt class="visible-xs">${'duration' @ i18n}</dt>
+                            <dd><i class="fa fa-clock-o hidden-xs"></i><strong>7</strong> ${'days' @ i18n}</dd>
+                        </dl>
+                    </li>
+                    <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--ship visible-xs">
+                        <dl>
+                            <dt>${'ship' @ i18n}</dt>
+                            <dd><strong class="text-capitalize">Silver Galapagos</strong></dd>
+                        </dl>
+                    </li>
+                </ul>
+                <ul class="c-fyc__result__content__feature hidden-xs">
+                    <li data-sly-repeat="${['a','a','a']}" class="meta_feature_inner">
+                        <span class="feature">
+                            <i class="icon-star"></i>
+                            <span class="tooltip"><i></i>offer</span>
+                        </span>
+                    </li>
+                </ul>
+                <dl class="c-fyc__result__content__itinerary hidden-xs">
+                    <dt>${'itinerary' @ i18n}</dt>
+                    <dd data-sly-repeat="${['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']}">
+                        Bridgetowns
+                    </dd>
+                </dl>
+            </div>
+            <p class="c-fyc__result__content__price">
+                <!--/* TODO : generate all-inclusive-package-from OR fare-from message*/-->
+                <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n} <em class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span>
+                <strong>&euro; 6,165</strong>
+                <span class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
             </p>
-            <p class="text-center">
-                <a href="#" class="btn btn-red effect btn-thin" type="button"> ${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+            <p class="c-fyc__result__content__button text-center">
+                <a href="#" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
             </p>
         </div>
-        <a href="#"></a>
     </div>
-</div>
-
-<div class="result__wrapper">
-    <div class="result result-expedition">
-        <div class="result__inner">
-            <div class="result__image">
-                <div class="result__image_img" style="background-image: url('http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg');">
-                    <a href="http://www.silversea.com/destinations/galapagos-islands-cruise/san-cristobal-to-baltra-galapagos-8803/?fycref=row2" title="Bridgetown TO Fort Lauderdale, Florida"></a>
-                </div>
-            </div>
-            <div class="result__content">
-                <div class="result__content_inner">
-                    <div class="result__content_content">
-                        <h2 class="result__title">
-                            <a href="#" title="Bridgetown TO Fort Lauderdale, Florida">
-                                San Cristobal  <span>to</span>  Baltra, Galapagos
-                            </a>
-                        </h2>
-                        <div class="result__meta">
-                            <span class="result__meta_dest">Galápagos Islands</span>
-                            <span class="result__meta_type">Silversea Expedition</span>
-                            <span class="result__meta_ship hidden-xs">Silver Galapagos</span>
-                            <span class="meta_feature">
-                                <ul>
-                                    <li class="meta_feature_inner">
-                                        <span class="feature feature-eo">
-                                            <i class="icon-star"></i>
-                                            <span class="tooltip"><i></i></span>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </span>
-                        </div>
-                        <div class="result__daysdate hidden-xs">
-                            <h3><i class="fa fa-calendar-o" style="padding-right:10px"></i>20 Lan 2018 | <i class="fa fa-clock-o" style="padding-right:5px"></i>7 days</h3>
-                        </div>
-                        <div class="result__daysdateship">
-                            <div class="result__daysdateship_inner">
-                                <div class="result__daysdateship_col">
-                                    <div class="result__daysdateship_line1">${'departure' @ i18n}</div>
-                                    <div class="result__daysdateship_line2">20 Jan</div>
-                                    <div class="result__daysdateship_line3">2018</div>
-                                </div>
-                                <div class="result__daysdateship_col">
-                                    <div class="result__daysdateship_line1">${'duration' @ i18n}</div>
-                                    <div class="result__daysdateship_line2">7</div>
-                                    <div class="result__daysdateship_line3">${'days' @ i18n}</div>
-                                </div>
-                                <div class="result__daysdateship_col">
-                                    <div class="result__daysdateship_line1">${'Ship' @ i18n}</div>
-                                    <div class="result__daysdateship_line2 result__shipname">Silver Galapagos</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="result__ports hidden-xs">
-                            <h4>Itinerary</h4>
-                            <ul class="result__ports_ul closed">
-                                <li>Bridgetown</li> <li>Castries</li> <li>Bequia</li> <li>St George's</li> <li>Kralendijk, Bonaire</li> <li>Willemstad, Curaçao</li> <li>Oranjestad, Aruba</li>  <li>Samana</li> <li>Grand Turk</li>  <li>Key West, Florida</li> <li>Fort Lauderdale, Florida</li> <li class="result_ports_more"><span >...</span> <span >More</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="result__content_actions">
-                        <div class="result__actions">
-                            <div class="result__actions_price">
-                                <div class="result__price">
-                                    <div class="result__price_line1">${'all-inclusive-package-from' @ i18n}</div>
-                                    <div class="result__price_line2">€ 6,165 <span>${'with' @ i18n}</span></div>
-                                    <div class="result__price_line3">${'early-booking-bonus' @ i18n}</div>
-                                </div>
-                            </div>
-                            <div class="result__actions_cta">
-                                <a href="#" class="btn btn-red effect" type="button"> ${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <a class="c-fyc__result__link" href="#"></a>
 </div>

@@ -1,0 +1,91 @@
+// HACK CSS FOR IE11
+_:-ms-lang(x), .fyc-v2 .result__actions {
+    top: 8px;
+}
+
+.fares {
+    color: #646464;
+    font-size: 12px;
+    font-style: italic;
+
+    @media screen and (min-width: @screen-md-min) {
+        margin-top: 12px;
+    }
+}
+
+#pagination {
+    margin-bottom: 50px;
+
+    @media screen and (max-width: @screen-sm) {
+        line-height: 47px;
+    }
+
+    .pagination {
+        font-size: 13px;
+        margin: 35px 0 65px;
+        text-align: center;
+        width: 100%;
+
+        @media screen and (max-width: @screen-md-max) {
+            margin: 35px 0 0;
+        }
+
+        li {
+            display: inline;
+
+            &:nth-child(2) a {
+                @media screen and (max-width: @screen-sm) {
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                }
+            }
+
+            &.active a {
+                z-index: 2;
+                cursor: default;
+                color: @white;
+                background-color: @black;
+                border-color: @black;
+            }
+
+            a {
+                border-bottom: 4px solid @black;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: .8;
+                margin: 0 0 0 -4px;
+                padding: 10px 6px;
+
+                &:hover {
+                    color: @white;
+                    background-color: @black;
+                    border-bottom: 4px solid #ddd;
+                }
+            }
+
+            &:first-child a, &:first-child a:hover {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            &:last-child a, &:last-child a:hover {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
+    }
+}
+
+.feature-wrapper {
+    text-align: center;
+    clear: both;
+
+    span {
+        display: inline-block;
+        margin: 0 0 10px 10px;
+
+        i {
+            margin-right: 6px;
+        }
+    }
+}

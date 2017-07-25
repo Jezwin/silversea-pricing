@@ -15,10 +15,26 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.*;
 
+/**
+ * Utils for JSON migration
+ */
 public class MigrationUtils {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(MigrationUtils.class);
 
+    /**
+     * Helper method to update pages (after a JSON import)
+     *
+     * @param resourceResolverFactory the resource resolver factory used to create a resource resolver
+     * @param query the query to get the pages to update
+     * @param assetsQuery the query to find assets which be inserted in pages properties
+     * @param assetReferencesProperties property names of properties containing information to create a MixedMediaSet
+     *                                  with multiple assets, the property is kept in the repository, and a new one
+     *                                  is created without the suffix "Imported"
+     * @param assetReferenceProperties property names of properties containing information to associate an asset,
+     *                                 the property is kept in the repository, and a new one is created without the
+     *                                 suffix "Imported"
+     */
     public static void updatePagesAfterMigration(final ResourceResolverFactory resourceResolverFactory,
                                                  final String query,
                                                  final String assetsQuery,

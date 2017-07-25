@@ -4,6 +4,14 @@
     data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
 
     <input name="requestsource" type="hidden" value="EBRO" />
+    <div class="form-group form-group-lg">
+        <div class="checkbox">
+            <label>
+                <input class="custom-checkbox" type="checkbox" name="att01" value="true" checked="true">
+                ${'i-am-not-a-travel-agent' @ i18n}
+            </label>
+        </div>
+    </div>
     <div class="form-group form-group-lg has-feedback input--title">
         <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
             <option value="">${'title' @ i18n}*</option>
@@ -60,7 +68,7 @@
         <div class="help-block with-errors incorrect"></div>
     </div>
 
-    <p class="small text-muted">${'required-fields' @ i18n}*</p>
+    <p class="small text-muted">* ${'required-fields' @ i18n}</p>
 
     <div class="form-group form-group-lg">
         <div class="checkbox">

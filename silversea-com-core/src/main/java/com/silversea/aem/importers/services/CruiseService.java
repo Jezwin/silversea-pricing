@@ -77,7 +77,8 @@ public interface CruiseService {
   
     void buildVariationsLowestPrices(Node suitesNode, LowestPrice lowestPrice)throws RepositoryException;
     
-    List<Page> getPagesByResourceType(String resourceType) throws RepositoryException;
+    List<Page> getPagesByResourceType(String resourceType,String language) throws RepositoryException;
     
-    void copyPage(Page page);
+    void changeReferenceBylanguage(Node rootNode,String nodeName,String reference,String language)throws RepositoryException;
+    
 }

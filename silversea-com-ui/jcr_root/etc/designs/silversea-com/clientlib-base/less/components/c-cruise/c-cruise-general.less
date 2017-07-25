@@ -16,11 +16,32 @@
 .c-cruise__descr {
     text-align: center;
     font-size: 13px;
+    max-width: 770px;
+    margin: auto;
+    padding: 0 0 20px 0;
+    
+    & a {
+   		text-decoration: underline;
+    }
+    
+    & a:hover {
+   		text-decoration: none;
+    }
 }
 
 // align text on left in one tab
 #landnhotel .c-cruise__descr {
     text-align: left;
+    max-width: 770px;
+}
+#excursion .c-cruise__descr {
+    max-width: 770px;
+}
+#suitenfare .c-cruise__descr {
+    max-width: 100%;
+}
+#highlight .c-cruise-keypeople .c-cruise__descr {
+    max-width: 680px;
 }
 
 // ICONS FEATURES
@@ -48,6 +69,7 @@
             width: 12px;
             height: 12px;
             position: relative;
+            z-index: 1;
             cursor: pointer;
 
             &:last-child {

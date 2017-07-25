@@ -41,6 +41,7 @@ import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.model.Feature;
 
+@Deprecated
 @Component(immediate = true, label = "Silversea.com - features update importer")
 @Service(value = FeaturesUpdateImporter.class)
 public class FeaturesUpdateImporterImpl implements FeaturesUpdateImporter {

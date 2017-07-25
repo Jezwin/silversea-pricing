@@ -36,10 +36,10 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private ShoreExcursionsImporter shoreExcursionsImporter;
 
     @Reference
-    private HotelImporter hotelImporter;
+    private HotelsImporter hotelsImporter;
 
     @Reference
-    private LandProgramImporter landProgramImporter;
+    private LandProgramsImporter landProgramsImporter;
 
     @Reference
     private TravelAgenciesImporter travelAgenciesImporter;
@@ -139,7 +139,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    ImportResult importResult = hotelImporter.importAllHotels();
+                    ImportResult importResult = hotelsImporter.importAllHotels();
                     response.getWriter().write("Hotels import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     response.getWriter().write("<br/>");
                     response.getWriter().write("hotels import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
@@ -157,7 +157,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     response.getWriter().flush();
                     watch.reset();
                     watch.start();
-                    ImportResult importResult = landProgramImporter.importAllLandPrograms();
+                    ImportResult importResult = landProgramsImporter.importAllLandPrograms();
                     response.getWriter().write("Land program import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     response.getWriter().write("<br/>");
                     response.getWriter().write("land program import succes number : <p>" + importResult.getSuccessNumber() + "</p>");
@@ -229,7 +229,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesImporter.importData();
+                    cruisesImporter.importData(false);
                     response.getWriter().write("Cruises import Done<br/>");
                     response.getWriter().flush();
                 }

@@ -1,10 +1,12 @@
 package com.silversea.aem.services;
 
+import com.silversea.aem.importers.servlets.mappings.CitiesMappingServlet;
+
 import javax.jcr.Node;
 import javax.jcr.Session;
 
 /**
- * TODO remove, replaced by {@link com.silversea.aem.importers.servlets.CitiesMappingServlet}
+ * TODO remove, replaced by {@link CitiesMappingServlet}
  */
 @Deprecated
 public interface MigrationContentService {

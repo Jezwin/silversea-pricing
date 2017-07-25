@@ -7,6 +7,7 @@ import com.silversea.aem.components.beans.ImporterStatus;
 /**
  * Created by mbennabi on 09/03/2017.
  */
+@Deprecated
 public interface ExclusiveOffersUpdateImporter {
 
     ImporterStatus updateImporData() throws IOException;

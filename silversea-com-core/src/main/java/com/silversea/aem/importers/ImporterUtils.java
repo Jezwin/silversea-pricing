@@ -1,5 +1,10 @@
 package com.silversea.aem.importers;
 
+import com.burgstaller.okhttp.AuthenticationCacheInterceptor;
+import com.burgstaller.okhttp.CachingAuthenticatorDecorator;
+import com.burgstaller.okhttp.digest.CachingAuthenticator;
+import com.burgstaller.okhttp.digest.Credentials;
+import com.burgstaller.okhttp.digest.DigestAuthenticator;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.replication.ReplicationActionType;
@@ -10,6 +15,8 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.services.ApiConfigurationService;
+import io.swagger.client.ApiClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.sling.api.resource.Resource;
@@ -21,9 +28,16 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Workspace;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * TODO move to com.silversea.aem.importers.utils package
+ */
 public class ImporterUtils {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ImporterUtils.class);
@@ -59,22 +73,24 @@ public class ImporterUtils {
     }
 
     /**
-     * Retrieve the last modification date of a page
-     *
-     * @param page: modified page
-     * @return lastModificationDate : modification date
+     * @param page         the page from where to get the date
+     * @param propertyName name of the date property to retrieve
+     * @return simplified date from property defined by <code>propertyName</code>
      */
-    public static String getLastModificationDate(Page page, String property) {
-        String lastModificationDate = null;
+    public static String getDateFromPageProperties(final Page page, final String propertyName) {
         if (page != null) {
-            Resource resource = page.adaptTo(Resource.class);
-            if (resource != null && !resource.equals(Resource.RESOURCE_TYPE_NON_EXISTING)) {
-                Date date = page.getContentResource().getValueMap().get(property, Date.class);
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-                lastModificationDate = formatter.format(date);
+            Resource pageContentResource = page.getContentResource();
+
+            if (pageContentResource != null) {
+                Date date = pageContentResource.getValueMap().get(propertyName, Date.class);
+
+                if (date != null) {
+                    return new SimpleDateFormat("yyyyMMdd").format(date);
+                }
             }
         }
-        return lastModificationDate;
+
+        return null;
     }
 
     /**
@@ -210,11 +226,24 @@ public class ImporterUtils {
             if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
                 Resource child = resource.getChild(nodeName);
                 if (child != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(child)) {
-                    LOGGER.debug("Remove node {}", page.getPath());
+                    LOGGER.debug("Remove node {}", page.getPath()+"/"+nodeName);
                     Node node = child.adaptTo(Node.class);
                     node.remove();
                     // Persist data
                     ImporterUtils.saveSession(session, false);
+                }
+            }
+        }
+    }
+    public static void copyNode(Page sourcePage,String destPath, String nodeName,Workspace workspace) throws RepositoryException {
+        if (sourcePage != null) {
+            Resource resource = sourcePage.adaptTo(Resource.class);
+            if (resource != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(resource)) {
+                Resource child = resource.getChild(nodeName);
+                if (child != null && !Resource.RESOURCE_TYPE_NON_EXISTING.equals(child)) {
+                    LOGGER.debug("copy node {}", child.getPath());
+                    Node node = child.adaptTo(Node.class);
+                    workspace.copy(node.getPath(), destPath);
                 }
             }
         }
@@ -251,67 +280,6 @@ public class ImporterUtils {
         } catch (ReplicationException e) {
             LOGGER.error("Replication error", e);
         }
-    }
-
-    public static List<Page> findPagesById(Iterator<Resource> resources) {
-        List<Page> pages = new ArrayList<Page>();
-        while (resources != null && resources.hasNext()) {
-            Page page = resources.next().adaptTo(Page.class);
-            pages.add(page);
-        }
-        return pages;
-    }
-
-    public static List<Page> createPagesALLLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
-                                                          Page rootPage, List<String> local, String templatePath, String pageName) {
-        Page page = null;
-        String root;
-        Page rootPageLocal;
-        List<Page> allPages = new ArrayList<Page>();
-
-        for (String loc : local) {
-            // if(loc!="en"){
-            root = StringUtils.replace(rootPage.getPath(), "/en/", "/" + loc + "/");
-            // }
-            rootPageLocal = resourceResolver.getResource(root).adaptTo(Page.class);
-            try {
-                page = pageManager.create(root,
-                        JcrUtil.createValidChildName(rootPageLocal.adaptTo(Node.class),
-                                StringHelper.getFormatWithoutSpecialCharcters(pageName)),
-                        templatePath, StringHelper.getFormatWithoutSpecialCharcters(pageName), false);
-            } catch (WCMException | RepositoryException e) {
-                e.printStackTrace();
-            }
-            allPages.add(page);
-        }
-        return allPages;
-    }
-
-    public static Page createPageLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
-                                                Replicator replicat, Session session, Page rootPage, String local, String templatePath, String pageName) {
-        Page page = null;
-        String root;
-        Page rootPageLocal;
-        root = StringUtils.replace(rootPage.getPath(), "/en/", "/" + local + "/");
-        rootPageLocal = resourceResolver.getResource(root).adaptTo(Page.class);
-        try {
-            page = pageManager.create(root,
-                    JcrUtil.createValidChildName(rootPageLocal.adaptTo(Node.class),
-                            StringHelper.getFormatWithoutSpecialCharcters(pageName)),
-                    templatePath, StringHelper.getFormatWithoutSpecialCharcters(pageName), false);
-            LOGGER.debug("creation of page : {}", page.getPath());
-        } catch (WCMException | RepositoryException e) {
-            LOGGER.debug("Error durnig creation page : {}", pageName);
-        }
-        if (page != null) {
-            try {
-                session.save();
-                replicat.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
-            } catch (ReplicationException | RepositoryException e) {
-                LOGGER.debug("Error durnig activation page : {}", pageName);
-            }
-        }
-        return page;
     }
 
     public static Page findPagesLanguageCopies(PageManager pageManager, ResourceResolver resourceResolver,
@@ -370,6 +338,17 @@ public class ImporterUtils {
     }
 
     /**
+     * TODO typo
+     * @param pageManager
+     * @param masterPage
+     * @param currentPage
+     * @return
+     */
+    public static String findPageLangauge(PageManager pageManager, final Page masterPage, Page currentPage) {
+        return currentPage.getParent(4).getName();
+    }
+
+    /**
      * @param pageManager
      * @param masterPage
      * @param locale
@@ -388,10 +367,6 @@ public class ImporterUtils {
         return null;
     }
 
-    public static String findPageLangauge(PageManager pageManager, final Page masterPage, Page currentPage) {
-        return currentPage.getParent(4).getName();
-    }
-
     /**
      * Set the last modification date on the defined <code>rootPath</code>
      *
@@ -404,33 +379,51 @@ public class ImporterUtils {
                                                final String rootPath, final String propertyName) {
         // Setting modification date for each language
         final Page rootPage = pageManager.getPage(rootPath);
-        final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 
-        // Iterating over locales
-        for (String locale : locales) {
-            final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+        // Setting last modification date
+        try {
+            Node rootNode = rootPage.getContentResource().adaptTo(Node.class);
 
-            // Setting last modification date
+            if (rootNode != null) {
+                rootNode.setProperty(propertyName, Calendar.getInstance());
+
+                session.save();
+            } else {
+                LOGGER.error("Cannot set {} on {}", propertyName, rootPath);
+            }
+        } catch (RepositoryException e) {
+            LOGGER.error("Cannot set last modification date", e);
+
             try {
-                Node rootNode = citiesRootPage.getContentResource().adaptTo(Node.class);
-
-                if (rootNode != null) {
-                    rootNode.setProperty(propertyName, Calendar.getInstance());
-
-                    session.save();
-                } else {
-                    LOGGER.error("Cannot set {} on {}", propertyName, rootPath);
-                }
-            } catch (RepositoryException e) {
-                LOGGER.error("Cannot set last modification date", e);
-
-                try {
-                    session.refresh(false);
-                } catch (RepositoryException e1) {
-                    LOGGER.debug("Cannot refresh session", e1);
-                }
+                session.refresh(false);
+            } catch (RepositoryException e1) {
+                LOGGER.debug("Cannot refresh session", e1);
             }
         }
     }
 
+    /**
+     * @param apiConfigurationService the api configuration
+     * @return a configured API client
+     */
+    public static ApiClient getApiClient(ApiConfigurationService apiConfigurationService) {
+        ApiClient apiClient = new ApiClient();
+
+        final DigestAuthenticator authenticator = new DigestAuthenticator(
+                new Credentials(apiConfigurationService.getLogin(), apiConfigurationService.getPassword()));
+        final Map<String, CachingAuthenticator> authCache = new ConcurrentHashMap<>();
+
+        apiClient.setDebugging(LOGGER.isDebugEnabled());
+
+        apiClient.setBasePath(apiConfigurationService.apiBasePath());
+
+        // TODO connect and read timeout are not supposed to be the same !!
+        apiClient.setConnectTimeout(apiConfigurationService.getTimeout());
+        apiClient.getHttpClient().setReadTimeout(apiConfigurationService.getTimeout(), TimeUnit.MILLISECONDS);
+
+        apiClient.getHttpClient().interceptors().add(new AuthenticationCacheInterceptor(authCache));
+        apiClient.getHttpClient().setAuthenticator(new CachingAuthenticatorDecorator(authenticator, authCache));
+
+        return apiClient;
+    }
 }
