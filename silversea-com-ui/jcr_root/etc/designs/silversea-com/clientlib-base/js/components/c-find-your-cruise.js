@@ -24,7 +24,7 @@ $(function() {
 
             $.ajax({
                 type : 'GET',
-                url : '/bin/cruises/search?language=' + $('html').attr('lang'),
+                url : '/bin/cruises/search?language=' + $form.data('lang'),
                 contentType : 'application/json',
                 dataType : 'json',
                 success : function(json) {
@@ -42,7 +42,7 @@ $(function() {
             function buildOptions(json, filterName) {
                 json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
                     $('.' + filterName + '-filter').append($('<option>', {
-                        value : '/' + option.id + '/a/b/', // TODO : remove this test later : add slash only for testing url encoding
+                        value : option.id,
                         text : option.title,
                         'data-sscclicktype' : 'filters',
                         'data-value' : 'hello'
