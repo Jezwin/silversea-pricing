@@ -11,8 +11,6 @@ import javax.jcr.Session;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
@@ -51,8 +49,6 @@ public class QuoteRequestUse extends WCMUsePojo {
     private Page suitePage;
     private GeolocationTagService geolocationTagService;
     private TagManager tagManager;
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(QuoteRequestUse.class);
 
     @Override
     public void activate() throws Exception {

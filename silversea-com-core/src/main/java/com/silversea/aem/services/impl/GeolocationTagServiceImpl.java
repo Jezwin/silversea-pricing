@@ -1,7 +1,6 @@
 package com.silversea.aem.services.impl;
 
 import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.services.GeolocationTagService;
 import org.apache.felix.scr.annotations.Activate;

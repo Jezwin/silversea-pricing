@@ -2,7 +2,6 @@ package com.silversea.aem.helper;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.services.RunModesService;
-import org.apache.sling.settings.SlingSettingsService;
 
 /**
  * Helper allowing to deal with run modes

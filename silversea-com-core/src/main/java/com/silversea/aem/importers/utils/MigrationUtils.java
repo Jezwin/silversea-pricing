@@ -3,14 +3,9 @@ package com.silversea.aem.importers.utils;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.AssetManager;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.s7dam.set.MediaSet;
-import com.day.cq.dam.commons.util.DamConfigurationConstants;
-import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.dam.commons.util.S7SetHelper;
-import com.day.cq.wcm.api.NameConstants;
-import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import org.apache.sling.api.resource.*;
@@ -21,10 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.*;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.nodetype.NoSuchNodeTypeException;
-import javax.jcr.version.VersionException;
 import java.util.*;
 
 /**

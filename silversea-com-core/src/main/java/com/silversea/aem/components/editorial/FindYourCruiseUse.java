@@ -9,7 +9,6 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.TagModel;
 
 public class FindYourCruiseUse extends WCMUsePojo {
