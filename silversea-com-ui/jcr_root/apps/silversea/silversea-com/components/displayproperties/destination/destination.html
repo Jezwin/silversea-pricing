@@ -1,6 +1,8 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Destination display properties"></div>
 <div class="o-area-property-display">
-    ${pageProperties.longDescription || pageProperties.jcr:description @ context='html'}
+    <div class="text">
+        ${pageProperties.longDescription || pageProperties.jcr:description @ context='html'}
+    </div>
     <div data-sly-resource="${'inlinegallery' @ resourceType='silversea/silversea-com/components/editorial/inlinegallery'}"></div>
     <div id="destination-html-switcher" class="switcher-text-link hidden_mobile single_destination_discover_more_link">${'destination-discover-more' @i18n}</div>
     <div id="destination-fyc-switcher" class="switcher-text-link hidden hidden_mobile">${'destination-view-cruise' @ i18n}</div>

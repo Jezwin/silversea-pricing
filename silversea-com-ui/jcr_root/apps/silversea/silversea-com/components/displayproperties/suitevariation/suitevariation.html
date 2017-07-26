@@ -5,8 +5,10 @@
     <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}</h1>
     <div class="o-section o-section--separator o-description">
         <div class="row">
-            <div class="col-sm-6"> 
-                ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
+            <div class="col-sm-6">
+                <div class="text">
+                    ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
+                </div>
             </div>
             <div class="col-sm-6">
                 <div class="suitevariation__bedroominfo"> ${pageProperties.bedroomsInformation @ context='html'}</div>

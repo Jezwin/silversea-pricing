@@ -7,7 +7,7 @@
         data-sly-test="${currentPage.navigationTitle || currentPage.title}">
         ${currentPage.navigationTitle || currentPage.title || cpt.areaPage.navigationTitle || cpt.areaPage.title @ context='html'}
     </h1>
-    <div class="o-section o-section--separator o-description"
+    <div class="o-section o-section--separator text"
          data-sly-test="${pageProperties.longDescription || currentPage.description}">
         ${pageProperties.longDescription || currentPage.description || cpt.areaPage.properties['longDescription'] || cpt.areaPage.description @ context='html'}
     </div>

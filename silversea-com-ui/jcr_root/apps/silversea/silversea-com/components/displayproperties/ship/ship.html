@@ -1,6 +1,6 @@
 <div class="c-pageheader">
     <h1 class="c-pageheader__title">${currentPage.title || currentPage.navigationTitle}</h1>
-    <div class="c-pageheader__decription">
+    <div class="c-pageheader__decription text">
         ${pageProperties.longDescription || currentPage.description @ context='html' }
     </div>
     <div class="c-pageheader__properties" data-sly-test="${pageProperties.guestsCapacity || pageProperties.crewCapacity || pageProperties.builtDate || pageProperties.tonnage}">
