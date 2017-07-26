@@ -153,6 +153,15 @@ public class DataLayerUse extends WCMUsePojo {
             if (pageCategory2.equals("")) {
                 pageCategory2 = "enrichments";
             }
+            if (pageCategory3.equals("")) {
+                Resource res = getCurrentPage().getContentResource();
+                Tag[] tags = tagManager.getTags(res);
+                for (Tag tag : tags) {
+                    if (tag.getNamespace().toString().equals("/etc/tags/key-people")) {
+                        pageCategory3 = tag.getName();
+                    }
+                }
+            }
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_SUITE_VARIATION)) {
             if (pageCategory2.equals("")) {
@@ -181,7 +190,7 @@ public class DataLayerUse extends WCMUsePojo {
         if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
             pageCategory2 = getCurrentPage().getName();
         }
-        
+
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_PAGE)) {
             if (pageCategory3.equals("")) {
                 pageCategory3 = getCurrentPage().getParent().getName();
