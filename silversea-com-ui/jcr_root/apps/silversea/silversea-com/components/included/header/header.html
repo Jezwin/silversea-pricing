@@ -19,7 +19,7 @@
                     <sly data-sly-include="mainnavtop.html" />
                 </nav>
                 <div class="c-main-nav__backdrop"></div>
-                <div class="c-quote-request" data-sly-use.navTop="com.silversea.aem.components.page.HeaderUse" data-sly-test.page1="${navTop.link1Page}">
+                <div class="c-quote-request" data-sly-use.navTop="com.silversea.aem.components.included.HeaderUse" data-sly-test.page1="${navTop.link1Page}">
                     <a href="${page1.path @ extension = 'html'}" class="c-quote-request-link">${page1.navigationTitle || page1.title}</a>
                 </div>
                 <sly data-sly-include="call.html" />

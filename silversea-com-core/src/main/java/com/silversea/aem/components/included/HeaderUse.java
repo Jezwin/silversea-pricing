@@ -1,4 +1,4 @@
-package com.silversea.aem.components.page;
+package com.silversea.aem.components.included;
 
 import java.util.ArrayList;
 import java.util.Iterator;
