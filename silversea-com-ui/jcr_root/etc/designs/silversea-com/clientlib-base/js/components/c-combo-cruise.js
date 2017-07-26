@@ -47,8 +47,8 @@ $(function() {
     // read/less more variations
     var variation_block = $('.ship-mobilewrapper'),
         variationHeight = $('.variationimg img').height() - 70,
-        moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</i></a>',
-        lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</i></a>';
+        moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</a>',
+        lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</a>';
     
 
     if ($.viewportDetect() !== "xs") {
