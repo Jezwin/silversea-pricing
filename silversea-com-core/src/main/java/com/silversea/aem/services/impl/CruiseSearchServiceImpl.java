@@ -55,6 +55,7 @@ import com.silversea.aem.constants.ServiceConstants;
 import com.silversea.aem.enums.FacetKey;
 import com.silversea.aem.enums.TagType;
 import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.models.CruiseItineraryModel;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.CruiseSearchService;
@@ -489,8 +490,9 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
         }
         //Extract itineraries
         if(cruiseModel.getItineraries() != null){
-            itineraries = cruiseModel.getItineraries()
+           itineraries = cruiseModel.getItineraries()
                                      .stream()
+                                     .map(CruiseItineraryModel::getItineraryModel)
                                      .map(ItineraryModel::getTitle)
                                      .collect(Collectors.toList());
         }

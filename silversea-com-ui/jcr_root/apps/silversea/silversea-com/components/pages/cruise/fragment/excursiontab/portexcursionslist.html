@@ -10,14 +10,14 @@
              data-more="<i class='fa fa-angle-down'></i>"
              data-close="<i class='fa fa-angle-up'></i>"
              data-sly-list="${cruise.cruiseModel.itineraries}">
-            <div class="c-accordion__elem" data-sly-test="${item.excursions.size > 0}">
+            <div class="c-accordion__elem" data-sly-test="${item.getItineraryModel.excursions.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
                     <div class="c-accordion__title c-accordion__title--thumbnail">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}"></sly>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.getItineraryModel.thumbnail}"></sly>
                     </div>
                     <div class="c-accordion__title w-title">
-                        <p class="c-accordion__subtitle veryimportant">${item.title}</p>
-                        <p>${item.country}</p>
+                        <p class="c-accordion__subtitle veryimportant">${item.getItineraryModel.title}</p>
+                        <p>${item.getItineraryModel.country}</p>
                         <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
                             ${date.value}
                         </p>
@@ -29,7 +29,7 @@
                         </p>
                     </div>
                     <div class="c-accordion__title w-content hidden-xs valigntop">
-                        <u>${item.excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${item.country}</u>
+                        <u>${item.getItineraryModel.excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${item.getItineraryModel.country}</u>
                     </div>
                     <div class="c-accordion__action small">
                         <i class='fa fa-angle-down'></i>
@@ -40,7 +40,7 @@
                          data-multiview="false"
                          data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
                          data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
-                         data-sly-list="${item.excursions}">
+                         data-sly-list="${item.getItineraryModel.excursions}">
                         <div class="c-accordion__elem">
                             <div class="c-accordion__header c-accordion__header--center-xs">
                                 <div class="c-accordion__title valigntop ">

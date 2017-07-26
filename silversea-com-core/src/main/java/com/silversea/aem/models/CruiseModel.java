@@ -114,7 +114,7 @@ public class CruiseModel extends AbstractModel {
 
     private List<CruiseFareAddition> exclusiveFareAdditions;
 
-    private List<ItineraryModel> itineraries;
+    private List<CruiseItineraryModel> itineraries;
 
     private ItinerariesData itinerariesData;
 
@@ -190,8 +190,8 @@ public class CruiseModel extends AbstractModel {
         return exclusiveOffers;
     }
 
-    private List<ItineraryModel> initIteniraries() {
-        List<ItineraryModel> iteniraries = new ArrayList<ItineraryModel>();
+    private List<CruiseItineraryModel> initIteniraries() {
+        List<CruiseItineraryModel> iteniraries = new ArrayList<CruiseItineraryModel>();
         try {
 
             Node cruiseNode = page.adaptTo(Node.class);
@@ -206,7 +206,9 @@ public class CruiseModel extends AbstractModel {
                         if (pageReference != null) {
                             ItineraryModel itineraryModel = pageReference.adaptTo(ItineraryModel.class);
                             itineraryModel.init(node);
-                            iteniraries.add(itineraryModel);
+                            CruiseItineraryModel cruiseItineraryModel = new CruiseItineraryModel(itineraryModel);
+                            cruiseItineraryModel.initDate(node);
+                            iteniraries.add(cruiseItineraryModel);
                         } else {
                             LOGGER.warn("Port reference {} not found", path);
                         }
@@ -278,15 +280,15 @@ public class CruiseModel extends AbstractModel {
         int nbExcursions = 0;
         int nbLandPrograms = 0;
 
-        for (ItineraryModel itinerary : itineraries) {
+        for (CruiseItineraryModel itinerary : itineraries) {
             if (itinerary != null 
-                    && itinerary.getHotels() != null 
-                    && itinerary.getExcursions() != null
-                    && itinerary.getLandprograms() != null) {
+                    && itinerary.getItineraryModel().getHotels() != null 
+                    && itinerary.getItineraryModel().getExcursions() != null
+                    && itinerary.getItineraryModel().getLandprograms() != null) {
                 
-                nbHotels += itinerary.getHotels().size();
-                nbExcursions += itinerary.getExcursions().size();
-                nbLandPrograms += itinerary.getLandprograms().size();
+                nbHotels += itinerary.getItineraryModel().getHotels().size();
+                nbExcursions += itinerary.getItineraryModel().getExcursions().size();
+                nbLandPrograms += itinerary.getItineraryModel().getLandprograms().size();
             } 
         }
 
@@ -296,7 +298,7 @@ public class CruiseModel extends AbstractModel {
     private boolean hasLandProgram(){
         boolean hasLandProgram = false; 
         if(itineraries != null && !itineraries.isEmpty()){
-            hasLandProgram = itineraries.stream().filter(e -> !e.getLandprograms().isEmpty()).findFirst().isPresent();
+            hasLandProgram = itineraries.stream().filter(e -> !e.getItineraryModel().getLandprograms().isEmpty()).findFirst().isPresent();
         }
         return hasLandProgram;
     }
@@ -398,7 +400,7 @@ public class CruiseModel extends AbstractModel {
         return suites;
     }
 
-    public List<ItineraryModel> getItineraries() {
+    public List<CruiseItineraryModel> getItineraries() {
         return itineraries;
     }
 
@@ -429,8 +431,8 @@ public class CruiseModel extends AbstractModel {
     public String getDeparturePortName() {
         String port = "";
         if (itineraries.size() > 0) {
-            ItineraryModel itinerary = itineraries.get(0);
-            port = itinerary.getTitle();
+            CruiseItineraryModel itinerary = itineraries.get(0);
+            port = itinerary.getItineraryModel().getTitle();
         }
         return port;
     }
@@ -438,8 +440,8 @@ public class CruiseModel extends AbstractModel {
     public String getArrivalPortName() {
         String port = "";
         if (itineraries.size() > 1) {
-            ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
-            port = itinerary.getTitle();
+            CruiseItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
+            port = itinerary.getItineraryModel().getTitle();
         }
         return port;
     }
