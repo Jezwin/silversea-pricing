@@ -254,7 +254,7 @@ public class DataLayerUse extends WCMUsePojo {
             }
             if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "4ekHCIGahAQQl5v74wM";
-                adwords_format = "3";
+                adwords_format = "2";
             }
             if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "kakUCIDVllcQl5v74wM";
