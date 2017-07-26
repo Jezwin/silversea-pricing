@@ -1,1 +1,6 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Inline Gallery"></div>
+<div data-sly-test.empty="${wcmmode.edit && !properties.assetSelectionReference}" class="cq-placeholder" data-emptytext="Inline Gallery"></div>
+<div class="c-inline-gallery" data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
+    <div data-sly-repeat="${setImage.renditionList}">
+        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=item.path}"></div>
+    </div>
+</div>

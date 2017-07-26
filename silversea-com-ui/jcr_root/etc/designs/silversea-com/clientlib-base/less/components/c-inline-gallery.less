@@ -1,0 +1,33 @@
+.c-inline-gallery {
+    .slick-slide {
+        outline: 0;
+
+        > div {
+            background-position: center;
+            background-size: cover;
+            height: 0;
+            padding-top: 27%;
+            position: relative;
+
+             @media screen and (min-width: @screen-md-min) {
+                margin: 0 5px;
+                padding-top: 56%;
+             }
+        }
+
+        picture {
+            display: block;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+            .o-img {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+}

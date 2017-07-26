@@ -104,6 +104,11 @@
                             jcr:primaryType="nt:unstructured"
                             width="1920" />
                     </combocruiseheader>
+                    <inlinegallery jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                            jcr:primaryType="nt:unstructured"
+                            width="737" />
+                    </inlinegallery>
                 </editorial>
                 <included jcr:primaryType="nt:unstructured">
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">

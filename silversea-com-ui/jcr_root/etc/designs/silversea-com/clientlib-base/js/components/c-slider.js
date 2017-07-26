@@ -1,16 +1,16 @@
 var prevArrowCustom ="<button type='button' data-role='none' class='slick-prev' aria-label='Previous' tabindex='0' role='button'><i class='fa fa-angle-left'></i></button>",
 nextArrowCustom ="<button type='button' data-role='none' class='slick-next' aria-label='Next' tabindex='0' role='button'><i class='fa fa-angle-right'></i></button>",
 settingSlider = {
-        prevArrow : prevArrowCustom,
-        nextArrow : nextArrowCustom,
-        responsive : [ {
-            breakpoint : 768,
-            settings : {
-                slidesToShow : 1,
-                slidesToScroll : 1
-            }
-        } ]
-    };
+    prevArrow : prevArrowCustom,
+    nextArrow : nextArrowCustom,
+    responsive : [ {
+        breakpoint : 768,
+        settings : {
+            slidesToShow : 1,
+            slidesToScroll : 1
+        }
+    } ]
+};
 $(function(){
     /***************************************************************************
      * Slider
