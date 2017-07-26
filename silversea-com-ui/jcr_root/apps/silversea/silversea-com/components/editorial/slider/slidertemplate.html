@@ -1,5 +1,5 @@
 <template data-sly-template.default>
-    <div class="slick-mozaic ${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
+    <div class="${properties.mozaicSlider ? 'mozaic-slider' : ''}  ${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
         data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000 ,"slidesToScroll": ${properties.itemNumber || "1"}, "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
         data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}">
     </div>

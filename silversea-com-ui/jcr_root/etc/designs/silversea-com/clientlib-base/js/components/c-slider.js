@@ -36,25 +36,27 @@ $(function(){
         }
     });
 
-    //mozaic slider on mobile
-    $( ".slick-mozaic" ).each(function() {
-        $(this).after( "<div class='mobileSlider'></div>" );
+    //mozaic slider on mobile viewport
+    $( ".mozaic-slider" ).each(function(index) {
 
-        const mozaicItem = document.createElement('div');
+        let $slider_mosaic = $(this);
+        $slider_mosaic.after( "<div class='mobileSlider " + 'mobileSlider_'+ index + "'></div>" );
+
+        let mozaicItem = document.createElement('div');
         mozaicItem.className = "mozaicHeader";
 
-        $('.mobileSlider').before(mozaicItem);
-        
-        $( ".c-mozaicslider__title" ).first().clone().appendTo( ".mozaicHeader" );
-        $( ".c-mozaicslider__descr" ).first().clone().appendTo( ".mozaicHeader" );
+        $slider_mosaic.parent().find('.mobileSlider').before(mozaicItem);
 
-        $(this).find('.mozaicslider').each( function() {
-            mozaicItems = $(this).find('.mozaicItem').each( function() {
-                $('.mobileSlider').append($(this).html());
-            });
+        let $cureent_mozaic_header = $slider_mosaic.parent().find('.mozaicHeader');
+
+        $slider_mosaic.find('.c-mozaicslider__title').first().clone().appendTo( $cureent_mozaic_header );
+        $slider_mosaic.find('.c-mozaicslider__descr').first().clone().appendTo( $cureent_mozaic_header );
+
+        $slider_mosaic.find('.mozaicItem').each( function() {
+            $slider_mosaic.parent().find('.mobileSlider').append( $(this).html() );
         });
 
-        $('.mobileSlider').slick({
+        $('.mobileSlider_'+ index).slick({
             dots: true,
             infinite: true,
             speed: 500,
