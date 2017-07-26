@@ -10,7 +10,7 @@
         <p class="c-cruise__descr">
             ${'land-programmes-description' @ i18n}
         </p>
-
+        <div data-sly-resource="${'par1' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
         <div class="c-accordion"
              data-multiview="false"
              data-more="<i class='fa fa-angle-down'></i>"
@@ -58,5 +58,6 @@
         <div class="visible-xs">
             <a class="btn btn-thin btn-red effect" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
         </div>
+        <div data-sly-resource="${'par2' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
     </div>
 </div>
