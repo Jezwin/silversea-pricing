@@ -3,6 +3,9 @@
 */
 .c-list-inline {
     font-size: 12px;
+    p {
+    	margin: 0;
+    }
     &--center {
         text-align: center;
     }
@@ -11,7 +14,8 @@
         display: inline-block;
         vertical-align: middle;
         width: auto;
-
+		margin-right: 5px;
+		
         &--important {
             font-weight: 700;
             text-transform: uppercase;
@@ -82,7 +86,8 @@
     &__item {
         display: inline-block;
         line-height: 20px;
-
+		vertical-align: top;
+		
         &--special {
             margin-top: 30px
         }

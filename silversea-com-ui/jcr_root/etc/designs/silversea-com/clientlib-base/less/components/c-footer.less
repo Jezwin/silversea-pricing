@@ -4,6 +4,16 @@
 .c-footer {
     margin-top: 10px;
 
+	& .btn {
+		padding: 11px 20px;
+		font-size: 11px;
+		font-weight: 400;
+		
+		& .fa-lg {
+		    vertical-align: -10%;
+		}
+	} 
+	
     .c-list--legal {
         &__group {
             font-size: 11px;
@@ -27,6 +37,7 @@
 
     @media screen and (min-width: @screen-md-min) {
         .c-links {
+        	padding: 45px 0;
             .c-list__accordion--content {
                 display: block!important;
                 height: 100%!important;
