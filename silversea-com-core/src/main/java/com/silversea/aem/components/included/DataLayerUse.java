@@ -245,7 +245,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         String adwords_conversion_label = "";
-        String adwords_value = "1.0";
+        String adwords_value = "1.00";
         String adwords_format = "";
         if (geoLoc.equals("US") || (geoLoc.equals("FT") && (contry.equals("US") || contry.equals("CA")))) {
             if (pageCategory2.equals("RAQ TY")) {
