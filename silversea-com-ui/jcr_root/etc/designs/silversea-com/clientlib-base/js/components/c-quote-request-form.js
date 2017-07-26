@@ -108,7 +108,7 @@ function requestForm() {
                 }
             }
         }
-    }).on('submit', function(e) {
+    }).off('input.bs.validator change.bs.validator').on('submit', function(e) {
         $(this).find('[name="phone"]').val($('#InputTelephoneNumber').intlTelInput("getNumber"));
 
         if (!e.isDefaultPrevented()) {
