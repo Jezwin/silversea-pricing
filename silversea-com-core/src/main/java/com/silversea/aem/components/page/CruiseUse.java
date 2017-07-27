@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
@@ -150,7 +151,10 @@ public class CruiseUse extends WCMUsePojo {
 
                 assetVirtualTour = suite.getPage().getProperties().get("virtualTour", String.class);
                 if (StringUtils.isNotBlank(assetVirtualTour)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetVirtualTour, getResourceResolver()));
+                    Resource res = getResourceResolver().getResource(assetVirtualTour);
+                    if (res != null) {
+                        assetList.add(res.adaptTo(Asset.class));
+                    }
                 }
             }
         }
@@ -172,7 +176,10 @@ public class CruiseUse extends WCMUsePojo {
 
                 assetVirtualTour = dinning.getPage().getProperties().get("virtualTour", String.class);
                 if (StringUtils.isNotBlank(assetVirtualTour)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetVirtualTour, getResourceResolver()));
+                    Resource res = getResourceResolver().getResource(assetVirtualTour);
+                    if (res != null) {
+                        assetList.add(res.adaptTo(Asset.class));
+                    }
                 }
             }
         }
@@ -194,7 +201,10 @@ public class CruiseUse extends WCMUsePojo {
 
                 assetVirtualTour = publicArea.getPage().getProperties().get("virtualTour", String.class);
                 if (StringUtils.isNotBlank(assetVirtualTour)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetVirtualTour, getResourceResolver()));
+                    Resource res = getResourceResolver().getResource(assetVirtualTour);
+                    if (res != null) {
+                        assetList.add(res.adaptTo(Asset.class));
+                    }
                 }
             }
         }
