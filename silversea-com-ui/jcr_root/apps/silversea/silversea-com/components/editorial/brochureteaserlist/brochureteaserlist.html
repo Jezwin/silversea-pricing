@@ -12,7 +12,7 @@
                     <select id="selectBrochureListLangId" class="chosen" data-sly-list.child="${language}">
                         <option
                             data-sly-use.languageHelper="${'com.silversea.aem.helper.LanguageHelper' @ language=child}"
-                            selected="${brochureTeaserListUse.currentLanguage == child ? 'selected' : ''}"
+                            selected="${brochureTeaserListUse.currentLanguage.toUpperCase == child.toUpperCase ? 'selected' : ''}"
                             value="${currentPage.path @ selectors=[languageHelper.selector, brochureTeaserListUse.currentBrochureGroupSelector], extension='html'}">
                             ${language[child]}
                         </option>
