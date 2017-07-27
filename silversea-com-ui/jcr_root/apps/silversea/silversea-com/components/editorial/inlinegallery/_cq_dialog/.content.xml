@@ -13,7 +13,7 @@
         <items jcr:primaryType="nt:unstructured">
             <inlinegallery
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Key people"
+                jcr:title="Inline gallery"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout
                     jcr:primaryType="nt:unstructured"
