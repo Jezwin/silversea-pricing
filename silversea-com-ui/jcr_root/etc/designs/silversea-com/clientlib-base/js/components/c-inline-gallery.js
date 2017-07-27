@@ -21,7 +21,9 @@ $(function() {
             }
         } ]
     };
-    $('.c-inline-gallery').slick(settingInlineGallery);
+
+    // Kill slick with default settings and reinit with inline gallery settings
+    $('.c-inline-gallery').slick('unslick').slick(settingInlineGallery);
 
     /***************************************************************************
      * Set Image in background (allow to use background-size : cover)
