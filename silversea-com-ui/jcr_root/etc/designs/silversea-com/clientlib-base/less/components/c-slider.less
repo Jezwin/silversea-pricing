@@ -11,7 +11,9 @@
     }
 
     .slick-slide {
-        outline: 0;
+        &, a:focus {
+            outline: 0;
+        }
 
         > * {
             margin-bottom: 0!important;
@@ -95,6 +97,7 @@
 
         .slick-slide {
             .ratio {
+                cursor: pointer;
                 background-position: center center;
                 background-size: cover;
                 position: relative;
@@ -139,6 +142,7 @@
             .ratio {
                 background-position: center center;
                 background-size: cover;
+                cursor: pointer;
                 height: 0;
                 margin: 0;
                 padding-bottom: 55%;

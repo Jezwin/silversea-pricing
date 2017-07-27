@@ -1,4 +1,10 @@
 .c-inline-gallery {
+    display: none;
+
+    &.slick-initialized {
+        display: block;
+    }
+
     .slick-slide {
         outline: 0;
         position: relative;
@@ -16,9 +22,12 @@
              }
         }
 
-        .video-link {
+        .automatic-gallery-modal {
+            height: 100%;
             left: 5px;
+            position: absolute;
             right: 5px;
+            top: 0;
 
             .fa {
                 @media screen and (min-width: @screen-lg-min) {

@@ -6,18 +6,21 @@
         </div>
         <div class="modal-body">
             <div class="c-gallery">
-                <div class="c-slider c-slider--for" data-sly-list.asset="${list}">
-                    <div>
-                        <div class="ratio"
-                            data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
-                            style="background-image:url(${assetPathFull @ context='uri'})">
-                            <a data-sly-test.isVideo="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                            <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                <div class="c-gallery__wrappertop">
+                    <div class="c-slider c-slider--for">
+                        <div data-sly-repeat.asset="${list}" data-image="${asset.path @ prependPath='/is/image'}">
+                            <div class="ratio"
+                                data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
+                                style="background-image:url(${assetPathFull @ context='uri'})">
+                                <a data-sly-test.isVideo="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                                <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="c-gallery__counter"><span class="slide-item-current"></span> / <span class="slide-item-total"></span></div>
                 </div>
-                <div class="c-slider c-slider--nav" data-sly-list.asset="${list}">
-                    <div>
+                <div class="c-slider c-slider--nav">
+                    <div data-sly-repeat.asset="${list}">
                         <div class="ratio"
                             data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
                             style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
