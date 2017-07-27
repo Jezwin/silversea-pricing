@@ -218,23 +218,27 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]", "xpath");
 
             while (exclusiveOffers.hasNext()) {
-                Resource exclusiveOffer = exclusiveOffers.next();
+                final Resource exclusiveOffer = exclusiveOffers.next();
+                final Page exclusiveOfferPage = exclusiveOffer.adaptTo(Page.class);
 
-                Resource childContent = exclusiveOffer.getChild(JcrConstants.JCR_CONTENT);
+                final Resource childContent = exclusiveOffer.getChild(JcrConstants.JCR_CONTENT);
 
-                if (childContent != null) {
-                    ValueMap childContentProperties = childContent.getValueMap();
-                    String exclusiveOfferId = childContentProperties.get("exclusiveOfferId", String.class);
+                if (exclusiveOfferPage != null && childContent != null) {
+                    final ValueMap childContentProperties = childContent.getValueMap();
+                    final String exclusiveOfferId = childContentProperties.get("exclusiveOfferId", String.class);
+                    final String exclusiveOfferLang = exclusiveOfferPage.getAbsoluteParent(2).getName();
+                    final String exclusiveOfferPath = exclusiveOfferPage.getPath();
 
-                    if (exclusiveOfferId != null) {
+                    if (exclusiveOfferId != null && exclusiveOfferLang != null) {
                         try {
                             if (jsonObject.has(exclusiveOfferId)) {
-                                final JSONArray jsonArray = jsonObject.getJSONArray(exclusiveOfferId);
-                                jsonArray.put(exclusiveOffer.getPath());
-
-                                jsonObject.put(exclusiveOfferId, jsonArray);
+                                final JSONObject exclusiveOfferObject = jsonObject.getJSONObject(exclusiveOfferId);
+                                exclusiveOfferObject.put(exclusiveOfferLang, exclusiveOfferPath);
+                                jsonObject.put(exclusiveOfferId, exclusiveOfferObject);
                             } else {
-                                jsonObject.put(exclusiveOfferId, Collections.singletonList(exclusiveOffer.getPath()));
+                                JSONObject shipObject = new JSONObject();
+                                shipObject.put(exclusiveOfferLang, exclusiveOfferPath);
+                                jsonObject.put(exclusiveOfferId, shipObject);
                             }
                         } catch (JSONException e) {
                             LOGGER.error("Cannot add exclusiveOffer {} with path {} to exclusiveOffers array", exclusiveOfferId, exclusiveOffer.getPath(), e);
