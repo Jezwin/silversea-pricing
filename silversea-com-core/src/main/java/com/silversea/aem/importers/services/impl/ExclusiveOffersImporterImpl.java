@@ -146,6 +146,8 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
                             exclusiveOfferPageContentNode.setProperty(JcrConstants.JCR_TITLE, exclusiveOffer.getVoyageSpecialOffer());
                             exclusiveOfferPageContentNode.setProperty("exclusiveOfferId", exclusiveOffer.getVoyageSpecialOfferId());
+
+                            // TODO convert start and end date into date format
                             exclusiveOfferPageContentNode.setProperty("startDate", exclusiveOffer.getValidFrom().toString());
                             exclusiveOfferPageContentNode.setProperty("endDate", exclusiveOffer.getValidTo().toString());
 
