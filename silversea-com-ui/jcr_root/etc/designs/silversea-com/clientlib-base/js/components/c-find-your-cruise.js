@@ -45,7 +45,7 @@ $(function() {
                         value : option.id,
                         text : option.title,
                         'data-sscclicktype' : 'filters',
-                        'data-value' : 'hello'
+                        'data-value' : ''
                     }));
                 });
             }
