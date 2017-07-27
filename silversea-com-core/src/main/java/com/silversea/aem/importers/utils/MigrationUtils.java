@@ -100,10 +100,12 @@ public class MigrationUtils {
                     LOGGER.trace("thumbnail {}", thumbnail);
 
                     Map<String, String[]> assetReferences = new HashMap<>();
-                    for (final String assetReferencesProperty : assetReferencesProperties) {
-                        assetReferences.put(assetReferencesProperty, childContentProperties.get(assetReferencesProperty, String[].class));
+                    if (assetReferencesProperties != null) {
+                        for (final String assetReferencesProperty : assetReferencesProperties) {
+                            assetReferences.put(assetReferencesProperty, childContentProperties.get(assetReferencesProperty, String[].class));
 
-                        LOGGER.trace("{} {}", assetReferencesProperty, Arrays.toString(assetReferences.get(assetReferencesProperty)));
+                            LOGGER.trace("{} {}", assetReferencesProperty, Arrays.toString(assetReferences.get(assetReferencesProperty)));
+                        }
                     }
 
                     if (childContentNode == null) {

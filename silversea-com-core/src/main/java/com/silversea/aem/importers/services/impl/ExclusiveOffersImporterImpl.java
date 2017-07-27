@@ -21,9 +21,10 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,5 +202,51 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         LOGGER.debug("Ending exclusive offers import, success: {}, error: {}", +successNumber, +errorNumber);
 
         return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public JSONObject getExclusiveOffersMapping() {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+
+            Iterator<Resource> exclusiveOffers = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]", "xpath");
+
+            while (exclusiveOffers.hasNext()) {
+                Resource exclusiveOffer = exclusiveOffers.next();
+
+                Resource childContent = exclusiveOffer.getChild(JcrConstants.JCR_CONTENT);
+
+                if (childContent != null) {
+                    ValueMap childContentProperties = childContent.getValueMap();
+                    String exclusiveOfferId = childContentProperties.get("exclusiveOfferId", String.class);
+
+                    if (exclusiveOfferId != null) {
+                        try {
+                            if (jsonObject.has(exclusiveOfferId)) {
+                                final JSONArray jsonArray = jsonObject.getJSONArray(exclusiveOfferId);
+                                jsonArray.put(exclusiveOffer.getPath());
+
+                                jsonObject.put(exclusiveOfferId, jsonArray);
+                            } else {
+                                jsonObject.put(exclusiveOfferId, Collections.singletonList(exclusiveOffer.getPath()));
+                            }
+                        } catch (JSONException e) {
+                            LOGGER.error("Cannot add exclusiveOffer {} with path {} to exclusiveOffers array", exclusiveOfferId, exclusiveOffer.getPath(), e);
+                        }
+                    }
+                }
+            }
+
+        } catch (LoginException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        }
+
+        return jsonObject;
     }
 }
