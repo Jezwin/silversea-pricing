@@ -53,7 +53,7 @@
                                         </li>
                                     </ul>
                                     <p><strong>${item.title}</strong></p>
-                                    <div class="c-accordion__subtitle hidden-xs" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=320}">
+                                    <div class="c-accordion__subtitle hidden-xs textTruncate" data-limit="200" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=320}">
                                         ${description.textTruncate || item.description @ context='html'}
                                     </div>
                                 </div>

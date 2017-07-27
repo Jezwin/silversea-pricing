@@ -5,9 +5,9 @@
             <div class="c-accordion__header c-accordion__header--center-xs">
                 <div class="c-accordion__title">
                     <p><strong>${item.title || item.name}</strong></p>
-                    <div class="c-accordion__subtitle hidden-xs">
+                    <div class="c-accordion__subtitle hidden-xs textTruncate" data-limit="200">
                         <p data-sly-test="${item.name}" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=80}">
-                            ${description.textTruncate || item.description}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
+                            ${item.description @ context='html'}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
                         </p>
                         <sly data-sly-test="${!item.name}">
                             ${item.shortDescription}
