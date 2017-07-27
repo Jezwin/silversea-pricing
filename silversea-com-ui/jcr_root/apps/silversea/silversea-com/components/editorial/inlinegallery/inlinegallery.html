@@ -1,6 +1,7 @@
 <div data-sly-test.empty="${wcmmode.edit && !properties.assetSelectionReference}" class="cq-placeholder" data-emptytext="Inline Gallery"></div>
 <div class="c-inline-gallery" data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}">
-    <div data-sly-repeat="${setImage.renditionList}">
-        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=item.path}"></div>
+    <div data-sly-repeat.asset="${setImage.renditionList}">
+        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=asset.path}"></div>
+        <a data-sly-test="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
     </div>
 </div>
