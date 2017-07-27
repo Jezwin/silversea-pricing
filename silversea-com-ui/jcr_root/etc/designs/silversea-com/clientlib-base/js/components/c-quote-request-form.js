@@ -106,6 +106,12 @@ function requestForm() {
                         return "error format";
                     }
                 }
+            },
+            cityzip : function($el) {
+                var id = $el.data('cityzip');
+
+                console.log(!$el.val() || !$('input[name="'+ id +'"]').val());
+                return !$el.val() || !$('input[name="'+ id +'"]').val();
             }
         }
     }).off('input.bs.validator change.bs.validator').on('submit', function(e) {
