@@ -1,22 +1,21 @@
 package com.silversea.aem.helper;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.dam.api.Asset;
-import com.google.common.collect.Lists;
-
 import java.util.List;
+
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.google.common.collect.Lists;
 
 public class ListHelper extends WCMUsePojo {
 
-    private List<List<Asset>> assetListGroup;
+    private List<List<Object>> objectListGroup;
 
     @Override
     public void activate() throws Exception {
         Integer size = get("size", Integer.class);
-        List<Asset> assetList = get("list", List.class);
+        List<Object> assetList = get("list", List.class);
 
         if (size != null && assetList != null) {
-            assetListGroup = Lists.partition(assetList, 5);
+            objectListGroup = Lists.partition(assetList, 5);
         }
 
     }
@@ -24,7 +23,7 @@ public class ListHelper extends WCMUsePojo {
     /**
      * @return List of sub list
      */
-    public List<List<Asset>> getAssetListGroup() {
-        return assetListGroup;
+    public List<List<Object>> getObjectListGroup() {
+        return objectListGroup;
     }
 }
