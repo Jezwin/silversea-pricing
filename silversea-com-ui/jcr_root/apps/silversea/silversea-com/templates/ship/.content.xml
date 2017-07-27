@@ -16,6 +16,9 @@
             <display
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="silversea/silversea-com/components/displayproperties/ship" />
+            <inlinegallery
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="silversea/silversea-com/components/editorial/inlinegallery" />
         </par>
         <findyourcruise
             jcr:primaryType="nt:unstructured"
