@@ -10,7 +10,7 @@
             srcset="${imageDynamicMediaUrl}?wid=${image.desktopWidth}&fit=hfit,1,
             ${imageDynamicMediaUrl}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x"
             media="(min-width: 768px)" />
-        <img src="${imageUrl @ prependPath=imagePrefix, context='uri'}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${imageDynamicMediaUrl}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
 
