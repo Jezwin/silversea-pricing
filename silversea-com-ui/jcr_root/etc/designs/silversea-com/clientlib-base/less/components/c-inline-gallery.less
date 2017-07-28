@@ -16,11 +16,19 @@
         }
 
         .slick-prev {
-            left: -30px;
+            left: -40px;
+
+            &:before, &:after {
+                left: 30px;
+            }
         }
 
         .slick-next {
-            right: -30px;
+            right: -40px;
+
+            &:before, &:after {
+                left: 0; 
+            }
         }
     }
 
