@@ -17,7 +17,7 @@ $(function() {
         e.preventDefault();
 
         // HTML layout
-        var $modalContent = $('<div class="modal-content modal-content--transparent">'
+        var $modalContent = $('<div class="modal-content modal-content--transparent modal-content--single">'
                 + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
                 + '<div class="modal-body automatic-modal-body"><img class="o-img" /></div>' + '</div>');
 
