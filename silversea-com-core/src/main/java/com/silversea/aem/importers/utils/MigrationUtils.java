@@ -99,6 +99,10 @@ public class MigrationUtils {
                     String thumbnail = childContentProperties.get("thumbnail", String.class);
                     LOGGER.trace("thumbnail {}", thumbnail);
 
+                    if (childContentNode.hasProperty("navigationTitle")) {
+                        childContentNode.setProperty("navTitle", childContentNode.getProperty("navigationTitle").getString());
+                    }
+
                     Map<String, String[]> assetReferences = new HashMap<>();
                     if (assetReferencesProperties != null) {
                         for (final String assetReferencesProperty : assetReferencesProperties) {
