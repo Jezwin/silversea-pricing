@@ -6,11 +6,6 @@
             <div class="c-accordion__header">
                 <div class="c-accordion__title">
                     <p><strong>${item.name}</strong></p>
-                    <div class="c-accordion__subtitle hidden-xs">
-                        <p class="c-vertical-teaser__description" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=80}">
-                            ${description.textTruncate || item.description}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
-                        </p>
-                    </div>
                 </div>
                 <div class="c-accordion__action">
                     ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>

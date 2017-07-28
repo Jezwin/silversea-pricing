@@ -50,6 +50,21 @@ $(function() {
         moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</a>',
         lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</a>';
     
+    /***************************************************************************
+     * Truncate text
+     **************************************************************************/
+
+    $('.textTruncate').each(function(i, el){
+
+        var node = $(el);
+        var limit = parseInt(node.data('limit'));
+        if(node.find('p span').text().length > limit){
+            var trucatedText = node.find('p span').text().substr(0, limit);
+
+            node.find('p span').text(trucatedText+'...');
+        }
+    });
+
 
     if ($.viewportDetect() !== "xs") {
         variation_block.readmore({
