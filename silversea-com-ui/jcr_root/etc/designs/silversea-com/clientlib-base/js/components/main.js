@@ -99,6 +99,11 @@ $(function() {
                 contentType : 'application/json',
                 dataType : 'json',
                 success : function(data) {
+
+                    //set cookies for datalayer
+                    var submitDate = new Date();
+                    $.CookieManager.setCookie("user_status", submitDate.getTime());
+
                     var obj = {};
 
                     // Convert currentData to object
