@@ -7,12 +7,14 @@
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
 <meta data-sly-test.description="${currentPage.description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
 <!--/* open graph tag */-->
-<meta property="fb:app_id" content="1502411653342377" /><!--/* TODO create page properties for fb:app_id */-->
-<meta property="og:title" content="${currentPage.title}" />
+<meta property="fb:app_id" data-sly-test.appID="${currentPage.appId || inheritedPageProperties.appId}" content="${appID}" />
+<meta property="og:title" content="${currentPage.pageTitle || currentPage.title} | Silversea" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="${externalizerHelper.externalizedUrl @ extension='html'}" />
 <meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${pageHelper.thumbnail @ prependPath='/is/image'}?wid=1200" />
 <meta property="og:description" data-sly-test="${description}" content="${description}" />
+<sly data-sly-list="${pageHelper.languagePages}">
+<link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
 <!--/* /open graph tag */-->
 <sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
@@ -34,4 +36,4 @@
 <meta name="msapplication-TileColor" content="#2d89ef">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png">
 <meta name="theme-color" content="#ffffff">
-<title>${head.title}</title>
+<title>${currentPage.pageTitle || currentPage.title} | Silversea</title>
