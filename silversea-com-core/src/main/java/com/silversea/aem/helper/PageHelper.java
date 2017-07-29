@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.jcr.RangeIterator;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
@@ -110,12 +111,7 @@ public class PageHelper extends WCMUsePojo {
      */
     public String getTemplateName() {
         String path = getCurrentPage().getProperties().get(NameConstants.NN_TEMPLATE, String.class);
-
-        if (StringUtils.isEmpty(path)) {
-            return "";
-        }
-
-        return path.substring(path.lastIndexOf('/') + 1);
+        return PathUtils.getName(path);
     }
 
     /**
