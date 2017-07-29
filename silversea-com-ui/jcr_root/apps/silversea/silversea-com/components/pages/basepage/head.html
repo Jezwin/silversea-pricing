@@ -5,14 +5,14 @@
       data-sly-use.headlibRenderer="headlibs.html"
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
-<meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
+<meta data-sly-test.description="${currentPage.description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
 <!--/* open graph tag */-->
 <meta property="fb:app_id" content="1502411653342377" /><!--/* TODO create page properties for fb:app_id */-->
 <meta property="og:title" content="${currentPage.title}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="${externalizerHelper.externalizedUrl @ extension='html'}" />
 <meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${pageHelper.thumbnail @ prependPath='/is/image'}?wid=1200" />
-<meta property="og:description" data-sly-test="${currentPage.description}" content="${currentPage.description}" />
+<meta property="og:description" data-sly-test="${description}" content="${description}" />
 <!--/* /open graph tag */-->
 <sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
