@@ -1,4 +1,4 @@
-package com.silversea.aem.components.editorial;
+package com.silversea.aem.components.beans;
 
 /**
  * Button Object

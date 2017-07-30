@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
+import com.silversea.aem.components.beans.Button;
 
 public class ButtonUse extends WCMUsePojo {
 

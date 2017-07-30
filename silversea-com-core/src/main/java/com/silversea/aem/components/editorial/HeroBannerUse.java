@@ -4,6 +4,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.components.beans.Button;
 
 public class HeroBannerUse extends WCMUsePojo {
     private Button btn1;
