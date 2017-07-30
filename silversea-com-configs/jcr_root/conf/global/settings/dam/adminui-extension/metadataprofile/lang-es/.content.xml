@@ -28,27 +28,6 @@
                             sling:resourceType="granite/ui/components/coral/foundation/container"
                             listOrder="0">
                             <items jcr:primaryType="nt:unstructured">
-                                <header
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/formbuilder/sectionfield"
-                                    fieldLabel="Metadata"
-                                    metaType="section"/>
-                                <description
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Description"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/dc:description"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
-                                <creatortool
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Creator Tool"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/xmp:CreatorTool"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
                                 <_x0031_501364570899
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="dam/gui/components/s7dam/profiles/processingprofiles/form/tagfield"
@@ -59,7 +38,7 @@
                                     name="./jcr:content/metadata/cq:tags"
                                     renderReadOnly="{Boolean}true"
                                     showEmptyInReadOnly="true"
-                                    value="languages:es">
+                                    value="[languages:es]">
                                     <datasource
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="cq/gui/components/common/datasources/tags"/>
@@ -73,135 +52,8 @@
                                 </_x0031_501364570899>
                             </items>
                         </col1>
-                        <col2
-                            granite:rel="aem-assets-metadata-form-column"
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            listOrder="1">
-                            <items jcr:primaryType="nt:unstructured">
-                                <header
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/formbuilder/sectionfield"
-                                    fieldLabel="Publication Status"
-                                    metaType="section"/>
-                                <ontime
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                    displayedFormat="YYYY-MM-DD HH:mm"
-                                    fieldLabel="On Time"
-                                    metaType="datepicker"
-                                    name="./jcr:content/onTime"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"
-                                    typeHint="Date"/>
-                                <offime
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                    displayedFormat="YYYY-MM-DD HH:mm"
-                                    fieldLabel="Off Time"
-                                    metaType="datepicker"
-                                    name="./jcr:content/offTime"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"
-                                    typeHint="Date"/>
-                            </items>
-                            <jcr:content jcr:primaryType="nt:unstructured"/>
-                        </col2>
-                        <col3
-                            granite:rel="aem-assets-metadata-form-column"
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            listOrder="2"/>
                     </items>
                 </tab1>
-                <tab2
-                    granite:rel="aem-assets-metadata-form-tab"
-                    jcr:primaryType="nt:unstructured"
-                    jcr:title="Advanced"
-                    sling:resourceType="granite/ui/components/coral/foundation/container"
-                    listOrder="1">
-                    <granite:data
-                        jcr:primaryType="nt:unstructured"
-                        tabid="7c927721-1473-492f-b949-4fa2f82a32a0"/>
-                    <items jcr:primaryType="nt:unstructured">
-                        <col1
-                            granite:rel="aem-assets-metadata-form-column"
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            listOrder="0">
-                            <items jcr:primaryType="nt:unstructured">
-                                <header
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/formbuilder/sectionfield"
-                                    fieldLabel="License"
-                                    metaType="section"/>
-                                <creator
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Creator"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/dc:creator"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
-                                <contributor
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Contributor"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/dc:contributor"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
-                                <copyright
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Copyright"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/dc:rights"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
-                                <copyrightowner
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Copyright Owner"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/xmpRights:Owner"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
-                                <usageterms
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldLabel="Usage Terms"
-                                    metaType="text"
-                                    name="./jcr:content/metadata/xmpRights:UsageTerms"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"/>
-                                <expires
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                    displayedFormat="YYYY-MM-DD HH:mm"
-                                    fieldLabel="Expires"
-                                    metaType="datepicker"
-                                    name="./jcr:content/metadata/prism:expirationDate"
-                                    renderReadOnly="true"
-                                    showEmptyInReadOnly="true"
-                                    typeHint="Date"/>
-                            </items>
-                            <jcr:content jcr:primaryType="nt:unstructured">
-                                <metadata jcr:primaryType="nt:unstructured"/>
-                            </jcr:content>
-                        </col1>
-                        <col2
-                            granite:rel="aem-assets-metadata-form-column"
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            listOrder="1"/>
-                        <col3
-                            granite:rel="aem-assets-metadata-form-column"
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container"
-                            listOrder="2"/>
-                    </items>
-                </tab2>
             </items>
         </tabs>
     </items>
