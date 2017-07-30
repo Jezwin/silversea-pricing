@@ -17,3 +17,6 @@ target/
 
 # Brackets
 .brackets.json
+
+# Git stats
+git_stats/
