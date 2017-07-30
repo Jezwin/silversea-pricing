@@ -1,19 +1,18 @@
 package com.silversea.aem.helper;
 
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.jcr.RangeIterator;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
-import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
-import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
@@ -22,7 +21,7 @@ import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 
 public class PageHelper extends WCMUsePojo {
-
+    static final private Logger LOGGER = LoggerFactory.getLogger(PageHelper.class);
     private Page page;
     private String thumbnail;
     private Map<String, String> languagePages;
@@ -53,9 +52,9 @@ public class PageHelper extends WCMUsePojo {
     private Map<String, String> fillLanguagePages() throws WCMException {
         Resource currentRes = getCurrentPage().adaptTo(Resource.class);
         LiveRelationshipManager liveRelationshipManager = getResourceResolver().adaptTo(LiveRelationshipManager.class);
-        BlueprintManager bluePrintManager = getResourceResolver().adaptTo(BlueprintManager.class);
         Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-        
+        Locale locale;
+
         String bluePrintPath = "";
 
         if (liveRelationshipManager.hasLiveRelationship(currentRes)) {
@@ -63,7 +62,7 @@ public class PageHelper extends WCMUsePojo {
             LiveRelationship liveRelationship = liveRelationshipManager.getLiveRelationship(currentRes, false);
             // Set blue print path
             bluePrintPath = liveRelationship.getSourcePath();
-        } else if (bluePrintManager.getContainingBlueprint(getCurrentPage().getPath()) != null) {
+        } else if (liveRelationshipManager.isSource(currentRes)) {
             // Current page is blueprint
             bluePrintPath = getCurrentPage().getPath();
         }
@@ -72,24 +71,21 @@ public class PageHelper extends WCMUsePojo {
         Resource bluePrintRes = getResourceResolver().getResource(bluePrintPath);
 
         // Add blueprint
-        languagePages.put(getHrefLangValid(bluePrintRes), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
+        locale = getPageManager().getPage(bluePrintPath).getLanguage(false);
+        languagePages.put(locale.getLanguage(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
 
         RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(bluePrintRes, null, null);
 
         while (liveRelationships.hasNext()) {
             LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
             Resource targetRes = getResourceResolver().getResource(liveRelationship.getTargetPath());
+            locale = targetRes.adaptTo(Page.class).getLanguage(false);
 
             // Add livecopy
-            languagePages.put(getHrefLangValid(targetRes), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
+            languagePages.put(locale.getLanguage(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
         }
 
         return languagePages;
-    }
-
-    private String getHrefLangValid(Resource res) {
-        InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(res);
-        return properties.getInherited(JcrConstants.JCR_LANGUAGE, page.getProperties().get(JcrConstants.JCR_LANGUAGE, String.class)).replaceAll("_", "-");
     }
 
     /**
