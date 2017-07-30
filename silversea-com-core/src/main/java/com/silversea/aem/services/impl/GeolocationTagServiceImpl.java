@@ -8,17 +8,12 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Component(immediate = true)
@@ -31,9 +26,12 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
 
     private Map<String, String> tagIdMapping;
 
+    private Map<String, String> iso3codeTagIdMapping;
+
     @Activate
     public void activate(final ComponentContext context) {
         tagIdMapping = new HashMap<>();
+        iso3codeTagIdMapping = new HashMap<>();
 
         Map<String, Object> params = new HashMap<>();
         params.put(ResourceResolverFactory.SUBSERVICE, "geotagging-cache");
@@ -46,7 +44,7 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
             if (geotaggingNamespace != null) {
                 Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
 
-                addTags(geotaggingTag);
+                addTagsToCache(geotaggingTag);
             } else {
                 LOGGER.debug("{} not found, do not build tag list", PATH_TAGS_GEOLOCATION);
             }
@@ -59,20 +57,31 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
      * Adding all leaf subtags (representing countries in the geotagging tags tree)
      * @param tag parent tag
      */
-    private void addTags(final Tag tag) {
+    private void addTagsToCache(final Tag tag) {
         Iterator<Tag> children = tag.listChildren();
 
         if (!children.hasNext()) {
             LOGGER.trace("Tag {} is a leaf, adding it the map", tag.getTagID());
 
+            // Mapping tag name (iso2) with tag ID
             tagIdMapping.put(tag.getName(), tag.getTagID());
+
+            // Mapping iso3 code with tag ID
+            final Resource tagResource = tag.adaptTo(Resource.class);
+            if (tagResource != null) {
+                final ValueMap properties = tagResource.getValueMap();
+
+                if (properties.get("iso3", String.class) != null) {
+                    iso3codeTagIdMapping.put(properties.get("iso3", String.class), tag.getTagID());
+                }
+            }
         } else {
             LOGGER.trace("Tag {} is not a leaf, browsing children", tag.getTagID());
 
             while (children.hasNext()) {
                 Tag child = children.next();
 
-                addTags(child);
+                addTagsToCache(child);
             }
         }
     }
@@ -82,6 +91,24 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
         LOGGER.trace("Searching for {} in tags mapping, found {}", countryId, tagIdMapping.get(countryId));
 
         return tagIdMapping.get(countryId);
+    }
+
+    @Override
+    public String getTagIdFromCountryCodeIso3(final String countryCodeIso3) {
+        LOGGER.trace("Searching for {} in tags mapping, found {}", countryCodeIso3, iso3codeTagIdMapping.get(countryCodeIso3));
+
+        return iso3codeTagIdMapping.get(countryCodeIso3);
+    }
+
+    @Override
+    public List<String> getTagIdsFromCountryCodeIso3(final List<String> countryCodesIso3) {
+        List<String> tagIds = new ArrayList<>();
+
+        for (String countryCode : countryCodesIso3) {
+            tagIds.add(getTagIdFromCountryCodeIso3(countryCode));
+        }
+
+        return tagIds;
     }
 
     @Override

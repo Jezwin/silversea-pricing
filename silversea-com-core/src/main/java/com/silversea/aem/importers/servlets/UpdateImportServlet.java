@@ -224,7 +224,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 }
                 //
                 // if (all || mode.equals(Mode.brochures)) {
-                // brochuresImporter.importBrochures();
+                // brochuresImporter.importAllBrochures();
                 // response.getWriter().write("Brochures import Done<br/>");
                 // response.getWriter().flush();
                 // }

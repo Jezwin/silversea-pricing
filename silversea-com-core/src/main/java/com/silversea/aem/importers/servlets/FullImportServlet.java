@@ -238,7 +238,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.brochures)) {
-                    brochuresImporter.importBrochures();
+                    brochuresImporter.importAllBrochures();
                     responseWriter.write("Brochures import Done<br/>");
                     responseWriter.flush();
                 }
