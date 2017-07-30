@@ -36,9 +36,7 @@ public class CountryHelper extends WCMUsePojo {
         Resource res = getResourceResolver().getResource(pagePath);
         if (StringUtils.isNotBlank(pagePath)) {
             if (res != null) {
-                InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(res);
-                Page page = res.adaptTo(Page.class);
-                hrefLangValid = properties.getInherited(JcrConstants.JCR_LANGUAGE, page.getProperties().get(JcrConstants.JCR_LANGUAGE, String.class)).replaceAll("_", "-");
+                hrefLangValid = getInheritedProperties().get(JcrConstants.JCR_LANGUAGE, String.class);
             }
         }
     }
