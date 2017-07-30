@@ -4,10 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
-import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
 import com.silversea.aem.services.GeolocationService;
 
 public class CountryHelper extends WCMUsePojo {
@@ -36,7 +32,7 @@ public class CountryHelper extends WCMUsePojo {
         Resource res = getResourceResolver().getResource(pagePath);
         if (StringUtils.isNotBlank(pagePath)) {
             if (res != null) {
-                hrefLangValid = getInheritedProperties().get(JcrConstants.JCR_LANGUAGE, String.class).replaceAll("_", "-");
+                hrefLangValid = getCurrentPage().getLanguage(false).toLanguageTag();
             }
         }
     }

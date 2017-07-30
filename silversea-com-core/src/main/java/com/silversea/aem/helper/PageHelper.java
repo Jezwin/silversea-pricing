@@ -8,20 +8,16 @@ import javax.jcr.RangeIterator;
 
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
-import com.day.cq.wcm.msm.api.BlueprintManager;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 
 public class PageHelper extends WCMUsePojo {
-    static final private Logger LOGGER = LoggerFactory.getLogger(PageHelper.class);
     private Page page;
     private String thumbnail;
     private Map<String, String> languagePages;
@@ -72,7 +68,7 @@ public class PageHelper extends WCMUsePojo {
 
         // Add blueprint
         locale = getPageManager().getPage(bluePrintPath).getLanguage(false);
-        languagePages.put(locale.getLanguage(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
+        languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
 
         RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(bluePrintRes, null, null);
 
@@ -82,7 +78,7 @@ public class PageHelper extends WCMUsePojo {
             locale = targetRes.adaptTo(Page.class).getLanguage(false);
 
             // Add livecopy
-            languagePages.put(locale.getLanguage(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
+            languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
         }
 
         return languagePages;
