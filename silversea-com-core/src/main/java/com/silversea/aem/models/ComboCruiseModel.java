@@ -44,7 +44,6 @@ public class ComboCruiseModel extends AbstractModel {
             resourceResolver = page.getContentResource().getResourceResolver();
             pageManager = resourceResolver.adaptTo(PageManager.class);
             String shipReference = page.getProperties().get("shipReference",String.class);
-            itinerariesData = initItinerariesData();
             ship = initShip(shipReference, pageManager);
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
@@ -54,6 +53,7 @@ public class ComboCruiseModel extends AbstractModel {
     public void initByGeoLocation(GeoLocation geoLocation) {
         lowestPrice = initLowestPrice(geoLocation.getGeoMarketCode(),page);
         initSegments(geoLocation);
+        itinerariesData = initItinerariesData();
         suites = initSuites(page,geoLocation.getGeoMarketCode(),pageManager);
     }
  
