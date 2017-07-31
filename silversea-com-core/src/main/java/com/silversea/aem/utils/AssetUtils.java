@@ -24,7 +24,7 @@ public class AssetUtils {
     }
 
     /**
-     * Return the croppingName
+     * Return the Asset list of a media set
      */
     public static List<Asset> buildAssetList(String setPath, ResourceResolver resourceResolver) {
         // Dynamic Media Image Set
