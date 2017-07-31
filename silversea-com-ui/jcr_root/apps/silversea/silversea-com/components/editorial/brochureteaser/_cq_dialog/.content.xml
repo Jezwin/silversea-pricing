@@ -21,7 +21,7 @@
                         fieldLabel="Brochure"
                         name="./fileReference"
                         required="{Boolean}true"
-                        rootPath="/content/dam/silversea-com/brochures" />
+                        rootPath="/content/dam/silversea-com" />
                 </items>
             </column>
         </items>
