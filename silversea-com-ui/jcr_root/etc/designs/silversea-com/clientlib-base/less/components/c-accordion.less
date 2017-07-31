@@ -36,22 +36,32 @@
         padding: 0;
         .c-accordion{
             &__title{
+                vertical-align: top;
+
                 @media screen and (max-width: @screen-sm) {
-                    width: 41%;
+                    /*width: 41%;*/
                     text-align: left;
+                    display: table-cell;
+                    vertical-align: middle;
                 }
                 
-                p{
+                .veryimportant{
                     @media screen and (max-width: @screen-xs) {
-                        line-height: 14px;
-                        font-size: 14px;
+                        line-height: 16px;
+                        font-size: 16px;
+                    }
+                }
+
+                .verysmall{
+                    font-size: 14px;
+                    @media screen and (max-width: @screen-xs) {
+                        line-height: 12px;
+                        font-size: 12px;
                     }
                 }
 
                 &--thumbnail img {
-                    @media screen and (max-width: @screen-sm) {
-                        width: 100%;
-                    }
+                    padding: 3px;
                 }
             }
             &__action{
@@ -59,6 +69,9 @@
                     width: 10%;
                     min-width: 10%;
                     vertical-align: middle;
+                    display: table-cell;
+                    padding: 0 10px 0 0;
+                    text-align: right;
                 }
             }
          }
@@ -191,7 +204,8 @@
 
                                 @media screen and (max-width: @screen-sm) {
                                     width: 135px;
-                                    height: 80px;
+                                    min-height: 80px;
+                                    height: 100%;
                                     -ms-transition: inherit;
                                     -moz-transition: inherit;
                                     -o-transition: inherit;
@@ -264,7 +278,7 @@
                         height: 100%;
                         background-position: center center;
                         background-repeat: no-repeat;
-                        background-size: initial;
+                        background-size: cover;
                         z-index: 50;
 
                         @media screen and (max-width: @screen-sm) {
@@ -274,7 +288,9 @@
                             -webkit-transition: inherit;
                             transition: inherit;
                             -webkit-transform: inherit;
-                            height: 86px;
+                            /*height: 86px;*/
+                            min-height: 80px;
+                            height: 100%;
                         }
                     }
                 }
@@ -517,6 +533,12 @@
             font-size: 18px;
             line-height: 22px;
             font-weight: bold;
+        }
+
+        &.verysmall {
+            @media screen and (max-width: @screen-xs) {
+                font-size: 12px;
+            }
         }
     }
 
