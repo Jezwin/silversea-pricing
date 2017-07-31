@@ -1,11 +1,13 @@
 <div data-sly-test="${wcmmode.edit && (!properties.pageReference || !properties.jcr:title)}" class="cq-placeholder cq-dd-image" data-emptytext="Mozaic slider"></div>
 <sly data-sly-test="${properties.pageReference}"
     data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.pageReference}" />
+        
+
 
         <div class="c-mozaicslider" data-sly-list="${target.page.listChildren}" >
-            <sly data-sly-use.modulo="${'com.silversea.aem.helper.ArthmeticCalculHelper' @ param1=itemList.count, param2='5'}" />
-                ${itemList.count} - ${modulo.moduloValue}
-             <div class="col-sm-4 item-text" data-sly-test="${modulo.moduloValue == 2}">
+
+            <sly data-sly-use.modulo="${'com.silversea.aem.helper.ArthmeticCalculHelper' @ param1=itemList.count.toString, param2='5'}" />
+             <div class="col-sm-4 item-text"  data-sly-test="${modulo.moduloValue == 2}" >
                 <div class="mozaicItemText">
                     <h3 class="c-mozaicslider__title">${prope2ies.jcr:title @ context="html"}</h3>
                     <p class="c-mozaicslider__descr">${properties.jcr:description @ context="html"}</p>
