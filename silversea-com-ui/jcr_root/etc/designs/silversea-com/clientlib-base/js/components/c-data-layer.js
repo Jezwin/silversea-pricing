@@ -1,5 +1,6 @@
 $(function() {
     function formatDate(date) {
+        //format date in yyyy-mm-dd
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
@@ -11,12 +12,13 @@ $(function() {
         return [year, month, day].join('-');
     }
 
-    var pageLoadDate = new Date();
-    var displayDate = formatDate(pageLoadDate);
-    $.CookieManager.setCookie("user_recency", displayDate);
-    $.CookieManager.setCookie("user_last_visit", displayDate);
-
     var setCookiesDataLayer = (function setcookiesDataLayer() {
+        //update page load date
+        var pageLoadDate = new Date();
+        var displayDate = formatDate(pageLoadDate);
+        $.CookieManager.setCookie("user_recency", displayDate);
+        $.CookieManager.setCookie("user_last_visit", displayDate);
+
         //request a quote - suite name
         var $tracksuite = $('.datalayer-suite-name');
         if ($tracksuite.length > 0) {
