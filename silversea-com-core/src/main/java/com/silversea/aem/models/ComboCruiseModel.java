@@ -3,6 +3,7 @@ package com.silversea.aem.models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.GeoLocation;
+import com.silversea.aem.components.beans.ItinerariesData;
 import com.silversea.aem.components.beans.PriceData;
 
 
@@ -30,6 +32,7 @@ public class ComboCruiseModel extends AbstractModel {
 
     private ShipModel ship;
     private List<SegmentModel> segments;
+    private ItinerariesData itinerariesData;
     private PriceData lowestPrice;
     private List<SuiteModel> suites;
     private ResourceResolver resourceResolver;
@@ -41,6 +44,7 @@ public class ComboCruiseModel extends AbstractModel {
             resourceResolver = page.getContentResource().getResourceResolver();
             pageManager = resourceResolver.adaptTo(PageManager.class);
             String shipReference = page.getProperties().get("shipReference",String.class);
+            itinerariesData = initItinerariesData();
             ship = initShip(shipReference, pageManager);
         } catch (RuntimeException e) {
             LOGGER.error("Error while initializing model {}", e);
@@ -67,6 +71,25 @@ public class ComboCruiseModel extends AbstractModel {
         }
     }
     
+    public ItinerariesData initItinerariesData() {
+        int nbHotels = 0;
+        int nbExcursions = 0;
+        int nbLandPrograms = 0;
+        
+       List<ItinerariesData> list = segments.stream()
+                                            .map(SegmentModel::getCruise)
+                                            .map(CruiseModel::getItinerariesData)
+                                            .collect(Collectors.toList());
+       if(list != null && list.isEmpty()){
+           for(ItinerariesData element : list){
+               nbHotels += element.getNbHotels();
+               nbExcursions += element.getNbExcursions();
+               nbLandPrograms += element.getNbLandPrograms();
+           }
+       }
+       return new ItinerariesData(nbHotels, nbExcursions, nbLandPrograms);
+    }
+    
     public PriceData getLowestPrice() {
         return lowestPrice;
     }
@@ -85,5 +108,10 @@ public class ComboCruiseModel extends AbstractModel {
 
     public ShipModel getShip() {
         return ship;
-    }   
+    }
+
+    public ItinerariesData getItinerariesData() {
+        return itinerariesData;
+    }  
+    
 }
