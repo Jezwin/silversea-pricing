@@ -1,21 +1,21 @@
 <!--/* Responsive image */-->
 <template data-sly-template.default="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
     <picture data-sly-test.imageUrl="${imagePath}">
-        <sly data-sly-test.imageDynamicMediaUrl="${imageUrl @ context='uri', prependPath='/is/image/'}" />
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <source
-            srcset="${imageDynamicMediaUrl}?wid=${image.mobileWidth}&fit=hfit,1,
-            ${imageDynamicMediaUrl}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x"
+            srcset="${assetHelper.imageUrl}?wid=${image.mobileWidth}&fit=hfit,1,
+            ${assetHelper.imageUrl}?wid=${image.mobileRetinaWidth}&fit=hfit,1 2x"
             media="(max-width: 767px)" />
         <source
-            srcset="${imageDynamicMediaUrl}?wid=${image.desktopWidth}&fit=hfit,1,
-            ${imageDynamicMediaUrl}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x"
+            srcset="${assetHelper.imageUrl}?wid=${image.desktopWidth}&fit=hfit,1,
+            ${assetHelper.imageUrl}?wid=${image.desktopRetinaWidth}&fit=hfit,1 2x"
             media="(min-width: 768px)" />
-        <img src="${imageDynamicMediaUrl}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?wid=${image.desktopWidth}&fit=hfit,1" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
 
 <!--/* Image */-->
-<template data-sly-template.image="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
-    <sly data-sly-test.imageDynamicMediaUrl="${imageUrl @ context='uri', prependPath='/is/image/'}" />
-    <img src="${imageDynamicMediaUrl}?wid=${width}&fit=hfit,1" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
+<template data-sly-template.image="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse"
+          data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <img src="${assetHelper.imageUrl}?wid=${width}&fit=hfit,1" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
 </template>
