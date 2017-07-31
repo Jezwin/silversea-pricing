@@ -12,19 +12,19 @@ import java.util.List;
  */
 public class TabContainerUse extends WCMUsePojo {
 
-    private Iterator<Resource> itParTab;
     private List<Resource> listParTab;
 
     @Override
     public void activate() throws Exception {
-        Resource parTabcontainer = getResource().getChild("parTabcontainer");
-        if (parTabcontainer != null) {
-            Resource childNode = null;
-            itParTab = parTabcontainer.listChildren();
-            listParTab = new ArrayList<Resource>();
+        final Resource parTabcontainer = getResource().getChild("parTabcontainer");
 
-            while(itParTab.hasNext()) {
-                childNode = itParTab.next();
+        if (parTabcontainer != null) {
+            Iterator<Resource> itParTab = parTabcontainer.listChildren();
+
+            listParTab = new ArrayList<>();
+
+            while (itParTab.hasNext()) {
+                final Resource childNode = itParTab.next();
 
                 if (childNode.isResourceType("silversea/silversea-com/components/editorial/tab")) {
                     listParTab.add(childNode);
@@ -34,5 +34,7 @@ public class TabContainerUse extends WCMUsePojo {
         }
     }
 
-    public List<Resource> getListParTab () { return listParTab; }
+    public List<Resource> getListParTab() {
+        return listParTab;
+    }
 }

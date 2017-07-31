@@ -1,10 +1,10 @@
 package com.silversea.aem.helper;
 
-import java.util.List;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.silversea.aem.utils.AssetUtils;
+
+import java.util.List;
 
 public class ImageSetHelper extends WCMUsePojo {
     private List<Asset> renditionList;

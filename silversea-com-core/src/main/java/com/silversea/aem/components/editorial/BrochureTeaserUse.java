@@ -28,17 +28,21 @@ public class BrochureTeaserUse extends WCMUsePojo {
         printedRequestForm = "";
 
         // Initialize the brochure model
-        String brochurePath = getProperties().get(WcmConstants.PN_FILE_REFERENCE, String.class);
+        final String brochurePath = getProperties().get(WcmConstants.PN_FILE_REFERENCE, String.class);
+
         if (brochurePath != null) {
-            Resource assetResource = getResourceResolver().getResource(brochurePath);
-            Asset asset = assetResource.adaptTo(Asset.class);
+            final Resource assetResource = getResourceResolver().getResource(brochurePath);
 
-            LOGGER.debug("Found asset {}", asset.getPath());
+            if (assetResource != null) {
+                LOGGER.debug("Found asset {}", assetResource.getPath());
 
-            if (asset != null) {
-                LOGGER.debug("Adapting asset {} to BrochureModel", asset.getPath());
+                Asset asset = assetResource.adaptTo(Asset.class);
 
-                brochure = asset.adaptTo(BrochureModel.class);
+                if (asset != null) {
+                    LOGGER.debug("Adapting asset {} to BrochureModel", asset.getPath());
+
+                    brochure = asset.adaptTo(BrochureModel.class);
+                }
             }
         }
     }

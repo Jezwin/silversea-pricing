@@ -1,14 +1,14 @@
 package com.silversea.aem.components.editorial;
 
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.filter.BlogPostPageFilter;
 import com.silversea.aem.models.BlogPostTeaserModel;
+
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class BlogPostTeaserListUse extends WCMUsePojo {
 
@@ -17,9 +17,9 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
     private BlogPostTeaserModel firstBlogPostTeaser;
 
     private Boolean highlightFirst;
-    
+
     private Integer year;
-    
+
     private Integer dayInMonth;
 
     @Override
@@ -49,15 +49,15 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
                 blogPostTeaserModelList.remove(0);
             }
         }
-        
-        String parentPageName = getCurrentPage().getParent().getName();
-        if(parentPageName.matches("\\d+")){        	
-        	year = Integer.parseInt(parentPageName);
 
-        	String pageName = getCurrentPage().getName();
-        	if(pageName.matches("\\d+")){          		
-        		dayInMonth = YearMonth.of(year, Integer.parseInt(pageName)).lengthOfMonth();
-        	}
+        String parentPageName = getCurrentPage().getParent().getName();
+        if (parentPageName.matches("\\d+")) {
+            year = Integer.parseInt(parentPageName);
+
+            String pageName = getCurrentPage().getName();
+            if (pageName.matches("\\d+")) {
+                dayInMonth = YearMonth.of(year, Integer.parseInt(pageName)).lengthOfMonth();
+            }
         }
     }
 
@@ -72,11 +72,11 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
     public BlogPostTeaserModel getFirstBlogPostTeaser() {
         return firstBlogPostTeaser;
     }
-    
+
     public Integer getYear() {
         return year;
     }
-    
+
     public Integer getDayInMonth() {
         return dayInMonth;
     }

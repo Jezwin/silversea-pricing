@@ -14,11 +14,11 @@ public class SideMenuUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        String rootPagePath = getProperties().get("reference", getCurrentPage().getParent().getPath());
-        Page rootPage = getPageManager().getPage(rootPagePath);
+        final String rootPagePath = getProperties().get("reference", getCurrentPage().getParent().getPath());
+        final Page rootPage = getPageManager().getPage(rootPagePath);
 
         if (rootPage != null) {
-            Iterator<Page> it = rootPage.listChildren(new PageFilter());
+            final Iterator<Page> it = rootPage.listChildren(new PageFilter());
 
             while (it.hasNext()) {
                 subPage.add(it.next());

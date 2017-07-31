@@ -1,12 +1,12 @@
 package com.silversea.aem.components.editorial;
 
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.silversea.aem.components.beans.Button;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.silversea.aem.components.beans.Button;
-
 public class HeroBannerUse extends WCMUsePojo {
+
     private Button btn1;
     private Button btn2;
 
@@ -19,20 +19,19 @@ public class HeroBannerUse extends WCMUsePojo {
     /**
      * @return Button
      */
-    private Button getButton(String node){
-        Button button;
+    private Button getButton(String path) {
+        final Resource res = getResource().getChild(path);
 
-        Resource res = getResourceResolver().getResource(getResource().getPath() + "/" + node);
-        if(res != null) {
-            ValueMap ppties = res.getValueMap();
-            button = new Button(
-                    ppties.get("titleDesktop", String.class),
-                    ppties.get("titleTablet", String.class),
-                    ppties.get("reference", String.class),
-                    ppties.get("color", String.class),
-                    ppties.get("analyticType", String.class),
-                    ppties.get("size", String.class));
-            return button;
+        if (res != null) {
+            final ValueMap properties = res.getValueMap();
+
+            return new Button(
+                    properties.get("titleDesktop", String.class),
+                    properties.get("titleTablet", String.class),
+                    properties.get("reference", String.class),
+                    properties.get("color", String.class),
+                    properties.get("analyticType", String.class),
+                    properties.get("size", String.class));
         }
 
         return null;

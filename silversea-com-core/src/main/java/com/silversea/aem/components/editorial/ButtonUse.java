@@ -1,17 +1,16 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
+import com.day.cq.commons.inherit.InheritanceValueMap;
+import com.silversea.aem.components.beans.Button;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
-import com.day.cq.commons.inherit.InheritanceValueMap;
-import com.silversea.aem.components.beans.Button;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ButtonUse extends WCMUsePojo {
 
@@ -25,26 +24,23 @@ public class ButtonUse extends WCMUsePojo {
         final String[] callToActions = properties.getInherited("callToActions", String[].class);
 
         if (callToActions != null) {
-            String title, titleTablet, reference, color, analyticType, size;
-            JSONObject json;
             callToActionList = new ArrayList<>();
 
             try {
                 for (String button : callToActions) {
-                    json = new JSONObject(button);
+                    final JSONObject json = new JSONObject(button);
 
-                    title = json.optString("title");
-                    titleTablet = json.optString("titleTablet");
-                    reference = json.optString("reference");
-                    color = json.optString("color");
-                    analyticType = json.optString("analyticType");
-                    size = json.optString("size");
+                    final String title = json.optString("title");
+                    final String titleTablet = json.optString("titleTablet");
+                    final String reference = json.optString("reference");
+                    final String color = json.optString("color");
+                    final String analyticType = json.optString("analyticType");
+                    final String size = json.optString("size");
 
-                    Button buttonObj = new Button(title, titleTablet, reference, color, analyticType, size);
-                    callToActionList.add(buttonObj);
+                    callToActionList.add(new Button(title, titleTablet, reference, color, analyticType, size));
                 }
             } catch (JSONException e) {
-                LOGGER.error("JSONException button json parsing : {}", e);
+                LOGGER.error("JSONException button json parsing", e);
             }
         }
     }
