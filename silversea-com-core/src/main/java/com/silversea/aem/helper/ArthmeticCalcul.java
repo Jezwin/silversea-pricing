@@ -16,6 +16,9 @@ public class ArthmeticCalcul extends WCMUsePojo {
         Double param2 = get("param2", Double.class);
         if (param1 != null && param2 != null) {
             value = param1 % param2;
+            if (value<0 && param2>0) {
+                value = param2;
+            }
         }
     }
 
