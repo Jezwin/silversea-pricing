@@ -1,4 +1,4 @@
-<div class="o-section" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
+<section class="o-section o-section--footersocial" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
     <div class="row">
         <div class="col-sm-6">
             <!--/* AWARD */-->
@@ -41,10 +41,10 @@
         <!--/* /AWARD */-->
         <!--/* c-SOCIAL */-->
         <div class="col-sm-6">
-            <div class="o-section">
+            <section class="o-section o-section--social">
                 <div class="c-list-inline c-list-inline--social c-list-inline--center">
                     <ul class="c-list-inline__group c-list-inline__group--social">
-                        <li class="c-list-inline__title c-list-inline__title--important">${'follow-us' @ i18n}</li>
+                        <li class="c-list-inline__title c-list-inline__item--social">${'follow-us' @ i18n}</li>                        
                         <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageFacebook}">
                             <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         </li>
@@ -65,8 +65,8 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </section>
         </div>
         <!--/* /c-SOCIAL */-->
     </div>
-</div>
+</section>
