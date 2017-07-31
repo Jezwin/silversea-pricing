@@ -80,7 +80,7 @@ public class ComboCruiseModel extends AbstractModel {
                                             .map(SegmentModel::getCruise)
                                             .map(CruiseModel::getItinerariesData)
                                             .collect(Collectors.toList());
-       if(list != null && list.isEmpty()){
+       if(list != null && !list.isEmpty()){
            for(ItinerariesData element : list){
                nbHotels += element.getNbHotels();
                nbExcursions += element.getNbExcursions();
