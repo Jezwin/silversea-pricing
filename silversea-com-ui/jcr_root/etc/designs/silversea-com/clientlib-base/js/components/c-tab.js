@@ -11,10 +11,9 @@
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
             _orphan_link = $('.c-cruise__descr a.bound, .parbase a[href^="#"]'),
-            _contents = _self.find('.c-tab__body').first().find(_data.content),
+            _contents = _self.find('.c-tab__body').first().children(_data.content),
             _showTab = function (tab) {
                 var id = $(tab).children('a').attr('href');
-
                 $(_contents).removeAttr('data-state', null);
                 $(_links).removeAttr('data-state', null);
 
