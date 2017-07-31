@@ -213,6 +213,8 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 
             // Mark as "to deactivate" all brochures not present on API side
             if (mode.equals("update")) {
+                LOGGER.debug("Starting deactivation of brochures");
+
                 final String query = "/jcr:root/content/dam/silversea-com/brochures" +
                         "//element(*, dam:Asset)[jcr:content/metadata/brochureCode]";
 
@@ -226,6 +228,9 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                         final String brochureCode = metadataResource.getValueMap().get("brochureCode", String.class);
 
                         if (brochureCode != null && !brochureCodes.contains(brochureCode)) {
+                            LOGGER.debug("Brochure at path {} ({}) is not existing anymore, deactivating it",
+                                    resource.getPath(), brochureCode);
+
                             final Node metadataNode = metadataResource.adaptTo(Node.class);
                             metadataNode.getParent().setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
                         }
