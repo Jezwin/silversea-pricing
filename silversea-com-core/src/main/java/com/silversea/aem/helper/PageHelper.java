@@ -72,9 +72,12 @@ public class PageHelper extends WCMUsePojo {
 
         RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(bluePrintRes, null, null);
 
+        LiveRelationship liveRelationship;
+        Resource targetRes;
+
         while (liveRelationships.hasNext()) {
-            LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
-            Resource targetRes = getResourceResolver().getResource(liveRelationship.getTargetPath());
+            liveRelationship = (LiveRelationship) liveRelationships.next();
+            targetRes = getResourceResolver().getResource(liveRelationship.getTargetPath());
             locale = targetRes.adaptTo(Page.class).getLanguage(false);
 
             // Add livecopy
