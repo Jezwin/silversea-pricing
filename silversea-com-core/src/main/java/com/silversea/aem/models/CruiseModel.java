@@ -136,6 +136,8 @@ public class CruiseModel extends AbstractModel {
 
     private boolean hasLandPrograms = false;
     
+    private int nbTab;
+    
     private PageManager pageManager;
 
     @PostConstruct
@@ -291,8 +293,23 @@ public class CruiseModel extends AbstractModel {
                 nbLandPrograms += itinerary.getItineraryModel().getLandprograms().size();
             } 
         }
-
+        initTabs(nbHotels, nbExcursions, nbLandPrograms);
         return new ItinerariesData(nbHotels, nbExcursions, nbLandPrograms);
+    }
+    
+    public void initTabs(int nbHotels, int nbExcursions, int nbLandPrograms){
+        if(nbExcursions > 0 && (nbLandPrograms > 0 || nbExcursions > 0)){
+            nbTab = 6;  
+        }
+        else if (nbExcursions < 0 && (nbLandPrograms > 0 || nbExcursions > 0)){
+            nbTab = 5; 
+        }
+        else if (nbExcursions > 0 && nbLandPrograms < 0 && nbExcursions < 0){
+            nbTab = 5; 
+        }
+        else{
+            nbTab = 4;
+        }
     }
     
     private boolean hasLandProgram(){
@@ -452,6 +469,10 @@ public class CruiseModel extends AbstractModel {
 
     public Page getPage() {
         return page;
+    }
+
+    public int getNbTab() {
+        return nbTab;
     }
     
 }
