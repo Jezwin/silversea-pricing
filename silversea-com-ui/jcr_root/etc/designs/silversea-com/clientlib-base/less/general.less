@@ -123,7 +123,6 @@ a {
     vertical-align: middle;
 
     &__inner {
-
         .c-btn {
             width: 100%;
         }
@@ -227,11 +226,11 @@ a {
          @media screen and (max-width: @screen-md-max) {
            font-size: 14px;
         }  
-                      
+
          @media screen and (max-width: @screen-sm) {
             font-size: 13px;
         }    
-                    
+
          @media screen and (max-width: @screen-xxs) {
             font-size: 12px;
         }
@@ -287,23 +286,28 @@ picture {
     &--legal {
          padding: 30px 0 57px;
     }
+
     &--footersocial {
          padding: 30px 0;
     }    
+
     &--separator {
         border-top: solid 1px @grey--d;
     }
-	&--social {
-	 	padding: 10px 0 0 0;
-	 	float: right;
-	}
+
+    &--social {
+        float: right;
+        padding: 10px 0 0 0;
+    }
+
     &--award {
-    	padding: 0;
-    	
+        padding: 0;
+
         [class*='col-'] {
             &:first-child {
                 padding-right: 0;
             }
+
             &:nth-child(2) {
                 padding-left: 0;
             }
@@ -313,15 +317,16 @@ picture {
     &--small {
         padding: 5px 0;
     }
+
     &-call {
-	    @media screen and (min-width: @screen-sm) {
-			& .col-sm-9 {
-				padding-right: 0;
-			}
-			& .col-sm-3 {
-				padding-left: 35px;
-			}
-	    }
+        @media screen and (min-width: @screen-sm) {
+            & .col-sm-9 {
+                padding-right: 0;
+            }
+            & .col-sm-3 {
+                padding-left: 35px;
+            }
+        }
     }
     
 }
@@ -377,14 +382,14 @@ picture {
     width: 100%;
     z-index: 10;
     background-color: rgba(0,0,0,.75);
-	height: 50px;
+    height: 50px;
     margin-top: 1px;
     
     & .container{
-		max-width: 930px;
-	    padding: 10px 0 0;
-	}
-	
+        max-width: 930px;
+        padding: 10px 0 0;
+    }
+
     &.editor {
         position: inherit;
 
@@ -394,11 +399,11 @@ picture {
     }
 
     @media screen and (max-width: @screen-sm) {
-  		& {
-  			display: none;
-  		}
-   }
-   
+        & {
+          display: none;
+        }
+    }
+
     &__buttons {
         padding: 9px 0 4px;
     }

@@ -1,53 +1,57 @@
-/*
-* c- LIST INLINE
-*/
 .c-list-inline {
     font-size: 12px;
+
     p {
-    	margin: 0;
+        margin: 0;
     }
+
     &--center {
         text-align: center;
     }
+
     &__title {
         color: @grey--2b;
         display: inline-block;
         vertical-align: middle;
         width: auto;
-		margin-right: 5px;
-		
+        margin-right: 5px;
+
         &--important {
             font-weight: 700;
             text-transform: uppercase;
             height: 30px;
         }
 
-        /* phone breakpoint */
         @media screen and (max-width: @screen-sm) {
             text-align: center;
             width: 100%;
         }
     }
+
     &__group {
         width: 100%;
         vertical-align: middle;
 
-        /* phone breakpoint */
+
         @media screen and (max-width: @screen-sm) {
             text-align: center;
             width: 100%;
         }
+
         &--important {
             text-transform: uppercase;
         }
+
         &--social {
             @media screen and (min-width: @screen-sm) {
                 text-align: right;
             }
         }
+
         &--award {
             width: auto;
         }
+
         &--divider-dark-tablet {
             .c-list-inline__item {
                 position: relative;
@@ -64,13 +68,14 @@
                     width: 1px;
                     background: @grey--5;
                 }
+
                 &:nth-last-child(1):before {
                     display: none;
                 }
             }
         }
+
         &--justify-tablet {
-            /* phone breakpoint */
             @media screen and (max-width: @screen-sm) {
                 .c-list-inline__item {
                     text-align: left;
@@ -83,32 +88,39 @@
             }
         }
     }
+
     &__item {
         display: inline-block;
         line-height: 20px;
-		vertical-align: top;
-		
+        vertical-align: top;
+
         &--special {
             margin-top: 30px
         }
+
         &--normal {
             text-transform: none;
         }
+
         &--bigger {
             text-transform: uppercase;
         }
+
         &--important {
             font-weight: 700;
         }
+
         &--supper {
             font-weight: 700;
             text-transform: uppercase;
         }
+
         &--no-separated {
             &:before {
                 display: none;
             }
         }
+
         &--separated {
             position: relative;
 
@@ -122,20 +134,21 @@
                 width: 1px;
             }
         }
+
         &--social {
-        	display: table-cell;
-        	padding-left: 20px;
-        	line-height: 20px;
-        	vertical-align: middle;
+            display: table-cell;
+            padding-left: 20px;
+            line-height: 20px;
+            vertical-align: middle;
 
             .fa {
                 font-size: 20px;
             }
-            
-           	&.c-list-inline__title {
-		   		text-transform: uppercase;
-		   		font-weight: 700;
-           	}
+
+           &.c-list-inline__title {
+               text-transform: uppercase;
+               font-weight: 700;
+           }
         }
     }
 }
