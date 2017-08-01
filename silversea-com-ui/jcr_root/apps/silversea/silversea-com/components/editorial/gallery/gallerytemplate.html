@@ -91,11 +91,11 @@
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                     <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="0"></div>
-                    <p class="hidden">${asset.metadata.dc:title}</p>
+                    <p class="hidden c-gallery--cc__text">${asset.metadata.dc:title}</p>
                 </div>
             </div>
         </div>
-        <p class="c-gallery--cc__caption">test</p>
+        <p class="c-gallery--cc__caption">&nbsp;</p>
         <div class="c-slider c-slider--nav c-slider--style2" data-sly-list="${map}">
             <div data-sly-repeat.asset="${map[item]}">
                 <div class="ratio"
