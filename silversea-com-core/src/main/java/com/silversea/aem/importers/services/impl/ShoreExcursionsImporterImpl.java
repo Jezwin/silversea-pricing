@@ -78,9 +78,10 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
         Map<String, Object> authenticationPrams = new HashMap<>();
         authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
             // Session initialization
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -194,12 +195,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateShoreExcursions");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read shore excursions from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending shore excursions import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -217,8 +220,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -371,12 +375,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateShoreExcursions");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read excursions from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return new ImportResult(successNumber, errorNumber);

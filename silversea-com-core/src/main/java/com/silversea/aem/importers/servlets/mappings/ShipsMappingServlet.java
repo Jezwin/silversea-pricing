@@ -37,8 +37,9 @@ public class ShipsMappingServlet extends SlingSafeMethodsServlet {
 
         JSONObject jsonObject = new JSONObject();
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
 
             Iterator<Resource> ships = resourceResolver.findResources("/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/ship\"]", "xpath");
@@ -75,9 +76,12 @@ public class ShipsMappingServlet extends SlingSafeMethodsServlet {
                     }
                 }
             }
-
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         response.getWriter().write(jsonObject.toString());

@@ -73,8 +73,9 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -193,12 +194,14 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("exclusiveOffersUrl"),
                     "lastModificationDate");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read exclusive offers from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending exclusive offers import, success: {}, error: {}", +successNumber, +errorNumber);

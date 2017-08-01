@@ -74,8 +74,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         Map<String, Object> authenticationPrams = new HashMap<>();
         authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -190,12 +191,14 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending land programs import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -213,8 +216,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -367,12 +371,14 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return new ImportResult(successNumber, errorNumber);

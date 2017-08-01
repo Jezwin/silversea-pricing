@@ -74,8 +74,9 @@ public class BrochuresImporterImpl implements BrochuresImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -253,6 +254,10 @@ public class BrochuresImporterImpl implements BrochuresImporter {
             LOGGER.error("Cannot read brochures from API", e);
         } catch (RepositoryException e) {
             LOGGER.error("Error saving data", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending brochures import, success: {}, error: {}", +successNumber, +errorNumber);
