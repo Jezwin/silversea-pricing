@@ -78,10 +78,12 @@
 <!--/* Gallery with Tab inside page (not modal)*/-->
 <template data-sly-template.galleryCCTab="${ @ map}">
     <div class="c-gallery--cc">
-        <ul class="c-gallery-cc__tab" data-sly-list="${map}">
-            <li class="c-gallery-cc__tab__item"><a class="c-gallery-cc__tab__link" href="#" data-category="${item}">${item}</a></li>
+        <ul class="c-gallery--cc__tab">
+            <li  data-sly-repeat="${map}" class="c-gallery--cc__tab__item ${itemList.count == 1 ? 'active' : ''}">
+                <a class="c-gallery--cc__tab__link" href="#" data-category="${item}">${item}</a>
+            </li>
         </ul>
-        <div class="c-slider c-slider--for" data-sly-list="${map}">
+        <div class="c-slider c-slider--for c-slider--style2" data-sly-list="${map}">
             <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="/is/image${asset.path}">
                 <div class="ratio"
                     data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
@@ -89,10 +91,12 @@
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                     <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="0"></div>
+                    <p class="hidden">${asset.metadata.dc:title}</p>
                 </div>
             </div>
         </div>
-        <div class="c-slider c-slider--nav" data-sly-list="${map}">
+        <p class="c-gallery--cc__caption">test</p>
+        <div class="c-slider c-slider--nav c-slider--style2" data-sly-list="${map}">
             <div data-sly-repeat.asset="${map[item]}">
                 <div class="ratio"
                     data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
