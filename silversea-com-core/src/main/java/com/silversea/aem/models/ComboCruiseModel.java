@@ -75,18 +75,19 @@ public class ComboCruiseModel extends AbstractModel {
         int nbHotels = 0;
         int nbExcursions = 0;
         int nbLandPrograms = 0;
-        
-       List<ItinerariesData> list = segments.stream()
-                                            .map(SegmentModel::getCruise)
-                                            .map(CruiseModel::getItinerariesData)
-                                            .collect(Collectors.toList());
-       if(list != null && !list.isEmpty()){
-           for(ItinerariesData element : list){
-               nbHotels += element.getNbHotels();
-               nbExcursions += element.getNbExcursions();
-               nbLandPrograms += element.getNbLandPrograms();
-           }
-       }
+        if(segments != null && !segments.isEmpty()){
+            List<ItinerariesData> list = segments.stream()
+                                                 .map(SegmentModel::getCruise)
+                                                 .map(CruiseModel::getItinerariesData)
+                                                 .collect(Collectors.toList());
+            if(list != null && !list.isEmpty()){
+                for(ItinerariesData element : list){
+                    nbHotels += element.getNbHotels();
+                    nbExcursions += element.getNbExcursions();
+                    nbLandPrograms += element.getNbLandPrograms();
+                }
+            }
+        }
        return new ItinerariesData(nbHotels, nbExcursions, nbLandPrograms);
     }
     
