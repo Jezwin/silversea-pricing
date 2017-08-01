@@ -47,7 +47,6 @@ $(function() {
             $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
                 var currentCategory = $component.find('.slick-slide:not(".slick-cloned")').eq(nextSlide).data('category-target');
 
-                console.log(currentCategory);
                 $component.find('.c-gallery--cc__tab__link').closest('.c-gallery--cc__tab__item').removeClass('active');
                 $component.find('.c-gallery--cc__tab__link[data-category="' + currentCategory + '"]').closest('.c-gallery--cc__tab__item').addClass('active');
             });
