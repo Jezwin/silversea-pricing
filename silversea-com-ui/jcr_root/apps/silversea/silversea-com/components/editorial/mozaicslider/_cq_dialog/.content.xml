@@ -34,10 +34,10 @@
                                 fieldLabel="Description"
                                 name="./jcr:description"
                                 sling:resourceType="granite/ui/components/foundation/form/textarea" />
-                            <targetpath
+                            <destinations
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Destinations"
-                                name="./pageReference"
+                                name="./destinationsReference"
                                 rootPath="/content/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
                         </items>

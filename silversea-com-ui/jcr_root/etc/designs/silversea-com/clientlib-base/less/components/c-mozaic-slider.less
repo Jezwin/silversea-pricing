@@ -64,14 +64,58 @@
     @media screen and (max-width: @screen-sm) {
         display: none;
     }
-    
+
     &:not(.c-slider--full-width) .slick-slide > *{
-        margin: 0 0px;
+        margin: 0px;
+        padding-bottom: 5px;
     }
-    
-    &:not(.c-slider--full-width) .slick-slide > *{
-        margin: 0 0px;
+
+    .slick-prev, .slick-next {
+        margin-top: -30px !important;
+        height: 30px;
+        width: 30px;
     }
+    .slick-prev i, .slick-next i {
+       line-height: 10px;
+    }
+    .slick-prev {
+        left: 33.33%;
+        margin-left: 3px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .slick-next {
+        right: 33.33%;
+        margin-right: 3px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .item-text{
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 5px 5px;
+        text-align: center;
+    }
+    .c-mozaicslider {
+        &__title {
+            font-size: 36px;
+            font-family: @f-theano_didot;
+            margin-bottom: 4%;
+            text-transform: uppercase;
+        }
+
+        &__descr {
+            font-size: 13px;
+            margin-bottom: 0;
+            padding: 0 5%;
+            }
+        }
+
+        .link__wrapper {
+            position: relative;
+            text-align: center;
+            width: 100%;
+        }
 }
 
 .mozaicHeader {
