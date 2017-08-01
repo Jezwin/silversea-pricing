@@ -37,6 +37,9 @@ $(function(){
     });
 
     $(".c-slider.c-slider--first-slide-only.slick-initialized").slick("unslick");
+    settingSlider['fade'] = true;
+    settingSlider['dots'] = true;
+    settingSlider['autoplaySpeed'] = 5000;
     $('.mozaicslider').slick(settingSlider);
 
     //mozaic slider on mobile viewport
@@ -66,6 +69,7 @@ $(function(){
             speed: 500,
             fade: true,
         });
+        $slider_mosaic.find('.link__wrapper').first().clone().appendTo( '.mobileSlider_'+ index );
      });
 
 

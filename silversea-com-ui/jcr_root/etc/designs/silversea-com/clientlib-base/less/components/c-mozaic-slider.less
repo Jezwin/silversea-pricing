@@ -67,7 +67,7 @@
 
     &:not(.c-slider--full-width) .slick-slide > *{
         margin: 0px;
-        padding-bottom: 5px;
+        padding: 2px;
     }
 
     .slick-prev, .slick-next {
@@ -79,22 +79,16 @@
        line-height: 10px;
     }
     .slick-prev {
-        left: 33.33%;
+        left: 33.7%;
         margin-left: 3px;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
     .slick-next {
-        right: 33.33%;
+        right: 33.7%;
         margin-right: 3px;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-    }
-    .item-text{
-        background: #fff;
-        border: 1px solid #ccc;
-        padding: 5px 5px;
-        text-align: center;
     }
     .c-mozaicslider {
         &__title {
@@ -108,14 +102,35 @@
             font-size: 13px;
             margin-bottom: 0;
             padding: 0 5%;
-            }
         }
+    }
 
-        .link__wrapper {
-            position: relative;
-            text-align: center;
-            width: 100%;
-        }
+    .link__wrapper {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        bottom: 14px;
+    }
+    .slick-slide img{
+        min-height: 205px;
+    }
+    .item-text{
+        min-height: 205px;
+        padding: 2px;
+        text-align: center;
+    }
+    .mozaicItemText{
+        min-height: 205px;
+        height: 100%;
+        border: 1px solid #ccc;
+        background: #fff;
+    }
+    .c-tabbedmozaic__description, .discover-more{
+        display: none;
+    }
+    .slick-dots{
+        display: block;
+    }
 }
 
 .mozaicHeader {
@@ -136,10 +151,15 @@
 }
 
 .mobileSlider{
-    background: #ebebeb;
+    margin-bottom: 10px;
+    background: #fff;
     display: none;
     @media screen and (max-width: @screen-sm) {
         display: block;
+    }
+    .slick-dots{
+        position: relative;
+        bottom: 0;
     }
     .slick-dots li button:before{
         background-color: #bababa ;
@@ -162,4 +182,28 @@
             width: 80%;
         }
     }
+    .c-tabbedmozaic__description, .discover-more{
+        display: block;
+        padding: 10px;
+    }
+    .link__wrapper {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        bottom: -30px;
+    }
+    .discover-more{
+        text-transform: uppercase;
+        margin-top: 10px;
+        padding-left: 10px;
+        font-weight: bold;
+        font-size: 12px;
+        .fa{
+            margin-left: 10px;
+        }
+    }
+    .slick-list{
+        border: 1px solid #e5e5e5;
+    }
+
 }
