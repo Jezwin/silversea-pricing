@@ -41,6 +41,8 @@ $(function(){
     settingSlider['dots'] = true;
     settingSlider['autoplaySpeed'] = 5000;
     $('.mozaicslider').slick(settingSlider);
+    
+    $('.mozaic-slider .mozaicItemText').css('height', $('.mozaic-slider .slick-slide img').height());
 
     //mozaic slider on mobile viewport
 
