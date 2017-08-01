@@ -86,9 +86,7 @@ $(function() {
             // Browse the form fields and extract values to leadApiData
             for ( var i in cookieValues) {
                 if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
-                    if( elem[cookieValues[i]].name != "isbooked"){
-                        leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
-                    }
+                   leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
                 }
             }
 
