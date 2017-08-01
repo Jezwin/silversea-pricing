@@ -16,16 +16,18 @@
             </div>
 
             <div class="col-sm-4 mozaicItem" >
-              <section class="c-tabbedmozaic">
+             <div>
+              <div class="c-tabbedmozaic">
                     <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" >
                         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                             data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
                     </div>
                     <h2 class="c-tabbedmozaic__title"><span>${item.title @ context="html"}</span></h2>
                     <a class="c-tabbedmozaic__link--block" data-sly-test=${item.path} href="${item.path @ extension='html'}"></a>
-                    <div class="c-tabbedmozaic__description"> ${item.description  @ context='html'} </div>
-                    <span class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i> </span>
-              </section>
+              </div>
+              <div class="c-tabbedmozaic__description"> ${item.description  @ context='html'} </div>
+              <a href="${item.path @ extension='html'}" class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i> </a>
+            </div>
             </div>
                 ${ modulo.moduloValue == 0  ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
 

@@ -92,7 +92,7 @@
     }
     .c-mozaicslider {
         &__title {
-            font-size: 36px;
+            font-size: 30px;
             font-family: @f-theano_didot;
             margin-bottom: 4%;
             text-transform: uppercase;
@@ -129,7 +129,14 @@
         display: none;
     }
     .slick-dots{
-        display: block;
+        display: block !important;
+        bottom: -10px;
+    }
+    .slick-track{
+        padding-bottom: 12px;
+    }
+    .slick-dots li:not(.slick-active) button:before{
+        background-color: #bababa;
     }
 }
 
