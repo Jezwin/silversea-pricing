@@ -21,7 +21,7 @@
                     <div class="c-accordion__title c-accordion__title--img">
                         <div class="c-accordion__title--img_block">
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.itineraryModel.thumbnail}"/>
-                            <div data-sly-test="${item.itineraryModel.thumbnail}" style="background-image: url(${assetHelper.imageUrl, context='uri'}?wid=468&fit=hfit)"></div>
+                            <div data-sly-test="${item.itineraryModel.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
                         </div>
                     </div>
 
