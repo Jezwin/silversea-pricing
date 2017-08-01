@@ -81,13 +81,15 @@ $(function() {
             if (pos <= 0) {
                 $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues));
             }
-            var leadApiData = {}, currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
+            var leadApiData = {},
+                currentData = JSON.parse($.CookieManager.getCookie('userInfo')),
+                form = $(elem).serializeArray();
 
             // Browse the form fields and extract values to leadApiData
-            for ( var i in cookieValues) {
-                if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
-                   leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
-                }
+            for (i in form) {
+                index = cookieValues.indexOf(form[i].name);
+                if (index > -1)
+                    leadApiData[cookieValues[index]] = form[i].value;
             }
 
             $.ajax({
