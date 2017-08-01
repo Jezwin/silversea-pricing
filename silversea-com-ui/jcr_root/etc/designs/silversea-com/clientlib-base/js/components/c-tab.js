@@ -1,8 +1,8 @@
 +function($) {
-   'use strict';
+    'use strict';
 
     $.fn.cTab = function() {
-        this.each(function(){
+        this.each(function() {
             var _self = $(this),
             _data = {
                 link : '.c-tab__link',
@@ -12,14 +12,13 @@
             _links = _self.find('.c-tab__nav').first().children(_data.link),
             _orphan_link = $('.c-cruise__descr a.bound, .parbase a[href^="#"]'),
             _contents = _self.find('.c-tab__body').first().children(_data.content),
-            _showTab = function (tab) {
+            _showTab = function(tab) {
                 var id = $(tab).children('a').attr('href');
                 $(_contents).removeAttr('data-state', null);
                 $(_links).removeAttr('data-state', null);
 
                 $(tab).attr('data-state', 'active');
                 $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
-
             };
 
             /*
@@ -41,7 +40,6 @@
             });
 
             if (_self.hasClass('c-tab__accordion')) {
-
                 $('body').on('trigger.viewport.changed', function() {
                     if ($.viewportDetect() === 'xs') {
                         _self.removeClass('open');
@@ -52,8 +50,9 @@
 
             if (!_self.hasClass('c-tab__edit')) {
                 var activeTab = _self.find('.c-tab__nav').first().children(_data.link + '[data-state="active"]')[0];
-                if (activeTab)
+                if (activeTab) {
                     _showTab(activeTab);
+                }
             }
         });
     };
