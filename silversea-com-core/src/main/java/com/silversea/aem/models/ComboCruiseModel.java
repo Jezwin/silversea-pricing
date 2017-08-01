@@ -95,13 +95,13 @@ public class ComboCruiseModel extends AbstractModel {
     }
     
     public void initTabs(int nbHotels, int nbExcursions, int nbLandPrograms){
-        if(nbExcursions > 0 && (nbLandPrograms > 0 || nbExcursions > 0)){
+        if(nbExcursions > 0 && (nbLandPrograms > 0 || nbHotels > 0)){
             nbTab = 7;  
         }
-        else if (nbExcursions < 0 && (nbLandPrograms > 0 || nbExcursions > 0)){
+        else if (nbExcursions < 0 && (nbLandPrograms > 0 || nbHotels > 0)){
             nbTab = 6; 
         }
-        else if (nbExcursions > 0 && nbLandPrograms < 0 && nbExcursions < 0){
+        else if (nbExcursions > 0 && nbLandPrograms < 0 && nbHotels < 0){
             nbTab = 6; 
         }
         else{
