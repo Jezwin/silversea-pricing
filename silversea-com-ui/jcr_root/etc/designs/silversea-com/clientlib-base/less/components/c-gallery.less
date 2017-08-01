@@ -72,6 +72,7 @@
 
     .c-slider--style2 {
         .slick-next, .slick-prev {
+            display: block!important;
             opacity: 1;
         }
     }
@@ -92,6 +93,10 @@
         margin-top: 0;
         padding: 0 95px;
 
+        @media screen and (max-width: @screen-sm) {
+            padding: 0;
+        }
+
         &:after {
             border-bottom: 1px solid @grey--e6;
             bottom: -10px;
@@ -100,6 +105,10 @@
             left: 0;
             position: absolute;
             width: 100%;
+        }
+
+        .video-link .fa-play {
+            transform: translate(-45%,-50%) scale(0.4);
         }
 
         .slick-next, .slick-prev {
