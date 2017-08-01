@@ -35,6 +35,7 @@ public class ComboCruiseModel extends AbstractModel {
     private ItinerariesData itinerariesData;
     private PriceData lowestPrice;
     private List<SuiteModel> suites;
+    private int nbTab;
     private ResourceResolver resourceResolver;
     private PageManager pageManager;
     
@@ -88,7 +89,24 @@ public class ComboCruiseModel extends AbstractModel {
                 }
             }
         }
+        
+       initTabs(nbHotels, nbExcursions, nbLandPrograms);
        return new ItinerariesData(nbHotels, nbExcursions, nbLandPrograms);
+    }
+    
+    public void initTabs(int nbHotels, int nbExcursions, int nbLandPrograms){
+        if(nbExcursions > 0 && (nbLandPrograms > 0 || nbExcursions > 0)){
+            nbTab = 7;  
+        }
+        else if (nbExcursions < 0 && (nbLandPrograms > 0 || nbExcursions > 0)){
+            nbTab = 6; 
+        }
+        else if (nbExcursions > 0 && nbLandPrograms < 0 && nbExcursions < 0){
+            nbTab = 6; 
+        }
+        else{
+            nbTab = 5;
+        }
     }
     
     public PriceData getLowestPrice() {
@@ -113,6 +131,9 @@ public class ComboCruiseModel extends AbstractModel {
 
     public ItinerariesData getItinerariesData() {
         return itinerariesData;
-    }  
-    
+    }
+
+    public int getNbTab() {
+        return nbTab;
+    } 
 }
