@@ -62,6 +62,13 @@ $(function() {
             $('.c-links .c-list__accordion--content, #ship-overview__content--collapsed').collapse('hide');
         }
     });
+    /***************************************************************************
+     * Tabs nav adapte width item
+     **************************************************************************/
+    if($(window).width() >768){
+      var navItem = $('.c-tab__nav >li').length;
+      $('.c-tab__nav >li').css({width : 100/navItem +"%"});
+    }
 });
 
 /*******************************************************************************
