@@ -1,5 +1,11 @@
 package com.silversea.aem.components.included;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.jackrabbit.oak.commons.PathUtils;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
@@ -7,12 +13,6 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.foundation.Navigation;
 import com.silversea.aem.constants.WcmConstants;
-import org.apache.jackrabbit.oak.commons.PathUtils;
-import org.apache.sling.api.resource.Resource;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class HeaderUse extends WCMUsePojo {
 
@@ -28,9 +28,9 @@ public class HeaderUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM, homePage.getPath());
 
         homePage = getCurrentPage().getAbsoluteParent(2);
+        final String rootPath = properties.getInherited(WcmConstants.PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM, homePage.getPath());
         navigation = navigationBuild(rootPath, 2);
 
         final String link1Reference = properties.getInherited("link1Reference", "");
