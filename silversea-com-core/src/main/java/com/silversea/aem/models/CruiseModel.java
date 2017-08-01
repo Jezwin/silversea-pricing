@@ -304,13 +304,13 @@ public class CruiseModel extends AbstractModel {
         else if ((nbExcursions > 0 && !StringUtils.equals(cruiseType,"silversea-cruise")) && (nbLandPrograms > 0 || nbHotels > 0 )){
             nbTab = 5;
         }
-        else if (nbExcursions < 0 && (nbLandPrograms > 0 || nbHotels > 0)){
+        else if (nbExcursions == 0 && (nbLandPrograms > 0 || nbHotels > 0)){
             nbTab = 5; 
         }
-        else if ((nbExcursions > 0 && StringUtils.equals(cruiseType,"silversea-cruise") ) && (nbLandPrograms < 0 && nbHotels < 0)){
+        else if ((nbExcursions > 0 && StringUtils.equals(cruiseType,"silversea-cruise") ) && (nbLandPrograms == 0 && nbHotels == 0)){
             nbTab = 5; 
         }
-        else if ((nbExcursions > 0 && !StringUtils.equals(cruiseType,"silversea-cruise") ) && (nbLandPrograms < 0 && nbHotels < 0)){
+        else if ((nbExcursions > 0 && !StringUtils.equals(cruiseType,"silversea-cruise") ) && (nbLandPrograms == 0 && nbHotels == 0)){
             nbTab = 4; 
         }
         else{

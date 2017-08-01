@@ -98,10 +98,10 @@ public class ComboCruiseModel extends AbstractModel {
         if(nbExcursions > 0 && (nbLandPrograms > 0 || nbHotels > 0)){
             nbTab = 7;  
         }
-        else if (nbExcursions < 0 && (nbLandPrograms > 0 || nbHotels > 0)){
+        else if (nbExcursions == 0 && (nbLandPrograms > 0 || nbHotels > 0)){
             nbTab = 6; 
         }
-        else if (nbExcursions > 0 && nbLandPrograms < 0 && nbHotels < 0){
+        else if (nbExcursions > 0 && (nbLandPrograms == 0 && nbHotels == 0)){
             nbTab = 6; 
         }
         else{
