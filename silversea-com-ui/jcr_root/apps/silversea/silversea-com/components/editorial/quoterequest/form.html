@@ -1,7 +1,9 @@
 <form class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
-    <input name="requestsource" type="hidden" value="RAQ" />
+    <input name="requestsource" type="hidden" value="website" />
+    <input name="requesttype" type="hidden" value="RAQ" />
     <sly data-sly-test="${use.isCruiseRequested}">
         <input type="hidden" name="voyagename" value="${use.cruiseTitle}" />
+        <input type="hidden" name="voyagecode" value="${use.cruiseCode}" />
         <input type="hidden" name="departuredate" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=use.cruiseDepartureDate}" value="${startDate.value}" />
         <input type="hidden" name="voyagelength" value="${use.cruiseDuration} ${'days' @ i18n}" />
         <input type="hidden" name="shipname" value="${use.cruiseShipName}" />

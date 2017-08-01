@@ -260,4 +260,8 @@ public class QuoteRequestUse extends WCMUsePojo {
     public boolean isCruiseRequested() {
         return selectedCruise != null;
     }
+
+    public String getCruiseCode() {
+        return selectedCruiseCode;
+    }
 }

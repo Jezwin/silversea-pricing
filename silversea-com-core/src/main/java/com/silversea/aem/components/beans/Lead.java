@@ -8,11 +8,13 @@ public class Lead {
     private String phone;
     private String comments;
     private String requestsource;
+    private String requesttype;
     // Subscribe to newletters
     private String att02;
     private Short workingwithagent;
     // Request a quote
     private String voyagename;
+    private String voyagecode;
     private String departuredate;
     private String voyagelength;
     private String shipname;
@@ -250,4 +252,21 @@ public class Lead {
     public void setWorkingwithagent(Short workingwithagent) {
         this.workingwithagent = workingwithagent;
     }
+
+    public String getVoyagecode() {
+        return voyagecode;
+    }
+
+    public void setVoyagecode(String voyagecode) {
+        this.voyagecode = voyagecode;
+    }
+
+    public String getRequesttype() {
+        return requesttype;
+    }
+
+    public void setRequesttype(String requesttype) {
+        this.requesttype = requesttype;
+    }
+
 }
