@@ -15,9 +15,11 @@
                         <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--clear">
                         <a href="#route"><span>${'routes' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--clear">
+                    </li>
+                    <li class="c-tab__link c-tab__link--clear" data-sly-test="${cruise.comboCruiseModel.itinerariesData.nbExcursions > 0}">
                         <a href="#excursions"><span>${'excursions' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--clear">
+                    </li>
+                    <li class="c-tab__link c-tab__link--clear" data-sly-test="${cruise.comboCruiseModel.itinerariesData.nbLandPrograms > 0 || comboCruise.comboCruiseModel.itinerariesData.nbHotels}">
                         <a href="#landnhotel"><span>${'land-and-hotel' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--clear">
                         <a href="#ship"><span>${'ship' @i18n}</span></a>
