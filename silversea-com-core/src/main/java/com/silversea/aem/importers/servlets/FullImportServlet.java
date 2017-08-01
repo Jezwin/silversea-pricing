@@ -232,7 +232,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.ft)) {
-                    featuresImporter.importData();
+                    featuresImporter.importAllFeatures();
                     responseWriter.write("Feature import Done<br/>");
                     responseWriter.flush();
                 }

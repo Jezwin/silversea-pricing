@@ -34,10 +34,11 @@ public class ApiConfigurationServiceImpl implements ApiConfigurationService {
     private String password;
 
     // TODO review naming
+    // TODO replace by constants
     @Property(description = "AEM content root path", value = {
             "shipUrl:/content/silversea-com/en/ships",
             "brochureUrl:/content/dam/siversea-com/brochures",
-            "featuresUrl:/content/silversea-com/en/features",
+            "featuresUrl:/etc/tags/features",
             "contriesUrl:/content/silversea-com/en/country",
             "exclusiveOffersUrl:/content/silversea-com/en/exclusive-offers",
             "agenciesUrl:/content/silversea-com/en/other-resources/find-a-travel-agent",

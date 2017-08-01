@@ -58,7 +58,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private ExclusiveOffersUpdateImporter updateExclusiveOffers;
 
     @Reference
-    private FeaturesUpdateImporter updateFeatures;
+    private FeaturesImporter updateFeatures;
 
     @Reference
     ComboCruisesImporter ComboCruisesImporter;
@@ -218,7 +218,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 // }
                 //
                 if (all || mode.equals(Mode.ft)) {
-                    updateFeatures.updateImporData();
+                    updateFeatures.updateFeatures();
                     response.getWriter().write("Feature import Done<br/>");
                     response.getWriter().flush();
                 }
