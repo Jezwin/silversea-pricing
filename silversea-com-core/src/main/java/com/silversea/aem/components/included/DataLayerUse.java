@@ -58,7 +58,7 @@ public class DataLayerUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         /**
-         * Environement data
+         * Environment data
          */
         RunModesService run = getSlingScriptHelper().getService(RunModesService.class);
         runMode = run.getCurrentRunMode();
@@ -137,7 +137,6 @@ public class DataLayerUse extends WCMUsePojo {
 
         }
 
-        // TODO Remove getCurrentTemplate and remplace it bay
         if (pageCategory1.equals("")) {
             String value = listCat1.get(getCurrentPage().getContentResource().getResourceType());
             if (value != null) {
@@ -197,7 +196,7 @@ public class DataLayerUse extends WCMUsePojo {
             }
         }
         /**
-         * Cruise détails
+         * Cruise details
          */
 
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_VOYAGE)) {
@@ -228,9 +227,7 @@ public class DataLayerUse extends WCMUsePojo {
         /**
          * media
          */
-        // TODO récuperer la bonne market
-        // geoLoc = "UK";
-        // TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+
         contry = GeolocationHelper.getCountryCode(getRequest());
         if (contry != null) {
             geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
@@ -379,9 +376,6 @@ public class DataLayerUse extends WCMUsePojo {
 
     }
 
-    /**
-     * @return the current Run Mode
-     */
     public String getContry() {
         return contry;
     }
