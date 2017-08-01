@@ -1041,7 +1041,7 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="refine-your-search"
         sling:message="refine your search" />
-    <fist
+    <first
         jcr:primaryType="sling:MessageEntry"
         sling:key="first"
         sling:message="first" />
