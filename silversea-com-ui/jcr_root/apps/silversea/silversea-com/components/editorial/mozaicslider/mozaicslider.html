@@ -5,6 +5,7 @@
         <sly data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse" />
         <div class="c-mozaicslider"  data-sly-list="${filter.destinations}" >
             <sly data-sly-use.modulo="${'com.silversea.aem.helper.ArthmeticCalculHelper' @ param1=itemList.count.toString, param2='5'}" />
+
              <div class="col-sm-4 item-text"  data-sly-test="${modulo.moduloValue == 2}" >
                 <div class="mozaicItemText">
                     <h3 class="c-mozaicslider__title">${properties.jcr:title @ context="html"}</h3>
@@ -14,21 +15,19 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-4 mozaicItem" >
-             <div>
-              <div class="c-tabbedmozaic">
-                    <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" >
-                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                            data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-                    </div>
-                    <h2 class="c-tabbedmozaic__title"><span>${item.title @ context="html"}</span></h2>
-                    <a class="c-tabbedmozaic__link--block" data-sly-test=${item.path} href="${item.path @ extension='html'}"></a>
-              </div>
-              <div class="c-tabbedmozaic__description"> ${item.description  @ context='html'} </div>
-              <a href="${item.path @ extension='html'}" class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i> </a>
+            <div class="col-sm-4 mozaicItem">
+                <div>
+                   <div class="c-tabbedmozaic">
+                        <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" >
+                            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                                data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
+                        </div>
+                        <h2 class="c-tabbedmozaic__title"><span>${item.title @ context="html"}</span></h2>
+                        <a class="c-tabbedmozaic__link--block" data-sly-test=${item.path} href="${item.path @ extension='html'}"></a>
+                  </div>
+                  <div class="c-tabbedmozaic__description"> ${item.description  @ context='html'} </div>
+                  <a href="${item.path @ extension='html'}" class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i> </a>
+                </div>
             </div>
-            </div>
-                ${ modulo.moduloValue == 0  ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
-
-        </div>
+            ${ modulo.moduloValue == 0  ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
+        </div>:

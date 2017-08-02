@@ -36,13 +36,16 @@ $(function(){
         }
     });
 
-    $(".c-slider.c-slider--first-slide-only.slick-initialized").slick("unslick");
+    //$(".c-slider.c-slider--first-slide-only.slick-initialized").slick("unslick");
     settingSlider['fade'] = true;
     settingSlider['dots'] = true;
     settingSlider['autoplaySpeed'] = 5000;
     $('.mozaicslider').slick(settingSlider);
     
-    $('.mozaic-slider .mozaicItemText').css('height', $('.mozaic-slider .slick-slide img').height());
+    /*$('.mozaic-slider .mozaicItemText').css('height', $('.mozaic-slider .slick-slide img').first().height() - 2);
+    $(window).on("resize", function() {
+        $('.mozaic-slider .mozaicItemText').css('height', $('.mozaic-slider .slick-slide img').first().height() - 2);
+    });*/
 
     //mozaic slider on mobile viewport
 
