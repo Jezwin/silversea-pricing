@@ -46,8 +46,7 @@
                             </div>
                         </div>
                         <div class="c-accordion__title--body c-accordion__header--unclickable">
-                            ${item.itineraryModel.description @ context='html'}
-        
+                            <span>${item.itineraryModel.description @ context='html'}</span>
                             <a data-sly-test="${item.itineraryModel.excursions.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
