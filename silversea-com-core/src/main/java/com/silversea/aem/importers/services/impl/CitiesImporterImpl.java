@@ -179,8 +179,6 @@ public class CitiesImporterImpl implements CitiesImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDate");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {

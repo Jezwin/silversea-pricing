@@ -130,8 +130,6 @@ public class CountriesImporterImpl implements CountriesImporter {
                     session.refresh(false);
                 }
             }
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
