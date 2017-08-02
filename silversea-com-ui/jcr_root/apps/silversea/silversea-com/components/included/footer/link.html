@@ -7,7 +7,7 @@
                </a>
                 <ul class="c-list__group c-list__group--important" data-sly-list.child="${footer.pagesMainColIterator}">
                     <li class="c-list__item">
-                        <a href="${child.path @ extension='html'}">${child.title}</a>
+                        <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
                     </li>
                 </ul>
             </div>
