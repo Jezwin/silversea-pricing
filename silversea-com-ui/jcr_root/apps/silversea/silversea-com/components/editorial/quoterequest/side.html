@@ -1,6 +1,7 @@
 <!--/* html content if path as suffix for ship and [suite] */-->
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Quote request destination parameters"></div>
 <div class="c-quote-request-side row" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
+    ${quoteRequest.prepareDestinationParameters}
     <img class="hidden-xs" src="${quoteRequest.cruiseThumbnail}" />
     <div class="c-quote-request-side__inner">
         <h3 class="c-quote-request-side__inner__title">${quoteRequest.cruiseTitle}</h3>

@@ -14,6 +14,7 @@ import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.search.Predicate;
 import com.day.cq.search.PredicateConverter;
 import com.day.cq.search.PredicateGroup;
@@ -24,7 +25,6 @@ import com.day.cq.search.eval.PathPredicateEvaluator;
 import com.day.cq.search.eval.TypePredicateEvaluator;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
-import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.NameConstants;
@@ -34,12 +34,14 @@ import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
+import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.SuiteModel;
-import com.silversea.aem.services.GeolocationTagService;
+import com.silversea.aem.services.GeolocationService;
 
 public class QuoteRequestUse extends WCMUsePojo {
     private List<Resource> countries;
+    private GeoLocation geoLocation;
 
     private String selectedCruiseCode;
     private CruiseModel selectedCruise;
@@ -47,13 +49,15 @@ public class QuoteRequestUse extends WCMUsePojo {
     private String selectedSuiteCategoryCode;
     private Page cruisePage;
     private Page suitePage;
-    private GeolocationTagService geolocationTagService;
-    private TagManager tagManager;
+
+    private BrochureModel selectedBrochure; 
+    
 
     @Override
     public void activate() throws Exception {
-        tagManager = getResourceResolver().adaptTo(TagManager.class);
-        geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        GeolocationService geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
+        geoLocation = geolocationService.initGeolocation(getRequest());
+
         Map<String, String> queryMap = new HashMap<String, String>();
 
         // create query description as hash map
@@ -77,11 +81,14 @@ public class QuoteRequestUse extends WCMUsePojo {
             countries.add(hit.getResource());
         }
 
-        // Prepare destination parameters
-        prepareDestinationParameters();
+        // Prepare destination parameters for quote request
+        //prepareDestinationParameters();
+        
+        // Prepare brochure request parameters
+        //prepareBrochureParameters();
     }
 
-    private void prepareDestinationParameters() {
+    public void prepareDestinationParameters() {
 
         String destinationParameters = getRequest().getRequestPathInfo().getSuffix();
         String[] destinationParams = StringUtils.split(destinationParameters, '/');
@@ -92,7 +99,7 @@ public class QuoteRequestUse extends WCMUsePojo {
             // at least cruise selected
             selectedCruiseCode = destinationParams[0];
             selectedCruise = findCruise(selectedCruiseCode);
-            selectedCruise.initByGeoLocation(getGeolocation(geolocationTagService));
+            selectedCruise.initByGeoLocation(geoLocation);
 
             if (destinationParams.length > 1) {
                 // cruise and suite selected
@@ -107,6 +114,24 @@ public class QuoteRequestUse extends WCMUsePojo {
                 }
             }
         }
+    }
+    
+    public void prepareBrochureParameters() {
+        String selectedBrochurePath = getRequest().getRequestPathInfo().getSuffix();
+        if (!StringUtils.isEmpty(selectedBrochurePath)) {
+            selectedBrochurePath = selectedBrochurePath.endsWith(".html") ? 
+                    selectedBrochurePath.substring(0, selectedBrochurePath.lastIndexOf('.')) : selectedBrochurePath;
+            Resource assetResource = getResourceResolver().getResource(selectedBrochurePath);
+            Asset asset = assetResource.adaptTo(Asset.class);
+
+            if (asset != null) {
+                selectedBrochure = asset.adaptTo(BrochureModel.class);
+            }
+        }
+    }
+    
+    public BrochureModel getSelectedBrochure() {
+        return selectedBrochure;
     }
 
     /**
@@ -151,32 +176,8 @@ public class QuoteRequestUse extends WCMUsePojo {
         return result;
     }
 
-    // TODO refactor!
-    private GeoLocation getGeolocation(GeolocationTagService geolocationTagService) {
-
-        String tagId = geolocationTagService.getTagFromRequest(getRequest());
-        String country = GeolocationHelper.getCountryCode(getRequest());
-        String geoMarketCode = getGeoMarketCode(tagId);
-        GeoLocation geoLocation = new GeoLocation();
-        if (!StringUtils.isEmpty(country) && !StringUtils.isEmpty(geoMarketCode)) {
-            geoLocation.setCountry(country);
-            geoLocation.setGeoMarketCode(geoMarketCode.toUpperCase());
-        } else {
-            geoLocation.setCountry("FR");
-            geoLocation.setGeoMarketCode("EU");
-        }
+    public GeoLocation getGeolocation() {
         return geoLocation;
-    }
-
-    // TODO refactor!
-    private String getGeoMarketCode(String geolocationTag) {
-        String geoMarketCode = null;
-
-        Tag tag = tagManager.resolve(geolocationTag);
-        if (tag != null) {
-            geoMarketCode = tag.getParent().getParent().getName();
-        }
-        return geoMarketCode;
     }
 
     public String getCruiseThumbnail() {

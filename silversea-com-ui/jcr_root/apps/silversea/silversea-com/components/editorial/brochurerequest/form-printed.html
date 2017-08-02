@@ -1,7 +1,11 @@
 <form  class="request-quote-form c-form c-formcookie--redirect"
     action="${properties.pageReference @ extension='html', selectors='modalcontent'}${request.requestPathInfo.suffix}.html"
     method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
-    <input name="requestsource" type="hidden" value="BRO" />
+    ${use.prepareBrochureParameters}
+    <input name="requestsource" type="hidden" value="website" />
+    <input name="requesttype" type="hidden" value="BRO" />
+    <input name="sitecountry" type="hidden" value="${use.geolocation.country}" />
+    <input name="brochurecode" type="hidden" value="${use.selectedBrochure.brochureCode}" />
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>

@@ -1,4 +1,5 @@
 <form class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
+    ${use.prepareDestinationParameters}
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="RAQ" />
     <sly data-sly-test="${use.isCruiseRequested}">

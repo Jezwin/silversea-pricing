@@ -93,6 +93,7 @@ public class LeadServiceImpl implements LeadService {
 
         // Subscribe newsletter
         request.setAtt02(lead.getAtt02());
+        request.setSubscribeEmail(lead.getAtt02());
         request.setWorkingWithAgent(lead.getWorkingwithagent());
 
         // request a quote

@@ -26,6 +26,7 @@ public class Lead {
     private String postalcode;
     private String city;
     private String country;
+    private String brochurecode;
 
     public String getPostaladdress() {
         return postaladdress;
@@ -267,6 +268,14 @@ public class Lead {
 
     public void setRequesttype(String requesttype) {
         this.requesttype = requesttype;
+    }
+
+    public String getBrochurecode() {
+        return brochurecode;
+    }
+
+    public void setBrochurecode(String brochurecode) {
+        this.brochurecode = brochurecode;
     }
 
 }
