@@ -51,15 +51,15 @@ $(function(){
 
     $(".mozaic-slider").each(function(index) {
 
-        let $slider_mosaic = $(this);
+        var $slider_mosaic = $(this);
         $slider_mosaic.after( "<div class='mobileSlider " + 'mobileSlider_'+ index + "'></div>" );
 
-        let mozaicItem = document.createElement('div');
+        var mozaicItem = document.createElement('div');
         mozaicItem.className = "mozaicHeader";
 
         $slider_mosaic.parent().find('.mobileSlider').before(mozaicItem);
 
-        let $cureent_mozaic_header = $slider_mosaic.parent().find('.mozaicHeader');
+        var $cureent_mozaic_header = $slider_mosaic.parent().find('.mozaicHeader');
 
         $slider_mosaic.find('.c-mozaicslider__title').first().clone().appendTo( $cureent_mozaic_header );
         $slider_mosaic.find('.c-mozaicslider__descr').first().clone().appendTo( $cureent_mozaic_header );
