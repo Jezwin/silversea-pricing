@@ -40,6 +40,7 @@ public interface WcmConstants {
     String PAGE_TEMPLATE_LAND_PROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
     String PAGE_TEMPLATE_EXCURSION = "/apps/silversea/silversea-com/templates/excursion";
     String PAGE_TEMPLATE_EXCLUSIVE_OFFER = "/apps/silversea/silversea-com/templates/exclusiveoffer";
+    String PAGE_TEMPLATE_CRUISE = "/apps/silversea/silversea-com/templates/cruise";
 
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage"; // TODO not a resource type

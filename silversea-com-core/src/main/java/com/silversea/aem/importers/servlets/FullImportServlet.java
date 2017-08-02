@@ -91,6 +91,12 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
             Boolean all = modeParam == null || "".equals(modeParam) || "ALL".equals(modeParam);
             Mode mode = null;
 
+            String elementsNumberString = request.getParameter("size");
+            int elementsNumber = -1;
+            try {
+                elementsNumber = Integer.valueOf(elementsNumberString);
+            } catch (NumberFormatException ignored) {}
+
             if (!all) {
                 try {
                     mode = Mode.valueOf(modeParam);
@@ -244,7 +250,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesImporter.importData(false);
+                    cruisesImporter.importSampleSetCruises(elementsNumber);
                     responseWriter.write("Cruises import Done<br/>");
                     responseWriter.flush();
                 }
