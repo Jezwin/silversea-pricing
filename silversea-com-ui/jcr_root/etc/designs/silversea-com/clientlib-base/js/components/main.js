@@ -100,6 +100,12 @@ $(function() {
                 dataType : 'json',
                 success : function(data) {
 
+                    if (typeof data !== 'string') {
+                        console.log('Invalid lead API data received');
+                        window.location.href = elem.action;
+                        return;
+                    }
+
                     //set cookies for datalayer
                     var submitDate = new Date();
                     $.CookieManager.setCookie("user_status", submitDate.getTime());
