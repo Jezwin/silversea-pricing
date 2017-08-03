@@ -34,7 +34,7 @@ $(function() {
             }, 600, function() {
                 //var defaultItem = $wrapper.closest('.c-cruise-ship-info').length ? 1 : 0;
                 var indexShownedItem = 1;
-                if ($.viewportDetect() === "xs") {
+                if ($.viewportDetect() === "sm") {
                     indexShownedItem = 0;
                 }
                 $wrapper.css('height', $wrapper.height()).find('> div:gt(' + indexShownedItem + '):not(.c-cruise__item-expander)').hide();
