@@ -17,12 +17,11 @@ import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.jackrabbit.oak.commons.PathUtils;
-import org.apache.jackrabbit.oak.commons.StringUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -38,7 +37,6 @@ import javax.jcr.Session;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.*;
 
 @Service
@@ -222,10 +220,6 @@ public class CruisesImporterImpl implements CruisesImporter {
                 for (Voyage cruise : cruises) {
                     LOGGER.trace("importing cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
 
-                    // old : [Voyage Code]-[Departure port]-to-[Arrival port]
-                    // new : [Departure port]-to(i18n)-[Arrival port]-[Voyage Code]
-                    final String pageName = cruise.getVoyageName() + " - " + cruise.getVoyageCod();
-
                     try {
                         final List<String> destinationPaths = destinationsMapping.get(String.valueOf(cruise.getDestinationId()));
 
@@ -241,15 +235,35 @@ public class CruisesImporterImpl implements CruisesImporter {
                             }
 
                             final Page destinationPage = destinationResource.adaptTo(Page.class);
-                            final Node destinationNode = destinationResource.adaptTo(Node.class);
 
                             final String language = LanguageHelper.getLanguage(destinationPage);
 
                             LOGGER.trace("Destination language : {}", language);
 
+                            // TODO dynamically read languages
+                            String cruiseTitle = cruise.getVoyageName();
+                            switch (language) {
+                                case "fr":
+                                    cruiseTitle = cruise.getVoyageName().replace(" to ", " à ");
+                                    break;
+                                case "es":
+                                case "pt-br":
+                                    cruiseTitle = cruise.getVoyageName().replace(" to ", " a ");
+                                    break;
+                                case "de":
+                                    cruiseTitle = cruise.getVoyageName().replace(" to ", " nach ");
+                                    break;
+                            }
+
+                            // old : [Voyage Code]-[Departure port]-to-[Arrival port]
+                            // new : [Departure port]-to(i18n)-[Arrival port]-[Voyage Code]
+                            final String pageName = JcrUtil.createValidName(StringUtils
+                                        .stripAccents(cruise.getVoyageName() + " - " + cruise.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                                    .replaceAll("-+", "-");
+
+                            // creating cruise page - uniqueness is derived from cruise code
                             final Page cruisePage = pageManager.create(destinationPath,
-                                    JcrUtil.createValidChildName(destinationNode, StringHelper.getFormatWithoutSpecialCharacters(pageName)),
-                                    WcmConstants.PAGE_TEMPLATE_CRUISE, cruise.getVoyageName(), false);
+                                    pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, cruiseTitle, false);
 
                             final Resource cruiseContentResource = cruisePage.getContentResource();
                             final Node cruiseContentNode = cruiseContentResource.adaptTo(Node.class);
@@ -257,9 +271,9 @@ public class CruisesImporterImpl implements CruisesImporter {
                             // setting alias
                             // TODO replace by check on language
                             if (destinationPath.contains("/fr/") || destinationPath.contains("/es/") || destinationPath.contains("/pt-br/")) {
-                                cruiseContentNode.setProperty("sling:alias", JcrUtil.createValidName(pageName.replace(" to ", " a ")));
+                                cruiseContentNode.setProperty("sling:alias", pageName.replace("-to-", "-a-"));
                             } else if (destinationPath.contains("/de/")) {
-                                cruiseContentNode.setProperty("sling:alias", JcrUtil.createValidName(pageName.replace(" to ", " nach ")));
+                                cruiseContentNode.setProperty("sling:alias", pageName.replace("-to-", "-nach-"));
                             }
 
                             // Adding tags
@@ -296,13 +310,22 @@ public class CruisesImporterImpl implements CruisesImporter {
                             }
 
                             // setting other properties
-                            cruiseContentNode.setProperty("apiTitle", cruise.getVoyageName());
+                            cruiseContentNode.setProperty("apiTitle", cruiseTitle);
                             cruiseContentNode.setProperty("importedDescription", cruise.getVoyageDescription());
                             cruiseContentNode.setProperty("startDate", cruise.getDepartDate().toGregorianCalendar());
                             cruiseContentNode.setProperty("endDate", cruise.getArriveDate().toGregorianCalendar());
                             cruiseContentNode.setProperty("voyageHighlights", cruise.getVoyageHighlights());
                             cruiseContentNode.setProperty("duration", cruise.getDays());
                             cruiseContentNode.setProperty("cruiseCode", cruise.getVoyageCod());
+                            cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
+
+                            // Set livecopy mixin
+                            if (!language.equals("en")) {
+                                cruiseContentNode.addMixin("cq:LiveRelationship");
+                                cruiseContentNode.addMixin("cq:PropertyLiveSyncCancelled");
+
+                                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle"});
+                            }
 
                             // download and associate map
                             final String mapUrl = cruise.getMapUrl();
@@ -310,7 +333,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                             if (mapUrl != null) {
                                 try {
                                     final InputStream inputStream = new URL(mapUrl).openStream();
-                                    final String filename = org.apache.commons.lang3.StringUtils.substringAfterLast(mapUrl, "/");
+                                    final String filename = StringUtils.substringAfterLast(mapUrl, "/");
 
                                     final Asset asset = assetManager.createAsset("/content/dam/silversea-com/api-provided/cruises/"
                                                     + StringHelper.getFormatWithoutSpecialCharacters(pageName) + "/" + filename,
@@ -353,7 +376,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                 }
 
                 j++;
-            } while (cruises.size() > 0);
+            } while (cruises.size() > 0 && k < cruisesNumber);
 
             if (session.hasPendingChanges()) {
                 try {
