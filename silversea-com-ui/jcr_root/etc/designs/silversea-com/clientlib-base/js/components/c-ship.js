@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
     $('.view_all_mobile').on('click', function(e) {
         var elem = $('.teaser');
         $(this).parent().find(elem).each(function(){
@@ -7,4 +7,4 @@ $(function() {
 
         $(this).css({'display': 'none'});
     })
-});
+});*/
