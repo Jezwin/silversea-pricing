@@ -15,6 +15,7 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -34,7 +35,6 @@ import java.util.Map;
 
 /**
  * TODO add last import date
- * TODO check loop for sample set (in case of full)
  */
 @Service
 @Component
@@ -66,16 +66,17 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
     }
 
     @Override
-    public ImportResult importAllCruisesItineraries() {
-        return importSampleSetItineraries(-1);
+    public ImportResult importAllItems() {
+        return importSampleSet(-1);
     }
 
     @Override
-    public ImportResult importSampleSetItineraries(int itinerariesNumber) {
-        LOGGER.debug("Starting itineraries import ({})", itinerariesNumber == -1 ? "all" : itinerariesNumber);
+    public ImportResult importSampleSet(int size) {
+        LOGGER.debug("Starting itineraries import ({})", size == -1 ? "all" : size);
 
         int successNumber = 0;
         int errorNumber = 0;
+        int apiPage = 1;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -118,7 +119,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     try {
                         session.save();
 
-                        LOGGER.debug("{} cruises cleaned, saving session", +i);
+                        LOGGER.debug("{} itineraries cleaned, saving session", +i);
                     } catch (RepositoryException e) {
                         session.refresh(true);
                     }
@@ -129,7 +130,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 try {
                     session.save();
 
-                    LOGGER.debug("{} cruises cleaned, saving session", +i);
+                    LOGGER.debug("{} itineraries cleaned, saving session", +i);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -190,7 +191,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
             // Importing itineraries
             List<Itinerary> itineraries;
-            int apiPage = 1, itemsWritten = 0;
+            int itemsWritten = 0;
 
             do {
                 itineraries = itinerariesApi.itinerariesGet("2015-01-01", "2025-12-31", null, null, apiPage, pageSize, null);
@@ -210,11 +211,13 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
                             LOGGER.trace("Adding itinerary {} under cruise {}", itinerary.getItineraryId(), cruisePath.getValue());
 
-                            if (cruiseContentNode.hasNode(String.valueOf(itinerary.getItineraryId()))) {
+                            final Node itinerariesNode = JcrUtils.getOrAddNode(cruiseContentNode, "itineraries", "nt:unstructured");
+
+                            if (itinerariesNode.hasNode(String.valueOf(itinerary.getItineraryId()))) {
                                 throw new ImporterException("Itinerary item already exists");
                             }
 
-                            final Node itineraryNode = cruiseContentNode.addNode(String.valueOf(itinerary.getItineraryId()));
+                            final Node itineraryNode = itinerariesNode.addNode(String.valueOf(itinerary.getItineraryId()));
                             itineraryNode.setProperty("itineraryId", itinerary.getItineraryId());
                             itineraryNode.setProperty("date", itinerary.getItineraryId());
                             itineraryNode.setProperty("arriveTime", itinerary.getArriveTime());
@@ -239,13 +242,13 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                                 try {
                                     session.save();
 
-                                    LOGGER.debug("{} cruises imported, saving session", +itemsWritten);
+                                    LOGGER.debug("{} itineraries imported, saving session", +itemsWritten);
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
                             }
 
-                            if (itemsWritten >= itinerariesNumber) {
+                            if (size != -1 && itemsWritten >= size) {
                                 break;
                             }
                         }
@@ -257,12 +260,12 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
                 }
 
-                if (itemsWritten >= itinerariesNumber) {
+                if (size != -1 && itemsWritten >= size) {
                     break;
                 }
 
                 apiPage++;
-            } while (itineraries.size() > 0 && itemsWritten < itinerariesNumber);
+            } while (itineraries.size() > 0 && size != -1 && itemsWritten < size);
 
             if (session.hasPendingChanges()) {
                 try {
@@ -273,7 +276,6 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     session.refresh(false);
                 }
             }
-
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException | ImporterException e) {
@@ -286,13 +288,14 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             }
         }
 
-        LOGGER.debug("Ending itineraries import, success: {}, error: {}", +successNumber, +errorNumber);
+        LOGGER.debug("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
 
     @Override
-    public ImportResult updateCruisesItineraries() {
+    public ImportResult updateItems() {
+        // TODO implement
         return null;
     }
 }

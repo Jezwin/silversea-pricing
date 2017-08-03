@@ -41,7 +41,6 @@ import java.util.*;
 
 /**
  * TODO add last import date
- * TODO check loop for sample set (in case of full)
  */
 @Service
 @Component
@@ -73,16 +72,17 @@ public class CruisesImporterImpl implements CruisesImporter {
     }
 
     @Override
-    public ImportResult importAllCruises() {
-        return importSampleSetCruises(-1);
+    public ImportResult importAllItems() {
+        return importSampleSet(-1);
     }
 
     @Override
-    public ImportResult importSampleSetCruises(final int cruisesNumber) {
-        LOGGER.debug("Starting cruises import ({})", cruisesNumber == -1 ? "all" : cruisesNumber);
+    public ImportResult importSampleSet(final int size) {
+        LOGGER.debug("Starting cruises import ({})", size == -1 ? "all" : size);
 
         int successNumber = 0;
         int errorNumber = 0;
+        int apiPage = 1;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -216,10 +216,10 @@ public class CruisesImporterImpl implements CruisesImporter {
 
             // Importing cruises
             List<Voyage> cruises;
-            int j = 1, k = 0;
+            int itemsWritten = 0;
 
             do {
-                cruises = voyagesApi.voyagesGet(null, null, null, null, null, j, pageSize, null, null);
+                cruises = voyagesApi.voyagesGet(null, null, null, null, null, apiPage, pageSize, null, null);
 
                 for (Voyage cruise : cruises) {
                     LOGGER.trace("importing cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod());
@@ -262,7 +262,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                             // old : [Voyage Code]-[Departure port]-to-[Arrival port]
                             // new : [Departure port]-to(i18n)-[Arrival port]-[Voyage Code]
                             final String pageName = JcrUtil.createValidName(StringUtils
-                                        .stripAccents(cruise.getVoyageName() + " - " + cruise.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                                    .stripAccents(cruise.getVoyageName() + " - " + cruise.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
                                     .replaceAll("-+", "-");
 
                             // creating cruise page - uniqueness is derived from cruise code
@@ -340,7 +340,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                     final String filename = StringUtils.substringAfterLast(mapUrl, "/");
 
                                     final Asset asset = assetManager.createAsset("/content/dam/silversea-com/api-provided/cruises/"
-                                                    + StringHelper.getFormatWithoutSpecialCharacters(pageName) + "/" + filename,
+                                                    + pageName + "/" + filename,
                                             inputStream, mimeTypeService.getMimeType(mapUrl), false);
 
                                     cruiseContentNode.setProperty("itinerary", asset.getPath());
@@ -352,19 +352,19 @@ public class CruisesImporterImpl implements CruisesImporter {
                             }
 
                             successNumber++;
-                            k++;
+                            itemsWritten++;
 
-                            if (k % sessionRefresh == 0 && session.hasPendingChanges()) {
+                            if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                                 try {
                                     session.save();
 
-                                    LOGGER.debug("{} cruises imported, saving session", +k);
+                                    LOGGER.debug("{} cruises imported, saving session", +itemsWritten);
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
                             }
 
-                            if (k >= cruisesNumber) {
+                            if (size != -1 && itemsWritten >= size) {
                                 break;
                             }
                         }
@@ -374,19 +374,19 @@ public class CruisesImporterImpl implements CruisesImporter {
                         errorNumber++;
                     }
 
-                    if (k >= cruisesNumber) {
+                    if (size != -1 && itemsWritten >= size) {
                         break;
                     }
                 }
 
-                j++;
-            } while (cruises.size() > 0 && k < cruisesNumber);
+                apiPage++;
+            } while (cruises.size() > 0 && size != -1 && itemsWritten < size);
 
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
 
-                    LOGGER.debug("{} cruises imported, saving session", +k);
+                    LOGGER.debug("{} cruises imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -403,13 +403,14 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
         }
 
-        LOGGER.debug("Ending cruises import, success: {}, error: {}", +successNumber, +errorNumber);
+        LOGGER.debug("Ending cruises import, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
 
     @Override
-    public ImportResult updateCruises() {
+    public ImportResult updateItems() {
+        // TODO implement
         return null;
     }
 }

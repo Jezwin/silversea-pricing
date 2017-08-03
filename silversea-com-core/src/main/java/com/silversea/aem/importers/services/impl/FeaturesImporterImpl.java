@@ -4,34 +4,26 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.InvalidTagFormatException;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
-import io.swagger.client.api.CitiesApi;
 import io.swagger.client.api.FeaturesApi;
 import io.swagger.client.model.Feature;
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
-import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,6 +115,8 @@ public class FeaturesImporterImpl implements FeaturesImporter {
                 resourceResolver.close();
             }
         }
+
+        LOGGER.debug("Ending features import, success: {}, errors: {}", +successNumber, +errorNumber);
 
         return new ImportResult(successNumber, errorNumber);
     }

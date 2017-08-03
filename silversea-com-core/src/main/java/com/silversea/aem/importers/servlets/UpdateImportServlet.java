@@ -230,7 +230,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 // }
                 //
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesImporter.updateCruises();
+                    cruisesImporter.updateItems();
                     response.getWriter().write("Cruises import Done<br/>");
                     response.getWriter().flush();
                 }

@@ -2,7 +2,9 @@ package com.silversea.aem.helper;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 
 /**
  * Helper class to deal with languages in SilverSea context.
@@ -39,6 +41,23 @@ public class LanguageHelper extends WCMUsePojo {
 
         if (languageAncestor != null) {
             return languageAncestor.getName();
+        }
+
+        return ENGLISH;
+    }
+
+    /**
+     * Get language from resource, by getting the name of the 2nd level page in the tree
+     *
+     * @param pageManager the page manager used to get the page containing the resource
+     * @param resource resource in the content tree
+     * @return SilverSea language code
+     */
+    public static String getLanguage(final PageManager pageManager, final Resource resource) {
+        final Page page = pageManager.getContainingPage(resource);
+
+        if (page != null) {
+            return getLanguage(page);
         }
 
         return ENGLISH;

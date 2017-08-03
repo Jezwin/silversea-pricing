@@ -2,25 +2,25 @@ package com.silversea.aem.importers.services;
 
 import com.silversea.aem.importers.services.impl.ImportResult;
 
-public interface CruisesImporter {
+public interface CruisesItinerariesHotelsImporter {
 
     /**
-     * Import all cruises, used in first data import
+     * Import all itineraries hotels items, used for first data import
      *
      * @return result of the import
      */
     ImportResult importAllItems();
 
     /**
-     * Import a sample set of cruises, used for test purpose (import is full)
+     * Import a sample set of itineraries hotels, used for test purpose (import is full)
      *
-     * @param size number of cruises to import
+     * @param size number of itineraries hotels to import
      * @return result of the import
      */
     ImportResult importSampleSet(final int size);
 
     /**
-     * Update the cruises based on the last import date
+     * Update itineraries hotels items based on the last import date
      * stored in the cruises root page
      *
      * @return result of the import

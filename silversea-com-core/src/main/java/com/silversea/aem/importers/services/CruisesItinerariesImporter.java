@@ -9,15 +9,15 @@ public interface CruisesItinerariesImporter {
      *
      * @return result of the import
      */
-    ImportResult importAllCruisesItineraries();
+    ImportResult importAllItems();
 
     /**
      * Import a sample set of itineraries, used for test purpose (import is full)
      *
-     * @param itinerariesNumber number of itineraries to import
+     * @param size number of itineraries to import
      * @return result of the import
      */
-    ImportResult importSampleSetItineraries(final int itinerariesNumber);
+    ImportResult importSampleSet(final int size);
 
     /**
      * Update itineraries items based on the last import date
@@ -25,5 +25,5 @@ public interface CruisesItinerariesImporter {
      *
      * @return result of the import
      */
-    ImportResult updateCruisesItineraries();
+    ImportResult updateItems();
 }
