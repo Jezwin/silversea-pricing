@@ -74,7 +74,7 @@ $(function() {
             // Cancel synchrone submit
             event.preventDefault();
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode'];
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode'];
             var pos = document.cookie.indexOf("userInfo=");
 
             // Set cookie if not created

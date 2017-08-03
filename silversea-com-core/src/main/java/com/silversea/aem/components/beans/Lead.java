@@ -1,5 +1,7 @@
 package com.silversea.aem.components.beans;
 
+import java.math.BigDecimal;
+
 public class Lead {
     private String title;
     private String firstname;
@@ -10,7 +12,7 @@ public class Lead {
     private String requestsource;
     private String requesttype;
     // Subscribe to newletters
-    private String att02;
+    private String subscribeemail;
     private Short workingwithagent;
     // Request a quote
     private String voyagename;
@@ -76,8 +78,12 @@ public class Lead {
         this.suitevariation = suitevariation;
     }
 
-    public String getPrice() {
+    public String getPriceString() {
         return price;
+    }
+    
+    public BigDecimal getPrice() {
+        return new BigDecimal(price);
     }
 
     public void setPrice(String price) {
@@ -227,16 +233,16 @@ public class Lead {
     /**
      * @return the att02
      */
-    public String getAtt02() {
-        return att02;
+    public String getSubscribeemail() {
+        return subscribeemail;
     }
 
     /**
      * @param att02
      *            the att02 to set
      */
-    public void setAtt02(String att02) {
-        this.att02 = att02;
+    public void setSubscribeemail(String subscribeemail) {
+        this.subscribeemail = subscribeemail;
     }
 
     /**

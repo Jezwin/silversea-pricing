@@ -8,7 +8,7 @@
         <input type="hidden" name="departuredate" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=use.cruiseDepartureDate}" value="${startDate.value}" />
         <input type="hidden" name="voyagelength" value="${use.cruiseDuration} ${'days' @ i18n}" />
         <input type="hidden" name="shipname" value="${use.cruiseShipName}" />
-        <input type="hidden" name="price" value="${use.cruisePrice.currency} ${use.cruisePrice.value}" />
+        <input type="hidden" name="price" value="${use.cruisePrice.value}" />
         <input data-sly-test="${use.isSuiteVariationRequested}" type="hidden" name="suitevariation" value="${use.suiteName}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}" />
         <input data-sly-test="${use.isSuiteCategoryRequested}" type="hidden" name="suitecategory" value="${use.suiteName @ i18n}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}"/>
     </sly>
@@ -78,7 +78,7 @@
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
-                <input class="custom-checkbox" type="checkbox" name="att02" value="true" checked="${use.isChecked}">
+                <input class="custom-checkbox" type="checkbox" name="subscribeemail" value="true" checked="${use.isChecked}">
                 ${'receive-emails-with-news' @ i18n}
             </label>
         </div>
