@@ -1,10 +1,13 @@
 package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -18,18 +21,24 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.apache.jackrabbit.oak.commons.PathUtils;
+import org.apache.jackrabbit.oak.commons.StringUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
-import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Path;
 import java.util.*;
 
 @Service
@@ -43,6 +52,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
+
+    @Reference
+    private MimeTypeService mimeTypeService;
 
     @Reference
     private ApiConfigurationService apiConfig;
@@ -77,6 +89,7 @@ public class CruisesImporterImpl implements CruisesImporter {
         try {
             resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
             final VoyagesApi voyagesApi = new VoyagesApi(ImporterUtils.getApiClient(apiConfig));
@@ -118,6 +131,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                 }
             }
 
+            final Node itinerariesDamNode = session.getNode("/content/dam/silversea-com/api-provided/cruises");
+            if (itinerariesDamNode != null) {
+                itinerariesDamNode.remove();
+            }
+
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
@@ -129,6 +147,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
 
             // Initializing elements necessary to import cruise
+            // destinations
             final Iterator<Resource> destinations = resourceResolver.findResources("/jcr:root/content/silversea-com"
                     + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/destination\"]", "xpath");
 
@@ -146,12 +165,41 @@ public class CruisesImporterImpl implements CruisesImporter {
                         destinationPaths.add(destination.getParent().getPath());
                         destinationsMapping.put(destinationId, destinationPaths);
                     }
+
+                    LOGGER.trace("Adding destination {} ({}) to cache", destination.getPath(), destinationId);
                 }
             }
 
-            final Iterator<Resource> features = resourceResolver.findResources("/jcr:root/etc/tags/features//elment(*,cq:Tag)[featureId]", "xpath");
+            // ships
+            final Iterator<Resource> ships = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/ship\"]", "xpath");
 
-            final HashMap<Integer, String> featuresMapping = new HashMap<>();
+            final Map<String, Map<String, String>> shipsMapping = new HashMap<>();
+            while (ships.hasNext()) {
+                final Resource ship = ships.next();
+
+                final Page shipPage = ship.getParent().adaptTo(Page.class);
+                final String language = LanguageHelper.getLanguage(shipPage);
+
+                final String shipId = ship.getValueMap().get("shipId", String.class);
+
+                if (shipId != null) {
+                    if (shipsMapping.containsKey(shipId)) {
+                        shipsMapping.get(shipId).put(language, shipPage.getPath());
+                    } else {
+                        final HashMap<String, String> shipPaths = new HashMap<>();
+                        shipPaths.put(language, shipPage.getPath());
+                        shipsMapping.put(shipId, shipPaths);
+                    }
+
+                    LOGGER.trace("Adding ship {} ({}) with lang {} to cache", ship.getPath(), shipId, language);
+                }
+            }
+
+            // features
+            final Iterator<Resource> features = resourceResolver.findResources("/jcr:root/etc/tags/features//element(*,cq:Tag)[featureId]", "xpath");
+
+            final Map<Integer, String> featuresMapping = new HashMap<>();
             while (features.hasNext()) {
                 final Resource feature = features.next();
 
@@ -159,6 +207,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                 if (featureId != null) {
                     featuresMapping.put(featureId, feature.getPath());
+
+                    LOGGER.trace("Adding feature {} ({}) to cache", feature.getPath(), featureId);
                 }
             }
 
@@ -184,16 +234,28 @@ public class CruisesImporterImpl implements CruisesImporter {
                         }
 
                         for (String destinationPath : destinationPaths) {
-                            final Node destinationNode = session.getNode(destinationPath);
+                            final Resource destinationResource = resourceResolver.getResource(destinationPath);
+
+                            if (destinationResource == null) {
+                                throw new ImporterException("Destination " + destinationPath + " cannot be found");
+                            }
+
+                            final Page destinationPage = destinationResource.adaptTo(Page.class);
+                            final Node destinationNode = destinationResource.adaptTo(Node.class);
+
+                            final String language = LanguageHelper.getLanguage(destinationPage);
+
+                            LOGGER.trace("Destination language : {}", language);
 
                             final Page cruisePage = pageManager.create(destinationPath,
-                                    JcrUtil.createValidChildName(destinationNode, StringHelper.getFormatWithoutSpecialCharcters(pageName)),
+                                    JcrUtil.createValidChildName(destinationNode, StringHelper.getFormatWithoutSpecialCharacters(pageName)),
                                     WcmConstants.PAGE_TEMPLATE_CRUISE, cruise.getVoyageName(), false);
 
                             final Resource cruiseContentResource = cruisePage.getContentResource();
                             final Node cruiseContentNode = cruiseContentResource.adaptTo(Node.class);
 
                             // setting alias
+                            // TODO replace by check on language
                             if (destinationPath.contains("/fr/") || destinationPath.contains("/es/") || destinationPath.contains("/pt-br/")) {
                                 cruiseContentNode.setProperty("sling:alias", JcrUtil.createValidName(pageName.replace(" to ", " a ")));
                             } else if (destinationPath.contains("/de/")) {
@@ -219,20 +281,48 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                             cruiseContentNode.setProperty("cq:tags", tagIds.toArray(new String[tagIds.size()]));
 
-                            // TODO set ship
+                            // setting ship reference
+                            final String shipId = String.valueOf(cruise.getShipId());
+                            LOGGER.trace("Cruise ship id {}", shipId);
+
+                            if (shipsMapping.containsKey(shipId)) {
+                                LOGGER.trace("Found ship {} in cache", shipId);
+
+                                if (shipsMapping.get(shipId).containsKey(language)) {
+                                    LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(shipId).get(language));
+
+                                    cruiseContentNode.setProperty("shipReference", shipsMapping.get(shipId).get(language));
+                                }
+                            }
 
                             // setting other properties
-                            cruiseContentNode.setProperty("apiTitle", cruise.getVoyageName()); // TODO confirm
-                            cruiseContentNode.setProperty("importedDescription", cruise.getVoyageDescription()); // TODO confirm
+                            cruiseContentNode.setProperty("apiTitle", cruise.getVoyageName());
+                            cruiseContentNode.setProperty("importedDescription", cruise.getVoyageDescription());
                             cruiseContentNode.setProperty("startDate", cruise.getDepartDate().toGregorianCalendar());
                             cruiseContentNode.setProperty("endDate", cruise.getArriveDate().toGregorianCalendar());
                             cruiseContentNode.setProperty("voyageHighlights", cruise.getVoyageHighlights());
                             cruiseContentNode.setProperty("duration", cruise.getDays());
                             cruiseContentNode.setProperty("cruiseCode", cruise.getVoyageCod());
 
-                            // TODO download or associate map
+                            // download and associate map
+                            final String mapUrl = cruise.getMapUrl();
 
-                            // TODO associate exclusive offer
+                            if (mapUrl != null) {
+                                try {
+                                    final InputStream inputStream = new URL(mapUrl).openStream();
+                                    final String filename = org.apache.commons.lang3.StringUtils.substringAfterLast(mapUrl, "/");
+
+                                    final Asset asset = assetManager.createAsset("/content/dam/silversea-com/api-provided/cruises/"
+                                                    + StringHelper.getFormatWithoutSpecialCharacters(pageName) + "/" + filename,
+                                            inputStream, mimeTypeService.getMimeType(mapUrl), false);
+
+                                    cruiseContentNode.setProperty("itinerary", asset.getPath());
+
+                                    LOGGER.trace("Creating itinerary asset {}", asset.getPath());
+                                } catch (IOException e) {
+                                    LOGGER.error("Cannot import itinerary image {}", mapUrl);
+                                }
+                            }
 
                             successNumber++;
                             k++;
