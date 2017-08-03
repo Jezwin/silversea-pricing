@@ -39,6 +39,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * TODO add last import date
+ * TODO check loop for sample set (in case of full)
+ */
 @Service
 @Component
 public class CruisesImporterImpl implements CruisesImporter {

@@ -32,6 +32,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * TODO add last import date
+ * TODO check loop for sample set (in case of full)
+ */
 @Service
 @Component
 public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporter {
