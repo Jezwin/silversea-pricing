@@ -74,6 +74,7 @@
         margin-top: -50px !important;
         height: 30px;
         width: 30px;
+        opacity: 1 !important;
     }
     .slick-prev i, .slick-next i {
        line-height: 10px;
@@ -108,16 +109,18 @@
         display: table-cell;
     }
     .item-text{
+        border: 1px solid #bababa;
+        position: relative;
+        display: table;
         height: auto;
         text-align: center;
         background: #fff;
-        height: 49%;
+        height: 50%;
     }
     .item-text2{
         height: 100%;
     }
     .mozaicItemText{
-        border: 1px solid #bababa;
         height: 100%;
     }
 
@@ -125,7 +128,14 @@
         text-align: center;
         width: 100%;
         position: absolute;
-        bottom: 14px;
+        bottom: 26px;
+        
+        i{
+            display: none;
+            @media screen and (max-width: @screen-sm) {
+                display: none;
+            }
+        }
     }
     .c-tabbedmozaic__description, .discover-more{
         display: none;
