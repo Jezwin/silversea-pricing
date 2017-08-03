@@ -88,6 +88,7 @@ public class FeaturesImporterImpl implements FeaturesImporter {
 
                     tagNode.setProperty("apiTitle", feature.getName());
                     tagNode.setProperty("featureCode", feature.getFeatureCod());
+                    tagNode.setProperty("featureId", feature.getFeatureId());
 
                     successNumber++;
                     j++;
