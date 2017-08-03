@@ -34,7 +34,9 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         cruises,
         cc,
         itineraries,
-        itinerarieshotels
+        itinerarieshotels,
+        itinerariesexcursions,
+        itinerarieslandprograms
     }
 
     private boolean isRunning = false;
@@ -77,6 +79,12 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private CruisesItinerariesHotelsImporter cruisesItinerariesHotelsImporter;
+
+    @Reference
+    private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
+
+    @Reference
+    private CruisesItinerariesLandProgramsImporter cruisesItinerariesLandProgramsImporter;
 
     @Reference
     private ComboCruisesImporter comboCruisesImporter;
@@ -278,6 +286,18 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 if (mode.equals(Mode.itinerarieshotels)) {
                     cruisesItinerariesHotelsImporter.importSampleSet(elementsNumber);
                     responseWriter.write("Itineraries hotels import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.itinerariesexcursions)) {
+                    cruisesItinerariesExcursionsImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Itineraries excursions import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.itinerarieslandprograms)) {
+                    cruisesItinerariesLandProgramsImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Itineraries land programs import Done<br/>");
                     responseWriter.flush();
                 }
 

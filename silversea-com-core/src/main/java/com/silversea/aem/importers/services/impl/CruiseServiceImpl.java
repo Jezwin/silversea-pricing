@@ -76,6 +76,7 @@ import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 import io.swagger.client.model.VoyageSpecialOffer;
 
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Cruises service")
 public class CruiseServiceImpl implements CruiseService{

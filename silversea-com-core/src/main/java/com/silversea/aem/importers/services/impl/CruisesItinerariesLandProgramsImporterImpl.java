@@ -6,12 +6,11 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.CruisesItinerariesHotelsImporter;
-import com.silversea.aem.importers.services.CruisesItinerariesImporter;
+import com.silversea.aem.importers.services.CruisesItinerariesLandProgramsImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
-import io.swagger.client.api.HotelsApi;
-import io.swagger.client.model.HotelItinerary;
+import io.swagger.client.api.LandsApi;
+import io.swagger.client.model.LandItinerary;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -30,23 +29,20 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.*;
 
-/**
- * TODO add last import date
- */
 @Service
 @Component
-public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesHotelsImporter {
+public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItinerariesLandProgramsImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesItinerariesHotelsImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesItinerariesLandProgramsImporterImpl.class);
 
-    private int sessionRefresh = 100;
-    private int pageSize = 100;
-
-    @Reference
-    private ResourceResolverFactory resourceResolverFactory;
+    protected int sessionRefresh = 100;
+    protected int pageSize = 100;
 
     @Reference
-    private ApiConfigurationService apiConfig;
+    protected ResourceResolverFactory resourceResolverFactory;
+
+    @Reference
+    protected ApiConfigurationService apiConfig;
 
     @Activate
     protected void activate(final ComponentContext context) {
@@ -66,7 +62,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
 
     @Override
     public ImportResult importSampleSet(int size) {
-        LOGGER.debug("Starting hotels import ({})", size == -1 ? "all" : size);
+        LOGGER.debug("Starting land programs import ({})", size == -1 ? "all" : size);
 
         int successNumber = 0;
         int errorNumber = 0;
@@ -81,31 +77,31 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final HotelsApi hotelsApi = new HotelsApi(ImporterUtils.getApiClient(apiConfig));
+            final LandsApi landsApi = new LandsApi(ImporterUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            // Existing hotels deletion
-            LOGGER.debug("Cleaning already imported hotels");
+            // Existing landPrograms deletion
+            LOGGER.debug("Cleaning already imported land programs");
 
-            final Iterator<Resource> existingHotels = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/hotel\"]", "xpath");
+            final Iterator<Resource> existingLandPrograms = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/landprogram\"]", "xpath");
 
             int i = 0;
-            while (existingHotels.hasNext()) {
-                final Resource hotel = existingHotels.next();
+            while (existingLandPrograms.hasNext()) {
+                final Resource landProgram = existingLandPrograms.next();
 
-                final Node hotelNode = hotel.adaptTo(Node.class);
+                final Node landProgramNode = landProgram.adaptTo(Node.class);
 
-                if (hotelNode != null) {
+                if (landProgramNode != null) {
                     try {
-                        hotelNode.remove();
+                        landProgramNode.remove();
 
                         i++;
                     } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove existing hotel {}", hotel.getPath(), e);
+                        LOGGER.error("Cannot remove existing land program {}", landProgram.getPath(), e);
                     }
                 }
 
@@ -113,7 +109,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                     try {
                         session.save();
 
-                        LOGGER.debug("{} hotels cleaned, saving session", +i);
+                        LOGGER.debug("{} land programs cleaned, saving session", +i);
                     } catch (RepositoryException e) {
                         session.refresh(true);
                     }
@@ -124,13 +120,13 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                 try {
                     session.save();
 
-                    LOGGER.debug("{} hotels cleaned, saving session", +i);
+                    LOGGER.debug("{} landPrograms cleaned, saving session", +i);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
             }
 
-            // Initializing elements necessary to import hotels
+            // Initializing elements necessary to import landPrograms
             // itineraries
             final Iterator<Resource> itinerariesForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
@@ -154,47 +150,50 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                 }
             }
 
-            // hotels
-            final Iterator<Resource> hotelsForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]", "xpath");
+            // landPrograms
+            final Iterator<Resource> landProgramsForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "xpath");
 
-            final Map<Integer, Map<String, String>> hotelsMapping = new HashMap<>();
-            while (hotelsForMapping.hasNext()) {
-                final Resource hotel = hotelsForMapping.next();
+            final Map<Integer, Map<String, String>> landProgramsMapping = new HashMap<>();
+            while (landProgramsForMapping.hasNext()) {
+                final Resource landProgram = landProgramsForMapping.next();
 
-                final Page hotelPage = hotel.getParent().adaptTo(Page.class);
-                final String language = LanguageHelper.getLanguage(hotelPage);
+                final Page landProgramPage = landProgram.getParent().adaptTo(Page.class);
+                final String language = LanguageHelper.getLanguage(landProgramPage);
 
-                final Integer hotelId = hotel.getValueMap().get("hotelId", Integer.class);
+                final Integer landProgramId = landProgram.getValueMap().get("landId", Integer.class);
 
-                if (hotelId != null) {
-                    if (hotelsMapping.containsKey(hotelId)) {
-                        hotelsMapping.get(hotelId).put(language, hotelPage.getPath());
+                if (landProgramId != null) {
+                    if (landProgramsMapping.containsKey(landProgramId)) {
+                        landProgramsMapping.get(landProgramId).put(language, landProgramPage.getPath());
                     } else {
-                        final HashMap<String, String> hotelPaths = new HashMap<>();
-                        hotelPaths.put(language, hotelPage.getPath());
-                        hotelsMapping.put(hotelId, hotelPaths);
+                        final HashMap<String, String> landProgramsPaths = new HashMap<>();
+                        landProgramsPaths.put(language, landProgramPage.getPath());
+                        landProgramsMapping.put(landProgramId, landProgramsPaths);
                     }
 
-                    LOGGER.trace("Adding hotel {} ({}) with lang {} to cache", hotel.getPath(), hotelId, language);
+                    LOGGER.trace("Adding land program {} ({}) with lang {} to cache", landProgram.getPath(), landProgramId, language);
                 }
             }
 
-            // Importing hotels
-            List<HotelItinerary> hotels;
+            // Importing landPrograms
+            List<LandItinerary> landPrograms;
             int itemsWritten = 0;
 
             do {
-                hotels = hotelsApi.hotelsGetItinerary(null, null, null, apiPage, pageSize, null);
+                landPrograms = landsApi.landsGetItinerary(null, null, null, apiPage, pageSize, null);
 
-                for (HotelItinerary hotel : hotels) {
-                    LOGGER.trace("importing hotel {} in itinerary {}", hotel.getHotelId(), hotel.getHotelItineraryId());
+                for (LandItinerary landProgram : landPrograms) {
+                    final Integer landProgramId = landProgram.getLandId();
+                    final Integer landItineraryId = landProgram.getLandItineraryId();
+
+                    LOGGER.trace("importing land program {} in itinerary {}", landProgramId, landItineraryId);
 
                     try {
-                        final List<String> itineraryPaths = itinerariesMapping.get(hotel.getHotelItineraryId());
+                        final List<String> itineraryPaths = itinerariesMapping.get(landItineraryId);
 
                         if (itineraryPaths == null) {
-                            throw new ImporterException("Cannot find itinerary with id " + hotel.getHotelItineraryId());
+                            throw new ImporterException("Cannot find itinerary with id " + landItineraryId);
                         }
 
                         for (String itineraryPath : itineraryPaths) {
@@ -205,25 +204,24 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                             }
 
                             final Node itineraryNode = itineraryResource.adaptTo(Node.class);
-                            final Node hotelsNode = JcrUtils.getOrAddNode(itineraryNode, "hotels", "nt:unstructured");
+                            final Node landProgramsNode = JcrUtils.getOrAddNode(itineraryNode, "land-programs", "nt:unstructured");
 
-                            if (hotelsNode.hasNode(String.valueOf(hotel.getHotelId()))) {
-                                throw new ImporterException("Hotel item already exists");
+                            if (landProgramsNode.hasNode(String.valueOf(landProgramId))) {
+                                throw new ImporterException("Excursion item already exists");
                             }
 
-                            final Node hotelNode = hotelsNode.addNode(String.valueOf(hotel.getHotelId()));
+                            final Node landProgramNode = landProgramsNode.addNode(String.valueOf(landProgramId));
                             final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
-                            // associating port page
-                            final Integer hotelId = hotel.getHotelId();
-                            if (hotelsMapping.containsKey(hotelId)) {
-                                if (hotelsMapping.get(hotelId).containsKey(lang)) {
-                                    hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId).get(lang));
+                            // associating landProgram page
+                            if (landProgramsMapping.containsKey(landProgramId)) {
+                                if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
+                                    landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
                                 }
                             }
 
-                            itineraryNode.setProperty("hotelId", hotel.getHotelId());
-                            itineraryNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/hotel");
+                            itineraryNode.setProperty("landProgramId", landProgramId);
+                            itineraryNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
 
                             successNumber++;
                             itemsWritten++;
@@ -232,7 +230,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                 try {
                                     session.save();
 
-                                    LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+                                    LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
@@ -243,7 +241,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                             }
                         }
                     } catch (RepositoryException | ImporterException e) {
-                        LOGGER.error("Cannot write hotel {}", hotel.getHotelId(), e);
+                        LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
 
                         errorNumber++;
                     }
@@ -255,28 +253,27 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                 }
 
                 apiPage++;
-            } while (hotels.size() > 0 && size != -1 && itemsWritten < size);
+            } while (landPrograms.size() > 0 && size != -1 && itemsWritten < size);
 
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException | ImporterException e) {
-            LOGGER.error("Cannot import hotels", e);
+            LOGGER.error("Cannot import land programs", e);
         } catch (ApiException e) {
-            LOGGER.error("Cannot read hotels from API", e);
+            LOGGER.error("Cannot read land programs from API", e);
         } finally {
             if (resourceResolver != null && resourceResolver.isLive()) {
                 resourceResolver.close();
             }
         }
 
-        LOGGER.debug("Ending hotels import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.debug("Ending land programs import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
 
     @Override
     public ImportResult updateItems() {
-        // TODO implement
         return null;
     }
 }
