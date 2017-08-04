@@ -62,7 +62,7 @@ $(function() {
         $slider_mosaic.find('.c-mozaicslider__title').first().clone().appendTo($cureent_mozaic_header);
         $slider_mosaic.find('.c-mozaicslider__descr').first().clone().appendTo($cureent_mozaic_header);
 
-        $slider_mosaic.find(".c-mozaicslider:not(.slick-cloned)").find('.mozaicItem').each(function() {
+        $slider_mosaic.find(".c-mozaicslider:not(.slick-cloned)").find('.mozaicItem:not(.item-text)').each(function() {
             $slider_mosaic.parent().find('.mobileSlider').append($(this).html());
         });
 
@@ -71,8 +71,29 @@ $(function() {
             infinite : true,
             speed : 500,
             fade : true,
+            slidesToShow : 1,
+            slidesToScroll : 1
         });
 
         $slider_mosaic.find('.link__wrapper').first().clone().appendTo('.mobileSlider_' + index);
+    });
+
+    // filled empty mozaic tabbed
+    $('.mozaicslider').each(function(){
+        var $silder = $(this);
+        var $firstItemSlier = $silder.find('.c-mozaicslider:first');
+        var $lastItemSlier = $silder.find('.c-mozaicslider:last');
+
+        //length of emty tabbeds
+        var $emptyTabbedsNumber = 5 - $lastItemSlier.find('.mozaicItem:not(.item-text)').size();
+
+        //clone the n firsts tabbeds to last mozaic
+        if($emptyTabbedsNumber != 0){
+           $firstItemSlier.find('.mozaicItem:not(.item-text)').each(function(index){
+               if(index < $emptyTabbedsNumber ){
+                   $(this).clone().appendTo($lastItemSlier);
+               }
+            })
+        }
     });
 });

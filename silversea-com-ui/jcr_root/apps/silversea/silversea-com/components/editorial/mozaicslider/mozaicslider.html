@@ -5,7 +5,7 @@
         <sly data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse" />
         <div class="c-mozaicslider"  data-sly-list="${filter.destinations}" >
             <sly data-sly-use.modulo="${'com.silversea.aem.helper.ArthmeticCalculHelper' @ param1=itemList.count.toString, param2='5'}" />
-             <div class='col-sm-4 item-text ${ itemList.last ? "item-text2" : ""}' data-sly-test="${modulo.moduloValue == 2}" >
+             <div class='col-sm-4 mozaicItem item-text' data-sly-test="${modulo.moduloValue == 2}" >
                 <div class="mozaicItemText">
                     <h3 class="c-mozaicslider__title">${properties.jcr:title @ context="html"}</h3>
                     <p class="c-mozaicslider__descr">${properties.jcr:description @ context="html"}</p>
