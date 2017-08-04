@@ -2,6 +2,8 @@
     ${use.prepareDestinationParameters}
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="RAQ" />
+    <input name="sitecountry" type="hidden" value="${use.siteCountry}" />
+    <input name="sitelanguage" type="hidden" value="${use.siteLanguage}" />
     <sly data-sly-test="${use.isCruiseRequested}">
         <input type="hidden" name="voyagename" value="${use.cruiseTitle}" />
         <input type="hidden" name="voyagecode" value="${use.cruiseCode}" />

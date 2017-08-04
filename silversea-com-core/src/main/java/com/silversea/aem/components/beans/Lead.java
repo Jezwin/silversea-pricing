@@ -11,6 +11,8 @@ public class Lead {
     private String comments;
     private String requestsource;
     private String requesttype;
+    private String sitecountry;
+    private String sitelanguage;
     // Subscribe to newletters
     private String subscribeemail;
     private Short workingwithagent;
@@ -282,6 +284,22 @@ public class Lead {
 
     public void setBrochurecode(String brochurecode) {
         this.brochurecode = brochurecode;
+    }
+
+    public String getSitecountry() {
+        return sitecountry;
+    }
+
+    public void setSitecountry(String sitecountry) {
+        this.sitecountry = sitecountry;
+    }
+
+    public String getSitelanguage() {
+        return sitelanguage;
+    }
+
+    public void setSitelanguage(String sitelanguage) {
+        this.sitelanguage = sitelanguage;
     }
 
 }

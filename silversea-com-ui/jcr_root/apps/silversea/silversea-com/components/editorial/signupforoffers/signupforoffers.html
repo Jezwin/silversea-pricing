@@ -8,6 +8,8 @@
 <form class="c-formcookie c-formcookie--redirect c-signupforoffer c-form" data-disable="false" action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="SFO" />
+    <input name="sitecountry" type="hidden" value="${signUpUse.siteCountry}" />
+    <input name="sitelanguage" type="hidden" value="${signUpUse.siteLanguage}" />
 
     <div class="form-group form-group-lg has-feedback">
         <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">

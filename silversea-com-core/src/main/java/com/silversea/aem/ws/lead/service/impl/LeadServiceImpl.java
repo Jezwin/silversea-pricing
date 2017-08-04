@@ -78,9 +78,9 @@ public class LeadServiceImpl implements LeadService {
         request.setRequestType(lead.getRequesttype());
         request.setRequestSource(lead.getRequestsource());
 
-        request.setCountry("");
-        request.setSiteLanguage("");
-        request.setSiteCurrency("");
+        //request.setSiteCountry("");
+        request.setSiteLanguage(lead.getSitelanguage());
+        //request.setSiteCurrency("");
 
         request.setTitle(lead.getTitle());
         request.setNameFirst(lead.getFirstname());

@@ -34,6 +34,7 @@ import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.SuiteModel;
@@ -42,6 +43,8 @@ import com.silversea.aem.services.GeolocationService;
 public class QuoteRequestUse extends WCMUsePojo {
     private List<Resource> countries;
     private GeoLocation geoLocation;
+    private String siteCountry;
+    private String siteLanguage;
 
     private String selectedCruiseCode;
     private CruiseModel selectedCruise;
@@ -55,8 +58,18 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
+        //get site country
         GeolocationService geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
         geoLocation = geolocationService.initGeolocation(getRequest());
+        if (geoLocation != null) {
+            siteCountry = geoLocation.getCountry();
+        }
+
+        //get site language
+        siteLanguage = LanguageHelper.getLanguage(getRequest());
+        if (siteLanguage == null) {
+            siteLanguage = LanguageHelper.getLanguage(getCurrentPage());
+        }
 
         Map<String, String> queryMap = new HashMap<String, String>();
 
@@ -80,12 +93,6 @@ public class QuoteRequestUse extends WCMUsePojo {
         for (Hit hit : result.getHits()) {
             countries.add(hit.getResource());
         }
-
-        // Prepare destination parameters for quote request
-        //prepareDestinationParameters();
-        
-        // Prepare brochure request parameters
-        //prepareBrochureParameters();
     }
 
     public void prepareDestinationParameters() {
@@ -265,4 +272,21 @@ public class QuoteRequestUse extends WCMUsePojo {
     public String getCruiseCode() {
         return selectedCruiseCode;
     }
+
+    public String getSiteCountry() {
+        return siteCountry;
+    }
+
+    public void setSiteCountry(String siteCountry) {
+        this.siteCountry = siteCountry;
+    }
+
+    public String getSiteLanguage() {
+        return siteLanguage;
+    }
+
+    public void setSiteLanguage(String siteLanguage) {
+        this.siteLanguage = siteLanguage;
+    }
+
 }
