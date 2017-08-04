@@ -24,22 +24,21 @@ public class PortModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(PortModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/apiDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiDescription") @Optional
     private String apiDescription;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/cityId")
+    private Integer cityId;
 
     private List<ExcursionModel> excursions;
 
-    private List<LandprogramModel> landprograms;
+    private List<LandProgramModel> landprograms;
 
     private List<HotelModel> hotels;
 
@@ -65,7 +64,7 @@ public class PortModel {
                     Iterator<Page> landProgramsPages = child.listChildren();
 
                     while (landProgramsPages.hasNext()) {
-                        landprograms.add(landProgramsPages.next().adaptTo(LandprogramModel.class));
+                        landprograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
                     }
                 } else if (child.getName().equals("hotels")) {
                     Iterator<Page> hotelsPages = child.listChildren();
@@ -88,11 +87,15 @@ public class PortModel {
         return apiDescription;
     }
 
+    public Integer getCityId() {
+        return cityId;
+    }
+
     public List<ExcursionModel> getExcursions() {
         return excursions;
     }
 
-    public List<LandprogramModel> getLandprograms() {
+    public List<LandProgramModel> getLandPrograms() {
         return landprograms;
     }
 

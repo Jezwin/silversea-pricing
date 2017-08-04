@@ -41,67 +41,43 @@ public class CruiseModel extends AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
     private String description;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/apiTitle")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiTitle") @Optional
     private String apititle;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/importedDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
     private String importedDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/startDate")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/startDate") @Optional
     private Calendar startDate;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/endDate")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/endDate") @Optional
     private Calendar endDate;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/duration")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/duration") @Optional
     private String duration;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/shipReference")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipReference") @Optional
     private String shipReference;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/cruiseCode")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseCode") @Optional
     private String cruiseCode;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/itinerary")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/itinerary") @Optional
     private String itinerary;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String assetSelectionReference;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/keypeople")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/keypeople") @Optional
     private String[] keypeople;
 
     private String destinationTitle;
@@ -286,11 +262,11 @@ public class CruiseModel extends AbstractModel {
             if (itinerary != null 
                     && itinerary.getItineraryModel().getHotels() != null 
                     && itinerary.getItineraryModel().getExcursions() != null
-                    && itinerary.getItineraryModel().getLandprograms() != null) {
+                    && itinerary.getItineraryModel().getLandPrograms() != null) {
                 
                 nbHotels += itinerary.getItineraryModel().getHotels().size();
                 nbExcursions += itinerary.getItineraryModel().getExcursions().size();
-                nbLandPrograms += itinerary.getItineraryModel().getLandprograms().size();
+                nbLandPrograms += itinerary.getItineraryModel().getLandPrograms().size();
             } 
         }
         initTabs(nbHotels, nbExcursions, nbLandPrograms);
@@ -321,7 +297,7 @@ public class CruiseModel extends AbstractModel {
     private boolean hasLandProgram(){
         boolean hasLandProgram = false; 
         if(itineraries != null && !itineraries.isEmpty()){
-            hasLandProgram = itineraries.stream().filter(e -> !e.getItineraryModel().getLandprograms().isEmpty()).findFirst().isPresent();
+            hasLandProgram = itineraries.stream().filter(e -> !e.getItineraryModel().getLandPrograms().isEmpty()).findFirst().isPresent();
         }
         return hasLandProgram;
     }

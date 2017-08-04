@@ -26,38 +26,25 @@ public class ExcursionModel extends AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExcursionModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
     private String description;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/codeExcursion")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/codeExcursion") @Optional
     private String codeExcursion;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription") @Optional
     private String apiLongDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/pois")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
     private String pois;
 
     private String shortDescription;

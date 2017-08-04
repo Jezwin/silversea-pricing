@@ -7,6 +7,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesLandProgramsImporter;
+import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.LandsApi;
@@ -131,22 +132,15 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             final Iterator<Resource> itinerariesForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
 
-            final Map<Integer, List<String>> itinerariesMapping = new HashMap<>();
+            final List<ItineraryModel> itinerariesMapping = new ArrayList<>();
             while (itinerariesForMapping.hasNext()) {
                 final Resource itinerary = itinerariesForMapping.next();
+                final ItineraryModel itineraryModel = itinerary.adaptTo(ItineraryModel.class);
 
-                final Integer itineraryId = itinerary.getValueMap().get("itineraryId", Integer.class);
+                if (itineraryModel != null) {
+                    itinerariesMapping.add(itineraryModel);
 
-                if (itineraryId != null) {
-                    if (itinerariesMapping.containsKey(itineraryId)) {
-                        itinerariesMapping.get(itineraryId).add(itinerary.getPath());
-                    } else {
-                        final List<String> itineraryPaths = new ArrayList<>();
-                        itineraryPaths.add(itinerary.getPath());
-                        itinerariesMapping.put(itineraryId, itineraryPaths);
-                    }
-
-                    LOGGER.trace("Adding itinerary {} ({}) to cache", itinerary.getPath(), itineraryId);
+                    LOGGER.trace("Adding itinerary {} (cruise id : {}, port id : {}) to cache", itinerary.getPath(), itineraryModel.getCruiseId(), itineraryModel.getPortId());
                 }
             }
 
@@ -185,76 +179,81 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
 
                 for (LandItinerary landProgram : landPrograms) {
                     final Integer landProgramId = landProgram.getLandId();
-                    final Integer landItineraryId = landProgram.getLandItineraryId();
+                    boolean imported = false;
 
-                    LOGGER.trace("importing land program {} in itinerary {}", landProgramId, landItineraryId);
+                    for (final ItineraryModel itineraryModel : itinerariesMapping) {
+                        if (itineraryModel.isItinerary(landProgram.getVoyageId(), landProgram.getCityId(), landProgram.getDate().toGregorianCalendar())) {
+                            try {
+                                final Resource itineraryResource = itineraryModel.getResource();
 
-                    try {
-                        final List<String> itineraryPaths = itinerariesMapping.get(landItineraryId);
+                                if (itineraryResource == null) {
+                                    throw new ImporterException("Cannot get itinerary resource " + itineraryResource.getPath());
+                                }
 
-                        if (itineraryPaths == null) {
-                            throw new ImporterException("Cannot find itinerary with id " + landItineraryId);
+                                LOGGER.trace("importing hotel {} in itinerary {}", landProgramId, itineraryResource.getPath());
+
+                                final Node itineraryNode = itineraryResource.adaptTo(Node.class);
+                                final Node landProgramsNode = JcrUtils.getOrAddNode(itineraryNode, "land-programs", "nt:unstructured");
+
+                                if (landProgramsNode.hasNode(String.valueOf(landProgramId))) {
+                                    throw new ImporterException("Excursion item already exists");
+                                }
+
+                                final Node landProgramNode = landProgramsNode.addNode(String.valueOf(landProgramId));
+                                final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+
+                                // associating landProgram page
+                                if (landProgramsMapping.containsKey(landProgramId)) {
+                                    if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
+                                        landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
+                                    }
+                                }
+
+                                landProgramNode.setProperty("landProgramId", landProgramId);
+                                landProgramNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
+                                landProgramNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
+
+                                successNumber++;
+                                itemsWritten++;
+                                imported = true;
+
+                                if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                    try {
+                                        session.save();
+
+                                        LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+                                    } catch (RepositoryException e) {
+                                        session.refresh(true);
+                                    }
+                                }
+                            } catch (RepositoryException | ImporterException e) {
+                                LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
+
+                                errorNumber++;
+                            }
                         }
 
-                        for (String itineraryPath : itineraryPaths) {
-                            final Resource itineraryResource = resourceResolver.getResource(itineraryPath);
-
-                            if (itineraryResource == null) {
-                                throw new ImporterException("Cannot get itinerary resource " + itineraryPath);
-                            }
-
-                            final Node itineraryNode = itineraryResource.adaptTo(Node.class);
-                            final Node landProgramsNode = JcrUtils.getOrAddNode(itineraryNode, "land-programs", "nt:unstructured");
-
-                            if (landProgramsNode.hasNode(String.valueOf(landProgramId))) {
-                                throw new ImporterException("Excursion item already exists");
-                            }
-
-                            final Node landProgramNode = landProgramsNode.addNode(String.valueOf(landProgramId));
-                            final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
-
-                            // associating landProgram page
-                            if (landProgramsMapping.containsKey(landProgramId)) {
-                                if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
-                                    landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
-                                }
-                            }
-
-                            itineraryNode.setProperty("landProgramId", landProgramId);
-                            itineraryNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
-                            itineraryNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
-
-                            successNumber++;
-                            itemsWritten++;
-
-                            if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                try {
-                                    session.save();
-
-                                    LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
-                                } catch (RepositoryException e) {
-                                    session.refresh(true);
-                                }
-                            }
-
-                            if (size != -1 && itemsWritten >= size) {
-                                break;
-                            }
+                        if (size != -1 && itemsWritten >= size) {
+                            break;
                         }
-                    } catch (RepositoryException | ImporterException e) {
-                        LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
-
-                        errorNumber++;
                     }
-                }
 
-
-                if (size != -1 && itemsWritten >= size) {
-                    break;
+                    LOGGER.trace("Land program {} voyage id: {} city id: {} imported : {}", landProgram.getLandId(), landProgram.getVoyageId(), landProgram.getCityId(), imported);
                 }
 
                 apiPage++;
-            } while (landPrograms.size() > 0 && size != -1 && itemsWritten < size);
+            }
+            while (landPrograms.size() > 0);
+
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} itineraries hotels imported, saving session", +itemsWritten);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
 
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);

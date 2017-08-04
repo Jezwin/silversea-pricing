@@ -16,9 +16,9 @@ import javax.inject.Named;
  * Created by aurelienolivier on 12/02/2017.
  */
 @Model(adaptables = Page.class)
-public class LandprogramModel {
+public class LandProgramModel {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(LandprogramModel.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(LandProgramModel.class);
 
     @Inject @Self
     private Page page;
@@ -39,8 +39,7 @@ public class LandprogramModel {
     
     @PostConstruct
     private void init() {
-    	shortDescription = description != null ? description.substring(0, 200) : null;
-        LOGGER.debug("{}", page.getPath());
+        shortDescription = description != null ? description.substring(0, 200) : null;
     }
 
     public String getTitle() {
