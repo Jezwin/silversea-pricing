@@ -2,3 +2,4 @@
 <sly data-sly-use.heroBannerTemplate="silversea/silversea-com/components/editorial/herobanner/herobannertemplate.html" />
 <sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default}" />
 <sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home}" />
+<sly data-sly-test="${properties.type == 'exclusive-offers'}" data-sly-call="${heroBannerTemplate.exclusive-offers}" />
