@@ -379,8 +379,12 @@ public class CruisesImporterImpl implements CruisesImporter {
                     }
                 }
 
+                if (size != -1 && itemsWritten >= size) {
+                    break;
+                }
+
                 apiPage++;
-            } while (cruises.size() > 0 && size != -1 && itemsWritten < size);
+            } while (cruises.size() > 0);
 
             if (session.hasPendingChanges()) {
                 try {

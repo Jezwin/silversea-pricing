@@ -28,10 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * TODO add last import date
@@ -219,7 +216,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
                             final Node itineraryNode = itinerariesNode.addNode(String.valueOf(itinerary.getItineraryId()));
                             itineraryNode.setProperty("itineraryId", itinerary.getItineraryId());
-                            itineraryNode.setProperty("date", itinerary.getItineraryId());
+                            itineraryNode.setProperty("date", itinerary.getItineraryDate().toGregorianCalendar());
                             itineraryNode.setProperty("arriveTime", itinerary.getArriveTime());
                             itineraryNode.setProperty("arriveAmPm", itinerary.getArriveTimeAmpm());
                             itineraryNode.setProperty("departTime", itinerary.getDepartTime());
@@ -265,7 +262,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 }
 
                 apiPage++;
-            } while (itineraries.size() > 0 && size != -1 && itemsWritten < size);
+            } while (itineraries.size() > 0);
 
             if (session.hasPendingChanges()) {
                 try {
