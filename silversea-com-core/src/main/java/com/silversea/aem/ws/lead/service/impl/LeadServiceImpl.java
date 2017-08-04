@@ -104,7 +104,9 @@ public class LeadServiceImpl implements LeadService {
         request.setShip(lead.getShipname());
         request.setSuiteCategory(lead.getSuitecategory());
         request.setSuiteVariation(lead.getSuitevariation());
-        request.setPrice(lead.getPrice());
+        if (!StringUtils.isEmpty(lead.getPriceString())) {
+            request.setPrice(lead.getPrice());
+        }
 
         // request a brochure
         request.setAddress1(lead.getPostaladdress());
