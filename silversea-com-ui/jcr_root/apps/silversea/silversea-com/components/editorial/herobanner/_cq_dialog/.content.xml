@@ -32,15 +32,15 @@
                                 <items jcr:primaryType="nt:unstructured">
                                     <default
                                         jcr:primaryType="nt:unstructured"
-                                        text="default (no image on mobile)"
+                                        text="Default (no image on mobile)"
                                         value="" />
                                     <home
                                         jcr:primaryType="nt:unstructured"
-                                        text="home (no text on mobile)"
+                                        text="Home (no text on mobile)"
                                         value="home" />
                                     <offer
                                         jcr:primaryType="nt:unstructured"
-                                        text="offer (image and text on mobile)"
+                                        text="Offer (image and text on mobile)"
                                         value="offer" />
                                 </items>
                             </type>
