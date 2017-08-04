@@ -3,6 +3,7 @@ package com.silversea.aem.components.included;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -64,7 +65,7 @@ public class DataLayerUse extends WCMUsePojo {
         runMode = run.getCurrentRunMode();
 
         if (getCurrentPage().getProperties().get("pageEvent") != null) {
-            event = getCurrentPage().getProperties().get("pageEvent").toString();
+            event = getCurrentPage().getProperties().get("pageEvent",String.class);
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) && event.equals("")) {
             event = "searchresults";
@@ -93,11 +94,11 @@ public class DataLayerUse extends WCMUsePojo {
          * tree structure data
          */
         if (getCurrentPage().getProperties().get("pageCategory1") != null)
-            pageCategory1 = getCurrentPage().getProperties().get("pageCategory1").toString();
+            pageCategory1 = getCurrentPage().getProperties().get("pageCategory1",String.class);
         if (getCurrentPage().getProperties().get("pageCategory2") != null)
-            pageCategory2 = getCurrentPage().getProperties().get("pageCategory2").toString();
+            pageCategory2 = getCurrentPage().getProperties().get("pageCategory2",String.class);
         if (getCurrentPage().getProperties().get("pageCategory3") != null)
-            pageCategory3 = getCurrentPage().getProperties().get("pageCategory3").toString();
+            pageCategory3 = getCurrentPage().getProperties().get("pageCategory3",String.class);
 
         listCat1 = new HashMap<>();
         listCat1.put(WcmConstants.RT_VOYAGE, "voyages");
@@ -125,7 +126,7 @@ public class DataLayerUse extends WCMUsePojo {
             Resource resource = getCurrentPage().getContentResource();
             Tag[] listTag = tagManager.getTags(resource);
             for (Tag tag : listTag) {
-                if (tag.getNamespace().toString().equals("/etc/tags/combo-cruise-types")) {
+                if (tag !=null &&"/etc/tags/combo-cruise-types".equals(Objects.toString(tag.getNamespace()))) {
                     comboTag = tag.getName();
                 }
             }
@@ -156,7 +157,7 @@ public class DataLayerUse extends WCMUsePojo {
                 Resource res = getCurrentPage().getContentResource();
                 Tag[] tags = tagManager.getTags(res);
                 for (Tag tag : tags) {
-                    if (tag.getNamespace().toString().equals("/etc/tags/key-people")) {
+                    if (tag != null && "/etc/tags/key-people".equals(Objects.toString(tag.getNamespace()))) {
                         pageCategory3 = tag.getName();
                     }
                 }
@@ -204,9 +205,9 @@ public class DataLayerUse extends WCMUsePojo {
             GeolocationService geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
             GeoLocation geoLocation = geolocationService.initGeolocation(getRequest());
             cruiseModel.initByGeoLocation(geoLocation);
-            destinationId = getCurrentPage().getProperties().get("cmp-destinationId").toString();
+            destinationId = getCurrentPage().getProperties().get("cmp-destinationId",String.class);
             destinationName = getCurrentPage().getParent().getName();
-            voyageId = getCurrentPage().getProperties().get("cruiseCode").toString();
+            voyageId = getCurrentPage().getProperties().get("cruiseCode",String.class);
             departureDay = cruiseModel.getStartDate().getTime().toString();
             voyageDuration = cruiseModel.getDuration();
 
