@@ -28,5 +28,14 @@
                   <a href="${item.path @ extension='html'}" class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i> </a>
                 </div>
             </div>
+            <div class='col-sm-4 mozaicItem item-text' data-sly-test="${itemList.last && modulo.moduloValue == 1}" >
+                <div class="mozaicItemText">
+                    <h3 class="c-mozaicslider__title">${properties.jcr:title @ context="html"}</h3>
+                    <p class="c-mozaicslider__descr">${properties.jcr:description @ context="html"}</p>
+                    <div class="link__wrapper">
+                        <a class="c-mozaicslider__link--block c-btn c-btn--dark" href="${properties.destinationsReference @ extension='html'}">${'view-all' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
             ${ modulo.moduloValue == 0  ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
         </div>
