@@ -120,6 +120,26 @@ public class GeolocationServiceImpl implements GeolocationService {
         return localizedPhone;
     }
 
+    /*
+     * @return the geolocalized currency
+     */
+    public String getLocalizedCurrency(SlingHttpServletRequest request) {
+        String localizedCurrency = "";
+        String geolocationTagId = geolocationTagService.getTagFromRequest(request);
+        if (geolocationTagId == null) {
+            //use default country
+            geolocationTagId = geolocationTagService.getTagFromCountryId(DEFAULT_GEOLOCATION_COUTRY);
+        }
+        if (geolocationTagId != null) {
+            Tag geolocationTag = tagManager.resolve(geolocationTagId);
+            if (geolocationTag != null) {
+                Resource node = geolocationTag.adaptTo(Resource.class);
+                localizedCurrency = node.getValueMap().get("Currency", String.class);
+            }
+        }
+        return localizedCurrency;
+    }
+
     private String getGeoMarketCode(String geolocationTag) {
         String geoMarketCode = null;
 

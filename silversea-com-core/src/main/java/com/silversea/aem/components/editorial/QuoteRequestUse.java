@@ -45,6 +45,7 @@ public class QuoteRequestUse extends WCMUsePojo {
     private GeoLocation geoLocation;
     private String siteCountry;
     private String siteLanguage;
+    private String siteCurrency;
 
     private String selectedCruiseCode;
     private CruiseModel selectedCruise;
@@ -58,12 +59,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        //get site country
+        //get site country and currency
         GeolocationService geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
         geoLocation = geolocationService.initGeolocation(getRequest());
         if (geoLocation != null) {
             siteCountry = geoLocation.getCountry();
         }
+        siteCurrency = geolocationService.getLocalizedCurrency(getRequest());
 
         //get site language
         siteLanguage = LanguageHelper.getLanguage(getRequest());
@@ -99,7 +101,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 
         String destinationParameters = getRequest().getRequestPathInfo().getSuffix();
         String[] destinationParams = StringUtils.split(destinationParameters, '/');
-        if (destinationParams.length <= 0) {
+        if (destinationParams == null || destinationParams.length <= 0) {
             // no destination parameters
             selectedCruiseCode = null;
         } else {
@@ -287,6 +289,14 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     public void setSiteLanguage(String siteLanguage) {
         this.siteLanguage = siteLanguage;
+    }
+
+    public String getSiteCurrency() {
+        return siteCurrency;
+    }
+
+    public void setSiteCurrency(String siteCurrency) {
+        this.siteCurrency = siteCurrency;
     }
 
 }

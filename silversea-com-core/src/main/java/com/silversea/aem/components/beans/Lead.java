@@ -13,6 +13,7 @@ public class Lead {
     private String requesttype;
     private String sitecountry;
     private String sitelanguage;
+    private String sitecurrency;
     // Subscribe to newletters
     private String subscribeemail;
     private Short workingwithagent;
@@ -300,6 +301,14 @@ public class Lead {
 
     public void setSitelanguage(String sitelanguage) {
         this.sitelanguage = sitelanguage;
+    }
+
+    public String getSitecurrency() {
+        return sitecurrency;
+    }
+
+    public void setSitecurrency(String sitecurrency) {
+        this.sitecurrency = sitecurrency;
     }
 
 }
