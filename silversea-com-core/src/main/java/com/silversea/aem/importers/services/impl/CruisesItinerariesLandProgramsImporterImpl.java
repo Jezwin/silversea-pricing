@@ -221,6 +221,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                             }
 
                             itineraryNode.setProperty("landProgramId", landProgramId);
+                            itineraryNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
                             itineraryNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
 
                             successNumber++;

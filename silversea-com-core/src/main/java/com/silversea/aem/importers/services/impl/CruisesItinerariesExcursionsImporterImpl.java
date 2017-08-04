@@ -225,6 +225,10 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                             }
 
                             itineraryNode.setProperty("excursionId", excursionId);
+                            itineraryNode.setProperty("date", excursion.getDate().toGregorianCalendar());
+                            itineraryNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());
+                            itineraryNode.setProperty("generalDepartureTime", excursion.getGeneralDepartureTime());
+                            itineraryNode.setProperty("duration", excursion.getDuration());
                             itineraryNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/excursion");
 
                             successNumber++;
