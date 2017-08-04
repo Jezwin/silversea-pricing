@@ -87,88 +87,17 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             // Existing landPrograms deletion
             LOGGER.debug("Cleaning already imported land programs");
 
-            final Iterator<Resource> existingLandPrograms = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/landprogram\"]", "xpath");
-
-            int i = 0;
-            while (existingLandPrograms.hasNext()) {
-                final Resource landProgram = existingLandPrograms.next();
-
-                final Node landProgramNode = landProgram.adaptTo(Node.class);
-
-                if (landProgramNode != null) {
-                    try {
-                        landProgramNode.remove();
-
-                        i++;
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove existing land program {}", landProgram.getPath(), e);
-                    }
-                }
-
-                if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.debug("{} land programs cleaned, saving session", +i);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
-            }
-
-            if (session.hasPendingChanges()) {
-                try {
-                    session.save();
-
-                    LOGGER.debug("{} landPrograms cleaned, saving session", +i);
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/landprogram\"]");
 
             // Initializing elements necessary to import landPrograms
             // itineraries
-            final Iterator<Resource> itinerariesForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
-
-            final List<ItineraryModel> itinerariesMapping = new ArrayList<>();
-            while (itinerariesForMapping.hasNext()) {
-                final Resource itinerary = itinerariesForMapping.next();
-                final ItineraryModel itineraryModel = itinerary.adaptTo(ItineraryModel.class);
-
-                if (itineraryModel != null) {
-                    itinerariesMapping.add(itineraryModel);
-
-                    LOGGER.trace("Adding itinerary {} (cruise id : {}, port id : {}) to cache", itinerary.getPath(), itineraryModel.getCruiseId(), itineraryModel.getPortId());
-                }
-            }
+            final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
 
             // landPrograms
-            final Iterator<Resource> landProgramsForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "xpath");
-
-            final Map<Integer, Map<String, String>> landProgramsMapping = new HashMap<>();
-            while (landProgramsForMapping.hasNext()) {
-                final Resource landProgram = landProgramsForMapping.next();
-
-                final Page landProgramPage = landProgram.getParent().adaptTo(Page.class);
-                final String language = LanguageHelper.getLanguage(landProgramPage);
-
-                final Integer landProgramId = landProgram.getValueMap().get("landId", Integer.class);
-
-                if (landProgramId != null) {
-                    if (landProgramsMapping.containsKey(landProgramId)) {
-                        landProgramsMapping.get(landProgramId).put(language, landProgramPage.getPath());
-                    } else {
-                        final HashMap<String, String> landProgramsPaths = new HashMap<>();
-                        landProgramsPaths.put(language, landProgramPage.getPath());
-                        landProgramsMapping.put(landProgramId, landProgramsPaths);
-                    }
-
-                    LOGGER.trace("Adding land program {} ({}) with lang {} to cache", landProgram.getPath(), landProgramId, language);
-                }
-            }
+            final Map<Integer, Map<String, String>> landProgramsMapping = ImporterUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]",
+                    "landId");
 
             // Importing landPrograms
             List<LandItinerary> landPrograms;
@@ -254,7 +183,6 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                     session.refresh(false);
                 }
             }
-
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException | ImporterException e) {

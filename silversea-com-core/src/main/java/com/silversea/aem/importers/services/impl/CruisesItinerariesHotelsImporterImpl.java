@@ -90,88 +90,17 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
             // Existing hotels deletion
             LOGGER.debug("Cleaning already imported hotels");
 
-            final Iterator<Resource> existingHotels = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/hotel\"]", "xpath");
-
-            int i = 0;
-            while (existingHotels.hasNext()) {
-                final Resource hotel = existingHotels.next();
-
-                final Node hotelNode = hotel.adaptTo(Node.class);
-
-                if (hotelNode != null) {
-                    try {
-                        hotelNode.remove();
-
-                        i++;
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove existing hotel {}", hotel.getPath(), e);
-                    }
-                }
-
-                if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.debug("{} hotels cleaned, saving session", +i);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
-            }
-
-            if (session.hasPendingChanges()) {
-                try {
-                    session.save();
-
-                    LOGGER.debug("{} hotels cleaned, saving session", +i);
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/hotel\"]");
 
             // Initializing elements necessary to import excursions
             // itineraries
-            final Iterator<Resource> itinerariesForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
-
-            final List<ItineraryModel> itinerariesMapping = new ArrayList<>();
-            while (itinerariesForMapping.hasNext()) {
-                final Resource itinerary = itinerariesForMapping.next();
-                final ItineraryModel itineraryModel = itinerary.adaptTo(ItineraryModel.class);
-
-                if (itineraryModel != null) {
-                    itinerariesMapping.add(itineraryModel);
-
-                    LOGGER.trace("Adding itinerary {} (cruise id : {}, port id : {}) to cache", itinerary.getPath(), itineraryModel.getCruiseId(), itineraryModel.getPortId());
-                }
-            }
+            final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
 
             // hotels
-            final Iterator<Resource> hotelsForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]", "xpath");
-
-            final Map<Integer, Map<String, String>> hotelsMapping = new HashMap<>();
-            while (hotelsForMapping.hasNext()) {
-                final Resource hotel = hotelsForMapping.next();
-
-                final Page hotelPage = hotel.getParent().adaptTo(Page.class);
-                final String language = LanguageHelper.getLanguage(hotelPage);
-
-                final Integer hotelId = hotel.getValueMap().get("hotelId", Integer.class);
-
-                if (hotelId != null) {
-                    if (hotelsMapping.containsKey(hotelId)) {
-                        hotelsMapping.get(hotelId).put(language, hotelPage.getPath());
-                    } else {
-                        final HashMap<String, String> hotelPaths = new HashMap<>();
-                        hotelPaths.put(language, hotelPage.getPath());
-                        hotelsMapping.put(hotelId, hotelPaths);
-                    }
-
-                    LOGGER.trace("Adding hotel {} ({}) with lang {} to cache", hotel.getPath(), hotelId, language);
-                }
-            }
+            final Map<Integer, Map<String, String>> hotelsMapping = ImporterUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]",
+                    "hotelId");
 
             // Importing hotels
             List<HotelItinerary> hotels;
@@ -259,7 +188,6 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                     session.refresh(false);
                 }
             }
-
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException | ImporterException e) {

@@ -93,45 +93,8 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             // Existing itineraries deletion
             LOGGER.debug("Cleaning already imported itineraries");
 
-            final Iterator<Resource> existingItineraries = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
-
-            int i = 0;
-            while (existingItineraries.hasNext()) {
-                final Resource itinerary = existingItineraries.next();
-
-                final Node itineraryNode = itinerary.adaptTo(Node.class);
-
-                if (itineraryNode != null) {
-                    try {
-                        itineraryNode.remove();
-
-                        i++;
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove existing itinerary {}", itinerary.getPath(), e);
-                    }
-                }
-
-                if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.debug("{} itineraries cleaned, saving session", +i);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
-            }
-
-            if (session.hasPendingChanges()) {
-                try {
-                    session.save();
-
-                    LOGGER.debug("{} itineraries cleaned, saving session", +i);
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]");
 
             // Initializing elements necessary to import itineraries
             // cruises

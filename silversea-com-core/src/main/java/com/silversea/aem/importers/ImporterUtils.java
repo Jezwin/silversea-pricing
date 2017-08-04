@@ -14,7 +14,12 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.services.impl.CruisesItinerariesExcursionsImporterImpl;
+import com.silversea.aem.importers.services.impl.CruisesItinerariesLandProgramsImporterImpl;
+import com.silversea.aem.importers.utils.MigrationUtils;
+import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiClient;
 import org.apache.commons.lang3.StringUtils;
@@ -338,17 +343,6 @@ public class ImporterUtils {
     }
 
     /**
-     * TODO typo
-     * @param pageManager
-     * @param masterPage
-     * @param currentPage
-     * @return
-     */
-    public static String findPageLangauge(PageManager pageManager, final Page masterPage, Page currentPage) {
-        return currentPage.getParent(4).getName();
-    }
-
-    /**
      * @param pageManager
      * @param masterPage
      * @param locale
@@ -425,5 +419,130 @@ public class ImporterUtils {
         apiClient.getHttpClient().setAuthenticator(new CachingAuthenticatorDecorator(authenticator, authCache));
 
         return apiClient;
+    }
+
+    /**
+     * TODO javadoc
+     * @param resourceResolver
+     * @param sessionRefresh
+     * @param query
+     * @return
+     * @throws RepositoryException
+     */
+    public static int deleteResources(final ResourceResolver resourceResolver, final int sessionRefresh, final String query) throws RepositoryException {
+        final Session session = resourceResolver.adaptTo(Session.class);
+
+        if (session == null) {
+            throw new RepositoryException("Cannot adapt resource resolver into session");
+        }
+
+        // Existing excursions deletion
+        LOGGER.debug("Cleaning already imported items");
+
+        final Iterator<Resource> existingResources = resourceResolver.findResources(query, "xpath");
+
+        int i = 0;
+        while (existingResources.hasNext()) {
+            final Resource resource = existingResources.next();
+            final Node node = resource.adaptTo(Node.class);
+
+            if (node != null) {
+                try {
+                    node.remove();
+
+                    i++;
+                } catch (RepositoryException e) {
+                    LOGGER.error("Cannot remove existing item {}", resource.getPath(), e);
+                }
+            }
+
+            if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} items cleaned, saving session", +i);
+                } catch (RepositoryException e) {
+                    session.refresh(true);
+                }
+            }
+        }
+
+        if (session.hasPendingChanges()) {
+            try {
+                session.save();
+
+                LOGGER.debug("{} items cleaned, saving session", +i);
+            } catch (RepositoryException e) {
+                session.refresh(false);
+            }
+        }
+
+        return i;
+    }
+
+    /**
+     * TODO javadoc
+     * TODO generify
+     * @param resourceResolver
+     * @return
+     */
+    public static List<ItineraryModel> getItineraries(ResourceResolver resourceResolver) {
+        final Iterator<Resource> itinerariesForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
+
+        final List<ItineraryModel> itinerariesMapping = new ArrayList<>();
+        while (itinerariesForMapping.hasNext()) {
+            final Resource itinerary = itinerariesForMapping.next();
+            final ItineraryModel itineraryModel = itinerary.adaptTo(ItineraryModel.class);
+
+            if (itineraryModel != null) {
+                itinerariesMapping.add(itineraryModel);
+
+                LOGGER.trace("Adding itinerary {} (cruise id : {}, port id : {}) to cache", itinerary.getPath(), itineraryModel.getCruiseId(), itineraryModel.getPortId());
+            }
+        }
+        return itinerariesMapping;
+    }
+
+    /**
+     * Build a Map with :
+     * <ul>
+     *     <li>id of the element</li>
+     *     <li>lang</li>
+     *     <li>path of the element (page)</li>
+     * </ul>
+     *
+     * @param resourceResolver the resource resolver
+     * @param query xpath query searching for cq:PageContent items
+     * @param propertyId property name of the element id
+     * @return items mapping
+     */
+    public static Map<Integer, Map<String, String>> getItemsMapping(final ResourceResolver resourceResolver, final String query, final String propertyId) {
+        final Iterator<Resource> itemsForMapping = resourceResolver.findResources(query, "xpath");
+
+        final Map<Integer, Map<String, String>> itemsMapping = new HashMap<>();
+
+        while (itemsForMapping.hasNext()) {
+            final Resource item = itemsForMapping.next();
+
+            final Page itemPage = item.getParent().adaptTo(Page.class);
+            final String language = LanguageHelper.getLanguage(itemPage);
+
+            final Integer itemId = item.getValueMap().get(propertyId, Integer.class);
+
+            if (itemId != null) {
+                if (itemsMapping.containsKey(itemId)) {
+                    itemsMapping.get(itemId).put(language, itemPage.getPath());
+                } else {
+                    final HashMap<String, String> itemsPaths = new HashMap<>();
+                    itemsPaths.put(language, itemPage.getPath());
+                    itemsMapping.put(itemId, itemsPaths);
+                }
+
+                LOGGER.trace("Adding item {} ({}) with lang {} to cache", item.getPath(), itemId, language);
+            }
+        }
+
+        return itemsMapping;
     }
 }

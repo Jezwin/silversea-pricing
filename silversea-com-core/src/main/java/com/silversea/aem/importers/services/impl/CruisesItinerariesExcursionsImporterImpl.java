@@ -1,6 +1,5 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -90,88 +89,17 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             // Existing excursions deletion
             LOGGER.debug("Cleaning already imported excursions");
 
-            final Iterator<Resource> existingExcursions = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/excursion\"]", "xpath");
-
-            int i = 0;
-            while (existingExcursions.hasNext()) {
-                final Resource excursion = existingExcursions.next();
-
-                final Node excursionNode = excursion.adaptTo(Node.class);
-
-                if (excursionNode != null) {
-                    try {
-                        excursionNode.remove();
-
-                        i++;
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove existing excursion {}", excursion.getPath(), e);
-                    }
-                }
-
-                if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.debug("{} excursions cleaned, saving session", +i);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
-            }
-
-            if (session.hasPendingChanges()) {
-                try {
-                    session.save();
-
-                    LOGGER.debug("{} excursions cleaned, saving session", +i);
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/excursion\"]");
 
             // Initializing elements necessary to import excursions
             // itineraries
-            final Iterator<Resource> itinerariesForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]", "xpath");
-
-            final List<ItineraryModel> itinerariesMapping = new ArrayList<>();
-            while (itinerariesForMapping.hasNext()) {
-                final Resource itinerary = itinerariesForMapping.next();
-                final ItineraryModel itineraryModel = itinerary.adaptTo(ItineraryModel.class);
-
-                if (itineraryModel != null) {
-                    itinerariesMapping.add(itineraryModel);
-
-                    LOGGER.trace("Adding itinerary {} (cruise id : {}, port id : {}) to cache", itinerary.getPath(), itineraryModel.getCruiseId(), itineraryModel.getPortId());
-                }
-            }
+            final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
 
             // excursions
-            final Iterator<Resource> excursionsForMapping = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]", "xpath");
-
-            final Map<Integer, Map<String, String>> excursionsMapping = new HashMap<>();
-            while (excursionsForMapping.hasNext()) {
-                final Resource excursion = excursionsForMapping.next();
-
-                final Page excursionPage = excursion.getParent().adaptTo(Page.class);
-                final String language = LanguageHelper.getLanguage(excursionPage);
-
-                final Integer excursionId = excursion.getValueMap().get("excursionId", Integer.class);
-
-                if (excursionId != null) {
-                    if (excursionsMapping.containsKey(excursionId)) {
-                        excursionsMapping.get(excursionId).put(language, excursionPage.getPath());
-                    } else {
-                        final HashMap<String, String> excursionsPaths = new HashMap<>();
-                        excursionsPaths.put(language, excursionPage.getPath());
-                        excursionsMapping.put(excursionId, excursionsPaths);
-                    }
-
-                    LOGGER.trace("Adding excursion {} ({}) with lang {} to cache", excursion.getPath(), excursionId, language);
-                }
-            }
+            final Map<Integer, Map<String, String>> excursionsMapping = ImporterUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]",
+                    "excursionId");
 
             // Importing excursions
             List<ShorexItinerary> excursions;
@@ -263,7 +191,6 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                     session.refresh(false);
                 }
             }
-
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException | ImporterException e) {

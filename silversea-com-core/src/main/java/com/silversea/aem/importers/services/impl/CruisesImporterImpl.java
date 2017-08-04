@@ -103,50 +103,8 @@ public class CruisesImporterImpl implements CruisesImporter {
             // Existing cruises deletion
             LOGGER.debug("Cleaning already imported cruises");
 
-            final Iterator<Resource> existingCruises = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]", "xpath");
-
-            int i = 0;
-            while (existingCruises.hasNext()) {
-                final Resource cruise = existingCruises.next();
-
-                final Node cruiseNode = cruise.adaptTo(Node.class);
-
-                if (cruiseNode != null) {
-                    try {
-                        cruiseNode.remove();
-
-                        i++;
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove existing cruise {}", cruise.getPath(), e);
-                    }
-                }
-
-                if (i % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.debug("{} cruises cleaned, saving session", +i);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
-            }
-
-            final Node itinerariesDamNode = session.getNode("/content/dam/silversea-com/api-provided/cruises");
-            if (itinerariesDamNode != null) {
-                itinerariesDamNode.remove();
-            }
-
-            if (session.hasPendingChanges()) {
-                try {
-                    session.save();
-
-                    LOGGER.debug("{} cruises cleaned, saving session", +i);
-                } catch (RepositoryException e) {
-                    session.refresh(false);
-                }
-            }
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]");
 
             // Initializing elements necessary to import cruise
             // destinations

@@ -11,7 +11,6 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
-import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
@@ -54,9 +53,6 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
     @Reference
     private ApiConfigurationService apiConfig;
 
-    @Reference
-    private ApiCallService apiCallService;
-
     @Activate
     protected void activate(final ComponentContext context) {
         if (apiConfig.getSessionRefresh() != 0) {
@@ -85,17 +81,24 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
+            final ShorexesApi shorexesApi = new ShorexesApi(ImporterUtils.getApiClient(apiConfig));
+
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
+            // Cleaning existing excursions
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]");
+
+            // Importing excursions
             List<Shorex> shorexes;
             int i = 1, j = 0;
 
             LOGGER.debug("Importing shore excursions");
 
             do {
-                shorexes = apiCallService.getShorex(i, pageSize);
+                shorexes = shorexesApi.shorexesGet(null, i, pageSize, null);
 
                 for (Shorex shorex : shorexes) {
                     LOGGER.trace("Importing shore excursion: {}", shorex.getShorexName());
@@ -110,8 +113,10 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                         }
 
                         Iterator<Resource> portsResources = resourceResolver
-                                .findResources("/jcr:root/content/silversea-com"
-                                        + "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
+                                .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
+                                                "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\" " +
+                                                "and jcr:content/cityId=\"" + cityId + "\"]",
+                                        "xpath");
 
                         if (!portsResources.hasNext()) {
                             throw new ImporterException("Cannot find city with id " + cityId);
@@ -172,15 +177,15 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
                             successNumber++;
                             j++;
-                        }
 
-                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
-                            try {
-                                session.save();
+                            if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                try {
+                                    session.save();
 
-                                LOGGER.debug("{} shore excursions imported, saving session", +j);
-                            } catch (RepositoryException e) {
-                                session.refresh(true);
+                                    LOGGER.debug("{} shore excursions imported, saving session", +j);
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
                             }
                         }
                     } catch (WCMException | RepositoryException | ImporterException e) {
@@ -199,6 +204,8 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read shore excursions from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Cannot import excursions", e);
         } finally {
             if (resourceResolver != null && resourceResolver.isLive()) {
                 resourceResolver.close();
@@ -242,7 +249,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
             do {
                 final ApiResponse<List<Shorex77>> apiResponse = shorexesApi.shorexesGetChangesWithHttpInfo(lastModificationDate,
-                        i , pageSize, null);
+                        i, pageSize, null);
                 excursions = apiResponse.getData();
 
                 // TODO replace by header
@@ -396,7 +403,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
     /**
      * Update excursion properties from API
      *
-     * @param excursion excursion object from API
+     * @param excursion     excursion object from API
      * @param excursionPage page of the excursion
      * @return the content node of the excursion page, updated
      * @throws ImporterException if the excursion page cannot be updated
