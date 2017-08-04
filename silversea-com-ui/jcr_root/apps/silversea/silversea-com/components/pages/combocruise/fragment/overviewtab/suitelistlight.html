@@ -1,6 +1,6 @@
 <h3 class="cc-section-title text-center">${'combocruis-overview-title' @ i18n}</h3>
 <p class="cc-section-description text-center">${'combocruis-overview-subtitle' @ i18n}</p>
-<div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" class="c-suitelist">
+<div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" class="c-suitelist c-overviewtab">
     <div class="c-suitelist__item" data-sly-repeat="${comboCruise.comboCruiseModel.suites}" data-tab-target="#suitenfare">
         <div class="clearfix c-suitelist__heading collapsed">
             <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
