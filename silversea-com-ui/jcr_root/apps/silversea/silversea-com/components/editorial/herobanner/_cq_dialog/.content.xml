@@ -38,6 +38,10 @@
                                         jcr:primaryType="nt:unstructured"
                                         text="home (no text on mobile)"
                                         value="home" />
+                                    <offer
+                                        jcr:primaryType="nt:unstructured"
+                                        text="offer (image and text on mobile)"
+                                        value="offer" />
                                 </items>
                             </type>
                             <description
