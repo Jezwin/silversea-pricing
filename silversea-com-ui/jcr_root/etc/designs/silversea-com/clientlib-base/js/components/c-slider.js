@@ -88,7 +88,7 @@ $(function() {
         var $emptyTabbedsNumber = 5 - $lastItemSlier.find('.mozaicItem:not(.item-text)').size();
 
         //clone the n firsts tabbeds to last mozaic
-        if($emptyTabbedsNumber != 0){
+        if(($emptyTabbedsNumber != 0) || ($emptyTabbedsNumber != 5)){
            $firstItemSlier.find('.mozaicItem:not(.item-text)').each(function(index){
                if(index < $emptyTabbedsNumber ){
                    $(this).clone().appendTo($lastItemSlier);

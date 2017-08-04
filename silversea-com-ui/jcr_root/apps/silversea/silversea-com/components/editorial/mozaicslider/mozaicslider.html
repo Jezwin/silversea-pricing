@@ -37,5 +37,5 @@
                     </div>
                 </div>
             </div>
-            ${ modulo.moduloValue == 0  ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
+            ${ modulo.moduloValue == 0 && itemList.last == false ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
         </div>
