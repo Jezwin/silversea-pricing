@@ -90,8 +90,11 @@
         border-bottom-right-radius: 0;
     }
     .c-mozaicslider {
-        display: table;
-        border-collapse: separate;
+        display: flex;
+        align-items: stretch;
+        flex-wrap: wrap;
+        height: 100%;
+        min-height:100%;
         &__title {
             font-size: 30px;
             font-family: @f-theano_didot;
@@ -112,7 +115,6 @@
         border: 1px solid #bababa;
         text-align: center;
         background: #fff;
-        height: 49%;
     }
     .item-text2{
         height: 100%;
