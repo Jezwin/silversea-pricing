@@ -1,5 +1,3 @@
-<div class="o-area-property-display">
-    <div class="text">
-        ${pageProperties.longDescription || currentPage.description @ context='html'}
-    </div>
+<div class="text">
+    ${pageProperties.longDescription || pageProperties.jcr:description @ context='unsafe'}
 </div>

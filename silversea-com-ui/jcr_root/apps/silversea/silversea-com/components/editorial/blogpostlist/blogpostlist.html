@@ -1,26 +1,15 @@
 <sly data-sly-use.blogPostTeaserListUse="com.silversea.aem.components.editorial.BlogPostTeaserListUse" />
-<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
-<h1>${'silversea-blog-archive' @i18n}</h1>
-<h3 class="blogpostlist__subtitle">${'blog-posts' @i18n} ${'from' @i18n} 01 ${'to' @i18n} ${blogPostTeaserListUse.dayInMonth} ${currentPage.title} ${blogPostTeaserListUse.year}</h3>
+<h3 data-sly-test="${!properties.highLightFirst}" class="c-blogpostlist__subtitle">
+    <sly data-sly-test="${currentPage.name.length <= 2}">
+        ${'blog-posts' @i18n} ${'from' @i18n} 01 ${'to' @i18n} ${blogPostTeaserListUse.lastDay} ${currentPage.title} ${currentPage.parent.title}
+    </sly>
+    <sly data-sly-test="${currentPage.name.length == 4}">
+        ${'blog-posts' @i18n} ${'for' @i18n} ${currentPage.title}
+    </sly>
+</h3>
 
-<div data-sly-test="${blogPostTeaserListUse.highLightFirst && blogPostTeaserListUse.firstBlogPostTeaser}" class="blogpostfirst">
-    <sly data-sly-call="${imageTemplate.default @ imagePath=blogPostTeaserListUse.firstBlogPostTeaser.thumbnailImageUrl, query='?wid=280'}"></sly>
-
-    <p class="blogpostfirst__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=blogPostTeaserListUse.firstBlogPostTeaser.publicationDate}">
-                    ${date.value}
-    </p>
-    <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title }</h2>
-
-    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.page.description @context = 'html'}</p>
-    <a class="read-more" href="${blogPostTeaserListUse.firstBlogPostTeaser.properUrl}">${'read-more' @i18n}<i class="fa fa-angle-right hidden-xs"></i></a>
-</div>
-<hr/>
-<div data-sly-test="${blogPostTeaserListUse.blogPostTeaserModelList.size >= 1}" data-sly-unwrap >
-<div class="blogpostwrapper">
-    <h3>${'other-recent-story' @i18n}</h3>
-    <dl data-sly-list.blogTeaser="${blogPostTeaserListUse.blogPostTeaserModelList}">
-        <sly data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
-             data-sly-call="${blogPostTemplate.default @ blogTeaser = blogTeaser, blogPostReference = blogTeaser.path }"></sly>
-    </dl>
-</div>
-</div>
+<sly data-sly-repeat.blogPost="${blogPostTeaserListUse.blogPostList}">
+    <h3 class="c-blogpostlist__subtitle" data-sly-test="${blogPostList.count == 2 && properties.highLightFirst}">${'other-recent-story' @i18n}</h3>
+    <sly  data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
+        data-sly-call="${blogPostTemplate.default @ blogPost = blogPost, count = blogPostList.count , ppties = properties}" />
+</sly>

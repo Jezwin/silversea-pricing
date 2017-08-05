@@ -9,7 +9,7 @@
         <layout
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-            margin="{Boolean}false"/>
+            margin="{Boolean}false" />
         <items jcr:primaryType="nt:unstructured">
             <column
                 jcr:primaryType="nt:unstructured"
@@ -22,22 +22,22 @@
                         <layout
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                            method="absolute"/>
-                            <items jcr:primaryType="nt:unstructured">
-                                <column
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/container">
-                                    <items jcr:primaryType="nt:unstructured">
-                                        <blogPostReference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            fieldLabel="Path"
-                                            name="./blogPostReference"
-                                            required="{Boolean}true"
-                                            rootPath="/content/silversea-com"/>
-                                    </items>
-                                </column>
-                            </items>
+                            method="absolute" />
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <blogPostReference
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        fieldLabel="Path"
+                                        name="./blogPostReference"
+                                        required="{Boolean}true"
+                                        rootPath="/content/silversea-com" />
+                                </items>
+                            </column>
+                        </items>
                     </field>
                 </items>
             </column>

@@ -1,15 +1,11 @@
-<div class="container">
-    <section class="o-section">
-        <div class="row">
-            <div class="col-sm-9">
-                <div
-                    data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
-                </div>
-            </div>
-            <div class="col-sm-3 c-sidebar">
-                <div
-                    data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
-            </div>
+<div class="container blog__container">
+    <h1 class="c-blogpostlist__title">${'silversea-blog-archive' @i18n}</h1>
+    <div class="row">
+        <div class="col-sm-9">
+            <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
         </div>
-    </section>
+        <div class="col-sm-3 blog__sidebar">
+            <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+        </div>
+    </div>
 </div>

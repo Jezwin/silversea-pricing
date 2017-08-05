@@ -1,42 +1,27 @@
-<div class="container">
-    <section class="o-section">
-        <div class="row">
-            <div class="col-sm-9 col-xs-12">
-                <div data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-                    <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}"></sly>
-                </div>
-                <div class="c-pageheader">
-                    <p class="c-pageheader__date"
-                       data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=pageProperties.publicationDate}">
-                        <strong>${date.value}</strong>
-                    </p>
-                    <h2 class="c-pageheader__subtitle">${currentPage.title}</h2>
-                </div>
-                <div
-                    data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}">
-                </div>
-                <div class="c-pagination c-pagination--pull-right">
-                    <sly data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse" />
-                    <div data-sly-test="${cpt.blog.previous}"
-                        data-sly-unwrap>
-                        <a class="c-pagination--previous"
-                            href="${cpt.blog.previous.path}.html"> <i class="fa fa-angle-left fa-lg"></i>
-                            ${'previous' @ i18n}
-                        </a>
-                    </div>
-                    <div data-sly-test="${cpt.blog.next}"
-                        data-sly-unwrap>
-                        <a class="c-pagination--next"
-                            href="${cpt.blog.next.path}.html">
-                            ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i>
-                        </a>
-                    </div>
-                </div>
+<div class="container blog__container">
+    <div class="row">
+        <div class="col-sm-9 blog__content">
+            <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
+                data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}" />
+
+            <p data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=pageProperties.publicationDate}"
+                data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM yyyy', date=pageProperties.publicationDate}"
+                class="blog__date">
+                <strong><span class="blog__date__day">${dateDay.value}</span> ${dateMonthYear.value}</strong>
+            </p>
+            <h2 class="blog__title">${currentPage.title}</h2>
+            <div class="blog__post">
+                <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
-            <div class="col-sm-3 col-xs-12 c-sidebar">
-                <div
-                    data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+            <div data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse" class="c-pagination c-pagination--pull-right">
+                <a data-sly-test="${cpt.blog.previous}"
+                    class="c-pagination--previous" href="${cpt.blog.previous.path @ extension='html'}"> <i class="fa fa-angle-left fa-lg"></i> ${'previous' @ i18n}</a>
+                <a data-sly-test="${cpt.blog.next}"
+                    class="c-pagination--next" href="${cpt.blog.next.path @ extension='html'}"> ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i></a>
             </div>
         </div>
-    </section>
+        <div class="col-sm-3 blog__sidebar">
+            <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
+        </div>
+    </div>
 </div>

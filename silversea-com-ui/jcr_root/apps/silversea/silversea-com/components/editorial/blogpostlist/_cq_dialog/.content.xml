@@ -38,7 +38,7 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/checkbox"
                                         name="./highLightFirst"
-                                        text="High Light First Blog"
+                                        text="Highlight First Blog Post"
                                         value="true" />
                                 </items>
                             </column>
