@@ -1,6 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.wcm.api.Page;
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -28,7 +28,9 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Component
@@ -106,73 +108,86 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             do {
                 landPrograms = landsApi.landsGetItinerary(null, null, null, apiPage, pageSize, null);
 
+                // Iterating over land programs received from API
                 for (LandItinerary landProgram : landPrograms) {
-                    final Integer landProgramId = landProgram.getLandId();
-                    boolean imported = false;
 
-                    for (final ItineraryModel itineraryModel : itinerariesMapping) {
-                        if (itineraryModel.isItinerary(landProgram.getVoyageId(), landProgram.getCityId(), landProgram.getDate().toGregorianCalendar())) {
-                            try {
-                                final Resource itineraryResource = itineraryModel.getResource();
+                    // Trying to deal with one land program
+                    try {
+                        final Integer landProgramId = landProgram.getLandId();
+                        boolean imported = false;
 
-                                if (itineraryResource == null) {
-                                    throw new ImporterException("Cannot get itinerary resource " + itineraryResource.getPath());
-                                }
+                        if (!landProgramsMapping.containsKey(landProgramId)) {
+                            throw new ImporterException("Land program " + landProgramId + " is not present in land programs cache");
+                        }
 
-                                LOGGER.trace("importing hotel {} in itinerary {}", landProgramId, itineraryResource.getPath());
+                        // Iterating over itineraries in cache to write land program
+                        for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
-                                final Node itineraryNode = itineraryResource.adaptTo(Node.class);
-                                final Node landProgramsNode = JcrUtils.getOrAddNode(itineraryNode, "land-programs", "nt:unstructured");
+                            // Checking if the itinerary correspond to land programs informations
+                            if (itineraryModel.isItinerary(landProgram.getVoyageId(), landProgram.getCityId(), landProgram.getDate().toGregorianCalendar())) {
 
-                                if (landProgramsNode.hasNode(String.valueOf(landProgramId))) {
-                                    throw new ImporterException("Excursion item already exists");
-                                }
+                                // Trying to write land program data on itinerary
+                                try {
+                                    final Resource itineraryResource = itineraryModel.getResource();
 
-                                final Node landProgramNode = landProgramsNode.addNode(String.valueOf(landProgramId));
-                                final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+                                    LOGGER.trace("importing land program {} in itinerary {}", landProgramId, itineraryResource.getPath());
 
-                                // associating landProgram page
-                                if (landProgramsMapping.containsKey(landProgramId)) {
+                                    final Node itineraryNode = itineraryResource.adaptTo(Node.class);
+                                    final Node landProgramsNode = JcrUtils.getOrAddNode(itineraryNode, "land-programs", "nt:unstructured");
+
+                                    // TODO to check : getLandItineraryId() is not unique over API
+                                    final Node landProgramNode = landProgramsNode.addNode(JcrUtil.createValidChildName(landProgramsNode,
+                                            String.valueOf(landProgram.getLandItineraryId())));
+                                    final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+
+                                    // associating landProgram page
                                     if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
                                         landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
                                     }
-                                }
 
-                                landProgramNode.setProperty("landProgramId", landProgramId);
-                                landProgramNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
-                                landProgramNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
+                                    landProgramNode.setProperty("landProgramId", landProgramId);
+                                    landProgramNode.setProperty("landProgramItineraryId", landProgram.getLandItineraryId());
+                                    landProgramNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
+                                    landProgramNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
 
-                                successNumber++;
-                                itemsWritten++;
-                                imported = true;
+                                    successNumber++;
+                                    itemsWritten++;
 
-                                if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                    try {
-                                        session.save();
+                                    imported = true;
 
-                                        LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
-                                    } catch (RepositoryException e) {
-                                        session.refresh(true);
+                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                        try {
+                                            session.save();
+
+                                            LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+                                        } catch (RepositoryException e) {
+                                            session.refresh(true);
+                                        }
                                     }
-                                }
-                            } catch (RepositoryException | ImporterException e) {
-                                LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
+                                } catch (RepositoryException e) {
+                                    LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
 
-                                errorNumber++;
+                                    errorNumber++;
+                                }
+                            }
+
+                            if (size != -1 && itemsWritten >= size) {
+                                break;
                             }
                         }
 
-                        if (size != -1 && itemsWritten >= size) {
-                            break;
-                        }
+                        LOGGER.trace("Land program {} voyage id: {} city id: {} imported : {}", landProgram.getLandId(), landProgram.getVoyageId(), landProgram.getCityId(), imported);
+                    } catch (ImporterException e) {
+                        LOGGER.warn("Cannot deal with land program {} - {}", landProgram.getLandId(), e.getMessage());
                     }
+                }
 
-                    LOGGER.trace("Land program {} voyage id: {} city id: {} imported : {}", landProgram.getLandId(), landProgram.getVoyageId(), landProgram.getCityId(), imported);
+                if (size != -1 && itemsWritten >= size) {
+                    break;
                 }
 
                 apiPage++;
-            }
-            while (landPrograms.size() > 0);
+            } while (landPrograms.size() > 0);
 
             if (session.hasPendingChanges()) {
                 try {
@@ -195,7 +210,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             }
         }
 
-        LOGGER.debug("Ending land programs import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.debug("Ending itineraries land programs import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

@@ -118,7 +118,7 @@ public class ItineraryModel {
             return false;
         }
 
-        return this.cruiseId.equals(cruiseId) && this.port.getCityId().equals(cityId) && date.getTime().equals(this.date);
+        return this.cruiseId.equals(cruiseId) /*&& this.port.getCityId().equals(cityId)*/ && date.getTime().equals(this.date);
     }
 
     // -------------- TODO review after this line ----------------- //
