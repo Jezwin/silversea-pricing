@@ -157,66 +157,58 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                                 // Iterating over markets
                                 for (final VoyagePriceMarket priceMarket : price.getMarketCurrency()) {
-                                    try {
-                                        final Node marketNode = JcrUtils.getOrAddNode(suitesNode, priceMarket.getMarketCod());
-
-                                        // Iterating over prices variation
-                                        for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
-                                            try {
-                                                if (!suitesMapping.containsKey(cruiseOnlyPrice.getSuiteCategoryCod())) {
-                                                    throw new ImporterException("Cannot get suite with category " + cruiseOnlyPrice.getSuiteCategoryCod());
-                                                }
-
-                                                // Getting suite corresponding to suite category
-                                                final Map<String, Resource> suites = suitesMapping.get(cruiseOnlyPrice.getSuiteCategoryCod());
-                                                final String suiteName = suites.get(cruise.getKey()).getName();
-
-                                                final Node suiteNode = JcrUtils.getOrAddNode(marketNode, suiteName);
-
-                                                final String priceVariationNodeName = cruiseOnlyPrice.getSuiteCategoryCod() +
-                                                        priceMarket.getMarketCod() +
-                                                        cruiseOnlyPrice.getCurrencyCod();
-
-                                                final Node priceVariationNode = suiteNode.addNode(JcrUtil.createValidChildName(suiteNode,
-                                                        priceVariationNodeName));
-
-                                                priceVariationNode.setProperty("suiteCategory", cruiseOnlyPrice.getSuiteCategoryCod());
-                                                priceVariationNode.setProperty("price", cruiseOnlyPrice.getCruiseOnlyFare());
-                                                priceVariationNode.setProperty("currency", cruiseOnlyPrice.getCurrencyCod());
-                                                priceVariationNode.setProperty("availability", cruiseOnlyPrice.getSuiteAvailability());
-                                                priceVariationNode.setProperty("cq:Tags", new String[]{"geotagging:" + priceMarket.getMarketCod().toLowerCase()});
-
-                                                // Writing suite reference based on lang
-                                                priceVariationNode.setProperty("suiteReference", suites.get(cruise.getKey()).getPath());
-
-                                                priceVariationNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices/pricevariation");
-
-                                                successNumber++;
-                                                itemsWritten++;
-
-                                                if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                                    try {
-                                                        session.save();
-
-                                                        LOGGER.debug("{} prices imported, saving session", +itemsWritten);
-                                                    } catch (RepositoryException e) {
-                                                        session.refresh(true);
-                                                    }
-                                                }
-                                            } catch (ImporterException | RepositoryException e) {
-                                                LOGGER.warn("Cannot import price for category, {}", e.getMessage());
-
-                                                errorNumber++;
+                                    // Iterating over prices variation
+                                    for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
+                                        try {
+                                            if (!suitesMapping.containsKey(cruiseOnlyPrice.getSuiteCategoryCod())) {
+                                                throw new ImporterException("Cannot get suite with category " + cruiseOnlyPrice.getSuiteCategoryCod());
                                             }
 
-                                            if (size != -1 && itemsWritten >= size) {
-                                                break;
+                                            // Getting suite corresponding to suite category
+                                            final Map<String, Resource> suites = suitesMapping.get(cruiseOnlyPrice.getSuiteCategoryCod());
+                                            final String suiteName = suites.get(cruise.getKey()).getName();
+
+                                            final Node suiteNode = JcrUtils.getOrAddNode(suitesNode, suiteName);
+
+                                            final String priceVariationNodeName = cruiseOnlyPrice.getSuiteCategoryCod() +
+                                                    priceMarket.getMarketCod() +
+                                                    cruiseOnlyPrice.getCurrencyCod();
+
+                                            final Node priceVariationNode = suiteNode.addNode(JcrUtil.createValidChildName(suiteNode,
+                                                    priceVariationNodeName));
+
+                                            priceVariationNode.setProperty("suiteCategory", cruiseOnlyPrice.getSuiteCategoryCod());
+                                            priceVariationNode.setProperty("price", cruiseOnlyPrice.getCruiseOnlyFare());
+                                            priceVariationNode.setProperty("currency", cruiseOnlyPrice.getCurrencyCod());
+                                            priceVariationNode.setProperty("availability", cruiseOnlyPrice.getSuiteAvailability());
+                                            priceVariationNode.setProperty("cq:Tags", new String[]{"geotagging:" + priceMarket.getMarketCod().toLowerCase()});
+
+                                            // Writing suite reference based on lang
+                                            priceVariationNode.setProperty("suiteReference", suites.get(cruise.getKey()).getPath());
+
+                                            priceVariationNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices/pricevariation");
+
+                                            successNumber++;
+                                            itemsWritten++;
+
+                                            if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                                try {
+                                                    session.save();
+
+                                                    LOGGER.debug("{} prices imported, saving session", +itemsWritten);
+                                                } catch (RepositoryException e) {
+                                                    session.refresh(true);
+                                                }
                                             }
+                                        } catch (ImporterException | RepositoryException e) {
+                                            LOGGER.warn("Cannot import price for category, {}", e.getMessage());
+
+                                            errorNumber++;
                                         }
-                                    } catch (RepositoryException e) {
-                                        LOGGER.warn("Cannot import prices for market, {}", e.getMessage());
 
-                                        errorNumber++;
+                                        if (size != -1 && itemsWritten >= size) {
+                                            break;
+                                        }
                                     }
 
                                     if (size != -1 && itemsWritten >= size) {
