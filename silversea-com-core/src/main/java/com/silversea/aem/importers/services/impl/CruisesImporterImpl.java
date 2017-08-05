@@ -8,7 +8,6 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
@@ -102,6 +101,10 @@ public class CruisesImporterImpl implements CruisesImporter {
 
             // Existing cruises deletion
             LOGGER.debug("Cleaning already imported cruises");
+
+            // removing assets (save is done in ImporterUtils#deleteResources)
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/dam/silversea-com/api-provided/cruises"
+                    + "//element(*,sling:OrderedFolder)");
 
             ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]");
@@ -259,11 +262,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                             // setting ship reference
                             final String shipId = String.valueOf(cruise.getShipId());
-                            LOGGER.trace("Cruise ship id {}", shipId);
 
                             if (shipsMapping.containsKey(shipId)) {
-                                LOGGER.trace("Found ship {} in cache", shipId);
-
                                 if (shipsMapping.get(shipId).containsKey(language)) {
                                     LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(shipId).get(language));
 
@@ -292,20 +292,26 @@ public class CruisesImporterImpl implements CruisesImporter {
                             // download and associate map
                             final String mapUrl = cruise.getMapUrl();
 
-                            if (mapUrl != null) {
+                            if (StringUtils.isNotEmpty(mapUrl)) {
                                 try {
-                                    final InputStream inputStream = new URL(mapUrl).openStream();
                                     final String filename = StringUtils.substringAfterLast(mapUrl, "/");
 
-                                    final Asset asset = assetManager.createAsset("/content/dam/silversea-com/api-provided/cruises/"
-                                                    + pageName + "/" + filename,
-                                            inputStream, mimeTypeService.getMimeType(mapUrl), false);
+                                    final String assetPath = "/content/dam/silversea-com/api-provided/cruises/"
+                                            + destinationPage.getName() + "/" + pageName + "/" + filename;
 
-                                    cruiseContentNode.setProperty("itinerary", asset.getPath());
+                                    if (session.itemExists(assetPath)) {
+                                        cruiseContentNode.setProperty("itinerary", assetPath);
+                                    } else {
+                                        final InputStream inputStream = new URL(mapUrl).openStream();
+                                        final Asset asset = assetManager.createAsset(assetPath, inputStream,
+                                                mimeTypeService.getMimeType(mapUrl), false);
 
-                                    LOGGER.trace("Creating itinerary asset {}", asset.getPath());
+                                        cruiseContentNode.setProperty("itinerary", asset.getPath());
+                                    }
+
+                                    LOGGER.trace("Creating itinerary asset {}", assetPath);
                                 } catch (IOException e) {
-                                    LOGGER.error("Cannot import itinerary image {}", mapUrl);
+                                    LOGGER.warn("Cannot import itinerary image {}", mapUrl);
                                 }
                             }
 
