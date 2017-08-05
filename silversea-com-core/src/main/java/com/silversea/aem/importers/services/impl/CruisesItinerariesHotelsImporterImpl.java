@@ -95,7 +95,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
             ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/hotel\"]");
 
-            // Initializing elements necessary to import excursions
+            // Initializing elements necessary to import hotels
             // itineraries
             final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
 
