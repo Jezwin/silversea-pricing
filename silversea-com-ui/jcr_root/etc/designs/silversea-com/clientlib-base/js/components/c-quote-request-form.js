@@ -106,9 +106,15 @@ function requestForm() {
                         return "error format";
                     }
                 }
+            },
+            cityzip : function($el) {
+                var id = $el.data('cityzip');
+
+                console.log(!$el.val() || !$('input[name="'+ id +'"]').val());
+                return !$el.val() || !$('input[name="'+ id +'"]').val();
             }
         }
-    }).on('submit', function(e) {
+    }).off('input.bs.validator change.bs.validator').on('submit', function(e) {
         $(this).find('[name="phone"]').val($('#InputTelephoneNumber').intlTelInput("getNumber"));
 
         if (!e.isDefaultPrevented()) {

@@ -5,10 +5,12 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.MediaDataLayer;
@@ -52,11 +54,11 @@ public class DataLayerUse extends WCMUsePojo {
     private String geoLoc;
     String contry;
     private MediaDataLayer media;
-    
+
     @Override
     public void activate() throws Exception {
         /**
-         * Environement data
+         * Environment data
          */
         RunModesService run = getSlingScriptHelper().getService(RunModesService.class);
         runMode = run.getCurrentRunMode();
@@ -64,8 +66,11 @@ public class DataLayerUse extends WCMUsePojo {
         if (getCurrentPage().getProperties().get("pageEvent") != null) {
             event = getCurrentPage().getProperties().get("pageEvent").toString();
         }
-        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)) {
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) && event.equals("")) {
             event = "searchresults";
+        }
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_DESTINATION) && event.equals("")) {
+            event = "offerdetail";
         }
 
         /**
@@ -80,6 +85,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         ResourceResolver resourceResolver = getRequest().getResourceResolver();
+        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         Externalizer externalizer = resourceResolver.adaptTo(Externalizer.class);
         currentPageUrl = externalizer.publishLink(resourceResolver, "http", getCurrentPage().getPath()) + ".html";
 
@@ -114,9 +120,23 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(WcmConstants.RT_LAND_PROGRAMS, "single land programmes");
         listCat1.put(WcmConstants.RT_DINING_VARIATION, "single ship");
         listCat1.put(WcmConstants.RT_PAGE, "editorial pages");
+        String comboTag = null;
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_COMBO_CRUISE)) {
+            Resource resource = getCurrentPage().getContentResource();
+            Tag[] listTag = tagManager.getTags(resource);
+            for (Tag tag : listTag) {
+                if (tag.getNamespace().toString().equals("/etc/tags/combo-cruise-types")) {
+                    comboTag = tag.getName();
+                }
+            }
+            if (comboTag != null) {
+                listCat1.put(WcmConstants.RT_COMBO_CRUISE, comboTag);
+            } else {
+                listCat1.put(WcmConstants.RT_COMBO_CRUISE, "");
+            }
 
-        // TODO Remove getCurrentTemplate and remplace it bay
-        // getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER)
+        }
+
         if (pageCategory1.equals("")) {
             String value = listCat1.get(getCurrentPage().getContentResource().getResourceType());
             if (value != null) {
@@ -132,10 +152,19 @@ public class DataLayerUse extends WCMUsePojo {
             if (pageCategory2.equals("")) {
                 pageCategory2 = "enrichments";
             }
+            if (pageCategory3.equals("")) {
+                Resource res = getCurrentPage().getContentResource();
+                Tag[] tags = tagManager.getTags(res);
+                for (Tag tag : tags) {
+                    if (tag.getNamespace().toString().equals("/etc/tags/key-people")) {
+                        pageCategory3 = tag.getName();
+                    }
+                }
+            }
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_SUITE_VARIATION)) {
             if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+                pageCategory2 = getCurrentPage().getParent(2).getName();
             }
             if (pageCategory3.equals("")) {
                 pageCategory3 = "suites";
@@ -143,7 +172,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_PUBLIC_AREA_VARIATION)) {
             if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+                pageCategory2 = getCurrentPage().getParent(2).getName();
             }
             if (pageCategory3.equals("")) {
                 pageCategory3 = "public areas";
@@ -151,7 +180,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_DINING_VARIATION)) {
             if (pageCategory2.equals("")) {
-                pageCategory2 = getCurrentPage().getParent(2).getProperties().get("jcr:title", String.class);
+                pageCategory2 = getCurrentPage().getParent(2).getName();
             }
             if (pageCategory3.equals("")) {
                 pageCategory3 = "dining";
@@ -160,8 +189,14 @@ public class DataLayerUse extends WCMUsePojo {
         if (pageCategory2.equals("") && getCurrentPage().getName() != null) {
             pageCategory2 = getCurrentPage().getName();
         }
+
+        if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_PAGE)) {
+            if (pageCategory3.equals("")) {
+                pageCategory3 = getCurrentPage().getParent().getName();
+            }
+        }
         /**
-         * Cruise détails
+         * Cruise details
          */
 
         if (getCurrentPage().getContentResource().isResourceType(WcmConstants.RT_VOYAGE)) {
@@ -171,30 +206,28 @@ public class DataLayerUse extends WCMUsePojo {
             cruiseModel.initByGeoLocation(geoLocation);
             destinationId = getCurrentPage().getProperties().get("cmp-destinationId").toString();
             destinationName = getCurrentPage().getParent().getName();
-            voyageId = getCurrentPage().getProperties().get("cruiseId").toString();
+            voyageId = getCurrentPage().getProperties().get("cruiseCode").toString();
             departureDay = cruiseModel.getStartDate().getTime().toString();
             voyageDuration = cruiseModel.getDuration();
-            
-            voyageDepartureHarbor =  cruiseModel.getDeparturePortName(); 
-            voyageArrivalHarbor = cruiseModel.getArrivalPortName();   
+
+            voyageDepartureHarbor = cruiseModel.getDeparturePortName();
+            voyageArrivalHarbor = cruiseModel.getArrivalPortName();
             voyageType = cruiseModel.getCruiseType();
-            
+
             shipName = StringUtils
                     .substringAfterLast(getCurrentPage().getProperties().get("shipReference", String.class), "/");
             String price = cruiseModel.getLowestPrice().getValue();
             String currency = cruiseModel.getLowestPrice().getCurrency();
-            if(price !=null && currency !=null){
-                revenue = price+"-"+currency;
+            if (price != null && currency != null) {
+                revenue = currency + price;
             }
-            
+
         }
 
         /**
          * media
          */
-        // TODO récuperer la bonne market
-        // geoLoc = "UK";
-        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+
         contry = GeolocationHelper.getCountryCode(getRequest());
         if (contry != null) {
             geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
@@ -209,7 +242,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         String adwords_conversion_label = "";
-        String adwords_value = "1.0";
+        String adwords_value = "1.00";
         String adwords_format = "";
         if (geoLoc.equals("US") || (geoLoc.equals("FT") && (contry.equals("US") || contry.equals("CA")))) {
             if (pageCategory2.equals("RAQ TY")) {
@@ -218,7 +251,7 @@ public class DataLayerUse extends WCMUsePojo {
             }
             if (pageCategory2.equals("RAC TY")) {
                 adwords_conversion_label = "4ekHCIGahAQQl5v74wM";
-                adwords_format = "3";
+                adwords_format = "2";
             }
             if (pageCategory2.equals("RAB TY")) {
                 adwords_conversion_label = "kakUCIDVllcQl5v74wM";
@@ -343,9 +376,6 @@ public class DataLayerUse extends WCMUsePojo {
 
     }
 
-    /**
-     * @return the current Run Mode
-     */
     public String getContry() {
         return contry;
     }
@@ -433,7 +463,5 @@ public class DataLayerUse extends WCMUsePojo {
     public String getRevenue() {
         return revenue;
     }
-    
-    
 
 }

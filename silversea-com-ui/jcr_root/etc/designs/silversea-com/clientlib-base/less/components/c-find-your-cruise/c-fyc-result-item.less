@@ -286,10 +286,12 @@
                     dd {
                         display: inline;
 
-                        &:not(last-child):after {
+                        &:not(:last-of-type):after {
                             display: inline;
                             content: "\00a0\f105\00a0";
                             font-family: 'FontAwesome';
+                            font-size: 11px;
+                            font-weight: 400;
                         }
                     }
                 }
@@ -394,7 +396,7 @@
                     }
 
                     dd {
-                        &:not(last-child):after {
+                        &:not(:last-child):after {
                             font-size: 11px;
                         }
                     }

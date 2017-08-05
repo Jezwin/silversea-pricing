@@ -66,8 +66,13 @@
         }
 
         .chosen-container {
+            display: none;
             position: static;
             z-index: 1;
+
+            &.chosen-with-drop {
+                display: inline-block;
+            }
         }
 
         .chosen-single {
@@ -101,6 +106,12 @@
     .with-errors {
         font-size: 13px;
         pointer-events: none;
+    }
+
+    .has-feedback {
+        .form-control {
+            padding: 10px 20px;
+        }
     }
 
     .has-error ~ .chosen-container {

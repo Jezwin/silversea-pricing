@@ -38,6 +38,13 @@
                                 name="./autoPlay"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <mozaicSlider
+                                jcr:primaryType="nt:unstructured"
+                                text="Mozaic Slider"
+                                fieldDescription="Check if slider is mozaic"
+                                name="./mozaicSlider"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                             <style
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Style"

@@ -20,17 +20,20 @@ public class CookieDisclaimerUse extends WCMUsePojo {
     public void activate() throws Exception {
         // Getting context
         GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
-        final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
 
-        // Getting inherited properties
-        final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        description = properties.getInherited(JcrConstants.JCR_DESCRIPTION, String.class);
-        String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
+        if (geolocationTagService != null) {
+            final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
 
-        if (tags != null) {
-            for (String tag : tags) {
-                if (tag.equals(geolocationTagId)) {
-                    showCookieMsg = true;
+            // Getting inherited properties
+            final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
+            description = properties.getInherited(JcrConstants.JCR_DESCRIPTION, String.class);
+
+            String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
+            if (tags != null) {
+                for (String tag : tags) {
+                    if (tag.equals(geolocationTagId)) {
+                        showCookieMsg = true;
+                    }
                 }
             }
         }

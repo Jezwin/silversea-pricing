@@ -62,6 +62,10 @@ public class BrochureModel {
         return asset.getPath();
     }
 
+    public String getBrochureCode() {
+        return getCustomMetatdata(WcmConstants.PN_BROCHURE_CODE, String.class);
+    }
+
     public String getAssetTitle() {
         return asset.getMetadataValue(DamConstants.DC_TITLE);
     }

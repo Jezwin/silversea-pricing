@@ -40,8 +40,8 @@
                 <div class="c-accordion__header">
                     <div class="c-accordion__title c-accordion__title--img">
                         <div class="c-accordion__title--img_block">
-                            <sly data-sly-test.imagePrefix="${'/is/image/'}" />
-                            <div data-sly-test="${item.thumbnail}" style="background-image: url(${item.thumbnail @ prependPath=imagePrefix, context='uri'})"></div>
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.thumbnail}" />
+                            <div data-sly-test="${item.thumbnail}" style="background-image: url(${assetHelper.imageUrl})"></div>
                         </div>
                     </div>
 
@@ -68,14 +68,14 @@
                         <div class="c-accordion__title--body c-accordion__header--unclickable">
                                 ${item.description @ context='html'}
 
-                            <a data-sly-test="${item.excursions.size > 0}"
+                            <a data-sly-test="${item.excursions && item.excursions.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
                                title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
                                 ${'view' @ i18n} ${item.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
                             </a>
 
-                            <a data-sly-test="${item.landprograms.size > 0}"
+                            <a data-sly-test="${item.landprograms && item.landprograms.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
                                title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
@@ -88,14 +88,14 @@
                     <div class="c-accordion__body--panel">
                         ${item.description @ context='html'}
 
-                        <a data-sly-test="${item.excursions.size > 0}"
+                        <a data-sly-test="${item.excursions && item.excursions.size > 0}"
                            href="#"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
                             ${'view' @ i18n} ${item.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
                         </a>
 
-                        <a data-sly-test="${item.landprograms.size > 0}"
+                        <a data-sly-test="${item.landprograms && item.landprograms.size > 0}"
                            href="#"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">

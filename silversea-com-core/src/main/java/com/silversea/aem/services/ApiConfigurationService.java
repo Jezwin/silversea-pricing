@@ -20,7 +20,7 @@ public interface ApiConfigurationService {
      *     <li>brochureUrl</li>
      *     <li>featuresUrl</li>
      *     <li>contriesUrl</li>
-     *     <li>spetialOffersUrl</li>
+     *     <li>exclusiveOffersUrl</li>
      *     <li>agenciesUrl</li>
      *     <li>citiesUrl</li>
      *     <li>cruisesUrl</li>

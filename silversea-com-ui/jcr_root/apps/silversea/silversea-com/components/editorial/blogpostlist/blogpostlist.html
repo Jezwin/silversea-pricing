@@ -6,10 +6,12 @@
 <div data-sly-test="${blogPostTeaserListUse.highLightFirst && blogPostTeaserListUse.firstBlogPostTeaser}" class="blogpostfirst">
     <sly data-sly-call="${imageTemplate.default @ imagePath=blogPostTeaserListUse.firstBlogPostTeaser.thumbnailImageUrl, query='?wid=280'}"></sly>
 
-    <p class="blogpostfirst__date">${blogPostTeaserListUse.firstBlogPostTeaser.formatPublicationDate @context = 'html'}</p>
+    <p class="blogpostfirst__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=blogPostTeaserListUse.firstBlogPostTeaser.publicationDate}">
+                    ${date.value}
+    </p>
     <h2 class="blogpostfirst__title">${blogPostTeaserListUse.firstBlogPostTeaser.title }</h2>
 
-    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.longDescription @context = 'html'}</p>
+    <p class="blogpostfirst__descr">${blogPostTeaserListUse.firstBlogPostTeaser.page.description @context = 'html'}</p>
     <a class="read-more" href="${blogPostTeaserListUse.firstBlogPostTeaser.properUrl}">${'read-more' @i18n}<i class="fa fa-angle-right hidden-xs"></i></a>
 </div>
 <hr/>

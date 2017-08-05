@@ -16,14 +16,14 @@
              data-more="<i class='fa fa-angle-down'></i>"
              data-close="<i class='fa fa-angle-up'></i>"
              data-sly-list="${cruise.cruiseModel.itineraries}">
-            <div class="c-accordion__elem" data-sly-test="${item.hotels.size > 0 || item.landprograms.size > 0}">
+            <div class="c-accordion__elem" data-sly-test="${item.itineraryModel.hotels.size > 0 || item.itineraryModel.landprograms.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
                     <div class="c-accordion__title c-accordion__title--thumbnail">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.itineraryModel.thumbnail}" />
                     </div>
                     <div class="c-accordion__title w-title valigntop">
-                        <p class="c-accordion__subtitle veryimportant">${item.apiTitle || item.title || 'Title'}</p>
-                        <p>${item.country}</p>
+                        <p class="c-accordion__subtitle veryimportant">${item.itineraryModel.apiTitle || item.title || 'Title'}</p>
+                        <p>${item.itineraryModel.country}</p>
                         <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
                             ${date.value}
                         </p>
@@ -32,9 +32,9 @@
                         <p>${date.value}</p>
                     </div>
                     <div class="c-accordion__title w-content valigntop hidden-xs">
-                        <u data-sly-test="${item.landprograms.size > 0}">${item.landprograms.size} ${ (item.landprograms.size == 1 ? 'land-programme' : 'land-programmes') @ i18n} </u>
-                        <u data-sly-test="${item.landprograms.size > 0 && item.hotels.size > 0}">${'and' @ i18n} </u>
-                        <u data-sly-test="${item.hotels.size > 0}">${item.hotels.size} ${ (item.hotels.size == 1 ? 'hotel' : 'hotels')  @ i18n}</u>
+                        <u data-sly-test="${item.itineraryModel.landprograms.size > 0}">${item.itineraryModel.landprograms.size} ${ (item.itineraryModel.landprograms.size == 1 ? 'land-programme' : 'land-programmes') @ i18n} </u>
+                        <u data-sly-test="${item.itineraryModel.landprograms.size > 0 && item.itineraryModel.hotels.size > 0}">${'and' @ i18n} </u>
+                        <u data-sly-test="${item.itineraryModel.hotels.size > 0}">${item.itineraryModel.hotels.size} ${ (item.itineraryModel.hotels.size == 1 ? 'hotel' : 'hotels')  @ i18n}</u>
                     </div>
                     <div class="c-accordion__action small">
                         <i class='fa fa-angle-down'></i>
@@ -48,8 +48,8 @@
                          data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
 
                         <sly data-sly-use.accordionTemplate="accordion-body.html"
-                             data-sly-call="${accordionTemplate.default @ list=item.landprograms}"></sly>
-                        <sly data-sly-call="${accordionTemplate.default @ list=item.hotels}"></sly>
+                             data-sly-call="${accordionTemplate.default @ list=item.itineraryModel.landprograms}"></sly>
+                        <sly data-sly-call="${accordionTemplate.default @ list=item.itineraryModel.hotels}"></sly>
 
                     </div>
                 </div>

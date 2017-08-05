@@ -35,7 +35,7 @@ $(function() {
 
             if (tabId == '#suitenfare') {
                 // Open current suite only (force close others suite)
-                
+                $(tabId).find('.panel:eq(' + $trigger.index() + ')').find('[role="tab"]').trigger('click');
             } else {
                 // Open current segment
                 $(tabId).find('.select-segment dd:eq(' + $trigger.closest('[data-slick-index]').data('slick-index') + ') a').trigger('click');
@@ -47,9 +47,24 @@ $(function() {
     // read/less more variations
     var variation_block = $('.ship-mobilewrapper'),
         variationHeight = $('.variationimg img').height() - 70,
-        moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</i></a>',
-        lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</i></a>';
+        moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</a>',
+        lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</a>';
     
+    /***************************************************************************
+     * Truncate text
+     **************************************************************************/
+
+    $('.textTruncate').each(function(i, el){
+
+        var node = $(el);
+        var limit = parseInt(node.data('limit'));
+        if(node.find('p span').text().length > limit){
+            var trucatedText = node.find('p span').text().substr(0, limit);
+
+            node.find('p span').text(trucatedText+'...');
+        }
+    });
+
 
     if ($.viewportDetect() !== "xs") {
         variation_block.readmore({

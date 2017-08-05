@@ -1,17 +1,14 @@
 package com.silversea.aem.importers.services;
 
-import java.io.IOException;
-
-import com.silversea.aem.components.beans.ImporterStatus;
+import com.silversea.aem.importers.services.impl.ImportResult;
+import org.apache.sling.commons.json.JSONObject;
 
 /**
  * Created by mbennabi on 09/03/2017.
  */
 public interface ExclusiveOffersImporter {
 
-    ImporterStatus importData() throws IOException;
+    ImportResult importExclusiveOffers();
 
-//    int getErrorNumber();
-//
-//    int getSuccesNumber();
+    JSONObject getExclusiveOffersMapping();
 }

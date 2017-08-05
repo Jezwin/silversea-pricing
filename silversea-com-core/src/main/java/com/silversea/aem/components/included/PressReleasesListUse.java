@@ -9,13 +9,7 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.editorial.BlogPostTeaserListUse;
 import com.silversea.aem.constants.WcmConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jcr.Session;
 import java.util.*;
@@ -27,51 +21,40 @@ import java.util.*;
  * TODO review java coding style conventions
  * TODO constants
  */
-public class PressreleaseslistUse extends WCMUsePojo {
-    private List<Page> pressReleaseList;
+public class PressReleasesListUse extends WCMUsePojo {
 
-    private Map<String, String> mapQuery = new HashMap<String, String>();
+    private List<Page> pressReleaseList = new ArrayList<>();
 
     private String currentPage;
-
-    private int pageNum;
 
     private long totalMatches;
 
     private int numberOfPages;
 
-    private String limit;
-
-    private Integer Ilimit;
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(PressreleaseslistUse.class);
-
     @Override
     public void activate() throws Exception {
-
-        /*
-        * Init page value
-        **/
-        Page page;
-        pressReleaseList = new ArrayList<>();
-
         final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-        limit = properties.getInherited("paginationLimit", WcmConstants.PAGINATION_LIMIT);
-        Ilimit = Integer.parseInt(limit);
 
-        if (getRequest().getRequestParameter("page") != null)
+        // TODO use int instead of string, and merge limit and ilimit
+        final String limit = properties.getInherited("paginationLimit", WcmConstants.PAGINATION_LIMIT);
+        final Integer ilimit = Integer.parseInt(limit);
+
+        if (getRequest().getRequestParameter("page") != null) {
             currentPage = getRequest().getRequestParameter("page").toString();
-        else
+        } else {
             currentPage = "1";
+        }
 
-        pageNum = Integer.parseInt(currentPage) - 1;
-        if (pageNum <= 0)
+        int pageNum = Integer.parseInt(currentPage) - 1;
+        if (pageNum <= 0) {
             pageNum = 0;
-        pageNum = pageNum * Ilimit;
+        }
+        pageNum = pageNum * ilimit;
 
         /*
         * Construct Query
         * */
+        Map<String, String> mapQuery = new HashMap<>();
         mapQuery.put(WcmConstants.SEARCH_KEY_PATH, getCurrentPage().getPath());
         mapQuery.put(WcmConstants.SEARCH_KEY_TYPE, "cq:PageContent");
         mapQuery.put(WcmConstants.SEARCH_KEY_PROPERTY, "sling:resourceType");
@@ -88,16 +71,16 @@ public class PressreleaseslistUse extends WCMUsePojo {
         QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
         Query query = queryBuilder.createQuery(PredicateGroup.create(mapQuery), session);
         query.setStart(pageNum);
-        query.setHitsPerPage(Ilimit);
+        query.setHitsPerPage(ilimit);
         SearchResult result = query.getResult();
 
         /*
         * Get result from Query
         * */
         totalMatches = result.getTotalMatches();
-        numberOfPages = (int) Math.ceil((float) totalMatches / Ilimit);
+        numberOfPages = (int) Math.ceil((float) totalMatches / ilimit);
         for (Hit hit : result.getHits()) {
-            page = hit.getResource().getParent().adaptTo(Page.class);
+            Page page = hit.getResource().getParent().adaptTo(Page.class);
             pressReleaseList.add(page);
         }
     }
@@ -111,14 +94,18 @@ public class PressreleaseslistUse extends WCMUsePojo {
     }
 
     public int getNext() {
-        if (Integer.parseInt(currentPage) < numberOfPages)
+        if (Integer.parseInt(currentPage) < numberOfPages) {
             return Integer.parseInt(currentPage) + 1;
+        }
+
         return -1;
     }
 
     public int getPrev() {
-        if (Integer.parseInt(currentPage) > 1)
+        if (Integer.parseInt(currentPage) > 1) {
             return Integer.parseInt(currentPage) - 1;
+        }
+
         return -1;
     }
 

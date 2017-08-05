@@ -14,12 +14,12 @@ public class MediaDataLayer {
     private String Google_tr_num_label = "";
     private String Yahoo_project_id = "";
     private String Yahoo_pixel_id = "";
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 
     public MediaDataLayer(String user_geo_adwords, String track_adwords_account, String track_77TrackingTransaction,
             String adwords_conversion_id, String adwords_conversion_label, String adwords_format, String adwords_value,
@@ -118,7 +118,7 @@ public class MediaDataLayer {
     public void setYahoo_pixel_id(String yahoo_pixel_id) {
         Yahoo_pixel_id = yahoo_pixel_id;
     }
-    
-    
+
+
 
 }

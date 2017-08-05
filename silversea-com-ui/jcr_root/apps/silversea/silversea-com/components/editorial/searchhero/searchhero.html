@@ -2,7 +2,7 @@
 <div class="c-search-hero">
     <form class="row c-search-hero__form" action="${properties.pageReference @ extension='html'}"
           data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
-        <div class="col-sm-3" data-sly-use.destinations="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}">
+        <div class="col-sm-3">
             <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destinations">
                 <option value="">${'all-destinations' @ i18n}</option>
                 <sly data-sly-list="${filter.destinations}">

@@ -1,13 +1,20 @@
 package com.silversea.aem.importers.services;
 
-import java.io.IOException;
+import com.silversea.aem.importers.services.impl.ImportResult;
 
 public interface BrochuresImporter {
-	
-	/**
-	 * Import and updates brochures
-	 * @throws IOException: throw an exception
-	 */
-	void importBrochures() throws IOException;
 
+    /**
+     * Import all brochures metadata from API
+     *
+     * @return import result
+     */
+    ImportResult importAllBrochures();
+
+    /**
+     * Update brochures metadata from API
+     *
+     * @return import result
+     */
+    ImportResult updateBrochures();
 }

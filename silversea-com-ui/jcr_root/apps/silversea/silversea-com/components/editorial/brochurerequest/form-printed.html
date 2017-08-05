@@ -50,12 +50,12 @@
             data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
+            <input type="hidden" name="phone" />
+            <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
+                <option value="">${'country-code' @ i18n}*</option>
+                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
+            </select>
         </div>
-        <input type="hidden" name="phone" />
-        <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
-            <option value="">${'country-code' @ i18n}*</option>
-            <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
-        </select>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
@@ -74,12 +74,24 @@
     </div>
     <div class="hideArea" style="display:none;">
         <div class="form-group form-group-lg has-feedback">
-            <div class="" style="float: left; width:35%;">
-                <input type="text" name="postalcode" class="form-control" value="" placeholder="${'postal-code' @ i18n}*" required data-error="${'required-postal-code' @ i18n}"/>
-            </div>
-            <div class="" style="float: right; width:63%;">
-                <input type="text" name="city" class="form-control" value="" placeholder="${'city' @ i18n}*" required data-error="${'required-postal-code-and-city' @ i18n}" />
-            </div>
+            <input style="float: left; width:35%;" type="text"
+                   name="postalcode"
+                   class="form-control"
+                   value=""
+                   placeholder="${'postal-code' @ i18n}*"
+                   data-cityzip="city"
+                   data-cityzip-error="${'required-postal-code-and-city' @ i18n}"
+                   data-required-error="${'required-postal-code-and-city' @ i18n}"
+                   required/>
+            <input style="float: right; width:63%;" type="text"
+                   name="city"
+                   class="form-control"
+                   value=""
+                   placeholder="${'city' @ i18n}*"
+                   data-cityzip="postalcode"
+                   data-cityzip-error="${'required-postal-code-and-city' @ i18n}"
+                   data-required-error="${'required-postal-code-and-city' @ i18n}"
+                   required/>
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
         </div>
@@ -109,7 +121,7 @@
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
-                <input class="custom-checkbox" type="checkbox" name="isbooked">
+                <input class="custom-checkbox" value="true" type="checkbox" name="workingwithagent" >
                 ${'i-m-currently-booked' @ i18n}
             </label>
         </div>

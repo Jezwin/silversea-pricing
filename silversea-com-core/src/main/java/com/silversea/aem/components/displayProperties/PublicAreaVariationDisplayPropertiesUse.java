@@ -11,21 +11,17 @@ import com.day.cq.wcm.api.Page;
  */
 public class PublicAreaVariationDisplayPropertiesUse extends WCMUsePojo {
 
-    Resource area;
+    private Page area;
 
     public void activate() throws Exception {
-        Page currentPage = getCurrentPage();
+        final String pathArea = getPageProperties().get("publicAreaReference", String.class);
 
-        String pathArea = currentPage.getProperties().get("publicAreaReference", String.class);
         if (StringUtils.isNotEmpty(pathArea)) {
-            area = getResourceResolver().getResource(pathArea);
+            area = getPageManager().getPage(pathArea);
         }
     }
 
     public Page getAreaPage() {
-        if (area != null) {
-            return area.adaptTo(Page.class);
-        }
-        return null;
+        return area;
     }
 }

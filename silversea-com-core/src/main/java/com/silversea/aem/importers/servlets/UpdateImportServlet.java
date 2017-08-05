@@ -1,7 +1,5 @@
 package com.silversea.aem.importers.servlets;
 
-import com.day.cq.replication.ReplicationException;
-import com.silversea.aem.exceptions.UpdateImporterExceptions;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.commons.lang3.StringUtils;
@@ -60,7 +58,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private ExclusiveOffersUpdateImporter updateExclusiveOffers;
 
     @Reference
-    private FeaturesUpdateImporter updateFeatures;
+    private FeaturesImporter updateFeatures;
 
     @Reference
     ComboCruisesImporter ComboCruisesImporter;
@@ -220,13 +218,13 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 // }
                 //
                 if (all || mode.equals(Mode.ft)) {
-                    updateFeatures.updateImporData();
+                    updateFeatures.updateFeatures();
                     response.getWriter().write("Feature import Done<br/>");
                     response.getWriter().flush();
                 }
                 //
                 // if (all || mode.equals(Mode.brochures)) {
-                // brochuresImporter.importBrochures();
+                // brochuresImporter.importAllBrochures();
                 // response.getWriter().write("Brochures import Done<br/>");
                 // response.getWriter().flush();
                 // }

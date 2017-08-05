@@ -55,8 +55,9 @@ public class MigrationUtils {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final Session session = resourceResolver.adaptTo(Session.class);
 
             if (session == null) {
@@ -269,6 +270,10 @@ public class MigrationUtils {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (RepositoryException e) {
             LOGGER.error("Error during pages update", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
     }
 

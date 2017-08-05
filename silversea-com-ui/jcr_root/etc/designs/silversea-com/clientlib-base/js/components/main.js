@@ -74,22 +74,22 @@ $(function() {
             // Cancel synchrone submit
             event.preventDefault();
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price'];
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price'];
             var pos = document.cookie.indexOf("userInfo=");
 
             // Set cookie if not created
             if (pos <= 0) {
                 $.CookieManager.setCookie('userInfo', JSON.stringify(cookieValues));
             }
-            var leadApiData = {}, currentData = JSON.parse($.CookieManager.getCookie('userInfo'));
+            var leadApiData = {},
+                currentData = JSON.parse($.CookieManager.getCookie('userInfo')),
+                form = $(elem).serializeArray();
 
             // Browse the form fields and extract values to leadApiData
-            for ( var i in cookieValues) {
-                if (elem[cookieValues[i]] && elem[cookieValues[i]].value !== undefined) {
-                    if( elem[cookieValues[i]].name != "isbooked"){
-                        leadApiData[cookieValues[i]] = elem[cookieValues[i]].value;
-                    }
-                }
+            for (i in form) {
+                index = cookieValues.indexOf(form[i].name);
+                if (index > -1)
+                    leadApiData[cookieValues[index]] = form[i].value;
             }
 
             $.ajax({
@@ -99,6 +99,11 @@ $(function() {
                 contentType : 'application/json',
                 dataType : 'json',
                 success : function(data) {
+
+                    //set cookies for datalayer
+                    var submitDate = new Date();
+                    $.CookieManager.setCookie("user_status", submitDate.getTime());
+
                     var obj = {};
 
                     // Convert currentData to object

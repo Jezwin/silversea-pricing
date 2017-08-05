@@ -21,6 +21,7 @@
                 </time></strong>
             </span>
                 ${cruiseModel.departurePortName} ${'to' @ i18n} ${cruiseModel.arrivalPortName}
+                <span>${segment.page.properties.subTitle}</span>
             </h4>
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                 data-sly-call="${imageTemplate.default @ imagePath=segment.page.properties.mapReference}" />

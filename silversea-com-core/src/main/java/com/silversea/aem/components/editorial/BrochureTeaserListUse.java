@@ -1,16 +1,5 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.jackrabbit.JcrConstants;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
@@ -21,16 +10,24 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.TagHelper;
 import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.services.GeolocationTagService;
+import org.apache.jackrabbit.JcrConstants;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- *
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 public class BrochureTeaserListUse extends WCMUsePojo {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserListUse.class);
-    public static final String SELECTOR_BROCHURE_GROUP_PREFIX = "brochure_group_";
-    public static final String SELECTOR_LANGUAGE_PREFIX = "language_";
-    public static final String DEFAULT_BROCHURE_GROUP = "default";
+
+    private static final String SELECTOR_BROCHURE_GROUP_PREFIX = "brochure_group_";
+    private static final String SELECTOR_LANGUAGE_PREFIX = "language_";
+    private static final String DEFAULT_BROCHURE_GROUP = "default";
 
     /**
      * List of brochure paths, based on selected language and geolocation
@@ -61,7 +58,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
 
         brochureGroup = getBrochureGroup(getRequest());
 
-        final String brochuresPath = getProperties().get("folderReference", 
+        final String brochuresPath = getProperties().get("folderReference",
                 WcmConstants.PATH_DAM_SILVERSEA + "/" + WcmConstants.FOLDER_BROCHURES);
 
         // Building tag list
@@ -157,7 +154,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
     public boolean isMatchingLanguage(BrochureModel brochure, String languageName) {
         Tag brochureLang = brochure.getLanguage();
         if (brochureLang != null) {
-            return brochureLang.getName().equals(languageName);
+            return brochureLang.getName().toUpperCase().equals(languageName.toUpperCase());
         }
         return false;
     }

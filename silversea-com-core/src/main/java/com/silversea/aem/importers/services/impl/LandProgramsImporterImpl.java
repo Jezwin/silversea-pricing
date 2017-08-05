@@ -5,14 +5,12 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
-import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
@@ -76,8 +74,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         Map<String, Object> authenticationPrams = new HashMap<>();
         authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -132,7 +131,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
                             } else {
                                 landProgramsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
-                                        TemplateConstants.PAGE_TEMPLATE_PAGE, "Land Programs", false);
+                                        WcmConstants.PAGE_TEMPLATE_PAGE, "Land Programs", false);
 
                                 LOGGER.trace("{} page is not existing, creating it", landProgramsPage.getPath());
                             }
@@ -140,7 +139,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                     JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(landProgram.getLandName())),
-                                    TemplateConstants.PAGE_TEMPLATE_LAND_PROGRAM,
+                                    WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
                                     StringHelper.getFormatWithoutSpecialCharcters(landProgram.getLandName()), false);
 
                             LOGGER.trace("Creating land program {} in city {}", landProgram.getLandName(),
@@ -192,12 +191,14 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending land programs import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -215,8 +216,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -318,7 +320,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     landProgramsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_LAND_PROGRAMS);
                                 } else {
                                     landProgramsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_LAND_PROGRAMS,
-                                            TemplateConstants.PAGE_TEMPLATE_PAGE, "Land programs", false);
+                                            WcmConstants.PAGE_TEMPLATE_PAGE, "Land programs", false);
 
                                     LOGGER.trace("{} page is not existing, creating it", landProgramsPage.getPath());
                                 }
@@ -327,7 +329,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                         JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(landProgramName)),
-                                        TemplateConstants.PAGE_TEMPLATE_LAND_PROGRAM,
+                                        WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
                                         StringHelper.getFormatWithoutSpecialCharcters(landProgramName), false);
 
                                 LOGGER.trace("Creating landProgram {} in city {}", landProgramName, portPage.getPath());
@@ -369,12 +371,14 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return new ImportResult(successNumber, errorNumber);

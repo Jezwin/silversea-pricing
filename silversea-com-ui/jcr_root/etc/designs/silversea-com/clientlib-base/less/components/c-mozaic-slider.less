@@ -1,0 +1,210 @@
+.c-slider--style2.slick-mozaic {
+    .slick-prev, .slick-next {
+        margin-top: -50px;
+    }
+    .slick-prev {
+        left: 33.33%;
+        margin-left: 3px;
+    }
+    .slick-next {
+        right: 33.33%;
+        margin-right: 3px;
+    }
+
+    .c-mozaicslider {
+        position: relative;
+
+        div[class*='col-'] {
+            padding: 0 5px 10px;
+        }
+
+        .item-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            margin-left: 0;
+
+            .col-sm-4 {
+                position: relative;
+                top: 0;
+                left: 33.33%;
+                border: 1px solid @grey--d;
+                text-align: center;
+                height: 205px;
+
+                .c-mozaicslider {
+                    &__title {
+                        font-size: 36px;
+                        font-family: @f-theano_didot;
+                        margin-bottom: 4%;
+                        text-transform: uppercase;
+                    }
+
+                    &__descr {
+                        font-size: 13px;
+                        margin-bottom: 0;
+                        padding: 0 12.8%;
+                    }
+                }
+
+                .link__wrapper {
+                    position: absolute;
+                    bottom: 23px;
+                    left: 0;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.mozaic-slider{
+    display: block;
+    @media screen and (max-width: @screen-sm) {
+        display: none;
+    }
+
+    &:not(.c-slider--full-width) .slick-slide > *{
+        margin: 0px;
+        padding: 2px;
+    }
+
+    .slick-prev, .slick-next {
+        margin-top: -30px !important;
+        height: 30px;
+        width: 30px;
+    }
+    .slick-prev i, .slick-next i {
+       line-height: 10px;
+    }
+    .slick-prev {
+        left: 33.7%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .slick-next {
+        right: 33.7%;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .c-mozaicslider {
+        &__title {
+            font-size: 30px;
+            font-family: @f-theano_didot;
+            margin-bottom: 4%;
+            text-transform: uppercase;
+        }
+
+        &__descr {
+            font-size: 13px;
+            margin-bottom: 0;
+            padding: 0 5%;
+        }
+    }
+
+    .link__wrapper {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        bottom: 14px;
+    }
+    .item-text{
+        height: 100%;
+        padding: 1px;
+        text-align: center;
+    }
+    .mozaicItemText{
+        height: 100%;
+        border: 1px solid #ccc;
+        background: #fff;
+    }
+    .c-tabbedmozaic__description, .discover-more{
+        display: none;
+    }
+    .slick-dots{
+        display: block !important;
+        bottom: -10px;
+    }
+    .slick-track{
+        padding-bottom: 12px;
+    }
+    .slick-dots li:not(.slick-active) button:before{
+        background-color: #bababa;
+    }
+}
+
+.mozaicHeader {
+    display: none;
+    @media screen and (max-width: @screen-sm) {
+        display: block;
+    }
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    .c-mozaicslider__title{
+        text-transform: uppercase;
+        font-size: 30px;
+    }
+    .c-mozaicslider__descr{
+        font-size: 13px;
+    }
+}
+
+.mobileSlider{
+    margin-bottom: 10px;
+    background: #fff;
+    display: none;
+    @media screen and (max-width: @screen-sm) {
+        display: block;
+    }
+    .slick-dots{
+        position: relative;
+        bottom: 0;
+    }
+    .slick-dots li button:before{
+        background-color: #bababa ;
+    }
+    .slick-dots li.slick-active button:before {
+        background-color: #000;
+    }
+    .slick-dots li{
+        @media screen and (max-width: @screen-sm) {
+            margin: 0 1px;
+            height: 8px;
+            width: 8px;
+        }
+    }
+    .c-tabbedmozaic__title{
+        @media screen and (max-width: @screen-sm) {
+            width: 50%;
+        }
+        @media screen and (max-width: @screen-xs) {
+            width: 80%;
+        }
+    }
+    .c-tabbedmozaic__description, .discover-more{
+        display: block;
+        padding: 10px;
+    }
+    .link__wrapper {
+        position: relative;
+        text-align: center;
+        width: 100%;
+        bottom: -30px;
+    }
+    .discover-more{
+        text-transform: uppercase;
+        margin-top: 10px;
+        padding-left: 10px;
+        font-weight: bold;
+        font-size: 12px;
+        .fa{
+            margin-left: 10px;
+        }
+    }
+    .slick-list{
+        border: 1px solid #e5e5e5;
+    }
+
+}

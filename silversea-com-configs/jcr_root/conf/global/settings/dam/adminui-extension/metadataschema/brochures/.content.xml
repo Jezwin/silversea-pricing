@@ -69,7 +69,7 @@
                                 </title>
                                 <description
                                     jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
                                     fieldLabel="Description"
                                     name="./jcr:content/metadata/dc:description"
                                     renderReadOnly="true">
@@ -554,51 +554,6 @@
                                         metaType="datepicker"
                                         typeHint="Date"/>
                                 </offime>
-                                <_x0031_489917277378
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="dam/gui/coral/components/admin/schemaforms/formbuilder/sectionfield"
-                                    fieldLabel="Brochure">
-                                    <granite:data
-                                        jcr:primaryType="nt:unstructured"
-                                        metaType="section"/>
-                                </_x0031_489917277378>
-                                <code
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                    data-title="Brochure code"
-                                    fieldLabel="Code"
-                                    name="./jcr:content/metadata/brochureCode"
-                                    renderReadOnly="true">
-                                    <granite:data
-                                        jcr:primaryType="nt:unstructured"
-                                        metaType="text"/>
-                                </code>
-                                <_x0031_489917284959
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                    data-title="Brochure online viewer URL"
-                                    fieldLabel="URL"
-                                    name="./jcr:content/metadata/onlineBrochureUrl"
-                                    disabled="true"
-                                    renderReadOnly="true">
-                                    <granite:data
-                                        jcr:primaryType="nt:unstructured"
-                                        metaType="text"/>
-                                </_x0031_489917284959>
-                                <digitalOnly
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
-                                    data-title="Brochure digital only"
-                                    fieldLabel="Digital only"
-                                    text="Digital only"
-                                    name="./jcr:content/metadata/brochureDigitalOnly"
-                                    value="true"
-                                    disabled="true"
-                                    renderReadOnly="true">
-                                    <granite:data
-                                        jcr:primaryType="nt:unstructured"
-                                        metaType="text"/>
-                                </digitalOnly>
                             </items>
                             <jcr:content jcr:primaryType="nt:unstructured"/>
                         </col2>
@@ -764,6 +719,75 @@
                             listOrder="2"/>
                     </items>
                 </tab2>
+                
+                <tab3
+                    granite:rel="aem-assets-metadata-form-tab"
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Brochures info"
+                    sling:resourceType="granite/ui/components/coral/foundation/container"
+                    listOrder="1">
+                    <granite:data
+                        jcr:primaryType="nt:unstructured"
+                        tabid="7c927721-1473-492f-b949-4fa2f82a32a0"/>
+                    <items jcr:primaryType="nt:unstructured">
+                        <col1
+                            granite:rel="aem-assets-metadata-form-column"
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            listOrder="0">
+                            <items jcr:primaryType="nt:unstructured">
+                                <_x0031_489917277378
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="dam/gui/coral/components/admin/schemaforms/formbuilder/sectionfield"
+                                    fieldLabel="Brochure">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        metaType="section"/>
+                                </_x0031_489917277378>
+                                <code
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    data-title="Brochure code"
+                                    fieldLabel="Code"
+                                    name="./jcr:content/metadata/brochureCode"
+                                    renderReadOnly="true">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        metaType="text"/>
+                                </code>
+                                <_x0031_489917284959
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    data-title="Brochure online viewer URL"
+                                    fieldLabel="URL"
+                                    name="./jcr:content/metadata/onlineBrochureUrl"
+                                    disabled="true"
+                                    renderReadOnly="true">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        metaType="text"/>
+                                </_x0031_489917284959>
+                                <digitalOnly
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                    data-title="Brochure digital only"
+                                    fieldLabel="Digital only"
+                                    text="Digital only"
+                                    name="./jcr:content/metadata/brochureDigitalOnly"
+                                    value="true"
+                                    disabled="true"
+                                    renderReadOnly="true">
+                                    <granite:data
+                                        jcr:primaryType="nt:unstructured"
+                                        metaType="text"/>
+                                </digitalOnly>
+                            </items>
+                            <jcr:content jcr:primaryType="nt:unstructured">
+                                <metadata jcr:primaryType="nt:unstructured"/>
+                            </jcr:content>
+                        </col1>
+                    </items>
+                </tab3>
             </items>
         </tabs>
     </items>

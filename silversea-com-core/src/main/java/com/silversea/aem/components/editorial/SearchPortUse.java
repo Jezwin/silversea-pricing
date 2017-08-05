@@ -10,9 +10,6 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -45,8 +42,6 @@ public class SearchPortUse extends WCMUsePojo {
 
     @Inject
     private GeolocationTagService geolocationTagService;
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(SearchPortUse.class);
 
     @Override
     public void activate() throws Exception {

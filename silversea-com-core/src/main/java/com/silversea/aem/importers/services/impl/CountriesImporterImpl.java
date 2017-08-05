@@ -43,6 +43,7 @@ public class CountriesImporterImpl implements CountriesImporter {
     @Reference
     private ApiConfigurationService apiConfig;
 
+    // TODO remove api call service
     @Reference
     private ApiCallService apiCallService;
 
@@ -63,8 +64,9 @@ public class CountriesImporterImpl implements CountriesImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final Session session = resourceResolver.adaptTo(Session.class);
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 
@@ -136,6 +138,10 @@ public class CountriesImporterImpl implements CountriesImporter {
             LOGGER.error("Cannot read countries from API", e);
         } catch (RepositoryException e) {
             LOGGER.error("Cannot save modifications", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return new ImportResult(successNumber, errorNumber);
@@ -153,8 +159,9 @@ public class CountriesImporterImpl implements CountriesImporter {
 
         JSONObject jsonObject = new JSONObject();
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
 
             Iterator<Resource> tags = resourceResolver.findResources("/jcr:root/etc/tags/geotagging//element(*,cq:Tag)", "xpath");
 
@@ -173,9 +180,12 @@ public class CountriesImporterImpl implements CountriesImporter {
                     }
                 }
             }
-
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return jsonObject;

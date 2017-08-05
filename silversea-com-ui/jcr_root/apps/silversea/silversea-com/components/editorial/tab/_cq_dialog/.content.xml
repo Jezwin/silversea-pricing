@@ -35,6 +35,7 @@
                                     sling:resourceType="granite/ui/components/foundation/form/textfield"
                                     fieldLabel="Anchor"
                                     name="./anchor"
+                                    fieldDescription="Anchor is a technical field that must not contain special char or space. It can be: link-to-anchor"
                                     required="{Boolean}true" />
                         </items>
                     </column>

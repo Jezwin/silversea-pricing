@@ -12,23 +12,20 @@ import com.day.cq.wcm.api.Page;
  */
 public class PaginationHelper extends WCMUsePojo {
 
-    private Page page;
-
-    private List<Page> listPage;
-
     public Page next;
 
     public Page previous;
 
     @Override
     public void activate() throws Exception {
-        page = getCurrentPage().adaptTo(Page.class);
-        listPage = new ArrayList<>();
-        Iterator<Page> childs = page.getParent().listChildren();
+        List<Page> listPage = new ArrayList<>();
+        Iterator<Page> childs = getCurrentPage().getParent().listChildren();
+
         while (childs.hasNext()) {
             listPage.add(childs.next().adaptTo(Page.class));
         }
-        int i = listPage.indexOf(page);
+
+        int i = listPage.indexOf(getCurrentPage());
 
         if (i + 1 < listPage.size() && i > 0) {
             next = listPage.get(i + 1);
@@ -39,6 +36,7 @@ public class PaginationHelper extends WCMUsePojo {
             next = null;
             previous = listPage.get(i - 1);
         }
+
         if (i + 1 < listPage.size() && i <= 0) {
             next = listPage.get(i + 1);
             previous = null;

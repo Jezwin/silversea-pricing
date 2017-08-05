@@ -596,6 +596,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-email-address"
         sling:message="Your email address" />
+    <combocruis-overview-title
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="combo-cruis-overview-title"
+        sling:message="SELECT YOUR SUITE AND REQUEST A QUOTE" />
+    <combocruis-overview-subtitle
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="combo-cruis-overview-subtitle"
+        sling:message="Broad decks, panoramic lounges, gourmet dining options and all-suite accommodations ensure the most comfortable journey. Along with the incomparable luxury that has made Silversea the preferred choice for today’s discerning travellers." />
     <email-address
         jcr:primaryType="sling:MessageEntry"
         sling:key="email-address"
@@ -1033,4 +1041,12 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="refine-your-search"
         sling:message="refine your search" />
+    <first
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="first"
+        sling:message="first" />
+    <last
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="last"
+        sling:message="last" />
 </jcr:root>

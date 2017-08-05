@@ -1,6 +1,7 @@
 package com.silversea.aem.ws.lead.service.impl;
 
 import java.util.Dictionary;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -15,6 +16,7 @@ import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.osgi.service.component.ComponentContext;
 
 import com.silversea.aem.components.beans.Lead;
+import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.utils.DateUtils;
 import com.silversea.aem.ws.LeadFromWeb03Soap;
 import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020Arguments;
@@ -75,7 +77,12 @@ public class LeadServiceImpl implements LeadService {
     }
 
     public void adaptLeadRequest(NewX0020MethodX0020WithX002052X0020Arguments request, Lead lead) {
-        request.setAtt02(lead.getRequestsource());
+        request.setRequestType(lead.getRequesttype());
+        request.setRequestSource(lead.getRequestsource());
+
+        request.setCountry("");
+        request.setSiteLanguage("");
+        request.setSiteCurrency("");
 
         request.setTitle(lead.getTitle());
         request.setNameFirst(lead.getFirstname());
@@ -83,12 +90,14 @@ public class LeadServiceImpl implements LeadService {
         request.setEmail(lead.getEmail());
         request.setPhone(lead.getPhone());
         request.setComments(lead.getComments());
+
         // Subscribe newsletter
         request.setAtt02(lead.getAtt02());
         request.setWorkingWithAgent(lead.getWorkingwithagent());
 
         // request a quote
         request.setVoyage(lead.getVoyagename());
+        request.setVoyageCod(lead.getVoyagecode());
         String departureDate = lead.getDeparturedate();
         if (!StringUtils.isEmpty(departureDate)) {
             XMLGregorianCalendar sailDate = DateUtils.getXmlGregorianCalendar(departureDate, "dd MMM yyyy");
@@ -104,6 +113,7 @@ public class LeadServiceImpl implements LeadService {
         request.setZip(lead.getPostalcode());
         request.setCity(lead.getCity());
         request.setCountry(lead.getCountry());
+        request.setBrochuresRequested("");
 
     }
 

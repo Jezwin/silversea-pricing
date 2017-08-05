@@ -5,7 +5,6 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -17,7 +16,6 @@ import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.ShorexesApi;
-import io.swagger.client.model.Land77;
 import io.swagger.client.model.Shorex;
 import io.swagger.client.model.Shorex77;
 import org.apache.commons.lang3.BooleanUtils;
@@ -80,9 +78,10 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
         Map<String, Object> authenticationPrams = new HashMap<>();
         authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
             // Session initialization
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -142,7 +141,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                     JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName())),
-                                    TemplateConstants.PAGE_TEMPLATE_EXCURSION,
+                                    WcmConstants.PAGE_TEMPLATE_EXCURSION,
                                     StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()), false);
 
                             LOGGER.trace("Creating excursion {} in city {}", shorex.getShorexName(),
@@ -196,12 +195,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateShoreExcursions");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read shore excursions from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending shore excursions import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -219,8 +220,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -322,7 +324,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                     excursionsPage = pageManager.getPage(portPage.getPath() + "/" + WcmConstants.NN_EXCURSIONS);
                                 } else {
                                     excursionsPage = pageManager.create(portPage.getPath(), WcmConstants.NN_EXCURSIONS,
-                                            TemplateConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
+                                            WcmConstants.PAGE_TEMPLATE_PAGE, "Excursions", false);
 
                                     LOGGER.trace("{} page is not existing, creating it", excursionsPage.getPath());
                                 }
@@ -331,7 +333,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                         JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(excursionName)),
-                                        TemplateConstants.PAGE_TEMPLATE_EXCURSION,
+                                        WcmConstants.PAGE_TEMPLATE_EXCURSION,
                                         StringHelper.getFormatWithoutSpecialCharcters(excursionName), false);
 
                                 LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());
@@ -373,12 +375,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateShoreExcursions");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read excursions from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return new ImportResult(successNumber, errorNumber);

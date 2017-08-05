@@ -8,12 +8,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="c-tab c-tab__accordion">
-                <ul class="c-tab__nav c-tab__nav--regular6 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+                <ul class="${'{0}{1}' @ format=['c-tab__nav c-tab__nav--regular',cruise.cruiseModel.nbTab]} dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link c-tab__link--dark" data-state="active">
                         <a href="#overview"><span>${'overview' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise'}">
+                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.cruiseModel.itinerariesData.nbExcursions > 0}">
                             <a href="#excursion"><span>${'excursions' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
                         <a href="#highlight" data-sly-test.tabname="${properties.reference && properties.voyageHighlights ? 'voyage-highlights-expedition' : 'voyage-highlights'}">
@@ -21,7 +21,7 @@
                         </a>
                     </li><li class="c-tab__link c-tab__link--dark">
                             <a href="#ship"><span>${'ship' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--dark">
+                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.itinerariesData.nbLandPrograms > 0 || cruise.cruiseModel.itinerariesData.nbHotels > 0}">
                         <a href="#landnhotel"><span>${'land-and-hotel' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#photonvideo"><span>${'photos-and-videos' @i18n}</span></a>

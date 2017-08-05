@@ -20,7 +20,9 @@
             </div>
             <div class="c-accordion__body">
                 <div class="c-accordion__body--panel">
-                    ${item.longDescription || item.apiLongDescription || item.description @ context='html'}
+                    <div class="text">
+                        ${item.longDescription || item.apiLongDescription || item.description @ context='html'}
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,11 +1,7 @@
 package com.silversea.aem.models;
 
 import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -38,10 +34,6 @@ public class ItineraryModel {
     @Inject
     @Self
     private Page page;
-
-    private Calendar date;
-    private String arriveTime;
-    private String departTime;
     private String thumbnail;
     private String description;
     private String country;
@@ -53,49 +45,22 @@ public class ItineraryModel {
     private ResourceResolver resourceResolver;
     private TagManager tagManager;
     private PageManager pageManager;
-    
+
     @Inject
     private GeolocationTagService geolocationTagService;
 
     @PostConstruct
     private void init() {
-        try{
+        try {
             resourceResolver = page.getContentResource().getResourceResolver();
             tagManager = resourceResolver.adaptTo(TagManager.class);
-            pageManager= resourceResolver.adaptTo(PageManager.class);
+            pageManager = resourceResolver.adaptTo(PageManager.class);
             thumbnail = page.getProperties().get("image/fileReference", String.class);
             description = initDescription();
             country = initCountry();
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
+        } catch (RuntimeException e) {
+            LOGGER.error("Error while initializing model {}", e);
         }
-    }
-
-    public void initDate(Node itineraryNode) {
-
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS");
-            date = Calendar.getInstance();
-            arriveTime = getTime(itineraryNode, "arriveTime", "arriveAmPm");
-            departTime = getTime(itineraryNode, "departTime", "departAmPm");
-            date.setTime(dateFormat.parse(Objects.toString(itineraryNode.getProperty("date").getValue())));
-        } catch (RepositoryException | ParseException e) {
-            LOGGER.error("Error while initializing itinerary date", e);
-        }
-    }
-
-    private String getTime(Node itineraryNode, String timeProperty, String amPmProperty) {
-        String value = null;
-        try {
-            String time = Objects.toString(itineraryNode.getProperty(timeProperty).getValue());
-            time = formatTime(time);
-            //String amPm = Objects.toString(itineraryNode.getProperty(amPmProperty).getValue());
-            //value = time + " " + amPm;
-            value = time;
-        } catch (RepositoryException e) {
-            LOGGER.error("Error while retrieving itinerary time", e);
-        }
-        return value;
     }
 
     private String initDescription() {
@@ -107,11 +72,10 @@ public class ItineraryModel {
         return value;
     }
 
-    public <T> List<T> initModels(Node itineraryNode, Class<T> modelClass, String rootNode, String reference,
-            String callBack) {
+    public <T> List<T> initModels(Node itineraryNode, Class<T> modelClass, String rootNode, String reference, String callBack) {
         List<T> list = new ArrayList<T>();
         try {
-            Resource r = resourceResolver.resolve(itineraryNode.getPath()+"/"+rootNode);
+            Resource r = resourceResolver.resolve(itineraryNode.getPath() + "/" + rootNode);
             Iterator<Resource> children = r.listChildren();
             if (children != null && children.hasNext()) {
                 while (children.hasNext()) {
@@ -119,22 +83,19 @@ public class ItineraryModel {
                     String path = Objects.toString(node.getValueMap().get(reference));
                     if (!StringUtils.isEmpty(path)) {
                         Page page = pageManager.getPage(path);
-                        if(page != null){
+                        if (page != null) {
                             T model = page.adaptTo(modelClass);
                             callback(model, node, callBack, Resource.class);
                             list.add(model);
+                        } else {
+                            LOGGER.debug("Page reference {} not found", path);
                         }
-                        else{
-                            LOGGER.debug("Page reference {} not found",path);
-                        }
-                    }
-                    else{
-                        LOGGER.debug("Property  {} is empty",reference);
+                    } else {
+                        LOGGER.debug("Property  {} is empty", reference);
                     }
                 }
             }
-        } 
-        catch (RepositoryException e) {
+        } catch (RepositoryException e) {
             LOGGER.error("Error while initializing models", e);
         }
         return list;
@@ -154,27 +115,18 @@ public class ItineraryModel {
     }
 
     public void init(Node itineraryNode) {
-        initDate(itineraryNode);
+        // initDate(itineraryNode);
         excursions = initModels(itineraryNode, ExcursionModel.class, "excursions", "excursionReference", "initialize");
         hotels = initModels(itineraryNode, HotelModel.class, "hotels", "hotelReference", null);
         landprograms = initModels(itineraryNode, LandprogramModel.class, "land-programs", "landProgramReference", null);
     }
 
-    private String formatTime(String time) {
-        String value = "";
-        if (!StringUtils.isEmpty(time)) {
-            StringBuilder str = new StringBuilder(time);
-            value = Objects.toString(str.insert(2, ":"));
-        }
-        return value;
-    }
-
-    private String initCountry(){
+    private String initCountry() {
         String country = null;
         String countryId = page.getProperties().get("countryIso2", String.class);
         String tagId = geolocationTagService.getTagFromCountryId(countryId);
         Tag tag = tagManager.resolve(tagId);
-        if(tag != null){
+        if (tag != null) {
             country = tag.getTitle();
         }
         return country;
@@ -185,19 +137,7 @@ public class ItineraryModel {
     }
 
     public String getCountry() {
-        return country ;
-    }
-
-    public Calendar getDate() {
-        return date;
-    }
-
-    public String getArriveTime() {
-        return arriveTime;
-    }
-
-    public String getDepartTime() {
-        return departTime;
+        return country;
     }
 
     public String getThumbnail() {

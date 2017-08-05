@@ -129,7 +129,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             voyages = apiCallService.getVoyages(index);
             processData(voyages,false); 
             index++;
-        } while (voyages!=null &&!voyages.isEmpty() && index==1);
+        } while (voyages!=null &&!voyages.isEmpty());
         
         LOGGER.debug("Cruise importer -- End full strategy import");
     }
@@ -179,7 +179,12 @@ public class CruisesImporterImpl implements CruisesImporter {
             //Updates pages in other languages
             updateLanguages(cruisePage,update,voyage);
             LOGGER.debug("Cruise importer -- Import cruise with id {} finished",voyage.getVoyageId());
-        } else {
+        }
+        //Deactivate page in all languages
+        else if(voyage.getIsDeleted()){
+            deactivateAllLanguages(voyage);
+        }
+        else {
             LOGGER.error("Cruise importer -- Destination with id {} not found", voyage.getDestinationId());
         }
     }
@@ -325,6 +330,18 @@ public class CruisesImporterImpl implements CruisesImporter {
             pageContentNode.setProperty("exclusiveOffers", urls);
         }
         ImporterUtils.saveSession(session, false);
+    }
+    
+    private void deactivateAllLanguages(VoyageWrapper voyage) throws WCMException, RepositoryException{
+        Page cruisePage = cruiseService.getCruisePage(null, voyage.getVoyageId(), null);
+        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        if(languages != null && !languages.isEmpty()){
+            languages.forEach(language ->{
+                Page page = pageManager.getPage(formatPathByLanguage(cruisePage.getPath(),language));
+                if(cruisePage != null)
+                    cruiseService.updateReplicationStatus(voyage.getIsDeleted(), voyage.getIsVisible(), page);
+            });
+        }
     }
     
     private String formatPathByLanguage(String path,String language){

@@ -1,47 +1,49 @@
-.c-cruise__subtitle {
-    text-align: center;
-    font-size: 30px;
-    text-transform: uppercase;
-    font-family: @f-theano_didot;
-    padding: 18px 0 5px;
-    margin: 10px auto;
-    line-height: 1.0909090909;
-
-    /* phone breakpoint */
-    @media screen and (max-width: @screen-sm) {
-        padding: 10px 0 0;
-    }
-}
-
-.c-cruise__descr {
-    text-align: center;
-    font-size: 13px;
-    max-width: 770px;
-    margin: auto;
-    padding: 0 0 20px 0;
-    
-    & a {
-   		text-decoration: underline;
-    }
-    
-    & a:hover {
-   		text-decoration: none;
-    }
+.c-cruise {
+	
+	&__subtitle {
+	    text-align: center;
+	    font-size: 30px;
+	    text-transform: uppercase;
+	    font-family: @f-theano_didot;
+	    padding: 18px 0 5px;
+	    margin: 10px auto;
+	    line-height: 1.0909090909;
+	
+	    /* phone breakpoint */
+	    @media screen and (max-width: @screen-sm) {
+	        padding: 10px 0;
+	        font-size: 20px;
+	        margin: 0 auto 10px;
+	    }
+	}
+	
+	&__descr {
+	    text-align: center;
+	    font-size: 13px;
+	    max-width: 750px;
+	    margin: auto;
+	    padding: 0 0 20px 0;
+	    
+	    & a {
+	   		text-decoration: underline;
+	    }
+	    
+	    & a:hover {
+	   		text-decoration: none;
+	    }
+	}
+	
+	& .c-tab__accordion .c-tab__body {
+		@media screen and (max-width: @screen-sm) {
+			padding-top: 61px;
+		}	   
+	}
+	
 }
 
 // align text on left in one tab
 #landnhotel .c-cruise__descr {
     text-align: left;
-    max-width: 770px;
-}
-#excursion .c-cruise__descr {
-    max-width: 770px;
-}
-#suitenfare .c-cruise__descr {
-    max-width: 100%;
-}
-#highlight .c-cruise-keypeople .c-cruise__descr {
-    max-width: 680px;
 }
 
 // ICONS FEATURES

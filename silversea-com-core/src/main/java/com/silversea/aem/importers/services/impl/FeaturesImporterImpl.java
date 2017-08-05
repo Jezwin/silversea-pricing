@@ -1,17 +1,21 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-
+import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.tagging.InvalidTagFormatException;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.FeaturesImporter;
+import com.silversea.aem.services.ApiConfigurationService;
+import io.swagger.client.ApiException;
+import io.swagger.client.api.CitiesApi;
+import io.swagger.client.api.FeaturesApi;
+import io.swagger.client.model.Feature;
+import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -19,155 +23,116 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.constants.TemplateConstants;
-import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.FeaturesImporter;
-import com.silversea.aem.services.ApiCallService;
-import com.silversea.aem.services.ApiConfigurationService;
+import javax.jcr.Node;
+import javax.jcr.PathNotFoundException;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Feature;
-
-@Component(immediate = true, label = "Silversea.com - Cities importer")
-@Service(value = FeaturesImporter.class)
+@Service
+@Component
 public class FeaturesImporterImpl implements FeaturesImporter {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(FeaturesImporterImpl.class);
 
-	private int sessionRefresh = 100;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-	@Reference
-	private ApiConfigurationService apiConfig;
+    @Override
+    public ImportResult importAllFeatures() {
+        LOGGER.debug("Starting features import");
 
-	@Reference
-	private ApiCallService apiCallService;
+        int successNumber = 0;
+        int errorNumber = 0;
 
-	private ResourceResolver resourceResolver;
-	private PageManager pageManager;
-	private Session session;
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-	public void init() {
-		try {
-			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			pageManager = resourceResolver.adaptTo(PageManager.class);
-			session = resourceResolver.adaptTo(Session.class);
-		} catch (LoginException e) {
-			LOGGER.debug("Features importer login exception ", e);
-		}
-	}
+        ResourceResolver resourceResolver = null;
+        try {
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
 
-	@Override
-	public void importData() throws IOException {
-		init();
+            final FeaturesApi featuresApi = new FeaturesApi(ImporterUtils.getApiClient(apiConfig));
 
-		if (apiConfig.getSessionRefresh() != 0) {
-			sessionRefresh = apiConfig.getSessionRefresh();
-		}
+            if (tagManager == null || session == null) {
+                throw new ImporterException("Cannot initialize tagManager and session");
+            }
 
-		try {
+            final List<Feature> features = featuresApi.featuresGet(null);
+            int j = 0;
 
-			Page featuresRootPage;
-			List<Feature> features;
-			features = apiCallService.getFeatures();
+            for (Feature feature : features) {
+                LOGGER.trace("Importing feature: {} ({})", feature.getName(), feature.getFeatureCod());
 
-			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("featuresUrl"));
-			List<String> local = new ArrayList<>();
-			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
+                try {
+                    final String tagId = "features:" + JcrUtil.createValidName(feature.getName(), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING);
+                    final Tag tag = tagManager.createTag(tagId, feature.getName(), null, false);
 
-			for (String loc : local) {
-				if (loc != null) {
-					featuresRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-					LOGGER.debug("Importing features for langue : {}", loc);
+                    final Node tagNode = tag.adaptTo(Node.class);
 
-					if (featuresRootPage != null) {
+                    if (tagNode == null) {
+                        throw new ImporterException("Cannot get tag from node");
+                    }
 
-						int i = 0;
-						for (Feature feature : features) {
-							try {
+                    tagNode.setProperty("apiTitle", feature.getName());
+                    tagNode.setProperty("featureCode", feature.getFeatureCod());
 
-								LOGGER.debug("Importing Feature: {}", feature.getName());
-								Iterator<Resource> resources = resourceResolver
-										.findResources("/jcr:root/content/silversea-com/" + loc
-												+ "//element(*,cq:Page)[jcr:content/featureId=\""
-												+ feature.getFeatureId() + "\"]", "xpath");
-								Page featurePage = null;
+                    successNumber++;
+                    j++;
+                } catch (RepositoryException e) {
+                    errorNumber++;
 
-								if (resources.hasNext()) {
-									featurePage = resources.next().adaptTo(Page.class);
-									LOGGER.debug(" Feature with {} existe for langue : {}", feature.getFeatureCod(),
-											loc);
-								} else {
-									featurePage = pageManager.create(featuresRootPage.getPath(),
-											StringHelper.getFormatWithoutSpecialCharcters(feature.getName()),
-											TemplateConstants.PATH_FEATURE,
-											StringHelper.getFormatWithoutSpecialCharcters(feature.getName()), false);
-									LOGGER.debug("create Feature with {} for langue : {}", feature.getFeatureCod(),
-											loc);
-								}
+                    LOGGER.error("Import error", e);
+                } catch (InvalidTagFormatException e) {
+                    errorNumber++;
 
-								if (featurePage != null) {
-									Node featurePageContentNode = featurePage.getContentResource().adaptTo(Node.class);
-									if (featurePageContentNode != null) {
-										featurePageContentNode.setProperty(JcrConstants.JCR_TITLE, feature.getName());
-										featurePageContentNode.setProperty("featureId", feature.getFeatureId());
-										featurePageContentNode.setProperty("featureCode", feature.getFeatureCod());
-										featurePageContentNode.setProperty("featureName", feature.getName());
-										featurePageContentNode.setProperty("apiTitle", feature.getName());
-										featurePageContentNode.setProperty("featureOrder", feature.getOrder());
-										session.save();
-										LOGGER.debug("Updated Feature with {} for langue : {}", feature.getFeatureCod(),
-												loc);
+                    LOGGER.error("Cannot create tag", e);
+                }
+            }
 
-									}
-								}
-								i++;
-								if (i % sessionRefresh == 0) {
-									if (session.hasPendingChanges()) {
-										try {
-											session.save();
-										} catch (RepositoryException e) {
-											session.refresh(true);
-										}
-									}
-								}
-							} catch (Exception e) {
-								LOGGER.debug("Features error, number of failures :", e);
-								i++;
-							}
-						}
-						if (session.hasPendingChanges()) {
-							try {
-								Node rootNode = featuresRootPage.getContentResource().adaptTo(Node.class);
-								rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-								session.save();
-							} catch (RepositoryException e) {
-								session.refresh(false);
-							}
-						}
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
 
-					}
-					LOGGER.debug("************************************************************************");
-				}
-			}
-			LOGGER.debug("****************************End of features import******************************");
-			resourceResolver.close();
-		} catch (ApiException | RepositoryException e) {
-			String errorMessage = "Import Feature Errors : {} ";
-			LOGGER.error(errorMessage, e);
-		}
-	}
+                    LOGGER.debug("{} features imported, saving session", +j);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read features from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Cannot save modification", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
+        }
 
+        return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public ImportResult updateFeatures() {
+        return null;
+    }
+
+    @Override
+    public void importOneFeature(String featureCode) {
+        // TODO implement
+    }
 }

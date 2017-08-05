@@ -1,221 +1,261 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.ExclusiveOffersImporter;
+import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.services.GeolocationTagService;
+import io.swagger.client.ApiException;
+import io.swagger.client.api.SpecialOffersApi;
+import io.swagger.client.model.SpecialOffer;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
+import org.osgi.service.component.ComponentContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.util.*;
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.components.beans.ImporterStatus;
-import com.silversea.aem.constants.TemplateConstants;
-import com.silversea.aem.helper.GeolocationHelper;
-import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.ExclusiveOffersImporter;
-import com.silversea.aem.services.ApiCallService;
-import com.silversea.aem.services.ApiConfigurationService;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.model.SpecialOffer;
-
-/**
- * Created by mbennabi on 09/03/2017.
- */
 @Service
-@Component(label = "Silversea.com - Exclusive Offers importer")
+@Component
 public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
-	static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersImporterImpl.class);
 
-	private int sessionRefresh = 100;
-	private int pageSize = 100;
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private ApiConfigurationService apiConfig;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-	private List<Tag> market;
+    @Reference
+    private GeolocationTagService geolocationTagService;
 
-	private List<String> geoMarket;
+    @Activate
+    protected void activate(final ComponentContext context) {
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
 
-	@Reference
-	private ApiCallService apiCallService;
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
+    }
 
-	private ResourceResolver resourceResolver;
-	private PageManager pageManager;
-	private Session session;
-	TagManager tagManager;
+    @Override
+    public ImportResult importExclusiveOffers() {
+        LOGGER.debug("Starting exclusive offers import");
 
-	public void init() {
-		try {
-			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			pageManager = resourceResolver.adaptTo(PageManager.class);
-			tagManager = resourceResolver.adaptTo(TagManager.class);
-			session = resourceResolver.adaptTo(Session.class);
-		} catch (LoginException e) {
-			LOGGER.debug("exclusive offers importer login exception ", e);
-		}
-	}
+        int errorNumber = 0;
+        int successNumber = 0;
 
-	@Override
-	public ImporterStatus importData() throws IOException {
-		init();
-		ImporterStatus status = new ImporterStatus();
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-		int errorNumber = 0;
-		int succesNumber = 0;
+        ResourceResolver resourceResolver = null;
+        try {
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
 
-		if (apiConfig.getSessionRefresh() != 0) {
-			sessionRefresh = apiConfig.getSessionRefresh();
-		}
-		if (apiConfig.getPageSize() != 0) {
-			pageSize = apiConfig.getPageSize();
-		}
-		try {
+            final SpecialOffersApi specialOffersApi = new SpecialOffersApi(ImporterUtils.getApiClient(apiConfig));
 
-			Page offersRootPage;
-			Page RootPage = pageManager.getPage(apiConfig.apiRootPath("spetialOffersUrl"));
-			List<String> local = new ArrayList<>();
-			local = ImporterUtils.finAllLanguageCopies(resourceResolver);
+            if (pageManager == null || session == null) {
+                throw new ImporterException("Cannot initialize pageManager and session");
+            }
 
-			for (String loc : local) {
-				if (loc != null) {
-					offersRootPage = ImporterUtils.getPagePathByLocale(resourceResolver, RootPage, loc);
-					LOGGER.debug("Importing Exclusive offers for langue : {}", loc);
+            // Getting paths to import data
+            LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("exclusiveOffersUrl"));
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("exclusiveOffersUrl"));
+            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 
-					if (offersRootPage != null) {
+            // Iterating over locales to import exclusive offers
+            for (String locale : locales) {
+                final Page exclusiveOffersRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
-						int i = 1;
-						List<SpecialOffer> specialOffers;
-						do {
+                if (exclusiveOffersRootPage == null) {
+                    throw new ImporterException("Exclusive offers root page does not exists " + rootPage + " for lang " + locale);
+                }
 
-							specialOffers = apiCallService.getExclusiveOffers(i, pageSize);
+                LOGGER.debug("Cleaning already imported exclusive offers");
 
-							int j = 0;
+                Iterator<Page> children = exclusiveOffersRootPage.listChildren();
+                while (children.hasNext()) {
+                    final Page child = children.next();
 
-							for (SpecialOffer offers : specialOffers) {
+                    try {
+                        LOGGER.trace("trying to remove {}", child.getPath());
 
-								try {
+                        session.removeItem(child.getPath());
+                        session.save();
+                    } catch (RepositoryException e) {
+                        LOGGER.error("Cannot clean already existing exclusive offers");
+                    }
+                }
 
-									Iterator<Resource> resources = resourceResolver
-											.findResources("/jcr:root/content/silversea-com/" + loc
-													+ "//element(*,cq:Page)[jcr:content/exclusiveOfferId=\""
-													+ offers.getVoyageSpecialOfferId() + "\"]", "xpath");
+                LOGGER.debug("Importing exclusive offers for locale \"{}\"", locale);
 
-									Page offersPage = null;
+                int j = 0, i = 1;
+                List<SpecialOffer> exclusiveOffers;
 
-									if (resources.hasNext()) {
-										offersPage = resources.next().adaptTo(Page.class);
-									} else {
-										offersPage = pageManager.create(offersRootPage.getPath(),
-												JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
-														StringHelper.getFormatWithoutSpecialCharcters(
-																offers.getVoyageSpecialOffer())),
-												TemplateConstants.PATH_EXCLUSIVE_OFFERT,
-												StringHelper.getFormatWithoutSpecialCharcters(
-														offers.getVoyageSpecialOffer()),
-												false);
-										LOGGER.debug("create page {} Exclusive offers for langue : {}",
-												offers.getVoyageSpecialOfferId(), loc);
-									}
+                do {
+                    exclusiveOffers = specialOffersApi.specialOffersGet(i, pageSize, null);
 
-									if (offersPage != null) {
-										Node offersContentNode = offersPage.getContentResource().adaptTo(Node.class);
-										offersContentNode.setProperty(JcrConstants.JCR_TITLE,
-												offers.getVoyageSpecialOffer());
-										offersContentNode.setProperty("exclusiveOfferId",
-												offers.getVoyageSpecialOfferId());
-										offersContentNode.setProperty("startDate", offers.getValidFrom().toString());
-										offersContentNode.setProperty("endDate", offers.getValidTo().toString());
+                    for (SpecialOffer exclusiveOffer : exclusiveOffers) {
+                        LOGGER.trace("Importing exclusive offer: {}", exclusiveOffer.getVoyageSpecialOffer());
 
-										offersPage.adaptTo(Node.class).addMixin("cq:Taggable");
+                        try {
+                            // Create exclusive offer page
+                            final Page exclusiveOfferPage = pageManager.create(exclusiveOffersRootPage.getPath(),
+                                    JcrUtil.createValidChildName(exclusiveOffersRootPage.adaptTo(Node.class),
+                                            StringHelper.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer())),
+                                    WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
+                                    StringHelper.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer()),
+                                    false);
 
-										geoMarket = offers.getMarkets();
-										market = new ArrayList<Tag>();
-										if (GeolocationHelper.getGeoMarketCode(tagManager, geoMarket) != null) {
-											market = GeolocationHelper.getGeoMarketCode(tagManager, geoMarket);
-										}
-										tagManager.setTags(offersPage.getContentResource(),
-												market.stream().toArray((Tag[]::new)));
+                            // If exclusive offer is created, set the properties
+                            if (exclusiveOfferPage == null) {
+                                throw new ImporterException("Cannot create exclusive offer page for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+                            }
 
-										succesNumber = succesNumber + 1;
-										j++;
+                            Node exclusiveOfferPageContentNode = exclusiveOfferPage.getContentResource().adaptTo(Node.class);
 
-										LOGGER.debug("update page {} Exclusive offers for langue : {}",
-												offers.getVoyageSpecialOfferId(), loc);
+                            if (exclusiveOfferPageContentNode == null) {
+                                throw new ImporterException("Cannot set properties for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+                            }
 
-									}
+                            exclusiveOfferPageContentNode.setProperty(JcrConstants.JCR_TITLE, exclusiveOffer.getVoyageSpecialOffer());
+                            exclusiveOfferPageContentNode.setProperty("exclusiveOfferId", exclusiveOffer.getVoyageSpecialOfferId());
 
-									if (j % sessionRefresh == 0) {
-										if (session.hasPendingChanges()) {
-											try {
-												session.save();
-											} catch (RepositoryException e) {
-												session.refresh(true);
-											}
-										}
-									}
-								} catch (Exception e) {
-									errorNumber = errorNumber + 1;
-									LOGGER.debug("Exclusive offer falure error, number of faulures :", +errorNumber);
-									j++;
-								}
-							}
+                            // TODO convert start and end date into date format
+                            exclusiveOfferPageContentNode.setProperty("startDate", exclusiveOffer.getValidFrom().toString());
+                            exclusiveOfferPageContentNode.setProperty("endDate", exclusiveOffer.getValidTo().toString());
 
-							i++;
-						} while (specialOffers.size() > 0);
+                            // Set geolocation tags for the market
+                            List<String> geoMarketsList = exclusiveOffer.getMarkets();
+                            String[] geoMarketsTagIds = new String[geoMarketsList.size()];
 
-						if (session.hasPendingChanges()) {
-							try {
-								// save migration date
-								Node rootNode = offersRootPage.getContentResource().adaptTo(Node.class);
-								rootNode.setProperty("lastModificationDate", Calendar.getInstance());
-								session.save();
-							} catch (RepositoryException e) {
-								session.refresh(false);
-							}
-						}
+                            for (int k = 0; k < geoMarketsList.size(); k++) {
+                                geoMarketsTagIds[k] = WcmConstants.GEOLOCATION_TAGS_PREFIX + geoMarketsList.get(k).toLowerCase();
+                            }
 
-					}
-				}
-			}
+                            exclusiveOfferPageContentNode.setProperty("cq:tags", geoMarketsTagIds);
 
-			resourceResolver.close();
-		} catch (ApiException | RepositoryException e) {
-			LOGGER.error("Exception importing Exclusive offers", e);
-		}
+                            // Set livecopy mixin
+                            if (!locale.equals("en")) {
+                                exclusiveOfferPageContentNode.addMixin("cq:LiveRelationship");
+                            }
 
-		status.setErrorNumber(errorNumber);
-		status.setSuccesNumber(succesNumber);
+                            LOGGER.trace("Exclusive offer {} successfully created", exclusiveOfferPage.getPath());
 
-		return status;
-	}
+                            successNumber++;
+                            j++;
 
+                            if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+
+                                    LOGGER.debug("{} exclusive offers imported, saving session", +j);
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
+                            }
+                        } catch (RepositoryException | WCMException | ImporterException e) {
+                            errorNumber++;
+
+                            LOGGER.error("Import error", e);
+                        }
+                    }
+
+                    i++;
+                } while (exclusiveOffers.size() > 0);
+            }
+
+            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("exclusiveOffersUrl"),
+                    "lastModificationDate");
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read exclusive offers from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
+        }
+
+        LOGGER.debug("Ending exclusive offers import, success: {}, error: {}", +successNumber, +errorNumber);
+
+        return new ImportResult(successNumber, errorNumber);
+    }
+
+    @Override
+    public JSONObject getExclusiveOffersMapping() {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+
+            Iterator<Resource> exclusiveOffers = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]", "xpath");
+
+            while (exclusiveOffers.hasNext()) {
+                final Resource exclusiveOffer = exclusiveOffers.next();
+                final Page exclusiveOfferPage = exclusiveOffer.adaptTo(Page.class);
+
+                final Resource childContent = exclusiveOffer.getChild(JcrConstants.JCR_CONTENT);
+
+                if (exclusiveOfferPage != null && childContent != null) {
+                    final ValueMap childContentProperties = childContent.getValueMap();
+                    final String exclusiveOfferId = childContentProperties.get("exclusiveOfferId", String.class);
+                    final String exclusiveOfferLang = exclusiveOfferPage.getAbsoluteParent(2).getName();
+                    final String exclusiveOfferPath = exclusiveOfferPage.getPath();
+
+                    if (exclusiveOfferId != null && exclusiveOfferLang != null) {
+                        try {
+                            if (jsonObject.has(exclusiveOfferId)) {
+                                final JSONObject exclusiveOfferObject = jsonObject.getJSONObject(exclusiveOfferId);
+                                exclusiveOfferObject.put(exclusiveOfferLang, exclusiveOfferPath);
+                                jsonObject.put(exclusiveOfferId, exclusiveOfferObject);
+                            } else {
+                                JSONObject shipObject = new JSONObject();
+                                shipObject.put(exclusiveOfferLang, exclusiveOfferPath);
+                                jsonObject.put(exclusiveOfferId, shipObject);
+                            }
+                        } catch (JSONException e) {
+                            LOGGER.error("Cannot add exclusiveOffer {} with path {} to exclusiveOffers array", exclusiveOfferId, exclusiveOffer.getPath(), e);
+                        }
+                    }
+                }
+            }
+
+        } catch (LoginException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        }
+
+        return jsonObject;
+    }
 }

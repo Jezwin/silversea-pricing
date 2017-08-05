@@ -19,10 +19,11 @@ import com.day.cq.wcm.api.PageManager;
 import com.google.common.collect.Lists;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
+import org.apache.commons.lang3.StringUtils;
 
 public class SearchCruiseUse extends WCMUsePojo {
     private Map<String, String> dates;
-    private List<Page> destinations = new ArrayList<>();
+    private List<Page> destinations;
 
     @Override
     public void activate() throws Exception {
@@ -70,7 +71,7 @@ public class SearchCruiseUse extends WCMUsePojo {
         Iterator<Page> iteratorDestination = destination.listChildren();
         List<Page> destinationList = Lists.newArrayList(iteratorDestination);
         destinations = destinationList.stream()
-                .filter(item -> item.getProperties().get("sling:resourceType", String.class).equals(WcmConstants.RT_DESTINATION))
+                .filter(item -> StringUtils.equals(item.getProperties().get("sling:resourceType", String.class), WcmConstants.RT_DESTINATION)  )
                 .collect(Collectors.toList());
 
     }

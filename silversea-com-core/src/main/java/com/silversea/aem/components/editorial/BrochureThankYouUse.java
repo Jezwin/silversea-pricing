@@ -1,16 +1,12 @@
 package com.silversea.aem.components.editorial;
 
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.dam.api.Asset;
+import com.silversea.aem.models.BrochureModel;
 import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.dam.api.Asset;
-import com.silversea.aem.models.BrochureModel;
-
-/**
- *
- */
 public class BrochureThankYouUse extends WCMUsePojo {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BrochureThankYouUse.class);
@@ -19,11 +15,11 @@ public class BrochureThankYouUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-    	// Initialize the brochure model
+        // Initialize the brochure model
         // The requested brochure will be obtained in the URL suffix
         String brochurePath = getRequest().getRequestPathInfo().getSuffix();
         if (brochurePath != null) {
-            brochurePath = brochurePath.endsWith(".html") ? brochurePath.substring(0, brochurePath.lastIndexOf('.')) : brochurePath; 
+            brochurePath = brochurePath.endsWith(".html") ? brochurePath.substring(0, brochurePath.lastIndexOf('.')) : brochurePath;
             Resource assetResource = getResourceResolver().getResource(brochurePath);
             Asset asset = assetResource.adaptTo(Asset.class);
 

@@ -5,7 +5,6 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -75,8 +74,9 @@ public class HotelsImporterImpl implements HotelsImporter {
         Map<String, Object> authenticationPrams = new HashMap<>();
         authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -139,7 +139,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                             final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                     JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                             StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                    TemplateConstants.PAGE_TEMPLATE_HOTEL,
+                                    WcmConstants.PAGE_TEMPLATE_HOTEL,
                                     StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
@@ -189,12 +189,14 @@ public class HotelsImporterImpl implements HotelsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateHotels");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read hotels from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         LOGGER.debug("Ending hotels import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -212,8 +214,9 @@ public class HotelsImporterImpl implements HotelsImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
+        ResourceResolver resourceResolver = null;
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -321,7 +324,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
                                                 StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
-                                        TemplateConstants.PAGE_TEMPLATE_HOTEL,
+                                        WcmConstants.PAGE_TEMPLATE_HOTEL,
                                         StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                 LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
@@ -363,12 +366,14 @@ public class HotelsImporterImpl implements HotelsImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateHotels");
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read hotels from API", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
         }
 
         return new ImportResult(successNumber, errorNumber);

@@ -20,8 +20,8 @@
 
                     <div class="c-accordion__title c-accordion__title--img">
                         <div class="c-accordion__title--img_block">
-                            <sly data-sly-test.imagePrefix="${'/is/image/'}" />
-                            <div data-sly-test="${item.thumbnail}" style="background-image: url(${item.thumbnail @ prependPath=imagePrefix, context='uri'}?wid=468&fit=hfit)"></div>
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.itineraryModel.thumbnail}"/>
+                            <div data-sly-test="${item.itineraryModel.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
                         </div>
                     </div>
 
@@ -29,8 +29,8 @@
                         <div class="c-accordion__title">
                             <div class="c-accordion__title">
                                 <ul class="c-accordion__subtitle list">
-                                    <li class="c-accordion__subtitle veryimportant">${item.title}</li>
-                                    <li class="c-accordion__subtitle city">${item.country}</li>
+                                    <li class="c-accordion__subtitle veryimportant">${item.itineraryModel.title}</li>
+                                    <li class="c-accordion__subtitle city">${item.itineraryModel.country}</li>
                                 </ul>
                                 <ul class="c-accordion__subtitle list">
                                     <li class="c-accordion__subtitle" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
@@ -46,40 +46,40 @@
                             </div>
                         </div>
                         <div class="c-accordion__title--body c-accordion__header--unclickable">
-                            ${item.description @ context='html'}
+                            ${item.itineraryModel.description @ context='html'}
         
-                            <a data-sly-test="${item.excursions.size > 0}"
+                            <a data-sly-test="${item.itineraryModel.excursions.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
                                title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
-                                ${'view' @ i18n} ${item.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                                ${'view' @ i18n} ${item.itineraryModel.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
                             </a>
 
-                            <a data-sly-test="${item.landprograms.size > 0}"
+                            <a data-sly-test="${item.itineraryModel.landprograms.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
                                title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
-                                ${'view' @ i18n} ${item.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                                ${'view' @ i18n} ${item.itineraryModel.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="c-accordion__body">
                     <div class="c-accordion__body--panel">
-                        ${item.description @ context='html'}
+                        ${item.itineraryModel.description @ context='html'}
 
-                        <a data-sly-test="${item.excursions.size > 0}"
+                        <a data-sly-test="${item.itineraryModel.excursions.size > 0}"
                            href="#"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
-                            ${'view' @ i18n} ${item.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                            ${'view' @ i18n} ${item.itineraryModel.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
                         </a>
 
-                        <a data-sly-test="${item.landprograms.size > 0}"
+                        <a data-sly-test="${item.itineraryModel.landprograms.size > 0}"
                            href="#"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
-                            ${'view' @ i18n} ${item.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                            ${'view' @ i18n} ${item.itineraryModel.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
                         </a>
                     </div>
                 </div>

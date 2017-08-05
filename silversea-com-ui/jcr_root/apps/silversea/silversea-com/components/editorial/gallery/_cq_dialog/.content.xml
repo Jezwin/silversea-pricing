@@ -27,12 +27,12 @@
                             <category
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="silversea/silversea-com/ui/components/foundation/form/multifields"
-                                fieldLabel="Call to Actions">
+                                fieldLabel="Gallery category">
                                 <field
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/form/fieldset"
                                     class="multifields-wrapper"
-                                    name="./callToActions">
+                                    name="./category">
                                     <items jcr:primaryType="nt:unstructured">
                                         <categorytitle
                                             jcr:primaryType="nt:unstructured"

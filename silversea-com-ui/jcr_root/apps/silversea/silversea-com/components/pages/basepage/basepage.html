@@ -2,7 +2,9 @@
 <html
     data-sly-use.runModeHelper="com.silversea.aem.helper.RunModesHelper"
     data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"
-    lang="${pageHelper.homePage.name}">
+    data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
+    class="${countryHelper.hrefLangValid}"
+    lang="${countryHelper.hrefLangValid}">
 <head data-sly-include="head.html"></head>
 <body class="${runModeHelper.authorRunModeClass} ${pageHelper.templateName}" data-sly-include="body.html">
 </body>

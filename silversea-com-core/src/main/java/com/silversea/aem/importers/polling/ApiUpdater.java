@@ -6,10 +6,7 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.CitiesImporter;
-import com.silversea.aem.importers.services.HotelsImporter;
-import com.silversea.aem.importers.services.LandProgramsImporter;
-import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.resource.*;
@@ -27,7 +24,7 @@ import java.util.Map;
 @Component(label = "Silversea - API Updater", metatype = true)
 @Service(value = Runnable.class)
 @Properties({
-        @Property(name = "scheduler.expression", value = "0 * * * * ?"),
+        @Property(name = "scheduler.expression", value = "0 0 0 * * ?"),
         @Property(name = "scheduler.concurrent", boolValue = false)
 })
 public class ApiUpdater implements Runnable {
@@ -53,6 +50,9 @@ public class ApiUpdater implements Runnable {
     private ShoreExcursionsImporter shoreExcursionsImporter;
 
     @Reference
+    private BrochuresImporter brochuresImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -76,6 +76,10 @@ public class ApiUpdater implements Runnable {
             final ImportResult importResultExcursions = shoreExcursionsImporter.updateShoreExcursions();
             LOGGER.info("Excursions import : {} success, {} errors", importResultExcursions.getSuccessNumber(), importResultExcursions.getErrorNumber());
 
+            // update brochures
+            final ImportResult importResultBrochures = brochuresImporter.updateBrochures();
+            LOGGER.info("Brochures import : {} success, {} errors", importResultBrochures.getSuccessNumber(), importResultBrochures.getErrorNumber());
+
             // replicate all modifications
             LOGGER.debug("Start replication on modified pages");
 
@@ -94,7 +98,7 @@ public class ApiUpdater implements Runnable {
                 int j = 0;
 
                 Iterator<Resource> resources = resourceResolver
-                        .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
+                        .findResources("/jcr:root/content//element(*,cq:Page)[" +
                                 "jcr:content/toDeactivate or jcr:content/toActivate]", "xpath");
 
                 while (resources.hasNext()) {

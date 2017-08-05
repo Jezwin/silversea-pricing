@@ -1,32 +1,94 @@
 package com.silversea.aem.helper;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.jcr.RangeIterator;
+
+import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.WCMException;
+import com.day.cq.wcm.msm.api.LiveRelationship;
+import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 
 public class PageHelper extends WCMUsePojo {
-
     private Page page;
     private String thumbnail;
+    private Map<String, String> languagePages;
 
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
-        Resource resource = getResourceResolver().getResource(path);
+        Resource resource = null;
+        if (path != null) {
+            resource = getResourceResolver().getResource(path);
+        }
 
         if (resource != null) {
             page = resource.adaptTo(Page.class);
 
-            if(page != null) {
+            if (page != null) {
                 Resource imageRes = page.getContentResource("image");
                 if (imageRes != null) {
                     thumbnail = imageRes.getValueMap().get("fileReference", String.class);
                 }
             }
         }
+
+        // Get hrefLang page
+        languagePages = fillLanguagePages();
+    }
+
+    private Map<String, String> fillLanguagePages() throws WCMException {
+        Resource currentRes = getCurrentPage().adaptTo(Resource.class);
+        LiveRelationshipManager liveRelationshipManager = getResourceResolver().adaptTo(LiveRelationshipManager.class);
+        Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+        Locale locale;
+
+        String bluePrintPath = "";
+
+        if (liveRelationshipManager.hasLiveRelationship(currentRes)) {
+            // Current page is a livecopy
+            LiveRelationship liveRelationship = liveRelationshipManager.getLiveRelationship(currentRes, false);
+            // Set blue print path
+            bluePrintPath = liveRelationship.getSourcePath();
+        } else if (liveRelationshipManager.isSource(currentRes)) {
+            // Current page is blueprint
+            bluePrintPath = getCurrentPage().getPath();
+        }
+
+        languagePages = new LinkedHashMap<String, String>();
+        Resource bluePrintRes = getResourceResolver().getResource(bluePrintPath);
+
+        // Add blueprint
+        locale = getPageManager().getPage(bluePrintPath).getLanguage(false);
+        languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
+
+        RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(bluePrintRes, null, null);
+
+        while (liveRelationships.hasNext()) {
+            LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+            Resource targetRes = getResourceResolver().getResource(liveRelationship.getTargetPath());
+
+            if (targetRes != null) {
+                final Page targetPage = targetRes.adaptTo(Page.class);
+
+                if (targetPage != null) {
+                    locale = targetPage.getLanguage(false);
+
+                    // Add livecopy
+                    languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
+                }
+            }
+        }
+
+        return languagePages;
     }
 
     /**
@@ -48,19 +110,20 @@ public class PageHelper extends WCMUsePojo {
      */
     public String getTemplateName() {
         String path = getCurrentPage().getProperties().get(NameConstants.NN_TEMPLATE, String.class);
-
-        if (StringUtils.isEmpty(path)) {
-            return "";
-        }
-
-        return path.substring(path.lastIndexOf('/') + 1);
+        return PathUtils.getName(path);
     }
-    
 
     /**
      * @return the page for a given path
      */
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    /**
+     * @return the languagePages
+     */
+    public Map<String, String> getLanguagePages() {
+        return languagePages;
     }
 }

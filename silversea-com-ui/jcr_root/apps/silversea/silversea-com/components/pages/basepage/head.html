@@ -1,10 +1,23 @@
+<sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
+    data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=true}" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"
       data-sly-use.head="head.js"
       data-sly-use.headlibRenderer="headlibs.html"
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
-<meta data-sly-test.description="${head.description}" name="description" content="${description}"/>
-<sly data-sly-include="datalayer.html"></sly>
+<meta data-sly-test.description="${currentPage.description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
+<!--/* open graph tag */-->
+<meta property="fb:app_id" data-sly-test.appID="${currentPage.appId || inheritedPageProperties.appId}" content="${appID}" />
+<meta property="og:title" content="${currentPage.pageTitle || currentPage.title} | Silversea" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="${externalizerHelper.externalizedUrl @ extension='html'}" />
+<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = pageHelper.thumbnail}"/>
+<meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${assetHelper.imageUrl}?wid=1200" />
+<meta property="og:description" data-sly-test="${description}" content="${description}" />
+<sly data-sly-list="${pageHelper.languagePages}">
+<link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
+<!--/* /open graph tag */-->
+<sly data-sly-include="datalayer.html" />
 <sly data-sly-call="${headlibRenderer.headlibs @ designPath=head.designPath}" />
 <sly data-sly-include="author.html" />
 <sly data-sly-include="/libs/cq/cloudserviceconfigs/components/servicelibs/servicelibs.jsp" />
@@ -24,5 +37,4 @@
 <meta name="msapplication-TileColor" content="#2d89ef">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png">
 <meta name="theme-color" content="#ffffff">
-<!--/** needed for the DTM integration **/-->
-<title>${head.title}</title>
+<title>${currentPage.pageTitle || currentPage.title} | Silversea</title>

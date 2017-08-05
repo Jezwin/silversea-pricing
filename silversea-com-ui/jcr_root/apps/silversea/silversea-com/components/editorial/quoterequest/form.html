@@ -1,13 +1,15 @@
 <form class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
-    <input name="requestsource" type="hidden" value="RAQ" />
+    <input name="requestsource" type="hidden" value="website" />
+    <input name="requesttype" type="hidden" value="RAQ" />
     <sly data-sly-test="${use.isCruiseRequested}">
         <input type="hidden" name="voyagename" value="${use.cruiseTitle}" />
+        <input type="hidden" name="voyagecode" value="${use.cruiseCode}" />
         <input type="hidden" name="departuredate" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=use.cruiseDepartureDate}" value="${startDate.value}" />
         <input type="hidden" name="voyagelength" value="${use.cruiseDuration} ${'days' @ i18n}" />
         <input type="hidden" name="shipname" value="${use.cruiseShipName}" />
         <input type="hidden" name="price" value="${use.cruisePrice.currency} ${use.cruisePrice.value}" />
-        <input data-sly-test="${use.isSuiteVariationRequested}" type="hidden" name="suitevariation" value="${use.suiteName}" class="datalayer-suite-name" data-sly-attribute.tracksuite="${use.suiteName}" />
-        <input data-sly-test="${use.isSuiteCategoryRequested}" type="hidden" name="suitecategory" value="${use.suiteName @ i18n}" class="datalayer-suite-name" data-sly-attribute.tracksuite="${use.suiteName}"/>
+        <input data-sly-test="${use.isSuiteVariationRequested}" type="hidden" name="suitevariation" value="${use.suiteName}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}" />
+        <input data-sly-test="${use.isSuiteCategoryRequested}" type="hidden" name="suitecategory" value="${use.suiteName @ i18n}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}"/>
     </sly>
 
     <div class="form-group form-group-lg has-feedback input--title">
@@ -62,7 +64,7 @@
         <input type="hidden" name="phone" />
         <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
             <option value="">${'country-code' @ i18n}*</option>
-            <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
+            <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.iso2}" data-country-code="${country.valueMap.prefix}">${country.valueMap.name} (${country.valueMap.prefix})</option>
         </select>
     </div>
 

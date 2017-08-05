@@ -5,12 +5,12 @@ import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 
 public class SignUpUse extends WCMUsePojo {
+
     private String pageReference;
 
     @Override
     public void activate() throws Exception {
-
-        InheritanceValueMap allInheritedProperties = new HierarchyNodeInheritanceValueMap(getResource());
+        final InheritanceValueMap allInheritedProperties = new HierarchyNodeInheritanceValueMap(getResource());
         pageReference = allInheritedProperties.getInherited("pageReference", String.class);
     }
 

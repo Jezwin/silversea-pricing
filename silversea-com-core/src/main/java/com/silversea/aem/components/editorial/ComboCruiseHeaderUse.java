@@ -10,7 +10,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.models.ComboCruiseModel;
-import com.silversea.aem.models.ItineraryModel;
+import com.silversea.aem.models.CruiseItineraryModel;
 import com.silversea.aem.models.SegmentModel;
 import com.silversea.aem.services.GeolocationService;
 
@@ -57,9 +57,9 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
         if(segments != null && !segments.isEmpty()){
             SegmentModel segment = segments.get(0);
             if(segment !=null &&  segment.getCruise() != null){
-                List<ItineraryModel> itineraries = segment.getCruise().getItineraries();
+                List<CruiseItineraryModel> itineraries = segment.getCruise().getItineraries();
                 if(itineraries!=null && !itineraries.isEmpty()){
-                    port = itineraries.get(0).getTitle();
+                    port = itineraries.get(0).getItineraryModel().getTitle();
                 }
             }
         }

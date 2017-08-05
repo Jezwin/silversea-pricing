@@ -1,14 +1,12 @@
 package com.silversea.aem.models;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
@@ -46,7 +44,7 @@ public class BlogPostTeaserModel {
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/publicationDate")
     @Optional
-    private Date publicationDate;
+    private Calendar publicationDate;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
@@ -72,7 +70,7 @@ public class BlogPostTeaserModel {
         return longDescription;
     }
 
-    public Date getPublicationDate() {
+    public Calendar getPublicationDate() {
         return publicationDate;
     }
 
@@ -80,6 +78,7 @@ public class BlogPostTeaserModel {
         return assetSelectionReference;
     }
 
+    @Deprecated
     public String getFormatPublicationDate() {
         String formatDate = "";
         try{
@@ -87,15 +86,14 @@ public class BlogPostTeaserModel {
             if (publicationDate != null) {
                 String languageRootPath = LanguageUtil.getLanguageRoot(page.getContentResource().getPath());
                 String lang = languageRootPath.split("/")[languageRootPath.split("/").length - 1];
-                Calendar cal = DateUtils.toCalendar(publicationDate);
                 StringBuilder builder = new StringBuilder();
                 builder.append("<span class='number-value'>");
-                builder.append(cal.get(Calendar.DAY_OF_MONTH));
+                builder.append(publicationDate.get(Calendar.DAY_OF_MONTH));
                 builder.append("</span>&nbsp;");
                 builder.append("<span class='span-date'>");
-                builder.append(cal.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
+                builder.append(publicationDate.getDisplayName(Calendar.MONTH, Calendar.LONG, LanguageUtil.getLocale(lang)));
                 builder.append("&nbsp;");
-                builder.append(cal.get(Calendar.YEAR));
+                builder.append(publicationDate.get(Calendar.YEAR));
                 builder.append("</span>");
                 formatDate = builder.toString();
             }

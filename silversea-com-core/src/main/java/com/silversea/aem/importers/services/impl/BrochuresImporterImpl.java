@@ -1,181 +1,279 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.BrochuresImporter;
+import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.services.GeolocationTagService;
+import io.swagger.client.ApiException;
+import io.swagger.client.api.BrochuresApi;
+import io.swagger.client.model.Brochure;
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.*;
+import org.osgi.service.component.ComponentContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.adobe.granite.asset.api.Asset;
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.dam.api.DamConstants;
-import com.day.cq.replication.ReplicationActionType;
-import com.day.cq.replication.ReplicationException;
-import com.day.cq.replication.Replicator;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.BrochuresImporter;
-import com.silversea.aem.services.ApiCallService;
-import com.silversea.aem.services.ApiConfigurationService;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.model.Brochure;
+import java.util.*;
 
 @Service
-@Component(label = "Silversea.com - Brochures importer")
+@Component
 public class BrochuresImporterImpl implements BrochuresImporter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BrochuresImporterImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BrochuresImporterImpl.class);
 
-	private static final int PER_PAGE = 100;
-	private static final String LANGUAGE_TAG_PREFIX = "languages:";
+    private int sessionRefresh = 100;
+    private int pageSize = 100;
 
-	@Reference
-	private ResourceResolverFactory resourceResolverFactory;
-	@Reference
-	private ApiConfigurationService apiConfig;
-	@Reference
-	private Replicator replicat;
+    @Reference
+    private ResourceResolverFactory resourceResolverFactory;
 
-	@Reference
-	private ApiCallService apiCallService;
+    @Reference
+    private ApiConfigurationService apiConfig;
 
-	private ResourceResolver resourceResolver;
-	private Session session;
+    @Reference
+    private GeolocationTagService geolocationTagService;
 
-	private void init() {
-		try {
-			Map<String, Object> authenticationPrams = new HashMap<String, Object>();
-			authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-			resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
-			session = resourceResolver.adaptTo(Session.class);
-		} catch (LoginException e) {
-			LOGGER.debug("Cruise importer login exception ", e);
-		}
-	}
+    @Activate
+    protected void activate(final ComponentContext context) {
+        if (apiConfig.getSessionRefresh() != 0) {
+            sessionRefresh = apiConfig.getSessionRefresh();
+        }
 
-	/** {@inheritDoc} **/
-	public void importBrochures() throws IOException {
-		init();
-		List<Brochure> brochures = null;
-		int index = 1;
+        if (apiConfig.getPageSize() != 0) {
+            pageSize = apiConfig.getPageSize();
+        }
+    }
 
-		try {
+    @Override
+    public ImportResult importAllBrochures() {
+        return importOrUpdateBrochures("import");
+    }
 
-			do {
-				LOGGER.debug("[Importing brochure]: Start importing brochures");
-				brochures = apiCallService.getBrochures(index, PER_PAGE);
-				for (Brochure brochure : brochures) {
-					LOGGER.debug("[Importing brochure]: import brochure with code {}", brochure.getBrochureCod());
-					Iterator<Resource> resources = findBrochuresByCode(brochure.getBrochureCod(), resourceResolver);
-					updateBrochures(resources, brochure, session);
-					if ((index - 1) % PER_PAGE == 0) {
-						saveSession(session, true);
-					}
-				}
-				index++;
-			} while (brochures.size() > 0);
-			saveSession(session, false);
+    @Override
+    public ImportResult updateBrochures() {
+        return importOrUpdateBrochures("update");
+    }
 
-		} catch (ApiException | RepositoryException e) {
-			LOGGER.error("[Importing brochure] Error while importing brochure {}", e);
-		} finally {
-			if (resourceResolver != null && resourceResolver.isLive()) {
-				resourceResolver.close();
-				resourceResolver = null;
-			}
-		}
+    private ImportResult importOrUpdateBrochures(final String mode) {
+        LOGGER.debug("Starting brochures import");
 
-	}
+        int successNumber = 0;
+        int errorNumber = 0;
 
-	/**
-	 * Find a brochure by its code
-	 * 
-	 * @param code:
-	 *            brochure's code
-	 * @param resourceResolver:
-	 *            resource resolver
-	 * @return list of resources
-	 */
-	private Iterator<Resource> findBrochuresByCode(String code, ResourceResolver resourceResolver) {
-		Iterator<Resource> brochures = resourceResolver
-				.findResources("//element(*,dam:Asset)[jcr:content/metadata/brochureCode=\"" + code + "\"]", "xpath");
-		return brochures;
-	}
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-	/**
-	 * Update list of brochures
-	 * 
-	 * @param resources:
-	 *            list of brochures to update
-	 * @param brochure:
-	 *            brochure source
-	 */
-	private void updateBrochures(Iterator<Resource> resources, Brochure brochure, Session session) {
+        ResourceResolver resourceResolver = null;
+        try {
+            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
 
-		if (resources != null && resources.hasNext()) {
-			LOGGER.debug("[Updating brochure]: Update brochure with code {}", brochure.getBrochureCod());
-			while (resources.hasNext()) {
-				Resource resource = resources.next();
-				Asset asset = resource.adaptTo(Asset.class);
-				String[] languageTags = { LANGUAGE_TAG_PREFIX + brochure.getLanguageCod().toLowerCase() };
+            final BrochuresApi brochuresApi = new BrochuresApi(ImporterUtils.getApiClient(apiConfig));
 
-				try {
-					Node node = asset.adaptTo(Node.class).getNode(JcrConstants.JCR_CONTENT + "/metadata");
-					node.setProperty(DamConstants.DC_TITLE, brochure.getTitle());
-					node.setProperty(WcmConstants.PN_BROCHURE_CODE, brochure.getBrochureCod());
-					node.setProperty(WcmConstants.PN_BROCHURE_ONLINE_URL, brochure.getBrochureUrl());
-					node.setProperty(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, brochure.getDigitalOnly());
-					node.setProperty("cq:tags", languageTags);
-					saveSession(session, false);
-					if (!replicat.getReplicationStatus(session, node.getParent().getPath()).isActivated()) {
-						try {
-							replicat.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
-						} catch (ReplicationException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				} catch (RepositoryException e) {
-					LOGGER.error("[Updating brochure]: Error while updating brochure{}", e);
-				}
-			}
-		} else {
-			LOGGER.debug("[Updating brochure]: Brochure with code {} not found", brochure.getBrochureCod());
-		}
-	}
+            int j = 0, i = 1;
+            List<Brochure> brochures;
+            List<String> brochureCodes = new ArrayList<>();
 
-	/**
-	 * Save session
-	 * 
-	 * @param session
-	 *            : session to save
-	 * @param isRefresh:
-	 *            boolean indicates if we refresh session
-	 * @throws RepositoryException:
-	 *             throw a repository exception
-	 */
-	private void saveSession(Session session, boolean isRefresh) throws RepositoryException {
-		try {
-			if (session.hasPendingChanges()) {
-				session.save();
-			}
-		} catch (RepositoryException e) {
-			session.refresh(isRefresh);
-		}
-	}
+            do {
+                brochures = brochuresApi.brochuresGet(null, i, pageSize, null);
+
+                for (Brochure brochure : brochures) {
+                    LOGGER.trace("Starting import of {} ({})", brochure.getTitle(), brochure.getBrochureCod());
+
+                    brochureCodes.add(brochure.getBrochureCod());
+
+                    try {
+                        final String query = "/jcr:root/content/dam/silversea-com/brochures/" + brochure.getLanguageCod().toLowerCase()
+                                + "//element(*, dam:Asset)["
+                                + "jcr:content/metadata/brochureCode=\"" + brochure.getBrochureCod() + "\"]";
+
+                        final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
+
+                        if (!resources.hasNext()) {
+                            LOGGER.error("Cannot find any brochure for {} ({}) in lang {}", brochure.getTitle(),
+                                    brochure.getBrochureCod(), brochure.getLanguageCod().toLowerCase());
+
+                            errorNumber++;
+                        }
+
+                        while (resources.hasNext()) {
+                            final Resource resource = resources.next();
+
+                            LOGGER.trace("Found brochure at {}", resource.getPath());
+
+                            final Resource metadataResource = resource.getChild("jcr:content/metadata");
+
+                            if (metadataResource == null) {
+                                throw new ImporterException("Asset " + resource.getPath() + " has no metadata node");
+                            }
+
+                            final Node metadataNode = metadataResource.adaptTo(Node.class);
+
+                            // Merging already set tags with geolocation ones
+                            final List<String> tags = geolocationTagService.getTagIdsFromCountryCodeIso3(brochure.getCountries());
+
+                            if (mode.equals("import")) {
+                                LOGGER.trace("Starting import of brochure ({}) data at {}", brochure.getBrochureCod(), resource.getPath());
+
+                                final Tag[] existingTags = tagManager.getTags(metadataResource);
+
+                                for (Tag tag : existingTags) {
+                                    tags.add(tag.getTagID());
+                                }
+
+                                // Setting properties
+                                metadataNode.setProperty("dc:title", brochure.getTitle());
+                                metadataNode.setProperty("onlineBrochureUrl", brochure.getBrochureUrl());
+                                metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
+                                metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));
+
+                                successNumber++;
+                                j++;
+
+                                LOGGER.trace("Brochure data written on {}", resource.getPath());
+                            } else if (mode.equals("update")) {
+                                LOGGER.trace("Starting update of brochure ({}) data at {}", brochure.getBrochureCod(), resource.getPath());
+
+                                final ValueMap metadataProperties = metadataResource.getValueMap();
+
+                                final String title = metadataProperties.get("dc:title", String.class);
+                                final String onlineBrochureUrl = metadataProperties.get("onlineBrochureUrl", String.class);
+                                final Boolean brochureDigitalOnly = metadataProperties.get("brochureDigitalOnly", false);
+
+                                final Tag[] existingTags = tagManager.getTags(metadataResource);
+
+                                // Building tag list id for comparison
+                                List<String> existingTagsList = new ArrayList<>();
+                                for (Tag tag : existingTags) {
+                                    if (tag.getTagID().startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX)) {
+                                        existingTagsList.add(tag.getTagID());
+                                    }
+                                }
+
+                                LOGGER.trace("{} --- {}", title, brochure.getTitle());
+                                LOGGER.trace("{} --- {}", onlineBrochureUrl, brochure.getBrochureUrl());
+                                LOGGER.trace("{} --- {}", brochureDigitalOnly, brochure.getDigitalOnly());
+                                LOGGER.trace("tags equals: {}", compareLists(tags, existingTagsList));
+
+                                if (!title.equals(brochure.getTitle())
+                                        || !onlineBrochureUrl.equals(brochure.getBrochureUrl())
+                                        || brochureDigitalOnly.booleanValue() != brochure.getDigitalOnly().booleanValue()
+                                        || !compareLists(tags, existingTagsList)) {
+                                    for (Tag tag : existingTags) {
+                                        tags.add(tag.getTagID());
+                                    }
+
+                                    // Setting properties
+                                    metadataNode.setProperty("dc:title", brochure.getTitle());
+                                    metadataNode.setProperty("onlineBrochureUrl", brochure.getBrochureUrl());
+                                    metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
+                                    metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));
+
+                                    metadataNode.getParent().setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+                                    successNumber++;
+                                    j++;
+
+                                    LOGGER.trace("Brochure data written on {}", resource.getPath());
+                                } else {
+                                    LOGGER.trace("Brochure data have not change for {}", resource.getPath());
+                                }
+                            }
+
+                            if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                try {
+                                    session.save();
+
+                                    LOGGER.debug("{} brochure imported, saving session", +j);
+                                } catch (RepositoryException e) {
+                                    session.refresh(true);
+                                }
+                            }
+                        }
+                    } catch (RepositoryException | ImporterException e) {
+                        LOGGER.error("Cannot set brochure properties", e);
+
+                        errorNumber++;
+                    }
+                }
+
+                i++;
+            } while (brochures.size() > 0);
+
+            // Mark as "to deactivate" all brochures not present on API side
+            if (mode.equals("update")) {
+                LOGGER.debug("Starting deactivation of brochures");
+
+                final String query = "/jcr:root/content/dam/silversea-com/brochures" +
+                        "//element(*, dam:Asset)[jcr:content/metadata/brochureCode]";
+
+                final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
+
+                while (resources.hasNext()) {
+                    final Resource resource = resources.next();
+                    final Resource metadataResource = resource.getChild("jcr:content/metadata");
+
+                    if (metadataResource != null) {
+                        final String brochureCode = metadataResource.getValueMap().get("brochureCode", String.class);
+
+                        if (brochureCode != null && !brochureCodes.contains(brochureCode)) {
+                            LOGGER.debug("Brochure at path {} ({}) is not existing anymore, deactivating it",
+                                    resource.getPath(), brochureCode);
+
+                            final Node metadataNode = metadataResource.adaptTo(Node.class);
+                            metadataNode.getParent().setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                        }
+                    }
+                }
+            }
+
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} brochure imported, saving session", +j);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+        } catch (LoginException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        } catch (ApiException e) {
+            LOGGER.error("Cannot read brochures from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Error saving data", e);
+        } finally {
+            if (resourceResolver != null && resourceResolver.isLive()) {
+                resourceResolver.close();
+            }
+        }
+
+        LOGGER.debug("Ending brochures import, success: {}, error: {}", +successNumber, +errorNumber);
+
+        return new ImportResult(successNumber, errorNumber);
+    }
+
+    private static boolean compareLists(List<String> l1, List<String> l2) {
+        List<String> cp = new ArrayList<>(l1);
+
+        for (Object o : l2) {
+            if (!cp.remove(o)) {
+                return false;
+            }
+        }
+
+        return cp.isEmpty();
+    }
 }

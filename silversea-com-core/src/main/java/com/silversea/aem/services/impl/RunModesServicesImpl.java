@@ -7,10 +7,9 @@ import org.apache.sling.settings.SlingSettingsService;
 
 import com.silversea.aem.services.RunModesService;
 
+@Service
 @Component(immediate = true)
-@Service(value = RunModesService.class)
 public class RunModesServicesImpl implements RunModesService {
-
 
     @Reference
     private SlingSettingsService slingSettingsService;
@@ -26,23 +25,25 @@ public class RunModesServicesImpl implements RunModesService {
     }
 
     /**
-     * TODO rename method
-     * TODO check the validity of run modes
-     * TODO add missing run modes
+     * TODO rename method TODO check the validity of run modes TODO add missing
+     * run modes
      */
     @Override
     public String getCurrentRunMode() {
         String runMode = null;
-        if(slingSettingsService.getRunModes().contains("prod")){
-            runMode= "prod";
+        if (slingSettingsService.getRunModes().contains("prod")) {
+            runMode = "prod";
         }
-        if(slingSettingsService.getRunModes().contains("preprod")){
+        if (slingSettingsService.getRunModes().contains("preprod")) {
             runMode = "preprod";
         }
-        if(slingSettingsService.getRunModes().contains("dev")){
+        if (slingSettingsService.getRunModes().contains("dev")) {
             runMode = "dev";
         }
-           
+        if (slingSettingsService.getRunModes().contains("local")) {
+            runMode = "local";
+        }
+
         return runMode;
     }
 }

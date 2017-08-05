@@ -1,4 +1,4 @@
-<!--/* Simple gallery */-->
+<!--/* Simple gallery inserted in modal */-->
 <template data-sly-template.default="${ @ list}">
     <div class="modal-content modal-content--transparent modal-content--gallery">
         <div class="modal-header">
@@ -6,22 +6,27 @@
         </div>
         <div class="modal-body">
             <div class="c-gallery">
-                <div class="c-slider c-slider--for" data-sly-list.asset="${list}">
-                    <div>
-                        <div class="ratio"
-                            data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
-                            style="background-image:url(${assetPathFull @ context='uri'})">
-                            <a data-sly-test.isVideo="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                            <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                <div class="c-gallery__wrappertop">
+                    <div class="c-slider c-slider--for">
+                        <div data-sly-repeat.asset="${list}" data-image="${asset.path @ prependPath='/is/image'}">
+                            <div class="ratio"
+                                data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
+                                style="background-image:url(${assetPathFull @ context='uri'})">
+                                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                                <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                                <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="c-gallery__counter"><span class="slide-item-current"></span> / <span class="slide-item-total"></span></div>
                 </div>
-                <div class="c-slider c-slider--nav" data-sly-list.asset="${list}">
-                    <div>
+                <div class="c-slider c-slider--nav hidden-xs">
+                    <div data-sly-repeat.asset="${list}">
                         <div class="ratio"
                             data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
                             style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
-                            <a data-sly-test="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                            <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                         </div>
                     </div>
                 </div>
@@ -30,7 +35,7 @@
     </div>
 </template>
 
-<!--/* Gallery with Tab*/-->
+<!--/* Gallery with Tab inserted in modal*/-->
 <template data-sly-template.galleryTab="${ @ map}">
     <div class="modal-content modal-content--transparent modal-content--gallery">
         <div class="modal-header">
@@ -47,8 +52,9 @@
                             <div class="ratio"
                                 data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
                                 style="background-image:url(${assetPathFull @ context='uri'})">
-                                <a data-sly-test.isVideo="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
-                                <div data-sly-test="${isVideo}" class="c-video" id="videoDM-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                                <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                                <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
                             </div>
                         </div>
                     </div>
@@ -59,9 +65,44 @@
                         <div class="ratio"
                             data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
                             style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
-                            <a data-sly-test="${asset.metadata.dc:format == 'video/mp4'}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                            <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!--/* Gallery with Tab inside page (not modal)*/-->
+<template data-sly-template.galleryCCTab="${ @ map}">
+    <div class="c-gallery--cc">
+        <ul class="c-gallery--cc__tab">
+            <li  data-sly-repeat="${map}" class="c-gallery--cc__tab__item ${itemList.count == 1 ? 'active' : ''}">
+                <a class="c-gallery--cc__tab__link" href="#" data-category="${item}">${item}</a>
+            </li>
+        </ul>
+        <div class="c-slider c-slider--for c-slider--style2" data-sly-list="${map}">
+            <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="/is/image${asset.path}">
+                <div class="ratio"
+                    data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
+                    style="background-image:url(${assetPathFull @ context='uri'})">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                    <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                    <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="0"></div>
+                    <p class="hidden c-gallery--cc__text">${asset.metadata.dc:title}</p>
+                </div>
+            </div>
+        </div>
+        <p class="c-gallery--cc__caption">&nbsp;</p>
+        <div class="c-slider c-slider--nav c-slider--style2" data-sly-list="${map}">
+            <div data-sly-repeat.asset="${map[item]}">
+                <div class="ratio"
+                    data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
+                    style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                    <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                 </div>
             </div>
         </div>
