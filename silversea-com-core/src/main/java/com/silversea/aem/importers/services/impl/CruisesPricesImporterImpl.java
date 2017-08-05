@@ -115,10 +115,10 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 if (suiteCategoryCodes != null) {
                     for (String suiteCategoryCode : suiteCategoryCodes) {
                         if (suitesMapping.containsKey(suiteCategoryCode)) {
-                            suitesMapping.get(suiteCategoryCode).put(language, suite);
+                            suitesMapping.get(suiteCategoryCode).put(language, suite.getParent());
                         } else {
                             final HashMap<String, Resource> suitesResources = new HashMap<>();
-                            suitesResources.put(language, suite);
+                            suitesResources.put(language, suite.getParent());
                             suitesMapping.put(suiteCategoryCode, suitesResources);
                         }
                     }
@@ -169,7 +169,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                                                 // Getting suite corresponding to suite category
                                                 final Map<String, Resource> suites = suitesMapping.get(cruiseOnlyPrice.getSuiteCategoryCod());
-                                                final String suiteName = suites.get(cruise.getKey()).getParent().getName();
+                                                final String suiteName = suites.get(cruise.getKey()).getName();
 
                                                 final Node suiteNode = JcrUtils.getOrAddNode(marketNode, suiteName);
 
