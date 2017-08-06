@@ -15,7 +15,7 @@
                 <h4 class="c-blogpostteaser__title">${blogPost.title}</h4>
             </div>
 
-            <a href="${blogPost.path @ extension='html'}" class="c-blogpostteaser__image__link"></a>
+            <a data-sly-test="${pageHelper.thumbnail}" href="${blogPost.path @ extension='html'}" class="c-blogpostteaser__image__link"></a>
         </div>
         <div class="col-sm-6 c-blogpostteaser__description">
             <div class="c-blogpostteaser__info">
