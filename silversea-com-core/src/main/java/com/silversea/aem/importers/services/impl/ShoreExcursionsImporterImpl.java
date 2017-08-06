@@ -114,7 +114,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
                         Iterator<Resource> portsResources = resourceResolver
                                 .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                                "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\" " +
+                                                "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\" " +
                                                 "and jcr:content/cityId=\"" + cityId + "\"]",
                                         "xpath");
 
