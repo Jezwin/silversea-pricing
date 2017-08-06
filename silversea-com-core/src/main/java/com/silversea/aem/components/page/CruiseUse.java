@@ -17,7 +17,6 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
-import com.silversea.aem.models.CruiseItineraryModel;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.DiningModel;
 import com.silversea.aem.models.PublicAreaModel;
@@ -46,8 +45,15 @@ public class CruiseUse extends WCMUsePojo {
         geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
         GeoLocation geoLocation = initGeolocation(geolocationTagService);
         cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
-        cruiseModel.initByGeoLocation(geoLocation);
+        //cruiseModel.initByGeoLocation(geoLocation);
         initPagination();
+    }
+
+    /**
+     * @return cruise's model
+     */
+    public CruiseModel getCruiseModel() {
+        return cruiseModel;
     }
 
     private GeoLocation initGeolocation(GeolocationTagService geolocationTagService) {
@@ -101,29 +107,22 @@ public class CruiseUse extends WCMUsePojo {
         return next;
     }
 
-    /**
-     * @return cruise's model
-     */
-    public CruiseModel getCruiseModel() {
-        return cruiseModel;
-    }
-
     public List<Asset> getAllAssetForItinerary() {
         String assetSelectionReference;
         List<Asset> assetList = new ArrayList<Asset>();
 
         // Add asset from several list inside the same list
-        if (cruiseModel.getItineraries() != null) {
+        /*if (cruiseModel.getItineraries() != null) {
             for (CruiseItineraryModel itinerary : cruiseModel.getItineraries()) {
-                Page itinerayPage = itinerary.getItineraryModel().getPage();
-                assetSelectionReference = itinerayPage.getProperties().get("assetSelectionReference", String.class);
+                Page itineraryPage = itinerary.getItineraryModel().getPage();
+                assetSelectionReference = itineraryPage.getProperties().get("assetSelectionReference", String.class);
 
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
                 }
 
-                if (itinerayPage.getContentResource() != null && itinerayPage.getContentResource().getChild("image") != null) {
-                    String thumbnail = itinerayPage.getContentResource().getChild("image").getValueMap().get("fileReference", String.class);
+                if (itineraryPage.getContentResource() != null && itineraryPage.getContentResource().getChild("image") != null) {
+                    String thumbnail = itineraryPage.getContentResource().getChild("image").getValueMap().get("fileReference", String.class);
                     assetList.add(getResourceResolver().getResource(thumbnail).adaptTo(Asset.class));
                 }
             }
@@ -132,7 +131,7 @@ public class CruiseUse extends WCMUsePojo {
             if (StringUtils.isNotBlank(assetSelectionReference)) {
                 assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
             }
-        }
+        }*/
 
         return assetList;
     }
@@ -255,6 +254,6 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     public String getDescription() {
-        return StringUtils.isEmpty(cruiseModel.getDescription()) ? cruiseModel.getImporteddescription() : cruiseModel.getDescription();
+        return StringUtils.isEmpty(cruiseModel.getDescription()) ? cruiseModel.getImportedDescription() : cruiseModel.getDescription();
     }
 }

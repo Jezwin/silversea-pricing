@@ -19,7 +19,7 @@ public class SuiteVariationDisplayPropertiesUse extends WCMUsePojo {
         }
     }
 
-    public Page getAreaPage() {
+    public Page getSuitePage() {
         return suite;
     }
 }

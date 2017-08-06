@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jcr.Node;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +54,8 @@ public class ItineraryModel {
     @Inject @Optional
     private String portReference;
 
+    //private List<ItineraryExcursionModel> excursions;
+
     private Integer cruiseId;
 
     private PortModel port;
@@ -80,12 +83,12 @@ public class ItineraryModel {
         }
     }
 
-    public Integer getItineraryId() {
-        return itineraryId;
-    }
-
     public Resource getResource() {
         return resource;
+    }
+
+    public Integer getItineraryId() {
+        return itineraryId;
     }
 
     public Integer getCruiseId() {
@@ -123,25 +126,27 @@ public class ItineraryModel {
 
     // -------------- TODO review after this line ----------------- //
     public List<HotelModel> getHotels() {
-        return null;
+        return new ArrayList<>();
     }
 
     public List<ExcursionModel> getExcursions() {
-        return null;
+        return new ArrayList<>();
     }
 
     public List<LandProgramModel> getLandPrograms() {
-        return null;
+        return new ArrayList<>();
     }
 
+    @Deprecated
     public String getTitle() {
         return null;
     }
 
+    @Deprecated
     public void init(Node node) {
-
     }
 
+    @Deprecated
     public Page getPage() {
         return null;
     }

@@ -49,7 +49,7 @@
             </div>
             <div class="col-xs-12 visible-xs">
                 <div class="cruise__header_metainfo">
-                    <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
+                    <span>${cruise.cruiseModel.cruiseType.name @ i18n}</span>
                     <span>${cruise.cruiseModel.ship.title}</span>
                     <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
                     <ul data-sly-list="${cruise.cruiseModel.features}">

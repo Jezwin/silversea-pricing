@@ -188,10 +188,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 }
                             }
                         }
-                    } catch (WCMException | RepositoryException | ImporterException e) {
+                    } catch (WCMException | RepositoryException e) {
                         errorNumber++;
 
                         LOGGER.error("Import error", e);
+                    } catch (ImporterException e) {
+                        errorNumber++;
+
+                        LOGGER.warn("Import error {}", e.getMessage());
                     }
                 }
 

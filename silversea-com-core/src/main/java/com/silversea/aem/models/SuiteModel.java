@@ -1,25 +1,5 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-import javax.jcr.Value;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -28,54 +8,55 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.enums.Currency;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.Value;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Model(adaptables = Page.class)
-public class SuiteModel extends AbstractModel{
+public class SuiteModel extends AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(SuiteModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String assetSelectionReference;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformation")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/bedroomsInformation") @Optional
     private String bedroomsInformation;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/plan")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/plan") @Optional
     private String plan;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/locationImage")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/locationImage") @Optional
     private String locationImage;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/virtualTour")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
     private String virtualTour;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/suiteFeature")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteFeature") @Optional
     private String[] features;
 
     private PriceData lowestPrice;
@@ -93,7 +74,7 @@ public class SuiteModel extends AbstractModel{
 
     @PostConstruct
     private void init() {
-        try{
+        /*try{
             resourceResolver = page.getContentResource().getResourceResolver();
             pageManager = resourceResolver.adaptTo(PageManager.class);
             tagManager = resourceResolver.adaptTo(TagManager.class);
@@ -104,7 +85,7 @@ public class SuiteModel extends AbstractModel{
             assetSelectionReference = initPropertyWithFallBack(page,"suiteReference", assetSelectionReference, "assetSelectionReference",pageManager);
         }catch(RuntimeException e){
             LOGGER.error("Error while initializing model {}",e);
-        }
+        }*/
     }
 
     public void initLowestPrice(Node lowestPriceNode, String geoMarketCode) {
@@ -169,7 +150,7 @@ public class SuiteModel extends AbstractModel{
                     Currency currency = getCurrencyByMarKetCode(geoMarketCode);
                     String suitePriceCurrency = Objects.toString(node.getProperty("currency").getValue());
                     Tag tag = tagManager.resolve(tags[0].getString());
-                    if (tag!=null && StringUtils.equals(geoMarketCode, tag.getTitle())
+                    if (tag != null && StringUtils.equals(geoMarketCode, tag.getTitle())
                             && StringUtils.equals(suitePriceCurrency, currency.getValue())) {
                         String value = Objects.toString(node.getProperty("price").getValue());
                         price = initPrice(geoMarketCode, value);
