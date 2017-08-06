@@ -21,3 +21,23 @@
         }
     }
 }
+
+.blogposts {
+    .c-accordion__body .c-accordion__title {
+        text-align: right;
+    }
+}
+
+@media screen and (max-width: @screen-sm) {
+    .blogposts {
+        .c-accordion__title {
+            text-align: left;
+        }
+
+        .c-accordion__body {
+            .c-accordion__title {
+                text-align: right;
+            }
+        }
+    }
+}
