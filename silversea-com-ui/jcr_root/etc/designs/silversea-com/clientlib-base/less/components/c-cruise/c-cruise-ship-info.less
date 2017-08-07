@@ -5,6 +5,7 @@
         &:nth-of-type(1n+3) {
             display: none;
         }
+
         @media screen and (max-width: @screen-sm) {
             &:nth-of-type(1n+2) {
                 display: none;
@@ -46,7 +47,37 @@
                 font-size: 13px;
                 line-height: 1.5;
 
-                &_expand {
+                p {
+                    margin-bottom: 0;
+                }
+
+                &.clipped {
+                    height: 137px;
+                    overflow: hidden;
+                    transition: height 300ms ease;
+
+                     & ~ .variationcontent__descr__expand .read_less {
+                        display: none;
+                    }
+                }
+
+                &.clipped.opened {
+                     & ~ .variationcontent__descr__expand {
+                        .read_less {
+                            display: inline;
+                        }
+
+                        .read_more {
+                            display: none;
+                        }
+                    }
+                }
+
+                &:not(.clipped) ~ .variationcontent__descr__expand {
+                    display: none;
+                }
+
+                &__expand {
                     text-align: center;
                     font-size: 12px;
                     padding: 0 0 10px 0;
@@ -64,14 +95,6 @@
             }
         }
     }
-    
-    .read_more, .read_less{
-        text-align: center;
-        margin-top: 30px;
-    }
-    .variationcontent__descr_expand{
-        display: none;
-    }
 }
 
 .ship-mobilewrapper {
@@ -80,4 +103,3 @@
         border: 1px solid #e9e9e9;
     }
 }
-
