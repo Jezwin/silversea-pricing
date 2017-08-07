@@ -1,5 +1,7 @@
 package com.silversea.aem.services;
 
+import com.day.cq.tagging.Tag;
+import com.silversea.aem.models.GeolocationTagModel;
 import org.apache.sling.api.SlingHttpServletRequest;
 
 import java.util.List;
@@ -42,5 +44,7 @@ public interface GeolocationTagService {
      * @param request
      * @return tag id
      */
-    String getTagFromRequest(final SlingHttpServletRequest request);
+    String getTagIdFromRequest(final SlingHttpServletRequest request);
+
+    GeolocationTagModel getGeolocationTagModelFromRequest(final SlingHttpServletRequest request);
 }

@@ -33,4 +33,24 @@ public class ItineraryLandProgramModel {
             landProgram = landProgramPage.adaptTo(LandProgramModel.class);
         }
     }
+
+    public String getTitle() {
+        return landProgram.getTitle();
+    }
+
+    public String getDescription() {
+        return landProgram.getDescription();
+    }
+
+    public String getShortDescription() {
+        return landProgram.getShortDescription();
+    }
+
+    public String getLandId() {
+        return landProgram.getLandId();
+    }
+
+    public String getLandCode() {
+        return landProgram.getLandCode();
+    }
 }

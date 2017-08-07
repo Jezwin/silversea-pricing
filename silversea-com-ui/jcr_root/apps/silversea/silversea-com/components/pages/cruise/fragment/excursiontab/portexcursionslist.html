@@ -10,14 +10,15 @@
              data-more="<i class='fa fa-angle-down'></i>"
              data-close="<i class='fa fa-angle-up'></i>"
              data-sly-list="${cruise.cruiseModel.itineraries}">
-            <div class="c-accordion__elem" data-sly-test="${item.itineraryModel.excursions.size > 0}">
+            <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.excursions : item.port.excursions }"/>
+            <div class="c-accordion__elem" data-sly-test="${excursions && excursions.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
                     <div class="c-accordion__title c-accordion__title--thumbnail">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.itineraryModel.thumbnail, query='?wid=480'}"></sly>
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.port.thumbnail, query='?wid=480'}"></sly>
                     </div>
                     <div class="c-accordion__title w-title">
-                        <p class="c-accordion__subtitle veryimportant">${item.itineraryModel.title}</p>
-                        <p class="c-accordion__subtitle verysmall">${item.itineraryModel.country}</p>
+                        <p class="c-accordion__subtitle veryimportant">${item.port.apiTitle}</p>
+                        <p class="c-accordion__subtitle verysmall">${item.port.country}</p>
                         <p class="c-accordion__subtitle verysmall visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
                             ${date.value}
                         </p>
@@ -29,7 +30,7 @@
                         </p>
                     </div>
                     <div class="c-accordion__title w-content hidden-xs valigntop">
-                        <u>${item.itineraryModel.excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country}</u>
+                        <u>${excursions.size} ${'excursions' @ i18n} ${'in' @ i18n} ${item.port.country}</u>
                     </div>
                     <div class="c-accordion__action small">
                         <i class='fa fa-angle-down'></i>
@@ -40,7 +41,7 @@
                          data-multiview="false"
                          data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
                          data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
-                         data-sly-list="${item.itineraryModel.excursions}">
+                         data-sly-list="${excursions}">
                         <div class="c-accordion__elem">
                             <div class="c-accordion__header c-accordion__header--center-xs">
                                 <div class="c-accordion__title valigntop ">
@@ -82,7 +83,6 @@
                             </div>
                             <div class="c-accordion__body">
                                 <div class="c-accordion__body--panel">
-                                    ${item.page.path}
                                     ${item.apiLongDescription @ context='html'}
                                     <ul class="feature feature-ecgc" data-sly-list="${item.features}">
                                         <li class="meta_feature_inner">

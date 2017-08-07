@@ -6,7 +6,7 @@
         <items jcr:primaryType="nt:unstructured">
             <tabs jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
-                    <variation
+                    <diningvariation
                             jcr:primaryType="nt:unstructured"
                             jcr:title="Dining variation"
                             cq:showOnCreate="{Boolean}false"
@@ -20,7 +20,7 @@
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <diningReference
+                                    <diningreference
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                             allowBulkEdit="{Boolean}true"
@@ -60,7 +60,7 @@
                                 </items>
                             </column>
                         </items>
-                    </variation>
+                    </diningvariation>
                 </items>
             </tabs>
         </items>

@@ -51,8 +51,6 @@ public class ExcursionModel extends AbstractModel {
 
     private List<Feature> features;
 
-    private Duration duration;
-
     private String schedule;
 
     @PostConstruct
@@ -73,23 +71,22 @@ public class ExcursionModel extends AbstractModel {
         }
     }
 
+    @Deprecated
     public void initialize(Resource resource) {
         if (resource != null) {
             schedule = resource.getValueMap().get("plannedDepartureTime", String.class);
-            duration = formatDuration(resource.getValueMap().get("duration", String.class));
         }
     }
 
+    @Deprecated
     private Duration formatDuration(String durationMinutes) {
         Duration duration = null;
-        if (durationMinutes != null && !durationMinutes.isEmpty()) {
 
+        if (durationMinutes != null && !durationMinutes.isEmpty()) {
             double t = Double.parseDouble(durationMinutes);
             double hours = t / 60;
             double minutes = t % 60;
             duration = new Duration();
-            duration.setHours(hours);
-            duration.setMinutes(minutes);
         }
 
         return duration;
@@ -129,10 +126,6 @@ public class ExcursionModel extends AbstractModel {
 
     public List<Feature> getFeatures() {
         return features;
-    }
-
-    public Duration getDuration() {
-        return duration;
     }
 
     public String getSchedule() {

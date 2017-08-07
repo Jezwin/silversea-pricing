@@ -3,9 +3,10 @@
     <div class="col-xs-12">
         <!--/* TODO replace with getter */-->
         <h3 class="c-cruise__subtitle">
-             <span data-sly-test="${cruise.cruiseModel.itinerariesData.nbLandPrograms}">${cruise.cruiseModel.itinerariesData.nbLandPrograms} ${(cruise.cruiseModel.itinerariesData.nbLandPrograms == 1 ? 'land-programme' : 'land-programmes') @ i18n} </span>
-             <span data-sly-test="${cruise.cruiseModel.itinerariesData.nbLandPrograms && cruise.cruiseModel.itinerariesData.nbHotels}"> ${'and' @ i18n} </span>
-             <span data-sly-test="${cruise.cruiseModel.itinerariesData.nbHotels}">${cruise.cruiseModel.itinerariesData.nbHotels} ${(cruise.cruiseModel.itinerariesData.nbHotels == 1 ? 'hotel' : 'hotels') @ i18n} </span>
+             <span data-sly-test="${cruise.landProgramsNumber}">${cruise.landProgramsNumber} ${(cruise.landProgramsNumber == 1 ? 'land-programme' :
+                 'land-programmes') @ i18n} </span>
+             <span data-sly-test="${cruise.landProgramsNumber && cruise.hotelsNumber}"> ${'and' @ i18n} </span>
+             <span data-sly-test="${cruise.hotelsNumber}">${cruise.hotelsNumber} ${(cruise.hotelsNumber == 1 ? 'hotel' : 'hotels') @ i18n} </span>
         </h3>
         <p class="c-cruise__descr">
             ${'land-programmes-description' @ i18n}
@@ -19,11 +20,11 @@
             <div class="c-accordion__elem" data-sly-test="${item.hotels.size > 0 || item.landPrograms.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
                     <div class="c-accordion__title c-accordion__title--thumbnail">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.thumbnail}" />
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.port.thumbnail}" />
                     </div>
                     <div class="c-accordion__title w-title valigntop">
-                        <p class="c-accordion__subtitle veryimportant">${item.apiTitle || item.title || 'Title'}</p>
-                        <p>${item.country}</p>
+                        <p class="c-accordion__subtitle veryimportant">${item.port.apiTitle}</p>
+                        <p>${item.port.country}</p>
                         <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
                             ${date.value}
                         </p>

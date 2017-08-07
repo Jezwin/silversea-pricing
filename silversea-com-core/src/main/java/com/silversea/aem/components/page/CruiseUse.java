@@ -1,16 +1,5 @@
 package com.silversea.aem.components.page;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import com.silversea.aem.models.*;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.Tag;
@@ -18,17 +7,28 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
+import com.silversea.aem.models.*;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CruiseUse extends WCMUsePojo {
 
+    static final private Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
+
     // TODO : to change US AND FT by default
+    // TODO move to a global place
     private static final String DEFAULT_GEOLOCATION_COUTRY = "FR";
     private static final String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "EU";
-
-    private GeolocationTagService geolocationTagService;
+    private static final String DEFAULT_CURRENCY = "EUR";
 
     private CruiseModel cruiseModel;
     private String previous;
@@ -36,30 +36,174 @@ public class CruiseUse extends WCMUsePojo {
 
     private TagManager tagManager;
 
+    private int excursionsNumber = 0;
+
+    private int hotelsNumber = 0;
+
+    private int landProgramsNumber = 0;
+
+    private int tabsNumber = 4;
+
+    private List<Asset> suitesAssetsList = new ArrayList<>();
+
+    private List<Asset> diningsAssetsList = new ArrayList<>();
+
+    private List<Asset> publicAreasAssetsList = new ArrayList<>();
+
+    private List<Asset> itinerariesAssetsList = new ArrayList<>();
+
+    private List<SuitePrice> prices = new ArrayList<>();
+
     @Override
     public void activate() throws Exception {
         tagManager = getResourceResolver().adaptTo(TagManager.class);
-        geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
-        GeoLocation geoLocation = initGeolocation(geolocationTagService);
-        cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
-        //cruiseModel.initByGeoLocation(geoLocation);
-        initPagination();
+
+        // init cruise model from current page
+        if (getRequest().getAttribute("cruiseModel") != null) {
+            cruiseModel = (CruiseModel) getRequest().getAttribute("cruiseModel");
+        } else {
+            cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
+            getRequest().setAttribute("cruiseModel", cruiseModel);
+        }
+
+        if (cruiseModel == null) {
+            throw new Exception("Cannot get cruise model");
+        }
+
+        // init pagination
+        final Iterator<Page> children = getCurrentPage().getParent().listChildren();
+        if (children != null && children.hasNext()) {
+            while (children.hasNext()) {
+                final Page child = children.next();
+
+                if (child.getPath().equals(getCurrentPage().getPath()) && children.hasNext()) {
+                    next = children.next().getPath();
+                    previous = child.getPath();
+
+                    break;
+                }
+            }
+        }
+
+        // init assets from ship areas
+        suitesAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
+        diningsAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getDinings());
+        publicAreasAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getPublicAreas());
+
+        // init assets from itinerary and cruise itself
+        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            final String assetSelectionReference = itinerary.getPort().getAssetSelectionReference();
+            final String thumbnail = itinerary.getPort().getThumbnail();
+
+            if (StringUtils.isNotBlank(assetSelectionReference)) {
+                itinerariesAssetsList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+            }
+
+            if (StringUtils.isNotBlank(thumbnail)) {
+                final Resource thumbnailResource = getResourceResolver().getResource(thumbnail);
+
+                if (thumbnailResource != null) {
+                    itinerariesAssetsList.add(thumbnailResource.adaptTo(Asset.class));
+                }
+            }
+        }
+
+        if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
+            itinerariesAssetsList.addAll(AssetUtils.buildAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver()));
+        }
+
+        // init number of elements (excursions, hotels, land programs)
+        if (getItinerariesHasElements()) {
+            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                excursionsNumber += itinerary.getExcursions().size();
+                hotelsNumber += itinerary.getHotels().size();
+                landProgramsNumber += itinerary.getLandPrograms().size();
+            }
+        } else {
+            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                excursionsNumber += itinerary.getPort().getExcursions().size();
+                hotelsNumber += itinerary.getPort().getHotels().size();
+                landProgramsNumber += itinerary.getPort().getLandPrograms().size();
+            }
+        }
+
+        // init tabsNumber
+        final Tag cruiseType = cruiseModel.getCruiseType();
+        if (cruiseType != null) {
+            if (excursionsNumber > 0
+                    && cruiseType.getTagID().equals("cruise-type:silversea-cruise")
+                    && (landProgramsNumber > 0 || hotelsNumber > 0)) {
+                tabsNumber = 6;
+            } else if (excursionsNumber > 0
+                    && !cruiseType.getTagID().equals("cruise-type:silversea-cruise")
+                    && (landProgramsNumber > 0 || hotelsNumber > 0)) {
+                tabsNumber = 5;
+            } else if (excursionsNumber == 0
+                    && (landProgramsNumber > 0 || hotelsNumber > 0)) {
+                tabsNumber = 5;
+            } else if (excursionsNumber > 0
+                    && cruiseType.getTagID().equals("cruise-type:silversea-cruise")
+                    && (landProgramsNumber == 0 && hotelsNumber == 0)) {
+                tabsNumber = 5;
+            }
+        }
+
+        // init prices based on geolocation
+        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+
+        if (geolocationTagService != null) {
+            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(getRequest());
+
+            String geomarket = DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
+            String currency = DEFAULT_CURRENCY;
+            if (geolocationTagModel != null) {
+                geomarket = geolocationTagModel.getMarket();
+                currency = geolocationTagModel.getCurrency();
+            }
+
+            for (PriceModel priceModel : cruiseModel.getPrices()) {
+                if (priceModel.getGeomarket() != null
+                        && priceModel.getGeomarket().equals(geomarket.toLowerCase())
+                        && priceModel.getCurrency().equals(currency)) {
+                    boolean added = false;
+
+                    for (SuitePrice price : prices) {
+                        if (price.getSuite().equals(priceModel.getSuite())) {
+                            price.add(priceModel);
+
+                            added = true;
+                        }
+                    }
+
+                    if (!added) {
+                        prices.add(new SuitePrice(priceModel.getSuite(), priceModel));
+                    }
+                }
+            }
+        }
     }
 
     /**
-     * @return cruise's model
+     * @return cruise model
      */
     public CruiseModel getCruiseModel() {
         return cruiseModel;
     }
 
-    // TODO
-    public int getExcursionsSize() {
-        return 10;
-    }
-
+    /**
+     * @return the destination title
+     */
     public String getDestinationTitle() {
         return getCurrentPage().getParent().getTitle();
+    }
+
+    /**
+     * TODO move to cruise model
+     *
+     * @return the cruise description
+     */
+    public String getDescription() {
+        return StringUtils.isEmpty(cruiseModel.getDescription()) ? cruiseModel.getImportedDescription() : cruiseModel.getDescription();
     }
 
     /**
@@ -76,6 +220,131 @@ public class CruiseUse extends WCMUsePojo {
         return false;
     }
 
+    /**
+     * @return the number of excursions, of the itineraries or the attached ports
+     */
+    public int getExcursionsNumber() {
+        return excursionsNumber;
+    }
+
+    /**
+     * @return the number of hotels, of the itineraries or the attached ports
+     */
+    public int getHotelsNumber() {
+        return hotelsNumber;
+    }
+
+    /**
+     * @return the number of land programs, of the itineraries or the attached ports
+     */
+    public int getLandProgramsNumber() {
+        return landProgramsNumber;
+    }
+
+    /**
+     * @return number of tabs to display
+     */
+    public int getTabsNumber() {
+        return tabsNumber;
+    }
+
+    /**
+     * @return get previous cruise in the destination
+     */
+    public String getPrevious() {
+        return previous;
+    }
+
+    /**
+     * @return get next cruise in the destination
+     */
+    public String getNext() {
+        return next;
+    }
+
+    /**
+     * @return assets from suites of the ship
+     */
+    public List<Asset> getAllAssetForSuite() {
+        return suitesAssetsList;
+    }
+
+    /**
+     * @return assets from dinings of the ship
+     */
+    public List<Asset> getAllAssetForDinning() {
+        return diningsAssetsList;
+    }
+
+    /**
+     * @return assets from public areas of the ship
+     */
+    public List<Asset> getAllAssetForPublicArea() {
+        return publicAreasAssetsList;
+    }
+
+    /**
+     * @return assets form itinerary (cities) and the cruise itself
+     */
+    public List<Asset> getAllAssetForItinerary() {
+        return itinerariesAssetsList;
+    }
+
+    /**
+     * @return common list for dinings and public areas
+     */
+    public List<Asset> getAllAssetForDinningNPublicAreas() {
+        return Stream.concat(getAllAssetForDinning().stream(),
+                getAllAssetForPublicArea().stream()).collect(Collectors.toList());
+    }
+
+    /**
+     * @return return prices corresponding to the current geolocation
+     */
+    public List<SuitePrice> getPrices() {
+        return prices;
+    }
+
+    /**
+     * Inner class used to store mapping between one suite and price variations
+     * Lowest price is updated when a <code>PriceModel</code> is added to the price variations list
+     */
+    public class SuitePrice {
+
+        private SuiteModel suiteModel;
+
+        private List<PriceModel> pricesVariations = new ArrayList<>();
+
+        private PriceModel lowestPrice;
+
+        public SuitePrice(final SuiteModel suiteModel, final PriceModel price) {
+            this.suiteModel = suiteModel;
+            pricesVariations.add(price);
+
+            lowestPrice = price;
+        }
+
+        public SuiteModel getSuite() {
+            return suiteModel;
+        }
+
+        public List<PriceModel> getPricesVariations() {
+            return pricesVariations;
+        }
+
+        public PriceModel getLowestPrice() {
+            return lowestPrice;
+        }
+
+        public void add(final PriceModel priceModel) {
+            pricesVariations.add(priceModel);
+
+            if (priceModel.getPrice() < lowestPrice.getPrice()) {
+                lowestPrice = priceModel;
+            }
+        }
+    }
+
 
 
 
@@ -90,7 +359,7 @@ public class CruiseUse extends WCMUsePojo {
     // ---------------- TODO review ------------ //
     private GeoLocation initGeolocation(GeolocationTagService geolocationTagService) {
 
-        String tagId = geolocationTagService.getTagFromRequest(getRequest());
+        String tagId = geolocationTagService.getTagIdFromRequest(getRequest());
         String country = GeolocationHelper.getCountryCode(getRequest());
         String geoMarketCode = getGeoMarketCode(tagId);
         GeoLocation geoLocation = new GeoLocation();
@@ -104,23 +373,6 @@ public class CruiseUse extends WCMUsePojo {
         return geoLocation;
     }
 
-    private void initPagination() {
-        Page currentPage = getCurrentPage();
-        Iterator<Page> children = currentPage.getParent().listChildren();
-        if (children != null && children.hasNext()) {
-            while (children.hasNext()) {
-                Page current = children.next();
-                if (StringUtils.equals(current.getPath(), currentPage.getPath())) {
-                    if (children.hasNext()) {
-                        next = children.next().getPath();
-                    }
-                    break;
-                }
-                previous = current.getPath();
-            }
-        }
-    }
-
     private String getGeoMarketCode(String geolocationTag) {
         String geoMarketCode = null;
 
@@ -131,130 +383,9 @@ public class CruiseUse extends WCMUsePojo {
         return geoMarketCode;
     }
 
-    public String getPrevious() {
-        return previous;
-    }
-
-    public String getNext() {
-        return next;
-    }
-
-    public List<Asset> getAllAssetForItinerary() {
-        String assetSelectionReference;
-        List<Asset> assetList = new ArrayList<Asset>();
-
-        // Add asset from several list inside the same list
-        /*if (cruiseModel.getItineraries() != null) {
-            for (CruiseItineraryModel itinerary : cruiseModel.getItineraries()) {
-                Page itineraryPage = itinerary.getItineraryModel().getPage();
-                assetSelectionReference = itineraryPage.getProperties().get("assetSelectionReference", String.class);
-
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-
-                if (itineraryPage.getContentResource() != null && itineraryPage.getContentResource().getChild("image") != null) {
-                    String thumbnail = itineraryPage.getContentResource().getChild("image").getValueMap().get("fileReference", String.class);
-                    assetList.add(getResourceResolver().getResource(thumbnail).adaptTo(Asset.class));
-                }
-            }
-
-            assetSelectionReference = cruiseModel.getAssetSelectionReference();
-            if (StringUtils.isNotBlank(assetSelectionReference)) {
-                assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-            }
-        }*/
-
-        return assetList;
-    }
-
-    public List<Asset> getAllAssetForSuite() {
-        String assetSelectionReference, assetVirtualTour;
-        List<Asset> assetList = new ArrayList<Asset>();
-
-        // Add asset from several list inside the same list
-        if (cruiseModel.getSuites() != null) {
-            for (SuiteModel suite : cruiseModel.getSuites()) {
-                assetSelectionReference = suite.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-
-                assetVirtualTour = suite.getPage().getProperties().get("virtualTour", String.class);
-                if (StringUtils.isNotBlank(assetVirtualTour)) {
-                    Resource res = getResourceResolver().getResource(assetVirtualTour);
-                    if (res != null) {
-                        assetList.add(res.adaptTo(Asset.class));
-                    }
-                }
-            }
-        }
-
-        return assetList;
-    }
-
-    public List<Asset> getAllAssetForDinning() {
-        String assetSelectionReference, assetVirtualTour;
-        List<Asset> assetList = new ArrayList<Asset>();
-
-        // Add asset from several list inside the same list
-        if (cruiseModel.getShip().getDinings() != null) {
-            for (DiningModel dinning : cruiseModel.getShip().getDinings()) {
-                assetSelectionReference = dinning.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-
-                assetVirtualTour = dinning.getPage().getProperties().get("virtualTour", String.class);
-                if (StringUtils.isNotBlank(assetVirtualTour)) {
-                    Resource res = getResourceResolver().getResource(assetVirtualTour);
-                    if (res != null) {
-                        assetList.add(res.adaptTo(Asset.class));
-                    }
-                }
-            }
-        }
-
-        return assetList;
-    }
-
-    public List<Asset> getAllAssetForPublicArea() {
-        String assetSelectionReference, assetVirtualTour;
-        List<Asset> assetList = new ArrayList<Asset>();
-
-        // Add asset from several list inside the same list
-        if (cruiseModel.getShip().getPublicAreas() != null) {
-            for (PublicAreaModel publicArea : cruiseModel.getShip().getPublicAreas()) {
-                assetSelectionReference = publicArea.getPage().getProperties().get("assetSelectionReference", String.class);
-                if (StringUtils.isNotBlank(assetSelectionReference)) {
-                    assetList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-
-                assetVirtualTour = publicArea.getPage().getProperties().get("virtualTour", String.class);
-                if (StringUtils.isNotBlank(assetVirtualTour)) {
-                    Resource res = getResourceResolver().getResource(assetVirtualTour);
-                    if (res != null) {
-                        assetList.add(res.adaptTo(Asset.class));
-                    }
-                }
-            }
-        }
-
-        return assetList;
-    }
-
-    public List<Asset> getAllAssetForDinningNPublicAreas() {
-        if (getAllAssetForDinning() != null && getAllAssetForPublicArea() != null) {
-            List<Asset> assetList = Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream()).collect(Collectors.toList());
-            return assetList;
-        }
-
-        return null;
-    }
-
     public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
         LinkedHashMap<String, List<Asset>> gallery;
-        gallery = new LinkedHashMap<String, List<Asset>>();
+        gallery = new LinkedHashMap<>();
 
         if (getAllAssetForItinerary() != null) {
             gallery.put("voyage", getAllAssetForItinerary());
@@ -283,9 +414,5 @@ public class CruiseUse extends WCMUsePojo {
 
     public String getPageLanguage() {
         return getCurrentPage().getLanguage(false).getLanguage();
-    }
-
-    public String getDescription() {
-        return StringUtils.isEmpty(cruiseModel.getDescription()) ? cruiseModel.getImportedDescription() : cruiseModel.getDescription();
     }
 }

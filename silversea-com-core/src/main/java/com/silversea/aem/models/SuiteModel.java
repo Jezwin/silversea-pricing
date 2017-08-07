@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Model(adaptables = Page.class)
-public class SuiteModel extends AbstractModel {
+public class SuiteModel extends AbstractModel implements ShipAreaModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(SuiteModel.class);
 
@@ -56,36 +56,122 @@ public class SuiteModel extends AbstractModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
     private String virtualTour;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
+    private String thumbnail;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteFeature") @Optional
     private String[] features;
 
-    private PriceData lowestPrice;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteReference") @Optional
+    private String suiteReference;
 
-    private String[] suiteSubTitle;
+    // TODO replace by injector
+    private SuiteModel genericSuite;
 
-    private String thumbnail;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle") @Optional
+    private String suiteSubTitle;
 
-    private List<SuiteVariation> variations;
-
-    private ResourceResolver resourceResolver;
+    private String[] splitSuiteSubTitle;
 
     private TagManager tagManager;
-    private PageManager pageManager;
 
     @PostConstruct
     private void init() {
-        /*try{
-            resourceResolver = page.getContentResource().getResourceResolver();
-            pageManager = resourceResolver.adaptTo(PageManager.class);
-            tagManager = resourceResolver.adaptTo(TagManager.class);
-            thumbnail = page.getProperties().get("image/fileReference", String.class);
-            suiteSubTitle = parseText(page, "suiteSubTitle");
-            title = initPropertyWithFallBack(page,"suiteReference", title, "title",pageManager);
-            longDescription = initPropertyWithFallBack(page,"suiteReference", longDescription, "longDescription",pageManager);
-            assetSelectionReference = initPropertyWithFallBack(page,"suiteReference", assetSelectionReference, "assetSelectionReference",pageManager);
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
-        }*/
+        final PageManager pageManager = page.getPageManager();
+
+        // init reference
+        if (suiteReference != null) {
+            final Page genericSuitePage = pageManager.getPage(suiteReference);
+
+            if (genericSuitePage != null) {
+                genericSuite = genericSuitePage.adaptTo(SuiteModel.class);
+            }
+        }
+
+        // init suite sub title
+        if (suiteSubTitle != null) {
+            splitSuiteSubTitle = suiteSubTitle.split("\\r?\\n");
+        }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLongDescription() {
+        return longDescription != null ? longDescription :
+                (genericSuite != null ? genericSuite.getLongDescription() : null);
+    }
+
+    public String getAssetSelectionReference() {
+        return assetSelectionReference != null ? assetSelectionReference :
+                (genericSuite != null ? genericSuite.getAssetSelectionReference() : null);
+    }
+
+    public String[] getSuiteSubTitle() {
+        return splitSuiteSubTitle;
+    }
+
+    public String getBedroomsInformation() {
+        return bedroomsInformation;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public String[] getFeatures() {
+        return features;
+    }
+
+    public String getLocationImage() {
+        return locationImage;
+    }
+
+    public String getVirtualTour() {
+        return virtualTour;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private PriceData lowestPrice;
+
+    private List<SuiteVariation> variations;
+
+    public List<SuiteVariation> getVariations() {
+        return variations;
+    }
+
+    public PriceData getLowestPrice() {
+        return lowestPrice;
     }
 
     public void initLowestPrice(Node lowestPriceNode, String geoMarketCode) {
@@ -164,54 +250,5 @@ public class SuiteModel extends AbstractModel {
         }
 
         return price;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public PriceData getLowestPrice() {
-        return lowestPrice;
-    }
-
-    public String[] getSuiteSubTitle() {
-        return suiteSubTitle;
-    }
-
-    public String getBedroomsInformation() {
-        return bedroomsInformation;
-    }
-
-    public String getLongDescription() {
-        return longDescription;
-    }
-
-    public String getPlan() {
-        return plan;
-    }
-
-    public String[] getFeatures() {
-        return features;
-    }
-
-    public List<SuiteVariation> getVariations() {
-        return variations;
-    }
-
-    public String getLocationImage() {
-        return locationImage;
-    }
-
-    public String getVirtualTour() {
-        return virtualTour;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public Page getPage() {
-        // TODO remove getter for properties accessible from Page
-        return page;
     }
 }

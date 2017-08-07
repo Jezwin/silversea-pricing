@@ -33,4 +33,20 @@ public class ItineraryHotelModel {
             hotel = hotelPage.adaptTo(HotelModel.class);
         }
     }
+
+    public String getName() {
+        return hotel.getName();
+    }
+
+    public String getDescription() {
+        return hotel.getDescription();
+    }
+
+    public String getShortDescription() {
+        return hotel.getShortDescription();
+    }
+
+    public String getCode() {
+        return hotel.getCode();
+    }
 }

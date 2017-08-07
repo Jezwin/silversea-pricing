@@ -1,7 +1,9 @@
 package com.silversea.aem.services.impl;
 
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.silversea.aem.helper.GeolocationHelper;
+import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.services.GeolocationTagService;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -112,11 +114,33 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
     }
 
     @Override
-    public String getTagFromRequest(final SlingHttpServletRequest request) {
+    public String getTagIdFromRequest(final SlingHttpServletRequest request) {
         final String countryCode = GeolocationHelper.getCountryCode(request);
 
         if (countryCode != null) {
             return tagIdMapping.get(countryCode);
+        }
+
+        return null;
+    }
+
+    @Override
+    public GeolocationTagModel getGeolocationTagModelFromRequest(SlingHttpServletRequest request) {
+        final String geolocationTagId = getTagIdFromRequest(request);
+
+        final ResourceResolver resourceResolver = request.getResourceResolver();
+        final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+
+        if (tagManager != null && geolocationTagId != null) {
+            final Tag geolocationTag = tagManager.resolve(geolocationTagId);
+
+            if (geolocationTag != null) {
+                final Resource geolocationTagResource = geolocationTag.adaptTo(Resource.class);
+
+                if (geolocationTagResource != null) {
+                    return geolocationTagResource.adaptTo(GeolocationTagModel.class);
+                }
+            }
         }
 
         return null;

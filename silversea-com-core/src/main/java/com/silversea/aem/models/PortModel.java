@@ -1,7 +1,10 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.services.GeolocationTagService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -25,11 +28,17 @@ public class PortModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(PortModel.class);
 
+    @Inject
+    private GeolocationTagService geolocationTagService;
+
     @Inject @Self
     private Page page;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiTitle") @Optional
+    private String apiTitle;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:description") @Optional
     private String description;
@@ -37,11 +46,19 @@ public class PortModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/apiDescription") @Optional
     private String apiDescription;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    private String assetSelectionReference;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cityId")
     private Integer cityId;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference")
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
     private String thumbnail;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/countryIso2")
+    private String countryIso2;
+
+    private Tag country;
 
     private List<ExcursionModel> excursions;
 
@@ -55,39 +72,49 @@ public class PortModel {
         landPrograms = new ArrayList<>();
         hotels = new ArrayList<>();
 
-        try {
-            final Iterator<Page> childs = page.listChildren();
+        final Iterator<Page> childs = page.listChildren();
 
-            while (childs.hasNext()) {
-                Page child = childs.next();
+        while (childs.hasNext()) {
+            Page child = childs.next();
 
-                if (child.getName().equals("excursions")) {
-                    Iterator<Page> excursionsPages = child.listChildren();
+            if (child.getName().equals("excursions")) {
+                Iterator<Page> excursionsPages = child.listChildren();
 
-                    while (excursionsPages.hasNext()) {
-                        excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
-                    }
-                } else if (child.getName().equals("land-programs")) {
-                    Iterator<Page> landProgramsPages = child.listChildren();
+                while (excursionsPages.hasNext()) {
+                    excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
+                }
+            } else if (child.getName().equals("land-programs")) {
+                Iterator<Page> landProgramsPages = child.listChildren();
 
-                    while (landProgramsPages.hasNext()) {
-                        landPrograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
-                    }
-                } else if (child.getName().equals("hotels")) {
-                    Iterator<Page> hotelsPages = child.listChildren();
+                while (landProgramsPages.hasNext()) {
+                    landPrograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
+                }
+            } else if (child.getName().equals("hotels")) {
+                Iterator<Page> hotelsPages = child.listChildren();
 
-                    while (hotelsPages.hasNext()) {
-                        hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
-                    }
+                while (hotelsPages.hasNext()) {
+                    hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
                 }
             }
-        } catch (RuntimeException e) {
-            LOGGER.error("Error while initializing model {}", e);
+        }
+
+        if (geolocationTagService != null && StringUtils.isNotEmpty(countryIso2)) {
+            final String tagId = geolocationTagService.getTagFromCountryId(countryIso2);
+
+            final TagManager tagManager = page.getContentResource().getResourceResolver().adaptTo(TagManager.class);
+
+            if (tagManager != null && StringUtils.isNotEmpty(tagId)) {
+                country = tagManager.resolve(tagId);
+            }
         }
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getApiTitle() {
+        return apiTitle;
     }
 
     public String getDescription() {
@@ -106,6 +133,10 @@ public class PortModel {
         return cityId;
     }
 
+    public String getAssetSelectionReference() {
+        return assetSelectionReference;
+    }
+
     public String getThumbnail() {
         return thumbnail;
     }
@@ -120,5 +151,9 @@ public class PortModel {
 
     public List<HotelModel> getHotels() {
         return hotels;
+    }
+
+    public String getCountry() {
+        return country != null ? country.getTitle() : null;
     }
 }

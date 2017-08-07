@@ -50,7 +50,7 @@ public class ItineraryModel {
     @Inject @Optional
     private boolean overnight;
 
-    @Inject
+    @Inject @Optional
     private String portReference;
 
     @Inject @Optional

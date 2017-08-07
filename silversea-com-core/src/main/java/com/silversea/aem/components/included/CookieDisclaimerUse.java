@@ -22,7 +22,7 @@ public class CookieDisclaimerUse extends WCMUsePojo {
         GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
 
         if (geolocationTagService != null) {
-            final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
+            final String geolocationTagId = geolocationTagService.getTagIdFromRequest(getRequest());
 
             // Getting inherited properties
             final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());

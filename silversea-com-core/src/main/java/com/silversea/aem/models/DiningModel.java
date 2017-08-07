@@ -1,9 +1,8 @@
 package com.silversea.aem.models;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -11,72 +10,81 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * TODO remove unused/local variables
+ * TODO add plan and location image
  */
 @Model(adaptables = Page.class)
-public class DiningModel extends AbstractModel{
+public class DiningModel  implements ShipAreaModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(DiningModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String assetSelectionReference;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
     private String thumbnail;
-    
-    private ResourceResolver resourceResolver;
-    private PageManager pageManager;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
+    private String virtualTour;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/diningReference") @Optional
+    private String diningReference;
+
+    // TODO replace by an injector
+    private DiningModel genericDining;
 
     @PostConstruct
     private void init() {
-        try{
-            resourceResolver = page.getContentResource().getResourceResolver();
-            pageManager = resourceResolver.adaptTo(PageManager.class);
-            title = initPropertyWithFallBack(page,"diningReference", title, "title",pageManager);
-            longDescription = initPropertyWithFallBack(page,"diningReference", longDescription, "longDescription",pageManager);
-            assetSelectionReference = initPropertyWithFallBack(page,"diningReference", assetSelectionReference, "assetSelectionReference",pageManager);
-            thumbnail = page.getProperties().get("image/fileReference", String.class);
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
-        }
-    }
+        final PageManager pageManager = page.getPageManager();
 
-    public String getLongDescription() {
-        return longDescription;
+        // init reference
+        if (diningReference != null) {
+            final Page genericDiningPage = pageManager.getPage(diningReference);
+
+            if (genericDiningPage != null) {
+                genericDining = genericDiningPage.adaptTo(DiningModel.class);
+            }
+        }
     }
 
     public String getTitle() {
         return title;
     }
 
+    public String getLongDescription() {
+        return longDescription != null ? longDescription :
+                (genericDining != null ? genericDining.getLongDescription() : null);
+    }
+
     public String getAssetSelectionReference() {
-        return assetSelectionReference;
+        return assetSelectionReference != null ? assetSelectionReference :
+                (genericDining != null ? genericDining.getAssetSelectionReference() : null);
+    }
+
+    public String getThumbnail() {
+        return thumbnail != null ? thumbnail :
+                (genericDining != null ? genericDining.getThumbnail() : null);
+    }
+
+    public String getVirtualTour() {
+        return virtualTour;
     }
 
     public Page getPage() {
         return page;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
     }
 }

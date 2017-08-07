@@ -1,6 +1,8 @@
 package com.silversea.aem.utils;
 
 import com.day.cq.dam.api.Asset;
+import com.silversea.aem.models.ShipAreaModel;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.resource.collection.ResourceCollection;
@@ -42,5 +44,24 @@ public class AssetUtils {
         }
 
         return renditionList;
+    }
+
+    public static List<Asset> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
+        List<Asset> assets = new ArrayList<>();
+
+        for (ShipAreaModel shipArea : shipAreas) {
+            if (StringUtils.isNotBlank(shipArea.getAssetSelectionReference())) {
+                assets.addAll(buildAssetList(shipArea.getAssetSelectionReference(), resourceResolver));
+            }
+
+            if (StringUtils.isNotBlank(shipArea.getVirtualTour())) {
+                final Resource virtualTourResource = resourceResolver.getResource(shipArea.getVirtualTour());
+                if (virtualTourResource != null) {
+                    assets.add(virtualTourResource.adaptTo(Asset.class));
+                }
+            }
+        }
+
+        return assets;
     }
 }

@@ -86,7 +86,7 @@ public class GeolocationServiceImpl implements GeolocationService {
 
     public GeoLocation initGeolocation(SlingHttpServletRequest request) {
 
-        String tagId = geolocationTagService.getTagFromRequest(request);
+        String tagId = geolocationTagService.getTagIdFromRequest(request);
         String countryCode = GeolocationHelper.getCountryCode(request);
         String geoMarketCode = getGeoMarketCode(tagId);
         GeoLocation geoLocation = new GeoLocation();
@@ -105,7 +105,7 @@ public class GeolocationServiceImpl implements GeolocationService {
      */
     public String getLocalizedPhone(SlingHttpServletRequest request) {
         String localizedPhone = "";
-        String geolocationTagId = geolocationTagService.getTagFromRequest(request);
+        String geolocationTagId = geolocationTagService.getTagIdFromRequest(request);
         if (geolocationTagId == null) {
             //use default country
             geolocationTagId = geolocationTagService.getTagFromCountryId(DEFAULT_GEOLOCATION_COUTRY);
@@ -125,7 +125,7 @@ public class GeolocationServiceImpl implements GeolocationService {
      */
     public String getLocalizedCurrency(SlingHttpServletRequest request) {
         String localizedCurrency = "";
-        String geolocationTagId = geolocationTagService.getTagFromRequest(request);
+        String geolocationTagId = geolocationTagService.getTagIdFromRequest(request);
         if (geolocationTagId == null) {
             //use default country
             geolocationTagId = geolocationTagService.getTagFromCountryId(DEFAULT_GEOLOCATION_COUTRY);

@@ -31,13 +31,14 @@
                         <div class="c-accordion__title">
                             <div class="c-accordion__title">
                                 <ul class="c-accordion__subtitle list">
-                                    <li class="c-accordion__subtitle veryimportant">${item.port.title}</li>
+                                    <li class="c-accordion__subtitle veryimportant">${item.port.apiTitle}</li>
                                     <li class="c-accordion__subtitle city">${item.port.country}</li>
                                 </ul>
                                 <ul class="c-accordion__subtitle list">
                                     <li class="c-accordion__subtitle" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
                                         ${date.value}
                                     </li>
+                                    <!-- TODO condition to display comma between "arrive" and "depart" -->
                                     <li class="c-accordion__subtitle arrivals">
                                         <span data-sly-test="${item.arriveTime}">${'arrive' @ i18n}: ${item.arriveTime},</span> <span data-sly-test="${item.departTime}">${'depart' @ i18n} ${item.departTime}</span>
                                     </li>
@@ -47,16 +48,17 @@
                                 <span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>
                             </div>
                         </div>
+                        <!-- TODO check cruise type for excursions display -->
                         <div class="c-accordion__title--body c-accordion__header--unclickable">
-                            <span>${item.port.description @ context='html'}</span>
-                            <a data-sly-test="${excursions.size > 0}"
+                            <span>${item.port.apiDescription @ context='html'}</span>
+                            <a data-sly-test="${excursions && excursions.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
                                title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
                                 ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
                             </a>
 
-                            <a data-sly-test="${landPrograms.size > 0}"
+                            <a data-sly-test="${landPrograms && landPrograms.size > 0}"
                                href="#"
                                class="c-btn c-btn--white"
                                title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
@@ -69,14 +71,15 @@
                     <div class="c-accordion__body--panel">
                         ${item.description @ context='html'}
 
-                        <a data-sly-test="${excursions.size > 0}"
+                        <!-- TODO check cruise type for excursions display -->
+                        <a data-sly-test="${excursions && excursions.size > 0}"
                            href="#"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
                             ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
                         </a>
 
-                        <a data-sly-test="${landPrograms.size > 0}"
+                        <a data-sly-test="${landPrograms && landPrograms.size > 0}"
                            href="#"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">

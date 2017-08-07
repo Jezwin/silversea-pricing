@@ -49,7 +49,7 @@ public class BrochureTeaserListUse extends WCMUsePojo {
         GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
 
         // Getting context
-        final String geolocationTagId = geolocationTagService.getTagFromRequest(getRequest());
+        final String geolocationTagId = geolocationTagService.getTagIdFromRequest(getRequest());
 
         currentLanguage = LanguageHelper.getLanguage(getRequest());
         if (currentLanguage == null) {
