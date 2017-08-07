@@ -16,13 +16,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-/**
- * TODO review how to get childs
- * Created by aurelienolivier on 12/02/2017.
- */
 @Model(adaptables = Page.class)
 public class PortModel {
 
@@ -60,47 +55,19 @@ public class PortModel {
 
     private Tag country;
 
-    private List<ExcursionModel> excursions;
+    @Inject @Optional
+    private List<ExcursionModel> excursions = new ArrayList<>();
 
-    private List<LandProgramModel> landPrograms;
+    @Inject @Named("land-programs") @Optional
+    private List<LandProgramModel> landPrograms = new ArrayList<>();
 
-    private List<HotelModel> hotels;
+    @Inject @Optional
+    private List<HotelModel> hotels = new ArrayList<>();
 
     @PostConstruct
     private void init() {
-        excursions = new ArrayList<>();
-        landPrograms = new ArrayList<>();
-        hotels = new ArrayList<>();
-
-        final Iterator<Page> childs = page.listChildren();
-
-        while (childs.hasNext()) {
-            Page child = childs.next();
-
-            if (child.getName().equals("excursions")) {
-                Iterator<Page> excursionsPages = child.listChildren();
-
-                while (excursionsPages.hasNext()) {
-                    excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
-                }
-            } else if (child.getName().equals("land-programs")) {
-                Iterator<Page> landProgramsPages = child.listChildren();
-
-                while (landProgramsPages.hasNext()) {
-                    landPrograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
-                }
-            } else if (child.getName().equals("hotels")) {
-                Iterator<Page> hotelsPages = child.listChildren();
-
-                while (hotelsPages.hasNext()) {
-                    hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
-                }
-            }
-        }
-
         if (geolocationTagService != null && StringUtils.isNotEmpty(countryIso2)) {
             final String tagId = geolocationTagService.getTagFromCountryId(countryIso2);
-
             final TagManager tagManager = page.getContentResource().getResourceResolver().adaptTo(TagManager.class);
 
             if (tagManager != null && StringUtils.isNotEmpty(tagId)) {
