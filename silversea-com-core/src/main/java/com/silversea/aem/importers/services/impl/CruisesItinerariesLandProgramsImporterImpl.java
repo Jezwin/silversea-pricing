@@ -124,7 +124,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to land programs informations
-                            if (itineraryModel.isItinerary(landProgram.getVoyageId(), landProgram.getCityId(), landProgram.getDate().toGregorianCalendar())) {
+                            if (itineraryModel.isItinerary(landProgram.getVoyageId(), landProgram.getDate().toGregorianCalendar())) {
 
                                 // Trying to write land program data on itinerary
                                 try {

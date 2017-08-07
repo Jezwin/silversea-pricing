@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.silversea.aem.models.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
@@ -17,10 +18,6 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.helper.GeolocationHelper;
-import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.models.DiningModel;
-import com.silversea.aem.models.PublicAreaModel;
-import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
@@ -56,6 +53,41 @@ public class CruiseUse extends WCMUsePojo {
         return cruiseModel;
     }
 
+    // TODO
+    public int getExcursionsSize() {
+        return 10;
+    }
+
+    public String getDestinationTitle() {
+        return getCurrentPage().getParent().getTitle();
+    }
+
+    /**
+     * @return true if at least on itinerary have an excursion,
+     * land program or hotels
+     */
+    public boolean getItinerariesHasElements() {
+        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            if (itinerary.getExcursions().size() > 0 || itinerary.getLandPrograms().size() > 0 || itinerary.getHotels().size() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // ---------------- TODO review ------------ //
     private GeoLocation initGeolocation(GeolocationTagService geolocationTagService) {
 
         String tagId = geolocationTagService.getTagFromRequest(getRequest());

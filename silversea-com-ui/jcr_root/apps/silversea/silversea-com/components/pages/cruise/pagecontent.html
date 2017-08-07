@@ -13,7 +13,7 @@
                         <a href="#overview"><span>${'overview' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark">
                         <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
-                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-cruise' && cruise.cruiseModel.itinerariesData.nbExcursions > 0}">
+                    </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-cruise' && cruise.excursionsSize > 0}">
                             <a href="#excursion"><span>${'excursions' @i18n}</span></a>
                     </li><li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
                         <a href="#highlight" data-sly-test.tabname="${properties.reference && properties.voyageHighlights ? 'voyage-highlights-expedition' : 'voyage-highlights'}">

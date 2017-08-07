@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import javax.jcr.Node;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Model(adaptables = Resource.class)
@@ -34,7 +33,7 @@ public class ItineraryModel {
     private Integer itineraryId;
 
     @Inject @Optional
-    private Date date;
+    private Calendar date;
 
     @Inject @Optional
     private String arriveTime;
@@ -51,10 +50,17 @@ public class ItineraryModel {
     @Inject @Optional
     private boolean overnight;
 
-    @Inject @Optional
+    @Inject
     private String portReference;
 
-    //private List<ItineraryExcursionModel> excursions;
+    @Inject @Optional
+    private List<ItineraryExcursionModel> excursions = new ArrayList<>();
+
+    @Inject @Optional
+    private List<ItineraryHotelModel> hotels = new ArrayList<>();
+
+    @Inject @Optional
+    private List<ItineraryLandProgramModel> landPrograms = new ArrayList<>();
 
     private Integer cruiseId;
 
@@ -91,6 +97,26 @@ public class ItineraryModel {
         return itineraryId;
     }
 
+    public Calendar getDate() {
+        return date;
+    }
+
+    public String getArriveTime() {
+        if (arriveTime.length() == 4) {
+            return arriveTime.substring(0, 2) + ":" + arriveTime.substring(2, arriveTime.length());
+        }
+
+        return arriveTime;
+    }
+
+    public String getDepartTime() {
+        if (departTime.length() == 4) {
+            return departTime.substring(0, 2) + ":" + departTime.substring(2, departTime.length());
+        }
+
+        return departTime;
+    }
+
     public Integer getCruiseId() {
         return cruiseId;
     }
@@ -107,36 +133,35 @@ public class ItineraryModel {
         return null;
     }
 
+    public List<ItineraryExcursionModel> getExcursions() {
+        return excursions;
+    }
+
+    public List<ItineraryHotelModel> getHotels() {
+        return hotels;
+    }
+
+    public List<ItineraryLandProgramModel> getLandPrograms() {
+        return landPrograms;
+    }
+
     /**
      * Check if the itinerary correspond to an itinerary with <code>cruiseId</code>,
      * <code>cityId</code>, <code>date</code>
      *
      * @param cruiseId id of voyage
-     * @param cityId if of city
      * @param date date
      * @return true if all arguments match with the current itinerary, false else
      */
-    public boolean isItinerary(final Integer cruiseId, final Integer cityId, final Calendar date) {
+    public boolean isItinerary(final Integer cruiseId, final Calendar date) {
         if (this.cruiseId == null || this.port == null || this.date == null) {
             return false;
         }
 
-        return this.cruiseId.equals(cruiseId) /*&& this.port.getCityId().equals(cityId)*/ && date.getTime().equals(this.date);
+        return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date);
     }
 
     // -------------- TODO review after this line ----------------- //
-    public List<HotelModel> getHotels() {
-        return new ArrayList<>();
-    }
-
-    public List<ExcursionModel> getExcursions() {
-        return new ArrayList<>();
-    }
-
-    public List<LandProgramModel> getLandPrograms() {
-        return new ArrayList<>();
-    }
-
     @Deprecated
     public String getTitle() {
         return null;

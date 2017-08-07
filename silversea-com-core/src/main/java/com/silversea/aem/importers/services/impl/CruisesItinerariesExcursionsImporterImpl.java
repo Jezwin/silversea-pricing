@@ -125,7 +125,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to excursion informations
-                            if (itineraryModel.isItinerary(excursion.getVoyageId(), excursion.getCityId(), excursion.getDate().toGregorianCalendar())) {
+                            if (itineraryModel.isItinerary(excursion.getVoyageId(), excursion.getDate().toGregorianCalendar())) {
 
                                 // Trying to write excursion data on itinerary
                                 try {

@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -30,22 +31,28 @@ public class PortModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:description") @Optional
+    private String description;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/apiDescription") @Optional
     private String apiDescription;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cityId")
     private Integer cityId;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference")
+    private String thumbnail;
+
     private List<ExcursionModel> excursions;
 
-    private List<LandProgramModel> landprograms;
+    private List<LandProgramModel> landPrograms;
 
     private List<HotelModel> hotels;
 
     @PostConstruct
     private void init() {
         excursions = new ArrayList<>();
-        landprograms = new ArrayList<>();
+        landPrograms = new ArrayList<>();
         hotels = new ArrayList<>();
 
         try {
@@ -64,7 +71,7 @@ public class PortModel {
                     Iterator<Page> landProgramsPages = child.listChildren();
 
                     while (landProgramsPages.hasNext()) {
-                        landprograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
+                        landPrograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
                     }
                 } else if (child.getName().equals("hotels")) {
                     Iterator<Page> hotelsPages = child.listChildren();
@@ -83,6 +90,14 @@ public class PortModel {
         return title;
     }
 
+    public String getDescription() {
+        if (StringUtils.isNotEmpty(description)) {
+            return description;
+        }
+
+        return apiDescription;
+    }
+
     public String getApiDescription() {
         return apiDescription;
     }
@@ -91,12 +106,16 @@ public class PortModel {
         return cityId;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
     public List<ExcursionModel> getExcursions() {
         return excursions;
     }
 
     public List<LandProgramModel> getLandPrograms() {
-        return landprograms;
+        return landPrograms;
     }
 
     public List<HotelModel> getHotels() {

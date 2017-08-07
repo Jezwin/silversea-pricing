@@ -127,7 +127,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to hotel informations
-                            if (itineraryModel.isItinerary(hotel.getVoyageId(), hotel.getCityId(), hotel.getDate().toGregorianCalendar())) {
+                            if (itineraryModel.isItinerary(hotel.getVoyageId(), hotel.getDate().toGregorianCalendar())) {
 
                                 // Trying to write hotel data on itinerary
                                 try {

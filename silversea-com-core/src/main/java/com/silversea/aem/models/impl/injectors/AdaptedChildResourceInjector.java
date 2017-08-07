@@ -9,7 +9,6 @@ import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.spi.DisposalCallbackRegistry;
@@ -44,7 +43,10 @@ public class AdaptedChildResourceInjector extends AbstractInjector implements In
             SuiteModel.class,
             PublicAreaModel.class,
             DiningModel.class,
-            ItineraryModel.class);
+            ItineraryModel.class,
+            ItineraryExcursionModel.class,
+            ItineraryHotelModel.class,
+            ItineraryLandProgramModel.class);
 
     @Override
     public @Nonnull String getName() {
