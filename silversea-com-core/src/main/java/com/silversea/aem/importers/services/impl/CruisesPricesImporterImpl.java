@@ -38,7 +38,7 @@ import java.util.Map;
 @Service
 public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesItinerariesHotelsImporterImpl.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(CruisesPricesImporterImpl.class);
 
     private int sessionRefresh = 100;
     private int pageSize = 100;
@@ -67,7 +67,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
     @Override
     public ImportResult importSampleSet(int size) {
-        LOGGER.debug("Starting hotels import ({})", size == -1 ? "all" : size);
+        LOGGER.debug("Starting prices import ({})", size == -1 ? "all" : size);
 
         int successNumber = 0;
         int errorNumber = 0;
@@ -89,7 +89,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            // Existing hotels deletion
+            // Existing prices deletion
             LOGGER.debug("Cleaning already imported prices");
 
             ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
