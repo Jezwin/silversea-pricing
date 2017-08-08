@@ -29,18 +29,15 @@
                 <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.name}</span></a></li>
             </ul>
         </li>
-        <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
-            <a href="${search.path @ extension ='html'}" class="c-main-nav__top__link">
-                <span><i class="fa fa-lg fa-search"></i></span>
-            </a>
-        </li>
-        
-    </ul>
-</div>
-        <div class="c-main-nav-search">
-            <form class="searchbox">
+
+        <div class="c-main-nav-search" data-sly-test.search="${navTop.searchPage}">
+            <form class="searchbox" action="${search.path @ extension ='html'}">
                 <input type="search" placeholder="Type here to search" name="search" class="searchbox-input" onkeyup="buttonUp();" required>
                 <input type="submit" class="searchbox-submit" value="Envoyer">
                 <i class="fa fa-lg fa-search searchbox-icon" aria-hidden="true"></i>
             </form>
         </div>
+
+    </ul>
+</div>
+        
