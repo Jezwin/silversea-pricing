@@ -1,0 +1,19 @@
+<div data-sly-use.use="com.silversea.aem.components.editorial.SearchResultsUse"
+     data-sly-test="${(wcmmode.edit || wcmmode.design)}"
+     class="cq-placeholder" data-emptytext="Search results"></div>
+<h1>Search : ${use.searchText}</h1>
+<h2>Results :</h2>
+
+<sly data-sly-test="${use.searchResult}">
+    <ul data-sly-list.hit="${use.searchResult.hits}">
+        <li>
+            <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=hit.path, absolute=false}" />
+            <b><a href="${externalizerHelper.externalizedUrl @ extension='html'}">${hit.title @ context='html'}</a></b>
+            <p>${hit.excerpt @ context='html'}</p>
+        </li>
+    </ul>
+    <sly data-sly-repeat="${use.pageTrio}">
+        <sly data-sly-test="${item == use.pageRequested}"><b>${item}&nbsp;</b></sly>
+        <sly data-sly-test="${item != use.pageRequested}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${item}">${item}&nbsp;</a></sly>
+    </sly>
+</sly>
