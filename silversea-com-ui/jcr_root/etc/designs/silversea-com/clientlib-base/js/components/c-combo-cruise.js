@@ -62,6 +62,10 @@ $(function() {
     var readMore = (function readMore() {
         $('.c-cruise-ship-info__item .variationcontent__descr').each(function(i, description) {
             var $description = $(description);
+            // Re-init hmtl markup
+            $description.attr('data-original-height', '');
+            $description.removeClass('clipped');
+            $description.removeClass('opened');
 
             if ($description.height() > 137) {
                 var $descriptionToggle = $description.next('.variationcontent__descr__expand');
@@ -71,12 +75,14 @@ $(function() {
                 $description.attr('data-original-height', $description.height());
                 $description.addClass('clipped');
 
+                // Expand
                 $moreBtn.on('click', function(e) {
                     e.preventDefault();
                     $description.addClass('opened');
                     $description.css('height', $description.data('original-height'))
                 });
 
+                // Collapse
                 $lessBtn.on('click', function(e) {
                     e.preventDefault();
                     $description.removeClass('opened');
@@ -88,7 +94,13 @@ $(function() {
         return readMore;
     })();
 
+    // Init function on click
     $('.c-cruise .expander-open').on('click', function(e) {
+        readMore();
+    });
+
+    // Init function on resize
+    $('body').on('trigger.viewport.changed', function() {
         readMore();
     });
 });
