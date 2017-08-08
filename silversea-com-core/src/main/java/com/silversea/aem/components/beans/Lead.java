@@ -32,6 +32,8 @@ public class Lead {
     private String city;
     private String country;
     private String brochurecode;
+    // Campaign value
+    private String marketingEffort;
 
     public String getPostaladdress() {
         return postaladdress;
@@ -311,4 +313,11 @@ public class Lead {
         this.sitecurrency = sitecurrency;
     }
 
+    public String getMarketingEffort() {
+        return marketingEffort;
+    }
+
+    public void setMarketingEffort(String marketingEffort) {
+        this.marketingEffort = marketingEffort;
+    }
 }

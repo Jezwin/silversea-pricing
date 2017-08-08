@@ -75,7 +75,8 @@ $(function() {
             event.preventDefault();
 
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry', 'sitelanguage', 'sitecurrency'];
-            var pos = document.cookie.indexOf("userInfo=");
+            var pos = document.cookie.indexOf("userInfo="),
+                marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
 
             // Set cookie if not created
             if (pos <= 0) {
@@ -91,6 +92,8 @@ $(function() {
                 if (index > -1)
                     leadApiData[cookieValues[index]] = form[i].value;
             }
+            if(marketingEffortValue)
+                leadApiData['marketingEffort'] = marketingEffortValue;
 
             $.ajax({
                 type : 'POST',
