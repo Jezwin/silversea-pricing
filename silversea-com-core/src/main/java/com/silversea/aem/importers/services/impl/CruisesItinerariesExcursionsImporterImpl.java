@@ -137,36 +137,38 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
 
                                     // TODO to check : getShorexItineraryId() is not unique over API
-                                    final Node excursionNode = excursionsNode.addNode(JcrUtil.createValidChildName(excursionsNode,
-                                            String.valueOf(excursion.getShorexItineraryId())));
+                                    if (!excursionsNode.hasNode(String.valueOf(excursion.getShorexItineraryId()))) {
+                                        final Node excursionNode = excursionsNode.addNode(JcrUtil.createValidChildName(excursionsNode,
+                                                String.valueOf(excursion.getShorexItineraryId())));
 
-                                    final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+                                        final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
-                                    // associating excursion page
-                                    if (excursionsMapping.get(excursionId).containsKey(lang)) {
-                                        excursionNode.setProperty("excursionReference", excursionsMapping.get(excursionId).get(lang));
-                                    }
+                                        // associating excursion page
+                                        if (excursionsMapping.get(excursionId).containsKey(lang)) {
+                                            excursionNode.setProperty("excursionReference", excursionsMapping.get(excursionId).get(lang));
+                                        }
 
-                                    excursionNode.setProperty("excursionId", excursionId);
-                                    excursionNode.setProperty("excursionItineraryId", excursion.getShorexItineraryId());
-                                    excursionNode.setProperty("date", excursion.getDate().toGregorianCalendar());
-                                    excursionNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());
-                                    excursionNode.setProperty("generalDepartureTime", excursion.getGeneralDepartureTime());
-                                    excursionNode.setProperty("duration", excursion.getDuration());
-                                    excursionNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/excursion");
+                                        excursionNode.setProperty("excursionId", excursionId);
+                                        excursionNode.setProperty("excursionItineraryId", excursion.getShorexItineraryId());
+                                        excursionNode.setProperty("date", excursion.getDate().toGregorianCalendar());
+                                        excursionNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());
+                                        excursionNode.setProperty("generalDepartureTime", excursion.getGeneralDepartureTime());
+                                        excursionNode.setProperty("duration", excursion.getDuration());
+                                        excursionNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/excursion");
 
-                                    successNumber++;
-                                    itemsWritten++;
+                                        successNumber++;
+                                        itemsWritten++;
 
-                                    imported = true;
+                                        imported = true;
 
-                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                        try {
-                                            session.save();
+                                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                            try {
+                                                session.save();
 
-                                            LOGGER.debug("{} excursions imported, saving session", +itemsWritten);
-                                        } catch (RepositoryException e) {
-                                            session.refresh(true);
+                                                LOGGER.debug("{} excursions imported, saving session", +itemsWritten);
+                                            } catch (RepositoryException e) {
+                                                session.refresh(true);
+                                            }
                                         }
                                     }
                                 } catch (RepositoryException e) {

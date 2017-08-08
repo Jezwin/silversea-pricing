@@ -139,31 +139,33 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                     final Node hotelsNode = JcrUtils.getOrAddNode(itineraryNode, "hotels", "nt:unstructured");
 
                                     // TODO to check : getHotelItineraryId() is not unique over API
-                                    final Node hotelNode = hotelsNode.addNode(JcrUtil.createValidChildName(hotelsNode,
-                                            String.valueOf(hotel.getHotelItineraryId())));
-                                    final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+                                    if (!hotelsNode.hasNode(String.valueOf(hotel.getHotelItineraryId()))) {
+                                        final Node hotelNode = hotelsNode.addNode(JcrUtil.createValidChildName(hotelsNode,
+                                                String.valueOf(hotel.getHotelItineraryId())));
+                                        final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
-                                    // associating port page
-                                    if (hotelsMapping.get(hotelId).containsKey(lang)) {
-                                        hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId).get(lang));
-                                    }
+                                        // associating port page
+                                        if (hotelsMapping.get(hotelId).containsKey(lang)) {
+                                            hotelNode.setProperty("hotelReference", hotelsMapping.get(hotelId).get(lang));
+                                        }
 
-                                    hotelNode.setProperty("hotelId", hotelId);
-                                    hotelNode.setProperty("hotelItineraryId", hotel.getHotelItineraryId());
-                                    hotelNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/hotel");
+                                        hotelNode.setProperty("hotelId", hotelId);
+                                        hotelNode.setProperty("hotelItineraryId", hotel.getHotelItineraryId());
+                                        hotelNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/hotel");
 
-                                    successNumber++;
-                                    itemsWritten++;
+                                        successNumber++;
+                                        itemsWritten++;
 
-                                    imported = true;
+                                        imported = true;
 
-                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                        try {
-                                            session.save();
+                                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                            try {
+                                                session.save();
 
-                                            LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
-                                        } catch (RepositoryException e) {
-                                            session.refresh(true);
+                                                LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+                                            } catch (RepositoryException e) {
+                                                session.refresh(true);
+                                            }
                                         }
                                     }
                                 } catch (RepositoryException e) {

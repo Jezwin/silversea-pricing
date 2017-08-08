@@ -136,32 +136,34 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                     final Node landProgramsNode = JcrUtils.getOrAddNode(itineraryNode, "land-programs", "nt:unstructured");
 
                                     // TODO to check : getLandItineraryId() is not unique over API
-                                    final Node landProgramNode = landProgramsNode.addNode(JcrUtil.createValidChildName(landProgramsNode,
-                                            String.valueOf(landProgram.getLandItineraryId())));
-                                    final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+                                    if (!landProgramsNode.hasNode(String.valueOf(landProgram.getLandItineraryId()))) {
+                                        final Node landProgramNode = landProgramsNode.addNode(JcrUtil.createValidChildName(landProgramsNode,
+                                                String.valueOf(landProgram.getLandItineraryId())));
+                                        final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
-                                    // associating landProgram page
-                                    if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
-                                        landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
-                                    }
+                                        // associating landProgram page
+                                        if (landProgramsMapping.get(landProgramId).containsKey(lang)) {
+                                            landProgramNode.setProperty("landProgramReference", landProgramsMapping.get(landProgramId).get(lang));
+                                        }
 
-                                    landProgramNode.setProperty("landProgramId", landProgramId);
-                                    landProgramNode.setProperty("landProgramItineraryId", landProgram.getLandItineraryId());
-                                    landProgramNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
-                                    landProgramNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
+                                        landProgramNode.setProperty("landProgramId", landProgramId);
+                                        landProgramNode.setProperty("landProgramItineraryId", landProgram.getLandItineraryId());
+                                        landProgramNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
+                                        landProgramNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
 
-                                    successNumber++;
-                                    itemsWritten++;
+                                        successNumber++;
+                                        itemsWritten++;
 
-                                    imported = true;
+                                        imported = true;
 
-                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                        try {
-                                            session.save();
+                                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                            try {
+                                                session.save();
 
-                                            LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
-                                        } catch (RepositoryException e) {
-                                            session.refresh(true);
+                                                LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+                                            } catch (RepositoryException e) {
+                                                session.refresh(true);
+                                            }
                                         }
                                     }
                                 } catch (RepositoryException e) {
