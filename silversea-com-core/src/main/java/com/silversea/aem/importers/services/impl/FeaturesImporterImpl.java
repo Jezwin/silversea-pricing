@@ -62,6 +62,9 @@ public class FeaturesImporterImpl implements FeaturesImporter {
                 throw new ImporterException("Cannot initialize tagManager and session");
             }
 
+            ImporterUtils.deleteResources(resourceResolver, 100, "/jcr:root/etc/tags/features"
+                    + "//element(*,cq:Tag)");
+
             final List<Feature> features = featuresApi.featuresGet(null);
             int j = 0;
 
