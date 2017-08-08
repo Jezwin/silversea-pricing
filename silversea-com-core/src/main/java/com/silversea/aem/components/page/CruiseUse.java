@@ -92,18 +92,22 @@ public class CruiseUse extends WCMUsePojo {
 
         // init assets from itinerary and cruise itself
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-            final String assetSelectionReference = itinerary.getPort().getAssetSelectionReference();
-            final String thumbnail = itinerary.getPort().getThumbnail();
+            final PortModel portModel = itinerary.getPort();
 
-            if (StringUtils.isNotBlank(assetSelectionReference)) {
-                itinerariesAssetsList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-            }
+            if (portModel != null) {
+                final String assetSelectionReference = portModel.getAssetSelectionReference();
+                final String thumbnail = portModel.getThumbnail();
 
-            if (StringUtils.isNotBlank(thumbnail)) {
-                final Resource thumbnailResource = getResourceResolver().getResource(thumbnail);
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    itinerariesAssetsList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+                }
 
-                if (thumbnailResource != null) {
-                    itinerariesAssetsList.add(thumbnailResource.adaptTo(Asset.class));
+                if (StringUtils.isNotBlank(thumbnail)) {
+                    final Resource thumbnailResource = getResourceResolver().getResource(thumbnail);
+
+                    if (thumbnailResource != null) {
+                        itinerariesAssetsList.add(thumbnailResource.adaptTo(Asset.class));
+                    }
                 }
             }
         }
@@ -121,9 +125,11 @@ public class CruiseUse extends WCMUsePojo {
             }
         } else {
             for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                excursionsNumber += itinerary.getPort().getExcursions().size();
-                hotelsNumber += itinerary.getPort().getHotels().size();
-                landProgramsNumber += itinerary.getPort().getLandPrograms().size();
+                if (itinerary.getPort() != null) {
+                    excursionsNumber += itinerary.getPort().getExcursions().size();
+                    hotelsNumber += itinerary.getPort().getHotels().size();
+                    landProgramsNumber += itinerary.getPort().getLandPrograms().size();
+                }
             }
         }
 
