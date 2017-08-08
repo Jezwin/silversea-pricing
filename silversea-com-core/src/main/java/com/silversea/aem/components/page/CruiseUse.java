@@ -299,6 +299,31 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     /**
+     * @return all the assets of the gallery
+     */
+    public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
+        LinkedHashMap<String, List<Asset>> gallery;
+        gallery = new LinkedHashMap<>();
+
+        if (getAllAssetForItinerary() != null) {
+            gallery.put("voyage", getAllAssetForItinerary());
+        }
+        if (getAllAssetForSuite() != null) {
+            gallery.put("suites", getAllAssetForSuite());
+        }
+        if (getAllAssetForDinning() != null) {
+            gallery.put("dinings", getAllAssetForDinning());
+        }
+        if (getAllAssetForPublicArea() != null) {
+            gallery.put("public-areas", getAllAssetForPublicArea());
+        }
+        // TODO : gallery.put("virtual-tours", value);
+        // TODO : gallery.put("ship-exteriors", value);
+
+        return gallery;
+    }
+
+    /**
      * @return return prices corresponding to the current geolocation
      */
     public List<SuitePrice> getPrices() {
@@ -381,28 +406,6 @@ public class CruiseUse extends WCMUsePojo {
             geoMarketCode = tag.getParent().getParent().getName();
         }
         return geoMarketCode;
-    }
-
-    public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
-        LinkedHashMap<String, List<Asset>> gallery;
-        gallery = new LinkedHashMap<>();
-
-        if (getAllAssetForItinerary() != null) {
-            gallery.put("voyage", getAllAssetForItinerary());
-        }
-        if (getAllAssetForSuite() != null) {
-            gallery.put("suites", getAllAssetForSuite());
-        }
-        if (getAllAssetForDinning() != null) {
-            gallery.put("dinings", getAllAssetForDinning());
-        }
-        if (getAllAssetForPublicArea() != null) {
-            gallery.put("public-areas", getAllAssetForPublicArea());
-        }
-        // TODO : gallery.put("virtual-tours", value);
-        // TODO : gallery.put("ship-exteriors", value);
-
-        return gallery;
     }
 
     /**

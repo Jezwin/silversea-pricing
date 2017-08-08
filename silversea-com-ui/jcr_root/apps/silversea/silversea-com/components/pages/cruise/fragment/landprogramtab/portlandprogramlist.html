@@ -48,9 +48,11 @@
                          data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
                          data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
 
+                        <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? item.landPrograms : item.port.landPrograms }"/>
+                        <sly data-sly-test.hotels="${cruise.itinerariesHasElements ? item.hotels : item.port.hotels }"/>
                         <sly data-sly-use.accordionTemplate="accordion-body.html"
-                             data-sly-call="${accordionTemplate.default @ list=item.landPrograms}"></sly>
-                        <sly data-sly-call="${accordionTemplate.default @ list=item.hotels}"></sly>
+                             data-sly-call="${accordionTemplate.default @ list=landPrograms}"></sly>
+                        <sly data-sly-call="${accordionTemplate.default @ list=hotels}"></sly>
 
                     </div>
                 </div>
