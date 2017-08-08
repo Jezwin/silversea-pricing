@@ -86,7 +86,7 @@ public class CitiesImporterImpl implements CitiesImporter {
             }
 
             ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]");
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/portslist\"]");
 
             // Getting paths to import data
             LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("citiesUrl"));
