@@ -130,6 +130,7 @@
 
                 .c-cruise-itinerary-list__headline__title, .c-cruise-itinerary-list__headline__date {
                     float: none;
+                    padding: 0;
                 }
 
                 .c-cruise-itinerary-list__headline__title__country {
@@ -140,6 +141,10 @@
 
         &__description {
             padding-left: calc(~"43% + 25px");
+
+            p:last-child {
+                margin-bottom: 30px;
+            }
         }
     }
 }
