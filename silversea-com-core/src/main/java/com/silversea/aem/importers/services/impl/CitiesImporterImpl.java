@@ -424,6 +424,11 @@ public class CitiesImporterImpl implements CitiesImporter {
                         portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
                         false);
 
+                // Set livecopy mixin
+                if (!LanguageHelper.getLanguage(citiesRootPage).equals("en")) {
+                    portFirstLetterPage.getContentResource().adaptTo(Node.class).addMixin("cq:LiveRelationship");
+                }
+
                 LOGGER.trace("{} page is not existing, creating it", portFirstLetterName);
             }
 
