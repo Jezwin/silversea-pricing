@@ -101,22 +101,6 @@ public class CitiesImporterImpl implements CitiesImporter {
                     throw new ImporterException("Cities root page does not exists");
                 }
 
-                LOGGER.debug("Cleaning already imported cities");
-
-                Iterator<Page> children = citiesRootPage.listChildren();
-                while (children.hasNext()) {
-                    final Page child = children.next();
-
-                    try {
-                        LOGGER.trace("trying to remove {}", child.getPath());
-
-                        session.removeItem(child.getPath());
-                        session.save();
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot clean already existing cities");
-                    }
-                }
-
                 LOGGER.debug("Importing cities for locale \"{}\"", locale);
 
                 int j = 0, i = 1;
