@@ -228,7 +228,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                             // creating cruise page - uniqueness is derived from cruise code
                             final Page cruisePage = pageManager.create(destinationPath,
-                                    pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, cruiseTitle, false);
+                                    pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, cruise.getVoyageName() + " - " + cruise.getVoyageCod(), false);
 
                             final Resource cruiseContentResource = cruisePage.getContentResource();
                             final Node cruiseContentNode = cruiseContentResource.adaptTo(Node.class);
