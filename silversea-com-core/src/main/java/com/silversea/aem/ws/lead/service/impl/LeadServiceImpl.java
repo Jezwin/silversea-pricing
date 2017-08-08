@@ -115,6 +115,9 @@ public class LeadServiceImpl implements LeadService {
         request.setCountry(lead.getCountry());
         request.setBrochuresRequested("");
 
+        // Marketing
+        request.setMarketingEffort(lead.getMarketingEffort());
+
     }
 
     private LeadFromWeb03Soap getClientProxy() {

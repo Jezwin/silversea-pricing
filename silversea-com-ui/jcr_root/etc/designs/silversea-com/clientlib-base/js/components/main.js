@@ -133,9 +133,9 @@ $(function() {
 
                     // Store object merged in the cookie
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
+                    $.CookieManager.setCookie('api_indiv_id', data);
 
                     if (elem.className.match(/c-formcookie--redirect/) !== null) {
-                        $.CookieManager.setCookie('api_indiv_id', data);
                         window.location.href = elem.action;
                     } else if (elem.className.match(/c-formcookie--modal/) !== null) {
                         var target = elem.dataset.target;
