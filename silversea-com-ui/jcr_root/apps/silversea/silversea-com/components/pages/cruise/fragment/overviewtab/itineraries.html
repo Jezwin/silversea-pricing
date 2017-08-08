@@ -1,6 +1,5 @@
-<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
-
-<div class="row c-cruise__itineraries">
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" 
+    class="row c-cruise__itineraries">
     <div class="col-xs-12">
         <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
         <p class="c-cruise__descr">
@@ -69,7 +68,7 @@
                 </div>
                 <div class="c-accordion__body">
                     <div class="c-accordion__body--panel">
-                        ${item.description @ context='html'}
+                        ${item.port.apiDescription @ context='html'}
 
                         <!-- TODO check cruise type for excursions display -->
                         <a data-sly-test="${excursions && excursions.size > 0}"
