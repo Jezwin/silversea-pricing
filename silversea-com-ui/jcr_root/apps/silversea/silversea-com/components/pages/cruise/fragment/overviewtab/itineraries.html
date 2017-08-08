@@ -13,14 +13,10 @@
         <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.excursions : item.port.excursions }"/>
         <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? item.landPrograms : item.port.landPrograms }"/>
 
-<!--/*
-<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.port.thumbnail}"/>
-<div data-sly-test="${item.port.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
-*/-->
-
         <div class="c-cruise-itinerary-list__item panel">
-            <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itemList.count}" data-parent="#c-cruise-itinerary-list">
-                <div class="c-cruise-itinerary-list__headline__image" style="background-image: url(http://lorempixel.com/400/200/sports/1/Dummy-Text/)"></div>
+            <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itemList.count}" data-parent="#c-cruise-itinerary-list"
+                data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.port.thumbnail}">
+                <div class="c-cruise-itinerary-list__headline__image" data-sly-test="${item.port.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
                 <ul class="c-cruise-itinerary-list__headline__title">
                     <li class="c-cruise-itinerary-list__headline__title__city">${item.port.apiTitle}</li>
                     <li class="c-cruise-itinerary-list__headline__title__country">${item.port.country}</li>
