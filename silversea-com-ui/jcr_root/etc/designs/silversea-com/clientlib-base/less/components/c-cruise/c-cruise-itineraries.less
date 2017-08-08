@@ -3,8 +3,6 @@
     font-size: 13px;
 
     &__item {
-        padding: 3px 3px 0 3px;
-
         [data-toggle=collapse] {
             cursor: pointer;
         }
@@ -16,10 +14,16 @@
 
     &__headline {
         line-height: 1.3;
-        padding: 15px 100px 15px 145px;
+        padding: 18px 103px 18px 148px;
         position: relative;
 
         &.collapsed {
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: @grey--e6;
+            }
+
             .btn-less {
                 display: none;
             }
@@ -83,7 +87,7 @@
                 height: calc(~"100% - 3px");
                 left: 3px;
                 top: 3px;
-                transition: all 0.5s ease;
+                transition: all 0.35s ease;
             }
 
             &:not(.collapsed) {
