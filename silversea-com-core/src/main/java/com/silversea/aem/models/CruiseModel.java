@@ -6,6 +6,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.*;
+import com.silversea.aem.constants.WcmConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.Resource;
@@ -108,14 +109,14 @@ public class CruiseModel extends AbstractModel {
             final Tag[] tags = tagManager.getTags(page.getContentResource());
 
             for (Tag tag : tags) {
-                if (tag.getTagID().startsWith("cruise-type:")) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
                     cruiseType = tag;
                     break;
                 }
             }
 
             if (cruiseType == null) {
-                cruiseType = tagManager.resolve("cruise-type:silversea-cruise");
+                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE);
             }
         }
 

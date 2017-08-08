@@ -76,6 +76,10 @@ public interface WcmConstants {
     String TAG_NAMESPACE_BROCHURE_GROUPS = "brochure-groups:";
     String GEOLOCATION_TAGS_PREFIX = "geotagging:";
 
+    String TAG_NAMESPACE_CRUISE_TYPES = "cruise-types:";
+    String TAG_CRUISE_TYPE_CRUISE = TAG_NAMESPACE_CRUISE_TYPES + "silversea-cruise";
+    String TAG_CRUISE_TYPE_EXPEDITION = TAG_NAMESPACE_CRUISE_TYPES + "silversea-expedition";
+
     // Default Value
     String PAGINATION_LIMIT = "10";
 

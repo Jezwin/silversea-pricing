@@ -6,6 +6,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.GeoLocation;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GeolocationTagService;
@@ -137,18 +138,18 @@ public class CruiseUse extends WCMUsePojo {
         final Tag cruiseType = cruiseModel.getCruiseType();
         if (cruiseType != null) {
             if (excursionsNumber > 0
-                    && cruiseType.getTagID().equals("cruise-type:silversea-cruise")
+                    && cruiseType.getTagID().equals(WcmConstants.TAG_CRUISE_TYPE_CRUISE)
                     && (landProgramsNumber > 0 || hotelsNumber > 0)) {
                 tabsNumber = 6;
             } else if (excursionsNumber > 0
-                    && !cruiseType.getTagID().equals("cruise-type:silversea-cruise")
+                    && !cruiseType.getTagID().equals(WcmConstants.TAG_CRUISE_TYPE_CRUISE)
                     && (landProgramsNumber > 0 || hotelsNumber > 0)) {
                 tabsNumber = 5;
             } else if (excursionsNumber == 0
                     && (landProgramsNumber > 0 || hotelsNumber > 0)) {
                 tabsNumber = 5;
             } else if (excursionsNumber > 0
-                    && cruiseType.getTagID().equals("cruise-type:silversea-cruise")
+                    && cruiseType.getTagID().equals(WcmConstants.TAG_CRUISE_TYPE_CRUISE)
                     && (landProgramsNumber == 0 && hotelsNumber == 0)) {
                 tabsNumber = 5;
             }

@@ -246,9 +246,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                             // setting cruise type
                             if (cruise.getIsExpedition() != null && cruise.getIsExpedition()) {
-                                tagIds.add("cruise-type:silversea-expedition");
+                                tagIds.add(WcmConstants.TAG_CRUISE_TYPE_EXPEDITION);
                             } else {
-                                tagIds.add("cruise-type:silversea-cruise");
+                                tagIds.add(WcmConstants.TAG_CRUISE_TYPE_CRUISE);
                             }
 
                             // setting features
