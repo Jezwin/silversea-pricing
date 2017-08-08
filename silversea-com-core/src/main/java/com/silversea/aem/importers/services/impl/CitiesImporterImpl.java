@@ -85,6 +85,9 @@ public class CitiesImporterImpl implements CitiesImporter {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
+            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]");
+
             // Getting paths to import data
             LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("citiesUrl"));
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
@@ -185,7 +188,7 @@ public class CitiesImporterImpl implements CitiesImporter {
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDate");
-        } catch (LoginException | ImporterException e) {
+        } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read cities from API", e);
