@@ -2,10 +2,12 @@
     .slick-prev, .slick-next {
         margin-top: -50px;
     }
+
     .slick-prev {
         left: 33.33%;
         margin-left: 3px;
     }
+
     .slick-next {
         right: 33.33%;
         margin-right: 3px;
@@ -59,14 +61,15 @@
     }
 }
 
-.mozaic-slider{
+.mozaic-slider {
     display: block;
+
     @media screen and (max-width: @screen-sm) {
         display: none;
     }
 
-    &:not(.c-slider--full-width) .slick-slide > *{
-        margin: 0px;
+    &:not(.c-slider--full-width) .slick-slide > * {
+        margin: 0;
         padding: 2px;
     }
 
@@ -76,25 +79,30 @@
         width: 30px;
         opacity: 1 !important;
     }
+
     .slick-prev i, .slick-next i {
        line-height: 10px;
     }
+
     .slick-prev {
         left: 33.7%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
+
     .slick-next {
         right: 33.7%;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
+
     .c-mozaicslider {
         display: flex;
         align-items: stretch;
         flex-wrap: wrap;
         height: 100%;
         min-height:100%;
+
         &__title {
             font-size: 30px;
             font-family: @f-theano_didot;
@@ -108,16 +116,19 @@
             padding: 0 5%;
         }
     }
+
     .mozaicItem{
         display: table-cell;
     }
+
     .item-text{
         text-align: center;
-        background: #fff;
+        background: @white;
     }
-    .mozaicItemText{
+
+    .mozaicItemText {
         height: 100%;
-        border: 1px solid #bababa;
+        border: 1px solid grey--ba;
     }
 
     .link__wrapper {
@@ -125,100 +136,119 @@
         width: 100%;
         position: absolute;
         bottom: 26px;
-        
-        i{
+
+        i {
             display: none;
+
             @media screen and (max-width: @screen-sm) {
                 display: none;
             }
         }
     }
-    .c-tabbedmozaic__description, .discover-more{
+
+    .c-tabbedmozaic__description, .discover-more {
         display: none;
     }
-    .slick-dots{
+
+    .slick-dots {
         display: block !important;
         bottom: -10px;
     }
-    .slick-track{
+
+    .slick-track {
         padding-bottom: 12px;
     }
-    .slick-dots li:not(.slick-active) button:before{
+
+    .slick-dots li:not(.slick-active) button:before {
         background-color: #bababa;
     }
 }
 
 .mozaicHeader {
     display: none;
-    @media screen and (max-width: @screen-sm) {
-        display: block;
-    }
     text-align: center;
     width: 80%;
     margin: auto;
-    .c-mozaicslider__title{
+
+    @media screen and (max-width: @screen-sm) {
+        display: block;
+    }
+
+    .c-mozaicslider__title {
         text-transform: uppercase;
         font-size: 30px;
     }
-    .c-mozaicslider__descr{
+
+    .c-mozaicslider__descr {
         font-size: 13px;
     }
 }
 
-.mobileSlider{
+.mobileSlider {
     margin-bottom: 10px;
-    background: #fff;
+    background: @white;
     display: none;
+
     @media screen and (max-width: @screen-sm) {
         display: block;
     }
+
     .slick-dots{
         position: relative;
         bottom: 0;
     }
-    .slick-dots li button:before{
-        background-color: #bababa ;
+
+    .slick-dots li button:before {
+        background-color: @grey--ba ;
     }
+
     .slick-dots li.slick-active button:before {
-        background-color: #000;
+        background-color: @black;
     }
-    .slick-dots li{
+
+    .slick-dots li {
         @media screen and (max-width: @screen-sm) {
             margin: 0 1px;
             height: 8px;
             width: 8px;
         }
     }
-    .c-tabbedmozaic__title{
+
+    .c-tabbedmozaic__title {
         @media screen and (max-width: @screen-sm) {
             width: 50%;
         }
+
         @media screen and (max-width: @screen-xs) {
             width: 80%;
         }
     }
-    .c-tabbedmozaic__description, .discover-more{
+
+    .c-tabbedmozaic__description, .discover-more {
         display: block;
         padding: 10px;
     }
+
     .link__wrapper {
         position: relative;
         text-align: center;
         width: 100%;
         bottom: -30px;
     }
-    .discover-more{
+
+    .discover-more {
         text-transform: uppercase;
         margin-top: 10px;
         padding-left: 10px;
         font-weight: bold;
         font-size: 12px;
+
         .fa{
             margin-left: 10px;
         }
     }
+
     .slick-list{
         border: 1px solid #e5e5e5;
     }
-
 }
