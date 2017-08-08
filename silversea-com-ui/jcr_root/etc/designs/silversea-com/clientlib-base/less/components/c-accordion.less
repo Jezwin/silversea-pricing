@@ -26,6 +26,7 @@
         padding-left: 0px;
     }
 }
+
 /*
 ** Overview && Execursion && landnhotel Accordin PORT
 */
@@ -39,12 +40,11 @@
                 vertical-align: top;
 
                 @media screen and (max-width: @screen-sm) {
-                    /*width: 41%;*/
                     text-align: left;
                     display: table-cell;
                     vertical-align: middle;
                 }
-                
+
                 .veryimportant{
                     @media screen and (max-width: @screen-xs) {
                         line-height: 16px;
@@ -64,6 +64,7 @@
                     padding: 3px;
                 }
             }
+
             &__action{
                 @media screen and (max-width: @screen-sm) {
                     width: 10%;
@@ -227,7 +228,7 @@
                     }
                 }
 
-                .c-accordion__subtitle {                	
+                .c-accordion__subtitle {
                     &.list {
                         width: 100%;
                     }
@@ -288,7 +289,6 @@
                             -webkit-transition: inherit;
                             transition: inherit;
                             -webkit-transform: inherit;
-                            /*height: 86px;*/
                             min-height: 80px;
                             height: 100%;
                         }
@@ -328,10 +328,6 @@
                     @media screen and (max-width: @screen-sm) {
                         display: table;
                         width: 100%;
-                        /*width: calc(100% - 145px);
-                        display: table-row;
-                        vertical-align: middle;
-                        text-align: left;*/
                     }
 
                     .c-accordion__action {
@@ -357,8 +353,8 @@
         .c-accordion__subtitle {
             font-size: 14px;
             line-height: 16px;
-			word-break: break-all;
-			
+            word-break: break-all;
+
             @media screen and (max-width: @screen-sm) {
                 font-size: 12px;
                 line-height: 14px;
@@ -432,7 +428,6 @@
                     }
                 }
             }
-
         }
 
         &[data-state='true'] {
@@ -473,11 +468,13 @@
         display: table-cell;
         vertical-align: middle;
         padding: 15px;
+
         @media screen and (max-width: @screen-sm) {
             display: inline-block;
             text-align: center;
             width: 100%;
         }
+
         &.valigntop {
             vertical-align: top;
         }
@@ -512,6 +509,7 @@
                 width: 100%;
             }
         }
+
         &.w-content {
             width: 25%;
         }
