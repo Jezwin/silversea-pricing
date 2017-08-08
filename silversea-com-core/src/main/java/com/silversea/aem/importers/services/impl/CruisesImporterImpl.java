@@ -1,8 +1,11 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -21,10 +24,10 @@ import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
+import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
@@ -103,8 +106,8 @@ public class CruisesImporterImpl implements CruisesImporter {
             LOGGER.debug("Cleaning already imported cruises");
 
             // removing assets (save is done in ImporterUtils#deleteResources)
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/dam/silversea-com/api-provided/cruises"
-                    + "//element(*,sling:OrderedFolder)");
+            /*ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/dam/silversea-com/api-provided/cruises"
+                    + "//element(*,sling:OrderedFolder)");*/
 
             ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]");
@@ -169,9 +172,12 @@ public class CruisesImporterImpl implements CruisesImporter {
                 final Integer featureId = feature.getValueMap().get("featureId", Integer.class);
 
                 if (featureId != null) {
-                    featuresMapping.put(featureId, feature.getPath());
+                    final Tag tag = feature.adaptTo(Tag.class);
+                    if (tag != null) {
+                        featuresMapping.put(featureId, tag.getTagID());
 
-                    LOGGER.trace("Adding feature {} ({}) to cache", feature.getPath(), featureId);
+                        LOGGER.trace("Adding feature {} ({}) to cache", feature.getPath(), featureId);
+                    }
                 }
             }
 
@@ -228,7 +234,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                             // creating cruise page - uniqueness is derived from cruise code
                             final Page cruisePage = pageManager.create(destinationPath,
-                                    pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, cruise.getVoyageName() + " - " + cruise.getVoyageCod(), false);
+                                    pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, cruise.getVoyageCod() + " - " + cruise.getVoyageName(), false);
 
                             final Resource cruiseContentResource = cruisePage.getContentResource();
                             final Node cruiseContentNode = cruiseContentResource.adaptTo(Node.class);
@@ -380,5 +386,55 @@ public class CruisesImporterImpl implements CruisesImporter {
     public ImportResult updateItems() {
         // TODO implement
         return null;
+    }
+
+    @Override
+    public JSONObject getJsonMapping() {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+
+            Iterator<Resource> cruises = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]", "xpath");
+
+            while (cruises.hasNext()) {
+                final Resource cruise = cruises.next();
+                final Page cruisePage = cruise.adaptTo(Page.class);
+
+                final Resource childContent = cruise.getChild(JcrConstants.JCR_CONTENT);
+
+                if (cruisePage != null && childContent != null) {
+                    final ValueMap childContentProperties = childContent.getValueMap();
+                    final String cruiseCode = childContentProperties.get("cruiseCode", String.class);
+                    final String lang = cruisePage.getAbsoluteParent(2).getName();
+                    final String path = cruisePage.getPath();
+
+                    if (cruiseCode != null && lang != null) {
+                        try {
+                            if (jsonObject.has(cruiseCode)) {
+                                final JSONObject cruiseObject = jsonObject.getJSONObject(cruiseCode);
+                                cruiseObject.put(lang, path);
+                                jsonObject.put(cruiseCode, cruiseObject);
+                            } else {
+                                JSONObject shipObject = new JSONObject();
+                                shipObject.put(lang, path);
+                                jsonObject.put(cruiseCode, shipObject);
+                            }
+                        } catch (JSONException e) {
+                            LOGGER.error("Cannot add cruise {} with path {} to cruises array", cruiseCode, cruise.getPath(), e);
+                        }
+                    }
+                }
+            }
+
+        } catch (LoginException e) {
+            LOGGER.error("Cannot create resource resolver", e);
+        }
+
+        return jsonObject;
     }
 }

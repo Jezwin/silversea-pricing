@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services;
 
 import com.silversea.aem.importers.services.impl.ImportResult;
+import org.apache.sling.commons.json.JSONObject;
 
 public interface CruisesImporter {
 
@@ -26,4 +27,6 @@ public interface CruisesImporter {
      * @return result of the import
      */
     ImportResult updateItems();
+
+    JSONObject getJsonMapping();
 }
