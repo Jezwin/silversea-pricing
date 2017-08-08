@@ -6,6 +6,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -163,6 +164,11 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                     landProgram.getDescription());
                             landProgramPageContentNode.setProperty("landId", landProgram.getLandId());
                             landProgramPageContentNode.setProperty("landCode", landProgram.getLandCod());
+
+                            // Set livecopy mixin
+                            if (!LanguageHelper.getLanguage(portPage).equals("en")) {
+                                landProgramPageContentNode.addMixin("cq:LiveRelationship");
+                            }
 
                             LOGGER.trace("Land program {} successfully created", landProgramPage.getPath());
 
@@ -410,6 +416,11 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     landProgram.getDescription());
             landProgramPageContentNode.setProperty("landId", landProgram.getLandId());
             landProgramPageContentNode.setProperty("landCode", landProgram.getLandCod());
+
+            // Set livecopy mixin
+            if (!LanguageHelper.getLanguage(landProgramPage).equals("en")) {
+                landProgramPageContentNode.addMixin("cq:LiveRelationship");
+            }
         } catch (RepositoryException e) {
             throw new ImporterException("Cannot set properties for landProgram " + landProgram.getLandName(), e);
         }

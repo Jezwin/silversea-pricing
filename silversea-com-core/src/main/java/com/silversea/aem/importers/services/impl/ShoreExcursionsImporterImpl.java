@@ -6,6 +6,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -172,6 +173,11 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
                             excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
+
+                            // Set livecopy mixin
+                            if (!LanguageHelper.getLanguage(portPage).equals("en")) {
+                                excursionPageContentNode.addMixin("cq:LiveRelationship");
+                            }
 
                             LOGGER.trace("Shore excursion {} successfully created", excursionPage.getPath());
 
@@ -427,6 +433,11 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("apiLongDescription", excursion.getDescription());
             excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
             excursionContentNode.setProperty("shorexId", excursion.getShorexId());
+
+            // Set livecopy mixin
+            if (!LanguageHelper.getLanguage(excursionPage).equals("en")) {
+                excursionContentNode.addMixin("cq:LiveRelationship");
+            }
         } catch (RepositoryException e) {
             throw new ImporterException("Cannot set properties for excursion " + excursion.getShorexName(), e);
         }

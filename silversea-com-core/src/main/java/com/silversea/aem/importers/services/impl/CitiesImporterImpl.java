@@ -7,6 +7,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -151,6 +152,11 @@ public class CitiesImporterImpl implements CitiesImporter {
                             portPageContentNode.setProperty("countryId", city.getCountryId());
                             portPageContentNode.setProperty("countryIso2", city.getCountryIso2());
                             portPageContentNode.setProperty("countryIso3", city.getCountryIso3());
+
+                            // Set livecopy mixin
+                            if (!locale.equals("en")) {
+                                portPageContentNode.addMixin("cq:LiveRelationship");
+                            }
 
                             LOGGER.trace("Port {} successfully created", portPage.getPath());
 
@@ -456,6 +462,11 @@ public class CitiesImporterImpl implements CitiesImporter {
             portContentNode.setProperty("countryId", city.getCountryId());
             portContentNode.setProperty("countryIso2", city.getCountryIso2());
             portContentNode.setProperty("countryIso3", city.getCountryIso3());
+
+            // Set livecopy mixin
+            if (!LanguageHelper.getLanguage(portPage).equals("en")) {
+                portContentNode.addMixin("cq:LiveRelationship");
+            }
         } catch (RepositoryException e) {
             throw new ImporterException("Cannot set properties for city " + city.getCityName(), e);
         }

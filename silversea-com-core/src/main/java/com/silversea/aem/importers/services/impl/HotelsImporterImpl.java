@@ -6,6 +6,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
@@ -161,6 +162,11 @@ public class HotelsImporterImpl implements HotelsImporter {
                             hotelPageContentNode.setProperty("image", hotel.getImageUrl());
                             hotelPageContentNode.setProperty("code", hotel.getHotelCod());
                             hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
+
+                            // Set livecopy mixin
+                            if (!LanguageHelper.getLanguage(portPage).equals("en")) {
+                                hotelPageContentNode.addMixin("cq:LiveRelationship");
+                            }
 
                             LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
 
@@ -405,6 +411,11 @@ public class HotelsImporterImpl implements HotelsImporter {
             hotelContentNode.setProperty("image", hotel.getImageUrl());
             hotelContentNode.setProperty("code", hotel.getHotelCod());
             hotelContentNode.setProperty("hotelId", hotel.getHotelId());
+
+            // Set livecopy mixin
+            if (!LanguageHelper.getLanguage(hotelPage).equals("en")) {
+                hotelContentNode.addMixin("cq:LiveRelationship");
+            }
         } catch (RepositoryException e) {
             throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName(), e);
         }
