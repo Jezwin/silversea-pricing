@@ -1,5 +1,6 @@
 package com.silversea.aem.models;
 
+import com.day.cq.commons.date.DateUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import org.apache.commons.lang3.StringUtils;
@@ -15,9 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jcr.Node;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Model(adaptables = Resource.class)
 public class ItineraryModel {
@@ -34,7 +33,7 @@ public class ItineraryModel {
     private Integer itineraryId;
 
     @Inject @Optional
-    private Calendar date;
+    private Date date;
 
     @Inject @Optional
     private String arriveTime;
@@ -99,7 +98,10 @@ public class ItineraryModel {
     }
 
     public Calendar getDate() {
-        return date;
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar;
     }
 
     public String getArriveTime() {
