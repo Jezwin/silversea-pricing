@@ -1,6 +1,7 @@
 <div data-sly-use.brochureTeaserListUse="com.silversea.aem.components.editorial.BrochureTeaserListUse"
      data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochureTeaserListUse.brochures}"
      class="cq-placeholder" data-emptytext="Brochure teaser list"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
 <section class="o-section" data-sly-test="${brochureTeaserListUse.brochures}">
     <div class="row">
         <div class="col-sm-12">
@@ -13,7 +14,7 @@
                         <option
                             data-sly-use.languageHelper="${'com.silversea.aem.helper.LanguageHelper' @ language=child}"
                             selected="${brochureTeaserListUse.currentLanguage.toUpperCase == child.toUpperCase ? 'selected' : ''}"
-                            value="${currentPage.path @ selectors=[languageHelper.selector, brochureTeaserListUse.currentBrochureGroupSelector], extension='html'}">
+                            value="${externalizerHelper.externalizedUrl @ selectors=[languageHelper.selector, brochureTeaserListUse.currentBrochureGroupSelector], extension='html'}">
                             ${language[child]}
                         </option>
                     </select>
