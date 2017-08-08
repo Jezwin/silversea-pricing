@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jcr.Node;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,7 +60,7 @@ public class ItineraryModel {
     @Inject @Optional
     private List<ItineraryHotelModel> hotels = new ArrayList<>();
 
-    @Inject @Optional
+    @Inject @Named("land-programs") @Optional
     private List<ItineraryLandProgramModel> landPrograms = new ArrayList<>();
 
     private Integer cruiseId;
