@@ -97,18 +97,9 @@ public class CruiseUse extends WCMUsePojo {
 
             if (portModel != null) {
                 final String assetSelectionReference = portModel.getAssetSelectionReference();
-                final String thumbnail = portModel.getThumbnail();
 
                 if (StringUtils.isNotBlank(assetSelectionReference)) {
                     itinerariesAssetsList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
-                }
-
-                if (StringUtils.isNotBlank(thumbnail)) {
-                    final Resource thumbnailResource = getResourceResolver().getResource(thumbnail);
-
-                    if (thumbnailResource != null) {
-                        itinerariesAssetsList.add(thumbnailResource.adaptTo(Asset.class));
-                    }
                 }
             }
         }
