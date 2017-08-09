@@ -1,14 +1,5 @@
 package com.silversea.aem.helper;
 
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.jcr.RangeIterator;
-
-import org.apache.jackrabbit.oak.commons.PathUtils;
-import org.apache.sling.api.resource.Resource;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.NameConstants;
@@ -16,6 +7,14 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.jackrabbit.oak.commons.PathUtils;
+import org.apache.sling.api.resource.Resource;
+
+import javax.jcr.RangeIterator;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class PageHelper extends WCMUsePojo {
     private Page page;
@@ -63,27 +62,33 @@ public class PageHelper extends WCMUsePojo {
             bluePrintPath = getCurrentPage().getPath();
         }
 
-        languagePages = new LinkedHashMap<String, String>();
+        languagePages = new LinkedHashMap<>();
         Resource bluePrintRes = getResourceResolver().getResource(bluePrintPath);
 
         // Add blueprint
-        locale = getPageManager().getPage(bluePrintPath).getLanguage(false);
-        languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
+        if (StringUtils.isNotEmpty(bluePrintPath)) {
+            Page page = getPageManager().getPage(bluePrintPath);
 
-        RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(bluePrintRes, null, null);
+            if (page != null) {
+                locale = page.getLanguage(false);
+                languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, bluePrintPath));
 
-        while (liveRelationships.hasNext()) {
-            LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
-            Resource targetRes = getResourceResolver().getResource(liveRelationship.getTargetPath());
+                RangeIterator liveRelationships = liveRelationshipManager.getLiveRelationships(bluePrintRes, null, null);
 
-            if (targetRes != null) {
-                final Page targetPage = targetRes.adaptTo(Page.class);
+                while (liveRelationships.hasNext()) {
+                    LiveRelationship liveRelationship = (LiveRelationship) liveRelationships.next();
+                    Resource targetRes = getResourceResolver().getResource(liveRelationship.getTargetPath());
 
-                if (targetPage != null) {
-                    locale = targetPage.getLanguage(false);
+                    if (targetRes != null) {
+                        final Page targetPage = targetRes.adaptTo(Page.class);
 
-                    // Add livecopy
-                    languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
+                        if (targetPage != null) {
+                            locale = targetPage.getLanguage(false);
+
+                            // Add livecopy
+                            languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, liveRelationship.getTargetPath()));
+                        }
+                    }
                 }
             }
         }
