@@ -12,8 +12,16 @@
             <p>${hit.excerpt @ context='html'}</p>
         </li>
     </ul>
+    <sly data-sly-test="${use.pageRequestedInt != 1}"><a href="${currentPage.path}.html?q=${use.searchText}&page=1">FIRST</a></sly>
+    <sly data-sly-test="${use.showPreviousLink}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.previousPage}">PREV</a></sly>
+    <sly data-sly-test="${use.showFirstPage}"><a href="${currentPage.path}.html?q=${use.searchText}&page=1">1</a></sly>
+    <sly data-sly-test="${use.showPrev}">&nbsp;...</sly>
     <sly data-sly-repeat="${use.pageTrio}">
         <sly data-sly-test="${item == use.pageRequested}"><b>${item}&nbsp;</b></sly>
         <sly data-sly-test="${item != use.pageRequested}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${item}">${item}&nbsp;</a></sly>
     </sly>
+    <sly data-sly-test="${use.showNext}">...&nbsp;</sly>
+    <sly data-sly-test="${use.showLastPage}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">${use.numberOfPages}</a></sly>
+    <sly data-sly-test="${use.showNextLink}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.nextPage}">NEXT</a></sly>
+    <sly data-sly-test="${use.pageRequestedInt != use.numberOfPages}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">LAST</a></sly>
 </sly>

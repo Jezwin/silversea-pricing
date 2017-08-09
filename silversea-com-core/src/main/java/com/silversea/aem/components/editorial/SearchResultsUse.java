@@ -13,12 +13,18 @@ import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
-
+/**
+ * Class used for the search results component.
+ * @author lymendoza
+ *
+ */
 public class SearchResultsUse extends WCMUsePojo {
 
     private SearchResult searchResult;
     private String searchText;
     private String pageRequested;
+    private long numberOfPages;
+    private int pageRequestedInt;
     
     private static int hitsPerPage = 10; 
 
@@ -30,7 +36,7 @@ public class SearchResultsUse extends WCMUsePojo {
         if (StringUtils.isEmpty(pageRequested)) {
             pageRequested = "1";
         }
-        int startPage = Integer.parseInt(pageRequested);
+        pageRequestedInt = Integer.parseInt(pageRequested);
 
         if (!StringUtils.isEmpty(searchText)) {
             // create query description as hash map (simplest way, same as form post)
@@ -46,12 +52,13 @@ public class SearchResultsUse extends WCMUsePojo {
             Query query = builder.createQuery(PredicateGroup.create(map), session);
 
             //calculate start index
-            int startIndex = (startPage - 1) * hitsPerPage;
+            int startIndex = (pageRequestedInt - 1) * hitsPerPage;
 
             query.setStart(startIndex);
             query.setHitsPerPage(hitsPerPage);
 
             searchResult = query.getResult();
+            numberOfPages = searchResult.getTotalMatches() / hitsPerPage;
         }
     }
 
@@ -63,12 +70,8 @@ public class SearchResultsUse extends WCMUsePojo {
         return searchText;
     }
 
-    public long getOffset() {
-        return searchResult.getStartIndex();
-    }
-
     public long getNumberOfPages() {
-        return searchResult.getTotalMatches() / hitsPerPage;
+        return numberOfPages;
     }
 
     public ArrayList<String> getPageTrio() {
@@ -88,4 +91,43 @@ public class SearchResultsUse extends WCMUsePojo {
         return pageRequested;
     }
 
+    public int getPageRequestedInt() {
+        return pageRequestedInt;
+    }
+
+    public int getNextPage() {
+        return pageRequestedInt + 1;
+    }
+
+    public int getPreviousPage() {
+        return pageRequestedInt - 1;
+    }
+
+    public static int getHitsPerPage() {
+        return hitsPerPage;
+    }
+
+    public boolean getShowNextLink() {
+        return pageRequestedInt != numberOfPages;
+    }
+
+    public boolean getShowPreviousLink() {
+        return pageRequestedInt != 1;
+    }
+
+    public boolean getShowPrev() {
+        return pageRequestedInt > 3;
+    }
+
+    public boolean getShowNext() {
+        return (pageRequestedInt + 3) <= numberOfPages;
+    }
+
+    public boolean getShowFirstPage() {
+        return pageRequestedInt >= 3;
+    }
+
+    public boolean getShowLastPage() {
+        return (numberOfPages - pageRequestedInt ) > 1;
+    }
 }
