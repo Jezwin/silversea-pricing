@@ -78,6 +78,20 @@
         }
     }
 
+    @media screen and (max-width: @screen-xxs) {
+        &__headline {
+            padding-right: 30px;
+
+            &__expand {
+                .btn-more, .btn-less {
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
     @media screen and (min-width: @screen-md-min) {
         &__item {
             position: relative;
