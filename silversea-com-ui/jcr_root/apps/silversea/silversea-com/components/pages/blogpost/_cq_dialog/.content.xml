@@ -37,7 +37,7 @@
                                         fieldLabel="Publication Date"
                                         name="./publicationDate"
                                         renderReadOnly="{Boolean}true"
-                                        required="{Boolcean}true"
+                                        required="{Boolean}true"
                                         type="datetime" />
                                     <assetselectionreference
                                         jcr:primaryType="nt:unstructured"
