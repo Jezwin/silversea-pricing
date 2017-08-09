@@ -31,11 +31,19 @@
         </li>
 
         <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
-           <div class="c-main-nav__search">
+           <div class="c-main-nav__search hidden-sm hidden-xs">
                 <form class="c-main-nav__search__searchbox" action="${search.path @ extension ='html'}">
                     <input type="search" placeholder="Type here to search" name="q" class="c-main-nav__search__searchbox-input" required>
                     <input type="submit" class="c-main-nav__search__searchbox-submit" value="Envoyer">
                     <span><i class="fa fa-lg fa-search c-main-nav__search__searchbox-icon" aria-hidden="true"></i></span>
+                </form>
+            </div>
+            <div class="form-group form-group-lg c-main-nav__search-mobile hidden-lg">
+                <form class="c-main-nav__search-mobile__searchbox" action="${search.path @ extension ='html'}">
+                    <input type="search" placeholder="Type here to search" name="q" class="c-main-nav__search-mobile__searchbox-input" required>
+                    <button type="submit" class="c-main-nav__search-mobile__searchbox-submit">
+                        <i class="fa fa-lg fa-search" aria-hidden="true"></i>
+                    </button>
                 </form>
             </div>
         </li>

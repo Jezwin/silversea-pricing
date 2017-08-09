@@ -49,15 +49,4 @@ $(function() {
         }
     });
 
-    $('.searchbox-input').click(function(){
-         var inputVal = $(this).val();
-        inputVal = $.trim(inputVal).length;
-        if( inputVal !== 0){
-            submitIcon.css('display','none');
-        } else {
-            inputBox.val('');
-            submitIcon.css('display','block');
-        }
-    })
-
 });
