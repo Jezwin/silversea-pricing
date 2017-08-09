@@ -295,6 +295,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="mail-me-brochure"
         sling:message="MAIL ME THIS BROCHURE" />
+    <type-here-to-search
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="type-here-to-search"
+        sling:message="Type here to search" />
+    <search
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="search"
+        sling:message="Search" />
     <menu
         jcr:primaryType="sling:MessageEntry"
         sling:key="menu"
