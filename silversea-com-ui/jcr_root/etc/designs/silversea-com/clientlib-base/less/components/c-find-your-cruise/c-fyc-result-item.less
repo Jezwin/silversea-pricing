@@ -453,10 +453,23 @@
                     vertical-align: top;
                 }
 
-                &__inner > * {
-                    display: table-cell;
-                    padding-right: 4px;
-                    vertical-align: top;
+                &__inner {
+                    position: relative;
+
+                    &:before {
+                        content: "";
+                        border-right: 1px solid @white;
+                        bottom: -10px;
+                        position: absolute;
+                        left: 12.5%;
+                        top: -10px;
+                    }
+
+                    > * {
+                        display: table-cell;
+                        padding-right: 4px;
+                        vertical-align: top;
+                    }
                 }
 
                 &__title {
@@ -499,16 +512,6 @@
                     text-align: center;
                     vertical-align: middle;
                     width: 12.5%;
-
-                    &:before {
-                        content: "";
-                        border-right: 1px solid @white;
-                        bottom: -10px;
-                        display: block;
-                        position: absolute;
-                        right: 0;
-                        top: -10px;
-                    }
 
                     strong {
                         font-size: 12px;
