@@ -97,7 +97,8 @@ $(function() {
 
             $.ajax({
                 type : 'POST',
-                url: (window.location.href.indexOf('.html') !== -1) ? window.location.href.replace('.html', '.lead.json') : window.location.href + '.lead.json',
+                //url: (window.location.href.indexOf('.html') !== -1) ? window.location.href.replace('.html', '.lead.json') : window.location.href + '.lead.json',
+                url: '/bin/lead.json',
                 data : JSON.stringify(leadApiData),
                 contentType : 'application/json',
                 dataType : 'json',
