@@ -251,6 +251,12 @@
                 border-left: 0;
                 display: table-cell;
 
+                &:last-child {
+                    a {
+                        border-right: 0;
+                    }
+                }
+
                 &[data-state='active'] {
                     a {
                         margin-left: -1px;
