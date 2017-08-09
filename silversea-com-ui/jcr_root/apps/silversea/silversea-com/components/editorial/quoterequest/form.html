@@ -1,9 +1,10 @@
+<sly data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"/>
 <form class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     ${use.prepareDestinationParameters}
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="RAQ" />
     <input name="sitecountry" type="hidden" value="${use.siteCountry}" />
-    <input name="sitelanguage" type="hidden" value="${use.siteLanguage}" />
+    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
     <sly data-sly-test="${use.isCruiseRequested}">
         <input type="hidden" name="voyagename" value="${use.cruiseTitle}" />

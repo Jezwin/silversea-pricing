@@ -1,12 +1,13 @@
 <form class="request-quote-form c-form c-formcookie--redirect"
     action="${properties.pageReference @ extension='html', selectors='modalcontent'}${request.requestPathInfo.suffix}"
     method="post"
+    data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
     data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     ${use.prepareBrochureParameters}
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="EBRO" />
     <input name="sitecountry" type="hidden" value="${use.siteCountry}" />
-    <input name="sitelanguage" type="hidden" value="${use.siteLanguage}" />
+    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
     <input name="brochurecode" type="hidden" value="${use.selectedBrochure.brochureCode}" />
     

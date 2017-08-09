@@ -1,6 +1,7 @@
 <div data-sly-use.signUpUse="com.silversea.aem.components.editorial.SignUpUse"
      data-sly-test.refPath="${signUpUse.pageReference ||  properties.pageReference}"
      data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"
+     data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
      data-sly-test.empty="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
      data-emptytext="Sign up for offers"></div>
@@ -9,7 +10,7 @@
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="SFO" />
     <input name="sitecountry" type="hidden" value="${signUpUse.siteCountry}" />
-    <input name="sitelanguage" type="hidden" value="${signUpUse.siteLanguage}" />
+    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
     <input name="sitecurrency" type="hidden" value="${signUpUse.siteCurrency}" />
 
     <div class="form-group form-group-lg has-feedback">
