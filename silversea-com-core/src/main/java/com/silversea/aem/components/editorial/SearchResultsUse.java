@@ -26,7 +26,7 @@ public class SearchResultsUse extends WCMUsePojo {
     private long numberOfPages;
     private int pageRequestedInt;
     
-    private static int hitsPerPage = 10; 
+    private int hitsPerPage = 10; 
 
     @Override
     public void activate() throws Exception {
@@ -51,6 +51,9 @@ public class SearchResultsUse extends WCMUsePojo {
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
 
+            //get number of results to show per page
+            hitsPerPage = getProperties().get("hitsPerPage", 10);
+            
             //calculate start index
             int startIndex = (pageRequestedInt - 1) * hitsPerPage;
 
@@ -103,7 +106,7 @@ public class SearchResultsUse extends WCMUsePojo {
         return pageRequestedInt - 1;
     }
 
-    public static int getHitsPerPage() {
+    public int getHitsPerPage() {
         return hitsPerPage;
     }
 
