@@ -2,7 +2,7 @@
 <div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
      class="c-fyc__result" data-sly-repeat.cruise="${fyc.cruises}">
     <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image" style="background-image: url(${cruise.thumbnail}?wid=360)">
+        <div class="c-fyc__result__image" style="background-image: url(${cruise.thumbnail @ context='uri'}?wid=360)">
             <!--/* TODO : generated if exclusive offer */-->
             <span class="flag">
                 <span class="flag__icon icon-star"></span>
