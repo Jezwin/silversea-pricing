@@ -20,7 +20,7 @@ $(function() {
         /***************************************************************************
          * Filter : get/update filter from json response
          **************************************************************************/
-        $.fn.populateSelectFYC = function() {
+        /*$.fn.populateSelectFYC = function() {
             this.each(function() {
                 var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates' ];
 
@@ -54,7 +54,7 @@ $(function() {
             });
         };
 
-        $form.populateSelectFYC();
+        $form.populateSelectFYC();*/
 
         // Filter : open feature drop down
         $('.features-filter').on('click', function(e) {
