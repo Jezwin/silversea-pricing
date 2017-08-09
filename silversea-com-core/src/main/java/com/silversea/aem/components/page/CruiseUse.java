@@ -5,15 +5,12 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +21,6 @@ import java.util.stream.Stream;
 public class CruiseUse extends WCMUsePojo {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
-
-    // TODO : to change US AND FT by default
-    // TODO move to a global place
-    private static final String DEFAULT_GEOLOCATION_COUTRY = "FR";
-    private static final String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "EU";
-    private static final String DEFAULT_CURRENCY = "EUR";
 
     private CruiseModel cruiseModel;
     private String previous;
@@ -54,6 +45,10 @@ public class CruiseUse extends WCMUsePojo {
     private List<Asset> itinerariesAssetsList = new ArrayList<>();
 
     private List<SuitePrice> prices = new ArrayList<>();
+
+    private PriceModel lowestPrice = null;
+
+    private boolean isWaitList = true;
 
     @Override
     public void activate() throws Exception {
@@ -176,6 +171,18 @@ public class CruiseUse extends WCMUsePojo {
 
                     if (!added) {
                         prices.add(new SuitePrice(priceModel.getSuite(), priceModel));
+                    }
+
+                    // Init lowest price
+                    if (lowestPrice == null) {
+                        lowestPrice = priceModel;
+                    } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
+                        lowestPrice = priceModel;
+                    }
+
+                    // Init wait list
+                    if (!priceModel.isWaitList()) {
+                        isWaitList = false;
                     }
                 }
             }
