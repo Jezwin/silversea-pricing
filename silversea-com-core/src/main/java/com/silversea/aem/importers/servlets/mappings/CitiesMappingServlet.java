@@ -19,7 +19,7 @@ public class CitiesMappingServlet extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        JSONObject citiesMapping = citiesImporter.getCitiesMapping();
+        JSONObject citiesMapping = citiesImporter.getJsonMapping();
 
         response.setContentType("application/json");
         response.getWriter().write(citiesMapping.toString());

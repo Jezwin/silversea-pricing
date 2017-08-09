@@ -10,26 +10,30 @@ public interface CitiesImporter {
 
     /**
      * Import all cities, used in first data import
+     *
+     * @return result of the import
      */
-    ImportResult importAllCities();
+    ImportResult importAllItems();
 
     /**
      * Update the cities based on the last import date
      * stored in the cities root page
+     *
+     * @return result of the import
      */
-    ImportResult updateCities();
+    ImportResult updateItems();
 
     /**
-     * Import only one city
+     * Import only one item
      *
-     * @param cityId the city ID of the city to import
+     * @param itemId the city ID of the city to import
      */
-    void importOneCity(final String cityId);
+    void importOneItem(final String itemId);
 
     /**
      * Get JSON object containing the mapping between city id and path
      *
      * @return a JSON object with id/path mapping
      */
-    JSONObject getCitiesMapping();
+    JSONObject getJsonMapping();
 }

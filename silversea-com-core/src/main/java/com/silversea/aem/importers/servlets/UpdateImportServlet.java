@@ -64,7 +64,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         }
 
         if (mode.equals(Mode.cities)) {
-            updateImportCities.updateCities();
+            updateImportCities.updateItems();
         } else if (mode.equals(Mode.hotels)) {
             updateImportHotel.updateHotels();
         } else if (mode.equals(Mode.excursions)) {

@@ -146,7 +146,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     responseWriter.flush();
                     watch.reset();
                     watch.start();
-                    ImportResult importResult = citiesImporter.importAllCities();
+                    ImportResult importResult = citiesImporter.importAllItems();
                     responseWriter.write("Cities import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     responseWriter.write("<br/>");
                     responseWriter.write("Cities import success number : <p>" + importResult.getSuccessNumber() + "</p>");

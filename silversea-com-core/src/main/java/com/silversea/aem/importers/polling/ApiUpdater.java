@@ -64,7 +64,7 @@ public class ApiUpdater implements Runnable {
             LOGGER.info("Running ...");
 
             // update cities
-            final ImportResult importResultCities = citiesImporter.updateCities();
+            final ImportResult importResultCities = citiesImporter.updateItems();
             LOGGER.info("Cities import : {} success, {} errors", importResultCities.getSuccessNumber(), importResultCities.getErrorNumber());
 
             // update hotels

@@ -88,12 +88,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             }
 
             List<Land> landPrograms;
-            int i = 1, j = 0;
+            int apiPage = 1, itemsWritten = 0;
 
             LOGGER.debug("Importing land programs");
 
             do {
-                landPrograms = landsApi.landsGet(null, i, pageSize, null);
+                landPrograms = landsApi.landsGet(null, apiPage, pageSize, null);
 
                 for (Land landProgram : landPrograms) {
                     LOGGER.trace("Importing land program: {}", landProgram.getLandName());
@@ -108,6 +108,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             throw new ImporterException("Land program have no city");
                         }
 
+                        // TODO create cache of cityId / Resource in order to speed up the process
                         Iterator<Resource> portsResources = resourceResolver
                                 .findResources("/jcr:root/content/silversea-com"
                                         + "//element(*,cq:Page)[jcr:content/cityId=\"" + cityId + "\"]", "xpath");
@@ -173,14 +174,14 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             LOGGER.trace("Land program {} successfully created", landProgramPage.getPath());
 
                             successNumber++;
-                            j++;
+                            itemsWritten++;
                         }
 
-                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                             try {
                                 session.save();
 
-                                LOGGER.debug("{} land programs imported, saving session", +j);
+                                LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -192,7 +193,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     }
                 }
 
-                i++;
+                apiPage++;
             } while (landPrograms.size() > 0);
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
@@ -212,6 +213,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
+    /**
+     * TODO it seems a lot of elements are marked as modified on API, compare API data against CRX data before update
+     */
     @Override
     public ImportResult updateLandPrograms() {
         LOGGER.debug("Starting land programs update");
@@ -239,16 +243,16 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             LOGGER.debug("Last import date for land programs {}", lastModificationDate);
 
-            int j = 0, i = 1;
+            int itemsWritten = 0, apiPage = 1;
             List<Land77> landPrograms;
 
             do {
                 final ApiResponse<List<Land77>> apiResponse = landsApi.landsGetChangesWithHttpInfo(lastModificationDate, null,
-                        i , pageSize, null);
+                        apiPage , pageSize, null);
                 landPrograms = apiResponse.getData();
 
                 // TODO replace by header
-                LOGGER.trace("Total landPrograms : {}, page : {}, landPrograms for this page : {}", landPrograms.size(), i, landPrograms.size());
+                LOGGER.trace("Total landPrograms : {}, page : {}, landPrograms for this page : {}", landPrograms.size(), apiPage, landPrograms.size());
 
                 for (Land77 landProgram : landPrograms) {
                     final String landProgramName = landProgram.getLandName();
@@ -257,6 +261,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
                     try {
                         // Getting all the landProgram pages with the current landId
+                        // TODO create cache of land id / Resource in order to speed up the process
                         Iterator<Resource> landProgramsResources = resourceResolver
                                 .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
                                         "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"" +
@@ -301,6 +306,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                             }
 
                             // else create land program page for each language
+                            // TODO create cache of cityId / Resource in order to speed up the process
                             Iterator<Resource> portsResources = resourceResolver
                                     .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
                                             "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"" +
@@ -354,13 +360,13 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                         }
 
                         successNumber++;
-                        j++;
+                        itemsWritten++;
 
-                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                             try {
                                 session.save();
 
-                                LOGGER.debug("{} landPrograms imported, saving session", +j);
+                                LOGGER.debug("{} landPrograms imported, saving session", +itemsWritten);
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -372,7 +378,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     }
                 }
 
-                i++;
+                apiPage++;
             } while (landPrograms.size() > 0);
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
