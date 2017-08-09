@@ -10,42 +10,6 @@ stages:
     - build-author-prod
     - build-publishes-prod
 
-### TEST Build
-mvn_build_test_author_feature:
-    stage: build-author-test
-    environment:
-        name: Test
-    when: manual
-    allow_failure: false
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.0.113:4502
-    only:
-        - feature-importers-finalization
-
-mvn_build_test_publish1_feature:
-    stage: build-publishes-test
-    environment:
-        name: Test
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.13.79:4503
-    only:
-        - feature-importers-finalization
-
-mvn_build_test_publish2_feature:
-    stage: build-publishes-test
-    environment:
-        name: Test
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.4.121:4503
-    only:
-        - feature-importers-finalization
-
 ### DEV Build
 mvn_build_dev_author:
     stage: build-author-dev
