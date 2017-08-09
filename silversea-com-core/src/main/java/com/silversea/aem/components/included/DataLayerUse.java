@@ -13,7 +13,6 @@ import com.silversea.aem.services.GeolocationService;
 import com.silversea.aem.services.RunModesService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.util.HashMap;
@@ -120,7 +119,7 @@ public class DataLayerUse extends WCMUsePojo {
         listCat1.put(WcmConstants.RT_FEATURE, "single onboard");
         listCat1.put(WcmConstants.RT_PORT, "single port");
         listCat1.put(WcmConstants.RT_BLOG_POST, "blog");
-        listCat1.put(WcmConstants.RT_KEY_PEPOLE, "single onboard");
+        listCat1.put(WcmConstants.RT_KEY_PEOPLE, "single onboard");
         listCat1.put(WcmConstants.RT_VOYAGE_JOURNAL_DAY, "voyage journals");
         listCat1.put(WcmConstants.RT_PUBLIC_AREA_VARIATION, "single ship");
         listCat1.put(WcmConstants.RT_LAND_PROGRAMS, "single land programmes");
@@ -157,7 +156,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         // CAT2
-        if (contentResource.isResourceType(WcmConstants.RT_KEY_PEPOLE)) {
+        if (contentResource.isResourceType(WcmConstants.RT_KEY_PEOPLE)) {
             if (pageCategory2.equals("")) {
                 pageCategory2 = "enrichments";
             }

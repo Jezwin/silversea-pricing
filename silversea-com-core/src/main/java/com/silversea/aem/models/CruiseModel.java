@@ -221,10 +221,6 @@ public class CruiseModel extends AbstractModel {
         return cruiseType;
     }
 
-    public List<Feature> getFeatures() {
-        return features;
-    }
-
     public ShipModel getShip() {
         return ship;
     }
@@ -280,28 +276,52 @@ public class CruiseModel extends AbstractModel {
         }
     }
 
+    // ---------------- TODO -------------- //
 
 
+    private String destinationTitle;
 
+    private String destinationFootNote;
 
+    private String mapOverHead;
 
+    private PriceData lowestPrice;
 
+    private List<Feature> features;
 
+    private List<SuiteModel> suites;
 
+    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
+    private List<CruiseFareAddition> exclusiveFareAdditions = new ArrayList<>();
 
+    private ItinerariesData itinerariesData;
 
+    private ResourceResolver resourceResolver;
 
+    /**
+     * TODO replace by sling model
+     * TODO move display logic to use class
+     * Do not display the venetian society feature on the overview tab
+     * @return the features list
+     */
+    public List<Feature> getFeaturesForDisplay() {
 
+        //do not display the venetian society feature on the overview tab
+        final List<Feature> filteredFeatures = new ArrayList<>();
+        final Iterator<Feature> i = features.iterator();
+        while (i.hasNext()) {
+            Feature feature = i.next();
+            if (!feature.getTitle().toUpperCase().equals("VENETIAN SOCIETY")) {
+                filteredFeatures.add(feature);
+            }
+        }
+        return filteredFeatures;
+    }
 
-
-
-
-
-
-
-
-
+    public List<Feature> getFeatures() {
+        return features;
+    }
 
     @Deprecated
     public String getDestinationTitle() {
@@ -367,19 +387,6 @@ public class CruiseModel extends AbstractModel {
         return value;
     }
 
-    public List<Feature> getFeaturesForDisplay() {
-        //do not display the venetian society feature on the overview tab
-        List<Feature> filteredFeatures = new ArrayList<Feature>();
-        Iterator<Feature> i = features.iterator();
-        while (i.hasNext()) {
-            Feature feature = i.next();
-            if (!feature.getTitle().toUpperCase().equals("VENETIAN SOCIETY")) {
-                filteredFeatures.add(feature);
-            }
-        }
-        return filteredFeatures;
-    }
-
     public PriceData getLowestPrice() {
         return lowestPrice;
     }
@@ -396,10 +403,6 @@ public class CruiseModel extends AbstractModel {
         return suites;
     }
 
-    /*public List<CruiseItineraryModel> getItineraries() {
-        return itineraries;
-    }*/
-
     public String getMapOverHead() {
         return mapOverHead;
     }
@@ -415,24 +418,4 @@ public class CruiseModel extends AbstractModel {
 
         return null;
     }
-
-    private String destinationTitle;
-
-    private String destinationFootNote;
-
-    private String mapOverHead;
-
-    private PriceData lowestPrice;
-
-    private List<Feature> features;
-
-    private List<SuiteModel> suites;
-
-    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
-
-    private List<CruiseFareAddition> exclusiveFareAdditions = new ArrayList<>();
-
-    private ItinerariesData itinerariesData;
-
-    private ResourceResolver resourceResolver;
 }

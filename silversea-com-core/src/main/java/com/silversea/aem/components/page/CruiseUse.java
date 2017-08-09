@@ -152,8 +152,8 @@ public class CruiseUse extends WCMUsePojo {
         if (geolocationTagService != null) {
             final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(getRequest());
 
-            String geomarket = DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
-            String currency = DEFAULT_CURRENCY;
+            String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
+            String currency = WcmConstants.DEFAULT_CURRENCY;
             if (geolocationTagModel != null) {
                 geomarket = geolocationTagModel.getMarket();
                 currency = geolocationTagModel.getCurrency();
@@ -163,6 +163,7 @@ public class CruiseUse extends WCMUsePojo {
                 if (priceModel.getGeomarket() != null
                         && priceModel.getGeomarket().equals(geomarket.toLowerCase())
                         && priceModel.getCurrency().equals(currency)) {
+                    // Adding price to suites/prices mapping
                     boolean added = false;
 
                     for (SuitePrice price : prices) {
@@ -289,6 +290,20 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     /**
+     * @return the language of the current page
+     */
+    public String getPageLanguage() {
+        return getCurrentPage().getLanguage(false).getLanguage();
+    }
+
+    /**
+     * @return the request quote page
+     */
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
+    }
+
+    /**
      * @return common list for dinings and public areas
      */
     public List<Asset> getAllAssetForDinningNPublicAreas() {
@@ -366,54 +381,5 @@ public class CruiseUse extends WCMUsePojo {
                 lowestPrice = priceModel;
             }
         }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    // ---------------- TODO review ------------ //
-    private GeoLocation initGeolocation(GeolocationTagService geolocationTagService) {
-
-        String tagId = geolocationTagService.getTagIdFromRequest(getRequest());
-        String country = GeolocationHelper.getCountryCode(getRequest());
-        String geoMarketCode = getGeoMarketCode(tagId);
-        GeoLocation geoLocation = new GeoLocation();
-        if (!StringUtils.isEmpty(country) && !StringUtils.isEmpty(geoMarketCode)) {
-            geoLocation.setCountry(country);
-            geoLocation.setGeoMarketCode(geoMarketCode.toUpperCase());
-        } else {
-            geoLocation.setCountry(DEFAULT_GEOLOCATION_COUTRY);
-            geoLocation.setGeoMarketCode(DEFAULT_GEOLOCATION_GEO_MARKET_CODE);
-        }
-        return geoLocation;
-    }
-
-    private String getGeoMarketCode(String geolocationTag) {
-        String geoMarketCode = null;
-
-        Tag tag = tagManager.resolve(geolocationTag);
-        if (tag != null) {
-            geoMarketCode = tag.getParent().getParent().getName();
-        }
-        return geoMarketCode;
-    }
-
-    /**
-     * Return path for request quote page
-     */
-    public String getRequestQuotePagePath() {
-        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
-    }
-
-    public String getPageLanguage() {
-        return getCurrentPage().getLanguage(false).getLanguage();
     }
 }
