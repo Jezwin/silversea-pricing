@@ -2,9 +2,11 @@
      data-sly-test="${(wcmmode.edit || wcmmode.design)}"
      class="cq-placeholder" data-emptytext="Search results"></div>
 <h1>Search : ${use.searchText}</h1>
-<h2>Results :</h2>
 
 <sly data-sly-test="${use.searchResult}">
+
+<sly data-sly-test="${use.searchResult.totalMatches > 0}">
+    <h2>Results :</h2>
     <ul data-sly-list.hit="${use.searchResult.hits}">
         <li>
             <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=hit.path, absolute=false}" />
@@ -24,4 +26,10 @@
     <sly data-sly-test="${use.showLastPage}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">${use.numberOfPages}</a></sly>
     <sly data-sly-test="${use.showNextLink}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.nextPage}">NEXT</a></sly>
     <sly data-sly-test="${use.pageRequestedInt != use.numberOfPages}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">LAST</a></sly>
+</sly>
+
+<sly data-sly-test="${use.searchResult.totalMatches <= 0}">
+    <h2>NO Results!</h2>
+</sly>
+
 </sly>

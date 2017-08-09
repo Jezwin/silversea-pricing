@@ -13,6 +13,7 @@ import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
+import com.silversea.aem.helper.LanguageHelper;
 /**
  * Class used for the search results component.
  * @author lymendoza
@@ -37,13 +38,19 @@ public class SearchResultsUse extends WCMUsePojo {
             pageRequested = "1";
         }
         pageRequestedInt = Integer.parseInt(pageRequested);
+        
+        //get site language
+        String lang = LanguageHelper.getLanguage(getRequest());
+        if (lang == null) {
+            lang = LanguageHelper.getLanguage(getCurrentPage());
+        }
 
         if (!StringUtils.isEmpty(searchText)) {
             // create query description as hash map (simplest way, same as form post)
             Map<String, String> map = new HashMap<String, String>();
 
             // create query description as hash map (simplest way, same as form post)
-            map.put("path", "/content");
+            map.put("path", "/content/silversea-com/" + lang);
             map.put("type", "cq:Page");
             map.put("group.1_fulltext", searchText);
 
