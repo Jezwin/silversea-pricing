@@ -88,6 +88,9 @@ public class CruiseModel extends AbstractModel {
 
     private List<PriceModel> prices = new ArrayList<>();
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
+    private String thumbnail;
+
     @PostConstruct
     private void init() {
         pageManager = page.getPageManager();
@@ -226,6 +229,14 @@ public class CruiseModel extends AbstractModel {
         return ship;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
     public Page getDestination() {
         return page.getParent();
     }
@@ -268,7 +279,6 @@ public class CruiseModel extends AbstractModel {
             }
         }
     }
-
 
 
 
@@ -406,15 +416,6 @@ public class CruiseModel extends AbstractModel {
         return null;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public Page getPage() {
-        return page;
-    }
-
-
     private String destinationTitle;
 
     private String destinationFootNote;
@@ -432,8 +433,6 @@ public class CruiseModel extends AbstractModel {
     private List<CruiseFareAddition> exclusiveFareAdditions = new ArrayList<>();
 
     private ItinerariesData itinerariesData;
-
-    private String thumbnail;
 
     private ResourceResolver resourceResolver;
 }
