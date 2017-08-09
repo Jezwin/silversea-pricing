@@ -1,6 +1,5 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.date.DateUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jcr.Node;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Model(adaptables = Resource.class)
 public class ItineraryModel {
@@ -55,6 +57,8 @@ public class ItineraryModel {
 
     @Inject @Optional
     private List<ItineraryExcursionModel> excursions = new ArrayList<>();
+
+    private List<ItineraryExcursionModel> compactedExcursions = null;
 
     @Inject @Optional
     private List<ItineraryHotelModel> hotels = new ArrayList<>();
@@ -120,6 +124,10 @@ public class ItineraryModel {
         return departTime;
     }
 
+    public void setDepartTime(String departTime) {
+        this.departTime = departTime;
+    }
+
     public Integer getCruiseId() {
         return cruiseId;
     }
@@ -136,16 +144,64 @@ public class ItineraryModel {
         return null;
     }
 
+    /**
+     * @return get excursions for this itinerary
+     */
     public List<ItineraryExcursionModel> getExcursions() {
         return excursions;
+    }
+
+    /**
+     * @return list of unique excursion for this itinerary, with general departure date removed
+     */
+    public List<ItineraryExcursionModel> getCompactedExcursions() {
+        if (compactedExcursions != null) {
+            return compactedExcursions;
+        }
+
+        compactedExcursions = new ArrayList<>();
+        for (ItineraryExcursionModel excursion : excursions) {
+            boolean found = false;
+
+            for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
+                if (excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                // trick to deep clone the itinerary item
+                // without implementing java clone method
+                final ItineraryExcursionModel excursionCopy = excursion.getResource().adaptTo(ItineraryExcursionModel.class);
+
+                if (excursionCopy != null) {
+                    excursionCopy.setGeneralDepartureTime(null);
+                    compactedExcursions.add(excursionCopy);
+                }
+            }
+        }
+
+        return compactedExcursions;
+    }
+
+    public void addExcursions(List<ItineraryExcursionModel> excursions) {
+        this.excursions.addAll(excursions);
     }
 
     public List<ItineraryHotelModel> getHotels() {
         return hotels;
     }
 
+    public void addHotels(List<ItineraryHotelModel> hotels) {
+        this.hotels.addAll(hotels);
+    }
+
     public List<ItineraryLandProgramModel> getLandPrograms() {
         return landPrograms;
+    }
+
+    public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {
+        this.landPrograms.addAll(landPrograms);
     }
 
     /**
@@ -153,7 +209,7 @@ public class ItineraryModel {
      * <code>cityId</code>, <code>date</code>
      *
      * @param cruiseId id of voyage
-     * @param date date
+     * @param date     date
      * @return true if all arguments match with the current itinerary, false else
      */
     public boolean isItinerary(final Integer cruiseId, final Calendar date) {

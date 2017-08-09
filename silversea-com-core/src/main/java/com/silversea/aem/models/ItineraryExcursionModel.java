@@ -6,12 +6,16 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 @Model(adaptables = Resource.class)
 public class ItineraryExcursionModel {
+
+    @Inject @Self
+    private Resource resource;
 
     @Inject
     private ResourceResolver resourceResolver;
@@ -59,6 +63,10 @@ public class ItineraryExcursionModel {
         return generalDepartureTime;
     }
 
+    public void setGeneralDepartureTime(String generalDepartureTime) {
+        this.generalDepartureTime = generalDepartureTime;
+    }
+
     /**
      * @see #getGeneralDepartureTime()
      * @return same as generalDepartureTime, used for existing html compat
@@ -89,6 +97,10 @@ public class ItineraryExcursionModel {
 
     public Page getPage() {
         return excursion.getPage();
+    }
+
+    public Resource getResource() {
+        return resource;
     }
 
     public String getSchedule() {

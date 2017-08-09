@@ -8,9 +8,9 @@
     </p>
 
     <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
-         data-sly-test="${cruise.cruiseModel.itineraries}"
-         data-sly-list="${cruise.cruiseModel.itineraries}">
-        <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.excursions : item.port.excursions }"/>
+         data-sly-test="${cruise.cruiseModel.compactedItineraries}"
+         data-sly-list="${cruise.cruiseModel.compactedItineraries}">
+        <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.compactedExcursions : item.port.excursions }"/>
         <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? item.landPrograms : item.port.landPrograms }"/>
 
         <div class="c-cruise-itinerary-list__item panel">

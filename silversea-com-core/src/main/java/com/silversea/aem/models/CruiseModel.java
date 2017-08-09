@@ -82,6 +82,8 @@ public class CruiseModel extends AbstractModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries")
     private List<ItineraryModel> itineraries;
 
+    private List<ItineraryModel> compactedItineraries = null;
+
     private Tag cruiseType;
 
     private List<PriceModel> prices = new ArrayList<>();
@@ -175,6 +177,39 @@ public class CruiseModel extends AbstractModel {
         return itineraries;
     }
 
+    /**
+     * TODO compacted itineraries cause inconsistencies in itineraries
+     * @return list of compacted itineraries (consecutive days are grouped)
+     */
+    public List<ItineraryModel> getCompactedItineraries() {
+        if (compactedItineraries != null) {
+            return compactedItineraries;
+        }
+
+        compactedItineraries = new ArrayList<>();
+
+        ItineraryModel lastItinerary = null;
+        for (ItineraryModel itineraryModel : itineraries) {
+            if (lastItinerary != null && lastItinerary.getPort() != null
+                    && itineraryModel != null && itineraryModel.getPort() != null
+                    && lastItinerary.getPort().getCityId().equals(itineraryModel.getPort().getCityId())) {
+                lastItinerary.setDepartTime(itineraryModel.getDepartTime());
+
+                lastItinerary.getCompactedExcursions().addAll(itineraryModel.getCompactedExcursions());
+
+                lastItinerary.addHotels(itineraryModel.getHotels());
+                lastItinerary.addLandPrograms(itineraryModel.getLandPrograms());
+            } else {
+                // trick to deep clone the itinerary item
+                // without implementing java clone method
+                lastItinerary = itineraryModel.getResource().adaptTo(ItineraryModel.class);
+                compactedItineraries.add(lastItinerary);
+            }
+        }
+
+        return compactedItineraries;
+    }
+
     public List<ExclusiveOfferModel> getExclusiveOffers() {
         return exclusiveOffers;
     }
@@ -189,6 +224,10 @@ public class CruiseModel extends AbstractModel {
 
     public ShipModel getShip() {
         return ship;
+    }
+
+    public Page getDestination() {
+        return page.getParent();
     }
 
     public String getDeparturePortName() {
@@ -213,6 +252,11 @@ public class CruiseModel extends AbstractModel {
         return prices;
     }
 
+    /**
+     * Recursive collection of prices for this cruise
+     * @param prices the list of prices
+     * @param resource resource from where to get the prices
+     */
     private void collectPrices(final List<PriceModel> prices, final Resource resource) {
         if (resource.isResourceType("silversea/silversea-com/components/subpages/prices/pricevariation")) {
             prices.add(resource.adaptTo(PriceModel.class));
@@ -235,6 +279,24 @@ public class CruiseModel extends AbstractModel {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Deprecated
+    public String getDestinationTitle() {
+        return getDestination().getTitle();
+    }
 
 
     public void initByGeoLocation(GeoLocation geolocation) {
@@ -354,9 +416,6 @@ public class CruiseModel extends AbstractModel {
 
 
     private String destinationTitle;
-    public String getDestinationTitle() {
-        return destinationTitle;
-    }
 
     private String destinationFootNote;
 

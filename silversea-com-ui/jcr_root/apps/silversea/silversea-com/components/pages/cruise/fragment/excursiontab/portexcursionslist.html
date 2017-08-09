@@ -9,8 +9,8 @@
              data-multiview="false"
              data-more="<i class='fa fa-angle-down'></i>"
              data-close="<i class='fa fa-angle-up'></i>"
-             data-sly-list="${cruise.cruiseModel.itineraries}">
-            <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.excursions : item.port.excursions }"/>
+             data-sly-list="${cruise.cruiseModel.compactedItineraries}">
+            <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.compactedExcursions : item.port.excursions }"/>
             <div class="c-accordion__elem" data-sly-test="${excursions && excursions.size > 0}">
                 <div class="c-accordion__header c-accordion__header--parent">
                     <div class="c-accordion__title c-accordion__title--thumbnail">
