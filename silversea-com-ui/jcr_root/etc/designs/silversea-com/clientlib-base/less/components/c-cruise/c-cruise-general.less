@@ -243,11 +243,13 @@
         }
     }
 
-    .c-tab__nav--cruise {
-        table-layout: fixed;
+    @media screen and (min-width: @screen-md-min) {
+        .c-tab__nav--cruise {
+            table-layout: fixed;
 
-        .c-tab__link {
-            display: table-cell;
+            .c-tab__link {
+                display: table-cell;
+            }
         }
     }
 }
