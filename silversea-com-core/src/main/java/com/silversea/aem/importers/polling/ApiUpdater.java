@@ -53,6 +53,9 @@ public class ApiUpdater implements Runnable {
     private BrochuresImporter brochuresImporter;
 
     @Reference
+    private FeaturesImporter featuresImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -80,101 +83,109 @@ public class ApiUpdater implements Runnable {
             final ImportResult importResultBrochures = brochuresImporter.updateBrochures();
             LOGGER.info("Brochures import : {} success, {} errors", importResultBrochures.getSuccessNumber(), importResultBrochures.getErrorNumber());
 
+            // update features
+            final ImportResult importResultFeatures = featuresImporter.updateFeatures();
+            LOGGER.info("Features import : {} success, {} errors", importResultFeatures.getSuccessNumber(), importResultFeatures.getErrorNumber());
+
             // replicate all modifications
             LOGGER.debug("Start replication on modified pages");
 
-            Map<String, Object> authenticationParams = new HashMap<>();
-            authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+            replicateModifications("/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
+            replicateModifications("/jcr:root/content//element(*,cq:Tags)[toDeactivate or toActivate]");
 
-            try {
-                final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
-                final Session session = resourceResolver.adaptTo(Session.class);
-
-                if (session == null) {
-                    throw new ImporterException("Cannot get session");
-                }
-
-                int successNumber = 0, errorNumber = 0;
-                int j = 0;
-
-                Iterator<Resource> resources = resourceResolver
-                        .findResources("/jcr:root/content//element(*,cq:Page)[" +
-                                "jcr:content/toDeactivate or jcr:content/toActivate]", "xpath");
-
-                while (resources.hasNext()) {
-                    Resource resource = resources.next();
-
-                    final Page page = resource.adaptTo(Page.class);
-
-                    if (page != null && page.getContentResource() != null) {
-                        final ValueMap pageProperties = page.getProperties();
-                        final Node pageContentNode = page.getContentResource().adaptTo(Node.class);
-
-                        try {
-                            if (pageProperties.get(ImportersConstants.PN_TO_DEACTIVATE, false)) {
-                                replicator.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
-
-                                pageContentNode.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
-
-                                LOGGER.trace("{} page deactivated", page.getPath());
-                            }
-
-                            if (pageProperties.get(ImportersConstants.PN_TO_ACTIVATE, false)) {
-                                replicator.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
-
-                                pageContentNode.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
-
-                                LOGGER.trace("{} page activated", page.getPath());
-                            }
-
-                            successNumber++;
-                            j++;
-
-                            if (j % 100 == 0 && session.hasPendingChanges()) {
-                                try {
-                                    session.save();
-
-                                    LOGGER.debug("{} pages replicated, saving session", +j);
-                                } catch (RepositoryException e) {
-                                    session.refresh(true);
-                                }
-                            }
-                        } catch (ReplicationException e) {
-                            LOGGER.error("Cannot replicate page {}", page.getPath());
-
-                            errorNumber++;
-                        } catch (RepositoryException e) {
-                            LOGGER.error("Cannot remove status property on page {}", page.getPath());
-
-                            errorNumber++;
-                        }
-                    } else {
-                        errorNumber++;
-
-                        LOGGER.error("Cannot get page {}", page.getPath());
-                    }
-                }
-
-                try {
-                    if (session.hasPendingChanges()) {
-                        session.save();
-
-                        LOGGER.debug("{} pages replicated, saving session", +j);
-                    }
-                } catch (RepositoryException e) {
-                    try {
-                        session.refresh(false);
-                    } catch (RepositoryException e1) {
-                        LOGGER.error("Cannot refresh session");
-                    }
-                }
-
-                LOGGER.info("Replication done, success: {}, errors: {}", successNumber, errorNumber);
-            } catch (LoginException | ImporterException e) {
-                LOGGER.error("Cannot get resource resolver or session", e);
-            }
         } else {
             LOGGER.debug("API updater service run only on author instance");
+        }
+    }
+
+    private void replicateModifications(final String query) {
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        try {
+            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final Session session = resourceResolver.adaptTo(Session.class);
+
+            if (session == null) {
+                throw new ImporterException("Cannot get session");
+            }
+
+            int successNumber = 0, errorNumber = 0;
+            int j = 0;
+
+            Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
+
+            while (resources.hasNext()) {
+                Resource resource = resources.next();
+
+                final Page page = resource.adaptTo(Page.class);
+
+                if (page != null && page.getContentResource() != null) {
+                    final ValueMap pageProperties = page.getProperties();
+                    final Node pageContentNode = page.getContentResource().adaptTo(Node.class);
+
+                    try {
+                        if (pageProperties.get(ImportersConstants.PN_TO_DEACTIVATE, false)) {
+                            replicator.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
+
+                            pageContentNode.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
+
+                            LOGGER.trace("{} page deactivated", page.getPath());
+                        }
+
+                        if (pageProperties.get(ImportersConstants.PN_TO_ACTIVATE, false)) {
+                            replicator.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
+
+                            pageContentNode.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
+
+                            LOGGER.trace("{} page activated", page.getPath());
+                        }
+
+                        successNumber++;
+                        j++;
+
+                        if (j % 100 == 0 && session.hasPendingChanges()) {
+                            try {
+                                session.save();
+
+                                LOGGER.debug("{} pages replicated, saving session", +j);
+                            } catch (RepositoryException e) {
+                                session.refresh(true);
+                            }
+                        }
+                    } catch (ReplicationException e) {
+                        LOGGER.error("Cannot replicate page {}", page.getPath());
+
+                        errorNumber++;
+                    } catch (RepositoryException e) {
+                        LOGGER.error("Cannot remove status property on page {}", page.getPath());
+
+                        errorNumber++;
+                    }
+                } else {
+                    errorNumber++;
+
+                    LOGGER.error("Cannot get page {}", page.getPath());
+                }
+            }
+
+            try {
+                if (session.hasPendingChanges()) {
+                    session.save();
+
+                    LOGGER.debug("{} pages replicated, saving session", +j);
+                }
+            } catch (RepositoryException e) {
+                try {
+                    session.refresh(false);
+                } catch (RepositoryException e1) {
+                    LOGGER.error("Cannot refresh session");
+                }
+            }
+
+            LOGGER.info("Replication done, success: {}, errors: {}", successNumber, errorNumber);
+        } catch (LoginException | ImporterException e) {
+            LOGGER.error("Cannot get resource resolver or session", e);
         }
     }
 }
