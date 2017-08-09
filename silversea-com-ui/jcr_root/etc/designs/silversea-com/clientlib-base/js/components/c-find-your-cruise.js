@@ -127,10 +127,10 @@ $(function() {
         var pagination = (function pagination() {
             $paginationWrapper = $('.c-fyc-pagination');
             $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
-                e.preventDefault();
                 var $currentPage = $(e.target);
 
                 if ($currentPage.is('.c-fyc-pagination a')) {
+                    e.preventDefault();
                     $paginationWrapper.find('a').removeClass('active');
                     $currentPage.addClass('active');
 
