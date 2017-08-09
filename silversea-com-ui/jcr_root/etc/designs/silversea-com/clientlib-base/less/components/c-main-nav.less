@@ -365,122 +365,100 @@
         overflow-y: auto;
         top:0;
     }
-}
-
-
 
 /*
-** main serach menu css
+** serach menu
 */
-.c-main-nav-search{
-    width:400px;
-    position: absolute;
-    top: 10px;
-}
 
-.searchbox{
-    position:relative;
-    min-width:50px;
-    width:0%;
-    height:50px;
-    float:right;
-    overflow:hidden;
+    &__search{
+        width: 300px;
+        position: absolute;
+        top: 16px;
+        right: -40px;
+        
+        &__searchbox{
+            position:relative;
+            min-width:20px;
+            width:0;
+            height:32px;
+            float:right;
+            overflow:hidden;
+            text-align: center;
+            padding-top: 5px;
+            background: #000;
 
-    -webkit-transition: width 0.6s;
-    -moz-transition: width 0.6s;
-    -ms-transition: width 0.6s;
-    -o-transition: width 0.6s;
-    transition: width 0.6s;
-    overflow: visible;
-}
+            -webkit-transition: width 0.6s;
+            -moz-transition: width 0.6s;
+            -ms-transition: width 0.6s;
+            -o-transition: width 0.6s;
+            transition: width 0.6s;
+            overflow: visible;
+        }
+        &__searchbox-input{
+            display:none;
+            top:0;
+            border:0;
+            outline:0;
+            background:#fff;
+            width:100%;
+            height:30px;
+            margin:0;
+            padding:0px;
+            font-size:12px;
+            color:#999;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            position:absolute;
+            right:5px;
+            padding-left: 25px;
+        }
+        &__searchbox-input::-webkit-input-placeholder {
+            color: #999;
+        }
+        &__searchbox-input:-moz-placeholder {
+            color: #999;
+        }
+        &__searchbox-input::-moz-placeholder {
+            color: #999;
+        }
+        &__searchbox-input:-ms-input-placeholder {
+            color: #999;
+        }
+        
+        &__searchbox-submit{
+            display:none;
+            width:60px;
+            height:30px;
+            position:absolute;
+            top:0;
+            font-size:12px;
+            right:0;
+            padding:0;
+            margin:0;
+            border:0;
+            outline:0;
+            line-height:30px;
+            text-align:center;
+            cursor:pointer;
+            color:#dcddd8;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            background-color: #fff;
+            transition:background-color 0.5s ease;
+        }
+        .fa-search{
+            color: #ccc;
+        }
 
-.searchbox-input{
-    display:none;
-    top:0;
-    border:0;
-    outline:0;
-    background:#fff;
-    width:100%;
-    height:30px;
-    margin:0;
-    padding:0px;
-    font-size:12px;
-    color:#999;
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    position:absolute;
-    right:5px;
-    padding-left: 25px;
-}
-.searchbox-input::-webkit-input-placeholder {
-    color: #999;
-}
-.searchbox-input:-moz-placeholder {
-    color: #999;
-}
-.searchbox-input::-moz-placeholder {
-    color: #999;
-}
-.searchbox-input:-ms-input-placeholder {
-    color: #999;
-}
+        .searchbox-open{
+            width:100%;
+        }
 
-.searchbox-icon{
-    width:60px;
-    height:30px;
-    position:absolute;
-    top:0;
-    font-size:12px;
-    padding:0;
-    margin:0;
-    border:0;
-    outline:0;
-    line-height:30px;
-    text-align:center;
-    cursor:pointer;
-    color:#dcddd8;
-    background:transparent;
-}
+        .glyphicon-search-left{
+            color:#ccc;
+            margin-top:6px;
+        }
 
-.searchbox-submit{
-    display:none;
-    width:60px;
-    height:30px;
-    position:absolute;
-    top:0;
-    font-size:12px;
-    right:0;
-    padding:0;
-    margin:0;
-    border:0;
-    outline:0;
-    line-height:30px;
-    text-align:center;
-    cursor:pointer;
-    color:#dcddd8;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: #fff;
-    transition:background-color 0.5s ease;
-}
 
-.searchbox-open{
-    width:100%;
-}
-
-.byline{
-    position:absolute;
-    top:150px;
-    left:30%;
-    text-align:center;
-    font-size:18px;
-}
-.byline a{
-    text-decoration:none;
-    color: #d74b4b;
-}
-
-.glyphicon-search-left{
-    color:#ccc;
-    margin-top:6px;
+    }
 }

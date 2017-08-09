@@ -1,13 +1,16 @@
-$(document).ready(function(){
-    var submitIcon = $('.searchbox-icon');
-    var inputBox = $('.searchbox-input');
-    var searchBoxSubmit = $('.searchbox-submit');
-    var searchBox = $('.searchbox');
+$(function() {
+
+    var wrapperSearch = $('.c-main-nav__search');
+    var submitIcon = wrapperSearch.find('.c-main-nav__search__searchbox-icon');
+    var inputBox = wrapperSearch.find('.c-main-nav__search__searchbox-input');
+    var searchBoxSubmit = wrapperSearch.find('.c-main-nav__search__searchbox-submit');
+    var searchBox = wrapperSearch.find('.c-main-nav__search__searchbox');
     var isOpen = false;
 
     submitIcon.click(function(){
         if(isOpen == false){
-            $(this).removeClass('searchbox-icon');
+            searchBox.css({'witdh': '300'});
+            $(this).removeClass('c-main-nav__search__searchbox-icon');
             $(this).addClass('glyphicon-search-left');
             searchBox.addClass('searchbox-open');
             searchBoxSubmit.css('display','block');
@@ -17,7 +20,10 @@ $(document).ready(function(){
             inputBox.css('display','block');
             inputBox.css('margin-left','100%');
         } else {
-            $(this).addClass('searchbox-icon');
+            searchBox.animate({
+                witdh: "100",
+            }, 1500 );
+            $(this).addClass('c-main-nav__search__searchbox-icon');
             $(this).removeClass('glyphicon-search-left');
             searchBox.removeClass('searchbox-open');
             inputBox.focusout();
@@ -38,22 +44,20 @@ $(document).ready(function(){
 
     $(document).mouseup(function(){
         if(isOpen == true){
-            $('.searchbox-icon').css('display','block');
+            submitIcon.css('display','block');
             submitIcon.click();
         }
     });
 
-
-     $.fn.buttonUp = function() {
-         var inputVal = $('.searchbox-input').val();
+    $('.searchbox-input').click(function(){
+         var inputVal = $(this).val();
         inputVal = $.trim(inputVal).length;
         if( inputVal !== 0){
-            $('.searchbox-icon').css('display','none');
+            submitIcon.css('display','none');
         } else {
-            $('.searchbox-input').val('');
-            $('.searchbox-icon').css('display','block');
+            inputBox.val('');
+            submitIcon.css('display','block');
         }
-     }
-
+    })
 
 });

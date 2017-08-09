@@ -30,13 +30,15 @@
             </ul>
         </li>
 
-        <div class="c-main-nav-search" data-sly-test.search="${navTop.searchPage}">
-            <form class="searchbox" action="${search.path @ extension ='html'}">
-                <input type="search" placeholder="Type here to search" name="search" class="searchbox-input" onkeyup="buttonUp();" required>
-                <input type="submit" class="searchbox-submit" value="Envoyer">
-                <i class="fa fa-lg fa-search searchbox-icon" aria-hidden="true"></i>
-            </form>
-        </div>
+        <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
+           <div class="c-main-nav__search">
+                <form class="c-main-nav__search__searchbox" action="${search.path @ extension ='html'}">
+                    <input type="search" placeholder="Type here to search" name="q" class="c-main-nav__search__searchbox-input" required>
+                    <input type="submit" class="c-main-nav__search__searchbox-submit" value="Envoyer">
+                    <span><i class="fa fa-lg fa-search c-main-nav__search__searchbox-icon" aria-hidden="true"></i></span>
+                </form>
+            </div>
+        </li>
 
     </ul>
 </div>
