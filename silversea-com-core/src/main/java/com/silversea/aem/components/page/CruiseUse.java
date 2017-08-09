@@ -350,6 +350,14 @@ public class CruiseUse extends WCMUsePojo {
         return prices;
     }
 
+    public PriceModel getLowestPrice() {
+        return lowestPrice;
+    }
+
+    public boolean isWaitList() {
+        return isWaitList;
+    }
+
     /**
      * Inner class used to store mapping between one suite and price variations
      * Lowest price is updated when a <code>PriceModel</code> is added to the price variations list
