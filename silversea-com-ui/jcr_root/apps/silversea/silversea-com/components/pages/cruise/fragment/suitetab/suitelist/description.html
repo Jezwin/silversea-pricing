@@ -19,7 +19,7 @@
                         <strong class="c-suitelist__price__text--important5 text-uppercase">${'waitlist' @ i18n}</strong>
                     </span>
                     <span data-sly-test="${!isisWaitList}">
-                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suitePrice.lowestPrice.currency} ${suitePrice.lowestPrice.price}</strong>
+                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suitePrice.lowestPrice.currency @ i18n} ${suitePrice.lowestPrice.price}</strong>
                         (${'per-guest' @ i18n})
                     </span>
                     
