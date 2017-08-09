@@ -8,12 +8,12 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.CitiesApi;
@@ -419,9 +419,9 @@ public class CitiesImporterImpl implements CitiesImporter {
             // Creating port page
             return pageManager.create(portFirstLetterPage.getPath(),
                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-                            StringHelper.getFormatWithoutSpecialCharcters(cityName)),
+                            StringsUtils.getFormatWithoutSpecialCharcters(cityName)),
                     WcmConstants.PAGE_TEMPLATE_PORT,
-                    StringHelper.getFormatWithoutSpecialCharcters(cityName), false);
+                    StringsUtils.getFormatWithoutSpecialCharcters(cityName), false);
         } catch (RepositoryException | WCMException e) {
             throw new ImporterException("Port page cannot be created", e);
         }

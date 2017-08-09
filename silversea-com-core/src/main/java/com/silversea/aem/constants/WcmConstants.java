@@ -75,6 +75,8 @@ public interface WcmConstants {
     // Tags TODO naming convention
     String TAG_NAMESPACE_LANGUAGES = "languages:";
     String TAG_NAMESPACE_BROCHURE_GROUPS = "brochure-groups:";
+    String TAG_NAMESPACE_FEATURES = "features:";
+
     String GEOLOCATION_TAGS_PREFIX = "geotagging:";
 
     String TAG_NAMESPACE_CRUISE_TYPES = "cruise-types:";

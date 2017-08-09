@@ -16,6 +16,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.utils.StringsUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -34,9 +35,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.ImporterStatus;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.helper.GeolocationHelper;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersUpdateImporter;
@@ -147,10 +146,10 @@ public class ExclusiveOffersUpdateImporterImpl implements ExclusiveOffersUpdateI
 									} else {
 										offersPage = pageManager.create(offersRootPage.getPath(),
 												JcrUtil.createValidChildName(offersRootPage.adaptTo(Node.class),
-														StringHelper.getFormatWithoutSpecialCharcters(
+														StringsUtils.getFormatWithoutSpecialCharcters(
 																offers.getVoyageSpecialOffer())),
 												WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
-												StringHelper.getFormatWithoutSpecialCharcters(
+												StringsUtils.getFormatWithoutSpecialCharcters(
 														offers.getVoyageSpecialOffer()),
 												false);
 										LOGGER.debug("Create of exclusive offers : {} ",

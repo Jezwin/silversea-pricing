@@ -7,12 +7,12 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.ShorexesApi;
@@ -146,9 +146,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
                             final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                     JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                            StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName())),
+                                            StringsUtils.getFormatWithoutSpecialCharcters(shorex.getShorexName())),
                                     WcmConstants.PAGE_TEMPLATE_EXCURSION,
-                                    StringHelper.getFormatWithoutSpecialCharcters(shorex.getShorexName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharcters(shorex.getShorexName()), false);
 
                             LOGGER.trace("Creating excursion {} in city {}", shorex.getShorexName(),
                                     portPage.getPath());
@@ -349,9 +349,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 // Creating excursion page
                                 final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                         JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                                StringHelper.getFormatWithoutSpecialCharcters(excursionName)),
+                                                StringsUtils.getFormatWithoutSpecialCharcters(excursionName)),
                                         WcmConstants.PAGE_TEMPLATE_EXCURSION,
-                                        StringHelper.getFormatWithoutSpecialCharcters(excursionName), false);
+                                        StringsUtils.getFormatWithoutSpecialCharcters(excursionName), false);
 
                                 LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());
 

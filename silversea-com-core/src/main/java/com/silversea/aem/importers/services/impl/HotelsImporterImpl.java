@@ -7,12 +7,12 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelsImporter;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.HotelsApi;
@@ -139,9 +139,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                             // Creating hotel page
                             final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                     JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                            StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                            StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
                                     WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                    StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 
@@ -329,9 +329,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 // Creating hotel page
                                 final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                                StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
                                         WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                        StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                        StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                 LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 

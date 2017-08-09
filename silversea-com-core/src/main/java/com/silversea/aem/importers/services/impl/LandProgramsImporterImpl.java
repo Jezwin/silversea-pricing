@@ -7,12 +7,12 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.LandsApi;
@@ -139,9 +139,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
                             final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                     JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
-                                            StringHelper.getFormatWithoutSpecialCharcters(landProgram.getLandName())),
+                                            StringsUtils.getFormatWithoutSpecialCharcters(landProgram.getLandName())),
                                     WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
-                                    StringHelper.getFormatWithoutSpecialCharcters(landProgram.getLandName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharcters(landProgram.getLandName()), false);
 
                             LOGGER.trace("Creating land program {} in city {}", landProgram.getLandName(),
                                     portPage.getPath());
@@ -334,9 +334,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 // Creating landProgram page
                                 final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                         JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
-                                                StringHelper.getFormatWithoutSpecialCharcters(landProgramName)),
+                                                StringsUtils.getFormatWithoutSpecialCharcters(landProgramName)),
                                         WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
-                                        StringHelper.getFormatWithoutSpecialCharcters(landProgramName), false);
+                                        StringsUtils.getFormatWithoutSpecialCharcters(landProgramName), false);
 
                                 LOGGER.trace("Creating landProgram {} in city {}", landProgramName, portPage.getPath());
 

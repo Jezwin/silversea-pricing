@@ -15,12 +15,9 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.StringHelper;
-import com.silversea.aem.importers.services.impl.CruisesItinerariesExcursionsImporterImpl;
-import com.silversea.aem.importers.services.impl.CruisesItinerariesLandProgramsImporterImpl;
-import com.silversea.aem.importers.utils.MigrationUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -145,7 +142,7 @@ public class ImporterUtils {
             page = resources.next().adaptTo(Page.class);
         } else {
             page = pageManager.create(RootPage.getPath(), JcrUtil.createValidChildName(RootPage.adaptTo(Node.class),
-                    StringHelper.getFormatWithoutSpecialCharcters(title)), template, title, false);
+                    StringsUtils.getFormatWithoutSpecialCharcters(title)), template, title, false);
         }
 
         return page;
