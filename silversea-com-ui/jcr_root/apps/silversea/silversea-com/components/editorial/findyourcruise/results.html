@@ -1,5 +1,6 @@
 <!--/* TODO : set class V2 according to design properties */-->
-<div class="c-fyc__result" data-sly-repeat="${['a','a','a','a','a','a','a','a','a','a']}">
+<div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
+     class="c-fyc__result" data-sly-repeat="${fyc.cruises}">
     <div class="c-fyc__result__wrapper">
         <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)">
             <!--/* TODO : generated if exclusive offer */-->
@@ -10,14 +11,14 @@
         </div>
         <div class="c-fyc__result__content">
             <div class="c-fyc__result__content__inner clearfix">
-                <h2 class="c-fyc__result__content__title">San Cristobal <em class="text-lowercase">to</em> Baltra, Galapagos</h2>
+                <h2 class="c-fyc__result__content__title">${item.departurePortName} <em class="text-lowercase">to</em> ${item.arrivalPortName}</h2>
                 <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
                 <ul class="c-fyc__result__content__description silversea-expedition">
-                    <li class="cruise-ship hidden-xs"><strong>Silver Explorer</strong></li>
+                    <li class="cruise-ship hidden-xs"><strong>${item.ship.title}</strong></li>
                     <li class="cruise-destination">Galapagos Islands</li>
                     <li class="cruise-type">Silversea Expedition</li>
-                    <li class="cruise-code hidden-xs"><strong>9877</strong></li>
-                    <li class="cruise-ship hidden-xs">Silver Explorer</li>
+                    <li class="cruise-code hidden-xs"><strong>${item.cruiseCode}</strong></li>
+                    <li class="cruise-ship hidden-xs">${item.ship.title}</li>
                     <li class="meta_feature_inner hidden-xs">
                         <span class="feature" data-sly-repeat="${['a','a']}">
                             <i class="icon-star"></i>

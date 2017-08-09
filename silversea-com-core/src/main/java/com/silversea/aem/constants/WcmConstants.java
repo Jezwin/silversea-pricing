@@ -70,6 +70,7 @@ public interface WcmConstants {
     String RT_DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
     String RT_PAGE_PORT = "silversea/silversea-com/components/pages/portslist";
     String RT_COMBO_CRUISE = "silversea/silversea-com/components/pages/combocruise";
+    String RT_CRUISE = "silversea/silversea-com/components/pages/cruise";
 
     // Tags TODO naming convention
     String TAG_NAMESPACE_LANGUAGES = "languages:";
