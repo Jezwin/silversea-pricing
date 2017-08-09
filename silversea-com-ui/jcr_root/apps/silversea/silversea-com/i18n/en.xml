@@ -1049,4 +1049,20 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="last"
         sling:message="last" />
+    <eur
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EUR"
+        sling:message="€" />
+    <gbp
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="GBP"
+        sling:message="£" />
+    <usd
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="USD"
+        sling:message="$" />
+    <aud
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="AUD"
+        sling:message="$" />
 </jcr:root>
