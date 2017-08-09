@@ -6,15 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 public class StringHelper extends WCMUsePojo {
 
     private String textTruncate;
-
-    private String textTruncateEnd;
-
     private String textTruncateDot;
-
     private String textTruncateDotEnd;
 
     @Override
     public void activate() throws Exception {
+        String textTruncateEnd;
         String text = get("text", String.class);
         Integer limit = get("limit", Integer.class);
 
@@ -34,24 +31,23 @@ public class StringHelper extends WCMUsePojo {
     }
 
     /**
-     * TODO typo
-     *
-     * @return the page for a given path
+     * @return the textTruncate
      */
     public String getTextTruncate() {
         return textTruncate;
     }
 
-    public String getTextTruncateDotEnd() {
-        return textTruncateDotEnd;
-    }
-
+    /**
+     * @return the textTruncateDot
+     */
     public String getTextTruncateDot() {
         return textTruncateDot;
     }
 
-    public String getTextTruncateEnd() {
-        return textTruncateEnd;
+    /**
+     * @return the textTruncateDotEnd
+     */
+    public String getTextTruncateDotEnd() {
+        return textTruncateDotEnd;
     }
-
 }
