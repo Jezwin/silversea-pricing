@@ -1,8 +1,8 @@
 <!--/* TODO : set class V2 according to design properties */-->
 <div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
-     class="c-fyc__result" data-sly-repeat="${fyc.cruises}">
+     class="c-fyc__result" data-sly-repeat.cruise="${fyc.cruises}">
     <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image" style="background-image: url(http://static.silversea.com/wp-content/uploads/2016/08/8803.jpg)">
+        <div class="c-fyc__result__image" style="background-image: url(${cruise.port.thumbnail}?wid=360)">
             <!--/* TODO : generated if exclusive offer */-->
             <span class="flag">
                 <span class="flag__icon icon-star"></span>
@@ -10,15 +10,14 @@
             </span>
         </div>
         <div class="c-fyc__result__content">
-            <div class="c-fyc__result__content__inner clearfix">
-                <h2 class="c-fyc__result__content__title">${item.departurePortName} <em class="text-lowercase">to</em> ${item.arrivalPortName}</h2>
-                <!--/* TODO : add silversea-expedition class if cruise is silversea-expedition type */-->
-                <ul class="c-fyc__result__content__description silversea-expedition">
-                    <li class="cruise-ship hidden-xs"><strong>${item.ship.title}</strong></li>
-                    <li class="cruise-destination">Galapagos Islands</li>
-                    <li class="cruise-type">Silversea Expedition</li>
-                    <li class="cruise-code hidden-xs"><strong>${item.cruiseCode}</strong></li>
-                    <li class="cruise-ship hidden-xs">${item.ship.title}</li>
+            <div class="c-fyc__result__content__inner">
+                <h2 class="c-fyc__result__content__title">${cruise.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruise.arrivalPortName}</h2>
+                <ul class="c-fyc__result__content__description ${cruise.cruiseType.name}">
+                    <li class="cruise-ship hidden-xs"><strong>${cruise.ship.title}</strong></li>
+                    <li class="cruise-destination">${cruise.destination.title}</li>
+                    <li class="cruise-type">${cruise.cruiseType.title}</li>
+                    <li class="cruise-code hidden-xs"><strong>${cruise.cruiseCode}</strong></li>
+                    <li class="cruise-ship hidden-xs">${cruise.ship.title}</li>
                     <li class="meta_feature_inner hidden-xs">
                         <span class="feature" data-sly-repeat="${['a','a']}">
                             <i class="icon-star"></i>
@@ -30,19 +29,22 @@
                     <li class="c-fyc__result__content__summary__item">
                         <dl>
                             <dt class="visible-xs">${'departure' @ i18n}</dt>
-                            <dd><i class="fa fa-calendar-o hidden-xs"></i><strong>jul 13,</strong> 2017</dd>
+                            <dd data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd,', date=cruise.startDate}"
+                                data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.startDate}">
+                                <i class="fa fa-calendar-o hidden-xs"></i><strong>${dateMonthDay.value}</strong> ${dateYear.value}
+                            </dd>
                         </dl>
                     </li>
                     <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
                         <dl>
                             <dt class="visible-xs">${'duration' @ i18n}</dt>
-                            <dd><i class="fa fa-clock-o hidden-xs"></i><strong>7</strong> ${'days' @ i18n}</dd>
+                            <dd><i class="fa fa-clock-o hidden-xs"></i><strong>${cruise.duration}</strong> ${'days' @ i18n}</dd>
                         </dl>
                     </li>
                     <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--ship visible-xs">
                         <dl>
                             <dt>${'ship' @ i18n}</dt>
-                            <dd><strong class="text-capitalize">Silver Galapagos</strong></dd>
+                            <dd><strong class="text-capitalize">${cruise.ship.title}</strong></dd>
                         </dl>
                     </li>
                 </ul>
@@ -62,13 +64,13 @@
                 </ul>
                 <dl class="c-fyc__result__content__itinerary hidden-xs">
                     <dt>${'itinerary' @ i18n}</dt>
-                    <dd data-sly-repeat="${['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']}">Bridgetowns </dd>
+                    <dd data-sly-repeat.itinerary="${cruise.itineraries}">${itinerary.port.apiTitle} </dd>
                 </dl>
             </div>
             <p class="c-fyc__result__content__price">
                 <!--/* TODO : generate all-inclusive-package-from OR fare-from message*/-->
                 <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n} <em class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span>
-                <strong>&euro; 6,165</strong>
+                <strong>${cruise.prices.currency} ${cruise.prices.price}</strong>
                 <span class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
             </p>
             <p class="c-fyc__result__content__button text-center">
@@ -76,7 +78,7 @@
             </p>
         </div>
     </div>
-    <a class="c-fyc__result__link" href="#"></a>
+    <a class="c-fyc__result__link" href="${cruise.page.path @ extension='html'}"></a>
 </div>
 
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
