@@ -1,44 +1,41 @@
 .c-cruise {
-	
-	&__subtitle {
-	    text-align: center;
-	    font-size: 30px;
-	    text-transform: uppercase;
-	    font-family: @f-theano_didot;
-	    padding: 18px 0 5px;
-	    margin: 10px auto;
-	    line-height: 1.0909090909;
-	
-	    /* phone breakpoint */
-	    @media screen and (max-width: @screen-sm) {
-	        padding: 10px 0;
-	        font-size: 20px;
-	        margin: 0 auto 10px;
-	    }
-	}
-	
-	&__descr {
-	    text-align: center;
-	    font-size: 13px;
-	    max-width: 750px;
-	    margin: auto;
-	    padding: 0 0 20px 0;
-	    
-	    & a {
-	   		text-decoration: underline;
-	    }
-	    
-	    & a:hover {
-	   		text-decoration: none;
-	    }
-	}
-	
-	& .c-tab__accordion .c-tab__body {
-		@media screen and (max-width: @screen-sm) {
-			padding-top: 61px;
-		}	   
-	}
-	
+    &__subtitle {
+        text-align: center;
+        font-size: 30px;
+        text-transform: uppercase;
+        font-family: @f-theano_didot;
+        padding: 18px 0 5px;
+        margin: 10px auto;
+        line-height: 1.0909090909;
+
+        @media screen and (max-width: @screen-sm) {
+            padding: 10px 0;
+            font-size: 20px;
+            margin: 0 auto 10px;
+        }
+    }
+
+    &__descr {
+        text-align: center;
+        font-size: 13px;
+        max-width: 750px;
+        margin: auto;
+        padding: 0 0 20px 0;
+
+        & a {
+            text-decoration: underline;
+            
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    & .c-tab__accordion .c-tab__body {
+        @media screen and (max-width: @screen-sm) {
+            padding-top: 61px;
+        }
+    }
 }
 
 // align text on left in one tab
@@ -47,7 +44,6 @@
 }
 
 // ICONS FEATURES
-
 .meta_feature {
     position: relative;
     display: inline-block;
@@ -244,6 +240,14 @@
 
         &:hover:before {
             opacity: 1;
+        }
+    }
+
+    .c-tab__nav--cruise {
+        table-layout: fixed;
+
+        .c-tab__link {
+            display: table-cell;
         }
     }
 }
