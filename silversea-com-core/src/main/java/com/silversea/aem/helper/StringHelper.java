@@ -11,21 +11,23 @@ public class StringHelper extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        String textTruncateEnd;
         String text = get("text", String.class);
         Integer limit = get("limit", Integer.class);
 
         if (StringUtils.isNotEmpty(text)) {
-            textTruncate = (text.length() > limit) ? text.substring(0, limit).trim() : text;
-            textTruncateEnd = (text.length() > limit) ? text.substring(limit, text.length()).trim() : null;
+            // Remove HTML tag
+            String textHtmlStrip = text.replaceAll("\\<[^>]*>", "");
+            textTruncate = (textHtmlStrip.length() > limit) ? textHtmlStrip.substring(0, limit).trim() : textHtmlStrip;
 
-            String[] textSplit = textTruncate.split("\\.");
-            textTruncateDot = "";
-            for (Integer i = 0; i < textSplit.length - 1; i++){
-                textTruncateDot += textSplit[i] + ". ";
+            // Return truncate text
+            if (textHtmlStrip.length() > limit) {
+                textTruncate = textHtmlStrip.substring(0, limit);
+                if (textHtmlStrip.charAt(limit) != ' ') {
+                    textTruncate = textTruncate.substring(0, textTruncate.lastIndexOf(" ")) + "...";
+                }
+            } else {
+                textTruncate = textHtmlStrip;
             }
-            if (textSplit.length > 0)
-                textTruncateDotEnd = textSplit[textSplit.length - 1] + textTruncateEnd;
         }
 
     }
