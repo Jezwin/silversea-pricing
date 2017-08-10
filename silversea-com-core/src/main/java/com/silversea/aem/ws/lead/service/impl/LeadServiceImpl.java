@@ -92,13 +92,6 @@ public class LeadServiceImpl implements LeadService {
         // Subscribe newsletter
         request.setSubscribeEmail(lead.getSubscribeemail());
         request.setWorkingWithAgent(lead.getWorkingwithagent());
-        if (lead.getIsnotagent() != null) {
-            if (lead.getIsnotagent().intValue() == 1) {
-                request.setIsAgent(Short.parseShort("0")); //false
-            } else {
-                request.setIsAgent(lead.getIsnotagent()); //true
-            }
-        }
 
         // request a quote
         request.setVoyage(lead.getVoyagename());
@@ -121,6 +114,13 @@ public class LeadServiceImpl implements LeadService {
         request.setCity(lead.getCity());
         request.setCountry(lead.getCountry());
         request.setBrochuresRequested("");
+        if (lead.getRequesttype().equals("BRO") || lead.getRequesttype().equals("EBRO")) {
+            if (lead.getIsnotagent() != null) { // isnotagent was checked
+                request.setIsAgent(Short.parseShort("0")); //false - is NOT agent
+            } else {
+                request.setIsAgent(Short.parseShort("1")); //true - is agent
+            }
+        }
 
         // Marketing
         request.setMarketingEffort(lead.getMarketingEffort());
