@@ -26,15 +26,11 @@ public class CruiseUse extends WCMUsePojo {
     private String previous;
     private String next;
 
-    private TagManager tagManager;
-
     private int excursionsNumber = 0;
 
     private int hotelsNumber = 0;
 
     private int landProgramsNumber = 0;
-
-    private int tabsNumber = 4;
 
     private List<Asset> suitesAssetsList = new ArrayList<>();
 
@@ -52,7 +48,7 @@ public class CruiseUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        tagManager = getResourceResolver().adaptTo(TagManager.class);
+        final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -117,27 +113,6 @@ public class CruiseUse extends WCMUsePojo {
                     hotelsNumber += itinerary.getPort().getHotels().size();
                     landProgramsNumber += itinerary.getPort().getLandPrograms().size();
                 }
-            }
-        }
-
-        // init tabsNumber
-        final Tag cruiseType = cruiseModel.getCruiseType();
-        if (cruiseType != null) {
-            if (excursionsNumber > 0
-                    && cruiseType.getTagID().equals(WcmConstants.TAG_CRUISE_TYPE_CRUISE)
-                    && (landProgramsNumber > 0 || hotelsNumber > 0)) {
-                tabsNumber = 6;
-            } else if (excursionsNumber > 0
-                    && !cruiseType.getTagID().equals(WcmConstants.TAG_CRUISE_TYPE_CRUISE)
-                    && (landProgramsNumber > 0 || hotelsNumber > 0)) {
-                tabsNumber = 5;
-            } else if (excursionsNumber == 0
-                    && (landProgramsNumber > 0 || hotelsNumber > 0)) {
-                tabsNumber = 5;
-            } else if (excursionsNumber > 0
-                    && cruiseType.getTagID().equals(WcmConstants.TAG_CRUISE_TYPE_CRUISE)
-                    && (landProgramsNumber == 0 && hotelsNumber == 0)) {
-                tabsNumber = 5;
             }
         }
 
@@ -245,13 +220,6 @@ public class CruiseUse extends WCMUsePojo {
      */
     public int getLandProgramsNumber() {
         return landProgramsNumber;
-    }
-
-    /**
-     * @return number of tabs to display
-     */
-    public int getTabsNumber() {
-        return tabsNumber;
     }
 
     /**
