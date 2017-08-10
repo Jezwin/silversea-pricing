@@ -16,8 +16,8 @@ public class Lead {
     private String sitecurrency;
     // Subscribe to newletters
     private String subscribeemail;
-    private Short workingwithagent;
-    private Short isnotagent;
+    private String workingwithagent;
+    private String isnotagent;
     // Request a quote
     private String voyagename;
     private String voyagecode;
@@ -254,7 +254,7 @@ public class Lead {
     /**
      * @return the workingwithagent
      */
-    public Short getWorkingwithagent() {
+    public String getWorkingwithagent() {
         return workingwithagent;
     }
 
@@ -262,7 +262,7 @@ public class Lead {
      * @param workingwithagent
      *            the workingwithagent to set
      */
-    public void setWorkingwithagent(Short workingwithagent) {
+    public void setWorkingwithagent(String workingwithagent) {
         this.workingwithagent = workingwithagent;
     }
 
@@ -322,11 +322,11 @@ public class Lead {
         this.marketingEffort = marketingEffort;
     }
 
-    public Short getIsnotagent() {
+    public String getIsnotagent() {
         return isnotagent;
     }
 
-    public void setIsnotagent(Short isnotagent) {
+    public void setIsnotagent(String isnotagent) {
         this.isnotagent = isnotagent;
     }
 }

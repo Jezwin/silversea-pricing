@@ -91,7 +91,9 @@ public class LeadServiceImpl implements LeadService {
 
         // Subscribe newsletter
         request.setSubscribeEmail(lead.getSubscribeemail());
-        request.setWorkingWithAgent(lead.getWorkingwithagent());
+        if (!StringUtils.isEmpty(lead.getWorkingwithagent())) {
+            request.setWorkingWithAgent(Short.parseShort("1")); //true
+        }
 
         // request a quote
         request.setVoyage(lead.getVoyagename());
@@ -113,18 +115,15 @@ public class LeadServiceImpl implements LeadService {
         request.setZip(lead.getPostalcode());
         request.setCity(lead.getCity());
         request.setCountry(lead.getCountry());
-        request.setBrochuresRequested("");
+        request.setBrochuresRequested(lead.getBrochurecode());
         if (lead.getRequesttype().equals("BRO") || lead.getRequesttype().equals("EBRO")) {
-            if (lead.getIsnotagent() != null) { // isnotagent was checked
-                request.setIsAgent(Short.parseShort("0")); //false - is NOT agent
-            } else {
+            if (StringUtils.isEmpty(lead.getIsnotagent())) { // isnotagent was not checked
                 request.setIsAgent(Short.parseShort("1")); //true - is agent
             }
         }
 
         // Marketing
         request.setMarketingEffort(lead.getMarketingEffort());
-
     }
 
     private LeadFromWeb03Soap getClientProxy() {
