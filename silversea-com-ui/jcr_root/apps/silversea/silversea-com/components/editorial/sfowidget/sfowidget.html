@@ -1,14 +1,19 @@
 <div data-sly-use.signUpUse="com.silversea.aem.components.editorial.SignUpUse"
+     data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
      data-sly-test="${!properties.pageReference && wcmmode.edit}"
      class="cq-placeholder"
      data-emptytext="SFO Widget"></div>
 <sly data-sly-test.refPath="${signUpUse.pageReference || properties.pageReference}" />
 <sly data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=refPath}"/>
+<div data-sly-test.countrySelector="country_${countryHelper.country}" data-sly-unwrap></div>
 <form class="c-subscribe__form form-inline c-formcookie c-formcookie--modal"
-      action="${refPath @ extension='html', selectors='modalcontent'}"
+      action="${refPath @ extension='html', selectors=['modalcontent', countrySelector]}"
       data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}"
       data-disable="false">
-    <input name="requestsource" type="hidden" value="SFO" />
+    <input name="requestsource" type="hidden" value="website" />
+    <input name="requesttype" type="hidden" value="SFO" />
+    <input name="sitecountry" type="hidden" value="${signUpUse.siteCountry}" />
+    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
     <div class="row form-group">
         <div class="col-xs-12">
             <label class="c-subscribe__form--label">

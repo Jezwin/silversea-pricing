@@ -4,7 +4,6 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.silversea.aem.components.beans.GeoLocation;
-import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.services.GeolocationService;
 
 public class SignUpUse extends WCMUsePojo {
@@ -12,7 +11,6 @@ public class SignUpUse extends WCMUsePojo {
     private String pageReference;
     private GeoLocation geoLocation;
     private String siteCountry;
-    private String siteLanguage;
     private String siteCurrency;
 
     @Override
@@ -27,12 +25,6 @@ public class SignUpUse extends WCMUsePojo {
             siteCountry = geoLocation.getCountry();
         }
         siteCurrency = geolocationService.getLocalizedCurrency(getRequest());
-
-        //get site language
-        siteLanguage = LanguageHelper.getLanguage(getRequest());
-        if (siteLanguage == null) {
-            siteLanguage = LanguageHelper.getLanguage(getCurrentPage());
-        }
     }
 
     public String getPageReference() {
@@ -45,14 +37,6 @@ public class SignUpUse extends WCMUsePojo {
 
     public void setSiteCountry(String siteCountry) {
         this.siteCountry = siteCountry;
-    }
-
-    public String getSiteLanguage() {
-        return siteLanguage;
-    }
-
-    public void setSiteLanguage(String siteLanguage) {
-        this.siteLanguage = siteLanguage;
     }
 
     public String getSiteCurrency() {

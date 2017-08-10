@@ -34,7 +34,6 @@ import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
-import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.SuiteModel;
@@ -44,7 +43,6 @@ public class QuoteRequestUse extends WCMUsePojo {
     private List<Resource> countries;
     private GeoLocation geoLocation;
     private String siteCountry;
-    private String siteLanguage;
     private String siteCurrency;
 
     private String selectedCruiseCode;
@@ -66,12 +64,6 @@ public class QuoteRequestUse extends WCMUsePojo {
             siteCountry = geoLocation.getCountry();
         }
         siteCurrency = geolocationService.getLocalizedCurrency(getRequest());
-
-        //get site language
-        siteLanguage = LanguageHelper.getLanguage(getRequest());
-        if (siteLanguage == null) {
-            siteLanguage = LanguageHelper.getLanguage(getCurrentPage());
-        }
 
         Map<String, String> queryMap = new HashMap<String, String>();
 
@@ -281,14 +273,6 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     public void setSiteCountry(String siteCountry) {
         this.siteCountry = siteCountry;
-    }
-
-    public String getSiteLanguage() {
-        return siteLanguage;
-    }
-
-    public void setSiteLanguage(String siteLanguage) {
-        this.siteLanguage = siteLanguage;
     }
 
     public String getSiteCurrency() {

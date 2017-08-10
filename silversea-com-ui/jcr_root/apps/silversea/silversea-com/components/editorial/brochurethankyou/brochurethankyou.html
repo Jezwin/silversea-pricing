@@ -9,7 +9,8 @@
         </a>
 
         <div data-sly-test="${ properties.lightboxReference }" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=properties.lightboxReference}" >
-            <a href="${properties.lightboxReference @ extension='html', selectors='modalcontent'}" class="btn btn-dark effect" type="button" data-sscclicktype="clic-RAC" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+            <div data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper" data-sly-test.countrySelector="country_${countryHelper.country}" data-sly-unwrap></div>
+            <a href="${properties.lightboxReference @ extension='html', selectors=['modalcontent', countrySelector]}" class="btn btn-dark effect" type="button" data-sscclicktype="clic-RAC" data-toggle="modal" data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                 ${'request-a-call' @i18n} <i class="fa fa-lg fa-angle-right"></i>
             </a>
         </div>
