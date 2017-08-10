@@ -22,8 +22,8 @@
         <h3>${'results' @ i18n}:</h3>
         <div class="" data-sly-test="${use.searchResult.totalMatches > 0}">
             <div class="c-search-result__results--list-group" data-sly-list.hit="${use.searchResult.hits}">
+            <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=hit.path, absolute=false}" />
                 <a href="${externalizerHelper.externalizedUrl @ extension='html'}" class="list-group-item list-group-item-action">
-                    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=hit.path, absolute=false}" />
                     <h4 class="title">${hit.title @ context='html'}</h4>
                     <p class="excerpt">${hit.excerpt @ context='html'}</p>
                 </a>
@@ -54,7 +54,7 @@
 
         </div>
         <div class="c-search-result__no-result" data-sly-test="${use.searchResult.totalMatches <= 0}">
-            <h3>${'no-results' @ i18n} !</h3>
+            <h3>${'no-results-search' @ i18n} !</h3>
         </div>
 
     </div>

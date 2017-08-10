@@ -307,10 +307,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="results"
         sling:message="Results" />
-    <no-results
+    <no-results-search
         jcr:primaryType="sling:MessageEntry"
-        sling:key="no-results"
-        sling:message="No results" />
+        sling:key="no-results-search"
+        sling:message="Sorry, but nothing matched your search terms. Please try again with some different keywords." />
     <the-search-box-allows
         jcr:primaryType="sling:MessageEntry"
         sling:key="the-search-box-allows"
