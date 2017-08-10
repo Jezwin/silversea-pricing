@@ -11,8 +11,8 @@ import com.day.cq.tagging.Tag;
 
 @Model(adaptables = Tag.class)
 public class TagModel {
-    @Inject
-    @Self
+
+    @Inject @Self
     private Tag tag;
 
     private Resource resource;
