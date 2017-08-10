@@ -19,7 +19,7 @@
 
 
     <div class="col-md-12 c-search-result__results" data-sly-test="${use.searchResult}">
-        <h3>${'results' @ i18n} :</h3>
+        <h3>${'results' @ i18n}:</h3>
         <div class="" data-sly-test="${use.searchResult.totalMatches > 0}">
             <div class="c-search-result__results--list-group" data-sly-list.hit="${use.searchResult.hits}">
                 <a href="${externalizerHelper.externalizedUrl @ extension='html'}" class="list-group-item list-group-item-action">
