@@ -73,8 +73,12 @@
     &__description {
         padding: 0 15px;
 
-        p:first-child {
-            padding-top: 10px;
+        &__text {
+            margin-bottom: 20px;
+        }
+
+        &__button {
+            margin-bottom: 0;
         }
     }
 
@@ -154,10 +158,11 @@
         }
 
         &__description {
+            padding-bottom: 10px;
             padding-left: calc(~"43% + 25px");
 
-            p:last-child {
-                margin-bottom: 30px;
+            &__button {
+                margin-bottom: 10px;
             }
         }
     }

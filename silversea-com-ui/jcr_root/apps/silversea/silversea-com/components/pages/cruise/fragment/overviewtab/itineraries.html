@@ -36,8 +36,8 @@
                 </div>
             </div>
             <div class="c-cruise-itinerary-list__description collapse clearfix" id="collapse-${itemList.count}">
-                <p>${item.port.apiDescription @ context='html'}</p>
-                <p>
+                <div class="c-cruise-itinerary-list__description__text">${item.port.apiDescription @ context='html'}</div>
+                <p class="c-cruise-itinerary-list__description__button">
                     <a data-sly-test="${excursions && excursions.size > 0}"
                        href="#"
                        class="c-btn c-btn--white"
