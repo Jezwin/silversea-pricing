@@ -303,6 +303,22 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="search"
         sling:message="Search" />
+    <results
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="results"
+        sling:message="Results" />
+    <no-results
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="no-results"
+        sling:message="No results" />
+    <the-search-box-allows
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="the-search-box-allows"
+        sling:message="The search box allows you to type in a specific subject or desired voyage which you can instantly see." />
+    <you-can-utilize-this-page
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="you-can-utilize-this-page"
+        sling:message="You can utilize this page by simply typing your search request in the field below." />
     <menu
         jcr:primaryType="sling:MessageEntry"
         sling:key="menu"
