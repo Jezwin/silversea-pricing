@@ -44,7 +44,10 @@ public class ItineraryExcursionModel {
 
         if (pageManager != null) {
             final Page excursionPage = pageManager.getPage(excursionReference);
-            excursion = excursionPage.adaptTo(ExcursionModel.class);
+
+            if (excursionPage != null) {
+                excursion = excursionPage.adaptTo(ExcursionModel.class);
+            }
         }
     }
 

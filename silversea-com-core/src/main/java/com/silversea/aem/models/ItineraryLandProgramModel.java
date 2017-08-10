@@ -30,7 +30,10 @@ public class ItineraryLandProgramModel {
 
         if (pageManager != null) {
             final Page landProgramPage = pageManager.getPage(landProgramReference);
-            landProgram = landProgramPage.adaptTo(LandProgramModel.class);
+
+            if (landProgramPage != null) {
+                landProgram = landProgramPage.adaptTo(LandProgramModel.class);
+            }
         }
     }
 

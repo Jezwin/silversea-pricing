@@ -30,7 +30,10 @@ public class ItineraryHotelModel {
 
         if (pageManager != null) {
             final Page hotelPage = pageManager.getPage(hotelReference);
-            hotel = hotelPage.adaptTo(HotelModel.class);
+
+            if (hotelPage != null) {
+                hotel = hotelPage.adaptTo(HotelModel.class);
+            }
         }
     }
 
