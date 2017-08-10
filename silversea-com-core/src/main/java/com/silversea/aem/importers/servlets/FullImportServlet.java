@@ -238,7 +238,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     responseWriter.flush();
                     watch.reset();
                     watch.start();
-                    final ImportResult importResult = exclusiveOffersImporter.importExclusiveOffers();
+                    final ImportResult importResult = exclusiveOffersImporter.importAllItems();
                     responseWriter.write("Exclusive offers import failure number : <b>" + importResult.getErrorNumber() + "</b>");
                     responseWriter.write("<br/>");
                     responseWriter.write("Exclusives offers import success number : <b>" + importResult.getSuccessNumber() + "</b>");

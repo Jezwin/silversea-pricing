@@ -62,7 +62,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
     }
 
     @Override
-    public ImportResult importExclusiveOffers() {
+    public ImportResult importAllItems() {
         LOGGER.debug("Starting exclusive offers import");
 
         int errorNumber = 0;
@@ -83,111 +83,131 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
+            // Create a cache of existing exclusive offers
+            final Map<Integer, Map<String, String>> exclusiveOffersMapping = ImporterUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]",
+                    "exclusiveOfferId");
+
             // Getting paths to import data
             LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("exclusiveOffersUrl"));
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("exclusiveOffersUrl"));
             final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
 
-            // Iterating over locales to import exclusive offers
-            for (String locale : locales) {
-                final Page exclusiveOffersRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+            // Iterate over exclusive offers from API
+            int itemsWritten = 0, apiPage = 1;
 
-                if (exclusiveOffersRootPage == null) {
-                    throw new ImporterException("Exclusive offers root page does not exists " + rootPage + " for lang " + locale);
-                }
+            List<SpecialOffer> exclusiveOffers;
+            List<Integer> apiExclusiveOffers = new ArrayList<>();
 
-                LOGGER.debug("Cleaning already imported exclusive offers");
+            do {
+                exclusiveOffers = specialOffersApi.specialOffersGet(apiPage, pageSize, null);
 
-                Iterator<Page> children = exclusiveOffersRootPage.listChildren();
-                while (children.hasNext()) {
-                    final Page child = children.next();
+                // iterate over offers from api
+                for (SpecialOffer exclusiveOffer : exclusiveOffers) {
+                    LOGGER.trace("Importing exclusive offer: {}", exclusiveOffer.getVoyageSpecialOffer());
 
-                    try {
-                        LOGGER.trace("trying to remove {}", child.getPath());
+                    // exclusive offer not exists
+                    if (!exclusiveOffersMapping.containsKey(exclusiveOffer.getVoyageSpecialOfferId())) {
 
-                        session.removeItem(child.getPath());
-                        session.save();
-                    } catch (RepositoryException e) {
-                        LOGGER.error("Cannot clean already existing exclusive offers");
-                    }
-                }
+                        // iterating over locales to create the pages
+                        for (String locale : locales) {
+                            final Page exclusiveOffersRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
-                LOGGER.debug("Importing exclusive offers for locale \"{}\"", locale);
-
-                int j = 0, i = 1;
-                List<SpecialOffer> exclusiveOffers;
-
-                do {
-                    exclusiveOffers = specialOffersApi.specialOffersGet(i, pageSize, null);
-
-                    for (SpecialOffer exclusiveOffer : exclusiveOffers) {
-                        LOGGER.trace("Importing exclusive offer: {}", exclusiveOffer.getVoyageSpecialOffer());
-
-                        try {
-                            // Create exclusive offer page
-                            final Page exclusiveOfferPage = pageManager.create(exclusiveOffersRootPage.getPath(),
-                                    JcrUtil.createValidChildName(exclusiveOffersRootPage.adaptTo(Node.class),
-                                            StringsUtils.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer())),
-                                    WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
-                                    StringsUtils.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer()),
-                                    false);
-
-                            // If exclusive offer is created, set the properties
-                            if (exclusiveOfferPage == null) {
-                                throw new ImporterException("Cannot create exclusive offer page for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+                            if (exclusiveOffersRootPage == null) {
+                                throw new ImporterException("Exclusive offers root page does not exists " + rootPage + " for lang " + locale);
                             }
+
+                            try {
+                                // Create exclusive offer page
+                                final Page exclusiveOfferPage = pageManager.create(exclusiveOffersRootPage.getPath(),
+                                        JcrUtil.createValidChildName(exclusiveOffersRootPage.adaptTo(Node.class),
+                                                StringsUtils.getFormatWithoutSpecialCharacters(exclusiveOffer.getVoyageSpecialOffer())),
+                                        WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
+                                        exclusiveOffer.getVoyageSpecialOffer(),
+                                        false);
+
+                                // If exclusive offer is created, set the properties
+                                if (exclusiveOfferPage == null) {
+                                    throw new ImporterException("Cannot create exclusive offer page for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+                                }
+
+                                final Node exclusiveOfferPageContentNode = writeExclusiveOfferProperties(exclusiveOffer, exclusiveOfferPage);
+
+                                // Set livecopy mixin
+                                if (!locale.equals("en")) {
+                                    exclusiveOfferPageContentNode.addMixin("cq:LiveRelationship");
+                                }
+
+                                LOGGER.trace("Exclusive offer {} successfully created", exclusiveOfferPage.getPath());
+
+                                successNumber++;
+                                itemsWritten++;
+
+                                batchSave(session, itemsWritten);
+                            } catch (RepositoryException | WCMException | ImporterException e) {
+                                errorNumber++;
+
+                                LOGGER.error("Import error", e);
+                            }
+                        }
+                    } else { // exclusive offer exists
+                        final Map<String, String> exclusiveOfferPagesPath = exclusiveOffersMapping.get(exclusiveOffer.getVoyageSpecialOfferId());
+
+                        for (Map.Entry<String, String> exclusiveOfferPagePath : exclusiveOfferPagesPath.entrySet()) {
+                            try {
+                                final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferPagePath.getValue());
+
+                                // TODO check if properties are the same
+                                writeExclusiveOfferProperties(exclusiveOffer, exclusiveOfferPage);
+
+                                LOGGER.trace("Exclusive offer {} successfully updated", exclusiveOfferPage.getPath());
+
+                                successNumber++;
+                                itemsWritten++;
+
+                                batchSave(session, itemsWritten);
+                            } catch (RepositoryException | ImporterException e) {
+                                errorNumber++;
+
+                                LOGGER.error("Import error", e);
+                            }
+                        }
+                    }
+
+                    // add exclusive offer to offers list
+                    apiExclusiveOffers.add(exclusiveOffer.getVoyageSpecialOfferId());
+                }
+
+                apiPage++;
+            } while (exclusiveOffers.size() > 0);
+
+            // deactivate offers which not exists anymore
+            for (Map.Entry<Integer, Map<String, String>> exclusiveOffer : exclusiveOffersMapping.entrySet()) {
+                if (!apiExclusiveOffers.contains(exclusiveOffer.getKey())) {
+                    for (Map.Entry<String, String> exclusiveOfferPagePath : exclusiveOffer.getValue().entrySet()) {
+                        try {
+                            final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferPagePath.getValue());
 
                             Node exclusiveOfferPageContentNode = exclusiveOfferPage.getContentResource().adaptTo(Node.class);
-
                             if (exclusiveOfferPageContentNode == null) {
-                                throw new ImporterException("Cannot set properties for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+                                throw new ImporterException("Cannot set properties for exclusive offer " + exclusiveOfferPage.getPath());
                             }
 
-                            exclusiveOfferPageContentNode.setProperty(JcrConstants.JCR_TITLE, exclusiveOffer.getVoyageSpecialOffer());
-                            exclusiveOfferPageContentNode.setProperty("exclusiveOfferId", exclusiveOffer.getVoyageSpecialOfferId());
-
-                            // TODO convert start and end date into date format
-                            exclusiveOfferPageContentNode.setProperty("startDate", exclusiveOffer.getValidFrom().toString());
-                            exclusiveOfferPageContentNode.setProperty("endDate", exclusiveOffer.getValidTo().toString());
-
-                            // Set geolocation tags for the market
-                            List<String> geoMarketsList = exclusiveOffer.getMarkets();
-                            String[] geoMarketsTagIds = new String[geoMarketsList.size()];
-
-                            for (int k = 0; k < geoMarketsList.size(); k++) {
-                                geoMarketsTagIds[k] = WcmConstants.GEOLOCATION_TAGS_PREFIX + geoMarketsList.get(k).toLowerCase();
-                            }
-
-                            exclusiveOfferPageContentNode.setProperty("cq:tags", geoMarketsTagIds);
-
-                            // Set livecopy mixin
-                            if (!locale.equals("en")) {
-                                exclusiveOfferPageContentNode.addMixin("cq:LiveRelationship");
-                            }
-
-                            LOGGER.trace("Exclusive offer {} successfully created", exclusiveOfferPage.getPath());
+                            exclusiveOfferPageContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 
                             successNumber++;
-                            j++;
+                            itemsWritten++;
 
-                            if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                try {
-                                    session.save();
+                            batchSave(session, itemsWritten);
 
-                                    LOGGER.debug("{} exclusive offers imported, saving session", +j);
-                                } catch (RepositoryException e) {
-                                    session.refresh(true);
-                                }
-                            }
-                        } catch (RepositoryException | WCMException | ImporterException e) {
+                            LOGGER.trace("Exclusive offer {} successfully removed", exclusiveOfferPage.getPath());
+                        } catch (RepositoryException | ImporterException e) {
                             errorNumber++;
 
                             LOGGER.error("Import error", e);
                         }
                     }
-
-                    i++;
-                } while (exclusiveOffers.size() > 0);
+                }
             }
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("exclusiveOffersUrl"),
@@ -208,7 +228,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
     }
 
     @Override
-    public JSONObject getExclusiveOffersMapping() {
+    public JSONObject getJsonMapping() {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
@@ -244,7 +264,8 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                                 jsonObject.put(exclusiveOfferId, shipObject);
                             }
                         } catch (JSONException e) {
-                            LOGGER.error("Cannot add exclusiveOffer {} with path {} to exclusiveOffers array", exclusiveOfferId, exclusiveOffer.getPath(), e);
+                            LOGGER.error("Cannot add exclusiveOffer {} with path {} to exclusiveOffers array",
+                                    exclusiveOfferId, exclusiveOffer.getPath(), e);
                         }
                     }
                 }
@@ -255,5 +276,44 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         }
 
         return jsonObject;
+    }
+
+    private void batchSave(Session session, int itemsWritten) throws RepositoryException {
+        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+            try {
+                session.save();
+
+                LOGGER.debug("{} exclusive offers written, saving session", +itemsWritten);
+            } catch (RepositoryException e) {
+                session.refresh(true);
+            }
+        }
+    }
+
+    private Node writeExclusiveOfferProperties(SpecialOffer exclusiveOffer, Page exclusiveOfferPage) throws ImporterException, RepositoryException {
+        Node exclusiveOfferPageContentNode = exclusiveOfferPage.getContentResource().adaptTo(Node.class);
+
+        if (exclusiveOfferPageContentNode == null) {
+            throw new ImporterException("Cannot set properties for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+        }
+
+        exclusiveOfferPageContentNode.setProperty(JcrConstants.JCR_TITLE, exclusiveOffer.getVoyageSpecialOffer());
+        exclusiveOfferPageContentNode.setProperty("exclusiveOfferId", exclusiveOffer.getVoyageSpecialOfferId());
+        exclusiveOfferPageContentNode.setProperty("startDate", exclusiveOffer.getValidFrom().toGregorianCalendar());
+        exclusiveOfferPageContentNode.setProperty("endDate", exclusiveOffer.getValidTo().toGregorianCalendar());
+
+        exclusiveOfferPageContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+        // Set geolocation tags for the market
+        List<String> geoMarketsList = exclusiveOffer.getMarkets();
+        String[] geoMarketsTagIds = new String[geoMarketsList.size()];
+
+        for (int k = 0; k < geoMarketsList.size(); k++) {
+            geoMarketsTagIds[k] = WcmConstants.GEOLOCATION_TAGS_PREFIX + geoMarketsList.get(k).toLowerCase();
+        }
+
+        exclusiveOfferPageContentNode.setProperty("cq:tags", geoMarketsTagIds);
+
+        return exclusiveOfferPageContentNode;
     }
 }

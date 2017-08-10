@@ -19,7 +19,7 @@ public class ExclusiveOffersMappingServlet extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        JSONObject exclusiveOffersMapping = exclusiveOffersImporter.getExclusiveOffersMapping();
+        JSONObject exclusiveOffersMapping = exclusiveOffersImporter.getJsonMapping();
 
         response.setContentType("application/json");
         response.getWriter().write(exclusiveOffersMapping.toString());
