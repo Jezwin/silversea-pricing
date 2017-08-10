@@ -7,7 +7,7 @@
                     <p><strong>${item.title || item.name}</strong></p>
                     <div class="c-accordion__subtitle hidden-xs textTruncate" data-limit="200">
                         <p data-sly-test="${item.name}" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=80}">
-                            ${item.description @ context='html'}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
+                            ${item.description @ context='html'}
                         </p>
                         <sly data-sly-test="${!item.name}">
                             ${item.shortDescription}

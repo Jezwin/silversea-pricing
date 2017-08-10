@@ -11,7 +11,7 @@
                 <div class="c-accordion__title">
                     <p class="c-accordion__title--veryimportant">${item.title}</p>
                     <p class="c-accordion__subtitle" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=240}">
-                        ${description.textTruncate || item.description}<sly data-sly-test="${description.textTruncate && item.description != description.textTruncate}">&hellip;</sly>
+                        ${description.textTruncate || item.description}
                     </p>
                 </div>
                 <div class="c-accordion__action c-accordion__action--light">
