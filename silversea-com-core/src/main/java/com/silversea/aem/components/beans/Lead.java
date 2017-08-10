@@ -17,6 +17,7 @@ public class Lead {
     // Subscribe to newletters
     private String subscribeemail;
     private Short workingwithagent;
+    private Short isnotagent;
     // Request a quote
     private String voyagename;
     private String voyagecode;
@@ -236,15 +237,15 @@ public class Lead {
     }
 
     /**
-     * @return the att02
+     * @return the subscribeemail
      */
     public String getSubscribeemail() {
         return subscribeemail;
     }
 
     /**
-     * @param att02
-     *            the att02 to set
+     * @param subscribeemail
+     *            the subscribeemail to set
      */
     public void setSubscribeemail(String subscribeemail) {
         this.subscribeemail = subscribeemail;
@@ -319,5 +320,13 @@ public class Lead {
 
     public void setMarketingEffort(String marketingEffort) {
         this.marketingEffort = marketingEffort;
+    }
+
+    public Short getIsnotagent() {
+        return isnotagent;
+    }
+
+    public void setIsnotagent(Short isnotagent) {
+        this.isnotagent = isnotagent;
     }
 }

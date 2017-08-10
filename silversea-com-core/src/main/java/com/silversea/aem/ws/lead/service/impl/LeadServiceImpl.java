@@ -92,6 +92,13 @@ public class LeadServiceImpl implements LeadService {
         // Subscribe newsletter
         request.setSubscribeEmail(lead.getSubscribeemail());
         request.setWorkingWithAgent(lead.getWorkingwithagent());
+        if (lead.getIsnotagent() != null) {
+            if (lead.getIsnotagent().intValue() == 1) {
+                request.setIsAgent(Short.parseShort("0")); //false
+            } else {
+                request.setIsAgent(lead.getIsnotagent()); //true
+            }
+        }
 
         // request a quote
         request.setVoyage(lead.getVoyagename());
