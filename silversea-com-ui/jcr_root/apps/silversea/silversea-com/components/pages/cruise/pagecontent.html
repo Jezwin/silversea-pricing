@@ -1,5 +1,6 @@
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
 <div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType.name == 'silversea-expedition' ? 'expedition' : ''}"
-    data-gallery-path="${currentNode.path @ extension='html', selectors='gallery'}">
+    data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
     <div class="row">
         <div class="col-md-12">
             <sly data-sly-include="fragment/header.html" />
