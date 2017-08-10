@@ -50,6 +50,18 @@ public class AssetUtils {
         List<Asset> assets = new ArrayList<>();
 
         for (ShipAreaModel shipArea : shipAreas) {
+            if (StringUtils.isNotBlank(shipArea.getThumbnail())) {
+                final Resource thumbnailResource = resourceResolver.getResource(shipArea.getThumbnail());
+
+                if (thumbnailResource != null) {
+                    final Asset thumbnailAsset = thumbnailResource.adaptTo(Asset.class);
+
+                    if (thumbnailAsset != null) {
+                        assets.add(thumbnailAsset);
+                    }
+                }
+            }
+
             if (StringUtils.isNotBlank(shipArea.getAssetSelectionReference())) {
                 assets.addAll(buildAssetList(shipArea.getAssetSelectionReference(), resourceResolver));
             }
