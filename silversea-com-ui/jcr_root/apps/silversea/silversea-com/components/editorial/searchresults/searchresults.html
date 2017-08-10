@@ -32,7 +32,10 @@
             <nav class="c-search-result__pagination">
               <ul class="c-search-result__pagination--list">
                 <li class="c-search-result__pagination--list-item" data-sly-test="${use.showPreviousLink}">
-                 <a class="c-search-result__pagination--list-item-prev" href="${currentPage.path}.html?q=${use.searchText}&page=${use.previousPage}">← Previous</a>
+                     <a class="c-search-result__pagination--list-item-prev" href="${currentPage.path}.html?q=${use.searchText}&page=${use.previousPage}">← Previous</a>
+                </li>
+                <li class="c-search-result__pagination--list-item"  data-sly-test="${use.showFirstPage}">
+                     <a href="${currentPage.path}.html?q=${use.searchText}&page=1">&nbsp;1</a>
                 </li>
                 <li class="c-search-result__pagination--list-item" data-sly-test="${use.showPrev}">&nbsp;...</li>
                 <li class="c-search-result__pagination--list-item" data-sly-repeat="${use.pageTrio}">
