@@ -87,7 +87,7 @@ public class CruiseUse extends WCMUsePojo {
         publicAreasAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getPublicAreas());
 
         // init assets from itinerary and cruise itself
-        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+        for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
             final PortModel portModel = itinerary.getPort();
 
             if (portModel != null) {
@@ -105,13 +105,13 @@ public class CruiseUse extends WCMUsePojo {
 
         // init number of elements (excursions, hotels, land programs)
         if (getItinerariesHasElements()) {
-            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
                 excursionsNumber += itinerary.getExcursions().size();
                 hotelsNumber += itinerary.getHotels().size();
                 landProgramsNumber += itinerary.getLandPrograms().size();
             }
         } else {
-            for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
                 if (itinerary.getPort() != null) {
                     excursionsNumber += itinerary.getPort().getExcursions().size();
                     hotelsNumber += itinerary.getPort().getHotels().size();
