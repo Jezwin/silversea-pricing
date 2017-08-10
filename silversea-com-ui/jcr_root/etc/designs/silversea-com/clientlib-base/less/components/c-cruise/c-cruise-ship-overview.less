@@ -1,78 +1,62 @@
 .c-cruise__ship-overview {
+    font-size: 13px;
 
-    .row {
-        margin-top: 15px;
+    &__image {
+        text-align: center;
 
-        .ship-overview__content {
-            padding: 0 30px 10px 15px;
-            margin: 0 0 20px;
-            font-size: 13px;
-            line-height: 1.5;
+        strong {
+            display: inline-block;
+            margin-top: 5px;
+            text-decoration: underline;
+        }
+    }
 
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                padding: 0 15px 0;
-            }
+    &__content {
+        &__inner {
+            border: 1px solid @grey--e8;
+            padding: 15px;
 
-            .shipinfo {
-                margin: 0;
-                padding: 0;
-                list-style: none;
+            .text-center {
+                margin-bottom: 0;
 
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
-                    column-count: 2;
-                }
-
-                li {
-                    display: inline-block;
-                    padding: 0 2% 0 0;
-
-                    /* phone breakpoint */
-                    @media screen and (max-width: @screen-sm) {
-                        display: block;
-                    }
-
-                    span {
-                        text-transform: uppercase;
-                        font-weight: @bold;
-                        font-size: 13px;
-                    }
+                [aria-expanded='true'] {
+                    display: none;
                 }
             }
-
-            .ship-overview__content_expand {
-                text-align: center;
-                font-size: 12px;
-
-                a[aria-expanded="true"] {
-                   display: none;
-                }
-            }
-
         }
 
-        .pictureblock {
-            text-align: center;
-            padding: 0 15px 0 0;
+        &__text {
+            padding-bottom: 35px;
+        }
 
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                margin: 10px 0 0;
-                padding: 0 15px;
+        &__info {
+            padding: 15px 0 10px;
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__content {
+            &__inner {
+                border: 0;
+                padding: 0;
+
+                #c-cruise__ship-overview__content__info {
+                    display: block;
+                }
             }
 
-            .shipimg {
-                width: 100%;
-                height: auto;
+            &__text {
+                padding-bottom: 15px;
             }
 
-            a {
-                text-decoration: underline;
-                font-weight: @bold;
-                display: inline-block;
-                font-size: 13px;
-                margin-top: 5px;
+            &__info {
+                margin: 0;
+
+                li {
+                    display: inline;
+                    float: none;
+                    padding: 0;
+                }
             }
         }
     }

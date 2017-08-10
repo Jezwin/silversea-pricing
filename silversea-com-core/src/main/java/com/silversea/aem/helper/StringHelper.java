@@ -38,18 +38,4 @@ public class StringHelper extends WCMUsePojo {
     public String getTextTruncate() {
         return textTruncate;
     }
-
-    /**
-     * @return the textTruncateDot
-     */
-    public String getTextTruncateDot() {
-        return textTruncateDot;
-    }
-
-    /**
-     * @return the textTruncateDotEnd
-     */
-    public String getTextTruncateDotEnd() {
-        return textTruncateDotEnd;
-    }
 }
