@@ -19,8 +19,7 @@
                     disabledTextBackground="true"/>
             <display
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers"
-                    text="Display properties"/>
+                    sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers" />
             <findyourcruise
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="silversea/silversea-com/components/editorial/findyourcruise"/>

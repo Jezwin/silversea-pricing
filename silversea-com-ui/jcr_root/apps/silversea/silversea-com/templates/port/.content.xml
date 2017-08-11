@@ -16,8 +16,7 @@
             components="[group:displayproperties]">
             <display
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="silversea/silversea-com/components/displayproperties/port"
-                text="Display properties" />
+                sling:resourceType="silversea/silversea-com/components/displayproperties/port" />
         </par>
         <findyourcruise
             jcr:primaryType="nt:unstructured"

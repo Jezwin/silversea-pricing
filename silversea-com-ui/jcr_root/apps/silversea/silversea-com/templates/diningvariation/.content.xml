@@ -14,8 +14,7 @@
                 components="[group:displayproperties]">
                 <display
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="silversea/silversea-com/components/displayproperties/diningarea"
-                    text="Display properties" />
+                    sling:resourceType="silversea/silversea-com/components/displayproperties/diningarea" />
             </par>
     </jcr:content>
 </jcr:root>
