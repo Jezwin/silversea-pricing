@@ -9,6 +9,7 @@ $(function() {
 
     submitIcon.click(function(){
         if(isOpen == false){
+            wrapperSearch.css({'z-index': '0'});
             searchBox.css({'witdh': '300'});
             $(this).removeClass('c-main-nav__search__searchbox-icon');
             $(this).addClass('glyphicon-search-left');
@@ -20,8 +21,9 @@ $(function() {
             inputBox.css('display','block');
             inputBox.css('margin-left','100%');
         } else {
+            wrapperSearch.css({'z-index': '-1'});
             searchBox.animate({
-                witdh: "100",
+                witdh: "50",
             }, 1500 );
             $(this).addClass('c-main-nav__search__searchbox-icon');
             $(this).removeClass('glyphicon-search-left');
