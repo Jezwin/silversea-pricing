@@ -3,13 +3,65 @@
         margin-bottom: 10px;
 
         &__item {
+            border: 1px solid @grey--e8;
+
+            [aria-expanded="true"] {
+                > .btn-more {
+                    display: none;
+                }
+            }
+
+            [aria-expanded="false"] {
+                > .btn-less {
+                    display: none;
+                }
+            }
+
+            .panel {
+                &__heading {
+                    cursor: pointer;
+                    display: table;
+                    padding: 3px 13px 3px 3px;
+                    transition: background-color 0.3s ease;
+                    width: 100%;
+
+                    &:hover {
+                        background-color: @grey--e6;
+                    }
+
+                    > * {
+                        display: table-cell;
+                        vertical-align: middle;
+                    }
+
+                    &__image {
+                        min-width: 120px;
+                        width: 120px;
+                    }
+
+                    &__description {
+                        line-height: 1.3;
+                        padding: 0 10px;
+                        width: 100%;
+
+                        h3, p {
+                            margin: 0;
+                        }
+
+                        h3 {
+                            font-size: 16px;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
         }
 
         &--nested {
             &__item {
                 border-bottom: 1px solid @grey--e8;
 
-                .panel {
+                .panel--nested {
                     &__heading {
                         background-color: @grey--f9;
                         cursor: pointer;
@@ -30,18 +82,6 @@
                             color: @grey--8;
                             text-transform: uppercase;
                         }
-
-                        &[aria-expanded="true"] {
-                            > .btn-more {
-                                display: none;
-                            }
-                        }
-
-                        &[aria-expanded="false"] {
-                            > .btn-less {
-                                display: none;
-                            }
-                        }
                     }
 
                     &__body {
@@ -57,12 +97,34 @@
     @media screen and (min-width: @screen-md-min) {
         &__list {
             &__item {
-                
+                .panel {
+                    &__heading {
+                        &__description, &__date, &__info {
+                            padding: 15px;
+                        }
+
+                        &__description {
+                            vertical-align: top;
+                            width: 25%;
+                        }
+
+                        &__date {
+                            vertical-align: top;
+                            width: 30%;
+                        }
+
+                        &__info {
+                            line-height: 1.3;
+                            text-align: right;
+                            width: 30%;
+                        }
+                    }
+                }
             }
 
             &--nested {
                 &__item {
-                    .panel {
+                    .panel--nested {
                         &__heading {
                             padding: 15px 18% 15px 40px;
                             position: relative;
