@@ -8,22 +8,17 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.*;
 import com.silversea.aem.constants.WcmConstants;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.omg.PortableInterceptor.LOCATION_FORWARD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
 import java.util.*;
 
 @Model(adaptables = Page.class)
@@ -43,7 +38,7 @@ public class CruiseModel extends AbstractModel {
     private String description;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/apiTitle") @Optional
-    private String apititle;
+    private String apiTitle;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
     private String importedDescription;
@@ -72,7 +67,7 @@ public class CruiseModel extends AbstractModel {
     private String assetSelectionReference;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/keypeople") @Optional
-    private String[] keypeople;
+    private String[] keyPeople;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
     private String cruiseFareAdditions;
@@ -176,7 +171,7 @@ public class CruiseModel extends AbstractModel {
     }
 
     public String[] getKeyPeople() {
-        return keypeople;
+        return keyPeople;
     }
 
     public String[] getCruiseFareAdditions() {
@@ -307,28 +302,6 @@ public class CruiseModel extends AbstractModel {
     private ItinerariesData itinerariesData;
 
     private ResourceResolver resourceResolver;
-
-    /**
-     * TODO replace by sling model
-     * TODO move display logic to use class
-     * Do not display the venetian society feature on the overview tab
-     * @return the features list
-     */
-    public List<Feature> getFeaturesForDisplay() {
-
-        //do not display the venetian society feature on the overview tab
-        /*final List<Feature> filteredFeatures = new ArrayList<>();
-        final Iterator<Feature> i = features.iterator();
-        while (i.hasNext()) {
-            Feature feature = i.next();
-            if (!feature.getTitle().toUpperCase().equals("VENETIAN SOCIETY")) {
-                filteredFeatures.add(feature);
-            }
-        }
-        return filteredFeatures;*/
-
-        return null;
-    }
 
     @Deprecated
     public String getDestinationTitle() {
