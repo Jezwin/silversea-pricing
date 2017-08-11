@@ -85,9 +85,11 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
             }
 
             // Create a cache of existing exclusive offers
-            final Map<Integer, Map<String, String>> exclusiveOffersMapping = ImporterUtils.getItemsMapping(resourceResolver,
-                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]",
-                    "exclusiveOfferId");
+            final Map<Integer, Map<String, String>> exclusiveOffersMapping = ImporterUtils
+                    .getItemsMapping(resourceResolver,
+                            "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                                    "[sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]",
+                            "exclusiveOfferId");
 
             // Getting paths to import data
             LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("exclusiveOffersUrl"));
@@ -112,27 +114,33 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
                         // iterating over locales to create the pages
                         for (String locale : locales) {
-                            final Page exclusiveOffersRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+                            final Page exclusiveOffersRootPage = ImporterUtils
+                                    .getPagePathByLocale(pageManager, rootPage, locale);
 
                             if (exclusiveOffersRootPage == null) {
-                                throw new ImporterException("Exclusive offers root page does not exists " + rootPage + " for lang " + locale);
+                                throw new ImporterException(
+                                        "Exclusive offers root page does not exists " + rootPage + " for lang " +
+                                                locale);
                             }
 
                             try {
                                 // Create exclusive offer page
                                 final Page exclusiveOfferPage = pageManager.create(exclusiveOffersRootPage.getPath(),
                                         JcrUtil.createValidChildName(exclusiveOffersRootPage.adaptTo(Node.class),
-                                                StringsUtils.getFormatWithoutSpecialCharacters(exclusiveOffer.getVoyageSpecialOffer())),
+                                                StringsUtils.getFormatWithoutSpecialCharacters(
+                                                        exclusiveOffer.getVoyageSpecialOffer())),
                                         WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
-                                        exclusiveOffer.getVoyageSpecialOffer(),
-                                        false);
+                                        exclusiveOffer.getVoyageSpecialOffer(), false);
 
                                 // If exclusive offer is created, set the properties
                                 if (exclusiveOfferPage == null) {
-                                    throw new ImporterException("Cannot create exclusive offer page for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+                                    throw new ImporterException(
+                                            "Cannot create exclusive offer page for exclusive offer " + exclusiveOffer
+                                                    .getVoyageSpecialOffer());
                                 }
 
-                                final Node exclusiveOfferPageContentNode = writeExclusiveOfferProperties(exclusiveOffer, exclusiveOfferPage);
+                                final Node exclusiveOfferPageContentNode = writeExclusiveOfferProperties(exclusiveOffer,
+                                        exclusiveOfferPage);
 
                                 // Set livecopy mixin
                                 if (!locale.equals("en")) {
@@ -152,21 +160,47 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                             }
                         }
                     } else { // exclusive offer exists
-                        final Map<String, String> exclusiveOfferPagesPath = exclusiveOffersMapping.get(exclusiveOffer.getVoyageSpecialOfferId());
+                        final Map<String, String> exclusiveOfferPagesPath = exclusiveOffersMapping
+                                .get(exclusiveOffer.getVoyageSpecialOfferId());
 
                         for (Map.Entry<String, String> exclusiveOfferPagePath : exclusiveOfferPagesPath.entrySet()) {
                             try {
                                 final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferPagePath.getValue());
 
-                                // TODO check if properties are the same
-                                writeExclusiveOfferProperties(exclusiveOffer, exclusiveOfferPage);
+                                // check if properties are the same
+                                final ValueMap exclusiveOfferProperties = exclusiveOfferPage.getProperties();
 
-                                LOGGER.trace("Exclusive offer {} successfully updated", exclusiveOfferPage.getPath());
+                                boolean isEqual = true;
+                                final String title = exclusiveOfferProperties.get("jcr:title", String.class);
+                                if (title == null || !title.equals(exclusiveOffer.getVoyageSpecialOffer())) {
+                                    isEqual = false;
+                                }
 
-                                successNumber++;
-                                itemsWritten++;
+                                final Date startDate = exclusiveOfferProperties.get("startDate", Date.class);
+                                if (startDate == null || !startDate.equals(exclusiveOffer.getValidFrom().toDate())) {
+                                    isEqual = false;
+                                }
 
-                                batchSave(session, itemsWritten);
+                                final Date endDate = exclusiveOfferProperties.get("endDate", Date.class);
+                                if (endDate == null || !endDate.equals(exclusiveOffer.getValidTo().toDate())) {
+                                    isEqual = false;
+                                }
+
+                                if (!isEqual) {
+                                    writeExclusiveOfferProperties(exclusiveOffer, exclusiveOfferPage);
+
+                                    LOGGER.trace("Exclusive offer {} successfully updated",
+                                            exclusiveOfferPage.getPath());
+
+                                    successNumber++;
+                                    itemsWritten++;
+
+                                    batchSave(session, itemsWritten);
+                                } else {
+                                    successNumber++;
+
+                                    LOGGER.trace("Exclusive offer {} not updated", exclusiveOfferPage.getPath());
+                                }
                             } catch (RepositoryException | ImporterException e) {
                                 errorNumber++;
 
@@ -189,9 +223,11 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                         try {
                             final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferPagePath.getValue());
 
-                            Node exclusiveOfferPageContentNode = exclusiveOfferPage.getContentResource().adaptTo(Node.class);
+                            Node exclusiveOfferPageContentNode = exclusiveOfferPage.getContentResource()
+                                    .adaptTo(Node.class);
                             if (exclusiveOfferPageContentNode == null) {
-                                throw new ImporterException("Cannot set properties for exclusive offer " + exclusiveOfferPage.getPath());
+                                throw new ImporterException(
+                                        "Cannot set properties for exclusive offer " + exclusiveOfferPage.getPath());
                             }
 
                             exclusiveOfferPageContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
@@ -236,10 +272,14 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final ResourceResolver resourceResolver = resourceResolverFactory
+                    .getServiceResourceResolver(authenticationParams);
 
-            Iterator<Resource> exclusiveOffers = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]", "xpath");
+            Iterator<Resource> exclusiveOffers = resourceResolver.findResources(
+                    "/jcr:root/content/silversea-com" + "//element(*,cq:Page)" +
+                            "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages" +
+                            "/exclusiveoffer\"]",
+                    "xpath");
 
             while (exclusiveOffers.hasNext()) {
                 final Resource exclusiveOffer = exclusiveOffers.next();
@@ -291,11 +331,13 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         }
     }
 
-    private Node writeExclusiveOfferProperties(SpecialOffer exclusiveOffer, Page exclusiveOfferPage) throws ImporterException, RepositoryException {
+    private Node writeExclusiveOfferProperties(SpecialOffer exclusiveOffer, Page exclusiveOfferPage) throws
+            ImporterException, RepositoryException {
         Node exclusiveOfferPageContentNode = exclusiveOfferPage.getContentResource().adaptTo(Node.class);
 
         if (exclusiveOfferPageContentNode == null) {
-            throw new ImporterException("Cannot set properties for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
+            throw new ImporterException(
+                    "Cannot set properties for exclusive offer " + exclusiveOffer.getVoyageSpecialOffer());
         }
 
         exclusiveOfferPageContentNode.setProperty(JcrConstants.JCR_TITLE, exclusiveOffer.getVoyageSpecialOffer());

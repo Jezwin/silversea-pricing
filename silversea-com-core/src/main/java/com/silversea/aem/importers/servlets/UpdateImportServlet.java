@@ -37,6 +37,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private ComboCruisesImporter ComboCruisesImporter;
 
     @Reference
+    private ExclusiveOffersImporter exclusiveOffersImporter;
+
+    @Reference
     private TravelAgenciesUpdateImporter updateTravalAgencies;
 
     @Reference
@@ -71,7 +74,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         } else if (mode.equals(Mode.travelagencies)) {
             updateTravalAgencies.updateImporData();
         } else if (mode.equals(Mode.exclusiveoffers)) {
-            // TODO
+            exclusiveOffersImporter.importAllItems();
         } else if (mode.equals(Mode.features)) {
             updateFeatures.updateFeatures();
         } else if (mode.equals(Mode.cruises)) {
