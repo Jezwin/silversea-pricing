@@ -11,7 +11,7 @@
             </div>
             <div id="${parent}-${item.landId ? 'land' : 'hotel'}-${itemList.count}" class="collapse panel--nested__body" role="tabpanel" aria-expanded="false">
                 <div class="panel--nested__body__inner">
-                 ${item.landId}
+                    ${item.description @ context='html'}
                 </div>
             </div>
         </div>
