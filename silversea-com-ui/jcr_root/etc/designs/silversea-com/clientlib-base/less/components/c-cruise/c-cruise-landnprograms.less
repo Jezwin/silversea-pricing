@@ -4,6 +4,11 @@
 
         &__item {
             border: 1px solid @grey--e8;
+            border-width: 1px 1px 0 1px;
+
+            &:last-child {
+                border-bottom-width: 1px; 
+            }
 
             [aria-expanded="true"] {
                 > .btn-more {
@@ -59,7 +64,7 @@
 
         &--nested {
             &__item {
-                border-bottom: 1px solid @grey--e8;
+                border-top: 1px solid @grey--e8;
 
                 .panel--nested {
                     &__heading {
