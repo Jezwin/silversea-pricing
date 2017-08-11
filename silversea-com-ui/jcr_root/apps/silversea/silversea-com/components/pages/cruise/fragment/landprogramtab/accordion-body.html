@@ -1,25 +1,18 @@
-<template data-sly-template.default="${ @ list }">
-    <div class="c-accordion__elem" data-sly-repeat="${list}">
-        <div class="c-accordion__header c-accordion__header--center-xs">
-            <div class="c-accordion__title">
-                <p>
-                    <strong>${item.title || item.name}</strong>
-                </p>
-                <div class="c-accordion__subtitle hidden-xs textTruncate" data-limit="200">
-                    <p data-sly-test.name="${item.name}" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=80}">
-                        ${item.description @ context='html'}
-                    </p>
-                    <sly data-sly-test="${!name}">${item.shortDescription @ context='html'}</sly>
+<template data-sly-template.default="${ @ list, loop }">
+    <div id="${loop}" class="c-cruise-landnprograms__list--nested">
+        <div class="panel c-cruise-landnprograms__list--nested__item" data-sly-repeat="${list}">
+            <div class="collapsed panel__heading" data-toggle="collapse" data-parent="#${loop}" data-target="#${loop}${itemList.count}" aria-expanded="false">
+                <h4><strong>${item.title || item.name}</strong></h4>
+                <div class="hidden-xs" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=240}">
+                    ${description.textTruncate @ context='html'}
                 </div>
+                <span class="btn-more">${'more-info' @ i18n} <i class='fa fa-angle-down'></i></span>
+                <span class="btn-less">${'close' @ i18n} <i class='fa fa-angle-up'></i></span>
             </div>
-
-            <div class="c-accordion__title c-accordion__action c-accordion__action--light">
-                ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
-            </div>
-        </div>
-        <div class="c-accordion__body">
-            <div class="c-accordion__body--panel">
-                ${item.description @ context='html'}
+            <div id="${loop}${itemList.count}" class="collapse panel__body" aria-expanded="false">
+                <div class="panel__body__inner">
+                    ${item.description @ context='html'}
+                </div>
             </div>
         </div>
     </div>

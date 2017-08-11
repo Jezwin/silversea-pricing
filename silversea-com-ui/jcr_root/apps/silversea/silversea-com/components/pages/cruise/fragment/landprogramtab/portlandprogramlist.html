@@ -3,23 +3,23 @@
     <!--/* TODO replace with getter */-->
     <h3 class="c-cruise__subtitle">
          <span data-sly-test="${cruise.landProgramsNumber}">
-            ${cruise.landProgramsNumber} ${(cruise.landProgramsNumber == 1 ? 'land-programme' : 'land-programmes') @ i18n}
+            ${cruise.landProgramsNumber} ${cruise.landProgramsNumber == 1 ? 'land-programme' : 'land-programmes' @ i18n}
         </span>
          <span data-sly-test="${cruise.landProgramsNumber && cruise.hotelsNumber}"> ${'and' @ i18n}</span>
          <span data-sly-test="${cruise.hotelsNumber}">
-            ${cruise.hotelsNumber} ${(cruise.hotelsNumber == 1 ? 'hotel' : 'hotels') @ i18n}
+            ${cruise.hotelsNumber} ${cruise.hotelsNumber == 1 ? 'hotel' : 'hotels' @ i18n}
         </span>
     </h3>
     <p class="c-cruise__descr">
         ${'land-programmes-description' @ i18n}
     </p>
 
-    <div class="c-accordion"
+    <div class="c-accordion c-cruise-landnprograms__list"
          data-multiview="false"
          data-more="<i class='fa fa-angle-down'></i>"
          data-close="<i class='fa fa-angle-up'></i>"
          data-sly-list.itinerary="${cruise.cruiseModel.itineraries}">
-        <div class="c-accordion__elem" data-sly-test="${itinerary.hotels.size > 0 || itinerary.landPrograms.size > 0}">
+        <div class="c-accordion__elem c-cruise-landnprograms__list__item" data-sly-test="${itinerary.hotels.size > 0 || itinerary.landPrograms.size > 0}">
             <div class="c-accordion__header c-accordion__header--parent">
                 <div class="c-accordion__title c-accordion__title--thumbnail">
                     <sly data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail}" />
@@ -45,20 +45,13 @@
                     <i class='fa fa-angle-down'></i>
                 </div>
             </div>
-            <div class="c-accordion__body c-accordion__body--full">
-
-                <div class="c-accordion"
-                     data-multiview="false"
-                     data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
-                     data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
-
-                    <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? itinerary.landPrograms : itinerary.port.landPrograms }"/>
-                    <sly data-sly-test.hotels="${cruise.itinerariesHasElements ? itinerary.hotels : itinerary.port.hotels }"/>
-                    <sly data-sly-use.accordionTemplate="accordion-body.html"
-                         data-sly-call="${accordionTemplate.default @ list=landPrograms}" />
-                    <sly data-sly-call="${accordionTemplate.default @ list=hotels}" />
-
-                </div>
+            <div class="c-accordion__body c-accordion__body--full" data-sly-use.accordionTemplate="accordion-body.html">
+                <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? itinerary.landPrograms : itinerary.port.landPrograms }" />
+                <sly data-sly-test.hotels="${cruise.itinerariesHasElements ? itinerary.hotels : itinerary.port.hotels }" />
+                <sly data-sly-test.landProgramsId="${'{0}{1}' @ format=['landPrograms', itineraryList.count]}" />
+                <sly data-sly-test.hotelsId="${'{0}{1}' @ format=['hotels', itineraryList.count]}" />
+                <sly data-sly-call="${accordionTemplate.default @ list=landPrograms, loop = landProgramsId}" />
+                <sly data-sly-call="${accordionTemplate.default @ list=hotels, loop = hotelsId}" />
             </div>
         </div>
     </div>
