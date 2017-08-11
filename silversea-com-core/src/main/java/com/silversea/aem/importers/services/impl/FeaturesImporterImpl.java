@@ -248,6 +248,7 @@ public class FeaturesImporterImpl implements FeaturesImporter {
                 }
             }
 
+            // mark as deactivate non existing features
             for (Map.Entry<String, Resource> existingFeature : existingFeatures.entrySet()) {
                 try {
                     final Node featureNode = existingFeature.getValue().adaptTo(Node.class);

@@ -15,13 +15,13 @@ public interface CruisesPricesImporter {
      * Import a sample set of prices, used for test purpose (import is full)
      *
      * @param size number of prices to import
+     *
      * @return result of the import
      */
     ImportResult importSampleSet(final int size);
 
     /**
-     * Update the prices based on the last import date
-     * stored in the cruises root page
+     * Update the prices based on the last import date stored in the cruises root page
      *
      * @return result of the import
      */

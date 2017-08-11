@@ -6,8 +6,7 @@ import org.apache.sling.commons.json.JSONObject;
 public interface ExclusiveOffersImporter {
 
     /**
-     * Import all exclusive offers, manage the diff
-     * update as there is no specific endpoint in the API
+     * Import all exclusive offers, manage the diff update as there is no specific endpoint in the API
      *
      * @return result of the import
      */
