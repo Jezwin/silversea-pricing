@@ -2,7 +2,6 @@ package com.silversea.aem.components.page;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
@@ -14,7 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,7 +25,9 @@ public class CruiseUse extends WCMUsePojo {
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
 
     private CruiseModel cruiseModel;
+
     private String previous;
+
     private String next;
 
     private int excursionsNumber = 0;
@@ -188,8 +192,7 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     /**
-     * @return true if at least on itinerary have an excursion,
-     * land program or hotels
+     * @return true if at least on itinerary have an excursion, land program or hotels
      */
     public boolean getItinerariesHasElements() {
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
@@ -327,8 +330,8 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     /**
-     * Inner class used to store mapping between one suite and price variations
-     * Lowest price is updated when a <code>PriceModel</code> is added to the price variations list
+     * Inner class used to store mapping between one suite and price variations Lowest price is updated when a
+     * <code>PriceModel</code> is added to the price variations list
      */
     public class SuitePrice {
 

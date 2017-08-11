@@ -39,6 +39,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
     static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOffersImporterImpl.class);
 
     private int sessionRefresh = 100;
+
     private int pageSize = 100;
 
     @Reference
