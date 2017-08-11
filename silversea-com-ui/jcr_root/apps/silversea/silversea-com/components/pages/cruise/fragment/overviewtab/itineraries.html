@@ -9,25 +9,25 @@
 
     <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
          data-sly-test="${cruise.cruiseModel.compactedItineraries}"
-         data-sly-list="${cruise.cruiseModel.compactedItineraries}">
-        <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.compactedExcursions : item.port.excursions }"/>
-        <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? item.landPrograms : item.port.landPrograms }"/>
+         data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}">
+        <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? itinerary.compactedExcursions : itinerary.port.excursions }"/>
+        <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? itinerary.landPrograms : itinerary.port.landPrograms }"/>
 
         <div class="c-cruise-itinerary-list__item panel">
-            <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itemList.count}" data-parent="#c-cruise-itinerary-list"
-                data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.port.thumbnail}">
-                <div class="c-cruise-itinerary-list__headline__image" data-sly-test="${item.port.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
+            <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itineraryList.count}" data-parent="#c-cruise-itinerary-list"
+                data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = itinerary.port.thumbnail}">
+                <div class="c-cruise-itinerary-list__headline__image" data-sly-test="${itinerary.port.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
                 <ul class="c-cruise-itinerary-list__headline__title">
-                    <li class="c-cruise-itinerary-list__headline__title__city">${item.port.apiTitle}</li>
-                    <li class="c-cruise-itinerary-list__headline__title__country">${item.port.country}</li>
+                    <li class="c-cruise-itinerary-list__headline__title__city">${itinerary.port.apiTitle}</li>
+                    <li class="c-cruise-itinerary-list__headline__title__country">${itinerary.port.country}</li>
                 </ul>
                 <ul class="c-cruise-itinerary-list__headline__date">
-                    <li class="c-cruise-itinerary-list__headline__date__duration" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
+                    <li class="c-cruise-itinerary-list__headline__date__duration" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">
                         ${date.value}
                     </li>
                     <li class="c-cruise-itinerary-list__headline__date__time hidden-xs">
-                        <span data-sly-test.arriveTime="${item.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</span><sly data-sly-test="${item.arriveTime && item.departTime}">,</sly>
-                        <span data-sly-test.departTime="${item.departTime}">${'depart' @ i18n} ${departTime}</span>
+                        <span data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</span><sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
+                        <span data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTime}</span>
                     </li>
                 </ul>
                 <div class="c-cruise-itinerary-list__headline__expand">
@@ -35,9 +35,9 @@
                     <span class="btn-less"><span>${'close' @ i18n}</span> <i class='fa fa-angle-up'></i></span>
                 </div>
             </div>
-            <div class="c-cruise-itinerary-list__description collapse clearfix" id="collapse-${itemList.count}">
+            <div class="c-cruise-itinerary-list__description collapse clearfix" id="collapse-${itineraryList.count}">
                 <div class="c-cruise-itinerary-list__description__text">
-                    <sly data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.port.description, limit=600}" />
+                    <sly data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=itinerary.port.description, limit=600}" />
                     ${description.textTruncate @ context='html'}
                 </div>
                 <p class="c-cruise-itinerary-list__description__button">
@@ -45,13 +45,13 @@
                        href="#"
                        class="c-btn c-btn--white"
                        title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
-                        ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                        ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle} <i class="fa fa-lg fa-angle-right"></i>
                     </a>
                     <a data-sly-test="${landPrograms && landPrograms.size > 0}"
                        href="#"
                        class="c-btn c-btn--white"
                        title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
-                        ${'view' @ i18n} ${landPrograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                        ${'view' @ i18n} ${landPrograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle} <i class="fa fa-lg fa-angle-right"></i>
                     </a>
                 </p>
             </div>
