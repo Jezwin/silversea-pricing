@@ -1,25 +1,23 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.enums.Currency;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public abstract class AbstractModel {
 
@@ -29,16 +27,17 @@ public abstract class AbstractModel {
         Page pageReference = null;
         String path = page.getProperties().get(reference, String.class);
         Page pa = getPage(path, pageManager);
-        if(pa != null){
+        if (pa != null) {
             pageReference = pa.adaptTo(Page.class);
         }
         return pageReference;
     }
 
-    protected String initPropertyWithFallBack(Page page, String reference, String property, String referenceProperty,PageManager pageManger) {
+    protected String initPropertyWithFallBack(Page page, String reference, String property, String referenceProperty,
+            PageManager pageManger) {
         String value = property;
         if (StringUtils.isEmpty(property)) {
-            Page pageRef = getPageReference(page,reference,pageManger);
+            Page pageRef = getPageReference(page, reference, pageManger);
             if (pageRef != null) {
                 value = pageRef.getProperties().get(referenceProperty, String.class);
             }
@@ -88,7 +87,7 @@ public abstract class AbstractModel {
         return price;
     }
 
-    protected PriceData initLowestPrice(String geoMarketCode,Page page) {
+    protected PriceData initLowestPrice(String geoMarketCode, Page page) {
         PriceData lowestPrice = null;
         try {
             Node node = page.adaptTo(Node.class);
@@ -116,16 +115,16 @@ public abstract class AbstractModel {
         return Arrays.stream(Currency.values()).filter(e -> e.name().equals(marKetCode)).findFirst()
                 .orElseThrow(() -> new IllegalStateException());
     }
-    
-    protected Page getPage(String path,PageManager pageManager){
+
+    protected Page getPage(String path, PageManager pageManager) {
         Page page = null;
-        if(!StringUtils.isEmpty(path)){
+        if (!StringUtils.isEmpty(path)) {
             page = pageManager.getPage(path);
         }
         return page;
     }
-    
-    protected List<SuiteModel> initSuites(Page page,String geoMarketCode,PageManager pageManager) {
+
+    protected List<SuiteModel> initSuites(Page page, String geoMarketCode, PageManager pageManager) {
         List<SuiteModel> suiteList = new ArrayList<SuiteModel>();
         Node cruiseNode = page.adaptTo(Node.class);
         Node suitesNode;
@@ -156,8 +155,8 @@ public abstract class AbstractModel {
 
         return suiteList;
     }
-    
-    protected ShipModel initShip(String path,PageManager pageManager) {
+
+    protected ShipModel initShip(String path, PageManager pageManager) {
         ShipModel shipModel = null;
         if (StringUtils.isNotEmpty(path)) {
             Page page = getPage(path, pageManager);
