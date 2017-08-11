@@ -1,13 +1,13 @@
 package com.silversea.aem.helper;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.xss.XSSAPI;
+
+import com.adobe.cq.sightly.WCMUsePojo;
 
 public class StringHelper extends WCMUsePojo {
 
     private String textTruncate;
-    private String textTruncateDot;
-    private String textTruncateDotEnd;
 
     @Override
     public void activate() throws Exception {
@@ -15,6 +15,10 @@ public class StringHelper extends WCMUsePojo {
         Integer limit = get("limit", Integer.class);
 
         if (StringUtils.isNotEmpty(text)) {
+            // Clean / encode for HTML
+            XSSAPI xssAPI = getResourceResolver().adaptTo(XSSAPI.class);
+            text = xssAPI.filterHTML(text);
+
             // Remove HTML tag
             String textHtmlStrip = text.replaceAll("\\<[^>]*>", "");
             textTruncate = (textHtmlStrip.length() > limit) ? textHtmlStrip.substring(0, limit).trim() : textHtmlStrip;

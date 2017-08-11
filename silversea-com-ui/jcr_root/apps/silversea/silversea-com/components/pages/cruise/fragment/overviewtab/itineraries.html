@@ -37,8 +37,7 @@
             </div>
             <div class="c-cruise-itinerary-list__description collapse clearfix" id="collapse-${itemList.count}">
                 <div class="c-cruise-itinerary-list__description__text">
-                    <sly data-sly-test.apiDescriptionXssHtml="${item.port.description  @ context='html'}"
-                        data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=apiDescriptionXssHtml, limit=600}" />
+                    <sly data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.port.description, limit=600}" />
                     ${description.textTruncate @ context='html'}
                 </div>
                 <p class="c-cruise-itinerary-list__description__button">
