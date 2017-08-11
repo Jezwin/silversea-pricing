@@ -14,11 +14,12 @@
             _contents = _self.find('.c-tab__body').first().children(_data.content),
             _showTab = function(tab) {
                 var id = $(tab).children('a').attr('href');
-                //$(_contents).removeAttr('data-state', null);
-                //$(_links).removeAttr('data-state', null);
-
-                $(_data.content).attr('data-state', 'false');
-                $(_links).attr('data-state', 'false');
+                $(_contents).removeAttr('data-state', null);
+                $(_links).removeAttr('data-state', null);
+                
+                if( $(_contents).parent().attr('class') != 'c-tab__body' ){
+                    $(_data.content).removeAttr('data-state', null)
+                }
 
                 $(tab).attr('data-state', 'active');
                 $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
