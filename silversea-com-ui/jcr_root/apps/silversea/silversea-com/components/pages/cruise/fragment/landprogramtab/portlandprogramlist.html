@@ -32,11 +32,11 @@
                     <span>${date.value}</span>
                 </div>
                 <div class="panel__heading__info hidden-xs">
-                    <u>
+                    <span>
                         <sly data-sly-test="${itinerary.landPrograms.size > 0}">${itinerary.landPrograms.size} ${itinerary.landPrograms.size == 1 ? 'land-programme' : 'land-programmes' @ i18n} </sly>
                         <sly data-sly-test="${itinerary.landPrograms.size > 0 && itinerary.hotels.size > 0}">${'and' @ i18n} </sly>
                         <sly data-sly-test="${itinerary.hotels.size > 0}">${itinerary.hotels.size} ${itinerary.hotels.size == 1 ? 'hotel' : 'hotels' @ i18n}</sly>
-                    </u>
+                    </span>
                 </div>
                 <i class="btn-more fa fa-angle-down"></i>
                 <i class="btn-less fa fa-angle-up"></i>
