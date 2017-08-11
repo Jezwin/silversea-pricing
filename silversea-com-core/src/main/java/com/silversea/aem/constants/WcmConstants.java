@@ -109,4 +109,5 @@ public interface WcmConstants {
     // TODO change to US
     String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "EU";
     String DEFAULT_CURRENCY = "EUR";
+    String FEATURE_CODE_VENETIAN_SOCIETY = "vs_saving";
 }

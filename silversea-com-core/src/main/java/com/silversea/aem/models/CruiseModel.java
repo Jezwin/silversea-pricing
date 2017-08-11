@@ -91,6 +91,8 @@ public class CruiseModel extends AbstractModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
     private String thumbnail;
 
+    private List<FeatureModel> features = new ArrayList<>();
+
     @PostConstruct
     private void init() {
         pageManager = page.getPageManager();
@@ -108,15 +110,20 @@ public class CruiseModel extends AbstractModel {
             splitCruiseFareAdditions = cruiseFareAdditions.split("\\r?\\n");
         }
 
-        // init cruise type
+        // init cruise type and features
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         if (tagManager != null) {
             final Tag[] tags = tagManager.getTags(page.getContentResource());
 
-            for (Tag tag : tags) {
+            for (final Tag tag : tags) {
                 if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
                     cruiseType = tag;
-                    break;
+                } else if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                    final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
+
+                    if (featureModel != null) {
+                        features.add(featureModel);
+                    }
                 }
             }
 
@@ -259,6 +266,10 @@ public class CruiseModel extends AbstractModel {
         return prices;
     }
 
+    public List<FeatureModel> getFeatures() {
+        return features;
+    }
+
     /**
      * Recursive collection of prices for this cruise
      * @param prices the list of prices
@@ -287,8 +298,6 @@ public class CruiseModel extends AbstractModel {
 
     private PriceData lowestPrice;
 
-    private List<Feature> features;
-
     private List<SuiteModel> suites;
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
@@ -308,7 +317,7 @@ public class CruiseModel extends AbstractModel {
     public List<Feature> getFeaturesForDisplay() {
 
         //do not display the venetian society feature on the overview tab
-        final List<Feature> filteredFeatures = new ArrayList<>();
+        /*final List<Feature> filteredFeatures = new ArrayList<>();
         final Iterator<Feature> i = features.iterator();
         while (i.hasNext()) {
             Feature feature = i.next();
@@ -316,11 +325,9 @@ public class CruiseModel extends AbstractModel {
                 filteredFeatures.add(feature);
             }
         }
-        return filteredFeatures;
-    }
+        return filteredFeatures;*/
 
-    public List<Feature> getFeatures() {
-        return features;
+        return null;
     }
 
     @Deprecated

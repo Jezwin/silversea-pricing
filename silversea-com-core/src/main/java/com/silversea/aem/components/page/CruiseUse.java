@@ -4,6 +4,7 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GeolocationTagService;
@@ -49,6 +50,8 @@ public class CruiseUse extends WCMUsePojo {
     private PriceModel lowestPrice = null;
 
     private boolean isWaitList = true;
+
+    private List<FeatureModel> enrichmentsFeatures = new ArrayList<>();
 
     @Override
     public void activate() throws Exception {
@@ -164,6 +167,13 @@ public class CruiseUse extends WCMUsePojo {
                         isWaitList = false;
                     }
                 }
+            }
+        }
+
+        // init enrichments features
+        for (FeatureModel feature : cruiseModel.getFeatures()) {
+            if (!feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)) {
+                enrichmentsFeatures.add(feature);
             }
         }
     }
@@ -327,6 +337,10 @@ public class CruiseUse extends WCMUsePojo {
 
     public boolean isWaitList() {
         return isWaitList;
+    }
+
+    public List<FeatureModel> getEnrichmentsFeatures() {
+        return enrichmentsFeatures;
     }
 
     /**
