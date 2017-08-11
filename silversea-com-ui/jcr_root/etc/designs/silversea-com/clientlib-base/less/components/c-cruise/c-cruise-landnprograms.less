@@ -1,0 +1,81 @@
+.c-cruise-landnprograms {
+    &__list {
+        &__item {
+        }
+
+        &--nested {
+            &__item {
+                border-bottom: 1px solid @grey--e8;
+
+                .panel {
+                    &__heading {
+                        background-color: @grey--f9;
+                        cursor: pointer;
+                        font-size: 12px;
+                        padding: 20px;
+                        text-align: center;
+
+                        &:hover {
+                            background-color: @grey--e6;
+                        }
+
+                        h4 {
+                            font-size: 14px;
+                            margin: 0 0 13px;
+                        }
+
+                        .btn-more, .btn-less {
+                            color: @grey--8;
+                            text-transform: uppercase;
+                        }
+
+                        &[aria-expanded="true"] {
+                            > .btn-more {
+                                display: none;
+                            }
+                        }
+
+                        &[aria-expanded="false"] {
+                            > .btn-less {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    &__body {
+                        &__inner {
+                            padding: 15px 40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__list {
+            &__item {
+                
+            }
+
+            &--nested {
+                &__item {
+                    .panel {
+                        &__heading {
+                            padding: 15px 18% 15px 40px;
+                            position: relative;
+                            text-align: left;
+
+                            .btn-more, .btn-less {
+                                position: absolute;
+                                right: 15px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
