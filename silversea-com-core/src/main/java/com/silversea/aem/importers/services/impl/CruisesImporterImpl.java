@@ -5,16 +5,15 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
@@ -25,7 +24,6 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.*;
-import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.commons.mime.MimeTypeService;
@@ -41,9 +39,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
-/**
- * TODO add last import date
- */
 @Service
 @Component
 public class CruisesImporterImpl implements CruisesImporter {
@@ -96,7 +91,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final VoyagesApi voyagesApi = new VoyagesApi(ImporterUtils.getApiClient(apiConfig));
+            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -109,7 +104,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             /*ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/dam/silversea-com/api-provided/cruises"
                     + "//element(*,sling:OrderedFolder)");*/
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]");
 
             // Initializing elements necessary to import cruise
@@ -355,6 +350,9 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                 apiPage++;
             } while (cruises.size() > 0);
+
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
+                    "lastModificationDateCruises", false);
 
             if (session.hasPendingChanges()) {
                 try {

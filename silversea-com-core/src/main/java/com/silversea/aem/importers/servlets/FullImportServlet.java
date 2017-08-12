@@ -37,7 +37,8 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         itinerarieshotels,
         itinerariesexcursions,
         itinerarieslandprograms,
-        prices
+        prices,
+        cruisesexclusiveoffers
     }
 
     private boolean isRunning = false;
@@ -92,6 +93,9 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private ComboCruisesImporter comboCruisesImporter;
+
+    @Reference
+    private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
@@ -308,6 +312,12 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 if (mode.equals(Mode.prices)) {
                     cruisesPricesImporter.importSampleSet(elementsNumber);
                     responseWriter.write("Prices import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.cruisesexclusiveoffers)) {
+                    cruisesExclusiveOffersImporter.importAllItems();
+                    responseWriter.write("Cruises/exclusive offers import Done<br/>");
                     responseWriter.flush();
                 }
 

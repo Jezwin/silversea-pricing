@@ -4,9 +4,9 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesLandProgramsImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
@@ -80,7 +80,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final LandsApi landsApi = new LandsApi(ImporterUtils.getApiClient(apiConfig));
+            final LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -89,15 +89,15 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             // Existing landPrograms deletion
             LOGGER.debug("Cleaning already imported land programs");
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/landprogram\"]");
 
             // Initializing elements necessary to import landPrograms
             // itineraries
-            final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
+            final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
             // landPrograms
-            final Map<Integer, Map<String, String>> landProgramsMapping = ImporterUtils.getItemsMapping(resourceResolver,
+            final Map<Integer, Map<String, String>> landProgramsMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]",
                     "landId");
 
@@ -190,6 +190,9 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
 
                 apiPage++;
             } while (landPrograms.size() > 0);
+
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
+                    "lastModificationDateCruisesItinerariesLandPrograms", false);
 
             if (session.hasPendingChanges()) {
                 try {

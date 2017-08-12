@@ -11,6 +11,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
@@ -82,14 +83,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final ShorexesApi shorexesApi = new ShorexesApi(ImporterUtils.getApiClient(apiConfig));
+            final ShorexesApi shorexesApi = new ShorexesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
             // Cleaning existing excursions
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]");
 
             // Importing excursions
@@ -209,7 +210,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                 apiPage++;
             } while (shorexes.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateShoreExcursions");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
@@ -247,7 +248,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final ShorexesApi shorexesApi = new ShorexesApi(ImporterUtils.getApiClient(apiConfig));
+            final ShorexesApi shorexesApi = new ShorexesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -395,7 +396,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                 apiPage++;
             } while (excursions.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateShoreExcursions");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);

@@ -11,15 +11,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.ValueFormatException;
 import javax.jcr.Workspace;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
 
+import com.silversea.aem.importers.utils.ImportersUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -38,7 +34,6 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.components.beans.LowestPrice;
-import com.silversea.aem.components.beans.VoyageWrapper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ComboCruisesImporter;
@@ -330,7 +325,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
         LOGGER.debug(" Combo Cruise importer -- Sart updates page [{}] in other languages",page.getPath());
 
         String path = page.getPath();
-        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        List<String> languages = ImportersUtils.getSiteLocales(pageManager);
         if(languages != null && !languages.isEmpty()){
             languages.forEach(language ->{
                 if(!language.equals(ImportersConstants.LANGUAGE_EN)){
@@ -370,7 +365,7 @@ public class ComboCruisesImporterImpl  implements ComboCruisesImporter {
     }
     
     private void excuteUpdate(boolean update){
-        List<String> languages = ImporterUtils.getSiteLocales(pageManager);
+        List<String> languages = ImportersUtils.getSiteLocales(pageManager);
         if(languages != null && !languages.isEmpty()){
             languages.forEach(language ->{
                 try {

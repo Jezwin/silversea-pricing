@@ -11,6 +11,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelsImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
@@ -81,7 +82,7 @@ public class HotelsImporterImpl implements HotelsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final HotelsApi hotelsApi = new HotelsApi(ImporterUtils.getApiClient(apiConfig));
+            final HotelsApi hotelsApi = new HotelsApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -194,7 +195,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                 apiPage++;
             } while (hotels.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateHotels");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
@@ -230,7 +231,7 @@ public class HotelsImporterImpl implements HotelsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final HotelsApi hotelsApi = new HotelsApi(ImporterUtils.getApiClient(apiConfig));
+            final HotelsApi hotelsApi = new HotelsApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -375,7 +376,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                 apiPage++;
             } while (hotels.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateHotels");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);

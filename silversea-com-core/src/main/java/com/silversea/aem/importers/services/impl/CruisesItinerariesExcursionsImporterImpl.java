@@ -4,9 +4,9 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesExcursionsImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
@@ -28,11 +28,10 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * TODO add last import date
- */
 @Service
 @Component
 public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerariesExcursionsImporter {
@@ -40,6 +39,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
     static final private Logger LOGGER = LoggerFactory.getLogger(CruisesItinerariesExcursionsImporterImpl.class);
 
     protected int sessionRefresh = 100;
+
     protected int pageSize = 100;
 
     @Reference
@@ -81,7 +81,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final ShorexesApi shorexesApi = new ShorexesApi(ImporterUtils.getApiClient(apiConfig));
+            final ShorexesApi shorexesApi = new ShorexesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -90,17 +90,18 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             // Existing excursions deletion
             LOGGER.debug("Cleaning already imported excursions");
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/excursion\"]");
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh,
+                    "/jcr:root/content/silversea-com//element(*,nt:unstructured)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/excursion\"]");
 
             // Initializing elements necessary to import excursions
             // itineraries
-            final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
+            final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
             // excursions
-            final Map<Integer, Map<String, String>> excursionsMapping = ImporterUtils.getItemsMapping(resourceResolver,
-                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]",
-                    "shorexId");
+            final Map<Integer, Map<String, String>> excursionsMapping = ImportersUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]", "shorexId");
 
             // Importing excursions
             List<ShorexItinerary> excursions;
@@ -118,43 +119,53 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                         boolean imported = false;
 
                         if (!excursionsMapping.containsKey(excursionId)) {
-                            throw new ImporterException("Excursion " + excursionId + " is not present in excursions cache");
+                            throw new ImporterException(
+                                    "Excursion " + excursionId + " is not present in excursions cache");
                         }
 
                         // Iterating over itineraries in cache to write excursion
                         for (final ItineraryModel itineraryModel : itinerariesMapping) {
 
                             // Checking if the itinerary correspond to excursion informations
-                            if (itineraryModel.isItinerary(excursion.getVoyageId(), excursion.getDate().toGregorianCalendar())) {
+                            if (itineraryModel.isItinerary(excursion.getVoyageId(),
+                                    excursion.getDate().toGregorianCalendar())) {
 
                                 // Trying to write excursion data on itinerary
                                 try {
                                     final Resource itineraryResource = itineraryModel.getResource();
 
-                                    LOGGER.trace("Importing excursion {} in itinerary {}", excursion.getShorexItineraryId(), itineraryResource.getPath());
+                                    LOGGER.trace("Importing excursion {} in itinerary {}",
+                                            excursion.getShorexItineraryId(), itineraryResource.getPath());
 
                                     final Node itineraryNode = itineraryResource.adaptTo(Node.class);
-                                    final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
+                                    final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions",
+                                            "nt:unstructured");
 
                                     // TODO to check : getShorexItineraryId() is not unique over API
                                     if (!excursionsNode.hasNode(String.valueOf(excursion.getShorexItineraryId()))) {
-                                        final Node excursionNode = excursionsNode.addNode(JcrUtil.createValidChildName(excursionsNode,
-                                                String.valueOf(excursion.getShorexItineraryId())));
+                                        final Node excursionNode = excursionsNode.addNode(
+                                                JcrUtil.createValidChildName(excursionsNode,
+                                                        String.valueOf(excursion.getShorexItineraryId())));
 
                                         final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
 
                                         // associating excursion page
                                         if (excursionsMapping.get(excursionId).containsKey(lang)) {
-                                            excursionNode.setProperty("excursionReference", excursionsMapping.get(excursionId).get(lang));
+                                            excursionNode.setProperty("excursionReference",
+                                                    excursionsMapping.get(excursionId).get(lang));
                                         }
 
                                         excursionNode.setProperty("excursionId", excursionId);
-                                        excursionNode.setProperty("excursionItineraryId", excursion.getShorexItineraryId());
+                                        excursionNode.setProperty("excursionItineraryId",
+                                                excursion.getShorexItineraryId());
                                         excursionNode.setProperty("date", excursion.getDate().toGregorianCalendar());
-                                        excursionNode.setProperty("plannedDepartureTime", excursion.getPlannedDepartureTime());
-                                        excursionNode.setProperty("generalDepartureTime", excursion.getGeneralDepartureTime());
+                                        excursionNode.setProperty("plannedDepartureTime",
+                                                excursion.getPlannedDepartureTime());
+                                        excursionNode.setProperty("generalDepartureTime",
+                                                excursion.getGeneralDepartureTime());
                                         excursionNode.setProperty("duration", excursion.getDuration());
-                                        excursionNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/excursion");
+                                        excursionNode.setProperty("sling:resourceType",
+                                                "silversea/silversea-com/components/subpages/itinerary/excursion");
 
                                         successNumber++;
                                         itemsWritten++;
@@ -183,7 +194,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                             }
                         }
 
-                        LOGGER.trace("Excursion {} voyage id: {} city id: {} imported status: {}", excursion.getShorexId(), excursion.getVoyageId(), excursion.getCityId(), imported);
+                        LOGGER.trace("Excursion {} voyage id: {} city id: {} imported status: {}",
+                                excursion.getShorexId(), excursion.getVoyageId(), excursion.getCityId(), imported);
                     } catch (ImporterException e) {
                         LOGGER.warn("Cannot deal with excursion {} - {}", excursion.getShorexId(), e.getMessage());
 
@@ -197,6 +209,9 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                 apiPage++;
             } while (excursions.size() > 0);
+
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
+                    "lastModificationDateCruisesItinerariesExcursions", false);
 
             if (session.hasPendingChanges()) {
                 try {
@@ -219,7 +234,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             }
         }
 
-        LOGGER.info("Ending itineraries excursions import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending itineraries excursions import, success: {}, errors: {}, api calls : {}", +successNumber,
+                +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

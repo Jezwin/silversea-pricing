@@ -11,6 +11,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
@@ -81,7 +82,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final LandsApi landsApi = new LandsApi(ImporterUtils.getApiClient(apiConfig));
+            final LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -196,7 +197,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                 apiPage++;
             } while (landPrograms.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
@@ -232,7 +233,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final LandsApi landsApi = new LandsApi(ImporterUtils.getApiClient(apiConfig));
+            final LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -381,7 +382,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                 apiPage++;
             } while (landPrograms.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);

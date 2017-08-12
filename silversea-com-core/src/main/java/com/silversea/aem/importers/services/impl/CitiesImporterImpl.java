@@ -12,6 +12,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
@@ -79,23 +80,23 @@ public class CitiesImporterImpl implements CitiesImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final CitiesApi citiesApi = new CitiesApi(ImporterUtils.getApiClient(apiConfig));
+            final CitiesApi citiesApi = new CitiesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/portslist\"]");
 
             // Getting paths to import data
             LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("citiesUrl"));
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+            final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 
             // Iterating over locales to import cities
             for (String locale : locales) {
-                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+                final Page citiesRootPage = ImportersUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
                 if (citiesRootPage == null) {
                     throw new ImporterException("Cities root page does not exists");
@@ -170,7 +171,7 @@ public class CitiesImporterImpl implements CitiesImporter {
                 } while (cities.size() > 0);
             }
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDate");
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot create resource resolver", e);
@@ -206,7 +207,7 @@ public class CitiesImporterImpl implements CitiesImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final CitiesApi citiesApi = new CitiesApi(ImporterUtils.getApiClient(apiConfig));
+            final CitiesApi citiesApi = new CitiesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -217,7 +218,7 @@ public class CitiesImporterImpl implements CitiesImporter {
 
             LOGGER.debug("Last import date for ports {}", lastModificationDate);
 
-            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+            final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 
             int itemsWritten = 0, apiPage = 1;
             List<City77> cities;
@@ -274,7 +275,8 @@ public class CitiesImporterImpl implements CitiesImporter {
                         } else {
                             // else create port page for each language
                             for (final String locale : locales) {
-                                final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+                                final Page citiesRootPage = ImportersUtils
+                                        .getPagePathByLocale(pageManager, rootPage, locale);
                                 final Page portPage = createPortPage(pageManager, citiesRootPage, city.getCityName());
 
                                 LOGGER.trace("Creating port {}", city.getCityName());
@@ -313,7 +315,7 @@ public class CitiesImporterImpl implements CitiesImporter {
                 apiPage++;
             } while (cities.size() > 0);
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDate");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);

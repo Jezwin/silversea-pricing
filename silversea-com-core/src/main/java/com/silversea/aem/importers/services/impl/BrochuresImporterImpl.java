@@ -4,9 +4,9 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.BrochuresImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
 import io.swagger.client.ApiException;
@@ -80,7 +80,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final BrochuresApi brochuresApi = new BrochuresApi(ImporterUtils.getApiClient(apiConfig));
+            final BrochuresApi brochuresApi = new BrochuresApi(ImportersUtils.getApiClient(apiConfig));
 
             int j = 0, i = 1;
             List<Brochure> brochures;

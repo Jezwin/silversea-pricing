@@ -4,9 +4,9 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesHotelsImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
@@ -32,9 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * TODO add last import date
- */
 @Service
 @Component
 public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesHotelsImporter {
@@ -83,7 +80,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final HotelsApi hotelsApi = new HotelsApi(ImporterUtils.getApiClient(apiConfig));
+            final HotelsApi hotelsApi = new HotelsApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -92,15 +89,15 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
             // Existing hotels deletion
             LOGGER.debug("Cleaning already imported hotels");
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/hotel\"]");
 
             // Initializing elements necessary to import hotels
             // itineraries
-            final List<ItineraryModel> itinerariesMapping = ImporterUtils.getItineraries(resourceResolver);
+            final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
             // hotels
-            final Map<Integer, Map<String, String>> hotelsMapping = ImporterUtils.getItemsMapping(resourceResolver,
+            final Map<Integer, Map<String, String>> hotelsMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]",
                     "hotelId");
 
@@ -194,6 +191,9 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
 
                 apiPage++;
             } while (hotels.size() > 0);
+
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
+                    "lastModificationDateCruisesItinerariesHotels", false);
 
             if (session.hasPendingChanges()) {
                 try {

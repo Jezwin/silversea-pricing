@@ -4,23 +4,20 @@ import com.day.cq.tagging.InvalidTagFormatException;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
-import com.silversea.aem.services.ApiCallService;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
 import org.apache.cxf.common.util.StringUtils;
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.*;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +58,7 @@ public class CountriesImporterImpl implements CountriesImporter {
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final CountriesApi countriesApi = new CountriesApi(ImporterUtils.getApiClient(apiConfig));
+            final CountriesApi countriesApi = new CountriesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (session == null || tagManager == null) {
                 throw new ImporterException("Cannot initialize tagManager or session");

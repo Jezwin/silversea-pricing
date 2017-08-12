@@ -8,20 +8,15 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
 
@@ -90,11 +85,11 @@ public class BaseImporter {
                                            final String rootPath, final String propertyName) {
         // Setting modification date for each language
         final Page rootPage = pageManager.getPage(rootPath);
-        final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+        final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 
         // Iterating over locales to import cities
         for (String locale : locales) {
-            final Page citiesRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, locale);
+            final Page citiesRootPage = ImportersUtils.getPagePathByLocale(pageManager, rootPage, locale);
 
             // Setting last modification date
             // after import

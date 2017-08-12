@@ -14,6 +14,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.utils.StringsUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -105,7 +106,7 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 			Page rootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
 			Page rootPathByLocal;
 			int i = 1;
-			final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+			final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 			List<Agency> travelAgencies;
 
 			do {
@@ -116,7 +117,7 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 				if (travelAgencies != null) {
 					for (String loc : locales) {
 						if (loc != null) {
-							travelRootPage = ImporterUtils.getPagePathByLocale(pageManager, rootPage, loc);
+							travelRootPage = ImportersUtils.getPagePathByLocale(pageManager, rootPage, loc);
 
 							for (Agency agency : travelAgencies) {
 								try {

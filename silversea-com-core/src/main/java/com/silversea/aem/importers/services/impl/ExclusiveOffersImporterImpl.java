@@ -7,9 +7,9 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.StringsUtils;
@@ -78,14 +78,14 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final SpecialOffersApi specialOffersApi = new SpecialOffersApi(ImporterUtils.getApiClient(apiConfig));
+            final SpecialOffersApi specialOffersApi = new SpecialOffersApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
             // Create a cache of existing exclusive offers
-            final Map<Integer, Map<String, String>> exclusiveOffersMapping = ImporterUtils
+            final Map<Integer, Map<String, String>> exclusiveOffersMapping = ImportersUtils
                     .getItemsMapping(resourceResolver,
                             "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                                     "[sling:resourceType=\"silversea/silversea-com/components/pages/exclusiveoffer\"]",
@@ -94,7 +94,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
             // Getting paths to import data
             LOGGER.trace("Getting root page : {}", apiConfig.apiRootPath("exclusiveOffersUrl"));
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("exclusiveOffersUrl"));
-            final List<String> locales = ImporterUtils.getSiteLocales(pageManager);
+            final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 
             // Iterate over exclusive offers from API
             int itemsWritten = 0, apiPage = 1;
@@ -114,7 +114,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
                         // iterating over locales to create the pages
                         for (String locale : locales) {
-                            final Page exclusiveOffersRootPage = ImporterUtils
+                            final Page exclusiveOffersRootPage = ImportersUtils
                                     .getPagePathByLocale(pageManager, rootPage, locale);
 
                             if (exclusiveOffersRootPage == null) {
@@ -247,7 +247,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                 }
             }
 
-            ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("exclusiveOffersUrl"),
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("exclusiveOffersUrl"),
                     "lastModificationDate");
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
