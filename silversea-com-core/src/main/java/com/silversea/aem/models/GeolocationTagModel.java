@@ -4,6 +4,7 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @Model(adaptables = Resource.class)
 public class GeolocationTagModel {
@@ -11,7 +12,7 @@ public class GeolocationTagModel {
     @Inject
     private String market;
 
-    @Inject
+    @Inject @Named("Currency")
     private String currency;
 
     public String getMarket() {
