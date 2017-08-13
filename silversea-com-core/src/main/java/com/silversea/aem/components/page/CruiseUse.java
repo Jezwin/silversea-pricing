@@ -86,12 +86,14 @@ public class CruiseUse extends WCMUsePojo {
         // init pagination
         final Iterator<Page> children = getCurrentPage().getParent().listChildren();
         if (children != null && children.hasNext()) {
+            Page child = null;
             while (children.hasNext()) {
-                final Page child = children.next();
+                previous = child != null ? child.getPath() : null;
+
+                child = children.next();
 
                 if (child.getPath().equals(getCurrentPage().getPath()) && children.hasNext()) {
                     next = children.next().getPath();
-                    previous = child.getPath();
 
                     break;
                 }
