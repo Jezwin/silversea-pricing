@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+    xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="nt:unstructured"
     jcr:title="SSC - Exclusive Offer">
     <content jcr:primaryType="nt:unstructured">
@@ -72,35 +73,6 @@
                                         cq-msm-lockable="termAndCondition"
                                         fieldLabel="Exclusive offer Terms &#38; Condition"
                                         name="./termAndCondition" />
-                                    <exclusiveOfferId
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                        allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="exclusiveOfferId"
-                                        fieldLabel="ID"
-                                        disabled="{Boolean}true"
-                                        required="{Boolean}true"
-                                        name="./exclusiveOfferId" />
-                                    <startdate
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                        allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="startDate"
-                                        fieldLabel="Start date"
-                                        disabled="{Boolean}true"
-                                        required="{Boolean}true"
-                                        name="./startDate"
-                                        type="datetime" />
-                                    <enddate
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/datepicker"
-                                        allowBulkEdit="{Boolean}true"
-                                        cq-msm-lockable="endDate"
-                                        fieldLabel="End Date"
-                                        disabled="{Boolean}true"
-                                        required="{Boolean}true"
-                                        name="./endDate"
-                                        type="datetime" />
                                 </items>
                             </column>
                         </items>
