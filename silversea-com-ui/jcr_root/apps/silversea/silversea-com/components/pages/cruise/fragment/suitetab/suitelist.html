@@ -11,12 +11,8 @@
             </div>
             <div class="c-suitelist__detail">
                 <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
-                <p class="c-suitelist__detail__description">
-                    <sly data-sly-repeat="${item.suite.suiteSubTitle}">
-                        ${item}
-                        <br data-sly-test="${!itemList.last}"/>
-                    </sly>
-                </p>
+                <p class="c-suitelist__detail__description">${item.suite.bedroomsInformation @ context='html'}</p>
+                <!-- TODO add decks list -->
             </div>
             <div class="c-suitelist__price">
                 ${'fares-from' @ i18n}
