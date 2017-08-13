@@ -72,7 +72,7 @@ public class CruiseModel extends AbstractModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
     private String cruiseFareAdditions;
 
-    private String[] splitCruiseFareAdditions;
+    private List<String> splitCruiseFareAdditions = new ArrayList<>();
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries")
     private List<ItineraryModel> itineraries;
@@ -88,6 +88,11 @@ public class CruiseModel extends AbstractModel {
 
     private List<FeatureModel> features = new ArrayList<>();
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/offer") @Optional
+    private String[] exclusiveOffersReferences;
+
+    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+
     @PostConstruct
     private void init() {
         pageManager = page.getPageManager();
@@ -102,7 +107,11 @@ public class CruiseModel extends AbstractModel {
 
         // init cruise fare additions
         if (cruiseFareAdditions != null) {
-            splitCruiseFareAdditions = cruiseFareAdditions.split("\\r?\\n");
+            final String[] split = cruiseFareAdditions.split("\\r?\\n");
+
+            if (split.length > 0) {
+                splitCruiseFareAdditions.addAll(Arrays.asList(split));
+            }
         }
 
         // init cruise type and features
@@ -124,6 +133,21 @@ public class CruiseModel extends AbstractModel {
 
             if (cruiseType == null) {
                 cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE);
+            }
+        }
+
+        // init exclusive offers
+        if (exclusiveOffersReferences != null) {
+            for (String exclusiveOfferReference : exclusiveOffersReferences) {
+                final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferReference);
+
+                if (exclusiveOfferPage != null) {
+                    final ExclusiveOfferModel exclusiveOffer = exclusiveOfferPage.adaptTo(ExclusiveOfferModel.class);
+
+                    if (exclusiveOffer != null) {
+                        exclusiveOffers.add(exclusiveOffer);
+                    }
+                }
             }
         }
 
@@ -172,10 +196,6 @@ public class CruiseModel extends AbstractModel {
 
     public String[] getKeyPeople() {
         return keyPeople;
-    }
-
-    public String[] getCruiseFareAdditions() {
-        return splitCruiseFareAdditions;
     }
 
     public List<ItineraryModel> getItineraries() {
@@ -265,6 +285,10 @@ public class CruiseModel extends AbstractModel {
         return features;
     }
 
+    public List<String> getCruiseFareAdditions() {
+        return splitCruiseFareAdditions;
+    }
+
     /**
      * Recursive collection of prices for this cruise
      * @param prices the list of prices
@@ -284,18 +308,11 @@ public class CruiseModel extends AbstractModel {
 
     // ---------------- TODO -------------- //
 
-
-    private String destinationTitle;
-
     private String destinationFootNote;
-
-    private String mapOverHead;
 
     private PriceData lowestPrice;
 
     private List<SuiteModel> suites;
-
-    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
     private List<CruiseFareAddition> exclusiveFareAdditions = new ArrayList<>();
 
@@ -311,15 +328,13 @@ public class CruiseModel extends AbstractModel {
 
     public void initByGeoLocation(GeoLocation geolocation) {
         exclusiveOffers = initExclusiveOffersByGeoLocation(geolocation.getGeoMarketCode(), geolocation.getCountry());
-        splitCruiseFareAdditions = parseText(page, "cruiseFareAdditions");
+        //splitCruiseFareAdditions = parseText(page, "cruiseFareAdditions");
         exclusiveFareAdditions = getAllExclusiveFareAdditions();
         lowestPrice = initLowestPrice(geolocation.getGeoMarketCode(), page);
-        mapOverHead = initMapHover();
         suites = initSuites(page, geolocation.getGeoMarketCode(), pageManager);
     }
 
     private List<ExclusiveOfferModel> initExclusiveOffersByGeoLocation(String geoMarketCode, String country) {
-
         List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<ExclusiveOfferModel>();
         String[] exclusiveOfferUrls = page.getProperties().get("exclusiveOffers", String[].class);
         String destination = page.getParent().getPath();
@@ -343,36 +358,18 @@ public class CruiseModel extends AbstractModel {
     }
 
     private List<CruiseFareAddition> getAllExclusiveFareAdditions() {
-        List<CruiseFareAddition> CruiseFareAddition = new ArrayList<CruiseFareAddition>();
-        if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
+        List<CruiseFareAddition> CruiseFareAddition = new ArrayList<>();
+        /*if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
             exclusiveOffers.forEach(item -> {
                 CruiseFareAddition.addAll(item.getCruiseFareAdditions());
             });
-        }
+        }*/
 
         return CruiseFareAddition;
     }
 
-    public String initMapHover() {
-        String value = null;
-        if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
-
-            java.util.Optional<String> optValue = exclusiveOffers.stream().filter(e -> !StringUtils.isEmpty(e.getMapOverHead()))
-                    .map(ExclusiveOfferModel::getMapOverHead).findFirst();
-
-            if (optValue != null && optValue.isPresent()) {
-                value = optValue.get();
-            }
-        }
-        return value;
-    }
-
     public PriceData getLowestPrice() {
         return lowestPrice;
-    }
-
-    public List<CruiseFareAddition> getExclusiveFareAdditions() {
-        return exclusiveFareAdditions;
     }
 
     public String getDestinationFootNote() {
@@ -383,19 +380,8 @@ public class CruiseModel extends AbstractModel {
         return suites;
     }
 
-    public String getMapOverHead() {
-        return mapOverHead;
-    }
-
     public ItinerariesData getItinerariesData() {
         return itinerariesData;
     }
 
-    public Integer getTotalFareAddictions() {
-        if (getExclusiveFareAdditions() != null && getCruiseFareAdditions() != null) {
-            return getExclusiveFareAdditions().size() + getCruiseFareAdditions().length;
-        }
-
-        return null;
-    }
 }

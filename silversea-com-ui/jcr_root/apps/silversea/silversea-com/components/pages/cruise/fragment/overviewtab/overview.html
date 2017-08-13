@@ -1,7 +1,7 @@
 <div class="row c-cruise__overview" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
     <div class="col-sm-6 hidden-xs voyageimg">
         <div class="voyageimg__info">
-            <p>${cruise.cruiseModel.mapOverHead}</p>
+            <p>${cruise.mapOverHead}</p>
         </div>
         <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
         <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-xs-12 visible-xs voyageimg">
                 <div class="voyageimg__info">
-                    <p>${cruise.cruiseModel.mapOverHead}</p>
+                    <p>${cruise.mapOverHead}</p>
                 </div>
                 <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
                 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
@@ -52,8 +52,14 @@
                     <span>${cruise.cruiseModel.cruiseType.name @ i18n}</span>
                     <span>${cruise.cruiseModel.ship.title}</span>
                     <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-                    <ul data-sly-list="${cruise.cruiseModel.features}">
-                        <li class="meta_feature_inner">
+                    <ul date-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
+                        <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
+                            <span class="feature">
+                                <i class="icon-star"></i>
+                                <span class="tooltip"><i></i>Exclusive offer</span>
+                            </span>
+                        </li>
+                        <li class="meta_feature_inner" data-sly-repeat="${cruise.cruiseModel.features}">
                             <span class="feature">
                                 <i class="${item.icon}"></i>
                                 <span class="tooltip"><i></i>${item.title}</span>
@@ -67,7 +73,8 @@
 
                     <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
 
-                    <div class="voyagefeature__offer" data-sly-list="${cruise.cruiseModel.exclusiveOffers}" data-sly-test.isEo="${cruise.cruiseModel.exclusiveOffers}">
+                    <div class="voyagefeature__offer" data-sly-list="${cruise.exclusiveOffers}"
+                        data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
                         <a data-sly-test="${item.lightboxReference}"
                            href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
                            data-toggle="modal"

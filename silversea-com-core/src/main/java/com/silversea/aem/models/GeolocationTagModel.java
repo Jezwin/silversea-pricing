@@ -20,6 +20,11 @@ public class GeolocationTagModel {
     }
 
     public String getCurrency() {
+        // TODO issues with imported data
+        if (currency.equals("Euro")) {
+            return "EUR";
+        }
+
         return currency;
     }
 

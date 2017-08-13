@@ -4,7 +4,6 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.GeolocationTagService;
@@ -14,10 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,9 +49,27 @@ public class CruiseUse extends WCMUsePojo {
 
     private List<FeatureModel> enrichmentsFeatures = new ArrayList<>();
 
+    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+
     @Override
     public void activate() throws Exception {
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+
+        // init geolocations informations
+        String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
+        String currency = WcmConstants.DEFAULT_CURRENCY;
+
+        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+
+        if (geolocationTagService != null) {
+            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(
+                    getRequest());
+
+            if (geolocationTagModel != null) {
+                geomarket = geolocationTagModel.getMarket();
+                currency = geolocationTagModel.getCurrency();
+            }
+        }
 
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -124,48 +138,35 @@ public class CruiseUse extends WCMUsePojo {
         }
 
         // init prices based on geolocation
-        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        for (PriceModel priceModel : cruiseModel.getPrices()) {
+            if (priceModel.getGeomarket() != null
+                    && priceModel.getGeomarket().equals(geomarket.toLowerCase())
+                    && priceModel.getCurrency().equals(currency)) {
+                // Adding price to suites/prices mapping
+                boolean added = false;
 
-        if (geolocationTagService != null) {
-            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(getRequest());
+                for (SuitePrice price : prices) {
+                    if (price.getSuite().equals(priceModel.getSuite())) {
+                        price.add(priceModel);
 
-            String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
-            String currency = WcmConstants.DEFAULT_CURRENCY;
-            if (geolocationTagModel != null) {
-                geomarket = geolocationTagModel.getMarket();
-                currency = geolocationTagModel.getCurrency();
-            }
-
-            for (PriceModel priceModel : cruiseModel.getPrices()) {
-                if (priceModel.getGeomarket() != null
-                        && priceModel.getGeomarket().equals(geomarket.toLowerCase())
-                        && priceModel.getCurrency().equals(currency)) {
-                    // Adding price to suites/prices mapping
-                    boolean added = false;
-
-                    for (SuitePrice price : prices) {
-                        if (price.getSuite().equals(priceModel.getSuite())) {
-                            price.add(priceModel);
-
-                            added = true;
-                        }
+                        added = true;
                     }
+                }
 
-                    if (!added) {
-                        prices.add(new SuitePrice(priceModel.getSuite(), priceModel));
-                    }
+                if (!added) {
+                    prices.add(new SuitePrice(priceModel.getSuite(), priceModel));
+                }
 
-                    // Init lowest price
-                    if (lowestPrice == null) {
-                        lowestPrice = priceModel;
-                    } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
-                        lowestPrice = priceModel;
-                    }
+                // Init lowest price
+                if (lowestPrice == null) {
+                    lowestPrice = priceModel;
+                } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
+                    lowestPrice = priceModel;
+                }
 
-                    // Init wait list
-                    if (!priceModel.isWaitList()) {
-                        isWaitList = false;
-                    }
+                // Init wait list
+                if (!priceModel.isWaitList()) {
+                    isWaitList = false;
                 }
             }
         }
@@ -174,6 +175,14 @@ public class CruiseUse extends WCMUsePojo {
         for (FeatureModel feature : cruiseModel.getFeatures()) {
             if (!feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)) {
                 enrichmentsFeatures.add(feature);
+            }
+        }
+
+        // init exclusive offers based on geolocation
+        for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
+            if (exclusiveOffer.getGeomarkets() != null
+                    && exclusiveOffer.getGeomarkets().contains(geomarket.toLowerCase())) {
+                exclusiveOffers.add(exclusiveOffer);
             }
         }
     }
@@ -331,16 +340,55 @@ public class CruiseUse extends WCMUsePojo {
         return prices;
     }
 
+    /**
+     * @return the lowest price for this cruise
+     */
     public PriceModel getLowestPrice() {
         return lowestPrice;
     }
 
+    /**
+     * @return true is the cruise is on wait list
+     */
     public boolean isWaitList() {
         return isWaitList;
     }
 
+    /**
+     * @return get the enrichments features (without venitian society)
+     */
     public List<FeatureModel> getEnrichmentsFeatures() {
         return enrichmentsFeatures;
+    }
+
+    /**
+     * @return exclusive offers of this cruise
+     */
+    public List<ExclusiveOfferModel> getExclusiveOffers() {
+        return exclusiveOffers;
+    }
+
+    /**
+     * @return cruise fare additions of all exclusive offers of this cruise
+     */
+    public List<String> getExclusiveOffersCruiseFareAdditions() {
+        final List<String> cruiseFareAdditions = new ArrayList<>();
+
+        for (final ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
+            cruiseFareAdditions.addAll(exclusiveOffer.getCruiseFareAdditions());
+        }
+
+        return cruiseFareAdditions;
+    }
+
+    public String getMapOverHead() {
+        for (ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
+            if (exclusiveOffer.getMapOverHead() != null) {
+                return exclusiveOffer.getMapOverHead();
+            }
+        }
+
+        return null;
     }
 
     /**

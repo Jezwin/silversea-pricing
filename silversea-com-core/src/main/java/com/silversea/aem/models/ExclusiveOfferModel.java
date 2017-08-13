@@ -1,16 +1,19 @@
 package com.silversea.aem.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.silversea.aem.components.beans.GeoLocation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +23,6 @@ import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.CruiseFareAddition;
 import com.silversea.aem.components.beans.Destination;
 import com.silversea.aem.technical.json.JsonMapper;
 
@@ -29,42 +31,93 @@ public class ExclusiveOfferModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOfferModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/cq:tags") @Optional
+    private String[] tagIds;
+
+    private List<String> geomarkets = new ArrayList<>();
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:title")
     private String title;
 
-    private String mapOverHead;
-
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:description") @Optional
     private String description;
 
-    private Boolean availableForCountry;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
+    private String longDescription;
 
-    private List<CruiseFareAddition> cruiseFareAdditions;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
+    private String[] cruiseFareAdditionsJson;
 
+    private List<String> cruiseFareAdditions = new ArrayList<>();
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/mapOverhead") @Optional
+    private String mapOverHead;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/lightboxReference") @Optional
     private String lightboxReference;
 
     @PostConstruct
     private void init() {
-        try {
-            mapOverHead = page.getProperties().get("mapOverhead", String.class);
-            title = page.getProperties().get(JcrConstants.JCR_TITLE, String.class);
-            String[] fareAdditons = page.getProperties().get("cruiseFareAdditions", String[].class);
-            cruiseFareAdditions = initFareAdditions(fareAdditons);
-            availableForCountry = false;
-            lightboxReference = page.getProperties().get("lightboxReference", String.class);
+        // init geotagging
+        if (tagIds != null) {
+            for (String tagId : tagIds) {
+                if (tagId.startsWith("geotagging:")) {
+                    geomarkets.add(tagId.replace("geotagging:", ""));
+                }
+            }
+        }
 
-        } catch (RuntimeException e) {
-            LOGGER.error("Error while initializing model {}", e);
+        // init cruise fare additions
+        for (final String cruiseFareAdditionJson : cruiseFareAdditionsJson) {
+            try {
+                final JSONObject jsonObject = new JSONObject(cruiseFareAdditionJson);
+
+                final String addition = jsonObject.optString("addition");
+                if (StringUtils.isNotEmpty(addition)) {
+                    cruiseFareAdditions.add(addition);
+                }
+            } catch (JSONException ignored) {}
         }
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public List<String> getGeomarkets() {
+        return geomarkets;
+    }
+
+    public List<String> getCruiseFareAdditions() {
+        return cruiseFareAdditions;
+    }
+
+    public String getMapOverHead() {
+        return mapOverHead;
+    }
+
+    public String getLightboxReference() {
+        return lightboxReference;
+    }
+
+
+
+
+
+    // ---------------- TODO -------------- //
+
     public void initByGeoLocation(GeoLocation geolocation) {
-        String destination = page.getParent().getPath();
-        if (isValid(geolocation.getGeoMarketCode()))
-            availableForCountry = true;
-        initDescription(geolocation.getCountry(), destination);
     }
 
     public boolean isValid(String geoMarketCode) {
@@ -72,7 +125,6 @@ public class ExclusiveOfferModel {
     }
 
     public void initDescription(String country, String destination) {
-
         if (StringUtils.isEmpty(getDestinationText(destination))) {
             Page variation = getVariationByCountry(page, country);
             if (variation != null) {
@@ -81,7 +133,7 @@ public class ExclusiveOfferModel {
                 mapOverHead = properties.getInherited("mapOverhead", String.class);
                 description = properties.getInherited("longDescription", String.class);
                 String[] fareAdditons = properties.getInherited("cruiseFareAdditions", String[].class);
-                cruiseFareAdditions = initFareAdditions(fareAdditons);
+                //cruiseFareAdditions = initFareAdditions(fareAdditons);
                 lightboxReference = properties.getInherited("lightboxReference", String.class);
             } else {
                 description = page.getProperties().get("longDescription", String.class);
@@ -130,42 +182,5 @@ public class ExclusiveOfferModel {
             }
         }
         return exist;
-    }
-
-    private List<CruiseFareAddition> initFareAdditions(String[] fareAdditions) {
-
-        List<CruiseFareAddition> cruiseFareAdditions = new ArrayList<CruiseFareAddition>();
-        if (fareAdditions != null) {
-            Arrays.asList(fareAdditions).forEach(item -> {
-                CruiseFareAddition cruiseFareAddition = JsonMapper.getDomainObject(item, CruiseFareAddition.class);
-                cruiseFareAdditions.add(cruiseFareAddition);
-            });
-        }
-
-        return cruiseFareAdditions;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getMapOverHead() {
-        return mapOverHead;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<CruiseFareAddition> getCruiseFareAdditions() {
-        return cruiseFareAdditions;
-    }
-
-    public Boolean getAvailableForCountry() {
-        return availableForCountry;
-    }
-    
-    public String getLightboxReference() {
-        return lightboxReference;
     }
 }
