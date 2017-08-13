@@ -1,6 +1,8 @@
 <div class="cruise__header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
     <h1 class="cruise__header__title">
         ${cruise.cruiseModel.departurePortName} ${'to' @ i18n} ${cruise.cruiseModel.arrivalPortName}
+
+        <!-- TODO wrong i18n key used -->
         <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage == 'en'}">
             ${cruise.destinationTitle} ${cruise.cruiseModel.cruiseType.name @ i18n}
         </span>
