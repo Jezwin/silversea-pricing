@@ -6,14 +6,15 @@ import java.util.List;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.page.CruiseUse;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.*;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import com.silversea.aem.models.TagModel;
+import com.silversea.aem.services.GeolocationTagService;
 import org.apache.sling.api.resource.ValueMap;
 
 /**
@@ -36,7 +37,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     private List<Page> cruisesPages = new ArrayList<>();
 
-    private List<CruiseModel> cruises = new ArrayList<>();
+    private List<CruiseItem> cruises = new ArrayList<>();
 
     private String destination;
 
@@ -58,7 +59,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+        final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
         // Get tags to display
         if (tagManager != null) {
@@ -121,7 +122,23 @@ public class FindYourCruiseUse extends WCMUsePojo {
         final Page destinations = getPageManager().getPage("/content/silversea-com/en/destinations");
         collectCruisesPages(destinations);
 
-        // Build the cruises list
+        // init geolocations informations
+        String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
+        String currency = WcmConstants.DEFAULT_CURRENCY;
+
+        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+
+        if (geolocationTagService != null) {
+            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(
+                    getRequest());
+
+            if (geolocationTagModel != null) {
+                geomarket = geolocationTagModel.getMarket();
+                currency = geolocationTagModel.getCurrency();
+            }
+        }
+
+        // build the cruises list
         int pageSize = PAGE_SIZE; // TODO replace by configuration
 
         int i = 0;
@@ -130,7 +147,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 final CruiseModel cruise = cruisePage.adaptTo(CruiseModel.class);
 
                 if (cruise != null) {
-                    cruises.add(cruise);
+                    cruises.add(new CruiseItem(cruise, geomarket, currency));
                 }
             }
 
@@ -163,7 +180,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
     /**
      * @return the list of cruises
      */
-    public List<CruiseModel> getCruises() {
+    public List<CruiseItem> getCruises() {
         return cruises;
     }
 
@@ -195,6 +212,10 @@ public class FindYourCruiseUse extends WCMUsePojo {
         return isLastPage;
     }
 
+    /**
+     * Recursively collect cruise pages
+     * @param rootPage the root page from where to collect cruises
+     */
     private void collectCruisesPages(final Page rootPage) {
         if (rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
             cruisesPages.add(rootPage);
@@ -204,6 +225,67 @@ public class FindYourCruiseUse extends WCMUsePojo {
             while (children.hasNext()) {
                 collectCruisesPages(children.next());
             }
+        }
+    }
+
+    /**
+     * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
+     */
+    public class CruiseItem {
+
+        private CruiseModel cruiseModel;
+
+        private PriceModel lowestPrice;
+
+        private boolean isWaitList;
+
+        private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+
+        public CruiseItem(final CruiseModel cruiseModel, final String market, final String currency) {
+            this.cruiseModel = cruiseModel;
+
+            // init lowest price and waitlist based on geolocation
+            for (PriceModel priceModel : cruiseModel.getPrices()) {
+                if (priceModel.getGeomarket() != null
+                        && priceModel.getGeomarket().equals(market.toLowerCase())
+                        && priceModel.getCurrency().equals(currency)) {
+                    // Init lowest price
+                    if (lowestPrice == null) {
+                        lowestPrice = priceModel;
+                    } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
+                        lowestPrice = priceModel;
+                    }
+
+                    // Init wait list
+                    if (!priceModel.isWaitList()) {
+                        isWaitList = false;
+                    }
+                }
+            }
+
+            // init exclusive offers based on geolocation
+            for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
+                if (exclusiveOffer.getGeomarkets() != null
+                        && exclusiveOffer.getGeomarkets().contains(market.toLowerCase())) {
+                    exclusiveOffers.add(exclusiveOffer);
+                }
+            }
+        }
+
+        public CruiseModel getCruiseModel() {
+            return cruiseModel;
+        }
+
+        public PriceModel getLowestPrice() {
+            return lowestPrice;
+        }
+
+        public boolean isWaitList() {
+            return isWaitList;
+        }
+
+        public List<ExclusiveOfferModel> getExclusiveOffers() {
+            return exclusiveOffers;
         }
     }
 }
