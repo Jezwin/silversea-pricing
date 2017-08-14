@@ -41,6 +41,7 @@
                     ${description.textTruncate @ context='html'}
                 </div>
                 <p class="c-cruise-itinerary-list__description__button" data-sly-test="${(excursions && excursions.size > 0) || (landPrograms && landPrograms.size > 0)}">
+                    <!-- TODO check cruise type for excursions ${cruise.cruiseModel.cruiseType.name == 'silversea-cruise'} -->
                     <a data-sly-test="${excursions && excursions.size > 0}"
                        href="#"
                        class="c-btn c-btn--white"
