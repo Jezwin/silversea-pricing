@@ -57,6 +57,8 @@ public class CruiseModel extends AbstractModel {
 
     private ShipModel ship;
 
+    private DestinationModel destination;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseCode") @Optional
     private String cruiseCode;
 
@@ -104,6 +106,9 @@ public class CruiseModel extends AbstractModel {
         if (shipPage != null) {
             ship = shipPage.adaptTo(ShipModel.class);
         }
+
+        // init destination
+        destination = page.getParent().adaptTo(DestinationModel.class);
 
         // init cruise fare additions
         if (cruiseFareAdditions != null) {
@@ -158,46 +163,79 @@ public class CruiseModel extends AbstractModel {
         }
     }
 
+    /**
+     * @return cruise title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return cruise description
+     */
     public String getDescription() {
-        return description;
+        return description != null ? description : importedDescription;
     }
 
+    /**
+     * @return cruise imported description
+     */
     public String getImportedDescription() {
         return importedDescription;
     }
 
+    /**
+     * @return start date of the cruise
+     */
     public Calendar getStartDate() {
         return startDate;
     }
 
+    /**
+     * @return end date of  the cruise
+     */
     public Calendar getEndDate() {
         return endDate;
     }
 
+    /**
+     * @return duration of the cruise (in days)
+     */
     public String getDuration() {
         return duration;
     }
 
+    /**
+     * @return the cruise code
+     */
     public String getCruiseCode() {
         return cruiseCode;
     }
 
+    /**
+     * @return DAM path of the cruise itinerary image
+     */
     public String getItinerary() {
         return itinerary;
     }
 
+    /**
+     * @return asset selection reference attached to the cruise
+     */
     public String getAssetSelectionReference() {
         return assetSelectionReference;
     }
 
+    /**
+     * @return key people attached to the cruise
+     */
     public String[] getKeyPeople() {
         return keyPeople;
     }
 
+    /**
+     * @return list of itinerary items
+     */
     public List<ItineraryModel> getItineraries() {
         return itineraries;
     }
@@ -235,30 +273,51 @@ public class CruiseModel extends AbstractModel {
         return compactedItineraries;
     }
 
+    /**
+     * @return exclusive offers attached to the cruise
+     */
     public List<ExclusiveOfferModel> getExclusiveOffers() {
         return exclusiveOffers;
     }
 
+    /**
+     * @return the cruise type (cruise or expedition)
+     */
     public Tag getCruiseType() {
         return cruiseType;
     }
 
+    /**
+     * @return the ship hosting this cruise
+     */
     public ShipModel getShip() {
         return ship;
     }
 
+    /**
+     * @return the cruise thumbnail
+     */
     public String getThumbnail() {
         return thumbnail;
     }
 
+    /**
+     * @return cruise page
+     */
     public Page getPage() {
         return page;
     }
 
-    public Page getDestination() {
-        return page.getParent();
+    /**
+     * @return destination page
+     */
+    public DestinationModel getDestination() {
+        return destination;
     }
 
+    /**
+     * @return departure port name
+     */
     public String getDeparturePortName() {
         if (itineraries.size() > 0) {
             ItineraryModel itinerary = itineraries.get(0);
@@ -268,6 +327,9 @@ public class CruiseModel extends AbstractModel {
         return null;
     }
 
+    /**
+     * @return arrival port name
+     */
     public String getArrivalPortName() {
         if (itineraries.size() > 0) {
             ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
@@ -277,14 +339,23 @@ public class CruiseModel extends AbstractModel {
         return null;
     }
 
+    /**
+     * @return prices of each suite variation for this cruise
+     */
     public List<PriceModel> getPrices() {
         return prices;
     }
 
+    /**
+     * @return features attached to this cruise
+     */
     public List<FeatureModel> getFeatures() {
         return features;
     }
 
+    /**
+     * @return cruise fare additions
+     */
     public List<String> getCruiseFareAdditions() {
         return splitCruiseFareAdditions;
     }
@@ -308,20 +379,11 @@ public class CruiseModel extends AbstractModel {
 
     // ---------------- TODO -------------- //
 
-    private String destinationFootNote;
-
     private PriceData lowestPrice;
 
     private List<SuiteModel> suites;
 
-    private List<CruiseFareAddition> exclusiveFareAdditions = new ArrayList<>();
-
     private ItinerariesData itinerariesData;
-
-    @Deprecated
-    public String getDestinationTitle() {
-        return getDestination().getTitle();
-    }
 
 
     public void initByGeoLocation(GeoLocation geolocation) {

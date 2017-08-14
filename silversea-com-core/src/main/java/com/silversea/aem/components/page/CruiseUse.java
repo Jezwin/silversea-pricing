@@ -197,31 +197,6 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     /**
-     * TODO create a destination model
-     * @return the destination title
-     */
-    public String getDestinationTitle() {
-        return getCurrentPage().getParent().getTitle();
-    }
-
-    /**
-     * TODO create a destination model
-     * @return the destination footnotes
-     */
-    public String getDestinationFootNotes() {
-        return getCurrentPage().getParent().getProperties().get("footnote", String.class);
-    }
-
-    /**
-     * TODO move to cruise model
-     *
-     * @return the cruise description
-     */
-    public String getDescription() {
-        return StringUtils.isEmpty(cruiseModel.getDescription()) ? cruiseModel.getImportedDescription() : cruiseModel.getDescription();
-    }
-
-    /**
      * @return true if at least on itinerary have an excursion, land program or hotels
      */
     public boolean getItinerariesHasElements() {

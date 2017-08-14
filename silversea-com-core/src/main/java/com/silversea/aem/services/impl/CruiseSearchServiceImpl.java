@@ -505,7 +505,7 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
         cruise.setShip(cruiseModel.getShip().getTitle());
         cruise.setStartDate(startDate);
         cruise.setDuration(cruiseModel.getDuration());
-        cruise.setDestination(cruiseModel.getDestinationTitle());
+        //cruise.setDestination(cruiseModel.getDestinationTitle());
         //cruise.setFeatures(cruiseModel.getFeatures());
         cruise.setCruiseCode(cruiseModel.getCruiseCode());
         cruise.setLowestPrice(cruiseModel.getLowestPrice());
