@@ -232,7 +232,7 @@ public class DataLayerUse extends WCMUsePojo {
             // TODO review
             //voyageDepartureHarbor = cruiseModel.getDeparturePortName();
             //voyageArrivalHarbor = cruiseModel.getArrivalPortName();
-            voyageType = cruiseModel.getCruiseType().getName();
+            voyageType = cruiseModel.getCruiseType();
 
             shipName = StringUtils
                     .substringAfterLast(pageProperties.get("shipReference", String.class), "/");

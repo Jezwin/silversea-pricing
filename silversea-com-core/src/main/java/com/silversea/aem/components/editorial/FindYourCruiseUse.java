@@ -1,31 +1,20 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import com.day.cq.tagging.Tag;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.page.CruiseUse;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.models.*;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
+import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.models.*;
+import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GeolocationTagService;
 import org.apache.sling.api.resource.ValueMap;
 
+import java.util.*;
+
 /**
- * selectors :
- * destination_all
- * date_all
- * duration_all
- * ship_all
- * cruisetype_all
- * port_all
- * page_2
+ * selectors : destination_all date_all duration_all ship_all cruisetype_all port_all page_2
  */
 public class FindYourCruiseUse extends WCMUsePojo {
 
@@ -35,9 +24,17 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     private String type = "v2";
 
-    private List<Page> cruisesPages = new ArrayList<>();
+    private List<CruiseModel> allCruises = new ArrayList<>();
 
     private List<CruiseItem> cruises = new ArrayList<>();
+
+    private List<DestinationModel> destinations = new ArrayList<>();
+
+    private List<ShipModel> ships = new ArrayList<>();
+
+    private List<PortModel> ports = new ArrayList<>();
+
+    private Set<String> durations = new TreeSet<>();
 
     private String destination;
 
@@ -83,12 +80,14 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
             if (splitSelector.length == 2) {
                 switch (splitSelector[0]) {
+                    // TODO read configuration + lang
                     case "destination":
                         destination = splitSelector[1];
                         break;
                     case "date":
                         break;
                     case "duration":
+                        duration = splitSelector[1];
                         break;
                     case "ship":
                         ship = splitSelector[1];
@@ -102,7 +101,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
                     case "page":
                         try {
                             activePage = Integer.parseInt(splitSelector[1]);
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         break;
                 }
             }
@@ -118,15 +118,12 @@ public class FindYourCruiseUse extends WCMUsePojo {
             }
         }
 
-        // Find cruises
-        final Page destinations = getPageManager().getPage("/content/silversea-com/en/destinations");
-        collectCruisesPages(destinations);
-
         // init geolocations informations
         String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
         String currency = WcmConstants.DEFAULT_CURRENCY;
 
-        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
+                GeolocationTagService.class);
 
         if (geolocationTagService != null) {
             final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(
@@ -138,24 +135,41 @@ public class FindYourCruiseUse extends WCMUsePojo {
             }
         }
 
-        // build the cruises list
+        // get cruises from cache
+        final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
+        if (cruisesCacheService != null) {
+            allCruises = cruisesCacheService.getCruises("en");
+            destinations = cruisesCacheService.getDestinations("en");
+            ships = cruisesCacheService.getShips("en");
+            ports = cruisesCacheService.getPorts("en");
+            durations = cruisesCacheService.getDurations("en");
+        }
+
+        // init list of filtered cruises
+        final List<CruiseModel> filteredCruises = new ArrayList<>();
+        for (final CruiseModel cruise : allCruises) {
+            // TODO duration
+            // TODO port
+            if ((destination == null || cruise.getDestination().getName().equals(destination))
+                    && (ship == null || cruise.getShip().getName().equals(ship))) {
+                filteredCruises.add(cruise);
+            }
+        }
+
+        // build the cruises list for the current page
         int pageSize = PAGE_SIZE; // TODO replace by configuration
 
         int i = 0;
-        for (final Page cruisePage : cruisesPages) {
-            if (i > (activePage - 1) * pageSize) {
-                final CruiseModel cruise = cruisePage.adaptTo(CruiseModel.class);
+        for (final CruiseModel cruise : filteredCruises) {
+            if (i >= (activePage - 1) * pageSize) {
+                cruises.add(new CruiseItem(cruise, geomarket, currency));
+            }
 
-                if (cruise != null) {
-                    cruises.add(new CruiseItem(cruise, geomarket, currency));
-                }
+            if (i >= activePage * pageSize) {
+                break;
             }
 
             i++;
-
-            if (i == activePage * pageSize) {
-                break;
-            }
         }
 
         // Setting convenient booleans for building pagination
@@ -188,7 +202,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
      * @return the number of pages
      */
     public int getPagesNumber() {
-        return (int) Math.ceil((float)cruisesPages.size() / (float)PAGE_SIZE);
+        return (int) Math.ceil((float) allCruises.size() / (float) PAGE_SIZE);
     }
 
     /**
@@ -213,19 +227,25 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
-     * Recursively collect cruise pages
-     * @param rootPage the root page from where to collect cruises
+     * @return destinations available for the set of results
      */
-    private void collectCruisesPages(final Page rootPage) {
-        if (rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
-            cruisesPages.add(rootPage);
-        } else {
-            final Iterator<Page> children = rootPage.listChildren();
+    public List<DestinationModel> getDestinations() {
+        return destinations;
+    }
 
-            while (children.hasNext()) {
-                collectCruisesPages(children.next());
-            }
-        }
+    /**
+     * @return ships available for the set of results
+     */
+    public List<ShipModel> getShips() {
+        return ships;
+    }
+
+    public List<PortModel> getPorts() {
+        return ports;
+    }
+
+    public Set<String> getDurations() {
+        return durations;
     }
 
     /**

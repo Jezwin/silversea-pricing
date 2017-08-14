@@ -81,7 +81,7 @@ public class CruiseModel extends AbstractModel {
 
     private List<ItineraryModel> compactedItineraries = null;
 
-    private Tag cruiseType;
+    private String cruiseType;
 
     private List<PriceModel> prices = new ArrayList<>();
 
@@ -126,7 +126,7 @@ public class CruiseModel extends AbstractModel {
 
             for (final Tag tag : tags) {
                 if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
-                    cruiseType = tag;
+                    cruiseType = tag.getName();
                 } else if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
                     final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
 
@@ -137,7 +137,7 @@ public class CruiseModel extends AbstractModel {
             }
 
             if (cruiseType == null) {
-                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE);
+                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
             }
         }
 
@@ -283,7 +283,7 @@ public class CruiseModel extends AbstractModel {
     /**
      * @return the cruise type (cruise or expedition)
      */
-    public Tag getCruiseType() {
+    public String getCruiseType() {
         return cruiseType;
     }
 

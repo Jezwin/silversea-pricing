@@ -15,6 +15,8 @@ public class FeatureModel {
     @Inject @Self
     private Tag tag;
 
+    private String title;
+
     private String featureId;
 
     private String icon;
@@ -31,6 +33,7 @@ public class FeatureModel {
         if (resource != null) {
             final ValueMap properties = resource.getValueMap();
 
+            title = properties.get("jcr:title", String.class);
             featureId = properties.get("featureId", String.class);
             icon = properties.get("icon", String.class);
             featureCode = properties.get("featureCode", String.class);
@@ -39,7 +42,7 @@ public class FeatureModel {
     }
 
     public String getTitle() {
-        return tag.getTitle();
+        return title;
     }
 
     public String getFeatureId() {

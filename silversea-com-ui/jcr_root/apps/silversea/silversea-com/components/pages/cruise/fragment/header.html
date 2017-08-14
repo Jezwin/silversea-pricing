@@ -4,10 +4,10 @@
 
         <!-- TODO wrong i18n key used -->
         <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage == 'en'}">
-            ${cruise.cruiseModel.destination.title} ${cruise.cruiseModel.cruiseType.name @ i18n}
+            ${cruise.cruiseModel.destination.title} ${cruise.cruiseModel.cruiseType @ i18n}
         </span>
         <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage != 'en'}">
-            ${cruise.cruiseModel.cruiseType.name @ i18n} ${cruise.cruiseModel.destination.title}
+            ${cruise.cruiseModel.cruiseType @ i18n} ${cruise.cruiseModel.destination.title}
         </span>
     </h1>
     <div class="cruise__header__desc">
@@ -25,7 +25,7 @@
             <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
         </div>
         <div class="cruise__header__metainfo">
-            <span>${cruise.cruiseModel.cruiseType.name @ i18n}</span>
+            <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
             <span>${cruise.cruiseModel.ship.title}</span>
             <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
             <ul date-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">

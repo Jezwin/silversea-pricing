@@ -43,8 +43,14 @@ public class DestinationModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/customHtml") @Optional
     private String customHtml;
 
+    private String path;
+
+    private String name;
+
     @PostConstruct
     private void init() {
+        path = page.getPath();
+        name = page.getName();
     }
 
     public String getTitle() {
@@ -81,5 +87,32 @@ public class DestinationModel {
 
     public String getCustomHtml() {
         return customHtml;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof DestinationModel)) {
+            return false;
+        }
+
+        final DestinationModel objDestinationModel = (DestinationModel)obj;
+
+        return objDestinationModel.getPath().equals(getPath());
     }
 }

@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,8 +17,6 @@ import com.day.cq.wcm.api.Page;
 
 @Model(adaptables = Page.class)
 public class ShipModel {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(ShipModel.class);
 
     @Inject @Self
     private Page page;
@@ -63,13 +62,13 @@ public class ShipModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/lengthM") @Optional
     private String lengthM;
-    
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/width") @Optional
     private String width;
-    
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/speed") @Optional
     private String speed;
-    
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/registry") @Optional
     private String registry;
 
@@ -84,6 +83,16 @@ public class ShipModel {
 
     @Inject @Named("suites")
     private List<SuiteModel> suites;
+
+    private String path;
+
+    private String name;
+
+    @PostConstruct
+    private void init() {
+        path = page.getPath();
+        name = page.getName();
+    }
 
     public Page getPage() {
         return page;
@@ -129,10 +138,6 @@ public class ShipModel {
         return suites;
     }
 
-    public static Logger getLogger() {
-        return LOGGER;
-    }
-
     public String getGuestsCapacity() {
         return guestsCapacity;
     }
@@ -175,5 +180,32 @@ public class ShipModel {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ShipModel)) {
+            return false;
+        }
+
+        final ShipModel objShipModel = (ShipModel)obj;
+
+        return objShipModel.getPath().equals(getPath());
     }
 }

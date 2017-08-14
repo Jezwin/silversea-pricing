@@ -1,5 +1,5 @@
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType.name == 'silversea-expedition' ? 'expedition' : ''}"
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}"
     data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
     <div class="row">
         <div class="col-md-12">
@@ -16,10 +16,10 @@
                     <li class="c-tab__link c-tab__link--dark">
                         <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
                     </li>
-                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-cruise' && cruise.excursionsNumber > 0}">
+                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
                         <a href="#excursion"><span>${'excursions' @i18n}</span></a>
                     </li>
-                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
+                    <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
                         <a href="#highlight" data-sly-test.tabname="${properties.reference && properties.voyageHighlights ? 'voyage-highlights-expedition' : 'voyage-highlights'}">
                             <span data-sly-test.tabname="${!properties.voyageHighlights ? 'expedition-team' : tabname}">${tabname @i18n}</span>
                         </a>
@@ -52,7 +52,7 @@
                         <!--/* Suite and fares tab */-->
                         <sly data-sly-include="fragment/suitetab/suitelist.html" />
                     </div>
-                    <div class="c-tab__content" id="excursion" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-cruise' && cruise.excursionsNumber > 0}">
+                    <div class="c-tab__content" id="excursion" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
                         <!--/* Excursion tab */-->
                         <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
                     </div>
@@ -67,7 +67,7 @@
                         <!--/* Land and hotel tab */-->
                         <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
                     </div>
-                    <div class="c-tab__content" id="highlight" data-sly-test="${cruise.cruiseModel.cruiseType.name == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
+                    <div class="c-tab__content" id="highlight" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
                         <!--/* Highlight tab */-->
                         <sly data-sly-test="${properties.voyageHighlights}" data-sly-include="fragment/highlighttab/hightlight.html" />
                         <sly data-sly-test="${properties.reference}" data-sly-include="fragment/highlighttab/keypeople.html" />

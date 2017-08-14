@@ -12,10 +12,10 @@
         <div class="c-fyc__result__content">
             <div class="c-fyc__result__content__inner">
                 <h2 class="c-fyc__result__content__title">${cruiseItem.cruiseModel.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruiseItem.cruiseModel.arrivalPortName}</h2>
-                <ul class="c-fyc__result__content__description ${cruiseItem.cruiseModel.cruiseType.name}">
+                <ul class="c-fyc__result__content__description ${cruiseItem.cruiseModel.cruiseType}">
                     <li class="cruise-ship hidden-xs"><strong>${cruiseItem.cruiseModel.ship.title}</strong></li>
                     <li class="cruise-destination">${cruiseItem.cruiseModel.destination.title}</li>
-                    <li class="cruise-type">${cruiseItem.cruiseModel.cruiseType.title}</li>
+                    <li class="cruise-type">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
                     <li class="cruise-code hidden-xs"><strong>${cruiseItem.cruiseModel.cruiseCode}</strong></li>
                     <li class="cruise-ship hidden-xs">${cruiseItem.cruiseModel.ship.title}</li>
                 </ul>

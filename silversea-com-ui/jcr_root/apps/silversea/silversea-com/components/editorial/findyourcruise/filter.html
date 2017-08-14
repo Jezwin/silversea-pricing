@@ -22,7 +22,8 @@
             <div class="single-filter">
                 <select class="chosen destinations-filter" name="destination">
                     <option value="all">${'destination' @ i18n}</option>
-                    <!--/* <option data-sly-repeat="${filterUse.destinations}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
+                    <option data-sly-repeat="${fyc.destinations}" value="${item.name}"
+                        data-value="${item.name}">${item.title}</option>
                 </select>
             </div>
            <div class="single-filter">
@@ -34,13 +35,14 @@
             <div class="single-filter">
                 <select class="chosen durations-filter" name="duration">
                     <option value="all">${'duration' @ i18n}</option>
-                    <!--/* <option data-sly-repeat="${filterUse.durations}" value="${item.path}" data-value="int-int">${item.title}</option> */-->
+                    <option data-sly-repeat="${fyc.durations}" value="${item}" data-value="${item}">${item}</option>
                 </select>
             </div>
             <div class="single-filter">
                 <select class="chosen ships-filter" name="ship">
                     <option value="all">${'ship' @ i18n}</option>
-                    <!--/* <option data-sly-repeat="${filterUse.ships}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
+                    <option data-sly-repeat="${fyc.ships}" value="${item.name}"
+                        data-value="${item.name}">${item.title}</option>
                 </select>
             </div>
             <div class="single-filter">
@@ -52,7 +54,8 @@
             <div class="single-filter">
                 <select class="chosen chosen-with-search cities-filter" name="port">
                     <option value="all">${'port' @ i18n}</option>
-                    <!--/* <option data-sly-repeat="${filterUse.ports}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
+                    <option data-sly-repeat="${fyc.ports}" value="${item.name}" data-value="${item.name}">${item
+                        .apiTitle}</option>
                 </select>
             </div>
             <div class="single-filter">
