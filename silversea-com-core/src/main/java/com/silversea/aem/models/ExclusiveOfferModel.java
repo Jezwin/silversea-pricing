@@ -53,6 +53,8 @@ public class ExclusiveOfferModel {
 
     private List<String> cruiseFareAdditions = new ArrayList<>();
 
+    private List<String> footNotes = new ArrayList<>();
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/mapOverhead") @Optional
     private String mapOverHead;
 
@@ -70,7 +72,7 @@ public class ExclusiveOfferModel {
             }
         }
 
-        // init cruise fare additions
+        // init cruise fare additions and footnotes
         for (final String cruiseFareAdditionJson : cruiseFareAdditionsJson) {
             try {
                 final JSONObject jsonObject = new JSONObject(cruiseFareAdditionJson);
@@ -78,6 +80,11 @@ public class ExclusiveOfferModel {
                 final String addition = jsonObject.optString("addition");
                 if (StringUtils.isNotEmpty(addition)) {
                     cruiseFareAdditions.add(addition);
+                }
+
+                final String footNote = jsonObject.optString("note");
+                if (StringUtils.isNotEmpty(footNote)) {
+                    footNotes.add(footNote);
                 }
             } catch (JSONException ignored) {}
         }
@@ -101,6 +108,10 @@ public class ExclusiveOfferModel {
 
     public List<String> getCruiseFareAdditions() {
         return cruiseFareAdditions;
+    }
+
+    public List<String> getFootNotes() {
+        return footNotes;
     }
 
     public String getMapOverHead() {

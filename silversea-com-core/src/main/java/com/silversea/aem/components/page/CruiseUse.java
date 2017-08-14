@@ -197,10 +197,19 @@ public class CruiseUse extends WCMUsePojo {
     }
 
     /**
+     * TODO create a destination model
      * @return the destination title
      */
     public String getDestinationTitle() {
         return getCurrentPage().getParent().getTitle();
+    }
+
+    /**
+     * TODO create a destination model
+     * @return the destination footnotes
+     */
+    public String getDestinationFootNotes() {
+        return getCurrentPage().getParent().getProperties().get("footnote", String.class);
     }
 
     /**

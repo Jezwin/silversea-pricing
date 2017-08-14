@@ -1,9 +1,9 @@
 <div class="c-cruise__footnotes">
     <sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-unwrap />
-    <ul data-sly-list="${cruise.cruiseModel.exclusiveFareAdditions}">
+    <ul data-sly-list="${cruise.exclusiveOffers}">
         <li>
-            <p>${item.notes}</p>
+            <p>${item.footNotes}</p>
         </li>
     </ul>
-    <i>${cruise.cruiseModel.destinationFootNote}</i>
+    <i>${cruise.destinationFootNotes}</i>
 </div>
