@@ -318,8 +318,6 @@ public class CruiseModel extends AbstractModel {
 
     private ItinerariesData itinerariesData;
 
-    private ResourceResolver resourceResolver;
-
     @Deprecated
     public String getDestinationTitle() {
         return getDestination().getTitle();
@@ -327,53 +325,10 @@ public class CruiseModel extends AbstractModel {
 
 
     public void initByGeoLocation(GeoLocation geolocation) {
-        exclusiveOffers = initExclusiveOffersByGeoLocation(geolocation.getGeoMarketCode(), geolocation.getCountry());
-        //splitCruiseFareAdditions = parseText(page, "cruiseFareAdditions");
-        exclusiveFareAdditions = getAllExclusiveFareAdditions();
-        lowestPrice = initLowestPrice(geolocation.getGeoMarketCode(), page);
-        suites = initSuites(page, geolocation.getGeoMarketCode(), pageManager);
-    }
-
-    private List<ExclusiveOfferModel> initExclusiveOffersByGeoLocation(String geoMarketCode, String country) {
-        List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<ExclusiveOfferModel>();
-        String[] exclusiveOfferUrls = page.getProperties().get("exclusiveOffers", String[].class);
-        String destination = page.getParent().getPath();
-        if (exclusiveOfferUrls != null) {
-            Arrays.asList(exclusiveOfferUrls).forEach((item) -> {
-                if (!StringUtils.isEmpty(item)) {
-                    Page page = pageManager.getPage(item);
-                    if (page != null) {
-                        ExclusiveOfferModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferModel.class);
-                        if (exclusiveOfferModel.isValid(geoMarketCode)) {
-                            exclusiveOfferModel.initDescription(country, destination);
-                            exclusiveOffers.add(exclusiveOfferModel);
-                        }
-                    } else {
-                        LOGGER.warn("Exclusive offer reference {} not found", item);
-                    }
-                }
-            });
-        }
-        return exclusiveOffers;
-    }
-
-    private List<CruiseFareAddition> getAllExclusiveFareAdditions() {
-        List<CruiseFareAddition> CruiseFareAddition = new ArrayList<>();
-        /*if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
-            exclusiveOffers.forEach(item -> {
-                CruiseFareAddition.addAll(item.getCruiseFareAdditions());
-            });
-        }*/
-
-        return CruiseFareAddition;
     }
 
     public PriceData getLowestPrice() {
         return lowestPrice;
-    }
-
-    public String getDestinationFootNote() {
-        return destinationFootNote;
     }
 
     public List<SuiteModel> getSuites() {
