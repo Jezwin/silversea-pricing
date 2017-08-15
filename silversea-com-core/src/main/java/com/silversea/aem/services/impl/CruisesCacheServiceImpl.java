@@ -3,7 +3,9 @@ package com.silversea.aem.services.impl;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import org.apache.felix.scr.annotations.Activate;
@@ -17,6 +19,7 @@ import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.YearMonth;
 import java.util.*;
 
 @Service
@@ -38,6 +41,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private Map<String, Set<Integer>> durations = new HashMap<>();
 
+    private Map<String, Set<YearMonth>> departureDates = new HashMap<>();
+
     private int i = 0;
 
     @Activate
@@ -51,30 +56,35 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-            // init language
-            cruises.put("en", new ArrayList<>());
-            destinations.put("en", new ArrayList<>());
-            ships.put("en", new ArrayList<>());
-            ports.put("en", new ArrayList<>());
-            durations.put("en", new TreeSet<>((o1, o2) -> {
-                try {
-                    final Integer o1Int = Integer.valueOf(o1);
-                    final Integer o2Int = Integer.valueOf(o2);
+            final List<String> languages = ImportersUtils.getSiteLocales(pageManager);
 
-                    return o1Int.compareTo(o2Int);
-                } catch (NumberFormatException ignored) {}
+            for (final String lang : languages) {
+                // init language
+                cruises.put(lang, new ArrayList<>());
+                destinations.put(lang, new ArrayList<>());
+                ships.put(lang, new ArrayList<>());
+                ports.put(lang, new ArrayList<>());
+                durations.put(lang, new TreeSet<>((o1, o2) -> {
+                    try {
+                        final Integer o1Int = Integer.valueOf(o1);
+                        final Integer o2Int = Integer.valueOf(o2);
 
-                return 0;
-            }));
+                        return o1Int.compareTo(o2Int);
+                    } catch (NumberFormatException ignored) {
+                    }
 
-            // collect cruises
-            final Page destinationsPage = pageManager.getPage("/content/silversea-com/en/destinations");
-            collectCruisesPages(destinationsPage);
+                    return 0;
+                }));
+                departureDates.put(lang, new TreeSet<>());
 
-            destinations.get("en").sort(Comparator.comparing(DestinationModel::getTitle));
-            ships.get("en").sort(Comparator.comparing(ShipModel::getTitle));
-            ports.get("en").sort(Comparator.comparing(PortModel::getApiTitle));
+                // collect cruises
+                final Page destinationsPage = pageManager.getPage("/content/silversea-com/" + lang + "/destinations");
+                collectCruisesPages(destinationsPage);
 
+                destinations.get(lang).sort(Comparator.comparing(DestinationModel::getTitle));
+                ships.get(lang).sort(Comparator.comparing(ShipModel::getTitle));
+                ports.get(lang).sort(Comparator.comparing(PortModel::getApiTitle));
+            }
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } finally {
@@ -109,6 +119,11 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
         return durations.get(lang);
     }
 
+    @Override
+    public Set<YearMonth> getDepartureDates(String lang) {
+        return departureDates.get(lang);
+    }
+
     /**
      * Recursively collect cruise pages
      *
@@ -116,32 +131,37 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
      */
     private void collectCruisesPages(final Page rootPage) {
         if (rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
+            final String lang = LanguageHelper.getLanguage(rootPage);
+
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
 
             if (cruiseModel != null) {
-                cruises.get("en").add(cruiseModel);
+                cruises.get(lang).add(cruiseModel);
 
                 if (cruiseModel.getDestination() != null
-                        && !destinations.get("en").contains(cruiseModel.getDestination())) {
-                    destinations.get("en").add(cruiseModel.getDestination());
+                        && !destinations.get(lang).contains(cruiseModel.getDestination())) {
+                    destinations.get(lang).add(cruiseModel.getDestination());
                 }
 
-                if (cruiseModel.getShip() != null && !ships.get("en").contains(cruiseModel.getShip())) {
-                    ships.get("en").add(cruiseModel.getShip());
+                if (cruiseModel.getShip() != null && !ships.get(lang).contains(cruiseModel.getShip())) {
+                    ships.get(lang).add(cruiseModel.getShip());
                 }
 
                 for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                    if (itinerary.getPort() != null && !ports.get("en").contains(itinerary.getPort())) {
-                        ports.get("en").add(itinerary.getPort());
+                    if (itinerary.getPort() != null && !ports.get(lang).contains(itinerary.getPort())) {
+                        ports.get(lang).add(itinerary.getPort());
                     }
                 }
 
                 try {
-                    durations.get("en").add(Integer.parseInt(cruiseModel.getDuration()));
+                    durations.get(lang).add(Integer.parseInt(cruiseModel.getDuration()));
                 } catch (NumberFormatException e) {
                     LOGGER.warn("Cannot get int value for duration {} in cruise {}", cruiseModel.getDuration(),
                             cruiseModel.getPage().getPath());
                 }
+
+                departureDates.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
+                        cruiseModel.getStartDate().get(Calendar.MONTH) + 1));
 
                 LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
 

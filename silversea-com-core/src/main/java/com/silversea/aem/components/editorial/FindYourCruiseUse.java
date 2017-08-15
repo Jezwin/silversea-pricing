@@ -6,11 +6,14 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GeolocationTagService;
 import org.apache.sling.api.resource.ValueMap;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 /**
@@ -41,8 +44,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // ports available for all the cruises
     private List<PortModel> ports = new ArrayList<>();
 
-    // durations available for the cruises
-    private Set<Integer> durations = new TreeSet<>();
+    // departure dates available for the cruises
+    private Set<YearMonth> dates = new TreeSet<>();
 
     // destination filter
     private String destinationFilter = FILTER_ALL;
@@ -51,10 +54,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
     private boolean prefilterByDestination;
 
     // date filter
-    private String dateFilter = FILTER_ALL;
-
-    // duration filter
-    private String durationFilter = FILTER_ALL;
+    private YearMonth dateFilter;
 
     private Integer durationFilterMin;
 
@@ -78,6 +78,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+        final String lang = LanguageHelper.getLanguage(getCurrentPage());
 
         // Get tags to display
         if (tagManager != null) {
@@ -105,10 +106,12 @@ public class FindYourCruiseUse extends WCMUsePojo {
                         destinationFilter = splitSelector[1];
                         break;
                     case "date":
+                        try {
+                            dateFilter = YearMonth.parse(splitSelector[1]);
+                        } catch (DateTimeParseException ignored) {}
                         break;
                     case "duration":
-                        durationFilter = splitSelector[1];
-
+                        final String durationFilter = splitSelector[1];
                         final String[] splitDuration = durationFilter.split("-");
 
                         if (splitDuration.length == 2) {
@@ -180,11 +183,11 @@ public class FindYourCruiseUse extends WCMUsePojo {
         // get cruises from cache
         final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (cruisesCacheService != null) {
-            allCruises = cruisesCacheService.getCruises("en");
-            destinations = cruisesCacheService.getDestinations("en");
-            ships = cruisesCacheService.getShips("en");
-            ports = cruisesCacheService.getPorts("en");
-            durations = cruisesCacheService.getDurations("en");
+            allCruises = cruisesCacheService.getCruises(lang);
+            destinations = cruisesCacheService.getDestinations(lang);
+            ships = cruisesCacheService.getShips(lang);
+            ports = cruisesCacheService.getPorts(lang);
+            dates.addAll(cruisesCacheService.getDepartureDates(lang));
         }
 
         // init list of filtered cruises
@@ -223,6 +226,12 @@ public class FindYourCruiseUse extends WCMUsePojo {
             }
 
             if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
+                includeCruise = false;
+            }
+
+            final YearMonth cruiseStartDate = YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
+                    cruise.getStartDate().get(Calendar.MONTH) + 1);
+            if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
                 includeCruise = false;
             }
 
@@ -295,6 +304,10 @@ public class FindYourCruiseUse extends WCMUsePojo {
      */
     public List<PortModel> getPorts() {
         return ports;
+    }
+
+    public Set<YearMonth> getDates() {
+        return dates;
     }
 
     /**
