@@ -36,7 +36,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private Map<String, List<PortModel>> ports = new HashMap<>();
 
-    private Map<String, Set<String>> durations = new HashMap<>();
+    private Map<String, Set<Integer>> durations = new HashMap<>();
 
     private int i = 0;
 
@@ -105,7 +105,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public Set<String> getDurations(String lang) {
+    public Set<Integer> getDurations(String lang) {
         return durations.get(lang);
     }
 
@@ -136,7 +136,12 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                     }
                 }
 
-                durations.get("en").add(cruiseModel.getDuration());
+                try {
+                    durations.get("en").add(Integer.parseInt(cruiseModel.getDuration()));
+                } catch (NumberFormatException e) {
+                    LOGGER.warn("Cannot get int value for duration {} in cruise {}", cruiseModel.getDuration(),
+                            cruiseModel.getPage().getPath());
+                }
 
                 LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
 

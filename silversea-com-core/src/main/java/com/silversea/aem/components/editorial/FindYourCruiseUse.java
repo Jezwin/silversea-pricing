@@ -20,33 +20,54 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     private final static int PAGE_SIZE = 15;
 
+    private final static String FILTER_ALL = "all";
+
     private List<TagModel> featureTags = new ArrayList<>();
 
     private String type = "v2";
 
+    // list of all the cruises available for the lang
     private List<CruiseModel> allCruises = new ArrayList<>();
 
+    // list of the cruises filtered of the current page
     private List<CruiseItem> cruises = new ArrayList<>();
 
+    // destinations available for all the cruises
     private List<DestinationModel> destinations = new ArrayList<>();
 
+    // ships available for all the cruises
     private List<ShipModel> ships = new ArrayList<>();
 
+    // ports available for all the cruises
     private List<PortModel> ports = new ArrayList<>();
 
-    private Set<String> durations = new TreeSet<>();
+    // durations available for the cruises
+    private Set<Integer> durations = new TreeSet<>();
 
-    private String destination;
+    // destination filter
+    private String destinationFilter = FILTER_ALL;
 
-    private String date;
+    // true if find your cruise is prefiltered by destination
+    private boolean prefilterByDestination;
 
-    private String duration;
+    // date filter
+    private String dateFilter = FILTER_ALL;
 
-    private String ship;
+    // duration filter
+    private String durationFilter = FILTER_ALL;
 
-    private String cruiseType;
+    private Integer durationFilterMin;
 
-    private String port;
+    private Integer durationFilterMax;
+
+    // ship filter
+    private String shipFilter = FILTER_ALL;
+
+    // cruise type filter
+    private String cruiseTypeFilter = FILTER_ALL;
+
+    // port filter
+    private String portFilter = FILTER_ALL;
 
     private int activePage = 1;
 
@@ -80,32 +101,53 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
             if (splitSelector.length == 2) {
                 switch (splitSelector[0]) {
-                    // TODO read configuration + lang
                     case "destination":
-                        destination = splitSelector[1];
+                        destinationFilter = splitSelector[1];
                         break;
                     case "date":
                         break;
                     case "duration":
-                        duration = splitSelector[1];
+                        durationFilter = splitSelector[1];
+
+                        final String[] splitDuration = durationFilter.split("-");
+
+                        if (splitDuration.length == 2) {
+                            try {
+                                durationFilterMin = Integer.parseInt(splitDuration[0]);
+                                durationFilterMax = Integer.parseInt(splitDuration[1]);
+                            } catch (NumberFormatException ignored) {}
+                        } else {
+                            try {
+                                durationFilterMin = Integer.parseInt(durationFilter);
+                            } catch (NumberFormatException ignored) {}
+                        }
+
                         break;
                     case "ship":
-                        ship = splitSelector[1];
+                        shipFilter = splitSelector[1];
                         break;
                     case "cruisetype":
-                        cruiseType = splitSelector[1];
+                        cruiseTypeFilter = splitSelector[1];
                         break;
                     case "port":
-                        port = splitSelector[1];
+                        portFilter = splitSelector[1];
                         break;
                     case "page":
                         try {
                             activePage = Integer.parseInt(splitSelector[1]);
-                        } catch (NumberFormatException ignored) {
-                        }
+                        } catch (NumberFormatException ignored) {}
                         break;
                 }
             }
+        }
+
+        // Apply default filtering for specific pages types
+        final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
+        switch (currentPageResourceType) {
+            case WcmConstants.RT_DESTINATION:
+                destinationFilter = getCurrentPage().getName();
+                prefilterByDestination = true;
+                break;
         }
 
         // Get type from configuration
@@ -146,14 +188,50 @@ public class FindYourCruiseUse extends WCMUsePojo {
         }
 
         // init list of filtered cruises
-        final List<CruiseModel> filteredCruises = new ArrayList<>();
+        final Set<CruiseModel> filteredCruises = new HashSet<>();
         for (final CruiseModel cruise : allCruises) {
-            // TODO duration
-            // TODO port
-            if ((destination == null || cruise.getDestination().getName().equals(destination))
-                    && (ship == null || cruise.getShip().getName().equals(ship))) {
-                filteredCruises.add(cruise);
+            boolean includeCruise = true;
+
+            if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
+                includeCruise = false;
             }
+
+            if (!shipFilter.equals(FILTER_ALL) && !cruise.getShip().getName().equals(shipFilter)) {
+                includeCruise = false;
+            }
+
+            try {
+                final int cruiseDuration = Integer.parseInt(cruise.getDuration());
+                if (durationFilterMin != null && durationFilterMax != null
+                        && (cruiseDuration < durationFilterMin || cruiseDuration > durationFilterMax)) {
+                    includeCruise = false;
+                } else if (durationFilterMin != null && durationFilterMax == null
+                        && cruiseDuration < durationFilterMin) {
+                    includeCruise = false;
+                }
+            } catch (NumberFormatException ignored) {}
+
+            if (!portFilter.equals(FILTER_ALL)) {
+                boolean portInItinerary = false;
+                for (final ItineraryModel itinerary : cruise.getItineraries()) {
+                    if (itinerary.getPort() != null && itinerary.getPort().getName().equals(portFilter)) {
+                        portInItinerary = true;
+                        break;
+                    }
+                }
+                includeCruise = includeCruise && portInItinerary;
+            }
+
+            if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
+                includeCruise = false;
+            }
+
+            if (includeCruise) {
+                filteredCruises.add(cruise);
+
+                // TODO extract destinations, ships ... for the filtered cruises
+            }
+
         }
 
         // build the cruises list for the current page
@@ -199,6 +277,34 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
+     * @return destinations available for all cruises for this lang
+     */
+    public List<DestinationModel> getDestinations() {
+        return destinations;
+    }
+
+    /**
+     * @return ships available for all cruises for this lang
+     */
+    public List<ShipModel> getShips() {
+        return ships;
+    }
+
+    /**
+     * @return ports available for all cruises for this lang
+     */
+    public List<PortModel> getPorts() {
+        return ports;
+    }
+
+    /**
+     * @return true if the component is prefiltered by destination (e.g. present in page with resource type destination)
+     */
+    public boolean isPrefilteredByDestination() {
+        return prefilterByDestination;
+    }
+
+    /**
      * @return the number of pages
      */
     public int getPagesNumber() {
@@ -224,28 +330,6 @@ public class FindYourCruiseUse extends WCMUsePojo {
      */
     public boolean isLastPage() {
         return isLastPage;
-    }
-
-    /**
-     * @return destinations available for the set of results
-     */
-    public List<DestinationModel> getDestinations() {
-        return destinations;
-    }
-
-    /**
-     * @return ships available for the set of results
-     */
-    public List<ShipModel> getShips() {
-        return ships;
-    }
-
-    public List<PortModel> getPorts() {
-        return ports;
-    }
-
-    public Set<String> getDurations() {
-        return durations;
     }
 
     /**

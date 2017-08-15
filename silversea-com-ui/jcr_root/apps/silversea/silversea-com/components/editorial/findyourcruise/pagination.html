@@ -1,8 +1,11 @@
 <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
 <nav class="c-fyc-pagination">
     <ul>
-        <li data-sly-repeat="${['first', 'previous', '2', '3', '4', '5', '6', 'next', 'last']}">
-            <a href="#" data-page="${item}" class="${item == 'previous' ? 'previous': ''} ${item == 'next' ? 'next': ''} ${item == '2' ? 'active' : ''}">${item @ i18n}</a>
+        <li data-sly-repeat="${['first', 'previous', '1', '2', '3', '4', '5', '6', 'next', 'last']}">
+            <a href="#" data-page="${item}"
+                class="${item == 'previous' ? 'previous': ''} ${item == 'next' ? 'next': ''} ${item == '1' ? 'active' : ''}">
+                ${item @ i18n}
+            </a>
         </li>
     </ul>
 </nav>

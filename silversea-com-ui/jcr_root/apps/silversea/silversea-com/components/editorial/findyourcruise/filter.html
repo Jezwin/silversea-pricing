@@ -35,7 +35,10 @@
             <div class="single-filter">
                 <select class="chosen durations-filter" name="duration">
                     <option value="all">${'duration' @ i18n}</option>
-                    <option data-sly-repeat="${fyc.durations}" value="${item}" data-value="${item}">${item}</option>
+                    <option value="1-8">1-8 ${'days' @ i18n}</option>
+                    <option value="9-12">9-12 ${'days' @ i18n}</option>
+                    <option value="13-18">13-18 ${'days' @ i18n}</option>
+                    <option value="19">19+ ${'days' @ i18n}</option>
                 </select>
             </div>
             <div class="single-filter">
@@ -48,7 +51,12 @@
             <div class="single-filter">
                 <select class="chosen types-filter" name="cruisetype">
                     <option value="all">${'cruise-type' @ i18n}</option>
-                    <!--/* <option data-sly-repeat="${filterUse.cruiseTypes}" value="${item.path}" data-value="${item.name}">${item.title}</option> */-->
+                    <option value="silversea-cruise" data-value="silversea-cruise">
+                        ${'silversea-cruise' @ i18n}
+                    </option>
+                    <option value="silversea-expedition" data-value="silversea-expedition">
+                        ${'silversea-expedition' @ i18n}
+                    </option>
                 </select>
             </div>
             <div class="single-filter">
