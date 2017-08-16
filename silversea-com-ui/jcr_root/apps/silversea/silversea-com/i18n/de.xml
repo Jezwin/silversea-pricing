@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:language="de"
+    jcr:mixinTypes="[mix:language]"
+    jcr:primaryType="nt:folder">
+    <aboard
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="an Bord"/>
+    <AC
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Adventurer Class"/>
+    <adjust-your-search-filters
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="änderen Sie ihre Suchkriterien"/>
+    <all-departure-dates
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Alle Abreisedaten"/>
+    <all-destinations
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Alle Destinationen"/>
+    <all-ships
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="alle Schiffe"/>
+    <and
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="und"/>
+    <archives
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Archive"/>
+    <arrive
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ankommen"/>
+    <avaible-on
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Erhältlich am"/>
+    <available-on
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="verfügbar an"/>
+    <award-label
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea wird regelmäßig von führenden Verbraucher- und Fachpublikationen gelobt."/>
+    <B1
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda 1"/>
+    <B2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda 2"/>
+    <B3
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda 3"/>
+    <B4
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda 4"/>
+    <B5
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda 5"/>
+    <B6
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda 6"/>
+    <benefits-and-events
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Vorteile und Events"/>
+    <benefits-and-events-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Zusätzlich zu unseren All-inclusive-Preisen werden Sie besondere Aufmerksamkeit und Service genießen, exklusiv für unsere Word-Cruise-2019-Gäste. Eine attraktive Auswahl an Mehrwertleistungen und exklusiven kulturellen Events, die für die Reise Ihres Lebens sorgen wird."/>
+    <benefits-and-events-title
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Eine Auswahl an Mehrwertleistungen"/>
+    <blog
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unser Blog"/>
+    <blog-posts
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Blogartikel"/>
+    <built-date
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Erbauungsdatum"/>
+    <by
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Durch"/>
+    <call-reservations-team-1
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Rufen Sie unser Reservierungsteam an"/>
+    <call-reservations-team-2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="oder kontaktieren Sie Ihren Reiseanbieter"/>
+    <check-phone-format
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte überprüfen Sie das Telefonformat"/>
+    <city
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Stadt"/>
+    <clear-all-filters
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="alle Filter aufheben"/>
+    <click-to-call
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Klicken Sie hier, um anzurufen"/>
+    <close
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Schließen"/>
+    <code
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Code"/>
+    <combo-cruis-overview-subtitle
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weite Decks, Panorama-Lounges, Gourmet-Speiseoptionen und Suite-Unterkünfte sorgen alle für eine komfortable Reise. Zusammen mit dem unvergleichlichen Luxus, der Silversea zur bevorzugten Wahl für die anspruchsvollen Reisenden von Heute gemacht hat."/>
+    <combo-cruis-overview-title
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="WÄHLEN SIE IHRE SUITE UND FORDERN SIE IHR ANGEBOT AN"/>
+    <combocruise-suite-descriptions
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weite Decks, Panorama-Lounges, Gourmet-Speiseoptionen und Suite-Unterkünfte sorgen alle für eine komfortable Reise. Zusammen mit dem unvergleichlichen Luxus, der Silversea zur bevorzugten Wahl für die anspruchsvollen Reisenden von heute gemacht hat."/>
+    <coordinates
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Koordinaten"/>
+    <copyright
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea Cruises Ltd."/>
+    <countries
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Länder"/>
+    <country
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Land"/>
+    <country-code
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ländercode"/>
+    <crew
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Besatzung"/>
+    <crew-capacity
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Besatzungskapazität"/>
+    <cruise-enrichments-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea Kreuzfahrten bieten Ihnen die Möglichkeit, Ihren Leidenschaften zu frönen und Erlebnisse zu genießen, die man auf einer typischen Kreuzfahrt nicht findet"/>
+    <cruise-excursion-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Landausflüge sind die Highlights jeder Kreuzfahrt und ermöglichen eine umfassende Erkundung Ihres Reiseziels. Sie können auch eigene, maßgeschneiderte Pläne mit dem Silver Shore Concierge bis zu zwei Wochen vor Abfahrt vereinbaren."/>
+    <cruise-itinerary
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Programmablauf der Kreuzfahrt"/>
+    <cruise-itinerary-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Das Herzstück jeder Kreuzfahrt sind die Reiseziele, die Sie besuchen - entdecken Sie mehr in der nachfolgenden Bildergalerie."/>
+    <cruise-itinerary-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-link
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Klicken Sie hier, um alle Fotos und Videos anzusehen."/>
+    <cruise-ship-publicarea-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bekannt für kulinarische Exzellenz und innovativen Geist, bieten Silversea Luxus-Kreuzfahrten eine Auswahl an offenen Restaurants Restaurants in der gesamte, sowie mehrere Spezialitäten Veranstaltungsorte an Bord aller Nicht-Expedition Schiffe.&#xa;"/>
+    <cruise-ship-restaurant-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Entdecken Sie unsere zahlreichen Treffpunkte an Bord, wo Sie Zeit mit gleichgesinnten Reisenden und natürlich unseren personalisierten All-inclusive-Service genießen können."/>
+    <cruise-ship-suite-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers.  Wählen Sie Ihre Suite und fordern Sie ein Angebot an - Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, ihre Suite zu wählen, belohnt."/>
+    <cruise-suites-and-fares-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den großräumigsten aller Luxuskreuzfahrten.  Alle beinhalten die Dienste eines Butlers, dank dem höchsten Anteil an Servicepersonal auf See. Fast alle haben eine private Teak-Veranda, so dass Sie nur vor Ihre Tür treten müssen, um die frische Meeresluft einzuatmen. Wählen Sie Ihre Suite aus und fordern Sie ein Angebot an. Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, die gewünschte Suite auszuwählen, belohnt."/>
+    <cruise-type
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Art der Kreuzfahrt"/>
+    <CV
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Classic Veranda"/>
+    <date
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Datum"/>
+    <day
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Tag"/>
+    <days
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Tage"/>
+    <deck-plan-details
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Deckplan und Details"/>
+    <depart
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Abreisen"/>
+    <departure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Abreise"/>
+    <departure-date
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Abreisedatum"/>
+    <description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Beschreibung"/>
+    <destination
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Destination"/>
+    <destination-discover-more
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Entdecken Sie mehr über dieses Reiseziel"/>
+    <destination-view-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Kreuzfahrten für dieses Reiseziel"/>
+    <details-about-your-request
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Informationen bezüglich Ihrer Anfrage"/>
+    <dining
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Speisen"/>
+    <dir
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dir"/>
+    <discover-more
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Mehr entdecken"/>
+    <dr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dr"/>
+    <duration
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dauer"/>
+    <DV
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Midship Veranda"/>
+    <DX
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Deluxe Veranda"/>
+    <EC
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Explorer Class"/>
+    <email-address
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="E-Mail-Adresse"/>
+    <enrichments
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bereicherungen"/>
+    <ES
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Explorer"/>
+    <EX
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Expedition"/>
+    <example
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Beispiel"/>
+    <exclusive-offer-not-available
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dieses exklusive Angebot ist in ihrem Land nicht verfügbar."/>
+    <exclusive-offers
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Exklusive Angebote"/>
+    <excursion-code
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Exkursionscode"/>
+    <excursion-s
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Exkursion(en)"/>
+    <excursions
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Exkursionen"/>
+    <expedition-team
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Expeditionsteam"/>
+    <expedition-team-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Zwischen 11 und 13 qualifizierte Spezialisten, viele davon mit Doktor- oder Professorentitel, sind bei jeder Reise und jedem Landgang mit dabei. Sie halten Vorlesungen, veranstalten Workshops, leiten Zodiac-Fahrten und Naturwanderungen."/>
+    <fares-from
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Tarife von"/>
+    <fares-shown-are-per-guest
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Die angegebenen Preise gelten pro Gast"/>
+    <fax
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Fax"/>
+    <feature-exclusive-offers
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="EXKLUSIVE ANGEBOTE / PROGRAMME"/>
+    <feature-no-exclusive-offers-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Wenn Sie frühzeitig planen buchen, können Sie auf Anfrage von allen zukünftigen Rabatten profitieren."/>
+    <feature-no-exclusive-offers-title
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Preisgarantie-Programm:"/>
+    <features
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Merkmale"/>
+    <feet
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Feet"/>
+    <find-a-port
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Finden Sie einen Hafen"/>
+    <find-your-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Finden Sie Ihre Kreuzfahrt"/>
+    <first
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="erstes"/>
+    <first-name
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Vorname"/>
+    <follow-us
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Folgen Sie uns"/>
+    <footnotes
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Fußnoten"/>
+    <for-exclusive-offers
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="für exklusive Angebote &amp; Neuigkeiten"/>
+    <free-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Kostenlose Broschüre"/>
+    <from
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Von"/>
+    <G1
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Grand"/>
+    <G2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Grand"/>
+    <get-our-free-brochures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Erhalten Sie unsere kostenlosen Broschüren"/>
+    <guests
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Gäste"/>
+    <guests-capacity
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Gästekapazität"/>
+    <highlight
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Highlight"/>
+    <hotel
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Hotel"/>
+    <hotels
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Hotels"/>
+    <hours
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Stunden"/>
+    <i-am-not-a-travel-agent
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ich bin kein Reiseanbieter"/>
+    <i-m-currently-booked
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ich besitze derzeitig eine Buchung für eine Silversea-Kreuzfahrt"/>
+    <in
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="in"/>
+    <included-cruise-fare
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="inbegriffen im Preis der Kreuzfahrt"/>
+    <incorrect-email-address
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Inkorrekte E-Mail-Adresse"/>
+    <itineraries
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Reisepläne"/>
+    <key-fact
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Key Fact"/>
+    <lady
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Lady"/>
+    <land-and-hotel
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Land und Hotel"/>
+    <land-programme
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Landprogramm"/>
+    <land-programme-s
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Programm(e) an Land"/>
+    <land-programmes
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Landprogramme"/>
+    <land-programmes-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Landprogramme (mehrtägig während, vor oder nach der Kreuzfahrt) bieten zusätzliche Möglichkeiten, um mehr von den Highlights und verborgenen Schätzen der Länder, die Sie besuchen, zu entdecken."/>
+    <last
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="letzte"/>
+    <last-name
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nachname"/>
+    <length
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Länge"/>
+    <location-images
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bilder des Standortes"/>
+    <lord
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Lord"/>
+    <mail-me-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="SENDEN SIE MIR DIESE BROSCHÜRE"/>
+    <ME
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Medallion"/>
+    <menu
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Menü"/>
+    <meters
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Meter"/>
+    <miss
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Frau"/>
+    <more
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Mehr"/>
+    <more-features
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="mehr Angebote"/>
+    <more-info
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weitere Informationen"/>
+    <mr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Herr"/>
+    <mrs
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Frau"/>
+    <ms
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Frau"/>
+    <my-silversea
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="My Silversea"/>
+    <next
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nächste"/>
+    <next-voyage
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="nächste Reise"/>
+    <note
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Notiz"/>
+    <O1
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="des Besitzers"/>
+    <O2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Besitzer"/>
+    <other-recent-journals
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weitere neue Reiseberichte"/>
+    <other-recent-story
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weitere neue Geschichten"/>
+    <overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Übersicht"/>
+    <per-guest
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="pro Gast"/>
+    <perform-a-new-search
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="eine neue Suche durchführen"/>
+    <phone
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Telefon"/>
+    <photos-and-videos
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Fotos und Videos"/>
+    <plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Plan"/>
+    <port-country
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Land"/>
+    <port-name
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Hafenname"/>
+    <port-results
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Resultate"/>
+    <port-search-alphabetically
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="alphabetische Suche"/>
+    <ports
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Häfen"/>
+    <postal-address
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Adresse"/>
+    <postal-code
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Postleitzahl"/>
+    <pre-cruise-hotels
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Hotels vor der Kreuzfahrt"/>
+    <pre-post-hotels
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Hotels vor und nach der Kreuzfahrt"/>
+    <pressure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Druck"/>
+    <pressureUnit
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="hPa"/>
+    <previous
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Vorher"/>
+    <previous-voyage
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Vorherige Reise"/>
+    <prof
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Prof."/>
+    <public-areas
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Öffentliche Bereiche"/>
+    <R1
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Royal"/>
+    <R2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Royal"/>
+    <read-less
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weniger anzeigen"/>
+    <read-more
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Lesen Sie mehr"/>
+    <receive-emails-with-news
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ja! Ich würde gerne E-Mails mit Neuigkeiten und speziellen Angeboten von Silversea erhalten."/>
+    <refine-your-search
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suche verfeinern"/>
+    <refurb-date
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Letzte Renovierung"/>
+    <request-a-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Fordern Sie eine Broschüre an"/>
+    <request-a-call
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Rückruf anfordern"/>
+    <request-or-download
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Anfragen oder Herunterladen "/>
+    <request-quote
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Angebot anfordern"/>
+    <required-city
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte tragen Sie Ihre Stadt ein"/>
+    <required-email
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihre E-Mail-Adresse an"/>
+    <required-email-address
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="E-Mail-Adresse wird benötigt"/>
+    <required-fields
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Pflichtfelder"/>
+    <required-firstname
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihren Vornamen an"/>
+    <required-lastname
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihren Nachnamen an"/>
+    <required-phone-number
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihre Telefonnummer ein"/>
+    <required-postal-address
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihre Postanschrift an"/>
+    <required-postal-code
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihre Postleitzahl an"/>
+    <required-postal-code-and-city
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie Ihre Postleitzahl und Stadt an"/>
+    <required-state
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte wählen Sie Ihre Region aus"/>
+    <required-title
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Bitte geben Sie die gewünschte Anrede an"/>
+    <restaurants-public-areas
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Restaurants &amp; öffentliche Bereiche"/>
+    <restaurants-public-areas-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Sie werden sich an Bord nicht langweilen. Entdecken Sie vielfältige Speiseoptionen, lassen Sie sich mit kulinarischer Exzellenz verwöhnen und lernen Sie internationale Touristen an aufregenden Treffpunkten kennen, während Sie unseren All-inclusive-Lifestyle genießen."/>
+    <result
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Resultat"/>
+    <results
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Resultate"/>
+    <routes
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Routen"/>
+    <routes-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Die Tale of Tales, die in San Francisco beginnt und in London endet, ist unsere bisher waghalsigste Weltkreuzfahrt. Fünf Kontinente, 31 Länder, 52 Häfen und 17 Übernachtungen in nur 132 Tagen: Diese Reise werden Sie nie vergessen. "/>
+    <schedule
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Zeitplan"/>
+    <search-more
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weitersuchen"/>
+    <select-and-view-the-route
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Wählen und sehen Sie die Route"/>
+    <select-language
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Sprache auswählen"/>
+    <select-the-brochure-language
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Wählen Sie die Sprache der Broschüre"/>
+    <select-your-suite-and-request-a-quote
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="WÄHLEN SIE IHRE SUITE UND FORDERN SIE IHR ANGEBOT AN"/>
+    <ship
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Schiff"/>
+    <sign-up
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Anmelden"/>
+    <sign-up-button
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Anmelden"/>
+    <sign-up-for-offers
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Melden Sie sich für Angebote und Neuigkeiten an"/>
+    <silversea-blog-archive
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea Blogarchiv"/>
+    <silversea-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea-Kreuzfahrten"/>
+    <silversea-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea Expeditions"/>
+    <silversea-voyage-journal
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silversea Reisetagebuch"/>
+    <SL
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silver"/>
+    <starting
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Starten"/>
+    <submit
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Absenden"/>
+    <suite
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suite"/>
+    <suite-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Lage der Suite"/>
+    <suite-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suitenplan"/>
+    <suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suiten"/>
+    <suites-and-fares
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suiten und Preise"/>
+    <suites-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers. "/>
+    <SV
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Superior Veranda"/>
+    <temperature
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Temperatur"/>
+    <temperatureUnit
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="C"/>
+    <the-difference-between-each-single-suite-is-availa
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:key="the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship"
+        sling:message="Der Unterschied zwischen den einzelnen Suite kann auf dem Deckplan des Schiffes eingesehen werden."/>
+    <title
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Anrede"/>
+    <to
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="bis"/>
+    <tonnage
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Tonnage"/>
+    <tons
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Tonnen"/>
+    <TS
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Terrace"/>
+    <VI
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Vista"/>
+    <view-all
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Alle ansehen"/>
+    <view-all-public-areas
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Alle öffentlichen Bereiche ansehen"/>
+    <view-all-restaurants
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Alle Restaurants ansehen"/>
+    <view-all-ship-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Vollständige Schiffbeschreibung ansehen"/>
+    <view-all-suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Alle Suiten ansehen"/>
+    <view-deck-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Den Deckplan anschauen"/>
+    <view-less
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Weniger ansehen"/>
+    <view-online
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="ONLINE ANSEHEN"/>
+    <view-our-free-brochures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Sehen Sie sich unsere kostenlosen Broschüren an"/>
+    <virtual-tour
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Virtuelle Tour"/>
+    <voyage
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Reise"/>
+    <voyage-highlights
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Reisehighlights"/>
+    <voyage-highlights-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Reisehighlights Expeditionsteam"/>
+    <voyage-highlights-introduction
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ihre Expedition wird von einer Entdeckung zur nächsten führen. Ein Gratisprogramm besonderer Erlebnisse an Land, in kleinen Gruppen, wird von einem Expertenteam geleitet, sodass sich Ihnen die Länder, die Sie besuchen, vollständig erschließen. "/>
+    <voyages
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Reisen"/>
+    <VR
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Veranda"/>
+    <VS
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View"/>
+    <waitlist
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Warteliste"/>
+    <weather
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Wetter"/>
+    <when-do-you-want-to-leave
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Wann möchten Sie abreisen?"/>
+    <where-would-you-like-to-go
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Wohin würden Sie gerne reisen?"/>
+    <wind
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Km"/>
+    <windUnit
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Km"/>
+    <your-email-address
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ihre E-Mail-Adresse"/>
+    <your-search-results
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ihre Suchergebnisse"/>
+</jcr:root>
