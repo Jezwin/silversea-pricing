@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ list, parent }">
-    <div class="panel c-cruise-landnprograms__list--nested__item" data-sly-repeat="${list}">
+    <div class="panel c-cruise-itinerary-2__list--nested__item" data-sly-repeat="${list}">
         <div class="collapsed panel--nested__heading" role="button" data-toggle="collapse" data-parent="#${parent}" data-target="#${parent}-${item.landId ? 'land' : 'hotel'}-${itemList.count}" aria-expanded="false">
             <h4><strong>${item.title || item.name}</strong></h4>
             <div class="hidden-xs" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=240}">

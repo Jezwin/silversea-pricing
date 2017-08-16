@@ -1,10 +1,10 @@
-.c-cruise-landnprograms {
+.c-cruise-itinerary-2 {
     &__list {
         margin-bottom: 10px;
 
         &__item {
             border: 1px solid @grey--e8;
-            border-width: 1px 1px 0 1px;
+            border-bottom-width: 0;
 
             &:last-child {
                 border-bottom-width: 1px; 
@@ -93,6 +93,23 @@
                         &__inner {
                             padding: 15px 40px;
                         }
+
+                        &__content {
+                            margin-bottom: 20px;
+                        }
+
+                        &__info {
+                            li {
+                                padding: 0;
+                            }
+
+                            li + li {
+                                &:before {
+                                    content: '\00a0\007C\00a0';
+                                    font-weight: 700;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -111,6 +128,10 @@
                         &__description {
                             vertical-align: top;
                             width: 25%;
+
+                            small {
+                                font-size: 12px;
+                            }
                         }
 
                         &__date {
@@ -148,6 +169,19 @@
                                 right: 15px;
                                 top: 50%;
                                 transform: translateY(-50%);
+                            }
+
+                            &__description, &__info {
+                                display: table-cell;
+                                padding-right: 10px;
+                            }
+
+                            &__description {
+                                width: 80%;
+                            }
+
+                            &__info {
+                                width: 20%;
                             }
                         }
                     }
