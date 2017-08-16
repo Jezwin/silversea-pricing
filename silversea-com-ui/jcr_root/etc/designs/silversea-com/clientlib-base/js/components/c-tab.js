@@ -10,7 +10,6 @@
                 nav : '.c-tab__link'
             },
             _links = _self.find('.c-tab__nav').first().children(_data.link),
-            _orphan_link = $('.c-cruise__descr a.bound, .parbase a[href^="#"]'),
             _contents = _self.find('.c-tab__body').first().children(_data.content),
             _showTab = function(tab) {
                 var id = $(tab).children('a').attr('href');
@@ -24,16 +23,6 @@
                 $(tab).attr('data-state', 'active');
                 $(_data.content + id).attr('data-state', 'active').trigger('ctabcontent-shown');
             };
-
-            /*
-             * * Orphan Link Click Event to show content
-             */
-            _orphan_link.click(function(e) {
-                e.preventDefault();
-                var tab = _self.find('.c-tab__link a[href="' + $(this).attr('href') + '"]');
-                if (tab.length > 0)
-                    _showTab($(tab[0]).parent());
-            });
 
             /*
              * * Link Click Event to show content
