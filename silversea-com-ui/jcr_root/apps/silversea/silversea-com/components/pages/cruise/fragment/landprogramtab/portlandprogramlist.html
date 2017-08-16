@@ -47,10 +47,10 @@
                     <i class="btn-more fa fa-angle-down"></i>
                     <i class="btn-less fa fa-angle-up"></i>
                 </div>
-                <div id="itinerary-${itineraryList.count}" class="collapse panel__body c-cruise-landnprograms__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.accordionTemplate="accordion-body.html">
+                <div id="itinerary-${itineraryList.count}" class="collapse panel__body c-cruise-landnprograms__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="collapse-nested.html">
                     <sly data-sly-test.parentId="${'{0}{1}' @ format=['itinerary-', itineraryList.count]}" />
-                    <sly data-sly-call="${accordionTemplate.default @ list = landPrograms, parent = parentId}" />
-                    <sly data-sly-call="${accordionTemplate.default @ list = hotels, parent = parentId}" />
+                    <sly data-sly-call="${collapseNestedTemplate.default @ list = landPrograms, parent = parentId}" />
+                    <sly data-sly-call="${collapseNestedTemplate.default @ list = hotels, parent = parentId}" />
                 </div>
             </div>
         </div>
