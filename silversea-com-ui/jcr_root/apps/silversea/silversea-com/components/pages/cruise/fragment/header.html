@@ -12,7 +12,7 @@
     </h1>
     <div class="cruise__header__desc">
         <div class="cruise__header__txt">
-            <p>${cruise.cruiseModel.description}</p>
+            ${cruise.cruiseModel.description @context='html'}
         </div>
         <div class="cruise__header__cta">
             <a class="btn btn-thin btn-dark effect visible-xs" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
