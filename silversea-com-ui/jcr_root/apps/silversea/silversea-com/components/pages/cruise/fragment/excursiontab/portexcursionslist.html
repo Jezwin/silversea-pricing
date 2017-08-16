@@ -13,7 +13,7 @@
             <div class="panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
                 <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#itinerary-ex-${itineraryList.count}" aria-expanded="false">
                     <div class="panel__heading__image">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail'}" />
+                        <sly data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail}" />
                     </div>
                     <div class="panel__heading__description">
                         <h3><strong>${itinerary.port.apiTitle}</strong></h3>
