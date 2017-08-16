@@ -40,20 +40,6 @@ $(function() {
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
     })
 
-    // Open tab from link other than tab
-    $('.c-cruise a[data-tab-target]').on('click', function(e) {
-        e.preventDefault();
-        $('a[href="' + $(this).data('tab-target') + '"]').closest('li').trigger('click');
-    });
-
-    // Scroll to content
-    $('.c-cruise a[data-scroll-target]').on('click', function(e) {
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop : $($(this).data('scroll-target')).offset().top - $('.c-header').height()
-        }, 500);
-    });
-
     // Force Scroll top for highlight container on resize
     $(window).on('resize', function() {
         var viewport = $.viewportDetect();
@@ -89,5 +75,35 @@ $(function() {
             e.preventDefault();
             $(this).closest('.keypeople__details__inner-wrapper').hide();
         });
+    });
+
+    /***************************************************************************
+     * Open tab from link other than tab
+     **************************************************************************/
+    $('.c-cruise a[data-tab-target]').on('click', function(e) {
+        e.preventDefault();
+        var $link = $(this);
+        // Scroll to top first
+        $('html, body').animate({
+            scrollTop : 0
+        }, 0);
+
+        // Open the target tab
+        $('a[href="' + $link.data('tab-target') + '"]').closest('li').trigger('click');
+
+        // Open collapse if collpase Id
+        if ($link.data('collpase-id') !== 'undefined') {
+            $('[data-target="#' + $link.data('collpase-id') + '"]').trigger('click');
+        }
+    });
+
+    /***************************************************************************
+     * Scroll to content
+     **************************************************************************/
+    $('.c-cruise a[data-scroll-target]').on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop : $($(this).data('scroll-target')).offset().top - $('.c-header').height()
+        }, 500);
     });
 });

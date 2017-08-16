@@ -4,7 +4,7 @@
     <p class="c-cruise__descr">
         ${'cruise-itinerary-description' @ i18n}
         <br/>
-        <a href="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+        <a href="" data-tab-target="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
     </p>
 
     <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
@@ -44,15 +44,17 @@
                 <p class="c-cruise-itinerary-list__description__button" data-sly-test="${(excursions && excursions.size > 0) || (landPrograms && landPrograms.size > 0)}">
                     <!--/* TODO check cruise type for excursions ${cruise.cruiseModel.cruiseType == 'silversea-cruise'} */-->
                     <a data-sly-test="${excursions && excursions.size > 0}"
-                       href="#excursion"
-                       data-city-id="${itinerary.port.cityId}"
+                       href="#"
+                       data-tab-target="#excursion"
+                       data-collpase-id="ex-${itinerary.port.cityId}"
                        class="c-btn c-btn--white"
                        title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
                         ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle} <i class="fa fa-lg fa-angle-right"></i>
                     </a>
                     <a data-sly-test="${landPrograms && landPrograms.size > 0}"
-                       href="#landnhotel"
-                       data-city-id="${itinerary.port.cityId}"
+                       href="#"
+                       data-tab-target="#landnhotel"
+                       data-collpase-id="lp-${itinerary.port.cityId}"
                        class="c-btn c-btn--white"
                        title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
                         ${'view' @ i18n} ${landPrograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle} <i class="fa fa-lg fa-angle-right"></i>
