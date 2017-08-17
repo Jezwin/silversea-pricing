@@ -1,5 +1,16 @@
 package com.silversea.aem.components.editorial;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.sling.api.resource.ValueMap;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.Tag;
@@ -7,14 +18,17 @@ import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.models.*;
+import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.DestinationModel;
+import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.models.GeolocationTagModel;
+import com.silversea.aem.models.ItineraryModel;
+import com.silversea.aem.models.PortModel;
+import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.models.ShipModel;
+import com.silversea.aem.models.TagModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GeolocationTagService;
-import org.apache.sling.api.resource.ValueMap;
-
-import java.time.YearMonth;
-import java.time.format.DateTimeParseException;
-import java.util.*;
 
 /**
  * selectors : destination_all date_all duration_all ship_all cruisetype_all port_all page_2
@@ -76,6 +90,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
     private boolean isFirstPage;
 
     private boolean isLastPage;
+
+    private List<Integer> pagination;
 
     @Override
     public void activate() throws Exception {
@@ -265,6 +281,37 @@ public class FindYourCruiseUse extends WCMUsePojo {
         pageNumber = (int) Math.ceil((float) filteredCruises.size() / (float) PAGE_SIZE);
         isFirstPage = activePage == 1;
         isLastPage = activePage == getPagesNumber();
+
+        // Build pagination
+        pagination = buildPagination();
+    }
+
+    /**
+     * Build Pagination according to the page active
+     */
+    private List<Integer> buildPagination() {
+        pagination = new ArrayList<>();
+
+        // Add active page
+        pagination.add(activePage);
+
+        // Add two previous pages
+        pagination.add(0, activePage - 1 > 0 ? activePage - 1 : null);
+        pagination.add(0, activePage - 2 > 0 ? activePage - 2 : null);
+
+        // Add previous page and first
+        pagination.add(0, isFirstPage() ? null : activePage - 1);
+        pagination.add(0, isFirstPage() ? null : 1);
+
+        // Add two next pages
+        pagination.add(activePage + 1 > pageNumber ? null : activePage + 1);
+        pagination.add(activePage + 2 > pageNumber ? null : activePage + 2);
+
+        // Add next and last page
+        pagination.add(isLastPage() ? null : activePage + 1);
+        pagination.add(isLastPage() ? null : pageNumber);
+
+        return pagination;
     }
 
     /**
@@ -346,6 +393,13 @@ public class FindYourCruiseUse extends WCMUsePojo {
      */
     public boolean isLastPage() {
         return isLastPage;
+    }
+
+    /**
+     * @return the pagination
+     */
+    public List<Integer> getPagination() {
+        return pagination;
     }
 
     /**
