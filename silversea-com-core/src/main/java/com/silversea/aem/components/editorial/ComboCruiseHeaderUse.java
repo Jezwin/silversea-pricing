@@ -57,10 +57,10 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
         if(segments != null && !segments.isEmpty()){
             SegmentModel segment = segments.get(0);
             if(segment !=null &&  segment.getCruise() != null){
-                List<CruiseItineraryModel> itineraries = segment.getCruise().getItineraries();
+                /*List<CruiseItineraryModel> itineraries = segment.getCruise().getItineraries();
                 if(itineraries!=null && !itineraries.isEmpty()){
                     port = itineraries.get(0).getItineraryModel().getTitle();
-                }
+                }*/
             }
         }
         return port;

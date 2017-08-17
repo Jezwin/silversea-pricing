@@ -1,7 +1,6 @@
 package com.silversea.aem.ws.lead.service.impl;
 
 import java.util.Dictionary;
-import java.util.Locale;
 import java.util.Objects;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -16,7 +15,6 @@ import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.osgi.service.component.ComponentContext;
 
 import com.silversea.aem.components.beans.Lead;
-import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.utils.DateUtils;
 import com.silversea.aem.ws.LeadFromWeb03Soap;
 import com.silversea.aem.ws.NewX0020MethodX0020WithX002052X0020Arguments;
@@ -80,9 +78,9 @@ public class LeadServiceImpl implements LeadService {
         request.setRequestType(lead.getRequesttype());
         request.setRequestSource(lead.getRequestsource());
 
-        request.setCountry("");
-        request.setSiteLanguage("");
-        request.setSiteCurrency("");
+        request.setSiteCountry(lead.getSitecountry());
+        request.setSiteLanguage(lead.getSitelanguage());
+        request.setSiteCurrency(lead.getSitecurrency());
 
         request.setTitle(lead.getTitle());
         request.setNameFirst(lead.getFirstname());
@@ -92,7 +90,7 @@ public class LeadServiceImpl implements LeadService {
         request.setComments(lead.getComments());
 
         // Subscribe newsletter
-        request.setAtt02(lead.getAtt02());
+        request.setSubscribeEmail(lead.getSubscribeemail());
         request.setWorkingWithAgent(lead.getWorkingwithagent());
 
         // request a quote
@@ -104,9 +102,11 @@ public class LeadServiceImpl implements LeadService {
             request.setSailDate(sailDate);
         }
         request.setShip(lead.getShipname());
-        request.setAtt07(lead.getSuitecategory());
-        request.setAtt08(lead.getSuitevariation());
-        request.setAtt09(lead.getPrice());
+        request.setSuiteCategory(lead.getSuitecategory());
+        request.setSuiteVariation(lead.getSuitevariation());
+        if (!StringUtils.isEmpty(lead.getPriceString())) {
+            request.setPrice(lead.getPrice());
+        }
 
         // request a brochure
         request.setAddress1(lead.getPostaladdress());
@@ -114,6 +114,9 @@ public class LeadServiceImpl implements LeadService {
         request.setCity(lead.getCity());
         request.setCountry(lead.getCountry());
         request.setBrochuresRequested("");
+
+        // Marketing
+        request.setMarketingEffort(lead.getMarketingEffort());
 
     }
 

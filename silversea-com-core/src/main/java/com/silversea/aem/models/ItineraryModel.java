@@ -1,166 +1,237 @@
 package com.silversea.aem.models;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.services.GeolocationTagService;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.jcr.Node;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-@Model(adaptables = Page.class)
+@Model(adaptables = Resource.class)
 public class ItineraryModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ItineraryModel.class);
 
-    @Inject
     @Self
-    private Page page;
-    private String thumbnail;
-    private String description;
-    private String country;
-
-    private List<ExcursionModel> excursions;
-    private List<LandprogramModel> landprograms;
-    private List<HotelModel> hotels;
-
-    private ResourceResolver resourceResolver;
-    private TagManager tagManager;
-    private PageManager pageManager;
+    private Resource resource;
 
     @Inject
-    private GeolocationTagService geolocationTagService;
+    private ResourceResolver resourceResolver;
+
+    @Inject
+    private Integer itineraryId;
+
+    @Inject @Optional
+    private Date date;
+
+    @Inject @Optional
+    private String arriveTime;
+
+    @Inject @Optional
+    private String arriveAmPm;
+
+    @Inject @Optional
+    private String departTime;
+
+    @Inject @Optional
+    private String departAmPm;
+
+    @Inject @Optional
+    private boolean overnight;
+
+    @Inject @Optional
+    private String portReference;
+
+    @Inject @Optional
+    private List<ItineraryExcursionModel> excursions = new ArrayList<>();
+
+    private List<ItineraryExcursionModel> compactedExcursions = null;
+
+    @Inject @Optional
+    private List<ItineraryHotelModel> hotels = new ArrayList<>();
+
+    @Inject @Named("land-programs") @Optional
+    private List<ItineraryLandProgramModel> landPrograms = new ArrayList<>();
+
+    private Integer cruiseId;
+
+    private PortModel port;
 
     @PostConstruct
     private void init() {
-        try {
-            resourceResolver = page.getContentResource().getResourceResolver();
-            tagManager = resourceResolver.adaptTo(TagManager.class);
-            pageManager = resourceResolver.adaptTo(PageManager.class);
-            thumbnail = page.getProperties().get("image/fileReference", String.class);
-            description = initDescription();
-            country = initCountry();
-        } catch (RuntimeException e) {
-            LOGGER.error("Error while initializing model {}", e);
-        }
-    }
+        final Resource itinerariesContentResource = resource.getParent();
 
-    private String initDescription() {
-        String value = null;
-        value = page.getProperties().get(JcrConstants.JCR_DESCRIPTION, String.class);
-        if (StringUtils.isEmpty(value)) {
-            value = page.getProperties().get("apiDescription", String.class);
-        }
-        return value;
-    }
+        if (itinerariesContentResource != null) {
+            final Resource cruiseContentResource = itinerariesContentResource.getParent();
 
-    public <T> List<T> initModels(Node itineraryNode, Class<T> modelClass, String rootNode, String reference, String callBack) {
-        List<T> list = new ArrayList<T>();
-        try {
-            Resource r = resourceResolver.resolve(itineraryNode.getPath() + "/" + rootNode);
-            Iterator<Resource> children = r.listChildren();
-            if (children != null && children.hasNext()) {
-                while (children.hasNext()) {
-                    Resource node = children.next();
-                    String path = Objects.toString(node.getValueMap().get(reference));
-                    if (!StringUtils.isEmpty(path)) {
-                        Page page = pageManager.getPage(path);
-                        if (page != null) {
-                            T model = page.adaptTo(modelClass);
-                            callback(model, node, callBack, Resource.class);
-                            list.add(model);
-                        } else {
-                            LOGGER.debug("Page reference {} not found", path);
-                        }
-                    } else {
-                        LOGGER.debug("Property  {} is empty", reference);
-                    }
-                }
+            if (cruiseContentResource != null) {
+                cruiseId = cruiseContentResource.getValueMap().get("cruiseId", Integer.class);
             }
-        } catch (RepositoryException e) {
-            LOGGER.error("Error while initializing models", e);
         }
-        return list;
-    }
 
-    public <T> void callback(T model, T paramValue, String methodName, Class<?>... paramType) {
-        try {
-            if (model != null && !StringUtils.isEmpty(methodName)) {
-                Method method = model.getClass().getDeclaredMethod(methodName, paramType);
-                if (method != null) {
-                    method.invoke(model, paramValue);
-                }
+        final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+
+        if (pageManager != null && StringUtils.isNotEmpty(portReference)) {
+            final Page portPage = pageManager.getPage(portReference);
+
+            if (portPage != null) {
+                port = portPage.adaptTo(PortModel.class);
             }
-        } catch (Exception e) {
-            LOGGER.error("Exception while invoking callbakc", e);
         }
     }
 
-    public void init(Node itineraryNode) {
-        // initDate(itineraryNode);
-        excursions = initModels(itineraryNode, ExcursionModel.class, "excursions", "excursionReference", "initialize");
-        hotels = initModels(itineraryNode, HotelModel.class, "hotels", "hotelReference", null);
-        landprograms = initModels(itineraryNode, LandprogramModel.class, "land-programs", "landProgramReference", null);
+    public Resource getResource() {
+        return resource;
     }
 
-    private String initCountry() {
-        String country = null;
-        String countryId = page.getProperties().get("countryIso2", String.class);
-        String tagId = geolocationTagService.getTagFromCountryId(countryId);
-        Tag tag = tagManager.resolve(tagId);
-        if (tag != null) {
-            country = tag.getTitle();
+    public Integer getItineraryId() {
+        return itineraryId;
+    }
+
+    public Calendar getDate() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        return calendar;
+    }
+
+    public String getArriveTime() {
+        if (arriveTime.length() == 4) {
+            return arriveTime.substring(0, 2) + ":" + arriveTime.substring(2, arriveTime.length());
         }
-        return country;
+
+        return arriveTime;
     }
 
-    public Page getPage() {
-        return page;
+    public String getDepartTime() {
+        if (departTime.length() == 4) {
+            return departTime.substring(0, 2) + ":" + departTime.substring(2, departTime.length());
+        }
+
+        return departTime;
     }
 
-    public String getCountry() {
-        return country;
+    public void setDepartTime(String departTime) {
+        this.departTime = departTime;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public Integer getCruiseId() {
+        return cruiseId;
     }
 
-    public String getDescription() {
-        return description;
+    public PortModel getPort() {
+        return port;
     }
 
-    public List<ExcursionModel> getExcursions() {
+    public Integer getPortId() {
+        if (port != null) {
+            return port.getCityId();
+        }
+
+        return null;
+    }
+
+    /**
+     * @return get excursions for this itinerary
+     */
+    public List<ItineraryExcursionModel> getExcursions() {
         return excursions;
     }
 
-    public List<LandprogramModel> getLandprograms() {
-        return landprograms;
+    /**
+     * @return list of unique excursion for this itinerary, with general departure date removed
+     */
+    public List<ItineraryExcursionModel> getCompactedExcursions() {
+        if (compactedExcursions != null) {
+            return compactedExcursions;
+        }
+
+        compactedExcursions = new ArrayList<>();
+        for (ItineraryExcursionModel excursion : excursions) {
+            boolean found = false;
+
+            for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
+                if (excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                // trick to deep clone the itinerary item
+                // without implementing java clone method
+                final ItineraryExcursionModel excursionCopy = excursion.getResource().adaptTo(ItineraryExcursionModel.class);
+
+                if (excursionCopy != null) {
+                    excursionCopy.setGeneralDepartureTime(null);
+                    compactedExcursions.add(excursionCopy);
+                }
+            }
+        }
+
+        return compactedExcursions;
     }
 
-    public List<HotelModel> getHotels() {
+    public void addExcursions(List<ItineraryExcursionModel> excursions) {
+        this.excursions.addAll(excursions);
+    }
+
+    public List<ItineraryHotelModel> getHotels() {
         return hotels;
     }
 
+    public void addHotels(List<ItineraryHotelModel> hotels) {
+        this.hotels.addAll(hotels);
+    }
+
+    public List<ItineraryLandProgramModel> getLandPrograms() {
+        return landPrograms;
+    }
+
+    public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {
+        this.landPrograms.addAll(landPrograms);
+    }
+
+    /**
+     * Check if the itinerary correspond to an itinerary with <code>cruiseId</code>,
+     * <code>cityId</code>, <code>date</code>
+     *
+     * @param cruiseId id of voyage
+     * @param date     date
+     * @return true if all arguments match with the current itinerary, false else
+     */
+    public boolean isItinerary(final Integer cruiseId, final Calendar date) {
+        if (this.cruiseId == null || this.port == null || this.date == null) {
+            return false;
+        }
+
+        return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date);
+    }
+
+    // -------------- TODO review after this line ----------------- //
+    @Deprecated
     public String getTitle() {
-        return page.getProperties().get("apiTitle", page.getTitle());
+        return null;
+    }
+
+    @Deprecated
+    public void init(Node node) {
+    }
+
+    @Deprecated
+    public Page getPage() {
+        return null;
     }
 }

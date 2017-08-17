@@ -42,11 +42,12 @@
             <s:element minOccurs="0" maxOccurs="1" name="ArrivalPort" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="Completed" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="MarketingEffort" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="MCId" nillable="true" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="MCId" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SubscribeEmail" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SuiteCategory" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SuiteVariation" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="Price" nillable="true" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="SiteCountry" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Att01" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Att02" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="Att03" type="s:string" />
@@ -113,11 +114,12 @@
           <s:element minOccurs="0" maxOccurs="1" name="ArrivalPort" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Completed" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="MarketingEffort" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="MCId" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MCId" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="SubscribeEmail" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="SuiteCategory" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="SuiteVariation" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Price" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiteCountry" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Att01" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Att02" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Att03" type="s:string" />

@@ -1,83 +1,61 @@
 package com.silversea.aem.components.editorial;
 
-import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.filter.BlogPostPageFilter;
-import com.silversea.aem.models.BlogPostTeaserModel;
-
-import java.time.YearMonth;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.filter.BlogPostPageFilter;
+
 public class BlogPostTeaserListUse extends WCMUsePojo {
-
-    private List<BlogPostTeaserModel> blogPostTeaserModelList = new ArrayList<>();
-
-    private BlogPostTeaserModel firstBlogPostTeaser;
-
-    private Boolean highlightFirst;
-
-    private Integer year;
-
-    private Integer dayInMonth;
+    private List<Page> blogPostList = new ArrayList<>();
+    private Integer lastDay;
 
     @Override
     public void activate() throws Exception {
-        String blogPostReference = getProperties().get("blogPostReference", String.class);
-        highlightFirst = getProperties().get("highLightFirst", false);
+        String blogPostReference = getProperties().get("blogPostReference", getCurrentPage().getPath());
+        Page pageParent = getPageManager().getPage(blogPostReference);
 
-        Page page = blogPostReference != null ? getPageManager().getPage(blogPostReference) : getCurrentPage();
+        Iterator<Page> blogPostPages = pageParent.listChildren(new BlogPostPageFilter(), true);
 
-        if (page != null) {
-            Iterator<Page> blogPostPages = page.listChildren(new BlogPostPageFilter(), true);
+        int i = 0;
+        while (blogPostPages.hasNext() && i < 15) {
+            Page blogPost = blogPostPages.next();
 
-            int i = 0;
-            while (blogPostPages.hasNext() && i < 15) {
-                Page blogPostPage = blogPostPages.next();
-
-                BlogPostTeaserModel blogPost = blogPostPage.adaptTo(BlogPostTeaserModel.class);
-
-                if (blogPost != null) {
-                    blogPostTeaserModelList.add(blogPost);
-                    i++;
-                }
-            }
-
-            if (highlightFirst && blogPostTeaserModelList.size() > 0) {
-                firstBlogPostTeaser = blogPostTeaserModelList.get(0);
-                blogPostTeaserModelList.remove(0);
+            if (blogPost != null) {
+                blogPostList.add(blogPost);
+                i++;
             }
         }
 
-        String parentPageName = getCurrentPage().getParent().getName();
-        if (parentPageName.matches("\\d+")) {
-            year = Integer.parseInt(parentPageName);
+        // Test if the current page is a month page blog
+        if (getCurrentPage().getName().length() <= 2) {
+            String month = getCurrentPage().getName(); // month format : MM
+            String year = getCurrentPage().getParent().getName(); // month format : yyyy
 
-            String pageName = getCurrentPage().getName();
-            if (pageName.matches("\\d+")) {
-                dayInMonth = YearMonth.of(year, Integer.parseInt(pageName)).lengthOfMonth();
-            }
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMyyyy");
+            Date convertedDate = dateFormat.parse(month + year);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(convertedDate);
+            lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         }
     }
 
-    public Boolean getHighLightFirst() {
-        return highlightFirst;
+    /**
+     * @return the blogPostList
+     */
+    public List<Page> getBlogPostList() {
+        return blogPostList;
     }
 
-    public List<BlogPostTeaserModel> getBlogPostTeaserModelList() {
-        return blogPostTeaserModelList;
-    }
-
-    public BlogPostTeaserModel getFirstBlogPostTeaser() {
-        return firstBlogPostTeaser;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public Integer getDayInMonth() {
-        return dayInMonth;
+    /**
+     * @return the lastDay
+     */
+    public Integer getLastDay() {
+        return lastDay;
     }
 }

@@ -22,26 +22,27 @@ import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 import io.swagger.client.model.VoyageSpecialOffer;
 
+@Deprecated
 public interface CruiseService {
 
     void init() ;
-    
+
     Page getCruisePage(Page destinationPage,Integer voyageId,String voyageName) throws WCMException, RepositoryException;
 
     void setCruiseTags(List<Integer> features,Integer voyageId,boolean isExpedition,Integer days, Page page) throws RepositoryException ;
-    
+
     void buildOrUpdateIteneraries(Page cruisePage,Integer voyageId,String url)
             throws RepositoryException, IOException, ApiException ;
 
     void replicateResource(String path) throws RepositoryException;
-    
+
     void replicatePageWithChildren(Page page)throws RepositoryException;
 
     void updateItineraryNode(Node itineraryNode, Itinerary itinerary) throws RepositoryException ;
 
     void updateLandNodes(List<LandItinerary> landProgramList, Node itineraryNode, Itinerary itinerary)
             throws RepositoryException ;
-    
+
     void updateHotelNodes(List<HotelItinerary> hotels, Node itineraryNode, Itinerary itinerary)
             throws RepositoryException ;
 
@@ -52,9 +53,9 @@ public interface CruiseService {
 
     void buildOrUpdateSuiteNodes(LowestPrice lowestPrice,Page cruisePage,Integer voyageId,Integer shipId,List<VoyagePriceComplete> voyagePricesComplete)
             throws RepositoryException, IOException, ApiException ;
-     
+
     String calculateDurationCategory(Integer days);
-    
+
     void buildSuitesGrouping(LowestPrice lowestPrice,Node rootNode, Page suiteRef, Price price, VoyagePriceComplete voyagePrice)
             throws RepositoryException ;
 
@@ -68,17 +69,17 @@ public interface CruiseService {
     String[] findSpecialOffersReferences(List<VoyageSpecialOffer> voyageSpecialOffers, Integer voyageId);
 
     String downloadAndSaveAsset(String path, String imageName);
-    
+
     void calculateLowestPrice(Map<String, PriceData> lowestPrices, Price price, String marketCode);
 
     void buildLowestPrices(Node rootNode, Map<String, PriceData> prices) throws RepositoryException;
-    
+
     void updateReplicationStatus(Boolean isDeleted, Boolean isVisible,Page page);
-  
+
     void buildVariationsLowestPrices(Node suitesNode, LowestPrice lowestPrice)throws RepositoryException;
-    
+
     List<Page> getPagesByResourceType(String resourceType,String language) throws RepositoryException;
-    
+
     void changeReferenceBylanguage(Node rootNode,String nodeName,String reference,String language)throws RepositoryException;
-    
+
 }

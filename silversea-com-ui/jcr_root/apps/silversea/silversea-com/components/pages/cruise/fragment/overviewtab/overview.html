@@ -30,10 +30,10 @@
                 <div class="voyagetable__elem">
                     <a href="#" data-tab-target="#suitenfare">
                         <span>${'fares-from' @ i18n}</span>
-                        <span class="lead" data-sly-test="${cruise.cruiseModel.lowestPrice.isWaitList}">
-                            ${cruise.cruiseModel.lowestPrice.currency} ${cruise.cruiseModel.lowestPrice.value}
+                        <span class="lead" data-sly-test="${!cruise.isWaitList}">
+                            ${cruise.lowestPrice.currency @ i18n} ${cruise.lowestPrice.price}
                         </span>
-                        <span class="lead" data-sly-test="${!cruise.cruiseModel.lowestPrice.isWaitList}">
+                        <span class="lead" data-sly-test="${cruise.isWaitList}">
                             ${'waitlist' @ i18n}
                         </span>
                         <span>(${'per-guest' @ i18n})</span>
@@ -49,7 +49,7 @@
             </div>
             <div class="col-xs-12 visible-xs">
                 <div class="cruise__header_metainfo">
-                    <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
+                    <span>${cruise.cruiseModel.cruiseType.name @ i18n}</span>
                     <span>${cruise.cruiseModel.ship.title}</span>
                     <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
                     <ul data-sly-list="${cruise.cruiseModel.features}">

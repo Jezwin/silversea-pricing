@@ -1,88 +1,56 @@
-<sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" 
+    class="c-cruise__itineraries">
+    <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
+    <p class="c-cruise__descr">
+        ${'cruise-itinerary-description' @ i18n}
+        <br/>
+        <a href="#photonvideo" class="bound"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+    </p>
 
-<div class="row c-cruise__itineraries">
-    <div class="col-xs-12">
-        <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
-        <p class="c-cruise__descr">
-            ${'cruise-itinerary-description' @ i18n}
-            <br/>
-            <a href="#photonvideo" class="bound"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
-        </p>
+    <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
+         data-sly-test="${cruise.cruiseModel.compactedItineraries}"
+         data-sly-list="${cruise.cruiseModel.compactedItineraries}">
+        <sly data-sly-test.excursions="${cruise.itinerariesHasElements ? item.compactedExcursions : item.port.excursions }"/>
+        <sly data-sly-test.landPrograms="${cruise.itinerariesHasElements ? item.landPrograms : item.port.landPrograms }"/>
 
-        <div class="c-accordion c-accordion--expander c-cruise-itineraries"
-             data-multiview="false"
-             data-more="<span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>"
-             data-close="<span>${'close' @ i18n}</span> <i class='fa fa-angle-up'></i>"
-             data-sly-test="${cruise.cruiseModel.itineraries}"
-             data-sly-list="${cruise.cruiseModel.itineraries}">
-            <div class="c-accordion__elem">
-                <div class="c-accordion__header">
-
-                    <div class="c-accordion__title c-accordion__title--img">
-                        <div class="c-accordion__title--img_block">
-                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.itineraryModel.thumbnail}"/>
-                            <div data-sly-test="${item.itineraryModel.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
-                        </div>
-                    </div>
-
-                    <div class="c-accordion__title c-accordion__title--header">
-                        <div class="c-accordion__title">
-                            <div class="c-accordion__title">
-                                <ul class="c-accordion__subtitle list">
-                                    <li class="c-accordion__subtitle veryimportant">${item.itineraryModel.title}</li>
-                                    <li class="c-accordion__subtitle city">${item.itineraryModel.country}</li>
-                                </ul>
-                                <ul class="c-accordion__subtitle list">
-                                    <li class="c-accordion__subtitle" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
-                                        ${date.value}
-                                    </li>
-                                    <li class="c-accordion__subtitle arrivals">
-                                        <span data-sly-test="${item.arriveTime}">${'arrive' @ i18n}: ${item.arriveTime},</span> <span data-sly-test="${item.departTime}">${'depart' @ i18n} ${item.departTime}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="c-accordion__action">
-                                <span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i>
-                            </div>
-                        </div>
-                        <div class="c-accordion__title--body c-accordion__header--unclickable">
-                            ${item.itineraryModel.description @ context='html'}
-        
-                            <a data-sly-test="${item.itineraryModel.excursions.size > 0}"
-                               href="#"
-                               class="c-btn c-btn--white"
-                               title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
-                                ${'view' @ i18n} ${item.itineraryModel.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
-                            </a>
-
-                            <a data-sly-test="${item.itineraryModel.landprograms.size > 0}"
-                               href="#"
-                               class="c-btn c-btn--white"
-                               title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
-                                ${'view' @ i18n} ${item.itineraryModel.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
+        <div class="c-cruise-itinerary-list__item panel">
+            <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itemList.count}" data-parent="#c-cruise-itinerary-list"
+                data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.port.thumbnail}">
+                <div class="c-cruise-itinerary-list__headline__image" data-sly-test="${item.port.thumbnail}" style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=468&fit=hfit)"></div>
+                <ul class="c-cruise-itinerary-list__headline__title">
+                    <li class="c-cruise-itinerary-list__headline__title__city">${item.port.apiTitle}</li>
+                    <li class="c-cruise-itinerary-list__headline__title__country">${item.port.country}</li>
+                </ul>
+                <ul class="c-cruise-itinerary-list__headline__date">
+                    <li class="c-cruise-itinerary-list__headline__date__duration" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
+                        ${date.value}
+                    </li>
+                    <li class="c-cruise-itinerary-list__headline__date__time hidden-xs">
+                        <span data-sly-test.arriveTime="${item.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</span><sly data-sly-test="${item.arriveTime && item.departTime}">,</sly>
+                        <span data-sly-test.departTime="${item.departTime}">${'depart' @ i18n} ${departTime}</span>
+                    </li>
+                </ul>
+                <div class="c-cruise-itinerary-list__headline__expand">
+                    <span class="btn-more"><span>${'more' @ i18n}</span> <i class='fa fa-angle-down'></i></span>
+                    <span class="btn-less"><span>${'close' @ i18n}</span> <i class='fa fa-angle-up'></i></span>
                 </div>
-                <div class="c-accordion__body">
-                    <div class="c-accordion__body--panel">
-                        ${item.itineraryModel.description @ context='html'}
-
-                        <a data-sly-test="${item.itineraryModel.excursions.size > 0}"
-                           href="#"
-                           class="c-btn c-btn--white"
-                           title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
-                            ${'view' @ i18n} ${item.itineraryModel.excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
-                        </a>
-
-                        <a data-sly-test="${item.itineraryModel.landprograms.size > 0}"
-                           href="#"
-                           class="c-btn c-btn--white"
-                           title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
-                            ${'view' @ i18n} ${item.itineraryModel.landprograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.itineraryModel.country} <i class="fa fa-lg fa-angle-right"></i>
-                        </a>
-                    </div>
-                </div>
+            </div>
+            <div class="c-cruise-itinerary-list__description collapse clearfix" id="collapse-${itemList.count}">
+                <p>${item.port.apiDescription @ context='html'}</p>
+                <p>
+                    <a data-sly-test="${excursions && excursions.size > 0}"
+                       href="#"
+                       class="c-btn c-btn--white"
+                       title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
+                        ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                    </a>
+                    <a data-sly-test="${landPrograms && landPrograms.size > 0}"
+                       href="#"
+                       class="c-btn c-btn--white"
+                       title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
+                        ${'view' @ i18n} ${landPrograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${item.country} <i class="fa fa-lg fa-angle-right"></i>
+                    </a>
+                </p>
             </div>
         </div>
     </div>

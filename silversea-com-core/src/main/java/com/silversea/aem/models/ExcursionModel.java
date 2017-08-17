@@ -26,45 +26,30 @@ public class ExcursionModel extends AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExcursionModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
     private String description;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/codeExcursion")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/codeExcursion") @Optional
     private String codeExcursion;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiLongDescription") @Optional
     private String apiLongDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/pois")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
     private String pois;
 
     private String shortDescription;
 
     private List<Feature> features;
-
-    private Duration duration;
 
     private String schedule;
 
@@ -86,23 +71,22 @@ public class ExcursionModel extends AbstractModel {
         }
     }
 
+    @Deprecated
     public void initialize(Resource resource) {
         if (resource != null) {
             schedule = resource.getValueMap().get("plannedDepartureTime", String.class);
-            duration = formatDuration(resource.getValueMap().get("duration", String.class));
         }
     }
 
+    @Deprecated
     private Duration formatDuration(String durationMinutes) {
         Duration duration = null;
-        if (durationMinutes != null && !durationMinutes.isEmpty()) {
 
+        if (durationMinutes != null && !durationMinutes.isEmpty()) {
             double t = Double.parseDouble(durationMinutes);
             double hours = t / 60;
             double minutes = t % 60;
             duration = new Duration();
-            duration.setHours(hours);
-            duration.setMinutes(minutes);
         }
 
         return duration;
@@ -142,10 +126,6 @@ public class ExcursionModel extends AbstractModel {
 
     public List<Feature> getFeatures() {
         return features;
-    }
-
-    public Duration getDuration() {
-        return duration;
     }
 
     public String getSchedule() {

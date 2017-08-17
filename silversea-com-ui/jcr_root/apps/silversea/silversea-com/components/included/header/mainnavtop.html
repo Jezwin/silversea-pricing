@@ -29,10 +29,25 @@
                 <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.name}</span></a></li>
             </ul>
         </li>
+
         <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
-            <a href="${search.path @ extension ='html'}" class="c-main-nav__top__link">
-                <span><i class="fa fa-lg fa-search"></i></span>
-            </a>
+           <div class="c-main-nav__search hidden-sm hidden-xs">
+                <form class="c-main-nav__search__searchbox" action="${search.path @ extension ='html'}">
+                    <input type="search" placeholder="${'type-here-to-search' @ i18n}" name="q" class="c-main-nav__search__searchbox-input" required>
+                    <input type="submit" class="c-main-nav__search__searchbox-submit" value="${'search' @ i18n}">
+                    <span><i class="fa fa-lg fa-search c-main-nav__search__searchbox-icon" aria-hidden="true"></i></span>
+                </form>
+            </div>
+            <div class="form-group form-group-lg c-main-nav__search-mobile hidden-lg">
+                <form class="c-main-nav__search-mobile__searchbox" action="${search.path @ extension ='html'}">
+                    <input type="search" placeholder="${'type-here-to-search' @ i18n}" name="q" class="c-main-nav__search-mobile__searchbox-input" required>
+                    <button type="submit" class="c-main-nav__search-mobile__searchbox-submit">
+                        <i class="fa fa-lg fa-search" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
         </li>
+
     </ul>
 </div>
+        

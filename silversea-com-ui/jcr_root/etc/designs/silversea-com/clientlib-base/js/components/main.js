@@ -74,8 +74,9 @@ $(function() {
             // Cancel synchrone submit
             event.preventDefault();
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'att02', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price'];
-            var pos = document.cookie.indexOf("userInfo=");
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry', 'sitelanguage', 'sitecurrency'];
+            var pos = document.cookie.indexOf("userInfo="),
+                marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
 
             // Set cookie if not created
             if (pos <= 0) {
@@ -91,14 +92,23 @@ $(function() {
                 if (index > -1)
                     leadApiData[cookieValues[index]] = form[i].value;
             }
+            if(marketingEffortValue)
+                leadApiData['marketingEffort'] = marketingEffortValue;
 
             $.ajax({
                 type : 'POST',
-                url: (window.location.href.indexOf('.html') !== -1) ? window.location.href.replace('.html', '.lead.json') : window.location.href + '.lead.json',
+                //url: (window.location.href.indexOf('.html') !== -1) ? window.location.href.replace('.html', '.lead.json') : window.location.href + '.lead.json',
+                url: '/bin/lead.json',
                 data : JSON.stringify(leadApiData),
                 contentType : 'application/json',
                 dataType : 'json',
                 success : function(data) {
+
+                    if (typeof data !== 'string') {
+                        console.log('Invalid lead API data received');
+                        window.location.href = elem.action;
+                        return;
+                    }
 
                     //set cookies for datalayer
                     var submitDate = new Date();
@@ -124,9 +134,9 @@ $(function() {
 
                     // Store object merged in the cookie
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
+                    $.CookieManager.setCookie('api_indiv_id', data);
 
                     if (elem.className.match(/c-formcookie--redirect/) !== null) {
-                        $.CookieManager.setCookie('api_indiv_id', data);
                         window.location.href = elem.action;
                     } else if (elem.className.match(/c-formcookie--modal/) !== null) {
                         var target = elem.dataset.target;

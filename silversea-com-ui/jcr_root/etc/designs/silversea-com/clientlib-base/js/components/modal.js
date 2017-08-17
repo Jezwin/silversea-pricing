@@ -5,6 +5,9 @@ $(function() {
     // Clean modal content on close event
     $(document).on('hide.bs.modal', function(e) {
         $(e.target).removeData('bs.modal');
+
+        $('body').removeClass('modal-open');
+        
         var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
 
@@ -15,7 +18,9 @@ $(function() {
     // Build modal for image
     $('.automatic-modal, .virtual-tour-modal').on('click', function(e) {
         e.preventDefault();
-
+		
+		$('body').addClass('modal-open');
+		
         // HTML layout
         var $modalContent = $('<div class="modal-content modal-content--transparent modal-content--single">'
                 + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'

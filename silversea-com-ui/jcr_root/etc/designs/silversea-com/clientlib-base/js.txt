@@ -23,3 +23,4 @@ components/c-find-your-cruise.js
 components/c-data-layer.js
 components/c-inline-gallery.js
 components/c-gallery.js
+components/c-search.js

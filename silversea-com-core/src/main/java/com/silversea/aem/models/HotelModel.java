@@ -36,8 +36,7 @@ public class HotelModel {
 
     @PostConstruct
     private void init() {
-    	shortDescription = description != null ? description.substring(0, 200) : null;
-        LOGGER.debug("{}", page.getPath());
+        shortDescription = description != null ? description.substring(0, 200) : null;
     }
 
     public String getName() {
@@ -47,7 +46,7 @@ public class HotelModel {
     public String getDescription() {
         return description;
     }
-    
+
     public String getShortDescription() {
         return shortDescription;
     }

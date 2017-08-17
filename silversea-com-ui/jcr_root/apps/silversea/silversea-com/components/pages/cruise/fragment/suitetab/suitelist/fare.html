@@ -14,14 +14,15 @@
         </thead>
         <tbody>
             <tr data-sly-repeat="${variations}">
-                <td><strong class="text-uppercase">${item.name @ i18n }</strong></td>
+                <td><strong class="text-uppercase">${item.suite.title @ i18n }</strong></td>
                 <td><a href="#" class="text-uppercase" data-toggle="location-tab">${'view-deck' @ i18n}</a></td>
                 <td>
-                    <strong class="text-uppercase" data-sly-test.isWaitList="">${'waitlist' @ i18n}</strong>
-                    <strong class="text-uppercase" data-sly-test="{!isWaitList}">${item.price.currency} ${item.price.value}</strong>
+                    <strong class="text-uppercase" data-sly-test.isWaitList="${item.isWaitList}">${'waitlist' @ i18n}</strong>
+                    <strong class="text-uppercase" data-sly-test="{!isWaitList}">${item.currency @ i18n} ${item.price}</strong>
                 </td>
                 <td>
-                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${requestQuotePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=item.name}" data-sscclicktype="clic-RAQ">
+                    <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${requestQuotePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=item.suite.title}"
+                       data-sscclicktype="clic-RAQ">
                         <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                     </a>
                 </td>

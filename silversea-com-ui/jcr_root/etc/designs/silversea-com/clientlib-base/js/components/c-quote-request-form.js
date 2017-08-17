@@ -109,8 +109,6 @@ function requestForm() {
             },
             cityzip : function($el) {
                 var id = $el.data('cityzip');
-
-                console.log(!$el.val() || !$('input[name="'+ id +'"]').val());
                 return !$el.val() || !$('input[name="'+ id +'"]').val();
             }
         }

@@ -13,7 +13,7 @@ import com.silversea.aem.components.beans.Lead;
 import com.silversea.aem.technical.json.JsonMapper;
 import com.silversea.aem.ws.lead.service.LeadService;
 
-@SlingServlet(methods = "POST", resourceTypes = "sling/servlet/default", selectors = "lead", extensions = "json")
+@SlingServlet(methods = "POST", paths = "/bin/lead", extensions = "json")
 public class LeadServlet extends ScServlet {
 
     private static final  Logger LOGGER = LoggerFactory.getLogger(LeadServlet.class);

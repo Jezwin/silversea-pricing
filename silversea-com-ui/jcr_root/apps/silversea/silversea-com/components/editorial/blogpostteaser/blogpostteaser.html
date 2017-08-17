@@ -1,9 +1,5 @@
-<div data-sly-use.blogPostTeaserUse="${'com.silversea.aem.components.editorial.BlogPostTeaserUse'}"
-     data-sly-test="${(wcmmode.edit || wcmmode.design) && !blogPostTeaserUse.blogTeaser}"
-     class="cq-placeholder cq-dd-file" data-emptytext="Blog Post teaser"></div>
-         
-<div data-sly-test="${blogPostTeaserUse.blogTeaser}" data-sly-unwrap="${!wcmmode.edit}">
-    <sly data-sly-use.blogPostTemplate="blogpost.html"
-         data-sly-call="${blogPostTemplate.default @ blogTeaser=blogPostTeaserUse.blogTeaser, blogPostReference=blogTeaser.path }"></sly>
-</div>
+<div data-sly-test.empty="${(wcmmode.edit || wcmmode.design) && !properties.blogPostReference}" class="cq-placeholder cq-dd-file" data-emptytext="Blog Post teaser"></div>
 
+<div data-sly-test="${!empty}" data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path = properties.blogPostReference}">
+    <sly data-sly-use.blogPostTemplate="blogpost.html" data-sly-call="${blogPostTemplate.default @ blogPost=pageHelper.page}" />
+</div>

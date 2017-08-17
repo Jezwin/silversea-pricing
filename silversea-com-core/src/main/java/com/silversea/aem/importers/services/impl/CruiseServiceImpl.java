@@ -22,6 +22,7 @@ import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.silversea.aem.utils.StringsUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
@@ -58,7 +59,6 @@ import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.constants.ServiceConstants;
 import com.silversea.aem.enums.CruiseType;
 import com.silversea.aem.enums.PriceVariations;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruiseService;
@@ -76,6 +76,7 @@ import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 import io.swagger.client.model.VoyageSpecialOffer;
 
+@Deprecated
 @Service
 @Component(label = "Silversea.com - Cruises service")
 public class CruiseServiceImpl implements CruiseService{
@@ -538,7 +539,7 @@ public class CruiseServiceImpl implements CruiseService{
         if (path != null && !path.isEmpty() && imageName != null && !imageName.isEmpty()) {
             try {
                 LOGGER.debug("Cruise importer -- Start download image with name {}", imageName);
-                String formattedImageName = StringHelper.getFormatWithoutSpecialCharcters(imageName);
+                String formattedImageName = StringsUtils.getFormatWithoutSpecialCharcters(imageName);
                 String folderPath = ImportersConstants.CRUISES_DAM_PATH.concat(formattedImageName);
                 URL url = new URL(path);
                 InputStream is = url.openStream();

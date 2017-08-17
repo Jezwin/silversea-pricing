@@ -1,21 +1,35 @@
-<template data-sly-template.default="${ @ blogTeaser, blogPostReference }">
-    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
-    <div class="row c-blogpostteaser">
-        <div class="col-sm-6 c-blogpostteaser__img">
-            <a href="${blogTeaser.properUrl}" class="wrapper-hover">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=blogTeaser.thumbnailImageUrl, query='?wid=280'}">
-            </a>
-        </div>
-        <div class="col-sm-6 c-blogpostteaser__descr">
-            <div class="info">
-                <div class="date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=blogTeaser.publicationDate}">
-                    ${date.value}
-                </div>
-                <h4>${blogTeaser.title}</h4>
-                <h6>${blogPostReferenceParam}</h6>
+<template data-sly-template.default="${ @ blogPost, count, ppties}">
+    <sly data-sly-test.isFirst="${count == 1 && ppties.highLightFirst}" />
+    <div class="row c-blogpostteaser ${isFirst ? 'c-blogpostteaser--first' : ''}">
+        <div class="col-sm-6 c-blogpostteaser__image">
+            <sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path = blogPost.path}"
+                data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                data-sly-call="${imageTemplate.default @ imagePath=pageHelper.thumbnail}" />
+
+            <div class="c-blogpostteaser__info visible-xs-block">
+                <strong class="c-blogpostteaser__date"
+                    data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=blogPost.properties.publicationDate}"
+                    data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMM yyyy', date=blogPost.properties.publicationDate}">
+                    <span>${dateDay.value}</span> ${dateMonthYear.value}
+                </strong>
+                <h4 class="c-blogpostteaser__title">${blogPost.title}</h4>
             </div>
-            <a class="read-more" href="${blogTeaser.properUrl}">${'read-more' @i18n}<i class="fa fa-angle-right"></i></a>
+
+            <a data-sly-test="${pageHelper.thumbnail}" href="${blogPost.path @ extension='html'}" class="c-blogpostteaser__image__link"></a>
+        </div>
+        <div class="col-sm-6 c-blogpostteaser__description">
+            <div class="c-blogpostteaser__info">
+                <strong class="c-blogpostteaser__date hidden-xs"
+                    data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=blogPost.properties.publicationDate}"
+                    data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMM yyyy', date=blogPost.properties.publicationDate}">
+                        <span>${dateDay.value}</span> ${dateMonthYear.value}
+                </strong>
+                <h4 class="c-blogpostteaser__title hidden-xs">
+                    <a href="${blogPost.path @ extension='html'}">${blogPost.title}</a>
+                </h4>
+                <p data-sly-test="${blogPost.description && isFirst}">${blogPost.description @ context='html'}</p>
+            </div>
+            <a class="c-blogpostteaser__read-more" href="${blogPost.path @ extension='html'}"><span>${'read-more' @i18n}</span> <i class="fa fa-angle-right hidden-xs"></i></a>
         </div>
     </div>
-    <hr />
 </template>

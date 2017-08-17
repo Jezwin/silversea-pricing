@@ -1,6 +1,6 @@
 <div data-sly-test.empty="${wcmmode.edit && !properties.assetSelectionReference}" class="cq-placeholder" data-emptytext="Inline Gallery"></div>
 <div class="c-slider c-inline-gallery"
-    data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference}"
+    data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference || pageProperties.assetSelectionReference}"
     data-gallery-path="${currentNode.path @ selectors='gallery', extension='html'}">
     <div data-sly-repeat.asset="${setImage.renditionList}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />

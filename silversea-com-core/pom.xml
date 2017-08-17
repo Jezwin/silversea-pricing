@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-com</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <!-- ====================================================================== -->
@@ -155,6 +155,10 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
         </dependency>
 
         <!-- SLF4J dependencies -->

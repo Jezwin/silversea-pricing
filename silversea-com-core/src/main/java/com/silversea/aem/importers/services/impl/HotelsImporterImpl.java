@@ -6,12 +6,13 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.StringHelper;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.HotelsImporter;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.HotelsApi;
@@ -87,12 +88,12 @@ public class HotelsImporterImpl implements HotelsImporter {
             }
 
             List<Hotel> hotels;
-            int i = 1, j = 0;
+            int apiPage = 1, itemsWritten = 0;
 
             LOGGER.debug("Importing hotels");
 
             do {
-                hotels = hotelsApi.hotelsGet(null, i, pageSize, null);
+                hotels = hotelsApi.hotelsGet(null, apiPage, pageSize, null);
 
                 for (Hotel hotel : hotels) {
                     LOGGER.trace("Importing hotel: {}", hotel.getHotelName());
@@ -105,6 +106,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                             throw new ImporterException("Hotel have no city");
                         }
 
+                        // TODO create cache of cityId / Resource in order to speed up the process
                         Iterator<Resource> portsResources = resourceResolver
                                 .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
                                         "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"" +
@@ -138,9 +140,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                             // Creating hotel page
                             final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                     JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                            StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                            StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
                                     WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                    StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 
@@ -162,17 +164,22 @@ public class HotelsImporterImpl implements HotelsImporter {
                             hotelPageContentNode.setProperty("code", hotel.getHotelCod());
                             hotelPageContentNode.setProperty("hotelId", hotel.getHotelId());
 
+                            // Set livecopy mixin
+                            if (!LanguageHelper.getLanguage(portPage).equals("en")) {
+                                hotelPageContentNode.addMixin("cq:LiveRelationship");
+                            }
+
                             LOGGER.trace("Hotel {} successfully created", hotelPage.getPath());
 
                             successNumber++;
-                            j++;
+                            itemsWritten++;
                         }
 
-                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                             try {
                                 session.save();
 
-                                LOGGER.debug("{} hotels imported, saving session", +j);
+                                LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -184,7 +191,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                     }
                 }
 
-                i++;
+                apiPage++;
             } while (hotels.size() > 0);
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
@@ -204,6 +211,9 @@ public class HotelsImporterImpl implements HotelsImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
+    /**
+     * TODO it seems a lot of elements are marked as modified on API, compare API data against CRX data before update
+     */
     @Override
     public ImportResult updateHotels() {
         LOGGER.debug("Starting hotels update");
@@ -231,22 +241,23 @@ public class HotelsImporterImpl implements HotelsImporter {
 
             LOGGER.debug("Last import date for hotels {}", lastModificationDate);
 
-            int j = 0, i = 1;
+            int itemsWritten = 0, apiPage = 1;
             List<Hotel77> hotels;
 
             do {
                 final ApiResponse<List<Hotel77>> apiResponse = hotelsApi.hotelsGetChangesWithHttpInfo(lastModificationDate,
-                        i , pageSize, null);
+                        apiPage , pageSize, null);
                 hotels = apiResponse.getData();
 
                 // TODO replace by header
-                LOGGER.trace("Total hotels : {}, page : {}, hotels for this page : {}", hotels.size(), i, hotels.size());
+                LOGGER.trace("Total hotels : {}, page : {}, hotels for this page : {}", hotels.size(), apiPage, hotels.size());
 
                 for (Hotel77 hotel : hotels) {
                     LOGGER.debug("Updating hotel: {}", hotel.getHotelName());
 
                     try {
                         // Getting all the hotel pages with the current hotelId
+                        // TODO create cache of hotelId / Resource in order to speed up the process
                         Iterator<Resource> hotelsResources = resourceResolver
                                 .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
                                         "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"" +
@@ -323,9 +334,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 // Creating hotel page
                                 final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                                StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
                                         WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                        StringHelper.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                        StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
 
                                 LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 
@@ -343,13 +354,13 @@ public class HotelsImporterImpl implements HotelsImporter {
                         }
 
                         successNumber++;
-                        j++;
+                        itemsWritten++;
 
-                        if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                             try {
                                 session.save();
 
-                                LOGGER.debug("{} hotels imported, saving session", +j);
+                                LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -361,7 +372,7 @@ public class HotelsImporterImpl implements HotelsImporter {
                     }
                 }
 
-                i++;
+                apiPage++;
             } while (hotels.size() > 0);
 
             ImporterUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
@@ -405,6 +416,11 @@ public class HotelsImporterImpl implements HotelsImporter {
             hotelContentNode.setProperty("image", hotel.getImageUrl());
             hotelContentNode.setProperty("code", hotel.getHotelCod());
             hotelContentNode.setProperty("hotelId", hotel.getHotelId());
+
+            // Set livecopy mixin
+            if (!LanguageHelper.getLanguage(hotelPage).equals("en")) {
+                hotelContentNode.addMixin("cq:LiveRelationship");
+            }
         } catch (RepositoryException e) {
             throw new ImporterException("Cannot set properties for hotel " + hotel.getHotelName(), e);
         }

@@ -295,6 +295,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="mail-me-brochure"
         sling:message="MAIL ME THIS BROCHURE" />
+    <type-here-to-search
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="type-here-to-search"
+        sling:message="Type here to search" />
+    <search
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="search"
+        sling:message="Search" />
     <menu
         jcr:primaryType="sling:MessageEntry"
         sling:key="menu"
@@ -1049,4 +1057,20 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="last"
         sling:message="last" />
+    <eur
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EUR"
+        sling:message="€" />
+    <gbp
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="GBP"
+        sling:message="£" />
+    <usd
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="USD"
+        sling:message="$" />
+    <aud
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="AUD"
+        sling:message="$" />
 </jcr:root>

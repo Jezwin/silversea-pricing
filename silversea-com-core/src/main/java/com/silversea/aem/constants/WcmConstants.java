@@ -17,8 +17,6 @@ public interface WcmConstants {
     String NN_HOTELS = "hotels";
     String NN_EXCURSIONS = "excursions";
 
-    String FOLDER_BROCHURES = "brochures"; // TODO naming convention
-
     // Properties
     String PN_NOT_IN_SITEMAP = "notInSitemap";
     String PN_FILE_REFERENCE = "fileReference";
@@ -40,6 +38,7 @@ public interface WcmConstants {
     String PAGE_TEMPLATE_LAND_PROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
     String PAGE_TEMPLATE_EXCURSION = "/apps/silversea/silversea-com/templates/excursion";
     String PAGE_TEMPLATE_EXCLUSIVE_OFFER = "/apps/silversea/silversea-com/templates/exclusiveoffer";
+    String PAGE_TEMPLATE_CRUISE = "/apps/silversea/silversea-com/templates/cruise";
 
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage"; // TODO not a resource type
@@ -63,17 +62,24 @@ public interface WcmConstants {
     String RT_FEATURE = "silversea/silversea-com/components/pages/feature";
     String RT_PORT = "silversea/silversea-com/components/pages/port";
     String RT_BLOG_POST = "silversea/silversea-com/components/pages/blogpost";
-    String RT_KEY_PEPOLE = "silversea/silversea-com/components/pages/keypeople";
+    String RT_KEY_PEOPLE = "silversea/silversea-com/components/pages/keypeople";
     String RT_VOYAGE_JOURNAL_DAY = "silversea/silversea-com/components/pages/voyagejournalsday";
     String RT_PUBLIC_AREA_VARIATION = "silversea/silversea-com/components/pages/publicareavariation";
     String RT_DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
-    String RT_PAGE_PORT = "silversea/silversea-com/components/pages/portslist";
     String RT_COMBO_CRUISE = "silversea/silversea-com/components/pages/combocruise";
+    String RT_CRUISE = "silversea/silversea-com/components/pages/cruise";
 
-    // Tags TODO naming convention
+    // Tags
+    // TODO naming convention
+    String GEOLOCATION_TAGS_PREFIX = "geotagging:";
+
     String TAG_NAMESPACE_LANGUAGES = "languages:";
     String TAG_NAMESPACE_BROCHURE_GROUPS = "brochure-groups:";
-    String GEOLOCATION_TAGS_PREFIX = "geotagging:";
+    String TAG_NAMESPACE_FEATURES = "features:";
+
+    String TAG_NAMESPACE_CRUISE_TYPES = "cruise-types:";
+    String TAG_CRUISE_TYPE_CRUISE = TAG_NAMESPACE_CRUISE_TYPES + "silversea-cruise";
+    String TAG_CRUISE_TYPE_EXPEDITION = TAG_NAMESPACE_CRUISE_TYPES + "silversea-expedition";
 
     // Default Value
     String PAGINATION_LIMIT = "10";
@@ -93,9 +99,14 @@ public interface WcmConstants {
     Integer DEFAULT_WIDTH_DESKTOP = 930;
     Integer DEFAULT_WIDTH_MOBILE = 737;
 
-    // Prefix of geolocation tags
-
     // Content Path
     String PATH_TAGS_GEOLOCATION = "/etc/tags/geotagging";
     String PATH_DAM_SILVERSEA = "/content/dam/silversea-com";
+
+    String FOLDER_BROCHURES = "brochures"; // TODO naming convention
+
+    // Geolocation default values
+    // TODO change to US
+    String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "EU";
+    String DEFAULT_CURRENCY = "EUR";
 }

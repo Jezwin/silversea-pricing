@@ -1,51 +1,33 @@
-<sly
-    data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
-    data-sly-unwrap>
+<sly data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse" />
 
-<section class="o-section o-section--small">
-
-    <div class="c-accordion c-accordion--darkbox">
-        <div class="c-accordion__elem">
-            <div class="c-accordion__header">
-                <div class="c-accordion__title">
-                    <p>
-                        <strong>${'archives' @ i18n}</strong>
-                        <i class="fa fa-angle-down pull-right"></i>
-                    </p>
-                </div>
+<div class="c-accordion c-accordion--darkbox">
+    <div class="c-accordion__elem">
+        <div class="c-accordion__header">
+            <div class="c-accordion__title">
+                <p>
+                    <strong>${'archives' @ i18n}</strong> <i class="fa fa-angle-down pull-right"></i>
+                </p>
             </div>
-            <div class="c-accordion__body c-accordion__body--full">
-
-                <div class="c-accordion c-accordion--light" data-multiview="false" data-sly-list.year="${cpt.archiveYear}">
-                    <div class="c-accordion__elem">
-                        <div class="c-accordion__header">
-                            <div class="c-accordion__title">
-                                <p>
-                                    <strong>${year.title}</strong>
-                                    <i class="fa fa-angle-down pull-right h-text-"></i>
-                                </p>
-                            </div>
+        </div>
+        <div class="c-accordion__body c-accordion__body--full">
+            <div class="c-accordion c-accordion--light" data-multiview="false" data-sly-list.year="${cpt.archiveYear}">
+                <div class="c-accordion__elem">
+                    <div class="c-accordion__header">
+                        <div class="c-accordion__title">
+                            <p>
+                                <strong>${year.title}</strong> <i class="fa fa-angle-down pull-right h-text-"></i>
+                            </p>
                         </div>
-                        <div class="c-accordion__body">
-                            <div class="c-accordion__body--panel">
-                                <ul>
-                                    <sly data-sly-list.month="${year.archiveMonth}" data-sly-unwrap>
-                                        <li class="c-accordion__archivelink">
-                                            <a href="${month.path}">
-                                                ${month.title} (${month.monthNumber})
-                                            </a>
-                                        </li>
-                                    </sly>
-                                </ul>
-                            </div>
+                    </div>
+                    <div class="c-accordion__body">
+                        <div class="c-accordion__body--panel">
+                            <ul data-sly-list.month="${year.archiveMonth}">
+                                <li class="c-accordion__archivelink"><a href="${month.path}">${month.title} (${month.monthNumber})</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-</section>
-
-</sly>
+</div>

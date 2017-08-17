@@ -91,7 +91,7 @@ public class SitemapModel {
             }
 
             if (page.getProperties() != null) {
-            	String resourceType = page.getContentResource().getResourceType();
+                String resourceType = page.getContentResource().getResourceType();
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
                         || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
                         || WcmConstants.RT_HOTEL.equals(resourceType)

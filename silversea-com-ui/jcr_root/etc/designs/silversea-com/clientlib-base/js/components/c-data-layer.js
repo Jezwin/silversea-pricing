@@ -38,7 +38,7 @@ $(function() {
         var userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
         if (userInfo != undefined) {
             window.dataLayer[0].user_email = userInfo.email;
-            window.dataLayer[0].user_recency_optin = userInfo.att02;
+            window.dataLayer[0].user_recency_optin = userInfo.subscribeemail;
         }
         //request a quote - suite name
         var trackSuite = $.CookieManager.getCookie('track_suite');

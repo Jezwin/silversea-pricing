@@ -32,7 +32,12 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         ft,
         brochures,
         cruises,
-        cc
+        cc,
+        itineraries,
+        itinerarieshotels,
+        itinerariesexcursions,
+        itinerarieslandprograms,
+        prices
     }
 
     private boolean isRunning = false;
@@ -71,6 +76,21 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private CruisesImporter cruisesImporter;
 
     @Reference
+    private CruisesItinerariesImporter cruisesItinerariesImporter;
+
+    @Reference
+    private CruisesItinerariesHotelsImporter cruisesItinerariesHotelsImporter;
+
+    @Reference
+    private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
+
+    @Reference
+    private CruisesPricesImporter cruisesPricesImporter;
+
+    @Reference
+    private CruisesItinerariesLandProgramsImporter cruisesItinerariesLandProgramsImporter;
+
+    @Reference
     private ComboCruisesImporter comboCruisesImporter;
 
     @Override
@@ -90,6 +110,12 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
             String modeParam = request.getParameter("mode");
             Boolean all = modeParam == null || "".equals(modeParam) || "ALL".equals(modeParam);
             Mode mode = null;
+
+            String elementsNumberString = request.getParameter("size");
+            int elementsNumber = -1;
+            try {
+                elementsNumber = Integer.valueOf(elementsNumberString);
+            } catch (NumberFormatException ignored) {}
 
             if (!all) {
                 try {
@@ -120,7 +146,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     responseWriter.flush();
                     watch.reset();
                     watch.start();
-                    ImportResult importResult = citiesImporter.importAllCities();
+                    ImportResult importResult = citiesImporter.importAllItems();
                     responseWriter.write("Cities import failure number : <p>" + importResult.getErrorNumber() + "</p>");
                     responseWriter.write("<br/>");
                     responseWriter.write("Cities import success number : <p>" + importResult.getSuccessNumber() + "</p>");
@@ -244,13 +270,44 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesImporter.importData(false);
+                    cruisesImporter.importSampleSet(elementsNumber);
                     responseWriter.write("Cruises import Done<br/>");
                     responseWriter.flush();
                 }
+
                 if (all || mode.equals(Mode.cc)) {
                     comboCruisesImporter.importData(false);
                     responseWriter.write("Combo cruises Cruises import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.itineraries)) {
+                    cruisesItinerariesImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Itineraries import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.itinerarieshotels)) {
+                    cruisesItinerariesHotelsImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Itineraries hotels import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.itinerariesexcursions)) {
+                    cruisesItinerariesExcursionsImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Itineraries excursions import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.itinerarieslandprograms)) {
+                    cruisesItinerariesLandProgramsImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Itineraries land programs import Done<br/>");
+                    responseWriter.flush();
+                }
+
+                if (mode.equals(Mode.prices)) {
+                    cruisesPricesImporter.importSampleSet(elementsNumber);
+                    responseWriter.write("Prices import Done<br/>");
                     responseWriter.flush();
                 }
 

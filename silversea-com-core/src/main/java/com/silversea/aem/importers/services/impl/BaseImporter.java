@@ -8,9 +8,14 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.silversea.aem.services.ApiConfigurationService;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +28,6 @@ import com.silversea.aem.importers.authentication.DigestAuthenticationInfos;
 /**
  * Created by aurelienolivier on 13/02/2017.
  */
-@Deprecated
 public class BaseImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(BaseImporter.class);

@@ -6,23 +6,21 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.StringHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.SpecialOffersApi;
 import io.swagger.client.model.SpecialOffer;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.*;
-import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 import org.osgi.service.component.ComponentContext;
@@ -129,9 +127,9 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                             // Create exclusive offer page
                             final Page exclusiveOfferPage = pageManager.create(exclusiveOffersRootPage.getPath(),
                                     JcrUtil.createValidChildName(exclusiveOffersRootPage.adaptTo(Node.class),
-                                            StringHelper.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer())),
+                                            StringsUtils.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer())),
                                     WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER,
-                                    StringHelper.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer()),
+                                    StringsUtils.getFormatWithoutSpecialCharcters(exclusiveOffer.getVoyageSpecialOffer()),
                                     false);
 
                             // If exclusive offer is created, set the properties

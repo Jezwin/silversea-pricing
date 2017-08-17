@@ -1,25 +1,25 @@
-<template data-sly-template.default="${ @ suite, requestQuotePath }">
+<template data-sly-template.default="${ @ suitePrice, requestQuotePath }">
     <div class="row c-tab__content--description__row">
         <div class="col-sm-6">
             <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
-                data-sly-call="${sliderTemplate.populatefromSetStyle2 @ setImagePath=suite.page.properties.assetSelectionReference}" />
+                data-sly-call="${sliderTemplate.populatefromSetStyle2 @ setImagePath=suitePrice.suite.assetSelectionReference}" />
         </div>
         <div class="col-sm-6">
             <div class="c-tab__content--description__info">
                 <p>
                     <strong class="text-uppercase">${'dimension:' @ i18n}</strong>
-                    ${suite.bedroomsInformation @ context='html'}
+                    ${suitePrice.suite.bedroomsInformation @ context='html'}
                 </p>
-                ${suite.longDescription @ context='html'}
+                ${suitePrice.suite.longDescription @ context='html'}
             </div>
             <div class="c-tab__content--description__price">
                 <p>
                     <span><strong>${'fares-from' @ i18n}</strong></span><br />
-                    <span data-sly-test.isisWaitList="${suite.lowestPrice.isWaitList}">
+                    <span data-sly-test.isisWaitList="${suitePrice.lowestPrice.isWaitList}">
                         <strong class="c-suitelist__price__text--important5 text-uppercase">${'waitlist' @ i18n}</strong>
                     </span>
                     <span data-sly-test="${!isisWaitList}">
-                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suite.lowestPrice.currency} ${suite.lowestPrice.value}</strong>
+                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suitePrice.lowestPrice.currency @ i18n} ${suitePrice.lowestPrice.price}</strong>
                         (${'per-guest' @ i18n})
                     </span>
                     

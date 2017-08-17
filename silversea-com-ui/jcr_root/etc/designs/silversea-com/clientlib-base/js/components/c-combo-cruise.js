@@ -43,19 +43,10 @@ $(function() {
         });
     });
 
-
-    // read/less more variations
-    var variation_block = $('.ship-mobilewrapper'),
-        variationHeight = $('.variationimg img').height() - 70,
-        moreLink = '<a href="#" class="read_more">' + $('.variationcontent__descr_expand .read_more').html() + '</a>',
-        lessLink = '<a href="#" class="read_less"> ' + $('.variationcontent__descr_expand .read_less').html() + '</a>';
-    
     /***************************************************************************
      * Truncate text
      **************************************************************************/
-
     $('.textTruncate').each(function(i, el){
-
         var node = $(el);
         var limit = parseInt(node.data('limit'));
         if(node.find('p span').text().length > limit){
@@ -65,41 +56,51 @@ $(function() {
         }
     });
 
+    /***************************************************************************
+     * Read more
+     **************************************************************************/
+    var readMore = (function readMore() {
+        $('.c-cruise-ship-info__item .variationcontent__descr').each(function(i, description) {
+            var $description = $(description);
+            // Re-init hmtl markup
+            $description.attr('data-original-height', '');
+            $description.removeClass('clipped');
+            $description.removeClass('opened');
 
-    if ($.viewportDetect() !== "xs") {
-        variation_block.readmore({
-            speed: 75,
-            collapsedHeight: variationHeight ,
-            moreLink: moreLink,
-            lessLink: lessLink
+            if ($description.height() > 137) {
+                var $descriptionToggle = $description.next('.variationcontent__descr__expand');
+                var $moreBtn = $descriptionToggle.find('.read_more');
+                var $lessBtn = $descriptionToggle.find('.read_less');
+
+                $description.attr('data-original-height', $description.height());
+                $description.addClass('clipped');
+
+                // Expand
+                $moreBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $description.addClass('opened');
+                    $description.css('height', $description.data('original-height'))
+                });
+
+                // Collapse
+                $lessBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $description.removeClass('opened');
+                    $description.css('height', '')
+                });
+            }
         });
-    }
 
+        return readMore;
+    })();
+
+    // Init function on click
     $('.c-cruise .expander-open').on('click', function(e) {
-        if ($.viewportDetect() !== "xs") {
-            variation_block.readmore({
-                speed: 75,
-                collapsedHeight: variationHeight ,
-                moreLink: moreLink,
-                lessLink: lessLink
-            });
-        }
+        readMore();
     });
 
-    // destroy or initialize readmore on window resize
-    $(window).on("resize", function() {
-        if ($.viewportDetect() === "xs") {
-            // Destroy readmore on XS viewport after window resize
-            variation_block.readmore('destroy');
-        } else {
-            var variationNexHeight = $('.variationimg img').height() - 70;
-            variation_block.readmore({
-                speed: 75,
-                collapsedHeight: variationNexHeight ,
-                moreLink: moreLink,
-                lessLink: lessLink
-            });
-        }
+    // Init function on resize
+    $('body').on('trigger.viewport.changed', function() {
+        readMore();
     });
-
 });

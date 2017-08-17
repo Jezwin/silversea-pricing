@@ -4,11 +4,13 @@ import com.day.cq.tagging.InvalidTagFormatException;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
+import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
 import org.apache.cxf.common.util.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
@@ -43,17 +45,6 @@ public class CountriesImporterImpl implements CountriesImporter {
     @Reference
     private ApiConfigurationService apiConfig;
 
-    // TODO remove api call service
-    @Reference
-    private ApiCallService apiCallService;
-
-    @Activate
-    protected void activate(final ComponentContext context) {
-        if (apiConfig.getSessionRefresh() != 0) {
-            int sessionRefresh = apiConfig.getSessionRefresh();
-        }
-    }
-
     @Override
     public ImportResult importData() throws IOException {
         LOGGER.debug("Starting countries import");
@@ -67,14 +58,16 @@ public class CountriesImporterImpl implements CountriesImporter {
         ResourceResolver resourceResolver = null;
         try {
             resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
-            final Session session = resourceResolver.adaptTo(Session.class);
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+            final Session session = resourceResolver.adaptTo(Session.class);
+
+            final CountriesApi countriesApi = new CountriesApi(ImporterUtils.getApiClient(apiConfig));
 
             if (session == null || tagManager == null) {
                 throw new ImporterException("Cannot initialize tagManager or session");
             }
 
-            List<Country> countries = apiCallService.getCountries();
+            List<Country> countries = countriesApi.countriesGet(null, null);
 
             for (Country country : countries) {
                 LOGGER.debug("Importing country: {}", country.getCountryName());
@@ -130,8 +123,6 @@ public class CountriesImporterImpl implements CountriesImporter {
                     session.refresh(false);
                 }
             }
-
-            resourceResolver.close();
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {

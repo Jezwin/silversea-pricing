@@ -489,19 +489,19 @@ public class CruiseSearchServiceImpl implements CruiseSearchService{
             startDate = DateUtils.formatDate(ServiceConstants.SEARCH_CRUISE_DATE_FORMAT, cruiseModel.getStartDate().getTime());
         }
         //Extract itineraries
-        if(cruiseModel.getItineraries() != null){
+        /*if(cruiseModel.getItineraries() != null){
            itineraries = cruiseModel.getItineraries()
                                      .stream()
                                      .map(CruiseItineraryModel::getItineraryModel)
                                      .map(ItineraryModel::getTitle)
                                      .collect(Collectors.toList());
-        }
+        }*/
         //Bean mapping
         Cruise cruise = new Cruise();
         cruise.setThumbnail(cruiseModel.getThumbnail());
         cruise.setPath(cruiseModel.getPage().getPath());
         cruise.setTitle(cruiseModel.getTitle());
-        cruise.setType(cruiseModel.getCruiseType());
+        //cruise.setType(cruiseModel.getCruiseType());
         cruise.setShip(cruiseModel.getShip().getTitle());
         cruise.setStartDate(startDate);
         cruise.setDuration(cruiseModel.getDuration());

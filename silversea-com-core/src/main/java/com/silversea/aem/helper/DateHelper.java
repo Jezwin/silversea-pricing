@@ -4,6 +4,7 @@ import com.adobe.cq.sightly.WCMUsePojo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -18,9 +19,9 @@ public class DateHelper extends WCMUsePojo {
     public void activate() throws Exception {
         Calendar date = get("date", Calendar.class);
         String format = get("format", String.class);
-        Locale locale = getCurrentPage().getLanguage(false);
-        SimpleDateFormat formatter = new SimpleDateFormat(format, locale);
-        if (date != null) {
+        if (date != null && format != null) {
+            Locale locale = getCurrentPage().getLanguage(false);
+            SimpleDateFormat formatter = new SimpleDateFormat(format, locale);
             value = formatter.format(date.getTime());
         }
     }

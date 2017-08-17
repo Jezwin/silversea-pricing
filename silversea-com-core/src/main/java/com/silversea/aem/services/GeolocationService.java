@@ -11,4 +11,6 @@ public interface GeolocationService {
     GeoLocation initGeolocation(SlingHttpServletRequest request);
 
     String getLocalizedPhone(SlingHttpServletRequest request);
+
+    String getLocalizedCurrency(SlingHttpServletRequest request);
 }

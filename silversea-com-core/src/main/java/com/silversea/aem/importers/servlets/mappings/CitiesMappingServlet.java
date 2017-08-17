@@ -6,7 +6,6 @@ import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
-import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -20,7 +19,7 @@ public class CitiesMappingServlet extends SlingSafeMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        JSONObject citiesMapping = citiesImporter.getCitiesMapping();
+        JSONObject citiesMapping = citiesImporter.getJsonMapping();
 
         response.setContentType("application/json");
         response.getWriter().write(citiesMapping.toString());
