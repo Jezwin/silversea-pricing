@@ -22,7 +22,7 @@ public class PriceModel {
     @Inject
     private String availability;
 
-    @Inject @Named("cq:Tags")
+    @Inject @Named("cq:tags")
     private String[] tagIds;
 
     private String geomarket;

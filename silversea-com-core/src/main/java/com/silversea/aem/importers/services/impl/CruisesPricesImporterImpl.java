@@ -18,6 +18,7 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.commons.JcrUtils;
+import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -113,13 +114,17 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 final String[] suiteCategoryCodes = suite.getValueMap().get("suiteCategoryCode", String[].class);
 
                 if (suiteCategoryCodes != null) {
-                    for (String suiteCategoryCode : suiteCategoryCodes) {
-                        if (suitesMapping.containsKey(suiteCategoryCode)) {
-                            suitesMapping.get(suiteCategoryCode).put(language, suite.getParent());
+                    for (final String suiteCategoryCode : suiteCategoryCodes) {
+                        // generate unique key with ship name and suite category code
+                        final String suiteCatId = suite.getParent().getParent().getParent().getName() + "-" +
+                                suiteCategoryCode;
+
+                        if (suitesMapping.containsKey(suiteCatId)) {
+                            suitesMapping.get(suiteCatId).put(language, suite.getParent());
                         } else {
                             final HashMap<String, Resource> suitesResources = new HashMap<>();
                             suitesResources.put(language, suite.getParent());
-                            suitesMapping.put(suiteCategoryCode, suitesResources);
+                            suitesMapping.put(suiteCatId, suitesResources);
                         }
                     }
 
@@ -160,30 +165,40 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                                     // Iterating over prices variation
                                     for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
                                         try {
-                                            if (!suitesMapping.containsKey(cruiseOnlyPrice.getSuiteCategoryCod())) {
-                                                throw new ImporterException("Cannot get suite with category " + cruiseOnlyPrice.getSuiteCategoryCod());
+                                            if (cruiseContentNode.getProperty("shipReference") == null) {
+                                                throw new ImporterException("Cruise " + cruise.getKey() + " do not contains a" +
+                                                        " ship reference");
+                                            }
+
+                                            final String suiteCatId = PathUtils.getName(cruiseContentNode.getProperty("shipReference")
+                                                            .getString()) + "-" + cruiseOnlyPrice.getSuiteCategoryCod();
+
+                                            if (!suitesMapping.containsKey(suiteCatId)) {
+                                                throw new ImporterException("Cannot get suite with category " + suiteCatId);
                                             }
 
                                             // Getting suite corresponding to suite category
-                                            final Map<String, Resource> suites = suitesMapping.get(cruiseOnlyPrice.getSuiteCategoryCod());
+                                            final Map<String, Resource> suites = suitesMapping.get(suiteCatId);
                                             final String suiteName = suites.get(cruise.getKey()).getName();
 
                                             final Node suiteNode = JcrUtils.getOrAddNode(suitesNode, suiteName);
 
                                             final String priceVariationNodeName = cruiseOnlyPrice.getSuiteCategoryCod() +
-                                                    priceMarket.getMarketCod() +
-                                                    cruiseOnlyPrice.getCurrencyCod();
+                                                    priceMarket.getMarketCod() + cruiseOnlyPrice.getCurrencyCod();
 
                                             final Node priceVariationNode = suiteNode.addNode(JcrUtil.createValidChildName(suiteNode,
                                                     priceVariationNodeName));
 
                                             priceVariationNode.setProperty("suiteCategory", cruiseOnlyPrice.getSuiteCategoryCod());
                                             priceVariationNode.setProperty("price", cruiseOnlyPrice.getCruiseOnlyFare());
-                                            priceVariationNode.setProperty("earlyBookingBonus",
-                                                    cruiseOnlyPrice.getEarlyBookingBonus());
+                                            if (cruiseOnlyPrice.getEarlyBookingBonus() != null) {
+                                                priceVariationNode.setProperty("earlyBookingBonus",
+                                                        cruiseOnlyPrice.getEarlyBookingBonus());
+                                            }
                                             priceVariationNode.setProperty("currency", cruiseOnlyPrice.getCurrencyCod());
                                             priceVariationNode.setProperty("availability", cruiseOnlyPrice.getSuiteAvailability());
-                                            priceVariationNode.setProperty("cq:Tags", new String[]{"geotagging:" + priceMarket.getMarketCod().toLowerCase()});
+                                            priceVariationNode.setProperty("cq:tags", new String[]{"geotagging:" +
+                                                    priceMarket.getMarketCod().toLowerCase()});
 
                                             // Writing suite reference based on lang
                                             priceVariationNode.setProperty("suiteReference", suites.get(cruise.getKey()).getPath());
