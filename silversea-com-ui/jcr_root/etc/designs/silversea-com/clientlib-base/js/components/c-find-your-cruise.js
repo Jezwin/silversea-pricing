@@ -129,10 +129,8 @@ $(function() {
             $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
                 var $currentPage = $(e.target);
 
-                if ($currentPage.is('.c-fyc-pagination a')) {
+                if ($currentPage.closest('.c-fyc-pagination').length > 0) {
                     e.preventDefault();
-                    $paginationWrapper.find('a').removeClass('active');
-                    $currentPage.addClass('active');
 
                     $form.trigger('change');
 
