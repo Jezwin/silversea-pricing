@@ -179,6 +179,8 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                                             priceVariationNode.setProperty("suiteCategory", cruiseOnlyPrice.getSuiteCategoryCod());
                                             priceVariationNode.setProperty("price", cruiseOnlyPrice.getCruiseOnlyFare());
+                                            priceVariationNode.setProperty("earlyBookingBonus",
+                                                    cruiseOnlyPrice.getEarlyBookingBonus());
                                             priceVariationNode.setProperty("currency", cruiseOnlyPrice.getCurrencyCod());
                                             priceVariationNode.setProperty("availability", cruiseOnlyPrice.getSuiteAvailability());
                                             priceVariationNode.setProperty("cq:Tags", new String[]{"geotagging:" + priceMarket.getMarketCod().toLowerCase()});
