@@ -93,6 +93,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     private List<Integer> pagination;
 
+    private int totalMatches;
+
     @Override
     public void activate() throws Exception {
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
@@ -278,7 +280,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
         }
 
         // Setting convenient booleans for building pagination
-        pageNumber = (int) Math.ceil((float) filteredCruises.size() / (float) PAGE_SIZE);
+        totalMatches = filteredCruises.size();
+        pageNumber = (int) Math.ceil((float) totalMatches / (float) PAGE_SIZE);
         isFirstPage = activePage == 1;
         isLastPage = activePage == getPagesNumber();
 
@@ -400,6 +403,13 @@ public class FindYourCruiseUse extends WCMUsePojo {
      */
     public List<Integer> getPagination() {
         return pagination;
+    }
+
+    /**
+     * @return the totalMatches
+     */
+    public int getTotalMatches() {
+        return totalMatches;
     }
 
     /**
