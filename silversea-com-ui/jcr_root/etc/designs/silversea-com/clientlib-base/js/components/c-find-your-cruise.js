@@ -11,11 +11,11 @@ $(function() {
         /***************************************************************************
          * Sort alphabetically
          **************************************************************************/
-        function sortAlphabetically(a, b) {
-            var x = a.title.toLowerCase();
-            var y = b.title.toLowerCase();
-            return x < y ? -1 : x > y ? 1 : 0;
-        }
+//        function sortAlphabetically(a, b) {
+//            var x = a.title.toLowerCase();
+//            var y = b.title.toLowerCase();
+//            return x < y ? -1 : x > y ? 1 : 0;
+//        }
 
         /***************************************************************************
          * Filter : get/update filter from json response
@@ -129,8 +129,15 @@ $(function() {
             $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
                 var $currentPage = $(e.target);
 
-                if ($currentPage.closest('.c-fyc-pagination').length > 0) {
+                if ($currentPage.closest('.c-fyc-pagination ul').length > 0) {
+
                     e.preventDefault();
+                    e.stopPropagation();
+                    $paginationWrapper.find('a').removeClass('active');
+                    $currentPage.addClass('active');
+
+                    // Update parameters just before build request
+                    $page = $currentPage.data('page');
 
                     $form.trigger('change');
 
@@ -212,8 +219,7 @@ $(function() {
                 $featureFieldWrapper.addClass('active');
             }
 
-            // Build request URL with filter, pagination and number of result per
-            // page.
+            // Build request URL with filter, pagination and number of result per page.
             var requestUrl = $currentForm.data('url');
 
             $filterValue.each(function(i, field) {
@@ -243,6 +249,7 @@ $(function() {
 
                     // Set data layer key according to the current result
                     searchAnalytics();
+                    
                 }
             });
         });
