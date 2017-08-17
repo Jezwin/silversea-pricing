@@ -106,7 +106,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.11_property.value", WcmConstants.RT_SITEMAP);
             map.put("group.12_property.value", WcmConstants.RT_SITEMAP_INDEX);
             map.put("group.13_property.value", WcmConstants.RT_PORT_PAGE_LIST);
-            map.put("group.14_property.value", WcmConstants.RT_VOYAGE_JOURNAL);
+            map.put("group.14_property.value", WcmConstants.RT_VOYAGEJOURNAL_LIST);
             map.put("group.15_property.value", WcmConstants.RT_VOYAGE_JOURNAL_DAY);
             map.put("group.16_property.value", WcmConstants.RT_PRESS_RELEASE_LIST);
             map.put("group.17_property.value", WcmConstants.RT_BLOG_POST_LIST);

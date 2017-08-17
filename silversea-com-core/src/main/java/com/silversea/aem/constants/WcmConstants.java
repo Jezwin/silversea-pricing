@@ -79,6 +79,7 @@ public interface WcmConstants {
     String RT_BLOG_POST_LIST = "silversea/silversea-com/components/pages/blogposts";
     String RT_REDIRECT = "foundation/components/redirect";
     String RT_COMBO_SEGMENT = "silversea/silversea-com/components/pages/combosegment";
+    String RT_VOYAGEJOURNAL_LIST = "silversea/silversea-com/components/pages/voyagejournals";
     
     
 
