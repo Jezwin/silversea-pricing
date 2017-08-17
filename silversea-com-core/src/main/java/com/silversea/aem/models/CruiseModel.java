@@ -95,6 +95,8 @@ public class CruiseModel extends AbstractModel {
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
+    private String path;
+
     @PostConstruct
     private void init() {
         pageManager = page.getPageManager();
@@ -161,6 +163,8 @@ public class CruiseModel extends AbstractModel {
         if (suitesResource != null) {
             collectPrices(prices, suitesResource);
         }
+
+        path = page.getPath();
     }
 
     /**
@@ -358,6 +362,13 @@ public class CruiseModel extends AbstractModel {
      */
     public List<String> getCruiseFareAdditions() {
         return splitCruiseFareAdditions;
+    }
+
+    /**
+     * @return the path of the cruise page
+     */
+    public String getPath() {
+        return path;
     }
 
     /**
