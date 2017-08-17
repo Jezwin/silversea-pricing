@@ -15,6 +15,7 @@ import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.settings.SlingSettingsService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,9 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
+    @Reference
+    private SlingSettingsService slingSettingsService;
+
     private Map<String, List<CruiseModel>> cruises = new HashMap<>();
 
     private Map<String, List<DestinationModel>> destinations = new HashMap<>();
@@ -45,20 +49,22 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private Map<String, Set<FeatureModel>> features = new HashMap<>();
 
-    private int i = 0;
-
     @Activate
     protected void activate(final ComponentContext context) {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(
+                authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 
-            final List<String> languages = ImportersUtils.getSiteLocales(pageManager);
+            // limit memory usage locally
+            List<String> languages;
+            if (slingSettingsService.getRunModes().contains("local")) {
+                languages = Collections.singletonList("en");
+            } else {
+                languages = ImportersUtils.getSiteLocales(pageManager);
+            }
 
             for (final String lang : languages) {
                 // init language
@@ -80,10 +86,6 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             }
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
         }
     }
 
@@ -164,12 +166,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 features.get(lang).addAll(cruiseModel.getFeatures());
 
                 LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
-
-                i++;
             }
         } else {
-            if (i > 20) return;
-
             final Iterator<Page> children = rootPage.listChildren();
 
             while (children.hasNext()) {
