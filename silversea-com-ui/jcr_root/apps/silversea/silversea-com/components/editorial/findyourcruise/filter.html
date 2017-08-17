@@ -30,7 +30,9 @@
                 <select class="chosen dates-filter" name="date">
                     <option value="all">${'departure-date' @ i18n}</option>
                     <option data-sly-repeat="${fyc.dates}" value="${item.toString}" data-value="${item.toString}">
-                        ${item.monthValue} ${item.year}</option>
+                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}" />
+                        ${month.value} ${item.year}
+                    </option>
                 </select>
             </div>
             <div class="single-filter">
