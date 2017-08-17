@@ -79,5 +79,9 @@
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />
 
-<p data-sly-repeat="${fyc.availableDestinations}">${item.name}</p>
-<p data-sly-repeat="${fyc.availableShips}">${item.name}</p>
+<select>
+    <option data-sly-repeat="${fyc.availableDestinations}">${item.name}</option>
+</select>
+<select>
+    <option data-sly-repeat="${fyc.availableShips}">${item.name}</option>
+</select>
