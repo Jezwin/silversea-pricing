@@ -1,9 +1,6 @@
 package com.silversea.aem.services;
 
-import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.models.DestinationModel;
-import com.silversea.aem.models.PortModel;
-import com.silversea.aem.models.ShipModel;
+import com.silversea.aem.models.*;
 
 import java.time.YearMonth;
 import java.util.List;
@@ -41,5 +38,15 @@ public interface CruisesCacheService {
      */
     Set<Integer> getDurations(final String lang);
 
+    /**
+     * @param lang lang the lang
+     * @return departures dates of the cruises for the <code>lang</code>
+     */
     Set<YearMonth> getDepartureDates(final String lang);
+
+    /**
+     * @param lang lang the lang
+     * @return features of the cruises for the <code>lang</code>
+     */
+    Set<FeatureModel> getFeatures(final String lang);
 }

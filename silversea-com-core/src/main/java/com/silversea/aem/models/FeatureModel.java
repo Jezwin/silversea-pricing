@@ -1,6 +1,7 @@
 package com.silversea.aem.models;
 
 import com.day.cq.tagging.Tag;
+import com.silversea.aem.components.beans.Feature;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
@@ -25,6 +26,10 @@ public class FeatureModel {
 
     private String description;
 
+    private String name;
+
+    private String path;
+
     @PostConstruct
     private void init() {
         // Need resource for extra properties (icon, description, ...)
@@ -38,6 +43,9 @@ public class FeatureModel {
             icon = properties.get("icon", String.class);
             featureCode = properties.get("featureCode", String.class);
             description = properties.get("jcr:description", String.class);
+
+            name = tag.getName();
+            path = tag.getPath();
         }
     }
 
@@ -59,5 +67,32 @@ public class FeatureModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof FeatureModel)) {
+            return false;
+        }
+
+        final FeatureModel objFeatureModel = (FeatureModel)obj;
+
+        return objFeatureModel.getPath().equals(getPath());
     }
 }

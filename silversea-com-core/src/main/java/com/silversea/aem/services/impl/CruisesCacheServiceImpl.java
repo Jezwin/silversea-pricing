@@ -43,6 +43,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private Map<String, Set<YearMonth>> departureDates = new HashMap<>();
 
+    private Map<String, Set<FeatureModel>> features = new HashMap<>();
+
     private int i = 0;
 
     @Activate
@@ -64,18 +66,9 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 destinations.put(lang, new ArrayList<>());
                 ships.put(lang, new ArrayList<>());
                 ports.put(lang, new ArrayList<>());
-                durations.put(lang, new TreeSet<>((o1, o2) -> {
-                    try {
-                        final Integer o1Int = Integer.valueOf(o1);
-                        final Integer o2Int = Integer.valueOf(o2);
-
-                        return o1Int.compareTo(o2Int);
-                    } catch (NumberFormatException ignored) {
-                    }
-
-                    return 0;
-                }));
+                durations.put(lang, new TreeSet<>());
                 departureDates.put(lang, new TreeSet<>());
+                features.put(lang, new TreeSet<>(Comparator.comparing(FeatureModel::getName)));
 
                 // collect cruises
                 final Page destinationsPage = pageManager.getPage("/content/silversea-com/" + lang + "/destinations");
@@ -124,6 +117,11 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
         return departureDates.get(lang);
     }
 
+    @Override
+    public Set<FeatureModel> getFeatures(String lang) {
+        return features.get(lang);
+    }
+
     /**
      * Recursively collect cruise pages
      *
@@ -162,6 +160,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
                 departureDates.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
                         cruiseModel.getStartDate().get(Calendar.MONTH) + 1));
+
+                features.get(lang).addAll(cruiseModel.getFeatures());
 
                 LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
 

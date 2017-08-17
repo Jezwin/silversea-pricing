@@ -23,29 +23,6 @@ public abstract class AbstractModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(AbstractModel.class);
 
-    protected Page getPageReference(Page page, String reference, PageManager pageManager) {
-        Page pageReference = null;
-        String path = page.getProperties().get(reference, String.class);
-        Page pa = getPage(path, pageManager);
-        if (pa != null) {
-            pageReference = pa.adaptTo(Page.class);
-        }
-        return pageReference;
-    }
-
-    protected String initPropertyWithFallBack(Page page, String reference, String property, String referenceProperty,
-            PageManager pageManger) {
-        String value = property;
-        if (StringUtils.isEmpty(property)) {
-            Page pageRef = getPageReference(page, reference, pageManger);
-            if (pageRef != null) {
-                value = pageRef.getProperties().get(referenceProperty, String.class);
-            }
-
-        }
-        return value;
-    }
-
     protected List<Feature> initFeatures(Page page) {
         List<Feature> features = new ArrayList<Feature>();
         Tag[] tags = page.getTags();
@@ -63,15 +40,6 @@ public abstract class AbstractModel {
         }
 
         return features;
-    }
-
-    protected String[] parseText(Page page, String property) {
-        String[] parsedText = null;
-        String text = page.getProperties().get(property, String.class);
-        if (StringUtils.isNotEmpty(text)) {
-            parsedText = text.split("\\r?\\n");
-        }
-        return parsedText;
     }
 
     protected PriceData initPrice(String geoMarketCode, String value) {
