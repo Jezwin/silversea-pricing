@@ -78,11 +78,11 @@
                     </button>
                     <div class="dropdown-menu">
                         <ul class="features-filter">
-                            <li data-sly-repeat.tagModel="${fyc.featureTags}">
-                                <sly data-sly-test.tagID="${tagModel.tag.tagID}" />
-                                <sly data-sly-use.tagHelper="${'com.silversea.aem.helper.TagHelperUse' @ tagID=tagID}" />
-                                <input id="${tagID}" type="checkbox" name="features[]" value="${tagID}" data-value="${tagModel.tag.name}" />
-                                <label class="feature-name" for="${tagID}"><i class="${tagModel.resource.icon}"></i>${tagHelper.languageTitle}</label>
+                            <li data-sly-repeat.feature="${fyc.features}">
+                                <input id="${feature.name}" type="checkbox" name="features[]" value="${feature.name}"
+                                    data-value="${feature.name}" />
+                                <label class="feature-name" for="${feature.name}"><i class="${feature.icon}"></i>
+                                    ${feature.title}</label>
                             </li>
                         </ul>
                     </div>

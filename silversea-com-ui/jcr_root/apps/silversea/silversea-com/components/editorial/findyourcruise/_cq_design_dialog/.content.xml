@@ -49,7 +49,6 @@
                                 fieldDescription="Path"
                                 fieldLabel="Cruises"
                                 name="./cruises"
-                                required="{Boolean}true"
                                 rootPath="/content/silversea-com/" />
                         </items>
                     </column>
