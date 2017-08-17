@@ -68,6 +68,19 @@ public interface WcmConstants {
     String RT_DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
     String RT_COMBO_CRUISE = "silversea/silversea-com/components/pages/combocruise";
     String RT_CRUISE = "silversea/silversea-com/components/pages/cruise";
+    
+    
+    String RT_EXCLUSIVE_OFFER_VARIATION = "silversea/silversea-com/components/pages/exclusiveoffervariation";
+    String RT_SITEMAP = "silversea/silversea-com/components/pages/sitemappage";
+    String RT_SITEMAP_INDEX = "silversea/silversea-com/components/pages/sitemapindex";
+    String RT_PORT_PAGE_LIST = "silversea/silversea-com/components/pages/portslist";
+    String RT_LIGHTBOX = "silversea/silversea-com/components/pages/lightbox";
+    String RT_PRESS_RELEASE_LIST = "silversea/silversea-com/components/pages/pressreleaseslist";
+    String RT_BLOG_POST_LIST = "silversea/silversea-com/components/pages/blogposts";
+    String RT_REDIRECT = "foundation/components/redirect";
+    String RT_COMBO_SEGMENT = "silversea/silversea-com/components/pages/combosegment";
+    
+    
 
     // Tags
     // TODO naming convention

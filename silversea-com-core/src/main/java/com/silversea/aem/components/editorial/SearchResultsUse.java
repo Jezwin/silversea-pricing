@@ -13,9 +13,12 @@ import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
+
 /**
  * Class used for the search results component.
+ * 
  * @author lymendoza
  *
  */
@@ -26,48 +29,105 @@ public class SearchResultsUse extends WCMUsePojo {
     private String pageRequested;
     private long numberOfPages;
     private int pageRequestedInt;
-    
-    private int hitsPerPage = 10; 
+
+    private int hitsPerPage = 10;
 
     @Override
     public void activate() throws Exception {
-        //get parameters from request
+        // get parameters from request
         searchText = getRequest().getParameter("q");
         pageRequested = getRequest().getParameter("page");
         if (StringUtils.isEmpty(pageRequested)) {
             pageRequested = "1";
         }
         pageRequestedInt = Integer.parseInt(pageRequested);
-        
-        //get site language
+
+        // get site language
         String lang = LanguageHelper.getLanguage(getRequest());
         if (lang == null) {
             lang = LanguageHelper.getLanguage(getCurrentPage());
         }
 
         if (!StringUtils.isEmpty(searchText)) {
-            // create query description as hash map (simplest way, same as form post)
+            // create query description as hash map (simplest way, same as form
+            // post)
             Map<String, String> map = new HashMap<String, String>();
 
-            // create query description as hash map (simplest way, same as form post)
+            // create query description as hash map (simplest way, same as form
+            // post)
             map.put("path", "/content/silversea-com/" + lang);
             map.put("type", "cq:Page");
             map.put("group.1_fulltext", searchText);
+
+            map.put("group.2_property", "jcr:content/sling:resourceType");
+            map.put("group.3_property", "jcr:content/sling:resourceType");
+            map.put("group.4_property", "jcr:content/sling:resourceType");
+            map.put("group.5_property", "jcr:content/sling:resourceType");
+            map.put("group.6_property", "jcr:content/sling:resourceType");
+            map.put("group.7_property", "jcr:content/sling:resourceType");
+            map.put("group.8_property", "jcr:content/sling:resourceType");
+            map.put("group.10_property", "jcr:content/sling:resourceType");
+            map.put("group.11_property", "jcr:content/sling:resourceType");
+            map.put("group.12_property", "jcr:content/sling:resourceType");
+            map.put("group.13_property", "jcr:content/sling:resourceType");
+            map.put("group.14_property", "jcr:content/sling:resourceType");
+            map.put("group.15_property", "jcr:content/sling:resourceType");
+            map.put("group.16_property", "jcr:content/sling:resourceType");
+            map.put("group.17_property", "jcr:content/sling:resourceType");
+            map.put("group.18_property", "jcr:content/sling:resourceType");
+            map.put("group.19_property", "jcr:content/sling:resourceType");
+
+            map.put("group.2_property.operation", "unequals");
+            map.put("group.3_property.operation", "unequals");
+            map.put("group.4_property.operation", "unequals");
+            map.put("group.5_property.operation", "unequals");
+            map.put("group.6_property.operation", "unequals");
+            map.put("group.7_property.operation", "unequals");
+            map.put("group.8_property.operation", "unequals");
+            map.put("group.10_property.operation", "unequals");
+            map.put("group.11_property.operation", "unequals");
+            map.put("group.12_property.operation", "unequals");
+            map.put("group.13_property.operation", "unequals");
+            map.put("group.14_property.operation", "unequals");
+            map.put("group.15_property.operation", "unequals");
+            map.put("group.16_property.operation", "unequals");
+            map.put("group.17_property.operation", "unequals");
+            map.put("group.18_property.operation", "unequals");
+            map.put("group.19_property.operation", "unequals");
+
+            map.put("group.2_property.value", WcmConstants.RT_PUBLIC_AREA);
+            map.put("group.3_property.value", WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION);
+            map.put("group.4_property.value", WcmConstants.RT_KEY_PEOPLE);
+            map.put("group.5_property.value", WcmConstants.RT_LAND_PROGRAMS);
+            map.put("group.6_property.value", WcmConstants.RT_EXCURSIONS);
+            map.put("group.7_property.value", WcmConstants.RT_HOTEL);
+            map.put("group.8_property.value", WcmConstants.RT_TRAVEL_AGENT);
+            map.put("group.10_property.value", WcmConstants.RT_LIGHTBOX);
+            map.put("group.11_property.value", WcmConstants.RT_SITEMAP);
+            map.put("group.12_property.value", WcmConstants.RT_SITEMAP_INDEX);
+            map.put("group.13_property.value", WcmConstants.RT_PORT_PAGE_LIST);
+            map.put("group.14_property.value", WcmConstants.RT_VOYAGE_JOURNAL);
+            map.put("group.15_property.value", WcmConstants.RT_VOYAGE_JOURNAL_DAY);
+            map.put("group.16_property.value", WcmConstants.RT_PRESS_RELEASE_LIST);
+            map.put("group.17_property.value", WcmConstants.RT_BLOG_POST_LIST);
+            map.put("group.18_property.value", WcmConstants.RT_REDIRECT);
+            map.put("group.19_property.value", WcmConstants.RT_COMBO_SEGMENT);
 
             Session session = getResourceResolver().adaptTo(Session.class);
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
 
-            //get number of results to show per page
+            // get number of results to show per page
             hitsPerPage = getProperties().get("hitsPerPage", 10);
-            
-            //calculate start index
+
+            // calculate start index
             int startIndex = (pageRequestedInt - 1) * hitsPerPage;
 
             query.setStart(startIndex);
             query.setHitsPerPage(hitsPerPage);
 
             searchResult = query.getResult();
+
             numberOfPages = searchResult.getTotalMatches() / hitsPerPage;
         }
     }
@@ -138,6 +198,7 @@ public class SearchResultsUse extends WCMUsePojo {
     }
 
     public boolean getShowLastPage() {
-        return (numberOfPages - pageRequestedInt ) > 1;
+        return (numberOfPages - pageRequestedInt) > 1;
     }
+
 }
