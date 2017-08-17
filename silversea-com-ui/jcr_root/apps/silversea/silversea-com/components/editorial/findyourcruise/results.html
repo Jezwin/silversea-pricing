@@ -63,9 +63,9 @@
             </div>
             <p class="c-fyc__result__content__price">
                 <!--/* TODO : generate all-inclusive-package-from OR fare-from message */-->
-                <!-- <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n} <em
-                class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span> -->
-                <strong>${cruiseItem.lowestPrice.currency} ${cruiseItem.lowestPrice.price}</strong>
+                <!-- <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n}
+                <em class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span> -->
+                <strong>${cruiseItem.lowestPrice.currency @ i18n} ${cruiseItem.lowestPrice.price}</strong>
                 <!-- <span class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span> -->
             </p>
             <p class="c-fyc__result__content__button text-center">
