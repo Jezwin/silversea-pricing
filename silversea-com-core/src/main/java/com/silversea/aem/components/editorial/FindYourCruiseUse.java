@@ -71,6 +71,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     private int activePage = 1;
 
+    private int pageNumber;
+
     private boolean isFirstPage;
 
     private boolean isLastPage;
@@ -260,6 +262,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
         }
 
         // Setting convenient booleans for building pagination
+        pageNumber = (int) Math.ceil((float) filteredCruises.size() / (float) PAGE_SIZE);
         isFirstPage = activePage == 1;
         isLastPage = activePage == getPagesNumber();
     }
@@ -321,7 +324,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
      * @return the number of pages
      */
     public int getPagesNumber() {
-        return (int) Math.ceil((float) allCruises.size() / (float) PAGE_SIZE);
+        return pageNumber;
     }
 
     /**
