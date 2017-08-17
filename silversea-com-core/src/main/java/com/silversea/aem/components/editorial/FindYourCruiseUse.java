@@ -306,7 +306,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
-     * Build Pagination according to the page active
+     * @return pagination according to the active page
      */
     private List<Integer> buildPagination() {
         pagination = new ArrayList<>();
