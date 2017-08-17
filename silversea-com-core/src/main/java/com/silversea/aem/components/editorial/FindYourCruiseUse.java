@@ -38,8 +38,14 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // destinations available for all the cruises
     private List<DestinationModel> destinations = new ArrayList<>();
 
+    // destinations available for the subset of filtered cruises
+    private Set<DestinationModel> availableDestinations = new TreeSet<>(Comparator.comparing
+            (DestinationModel::getName));
+
     // ships available for all the cruises
     private List<ShipModel> ships = new ArrayList<>();
+
+    private Set<ShipModel> availableShips = new TreeSet<>(Comparator.comparing(ShipModel::getName));
 
     // ports available for all the cruises
     private List<PortModel> ports = new ArrayList<>();
@@ -97,6 +103,16 @@ public class FindYourCruiseUse extends WCMUsePojo {
     public void activate() throws Exception {
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
+
+        // Get type from configuration
+        final Conf confRes = getResource().adaptTo(Conf.class);
+        if (confRes != null) {
+            final ValueMap fycConf = confRes.getItem("/findyourcruise/findyourcruise");
+
+            if (fycConf != null) {
+                type = fycConf.get("type", String.class);
+            }
+        }
 
         // Get tags to display
         if (tagManager != null) {
@@ -205,16 +221,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 shipFilter = getCurrentPage().getName();
                 prefilterByShip = true;
                 break;
-        }
-
-        // Get type from configuration
-        final Conf confRes = getResource().adaptTo(Conf.class);
-        if (confRes != null) {
-            final ValueMap fycConf = confRes.getItem("/findyourcruise/findyourcruise");
-
-            if (fycConf != null) {
-                type = fycConf.get("type", String.class);
-            }
+            // TODO add other types
         }
 
         // init geolocations informations
@@ -247,27 +254,37 @@ public class FindYourCruiseUse extends WCMUsePojo {
             features.retainAll(cruisesCacheService.getFeatures(lang));
         }
 
-        // init list of filtered cruises
+        // init list of filtered cruises and available values for filters
         final Set<CruiseModel> filteredCruises = new HashSet<>();
         for (final CruiseModel cruise : allCruises) {
             boolean includeCruise = true;
+            boolean includeCruiseNotFilteredByDestination = true;
+            boolean includeCruiseNotFilteredByShip = true;
 
             if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
                 includeCruise = false;
+                includeCruiseNotFilteredByShip = false;
             }
 
             if (!shipFilter.equals(FILTER_ALL) && !cruise.getShip().getName().equals(shipFilter)) {
                 includeCruise = false;
+                includeCruiseNotFilteredByDestination = false;
             }
 
             try {
                 final int cruiseDuration = Integer.parseInt(cruise.getDuration());
+
+                // TODO merge if
                 if (durationFilterMin != null && durationFilterMax != null
                         && (cruiseDuration < durationFilterMin || cruiseDuration > durationFilterMax)) {
                     includeCruise = false;
+                    includeCruiseNotFilteredByDestination = false;
+                    includeCruiseNotFilteredByShip = false;
                 } else if (durationFilterMin != null && durationFilterMax == null
                         && cruiseDuration < durationFilterMin) {
                     includeCruise = false;
+                    includeCruiseNotFilteredByDestination = false;
+                    includeCruiseNotFilteredByShip = false;
                 }
             } catch (NumberFormatException ignored) {
             }
@@ -281,28 +298,43 @@ public class FindYourCruiseUse extends WCMUsePojo {
                     }
                 }
                 includeCruise = includeCruise && portInItinerary;
+                includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && portInItinerary;
+                includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && portInItinerary;
             }
 
             if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
                 includeCruise = false;
+                includeCruiseNotFilteredByDestination = false;
+                includeCruiseNotFilteredByShip = false;
             }
 
             final YearMonth cruiseStartDate = YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
                     cruise.getStartDate().get(Calendar.MONTH) + 1);
             if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
                 includeCruise = false;
+                includeCruiseNotFilteredByDestination = false;
+                includeCruiseNotFilteredByShip = false;
             }
 
             if (this.features.size() > 0 && !cruise.getFeatures().containsAll(this.featuresFilter)) {
                 includeCruise = false;
+                includeCruiseNotFilteredByDestination = false;
+                includeCruiseNotFilteredByShip = false;
             }
 
+            // include cruise in the filtered cruises list
             if (includeCruise) {
                 filteredCruises.add(cruise);
-
-                // TODO extract destinations, ships ... for the filtered cruises
             }
 
+            // add elements to the filter of filters lists
+            if (includeCruiseNotFilteredByDestination) {
+                availableDestinations.add(cruise.getDestination());
+            }
+
+            if (includeCruiseNotFilteredByShip) {
+                availableShips.add(cruise.getShip());
+            }
         }
 
         // build the cruises list for the current page
@@ -381,10 +413,24 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
+     * @return destinations available for filtered cruises for this lang
+     */
+    public Set<DestinationModel> getAvailableDestinations() {
+        return availableDestinations;
+    }
+
+    /**
      * @return ships available for all cruises for this lang
      */
     public List<ShipModel> getShips() {
         return ships;
+    }
+
+    /**
+     * @return ships available for filtered cruises for this lang
+     */
+    public Set<ShipModel> getAvailableShips() {
+        return availableShips;
     }
 
     /**
