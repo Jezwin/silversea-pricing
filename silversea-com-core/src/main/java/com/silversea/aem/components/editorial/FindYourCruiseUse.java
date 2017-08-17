@@ -78,6 +78,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // port filter
     private String portFilter = FILTER_ALL;
 
+    private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+
     private int activePage = 1;
 
     private int pageNumber;
@@ -157,6 +159,26 @@ public class FindYourCruiseUse extends WCMUsePojo {
                         break;
                     case "port":
                         portFilter = splitSelector[1];
+                        break;
+                    case "features":
+                        final String featuresFilter = splitSelector[1];
+                        final String[] splitFeatures = featuresFilter.split("\\|");
+
+                        if (splitFeatures.length > 0 && tagManager != null) {
+                            for (String splitFeature : splitFeatures) {
+                                final Tag featureTag = tagManager.resolve(
+                                        WcmConstants.TAG_NAMESPACE_FEATURES + splitFeature);
+
+                                if (featureTag != null) {
+                                    final FeatureModel feature = featureTag.adaptTo(FeatureModel.class);
+
+                                    if (feature != null) {
+                                        this.featuresFilter.add(feature);
+                                    }
+                                }
+                            }
+                        }
+
                         break;
                     case "page":
                         try {
@@ -268,6 +290,10 @@ public class FindYourCruiseUse extends WCMUsePojo {
             final YearMonth cruiseStartDate = YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
                     cruise.getStartDate().get(Calendar.MONTH) + 1);
             if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
+                includeCruise = false;
+            }
+
+            if (this.features.size() > 0 && !cruise.getFeatures().containsAll(this.featuresFilter)) {
                 includeCruise = false;
             }
 

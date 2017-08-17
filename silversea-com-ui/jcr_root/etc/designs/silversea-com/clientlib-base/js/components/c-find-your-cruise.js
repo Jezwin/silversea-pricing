@@ -192,7 +192,7 @@ $(function() {
                     $fieldwrapper.removeClass('active');
                 }
 
-                if (field.name === 'features[]') {
+                if (field.name === 'feature') {
                     featureNumber++;
                 }
             });
@@ -222,11 +222,24 @@ $(function() {
             // Build request URL with filter, pagination and number of result per page.
             var requestUrl = $currentForm.data('url');
 
+            var featuresSelectorValue = [];
             $filterValue.each(function(i, field) {
                 // Add filter
-                requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                if (field.name === 'feature') {
+                    featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
+                } else {
+                    requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                }
+
                 //requestUrl = requestUrl + '.' + field.name + '_' + encodeURIComponent(field.value);
             });
+
+            // Add features
+            if (featuresSelectorValue.length > 0) {
+                requestUrl = requestUrl + '.features_' + featuresSelectorValue.join("|");
+            } else {
+                requestUrl = requestUrl + '.features_all';
+            }
 
             // Add pagination
             requestUrl = requestUrl + '.page_' + $page;
