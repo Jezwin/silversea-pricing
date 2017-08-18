@@ -10,6 +10,7 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GeolocationTagService;
+import com.silversea.aem.utils.PathUtils;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
@@ -510,6 +511,13 @@ public class FindYourCruiseUse extends WCMUsePojo {
      */
     public int getTotalMatches() {
         return totalMatches;
+    }
+
+    /**
+     * @return the request quote page
+     */
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
     }
 
     /**
