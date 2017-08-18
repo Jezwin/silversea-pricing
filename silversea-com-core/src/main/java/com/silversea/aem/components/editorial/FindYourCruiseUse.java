@@ -67,6 +67,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
     private Set<String> availableDurations = new HashSet<>();
 
+    private Set<String> availableCruiseTypes = new HashSet<>();
+
     // destination filter
     private String destinationFilter = FILTER_ALL;
 
@@ -275,6 +277,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
             boolean includeCruiseNotFilteredByDepartureDate = true;
             boolean includeCruiseNotFilteredByDuration = true;
             boolean includeCruiseNotFilteredByFeatures = true;
+            boolean includeCruiseNotFilteredByCruiseTypes = true;
 
             if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
                 includeCruise = false;
@@ -283,6 +286,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruiseNotFilteredByDepartureDate = false;
                 includeCruiseNotFilteredByDuration = false;
                 includeCruiseNotFilteredByFeatures = false;
+                includeCruiseNotFilteredByCruiseTypes = false;
             }
 
             if (!shipFilter.equals(FILTER_ALL) && !cruise.getShip().getName().equals(shipFilter)) {
@@ -292,6 +296,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruiseNotFilteredByDepartureDate = false;
                 includeCruiseNotFilteredByDuration = false;
                 includeCruiseNotFilteredByFeatures = false;
+                includeCruiseNotFilteredByCruiseTypes = false;
             }
 
             try {
@@ -306,6 +311,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                     includeCruiseNotFilteredByPort = false;
                     includeCruiseNotFilteredByDepartureDate = false;
                     includeCruiseNotFilteredByFeatures = false;
+                    includeCruiseNotFilteredByCruiseTypes = false;
                 } else if (durationFilterMin != null && durationFilterMax == null
                         && cruiseDuration < durationFilterMin) {
                     includeCruise = false;
@@ -314,6 +320,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                     includeCruiseNotFilteredByPort = false;
                     includeCruiseNotFilteredByDepartureDate = false;
                     includeCruiseNotFilteredByFeatures = false;
+                    includeCruiseNotFilteredByCruiseTypes = false;
                 }
             } catch (NumberFormatException ignored) {
             }
@@ -332,6 +339,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && portInItinerary;
                 includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && portInItinerary;
                 includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && portInItinerary;
+                includeCruiseNotFilteredByCruiseTypes = includeCruiseNotFilteredByCruiseTypes && portInItinerary;
             }
 
             if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
@@ -353,6 +361,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruiseNotFilteredByPort = false;
                 includeCruiseNotFilteredByDuration = false;
                 includeCruiseNotFilteredByFeatures = false;
+                includeCruiseNotFilteredByCruiseTypes = false;
             }
 
             if (this.features.size() > 0 && !cruise.getFeatures().containsAll(this.featuresFilter)) {
@@ -362,6 +371,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruiseNotFilteredByPort = false;
                 includeCruiseNotFilteredByDepartureDate = false;
                 includeCruiseNotFilteredByDuration = false;
+                includeCruiseNotFilteredByCruiseTypes = false;
             }
 
             // include cruise in the filtered cruises list
@@ -409,6 +419,10 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
             if (includeCruiseNotFilteredByFeatures) {
                 availableFeatures.addAll(cruise.getFeatures());
+            }
+
+            if (includeCruiseNotFilteredByCruiseTypes) {
+                availableCruiseTypes.add(cruise.getCruiseType());
             }
         }
 
@@ -555,6 +569,13 @@ public class FindYourCruiseUse extends WCMUsePojo {
      */
     public Set<String> getAvailableDurations() {
         return availableDurations;
+    }
+
+    /**
+     * @return cruise types available for filtered cruises for this lang
+     */
+    public Set<String> getAvailableCruiseTypes() {
+        return availableCruiseTypes;
     }
 
     /**
