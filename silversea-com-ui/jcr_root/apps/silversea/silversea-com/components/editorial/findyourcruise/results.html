@@ -4,9 +4,9 @@
         <div class="c-fyc__result__wrapper">
             <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
                 <!--/* TODO : generated if exclusive offer */-->
-                <span class="flag">
+                <span  data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag">
                     <span class="flag__icon icon-star"></span>
-                    <span class="flag__text">EXCLUSIVE OFFER</span>
+                    <span class="flag__text">${'exclusive offer' @ i18n}</span>
                 </span>
             </div>
             <div class="c-fyc__result__content">
