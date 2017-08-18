@@ -19,12 +19,12 @@
                         <li class="cruise-ship hidden-xs">${cruiseItem.cruiseModel.ship.title}</li>
                         <li class="meta_feature_inner hidden-xs">
                             <span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
-                                <i class="icon-star"></i>
+                                <i class="icon-star"></i> ${'offer' @ i18n}
                                 <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
                             </span>
                             <span class="feature" data-sly-repeat.feature="${cruiseItem.cruiseModel.features}">
                                 <i class="${feature.icon}"></i>
-                                <span class="tooltip"><i></i>${feature.name}</span>
+                                <span class="tooltip"><i></i>${feature.title}</span>
                             </span>
                         </li>
                     </ul>
