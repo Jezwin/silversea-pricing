@@ -5,6 +5,7 @@ import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
@@ -47,26 +48,31 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // ships available for all the cruises
     private List<ShipModel> ships = new ArrayList<>();
 
+    // ports available for the subset of filtered cruises
     private Set<ShipModel> availableShips = new TreeSet<>(Comparator.comparing(ShipModel::getName));
 
     // ports available for all the cruises
     private List<PortModel> ports = new ArrayList<>();
 
+    // ports available for the subset of filtered cruises
     private Set<PortModel> availablePorts = new TreeSet<>(Comparator.comparing(PortModel::getName));
 
     // departure dates available for the cruises
     private Set<YearMonth> dates = new TreeSet<>();
 
-    // departure dates available for all the cruises
+    // departure dates available for the subset of filtered cruises
     private Set<YearMonth> availableDepartureDates = new HashSet<>();
 
     // features available from design dialog + available for cruises
     private Set<FeatureModel> features = new HashSet<>();
 
+    // features dates available for the subset of filtered cruises
     private Set<FeatureModel> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
 
+    // durations available for the subset of filtered cruises
     private Set<String> availableDurations = new HashSet<>();
 
+    // cruise types available for the subset of filtered cruises
     private Set<String> availableCruiseTypes = new HashSet<>();
 
     // destination filter
@@ -81,11 +87,19 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // true if find your cruise is prefiltered by ship
     private boolean prefilterByShip;
 
+    // true if find your cruise is prefiltered by feature
+    private boolean prefilterByFeature;
+
+    // exclusive offer filter (not displayed, used on exclusive offer page)
+    private String exclusiveOfferFilter = FILTER_ALL;
+
     // date filter
     private YearMonth dateFilter;
 
+    // minimum duration of the duration filter
     private Integer durationFilterMin;
 
+    // maximum duration of the duration filter
     private Integer durationFilterMax;
 
     // ship filter
@@ -97,18 +111,25 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // port filter
     private String portFilter = FILTER_ALL;
 
+    // features filter
     private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
 
+    // current page in the component pagination
     private int activePage = 1;
 
+    // total number of pages
     private int pageNumber;
 
+    // true if the current page in pagination is the first page
     private boolean isFirstPage;
 
+    // true if the current page in pagination is the last page
     private boolean isLastPage;
 
+    // array containing the pages for the pagination
     private List<Integer> pagination;
 
+    // total number of cruises for the current filters
     private int totalMatches;
 
     @Override
@@ -194,7 +215,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                         final String[] splitFeatures = featuresFilter.split("\\|");
 
                         if (splitFeatures.length > 0 && tagManager != null) {
-                            for (String splitFeature : splitFeatures) {
+                            for (final String splitFeature : splitFeatures) {
                                 final Tag featureTag = tagManager.resolve(
                                         WcmConstants.TAG_NAMESPACE_FEATURES + splitFeature);
 
@@ -234,7 +255,26 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 shipFilter = getCurrentPage().getName();
                 prefilterByShip = true;
                 break;
-            // TODO add other types
+            case WcmConstants.RT_EXCLUSIVE_OFFER:
+                exclusiveOfferFilter = getCurrentPage().getPath();
+                break;
+            case WcmConstants.RT_FEATURE:
+                final Tag[] pageTags = getCurrentPage().getTags();
+
+                if (pageTags != null) {
+                    for (final Tag pageTag : pageTags) {
+                        if (pageTag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                            final FeatureModel featureModel = pageTag.adaptTo(FeatureModel.class);
+
+                            if (featureModel != null) {
+                                featuresFilter.add(featureModel);
+                            }
+                        }
+                    }
+                }
+
+                prefilterByFeature = true;
+                break;
         }
 
         // init geolocations informations
@@ -333,6 +373,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
                         break;
                     }
                 }
+
                 includeCruise = includeCruise && portInItinerary;
                 includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && portInItinerary;
                 includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && portInItinerary;
@@ -372,6 +413,24 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruiseNotFilteredByDepartureDate = false;
                 includeCruiseNotFilteredByDuration = false;
                 includeCruiseNotFilteredByCruiseTypes = false;
+            }
+
+            if (!exclusiveOfferFilter.equals(FILTER_ALL)) {
+                boolean exclusiveOfferInCruise = false;
+                for (final ExclusiveOfferModel exclusiveOffer : cruise.getExclusiveOffers()) {
+                    if (exclusiveOffer.getPath().equals(exclusiveOfferFilter)) {
+                        exclusiveOfferInCruise = true;
+                        break;
+                    }
+                }
+
+                includeCruise = includeCruise && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByCruiseTypes = includeCruiseNotFilteredByCruiseTypes && exclusiveOfferInCruise;
             }
 
             // include cruise in the filtered cruises list
@@ -579,19 +638,31 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
-     * @return true if the component is prefiltered by destination (e.g. present in page with resource type
-     *         destination)
+     * @return true if the component is prefiltered by destination (e.g. present in page with resource type destination)
      */
     public boolean isPrefilteredByDestination() {
         return prefilterByDestination;
     }
 
+    /**
+     * @return true if the component is prefiltered by port (e.g. present in page with resource type port)
+     */
     public boolean isPrefilteredByPort() {
         return prefilterByPort;
     }
 
+    /**
+     * @return true if the component is prefiltered by ship (e.g. present in page with resource type ship)
+     */
     public boolean isPrefilteredByShip() {
         return prefilterByShip;
+    }
+
+    /**
+     * @return true if the component is prefiltered by feature (e.g. present in page with resource type feature)
+     */
+    public boolean isPrefilteredByFeature() {
+        return prefilterByFeature;
     }
 
     /**
