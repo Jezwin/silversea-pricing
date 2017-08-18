@@ -159,7 +159,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                                             try {
                                                 session.save();
 
-                                                LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+                                                LOGGER.info("{} hotels imported, saving session", +itemsWritten);
                                             } catch (RepositoryException e) {
                                                 session.refresh(true);
                                             }
@@ -199,7 +199,7 @@ public class CruisesItinerariesHotelsImporterImpl implements CruisesItinerariesH
                 try {
                     session.save();
 
-                    LOGGER.debug("{} itineraries hotels imported, saving session", +itemsWritten);
+                    LOGGER.info("{} itineraries hotels imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }

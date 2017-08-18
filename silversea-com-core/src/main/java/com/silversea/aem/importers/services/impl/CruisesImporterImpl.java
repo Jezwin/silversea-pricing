@@ -375,7 +375,8 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
         }
 
-        LOGGER.debug("Ending cruises import, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending cruises import, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
+                apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

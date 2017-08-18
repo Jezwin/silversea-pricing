@@ -212,7 +212,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                                                 try {
                                                     session.save();
 
-                                                    LOGGER.debug("{} prices imported, saving session", +itemsWritten);
+                                                    LOGGER.info("{} prices imported, saving session", +itemsWritten);
                                                 } catch (RepositoryException e) {
                                                     session.refresh(true);
                                                 }
@@ -264,7 +264,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 try {
                     session.save();
 
-                    LOGGER.debug("{} itineraries prices imported, saving session", +itemsWritten);
+                    LOGGER.info("{} prices imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }

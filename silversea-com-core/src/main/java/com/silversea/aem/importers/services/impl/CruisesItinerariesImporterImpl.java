@@ -199,7 +199,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                                 try {
                                     session.save();
 
-                                    LOGGER.debug("{} itineraries imported, saving session", +itemsWritten);
+                                    LOGGER.info("{} itineraries imported, saving session", +itemsWritten);
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
@@ -228,7 +228,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 try {
                     session.save();
 
-                    LOGGER.debug("{} itineraries imported, saving session", +itemsWritten);
+                    LOGGER.info("{} itineraries imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -245,7 +245,8 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             }
         }
 
-        LOGGER.debug("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber,
+                +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

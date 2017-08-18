@@ -176,7 +176,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                             try {
                                                 session.save();
 
-                                                LOGGER.debug("{} excursions imported, saving session", +itemsWritten);
+                                                LOGGER.info("{} excursions imported, saving session", +itemsWritten);
                                             } catch (RepositoryException e) {
                                                 session.refresh(true);
                                             }
@@ -217,7 +217,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 try {
                     session.save();
 
-                    LOGGER.debug("{} itineraries excursions imported, saving session", +itemsWritten);
+                    LOGGER.info("{} itineraries excursions imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
