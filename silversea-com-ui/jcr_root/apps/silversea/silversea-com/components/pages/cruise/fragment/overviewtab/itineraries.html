@@ -42,8 +42,7 @@
                     ${description.textTruncate @ context='html'}
                 </div>
                 <p class="c-cruise-itinerary-list__description__button" data-sly-test="${(excursions && excursions.size > 0) || (landPrograms && landPrograms.size > 0)}">
-                    <!--/* TODO check cruise type for excursions ${cruise.cruiseModel.cruiseType == 'silversea-cruise'} */-->
-                    <a data-sly-test="${excursions && excursions.size > 0}"
+                    <a data-sly-test="${excursions && excursions.size > 0 && cruise.cruiseModel.cruiseType == 'silversea-cruise'}"
                        href="#"
                        data-tab-target="#excursion"
                        data-collpase-id="ex-${itinerary.port.cityId}"
