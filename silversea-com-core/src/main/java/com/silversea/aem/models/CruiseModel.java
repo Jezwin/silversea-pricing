@@ -85,7 +85,6 @@ public class CruiseModel extends AbstractModel {
 
     private List<PriceModel> prices = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
     private String thumbnail;
 
     private List<FeatureModel> features = new ArrayList<>();
@@ -165,6 +164,12 @@ public class CruiseModel extends AbstractModel {
         }
 
         path = page.getPath();
+
+        final Resource imageResource = page.getContentResource().getChild("image");
+
+        if (imageResource != null) {
+            thumbnail = imageResource.getValueMap().get("fileReference", String.class);
+        }
     }
 
     /**
