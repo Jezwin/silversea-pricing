@@ -2,7 +2,7 @@
 <div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
      class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
     <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.thumbnail @ context='uri'}?wid=360)">
+        <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
             <!--/* TODO : generated if exclusive offer */-->
             <span class="flag">
                 <span class="flag__icon icon-star"></span>
@@ -42,7 +42,7 @@
                         </dl>
                     </li>
                 </ul>
-                <ul class="c-fyc__result__content__feature hidden-xs" date-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
+                <ul class="c-fyc__result__content__feature hidden-xs" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
                     <li class="meta_feature_inner" data-sly-test="${cruiseItem.exclusiveOffers.size > 0}">
                         <span class="feature">
                             <i class="icon-star"></i>
