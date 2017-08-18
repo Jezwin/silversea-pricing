@@ -166,7 +166,6 @@ public class CruiseModel extends AbstractModel {
         path = page.getPath();
 
         final Resource imageResource = page.getContentResource().getChild("image");
-
         if (imageResource != null) {
             thumbnail = imageResource.getValueMap().get("fileReference", String.class);
         }

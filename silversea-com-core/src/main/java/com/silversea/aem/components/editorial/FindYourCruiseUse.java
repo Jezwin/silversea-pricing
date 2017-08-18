@@ -13,6 +13,7 @@ import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.sling.api.resource.ValueMap;
 
+import javax.sound.sampled.Port;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -51,11 +52,20 @@ public class FindYourCruiseUse extends WCMUsePojo {
     // ports available for all the cruises
     private List<PortModel> ports = new ArrayList<>();
 
+    private Set<PortModel> availablePorts = new TreeSet<>(Comparator.comparing(PortModel::getName));
+
     // departure dates available for the cruises
     private Set<YearMonth> dates = new TreeSet<>();
 
+    // departure dates available for all the cruises
+    private Set<YearMonth> availableDepartureDates = new HashSet<>();
+
     // features available from design dialog + available for cruises
     private Set<FeatureModel> features = new HashSet<>();
+
+    private Set<FeatureModel> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+
+    private Set<String> availableDurations = new HashSet<>();
 
     // destination filter
     private String destinationFilter = FILTER_ALL;
@@ -261,15 +271,27 @@ public class FindYourCruiseUse extends WCMUsePojo {
             boolean includeCruise = true;
             boolean includeCruiseNotFilteredByDestination = true;
             boolean includeCruiseNotFilteredByShip = true;
+            boolean includeCruiseNotFilteredByPort = true;
+            boolean includeCruiseNotFilteredByDepartureDate = true;
+            boolean includeCruiseNotFilteredByDuration = true;
+            boolean includeCruiseNotFilteredByFeatures = true;
 
             if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
                 includeCruise = false;
                 includeCruiseNotFilteredByShip = false;
+                includeCruiseNotFilteredByPort = false;
+                includeCruiseNotFilteredByDepartureDate = false;
+                includeCruiseNotFilteredByDuration = false;
+                includeCruiseNotFilteredByFeatures = false;
             }
 
             if (!shipFilter.equals(FILTER_ALL) && !cruise.getShip().getName().equals(shipFilter)) {
                 includeCruise = false;
                 includeCruiseNotFilteredByDestination = false;
+                includeCruiseNotFilteredByPort = false;
+                includeCruiseNotFilteredByDepartureDate = false;
+                includeCruiseNotFilteredByDuration = false;
+                includeCruiseNotFilteredByFeatures = false;
             }
 
             try {
@@ -281,11 +303,17 @@ public class FindYourCruiseUse extends WCMUsePojo {
                     includeCruise = false;
                     includeCruiseNotFilteredByDestination = false;
                     includeCruiseNotFilteredByShip = false;
+                    includeCruiseNotFilteredByPort = false;
+                    includeCruiseNotFilteredByDepartureDate = false;
+                    includeCruiseNotFilteredByFeatures = false;
                 } else if (durationFilterMin != null && durationFilterMax == null
                         && cruiseDuration < durationFilterMin) {
                     includeCruise = false;
                     includeCruiseNotFilteredByDestination = false;
                     includeCruiseNotFilteredByShip = false;
+                    includeCruiseNotFilteredByPort = false;
+                    includeCruiseNotFilteredByDepartureDate = false;
+                    includeCruiseNotFilteredByFeatures = false;
                 }
             } catch (NumberFormatException ignored) {
             }
@@ -301,12 +329,19 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruise = includeCruise && portInItinerary;
                 includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && portInItinerary;
                 includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && portInItinerary;
+                includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && portInItinerary;
+                includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && portInItinerary;
+                includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && portInItinerary;
             }
 
             if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
                 includeCruise = false;
                 includeCruiseNotFilteredByDestination = false;
                 includeCruiseNotFilteredByShip = false;
+                includeCruiseNotFilteredByPort = false;
+                includeCruiseNotFilteredByDepartureDate = false;
+                includeCruiseNotFilteredByDuration = false;
+                includeCruiseNotFilteredByFeatures = false;
             }
 
             final YearMonth cruiseStartDate = YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
@@ -315,12 +350,18 @@ public class FindYourCruiseUse extends WCMUsePojo {
                 includeCruise = false;
                 includeCruiseNotFilteredByDestination = false;
                 includeCruiseNotFilteredByShip = false;
+                includeCruiseNotFilteredByPort = false;
+                includeCruiseNotFilteredByDuration = false;
+                includeCruiseNotFilteredByFeatures = false;
             }
 
             if (this.features.size() > 0 && !cruise.getFeatures().containsAll(this.featuresFilter)) {
                 includeCruise = false;
                 includeCruiseNotFilteredByDestination = false;
                 includeCruiseNotFilteredByShip = false;
+                includeCruiseNotFilteredByPort = false;
+                includeCruiseNotFilteredByDepartureDate = false;
+                includeCruiseNotFilteredByDuration = false;
             }
 
             // include cruise in the filtered cruises list
@@ -335,6 +376,39 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
             if (includeCruiseNotFilteredByShip) {
                 availableShips.add(cruise.getShip());
+            }
+
+            if (includeCruiseNotFilteredByPort) {
+                for (ItineraryModel itinerary : cruise.getItineraries()) {
+                    if (itinerary.getPort() != null) {
+                        availablePorts.add(itinerary.getPort());
+                    }
+                }
+            }
+
+            if (includeCruiseNotFilteredByDepartureDate) {
+                availableDepartureDates.add(YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
+                        cruise.getStartDate().get(Calendar.MONTH) + 1));
+            }
+
+            if (includeCruiseNotFilteredByDuration) {
+                try {
+                    final int cruiseDuration = Integer.parseInt(cruise.getDuration());
+                    if (cruiseDuration < 9) {
+                        availableDurations.add("1-8");
+                    } else if (cruiseDuration > 8 && cruiseDuration < 13) {
+                        availableDurations.add("9-12");
+                    } else if (cruiseDuration > 13 && cruiseDuration < 19) {
+                        availableDurations.add("13-19");
+                    } else if (cruiseDuration > 19) {
+                        availableDurations.add("19");
+                    }
+                } catch (NumberFormatException ignored) {
+                }
+            }
+
+            if (includeCruiseNotFilteredByFeatures) {
+                availableFeatures.addAll(cruise.getFeatures());
             }
         }
 
@@ -442,6 +516,13 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
+     * @return ports available for filtered cruises for this lang
+     */
+    public Set<PortModel> getAvailablePorts() {
+        return availablePorts;
+    }
+
+    /**
      * @return dates available for all cruises for this lang
      */
     public Set<YearMonth> getDates() {
@@ -449,10 +530,31 @@ public class FindYourCruiseUse extends WCMUsePojo {
     }
 
     /**
+     * @return dates available for filtered cruises for this lang
+     */
+    public Set<YearMonth> getAvailableDepartureDates() {
+        return availableDepartureDates;
+    }
+
+    /**
      * @return intersection of features configured in design mode and feature of all cruises for this lang
      */
     public Set<FeatureModel> getFeatures() {
         return features;
+    }
+
+    /**
+     * @return features available for filtered cruises for this lang
+     */
+    public Set<FeatureModel> getAvailableFeatures() {
+        return availableFeatures;
+    }
+
+    /**
+     * @return durations available for filtered cruises for this lang
+     */
+    public Set<String> getAvailableDurations() {
+        return availableDurations;
     }
 
     /**

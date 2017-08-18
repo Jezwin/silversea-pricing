@@ -97,4 +97,16 @@
 <select>
     <option data-sly-repeat="${fyc.availableShips}">${item.name}</option>
 </select>
+<select>
+    <option data-sly-repeat="${fyc.availablePorts}">${item.title}</option>
+</select>
+<select>
+    <option data-sly-repeat="${fyc.availableDepartureDates}">${item.monthValue} ${item.year}</option>
+</select>
+<select>
+    <option data-sly-repeat="${fyc.availableDurations}">${item}</option>
+</select>
+<select>
+    <option data-sly-repeat="${fyc.availableFeatures}">${item.name}</option>
+</select>
 <input value="${fyc.totalMatches}" />
