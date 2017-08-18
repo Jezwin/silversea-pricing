@@ -3,7 +3,6 @@
     <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
         <div class="c-fyc__result__wrapper">
             <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
-                <!--/* TODO : generated if exclusive offer */-->
                 <span  data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag">
                     <span class="flag__icon icon-star"></span>
                     <span class="flag__text">${'exclusive offer' @ i18n}</span>
@@ -18,6 +17,16 @@
                         <li class="cruise-type">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
                         <li class="cruise-code hidden-xs"><strong>${cruiseItem.cruiseModel.cruiseCode}</strong></li>
                         <li class="cruise-ship hidden-xs">${cruiseItem.cruiseModel.ship.title}</li>
+                        <li class="meta_feature_inner hidden-xs">
+                            <span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
+                                <i class="icon-star"></i>
+                                <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
+                            </span>
+                            <span class="feature" data-sly-repeat.feature="${cruiseItem.cruiseModel.features}">
+                                <i class="${feature.icon}"></i>
+                                <span class="tooltip"><i></i>${feature.name}</span>
+                            </span>
+                        </li>
                     </ul>
                     <ul class="c-fyc__result__content__summary clearfix">
                         <li class="c-fyc__result__content__summary__item">
@@ -46,14 +55,14 @@
                         <ul data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
                             <li class="meta_feature_inner" data-sly-test="${cruiseItem.exclusiveOffers.size > 0}">
                                 <span class="feature">
-                                    <i class="icon-star"></i>
-                                    <span class="tooltip"><i></i>Exclusive offer</span>
+                                    <i class="icon-star"></i> ${'offer' @ i18n}
+                                    <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
                                 </span>
                             </li>
-                            <li class="meta_feature_inner" data-sly-repeat="${cruiseItem.cruiseModel.features}">
+                            <li class="meta_feature_inner" data-sly-repeat.feature="${cruiseItem.cruiseModel.features}">
                                 <span class="feature">
-                                    <i class="${item.icon}"></i>
-                                    <span class="tooltip"><i></i>${item.title}</span>
+                                    <i class="${feature.icon}"></i>
+                                    <span class="tooltip"><i></i>${feature.title}</span>
                                 </span>
                             </li>
                         </ul>
