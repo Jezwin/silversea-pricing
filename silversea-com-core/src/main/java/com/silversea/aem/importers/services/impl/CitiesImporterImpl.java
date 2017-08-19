@@ -5,7 +5,6 @@ import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -411,7 +410,7 @@ public class CitiesImporterImpl implements CitiesImporter {
 
             if (portFirstLetterPage == null) {
                 portFirstLetterPage = pageManager.create(citiesRootPage.getPath(),
-                        portFirstLetterName, TemplateConstants.PATH_PAGE_PORT, portFirstLetter,
+                        portFirstLetterName, WcmConstants.PAGE_TEMPLATE_PORTS_LIST, portFirstLetter,
                         false);
 
                 // Set livecopy mixin

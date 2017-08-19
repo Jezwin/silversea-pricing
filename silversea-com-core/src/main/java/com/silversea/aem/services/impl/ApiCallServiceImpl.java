@@ -5,7 +5,6 @@ import com.burgstaller.okhttp.CachingAuthenticatorDecorator;
 import com.burgstaller.okhttp.digest.CachingAuthenticator;
 import com.burgstaller.okhttp.digest.Credentials;
 import com.burgstaller.okhttp.digest.DigestAuthenticator;
-import com.silversea.aem.constants.ServiceConstants;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiClient;
@@ -117,15 +116,6 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
     }
 
     @Override
-    public List<Voyage> getVoyages(int index) throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call voyage api");
-        VoyagesApi voyageApi = (VoyagesApi) apiInstances.get(ServiceConstants.VOYAGE_API_KEY);
-        List<Voyage> voyages = voyageApi.voyagesGet(null, null, null, null, null, index, PER_PAGE, null, null);
-        LOGGER.debug("Api call service -- Finish call voyage api");
-        return voyages;
-    }
-
-    @Override
     public List<Voyage77> getChangedVoyages(int index, String lastModificationDate) throws IOException, ApiException {
         LOGGER.debug("Api call service -- Start call changed voyage api");
         VoyagesApi voyageApi = (VoyagesApi) apiInstances.get(ServiceConstants.VOYAGE_API_KEY);
@@ -145,101 +135,11 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
     }
 
     @Override
-    public List<Land> getLandProgram(int index, int pageSize) throws ApiException {
-        LOGGER.debug("Api call service -- Start call land program api");
-        LandsApi landProgramApi = (LandsApi) apiInstances.get(ServiceConstants.LAND_API_KEY);
-        LOGGER.debug("Api call service -- Finish call land program api");
-        return landProgramApi.landsGet(null, index, PER_PAGE, null);
-    }
-
-    @Override
-    public List<Land77> getLandProgramUpdate(String currentDate, int index, int pageSize)
-            throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call land program update api");
-        LandsApi landProgramApi = (LandsApi) apiInstances.get(ServiceConstants.LAND_API_KEY);
-        LOGGER.debug("Api call service -- Finish call land program update api");
-        return landProgramApi.landsGetChanges(currentDate, null, index, pageSize, null);
-    }
-
-    public List<Shorex> getShorex(int index, int pageSize) throws ApiException {
-        LOGGER.debug("Api call service -- Start call shorex api");
-        ShorexesApi shorexApi = (ShorexesApi) apiInstances.get(ServiceConstants.SHOREX_API_KEY);
-        LOGGER.debug("Api call service -- Finish call shorex api");
-        return shorexApi.shorexesGet(null, index, PER_PAGE, null);
-    }
-
-    @Override
-    public List<Shorex77> getShorexUpdate(String currentDate, int index, int pageSize)
-            throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call excursions update api");
-        ShorexesApi shorexApi = (ShorexesApi) apiInstances.get(ServiceConstants.SHOREX_API_KEY);
-        LOGGER.debug("Api call service -- Finish call excursions update api");
-        return shorexApi.shorexesGetChanges(currentDate, index, pageSize, null);
-    }
-
-    @Override
-    public List<Hotel> getHotels(int index, int pageSize) throws ApiException {
-        LOGGER.debug("Api call service -- Start call hotels api");
-        HotelsApi hotelsApi = (HotelsApi) apiInstances.get(ServiceConstants.HOTELS_API_KEY);
-        LOGGER.debug("Api call service -- Finish call hotels api");
-        return hotelsApi.hotelsGet(null, index, PER_PAGE, null);
-    }
-
-    @Override
-    public List<Hotel77> getHotelsUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call hotels updates api");
-        HotelsApi hotelsApi = (HotelsApi) apiInstances.get(ServiceConstants.HOTELS_API_KEY);
-        LOGGER.debug("Api call service -- Finish call hotels updates api");
-        return hotelsApi.hotelsGetChanges(currentDate, index, pageSize, null);
-    }
-
-    @Override
     public List<Agency> getTravelAgencies(int index, int pageSize) throws IOException, ApiException {
         LOGGER.debug("Api call service -- Start call Travel agencies api");
         AgenciesApi travelAgenciesApi = (AgenciesApi) apiInstances.get(ServiceConstants.TRAVEL_AGENCIES_API_KEY);
         LOGGER.debug("Api call service -- Finish call voyage api");
         return travelAgenciesApi.agenciesGet(null, null, null, null, null, index, pageSize);
-    }
-
-    @Override
-    public List<Ship> getShips() throws ApiException {
-        LOGGER.debug("Api call service -- Start call ships api");
-        ShipsApi shipsApi = (ShipsApi) apiInstances.get(ServiceConstants.SHIPS_API_KEY);
-        LOGGER.debug("Api call service -- Finish call ships api");
-        return shipsApi.shipsGet(null);
-    }
-
-    @Override
-    public List<SpecialOffer> getExclusiveOffers(int index, int pageSize) throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call exclusive offers api");
-        SpecialOffersApi spetialOffersApi = (SpecialOffersApi) apiInstances
-                .get(ServiceConstants.EXCLUSIVE_OFFERS_API_KEY);
-        LOGGER.debug("Api call service -- Finish call exclusive offers api");
-        return spetialOffersApi.specialOffersGet(index, pageSize, null);
-    }
-
-    @Override
-    public List<Feature> getFeatures() throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call features api");
-        FeaturesApi featuresApi = (FeaturesApi) apiInstances.get(ServiceConstants.FEATURES_API_KEY);
-        LOGGER.debug("Api call service -- Finish call features api");
-        return featuresApi.featuresGet(null);
-    }
-
-    @Override
-    public List<Brochure> getBrochures(int index, int pageSize) throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call brochures api");
-        BrochuresApi brochuresApi = (BrochuresApi) apiInstances.get(ServiceConstants.BROCHURES_API_KEY);
-        LOGGER.debug("Api call service -- Finish call brochures api");
-        return brochuresApi.brochuresGet(null, index, PER_PAGE, null);
-    }
-
-    @Override
-    public List<Country> getCountries() throws IOException, ApiException {
-        LOGGER.debug("Api call service -- Start call contry api");
-        CountriesApi countriesApi = (CountriesApi) apiInstances.get(ServiceConstants.COUNTRY_API_KEY);
-        LOGGER.debug("Api call service -- Finish call contry api");
-        return countriesApi.countriesGet(null, null);
     }
 
     private void configureClient(ApiClient apiClient) {
@@ -311,5 +211,22 @@ public class ApiCallServiceImpl<T> implements ApiCallService {
         apiInstances.put(ServiceConstants.BROCHURES_API_KEY, (T) brochuresApi);
         apiInstances.put(ServiceConstants.EXCLUSIVE_OFFERS_API_KEY, (T) spetialOffersApi);
         apiInstances.put(ServiceConstants.COUNTRY_API_KEY, (T) countriesApi);
+    }
+
+    private interface ServiceConstants {
+        String VOYAGE_API_KEY = "voyagesApi";
+        String HOTELS_API_KEY = "hotelsApi";
+        String SHOREX_API_KEY = "shorexesApi";
+        String PRICES_API_KEY = "pricesApi";
+        String LAND_API_KEY = "landsApi";
+        String SPECIAL_OFFERS_API_KEY = "voyageSpecialOffersApi";
+        String SPECIAL_VOYAGES_API_KEY = "specialVoyagesApi";
+        String CITIES_API_KEY = "citiesApi";
+        String TRAVEL_AGENCIES_API_KEY = "travelAgenciesApi";
+        String EXCLUSIVE_OFFERS_API_KEY = "exclusiveOffersApi";
+        String BROCHURES_API_KEY = "brochuresApi";
+        String FEATURES_API_KEY = "featuresApi";
+        String SHIPS_API_KEY = "shipsApi";
+        String COUNTRY_API_KEY = "countriesUrl";
     }
 }

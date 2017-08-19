@@ -34,11 +34,13 @@ public interface WcmConstants {
     // Templates
     String PAGE_TEMPLATE_PAGE = "/apps/silversea/silversea-com/templates/page";
     String PAGE_TEMPLATE_PORT = "/apps/silversea/silversea-com/templates/port";
+    String PAGE_TEMPLATE_PORTS_LIST = "/apps/silversea/silversea-com/templates/portslist";
     String PAGE_TEMPLATE_HOTEL = "/apps/silversea/silversea-com/templates/hotel";
     String PAGE_TEMPLATE_LAND_PROGRAM = "/apps/silversea/silversea-com/templates/landprogram";
     String PAGE_TEMPLATE_EXCURSION = "/apps/silversea/silversea-com/templates/excursion";
     String PAGE_TEMPLATE_EXCLUSIVE_OFFER = "/apps/silversea/silversea-com/templates/exclusiveoffer";
     String PAGE_TEMPLATE_CRUISE = "/apps/silversea/silversea-com/templates/cruise";
+    String PAGE_TEMPLATE_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
 
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage"; // TODO not a resource type
@@ -80,8 +82,6 @@ public interface WcmConstants {
     String RT_REDIRECT = "foundation/components/redirect";
     String RT_COMBO_SEGMENT = "silversea/silversea-com/components/pages/combosegment";
     String RT_VOYAGEJOURNAL_LIST = "silversea/silversea-com/components/pages/voyagejournals";
-    
-    
 
     // Tags
     // TODO naming convention

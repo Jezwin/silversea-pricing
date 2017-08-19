@@ -17,7 +17,6 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.google.common.collect.Lists;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.constants.WcmConstants;
 import org.apache.commons.lang3.StringUtils;
 
@@ -37,7 +36,7 @@ public class SearchCruiseUse extends WCMUsePojo {
         map.put("path", destinationPath);
         map.put("type", NameConstants.NT_PAGE);
         map.put("1_property", JcrConstants.JCR_CONTENT + "/" + NameConstants.NN_TEMPLATE);
-        map.put("1_property.value", TemplateConstants.PATH_VOYAGE);
+        map.put("1_property.value", "/apps/silversea/silversea-com/templates/cruise");
 
         // Do query
         Session session = getResourceResolver().adaptTo(Session.class);

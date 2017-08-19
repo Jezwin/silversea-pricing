@@ -26,34 +26,7 @@ public interface ApiCallService {
 
     List<Voyage77> getChangedVoyages(int index, String lastModificationDate) throws IOException, ApiException;
 
-    List<Voyage> getVoyages(int index) throws IOException, ApiException;
-
     List<SpecialVoyage> getSpecialVoyages() throws IOException, ApiException;
 
     List<Agency> getTravelAgencies(int index, int pageSize) throws IOException, ApiException;
-
-//    List<Agency> getTravelAgenciesUpdate(int index, int pageSize)throws IOException, ApiException;
-
-    List<Ship> getShips() throws ApiException;
-
-    List<SpecialOffer> getExclusiveOffers(int index, int pageSize) throws IOException, ApiException;
-
-    List<Hotel> getHotels(int index, int pageSize) throws ApiException;
-
-    List<Hotel77> getHotelsUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
-
-    List<Shorex> getShorex(int index, int pageSize) throws ApiException;
-
-    List<Shorex77> getShorexUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
-
-    List<Land> getLandProgram(int index, int pageSize) throws ApiException;
-
-    List<Land77> getLandProgramUpdate(String currentDate, int index, int pageSize) throws IOException, ApiException;
-
-    List<Brochure> getBrochures(int index, int pageSize) throws IOException, ApiException;
-
-    List<Feature> getFeatures() throws IOException, ApiException;
-
-    List<Country> getCountries() throws IOException, ApiException;
-
 }

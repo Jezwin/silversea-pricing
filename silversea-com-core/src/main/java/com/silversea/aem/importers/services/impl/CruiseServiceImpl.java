@@ -56,7 +56,6 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.components.beans.LowestPrice;
 import com.silversea.aem.components.beans.PriceData;
-import com.silversea.aem.constants.ServiceConstants;
 import com.silversea.aem.enums.CruiseType;
 import com.silversea.aem.enums.PriceVariations;
 import com.silversea.aem.importers.ImporterUtils;
@@ -631,7 +630,7 @@ public class CruiseServiceImpl implements CruiseService{
         Map<String, String> map = new HashMap<String, String>();
         
             //Build query
-            map.put("path", ServiceConstants.SEARCH_CONTENT_ROOT.concat(language));
+            map.put("path", "/content/silversea-com/".concat(language));
             map.put("type", NameConstants.NT_PAGE);
             map.put("property", ImportersConstants.PN_SLING_RESOURCE_TYPE);
             map.put("property.value", resourceType); 

@@ -1,14 +1,8 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.components.beans.PriceData;
-import com.silversea.aem.components.beans.SuiteVariation;
-import com.silversea.aem.enums.Currency;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -18,13 +12,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-import javax.jcr.Value;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Model(adaptables = Page.class)
 public class SuiteModel implements ShipAreaModel {

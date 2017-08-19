@@ -14,6 +14,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.utils.StringsUtils;
 import org.apache.felix.scr.annotations.Component;
@@ -32,7 +33,6 @@ import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.ImporterStatus;
-import com.silversea.aem.constants.TemplateConstants;
 import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.TravelAgenciesUpdateImporter;
@@ -155,7 +155,7 @@ public class TravelAgenciesUpdateImporterImpl implements TravelAgenciesUpdateImp
 															agencyTravelContryPage.adaptTo(Node.class),
 															StringsUtils.getFormatWithoutSpecialCharcters(
 																	agency.getAgency())),
-													TemplateConstants.PATH_TRAVEL_AGENCY,
+													WcmConstants.PAGE_TEMPLATE_TRAVEL_AGENCY,
 													StringsUtils.getFormatWithoutSpecialCharcters(agency.getAgency()),
 													false);
 											LOGGER.debug("createa  travel agency  page : {}", agency.getAgency());

@@ -1,12 +1,7 @@
 package com.silversea.aem.models;
 
-import java.util.Date;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.jcr.Node;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
@@ -15,8 +10,11 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.jcr.Node;
+import java.util.Date;
 
 /**
  * TODO remove commented dead code
@@ -90,15 +88,15 @@ public class VoyageJournalDayModel {
     @Optional
     private String assetSelectionReference;
 
-//    private List<JournalListDaysModel> listDays;
+    //    private List<JournalListDaysModel> listDays;
 
     @PostConstruct
     private void init() {
-//        listDays = new ArrayList<>();
-//        final Iterator<Page> childs = page.getParent().listChildren();
-//        while (childs.hasNext()) {
-//            listDays.add(childs.next().adaptTo(JournalListDaysModel.class));
-//        }
+        //        listDays = new ArrayList<>();
+        //        final Iterator<Page> childs = page.getParent().listChildren();
+        //        while (childs.hasNext()) {
+        //            listDays.add(childs.next().adaptTo(JournalListDaysModel.class));
+        //        }
     }
 
     public String getLongDescription() {
@@ -136,18 +134,18 @@ public class VoyageJournalDayModel {
     public String getWind() {
         return wind;
     }
-    
-    
+
     public String getHeroAssetSelectionReference() {
-    	try {
-    		if(StringUtils.isBlank(heroAssetSelectionReference)){
-        		Resource res = page.getParent().getContentResource().getResourceResolver().getResource(page.getParent().getPath());
-        		Node node = res.adaptTo(Node.class);
-        		heroAssetSelectionReference = node.getProperty("assetSelectionReference").getValue().getString();
-        	}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        try {
+            if (StringUtils.isBlank(heroAssetSelectionReference)) {
+                Resource res = page.getParent().getContentResource().getResourceResolver().getResource(
+                        page.getParent().getPath());
+                Node node = res.adaptTo(Node.class);
+                heroAssetSelectionReference = node.getProperty("assetSelectionReference").getValue().getString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return heroAssetSelectionReference;
     }
 
@@ -158,9 +156,4 @@ public class VoyageJournalDayModel {
     public String getAssetSelectionReference() {
         return assetSelectionReference;
     }
-
-//    public List<JournalListDaysModel> getListDays() {
-//        return listDays;
-//    }
-
 }
