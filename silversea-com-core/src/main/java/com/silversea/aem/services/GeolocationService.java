@@ -6,6 +6,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 /**
  * TODO javadoc
  */
+@Deprecated
 public interface GeolocationService {
 
     GeoLocation initGeolocation(SlingHttpServletRequest request);

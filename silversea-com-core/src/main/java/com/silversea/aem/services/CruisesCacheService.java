@@ -15,6 +15,13 @@ public interface CruisesCacheService {
     List<CruiseModel> getCruises(final String lang);
 
     /**
+     * @param lang
+     * @param cruiseCode
+     * @return
+     */
+    CruiseModel getCruiseByCruiseCode(final String lang, final String cruiseCode);
+
+    /**
      * @param lang the lang
      * @return destinations of the cruises for the <code>lang</code>
      */

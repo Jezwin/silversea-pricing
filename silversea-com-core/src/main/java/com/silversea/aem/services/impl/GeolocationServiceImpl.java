@@ -33,6 +33,7 @@ import com.silversea.aem.services.GeolocationTagService;
  * TODO remove long running sessions https://cqdump.wordpress.com/2015/11/02/aem-anti-pattern-long-running-sessions/
  * TODO add label as service is exposed in OSGI configuration console
  */
+@Deprecated
 @Service
 @Component(immediate = true, metatype = true)
 public class GeolocationServiceImpl implements GeolocationService {
