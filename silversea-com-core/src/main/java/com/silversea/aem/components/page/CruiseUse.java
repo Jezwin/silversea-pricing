@@ -142,7 +142,7 @@ public class CruiseUse extends WCMUsePojo {
         // init prices based on geolocation
         for (PriceModel priceModel : cruiseModel.getPrices()) {
             if (priceModel.getGeomarket() != null
-                    && priceModel.getGeomarket().equals(geomarket.toLowerCase())
+                    && priceModel.getGeomarket().equals(geomarket)
                     && priceModel.getCurrency().equals(currency)) {
                 // Adding price to suites/prices mapping
                 boolean added = false;

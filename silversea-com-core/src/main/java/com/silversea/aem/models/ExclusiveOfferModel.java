@@ -124,9 +124,4 @@ public class ExclusiveOfferModel {
     public String getPath() {
         return path;
     }
-
-    // ---------------- TODO -------------- //
-
-    public void initByGeoLocation(GeoLocation geolocation) {
-    }
 }

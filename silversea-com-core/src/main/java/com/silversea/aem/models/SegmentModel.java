@@ -14,7 +14,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.GeoLocation;
 
 @Model(adaptables = Page.class)
-public class SegmentModel extends AbstractModel{
+public class SegmentModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(SegmentModel.class);
 
@@ -30,28 +30,11 @@ public class SegmentModel extends AbstractModel{
 
     @PostConstruct
     private void init() {
-        try{
-            resourceResolver = page.getContentResource().getResourceResolver();
-            pageManager = resourceResolver.adaptTo(PageManager.class);
-            focusedMapReference = page.getProperties().get("focusedMapReference",String.class);
-            mapReference = page.getProperties().get("mapReference",String.class);
-            subTitle = page.getProperties().get("subTitle",String.class);
-            
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
-        }
-    }
-
-    public void initByGeoLocation(GeoLocation geoLocation) {
-        String cruiseReference = page.getProperties().get("cruiseReference",String.class);
-        Page cruisePage = getPage(cruiseReference,pageManager);
-        if(cruisePage != null){
-            cruise = cruisePage.adaptTo(CruiseModel.class);
-            cruise.initByGeoLocation(geoLocation);
-        }
-        else{
-            LOGGER.debug("Cruise reference {} not found",cruiseReference); 
-        }
+        resourceResolver = page.getContentResource().getResourceResolver();
+        pageManager = resourceResolver.adaptTo(PageManager.class);
+        focusedMapReference = page.getProperties().get("focusedMapReference",String.class);
+        mapReference = page.getProperties().get("mapReference",String.class);
+        subTitle = page.getProperties().get("subTitle",String.class);
     }
 
     public Page getPage() {

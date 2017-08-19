@@ -1,5 +1,6 @@
 package com.silversea.aem.components.beans;
 
+@Deprecated
 public class SuiteVariation {
 
     private String name;

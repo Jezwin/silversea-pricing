@@ -22,7 +22,7 @@ import javax.inject.Named;
 import java.util.*;
 
 @Model(adaptables = Page.class)
-public class CruiseModel extends AbstractModel {
+public class CruiseModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseModel.class);
 
@@ -391,23 +391,4 @@ public class CruiseModel extends AbstractModel {
             }
         }
     }
-
-    // ---------------- TODO -------------- //
-
-    private List<SuiteModel> suites;
-
-    private ItinerariesData itinerariesData;
-
-
-    public void initByGeoLocation(GeoLocation geolocation) {
-    }
-
-    public List<SuiteModel> getSuites() {
-        return suites;
-    }
-
-    public ItinerariesData getItinerariesData() {
-        return itinerariesData;
-    }
-
 }

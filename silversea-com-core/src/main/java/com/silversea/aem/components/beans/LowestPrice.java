@@ -3,6 +3,7 @@ package com.silversea.aem.components.beans;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class LowestPrice {
 
     private Map<String, PriceData> globalPrices;

@@ -5,7 +5,6 @@ import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import com.silversea.aem.components.beans.Feature;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
@@ -14,7 +13,6 @@ import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.sling.api.resource.ValueMap;
 
-import javax.sound.sampled.Port;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -733,7 +731,7 @@ public class FindYourCruiseUse extends WCMUsePojo {
             // init lowest price and waitlist based on geolocation
             for (PriceModel priceModel : cruiseModel.getPrices()) {
                 if (priceModel.getGeomarket() != null
-                        && priceModel.getGeomarket().equals(market.toLowerCase())
+                        && priceModel.getGeomarket().equals(market)
                         && priceModel.getCurrency().equals(currency)) {
                     // Init lowest price
                     if (lowestPrice == null) {

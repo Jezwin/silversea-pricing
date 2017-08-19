@@ -8,16 +8,11 @@ import com.silversea.aem.utils.PathUtils;
 
 public class ComboCruiseUse extends WCMUsePojo {
 
-    private GeolocationService geolocationService;
     private ComboCruiseModel comboCruiseModel;
 
     @Override
     public void activate() throws Exception {
-
-        geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
-        GeoLocation geoLocation = geolocationService.initGeolocation(getRequest());
         comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
-        comboCruiseModel.initByGeoLocation(geoLocation);
     }
 
     public ComboCruiseModel getComboCruiseModel() {

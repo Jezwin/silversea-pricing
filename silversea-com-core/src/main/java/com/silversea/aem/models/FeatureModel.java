@@ -1,7 +1,6 @@
 package com.silversea.aem.models;
 
 import com.day.cq.tagging.Tag;
-import com.silversea.aem.components.beans.Feature;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;

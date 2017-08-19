@@ -23,7 +23,7 @@ public class GeolocationTagModel {
     }
 
     public String getMarket() {
-        return market;
+        return market.toLowerCase();
     }
 
     public String getCurrency() {

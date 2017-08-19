@@ -101,7 +101,7 @@ public class QuoteRequestUse extends WCMUsePojo {
         if (selectedCruise != null) {
             for (PriceModel price : selectedCruise.getPrices()) {
 
-                if (price.getGeomarket().equals(currentMarket.toLowerCase())
+                if (price.getGeomarket().equals(currentMarket)
                         && price.getCurrency().equals(siteCurrency)) {
 
                     if (suiteName == null) {

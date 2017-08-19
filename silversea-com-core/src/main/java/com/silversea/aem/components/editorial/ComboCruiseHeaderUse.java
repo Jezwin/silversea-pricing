@@ -35,7 +35,7 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
         }
         
         if(comboCruiseModel != null){
-            lowestPrice = comboCruiseModel.getLowestPrice();
+            //lowestPrice = comboCruiseModel.getLowestPrice();
             port = initPort(comboCruiseModel);
         } 
     }
@@ -46,23 +46,23 @@ public class ComboCruiseHeaderUse  extends WCMUsePojo{
         if(page != null){
             GeoLocation geoLocation = geolocationService.initGeolocation(getRequest());
             comboCruiseModel = page.adaptTo(ComboCruiseModel.class);
-            comboCruiseModel.initByGeoLocation(geoLocation);
+            //comboCruiseModel.initByGeoLocation(geoLocation);
         }
         return comboCruiseModel;
     }
     
     private String initPort(ComboCruiseModel comboCruiseModel){
         String port = null;
-        List<SegmentModel> segments = comboCruiseModel.getSegments();
+        /*List<SegmentModel> segments = comboCruiseModel.getSegments();
         if(segments != null && !segments.isEmpty()){
             SegmentModel segment = segments.get(0);
             if(segment !=null &&  segment.getCruise() != null){
                 /*List<CruiseItineraryModel> itineraries = segment.getCruise().getItineraries();
                 if(itineraries!=null && !itineraries.isEmpty()){
                     port = itineraries.get(0).getItineraryModel().getTitle();
-                }*/
+                }
             }
-        }
+        }*/
         return port;
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Model(adaptables = Page.class)
-public class SuiteModel extends AbstractModel implements ShipAreaModel {
+public class SuiteModel implements ShipAreaModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(SuiteModel.class);
 
@@ -85,11 +85,6 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
             }
         }
 
-        // init suite sub title
-        if (suiteSubTitle != null) {
-            splitSuiteSubTitle = suiteSubTitle.split("\\r?\\n");
-        }
-
         name = page.getName();
     }
 
@@ -137,125 +132,5 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
 
     public String getName() {
         return name;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private String[] splitSuiteSubTitle;
-
-    private TagManager tagManager;
-
-    private PriceData lowestPrice;
-
-    private List<SuiteVariation> variations;
-
-    public List<SuiteVariation> getVariations() {
-        return variations;
-    }
-
-    public PriceData getLowestPrice() {
-        return lowestPrice;
-    }
-
-    public void initLowestPrice(Node lowestPriceNode, String geoMarketCode) {
-        lowestPrice = getPriceByGeoMarketCode(lowestPriceNode, geoMarketCode, "priceMarketCode");
-    }
-
-    public void initVarirations(Node suiteNode, String geoMarketCode) {
-        variations = new ArrayList<SuiteVariation>();
-        try {
-            NodeIterator variationNodes = suiteNode.getNodes();
-            if (variationNodes != null && variationNodes.hasNext()) {
-                while (variationNodes.hasNext()) {
-                    Node node = variationNodes.nextNode();
-                    if (!StringUtils.equals(node.getName(), "lowest-prices")) {
-                        PriceData price = getPrice(node, geoMarketCode);
-                        String name = Objects.toString(node.getProperty("suiteCategoryCod").getValue());
-                        SuiteVariation suiteVariation = new SuiteVariation();
-                        suiteVariation.setPrice(price);
-                        suiteVariation.setName(name);
-                        variations.add(suiteVariation);
-                    }
-
-                }
-            }
-        } catch (RepositoryException e) {
-            LOGGER.error("Exception while building suites variations", e);
-        }
-    }
-
-    private PriceData getPriceByGeoMarketCode(Node pricesNode, String geoMarketCode, String property) {
-        PriceData price = null;
-        try {
-            NodeIterator nodes = pricesNode.getNodes();
-            if (nodes != null && nodes.hasNext()) {
-                while (nodes.hasNext()) {
-                    Node node = nodes.nextNode();
-                    String priceMarketCode = Objects.toString(node.getProperty(property).getValue());
-
-                    if (StringUtils.equals(geoMarketCode, priceMarketCode)) {
-                        String value = Objects.toString(node.getProperty("price").getValue());
-                        price = initPrice(geoMarketCode, value);
-                        break;
-                    }
-                }
-            }
-
-        } catch (RepositoryException e) {
-            LOGGER.error("Exception while calculating prices", e);
-        }
-
-        return price;
-    }
-
-    private PriceData getPrice(Node pricesNode, String geoMarketCode) {
-        PriceData price = null;
-        try {
-            NodeIterator nodes = pricesNode.getNodes();
-            if (nodes != null && nodes.hasNext()) {
-                while (nodes.hasNext()) {
-                    Node node = nodes.nextNode();
-                    Value[] tags = node.getProperty("cq:tags").getValues();
-                    Currency currency = getCurrencyByMarKetCode(geoMarketCode);
-                    String suitePriceCurrency = Objects.toString(node.getProperty("currency").getValue());
-                    Tag tag = tagManager.resolve(tags[0].getString());
-                    if (tag != null && StringUtils.equals(geoMarketCode, tag.getTitle())
-                            && StringUtils.equals(suitePriceCurrency, currency.getValue())) {
-                        String value = Objects.toString(node.getProperty("price").getValue());
-                        price = initPrice(geoMarketCode, value);
-                        break;
-                    }
-                }
-            }
-
-        } catch (RepositoryException e) {
-            LOGGER.error("Exception while calculating prices", e);
-        }
-
-        return price;
-    }
-
-    public String[] getSuiteSubTitle() {
-        return splitSuiteSubTitle;
     }
 }
