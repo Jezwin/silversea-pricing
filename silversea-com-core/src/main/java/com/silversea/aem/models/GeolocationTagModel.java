@@ -9,11 +9,18 @@ import javax.inject.Named;
 @Model(adaptables = Resource.class)
 public class GeolocationTagModel {
 
+    @Inject @Named("iso2")
+    private String countryCode;
+
     @Inject
     private String market;
 
     @Inject @Named("Currency")
     private String currency;
+
+    public String getCountryCode() {
+        return countryCode;
+    }
 
     public String getMarket() {
         return market;

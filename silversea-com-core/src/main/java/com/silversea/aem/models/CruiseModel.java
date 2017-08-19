@@ -394,18 +394,12 @@ public class CruiseModel extends AbstractModel {
 
     // ---------------- TODO -------------- //
 
-    private PriceData lowestPrice;
-
     private List<SuiteModel> suites;
 
     private ItinerariesData itinerariesData;
 
 
     public void initByGeoLocation(GeoLocation geolocation) {
-    }
-
-    public PriceData getLowestPrice() {
-        return lowestPrice;
     }
 
     public List<SuiteModel> getSuites() {

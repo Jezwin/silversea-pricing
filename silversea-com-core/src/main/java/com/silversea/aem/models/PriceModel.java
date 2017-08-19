@@ -1,7 +1,5 @@
 package com.silversea.aem.models;
 
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.resource.Resource;
@@ -11,7 +9,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.List;
 
 @Model(adaptables = Resource.class)
 public class PriceModel {

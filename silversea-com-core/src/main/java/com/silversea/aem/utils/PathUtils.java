@@ -1,14 +1,10 @@
 package com.silversea.aem.utils;
 
-import java.util.Locale;
-
+import com.adobe.granite.confmgr.Conf;
 import org.apache.sling.api.resource.Resource;
 
-import com.adobe.granite.confmgr.Conf;
+import java.util.Locale;
 
-/**
- * TODO NPE
- */
 public class PathUtils {
 
     /**
@@ -19,17 +15,21 @@ public class PathUtils {
     }
 
     /**
-     * Return local path to request quote page path from /conf
+     * @param resource
+     * @param locale
+     * @return local path to request quote page path from /conf
      */
-    public static String getRequestQuotePagePath(Resource resource, Locale locale) {
-        String pagePath;
-        // Get width from configuration
-        Resource confRes = resource.adaptTo(Conf.class).getItemResource("/requestquotepage/page");
-
+    public static String getRequestQuotePagePath(final Resource resource, final Locale locale) {
+        final Conf confRes = resource.adaptTo(Conf.class);
         if (confRes != null) {
-            pagePath = "/content/silversea-com/" + locale.getLanguage() + confRes.getValueMap().get("reference", String.class);
-            if (resource.getResourceResolver().getResource(pagePath) != null) {
-                return pagePath;
+            final Resource requestQuotePageConf = confRes.getItemResource("/requestquotepage/page");
+
+            if (requestQuotePageConf != null) {
+                final String pagePath = "/content/silversea-com/" + locale.getLanguage()
+                        + requestQuotePageConf.getValueMap().get("reference", String.class);
+                if (resource.getResourceResolver().getResource(pagePath) != null) {
+                    return pagePath;
+                }
             }
         }
 

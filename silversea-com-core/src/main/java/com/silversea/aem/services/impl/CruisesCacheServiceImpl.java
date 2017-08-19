@@ -35,7 +35,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Reference
     private SlingSettingsService slingSettingsService;
 
-    private Map<String, List<CruiseModel>> cruises = new HashMap<>();
+    private Map<String, Map<String, CruiseModel>> cruisesByCode = new HashMap<>();
 
     private Map<String, List<DestinationModel>> destinations = new HashMap<>();
 
@@ -68,7 +68,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
             for (final String lang : languages) {
                 // init language
-                cruises.put(lang, new ArrayList<>());
+                cruisesByCode.put(lang, new HashMap<>());
                 destinations.put(lang, new ArrayList<>());
                 ships.put(lang, new ArrayList<>());
                 ports.put(lang, new ArrayList<>());
@@ -91,7 +91,12 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     @Override
     public List<CruiseModel> getCruises(final String lang) {
-        return cruises.get(lang);
+        return new ArrayList<>(cruisesByCode.get(lang).values());
+    }
+
+    @Override
+    public CruiseModel getCruiseByCruiseCode(final String lang, final String cruiseCode) {
+        return cruisesByCode.get(lang).get(cruiseCode);
     }
 
     @Override
@@ -136,7 +141,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
 
             if (cruiseModel != null) {
-                cruises.get(lang).add(cruiseModel);
+                cruisesByCode.get(lang).put(cruiseModel.getCruiseCode(), cruiseModel);
 
                 if (cruiseModel.getDestination() != null
                         && !destinations.get(lang).contains(cruiseModel.getDestination())) {

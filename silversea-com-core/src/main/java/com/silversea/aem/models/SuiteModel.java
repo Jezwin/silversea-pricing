@@ -9,7 +9,6 @@ import com.silversea.aem.components.beans.PriceData;
 import com.silversea.aem.components.beans.SuiteVariation;
 import com.silversea.aem.enums.Currency;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -71,9 +70,7 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle") @Optional
     private String suiteSubTitle;
 
-    private String[] splitSuiteSubTitle;
-
-    private TagManager tagManager;
+    private String name;
 
     @PostConstruct
     private void init() {
@@ -92,6 +89,8 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
         if (suiteSubTitle != null) {
             splitSuiteSubTitle = suiteSubTitle.split("\\r?\\n");
         }
+
+        name = page.getName();
     }
 
     public String getTitle() {
@@ -106,10 +105,6 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
     public String getAssetSelectionReference() {
         return assetSelectionReference != null ? assetSelectionReference :
                 (genericSuite != null ? genericSuite.getAssetSelectionReference() : null);
-    }
-
-    public String[] getSuiteSubTitle() {
-        return splitSuiteSubTitle;
     }
 
     public String getBedroomsInformation() {
@@ -140,6 +135,9 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
         return page;
     }
 
+    public String getName() {
+        return name;
+    }
 
 
 
@@ -161,6 +159,11 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
 
 
 
+
+
+    private String[] splitSuiteSubTitle;
+
+    private TagManager tagManager;
 
     private PriceData lowestPrice;
 
@@ -250,5 +253,9 @@ public class SuiteModel extends AbstractModel implements ShipAreaModel {
         }
 
         return price;
+    }
+
+    public String[] getSuiteSubTitle() {
+        return splitSuiteSubTitle;
     }
 }

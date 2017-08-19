@@ -2,6 +2,7 @@ package com.silversea.aem.services.impl;
 
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.services.GeolocationTagService;
@@ -41,14 +42,14 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
         try {
             ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(params);
 
-            Resource geotaggingNamespace = resourceResolver.getResource(PATH_TAGS_GEOLOCATION);
+            Resource geotaggingNamespace = resourceResolver.getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
 
             if (geotaggingNamespace != null) {
                 Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
 
                 addTagsToCache(geotaggingTag);
             } else {
-                LOGGER.debug("{} not found, do not build tag list", PATH_TAGS_GEOLOCATION);
+                LOGGER.debug("{} not found, do not build tag list", WcmConstants.PATH_TAGS_GEOLOCATION);
             }
         } catch (LoginException e) {
             LOGGER.error("Cannot get a repository session, do not build tag list", e);
