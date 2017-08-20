@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Model(adaptables = Page.class)
@@ -25,11 +26,6 @@ public class ExclusiveOfferModel {
     @Inject @Self
     private Page page;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/cq:tags") @Optional
-    private String[] tagIds;
-
-    private List<String> geomarkets = new ArrayList<>();
-
     @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:title")
     private String title;
 
@@ -38,6 +34,11 @@ public class ExclusiveOfferModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/cq:tags") @Optional
+    private String[] tagIds;
+
+    private List<String> geomarkets = new ArrayList<>();
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
     private String[] cruiseFareAdditionsJson;
@@ -53,6 +54,8 @@ public class ExclusiveOfferModel {
     private String lightboxReference;
 
     private String path;
+
+    private List<ExclusiveOfferModel> variations = new ArrayList<>();
 
     @PostConstruct
     private void init() {
@@ -85,6 +88,16 @@ public class ExclusiveOfferModel {
             }
         }
 
+        // init variations
+        final Iterator<Page> children = page.listChildren();
+        while (children.hasNext()) {
+            final ExclusiveOfferModel variation = children.next().adaptTo(ExclusiveOfferModel.class);
+
+            if (variation != null) {
+                variations.add(variation);
+            }
+        }
+
         path = page.getPath();
     }
 
@@ -98,6 +111,10 @@ public class ExclusiveOfferModel {
 
     public String getLongDescription() {
         return longDescription;
+    }
+
+    public String[] getTagIds() {
+        return tagIds;
     }
 
     public List<String> getGeomarkets() {
@@ -118,6 +135,10 @@ public class ExclusiveOfferModel {
 
     public String getLightboxReference() {
         return lightboxReference;
+    }
+
+    public List<ExclusiveOfferModel> getVariations() {
+        return variations;
     }
 
     public String getPath() {

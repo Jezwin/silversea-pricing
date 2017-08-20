@@ -50,5 +50,10 @@ public interface GeolocationTagService {
      */
     String getTagIdFromRequest(final SlingHttpServletRequest request);
 
+    /**
+     * Get geolocation tag from request
+     * @param request the request
+     * @return geolocation tag
+     */
     GeolocationTagModel getGeolocationTagModelFromRequest(final SlingHttpServletRequest request);
 }

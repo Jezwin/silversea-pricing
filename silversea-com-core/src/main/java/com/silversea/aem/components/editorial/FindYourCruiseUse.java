@@ -1,15 +1,14 @@
 package com.silversea.aem.components.editorial;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
-import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.sling.api.resource.ValueMap;
 
@@ -20,7 +19,7 @@ import java.util.*;
 /**
  * selectors : destination_all date_all duration_all ship_all cruisetype_all port_all page_2
  */
-public class FindYourCruiseUse extends WCMUsePojo {
+public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     private final static int PAGE_SIZE = 15;
 
@@ -133,6 +132,8 @@ public class FindYourCruiseUse extends WCMUsePojo {
     @Override
     @SuppressWarnings("unchecked")
     public void activate() throws Exception {
+        super.activate();
+
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
 
@@ -273,23 +274,6 @@ public class FindYourCruiseUse extends WCMUsePojo {
 
                 prefilterByFeature = true;
                 break;
-        }
-
-        // init geolocations informations
-        String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
-        String currency = WcmConstants.DEFAULT_CURRENCY;
-
-        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
-                GeolocationTagService.class);
-
-        if (geolocationTagService != null) {
-            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(
-                    getRequest());
-
-            if (geolocationTagModel != null) {
-                geomarket = geolocationTagModel.getMarket();
-                currency = geolocationTagModel.getCurrency();
-            }
         }
 
         // get cruises from cache

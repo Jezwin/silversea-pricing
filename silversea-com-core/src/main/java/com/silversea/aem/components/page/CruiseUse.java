@@ -1,23 +1,24 @@
 package com.silversea.aem.components.page;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.*;
-import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CruiseUse extends WCMUsePojo {
+public class CruiseUse extends AbstractGeolocationAwareUse {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
 
@@ -49,27 +50,11 @@ public class CruiseUse extends WCMUsePojo {
 
     private List<FeatureModel> enrichmentsFeatures = new ArrayList<>();
 
-    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+    private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
 
     @Override
     public void activate() throws Exception {
-        final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-
-        // init geolocations informations
-        String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
-        String currency = WcmConstants.DEFAULT_CURRENCY;
-
-        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
-
-        if (geolocationTagService != null) {
-            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(
-                    getRequest());
-
-            if (geolocationTagModel != null) {
-                geomarket = geolocationTagModel.getMarket();
-                currency = geolocationTagModel.getCurrency();
-            }
-        }
+        super.activate();
 
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -184,7 +169,7 @@ public class CruiseUse extends WCMUsePojo {
         for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
             if (exclusiveOffer.getGeomarkets() != null
                     && exclusiveOffer.getGeomarkets().contains(geomarket)) {
-                exclusiveOffers.add(exclusiveOffer);
+                exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode));
             }
         }
     }
@@ -350,7 +335,7 @@ public class CruiseUse extends WCMUsePojo {
     /**
      * @return exclusive offers of this cruise
      */
-    public List<ExclusiveOfferModel> getExclusiveOffers() {
+    public List<ExclusiveOfferItem> getExclusiveOffers() {
         return exclusiveOffers;
     }
 
@@ -360,15 +345,18 @@ public class CruiseUse extends WCMUsePojo {
     public List<String> getExclusiveOffersCruiseFareAdditions() {
         final List<String> cruiseFareAdditions = new ArrayList<>();
 
-        for (final ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
+        for (final ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
             cruiseFareAdditions.addAll(exclusiveOffer.getCruiseFareAdditions());
         }
 
         return cruiseFareAdditions;
     }
 
+    /**
+     * @return first map overhead
+     */
     public String getMapOverHead() {
-        for (ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
+        for (final ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
             if (exclusiveOffer.getMapOverHead() != null) {
                 return exclusiveOffer.getMapOverHead();
             }
@@ -414,6 +402,100 @@ public class CruiseUse extends WCMUsePojo {
             if (priceModel.getPrice() < lowestPrice.getPrice()) {
                 lowestPrice = priceModel;
             }
+        }
+    }
+
+    /**
+     * Inner class used to store informations about exclusive offer and the best matching variation, and display informations according to it
+     */
+    public class ExclusiveOfferItem {
+
+        private ExclusiveOfferModel exclusiveOffer;
+
+        private ExclusiveOfferModel exclusiveOfferVariation;
+
+        public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2) {
+            this.exclusiveOffer = exclusiveOffer;
+
+            if (this.exclusiveOffer.getVariations() != null) {
+                for (final ExclusiveOfferModel variation : this.exclusiveOffer.getVariations()) {
+                    for (final String tagId : variation.getTagIds()) {
+                        // TODO add method to compare geolocation
+                        if (tagId.startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX) && tagId.endsWith("/" + countryCodeIso2)) {
+                            exclusiveOfferVariation = variation;
+                            break;
+                        }
+                    }
+
+                    if (exclusiveOfferVariation != null) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        public String getTitle() {
+            if (exclusiveOfferVariation != null) {
+                return StringUtils.defaultIfBlank(exclusiveOfferVariation.getTitle(), exclusiveOffer.getTitle());
+            }
+
+            return exclusiveOffer.getTitle();
+        }
+
+        public String getDescription() {
+            if (exclusiveOfferVariation != null) {
+                return StringUtils.defaultIfBlank(exclusiveOfferVariation.getDescription(), exclusiveOffer.getDescription());
+            }
+
+            return exclusiveOffer.getDescription();
+        }
+
+        public String getLongDescription() {
+            if (exclusiveOfferVariation != null) {
+                return StringUtils.defaultIfBlank(exclusiveOfferVariation.getLongDescription(), exclusiveOffer.getLongDescription());
+            }
+
+            return exclusiveOffer.getLongDescription();
+        }
+
+        public List<String> getCruiseFareAdditions() {
+            if (exclusiveOfferVariation != null
+                    && exclusiveOfferVariation.getCruiseFareAdditions() != null
+                    && !exclusiveOfferVariation.getCruiseFareAdditions().isEmpty()) {
+                return exclusiveOfferVariation.getCruiseFareAdditions();
+            }
+
+            return exclusiveOffer.getCruiseFareAdditions();
+        }
+
+        public List<String> getFootNotes() {
+            if (exclusiveOfferVariation != null
+                    && exclusiveOfferVariation.getFootNotes() != null
+                    && !exclusiveOfferVariation.getFootNotes().isEmpty()) {
+                return exclusiveOfferVariation.getFootNotes();
+            }
+
+            return exclusiveOffer.getFootNotes();
+        }
+
+        public String getMapOverHead() {
+            if (exclusiveOfferVariation != null) {
+                return StringUtils.defaultString(exclusiveOfferVariation.getMapOverHead(), exclusiveOffer.getMapOverHead());
+            }
+
+            return exclusiveOffer.getMapOverHead();
+        }
+
+        public String getLightboxReference() {
+            if (exclusiveOfferVariation != null) {
+                return StringUtils.defaultString(exclusiveOfferVariation.getLightboxReference(), exclusiveOffer.getLightboxReference());
+            }
+
+            return exclusiveOffer.getLightboxReference();
+        }
+
+        public String getPath() {
+            return exclusiveOffer.getPath();
         }
     }
 }
