@@ -121,7 +121,7 @@ public interface WcmConstants {
 
     // Geolocation default values
     // TODO change to US
-    String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "EU";
+    String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "eu";
     String DEFAULT_GEOLOCATION_COUNTRY = "FR";
     String DEFAULT_CURRENCY = "EUR";
 
