@@ -27,8 +27,6 @@ public class CruiseModel {
     @Inject @Self
     private Page page;
 
-    private PageManager pageManager;
-
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
@@ -96,8 +94,7 @@ public class CruiseModel {
 
     @PostConstruct
     private void init() {
-        pageManager = page.getPageManager();
-
+        final PageManager pageManager = page.getPageManager();
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
         // init ship
@@ -142,7 +139,7 @@ public class CruiseModel {
 
         // init exclusive offers
         if (exclusiveOffersReferences != null) {
-            for (String exclusiveOfferReference : exclusiveOffersReferences) {
+            for (final String exclusiveOfferReference : exclusiveOffersReferences) {
                 final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferReference);
 
                 if (exclusiveOfferPage != null) {

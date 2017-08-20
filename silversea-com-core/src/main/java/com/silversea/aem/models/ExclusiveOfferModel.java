@@ -1,13 +1,7 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import com.silversea.aem.components.beans.GeoLocation;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
@@ -17,9 +11,11 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class ExclusiveOfferModel {
@@ -70,20 +66,23 @@ public class ExclusiveOfferModel {
         }
 
         // init cruise fare additions and footnotes
-        for (final String cruiseFareAdditionJson : cruiseFareAdditionsJson) {
-            try {
-                final JSONObject jsonObject = new JSONObject(cruiseFareAdditionJson);
+        if (cruiseFareAdditionsJson != null) {
+            for (final String cruiseFareAdditionJson : cruiseFareAdditionsJson) {
+                try {
+                    final JSONObject jsonObject = new JSONObject(cruiseFareAdditionJson);
 
-                final String addition = jsonObject.optString("addition");
-                if (StringUtils.isNotEmpty(addition)) {
-                    cruiseFareAdditions.add(addition);
-                }
+                    final String addition = jsonObject.optString("addition");
+                    if (StringUtils.isNotEmpty(addition)) {
+                        cruiseFareAdditions.add(addition);
+                    }
 
-                final String footNote = jsonObject.optString("note");
-                if (StringUtils.isNotEmpty(footNote)) {
-                    footNotes.add(footNote);
+                    final String footNote = jsonObject.optString("note");
+                    if (StringUtils.isNotEmpty(footNote)) {
+                        footNotes.add(footNote);
+                    }
+                } catch (JSONException ignored) {
                 }
-            } catch (JSONException ignored) {}
+            }
         }
 
         path = page.getPath();

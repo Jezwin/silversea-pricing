@@ -183,7 +183,7 @@ public class CruiseUse extends WCMUsePojo {
         // init exclusive offers based on geolocation
         for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
             if (exclusiveOffer.getGeomarkets() != null
-                    && exclusiveOffer.getGeomarkets().contains(geomarket.toLowerCase())) {
+                    && exclusiveOffer.getGeomarkets().contains(geomarket)) {
                 exclusiveOffers.add(exclusiveOffer);
             }
         }
