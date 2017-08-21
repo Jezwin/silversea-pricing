@@ -56,4 +56,18 @@ public interface CruisesCacheService {
      * @return features of the cruises for the <code>lang</code>
      */
     Set<FeatureModel> getFeatures(final String lang);
+
+    /**
+     * Update the cache with the corresponding <code>cruiseModel</code>, if the cruise is modified, it will remove and re-add it to the cache,
+     * if the cruise is new, it will add it
+     * @param cruiseModel to add to cache
+     */
+    void addOrUpdateCruise(final CruiseModel cruiseModel);
+
+    /**
+     * Remove targeted cruise from cache
+     * @param lang the lang
+     * @param cruiseCode the cruise code
+     */
+    void removeCruise(final String lang, final String cruiseCode);
 }

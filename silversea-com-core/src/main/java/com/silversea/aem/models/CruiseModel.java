@@ -6,6 +6,7 @@ import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
@@ -92,6 +93,8 @@ public class CruiseModel {
 
     private String path;
 
+    private String lang;
+
     @PostConstruct
     private void init() {
         final PageManager pageManager = page.getPageManager();
@@ -159,6 +162,7 @@ public class CruiseModel {
         }
 
         path = page.getPath();
+        lang = LanguageHelper.getLanguage(page);
 
         final Resource imageResource = page.getContentResource().getChild("image");
         if (imageResource != null) {
@@ -368,6 +372,13 @@ public class CruiseModel {
      */
     public String getPath() {
         return path;
+    }
+
+    /**
+     * @return the lang of the cruise
+     */
+    public String getLang() {
+        return lang;
     }
 
     /**

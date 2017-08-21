@@ -105,28 +105,64 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public List<ShipModel> getShips(String lang) {
+    public List<ShipModel> getShips(final String lang) {
         return ships.get(lang);
     }
 
     @Override
-    public List<PortModel> getPorts(String lang) {
+    public List<PortModel> getPorts(final String lang) {
         return ports.get(lang);
     }
 
     @Override
-    public Set<Integer> getDurations(String lang) {
+    public Set<Integer> getDurations(final String lang) {
         return durations.get(lang);
     }
 
     @Override
-    public Set<YearMonth> getDepartureDates(String lang) {
+    public Set<YearMonth> getDepartureDates(final String lang) {
         return departureDates.get(lang);
     }
 
     @Override
-    public Set<FeatureModel> getFeatures(String lang) {
+    public Set<FeatureModel> getFeatures(final String lang) {
         return features.get(lang);
+    }
+
+    @Override
+    public void addOrUpdateCruise(final CruiseModel cruiseModel) {
+        if (cruiseModel == null) {
+            LOGGER.warn("Cannot update cache, the cruise model provided is null");
+            return;
+        }
+
+        LOGGER.debug("Updating cruises cache with {}", cruiseModel.getPath());
+
+        final String cruiseCode = cruiseModel.getCruiseCode();
+        final String lang = cruiseModel.getLang();
+
+        if (cruisesByCode.containsKey(lang)) {
+            cruisesByCode.get(lang).put(cruiseCode, cruiseModel);
+        } else {
+            final HashMap<String, CruiseModel> cruiseByCode = new HashMap<>();
+            cruiseByCode.put(cruiseCode, cruiseModel);
+
+            cruisesByCode.put(lang, cruiseByCode);
+        }
+    }
+
+    @Override
+    public void removeCruise(final String lang, final String cruiseCode) {
+        if (lang == null || cruiseCode == null) {
+            LOGGER.warn("Cannot update cache with info {} {}", lang, cruiseCode);
+            return;
+        }
+
+        LOGGER.debug("Removing cruise from cache with {} {}", lang, cruiseCode);
+
+        if (cruisesByCode.containsKey(lang) && cruisesByCode.get(lang).containsKey(cruiseCode)) {
+            cruisesByCode.get(lang).remove(cruiseCode);
+        }
     }
 
     /**
