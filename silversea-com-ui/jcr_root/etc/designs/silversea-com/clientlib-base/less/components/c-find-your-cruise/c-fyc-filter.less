@@ -266,6 +266,14 @@
                         padding: 0 4px;
                         position: relative;
 
+                        &.disabled {
+                            .feature-name {
+                                cursor: default;
+                                opacity: 0.3;
+                                pointer-events: none;
+                            }
+                        }
+
                         [type="checkbox"] {
                             opacity: 0;
                             position: absolute;
@@ -338,11 +346,13 @@
                             display: block;
                         }
 
-                        &:hover {
-                            background: @black;
+                        &:not(.disabled) {
+                            &:hover {
+                                background: @black;
 
-                            label {
-                                color: @white;
+                                label {
+                                    color: @white;
+                                }
                             }
                         }
                     }

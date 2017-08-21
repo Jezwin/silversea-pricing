@@ -38,6 +38,17 @@ $(function() {
                 $optionList.trigger('chosen:updated');
             });
 
+            // Update features filter
+            var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
+            $form.find('.features-filter li').each(function() {
+                var $item = $(this);
+                if (filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true) {
+                    $item.addClass('disabled');
+                    console.log('tset');
+                }
+                console.log($item.text());
+            });
+
             return updateFilter;
         })();
 
