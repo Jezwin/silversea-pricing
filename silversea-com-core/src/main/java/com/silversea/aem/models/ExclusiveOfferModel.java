@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.constants.WcmConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
@@ -94,10 +95,14 @@ public class ExclusiveOfferModel {
         // init variations
         final Iterator<Page> children = page.listChildren();
         while (children.hasNext()) {
-            final ExclusiveOfferModel variation = children.next().adaptTo(ExclusiveOfferModel.class);
+            final Page child = children.next();
 
-            if (variation != null) {
-                variations.add(variation);
+            if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
+                final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
+
+                if (variation != null) {
+                    variations.add(variation);
+                }
             }
         }
 
