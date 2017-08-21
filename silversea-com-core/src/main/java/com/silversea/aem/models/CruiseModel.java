@@ -327,8 +327,11 @@ public class CruiseModel {
      */
     public String getDeparturePortName() {
         if (itineraries.size() > 0) {
-            ItineraryModel itinerary = itineraries.get(0);
-            return itinerary.getPort().getApiTitle();
+            final ItineraryModel itinerary = itineraries.get(0);
+
+            if (itinerary.getPort() != null) {
+                return itinerary.getPort().getApiTitle();
+            }
         }
 
         return null;
@@ -339,8 +342,11 @@ public class CruiseModel {
      */
     public String getArrivalPortName() {
         if (itineraries.size() > 0) {
-            ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
-            return itinerary.getPort().getApiTitle();
+            final ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
+
+            if (itinerary.getPort() != null) {
+                return itinerary.getPort().getApiTitle();
+            }
         }
 
         return null;
