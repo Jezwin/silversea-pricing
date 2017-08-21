@@ -237,6 +237,9 @@ $(function() {
                 success : function(result) {
                     $resultWrapper.html(result);
 
+                    // Update result count
+                    $('#matching-value').text($('#count-filter').val());
+
                     // Update filter
                     updateFilter();
 
