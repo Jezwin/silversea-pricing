@@ -34,9 +34,10 @@ $(function() {
                     $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
                 });
 
-                // Update chosen
-                $optionList.trigger('chosen:updated');
             });
+
+            // Update chosen
+            $form.find('.chosen').trigger('chosen:updated');
 
             // Update features filter
             var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
