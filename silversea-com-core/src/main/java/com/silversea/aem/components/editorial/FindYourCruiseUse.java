@@ -290,7 +290,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         }
 
         // init list of filtered cruises and available values for filters
-        final Set<CruiseModel> filteredCruises = new HashSet<>();
+        final Set<CruiseModel> filteredCruises = new TreeSet<>(Comparator.comparing(CruiseModel::getStartDate));
         for (final CruiseModel cruise : allCruises) {
             boolean includeCruise = true;
             boolean includeCruiseNotFilteredByDestination = true;

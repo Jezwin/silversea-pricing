@@ -10,7 +10,7 @@ public interface CruisesCacheService {
 
     /**
      * @param lang the lang
-     * @return cruise for the defined <code>lang</code>
+     * @return cruises for the defined <code>lang</code>
      */
     List<CruiseModel> getCruises(final String lang);
 
