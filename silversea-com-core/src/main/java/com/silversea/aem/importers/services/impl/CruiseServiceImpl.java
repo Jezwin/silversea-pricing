@@ -1,40 +1,5 @@
 package com.silversea.aem.importers.services.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-
-import com.silversea.aem.utils.StringsUtils;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
@@ -63,17 +28,34 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruiseService;
 import com.silversea.aem.services.ApiCallService;
 import com.silversea.aem.services.ApiConfigurationService;
-
+import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
-import io.swagger.client.model.HotelItinerary;
-import io.swagger.client.model.Itinerary;
-import io.swagger.client.model.LandItinerary;
-import io.swagger.client.model.Price;
-import io.swagger.client.model.ShorexItinerary;
-import io.swagger.client.model.SpecialOfferByMarket;
-import io.swagger.client.model.VoyagePriceComplete;
-import io.swagger.client.model.VoyagePriceMarket;
-import io.swagger.client.model.VoyageSpecialOffer;
+import io.swagger.client.model.*;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.Service;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Deprecated
 @Service
@@ -538,7 +520,7 @@ public class CruiseServiceImpl implements CruiseService{
         if (path != null && !path.isEmpty() && imageName != null && !imageName.isEmpty()) {
             try {
                 LOGGER.debug("Cruise importer -- Start download image with name {}", imageName);
-                String formattedImageName = StringsUtils.getFormatWithoutSpecialCharcters(imageName);
+                String formattedImageName = StringsUtils.getFormatWithoutSpecialCharacters(imageName);
                 String folderPath = ImportersConstants.CRUISES_DAM_PATH.concat(formattedImageName);
                 URL url = new URL(path);
                 InputStream is = url.openStream();

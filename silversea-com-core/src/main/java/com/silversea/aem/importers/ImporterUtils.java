@@ -137,7 +137,7 @@ public class ImporterUtils {
             page = resources.next().adaptTo(Page.class);
         } else {
             page = pageManager.create(RootPage.getPath(), JcrUtil.createValidChildName(RootPage.adaptTo(Node.class),
-                    StringsUtils.getFormatWithoutSpecialCharcters(title)), template, title, false);
+                    StringsUtils.getFormatWithoutSpecialCharacters(title)), template, title, false);
         }
 
         return page;

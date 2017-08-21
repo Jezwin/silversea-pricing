@@ -141,9 +141,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                             // Creating hotel page
                             final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                     JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                            StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                            StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName())),
                                     WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                    StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName()), false);
 
                             LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 
@@ -335,9 +335,9 @@ public class HotelsImporterImpl implements HotelsImporter {
                                 // Creating hotel page
                                 final Page hotelPage = pageManager.create(hotelsPage.getPath(),
                                         JcrUtil.createValidChildName(hotelsPage.adaptTo(Node.class),
-                                                StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName())),
+                                                StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName())),
                                         WcmConstants.PAGE_TEMPLATE_HOTEL,
-                                        StringsUtils.getFormatWithoutSpecialCharcters(hotel.getHotelName()), false);
+                                        StringsUtils.getFormatWithoutSpecialCharacters(hotel.getHotelName()), false);
 
                                 LOGGER.trace("Creating hotel {} in city {}", hotel.getHotelName(), portPage.getPath());
 

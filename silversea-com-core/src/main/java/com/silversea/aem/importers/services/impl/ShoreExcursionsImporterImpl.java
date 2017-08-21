@@ -148,9 +148,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
                             final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                     JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                            StringsUtils.getFormatWithoutSpecialCharcters(shorex.getShorexName())),
+                                            StringsUtils.getFormatWithoutSpecialCharacters(shorex.getShorexName())),
                                     WcmConstants.PAGE_TEMPLATE_EXCURSION,
-                                    StringsUtils.getFormatWithoutSpecialCharcters(shorex.getShorexName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharacters(shorex.getShorexName()), false);
 
                             LOGGER.trace("Creating excursion {} in city {}", shorex.getShorexName(),
                                     portPage.getPath());
@@ -355,9 +355,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                 // Creating excursion page
                                 final Page excursionPage = pageManager.create(excursionsPage.getPath(),
                                         JcrUtil.createValidChildName(excursionsPage.adaptTo(Node.class),
-                                                StringsUtils.getFormatWithoutSpecialCharcters(excursionName)),
+                                                StringsUtils.getFormatWithoutSpecialCharacters(excursionName)),
                                         WcmConstants.PAGE_TEMPLATE_EXCURSION,
-                                        StringsUtils.getFormatWithoutSpecialCharcters(excursionName), false);
+                                        StringsUtils.getFormatWithoutSpecialCharacters(excursionName), false);
 
                                 LOGGER.trace("Creating excursion {} in city {}", excursionName, portPage.getPath());
 

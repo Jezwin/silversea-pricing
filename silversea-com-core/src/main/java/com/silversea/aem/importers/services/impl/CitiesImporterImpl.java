@@ -424,9 +424,9 @@ public class CitiesImporterImpl implements CitiesImporter {
             // Creating port page
             return pageManager.create(portFirstLetterPage.getPath(),
                     JcrUtil.createValidChildName(portFirstLetterPage.adaptTo(Node.class),
-                            StringsUtils.getFormatWithoutSpecialCharcters(cityName)),
+                            StringsUtils.getFormatWithoutSpecialCharacters(cityName)),
                     WcmConstants.PAGE_TEMPLATE_PORT,
-                    StringsUtils.getFormatWithoutSpecialCharcters(cityName), false);
+                    StringsUtils.getFormatWithoutSpecialCharacters(cityName), false);
         } catch (RepositoryException | WCMException e) {
             throw new ImporterException("Port page cannot be created", e);
         }

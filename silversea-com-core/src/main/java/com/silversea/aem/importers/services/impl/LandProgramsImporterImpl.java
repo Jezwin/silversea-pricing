@@ -141,9 +141,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
                             final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                     JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
-                                            StringsUtils.getFormatWithoutSpecialCharcters(landProgram.getLandName())),
+                                            StringsUtils.getFormatWithoutSpecialCharacters(landProgram.getLandName())),
                                     WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
-                                    StringsUtils.getFormatWithoutSpecialCharcters(landProgram.getLandName()), false);
+                                    StringsUtils.getFormatWithoutSpecialCharacters(landProgram.getLandName()), false);
 
                             LOGGER.trace("Creating land program {} in city {}", landProgram.getLandName(),
                                     portPage.getPath());
@@ -341,9 +341,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 // Creating landProgram page
                                 final Page landProgramPage = pageManager.create(landProgramsPage.getPath(),
                                         JcrUtil.createValidChildName(landProgramsPage.adaptTo(Node.class),
-                                                StringsUtils.getFormatWithoutSpecialCharcters(landProgramName)),
+                                                StringsUtils.getFormatWithoutSpecialCharacters(landProgramName)),
                                         WcmConstants.PAGE_TEMPLATE_LAND_PROGRAM,
-                                        StringsUtils.getFormatWithoutSpecialCharcters(landProgramName), false);
+                                        StringsUtils.getFormatWithoutSpecialCharacters(landProgramName), false);
 
                                 LOGGER.trace("Creating landProgram {} in city {}", landProgramName, portPage.getPath());
 

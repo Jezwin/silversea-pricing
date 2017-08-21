@@ -42,25 +42,21 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     @Reference
     private FeaturesImporter featuresImporter;
 
+    @Reference
+    private BrochuresImporter brochuresImporter;
+
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException,
-            IOException {
-
-        // To Extract
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         final String modeParam = request.getParameter("mode");
-
         if (modeParam == null) {
-            throw new ServletException(
-                    "the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
+            throw new ServletException("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
         }
 
-        Mode mode;
-
+        final Mode mode;
         try {
             mode = Mode.valueOf(modeParam);
         } catch (IllegalArgumentException e) {
-            throw new ServletException(
-                    "the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
+            throw new ServletException("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
         }
 
         if (mode.equals(Mode.cities)) {
@@ -74,13 +70,16 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         } else if (mode.equals(Mode.exclusiveoffers)) {
             exclusiveOffersImporter.importAllItems();
         } else if (mode.equals(Mode.features)) {
-            featuresImporter.updateFeatures();
+            //featuresImporter.updateFeatures();
         } else if (mode.equals(Mode.cruises)) {
-            cruisesImporter.updateItems();
-            response.getWriter().write("Cruises import Done<br/>");
+            //cruisesImporter.updateItems();
         } else if (mode.equals(Mode.combocruise)) {
-            comboCruisesImporter.importData(true);
+            //comboCruisesImporter.importData(true);
+        } else if (mode.equals(Mode.brochures)) {
+            brochuresImporter.updateBrochures();
         }
+
+        response.setContentType("text/html");
     }
 
     enum Mode {
@@ -94,7 +93,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         features("features"),
         brochures("brochures"),
         cruises("cruises"),
-        combocruise("combo-cruises");
+        combocruise("combocruises");
 
         private String name;
 
