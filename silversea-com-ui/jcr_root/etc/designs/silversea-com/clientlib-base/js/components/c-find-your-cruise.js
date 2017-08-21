@@ -44,9 +44,7 @@ $(function() {
                 var $item = $(this);
                 if (filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true) {
                     $item.addClass('disabled');
-                    console.log('tset');
                 }
-                console.log($item.text());
             });
 
             return updateFilter;
