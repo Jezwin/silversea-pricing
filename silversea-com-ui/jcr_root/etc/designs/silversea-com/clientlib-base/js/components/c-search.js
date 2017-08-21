@@ -54,6 +54,7 @@ $(function() {
 
     $( ".c-search-result__search-trigger" ).click(function() {
         $( ".c-search-result__expand" ).toggle();
+        $(this).find('i').toggleClass('fa-angle-up fa-angle-down');
     });
 
 });
