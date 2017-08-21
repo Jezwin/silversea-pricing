@@ -53,6 +53,9 @@ public class ExclusiveOfferModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/lightboxReference") @Optional
     private String lightboxReference;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/pricePrefix") @Optional
+    private String pricePrefix;
+
     private String path;
 
     private List<ExclusiveOfferModel> variations = new ArrayList<>();
@@ -135,6 +138,10 @@ public class ExclusiveOfferModel {
 
     public String getLightboxReference() {
         return lightboxReference;
+    }
+
+    public String getPricePrefix() {
+        return pricePrefix;
     }
 
     public List<ExclusiveOfferModel> getVariations() {

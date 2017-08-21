@@ -751,6 +751,16 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             return isWaitList;
         }
 
+        public String getPricePrefix() {
+            for (ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
+                if (exclusiveOffer.getPricePrefix() != null) {
+                    return exclusiveOffer.getPricePrefix();
+                }
+            }
+
+            return null;
+        }
+
         public List<ExclusiveOfferModel> getExclusiveOffers() {
             return exclusiveOffers;
         }
