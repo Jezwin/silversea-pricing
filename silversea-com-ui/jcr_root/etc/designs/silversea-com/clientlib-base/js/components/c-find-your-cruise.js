@@ -8,62 +8,42 @@ $(function() {
             $resultWrapper = $('.c-fyc__result-wrapper'),
             $page = $paginationWrapper.find('a.active').data('page');
 
-        /***************************************************************************
-         * Sort alphabetically
-         **************************************************************************/
-//        function sortAlphabetically(a, b) {
-//            var x = a.title.toLowerCase();
-//            var y = b.title.toLowerCase();
-//            return x < y ? -1 : x > y ? 1 : 0;
-//        }
-
-        /***************************************************************************
-         * Filter : get/update filter from json response
-         **************************************************************************/
-        /*$.fn.populateSelectFYC = function() {
-            this.each(function() {
-                var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates' ];
-
-                $.ajax({
-                    type : 'GET',
-                    url : '/bin/cruises/search?language=' + $form.data('lang'),
-                    contentType : 'application/json',
-                    dataType : 'json',
-                    success : function(json) {
-                        selectsFilter.forEach(function(filterName) {
-                            // Append option in select filter
-                            buildOptions(json, filterName);
-
-                            // update Chosen with the new content
-                            $('.c-find-your-cruise-filter .chosen').trigger('chosen:updated');
-                        });
-                    }
-                });
-
-                // Functions utils
-                function buildOptions(json, filterName) {
-                    json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
-                        $('.' + filterName + '-filter').append($('<option>', {
-                            value : option.id,
-                            text : option.title,
-                            'data-sscclicktype' : 'filters',
-                            'data-value' : ''
-                        }));
-                    });
-                }
-            });
-        };
-
-        $form.populateSelectFYC();*/
-
         // Filter : open feature drop down
         $('.features-filter').on('click', function(e) {
             e.stopPropagation();
         });
 
-        /***************************************************************************
+        /***********************************************************************
+         * Update Filter according to result : compare option list full and
+         * option available
+         **********************************************************************/
+        var updateFilter = (function updateFilter() {
+            $filter = $form.find('select');
+
+            $filter.each(function() {
+                var $select = $(this);
+                var $optionList = $select.find('option');
+
+                // Build obj with available option
+                var filterAvailableObj = JSON.parse($('#' + $select.attr('name') +'-filter').text());
+
+                // Disabled option not available
+                $optionList.each(function() {
+                    var $option = $(this);
+
+                    $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
+                });
+
+                // Update chosen
+                $optionList.trigger('chosen:updated');
+            });
+
+            return updateFilter;
+        })();
+
+        /***********************************************************************
          * Features : show features legend according to the current page
-         **************************************************************************/
+         **********************************************************************/
         var featureListBuild = (function featureListBuild() {
             var template = '<span><i></i></span>';
             var featureList = {};
@@ -257,12 +237,14 @@ $(function() {
                 success : function(result) {
                     $resultWrapper.html(result);
 
+                    // Update filter
+                    updateFilter();
+
                     // Build feature legend according to the current result
                     featureListBuild();
 
                     // Set data layer key according to the current result
                     searchAnalytics();
-                    
                 }
             });
         });

@@ -1,5 +1,29 @@
-<!--/* TODO : set class V2 according to design properties */-->
 <div class="clearfix" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+    <div class="hidden">
+        <div id="destination-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availableDestinations}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+        <div id="ship-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availableShips}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+        <div id="port-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availablePorts}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+        <div id="date-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availableDepartureDates}">"${item.year}-${item.monthValue}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+        <div id="duration-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availableDurations}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+        <div id="cruisetype-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availableCruiseTypes}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+        <div id="feature-filter">
+            {"all":true,<sly data-sly-repeat="${fyc.availableFeatures}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        </div>
+    </div>
+    <input value="${fyc.totalMatches}" />
+
     <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
         <div class="c-fyc__result__wrapper">
             <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
@@ -91,26 +115,3 @@
 
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />
-
-<select>
-    <option data-sly-repeat="${fyc.availableDestinations}">${item.name}</option>
-</select>
-<select>
-    <option data-sly-repeat="${fyc.availableShips}">${item.name}</option>
-</select>
-<select>
-    <option data-sly-repeat="${fyc.availablePorts}">${item.title}</option>
-</select>
-<select>
-    <option data-sly-repeat="${fyc.availableDepartureDates}">${item.monthValue} ${item.year}</option>
-</select>
-<select>
-    <option data-sly-repeat="${fyc.availableDurations}">${item}</option>
-</select>
-<select>
-    <option data-sly-repeat="${fyc.availableFeatures}">${item.name}</option>
-</select>
-<select>
-    <option data-sly-repeat="${fyc.availableCruiseTypes}">${item}</option>
-</select>
-<input value="${fyc.totalMatches}" />
