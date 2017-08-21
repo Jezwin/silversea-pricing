@@ -83,7 +83,7 @@ public class ExclusiveOfferModel {
                         cruiseFareAdditions.add(addition);
                     }
 
-                    final String footNote = jsonObject.optString("note");
+                    final String footNote = jsonObject.optString("notes");
                     if (StringUtils.isNotEmpty(footNote)) {
                         footNotes.add(footNote);
                     }

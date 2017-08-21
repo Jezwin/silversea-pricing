@@ -2,7 +2,7 @@
     <sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-unwrap />
     <ul data-sly-list="${cruise.exclusiveOffers}">
         <li>
-            <p>${item.footNotes}</p>
+            <p data-sly-repeat.footnote="${item.footNotes}">${footnote}</p>
         </li>
     </ul>
     <i>${cruise.cruiseModel.destination.footnote}</i>
