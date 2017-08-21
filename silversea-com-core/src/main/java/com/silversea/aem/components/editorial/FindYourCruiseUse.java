@@ -705,7 +705,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         private PriceModel lowestPrice;
 
-        private boolean isWaitList;
+        private boolean isWaitList = true;
 
         private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
@@ -716,18 +716,17 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             for (PriceModel priceModel : cruiseModel.getPrices()) {
                 if (priceModel.getGeomarket() != null
                         && priceModel.getGeomarket().equals(market)
-                        && priceModel.getCurrency().equals(currency)) {
+                        && priceModel.getCurrency().equals(currency)
+                        && !priceModel.isWaitList()) {
                     // Init lowest price
                     if (lowestPrice == null) {
                         lowestPrice = priceModel;
-                    } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
+                    } else if (priceModel.getComputedPrice() < lowestPrice.getComputedPrice()) {
                         lowestPrice = priceModel;
                     }
 
                     // Init wait list
-                    if (!priceModel.isWaitList()) {
-                        isWaitList = false;
-                    }
+                    isWaitList = false;
                 }
             }
 

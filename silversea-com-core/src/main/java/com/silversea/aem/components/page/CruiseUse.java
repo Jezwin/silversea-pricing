@@ -145,14 +145,14 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
                 }
 
                 // Init lowest price
-                if (lowestPrice == null) {
-                    lowestPrice = priceModel;
-                } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
-                    lowestPrice = priceModel;
-                }
-
-                // Init wait list
                 if (!priceModel.isWaitList()) {
+                    if (lowestPrice == null) {
+                        lowestPrice = priceModel;
+                    } else if (lowestPrice.getComputedPrice() > priceModel.getComputedPrice()) {
+                        lowestPrice = priceModel;
+                    }
+
+                    // Init wait list
                     isWaitList = false;
                 }
             }
@@ -377,11 +377,16 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
         private PriceModel lowestPrice;
 
+        private boolean isWaitList = true;
+
         public SuitePrice(final SuiteModel suiteModel, final PriceModel price) {
             this.suiteModel = suiteModel;
             pricesVariations.add(price);
 
-            lowestPrice = price;
+            if (!price.isWaitList()) {
+                lowestPrice = price;
+                isWaitList = false;
+            }
         }
 
         public SuiteModel getSuite() {
@@ -396,11 +401,19 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
             return lowestPrice;
         }
 
+        public boolean isWaitList() {
+            return isWaitList;
+        }
+
         public void add(final PriceModel priceModel) {
             pricesVariations.add(priceModel);
 
-            if (priceModel.getPrice() < lowestPrice.getPrice()) {
-                lowestPrice = priceModel;
+            if (!priceModel.isWaitList()) {
+                if (lowestPrice == null || priceModel.getComputedPrice() < lowestPrice.getComputedPrice()) {
+                    lowestPrice = priceModel;
+                }
+
+                isWaitList = false;
             }
         }
     }

@@ -17,8 +17,8 @@
                 <td><strong class="text-uppercase">${variation.suite.title @ i18n }</strong></td>
                 <td><a href="#" class="text-uppercase" data-toggle="location-tab">${'view-deck' @ i18n}</a></td>
                 <td>
-                    <strong class="text-uppercase" data-sly-test.isWaitList="${variation.isWaitList}">${'waitlist' @ i18n}</strong>
-                    <strong class="text-uppercase" data-sly-test="{!isWaitList}">${variation.currency @ i18n} ${variation.price}</strong>
+                    <strong class="text-uppercase" data-sly-test="${variation.isWaitList}">${'waitlist' @ i18n}</strong>
+                    <strong class="text-uppercase" data-sly-test="${!variation.isWaitList}">${variation.currency @ i18n} ${variation.computedPrice}</strong>
                 </td>
                 <td>
                     <sly

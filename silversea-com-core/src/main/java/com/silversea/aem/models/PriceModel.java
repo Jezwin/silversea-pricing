@@ -2,8 +2,10 @@ package com.silversea.aem.models;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.constants.WcmConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +31,9 @@ public class PriceModel {
 
     @Inject
     private Long price;
+
+    @Inject @Optional
+    private Long earlyBookingBonus;
 
     @Inject
     private String suiteCategory;
@@ -80,6 +85,14 @@ public class PriceModel {
         return price;
     }
 
+    public Long getEarlyBookingBonus() {
+        return earlyBookingBonus;
+    }
+
+    public Long getComputedPrice() {
+        return earlyBookingBonus != null ? earlyBookingBonus : price;
+    }
+
     public String getSuiteCategory() {
         return suiteCategory;
     }
@@ -89,6 +102,6 @@ public class PriceModel {
     }
 
     public boolean isWaitList() {
-        return availability.equals("waitlist");
+        return availability.equals(WcmConstants.PV_AVAILABILITY_WAITLIST);
     }
 }

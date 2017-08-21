@@ -15,11 +15,11 @@
             <div class="c-tab__content--description__price">
                 <p>
                     <span><strong>${'fares-from' @ i18n}</strong></span><br />
-                    <span data-sly-test.isisWaitList="${suitePrice.lowestPrice.isWaitList}">
+                    <span data-sly-test="${suitePrice.isWaitList}">
                         <strong class="c-suitelist__price__text--important5 text-uppercase">${'waitlist' @ i18n}</strong>
                     </span>
-                    <span data-sly-test="${!isisWaitList}">
-                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suitePrice.lowestPrice.currency @ i18n} ${suitePrice.lowestPrice.price}</strong>
+                    <span data-sly-test="${!suitePrice.isWaitList}">
+                        <strong class="c-suitelist__price__text--important5 text-uppercase">${suitePrice.lowestPrice.currency @ i18n} ${suitePrice.lowestPrice.computedPrice}</strong>
                         (${'per-guest' @ i18n})
                     </span>
                     

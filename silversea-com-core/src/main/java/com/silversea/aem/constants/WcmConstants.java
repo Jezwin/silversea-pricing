@@ -17,7 +17,7 @@ public interface WcmConstants {
     String NN_HOTELS = "hotels";
     String NN_EXCURSIONS = "excursions";
 
-    // Properties
+    // Properties names
     String PN_NOT_IN_SITEMAP = "notInSitemap";
     String PN_FILE_REFERENCE = "fileReference";
     String PN_REFERENCE_PAGE_MAIN_NAVIGATION_BOTTOM = "referencePageMainNavigationBottom";
@@ -27,6 +27,9 @@ public interface WcmConstants {
     String PN_BROCHURE_IS_DIGITAL_ONLY = "brochureDigitalOnly";
     String PN_DESTINATION_REFERENCE = "destinationsReference";
     String PN_START_DATE = "startDate";
+
+    // Properties values
+    String PV_AVAILABILITY_WAITLIST = "Waitlist";
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";
@@ -107,7 +110,6 @@ public interface WcmConstants {
     String SEARCH_KEY_ORDER_BY_SORT_ORDER = "orderby.sort";
     String SEARCH_KEY_PROPERTY = "property";
     String SEARCH_KEY_PROPERTY_VALUE = "property.value";
-    String DEFAULT_KEY_CQ_PAGE = "cq:page";
 
     // Responsive
     Integer DEFAULT_WIDTH_DESKTOP = 930;
