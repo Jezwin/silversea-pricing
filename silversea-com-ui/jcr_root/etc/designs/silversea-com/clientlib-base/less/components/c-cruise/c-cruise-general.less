@@ -235,37 +235,4 @@
             opacity: 1;
         }
     }
-
-    @media screen and (min-width: @screen-md-min) {
-        .c-tab__nav--cruise {
-            table-layout: fixed;
-
-            .c-tab__link {
-                border-left: 0;
-                display: table-cell;
-
-                &:last-child {
-                    a {
-                        border-right: 0;
-                    }
-                }
-
-                &[data-state='active'] {
-                    a {
-                        margin-left: -1px;
-                        position: relative;
-
-                        &:before {
-                            border-left: 1px solid;
-                            bottom: 0;
-                            content: ' ';
-                            left: 0;
-                            position: absolute;
-                            top: -1px;
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
