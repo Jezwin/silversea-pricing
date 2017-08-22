@@ -27,7 +27,7 @@
                                 <a href="#Voyages">${'voyages' @i18n}</a>
                             </li><li class="c-tab__link" data-sly-test="${portUse.portModel.excursions}">
                                     <a href="#Excursions">${'excursions' @i18n}</a>
-                            </li><li class="c-tab__link" data-sly-test="${portUse.portModel.landprograms}">
+                            </li><li class="c-tab__link" data-sly-test="${portUse.portModel.landPrograms}">
                                     <a href="#LandProgrammes">${'land-programmes' @i18n}</a>
                             </li><li class="c-tab__link" data-sly-test="${portUse.portModel.hotels}">
                                 <a href="#Hotels">${'hotels' @i18n}</a>
@@ -36,11 +36,9 @@
                         <div class="c-tab__body">
                             <sly data-sly-include="overviewtab.html" />
                             <sly data-sly-include="voyagestab.html" />
-
                             <sly data-sly-test="${portUse.portModel.excursions}" data-sly-include="excursionstab.html" />
-                            <sly data-sly-test="${portUse.portModel.landprograms}" data-sly-include="landprogrammestab.html" />
+                            <sly data-sly-test="${portUse.portModel.landPrograms}" data-sly-include="landprogrammestab.html" />
                             <sly data-sly-test="${portUse.portModel.hotels}" data-sly-include="hotelstab.html" />
-
                         </div>
                     </div>
                 </div>
