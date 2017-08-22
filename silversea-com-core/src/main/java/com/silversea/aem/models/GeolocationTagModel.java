@@ -16,7 +16,7 @@ public class GeolocationTagModel {
     @Inject
     private String market;
 
-    @Inject @Named("Currency")
+    @Inject @Named("Currency") @Optional
     private String currency;
 
     @Inject @Optional

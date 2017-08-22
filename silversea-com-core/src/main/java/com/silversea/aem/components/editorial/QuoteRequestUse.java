@@ -39,6 +39,8 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     private PriceModel lowestPrice;
 
+    private boolean isWaitList = true;
+
     private String selectedSuiteCategoryCode;
 
     private BrochureModel selectedBrochure;
@@ -101,13 +103,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 
         if (selectedCruise != null) {
             for (PriceModel price : selectedCruise.getPrices()) {
-
                 if (price.getGeomarket().equals(currentMarket)
                         && price.getCurrency().equals(siteCurrency)) {
 
-                    if (suiteName == null) {
+                    if (suiteName == null && !price.isWaitList()) {
                         if (lowestPrice == null || price.getPrice() < lowestPrice.getPrice()) {
                             lowestPrice = price;
+                            isWaitList = false;
                         }
                     } else if (price.getSuite().getName().equals(suiteName)) {
                         if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
@@ -115,12 +117,14 @@ public class QuoteRequestUse extends WCMUsePojo {
                             selectedSuite = price.getSuite();
 
                             lowestPrice = price;
+                            isWaitList = price.isWaitList();
 
                             break;
                         } else if (suiteCategory == null) {
-                            if (lowestPrice == null || price.getPrice() < lowestPrice.getPrice()) {
+                            if (!price.isWaitList() && (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
                                 selectedSuite = price.getSuite();
                                 lowestPrice = price;
+                                isWaitList = false;
                             }
                         }
                     }
@@ -274,6 +278,13 @@ public class QuoteRequestUse extends WCMUsePojo {
      */
     public CruiseModel getSelectedCruise() {
         return selectedCruise;
+    }
+
+    /**
+     * @return true if selected cruise/suite/variation is in waitlist
+     */
+    public boolean isWaitList() {
+        return isWaitList;
     }
 
     /**

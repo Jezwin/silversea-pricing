@@ -20,8 +20,13 @@
         </ul>
     </div>
     <div class="c-quote-request-side__price hidden-xs">
-        ${'fares-from' @ i18n}
-        <strong>${quoteRequest.cruisePrice.currency @ i18n} ${quoteRequest.cruisePrice.price}</strong>
-        (${'per-guest' @ i18n})
+        <sly data-sly-test="${quoteRequest.isWaitList}">${'waitlist' @ i18n}</sly>
+        <sly data-sly-test="${!quoteRequest.isWaitList}">
+            ${'fares-from' @ i18n}
+            <strong data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.computedPrice}">
+                ${quoteRequest.cruisePrice.currency @ i18n} ${priceHelper.valueFormatted}
+            </strong>
+            (${'per-guest' @ i18n})
+        </sly>
     </div>
 </div>

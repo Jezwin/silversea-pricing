@@ -6,13 +6,14 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class PriceHelper extends WCMUsePojo {
-    private String valueFormated ;
+
+    private String valueFormatted;
 
     @Override
     public void activate() throws Exception {
         final Long value = get("value", Long.class);
         Locale locale = getCurrentPage().getLanguage(false);
-        valueFormated = getValue(locale, value);
+        valueFormatted = getValue(locale, value);
     }
 
     public static String getValue(Locale locale, Long value) {
@@ -20,9 +21,10 @@ public class PriceHelper extends WCMUsePojo {
     }
 
     /**
+     * TODO typo
      * @return the value
      */
-    public String getValueFormated() {
-        return valueFormated;
+    public String getValueFormatted() {
+        return valueFormatted;
     }
 }

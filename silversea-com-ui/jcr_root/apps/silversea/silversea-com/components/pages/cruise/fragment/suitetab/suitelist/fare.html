@@ -18,7 +18,7 @@
                 <td><a href="#" class="text-uppercase" data-toggle="location-tab">${'view-deck' @ i18n}</a></td>
                 <td data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = variation.computedPrice}">
                     <strong class="text-uppercase" data-sly-test="${variation.isWaitList}">${'waitlist' @ i18n}</strong>
-                    <strong class="text-uppercase" data-sly-test="${!variation.isWaitList}">${variation.currency @ i18n} ${priceHelper.valueFormated}</strong>
+                    <strong class="text-uppercase" data-sly-test="${!variation.isWaitList}">${variation.currency @ i18n} ${priceHelper.valueFormatted}</strong>
                 </td>
                 <td>
                     <sly
