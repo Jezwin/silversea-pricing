@@ -53,8 +53,6 @@ public class ComboCruiseModel {
 
     private String thumbnail;
 
-    private int routesAmount = 0;
-
     private int duration = 0;
 
     private String departurePortName;
@@ -93,8 +91,6 @@ public class ComboCruiseModel {
                         departurePortName = segmentModel.getCruise().getDeparturePortName();
                     }
 
-                    routesAmount += segmentModel.getCruise().getItineraries().size();
-
                     try {
                         duration += Integer.valueOf(segmentModel.getCruise().getDuration());
                     } catch (NumberFormatException ignored) {}
@@ -122,7 +118,7 @@ public class ComboCruiseModel {
     }
 
     public int getRoutesAmount() {
-        return routesAmount;
+        return segments.size();
     }
 
     public Long getCountriesAmount() {
