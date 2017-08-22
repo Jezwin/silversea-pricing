@@ -35,7 +35,7 @@
                         </span>
                         <sly data-sly-test="${!cruise.isWaitList}">
                             <span class="lead">
-                                ${cruise.lowestPrice.currency @ i18n} ${cruise.lowestPrice.computedPrice}
+                                ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
                             </span>
                             <span>(${'per-guest' @ i18n})</span>
                         </sly>

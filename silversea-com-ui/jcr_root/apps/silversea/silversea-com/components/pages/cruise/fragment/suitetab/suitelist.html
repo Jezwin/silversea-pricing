@@ -18,7 +18,7 @@
                 ${'fares-from' @ i18n}
                 <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important">${'waitlist' @ i18n}</span>
                 <sly data-sly-test="${!item.isWaitList}">
-                    <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important2">${item.lowestPrice.currency @ i18n} ${item.lowestPrice.computedPrice}</span>
+                    <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important2">${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}</span>
                     ${'per-guest' @ i18n}
                 </sly>
             </div>

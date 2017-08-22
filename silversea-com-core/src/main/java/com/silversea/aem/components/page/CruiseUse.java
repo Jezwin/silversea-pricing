@@ -4,6 +4,7 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -51,6 +53,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     private List<FeatureModel> enrichmentsFeatures = new ArrayList<>();
 
     private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
+
+    private Locale locale;
 
     @Override
     public void activate() throws Exception {
@@ -172,6 +176,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
                 exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode));
             }
         }
+
+        locale = getCurrentPage().getLanguage(false);
     }
 
     /**
@@ -365,6 +371,10 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         return null;
     }
 
+    public String getComputedPriceFormated() {
+        return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
+    }
+
     /**
      * Inner class used to store mapping between one suite and price variations Lowest price is updated when a
      * <code>PriceModel</code> is added to the price variations list
@@ -403,6 +413,10 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
         public boolean isWaitList() {
             return isWaitList;
+        }
+
+        public String getComputedPriceFormated() {
+            return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
         }
 
         public void add(final PriceModel priceModel) {
