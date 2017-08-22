@@ -7,6 +7,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
@@ -158,7 +159,7 @@ public class CruiseModel {
         // init prices
         final Resource suitesResource = page.getContentResource().getChild("suites");
         if (suitesResource != null) {
-            collectPrices(prices, suitesResource);
+            CruiseUtils.collectPrices(prices, suitesResource);
         }
 
         path = page.getPath();
@@ -387,20 +388,4 @@ public class CruiseModel {
         return lang;
     }
 
-    /**
-     * Recursive collection of prices for this cruise
-     * @param prices the list of prices
-     * @param resource resource from where to get the prices
-     */
-    private void collectPrices(final List<PriceModel> prices, final Resource resource) {
-        if (resource.isResourceType("silversea/silversea-com/components/subpages/prices/pricevariation")) {
-            prices.add(resource.adaptTo(PriceModel.class));
-        } else {
-            final Iterator<Resource> children = resource.listChildren();
-
-            while (children.hasNext()) {
-                collectPrices(prices, children.next());
-            }
-        }
-    }
 }

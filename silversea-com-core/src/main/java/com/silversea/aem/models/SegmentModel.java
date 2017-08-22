@@ -1,40 +1,41 @@
 package com.silversea.aem.models;
 
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.components.beans.GeoLocation;
+import javax.inject.Named;
 
 @Model(adaptables = Page.class)
 public class SegmentModel {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(SegmentModel.class);
-
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/focusedMapReference") @Optional
     private String focusedMapReference;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/mapReference") @Optional
     private String mapReference;
-    private String subTitle;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/subtitle") @Optional
+    private String subtitle;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseReference") @Optional
+    private String cruiseReference;
+
     private CruiseModel cruise;
-    private ResourceResolver resourceResolver;
-    private PageManager pageManager;
 
     @PostConstruct
     private void init() {
-        resourceResolver = page.getContentResource().getResourceResolver();
-        pageManager = resourceResolver.adaptTo(PageManager.class);
-        focusedMapReference = page.getProperties().get("focusedMapReference",String.class);
-        mapReference = page.getProperties().get("mapReference",String.class);
-        subTitle = page.getProperties().get("subTitle",String.class);
+        final Page cruisePage = this.page.getPageManager().getPage(cruiseReference);
+        if (cruisePage != null) {
+            cruise = cruisePage.adaptTo(CruiseModel.class);
+        }
     }
 
     public Page getPage() {
@@ -54,7 +55,7 @@ public class SegmentModel {
     }
 
     public String getSubTitle() {
-        return subTitle;
+        return subtitle;
     }
-    
+
 }

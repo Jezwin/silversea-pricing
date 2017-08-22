@@ -1,32 +1,22 @@
 package com.silversea.aem.components.page;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
+import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.PriceHelper;
-import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.models.ExclusiveOfferModel;
-import com.silversea.aem.models.FeatureModel;
-import com.silversea.aem.models.ItineraryModel;
-import com.silversea.aem.models.PortModel;
-import com.silversea.aem.models.PriceModel;
-import com.silversea.aem.models.SuiteModel;
+import com.silversea.aem.models.*;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CruiseUse extends AbstractGeolocationAwareUse {
 
@@ -67,6 +57,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     @Override
     public void activate() throws Exception {
         super.activate();
+
+        locale = getCurrentPage().getLanguage(false);
 
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -153,7 +145,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
                 }
 
                 if (!added) {
-                    prices.add(new SuitePrice(priceModel.getSuite(), priceModel));
+                    prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale));
                 }
 
                 // Init lowest price
@@ -184,8 +176,6 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
                 exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode));
             }
         }
-
-        locale = getCurrentPage().getLanguage(false);
     }
 
     /**
@@ -381,62 +371,5 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
     public String getComputedPriceFormated() {
         return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-    }
-
-    /**
-     * Inner class used to store mapping between one suite and price variations Lowest price is updated when a
-     * <code>PriceModel</code> is added to the price variations list
-     */
-    public class SuitePrice {
-
-        private SuiteModel suiteModel;
-
-        private List<PriceModel> pricesVariations = new ArrayList<>();
-
-        private PriceModel lowestPrice;
-
-        private boolean isWaitList = true;
-
-        public SuitePrice(final SuiteModel suiteModel, final PriceModel price) {
-            this.suiteModel = suiteModel;
-            pricesVariations.add(price);
-
-            if (!price.isWaitList()) {
-                lowestPrice = price;
-                isWaitList = false;
-            }
-        }
-
-        public SuiteModel getSuite() {
-            return suiteModel;
-        }
-
-        public List<PriceModel> getPricesVariations() {
-            return pricesVariations;
-        }
-
-        public PriceModel getLowestPrice() {
-            return lowestPrice;
-        }
-
-        public boolean isWaitList() {
-            return isWaitList;
-        }
-
-        public String getComputedPriceFormated() {
-            return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-        }
-
-        public void add(final PriceModel priceModel) {
-            pricesVariations.add(priceModel);
-
-            if (!priceModel.isWaitList()) {
-                if (lowestPrice == null || priceModel.getComputedPrice() < lowestPrice.getComputedPrice()) {
-                    lowestPrice = priceModel;
-                }
-
-                isWaitList = false;
-            }
-        }
     }
 }

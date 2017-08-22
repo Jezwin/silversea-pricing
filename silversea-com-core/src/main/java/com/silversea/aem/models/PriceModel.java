@@ -17,7 +17,7 @@ public class PriceModel {
     @Inject @Self
     private Resource resource;
 
-    @Inject
+    @Inject @Optional
     private String availability;
 
     private String[] tagIds;
@@ -105,6 +105,6 @@ public class PriceModel {
     }
 
     public boolean isWaitList() {
-        return availability.equals(WcmConstants.PV_AVAILABILITY_WAITLIST);
+        return availability != null && availability.equals(WcmConstants.PV_AVAILABILITY_WAITLIST);
     }
 }
