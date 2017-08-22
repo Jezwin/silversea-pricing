@@ -43,9 +43,7 @@ $(function() {
             var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
             $form.find('.features-filter li').each(function() {
                 var $item = $(this);
-                if (filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true) {
-                    $item.addClass('disabled');
-                }
+                $item.toggleClass('disabled', filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true);
             });
 
             return updateFilter;
