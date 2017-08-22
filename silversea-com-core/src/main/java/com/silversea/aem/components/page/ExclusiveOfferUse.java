@@ -27,10 +27,6 @@ public class ExclusiveOfferUse extends AbstractGeolocationAwareUse {
         exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode);
     }
 
-    public ExclusiveOfferModel getExclusiveOfferModel() {
-        return exclusiveOfferModel;
-    }
-
     public boolean isAvailable() {
         return available;
     }
