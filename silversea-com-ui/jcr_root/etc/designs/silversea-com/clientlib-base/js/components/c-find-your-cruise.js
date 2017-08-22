@@ -129,7 +129,7 @@ $(function() {
                     // Update parameters just before build request
                     $page = $currentPage.data('page');
 
-                    $form.trigger('change');
+                    $form.trigger('change', [true]);
 
                     // Scroll to filter
                     $('html, body').animate({
@@ -155,7 +155,7 @@ $(function() {
                 $form.find('.chosen').trigger('chosen:updated');
 
                 // Force change event on form
-                $form.trigger('change');
+                $form.trigger('change', [false]);
 
                 // Set disable style on reset button
                 $btn.removeClass('active');
@@ -165,7 +165,7 @@ $(function() {
         /***************************************************************************
          * Filter : behavior on form change
          **************************************************************************/
-        $form.on('change', function() {
+        $form.on('change', function(e, isFromPagination) {
             // Set active state on reset button
             var resetState, $currentForm = $(this), featureNumber = 0, $filterValue = $($currentForm.serializeArray()), $paginationWrapper = $('.c-fyc-pagination');
 
@@ -187,6 +187,7 @@ $(function() {
                 }
             });
 
+            // Update reset style state
             if (resetState) {
                 $btnReset.addClass('active');
             } else {
@@ -220,8 +221,6 @@ $(function() {
                 } else {
                     requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
                 }
-
-                //requestUrl = requestUrl + '.' + field.name + '_' + encodeURIComponent(field.value);
             });
 
             // Add features
@@ -232,6 +231,7 @@ $(function() {
             }
 
             // Add pagination
+            $page = (isFromPagination === true) ? $page : '1';
             requestUrl = requestUrl + '.page_' + $page;
 
             // Add limit
