@@ -36,7 +36,7 @@
                     <i class="btn-less fa fa-angle-up"></i>
                 </div>
                 <div id="ex-${itinerary.port.cityId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/collapse-nested.html">
-                    <sly data-sly-test.parentId="${'{0}{1}' @ format=['itinerary-ex-', itineraryList.count]}" />
+                    <sly data-sly-test.parentId="${'{0}{1}' @ format=['ex-', itinerary.port.cityId]}" />
                     <sly data-sly-call="${collapseNestedTemplate.default @ list = excursions, parent = parentId}" />
                 </div>
             </div>
