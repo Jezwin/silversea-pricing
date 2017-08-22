@@ -10,7 +10,6 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 @Model(adaptables = Resource.class)
 public class PriceModel {
@@ -21,7 +20,6 @@ public class PriceModel {
     @Inject
     private String availability;
 
-    @Inject @Named("cq:tags")
     private String[] tagIds;
 
     private String geomarket;
@@ -56,11 +54,16 @@ public class PriceModel {
             }
         }
 
+        // init tag ids
+        tagIds = resource.getValueMap().get("cq:tags", String[].class);
+
         // init geotagging
-        for (String tagId : tagIds) {
-            if (tagId.startsWith("geotagging:")) {
-                geomarket = tagId.replace("geotagging:", "");
-                break;
+        if (tagIds != null) {
+            for (String tagId : tagIds) {
+                if (tagId.startsWith("geotagging:")) {
+                    geomarket = tagId.replace("geotagging:", "");
+                    break;
+                }
             }
         }
     }
