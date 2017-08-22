@@ -105,6 +105,6 @@ public class PriceModel {
     }
 
     public boolean isWaitList() {
-        return availability != null && availability.equals(WcmConstants.PV_AVAILABILITY_WAITLIST);
+        return WcmConstants.PV_AVAILABILITY_WAITLIST.equals(availability);
     }
 }

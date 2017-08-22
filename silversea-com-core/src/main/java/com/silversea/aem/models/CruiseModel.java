@@ -179,6 +179,13 @@ public class CruiseModel {
     }
 
     /**
+     * @return cruise api title
+     */
+    public String getApiTitle() {
+        return apiTitle;
+    }
+
+    /**
      * @return cruise description
      */
     public String getDescription() {

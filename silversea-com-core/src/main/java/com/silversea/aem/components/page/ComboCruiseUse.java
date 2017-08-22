@@ -4,7 +4,9 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.ComboCruiseModel;
+import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.models.SegmentModel;
 import com.silversea.aem.utils.PathUtils;
 
 import java.util.ArrayList;
@@ -23,15 +25,37 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     private Locale locale;
 
+    private int excursionsNumber = 0;
+
+    private int landProgramsNumber = 0;
+
     @Override
     public void activate() throws Exception {
-        comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
+        // init cruise model from current page
+        if (getRequest().getAttribute("cruiseModel") != null) {
+            comboCruiseModel = (ComboCruiseModel) getRequest().getAttribute("comboCruiseModel");
+        } else {
+            comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
+            getRequest().setAttribute("comboCruiseModel", comboCruiseModel);
+        }
 
         if (comboCruiseModel == null) {
             throw new Exception("Cannot get combo cruise model");
         }
 
         locale = getCurrentPage().getLanguage(false);
+
+        // init number of elements (excursions, hotels, land programs)
+        for (final SegmentModel segment : comboCruiseModel.getSegments()) {
+            if (segment.getCruise() != null) {
+                for (ItineraryModel itinerary : segment.getCruise().getCompactedItineraries()) {
+                    if (itinerary.getPort() != null) {
+                        excursionsNumber += itinerary.getPort().getExcursions().size();
+                        landProgramsNumber += itinerary.getPort().getLandPrograms().size();
+                    }
+                }
+            }
+        }
 
         // init prices based on geolocation
         for (final PriceModel priceModel : comboCruiseModel.getPrices()) {
@@ -68,8 +92,25 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
         }
     }
 
+    /**
+     * @return combo cruise model
+     */
     public ComboCruiseModel getComboCruiseModel() {
         return comboCruiseModel;
+    }
+
+    /**
+     * @return the number of excursions, of the itineraries or the attached ports
+     */
+    public int getExcursionsNumber() {
+        return excursionsNumber;
+    }
+
+    /**
+     * @return the number of land programs, of the itineraries or the attached ports
+     */
+    public int getLandProgramsNumber() {
+        return landProgramsNumber;
     }
 
     /**
