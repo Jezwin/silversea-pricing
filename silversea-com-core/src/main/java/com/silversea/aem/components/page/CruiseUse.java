@@ -172,7 +172,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
         // init enrichments features
         for (FeatureModel feature : cruiseModel.getFeatures()) {
-            if (!feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)) {
+            if (feature.getFeatureCode() != null && !feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)) {
                 enrichmentsFeatures.add(feature);
             }
         }
