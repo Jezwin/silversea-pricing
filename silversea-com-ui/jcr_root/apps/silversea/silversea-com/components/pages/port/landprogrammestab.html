@@ -5,8 +5,8 @@
         <div data-sly-repeat.landProgram="${portUse.portModel.landPrograms}" class="panel c-cruise-itinerary-2__list--nested__item">
             <div class="collapsed panel--nested__heading" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#lp-${landProgramList.count}" aria-expanded="false">
                 <h4 class="panel-title"><strong>${landProgram.title}</strong></h4>
-                <span class="btn-more">${'more-info' @ i18n} <i class='fa fa-angle-down'></i></span>
-                <span class="btn-less">${'close' @ i18n} <i class='fa fa-angle-up'></i></span>
+                <span class="btn-more">${'more-info' @ i18n} <i class="fa fa-angle-down"></i></span>
+                <span class="btn-less">${'close' @ i18n} <i class="fa fa-angle-up"></i></span>
             </div>
             <div id="lp-${landProgramList.count}" class="collapse panel--nested__body" role="tabpanel">
                 <div class="panel--nested__body__inner">
