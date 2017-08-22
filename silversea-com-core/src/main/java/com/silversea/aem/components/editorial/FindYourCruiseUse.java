@@ -755,7 +755,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         }
 
         public String getLowestPriceFormated() {
-            return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice().toString());
+            return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
         }
 
         public boolean isWaitList() {

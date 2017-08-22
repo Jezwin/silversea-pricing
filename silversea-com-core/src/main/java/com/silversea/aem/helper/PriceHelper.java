@@ -10,13 +10,13 @@ public class PriceHelper extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        final String value = get("value", String.class);
+        final Long value = get("value", Long.class);
         Locale locale = getCurrentPage().getLanguage(false);
         valueFormated = getValue(locale, value);
     }
 
-    public static String getValue(Locale locale, String value) {
-        return NumberFormat.getNumberInstance(locale).format(Integer.valueOf(value));
+    public static String getValue(Locale locale, Long value) {
+        return NumberFormat.getNumberInstance(locale).format(value);
     }
 
     /**
