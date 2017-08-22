@@ -2,7 +2,6 @@ package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.Duration;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -128,5 +127,36 @@ public class ExcursionModel {
 
     public String getSchedule() {
         return schedule;
+    }
+
+    /**
+     * TODO replace by {@link java.time.Duration}
+     */
+    @Deprecated
+    public static class Duration {
+
+        double hours;
+
+        double minutes;
+
+        public Duration() {
+
+        }
+
+        public double getHours() {
+            return hours;
+        }
+
+        public void setHours(double hours) {
+            this.hours = hours;
+        }
+
+        public double getMinutes() {
+            return minutes;
+        }
+
+        public void setMinutes(double minutes) {
+            this.minutes = minutes;
+        }
     }
 }

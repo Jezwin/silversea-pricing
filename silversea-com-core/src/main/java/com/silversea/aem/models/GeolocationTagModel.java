@@ -25,6 +25,9 @@ public class GeolocationTagModel {
     @Inject @Named("jcr:title") @Optional
     private String title;
 
+    @Inject @Optional
+    private String phone;
+
     public String getCountryCode() {
         return countryCode;
     }
@@ -48,6 +51,10 @@ public class GeolocationTagModel {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     @Override

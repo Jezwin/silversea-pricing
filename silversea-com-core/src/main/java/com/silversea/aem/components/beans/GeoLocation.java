@@ -2,24 +2,28 @@ package com.silversea.aem.components.beans;
 
 @Deprecated
 public class GeoLocation {
-    
-    String country;
-    String countryCode;
-    String geoMarketCode;
-    
+
+    private String country;
+
+    private String countryCode;
+
+    private String geoMarketCode;
+
     public GeoLocation() {
-      
     }
-    
+
     public String getCountry() {
         return country;
     }
+
     public void setCountry(String country) {
         this.country = country;
     }
+
     public String getGeoMarketCode() {
         return geoMarketCode;
     }
+
     public void setGeoMarketCode(String geoMarketCode) {
         this.geoMarketCode = geoMarketCode;
     }
@@ -31,5 +35,4 @@ public class GeoLocation {
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }
-    
 }

@@ -2,13 +2,11 @@ package com.silversea.aem.helper;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
-import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
 
 import javax.jcr.RangeIterator;
@@ -108,14 +106,6 @@ public class PageHelper extends WCMUsePojo {
      */
     public Page getHomePage() {
         return getCurrentPage().getAbsoluteParent(2);
-    }
-
-    /**
-     * @return the templateName of the current page
-     */
-    public String getTemplateName() {
-        String path = getCurrentPage().getProperties().get(NameConstants.NN_TEMPLATE, String.class);
-        return PathUtils.getName(path);
     }
 
     /**

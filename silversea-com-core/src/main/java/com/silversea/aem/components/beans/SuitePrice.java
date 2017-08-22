@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Inner class used to store mapping between one suite and price variations Lowest price is updated when a
- * <code>PriceModel</code> is added to the price variations list
+ * Class used to store mapping between one suite and price variations
+ * Lowest price is updated when a <code>PriceModel</code> is added to the price variations list
  */
 public class SuitePrice {
 

@@ -59,9 +59,6 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private LandProgramsImporter landProgramsImporter;
 
     @Reference
-    private TravelAgenciesImporter travelAgenciesImporter;
-
-    @Reference
     private ExclusiveOffersImporter exclusiveOffersImporter;
 
     @Reference
@@ -210,26 +207,6 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                     responseWriter.write("land program import success number : <p>" + importResult.getSuccessNumber() + "</p>");
                     responseWriter.write("<br/>");
                     responseWriter.write("LandPrograms import Done<br/>");
-                    watch.stop();
-                    time = watch.toString();
-                    responseWriter.write("Time :<br/>" + time);
-                    responseWriter.write("<br/> ---------------- <br />");
-                    responseWriter.flush();
-                }
-
-                if (all || mode.equals(Mode.ta)) {
-                    responseWriter.write("Init import of travel agencies ...<br/>");
-                    responseWriter.flush();
-                    watch.reset();
-                    watch.start();
-                    travelAgenciesImporter.importData();
-                    nbrError = travelAgenciesImporter.getErrorNumber();
-                    nbrSucces = travelAgenciesImporter.getSuccesNumber();
-                    responseWriter.write("Travel agencies import failure number : <p>" + nbrError + "</p>");
-                    responseWriter.write("<br/>");
-                    responseWriter.write("Travel agencies import success number : <p>" + nbrSucces + "</p>");
-                    responseWriter.write("<br/>");
-                    responseWriter.write("TravelAgencies import Done<br/>");
                     watch.stop();
                     time = watch.toString();
                     responseWriter.write("Time :<br/>" + time);

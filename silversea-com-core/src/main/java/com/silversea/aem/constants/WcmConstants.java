@@ -117,6 +117,7 @@ public interface WcmConstants {
     Integer DEFAULT_WIDTH_MOBILE = 737;
 
     // Content Path
+    String PATH_SILVERSEA_COM = "/content/silversea-com";
     String PATH_TAGS_GEOLOCATION = "/etc/tags/geotagging";
     String PATH_DAM_SILVERSEA = "/content/dam/silversea-com";
 

@@ -8,9 +8,8 @@ import com.burgstaller.okhttp.digest.DigestAuthenticator;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.importers.ImporterUtils;
-import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiClient;
@@ -23,13 +22,14 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public class ImportersUtils {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ImporterUtils.class);
+    static final private Logger LOGGER = LoggerFactory.getLogger(ImportersUtils.class);
 
     /**
      * @param pageManager
@@ -37,7 +37,7 @@ public class ImportersUtils {
      * @return
      */
     public static List<String> getSiteLocales(final PageManager pageManager) {
-        final Page rootPage = pageManager.getPage(ImportersConstants.SILVERSEA_ROOT);
+        final Page rootPage = pageManager.getPage(WcmConstants.PATH_SILVERSEA_COM);
         List<String> locales = new ArrayList<>();
 
         if (rootPage != null) {
@@ -326,5 +326,27 @@ public class ImportersUtils {
         }
 
         return itemsMapping;
+    }
+
+    /**
+     * @param page the page from where to get the date
+     * @param propertyName name of the date property to retrieve
+     *
+     * @return simplified date from property defined by <code>propertyName</code>
+     */
+    public static String getDateFromPageProperties(final Page page, final String propertyName) {
+        if (page != null) {
+            Resource pageContentResource = page.getContentResource();
+
+            if (pageContentResource != null) {
+                Date date = pageContentResource.getValueMap().get(propertyName, Date.class);
+
+                if (date != null) {
+                    return new SimpleDateFormat("yyyyMMdd").format(date);
+                }
+            }
+        }
+
+        return null;
     }
 }

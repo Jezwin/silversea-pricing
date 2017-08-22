@@ -15,9 +15,9 @@ import org.apache.sling.api.resource.Resource;
  */
 public class LanguageHelper extends WCMUsePojo {
 
-    public static final String SELECTOR_LANGUAGE_PREFIX = "language_";
+    private static final String SELECTOR_LANGUAGE_PREFIX = "language_";
 
-    public static final String ENGLISH = "en";
+    private static final String ENGLISH = "en";
 
     private String language;
 

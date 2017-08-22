@@ -8,7 +8,6 @@ import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
@@ -240,7 +239,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             }
 
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
-            final String lastModificationDate = ImporterUtils.getDateFromPageProperties(rootPage, "lastModificationDateLandPrograms");
+            final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateLandPrograms");
 
             LOGGER.debug("Last import date for land programs {}", lastModificationDate);
 
