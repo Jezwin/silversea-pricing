@@ -24,6 +24,12 @@
                     <li class="c-tab__link c-tab__link--clear" data-sly-test="${comboCruise.landProgramsNumber > 0}">
                         <a href="#landnhotel"><span>${'land-programs' @i18n}</span></a>
                     </li>
+                    <li class="c-tab__link c-tab__link--clear">
+                        <a href="#ship"><span>${'ship' @i18n}</span></a>
+                    </li>
+                    <li class="c-tab__link c-tab__link--clear">
+                        <a href="#benefitsnevents"><span>${'benefits and events' @i18n}</span></a>
+                    </li>
                 </ul>
                 <div class="c-tab__body">
                     <div class="c-tab__content c-tab__content--overview" id="overview" data-state="active">
@@ -51,6 +57,17 @@
                     <div class="c-tab__content" id="landnhotel" data-sly-test="${comboCruise.landProgramsNumber > 0}">
                         <!--/* Land and hotel tab */-->
                         <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
+                    </div>
+                    <div class="c-tab__content" id="ship">
+                        <!--/* Ship tab */-->
+                        <sly data-sly-include="fragment/shiptab/overview.html" />
+                        <sly data-sly-include="fragment/shiptab/suitevariation.html" />
+                        <sly data-sly-include="fragment/shiptab/diningvariation.html" />
+                        <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
+                    </div>
+                    <div class="c-tab__content" id="benefitsnevents">
+                        <!--/* Benefits and events tab */-->
+                        <sly data-sly-include="fragment/benefitstab/benefitsandevents.html" />
                     </div>
                 </div>
             </div>

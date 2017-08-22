@@ -53,6 +53,12 @@ public class ComboCruiseModel {
 
     private String thumbnail;
 
+    private int routesAmount = 0;
+
+    private int duration = 0;
+
+    private String departurePortName;
+
     @PostConstruct
     private void init() {
         final PageManager pageManager = page.getPageManager();
@@ -82,6 +88,18 @@ public class ComboCruiseModel {
             final SegmentModel segmentModel = children.next().adaptTo(SegmentModel.class);
 
             if (segmentModel != null) {
+                if (segmentModel.getCruise() != null) {
+                    if (departurePortName == null) {
+                        departurePortName = segmentModel.getCruise().getDeparturePortName();
+                    }
+
+                    routesAmount += segmentModel.getCruise().getItineraries().size();
+
+                    try {
+                        duration += Integer.valueOf(segmentModel.getCruise().getDuration());
+                    } catch (NumberFormatException ignored) {}
+                }
+
                 segments.add(segmentModel);
             }
         }
@@ -95,36 +113,24 @@ public class ComboCruiseModel {
         return description;
     }
 
-    /**
-     * TODO
-     * @return
-     */
     public int getDuration() {
-        return 0;
+        return duration;
     }
 
     public Long getPortsAmount() {
         return portsAmount;
     }
 
-    /**
-     * TODO
-     * @return
-     */
     public int getRoutesAmount() {
-        return 0;
+        return routesAmount;
     }
 
     public Long getCountriesAmount() {
         return countriesAmount;
     }
 
-    /**
-     * TODO
-     * @return
-     */
     public String getDeparturePortName() {
-        return null;
+        return departurePortName;
     }
 
     public ShipModel getShip() {
