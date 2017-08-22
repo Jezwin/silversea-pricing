@@ -58,31 +58,31 @@
                 <div class="c-tab__body">
                     <div class="c-tab__content c-tab__content--description" id="description-${itemList.index}" data-state="active">
                         <!--/* Description tab */-->
-                        <sly data-sly-use.descriptionTemplate="suitelist/description.html"
+                        <sly data-sly-use.descriptionTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/description.html"
                              data-sly-call="${descriptionTemplate.default @ suitePrice=item, requestQuotePath=cruise.requestQuotePagePath}"/>
                     </div>
                     <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}" data-sly-test="${item.suite.plan}">
                         <!--/* Suite plan tab */-->
-                        <sly data-sly-use.suitePlanTemplate="suitelist/suiteplan.html"
+                        <sly data-sly-use.suitePlanTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/suiteplan.html"
                              data-sly-call="${suitePlanTemplate.default @ suite=item.suite}"/>
                     </div>
                     <div class="c-tab__content c-tab__content--feature" id="feature-${itemList.index}">
                         <!--/* Features tab */-->
-                        <sly data-sly-use.featureTemplate="suitelist/feature.html"
+                        <sly data-sly-use.featureTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/feature.html"
                              data-sly-call="${featureTemplate.default @ suite=item.suite}"/>
                     </div>
                     <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}" data-sly-test="${item.suite.locationImage}">
                         <!--/* Suite location tab */-->
-                        <sly data-sly-use.suiteLocationTemplate="suitelist/suitelocation.html"
+                        <sly data-sly-use.suiteLocationTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/suitelocation.html"
                              data-sly-call="${suiteLocationTemplate.default @ suite=item.suite, index=itemList.index}"/>
                     </div>
                     <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}" data-sly-test="${item.suite.virtualTour}">
                         <!--/* Virtual tour tab */-->
-                        <sly data-sly-use.virtualTourTemplate="suitelist/virtualtour.html"
+                        <sly data-sly-use.virtualTourTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/virtualtour.html"
                              data-sly-call="${virtualTourTemplate.default @ suite=item.suite}"/>
                     </div>
                 </div>
-                <sly data-sly-use.fareTemplate="suitelist/fare.html"
+                <sly data-sly-use.fareTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/fare.html"
                      data-sly-call="${fareTemplate.default @ variations=item.pricesVariations, requestQuotePath=cruise.requestQuotePagePath}"/>
             </div>
         </div>
