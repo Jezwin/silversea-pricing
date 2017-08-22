@@ -54,8 +54,7 @@ public class SegmentModel {
         return mapReference;
     }
 
-    public String getSubTitle() {
+    public String getSubtitle() {
         return subtitle;
     }
-
 }

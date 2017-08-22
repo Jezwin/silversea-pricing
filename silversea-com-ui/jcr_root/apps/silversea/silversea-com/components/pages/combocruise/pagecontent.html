@@ -1,4 +1,4 @@
-<div data-sly-use.cruise="com.silversea.aem.components.page.ComboCruiseUse" class="container c-cruise c-combo-cruise">
+<div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" class="container c-cruise c-combo-cruise">
     <div class="row">
         <div class="col-md-12">
             <div data-sly-resource="${'header-combocruise' @ resourceType='silversea/silversea-com/components/editorial/combocruiseheader', wcmmode='disabled'}"></div>
@@ -18,6 +18,9 @@
                         <!--/* Overview tab */-->
                         <sly data-sly-include="fragment/overviewtab/overview.html"/>
                         <sly data-sly-include="fragment/overviewtab/map.html" />
+                        <sly data-sly-include="fragment/overviewtab/gallery.html" />
+                        <sly data-sly-include="fragment/overviewtab/suitelistlight.html" />
+                        <sly data-sly-include="fragment/overviewtab/benefitsandeventsparsys.html" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                 </div>
