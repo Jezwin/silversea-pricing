@@ -2,7 +2,7 @@
     <h1 class="cruise__header__title">
         ${cruise.cruiseModel.departurePortName} ${'to' @ i18n} ${cruise.cruiseModel.arrivalPortName}
 
-        <!-- TODO wrong i18n key used -->
+        <!--/* TODO wrong i18n key used */-->
         <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage == 'en'}">
             ${cruise.cruiseModel.destination.title} ${cruise.cruiseModel.cruiseType @ i18n}
         </span>
@@ -28,7 +28,7 @@
             <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
             <span>${cruise.cruiseModel.ship.title}</span>
             <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-            <ul date-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
+            <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
                 <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
                     <span class="feature">
                         <i class="icon-star"></i>
