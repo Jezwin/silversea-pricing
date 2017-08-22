@@ -61,7 +61,7 @@
             <input type="hidden" name="phone" />
             <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
                 <option value="">${'country-code' @ i18n}*</option>
-                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" data-country-code="${country.valueMap.country_prefix}">${country.valueMap.name} (${country.valueMap.country_prefix})</option>
+                <option data-sly-repeat.country="${use.countries}" value="${country.countryCode}" data-country-code="${country.prefix}">${country.title} (${country.prefix})</option>
             </select>
         </div>
     </div>

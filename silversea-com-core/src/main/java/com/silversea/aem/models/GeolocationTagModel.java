@@ -2,6 +2,7 @@ package com.silversea.aem.models;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +19,12 @@ public class GeolocationTagModel {
     @Inject @Named("Currency")
     private String currency;
 
+    @Inject @Optional
+    private String prefix;
+
+    @Inject @Named("jcr:title") @Optional
+    private String title;
+
     public String getCountryCode() {
         return countryCode;
     }
@@ -33,6 +40,14 @@ public class GeolocationTagModel {
         }
 
         return currency;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override

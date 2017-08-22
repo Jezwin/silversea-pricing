@@ -14,6 +14,7 @@ import com.silversea.aem.services.GeolocationTagService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class QuoteRequestUse extends WCMUsePojo {
 
-    private List<GeolocationTagModel> countries;
+    private List<GeolocationTagModel> countries = new ArrayList<>();
 
     private String currentMarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
 
@@ -284,11 +285,14 @@ public class QuoteRequestUse extends WCMUsePojo {
         Iterator<Tag> children = tag.listChildren();
 
         if (!children.hasNext()) {
-            // Mapping tag name (iso2) with tag ID
-            final GeolocationTagModel geolocationTagModel = tag.adaptTo(GeolocationTagModel.class);
+            final Resource tagResource = tag.adaptTo(Resource.class);
 
-            if (geolocationTagModel != null) {
-                countries.add(geolocationTagModel);
+            if (tagResource != null) {
+                final GeolocationTagModel geolocationTagModel = tagResource.adaptTo(GeolocationTagModel.class);
+
+                if (geolocationTagModel != null) {
+                    countries.add(geolocationTagModel);
+                }
             }
         } else {
             while (children.hasNext()) {
