@@ -131,7 +131,7 @@ $(function() {
 
                     // Scroll to filter
                     $('html, body').animate({
-                        scrollTop : $('.c-fyc-filter').first().offset().top - $('.c-header').offset().top
+                        scrollTop : $('.c-fyc-filter').first().offset().top - $('.c-header').height()
                     }, 800);
                 }
             });
