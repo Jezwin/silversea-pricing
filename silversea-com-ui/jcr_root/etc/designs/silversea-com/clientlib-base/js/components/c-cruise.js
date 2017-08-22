@@ -19,14 +19,14 @@ $(function() {
         $(this).find('.c-slider').slick('unslick').slick(settingSlider);
     });
 
-    $('.c-cruise div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
+    $('.c-cruise div[id^="suitelist-collapse"]').on('show.bs.collapse', function(e) {
         var $currentCollapse = $(this);
         var $item = $('div[id^="suitelist-collapse"]').not($currentCollapse);
         $item.prev('.c-suitelist__heading').addClass('opacity');
 
         // Scroll page to content
         var scrollTargetOffsetTop = $.viewportDetect() === 'xs' ? $currentCollapse.offset().top - 20 : $currentCollapse.prev('.c-suitelist__heading').offset().top - 10;
-        $('html, body').delay(500).animate({
+        $('html, body').animate({
             scrollTop : scrollTargetOffsetTop - $('.c-header').height() - $('.c-main-nav__container').height()
         }, 500);
     }).on('hide.bs.collapse', function(e) {
