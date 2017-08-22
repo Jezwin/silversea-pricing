@@ -1,9 +1,8 @@
 package com.silversea.aem.importers.services;
 
-import java.io.IOException;
+import com.silversea.aem.importers.services.impl.ImportResult;
 
 public interface ComboCruisesImporter {
     
-   void importData(boolean update) throws IOException;
-
+   ImportResult importAllItems();
 }

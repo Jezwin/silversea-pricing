@@ -70,12 +70,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     @Override
     public ImportResult importAllItems() {
-        return importSampleSet(-1);
-    }
-
-    @Override
-    public ImportResult importSampleSet(final int size) {
-        LOGGER.debug("Starting cruises import ({})", size == -1 ? "all" : size);
+        LOGGER.debug("Starting cruises import");
 
         int successNumber = 0;
         int errorNumber = 0;
@@ -100,7 +95,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             // Existing cruises deletion
             LOGGER.debug("Cleaning already imported cruises");
 
-            // removing assets (save is done in ImporterUtils#deleteResources)
+            // removing assets
             /*ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/dam/silversea-com/api-provided/cruises"
                     + "//element(*,sling:OrderedFolder)");*/
 
@@ -328,24 +323,12 @@ public class CruisesImporterImpl implements CruisesImporter {
                                     session.refresh(true);
                                 }
                             }
-
-                            if (size != -1 && itemsWritten >= size) {
-                                break;
-                            }
                         }
                     } catch (RepositoryException | WCMException | ImporterException e) {
                         LOGGER.error("Cannot write cruise {} ({})", cruise.getVoyageName(), cruise.getVoyageCod(), e);
 
                         errorNumber++;
                     }
-
-                    if (size != -1 && itemsWritten >= size) {
-                        break;
-                    }
-                }
-
-                if (size != -1 && itemsWritten >= size) {
-                    break;
                 }
 
                 apiPage++;

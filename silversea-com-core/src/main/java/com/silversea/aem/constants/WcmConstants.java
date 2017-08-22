@@ -44,6 +44,7 @@ public interface WcmConstants {
     String PAGE_TEMPLATE_EXCLUSIVE_OFFER = "/apps/silversea/silversea-com/templates/exclusiveoffer";
     String PAGE_TEMPLATE_CRUISE = "/apps/silversea/silversea-com/templates/cruise";
     String PAGE_TEMPLATE_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
+    String PAGE_TEMPLATE_COMBO_CRUISE_SEGMENT = "/apps/silversea/silversea-com/templates/combosegment";
 
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage"; // TODO not a resource type

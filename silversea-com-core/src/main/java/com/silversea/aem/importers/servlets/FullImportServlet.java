@@ -274,13 +274,13 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (all || mode.equals(Mode.cruises)) {
-                    cruisesImporter.importSampleSet(elementsNumber);
+                    cruisesImporter.importAllItems();
                     responseWriter.write("Cruises import Done<br/>");
                     responseWriter.flush();
                 }
 
                 if (all || mode.equals(Mode.cc)) {
-                    comboCruisesImporter.importData(false);
+                    comboCruisesImporter.importAllItems();
                     responseWriter.write("Combo cruises Cruises import Done<br/>");
                     responseWriter.flush();
                 }
@@ -310,7 +310,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (mode.equals(Mode.prices)) {
-                    cruisesPricesImporter.importSampleSet(elementsNumber);
+                    cruisesPricesImporter.importAllItems();
                     responseWriter.write("Prices import Done<br/>");
                     responseWriter.flush();
                 }

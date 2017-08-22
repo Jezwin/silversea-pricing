@@ -111,9 +111,9 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     if (cruisesMapping.containsKey(cruiseId)) {
                         cruisesMapping.get(cruiseId).put(language, cruisePage.getPath());
                     } else {
-                        final HashMap<String, String> shipPaths = new HashMap<>();
-                        shipPaths.put(language, cruisePage.getPath());
-                        cruisesMapping.put(cruiseId, shipPaths);
+                        final HashMap<String, String> cruisePaths = new HashMap<>();
+                        cruisePaths.put(language, cruisePage.getPath());
+                        cruisesMapping.put(cruiseId, cruisePaths);
                     }
 
                     LOGGER.trace("Adding cruise {} ({}) with lang {} to cache", cruise.getPath(), cruiseId, language);
