@@ -1,9 +1,9 @@
 package com.silversea.aem.helper;
 
+import com.adobe.cq.sightly.WCMUsePojo;
+
 import java.text.NumberFormat;
 import java.util.Locale;
-
-import com.adobe.cq.sightly.WCMUsePojo;
 
 public class PriceHelper extends WCMUsePojo {
     private String valueFormated ;
@@ -16,7 +16,7 @@ public class PriceHelper extends WCMUsePojo {
     }
 
     public static String getValue(Locale locale, String value) {
-        return NumberFormat.getNumberInstance(locale).format(value);
+        return NumberFormat.getNumberInstance(locale).format(Integer.valueOf(value));
     }
 
     /**
