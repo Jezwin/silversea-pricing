@@ -1,7 +1,10 @@
 package com.silversea.aem.servlets;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.silversea.aem.components.beans.Lead;
-import com.silversea.aem.technical.json.JsonMapper;
 import com.silversea.aem.ws.lead.service.LeadService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.felix.scr.annotations.Reference;
@@ -15,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletException;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -129,5 +134,37 @@ public class LeadServlet extends SlingAllMethodsServlet {
             });
         }
         return map;
+    }
+
+    public static class JsonMapper {
+
+        private static final Logger LOGGER = LoggerFactory.getLogger(JsonMapper.class);
+        static ObjectMapper mapper = new ObjectMapper();
+
+        static {
+            mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
+            mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            mapper.setDateFormat(df);
+        }
+
+        public static String getJson(Object o) {
+            try {
+                return mapper.writeValueAsString(o);
+            } catch (JsonProcessingException e) {
+                LOGGER.error("Error during marshalling", e);
+                return null;
+            }
+        }
+
+        public static <T> T getDomainObject(String jsonIn, Class<T> clazz) {
+            try {
+                return mapper.readValue(jsonIn, clazz);
+            } catch (IOException e) {
+                LOGGER.error("Error during unmarshalling", e);
+                return null;
+            }
+        }
     }
 }
