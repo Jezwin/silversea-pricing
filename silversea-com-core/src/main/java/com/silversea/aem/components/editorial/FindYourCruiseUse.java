@@ -7,6 +7,7 @@ import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
@@ -470,10 +471,12 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         // build the cruises list for the current page
         int pageSize = PAGE_SIZE; // TODO replace by configuration
 
+        Locale locale = getCurrentPage().getLanguage(false);
+
         int i = 0;
         for (final CruiseModel cruise : filteredCruises) {
             if (i >= (activePage - 1) * pageSize) {
-                cruises.add(new CruiseItem(cruise, geomarket, currency));
+                cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
             }
 
             if (i > activePage * pageSize) {
@@ -706,10 +709,12 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         private PriceModel lowestPrice;
 
         private boolean isWaitList = true;
+        
+        private Locale locale;
 
         private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
-        public CruiseItem(final CruiseModel cruiseModel, final String market, final String currency) {
+        public CruiseItem(final CruiseModel cruiseModel, final String market, final String currency, final Locale locale) {
             this.cruiseModel = cruiseModel;
 
             // init lowest price and waitlist based on geolocation
@@ -737,6 +742,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                     exclusiveOffers.add(exclusiveOffer);
                 }
             }
+
+            this.locale = locale;
         }
 
         public CruiseModel getCruiseModel() {
@@ -745,6 +752,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         public PriceModel getLowestPrice() {
             return lowestPrice;
+        }
+
+        public String getLowestPriceFormated() {
+            return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice().toString());
         }
 
         public boolean isWaitList() {

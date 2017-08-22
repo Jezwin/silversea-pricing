@@ -74,7 +74,7 @@
                 <p class="c-fyc__result__content__price">
                     <span data-sly-test="${cruiseItem.pricePrefix}" class="price-prefixe">${cruiseItem.pricePrefix}<br /></span>
                     <strong data-sly-test="${cruiseItem.isWaitList}">${'waitlist' @ i18n}</strong>
-                    <strong data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPrice.currency @ i18n} ${cruiseItem.lowestPrice.computedPrice}</strong>
+                    <strong data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPrice.currency @ i18n} ${cruiseItem.lowestPriceFormated}</strong>
                     <span data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
                 </p>
                 <p class="c-fyc__result__content__button text-center">
@@ -86,25 +86,25 @@
     </div>
 </div>
 <div class="hidden">
-    <div id="destination-filter">
+    <div id="destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableDestinations}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
-    <div id="ship-filter">
+    <div id="ship-filter" data-sly-test="${fyc.availableShips && fyc.availableShips.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableShips}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
-    <div id="port-filter">
+    <div id="port-filter" data-sly-test="${fyc.availablePorts && fyc.availablePorts.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availablePorts}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
-    <div id="date-filter">
+    <div id="date-filter" data-sly-test="${fyc.availableDepartureDates && fyc.availableDepartureDates.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableDepartureDates}">"${item.year}-${item.monthValue}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
-    <div id="duration-filter">
+    <div id="duration-filter" data-sly-test="${fyc.availableDurations && fyc.availableDurations.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableDurations}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
-    <div id="cruisetype-filter">
+    <div id="cruisetype-filter" data-sly-test="${fyc.availableCruiseTypes && fyc.availableCruiseTypes.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableCruiseTypes}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
-    <div id="feature-filter">
+    <div id="feature-filter" data-sly-test="${fyc.availableFeatures && fyc.availableFeatures.size > 0}">
         {<sly data-sly-repeat="${fyc.availableFeatures}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
     <input id="count-filter" type="hidden" value="${fyc.totalMatches}" />
