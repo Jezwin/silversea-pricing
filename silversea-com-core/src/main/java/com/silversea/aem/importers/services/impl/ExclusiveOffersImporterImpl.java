@@ -72,9 +72,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -204,7 +202,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                             } catch (RepositoryException | ImporterException e) {
                                 errorNumber++;
 
-                                LOGGER.error("Import error", e);
+                                LOGGER.warn("Import error {}", e.getMessage());
                             }
                         }
                     }
@@ -241,22 +239,20 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
                         } catch (RepositoryException | ImporterException e) {
                             errorNumber++;
 
-                            LOGGER.error("Import error", e);
+                            LOGGER.warn("Import error {}", e.getMessage());
                         }
                     }
                 }
             }
 
-            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("exclusiveOffersUrl"),
-                    "lastModificationDate");
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("exclusiveOffersUrl"),
+                    "lastModificationDate", true);
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read exclusive offers from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+        } catch (RepositoryException e) {
+            LOGGER.error("Error writing data", e);
         }
 
         LOGGER.debug("Ending exclusive offers import, success: {}, error: {}", +successNumber, +errorNumber);

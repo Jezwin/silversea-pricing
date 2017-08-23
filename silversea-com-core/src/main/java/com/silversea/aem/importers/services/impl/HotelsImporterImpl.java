@@ -220,13 +220,12 @@ public class HotelsImporterImpl implements HotelsImporter {
 
         int successNumber = 0;
         int errorNumber = 0;
+        int apiPage = 1;
 
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -241,7 +240,15 @@ public class HotelsImporterImpl implements HotelsImporter {
 
             LOGGER.debug("Last import date for hotels {}", lastModificationDate);
 
-            int itemsWritten = 0, apiPage = 1;
+            final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
+
+            final Map<Integer, Map<String, Page>> hotelsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]", "hotelId");
+
+            int itemsWritten = 0;
             List<Hotel77> hotels;
 
             do {
@@ -256,18 +263,10 @@ public class HotelsImporterImpl implements HotelsImporter {
                     LOGGER.debug("Updating hotel: {}", hotel.getHotelName());
 
                     try {
-                        // Getting all the hotel pages with the current hotelId
-                        // TODO create cache of hotelId / Resource in order to speed up the process
-                        Iterator<Resource> hotelsResources = resourceResolver
-                                .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                        "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"" +
-                                        " and jcr:content/hotelId=\"" + hotel.getHotelId() + "\"]", "xpath");
-
-                        if (hotelsResources.hasNext()) {
+                        if (hotelsMapping.containsKey(hotel.getHotelId())) {
                             // if hotels are found, update it
-                            while (hotelsResources.hasNext()) {
-                                final Resource hotelResource = hotelsResources.next();
-                                final Page hotelPage = hotelResource.adaptTo(Page.class);
+                            for (Map.Entry<String, Page> hotelsPages : hotelsMapping.get(hotel.getHotelId()).entrySet()) {
+                                final Page hotelPage = hotelsPages.getValue();
 
                                 LOGGER.trace("Updating hotel {}", hotel.getHotelName());
 
@@ -295,24 +294,19 @@ public class HotelsImporterImpl implements HotelsImporter {
                             }
                         } else {
                             // else create port page for each language
-                            Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
+                            final Integer cityId = hotel.getCities().size() > 0 ? hotel.getCities().get(0).getCityId() : null;
 
                             if (cityId == null) {
                                 throw new ImporterException("Hotel have no city");
                             }
 
-                            Iterator<Resource> portsResources = resourceResolver
-                                    .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                            "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"" +
-                                            " and jcr:content/cityId=\"" + cityId + "\"]", "xpath");
-
-                            if (!portsResources.hasNext()) {
+                            if (!portsMapping.containsKey(cityId)) {
                                 throw new ImporterException("Cannot find city with id " + cityId);
                             }
 
-                            while (portsResources.hasNext()) {
+                            for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
                                 // Getting port page
-                                Page portPage = portsResources.next().adaptTo(Page.class);
+                                final Page portPage = portsPage.getValue();
 
                                 if (portPage == null) {
                                     throw new ImporterException("Error getting port page " + cityId);
@@ -368,24 +362,23 @@ public class HotelsImporterImpl implements HotelsImporter {
                     } catch (RepositoryException | ImporterException | WCMException e) {
                         errorNumber++;
 
-                        LOGGER.error("Import error", e);
+                        LOGGER.warn("Import error {}", e.getMessage());
                     }
                 }
 
                 apiPage++;
             } while (hotels.size() > 0);
 
-            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
-                    "lastModificationDateHotels");
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateHotels", true);
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read hotels from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+        } catch (RepositoryException e) {
+            LOGGER.error("Error writing data", e);
         }
+
+        LOGGER.debug("Ending hotels update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

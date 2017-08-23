@@ -59,6 +59,9 @@ public class ApiUpdater implements Runnable {
     private ExclusiveOffersImporter exclusiveOffersImporter;
 
     @Reference
+    private CruisesImporter cruisesImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -98,11 +101,16 @@ public class ApiUpdater implements Runnable {
 
             // update exclusive offers
             final ImportResult importResultExclusiveOffers = exclusiveOffersImporter.importAllItems();
-            LOGGER.info("Exclusive offers import : {} success, {} errors", importResultFeatures.getSuccessNumber(),
-                    importResultFeatures.getErrorNumber());
+            LOGGER.info("Exclusive offers import : {} success, {} errors", importResultExclusiveOffers.getSuccessNumber(),
+                    importResultExclusiveOffers.getErrorNumber());
+
+            // update cruises
+            final ImportResult importResultCruises = cruisesImporter.importAllItems();
+            LOGGER.info("Cruises import : {} success, {} errors", importResultCruises.getSuccessNumber(),
+                    importResultCruises.getErrorNumber());
 
             // replicate all modifications
-            LOGGER.debug("Start replication on modified pages");
+            LOGGER.info("Start replication on modified pages");
 
             replicateModifications(
                     "/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");

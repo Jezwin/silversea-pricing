@@ -72,7 +72,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         } else if (mode.equals(Mode.features)) {
             //featuresImporter.updateFeatures();
         } else if (mode.equals(Mode.cruises)) {
-            //cruisesImporter.updateItems();
+            cruisesImporter.updateItems();
         } else if (mode.equals(Mode.combocruise)) {
             //comboCruisesImporter.importData(true);
         } else if (mode.equals(Mode.brochures)) {

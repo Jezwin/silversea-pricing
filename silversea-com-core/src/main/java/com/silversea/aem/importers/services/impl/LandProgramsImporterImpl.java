@@ -222,13 +222,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
         int successNumber = 0;
         int errorNumber = 0;
+        int apiPage = 1;
 
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -243,7 +242,15 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             LOGGER.debug("Last import date for land programs {}", lastModificationDate);
 
-            int itemsWritten = 0, apiPage = 1;
+            final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
+
+            final Map<Integer, Map<String, Page>> landProgramsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "landId");
+
+            int itemsWritten = 0;
             List<Land77> landPrograms;
 
             do {
@@ -260,18 +267,10 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     LOGGER.debug("Updating landProgram: {}", landProgramName);
 
                     try {
-                        // Getting all the landProgram pages with the current landId
-                        // TODO create cache of land id / Resource in order to speed up the process
-                        Iterator<Resource> landProgramsResources = resourceResolver
-                                .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                        "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"" +
-                                        " and jcr:content/landId=\"" + landProgram.getLandId() + "\"]", "xpath");
-
-                        if (landProgramsResources.hasNext()) {
+                        if (landProgramsMapping.containsKey(landProgram.getLandId())) {
                             // if landPrograms are found, update it
-                            while (landProgramsResources.hasNext()) {
-                                final Resource landProgramResource = landProgramsResources.next();
-                                final Page landProgramPage = landProgramResource.adaptTo(Page.class);
+                            for (Map.Entry<String, Page> landProgramsPages : landProgramsMapping.get(landProgram.getLandId()).entrySet()) {
+                                final Page landProgramPage = landProgramsPages.getValue();
 
                                 LOGGER.trace("Updating landProgram {}", landProgramName);
 
@@ -305,20 +304,13 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                                 throw new ImporterException("Land program have no city");
                             }
 
-                            // else create land program page for each language
-                            // TODO create cache of cityId / Resource in order to speed up the process
-                            Iterator<Resource> portsResources = resourceResolver
-                                    .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                            "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"" +
-                                            " and jcr:content/cityId=\"" + cityId + "\"]", "xpath");
-
-                            if (!portsResources.hasNext()) {
+                            if (!portsMapping.containsKey(cityId)) {
                                 throw new ImporterException("Cannot find city with id " + cityId);
                             }
 
-                            while (portsResources.hasNext()) {
+                            for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
                                 // Getting port page
-                                Page portPage = portsResources.next().adaptTo(Page.class);
+                                Page portPage = portsPage.getValue();
 
                                 if (portPage == null) {
                                     throw new ImporterException("Error getting port page " + cityId);
@@ -374,24 +366,23 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
                     } catch (RepositoryException | ImporterException | WCMException e) {
                         errorNumber++;
 
-                        LOGGER.error("Import error", e);
+                        LOGGER.warn("Import error {}", e.getMessage());
                     }
                 }
 
                 apiPage++;
             } while (landPrograms.size() > 0);
 
-            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
-                    "lastModificationDateLandPrograms");
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateLandPrograms", true);
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+        } catch (RepositoryException e) {
+            LOGGER.error("Error writing data", e);
         }
+
+        LOGGER.debug("Ending land programs update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

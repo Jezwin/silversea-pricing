@@ -195,13 +195,12 @@ public class CitiesImporterImpl implements CitiesImporter {
 
         int successNumber = 0;
         int errorNumber = 0;
+        int apiPage = 1;
 
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -218,7 +217,11 @@ public class CitiesImporterImpl implements CitiesImporter {
 
             final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 
-            int itemsWritten = 0, apiPage = 1;
+            final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
+
+            int itemsWritten = 0;
             List<City77> cities;
 
             do {
@@ -232,18 +235,10 @@ public class CitiesImporterImpl implements CitiesImporter {
                     LOGGER.debug("Updating city: {}", city.getCityName());
 
                     try {
-                        // Getting all the port pages with the current cityId
-                        // TODO create cache of cityId / Resource in order to speed up the process
-                        Iterator<Resource> portsResources = resourceResolver
-                                .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                        "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"" +
-                                        " and jcr:content/cityId=\"" + city.getCityId() + "\"]", "xpath");
-
-                        if (portsResources.hasNext()) {
+                        if (portsMapping.containsKey(city.getCityId())) {
                             // if ports are found, update it
-                            while (portsResources.hasNext()) {
-                                final Resource portResource = portsResources.next();
-                                final Page portPage = portResource.adaptTo(Page.class);
+                            for (Map.Entry<String, Page> ports : portsMapping.get(city.getCityId()).entrySet()) {
+                                final Page portPage = ports.getValue();
 
                                 LOGGER.trace("Updating port {}", city.getCityName());
 
@@ -306,26 +301,23 @@ public class CitiesImporterImpl implements CitiesImporter {
                     } catch (RepositoryException | ImporterException e) {
                         errorNumber++;
 
-                        LOGGER.error("Import error", e);
+                        LOGGER.warn("Import error {}", e.getMessage());
                     }
                 }
 
                 apiPage++;
             } while (cities.size() > 0);
 
-            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
-                    "lastModificationDate");
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDate", true);
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read cities from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+        } catch (RepositoryException e) {
+            LOGGER.error("Error writing data", e);
         }
 
-        LOGGER.debug("Ending cities update, success: {}, error: {}", +successNumber, +errorNumber);
+        LOGGER.debug("Ending cities update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
