@@ -32,7 +32,9 @@
                             <dl>
                                 <dt class="visible-xs">${'departure' @ i18n}</dt>
                                 <dd data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd,', date=cruiseItem.cruiseModel.startDate}"
-                                    data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruiseItem.cruiseModel.startDate}">
+                                    data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruiseItem.cruiseModel.startDate}"
+                                    data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}"
+                                    data-date="${dateFull.value}">
                                     <i class="fa fa-calendar-o hidden-xs"></i><strong>${dateMonthDay.value}</strong> ${dateYear.value}
                                 </dd>
                             </dl>
