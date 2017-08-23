@@ -76,6 +76,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     // destination filter
     private String destinationFilter = FILTER_ALL;
 
+    private Integer destinationIdFilter;
+
     // true if find your cruise is prefiltered by destination
     private boolean prefilterByDestination;
 
@@ -303,6 +305,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             boolean includeCruiseNotFilteredByCruiseTypes = true;
 
             if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
+                if (destinationFilter == null) {
+                    destinationIdFilter = cruise.getDestination().getDestinationId();
+                }
+
                 includeCruise = false;
                 includeCruiseNotFilteredByShip = false;
                 includeCruiseNotFilteredByPort = false;
@@ -655,6 +661,13 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
      */
     public String getDestinationFilter() {
         return destinationFilter;
+    }
+
+    /**
+     * @return the destination ID filter value of destination (filter or prefilter), {@link #FILTER_ALL} is not filled
+     */
+    public Integer getDestinationIdFilter() {
+        return destinationIdFilter;
     }
 
     /**
