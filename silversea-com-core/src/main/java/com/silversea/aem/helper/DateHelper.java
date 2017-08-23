@@ -4,6 +4,7 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 
@@ -25,6 +26,7 @@ public class DateHelper extends WCMUsePojo {
 
         if (date != null && format != null) {
             formatter = new SimpleDateFormat(format, locale);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
             value = formatter.format(date.getTime());
         }
 
