@@ -10,8 +10,8 @@
                     <div class="c-slider c-slider--for">
                         <div data-sly-repeat.asset="${list}" data-image="${asset.path @ prependPath='/is/image'}">
                             <div class="ratio"
-                                data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
-                                style="background-image:url(${assetPathFull @ context='uri'})">
+                                data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                                style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                                 <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                                 <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
@@ -23,8 +23,8 @@
                 <div class="c-slider c-slider--nav hidden-xs">
                     <div data-sly-repeat.asset="${list}">
                         <div class="ratio"
-                            data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
-                            style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
+                            data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                            style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                             <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                         </div>
@@ -48,7 +48,7 @@
                 </ul>
                 <div class="c-gallery__wrappertop">
                     <div class="c-slider c-slider--for" data-sly-list="${map}">
-                        <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="/is/image${asset.path}">
+                        <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="${asset.path @ prependPath='/is/image'}">
                             <div class="ratio"
                                 data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
                                 style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
@@ -85,10 +85,10 @@
             </li>
         </ul>
         <div class="c-slider c-slider--for c-slider--style2" data-sly-list="${map}">
-            <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="/is/image${asset.path}">
+            <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="${asset.path @ prependPath='/is/image'}">
                 <div class="ratio"
-                    data-sly-test.assetPathFull="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=970&amp;fit=hfit,1']}"
-                    style="background-image:url(${assetPathFull @ context='uri'})">
+                    data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                    style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                     <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="0"></div>
@@ -100,8 +100,8 @@
         <div class="c-slider c-slider--nav c-slider--style2" data-sly-list="${map}">
             <div data-sly-repeat.asset="${map[item]}">
                 <div class="ratio"
-                    data-sly-test.assetPathFullThumbnail="${'{0}{1}{2}' @ format=['/is/image', asset.path, '?wid=145&amp;fit=hfit,1']}"
-                    style="background-image:url(${assetPathFullThumbnail @ context='uri'})">
+                    data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                            style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                 </div>
