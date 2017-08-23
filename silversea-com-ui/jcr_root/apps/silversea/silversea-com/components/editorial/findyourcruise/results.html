@@ -101,7 +101,7 @@
         {"all":true,<sly data-sly-repeat="${fyc.availablePorts}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
     <div id="date-filter" data-sly-test="${fyc.availableDepartureDates && fyc.availableDepartureDates.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availableDepartureDates}">"${item.year}-${item.monthValue}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+        {"all":true,<sly data-sly-repeat="${fyc.availableDepartureDates}">"${item.toString}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
     <div id="duration-filter" data-sly-test="${fyc.availableDurations && fyc.availableDurations.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableDurations}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
