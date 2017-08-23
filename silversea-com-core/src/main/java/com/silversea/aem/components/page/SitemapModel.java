@@ -89,15 +89,21 @@ public class SitemapModel {
 
             if (page.getProperties() != null) {
                 final String resourceType = page.getContentResource().getResourceType();
-                final String parentResourceType = page.getParent().getContentResource().getResourceType();
+
+                if (page.getParent() != null && page.getParent().getContentResource() != null) {
+                    final String parentResourceType = page.getParent().getContentResource().getResourceType();
+
+                    if (WcmConstants.RT_PORT.equals(parentResourceType)) {
+                        return false;
+                    }
+                }
 
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
                         || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
                         || WcmConstants.RT_HOTEL.equals(resourceType)
                         || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
                         || WcmConstants.RT_EXCURSIONS.equals(resourceType)
-                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType)
-                        || WcmConstants.RT_PORT.equals(parentResourceType));
+                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType));
             }
 
             return true;
