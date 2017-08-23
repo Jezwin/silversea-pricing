@@ -282,7 +282,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                 cruiseContentNode.addMixin("cq:LiveRelationship");
                                 cruiseContentNode.addMixin("cq:PropertyLiveSyncCancelled");
 
-                                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle"});
+                                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle", "sling:alias"});
                             }
 
                             // download and associate map
