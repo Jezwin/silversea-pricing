@@ -75,56 +75,60 @@ public class QuoteRequestUse extends WCMUsePojo {
      * TODO used
      */
     public void prepareDestinationParameters() {
-        final String suffix = getRequest().getRequestPathInfo().getSuffix();
-        final String[] splitSuffix = StringUtils.split(suffix, '/');
+        String suffix = getRequest().getRequestPathInfo().getSuffix();
 
-        String suiteName = null;
-        String suiteCategory = null;
+        if (suffix != null) {
+            suffix = suffix.replace(".html", "");
+            final String[] splitSuffix = StringUtils.split(suffix, '/');
 
-        if (splitSuffix != null) {
-            if (splitSuffix.length > 0) {
-                final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(
-                        CruisesCacheService.class);
+            String suiteName = null;
+            String suiteCategory = null;
 
-                if (cruisesCacheService != null) {
-                    selectedCruise = cruisesCacheService.getCruiseByCruiseCode(
-                            LanguageHelper.getLanguage(getCurrentPage()), splitSuffix[0]);
+            if (splitSuffix != null) {
+                if (splitSuffix.length > 0) {
+                    final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(
+                            CruisesCacheService.class);
 
-                    if (selectedCruise != null && splitSuffix.length > 1) {
-                        suiteName = splitSuffix[1];
+                    if (cruisesCacheService != null) {
+                        selectedCruise = cruisesCacheService.getCruiseByCruiseCode(
+                                LanguageHelper.getLanguage(getCurrentPage()), splitSuffix[0]);
 
-                        if (splitSuffix.length > 2) {
-                            suiteCategory = splitSuffix[2];
+                        if (selectedCruise != null && splitSuffix.length > 1) {
+                            suiteName = splitSuffix[1];
+
+                            if (splitSuffix.length > 2) {
+                                suiteCategory = splitSuffix[2];
+                            }
                         }
                     }
                 }
             }
-        }
 
-        if (selectedCruise != null) {
-            for (PriceModel price : selectedCruise.getPrices()) {
-                if (price.getGeomarket().equals(currentMarket)
-                        && price.getCurrency().equals(siteCurrency)) {
+            if (selectedCruise != null) {
+                for (PriceModel price : selectedCruise.getPrices()) {
+                    if (price.getGeomarket().equals(currentMarket)
+                            && price.getCurrency().equals(siteCurrency)) {
 
-                    if (suiteName == null && !price.isWaitList()) {
-                        if (lowestPrice == null || price.getPrice() < lowestPrice.getPrice()) {
-                            lowestPrice = price;
-                            isWaitList = false;
-                        }
-                    } else if (price.getSuite().getName().equals(suiteName)) {
-                        if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
-                            selectedPrice = price;
-                            selectedSuite = price.getSuite();
-
-                            lowestPrice = price;
-                            isWaitList = price.isWaitList();
-
-                            break;
-                        } else if (suiteCategory == null) {
-                            if (!price.isWaitList() && (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
-                                selectedSuite = price.getSuite();
+                        if (suiteName == null && !price.isWaitList()) {
+                            if (lowestPrice == null || price.getPrice() < lowestPrice.getPrice()) {
                                 lowestPrice = price;
                                 isWaitList = false;
+                            }
+                        } else if (price.getSuite().getName().equals(suiteName)) {
+                            if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
+                                selectedPrice = price;
+                                selectedSuite = price.getSuite();
+
+                                lowestPrice = price;
+                                isWaitList = price.isWaitList();
+
+                                break;
+                            } else if (suiteCategory == null) {
+                                if (!price.isWaitList() && (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
+                                    selectedSuite = price.getSuite();
+                                    lowestPrice = price;
+                                    isWaitList = false;
+                                }
                             }
                         }
                     }

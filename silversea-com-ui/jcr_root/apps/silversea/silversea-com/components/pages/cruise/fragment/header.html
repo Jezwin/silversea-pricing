@@ -16,7 +16,10 @@
         </div>
         <div class="cruise__header__cta">
             <a class="btn btn-thin btn-dark effect visible-xs" href="#"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-            <a class="btn btn-thin btn-red effect" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            <a class="btn btn-thin btn-red effect" data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                href="${cruise.requestQuotePagePath @ extension='html', suffix=suffix}" data-sscclicktype="clic-RAQ">
+                <span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i>
+            </a>
         </div>
     </div>
     <div class="cruise__header__meta hidden-xs">

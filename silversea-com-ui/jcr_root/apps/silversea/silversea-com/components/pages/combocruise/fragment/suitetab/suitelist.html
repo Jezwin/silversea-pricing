@@ -23,7 +23,8 @@
                 </sly>
             </div>
             <div class="c-suitelist__button">
-                <a class="btn btn-thin btn-red effect btn-thin request-quote" href="${comboCruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=item.suite.name}"
+                <a class="btn btn-thin btn-red effect btn-thin request-quote" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+                    href="${comboCruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
                    data-sscclicktype="clic-RAQ">
                     <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                 </a>

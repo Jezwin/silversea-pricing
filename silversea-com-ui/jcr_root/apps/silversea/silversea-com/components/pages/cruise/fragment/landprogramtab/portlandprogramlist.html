@@ -55,6 +55,7 @@
         </sly>
     </div>
     <p class="visible-xs text-center">
-        <a class="btn btn-thin btn-red effect" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        <a class="btn btn-thin btn-red effect" data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+            href="${cruise.requestQuotePagePath @ extension='html', suffix=suffix}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
     </p>
 </div>
