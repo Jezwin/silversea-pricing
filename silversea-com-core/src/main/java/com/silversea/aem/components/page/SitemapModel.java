@@ -22,8 +22,7 @@ public class SitemapModel {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SitemapModel.class);
 
-    @Inject
-    @Named("currentPage")
+    @Inject @Named("currentPage")
     private Page page;
 
     private boolean isParentPage = true;
@@ -32,25 +31,23 @@ public class SitemapModel {
     }
 
     public List<SitemapEntryModel> getEntries() {
-        List<SitemapEntryModel> entries = new ArrayList<>();
+        final List<SitemapEntryModel> entries = new ArrayList<>();
 
-        Page parentPage = page.getParent();
+        final Page parentPage = page.getParent();
 
         LOGGER.debug("Parent page path : {}", parentPage.getPath());
 
-        if (parentPage != null) {
-            if (parentPage.getContentResource() != null && parentPage.getContentResource().adaptTo(SitemapEntryModel.class) != null) {
-                entries.add(parentPage.getContentResource().adaptTo(SitemapEntryModel.class));
-            }
-
-            entries.addAll(getEntries(parentPage));
+        if (parentPage.getContentResource() != null && parentPage.getContentResource().adaptTo(SitemapEntryModel.class) != null) {
+            entries.add(parentPage.getContentResource().adaptTo(SitemapEntryModel.class));
         }
+
+        entries.addAll(getEntries(parentPage));
 
         return entries;
     }
 
     private List<SitemapEntryModel> getEntries(Page page) {
-        List<SitemapEntryModel> entries = new ArrayList<>();
+        final List<SitemapEntryModel> entries = new ArrayList<>();
 
         // TODO should be test the parent page ?
         if (page.getContentResource() != null && page.adaptTo(SitemapEntryModel.class) != null && isParentPage) {
@@ -62,7 +59,7 @@ public class SitemapModel {
         Iterator<Page> pages = page.listChildren(new SitemapFilter());
 
         while (pages.hasNext()) {
-            Page currentPage = pages.next();
+            final Page currentPage = pages.next();
 
             LOGGER.trace("Reading page for generating sitemap : {}", currentPage.getPath());
 
@@ -91,13 +88,16 @@ public class SitemapModel {
             }
 
             if (page.getProperties() != null) {
-                String resourceType = page.getContentResource().getResourceType();
+                final String resourceType = page.getContentResource().getResourceType();
+                final String parentResourceType = page.getParent().getContentResource().getResourceType();
+
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
                         || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
                         || WcmConstants.RT_HOTEL.equals(resourceType)
                         || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
                         || WcmConstants.RT_EXCURSIONS.equals(resourceType)
-                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType));
+                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType)
+                        || WcmConstants.RT_PORT.equals(parentResourceType));
             }
 
             return true;
