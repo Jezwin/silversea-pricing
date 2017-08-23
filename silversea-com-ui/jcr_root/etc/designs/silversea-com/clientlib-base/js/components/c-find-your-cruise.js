@@ -11,6 +11,9 @@ $(function() {
         // Filter : open feature drop down
         $('.features-filter').on('click', function(e) {
             e.stopPropagation();
+            if($(e.target).closest('li').hasClass('disabled')){
+                e.preventDefault();
+            }
         });
 
         /***********************************************************************
