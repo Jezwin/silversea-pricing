@@ -25,7 +25,7 @@ $(function() {
                 var $optionList = $select.find('option');
 
                 // Build obj with available option
-                var filterAvailableObj = JSON.parse($('#' + $select.attr('name') +'-filter').text());
+                var filterAvailableObj = JSON.parse($resultWrapper.find('#' + $select.attr('name') +'-filter').text());
 
                 // Disabled option not available
                 $optionList.each(function() {
@@ -94,8 +94,8 @@ $(function() {
 
             // Data from first result
             $cruise = $resultWrapper.find('.c-fyc__result:first');
-            dataLayer.track_destination_id = '';
-            dataLayer.track_destination_name = '';
+            dataLayer.track_destination_id = $('.c-fyc__result-wrapper #current-destination-filter').data('value');
+            dataLayer.track_destination_name = $('.c-fyc__result-wrapper #current-destination-filter').val();
             dataLayer.track_voyage_id = $cruise.find('.cruise-code').text().trim();
             dataLayer.track_departure_date = $cruise.find('.c-fyc__result__content__summary__item:first dd').data('date');
             dataLayer.track_voyage_duration = $cruise.find('.c-fyc__result__content__summary__item--duration dd strong').text().trim();
@@ -104,7 +104,6 @@ $(function() {
             dataLayer.track_voyage_type = $cruise.find('.cruise-type').text().trim();
             dataLayer.track_shipname = $cruise.find('.cruise-ship').text().trim();
             dataLayer.track_revenue = $cruise.find('.c-fyc__result__content__price strong').text().trim();
-            dataLayer.track_suite = '';
 
             return searchAnalytics;
         })();

@@ -88,6 +88,9 @@
     </div>
 </div>
 <div class="hidden">
+    <!--/* data relative to option available in current result */-->
+    <input type="hidden" id="current-destination-filter" value="${fyc.destinationFilter}" data-value="${fyc.destinationIdFilter}" />
+
     <div id="destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableDestinations}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
     </div>
