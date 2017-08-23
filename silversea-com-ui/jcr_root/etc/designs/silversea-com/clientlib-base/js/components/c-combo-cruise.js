@@ -15,9 +15,9 @@ $(function() {
             $currentSlider.slick('unslick').slick(settingSlider);
 
             // Scroll to panel
-            $('html').delay(500).animate({
+            $('html, body').stop().delay(100).animate({
                 scrollTop: $panel.offset().top - $('.c-header').height() - 24
-            }, 500);
+            }, 300);
         });
     })
 
