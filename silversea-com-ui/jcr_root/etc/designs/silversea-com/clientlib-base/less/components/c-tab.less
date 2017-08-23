@@ -8,28 +8,10 @@
         width: 100%;
         margin-bottom: 30px;
 
-        &--regular4 {
-            .c-tab__link {
-                width: 25%;
-            }
-        }
-
         &--regular5 {
             .c-tab__link {
                 width: 20%;
                 max-width: 190px;
-            }
-        }
-
-        &--regular6 {
-            .c-tab__link {
-                width: 100% / 6;
-            }
-        }
-
-        &--regular7 {
-            .c-tab__link {
-                width: 100% / 7;
             }
         }
     }
@@ -110,14 +92,15 @@
     }
 
     &__content {
-      top: -9999px;
-      position: absolute;
-      overflow:hidden;
-      height:0px;
+        height: 0;
+        position: absolute;
+        top: -9999px;
+
         &[data-state='active'] {
-            top: 0;
+            height: inherit;
+            overflow: hidden;
             position: relative;
-            height:inherit;
+            top: 0;
         }
     }
 
