@@ -2,6 +2,9 @@ package com.silversea.aem.components.beans;
 
 import java.math.BigDecimal;
 
+/**
+ * TODO clean
+ */
 public class Lead {
     private String title;
     private String firstname;

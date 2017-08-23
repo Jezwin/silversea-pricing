@@ -1,5 +1,8 @@
 package com.silversea.aem.components.beans;
 
+/**
+ * TODO clean
+ */
 public class MediaDataLayer {
 
     private String user_geo_adwords = "";
