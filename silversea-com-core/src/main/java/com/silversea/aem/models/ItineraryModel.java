@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jcr.Node;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -237,7 +236,21 @@ public class ItineraryModel {
      * @param date     date
      * @return true if all arguments match with the current itinerary, false else
      */
-    public boolean isItinerary(final Integer cruiseId, final Calendar date) {
+    public boolean isItinerary(final Integer cruiseId, final Calendar date, final Integer cityId) {
+        if (this.cruiseId == null || this.port == null || this.date == null) {
+            return false;
+        }
+
+        return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date) && this.port.getCityId().equals(cityId);
+    }
+
+    /**
+     * Fallback for excursions
+     * @param cruiseId
+     * @param date
+     * @return
+     */
+    public boolean isItineraryBasedOnDayOnly(final Integer cruiseId, final Calendar date) {
         if (this.cruiseId == null || this.port == null || this.date == null) {
             return false;
         }
