@@ -125,9 +125,9 @@ public interface WcmConstants {
 
     // Geolocation default values
     // TODO change to US
-    String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "eu";
-    String DEFAULT_GEOLOCATION_COUNTRY = "FR";
-    String DEFAULT_CURRENCY = "EUR";
+    String DEFAULT_GEOLOCATION_GEO_MARKET_CODE = "ft";
+    String DEFAULT_GEOLOCATION_COUNTRY = "US";
+    String DEFAULT_CURRENCY = "USD";
 
     String FEATURE_CODE_VENETIAN_SOCIETY = "vs_saving";
 }
