@@ -16,7 +16,7 @@
             <a href="#segmentinfo-${segmentlist.count}" data-toggle="tab">
                 <time data-sly-test="${segment.cruise.startDate}"
                     data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM', date=segment.cruise.startDate}"
-                    data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=segment.cruise.startDat}"
+                    data-sly-use.startDateTime="${'com.silversea.aem.helper.DateHelper' @ format='YYYY-MM-dd', date=segment.cruise.startDate}"
                     datetime="${startDateTime.value}">
                     ${startDate.value}
                 </time>
