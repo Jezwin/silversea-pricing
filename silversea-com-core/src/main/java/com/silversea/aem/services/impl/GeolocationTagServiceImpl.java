@@ -129,6 +129,17 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
     public GeolocationTagModel getGeolocationTagModelFromRequest(SlingHttpServletRequest request) {
         final String geolocationTagId = getTagIdFromRequest(request);
 
+        return getGeolocationTagModel(request, geolocationTagId);
+    }
+
+    @Override
+    public GeolocationTagModel getGeolocationTagModelCountryCode(final SlingHttpServletRequest request, final String countryCode) {
+        final String geolocationTagId = tagIdMapping.get(countryCode);
+
+        return getGeolocationTagModel(request, geolocationTagId);
+    }
+
+    private GeolocationTagModel getGeolocationTagModel(SlingHttpServletRequest request, String geolocationTagId) {
         final ResourceResolver resourceResolver = request.getResourceResolver();
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 

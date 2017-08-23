@@ -13,6 +13,8 @@ public class CountryHelper extends AbstractGeolocationAwareUse {
 
     @Override
     public void activate() throws Exception {
+        super.activate();
+
         // get geolocalized phone number
         localizedPhone = geolocation.getPhone();
         clickableLocalizedPhone = localizedPhone;

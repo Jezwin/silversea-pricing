@@ -10,6 +10,8 @@ public class SignUpUse extends AbstractGeolocationAwareUse {
 
     @Override
     public void activate() throws Exception {
+        super.activate();
+
         final InheritanceValueMap allInheritedProperties = new HierarchyNodeInheritanceValueMap(getResource());
         pageReference = allInheritedProperties.getInherited("pageReference", String.class);
     }
