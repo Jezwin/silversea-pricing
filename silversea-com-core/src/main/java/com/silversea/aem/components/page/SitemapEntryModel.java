@@ -1,6 +1,5 @@
 package com.silversea.aem.components.page;
 
-import com.adobe.cq.social.journal.client.api.Journal;
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.wcm.api.Page;
@@ -84,8 +83,13 @@ public class SitemapEntryModel {
         if (slingSettingsService != null) {
             runModes = slingSettingsService.getRunModes();
         }
-        String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
-        return externalizer.externalLink(resourceResolver, domain, page.getPath()) + Journal.URL_SUFFIX;
+
+        final String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
+        if (page.getPath().equals("/content/silversea-com/en")) { // TODO constant
+            return externalizer.externalLink(resourceResolver, domain, page.getPath() + ".html");
+        }
+
+        return externalizer.externalLink(resourceResolver, domain, page.getPath()) + ".html";
     }
 
     /**
