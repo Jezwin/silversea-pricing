@@ -1092,5 +1092,5 @@
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
-        sling:message="offer" />
+        sling:message="Offer" />
 </jcr:root>
