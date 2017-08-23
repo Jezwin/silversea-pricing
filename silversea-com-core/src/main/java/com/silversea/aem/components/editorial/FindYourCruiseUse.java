@@ -293,7 +293,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         }
 
         // init list of filtered cruises and available values for filters
-        final Set<CruiseModel> filteredCruises = new TreeSet<>(Comparator.comparing(CruiseModel::getStartDate));
+        final List<CruiseModel> filteredCruises = new ArrayList<>();
         for (final CruiseModel cruise : allCruises) {
             boolean includeCruise = true;
             boolean includeCruiseNotFilteredByDestination = true;
@@ -454,11 +454,11 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                     final int cruiseDuration = Integer.parseInt(cruise.getDuration());
                     if (cruiseDuration < 9) {
                         availableDurations.add("1-8");
-                    } else if (cruiseDuration > 8 && cruiseDuration < 13) {
+                    } else if (cruiseDuration > 9 && cruiseDuration < 13) {
                         availableDurations.add("9-12");
-                    } else if (cruiseDuration > 13 && cruiseDuration < 19) {
-                        availableDurations.add("13-19");
-                    } else if (cruiseDuration > 19) {
+                    } else if (cruiseDuration > 12 && cruiseDuration < 19) {
+                        availableDurations.add("13-18");
+                    } else if (cruiseDuration >= 19) {
                         availableDurations.add("19");
                     }
                 } catch (NumberFormatException ignored) {
@@ -473,6 +473,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                 availableCruiseTypes.add(cruise.getCruiseType());
             }
         }
+
+        filteredCruises.sort(Comparator.comparing(CruiseModel::getStartDate));
 
         // build the cruises list for the current page
         int pageSize = PAGE_SIZE; // TODO replace by configuration
