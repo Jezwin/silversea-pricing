@@ -25,14 +25,17 @@ $(function() {
                 var $optionList = $select.find('option');
 
                 // Build obj with available option
-                var filterAvailableObj = JSON.parse($resultWrapper.find('#' + $select.attr('name') +'-filter').text());
+                var jsonStr = $resultWrapper.find('#' + $select.attr('name') +'-filter').text();
+                if(jsonStr !== ''){
+                    var filterAvailableObj = JSON.parse(jsonStr);
 
-                // Disabled option not available
-                $optionList.each(function() {
-                    var $option = $(this);
-
-                    $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
-                });
+                    // Disabled option not available
+                    $optionList.each(function() {
+                        var $option = $(this);
+                        
+                        $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
+                    });
+                }
 
             });
 
