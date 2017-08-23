@@ -8,7 +8,7 @@
             <div class="c-gallery">
                 <div class="c-gallery__wrappertop">
                     <div class="c-slider c-slider--for">
-                        <div data-sly-repeat.asset="${list}" data-image="${asset.path @ prependPath='/is/image'}">
+                        <div data-sly-repeat.asset="${list}" data-image="${asset.path}">
                             <div class="ratio"
                                 data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
                                 style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
@@ -48,7 +48,7 @@
                 </ul>
                 <div class="c-gallery__wrappertop">
                     <div class="c-slider c-slider--for" data-sly-list="${map}">
-                        <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="${asset.path @ prependPath='/is/image'}">
+                        <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="${asset.path}">
                             <div class="ratio"
                                 data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
                                 style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
@@ -85,7 +85,7 @@
             </li>
         </ul>
         <div class="c-slider c-slider--for c-slider--style2" data-sly-list="${map}">
-            <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="${asset.path @ prependPath='/is/image'}">
+            <div data-category-target="${item}" data-sly-repeat.asset="${map[item]}" data-image="${asset.path}">
                 <div class="ratio"
                     data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
                     style="background-image:url(${assetHelper.imageUrl @ context='uri'}?wid=970&amp;fit=hfit,1)">
