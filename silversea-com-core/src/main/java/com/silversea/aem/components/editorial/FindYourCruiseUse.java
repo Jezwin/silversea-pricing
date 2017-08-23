@@ -651,6 +651,13 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     }
 
     /**
+     * @return the destination filter value of destination (filter or prefilter), {@link #FILTER_ALL} is not filled
+     */
+    public String getDestinationFilter() {
+        return destinationFilter;
+    }
+
+    /**
      * @return the number of pages
      */
     public int getPagesNumber() {
