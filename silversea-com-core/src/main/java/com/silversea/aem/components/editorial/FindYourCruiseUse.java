@@ -304,11 +304,11 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             boolean includeCruiseNotFilteredByFeatures = true;
             boolean includeCruiseNotFilteredByCruiseTypes = true;
 
-            if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
-                if (destinationFilter == null) {
-                    destinationIdFilter = cruise.getDestination().getDestinationId();
-                }
+            if (destinationFilter == null && !destinationFilter.equals(FILTER_ALL) && destinationFilter.equals(cruise.getDestination().getName())) {
+                destinationIdFilter = cruise.getDestination().getDestinationId();
+            }
 
+            if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
                 includeCruise = false;
                 includeCruiseNotFilteredByShip = false;
                 includeCruiseNotFilteredByPort = false;
