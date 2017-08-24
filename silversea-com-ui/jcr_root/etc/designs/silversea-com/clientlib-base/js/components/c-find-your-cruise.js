@@ -1,9 +1,9 @@
 $(function() {
-    var $filter = $('.c-fyc-filter');
+    var $filterWrapper = $('.c-fyc-filter');
 
-    if ($filter.length > 0) {
-        var $btnReset = $filter.find('.c-fyc-filter__reset a'),
-            $form = $filter.find('form.c-find-your-cruise-filter'),
+    if ($filterWrapper.length > 0) {
+        var $btnReset = $filterWrapper.find('.c-fyc-filter__reset a'),
+            $form = $filterWrapper.find('form.c-find-your-cruise-filter'),
             $paginationWrapper = $('.c-fyc-pagination'),
             $resultWrapper = $('.c-fyc__result-wrapper'),
             $page = $paginationWrapper.find('a.active').data('page');
@@ -166,6 +166,17 @@ $(function() {
         });
 
         /***************************************************************************
+         * Filter : update result label according to the number of results
+         **************************************************************************/
+        var resultLabel = (function resultLabel() {
+            var $matchingValue = $('#matching-value');
+
+            $matchingValue.closest('.c-fyc-filter__text').toggleClass('results', parseInt($('#matching-value').text()) > 1);
+
+            return resultLabel;
+        })();
+
+        /***************************************************************************
          * Filter : behavior on form change
          **************************************************************************/
         $form.on('change', function(e, isFromPagination) {
@@ -252,6 +263,7 @@ $(function() {
 
                     // Update result count
                     $('#matching-value').text($('#count-filter').val());
+                    resultLabel();
 
                     // Update filter
                     updateFilter();
