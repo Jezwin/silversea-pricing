@@ -19,6 +19,7 @@
             </select>
             <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}">
                 <option></option>
+                <option value="">${'when-do-you-want-to-leave' @ i18n}</option>
                 <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
             </select>
             <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
