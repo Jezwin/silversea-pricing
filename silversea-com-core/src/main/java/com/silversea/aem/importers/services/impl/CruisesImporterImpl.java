@@ -160,13 +160,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                             cruiseContentNode.setProperty("cq:tags", tagIds.toArray(new String[tagIds.size()]));
 
                             // setting ship reference
-                            final String shipId = String.valueOf(cruise.getShipId());
+                            if (shipsMapping.containsKey(cruise.getShipId())) {
+                                if (shipsMapping.get(cruise.getShipId()).containsKey(language)) {
+                                    LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(cruise.getShipId()).get(language));
 
-                            if (shipsMapping.containsKey(shipId)) {
-                                if (shipsMapping.get(shipId).containsKey(language)) {
-                                    LOGGER.trace("Associating ship {} to cruise", shipsMapping.get(shipId).get(language));
-
-                                    cruiseContentNode.setProperty("shipReference", shipsMapping.get(shipId).get(language));
+                                    cruiseContentNode.setProperty("shipReference", shipsMapping.get(cruise.getShipId()).get(language));
                                 }
                             }
 
