@@ -1,5 +1,6 @@
 package com.silversea.aem.services.impl;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.silversea.aem.services.ApiConfigurationService;
 import org.apache.felix.scr.annotations.*;
 import org.apache.felix.scr.annotations.Properties;
@@ -51,7 +52,7 @@ public class CruisesEventListenerServiceImpl implements ResourceChangeListener {
     public void onChange(@Nonnull List<ResourceChange> changes) {
         for (final ResourceChange resourceChange : changes) {
             for (final String cruisesPath : cruisesLangPath) {
-                if (resourceChange.getPath().startsWith(cruisesPath)) {
+                if (resourceChange.getPath().startsWith(cruisesPath) && resourceChange.getPath().endsWith(JcrConstants.JCR_CONTENT)) {
                     final Map<String, Object> jobInfos = new HashMap<>();
 
                     jobInfos.put("resourcePath", resourceChange.getPath());
