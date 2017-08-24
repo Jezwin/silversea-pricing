@@ -99,10 +99,12 @@
     }
 }
 
-.slider.aem-GridColumn--default--12 + .searchhero.aem-GridColumn--default--12 {
-    margin-top: -60px;
+.slider, .herobanner {
+    + .searchhero {
+        margin-top: -60px;
 
-    @media screen and (min-width: @screen-md-min) {
-        margin-top: -40px;
+        @media screen and (min-width: @screen-md-min) {
+            margin-top: -40px;
+        }
     }
 }
