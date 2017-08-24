@@ -78,23 +78,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     private String destinationIdFilter;
 
-    // true if find your cruise is prefiltered by destination
-    private boolean prefilterByDestination;
-
-    // true if find your cruise is prefiltered by port
-    private boolean prefilterByPort;
-
-    // true if find your cruise is prefiltered by ship
-    private boolean prefilterByShip;
-
-    // true if find your cruise is prefiltered by feature
-    private boolean prefilterByFeature;
-
     // exclusive offer filter (not displayed, used on exclusive offer page)
     private String exclusiveOfferFilter = FILTER_ALL;
 
     // date filter
     private YearMonth dateFilter;
+
+    // duration filter
+    private String durationFilter;
 
     // minimum duration of the duration filter
     private Integer durationFilterMin;
@@ -113,6 +104,18 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     // features filter
     private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+
+    // true if find your cruise is prefiltered by destination
+    private boolean prefilterByDestination;
+
+    // true if find your cruise is prefiltered by port
+    private boolean prefilterByPort;
+
+    // true if find your cruise is prefiltered by ship
+    private boolean prefilterByShip;
+
+    // true if find your cruise is prefiltered by feature
+    private boolean prefilterByFeature;
 
     // current page in the component pagination
     private int activePage = 1;
@@ -186,7 +189,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                         }
                         break;
                     case "duration":
-                        final String durationFilter = splitSelector[1];
+                        durationFilter = splitSelector[1];
                         final String[] splitDuration = durationFilter.split("-");
 
                         if (splitDuration.length == 2) {
@@ -670,6 +673,34 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
      */
     public String getDestinationIdFilter() {
         return destinationIdFilter;
+    }
+
+    public String getExclusiveOfferFilter() {
+        return exclusiveOfferFilter;
+    }
+
+    public YearMonth getDateFilter() {
+        return dateFilter;
+    }
+
+    public String getDurationFilter() {
+        return durationFilter;
+    }
+
+    public String getShipFilter() {
+        return shipFilter;
+    }
+
+    public String getCruiseTypeFilter() {
+        return cruiseTypeFilter;
+    }
+
+    public String getPortFilter() {
+        return portFilter;
+    }
+
+    public Set<FeatureModel> getFeaturesFilter() {
+        return featuresFilter;
     }
 
     /**
