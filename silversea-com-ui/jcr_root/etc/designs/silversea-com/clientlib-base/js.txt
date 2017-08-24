@@ -2,7 +2,7 @@
 components/main.js
 components/c-header.js
 components/burgernav.js
-components/modal.js
+components/c-modal.js
 components/c-tab.js
 components/c-accordion.js
 components/c-brochureslist.js
@@ -24,3 +24,4 @@ components/c-data-layer.js
 components/c-inline-gallery.js
 components/c-gallery.js
 components/c-search.js
+components/c-search-cruise-hero
