@@ -266,23 +266,23 @@ $(function() {
                 if (field.name === 'feature') {
                     featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
                 } else {
-                    requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                    requestUrl += '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
                 }
             });
 
             // Add features
             if (featuresSelectorValue.length > 0) {
-                requestUrl = requestUrl + '.features_' + featuresSelectorValue.join("|");
+                requestUrl += '.features_' + featuresSelectorValue.join("|");
             } else {
-                requestUrl = requestUrl + '.features_all';
+                requestUrl += '.features_all';
             }
 
             // Add pagination
             $page = (isFromPagination === true) ? $page : '1';
-            requestUrl = requestUrl + '.page_' + $page;
+            requestUrl += '.page_' + $page;
 
             // Add extension
-            requestUrl = requestUrl + '.html';
+            requestUrl += '.html';
 
             // Update result according to the request URL
             $.ajax({
