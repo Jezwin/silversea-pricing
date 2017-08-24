@@ -3,22 +3,20 @@
     <form class="row c-search-hero__form" action="${properties.pageReference @ extension='html'}"
           data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
         <div class="col-sm-3">
-            <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destinations">
-                <option value="">${'all-destinations' @ i18n}</option>
-                <sly data-sly-list="${filter.destinations}">
-                    <option value="${item.name}">${item.title @ context='html'}</option>
-                </sly>
+            <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
+                <option value="all">${'all-destinations' @ i18n}</option>
+                <option data-sly-repeat="${filter.destinations}" value="${item.name}">${item.title @ context='html'}</option>
             </select>
         </div>
         <div class="col-sm-3">
-            <select class="chosen form-control" data-placeholder="${'all-departure-dates' @ i18n}" name="dates">
-                <option value="">${'all-departure-dates' @i18n}</option>
+            <select class="chosen form-control" data-placeholder="${'all-departure-dates' @ i18n}" name="date">
+                <option value="all">${'all-departure-dates' @i18n}</option>
                 <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
             </select>
         </div>
         <div class="col-sm-3" data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
-            <select class="chosen form-control" data-placeholder="${'all-ships' @ i18n}" name="ships">
-                <option value="">${'all-ships' @ i18n}</option>
+            <select class="chosen form-control" data-placeholder="${'all-ships' @ i18n}" name="ship">
+                <option value="all">${'all-ships' @ i18n}</option>
                 <option data-sly-repeat.ship="${ships.page.listChildren}" value="${ship.name}">${ship.title}</option>
             </select>
         </div>
