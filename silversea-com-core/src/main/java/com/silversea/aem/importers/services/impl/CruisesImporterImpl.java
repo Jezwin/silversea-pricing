@@ -1,10 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
-import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -13,13 +10,13 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesImporter;
+import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -35,9 +32,6 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.*;
 
 @Service
@@ -80,9 +74,7 @@ public class CruisesImporterImpl implements CruisesImporter {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
@@ -105,7 +97,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
             // Initializing elements necessary to import cruise
             // destinations
-            final Map<String, List<String>> destinationsMapping = getDestinationsMapping(resourceResolver);
+            final Map<String, List<String>> destinationsMapping = CruisesImportUtils.getDestinationsMapping(resourceResolver);
 
             // ships
             final Map<Integer, Map<String, String>> shipsMapping = ImportersUtils.getItemsMapping(resourceResolver,
@@ -113,7 +105,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/ship\"]", "shipId");
 
             // features
-            final Map<Integer, String> featuresMapping = getFeaturesMap(resourceResolver);
+            final Map<Integer, String> featuresMapping = CruisesImportUtils.getFeaturesMap(resourceResolver);
 
             // Importing cruises
             List<Voyage> cruises;
@@ -145,8 +137,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                             LOGGER.trace("Destination language : {}", language);
 
-                            final String cruiseTitle = getTranslatedCruiseTitle(language, cruise.getVoyageName());
-                            final Node cruiseContentNode = createCruisePage(pageManager, destinationPath, cruise.getVoyageName(), cruise.getVoyageCod());
+                            final String cruiseTitle = CruisesImportUtils.getTranslatedCruiseTitle(language, cruise.getVoyageName());
+                            final Node cruiseContentNode = CruisesImportUtils.createCruisePage(pageManager, destinationPath, cruise.getVoyageName(), cruise.getVoyageCod());
 
                             // Adding tags
                             List<String> tagIds = new ArrayList<>();
@@ -196,7 +188,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                 cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle", "sling:alias"});
                             }
 
-                            associateMapAsset(assetManager, session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl());
+                            CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl(), mimeTypeService);
 
                             successNumber++;
                             itemsWritten++;
@@ -231,10 +223,6 @@ public class CruisesImporterImpl implements CruisesImporter {
             LOGGER.error("Cannot import cruises", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read cruises from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
         }
 
         LOGGER.info("Ending cruises import, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
@@ -274,7 +262,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
             // Initializing elements necessary to import cruise
             // destinations
-            final Map<String, List<String>> destinationsMapping = getDestinationsMapping(resourceResolver);
+            final Map<String, List<String>> destinationsMapping = CruisesImportUtils.getDestinationsMapping(resourceResolver);
 
             // ships
             final Map<Integer, Map<String, String>> shipsMapping = ImportersUtils.getItemsMapping(resourceResolver,
@@ -282,7 +270,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/ship\"]", "shipId");
 
             // features
-            final Map<Integer, String> featuresMapping = getFeaturesMap(resourceResolver);
+            final Map<Integer, String> featuresMapping = CruisesImportUtils.getFeaturesMap(resourceResolver);
 
             // getting last import date
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
@@ -328,7 +316,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         throw new ImporterException("Cannot get content cruise node");
                                     }
 
-                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(cruisePages.getValue()), cruiseContentNode);
+                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(cruisePages.getValue()), cruiseContentNode, mimeTypeService);
 
                                     successNumber++;
                                     itemsWritten++;
@@ -352,11 +340,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         throw new ImporterException("Destination " + destinationPath + " cannot be found");
                                     }
 
-                                    final Node cruiseContentNode = createCruisePage(pageManager, destinationPath, cruise.getVoyageName(), cruise.getVoyageCod());
+                                    final Node cruiseContentNode = CruisesImportUtils.createCruisePage(pageManager, destinationPath, cruise.getVoyageName(), cruise.getVoyageCod());
 
                                     // update cruise data
                                     final Page destinationPage = destinationResource.adaptTo(Page.class);
-                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(destinationPage), cruiseContentNode);
+                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(destinationPage), cruiseContentNode, mimeTypeService);
 
                                     successNumber++;
                                     itemsWritten++;
@@ -395,8 +383,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             LOGGER.error("Cannot read cruises from API", e);
         }
 
-        LOGGER.info("Ending cruises update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber,
-                apiPage);
+        LOGGER.info("Ending cruises update, success: {}, error: {}, api calls: {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
@@ -451,125 +438,9 @@ public class CruisesImporterImpl implements CruisesImporter {
         return jsonObject;
     }
 
-    private static Map<String, List<String>> getDestinationsMapping(ResourceResolver resourceResolver) {
-        final Iterator<Resource> destinations = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/destination\"]", "xpath");
-
-        final Map<String, List<String>> destinationsMapping = new HashMap<>();
-        while (destinations.hasNext()) {
-            final Resource destination = destinations.next();
-
-            final String destinationId = destination.getValueMap().get("destinationId", String.class);
-
-            if (destinationId != null) {
-                if (destinationsMapping.containsKey(destinationId)) {
-                    destinationsMapping.get(destinationId).add(destination.getParent().getPath());
-                } else {
-                    final List<String> destinationPaths = new ArrayList<>();
-                    destinationPaths.add(destination.getParent().getPath());
-                    destinationsMapping.put(destinationId, destinationPaths);
-                }
-
-                LOGGER.trace("Adding destination {} ({}) to cache", destination.getPath(), destinationId);
-            }
-        }
-        return destinationsMapping;
-    }
-
-    private static Map<Integer, String> getFeaturesMap(ResourceResolver resourceResolver) {
-        final Iterator<Resource> features = resourceResolver.findResources("/jcr:root/etc/tags/features//element(*,cq:Tag)[featureId]", "xpath");
-
-        final Map<Integer, String> featuresMapping = new HashMap<>();
-        while (features.hasNext()) {
-            final Resource feature = features.next();
-
-            final Integer featureId = feature.getValueMap().get("featureId", Integer.class);
-
-            if (featureId != null) {
-                final Tag tag = feature.adaptTo(Tag.class);
-                if (tag != null) {
-                    featuresMapping.put(featureId, tag.getTagID());
-
-                    LOGGER.trace("Adding feature {} ({}) to cache", feature.getPath(), featureId);
-                }
-            }
-        }
-        return featuresMapping;
-    }
-
-    private String getTranslatedCruiseTitle(String language, String voyageName) {
-        String cruiseTitle = voyageName;
-
-        switch (language) {
-            case "fr":
-                cruiseTitle = voyageName.replace(" to ", " à ");
-                break;
-            case "es":
-            case "pt-br":
-                cruiseTitle = voyageName.replace(" to ", " a ");
-                break;
-            case "de":
-                cruiseTitle = voyageName.replace(" to ", " nach ");
-                break;
-        }
-
-        return cruiseTitle;
-    }
-
-    private Node createCruisePage(PageManager pageManager, String destinationPath, String voyageName, String voyageCode) throws WCMException, RepositoryException {
-        // old : [Voyage Code]-[Departure port]-to-[Arrival port]
-        // new : [Departure port]-to(i18n)-[Arrival port]-[Voyage Code]
-        final String pageName = JcrUtil.createValidName(StringUtils
-                .stripAccents(voyageName + " - " + voyageCode), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
-                .replaceAll("-+", "-");
-
-        // creating cruise page - uniqueness is derived from cruise code
-        final Page cruisePage = pageManager.create(destinationPath,
-                pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, voyageCode + " - " + voyageName, false);
-
-        final Resource cruiseContentResource = cruisePage.getContentResource();
-        final Node cruiseContentNode = cruiseContentResource.adaptTo(Node.class);
-
-        // setting alias
-        // TODO replace by check on language
-        if (destinationPath.contains("/fr/") || destinationPath.contains("/es/") || destinationPath.contains("/pt-br/")) {
-            cruiseContentNode.setProperty("sling:alias", pageName.replace("-to-", "-a-"));
-        } else if (destinationPath.contains("/de/")) {
-            cruiseContentNode.setProperty("sling:alias", pageName.replace("-to-", "-nach-"));
-        }
-        return cruiseContentNode;
-    }
-
-    private void associateMapAsset(final AssetManager assetManager, final Session session, final Node cruiseContentNode,
-                                   final String destinationPageName, final String mapUrl) throws RepositoryException {
-        // download and associate map
-        if (StringUtils.isNotEmpty(mapUrl)) {
-            try {
-                final String filename = StringUtils.substringAfterLast(mapUrl, "/");
-
-                final String assetPath = "/content/dam/silversea-com/api-provided/cruises/"
-                        + destinationPageName + "/" + cruiseContentNode.getParent().getName() + "/" + filename;
-
-                if (session.itemExists(assetPath)) {
-                    cruiseContentNode.setProperty("itinerary", assetPath);
-                } else {
-                    final InputStream inputStream = new URL(mapUrl).openStream();
-                    final Asset asset = assetManager.createAsset(assetPath, inputStream,
-                            mimeTypeService.getMimeType(mapUrl), false);
-
-                    cruiseContentNode.setProperty("itinerary", asset.getPath());
-                }
-
-                LOGGER.trace("Creating itinerary asset {}", assetPath);
-            } catch (IOException e) {
-                LOGGER.warn("Cannot import itinerary image {}", mapUrl);
-            }
-        }
-    }
-
     private void updateCruiseData(AssetManager assetManager, Session session, Map<Integer, Map<String, String>> shipsMapping,
                                   Map<Integer, String> featuresMapping, Voyage77 cruise,
-                                  String language, Node cruiseContentNode) throws RepositoryException {
+                                  String language, Node cruiseContentNode, MimeTypeService mimeTypeService) throws RepositoryException {
         // Adding tags
         List<String> tagIds = new ArrayList<>();
 
@@ -599,7 +470,7 @@ public class CruisesImporterImpl implements CruisesImporter {
         }
 
         // setting other properties
-        final String cruiseTitle = getTranslatedCruiseTitle(language, cruise.getVoyageName());
+        final String cruiseTitle = CruisesImportUtils.getTranslatedCruiseTitle(language, cruise.getVoyageName());
         cruiseContentNode.setProperty("apiTitle", cruiseTitle);
         cruiseContentNode.setProperty("importedDescription", cruise.getVoyageDescription());
         cruiseContentNode.setProperty("startDate", cruise.getDepartDate().toGregorianCalendar());
@@ -617,8 +488,7 @@ public class CruisesImporterImpl implements CruisesImporter {
             cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle", "sling:alias"});
         }
 
-        associateMapAsset(assetManager, session, cruiseContentNode, cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl());
-
+        CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService);
         cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
     }
 

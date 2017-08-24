@@ -263,7 +263,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (mode.equals(Mode.itineraries)) {
-                    cruisesItinerariesImporter.importSampleSet(elementsNumber);
+                    cruisesItinerariesImporter.importAllItems();
                     responseWriter.write("Itineraries import Done<br/>");
                     responseWriter.flush();
                 }

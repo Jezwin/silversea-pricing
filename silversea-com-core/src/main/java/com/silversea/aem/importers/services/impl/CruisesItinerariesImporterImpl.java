@@ -1,8 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesImporter;
@@ -17,7 +15,6 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.commons.mime.MimeTypeService;
@@ -28,7 +25,9 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Component
@@ -61,23 +60,14 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
     @Override
     public ImportResult importAllItems() {
-        return importSampleSet(-1);
-    }
+        LOGGER.debug("Starting itineraries import");
 
-    @Override
-    public ImportResult importSampleSet(int size) {
-        LOGGER.debug("Starting itineraries import ({})", size == -1 ? "all" : size);
-
-        int successNumber = 0;
-        int errorNumber = 0;
-        int apiPage = 1;
+        int successNumber = 0, errorNumber = 0, apiPage = 1;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -94,57 +84,16 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]");
 
             // Initializing elements necessary to import itineraries
-            // cruises
-            final Iterator<Resource> cruises = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]", "xpath");
+            // cruises mapping
+            final Map<Integer, Map<String, String>> cruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
+                    "cruiseId");
 
-            final Map<Integer, Map<String, String>> cruisesMapping = new HashMap<>();
-            while (cruises.hasNext()) {
-                final Resource cruise = cruises.next();
-
-                final Page cruisePage = cruise.getParent().adaptTo(Page.class);
-                final String language = LanguageHelper.getLanguage(cruisePage);
-
-                final Integer cruiseId = cruise.getValueMap().get("cruiseId", Integer.class);
-
-                if (cruiseId != null) {
-                    if (cruisesMapping.containsKey(cruiseId)) {
-                        cruisesMapping.get(cruiseId).put(language, cruisePage.getPath());
-                    } else {
-                        final HashMap<String, String> cruisePaths = new HashMap<>();
-                        cruisePaths.put(language, cruisePage.getPath());
-                        cruisesMapping.put(cruiseId, cruisePaths);
-                    }
-
-                    LOGGER.trace("Adding cruise {} ({}) with lang {} to cache", cruise.getPath(), cruiseId, language);
-                }
-            }
-
-            // ports
-            final Iterator<Resource> ports = resourceResolver.findResources("/jcr:root/content/silversea-com"
-                    + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "xpath");
-
-            final Map<Integer, Map<String, String>> portsMapping = new HashMap<>();
-            while (ports.hasNext()) {
-                final Resource port = ports.next();
-
-                final Page portPage = port.getParent().adaptTo(Page.class);
-                final String language = LanguageHelper.getLanguage(portPage);
-
-                final Integer portId = port.getValueMap().get("cityId", Integer.class);
-
-                if (portId != null) {
-                    if (portsMapping.containsKey(portId)) {
-                        portsMapping.get(portId).put(language, portPage.getPath());
-                    } else {
-                        final HashMap<String, String> portPaths = new HashMap<>();
-                        portPaths.put(language, portPage.getPath());
-                        portsMapping.put(portId, portPaths);
-                    }
-
-                    LOGGER.trace("Adding port {} ({}) with lang {} to cache", port.getPath(), portId, language);
-                }
-            }
+            // port mapping
+            final Map<Integer, Map<String, String>> portsMapping = ImportersUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
 
             // Importing itineraries
             List<Itinerary> itineraries;
@@ -153,7 +102,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             do {
                 itineraries = itinerariesApi.itinerariesGet("2015-01-01", "2025-12-31", null, null, apiPage, pageSize, null);
 
-                for (Itinerary itinerary : itineraries) {
+                for (final Itinerary itinerary : itineraries) {
                     LOGGER.trace("importing itinerary {} for cruise {}", itinerary.getItineraryId(), itinerary.getVoyageId());
 
                     try {
@@ -184,7 +133,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                             itineraryNode.setProperty("overnight", itinerary.getIsOvernight());
                             itineraryNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary");
 
-                            // associating port page
+                            // associating port page if exists
                             final Integer cityId = itinerary.getCityId();
                             if (portsMapping.containsKey(cityId)) {
                                 if (portsMapping.get(cityId).containsKey(cruisePath.getKey())) {
@@ -204,21 +153,12 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                                     session.refresh(true);
                                 }
                             }
-
-                            if (size != -1 && itemsWritten >= size) {
-                                break;
-                            }
                         }
                     } catch (RepositoryException | ImporterException e) {
                         LOGGER.error("Cannot write itinerary {}", itinerary.getItineraryId(), e);
 
                         errorNumber++;
                     }
-
-                }
-
-                if (size != -1 && itemsWritten >= size) {
-                    break;
                 }
 
                 apiPage++;
@@ -239,14 +179,9 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             LOGGER.error("Cannot import itineraries", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read itineraries from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
         }
 
-        LOGGER.info("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber,
-                +errorNumber, apiPage);
+        LOGGER.info("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }
