@@ -105,7 +105,7 @@ public class ApiUpdater implements Runnable {
                     importResultExclusiveOffers.getErrorNumber());
 
             // update cruises
-            final ImportResult importResultCruises = cruisesImporter.importAllItems();
+            final ImportResult importResultCruises = cruisesImporter.updateItems();
             LOGGER.info("Cruises import : {} success, {} errors", importResultCruises.getSuccessNumber(),
                     importResultCruises.getErrorNumber());
 
