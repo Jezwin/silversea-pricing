@@ -1,5 +1,8 @@
 <div class="container" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
     <section class="o-section o-section--callbox">
+        <div class="hidden-xs hidden-sm o-section--callbox--logo">
+            <img class="spritelogo-dark" style="margin: auto;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea">
+        </div>
         <p data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
             <span class="hidden-xs">
                 ${'call-reservations-team-1' @ i18n}: <a href="tel:${countryHelper.clickableLocalizedPhone}"><strong>${countryHelper.localizedPhone}</strong></a><br/>
