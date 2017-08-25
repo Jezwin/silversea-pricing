@@ -60,8 +60,16 @@
             width: 90%;
             margin-left: 5%;
         }
+        @media screen and (max-width: @screen-sm) {
+            text-align: center;
+        }
         .c-brochure__title {
             text-align: left;
+            @media screen and (max-width: @screen-sm) {
+                text-align: center;
+	            white-space: normal;
+	            word-wrap: break-word;
+            }
         }
 
         .btn {
