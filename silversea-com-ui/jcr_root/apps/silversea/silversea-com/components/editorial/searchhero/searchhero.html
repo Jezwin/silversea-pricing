@@ -2,8 +2,8 @@
 <div class="c-search-hero">
     <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference}"
         data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
-        <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result'}"></a>
         <div class="col-sm-3">
+            <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result'}"></a>
             <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
                 <option value="all">${'all-destinations' @ i18n}</option>
                 <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
