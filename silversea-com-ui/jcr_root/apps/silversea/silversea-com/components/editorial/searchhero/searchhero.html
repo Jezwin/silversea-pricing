@@ -1,23 +1,26 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search hero"></div>
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Search hero"></div>
 <div class="c-search-hero">
     <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference}"
-          data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
+        data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
         <div class="col-sm-3">
             <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
                 <option value="all">${'all-destinations' @ i18n}</option>
-                <option data-sly-repeat="${filter.destinations}" value="${item.name}">${item.title @ context='html'}</option>
+                <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
             </select>
         </div>
         <div class="col-sm-3">
             <select class="chosen form-control" data-placeholder="${'all-departure-dates' @ i18n}" name="date">
                 <option value="all">${'all-departure-dates' @i18n}</option>
-                <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
+                <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
+                    <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}" />
+                    ${month.value} ${item.year}
+                </option>
             </select>
         </div>
         <div class="col-sm-3" data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
             <select class="chosen form-control" data-placeholder="${'all-ships' @ i18n}" name="ship">
                 <option value="all">${'all-ships' @ i18n}</option>
-                <option data-sly-repeat.ship="${ships.page.listChildren}" value="${ship.name}">${ship.title}</option>
+                <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
             </select>
         </div>
         <div class="col-sm-3">
