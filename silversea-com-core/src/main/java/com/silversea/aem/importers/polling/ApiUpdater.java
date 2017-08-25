@@ -120,7 +120,7 @@ public class ApiUpdater implements Runnable {
                     importResultCruisesItineraries.getErrorNumber());
 
             final ImportResult importResultCruisesPrices = cruisesPricesImporter.importAllItems(true);
-            LOGGER.info("Cruises itineraries import : {} success, {} errors", importResultCruisesPrices.getSuccessNumber(),
+            LOGGER.info("Cruises prices import : {} success, {} errors", importResultCruisesPrices.getSuccessNumber(),
                     importResultCruisesPrices.getErrorNumber());
 
             // replicate all modifications
