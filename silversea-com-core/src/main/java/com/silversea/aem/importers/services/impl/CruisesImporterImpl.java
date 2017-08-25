@@ -17,6 +17,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -177,13 +178,15 @@ public class CruisesImporterImpl implements CruisesImporter {
                             cruiseContentNode.setProperty("duration", cruise.getDays());
                             cruiseContentNode.setProperty("cruiseCode", cruise.getVoyageCod());
                             cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
+                            cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
 
                             // Set livecopy mixin
                             if (!language.equals("en")) {
                                 cruiseContentNode.addMixin("cq:LiveRelationship");
                                 cruiseContentNode.addMixin("cq:PropertyLiveSyncCancelled");
 
-                                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle", "sling:alias"});
+                                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"apiTitle", "importedDescription",
+                                        "jcr:title", "sling:alias"});
                             }
 
                             CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl(), mimeTypeService);
@@ -476,13 +479,15 @@ public class CruisesImporterImpl implements CruisesImporter {
         cruiseContentNode.setProperty("duration", cruise.getDays());
         cruiseContentNode.setProperty("cruiseCode", cruise.getVoyageCod());
         cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
+        cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
 
         // Set livecopy mixin
         if (!language.equals("en")) {
             cruiseContentNode.addMixin("cq:LiveRelationship");
             cruiseContentNode.addMixin("cq:PropertyLiveSyncCancelled");
 
-            cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"jcr:title", "apiTitle", "sling:alias"});
+            cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"apiTitle", "importedDescription",
+                    "jcr:title", "sling:alias"});
         }
 
         CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService);
