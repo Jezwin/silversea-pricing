@@ -4,9 +4,9 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ItinerariesApi;
@@ -30,9 +30,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.*;
 
-/**
- * TODO add last import date
- */
 @Service
 @Component
 public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporter {
@@ -84,7 +81,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final ItinerariesApi itinerariesApi = new ItinerariesApi(ImporterUtils.getApiClient(apiConfig));
+            final ItinerariesApi itinerariesApi = new ItinerariesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -93,7 +90,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             // Existing itineraries deletion
             LOGGER.debug("Cleaning already imported itineraries");
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]");
 
             // Initializing elements necessary to import itineraries
@@ -114,9 +111,9 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     if (cruisesMapping.containsKey(cruiseId)) {
                         cruisesMapping.get(cruiseId).put(language, cruisePage.getPath());
                     } else {
-                        final HashMap<String, String> shipPaths = new HashMap<>();
-                        shipPaths.put(language, cruisePage.getPath());
-                        cruisesMapping.put(cruiseId, shipPaths);
+                        final HashMap<String, String> cruisePaths = new HashMap<>();
+                        cruisePaths.put(language, cruisePage.getPath());
+                        cruisesMapping.put(cruiseId, cruisePaths);
                     }
 
                     LOGGER.trace("Adding cruise {} ({}) with lang {} to cache", cruise.getPath(), cruiseId, language);
@@ -202,7 +199,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                                 try {
                                     session.save();
 
-                                    LOGGER.debug("{} itineraries imported, saving session", +itemsWritten);
+                                    LOGGER.info("{} itineraries imported, saving session", +itemsWritten);
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
@@ -231,7 +228,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 try {
                     session.save();
 
-                    LOGGER.debug("{} itineraries imported, saving session", +itemsWritten);
+                    LOGGER.info("{} itineraries imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -248,7 +245,8 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             }
         }
 
-        LOGGER.debug("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber,
+                +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
     }

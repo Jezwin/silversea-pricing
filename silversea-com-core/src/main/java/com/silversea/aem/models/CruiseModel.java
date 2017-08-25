@@ -5,36 +5,29 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.components.beans.*;
 import com.silversea.aem.constants.WcmConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.commons.JcrUtils;
+import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.omg.PortableInterceptor.LOCATION_FORWARD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
 import java.util.*;
 
 @Model(adaptables = Page.class)
-public class CruiseModel extends AbstractModel {
+public class CruiseModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruiseModel.class);
 
     @Inject @Self
     private Page page;
-
-    private PageManager pageManager;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
@@ -43,7 +36,7 @@ public class CruiseModel extends AbstractModel {
     private String description;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/apiTitle") @Optional
-    private String apititle;
+    private String apiTitle;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
     private String importedDescription;
@@ -62,6 +55,8 @@ public class CruiseModel extends AbstractModel {
 
     private ShipModel ship;
 
+    private DestinationModel destination;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseCode") @Optional
     private String cruiseCode;
 
@@ -72,29 +67,38 @@ public class CruiseModel extends AbstractModel {
     private String assetSelectionReference;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/keypeople") @Optional
-    private String[] keypeople;
+    private String[] keyPeople;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
     private String cruiseFareAdditions;
 
-    private String[] splitCruiseFareAdditions;
+    private List<String> splitCruiseFareAdditions = new ArrayList<>();
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries")
     private List<ItineraryModel> itineraries;
 
     private List<ItineraryModel> compactedItineraries = null;
 
-    private Tag cruiseType;
+    private String cruiseType;
 
     private List<PriceModel> prices = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
     private String thumbnail;
+
+    private List<FeatureModel> features = new ArrayList<>();
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/offer") @Optional
+    private String[] exclusiveOffersReferences;
+
+    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+
+    private String path;
+
+    private String lang;
 
     @PostConstruct
     private void init() {
-        pageManager = page.getPageManager();
-
+        final PageManager pageManager = page.getPageManager();
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
         // init ship
@@ -103,79 +107,150 @@ public class CruiseModel extends AbstractModel {
             ship = shipPage.adaptTo(ShipModel.class);
         }
 
+        // init destination
+        destination = page.getParent().adaptTo(DestinationModel.class);
+
         // init cruise fare additions
         if (cruiseFareAdditions != null) {
-            splitCruiseFareAdditions = cruiseFareAdditions.split("\\r?\\n");
+            final String[] split = cruiseFareAdditions.split("\\r?\\n");
+
+            if (split.length > 0) {
+                splitCruiseFareAdditions.addAll(Arrays.asList(split));
+            }
         }
 
-        // init cruise type
+        // init cruise type and features
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
         if (tagManager != null) {
             final Tag[] tags = tagManager.getTags(page.getContentResource());
 
-            for (Tag tag : tags) {
+            for (final Tag tag : tags) {
                 if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_CRUISE_TYPES)) {
-                    cruiseType = tag;
-                    break;
+                    cruiseType = tag.getName();
+                } else if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                    final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
+
+                    if (featureModel != null) {
+                        features.add(featureModel);
+                    }
                 }
             }
 
             if (cruiseType == null) {
-                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE);
+                cruiseType = tagManager.resolve(WcmConstants.TAG_CRUISE_TYPE_CRUISE).getName();
+            }
+        }
+
+        // init exclusive offers
+        if (exclusiveOffersReferences != null) {
+            for (final String exclusiveOfferReference : exclusiveOffersReferences) {
+                final Page exclusiveOfferPage = pageManager.getPage(exclusiveOfferReference);
+
+                if (exclusiveOfferPage != null) {
+                    final ExclusiveOfferModel exclusiveOffer = exclusiveOfferPage.adaptTo(ExclusiveOfferModel.class);
+
+                    if (exclusiveOffer != null) {
+                        exclusiveOffers.add(exclusiveOffer);
+                    }
+                }
             }
         }
 
         // init prices
         final Resource suitesResource = page.getContentResource().getChild("suites");
         if (suitesResource != null) {
-            collectPrices(prices, suitesResource);
+            CruiseUtils.collectPrices(prices, suitesResource);
+        }
+
+        path = page.getPath();
+        lang = LanguageHelper.getLanguage(page);
+
+        final Resource imageResource = page.getContentResource().getChild("image");
+        if (imageResource != null) {
+            thumbnail = imageResource.getValueMap().get("fileReference", String.class);
         }
     }
 
+    /**
+     * @return cruise title
+     */
     public String getTitle() {
         return title;
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * @return cruise api title
+     */
+    public String getApiTitle() {
+        return apiTitle;
     }
 
+    /**
+     * @return cruise description
+     */
+    public String getDescription() {
+        return description != null ? description : importedDescription;
+    }
+
+    /**
+     * @return cruise imported description
+     */
     public String getImportedDescription() {
         return importedDescription;
     }
 
+    /**
+     * @return start date of the cruise
+     */
     public Calendar getStartDate() {
         return startDate;
     }
 
+    /**
+     * @return end date of  the cruise
+     */
     public Calendar getEndDate() {
         return endDate;
     }
 
+    /**
+     * @return duration of the cruise (in days)
+     */
     public String getDuration() {
         return duration;
     }
 
+    /**
+     * @return the cruise code
+     */
     public String getCruiseCode() {
         return cruiseCode;
     }
 
+    /**
+     * @return DAM path of the cruise itinerary image
+     */
     public String getItinerary() {
         return itinerary;
     }
 
+    /**
+     * @return asset selection reference attached to the cruise
+     */
     public String getAssetSelectionReference() {
         return assetSelectionReference;
     }
 
+    /**
+     * @return key people attached to the cruise
+     */
     public String[] getKeyPeople() {
-        return keypeople;
+        return keyPeople;
     }
 
-    public String[] getCruiseFareAdditions() {
-        return splitCruiseFareAdditions;
-    }
-
+    /**
+     * @return list of itinerary items
+     */
     public List<ItineraryModel> getItineraries() {
         return itineraries;
     }
@@ -213,209 +288,111 @@ public class CruiseModel extends AbstractModel {
         return compactedItineraries;
     }
 
+    /**
+     * @return exclusive offers attached to the cruise
+     */
     public List<ExclusiveOfferModel> getExclusiveOffers() {
         return exclusiveOffers;
     }
 
-    public Tag getCruiseType() {
+    /**
+     * @return the cruise type (cruise or expedition)
+     */
+    public String getCruiseType() {
         return cruiseType;
     }
 
+    /**
+     * @return the ship hosting this cruise
+     */
     public ShipModel getShip() {
         return ship;
     }
 
+    /**
+     * @return the cruise thumbnail
+     */
     public String getThumbnail() {
         return thumbnail;
     }
 
+    /**
+     * @return cruise page
+     */
     public Page getPage() {
         return page;
     }
 
-    public Page getDestination() {
-        return page.getParent();
+    /**
+     * @return destination page
+     */
+    public DestinationModel getDestination() {
+        return destination;
     }
 
+    /**
+     * @return departure port name
+     */
     public String getDeparturePortName() {
         if (itineraries.size() > 0) {
-            ItineraryModel itinerary = itineraries.get(0);
-            return itinerary.getPort().getApiTitle();
+            final ItineraryModel itinerary = itineraries.get(0);
+
+            if (itinerary.getPort() != null) {
+                return itinerary.getPort().getApiTitle();
+            }
         }
 
         return null;
     }
 
+    /**
+     * @return arrival port name
+     */
     public String getArrivalPortName() {
         if (itineraries.size() > 0) {
-            ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
-            return itinerary.getPort().getApiTitle();
+            final ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
+
+            if (itinerary.getPort() != null) {
+                return itinerary.getPort().getApiTitle();
+            }
         }
 
         return null;
     }
 
+    /**
+     * @return prices of each suite variation for this cruise
+     */
     public List<PriceModel> getPrices() {
         return prices;
     }
 
     /**
-     * Recursive collection of prices for this cruise
-     * @param prices the list of prices
-     * @param resource resource from where to get the prices
+     * @return features attached to this cruise
      */
-    private void collectPrices(final List<PriceModel> prices, final Resource resource) {
-        if (resource.isResourceType("silversea/silversea-com/components/subpages/prices/pricevariation")) {
-            prices.add(resource.adaptTo(PriceModel.class));
-        } else {
-            final Iterator<Resource> children = resource.listChildren();
-
-            while (children.hasNext()) {
-                collectPrices(prices, children.next());
-            }
-        }
-    }
-
-    // ---------------- TODO -------------- //
-
-
-    private String destinationTitle;
-
-    private String destinationFootNote;
-
-    private String mapOverHead;
-
-    private PriceData lowestPrice;
-
-    private List<Feature> features;
-
-    private List<SuiteModel> suites;
-
-    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
-
-    private List<CruiseFareAddition> exclusiveFareAdditions = new ArrayList<>();
-
-    private ItinerariesData itinerariesData;
-
-    private ResourceResolver resourceResolver;
-
-    /**
-     * TODO replace by sling model
-     * TODO move display logic to use class
-     * Do not display the venetian society feature on the overview tab
-     * @return the features list
-     */
-    public List<Feature> getFeaturesForDisplay() {
-
-        //do not display the venetian society feature on the overview tab
-        final List<Feature> filteredFeatures = new ArrayList<>();
-        final Iterator<Feature> i = features.iterator();
-        while (i.hasNext()) {
-            Feature feature = i.next();
-            if (!feature.getTitle().toUpperCase().equals("VENETIAN SOCIETY")) {
-                filteredFeatures.add(feature);
-            }
-        }
-        return filteredFeatures;
-    }
-
-    public List<Feature> getFeatures() {
+    public List<FeatureModel> getFeatures() {
         return features;
     }
 
-    @Deprecated
-    public String getDestinationTitle() {
-        return getDestination().getTitle();
+    /**
+     * @return cruise fare additions
+     */
+    public List<String> getCruiseFareAdditions() {
+        return splitCruiseFareAdditions;
     }
 
-
-    public void initByGeoLocation(GeoLocation geolocation) {
-        exclusiveOffers = initExclusiveOffersByGeoLocation(geolocation.getGeoMarketCode(), geolocation.getCountry());
-        splitCruiseFareAdditions = parseText(page, "cruiseFareAdditions");
-        exclusiveFareAdditions = getAllExclusiveFareAdditions();
-        lowestPrice = initLowestPrice(geolocation.getGeoMarketCode(), page);
-        mapOverHead = initMapHover();
-        suites = initSuites(page, geolocation.getGeoMarketCode(), pageManager);
+    /**
+     * @return the path of the cruise page
+     */
+    public String getPath() {
+        return path;
     }
 
-    private List<ExclusiveOfferModel> initExclusiveOffersByGeoLocation(String geoMarketCode, String country) {
-
-        List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<ExclusiveOfferModel>();
-        String[] exclusiveOfferUrls = page.getProperties().get("exclusiveOffers", String[].class);
-        String destination = page.getParent().getPath();
-        if (exclusiveOfferUrls != null) {
-            Arrays.asList(exclusiveOfferUrls).forEach((item) -> {
-                if (!StringUtils.isEmpty(item)) {
-                    Page page = pageManager.getPage(item);
-                    if (page != null) {
-                        ExclusiveOfferModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferModel.class);
-                        if (exclusiveOfferModel.isValid(geoMarketCode)) {
-                            exclusiveOfferModel.initDescription(country, destination);
-                            exclusiveOffers.add(exclusiveOfferModel);
-                        }
-                    } else {
-                        LOGGER.warn("Exclusive offer reference {} not found", item);
-                    }
-                }
-            });
-        }
-        return exclusiveOffers;
+    /**
+     * @return the lang of the cruise
+     */
+    public String getLang() {
+        return lang;
     }
 
-    private List<CruiseFareAddition> getAllExclusiveFareAdditions() {
-        List<CruiseFareAddition> CruiseFareAddition = new ArrayList<CruiseFareAddition>();
-        if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
-            exclusiveOffers.forEach(item -> {
-                CruiseFareAddition.addAll(item.getCruiseFareAdditions());
-            });
-        }
-
-        return CruiseFareAddition;
-    }
-
-    public String initMapHover() {
-        String value = null;
-        if (exclusiveOffers != null && !exclusiveOffers.isEmpty()) {
-
-            java.util.Optional<String> optValue = exclusiveOffers.stream().filter(e -> !StringUtils.isEmpty(e.getMapOverHead()))
-                    .map(ExclusiveOfferModel::getMapOverHead).findFirst();
-
-            if (optValue != null && optValue.isPresent()) {
-                value = optValue.get();
-            }
-        }
-        return value;
-    }
-
-    public PriceData getLowestPrice() {
-        return lowestPrice;
-    }
-
-    public List<CruiseFareAddition> getExclusiveFareAdditions() {
-        return exclusiveFareAdditions;
-    }
-
-    public String getDestinationFootNote() {
-        return destinationFootNote;
-    }
-
-    public List<SuiteModel> getSuites() {
-        return suites;
-    }
-
-    public String getMapOverHead() {
-        return mapOverHead;
-    }
-
-    public ItinerariesData getItinerariesData() {
-        return itinerariesData;
-    }
-
-    public Integer getTotalFareAddictions() {
-        if (getExclusiveFareAdditions() != null && getCruiseFareAdditions() != null) {
-            return getExclusiveFareAdditions().size() + getCruiseFareAdditions().length;
-        }
-
-        return null;
-    }
 }

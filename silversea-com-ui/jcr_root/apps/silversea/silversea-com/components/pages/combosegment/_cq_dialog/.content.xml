@@ -23,7 +23,7 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <subTitle
+                                    <subtitle
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/textfield"
                                         allowBulkEdit="{Boolean}true"
@@ -31,8 +31,8 @@
                                         fieldLabel="Sub Title"
                                         required="{Boolean}true"
                                         renderReadOnly="{Boolean}true"
-                                        name="./subTitle" />
-                                    <cruiseReference
+                                        name="./subtitle" />
+                                    <cruisereference
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                         allowBulkEdit="{Boolean}true"
@@ -43,7 +43,7 @@
                                         required="{Boolean}true"
                                         name="./cruiseReference"
                                         rootPath="/content/silversea-com" />
-                                    <itineraryMap
+                                    <itinerarymap
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                         allowBulkEdit="{Boolean}true"
@@ -52,7 +52,7 @@
                                         renderReadOnly="{Boolean}true"
                                         name="./mapReference"
                                         rootPath="/content/dam/silversea-com" />
-                                    <itineraryFocusMap
+                                    <itineraryfocusmap
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                         allowBulkEdit="{Boolean}true"

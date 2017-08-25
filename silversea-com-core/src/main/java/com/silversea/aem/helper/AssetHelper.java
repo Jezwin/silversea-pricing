@@ -52,7 +52,11 @@ public class AssetHelper extends WCMUsePojo {
     public String getImageUrl() {
         final Resource assetResource = getResourceResolver().getResource(assetPath);
 
-        if (runModesService.isPublish() && imageDelivery != null && publishUtils != null && imageDelivery.isEnabled()) {
+        if (runModesService.isPublish()
+                && imageDelivery != null
+                && publishUtils != null
+                && imageDelivery.isEnabled()
+                && assetResource != null) {
             try {
                 LOGGER.debug("{}", publishUtils.externalizeImageDeliveryAsset(assetResource, assetPath));
 

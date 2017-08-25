@@ -4,7 +4,7 @@
         <p class="c-cruise__descr">${'cruise-ship-suite-description' @ i18n}</p>
     </sly>
     <div class="c-cruise__gallery">
-        <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=suites}" />
+        <sly data-sly-use.itemVariationTemplate="silversea/silversea-com/components/pages/cruise/fragment/shiptab/itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=suites}" />
         <div class="c-cruise__item-expander" data-sly-test="${suites && suites.size > 2}">
             <a class="btn btn-thin btn-dark expander-open" href=""><span>${'view-all-suites' @ i18n}</span><i class="fa fa-angle-down"></i></a>
             <a class="btn btn-thin btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>

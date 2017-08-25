@@ -27,7 +27,7 @@ $(function() {
     $('.c-slider.slick-initialized').slick('slickFilter', ':not(cq, .new.section)');
 
     // On page resize
-    $(window).on('resize', function() {
+    $('body').on('trigger.viewport.changed', function() {
         if ($.viewportDetect() === 'xs') {
             // Disabled slider if the viewport is XS after page resizes
             $('.c-slider.c-slider--first-slide-only.slick-initialized').slick('unslick');

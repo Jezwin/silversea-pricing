@@ -1,85 +1,119 @@
-<!--/* TODO : set class V2 according to design properties */-->
-<div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
-     class="c-fyc__result" data-sly-repeat.cruise="${fyc.cruises}">
-    <div class="c-fyc__result__wrapper">
-        <div class="c-fyc__result__image" style="background-image: url(${cruise.thumbnail @ context='uri'}?wid=360)">
-            <!--/* TODO : generated if exclusive offer */-->
-            <span class="flag">
-                <span class="flag__icon icon-star"></span>
-                <span class="flag__text">EXCLUSIVE OFFER</span>
-            </span>
-        </div>
-        <div class="c-fyc__result__content">
-            <div class="c-fyc__result__content__inner">
-                <h2 class="c-fyc__result__content__title">${cruise.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruise.arrivalPortName}</h2>
-                <ul class="c-fyc__result__content__description ${cruise.cruiseType.name}">
-                    <li class="cruise-ship hidden-xs"><strong>${cruise.ship.title}</strong></li>
-                    <li class="cruise-destination">${cruise.destination.title}</li>
-                    <li class="cruise-type">${cruise.cruiseType.title}</li>
-                    <li class="cruise-code hidden-xs"><strong>${cruise.cruiseCode}</strong></li>
-                    <li class="cruise-ship hidden-xs">${cruise.ship.title}</li>
-                    <li class="meta_feature_inner hidden-xs">
-                        <span class="feature" data-sly-repeat="${['a','a']}">
-                            <i class="icon-star"></i>
-                            <span class="tooltip"><i></i>offer</span>
-                        </span>
-                    </li>
-                </ul>
-                <ul class="c-fyc__result__content__summary clearfix">
-                    <li class="c-fyc__result__content__summary__item">
-                        <dl>
-                            <dt class="visible-xs">${'departure' @ i18n}</dt>
-                            <dd data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd,', date=cruise.startDate}"
-                                data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.startDate}">
-                                <i class="fa fa-calendar-o hidden-xs"></i><strong>${dateMonthDay.value}</strong> ${dateYear.value}
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
-                        <dl>
-                            <dt class="visible-xs">${'duration' @ i18n}</dt>
-                            <dd><i class="fa fa-clock-o hidden-xs"></i><strong>${cruise.duration}</strong> ${'days' @ i18n}</dd>
-                        </dl>
-                    </li>
-                    <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--ship visible-xs">
-                        <dl>
-                            <dt>${'ship' @ i18n}</dt>
-                            <dd><strong class="text-capitalize">${cruise.ship.title}</strong></dd>
-                        </dl>
-                    </li>
-                </ul>
-                <ul class="c-fyc__result__content__feature hidden-xs">
-                    <li data-sly-repeat="${['a','a']}" class="meta_feature_inner">
-                        <span class="feature">
-                            <i class="icon-star"></i>
-                            <span class="tooltip"><i></i>offer</span>
-                        </span>
-                    </li>
-                    <li class="meta_feature_inner">
-                        <span class="feature">
-                            <i class="icon-food"></i>
-                            <span class="tooltip"><i></i>Culinary Expeditions</span>
-                        </span>
-                    </li>
-                </ul>
-                <dl class="c-fyc__result__content__itinerary hidden-xs">
-                    <dt>${'itinerary' @ i18n}</dt>
-                    <dd data-sly-repeat.itinerary="${cruise.itineraries}">${itinerary.port.apiTitle} </dd>
-                </dl>
+<div class="clearfix" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+    <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
+        <div class="c-fyc__result__wrapper">
+            <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
+                <span  data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag">
+                    <span class="flag__icon icon-star"></span>
+                    <span class="flag__text">${'exclusive offer' @ i18n}</span>
+                </span>
             </div>
-            <p class="c-fyc__result__content__price">
-                <!--/* TODO : generate all-inclusive-package-from OR fare-from message*/-->
-                <span class="price-prefixe">${'all-inclusive-package-from' @ i18n} || ${'fare-from' @ i18n} <em class="visible-inline-xs text-lowercase">(${'per-guest' @ i18n})</em><br /></span>
-                <strong>${cruise.prices.currency} ${cruise.prices.price}</strong>
-                <span class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
-            </p>
-            <p class="c-fyc__result__content__button text-center">
-                <a href="#" class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
-            </p>
+            <div class="c-fyc__result__content">
+                <div class="c-fyc__result__content__inner">
+                    <h2 class="c-fyc__result__content__title">${cruiseItem.cruiseModel.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruiseItem.cruiseModel.arrivalPortName}</h2>
+                    <ul class="c-fyc__result__content__description ${cruiseItem.cruiseModel.cruiseType}">
+                        <li class="cruise-ship hidden-xs"><strong>${cruiseItem.cruiseModel.ship.title}</strong></li>
+                        <li class="cruise-destination">${cruiseItem.cruiseModel.destination.title}</li>
+                        <li class="cruise-type">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
+                        <li class="cruise-code hidden-xs"><strong>${cruiseItem.cruiseModel.cruiseCode}</strong></li>
+                        <li class="cruise-ship hidden-xs">${cruiseItem.cruiseModel.ship.title}</li>
+                        <li class="meta_feature_inner hidden-xs">
+                            <span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
+                                <i class="icon-star"></i> ${'offer' @ i18n}
+                                <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
+                            </span>
+                            <span class="feature" data-sly-repeat.feature="${cruiseItem.cruiseModel.features}">
+                                <i class="${feature.icon}"></i>
+                                <span class="tooltip"><i></i>${feature.title}</span>
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="c-fyc__result__content__summary clearfix">
+                        <li class="c-fyc__result__content__summary__item">
+                            <dl>
+                                <dt class="visible-xs">${'departure' @ i18n}</dt>
+                                <dd data-sly-use.dateMonthDay="${'com.silversea.aem.helper.DateHelper'@ format='MMM dd,', date=cruiseItem.cruiseModel.startDate}"
+                                    data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruiseItem.cruiseModel.startDate}"
+                                    data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}"
+                                    data-date="${dateFull.value}">
+                                    <i class="fa fa-calendar-o hidden-xs"></i><strong>${dateMonthDay.value}</strong> ${dateYear.value}
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--duration">
+                            <dl>
+                                <dt class="visible-xs">${'duration' @ i18n}</dt>
+                                <dd><i class="fa fa-clock-o hidden-xs"></i><strong>${cruiseItem.cruiseModel.duration}</strong> ${'days' @ i18n}</dd>
+                            </dl>
+                        </li>
+                        <li class="c-fyc__result__content__summary__item c-fyc__result__content__summary__item--ship visible-xs">
+                            <dl>
+                                <dt>${'ship' @ i18n}</dt>
+                                <dd><strong class="text-capitalize">${cruiseItem.cruiseModel.ship.title}</strong></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                    <div class="c-fyc__result__content__feature hidden-xs">
+                        <ul data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
+                            <li class="meta_feature_inner" data-sly-test="${cruiseItem.exclusiveOffers.size > 0}">
+                                <span class="feature">
+                                    <i class="icon-star"></i> ${'offer' @ i18n}
+                                    <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
+                                </span>
+                            </li>
+                            <li class="meta_feature_inner" data-sly-repeat.feature="${cruiseItem.cruiseModel.features}">
+                                <span class="feature">
+                                    <i class="${feature.icon}"></i>
+                                    <span class="tooltip"><i></i>${feature.title}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <dl class="c-fyc__result__content__itinerary hidden-xs">
+                        <dt>${'itinerary' @ i18n}</dt>
+                        <dd data-sly-repeat.itinerary="${cruiseItem.cruiseModel.itineraries}">${itinerary.port.apiTitle} </dd>
+                    </dl>
+                </div>
+                <p class="c-fyc__result__content__price">
+                    <span data-sly-test="${cruiseItem.pricePrefix}" class="price-prefixe">${cruiseItem.pricePrefix}<br /></span>
+                    <strong data-sly-test="${cruiseItem.isWaitList}">${'waitlist' @ i18n}</strong>
+                    <strong data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPrice.currency @ i18n} ${cruiseItem.lowestPriceFormated}</strong>
+                    <span data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
+                </p>
+                <p class="c-fyc__result__content__button text-center">
+                    <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', suffix=suffix}"
+                        class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
+                </p>
+            </div>
         </div>
+        <a class="c-fyc__result__link" href="${cruiseItem.cruiseModel.path @ extension='html'}"></a>
     </div>
-    <a class="c-fyc__result__link" href="${cruise.page.path @ extension='html'}"></a>
 </div>
+<div class="hidden">
+    <!--/* data relative to option available in current result */-->
+    <input type="hidden" id="current-destination-filter" value="${fyc.destinationFilter}" data-value="${fyc.destinationIdFilter}" />
 
+    <div id="destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}">
+        {"all":true,<sly data-sly-repeat="${fyc.availableDestinations}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <div id="ship-filter" data-sly-test="${fyc.availableShips && fyc.availableShips.size > 0}">
+        {"all":true,<sly data-sly-repeat="${fyc.availableShips}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <div id="port-filter" data-sly-test="${fyc.availablePorts && fyc.availablePorts.size > 0}">
+        {"all":true,<sly data-sly-repeat="${fyc.availablePorts}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <div id="date-filter" data-sly-test="${fyc.availableDepartureDates && fyc.availableDepartureDates.size > 0}">
+        {"all":true,<sly data-sly-repeat="${fyc.availableDepartureDates}">"${item.toString}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <div id="duration-filter" data-sly-test="${fyc.availableDurations && fyc.availableDurations.size > 0}">
+        {"all":true,<sly data-sly-repeat="${fyc.availableDurations}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <div id="cruisetype-filter" data-sly-test="${fyc.availableCruiseTypes && fyc.availableCruiseTypes.size > 0}">
+        {"all":true,<sly data-sly-repeat="${fyc.availableCruiseTypes}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <div id="feature-filter" data-sly-test="${fyc.availableFeatures && fyc.availableFeatures.size > 0}">
+        {<sly data-sly-repeat="${fyc.availableFeatures}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
+    </div>
+    <input id="count-filter" type="hidden" value="${fyc.totalMatches}" />
+</div>
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />

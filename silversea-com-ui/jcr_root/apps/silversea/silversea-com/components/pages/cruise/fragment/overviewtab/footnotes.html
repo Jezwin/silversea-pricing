@@ -1,9 +1,10 @@
-<div class="c-cruise__footnotes">
-    <sly data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-unwrap />
-    <ul data-sly-list="${cruise.cruiseModel.exclusiveFareAdditions}">
-        <li>
-            <p>${item.notes}</p>
-        </li>
+<div class="c-cruise__footnotes" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
+    <ul>
+        <sly data-sly-list.eo="${cruise.exclusiveOffers}">
+            <li data-sly-repeat.footnote="${eo.footNotes}">
+                <i>${footnote}</i>
+            </li>
+        </sly>
+        <li data-sly-test="${cruise.cruiseModel.destination.footnote}"><i>${cruise.cruiseModel.destination.footnote}</i></li>
     </ul>
-    <i>${cruise.cruiseModel.destinationFootNote}</i>
 </div>

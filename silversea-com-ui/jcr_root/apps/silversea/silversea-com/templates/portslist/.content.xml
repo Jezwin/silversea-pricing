@@ -19,8 +19,7 @@
                 components="[group:displayproperties]">
             <display
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="silversea/silversea-com/components/included/finyourport"
-                    text="Display properties"/>
+                    sling:resourceType="silversea/silversea-com/components/included/finyourport" />
         </par>
     </jcr:content>
 </jcr:root>

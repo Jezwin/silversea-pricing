@@ -8,62 +8,56 @@ $(function() {
             $resultWrapper = $('.c-fyc__result-wrapper'),
             $page = $paginationWrapper.find('a.active').data('page');
 
-        /***************************************************************************
-         * Sort alphabetically
-         **************************************************************************/
-        function sortAlphabetically(a, b) {
-            var x = a.title.toLowerCase();
-            var y = b.title.toLowerCase();
-            return x < y ? -1 : x > y ? 1 : 0;
-        }
-
-        /***************************************************************************
-         * Filter : get/update filter from json response
-         **************************************************************************/
-        /*$.fn.populateSelectFYC = function() {
-            this.each(function() {
-                var selectsFilter = [ 'destinations', 'cities', 'ships', 'types', 'durations', 'dates' ];
-
-                $.ajax({
-                    type : 'GET',
-                    url : '/bin/cruises/search?language=' + $form.data('lang'),
-                    contentType : 'application/json',
-                    dataType : 'json',
-                    success : function(json) {
-                        selectsFilter.forEach(function(filterName) {
-                            // Append option in select filter
-                            buildOptions(json, filterName);
-
-                            // update Chosen with the new content
-                            $('.c-find-your-cruise-filter .chosen').trigger('chosen:updated');
-                        });
-                    }
-                });
-
-                // Functions utils
-                function buildOptions(json, filterName) {
-                    json[filterName].slice(0).sort(sortAlphabetically).forEach(function(option) {
-                        $('.' + filterName + '-filter').append($('<option>', {
-                            value : option.id,
-                            text : option.title,
-                            'data-sscclicktype' : 'filters',
-                            'data-value' : ''
-                        }));
-                    });
-                }
-            });
-        };
-
-        $form.populateSelectFYC();*/
-
         // Filter : open feature drop down
         $('.features-filter').on('click', function(e) {
             e.stopPropagation();
+            if($(e.target).closest('li').hasClass('disabled')){
+                e.preventDefault();
+            }
         });
 
-        /***************************************************************************
+        /***********************************************************************
+         * Update Filter according to result : compare option list full and
+         * option available
+         **********************************************************************/
+        var updateFilter = (function updateFilter() {
+            $filter = $form.find('select');
+
+            $filter.each(function() {
+                var $select = $(this);
+                var $optionList = $select.find('option');
+
+                // Build obj with available option
+                var jsonStr = $resultWrapper.find('#' + $select.attr('name') +'-filter').text();
+                if(jsonStr !== ''){
+                    var filterAvailableObj = JSON.parse(jsonStr);
+
+                    // Disabled option not available
+                    $optionList.each(function() {
+                        var $option = $(this);
+                        
+                        $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
+                    });
+                }
+
+            });
+
+            // Update chosen
+            $form.find('.chosen').trigger('chosen:updated');
+
+            // Update features filter
+            var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
+            $form.find('.features-filter li').each(function() {
+                var $item = $(this);
+                $item.toggleClass('disabled', filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true);
+            });
+
+            return updateFilter;
+        })();
+
+        /***********************************************************************
          * Features : show features legend according to the current page
-         **************************************************************************/
+         **********************************************************************/
         var featureListBuild = (function featureListBuild() {
             var template = '<span><i></i></span>';
             var featureList = {};
@@ -106,17 +100,16 @@ $(function() {
 
             // Data from first result
             $cruise = $resultWrapper.find('.c-fyc__result:first');
-            dataLayer.track_destination_id = '';
-            dataLayer.track_destination_name = '';
+            dataLayer.track_destination_id = $('.c-fyc__result-wrapper #current-destination-filter').data('value');
+            dataLayer.track_destination_name = $('.c-fyc__result-wrapper #current-destination-filter').val();
             dataLayer.track_voyage_id = $cruise.find('.cruise-code').text().trim();
-            dataLayer.track_departure_date = $cruise.find('c-fyc__result__content__summary__item:first').text().trim();
+            dataLayer.track_departure_date = $cruise.find('.c-fyc__result__content__summary__item:first dd').data('date');
             dataLayer.track_voyage_duration = $cruise.find('.c-fyc__result__content__summary__item--duration dd strong').text().trim();
             dataLayer.track_voyage_departure_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:first').text().trim();
             dataLayer.track_voyage_arrival_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:last').text().trim();
             dataLayer.track_voyage_type = $cruise.find('.cruise-type').text().trim();
             dataLayer.track_shipname = $cruise.find('.cruise-ship').text().trim();
             dataLayer.track_revenue = $cruise.find('.c-fyc__result__content__price strong').text().trim();
-            dataLayer.track_suite = '';
 
             return searchAnalytics;
         })();
@@ -129,16 +122,21 @@ $(function() {
             $resultWrapper.on('click', $paginationWrapper.find('a'), function(e) {
                 var $currentPage = $(e.target);
 
-                if ($currentPage.is('.c-fyc-pagination a')) {
+                if ($currentPage.closest('.c-fyc-pagination ul').length > 0) {
+
                     e.preventDefault();
+                    e.stopPropagation();
                     $paginationWrapper.find('a').removeClass('active');
                     $currentPage.addClass('active');
 
-                    $form.trigger('change');
+                    // Update parameters just before build request
+                    $page = $currentPage.data('page');
+
+                    $form.trigger('change', [true]);
 
                     // Scroll to filter
                     $('html, body').animate({
-                        scrollTop : $('.c-fyc-filter').first().offset().top - $('.c-header').offset().top
+                        scrollTop : $('.c-fyc-filter').first().offset().top - $('.c-header').height()
                     }, 800);
                 }
             });
@@ -160,7 +158,7 @@ $(function() {
                 $form.find('.chosen').trigger('chosen:updated');
 
                 // Force change event on form
-                $form.trigger('change');
+                $form.trigger('change', [false]);
 
                 // Set disable style on reset button
                 $btn.removeClass('active');
@@ -170,7 +168,7 @@ $(function() {
         /***************************************************************************
          * Filter : behavior on form change
          **************************************************************************/
-        $form.on('change', function() {
+        $form.on('change', function(e, isFromPagination) {
             // Set active state on reset button
             var resetState, $currentForm = $(this), featureNumber = 0, $filterValue = $($currentForm.serializeArray()), $paginationWrapper = $('.c-fyc-pagination');
 
@@ -187,11 +185,12 @@ $(function() {
                     $fieldwrapper.removeClass('active');
                 }
 
-                if (field.name === 'features[]') {
+                if (field.name === 'feature') {
                     featureNumber++;
                 }
             });
 
+            // Update reset style state
             if (resetState) {
                 $btnReset.addClass('active');
             } else {
@@ -214,17 +213,28 @@ $(function() {
                 $featureFieldWrapper.addClass('active');
             }
 
-            // Build request URL with filter, pagination and number of result per
-            // page.
+            // Build request URL with filter, pagination and number of result per page.
             var requestUrl = $currentForm.data('url');
 
+            var featuresSelectorValue = [];
             $filterValue.each(function(i, field) {
                 // Add filter
-                requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
-                //requestUrl = requestUrl + '.' + field.name + '_' + encodeURIComponent(field.value);
+                if (field.name === 'feature') {
+                    featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
+                } else {
+                    requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                }
             });
 
+            // Add features
+            if (featuresSelectorValue.length > 0) {
+                requestUrl = requestUrl + '.features_' + featuresSelectorValue.join("|");
+            } else {
+                requestUrl = requestUrl + '.features_all';
+            }
+
             // Add pagination
+            $page = (isFromPagination === true) ? $page : '1';
             requestUrl = requestUrl + '.page_' + $page;
 
             // Add limit
@@ -239,6 +249,12 @@ $(function() {
                 url : requestUrl,
                 success : function(result) {
                     $resultWrapper.html(result);
+
+                    // Update result count
+                    $('#matching-value').text($('#count-filter').val());
+
+                    // Update filter
+                    updateFilter();
 
                     // Build feature legend according to the current result
                     featureListBuild();

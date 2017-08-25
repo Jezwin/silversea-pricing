@@ -2,9 +2,6 @@ package com.silversea.aem.importers.services;
 
 import com.silversea.aem.importers.services.impl.ImportResult;
 
-/**
- * Created by aurelienolivier on 13/02/2017.
- */
 public interface ShoreExcursionsImporter {
 
     /**
@@ -15,8 +12,7 @@ public interface ShoreExcursionsImporter {
     ImportResult importAllShoreExcursions();
 
     /**
-     * Update the shore excursions based on the last import date
-     * stored in the cities root page
+     * Update the shore excursions based on the last import date stored in the cities root page
      *
      * @return import result
      */

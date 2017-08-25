@@ -2,6 +2,9 @@ package com.silversea.aem.components.beans;
 
 import java.math.BigDecimal;
 
+/**
+ * TODO clean
+ */
 public class Lead {
     private String title;
     private String firstname;
@@ -16,7 +19,8 @@ public class Lead {
     private String sitecurrency;
     // Subscribe to newletters
     private String subscribeemail;
-    private Short workingwithagent;
+    private String workingwithagent;
+    private String isnotagent;
     // Request a quote
     private String voyagename;
     private String voyagecode;
@@ -236,15 +240,15 @@ public class Lead {
     }
 
     /**
-     * @return the att02
+     * @return the subscribeemail
      */
     public String getSubscribeemail() {
         return subscribeemail;
     }
 
     /**
-     * @param att02
-     *            the att02 to set
+     * @param subscribeemail
+     *            the subscribeemail to set
      */
     public void setSubscribeemail(String subscribeemail) {
         this.subscribeemail = subscribeemail;
@@ -253,7 +257,7 @@ public class Lead {
     /**
      * @return the workingwithagent
      */
-    public Short getWorkingwithagent() {
+    public String getWorkingwithagent() {
         return workingwithagent;
     }
 
@@ -261,7 +265,7 @@ public class Lead {
      * @param workingwithagent
      *            the workingwithagent to set
      */
-    public void setWorkingwithagent(Short workingwithagent) {
+    public void setWorkingwithagent(String workingwithagent) {
         this.workingwithagent = workingwithagent;
     }
 
@@ -319,5 +323,13 @@ public class Lead {
 
     public void setMarketingEffort(String marketingEffort) {
         this.marketingEffort = marketingEffort;
+    }
+
+    public String getIsnotagent() {
+        return isnotagent;
+    }
+
+    public void setIsnotagent(String isnotagent) {
+        this.isnotagent = isnotagent;
     }
 }

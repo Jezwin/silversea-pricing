@@ -9,5 +9,5 @@ public interface LeadService {
      * @param lead : lead properties
      * @return response: generated id
      */
-    public String sendLead(Lead lead);
+    String sendLead(Lead lead);
 }

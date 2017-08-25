@@ -2,8 +2,6 @@ package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.components.beans.Duration;
-import com.silversea.aem.components.beans.Feature;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -22,7 +20,7 @@ import java.util.regex.Pattern;
  * Created by aurelienolivier on 12/02/2017.
  */
 @Model(adaptables = Page.class)
-public class ExcursionModel extends AbstractModel {
+public class ExcursionModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ExcursionModel.class);
 
@@ -49,25 +47,20 @@ public class ExcursionModel extends AbstractModel {
 
     private String shortDescription;
 
-    private List<Feature> features;
+    private List<FeatureModel> features;
 
     private String schedule;
 
     @PostConstruct
     private void init() {
-        try {
-            String html = description.trim().replaceAll("\\n ", "").replaceAll("<[^>]*>", "");
+        String html = description.trim().replaceAll("\\n ", "").replaceAll("<[^>]*>", "");
 
-            Pattern pattern = Pattern.compile("(.{0,400}[.,;\\s\\!\\?])");
-            Matcher matcher = pattern.matcher(html);
+        Pattern pattern = Pattern.compile("(.{0,400}[.,;\\s\\!\\?])");
+        Matcher matcher = pattern.matcher(html);
 
-            matcher.find();
-            if (matcher.find()) {
-                shortDescription = matcher.group(0);
-            }
-            features = initFeatures(page);
-        } catch (RuntimeException e) {
-            LOGGER.error("Error while initializing model {}", e);
+        matcher.find();
+        if (matcher.find()) {
+            shortDescription = matcher.group(0);
         }
     }
 
@@ -124,11 +117,46 @@ public class ExcursionModel extends AbstractModel {
         return page;
     }
 
-    public List<Feature> getFeatures() {
+    /**
+     * TODO initialize features
+     * @return
+     */
+    public List<FeatureModel> getFeatures() {
         return features;
     }
 
     public String getSchedule() {
         return schedule;
+    }
+
+    /**
+     * TODO replace by {@link java.time.Duration}
+     */
+    @Deprecated
+    public static class Duration {
+
+        double hours;
+
+        double minutes;
+
+        public Duration() {
+
+        }
+
+        public double getHours() {
+            return hours;
+        }
+
+        public void setHours(double hours) {
+            this.hours = hours;
+        }
+
+        public double getMinutes() {
+            return minutes;
+        }
+
+        public void setMinutes(double minutes) {
+            this.minutes = minutes;
+        }
     }
 }

@@ -1,19 +1,16 @@
 <sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse" />
 <div class="c-tab__content" id="Hotels">
     <h2>${portUse.portModel.title},</h2>
-    <div class="c-accordion" data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>" data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>" data-sly-list="${portUse.portModel.hotels}">
-        <div class="c-accordion__elem">
-            <div class="c-accordion__header">
-                <div class="c-accordion__title">
-                    <p><strong>${item.name}</strong></p>
-                </div>
-                <div class="c-accordion__action">
-                    ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
-                </div>
+    <div class="c-cruise-itinerary-2__list__item" id="hotel-accordion" role="tablist" aria-multiselectable="true">
+        <div data-sly-repeat.hotel="${portUse.portModel.hotels}" class="panel c-cruise-itinerary-2__list--nested__item">
+            <div class="collapsed panel--nested__heading" role="button" data-toggle="collapse" data-parent="#hotel-accordion" data-target="#hotel-${hotelList.count}" aria-expanded="false">
+                <h4 class="panel-title"><strong>${hotel.name}</strong></h4>
+                <span class="btn-more">${'more-info' @ i18n} <i class="fa fa-angle-down"></i></span>
+                <span class="btn-less">${'close' @ i18n} <i class="fa fa-angle-up"></i></span>
             </div>
-            <div class="c-accordion__body">
-                <div class="c-accordion__body--panel">
-                    ${item.description @ context='html'}
+            <div id="hotel-${hotelList.count}" class="collapse panel--nested__body" role="tabpanel">
+                <div class="panel--nested__body__inner">
+                    ${hotel.description @ context='html'}
                 </div>
             </div>
         </div>

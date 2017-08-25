@@ -1,16 +1,15 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesPricesImporter;
+import com.silversea.aem.importers.utils.CruisesImportUtils;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.PricesApi;
-import io.swagger.client.model.Price;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 import org.apache.felix.scr.annotations.Activate;
@@ -62,12 +61,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
     @Override
     public ImportResult importAllItems() {
-        return importSampleSet(-1);
-    }
-
-    @Override
-    public ImportResult importSampleSet(int size) {
-        LOGGER.debug("Starting prices import ({})", size == -1 ? "all" : size);
+        LOGGER.debug("Starting prices import");
 
         int successNumber = 0;
         int errorNumber = 0;
@@ -83,7 +77,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final PricesApi pricesApi = new PricesApi(ImporterUtils.getApiClient(apiConfig));
+            final PricesApi pricesApi = new PricesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
@@ -92,12 +86,12 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
             // Existing prices deletion
             LOGGER.debug("Cleaning already imported prices");
 
-            ImporterUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/prices\"]");
 
             // Initializing elements necessary to import prices
             // cruises
-            final Map<Integer, Map<String, String>> cruisesMapping = ImporterUtils.getItemsMapping(resourceResolver,
+            final Map<Integer, Map<String, String>> cruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
                     "cruiseId");
 
@@ -113,13 +107,17 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 final String[] suiteCategoryCodes = suite.getValueMap().get("suiteCategoryCode", String[].class);
 
                 if (suiteCategoryCodes != null) {
-                    for (String suiteCategoryCode : suiteCategoryCodes) {
-                        if (suitesMapping.containsKey(suiteCategoryCode)) {
-                            suitesMapping.get(suiteCategoryCode).put(language, suite.getParent());
+                    for (final String suiteCategoryCode : suiteCategoryCodes) {
+                        // generate unique key with ship name and suite category code
+                        final String suiteCatId = suite.getParent().getParent().getParent().getName() + "-" +
+                                suiteCategoryCode;
+
+                        if (suitesMapping.containsKey(suiteCatId)) {
+                            suitesMapping.get(suiteCatId).put(language, suite.getParent());
                         } else {
                             final HashMap<String, Resource> suitesResources = new HashMap<>();
                             suitesResources.put(language, suite.getParent());
-                            suitesMapping.put(suiteCategoryCode, suitesResources);
+                            suitesMapping.put(suiteCatId, suitesResources);
                         }
                     }
 
@@ -157,72 +155,13 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                                 // Iterating over markets
                                 for (final VoyagePriceMarket priceMarket : price.getMarketCurrency()) {
-                                    // Iterating over prices variation
-                                    for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
-                                        try {
-                                            if (!suitesMapping.containsKey(cruiseOnlyPrice.getSuiteCategoryCod())) {
-                                                throw new ImporterException("Cannot get suite with category " + cruiseOnlyPrice.getSuiteCategoryCod());
-                                            }
-
-                                            // Getting suite corresponding to suite category
-                                            final Map<String, Resource> suites = suitesMapping.get(cruiseOnlyPrice.getSuiteCategoryCod());
-                                            final String suiteName = suites.get(cruise.getKey()).getName();
-
-                                            final Node suiteNode = JcrUtils.getOrAddNode(suitesNode, suiteName);
-
-                                            final String priceVariationNodeName = cruiseOnlyPrice.getSuiteCategoryCod() +
-                                                    priceMarket.getMarketCod() +
-                                                    cruiseOnlyPrice.getCurrencyCod();
-
-                                            final Node priceVariationNode = suiteNode.addNode(JcrUtil.createValidChildName(suiteNode,
-                                                    priceVariationNodeName));
-
-                                            priceVariationNode.setProperty("suiteCategory", cruiseOnlyPrice.getSuiteCategoryCod());
-                                            priceVariationNode.setProperty("price", cruiseOnlyPrice.getCruiseOnlyFare());
-                                            priceVariationNode.setProperty("currency", cruiseOnlyPrice.getCurrencyCod());
-                                            priceVariationNode.setProperty("availability", cruiseOnlyPrice.getSuiteAvailability());
-                                            priceVariationNode.setProperty("cq:Tags", new String[]{"geotagging:" + priceMarket.getMarketCod().toLowerCase()});
-
-                                            // Writing suite reference based on lang
-                                            priceVariationNode.setProperty("suiteReference", suites.get(cruise.getKey()).getPath());
-
-                                            priceVariationNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices/pricevariation");
-
-                                            successNumber++;
-                                            itemsWritten++;
-
-                                            if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                                                try {
-                                                    session.save();
-
-                                                    LOGGER.debug("{} prices imported, saving session", +itemsWritten);
-                                                } catch (RepositoryException e) {
-                                                    session.refresh(true);
-                                                }
-                                            }
-                                        } catch (ImporterException | RepositoryException e) {
-                                            LOGGER.warn("Cannot import price for category, {}", e.getMessage());
-
-                                            errorNumber++;
-                                        }
-
-                                        if (size != -1 && itemsWritten >= size) {
-                                            break;
-                                        }
-                                    }
-
-                                    if (size != -1 && itemsWritten >= size) {
-                                        break;
-                                    }
+                                    CruisesImportUtils.importCruisePrice(session, cruiseContentNode, cruise,
+                                            suitesMapping, priceMarket, suitesNode, successNumber, errorNumber, itemsWritten, sessionRefresh);
                                 }
                             } catch (RepositoryException e) {
                                 LOGGER.warn("Cannot write prices for cruise {}", e.getMessage());
 
                                 errorNumber++;
-                            }
-
-                            if (size != -1 && itemsWritten >= size) {
-                                break;
                             }
                         }
                     } catch (ImporterException e) {
@@ -230,14 +169,6 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                         errorNumber++;
                     }
-
-                    if (size != -1 && itemsWritten >= size) {
-                        break;
-                    }
-                }
-
-                if (size != -1 && itemsWritten >= size) {
-                    break;
                 }
 
                 apiPage++;
@@ -247,7 +178,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 try {
                     session.save();
 
-                    LOGGER.debug("{} itineraries prices imported, saving session", +itemsWritten);
+                    LOGGER.info("{} prices imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }

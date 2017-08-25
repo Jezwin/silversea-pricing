@@ -4,10 +4,10 @@
         <p class="c-cruise__descr">${'cruise-ship-restaurant-description' @ i18n}</p>
     </sly>
     <div class="c-cruise__gallery">
-        <sly data-sly-use.itemVariationTemplate="itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=dinings}" />
+        <sly data-sly-use.itemVariationTemplate="silversea/silversea-com/components/pages/cruise/fragment/shiptab/itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=dinings}" />
         <div class="c-cruise__item-expander" data-sly-test="${dinings && dinings.size > 2}">
-            <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all-restaurants' @ i18n}</span><i class="fa fa-angle-down"></i></a>
-            <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
+            <a class="btn btn-thin btn-dark expander-open" href=""><span>${'view-all-restaurants' @ i18n}</span><i class="fa fa-angle-down"></i></a>
+            <a class="btn btn-thin btn-dark expander-close" href=""><span>${'close' @ i18n}</span><i class="fa fa-angle-up"></i></a>
         </div>
     </div>
 </div>

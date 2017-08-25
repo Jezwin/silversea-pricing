@@ -1,17 +1,15 @@
 package com.silversea.aem.models;
 
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.constants.WcmConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
 
 @Model(adaptables = Resource.class)
 public class PriceModel {
@@ -19,10 +17,9 @@ public class PriceModel {
     @Inject @Self
     private Resource resource;
 
-    @Inject
+    @Inject @Optional
     private String availability;
 
-    @Inject @Named("cq:Tags")
     private String[] tagIds;
 
     private String geomarket;
@@ -32,6 +29,9 @@ public class PriceModel {
 
     @Inject
     private Long price;
+
+    @Inject @Optional
+    private Long earlyBookingBonus;
 
     @Inject
     private String suiteCategory;
@@ -54,11 +54,16 @@ public class PriceModel {
             }
         }
 
+        // init tag ids
+        tagIds = resource.getValueMap().get("cq:tags", String[].class);
+
         // init geotagging
-        for (String tagId : tagIds) {
-            if (tagId.startsWith("geotagging:")) {
-                geomarket = tagId.replace("geotagging:", "");
-                break;
+        if (tagIds != null) {
+            for (String tagId : tagIds) {
+                if (tagId.startsWith("geotagging:")) {
+                    geomarket = tagId.replace("geotagging:", "");
+                    break;
+                }
             }
         }
     }
@@ -83,6 +88,14 @@ public class PriceModel {
         return price;
     }
 
+    public Long getEarlyBookingBonus() {
+        return earlyBookingBonus;
+    }
+
+    public Long getComputedPrice() {
+        return earlyBookingBonus != null ? earlyBookingBonus : price;
+    }
+
     public String getSuiteCategory() {
         return suiteCategory;
     }
@@ -92,6 +105,6 @@ public class PriceModel {
     }
 
     public boolean isWaitList() {
-        return availability.equals("waitlist");
+        return WcmConstants.PV_AVAILABILITY_WAITLIST.equals(availability);
     }
 }

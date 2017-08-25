@@ -16,4 +16,5 @@
     <filter root="/etc/designs/silversea-com">
         <exclude pattern="/etc/designs/silversea-com/jcr:content(.*)" />
     </filter>
+    <filter root="/apps/foundation/components/redirect" />
 </workspaceFilter>

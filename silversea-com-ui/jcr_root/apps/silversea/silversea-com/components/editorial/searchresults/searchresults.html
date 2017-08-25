@@ -1,35 +1,63 @@
 <div data-sly-use.use="com.silversea.aem.components.editorial.SearchResultsUse"
      data-sly-test="${(wcmmode.edit || wcmmode.design)}"
      class="cq-placeholder" data-emptytext="Search results"></div>
-<h1>Search : ${use.searchText}</h1>
 
-<sly data-sly-test="${use.searchResult}">
+<div class="c-search-result">
+    <div class="col-md-12">
+        <h2 class="c-search-result__search-trigger">${'search' @ i18n} <i class="fa fa-lg fa-angle-down"></i></h2>
+        <div class="form-group form-group-lg c-search-result__expand">
+           <p> ${'the-search-box-allows' @ i18n} </p>
+           <p>${'you-can-utilize-this-page' @ i18n} </p>
+            <form class="row col-md-8" action="${properties.searchPageReference ? properties.searchPageReference : currentPage.path @ extension ='html'}">
+                <input type="search" value="${use.searchText}" placeholder="${'type-here-to-search' @ i18n}" name="q" class="c-search-result__expand--searchbox-input">
+                <button type="submit" class="c-search-result__expand--searchbox-submit">
+                    <i class="fa fa-lg fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
-<sly data-sly-test="${use.searchResult.totalMatches > 0}">
-    <h2>Results :</h2>
-    <ul data-sly-list.hit="${use.searchResult.hits}">
-        <li>
+
+    <div class="col-md-12 c-search-result__results" data-sly-test="${use.searchResult}">
+        <h3>${'results' @ i18n}:</h3>
+        <div class="" data-sly-test="${use.searchResult.totalMatches > 0}">
+            <div class="c-search-result__results--list-group" data-sly-list.hit="${use.searchResult.hits}">
             <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=hit.path, absolute=false}" />
-            <b><a href="${externalizerHelper.externalizedUrl @ extension='html'}">${hit.title @ context='html'}</a></b>
-            <p>${hit.excerpt @ context='html'}</p>
-        </li>
-    </ul>
-    <sly data-sly-test="${use.pageRequestedInt != 1}"><a href="${currentPage.path}.html?q=${use.searchText}&page=1">FIRST</a></sly>
-    <sly data-sly-test="${use.showPreviousLink}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.previousPage}">PREV</a></sly>
-    <sly data-sly-test="${use.showFirstPage}"><a href="${currentPage.path}.html?q=${use.searchText}&page=1">1</a></sly>
-    <sly data-sly-test="${use.showPrev}">&nbsp;...</sly>
-    <sly data-sly-repeat="${use.pageTrio}">
-        <sly data-sly-test="${item == use.pageRequested}"><b>${item}&nbsp;</b></sly>
-        <sly data-sly-test="${item != use.pageRequested}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${item}">${item}&nbsp;</a></sly>
-    </sly>
-    <sly data-sly-test="${use.showNext}">...&nbsp;</sly>
-    <sly data-sly-test="${use.showLastPage}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">${use.numberOfPages}</a></sly>
-    <sly data-sly-test="${use.showNextLink}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.nextPage}">NEXT</a></sly>
-    <sly data-sly-test="${use.pageRequestedInt != use.numberOfPages}"><a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">LAST</a></sly>
-</sly>
+                <a href="${externalizerHelper.externalizedUrl @ extension='html'}" class="list-group-item list-group-item-action">
+                    <h4 class="title">${hit.title @ context='html'}</h4>
+                    <p class="excerpt">${hit.excerpt @ context='html'}</p>
+                </a>
+            </div>
 
-<sly data-sly-test="${use.searchResult.totalMatches <= 0}">
-    <h2>NO Results!</h2>
-</sly>
+            <nav class="c-search-result__pagination">
+              <ul class="c-search-result__pagination--list">
+                <li class="c-search-result__pagination--list-item" data-sly-test="${use.showPreviousLink}">
+                     <a class="c-search-result__pagination--list-item-prev" href="${currentPage.path}.html?q=${use.searchText}&page=${use.previousPage}">← Previous</a>
+                </li>
+                <li class="c-search-result__pagination--list-item"  data-sly-test="${use.showFirstPage}">
+                     <a href="${currentPage.path}.html?q=${use.searchText}&page=1">&nbsp;1</a>
+                </li>
+                <li class="c-search-result__pagination--list-item" data-sly-test="${use.showPrev}">&nbsp;...</li>
+                <li class="c-search-result__pagination--list-item" data-sly-repeat="${use.pageTrio}">
+                    <div  class="c-search-result__pagination--list-item-active" data-sly-test="${item == use.pageRequested}"><b>${item}&nbsp;</b></div>
+                    <a data-sly-test="${item != use.pageRequested}" href="${currentPage.path}.html?q=${use.searchText}&page=${item}">${item}&nbsp;</a>
+                </li>
+                <li class="c-search-result__pagination--list-item" data-sly-test="${use.showNext}"> ...&nbsp; </li>
+                <li class="c-search-result__pagination--list-item" data-sly-test="${use.showLastPage}">
+                    <a href="${currentPage.path}.html?q=${use.searchText}&page=${use.numberOfPages}">${use.numberOfPages}</a>
+                </li>
+                <li class="c-search-result__pagination--list-item" data-sly-test="${use.showNextLink}">
+                     <a href="${currentPage.path}.html?q=${use.searchText}&page=${use.nextPage}">Next →</a>
+                </li>
+              </ul>
+            </nav>
 
-</sly>
+        </div>
+        <div class="c-search-result__no-result" data-sly-test="${use.searchResult.totalMatches <= 0}">
+            <h3>${'no-results-search' @ i18n}</h3>
+        </div>
+
+    </div>
+
+
+</div>

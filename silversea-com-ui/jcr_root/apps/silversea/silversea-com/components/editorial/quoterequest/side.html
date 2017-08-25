@@ -2,13 +2,17 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Quote request destination parameters"></div>
 <div class="c-quote-request-side row" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
     ${quoteRequest.prepareDestinationParameters}
-    <img class="hidden-xs" src="${quoteRequest.cruiseThumbnail}" />
+    <img class="hidden-xs" src="${quoteRequest.selectedCruise.thumbnail}" />
     <div class="c-quote-request-side__inner">
-        <h3 class="c-quote-request-side__inner__title">${quoteRequest.cruiseTitle}</h3>
+        <h3 class="c-quote-request-side__inner__title">${quoteRequest.selectedCruise.title}</h3>
         <ul class="c-quote-request-side__list">
-            <li class="c-quote-request-side__list__departure" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=quoteRequest.cruiseDepartureDate}"><span class="hidden-xs">${'departure' @ i18n}:</span> <strong>${startDate.value}</strong></li>
-            <li class="c-quote-request-side__list__duration"><span class="hidden-xs">${'duration' @ i18n}:</span> <strong>${quoteRequest.cruiseDuration} ${'days' @ i18n}</strong></li>
-            <li class="c-quote-request-side__list__ship"><span class="hidden-xs">${'ship' @ i18n}:</span> <strong>${quoteRequest.cruiseShipName}</strong></li>
+            <li class="c-quote-request-side__list__departure" data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=quoteRequest.selectedCruise.startDate}"><span class="hidden-xs">${'departure' @ i18n}:</span> <strong>${startDate.value}</strong></li>
+            <li class="c-quote-request-side__list__duration"><span class="hidden-xs">${'duration' @ i18n}:</span>
+                <strong>${quoteRequest.selectedCruise.duration} ${'days' @ i18n}</strong>
+            </li>
+            <li class="c-quote-request-side__list__ship">
+                <span class="hidden-xs">${'ship' @ i18n}:</span> <strong>${quoteRequest.selectedCruise.ship.title}</strong>
+            </li>
             <li data-sly-test="${quoteRequest.isSuiteRequested}" class="c-brochure__list__suite"><span class="hidden-xs">${'suite' @ i18n}:</span>
                 <strong data-sly-test="${quoteRequest.isSuiteVariationRequested}"> ${quoteRequest.suiteName}</strong>
                 <strong data-sly-test="${quoteRequest.isSuiteCategoryRequested}"> ${quoteRequest.suiteName @ i18n}</strong>
@@ -16,8 +20,13 @@
         </ul>
     </div>
     <div class="c-quote-request-side__price hidden-xs">
-        ${'fares-from' @ i18n}
-        <strong>${quoteRequest.cruisePrice.currency @ i18n} ${quoteRequest.cruisePrice.value}</strong>
-        (${'per-guest' @ i18n})
+        <sly data-sly-test="${quoteRequest.isWaitList}">${'waitlist' @ i18n}</sly>
+        <sly data-sly-test="${!quoteRequest.isWaitList}">
+            ${'fares-from' @ i18n}
+            <strong data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.computedPrice}">
+                ${quoteRequest.cruisePrice.currency @ i18n} ${priceHelper.valueFormatted}
+            </strong>
+            (${'per-guest' @ i18n})
+        </sly>
     </div>
 </div>

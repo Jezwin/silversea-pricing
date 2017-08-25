@@ -1,14 +1,8 @@
 package com.silversea.aem.components.page;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
+import com.adobe.granite.confmgr.Conf;
+import com.day.cq.commons.Externalizer;
+import com.day.cq.wcm.api.Page;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
@@ -16,10 +10,13 @@ import org.apache.sling.models.annotations.Source;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.settings.SlingSettingsService;
 
-import com.adobe.cq.social.journal.client.api.Journal;
-import com.adobe.granite.confmgr.Conf;
-import com.day.cq.commons.Externalizer;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Model Sitemap
@@ -45,7 +42,7 @@ public class SitemapEntryModel {
     @Inject
     @Source("osgi-services")
     private SlingSettingsService slingSettingsService;
-    
+
     /**
      * Depth Configuration
      */
@@ -83,11 +80,16 @@ public class SitemapEntryModel {
     public String getExternalizedUrl() {
         ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
         Set<String> runModes = null;
-        if(slingSettingsService !=null){        	
-        	runModes = slingSettingsService.getRunModes();
+        if (slingSettingsService != null) {
+            runModes = slingSettingsService.getRunModes();
         }
-        String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
-        return externalizer.externalLink(resourceResolver, domain, page.getPath()) + Journal.URL_SUFFIX;
+
+        final String domain = runModes != null && !runModes.contains("author") ? Externalizer.PUBLISH : Externalizer.AUTHOR;
+        if (page.getPath().equals("/content/silversea-com/en")) { // TODO constant
+            return externalizer.externalLink(resourceResolver, domain, page.getPath() + ".html");
+        }
+
+        return externalizer.externalLink(resourceResolver, domain, page.getPath()) + ".html";
     }
 
     /**

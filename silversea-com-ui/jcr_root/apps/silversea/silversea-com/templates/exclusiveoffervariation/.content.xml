@@ -14,8 +14,7 @@
             sling:resourceType="wcm/foundation/components/responsivegrid">
             <display
                 jcr:primaryType="nt:unstructured"
-                sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers"
-                text="Display properties" />
+                sling:resourceType="silversea/silversea-com/components/displayproperties/exclusiveoffers" />
         </par>
     </jcr:content>
 </jcr:root>

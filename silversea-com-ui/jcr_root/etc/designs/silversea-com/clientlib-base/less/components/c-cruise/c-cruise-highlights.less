@@ -47,21 +47,21 @@
             a[data-toggle-text="close"] {
                 display: none;
             }
-
-            a[data-toggle-text="show"] {
-                display: block;
-            }
         }
 
         &--expand {
             background: @white;
             bottom: 0;
             display: block;
-            padding: 15px;
+            padding: 15px; 
             position: absolute;
             right: 0;
             text-align: center;
             width: 100%;
+
+            .c-cruise-highlights__content.open & {
+                position: static;
+            }
 
             a {
                 font-size: 12px;

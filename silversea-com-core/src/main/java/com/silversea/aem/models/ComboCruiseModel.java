@@ -1,139 +1,150 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.utils.CruiseUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.components.beans.GeoLocation;
-import com.silversea.aem.components.beans.ItinerariesData;
-import com.silversea.aem.components.beans.PriceData;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-
-@Model(adaptables = { Page.class })
-public class ComboCruiseModel extends AbstractModel {
+@Model(adaptables = Page.class)
+public class ComboCruiseModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ComboCruiseModel.class);
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    private String title;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
+    private String description;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/apiTitle") @Optional
+    private String apiTitle;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/portsAmount") @Optional
+    private Long portsAmount;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/countriesAmount") @Optional
+    private Long countriesAmount;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipReference")
+    private String shipReference;
+
+    private List<SegmentModel> segments = new ArrayList<>();
+
     private ShipModel ship;
-    private List<SegmentModel> segments;
-    private ItinerariesData itinerariesData;
-    private PriceData lowestPrice;
-    private List<SuiteModel> suites;
-    private int nbTab;
-    private ResourceResolver resourceResolver;
-    private PageManager pageManager;
-    
+
+    private List<PriceModel> prices = new ArrayList<>();
+
+    private String thumbnail;
+
+    private int duration = 0;
+
+    private String departurePortName;
+
     @PostConstruct
     private void init() {
-        try {
-            resourceResolver = page.getContentResource().getResourceResolver();
-            pageManager = resourceResolver.adaptTo(PageManager.class);
-            String shipReference = page.getProperties().get("shipReference",String.class);
-            ship = initShip(shipReference, pageManager);
-        } catch (RuntimeException e) {
-            LOGGER.error("Error while initializing model {}", e);
-        }
-    }
+        final PageManager pageManager = page.getPageManager();
+        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
-    public void initByGeoLocation(GeoLocation geoLocation) {
-        lowestPrice = initLowestPrice(geoLocation.getGeoMarketCode(),page);
-        initSegments(geoLocation);
-        itinerariesData = initItinerariesData();
-        suites = initSuites(page,geoLocation.getGeoMarketCode(),pageManager);
-    }
- 
-    private void initSegments(GeoLocation geoLocation){
-        Iterator<Page> children = page.listChildren();
-        if(children != null){
-            segments = new ArrayList<SegmentModel>();
-            children.forEachRemaining(segment ->{
-                if(segment != null){
-                    SegmentModel segmentModel = segment.adaptTo(SegmentModel.class);
-                    segmentModel.initByGeoLocation(geoLocation);
-                    segments.add(segmentModel);
-                }
-            });
+        // init ship
+        final Page shipPage = pageManager.getPage(shipReference);
+        if (shipPage != null) {
+            ship = shipPage.adaptTo(ShipModel.class);
         }
-    }
-    
-    public ItinerariesData initItinerariesData() {
-        int nbHotels = 0;
-        int nbExcursions = 0;
-        int nbLandPrograms = 0;
-        if(segments != null && !segments.isEmpty()){
-            List<ItinerariesData> list = segments.stream()
-                                                 .map(SegmentModel::getCruise)
-                                                 .map(CruiseModel::getItinerariesData)
-                                                 .collect(Collectors.toList());
-            if(list != null && !list.isEmpty()){
-                for(ItinerariesData element : list){
-                    nbHotels += element.getNbHotels();
-                    nbExcursions += element.getNbExcursions();
-                    nbLandPrograms += element.getNbLandPrograms();
+
+        // init prices
+        final Resource suitesResource = page.getContentResource().getChild("suites");
+        if (suitesResource != null) {
+            CruiseUtils.collectPrices(prices, suitesResource);
+        }
+
+        // init thumbnail
+        final Resource imageResource = page.getContentResource().getChild("image");
+        if (imageResource != null) {
+            thumbnail = imageResource.getValueMap().get("fileReference", String.class);
+        }
+
+        // init segments
+        final Iterator<Page> children = page.listChildren();
+        while (children.hasNext()) {
+            final SegmentModel segmentModel = children.next().adaptTo(SegmentModel.class);
+
+            if (segmentModel != null) {
+                if (segmentModel.getCruise() != null) {
+                    if (departurePortName == null) {
+                        departurePortName = segmentModel.getCruise().getDeparturePortName();
+                    }
+
+                    try {
+                        duration += Integer.valueOf(segmentModel.getCruise().getDuration());
+                    } catch (NumberFormatException ignored) {}
                 }
+
+                segments.add(segmentModel);
             }
         }
-        
-       initTabs(nbHotels, nbExcursions, nbLandPrograms);
-       return new ItinerariesData(nbHotels, nbExcursions, nbLandPrograms);
-    }
-    
-    public void initTabs(int nbHotels, int nbExcursions, int nbLandPrograms){
-        if(nbExcursions > 0 && (nbLandPrograms > 0 || nbHotels > 0)){
-            nbTab = 7;  
-        }
-        else if (nbExcursions == 0 && (nbLandPrograms > 0 || nbHotels > 0)){
-            nbTab = 6; 
-        }
-        else if (nbExcursions > 0 && (nbLandPrograms == 0 && nbHotels == 0)){
-            nbTab = 6; 
-        }
-        else{
-            nbTab = 5;
-        }
-    }
-    
-    public PriceData getLowestPrice() {
-        return lowestPrice;
     }
 
-    public Page getPage() {
-        return page;
+    public String getTitle() {
+        return title;
     }
 
-    public List<SegmentModel> getSegments() {
-        return segments;
+    public String getDescription() {
+        return description;
     }
 
-    public List<SuiteModel> getSuites() {
-        return suites;
+    public int getDuration() {
+        return duration;
+    }
+
+    public Long getPortsAmount() {
+        return portsAmount;
+    }
+
+    public int getRoutesAmount() {
+        return segments.size();
+    }
+
+    public Long getCountriesAmount() {
+        return countriesAmount;
+    }
+
+    public String getDeparturePortName() {
+        return departurePortName;
     }
 
     public ShipModel getShip() {
         return ship;
     }
 
-    public ItinerariesData getItinerariesData() {
-        return itinerariesData;
+    /**
+     * @return prices of each suite variation for this cruise
+     */
+    public List<PriceModel> getPrices() {
+        return prices;
     }
 
-    public int getNbTab() {
-        return nbTab;
-    } 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public List<SegmentModel> getSegments() {
+        return segments;
+    }
 }

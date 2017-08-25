@@ -1,73 +1,56 @@
 package com.silversea.aem.models;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-/**
- * Created by mbennabi on 17/02/2017.
- */
 @Model(adaptables = Page.class)
 public class DestinationModel {
 
-    @Inject
-    @Self
+    @Inject @Self
     private Page page;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/mapLabel")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/mapLabel") @Optional
     private String mapLabel;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/excerpt")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/excerpt") @Optional
     private String excerpt;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/destinationId")
-    @Optional
-    private Integer destinationId;
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/destinationId") @Optional
+    private String destinationId;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/footnote")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/footnote") @Optional
     private String footnote;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/assetselectionreference")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetselectionreference") @Optional
     private String assetselectionreference;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/category")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/category") @Optional
     private String category;
 
-
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/customHtml")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/customHtml") @Optional
     private String customHtml;
+
+    private String path;
+
+    private String name;
 
     @PostConstruct
     private void init() {
+        path = page.getPath();
+        name = page.getName();
     }
 
     public String getTitle() {
@@ -82,19 +65,54 @@ public class DestinationModel {
         return excerpt;
     }
 
-    public Integer getDestinationId() {
+    public String getDestinationId() {
         return destinationId;
     }
 
-    public String getLongDescription() { return longDescription; }
+    public String getLongDescription() {
+        return longDescription;
+    }
 
-    public String getFootnote() { return footnote; }
+    public String getFootnote() {
+        return footnote;
+    }
 
-    public String getAssetselectionreference() { return assetselectionreference; }
+    public String getAssetselectionreference() {
+        return assetselectionreference;
+    }
 
-    public String getCategory() { return category; }
+    public String getCategory() {
+        return category;
+    }
 
-    public String getCustomHtml() { return customHtml; }
+    public String getCustomHtml() {
+        return customHtml;
+    }
 
+    public String getPath() {
+        return path;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof DestinationModel)) {
+            return false;
+        }
+
+        final DestinationModel objDestinationModel = (DestinationModel)obj;
+
+        return objDestinationModel.getPath().equals(getPath());
+    }
 }

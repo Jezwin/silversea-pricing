@@ -1,5 +1,9 @@
 .c-suitelist {
     .c-tab__content--description {
+        &__slider {
+            display: none;
+        }
+
         &__info {
             background-color: @white;
             border: 1px solid @grey--e0;
@@ -9,6 +13,10 @@
         &__price {
             margin-top: 20px;
         }
+    }
+
+    [aria-expanded=true] .c-tab__content--description__slider {
+        display: block;
     }
 
     .c-tab__content--feature {

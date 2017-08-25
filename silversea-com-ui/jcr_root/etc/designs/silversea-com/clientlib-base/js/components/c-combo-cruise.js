@@ -15,9 +15,9 @@ $(function() {
             $currentSlider.slick('unslick').slick(settingSlider);
 
             // Scroll to panel
-            $('html').delay(500).animate({
+            $('html, body').stop().delay(100).animate({
                 scrollTop: $panel.offset().top - $('.c-header').height() - 24
-            }, 500);
+            }, 300);
         });
     })
 
@@ -27,7 +27,7 @@ $(function() {
 
         // scroll to "top" page
         $('html, body').stop().animate({
-            scrollTop: $('.c-combo-cruise .c-combo-cruise-tab').offset().top - $('.c-header').height() - 24
+            scrollTop: $('.c-combo-cruise .c-tab__nav--fixed').offset().top - $('.c-header').height() - 24
         }, 0, function() {
             // Open tab
             var tabId = $trigger.data('tab-target');

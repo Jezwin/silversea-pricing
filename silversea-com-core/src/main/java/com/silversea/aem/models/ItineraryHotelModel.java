@@ -30,23 +30,26 @@ public class ItineraryHotelModel {
 
         if (pageManager != null) {
             final Page hotelPage = pageManager.getPage(hotelReference);
-            hotel = hotelPage.adaptTo(HotelModel.class);
+
+            if (hotelPage != null) {
+                hotel = hotelPage.adaptTo(HotelModel.class);
+            }
         }
     }
 
     public String getName() {
-        return hotel.getName();
+        return hotel != null ? hotel.getName() : null;
     }
 
     public String getDescription() {
-        return hotel.getDescription();
+        return hotel != null ? hotel.getDescription() : null;
     }
 
     public String getShortDescription() {
-        return hotel.getShortDescription();
+        return hotel != null ? hotel.getShortDescription() : null;
     }
 
     public String getCode() {
-        return hotel.getCode();
+        return hotel != null ? hotel.getCode() : null;
     }
 }

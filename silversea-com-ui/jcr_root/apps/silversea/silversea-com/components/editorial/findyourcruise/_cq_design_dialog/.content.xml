@@ -36,21 +36,6 @@
                                 defaultValue="10"
                                 min="1"
                                 name="./paginationLimit" />
-                            <raqreference
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                fieldDescription="Path"
-                                fieldLabel="Request a quote"
-                                name="./raqReference"
-                                rootPath="/content/dam/silversea-com" />
-                            <cruises
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                fieldDescription="Path"
-                                fieldLabel="Cruises"
-                                name="./cruises"
-                                required="{Boolean}true"
-                                rootPath="/content/silversea-com/" />
                         </items>
                     </column>
                 </items>

@@ -4,9 +4,9 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.BrochuresImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
 import io.swagger.client.ApiException;
@@ -80,7 +80,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final BrochuresApi brochuresApi = new BrochuresApi(ImporterUtils.getApiClient(apiConfig));
+            final BrochuresApi brochuresApi = new BrochuresApi(ImportersUtils.getApiClient(apiConfig));
 
             int j = 0, i = 1;
             List<Brochure> brochures;
@@ -162,11 +162,6 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                     }
                                 }
 
-                                LOGGER.trace("{} --- {}", title, brochure.getTitle());
-                                LOGGER.trace("{} --- {}", onlineBrochureUrl, brochure.getBrochureUrl());
-                                LOGGER.trace("{} --- {}", brochureDigitalOnly, brochure.getDigitalOnly());
-                                LOGGER.trace("tags equals: {}", compareLists(tags, existingTagsList));
-
                                 if (!title.equals(brochure.getTitle())
                                         || !onlineBrochureUrl.equals(brochure.getBrochureUrl())
                                         || brochureDigitalOnly.booleanValue() != brochure.getDigitalOnly().booleanValue()
@@ -214,7 +209,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 
             // Mark as "to deactivate" all brochures not present on API side
             if (mode.equals("update")) {
-                LOGGER.debug("Starting deactivation of brochures");
+                LOGGER.debug("Starting mark as deactivate brochures");
 
                 final String query = "/jcr:root/content/dam/silversea-com/brochures" +
                         "//element(*, dam:Asset)[jcr:content/metadata/brochureCode]";

@@ -62,6 +62,10 @@ public class PortModel {
 
     private List<HotelModel> hotels = new ArrayList<>();
 
+    private String path;
+
+    private String name;
+
     @PostConstruct
     private void init() {
         excursions = new ArrayList<>();
@@ -102,6 +106,9 @@ public class PortModel {
                 country = tagManager.resolve(tagId);
             }
         }
+
+        path = page.getPath();
+        name = page.getName();
     }
 
     public String getTitle() {
@@ -150,5 +157,32 @@ public class PortModel {
 
     public String getCountry() {
         return country != null ? country.getTitle() : null;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof PortModel)) {
+            return false;
+        }
+
+        final PortModel objShipModel = (PortModel)obj;
+
+        return objShipModel.getPath().equals(getPath());
     }
 }

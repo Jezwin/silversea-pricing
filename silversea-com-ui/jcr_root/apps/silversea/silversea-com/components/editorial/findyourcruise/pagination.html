@@ -1,8 +1,15 @@
 <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
-<nav class="c-fyc-pagination">
-    <ul>
-        <li data-sly-repeat="${['first', 'previous', '2', '3', '4', '5', '6', 'next', 'last']}">
-            <a href="#" data-page="${item}" class="${item == 'previous' ? 'previous': ''} ${item == 'next' ? 'next': ''} ${item == '2' ? 'active' : ''}">${item @ i18n}</a>
+<nav class="c-fyc-pagination"  data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse" data-sly-test="${fyc.pagesNumber != 1}">
+    <ul data-sly-list.page="${fyc.pagination}">
+        <li data-sly-test.currentPage="${page}">
+            <a href="#" data-page="${currentPage}" title="${currentPage}"
+            class="${pageList.count == 2 ? 'previous': ''} ${pageList.count == 8 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''}">
+                <sly data-sly-test="${pageList.count == 1}">${'first' @ i18n}</sly>
+                <sly data-sly-test="${pageList.count == 2}">${'previous' @ i18n}</sly>
+                <sly data-sly-test="${pageList.count == 8}">${'next' @ i18n}</sly>
+                <sly data-sly-test="${pageList.count == 9}">${'last' @ i18n}</sly>
+                <sly data-sly-test="${pageList.count > 2 && pageList.count < 8}">${page @ i18n}</sly>
+            </a>
         </li>
     </ul>
 </nav>

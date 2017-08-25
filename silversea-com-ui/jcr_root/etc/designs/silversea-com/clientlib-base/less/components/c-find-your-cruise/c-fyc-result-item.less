@@ -1,7 +1,9 @@
 .c-fyc {
-    .meta_feature_inner .feature {
-        float: none;
-        margin-right: 0;
+    .meta_feature_inner {
+        .feature {
+            float: none;
+            margin-right: 5px;
+        }
     }
 
     &__result {
@@ -276,6 +278,12 @@
         }
     }
 
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm) {
+        &__result__content__title {
+            min-height: 32px;
+        }
+    }
+
     @media screen and (min-width: @screen-md-min) {
         &__result {
             border-bottom: 1px solid @grey--d9;
@@ -478,6 +486,7 @@
 
                 &__description {
                     left: 14.5%;
+                    padding-right: 15px;
                     position: relative;
                     width: 19%;
 
@@ -558,6 +567,7 @@
                 }
 
                 &__price {
+                    padding-right: 5px;
                     width: 15%;
 
                     strong {

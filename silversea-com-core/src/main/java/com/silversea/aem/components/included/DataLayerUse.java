@@ -4,39 +4,33 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
-import com.silversea.aem.components.beans.GeoLocation;
 import com.silversea.aem.components.beans.MediaDataLayer;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.services.GeolocationService;
+import com.silversea.aem.models.GeolocationTagModel;
+import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.services.RunModesService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by mbennabi on 20/04/2017.
  */
 public class DataLayerUse extends WCMUsePojo {
 
-    private Map<String, String> listCat1;
-
-    // TODO typo
-    private String contry;
+    private String country;
 
     private String runMode = "";
     private String event = "";
-    private String userEmail = "";
-    private String currentPageUrl = "";
 
-    // TODO typo
-    private String userContry;
+    private String currentPageUrl = "";
+    private String userCountry;
 
     private String userLanguage = "";
     private String pageCategory1 = "";
@@ -52,7 +46,7 @@ public class DataLayerUse extends WCMUsePojo {
     private String voyageType = "";
     private String shipName = "";
     private String revenue = "";
-    private String geoLoc;
+    private String geomarket = WcmConstants.DEFAULT_GEOLOCATION_GEO_MARKET_CODE;
     private MediaDataLayer media;
 
     // TODO review exception
@@ -60,16 +54,44 @@ public class DataLayerUse extends WCMUsePojo {
     public void activate() throws Exception {
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         final Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+        final RunModesService runModesService = getSlingScriptHelper().getService(RunModesService.class);
+
+        // TODO create geo sensitive use pojo
+        // init geolocations informations
+        String currency = WcmConstants.DEFAULT_CURRENCY;
+
+        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
+                GeolocationTagService.class);
+
+        if (geolocationTagService != null) {
+            final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromRequest(
+                    getRequest());
+
+            if (geolocationTagModel != null) {
+                geomarket = geolocationTagModel.getMarket();
+                currency = geolocationTagModel.getCurrency();
+            }
+        }
+
+        // media
+        country = GeolocationHelper.getCountryCode(getRequest());
+        if (country != null) {
+            geomarket = GeolocationHelper.getGeoMarket(tagManager, country);
+            geomarket = geomarket != null ? geomarket.toUpperCase() : "FT";
+        } else {
+            country = "US";
+            geomarket = "FT";
+        }
 
         // Environment data
-        RunModesService run = getSlingScriptHelper().getService(RunModesService.class);
-        runMode = run.getCurrentRunMode();
+        if (runModesService != null) {
+            runMode = runModesService.getCurrentRunMode();
+        }
 
         final Resource contentResource = getCurrentPage().getContentResource();
-        final ValueMap pageProperties = getCurrentPage().getProperties();
 
-        if (pageProperties.get("pageEvent") != null) {
-            event = pageProperties.get("pageEvent", String.class);
+        if (getPageProperties().get("pageEvent") != null) {
+            event = getPageProperties().get("pageEvent", String.class);
         }
 
         if (contentResource.isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) && event.equals("")) {
@@ -84,27 +106,31 @@ public class DataLayerUse extends WCMUsePojo {
         final Locale locale = getCurrentPage().getLanguage(false);
         userLanguage = locale.getLanguage();
 
-        userContry = GeolocationHelper.getCountryCode(getRequest());
-        if (userContry == null) {
-            userContry = "US";
+        userCountry = GeolocationHelper.getCountryCode(getRequest());
+        if (userCountry == null) {
+            userCountry = "US";
         }
 
-        currentPageUrl = externalizer.publishLink(getResourceResolver(), "http", getCurrentPage().getPath()) + ".html";
+        if (externalizer != null) {
+            currentPageUrl = externalizer.publishLink(getResourceResolver(), "http",
+                    getCurrentPage().getPath()) + ".html";
+        }
 
         // tree structure data
-        if (pageProperties.get("pageCategory1") != null) {
-            pageCategory1 = pageProperties.get("pageCategory1", String.class);
+        if (getPageProperties().get("pageCategory1") != null) {
+            pageCategory1 = getPageProperties().get("pageCategory1", String.class);
         }
 
-        if (pageProperties.get("pageCategory2") != null) {
-            pageCategory2 = pageProperties.get("pageCategory2", String.class);
+        if (getPageProperties().get("pageCategory2") != null) {
+            pageCategory2 = getPageProperties().get("pageCategory2", String.class);
         }
 
-        if (pageProperties.get("pageCategory3") != null) {
-            pageCategory3 = pageProperties.get("pageCategory3", String.class);
+        if (getPageProperties().get("pageCategory3") != null) {
+            pageCategory3 = getPageProperties().get("pageCategory3", String.class);
         }
 
-        listCat1 = new HashMap<>();
+        // TODO move to constants interface
+        final Map<String, String> listCat1 = new HashMap<>();
         listCat1.put(WcmConstants.RT_VOYAGE, "voyages");
         listCat1.put(WcmConstants.RT_EXCLUSIVE_OFFER, "single exclusive offer");
         listCat1.put(WcmConstants.RT_DESTINATION, "destinations");
@@ -128,30 +154,31 @@ public class DataLayerUse extends WCMUsePojo {
 
         String comboTag = null;
         if (contentResource.isResourceType(WcmConstants.RT_COMBO_CRUISE)) {
-            final Tag[] listTag = tagManager.getTags(contentResource);
+            if (tagManager != null) {
+                final Tag[] listTag = tagManager.getTags(contentResource);
 
-            for (Tag tag : listTag) {
-                if (tag != null && tag.getNamespace().getPath().equals("/etc/tags/combo-cruise-types")) {
-                    comboTag = tag.getName();
+                for (Tag tag : listTag) {
+                    if (tag != null && tag.getNamespace().getPath().equals("/etc/tags/combo-cruise-types")) {
+                        comboTag = tag.getName();
+                    }
+                }
+
+                if (comboTag != null) {
+                    listCat1.put(WcmConstants.RT_COMBO_CRUISE, comboTag);
+                } else {
+                    listCat1.put(WcmConstants.RT_COMBO_CRUISE, "");
                 }
             }
-
-            if (comboTag != null) {
-                listCat1.put(WcmConstants.RT_COMBO_CRUISE, comboTag);
-            } else {
-                listCat1.put(WcmConstants.RT_COMBO_CRUISE, "");
-            }
-
         }
 
         if (pageCategory1.equals("")) {
-            String value = listCat1.get(contentResource.getResourceType());
+            final String value = listCat1.get(contentResource.getResourceType());
 
             if (value != null) {
                 pageCategory1 = value;
             } else {
                 pageCategory1 = StringUtils
-                        .substringAfterLast(pageProperties.get("cq:template", String.class), "/");
+                        .substringAfterLast(getPageProperties().get("cq:template", String.class), "/");
             }
         }
 
@@ -162,11 +189,13 @@ public class DataLayerUse extends WCMUsePojo {
             }
 
             if (pageCategory3.equals("")) {
-                Resource res = contentResource;
-                Tag[] tags = tagManager.getTags(res);
-                for (Tag tag : tags) {
-                    if (tag != null && "/etc/tags/key-people".equals(Objects.toString(tag.getNamespace()))) {
-                        pageCategory3 = tag.getName();
+                if (tagManager != null) {
+                    final Tag[] tags = tagManager.getTags(contentResource);
+
+                    for (Tag tag : tags) {
+                        if (tag.getNamespace().getPath().equals("/etc/tags/key-people")) {
+                            pageCategory3 = tag.getName();
+                        }
                     }
                 }
             }
@@ -214,58 +243,50 @@ public class DataLayerUse extends WCMUsePojo {
 
         // Cruise details
         if (contentResource.isResourceType(WcmConstants.RT_VOYAGE)) {
-            CruiseModel cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
-            GeolocationService geolocationService = getSlingScriptHelper().getService(GeolocationService.class);
+            final CruiseModel cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
+            if (cruiseModel != null) {
+                destinationId = cruiseModel.getDestination().getDestinationId().toString();
+                destinationName = cruiseModel.getDestination().getName();
 
-            // TODO replace by com.silversea.aem.services.GeolocationTagService
-            GeoLocation geoLocation = geolocationService.initGeolocation(getRequest());
-            //cruiseModel.initByGeoLocation(geoLocation);
+                // TODO check value, cruise code != cruise id
+                voyageId = cruiseModel.getCruiseCode();
 
-            destinationId = pageProperties.get("cmp-destinationId", String.class);
-            destinationName = getCurrentPage().getParent().getName();
+                departureDay = cruiseModel.getStartDate().getTime().toString();
+                voyageDuration = cruiseModel.getDuration();
 
-            voyageId = pageProperties.get("cruiseCode", String.class);
+                voyageDepartureHarbor = cruiseModel.getDeparturePortName();
+                voyageArrivalHarbor = cruiseModel.getArrivalPortName();
+                voyageType = cruiseModel.getCruiseType();
 
-            departureDay = cruiseModel.getStartDate().getTime().toString();
-            voyageDuration = cruiseModel.getDuration();
+                shipName = cruiseModel.getShip().getName();
 
-            // TODO review
-            //voyageDepartureHarbor = cruiseModel.getDeparturePortName();
-            //voyageArrivalHarbor = cruiseModel.getArrivalPortName();
-            voyageType = cruiseModel.getCruiseType().getName();
+                // init lowest price and waitlist based on geolocation
+                PriceModel lowestPrice = null;
+                for (PriceModel priceModel : cruiseModel.getPrices()) {
+                    if (priceModel.getGeomarket() != null
+                            && priceModel.getGeomarket().equals(geomarket)
+                            && priceModel.getCurrency().equals(currency)) {
+                        // Init lowest price
+                        if (lowestPrice == null) {
+                            lowestPrice = priceModel;
+                        } else if (lowestPrice.getPrice() > priceModel.getPrice()) {
+                            lowestPrice = priceModel;
+                        }
+                    }
+                }
 
-            shipName = StringUtils
-                    .substringAfterLast(pageProperties.get("shipReference", String.class), "/");
-
-            // TODO review
-            /*String price = cruiseModel.getLowestPrice().getValue();
-            String currency = cruiseModel.getLowestPrice().getCurrency();
-
-            if (price != null && currency != null) {
-                revenue = currency + price;
-            }*/
-
-        }
-
-        // media
-        contry = GeolocationHelper.getCountryCode(getRequest());
-        if (contry != null) {
-            geoLoc = GeolocationHelper.getGeoMarket(tagManager, contry);
-        } else {
-            contry = "US";
-        }
-
-        if (geoLoc != null) {
-            geoLoc = geoLoc.toUpperCase();
-        } else {
-            geoLoc = "FT";
+                if (lowestPrice != null) {
+                    Long price = lowestPrice.getPrice();
+                    revenue = currency + price;
+                }
+            }
         }
 
         // TODO apply java naming conventions
         String adwords_conversion_label = "";
         String adwords_value = "1.00";
         String adwords_format = "";
-        if (geoLoc.equals("US") || (geoLoc.equals("FT") && (contry.equals("US") || contry.equals("CA")))) {
+        if (geomarket.equals("US") || (geomarket.equals("FT") && (country.equals("US") || country.equals("CA")))) {
             if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "XXW_CPmImQQQl5v74wM";
                 adwords_format = "2";
@@ -296,7 +317,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("LAM") || (geoLoc.equals("FT") && (!contry.equals("US") && !contry.equals("CA")))) {
+        if (geomarket.equals("LAM") || (geomarket.equals("FT") && (!country.equals("US") && !country.equals("CA")))) {
             if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "2ro7CO-klggQ2cHp1QM";
                 adwords_format = "3";
@@ -327,7 +348,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("AP") || geoLoc.equals("AS")) {
+        if (geomarket.equals("AP") || geomarket.equals("AS")) {
             if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "7HNzCNzvkQgQ1MDT0AM";
                 adwords_format = "3";
@@ -358,7 +379,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("UK")) {
+        if (geomarket.equals("UK")) {
             if (pageCategory2.equals("RAQ TY")) {
                 adwords_conversion_label = "htdlCLDd2iMQgL_7yAM";
                 adwords_format = "3";
@@ -389,7 +410,7 @@ public class DataLayerUse extends WCMUsePojo {
                     "1000698659832", "39634");
         }
 
-        if (geoLoc.equals("EMEA") || geoLoc.equals("EU")) {
+        if (geomarket.equals("EMEA") || geomarket.equals("EU")) {
             if (pageCategory2.toUpperCase().equals("RAQ TY")) {
                 adwords_conversion_label = "81HGCJzThggQzILD0AM";
                 adwords_format = "3";
@@ -423,15 +444,15 @@ public class DataLayerUse extends WCMUsePojo {
     }
 
     public String getContry() {
-        return contry;
+        return country;
     }
 
     public String getGeoLoc() {
-        return geoLoc;
+        return geomarket;
     }
 
     public String getUserContry() {
-        return userContry;
+        return userCountry;
     }
 
     public String getRunMode() {
@@ -450,8 +471,12 @@ public class DataLayerUse extends WCMUsePojo {
         return userLanguage;
     }
 
+    /**
+     * TODO check
+     * @return
+     */
     public String getUserEmail() {
-        return userEmail;
+        return "";
     }
 
     public String getPageCategory2() {

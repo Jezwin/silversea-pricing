@@ -30,27 +30,30 @@ public class ItineraryLandProgramModel {
 
         if (pageManager != null) {
             final Page landProgramPage = pageManager.getPage(landProgramReference);
-            landProgram = landProgramPage.adaptTo(LandProgramModel.class);
+
+            if (landProgramPage != null) {
+                landProgram = landProgramPage.adaptTo(LandProgramModel.class);
+            }
         }
     }
 
     public String getTitle() {
-        return landProgram.getTitle();
+        return landProgram != null ? landProgram.getTitle() : null;
     }
 
     public String getDescription() {
-        return landProgram.getDescription();
+        return landProgram != null ? landProgram.getDescription() : null;
     }
 
     public String getShortDescription() {
-        return landProgram.getShortDescription();
+        return landProgram != null ? landProgram.getShortDescription() : null;
     }
 
     public String getLandId() {
-        return landProgram.getLandId();
+        return landProgram != null ? landProgram.getLandId() : null;
     }
 
     public String getLandCode() {
-        return landProgram.getLandCode();
+        return landProgram != null ? landProgram.getLandCode() : null;
     }
 }

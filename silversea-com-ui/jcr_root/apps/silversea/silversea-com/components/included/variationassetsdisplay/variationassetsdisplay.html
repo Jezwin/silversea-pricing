@@ -10,8 +10,9 @@
             </a>
             <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-plan' @ i18n}</strong>
         </div>
+        <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path}" />
         <div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}"
-            data-gallery-path="${currentPage.path @ extension='html', selectors='gallery', appendPath='/jcr:content'}"
+            data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery', appendPath='/jcr:content'}"
             data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}">
             <strong class="c-variationassetdisplay--label_asset visible-xs-block">${'suite-location' @ i18n}</strong>
             <a href="#" data-target=".bs-modal-lg" data-gallery=".gallery" class="automatic-gallery-modal">

@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jcr.Node;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +23,11 @@ import java.util.List;
 public class ItineraryModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(ItineraryModel.class);
+
+    private static final String PV_AM = "AM";
+    private static final String PV_PM = "PM";
+    private static final String DEFAULT_TIME_MORNING = "9:00";
+    private static final String DEFAULT_TIME_AFTERNOON = "12:00";
 
     @Self
     private Resource resource;
@@ -109,6 +113,16 @@ public class ItineraryModel {
     }
 
     public String getArriveTime() {
+        if (arriveTime == null && arriveAmPm != null) {
+            if (arriveAmPm.equals(PV_AM)) {
+                return DEFAULT_TIME_MORNING;
+            }
+
+            if (arriveAmPm.equals(PV_PM)) {
+                return DEFAULT_TIME_AFTERNOON;
+            }
+        }
+
         if (arriveTime.length() == 4) {
             return arriveTime.substring(0, 2) + ":" + arriveTime.substring(2, arriveTime.length());
         }
@@ -117,6 +131,16 @@ public class ItineraryModel {
     }
 
     public String getDepartTime() {
+        if (departTime == null && departAmPm != null) {
+            if (departAmPm.equals(PV_AM)) {
+                return DEFAULT_TIME_MORNING;
+            }
+
+            if (departAmPm.equals(PV_PM)) {
+                return "12:00";
+            }
+        }
+
         if (departTime.length() == 4) {
             return departTime.substring(0, 2) + ":" + departTime.substring(2, departTime.length());
         }
@@ -212,26 +236,25 @@ public class ItineraryModel {
      * @param date     date
      * @return true if all arguments match with the current itinerary, false else
      */
-    public boolean isItinerary(final Integer cruiseId, final Calendar date) {
+    public boolean isItinerary(final Integer cruiseId, final Calendar date, final Integer cityId) {
+        if (this.cruiseId == null || this.port == null || this.date == null) {
+            return false;
+        }
+
+        return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date) && this.port.getCityId().equals(cityId);
+    }
+
+    /**
+     * Fallback for excursions
+     * @param cruiseId
+     * @param date
+     * @return
+     */
+    public boolean isItineraryBasedOnDayOnly(final Integer cruiseId, final Calendar date) {
         if (this.cruiseId == null || this.port == null || this.date == null) {
             return false;
         }
 
         return this.cruiseId.equals(cruiseId) && date.getTime().equals(this.date);
-    }
-
-    // -------------- TODO review after this line ----------------- //
-    @Deprecated
-    public String getTitle() {
-        return null;
-    }
-
-    @Deprecated
-    public void init(Node node) {
-    }
-
-    @Deprecated
-    public Page getPage() {
-        return null;
     }
 }

@@ -25,8 +25,8 @@ import java.util.Map;
 @Service(value = Runnable.class)
 @Properties({
         @Property(name = "scheduler.expression", value = "0 0 0 * * ?"),
-        @Property(name = "scheduler.concurrent", boolValue = false)
-})
+        @Property(name = "scheduler.concurrent", boolValue = false)}
+)
 public class ApiUpdater implements Runnable {
 
     final static private Logger LOGGER = LoggerFactory.getLogger(ApiUpdater.class);
@@ -56,6 +56,12 @@ public class ApiUpdater implements Runnable {
     private FeaturesImporter featuresImporter;
 
     @Reference
+    private ExclusiveOffersImporter exclusiveOffersImporter;
+
+    @Reference
+    private CruisesImporter cruisesImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -65,32 +71,49 @@ public class ApiUpdater implements Runnable {
 
             // update cities
             final ImportResult importResultCities = citiesImporter.updateItems();
-            LOGGER.info("Cities import : {} success, {} errors", importResultCities.getSuccessNumber(), importResultCities.getErrorNumber());
+            LOGGER.info("Cities import : {} success, {} errors", importResultCities.getSuccessNumber(),
+                    importResultCities.getErrorNumber());
 
             // update hotels
             final ImportResult importResultHotels = hotelsImporter.updateHotels();
-            LOGGER.info("Hotels import : {} success, {} errors", importResultHotels.getSuccessNumber(), importResultHotels.getErrorNumber());
+            LOGGER.info("Hotels import : {} success, {} errors", importResultHotels.getSuccessNumber(),
+                    importResultHotels.getErrorNumber());
 
             // update land programs
             final ImportResult importResultLandPrograms = landProgramsImporter.updateLandPrograms();
-            LOGGER.info("Land programs import : {} success, {} errors", importResultLandPrograms.getSuccessNumber(), importResultLandPrograms.getErrorNumber());
+            LOGGER.info("Land programs import : {} success, {} errors", importResultLandPrograms.getSuccessNumber(),
+                    importResultLandPrograms.getErrorNumber());
 
             // update excursions
             final ImportResult importResultExcursions = shoreExcursionsImporter.updateShoreExcursions();
-            LOGGER.info("Excursions import : {} success, {} errors", importResultExcursions.getSuccessNumber(), importResultExcursions.getErrorNumber());
+            LOGGER.info("Excursions import : {} success, {} errors", importResultExcursions.getSuccessNumber(),
+                    importResultExcursions.getErrorNumber());
 
             // update brochures
             final ImportResult importResultBrochures = brochuresImporter.updateBrochures();
-            LOGGER.info("Brochures import : {} success, {} errors", importResultBrochures.getSuccessNumber(), importResultBrochures.getErrorNumber());
+            LOGGER.info("Brochures import : {} success, {} errors", importResultBrochures.getSuccessNumber(),
+                    importResultBrochures.getErrorNumber());
 
             // update features
             final ImportResult importResultFeatures = featuresImporter.updateFeatures();
-            LOGGER.info("Features import : {} success, {} errors", importResultFeatures.getSuccessNumber(), importResultFeatures.getErrorNumber());
+            LOGGER.info("Features import : {} success, {} errors", importResultFeatures.getSuccessNumber(),
+                    importResultFeatures.getErrorNumber());
+
+            // update exclusive offers
+            final ImportResult importResultExclusiveOffers = exclusiveOffersImporter.importAllItems();
+            LOGGER.info("Exclusive offers import : {} success, {} errors", importResultExclusiveOffers.getSuccessNumber(),
+                    importResultExclusiveOffers.getErrorNumber());
+
+            // update cruises
+            final ImportResult importResultCruises = cruisesImporter.updateItems();
+            LOGGER.info("Cruises import : {} success, {} errors", importResultCruises.getSuccessNumber(),
+                    importResultCruises.getErrorNumber());
 
             // replicate all modifications
-            LOGGER.debug("Start replication on modified pages");
+            LOGGER.info("Start replication on modified pages");
 
-            replicateModifications("/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
+            replicateModifications(
+                    "/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
             replicateModifications("/jcr:root/content//element(*,cq:Tags)[toDeactivate or toActivate]");
 
         } else {
@@ -98,12 +121,18 @@ public class ApiUpdater implements Runnable {
         }
     }
 
+    /**
+     * Replicate all modification done in the update process
+     *
+     * @param query the query of the resources to replicate
+     */
     private void replicateModifications(final String query) {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try {
-            final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+            final ResourceResolver resourceResolver = resourceResolverFactory
+                    .getServiceResourceResolver(authenticationParams);
             final Session session = resourceResolver.adaptTo(Session.class);
 
             if (session == null) {
@@ -165,7 +194,7 @@ public class ApiUpdater implements Runnable {
                 } else {
                     errorNumber++;
 
-                    LOGGER.error("Cannot get page {}", page.getPath());
+                    LOGGER.error("Cannot get page {}", resource.getPath());
                 }
             }
 

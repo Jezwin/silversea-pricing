@@ -44,7 +44,10 @@ public class ItineraryExcursionModel {
 
         if (pageManager != null) {
             final Page excursionPage = pageManager.getPage(excursionReference);
-            excursion = excursionPage.adaptTo(ExcursionModel.class);
+
+            if (excursionPage != null) {
+                excursion = excursionPage.adaptTo(ExcursionModel.class);
+            }
         }
     }
 
@@ -76,27 +79,27 @@ public class ItineraryExcursionModel {
     }
 
     public String getTitle() {
-        return excursion.getTitle();
+        return excursion != null ? excursion.getTitle() : null;
     }
 
     public String getDescription() {
-        return excursion.getDescription();
+        return excursion != null ? excursion.getDescription() : null;
     }
 
     public String getCodeExcursion() {
-        return excursion.getCodeExcursion();
+        return excursion != null ? excursion.getCodeExcursion() : null;
     }
 
     public String getApiLongDescription() {
-        return excursion.getApiLongDescription();
+        return excursion != null ? excursion.getApiLongDescription() : null;
     }
 
     public String getLongDescription() {
-        return excursion.getLongDescription();
+        return excursion != null ? excursion.getLongDescription() : null;
     }
 
     public Page getPage() {
-        return excursion.getPage();
+        return excursion != null ? excursion.getPage() : null;
     }
 
     public Resource getResource() {
@@ -104,7 +107,7 @@ public class ItineraryExcursionModel {
     }
 
     public String getSchedule() {
-        return excursion.getSchedule();
+        return excursion != null ? excursion.getSchedule() : null;
     }
 
     public class Duration {

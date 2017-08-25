@@ -3,12 +3,19 @@ package com.silversea.aem.importers.services;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.sling.commons.json.JSONObject;
 
-/**
- * Created by mbennabi on 09/03/2017.
- */
 public interface ExclusiveOffersImporter {
 
-    ImportResult importExclusiveOffers();
+    /**
+     * Import all exclusive offers, manage the diff update as there is no specific endpoint in the API
+     *
+     * @return result of the import
+     */
+    ImportResult importAllItems();
 
-    JSONObject getExclusiveOffersMapping();
+    /**
+     * Get JSON object containing the mapping between exclusive offer id and path
+     *
+     * @return a JSON object with id/path mapping
+     */
+    JSONObject getJsonMapping();
 }

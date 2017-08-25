@@ -3,9 +3,6 @@ package com.silversea.aem.importers.services;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.sling.commons.json.JSONObject;
 
-/**
- * @author aurelienolivier
- */
 public interface CitiesImporter {
 
     /**
@@ -16,8 +13,7 @@ public interface CitiesImporter {
     ImportResult importAllItems();
 
     /**
-     * Update the cities based on the last import date
-     * stored in the cities root page
+     * Update the cities based on the last import date stored in the cities root page
      *
      * @return result of the import
      */

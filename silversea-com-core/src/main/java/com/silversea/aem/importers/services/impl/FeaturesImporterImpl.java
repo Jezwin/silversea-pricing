@@ -6,9 +6,9 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImporterUtils;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.FeaturesImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.FeaturesApi;
@@ -58,13 +58,13 @@ public class FeaturesImporterImpl implements FeaturesImporter {
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final FeaturesApi featuresApi = new FeaturesApi(ImporterUtils.getApiClient(apiConfig));
+            final FeaturesApi featuresApi = new FeaturesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (tagManager == null || session == null) {
                 throw new ImporterException("Cannot initialize tagManager and session");
             }
 
-            ImporterUtils.deleteResources(resourceResolver, 100, "/jcr:root/etc/tags/features"
+            ImportersUtils.deleteResources(resourceResolver, 100, "/jcr:root/etc/tags/features"
                     + "//element(*,cq:Tag)");
 
             final List<Feature> features = featuresApi.featuresGet(null);
@@ -142,7 +142,7 @@ public class FeaturesImporterImpl implements FeaturesImporter {
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
-            final FeaturesApi featuresApi = new FeaturesApi(ImporterUtils.getApiClient(apiConfig));
+            final FeaturesApi featuresApi = new FeaturesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (tagManager == null || session == null) {
                 throw new ImporterException("Cannot initialize tagManager and session");
@@ -248,6 +248,7 @@ public class FeaturesImporterImpl implements FeaturesImporter {
                 }
             }
 
+            // mark as deactivate non existing features
             for (Map.Entry<String, Resource> existingFeature : existingFeatures.entrySet()) {
                 try {
                     final Node featureNode = existingFeature.getValue().adaptTo(Node.class);

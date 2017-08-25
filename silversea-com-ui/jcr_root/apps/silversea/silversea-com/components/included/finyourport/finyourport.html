@@ -15,9 +15,10 @@
                     <div class="col-sm-7">${'destination' @ i18n}</div>
                 </div>
             </div>
-            <a data-sly-repeat.child="${search.orderedResultsPortList}" href="${child.portPath @ extension='html'}" class="clearfix c-find-port__result__link">
-                <span class="col-sm-5 c-find-port__result__city">${child.portName}</span>
-                <span class="col-sm-7 c-find-port__result__destination">${child.portCountry}</span>
+            <a data-sly-repeat.child="${search.ports}" href="${child.path @ extension='html'}"
+                class="clearfix c-find-port__result__link">
+                <span class="col-sm-5 c-find-port__result__city">${child.apiTitle}</span>
+                <span class="col-sm-7 c-find-port__result__destination">${child.country}</span>
             </a>
     </div>
 </div>

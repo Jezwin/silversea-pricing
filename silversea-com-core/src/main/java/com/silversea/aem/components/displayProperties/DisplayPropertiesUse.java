@@ -19,9 +19,6 @@ public class DisplayPropertiesUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        LOGGER.debug("defaultTarget: {}", defaultTarget);
-        LOGGER.debug("defaultFallback: {}", defaultFallback);
-
         String target = getProperties().get("target", defaultTarget);
         String fallback = getProperties().get("fallback", defaultFallback);
 

@@ -1,17 +1,5 @@
 package com.silversea.aem.models;
 
-import java.util.ArrayList;
-
-import javax.annotation.PostConstruct;
-
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceUtil;
-import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.Rendition;
@@ -20,6 +8,16 @@ import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceUtil;
+import org.apache.sling.api.resource.ValueMap;
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 
 /**
  * Created by aurelienolivier on 19/03/2017.
@@ -63,7 +61,7 @@ public class BrochureModel {
     }
 
     public String getBrochureCode() {
-        return getCustomMetatdata(WcmConstants.PN_BROCHURE_CODE, String.class);
+        return getCustomMetadata(WcmConstants.PN_BROCHURE_CODE, String.class);
     }
 
     public String getAssetTitle() {
@@ -75,11 +73,11 @@ public class BrochureModel {
     }
 
     public String getOnlineBrochureUrl() {
-        return getCustomMetatdata(WcmConstants.PN_BROCHURE_ONLINE_URL, String.class);
+        return getCustomMetadata(WcmConstants.PN_BROCHURE_ONLINE_URL, String.class);
     }
 
     public Boolean isBrochureDigitalOnly() {
-        return getCustomMetatdata(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
+        return getCustomMetadata(WcmConstants.PN_BROCHURE_IS_DIGITAL_ONLY, Boolean.class);
     }
 
     public Tag getLanguage() {
@@ -144,14 +142,11 @@ public class BrochureModel {
 
     /**
      * Helper: retrieve custom asset's meta data
-     * 
-     * @param propertyName:
-     *            property name
-     * @param type:
-     *            Object type
-     * @return: property's value
+     *
+     * @param propertyName property name
+     * @param type type
      */
-    private <T> T getCustomMetatdata(String propertyName, Class<T> type) {
+    private <T> T getCustomMetadata(String propertyName, Class<T> type) {
         Resource metadataResource = assetResource.getChild("jcr:content/metadata");
         T value = null;
         if (metadataResource != null) {

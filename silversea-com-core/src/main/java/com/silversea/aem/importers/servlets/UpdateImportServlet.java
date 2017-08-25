@@ -19,44 +19,40 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     static final private Logger LOGGER = LoggerFactory.getLogger(UpdateImportServlet.class);
 
     @Reference
-    private CitiesImporter updateImportCities;
+    private CitiesImporter citiesImporter;
 
     @Reference
-    private HotelsImporter updateImportHotel;
+    private HotelsImporter hotelsImporter;
 
     @Reference
-    private LandProgramsImporter updateImportLandProgram;
+    private LandProgramsImporter landProgramsImporter;
 
     @Reference
-    private ShoreExcursionsImporter updateImportShoreExcursion;
+    private ShoreExcursionsImporter shoreExcursionsImporter;
 
     @Reference
     private CruisesImporter cruisesImporter;
 
     @Reference
-    private ComboCruisesImporter ComboCruisesImporter;
+    private ComboCruisesImporter comboCruisesImporter;
 
     @Reference
-    private TravelAgenciesUpdateImporter updateTravalAgencies;
+    private ExclusiveOffersImporter exclusiveOffersImporter;
 
     @Reference
-    private ExclusiveOffersUpdateImporter updateExclusiveOffers;
+    private FeaturesImporter featuresImporter;
 
     @Reference
-    private FeaturesImporter updateFeatures;
+    private BrochuresImporter brochuresImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-
-        // To Extract
         final String modeParam = request.getParameter("mode");
-
         if (modeParam == null) {
             throw new ServletException("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
         }
 
-        Mode mode;
-
+        final Mode mode;
         try {
             mode = Mode.valueOf(modeParam);
         } catch (IllegalArgumentException e) {
@@ -64,39 +60,40 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         }
 
         if (mode.equals(Mode.cities)) {
-            updateImportCities.updateItems();
+            citiesImporter.updateItems();
         } else if (mode.equals(Mode.hotels)) {
-            updateImportHotel.updateHotels();
+            hotelsImporter.updateHotels();
         } else if (mode.equals(Mode.excursions)) {
-            updateImportShoreExcursion.updateShoreExcursions();
+            shoreExcursionsImporter.updateShoreExcursions();
         } else if (mode.equals(Mode.landprograms)) {
-            updateImportLandProgram.updateLandPrograms();
-        } else if (mode.equals(Mode.travelagencies)) {
-            updateTravalAgencies.updateImporData();
+            landProgramsImporter.updateLandPrograms();
         } else if (mode.equals(Mode.exclusiveoffers)) {
-            updateExclusiveOffers.updateImporData();
+            exclusiveOffersImporter.importAllItems();
         } else if (mode.equals(Mode.features)) {
-            updateFeatures.updateFeatures();
+            //featuresImporter.updateFeatures();
         } else if (mode.equals(Mode.cruises)) {
             cruisesImporter.updateItems();
-            response.getWriter().write("Cruises import Done<br/>");
         } else if (mode.equals(Mode.combocruise)) {
-            ComboCruisesImporter.importData(true);
+            //comboCruisesImporter.importData(true);
+        } else if (mode.equals(Mode.brochures)) {
+            brochuresImporter.updateBrochures();
         }
+
+        response.setContentType("text/html");
     }
 
     enum Mode {
-        cities ("cities"),
-        excursions ("excursions"),
-        hotels ("hotels"),
-        landprograms ("land-programs"),
-        travelagencies ("travel-agencies"),
-        exclusiveoffers ("exclusive-offers"),
-        countries ("countries"),
-        features ("features"),
-        brochures ("brochures"),
-        cruises ("cruises"),
-        combocruise ("combo-cruises");
+        cities("cities"),
+        excursions("excursions"),
+        hotels("hotels"),
+        landprograms("landprograms"),
+        travelagencies("travelagencies"),
+        exclusiveoffers("exclusiveoffers"),
+        countries("countries"),
+        features("features"),
+        brochures("brochures"),
+        cruises("cruises"),
+        combocruise("combocruises");
 
         private String name;
 

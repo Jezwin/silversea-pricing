@@ -20,27 +20,29 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="c-tab c-tab__accordion">
-                        <ul class="c-tab__nav c-tab__nav--regular5 dropdown-menu" data-toggle="dropdown" aria-expanded="false">
+                        <ul class="c-tab__nav c-tab__nav--fixed dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                             <li class="c-tab__link" data-state="active">
                                 <a href="#Overview">${'overview' @i18n}</a>
-                            </li><li class="c-tab__link">
+                            </li>
+                            <li class="c-tab__link">
                                 <a href="#Voyages">${'voyages' @i18n}</a>
-                            </li><li class="c-tab__link" data-sly-test="${portUse.portModel.excursions}">
-                                    <a href="#Excursions">${'excursions' @i18n}</a>
-                            </li><li class="c-tab__link" data-sly-test="${portUse.portModel.landprograms}">
-                                    <a href="#LandProgrammes">${'land-programmes' @i18n}</a>
-                            </li><li class="c-tab__link" data-sly-test="${portUse.portModel.hotels}">
+                            </li>
+                            <li class="c-tab__link" data-sly-test="${portUse.portModel.excursions}">
+                                <a href="#Excursions">${'excursions' @i18n}</a>
+                            </li>
+                            <li class="c-tab__link" data-sly-test="${portUse.portModel.landPrograms}">
+                                <a href="#LandProgrammes">${'land-programmes' @i18n}</a>
+                            </li>
+                            <li class="c-tab__link" data-sly-test="${portUse.portModel.hotels}">
                                 <a href="#Hotels">${'hotels' @i18n}</a>
                             </li>
                         </ul>
                         <div class="c-tab__body">
                             <sly data-sly-include="overviewtab.html" />
                             <sly data-sly-include="voyagestab.html" />
-
                             <sly data-sly-test="${portUse.portModel.excursions}" data-sly-include="excursionstab.html" />
-                            <sly data-sly-test="${portUse.portModel.landprograms}" data-sly-include="landprogrammestab.html" />
+                            <sly data-sly-test="${portUse.portModel.landPrograms}" data-sly-include="landprogrammestab.html" />
                             <sly data-sly-test="${portUse.portModel.hotels}" data-sly-include="hotelstab.html" />
-
                         </div>
                     </div>
                 </div>

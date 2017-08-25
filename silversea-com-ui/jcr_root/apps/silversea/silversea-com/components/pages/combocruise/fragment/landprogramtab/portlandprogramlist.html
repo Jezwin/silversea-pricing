@@ -1,65 +1,55 @@
-<sly data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
-<div class="row">
-    <div class="col-xs-12">
-        <!--/* TODO replace with getter */-->
-        <h3 class="c-cruise__subtitle">
-             <span data-sly-test="${comboCruise.comboCruiseModel.itinerariesData.nbLandPrograms}">${comboCruise.comboCruiseModel.itinerariesData.nbLandPrograms} ${(comboCruise.comboCruiseModel.itinerariesData.nbLandPrograms == 1 ? 'land-programme' : 'land-programmes') @ i18n} </span>
-             <span data-sly-test="${comboCruise.comboCruiseModel.itinerariesData.nbLandPrograms && comboCruise.comboCruiseModel.itinerariesData.nbHotels}"> ${'and' @ i18n} </span>
-             <span data-sly-test="${comboCruise.comboCruiseModel.itinerariesData.nbHotels}">${comboCruise.comboCruiseModel.itinerariesData.nbHotels} ${(comboCruise.comboCruiseModel.itinerariesData.nbHotels == 1 ? 'hotel' : 'hotels') @ i18n} </span>
-        </h3>
-        <p class="c-cruise__descr">
-            ${'land-programmes-description' @ i18n}
-        </p>
-        <div data-sly-resource="${'par1' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-        <sly data-sly-list="${comboCruise.comboCruiseModel.segments}">
-        <div class="c-accordion"
-             data-multiview="false"
-             data-more="<i class='fa fa-angle-down'></i>"
-             data-close="<i class='fa fa-angle-up'></i>"
-             data-sly-list="${item.cruise.itineraries}">
-            <div class="c-accordion__elem" data-sly-test="${(item.itineraryModel.hotels && item.itineraryModel.hotels.size > 0) || (item.itineraryModel.landprograms && item.itineraryModel.landprograms.size > 0)}">
-                <div class="c-accordion__header c-accordion__header--parent">
-                    <div class="c-accordion__title c-accordion__title--thumbnail">
-                        <sly data-sly-call="${imageTemplate.default @ imagePath=item.itineraryModel.thumbnail}" />
+<div data-sly-use.comboCruise="com.silversea.aem.components.page.ComboCruiseUse">
+    <!--/* TODO replace with getter */-->
+    <h3 class="c-cruise__subtitle">
+         <span data-sly-test="${comboCruise.landProgramsNumber}">
+            ${comboCruise.landProgramsNumber} ${comboCruise.landProgramsNumber == 1 ? 'land-programme' : 'land-programmes' @ i18n}
+        </span>
+    </h3>
+    <p class="c-cruise__descr">
+        ${'land-programmes-description' @ i18n}
+    </p>
+
+    <div id="land-programs-collapse" class="c-cruise-itinerary-2__list" role="tablist"
+        data-sly-list.segment="${comboCruise.comboCruiseModel.segments}">
+        <sly data-sly-list.itinerary="${segment.cruise.compactedItineraries}"
+            data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+            <sly data-sly-test.landPrograms="${segment.cruise.itinerariesHasElements ? itinerary.landPrograms : itinerary.port.landPrograms}"/>
+
+            <sly data-sly-test="${itinerary.port}">
+                <div class="panel c-cruise-itinerary-2__list__item"
+                    data-sly-test="${landPrograms.size > 0}">
+                    <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#land-programs-collapse" data-target="#lp-${itinerary.port.cityId}" aria-expanded="false" aria-controls="lp-${itinerary.port.cityId}">
+                        <div class="panel__heading__image">
+                            <sly data-sly-call="${imageTemplate.default @ imagePath=itinerary.port.thumbnail}" />
+                        </div>
+                        <div class="panel__heading__description">
+                            <h3><strong>${itinerary.port.apiTitle}</strong></h3>
+                            <p data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">
+                                <span>${itinerary.port.country}</span>
+                                <span class="visible-xs-inline"><br />${date.value}</span>
+                            </p>
+                        </div>
+                        <div class="panel__heading__date hidden-xs">
+                            <span>${date.value}</span>
+                        </div>
+                        <div class="panel__heading__info hidden-xs">
+                            <span>
+                                <sly data-sly-test="${landPrograms.size > 0}">${landPrograms.size} ${landPrograms.size == 1 ? 'land-programme' : 'land-programmes' @ i18n}</sly>
+                            </span>
+                        </div>
+                        <i class="btn-more fa fa-angle-down"></i>
+                        <i class="btn-less fa fa-angle-up"></i>
                     </div>
-                    <div class="c-accordion__title w-title valigntop">
-                        <p class="c-accordion__subtitle veryimportant">${item.itineraryModel.apiTitle || item.itineraryModel.title || 'Title'}</p>
-                        <p>${item.itineraryModel.country}</p>
-                        <p class="visible-xs" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=item.date}">
-                            ${date.value}
-                        </p>
-                    </div>
-                    <div class="c-accordion__title w-content valigntop hidden-xs">
-                        <p>${date.value}</p>
-                    </div>
-                    <div class="c-accordion__title w-content valigntop hidden-xs">
-                        <u data-sly-test="${item.itineraryModel.landprograms && item.itineraryModel.landprograms.size > 0}">${item.itineraryModel.landprograms.size} ${ (item.itineraryModel.landprograms.size == 1 ? 'land-programme' : 'land-programmes') @ i18n} </u>
-                        <u data-sly-test="${item.itineraryModel.landprograms && item.itineraryModel.landprograms.size > 0 && item.itineraryModel.hotels && item.itineraryModel.hotels.size > 0}">${'and' @ i18n} </u>
-                        <u data-sly-test="${item.itineraryModel.hotels && item.itineraryModel.hotels.size > 0}">${item.itineraryModel.hotels.size} ${ (item.itineraryModel.hotels.size == 1 ? 'hotel' : 'hotels')  @ i18n}</u>
-                    </div>
-                    <div class="c-accordion__action small">
-                        <i class='fa fa-angle-down'></i>
+                    <div id="lp-${itinerary.port.cityId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/landprogramtab/collapse-nested.html">
+                        <sly data-sly-test.parentId="${'{0}{1}' @ format=['lp-', itinerary.port.cityId]}" />
+                        <sly data-sly-call="${collapseNestedTemplate.default @ list = landPrograms, parent = parentId}" />
                     </div>
                 </div>
-                <div class="c-accordion__body c-accordion__body--full">
-
-                    <div class="c-accordion"
-                         data-multiview="false"
-                         data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
-                         data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>">
-
-                        <sly data-sly-use.accordionTemplate="accordion-body.html"
-                             data-sly-call="${accordionTemplate.default @ list=item.itineraryModel.landprograms}"></sly>
-                        <sly data-sly-call="${accordionTemplate.default @ list=item.itineraryModel.hotels}"></sly>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+            </sly>
         </sly>
-        <div class="visible-xs">
-            <a class="btn btn-thin btn-red effect" href="${cruise.requestQuotePagePath @ extension='html', suffix=pageProperties.cruiseCode}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-        </div>
-        <div data-sly-resource="${'par2' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+        <p class="visible-xs text-center">
+            <a class="btn btn-thin btn-red effect" data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
+                href="${comboCruise.requestQuotePagePath @ extension='html', suffix=suffix}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        </p>
     </div>
 </div>
