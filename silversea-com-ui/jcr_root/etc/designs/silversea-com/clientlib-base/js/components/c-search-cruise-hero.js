@@ -1,7 +1,7 @@
 $(function() {
     $('.c-fyc-light__form').each(function() {
         var $form = $(this);
-        var requestUrl;
+        var requestUrl = $form.attr('action');
         var requestUrlFeedback;
         var $resultWrapper = $form.next('.feedback__wrapper');
 
