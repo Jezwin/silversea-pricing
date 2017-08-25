@@ -18,7 +18,12 @@
 
     &__content {
         padding-right: 25px;
-        padding-left: 0;
+        width: 58%;
+
+        @media screen and (max-width: @screen-sm) {
+            padding-right: 0;
+            width: 100%;
+        }
 
         h1 {
             font-family: @f-theano_didot;
