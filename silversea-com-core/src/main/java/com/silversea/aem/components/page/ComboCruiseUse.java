@@ -31,6 +31,8 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
 
     @Override
     public void activate() throws Exception {
+        super.activate();
+
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
             comboCruiseModel = (ComboCruiseModel) getRequest().getAttribute("comboCruiseModel");
