@@ -2,12 +2,10 @@
     <h1 class="cruise__header__title">
         ${cruise.cruiseModel.departurePortName} ${'to' @ i18n} ${cruise.cruiseModel.arrivalPortName}
 
-        <!--/* TODO wrong i18n key used */-->
-        <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage == 'en'}">
-            ${cruise.cruiseModel.destination.title} ${cruise.cruiseModel.cruiseType @ i18n}
-        </span>
-        <span class="cruise_header__subtitle" data-sly-test="${cruise.pageLanguage != 'en'}">
-            ${cruise.cruiseModel.cruiseType @ i18n} ${cruise.cruiseModel.destination.title}
+        <span class="cruise_header__subtitle">
+            ${cruise.cruiseModel.destination.title}
+            <sly data-sly-test.silverseaExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">${'expedition-cruise' @ i18n}</sly>
+            <sly data-sly-test="${!silverseaExpedition}">${'cruise' @ i18n}</sly>
         </span>
     </h1>
     <div class="cruise__header__desc">

@@ -1093,4 +1093,12 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
         sling:message="Offer" />
+    <cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise"
+        sling:message="cruise" />
+    <expedition-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-cruise"
+        sling:message="expedition cruise" />
 </jcr:root>
