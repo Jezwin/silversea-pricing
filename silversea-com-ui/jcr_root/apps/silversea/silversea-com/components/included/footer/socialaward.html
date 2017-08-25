@@ -61,7 +61,9 @@
                             <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                         </li>
                         <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageBlog.path}">
-                            <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">${'blog' @ i18n}</a>
+                            <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">
+                                ${footer.pageBlog.navigationTitle? footer.pageBlog.navigationTitle : footer.pageBlog.title}
+                            </a>
                         </li>
                     </ul>
                 </div>
