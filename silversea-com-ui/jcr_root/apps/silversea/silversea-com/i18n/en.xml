@@ -836,7 +836,7 @@
     <voyage-highlights-expedition
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights-expedition"
-        sling:message="voyage highlights Expedition Team" />
+        sling:message="voyage highlight &amp; Expedition Team" />
     <voyage-highlights-introduction
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights-introduction"
