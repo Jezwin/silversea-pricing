@@ -41,7 +41,7 @@ $(function() {
                 }
             });
 
-            $form.find('.destinations-filter, .dates-filter, ship-filter').each(function() {
+            $form.find('.destination-filter, .date-filter, .ship-filter').each(function() {
                 var $select = $(this);
                 var currentFilter = $('#current-' + $select.attr('name') + '-filter').val();
 
@@ -55,7 +55,7 @@ $(function() {
             $form.find('.chosen').trigger('chosen:updated');
 
             // Update features filter
-            $items = $form.find('.features-filter li');
+            $items = $form.find('.feature-filter li');
             if (JSON.parse($('#feature-filter').text() !== '')) {
                 var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
                 $items.each(function() {
