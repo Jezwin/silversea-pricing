@@ -76,13 +76,14 @@
         .btn {
             display: inline-block;
             height: 40px;
-            width: 100%;
             font-size: 14px;
             font-weight: 600;
-            position: relative;
             margin-bottom: 0;
+            position: relative;
+            width: 100%;
 
             @media screen and (max-width: @screen-sm) {
+                display: block;
                 height: 34px;
                 font-size: 12px;
             }
@@ -101,8 +102,6 @@
 
 .slider, .herobanner {
     + .searchhero {
-        margin-top: -60px;
-
         @media screen and (min-width: @screen-md-min) {
             margin-top: -40px;
         }

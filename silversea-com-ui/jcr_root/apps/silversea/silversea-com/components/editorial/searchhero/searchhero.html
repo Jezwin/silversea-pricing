@@ -1,6 +1,6 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search hero"></div>
 <div class="c-search-hero">
-    <form class="row c-fyc-light__form" action="${properties.pageReference}"
+    <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference}"
           data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
         <div class="col-sm-3">
             <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
@@ -24,7 +24,5 @@
             <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
         </div>
     </form>
-    <div class="result hidden">
-        <sly data-sly-include="result.html" />
-    </div>
+    <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/feedback.html" />
 </div>
