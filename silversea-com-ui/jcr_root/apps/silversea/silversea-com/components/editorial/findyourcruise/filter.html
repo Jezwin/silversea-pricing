@@ -2,13 +2,13 @@
     data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
     data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
     <div class="c-fyc-filter__header text-center text-uppercase">
-<!--/*
-        <p class="c-fyc-filter__action">
-            <i class="fa fa-mail-reply"></i> <a href="#">${'perform-a-new-search' @ i18n}</a>
-        </p>
-*/-->
+        <!--/*
+                <p class="c-fyc-filter__action">
+                    <i class="fa fa-mail-reply"></i> <a href="#">${'perform-a-new-search' @ i18n}</a>
+                </p>
+        */-->
         <p>
-            <span class="c-fyc-filter__title">${'your-search-results' @ i18n} :</span><br />
+            <span class="c-fyc-filter__title">${'your-search-results' @ i18n} :</span><br/>
             <span class="c-fyc-filter__text">
                 <span id="matching-value">${fyc.totalMatches}</span>
                 <span class="result-label">${'result' @ i18n}</span>
@@ -20,8 +20,9 @@
             <a href="#"><i class="fa fa-undo"></i> <span class="text-capitalize">${'clear-all-filters' @ i18n}</span></a>
         </p>
     </div>
-    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-    <form class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}" data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+    <form class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}"
+        data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
         <div class="filter-wrapper collapse clearfix" id="filter-collapse">
             <div class="single-filter" data-sly-test="${!fyc.isPrefilteredByDestination}">
                 <select class="chosen destination-filter" name="destination">
@@ -29,11 +30,11 @@
                     <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
                 </select>
             </div>
-           <div class="single-filter">
+            <div class="single-filter">
                 <select class="chosen date-filter" name="date">
                     <option value="all">${'departure-date' @ i18n}</option>
                     <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
-                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}" />
+                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}"/>
                         ${month.value} ${item.year}
                     </option>
                 </select>
@@ -70,10 +71,11 @@
                     <option data-sly-repeat="${fyc.ports}" value="${item.name}">${item.apiTitle}</option>
                 </select>
             </div>
-            <div class="single-filter" data-sly-test="${!fyc.isPrefilteredByFeature}">
+            <div class="single-filter" data-sly-test="${!fyc.isPrefilteredByFeature && fyc.initialDisplayedFeatures.size > 0}">
                 <div class="dropdown">
                     <button class="btn btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                        <span class="text-selected" data-default-text="${'more-features' @ i18n}" data-feature-text="${'feature' @ i18n}" data-features-text="${'features' @ i18n}">
+                        <span class="text-selected" data-default-text="${'more-features' @ i18n}" data-feature-text="${'feature' @ i18n}"
+                            data-features-text="${'features' @ i18n}">
                             ${'more-features' @ i18n}
                         </span><i class="fa fa-angle-down"></i>
                     </button>
@@ -81,7 +83,7 @@
                         <ul class="feature-filter">
                             <li data-sly-repeat.feature="${fyc.features}">
                                 <input id="${feature.name}" type="checkbox" name="feature" value="${feature.name}"
-                                    data-value="${feature.name}" />
+                                    data-value="${feature.name}"/>
                                 <label class="feature-name" for="${feature.name}"><i class="${feature.icon}"></i>
                                     ${feature.title}</label>
                             </li>
@@ -91,7 +93,8 @@
             </div>
         </div>
         <div class="c-fyc-filter__button visible-xs text-center">
-            <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse"
+            <button class="btn btn-dark effect" type="button" data-toggle="collapse" data-target="#filter-collapse" aria-expanded="false"
+                aria-controls="filter-collapse"
                 data-text-closed="${'refine-your-search' @ i18n}"
                 data-text-opened="${'close' @ i18n}">
                 <i class="fa fa-angle-up"></i>
@@ -100,3 +103,4 @@
         </div>
     </form>
 </div>
+${!fyc.isPrefilteredByFeature && fyc.initialDisplayedFeatures.size > 0}

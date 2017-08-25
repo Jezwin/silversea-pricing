@@ -11,6 +11,7 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
@@ -62,7 +63,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private Set<YearMonth> availableDepartureDates = new HashSet<>();
 
     // features available from design dialog + available for cruises
-    private Set<FeatureModel> features = new HashSet<>();
+    private Set<FeatureModel> features = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
 
     // features dates available for the subset of filtered cruises
     private Set<FeatureModel> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
@@ -103,7 +104,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private String portFilter = FILTER_ALL;
 
     // features filter
-    private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+    private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getTitle));
 
     // true if find your cruise is prefiltered by destination
     private boolean prefilterByDestination;
@@ -419,6 +420,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                 includeCruise = includeCruise && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByPort = includeCruiseNotFilteredByPort && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && exclusiveOfferInCruise;
@@ -486,12 +488,12 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         int i = 0;
         for (final CruiseModel cruise : filteredCruises) {
-            if (i >= (activePage - 1) * pageSize) {
-                cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
+            if (i >= activePage * pageSize) {
+                break;
             }
 
-            if (i > activePage * pageSize) {
-                break;
+            if (i >= (activePage - 1) * pageSize) {
+                cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
             }
 
             i++;
@@ -617,6 +619,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
      */
     public Set<FeatureModel> getAvailableFeatures() {
         return availableFeatures;
+    }
+
+    public Collection<FeatureModel> getInitialDisplayedFeatures() {
+        return CollectionUtils.intersection(availableFeatures, features);
     }
 
     /**
