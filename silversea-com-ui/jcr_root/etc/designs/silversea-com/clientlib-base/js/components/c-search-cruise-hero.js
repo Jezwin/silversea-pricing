@@ -17,8 +17,7 @@ $(function() {
 
                 // Build obj with available option
                 var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').text();
-                console.log('#' + $select.attr('name') + '-filter');
-                console.log(jsonStr);
+
                 if (jsonStr !== '') {
                     var filterAvailableObj = JSON.parse(jsonStr);
 
