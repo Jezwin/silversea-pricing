@@ -88,42 +88,6 @@
         <a class="c-fyc__result__link" href="${cruiseItem.cruiseModel.path @ extension='html'}"></a>
     </div>
 </div>
-
-<div class="hidden">
-    <!--/* current destination */-->
-    <input type="text" id="current-destination-filter" value="${fyc.destinationFilter}" data-value="${fyc.destinationIdFilter}" />
-
-    <!--/* current date */-->
-    <input type="text" id="current-date-filter" value="${fyc.dateFilter.toString || 'all'}" />
-
-    <!--/* current ship */-->
-    <input type="text" id="current-ship-filter" value="${fyc.shipFilter}" />
-
-    <!--/* data relative to option available in current result */-->
-    <div id="destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availableDestinations}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-    <div id="ship-filter" data-sly-test="${fyc.availableShips && fyc.availableShips.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availableShips}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-    <div id="port-filter" data-sly-test="${fyc.availablePorts && fyc.availablePorts.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availablePorts}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-    <div id="date-filter" data-sly-test="${fyc.availableDepartureDates && fyc.availableDepartureDates.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availableDepartureDates}">"${item.toString}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-    <div id="duration-filter" data-sly-test="${fyc.availableDurations && fyc.availableDurations.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availableDurations}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-    <div id="cruisetype-filter" data-sly-test="${fyc.availableCruiseTypes && fyc.availableCruiseTypes.size > 0}">
-        {"all":true,<sly data-sly-repeat="${fyc.availableCruiseTypes}">"${item}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-    <div id="feature-filter" data-sly-test="${fyc.availableFeatures && fyc.availableFeatures.size > 0}">
-        {<sly data-sly-repeat="${fyc.availableFeatures}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}
-    </div>
-
-    <!--/* Total matching */-->
-    <input id="count-filter" type="hidden" value="${fyc.totalMatches}" />
-</div>
+<sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/feedback.html" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />
