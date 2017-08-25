@@ -1084,11 +1084,11 @@
     <usd
         jcr:primaryType="sling:MessageEntry"
         sling:key="USD"
-        sling:message="$" />
+        sling:message="US$" />
     <aud
         jcr:primaryType="sling:MessageEntry"
         sling:key="AUD"
-        sling:message="$" />
+        sling:message="AU$" />
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"

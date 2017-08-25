@@ -1036,4 +1036,20 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="sus resultados de búsqueda"/>
+    <eur
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="EUR"
+        sling:message="€" />
+    <gbp
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="GBP"
+        sling:message="£" />
+    <usd
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="USD"
+        sling:message="US$" />
+    <aud
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="AUD"
+        sling:message="AU$" />
 </jcr:root>
