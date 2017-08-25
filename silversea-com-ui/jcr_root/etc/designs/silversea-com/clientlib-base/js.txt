@@ -24,4 +24,4 @@ components/c-data-layer.js
 components/c-inline-gallery.js
 components/c-gallery.js
 components/c-search.js
-components/c-search-cruise-hero
+components/c-search-cruise-hero.js
