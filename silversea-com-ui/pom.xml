@@ -23,18 +23,24 @@
     <!-- ====================================================================== -->
     <properties>
         <sonar.sources>jcr_root</sonar.sources>
+
     </properties>
 
     <!-- ====================================================================== -->
     <!-- B U I L D -->
     <!-- ====================================================================== -->
     <build>
+        <sourceDirectory>${project.basedir}/jcr_root</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>htl-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>com.day.jcr.vault</groupId>
