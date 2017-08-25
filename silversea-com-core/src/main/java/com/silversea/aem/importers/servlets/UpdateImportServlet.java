@@ -34,6 +34,12 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private CruisesImporter cruisesImporter;
 
     @Reference
+    private CruisesItinerariesImporter cruisesItinerariesImporter;
+
+    @Reference
+    private CruisesPricesImporter cruisesPricesImporter;
+
+    @Reference
     private ComboCruisesImporter comboCruisesImporter;
 
     @Reference
@@ -73,6 +79,10 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
             //featuresImporter.updateFeatures();
         } else if (mode.equals(Mode.cruises)) {
             cruisesImporter.updateItems();
+        } else if (mode.equals(Mode.itineraries)) {
+            cruisesItinerariesImporter.importAllItems(true);
+        } else if (mode.equals(Mode.prices)) {
+            cruisesPricesImporter.importAllItems(true);
         } else if (mode.equals(Mode.combocruise)) {
             //comboCruisesImporter.importData(true);
         } else if (mode.equals(Mode.brochures)) {
@@ -93,6 +103,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         features("features"),
         brochures("brochures"),
         cruises("cruises"),
+        itineraries("itineraries"),
+        prices("prices"),
         combocruise("combocruises");
 
         private String name;

@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -10,6 +11,8 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.PricesApi;
+import io.swagger.client.api.VoyagesApi;
+import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 import org.apache.felix.scr.annotations.Activate;
@@ -28,10 +31,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Service
@@ -60,12 +60,12 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
     }
 
     @Override
-    public ImportResult importAllItems() {
+    public ImportResult importAllItems(final boolean update) {
         LOGGER.debug("Starting prices import");
 
-        int successNumber = 0;
-        int errorNumber = 0;
         int apiPage = 1;
+
+        ImportResult importResult = new ImportResult(0, 0);
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -83,11 +83,31 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            // Existing prices deletion
-            LOGGER.debug("Cleaning already imported prices");
+            if (!update) {
+                // Existing prices deletion
+                LOGGER.debug("Cleaning already imported prices");
 
-            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/prices\"]");
+                ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/prices\"]");
+            }
+
+            // getting last import date
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
+            final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesPrices");
+
+            // init modified voyages cruises
+            final Set<Integer> modifiedCruises = new HashSet<>();
+            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+            List<Voyage77> cruises;
+            do {
+                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+
+                for (Voyage77 voyage : cruises) {
+                    modifiedCruises.add(voyage.getVoyageId());
+                }
+
+                apiPage++;
+            } while (cruises.size() > 0);
 
             // Initializing elements necessary to import prices
             // cruises
@@ -128,6 +148,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
             // Importing prices
             List<VoyagePriceComplete> prices;
             int itemsWritten = 0;
+            apiPage = 1;
 
             do {
                 prices = pricesApi.pricesGet3(apiPage, pageSize, null);
@@ -138,6 +159,9 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                     // Trying to deal with price item
                     try {
+                        if (update && !modifiedCruises.contains(price.getVoyageId())) {
+                            throw new ImporterException("Cruise " + price.getVoyageId() + " is not modified");
+                        }
 
                         // Checking if price correspond to an existing cruise
                         if (!cruisesMapping.containsKey(cruiseId)) {
@@ -149,30 +173,40 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                             try {
                                 final Node cruiseContentNode = session.getNode(cruise.getValue() + "/jcr:content");
 
+                                if (cruiseContentNode.hasNode("suites")) {
+                                    cruiseContentNode.getNode("suites").remove();
+                                }
+
                                 // Creating prices root node under the cruise
                                 final Node suitesNode = JcrUtils.getOrAddNode(cruiseContentNode, "suites");
                                 suitesNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices");
 
                                 // Iterating over markets
                                 for (final VoyagePriceMarket priceMarket : price.getMarketCurrency()) {
-                                    CruisesImportUtils.importCruisePrice(session, cruiseContentNode, cruise,
-                                            suitesMapping, priceMarket, suitesNode, successNumber, errorNumber, itemsWritten, sessionRefresh);
+                                    final ImportResult importResultPrices = CruisesImportUtils.importCruisePrice(session, cruiseContentNode, cruise,
+                                            suitesMapping, priceMarket, suitesNode, itemsWritten, sessionRefresh);
+
+                                    importResult.incrementSuccessOf(importResultPrices.getSuccessNumber());
+                                    importResult.incrementErrorOf(importResultPrices.getErrorNumber());
                                 }
                             } catch (RepositoryException e) {
                                 LOGGER.warn("Cannot write prices for cruise {}", e.getMessage());
 
-                                errorNumber++;
+                                importResult.incrementErrorNumber();
                             }
                         }
                     } catch (ImporterException e) {
                         LOGGER.warn("Cannot write prices {}", e.getMessage());
 
-                        errorNumber++;
+                        importResult.incrementErrorNumber();
                     }
                 }
 
                 apiPage++;
             } while (prices.size() > 0);
+
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
+                    "lastModificationDateCruisesPrices", false);
 
             if (session.hasPendingChanges()) {
                 try {
@@ -195,13 +229,8 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
             }
         }
 
-        LOGGER.info("Ending prices import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending prices import, success: {}, errors: {}, api calls : {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
 
-        return new ImportResult(successNumber, errorNumber);
-    }
-
-    @Override
-    public ImportResult updateItems() {
-        return null;
+        return importResult;
     }
 }

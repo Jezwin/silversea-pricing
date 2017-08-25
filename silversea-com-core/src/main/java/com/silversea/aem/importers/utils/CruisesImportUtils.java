@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.utils;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.AssetManager;
@@ -9,6 +10,8 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.impl.ImportResult;
 import io.swagger.client.model.Price;
 import io.swagger.client.model.VoyagePriceMarket;
 import org.apache.commons.lang3.StringUtils;
@@ -37,12 +40,11 @@ public class CruisesImportUtils {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruisesImportUtils.class);
 
-    static public void importCruisePrice(final Session session, final Node cruiseContentNode, final Map.Entry<String, String> cruise,
-                                         final Map<String, Map<String, Resource>> suitesMapping,
-                                         final VoyagePriceMarket priceMarket,
-                                         final Node suitesNode,
-                                         int successNumber, int errorNumber, int itemsWritten,
-                                         int sessionRefresh) throws RepositoryException {
+    static public ImportResult importCruisePrice(final Session session, final Node cruiseContentNode, final Map.Entry<String, String> cruise,
+                                                 final Map<String, Map<String, Resource>> suitesMapping, final VoyagePriceMarket priceMarket,
+                                                 final Node suitesNode, int itemsWritten, int sessionRefresh) throws RepositoryException {
+        final ImportResult importResult = new ImportResult(0, 0);
+
         // Iterating over prices variation
         for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
             try {
@@ -83,17 +85,18 @@ public class CruisesImportUtils {
 
                 // Writing suite reference based on lang
                 priceVariationNode.setProperty("suiteReference", suites.get(cruise.getKey()).getPath());
-
                 priceVariationNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices/pricevariation");
 
-                successNumber++;
+                cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+                importResult.incrementSuccessNumber();
                 itemsWritten++;
 
                 if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                     try {
                         session.save();
 
-                        LOGGER.info("{} prices imported, saving session", +itemsWritten);
+                        LOGGER.debug("{} prices imported, saving session", +itemsWritten);
                     } catch (RepositoryException e) {
                         session.refresh(true);
                     }
@@ -101,9 +104,11 @@ public class CruisesImportUtils {
             } catch (ImporterException | RepositoryException e) {
                 LOGGER.warn("Cannot import price for category, {}", e.getMessage());
 
-                errorNumber++;
+                importResult.incrementErrorNumber();
             }
         }
+
+        return importResult;
     }
 
     public static Map<String, List<String>> getDestinationsMapping(ResourceResolver resourceResolver) {
@@ -211,6 +216,16 @@ public class CruisesImportUtils {
                     final InputStream inputStream = new URL(mapUrl).openStream();
                     final Asset asset = assetManager.createAsset(assetPath, inputStream,
                             mimeTypeService.getMimeType(mapUrl), false);
+
+                    // setting to activate flag on asset
+                    final Node assetNode = asset.adaptTo(Node.class);
+                    if (assetNode != null) {
+                        final Node assetContentNode = assetNode.getNode(JcrConstants.JCR_CONTENT);
+
+                        if (assetContentNode != null) {
+                            assetContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                        }
+                    }
 
                     cruiseContentNode.setProperty("itinerary", asset.getPath());
                 }

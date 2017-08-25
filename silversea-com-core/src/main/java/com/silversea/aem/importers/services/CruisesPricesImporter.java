@@ -9,12 +9,5 @@ public interface CruisesPricesImporter {
      *
      * @return result of the import
      */
-    ImportResult importAllItems();
-
-    /**
-     * Update the prices based on the last import date stored in the cruises root page
-     *
-     * @return result of the import
-     */
-    ImportResult updateItems();
+    ImportResult importAllItems(final boolean update);
 }

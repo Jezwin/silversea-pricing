@@ -21,4 +21,20 @@ public class ImportResult {
     public int getErrorNumber() {
         return errorNumber;
     }
+
+    public void incrementSuccessNumber() {
+        successNumber++;
+    }
+
+    public void incrementErrorNumber() {
+        errorNumber++;
+    }
+
+    public void incrementSuccessOf(final int value) {
+        successNumber += value;
+    }
+
+    public void incrementErrorOf(final int value) {
+        errorNumber += value;
+    }
 }

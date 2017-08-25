@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-@Component(label = "Silversea - API Updater", metatype = true)
+@Component(label = "Silversea - API Updater", metatype = true, immediate = true)
 @Service(value = Runnable.class)
 @Properties({
         @Property(name = "scheduler.expression", value = "0 0 0 * * ?"),
@@ -60,6 +60,12 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private CruisesImporter cruisesImporter;
+
+    @Reference
+    private CruisesItinerariesImporter cruisesItinerariesImporter;
+
+    @Reference
+    private CruisesPricesImporter cruisesPricesImporter;
 
     @Reference
     private Replicator replicator;
@@ -109,11 +115,19 @@ public class ApiUpdater implements Runnable {
             LOGGER.info("Cruises import : {} success, {} errors", importResultCruises.getSuccessNumber(),
                     importResultCruises.getErrorNumber());
 
+            final ImportResult importResultCruisesItineraries = cruisesItinerariesImporter.importAllItems(true);
+            LOGGER.info("Cruises itineraries import : {} success, {} errors", importResultCruisesItineraries.getSuccessNumber(),
+                    importResultCruisesItineraries.getErrorNumber());
+
+            final ImportResult importResultCruisesPrices = cruisesPricesImporter.importAllItems(true);
+            LOGGER.info("Cruises itineraries import : {} success, {} errors", importResultCruisesPrices.getSuccessNumber(),
+                    importResultCruisesPrices.getErrorNumber());
+
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
 
-            replicateModifications(
-                    "/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
+            replicateModifications("/jcr:root/content/dam/element(*,dam:Asset)[jcr:content/toDeactivate or jcr:content/toActivate]");
+            replicateModifications("/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
             replicateModifications("/jcr:root/content//element(*,cq:Tags)[toDeactivate or toActivate]");
 
         } else {

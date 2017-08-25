@@ -251,14 +251,13 @@ public class CruisesImporterImpl implements CruisesImporter {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            // Initializing elements necessary to import exclusive offers
+            // Initializing elements necessary to import cruises
             // cruises mapping
             final Map<Integer, Map<String, Page>> cruisesMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
                     "cruiseId");
 
-            // Initializing elements necessary to import cruise
             // destinations
             final Map<String, List<String>> destinationsMapping = CruisesImportUtils.getDestinationsMapping(resourceResolver);
 

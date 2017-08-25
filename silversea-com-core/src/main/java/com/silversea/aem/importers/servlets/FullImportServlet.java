@@ -263,7 +263,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (mode.equals(Mode.itineraries)) {
-                    cruisesItinerariesImporter.importAllItems();
+                    cruisesItinerariesImporter.importAllItems(false);
                     responseWriter.write("Itineraries import Done<br/>");
                     responseWriter.flush();
                 }
@@ -287,7 +287,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 }
 
                 if (mode.equals(Mode.prices)) {
-                    cruisesPricesImporter.importAllItems();
+                    cruisesPricesImporter.importAllItems(false);
                     responseWriter.write("Prices import Done<br/>");
                     responseWriter.flush();
                 }

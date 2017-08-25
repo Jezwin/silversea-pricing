@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
@@ -8,7 +9,9 @@ import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ItinerariesApi;
+import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Itinerary;
+import io.swagger.client.model.Voyage77;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -25,9 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Component
@@ -59,7 +60,8 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
     }
 
     @Override
-    public ImportResult importAllItems() {
+    public ImportResult importAllItems(final boolean update) {
+
         LOGGER.debug("Starting itineraries import");
 
         int successNumber = 0, errorNumber = 0, apiPage = 1;
@@ -70,18 +72,37 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
-
             final ItinerariesApi itinerariesApi = new ItinerariesApi(ImportersUtils.getApiClient(apiConfig));
 
             if (pageManager == null || session == null) {
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            // Existing itineraries deletion
-            LOGGER.debug("Cleaning already imported itineraries");
+            if (!update) {
+                // Existing itineraries deletion
+                LOGGER.debug("Cleaning already imported itineraries");
 
-            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]");
+                ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]");
+            }
+
+            // getting last import date
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
+            final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItineraries");
+
+            // init modified voyages cruises
+            final Set<Integer> modifiedCruises = new HashSet<>();
+            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+            List<Voyage77> cruises;
+            do {
+                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+
+                for (Voyage77 voyage : cruises) {
+                    modifiedCruises.add(voyage.getVoyageId());
+                }
+
+                apiPage++;
+            } while (cruises.size() > 0);
 
             // Initializing elements necessary to import itineraries
             // cruises mapping
@@ -98,6 +119,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             // Importing itineraries
             List<Itinerary> itineraries;
             int itemsWritten = 0;
+            apiPage = 1;
 
             do {
                 itineraries = itinerariesApi.itinerariesGet("2015-01-01", "2025-12-31", null, null, apiPage, pageSize, null);
@@ -106,6 +128,10 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     LOGGER.trace("importing itinerary {} for cruise {}", itinerary.getItineraryId(), itinerary.getVoyageId());
 
                     try {
+                        if (update && !modifiedCruises.contains(itinerary.getVoyageId())) {
+                            throw new ImporterException("Cruise is not modified");
+                        }
+
                         final Map<String, String> cruisePaths = cruisesMapping.get(itinerary.getVoyageId());
 
                         if (cruisePaths == null) {
@@ -114,6 +140,10 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
                         for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
                             final Node cruiseContentNode = session.getNode(cruisePath.getValue() + "/jcr:content");
+
+                            if (cruiseContentNode.hasNode("itineraries")) {
+                                cruiseContentNode.getNode("itineraries").remove();
+                            }
 
                             LOGGER.trace("Adding itinerary {} under cruise {}", itinerary.getItineraryId(), cruisePath.getValue());
 
@@ -141,6 +171,8 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                                 }
                             }
 
+                            cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
                             successNumber++;
                             itemsWritten++;
 
@@ -155,7 +187,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                             }
                         }
                     } catch (RepositoryException | ImporterException e) {
-                        LOGGER.error("Cannot write itinerary {}", itinerary.getItineraryId(), e);
+                        LOGGER.warn("Cannot write itinerary {} - {}", itinerary.getItineraryId(), e.getMessage());
 
                         errorNumber++;
                     }
@@ -164,11 +196,14 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 apiPage++;
             } while (itineraries.size() > 0);
 
+            ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
+                    "lastModificationDateCruisesItineraries", false);
+
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
 
-                    LOGGER.info("{} itineraries imported, saving session", +itemsWritten);
+                    LOGGER.info("{} itineraries updated, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -181,14 +216,8 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
             LOGGER.error("Cannot read itineraries from API", e);
         }
 
-        LOGGER.info("Ending itineraries import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending itineraries updated, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
 
         return new ImportResult(successNumber, errorNumber);
-    }
-
-    @Override
-    public ImportResult updateItems() {
-        // TODO implement
-        return null;
     }
 }
