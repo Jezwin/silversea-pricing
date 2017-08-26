@@ -13,6 +13,9 @@ public class GeolocationTagModel {
     @Inject @Named("iso2")
     private String countryCode;
 
+    @Inject @Named("iso3")
+    private String countryCodeIso3;
+
     @Inject
     private String market;
 
@@ -30,6 +33,10 @@ public class GeolocationTagModel {
 
     public String getCountryCode() {
         return countryCode;
+    }
+
+    public String getCountryCodeIso3() {
+        return countryCodeIso3;
     }
 
     public String getMarket() {

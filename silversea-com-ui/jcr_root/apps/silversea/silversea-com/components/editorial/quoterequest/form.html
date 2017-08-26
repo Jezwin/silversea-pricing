@@ -4,7 +4,7 @@
     <input name="requestsource" type="hidden" value="website" />
     <input name="requesttype" type="hidden" value="BKG" />
     <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
-    <input name="sitecountry" type="hidden" value="${use.siteCountry}" />
+    <input name="sitecountry" type="hidden" value="${countryHelper.countryCodeIso3}" />
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
     <sly data-sly-test="${use.isCruiseRequested}">
         <input type="hidden" name="voyagename" value="${use.selectedCruise.title}" />

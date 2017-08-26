@@ -16,6 +16,8 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
 
     protected String countryCode = WcmConstants.DEFAULT_GEOLOCATION_COUNTRY;
 
+    protected String countryCodeIso3 = WcmConstants.DEFAULT_GEOLOCATION_COUNTRY_ISO3;
+
     protected String currency = WcmConstants.DEFAULT_CURRENCY;
 
     @Override
@@ -28,14 +30,20 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
             if (geolocation != null) {
                 geomarket = geolocation.getMarket();
                 countryCode = geolocation.getCountryCode();
+                countryCodeIso3 = geolocation.getCountryCodeIso3();
                 currency = geolocation.getCurrency();
             } else {
                 geolocation = geolocationTagService.getGeolocationTagModelCountryCode(getRequest(), countryCode);
 
                 geomarket = geolocation.getMarket();
                 countryCode = geolocation.getCountryCode();
+                countryCodeIso3 = geolocation.getCountryCodeIso3();
                 currency = geolocation.getCurrency();
             }
         }
+    }
+
+    public String getCountryCodeIso3() {
+        return countryCodeIso3;
     }
 }

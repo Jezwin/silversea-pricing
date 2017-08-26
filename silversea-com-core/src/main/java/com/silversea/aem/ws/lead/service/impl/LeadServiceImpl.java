@@ -86,6 +86,7 @@ public class LeadServiceImpl implements LeadService {
         request.setNameFirst(lead.getFirstname());
         request.setNameLast(lead.getLastname());
         request.setEmail(lead.getEmail());
+        request.setSubscribeEmail(lead.getSubscribeemail());
         request.setPhone(lead.getPhone());
         request.setComments(lead.getComments());
 
