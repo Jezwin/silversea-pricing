@@ -70,18 +70,22 @@ function requestForm() {
         // Trigger open chosen event on flag click
         var openChosen = (function openChosen() {
             $countryCodeWrapper.find('.flag-container').on('click', function(event) {
+                event.preventDefault();
                 event.stopPropagation();
                 $countryCodeWrapper.find('#countryCode').trigger('chosen:open');
 
-                // Unbind click on flag
-                $(this).off('click');
+                // Unbind click on flag when dropdown is opened
+                $(this).off('click'); 
             });
 
             return openChosen;
         }());
 
-        // Bind click on flag
-        $countryCodeWrapper.find('#countryCode').on('chosen:hiding_dropdown', function() {
+        $countryCodeWrapper.find('#countryCode').on('chosen:hiding_dropdown', function(e) {
+            // Trick : force close completely chosen
+            $(document).trigger('click');
+
+            // Bind click on flag again
             openChosen();
         })
     });
@@ -118,9 +122,5 @@ function requestForm() {
         if (!e.isDefaultPrevented()) {
             $.signUp.signUpOffers(this, e);
         }
-    });
-
-    $('.chosen.chosen-with-search').chosen({
-        'disable_search' : false
     });
 }
