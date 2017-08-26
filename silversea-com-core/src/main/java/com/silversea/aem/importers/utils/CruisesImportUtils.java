@@ -90,17 +90,6 @@ public class CruisesImportUtils {
                 cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                 importResult.incrementSuccessNumber();
-                itemsWritten++;
-
-                if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.debug("{} prices imported, saving session", +itemsWritten);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
             } catch (ImporterException | RepositoryException e) {
                 LOGGER.warn("Cannot import price for category, {}", e.getMessage());
 

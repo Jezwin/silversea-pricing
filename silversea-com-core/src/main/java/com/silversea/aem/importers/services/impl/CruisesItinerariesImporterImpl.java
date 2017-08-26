@@ -141,10 +141,6 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                         for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
                             final Node cruiseContentNode = session.getNode(cruisePath.getValue() + "/jcr:content");
 
-                            if (cruiseContentNode.hasNode("itineraries")) {
-                                cruiseContentNode.getNode("itineraries").remove();
-                            }
-
                             LOGGER.trace("Adding itinerary {} under cruise {}", itinerary.getItineraryId(), cruisePath.getValue());
 
                             final Node itinerariesNode = JcrUtils.getOrAddNode(cruiseContentNode, "itineraries", "nt:unstructured");

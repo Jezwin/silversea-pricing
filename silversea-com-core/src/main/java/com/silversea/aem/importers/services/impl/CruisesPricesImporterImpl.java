@@ -188,6 +188,20 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                                     importResult.incrementSuccessOf(importResultPrices.getSuccessNumber());
                                     importResult.incrementErrorOf(importResultPrices.getErrorNumber());
+
+                                    if (importResultPrices.getSuccessNumber() > 0) {
+                                        itemsWritten++;
+                                    }
+
+                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                        try {
+                                            session.save();
+
+                                            LOGGER.debug("{} prices imported, saving session", +itemsWritten);
+                                        } catch (RepositoryException e) {
+                                            session.refresh(true);
+                                        }
+                                    }
                                 }
                             } catch (RepositoryException e) {
                                 LOGGER.warn("Cannot write prices for cruise {}", e.getMessage());
