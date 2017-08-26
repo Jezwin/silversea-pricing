@@ -43,7 +43,7 @@ public class CruisesImportUtils {
     static public ImportResult importCruisePrice(final Session session, final Node cruiseContentNode, final Map.Entry<String, String> cruise,
                                                  final Map<String, Map<String, Resource>> suitesMapping, final VoyagePriceMarket priceMarket,
                                                  final Node suitesNode, int itemsWritten, int sessionRefresh) throws RepositoryException {
-        final ImportResult importResult = new ImportResult(0, 0);
+        final ImportResult importResult = new ImportResult();
 
         // Iterating over prices variation
         for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {

@@ -64,7 +64,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
     public ImportResult importAllItems() {
         LOGGER.debug("Starting combo cruises import");
 
-        final ImportResult importResult = new ImportResult(0, 0);
+        final ImportResult importResult = new ImportResult();
 
         int itemsWritten = 0;
 

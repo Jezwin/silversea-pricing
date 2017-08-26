@@ -68,8 +68,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
     private ImportResult importOrUpdateBrochures(final String mode) {
         LOGGER.debug("Starting brochures import");
 
-        int successNumber = 0;
-        int errorNumber = 0;
+        final ImportResult importResult = new ImportResult();
 
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -82,12 +81,12 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 
             final BrochuresApi brochuresApi = new BrochuresApi(ImportersUtils.getApiClient(apiConfig));
 
-            int j = 0, i = 1;
+            int itemsWritten = 0, apiPage = 1;
             List<Brochure> brochures;
             List<String> brochureCodes = new ArrayList<>();
 
             do {
-                brochures = brochuresApi.brochuresGet(null, i, pageSize, null);
+                brochures = brochuresApi.brochuresGet(null, apiPage, pageSize, null);
 
                 for (Brochure brochure : brochures) {
                     LOGGER.trace("Starting import of {} ({})", brochure.getTitle(), brochure.getBrochureCod());
@@ -105,7 +104,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                             LOGGER.error("Cannot find any brochure for {} ({}) in lang {}", brochure.getTitle(),
                                     brochure.getBrochureCod(), brochure.getLanguageCod().toLowerCase());
 
-                            errorNumber++;
+                            importResult.incrementErrorNumber();
                         }
 
                         while (resources.hasNext()) {
@@ -139,8 +138,8 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                 metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
                                 metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));
 
-                                successNumber++;
-                                j++;
+                                importResult.incrementSuccessNumber();
+                                itemsWritten++;
 
                                 LOGGER.trace("Brochure data written on {}", resource.getPath());
                             } else if (mode.equals("update")) {
@@ -178,8 +177,8 @@ public class BrochuresImporterImpl implements BrochuresImporter {
 
                                     metadataNode.getParent().setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
-                                    successNumber++;
-                                    j++;
+                                    importResult.incrementSuccessNumber();
+                                    itemsWritten++;
 
                                     LOGGER.trace("Brochure data written on {}", resource.getPath());
                                 } else {
@@ -187,11 +186,11 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                 }
                             }
 
-                            if (j % sessionRefresh == 0 && session.hasPendingChanges()) {
+                            if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                                 try {
                                     session.save();
 
-                                    LOGGER.debug("{} brochure imported, saving session", +j);
+                                    LOGGER.debug("{} brochure imported, saving session", +itemsWritten);
                                 } catch (RepositoryException e) {
                                     session.refresh(true);
                                 }
@@ -200,11 +199,11 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                     } catch (RepositoryException | ImporterException e) {
                         LOGGER.error("Cannot set brochure properties", e);
 
-                        errorNumber++;
+                        importResult.incrementErrorNumber();
                     }
                 }
 
-                i++;
+                apiPage++;
             } while (brochures.size() > 0);
 
             // Mark as "to deactivate" all brochures not present on API side
@@ -238,7 +237,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                 try {
                     session.save();
 
-                    LOGGER.debug("{} brochure imported, saving session", +j);
+                    LOGGER.debug("{} brochure imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -255,9 +254,9 @@ public class BrochuresImporterImpl implements BrochuresImporter {
             }
         }
 
-        LOGGER.debug("Ending brochures import, success: {}, error: {}", +successNumber, +errorNumber);
+        LOGGER.debug("Ending brochures import, success: {}, error: {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber());
 
-        return new ImportResult(successNumber, errorNumber);
+        return importResult;
     }
 
     private static boolean compareLists(List<String> l1, List<String> l2) {

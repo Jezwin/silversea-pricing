@@ -5,11 +5,14 @@ package com.silversea.aem.importers.services.impl;
  */
 public class ImportResult {
 
-    private int successNumber;
+    private int successNumber = 0;
 
-    private int errorNumber;
+    private int errorNumber = 0;
 
-    public ImportResult(final int successNumber, final int errorNumber) {
+    public ImportResult() {
+    }
+
+    public ImportResult(int successNumber, int errorNumber) {
         this.successNumber = successNumber;
         this.errorNumber = errorNumber;
     }

@@ -42,6 +42,8 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
     private int sessionRefresh = 100;
     private int pageSize = 100;
 
+    private boolean importRunning;
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
@@ -60,20 +62,23 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
     }
 
     @Override
-    public ImportResult importAllItems(final boolean update) {
-        LOGGER.debug("Starting prices import");
+    public ImportResult importAllItems(final boolean update) throws ImporterException {
+        if (importRunning) {
+            throw new ImporterException("Import is already running");
+        }
 
+        LOGGER.debug("Starting prices import");
+        importRunning = true;
+
+        final ImportResult importResult = new ImportResult();
         int apiPage = 1;
 
-        ImportResult importResult = new ImportResult(0, 0);
-
+        // init authentication
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
 
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -238,9 +243,7 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
         } catch (ApiException e) {
             LOGGER.error("Cannot read prices from API", e);
         } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+            importRunning = false;
         }
 
         LOGGER.info("Ending prices import, success: {}, errors: {}, api calls : {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);

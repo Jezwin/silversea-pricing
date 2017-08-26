@@ -119,9 +119,13 @@ public class ApiUpdater implements Runnable {
             LOGGER.info("Cruises itineraries import : {} success, {} errors", importResultCruisesItineraries.getSuccessNumber(),
                     importResultCruisesItineraries.getErrorNumber());
 
-            final ImportResult importResultCruisesPrices = cruisesPricesImporter.importAllItems(true);
-            LOGGER.info("Cruises prices import : {} success, {} errors", importResultCruisesPrices.getSuccessNumber(),
-                    importResultCruisesPrices.getErrorNumber());
+            try {
+                final ImportResult importResultCruisesPrices = cruisesPricesImporter.importAllItems(true);
+                LOGGER.info("Cruises prices import : {} success, {} errors", importResultCruisesPrices.getSuccessNumber(),
+                        importResultCruisesPrices.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import cruise prices", e);
+            }
 
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");

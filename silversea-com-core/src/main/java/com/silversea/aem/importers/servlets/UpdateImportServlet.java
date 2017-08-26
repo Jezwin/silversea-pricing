@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.servlets;
 
+import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
@@ -13,10 +14,33 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletException;
 import java.io.IOException;
 
-@SlingServlet(paths = "/bin/api-update-import")
+@SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(UpdateImportServlet.class);
+
+    private enum Mode {
+        cities,
+        excursions,
+        hotels,
+        landprograms,
+
+        countries,
+        features,
+        brochures,
+
+        exclusiveoffers,
+
+        cruises,
+        itineraries,
+        itinerarieshotels,
+        itinerariesexcursions,
+        itinerarieslandprograms,
+        prices,
+        cruisesexclusiveoffers,
+
+        combocruises
+    }
 
     @Reference
     private CitiesImporter citiesImporter;
@@ -65,57 +89,34 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
             throw new ServletException("the mode parameter must be among the values : " + StringUtils.join(Mode.values(), ", "));
         }
 
-        if (mode.equals(Mode.cities)) {
-            citiesImporter.updateItems();
-        } else if (mode.equals(Mode.hotels)) {
-            hotelsImporter.updateHotels();
-        } else if (mode.equals(Mode.excursions)) {
-            shoreExcursionsImporter.updateShoreExcursions();
-        } else if (mode.equals(Mode.landprograms)) {
-            landProgramsImporter.updateLandPrograms();
-        } else if (mode.equals(Mode.exclusiveoffers)) {
-            exclusiveOffersImporter.importAllItems();
-        } else if (mode.equals(Mode.features)) {
-            //featuresImporter.updateFeatures();
-        } else if (mode.equals(Mode.cruises)) {
-            cruisesImporter.updateItems();
-        } else if (mode.equals(Mode.itineraries)) {
-            cruisesItinerariesImporter.importAllItems(true);
-        } else if (mode.equals(Mode.prices)) {
-            cruisesPricesImporter.importAllItems(true);
-        } else if (mode.equals(Mode.combocruise)) {
-            //comboCruisesImporter.importData(true);
-        } else if (mode.equals(Mode.brochures)) {
-            brochuresImporter.updateBrochures();
+        try {
+            if (mode.equals(Mode.cities)) {
+                citiesImporter.updateItems();
+            } else if (mode.equals(Mode.hotels)) {
+                hotelsImporter.updateHotels();
+            } else if (mode.equals(Mode.excursions)) {
+                shoreExcursionsImporter.updateShoreExcursions();
+            } else if (mode.equals(Mode.landprograms)) {
+                landProgramsImporter.updateLandPrograms();
+            } else if (mode.equals(Mode.exclusiveoffers)) {
+                exclusiveOffersImporter.importAllItems();
+            } else if (mode.equals(Mode.features)) {
+                //featuresImporter.updateFeatures();
+            } else if (mode.equals(Mode.cruises)) {
+                cruisesImporter.updateItems();
+            } else if (mode.equals(Mode.itineraries)) {
+                cruisesItinerariesImporter.importAllItems(true);
+            } else if (mode.equals(Mode.prices)) {
+                cruisesPricesImporter.importAllItems(true);
+            } else if (mode.equals(Mode.combocruises)) {
+                //comboCruisesImporter.importData(true);
+            } else if (mode.equals(Mode.brochures)) {
+                brochuresImporter.updateBrochures();
+            }
+        } catch (ImporterException e) {
+            throw new ServletException(e);
         }
 
         response.setContentType("text/html");
-    }
-
-    enum Mode {
-        cities("cities"),
-        excursions("excursions"),
-        hotels("hotels"),
-        landprograms("landprograms"),
-        travelagencies("travelagencies"),
-        exclusiveoffers("exclusiveoffers"),
-        countries("countries"),
-        features("features"),
-        brochures("brochures"),
-        cruises("cruises"),
-        itineraries("itineraries"),
-        prices("prices"),
-        combocruise("combocruises");
-
-        private String name;
-
-        Mode(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
     }
 }
