@@ -14,10 +14,6 @@
     -webkit-overflow-scrolling: touch;
     outline: 0;
     padding-right: 0 !important;
-
-    &.fade .modal-dialog { }
-
-    &.in .modal-dialog { }
 }
 
 .modal-open .modal {
@@ -27,16 +23,17 @@
 
 .modal-dialog {
     position: relative;
-    top: 50%;
-    transform: translate(0,-50%);
+    height: 100%;
     width: auto;
 }
 
 .modal-content {
     background-color: @white;
-    position: relative;
     background-clip: padding-box;
+    position: relative;
     outline: 0;
+    top: 50%;
+    transform: translate(0 , -50%);
 
     .modal-header, .modal-body {
         background-color: @modal-content-bg;
