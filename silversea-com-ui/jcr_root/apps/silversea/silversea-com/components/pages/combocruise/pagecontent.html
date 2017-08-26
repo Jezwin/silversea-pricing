@@ -52,11 +52,15 @@
                     </div>
                     <div class="c-tab__content" id="excursions" data-sly-test="${comboCruise.excursionsNumber > 0}">
                         <!--/* Excursions tab */-->
+                        <div data-sly-resource="${'par-ex-top' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                         <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
+                        <div data-sly-resource="${'par-ex-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                     <div class="c-tab__content" id="landnhotel" data-sly-test="${comboCruise.landProgramsNumber > 0}">
                         <!--/* Land and hotel tab */-->
+                        <div data-sly-resource="${'par-lp-top' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                         <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
+                        <div data-sly-resource="${'par-lp-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                     <div class="c-tab__content" id="ship">
                         <!--/* Ship tab */-->
