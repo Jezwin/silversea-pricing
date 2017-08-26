@@ -10,6 +10,7 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
@@ -19,12 +20,12 @@ import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.model.Shorex;
 import io.swagger.client.model.Shorex77;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.osgi.service.component.ComponentContext;
@@ -34,8 +35,8 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +90,14 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]");
 
+            // cities mapping
+            final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
+
+            // features
+            final Map<Integer, String> featuresMapping = CruisesImportUtils.getFeaturesMap(resourceResolver);
+
             // Importing excursions
             List<Shorex> shorexes;
             int apiPage = 1, itemsWritten = 0;
@@ -104,26 +113,19 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                     try {
                         // Getting cities with the city id read from the shore
                         // excursion
-                        Integer cityId = shorex.getCities().size() > 0 ? shorex.getCities().get(0).getCityId() : null;
+                        final Integer cityId = shorex.getCities().size() > 0 ? shorex.getCities().get(0).getCityId() : null;
 
                         if (cityId == null) {
                             throw new ImporterException("Shore excursion have no city");
                         }
 
-                        // TODO create cache of cityId / Resource in order to speed up the process
-                        Iterator<Resource> portsResources = resourceResolver
-                                .findResources("/jcr:root/content/silversea-com//element(*,cq:Page)[" +
-                                                "jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\" " +
-                                                "and jcr:content/cityId=\"" + cityId + "\"]",
-                                        "xpath");
-
-                        if (!portsResources.hasNext()) {
+                        if (!portsMapping.containsKey(cityId)) {
                             throw new ImporterException("Cannot find city with id " + cityId);
                         }
 
-                        while (portsResources.hasNext()) {
+                        for (Map.Entry<String, Page> portsPage : portsMapping.get(cityId).entrySet()) {
                             // Getting port page
-                            Page portPage = portsResources.next().adaptTo(Page.class);
+                            Page portPage = portsPage.getValue();
 
                             if (portPage == null) {
                                 throw new ImporterException("Error getting port page " + cityId);
@@ -171,6 +173,24 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
                             excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
+                            
+                            if (StringUtils.isNotBlank(shorex.getSymbols())) {
+                                final String[] symbolsIDs = shorex.getSymbols().split(",");
+
+                                if (symbolsIDs.length > 0) {
+                                    List<String> features = new ArrayList<>();
+                                    for (final String symbolId : symbolsIDs) {
+                                        try {
+                                            final int symbolIdInt = Integer.parseInt(symbolId);
+                                            if (featuresMapping.containsKey(symbolIdInt)) {
+                                                features.add(featuresMapping.get(symbolIdInt));
+                                            }
+                                        } catch (NumberFormatException ignored) {}
+                                    }
+
+                                    excursionPageContentNode.setProperty("cq:tags", features.toArray(new String[features.size()]));
+                                }
+                            }
 
                             // Set livecopy mixin
                             if (!LanguageHelper.getLanguage(portPage).equals("en")) {
@@ -258,6 +278,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]", "shorexId");
 
+            // features
+            final Map<Integer, String> featuresMapping = CruisesImportUtils.getFeaturesMap(resourceResolver);
+
             int itemsWritten = 0;
             List<Shorex77> excursions;
 
@@ -298,7 +321,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
                                     LOGGER.trace("Excursion {} is marked to be deactivated", excursionName);
                                 } else {
-                                    final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage);
+                                    final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage, featuresMapping);
                                     excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                     LOGGER.trace("Excursion {} is marked to be activated", excursionName);
@@ -352,7 +375,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                                             "Cannot create excursion page for excursion " + excursionName);
                                 }
 
-                                final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage);
+                                final Node excursionContentNode = updateExcursionContentNode(excursion, excursionPage, featuresMapping);
                                 excursionContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Excursion {} successfully created", excursionPage.getPath());
@@ -408,7 +431,8 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
      * @return the content node of the excursion page, updated
      * @throws ImporterException if the excursion page cannot be updated
      */
-    private Node updateExcursionContentNode(final Shorex77 excursion, final Page excursionPage) throws ImporterException {
+    private Node updateExcursionContentNode(final Shorex77 excursion, final Page excursionPage,
+                                            Map<Integer, String> featuresMapping) throws ImporterException {
         final Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
         if (excursionContentNode == null) {
@@ -423,6 +447,24 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("apiLongDescription", excursion.getDescription());
             excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
             excursionContentNode.setProperty("shorexId", excursion.getShorexId());
+
+            if (StringUtils.isNotBlank(excursion.getSymbols())) {
+                final String[] symbolsIDs = excursion.getSymbols().split(",");
+
+                if (symbolsIDs.length > 0) {
+                    List<String> features = new ArrayList<>();
+                    for (final String symbolId : symbolsIDs) {
+                        try {
+                            final int symbolIdInt = Integer.parseInt(symbolId);
+                            if (featuresMapping.containsKey(symbolIdInt)) {
+                                features.add(featuresMapping.get(symbolIdInt));
+                            }
+                        } catch (NumberFormatException ignored) {}
+                    }
+
+                    excursionContentNode.setProperty("cq:tags", features.toArray(new String[features.size()]));
+                }
+            }
 
             // Set livecopy mixin
             if (!LanguageHelper.getLanguage(excursionPage).equals("en")) {
