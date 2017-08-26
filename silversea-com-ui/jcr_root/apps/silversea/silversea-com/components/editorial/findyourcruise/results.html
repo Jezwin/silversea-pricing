@@ -80,7 +80,7 @@
                     <span data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} <br />${'early-booking-bonus' @ i18n}</span>
                 </p>
                 <p class="c-fyc__result__content__button text-center">
-                    <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', suffix=suffix}"
+                    <a data-sly-test.suffix="${'{0}{1}' @ format=[cruiseItem.cruiseModel.cruiseCode, '.html']}" href="${fyc.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}"
                         class="btn btn-red effect btn-thin" data-sscclicktype="clic-RAQ">${'request-quote' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
                 </p>
             </div>
