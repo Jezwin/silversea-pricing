@@ -34,8 +34,10 @@ $(function() {
             $('a[href="' + tabId + '"]').closest('li').trigger('click');
 
             if (tabId == '#suitenfare') {
-                // Open current suite only (force close others suite)
-                $(tabId).find('.panel:eq(' + $trigger.index() + ')').find('[role="tab"]').trigger('click');
+                if($trigger.closest('.c-suitelist').length > 0) {
+                    // Open current suite only (force close others suite)
+                    $(tabId).find('.panel:eq(' + $trigger.index() + ')').find('[role="tab"]').trigger('click');
+                }
             } else {
                 // Open current segment
                 $(tabId).find('.select-segment dd:eq(' + $trigger.closest('[data-slick-index]').data('slick-index') + ') a').trigger('click');
