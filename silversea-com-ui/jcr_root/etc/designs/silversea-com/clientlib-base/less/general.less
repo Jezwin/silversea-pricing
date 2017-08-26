@@ -32,10 +32,10 @@ body {
     }
     
     &.modal-open {
-		left: 0;
-		right: 0;		
-		position: fixed;
-		overflow: hidden;
+        left: 0;
+        overflow: hidden;
+        position: fixed;
+        right: 0;
     }
 }
 
@@ -434,10 +434,9 @@ picture {
 ** Modal window
 */
 .modal-open {
-	@media screen and (max-width: @screen-sm) {
-		& .modal {
-		    margin: 0 10px;
-		}
+    @media screen and (max-width: @screen-sm) {
+        & .modal {
+            margin: 0 10px;
+        }
    }
 }
-
