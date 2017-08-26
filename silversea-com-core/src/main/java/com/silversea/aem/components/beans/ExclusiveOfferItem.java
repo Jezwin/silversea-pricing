@@ -1,14 +1,13 @@
 package com.silversea.aem.components.beans;
 
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.ExclusiveOfferModel;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
- * Inner class used to store informations about exclusive offer and the best
+ * Class used to store informations about exclusive offer and the best
  * matching variation, and display informations according to it
  */
 public class ExclusiveOfferItem {
@@ -17,7 +16,9 @@ public class ExclusiveOfferItem {
 
     private ExclusiveOfferModel exclusiveOfferVariation;
 
-    public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2) {
+    private String destinationPath;
+
+    public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath) {
         this.exclusiveOffer = exclusiveOffer;
 
         if (this.exclusiveOffer.getVariations() != null) {
@@ -35,6 +36,8 @@ public class ExclusiveOfferItem {
                 }
             }
         }
+
+        this.destinationPath = destinationPath;
     }
 
     public String getTitle() {
@@ -46,6 +49,10 @@ public class ExclusiveOfferItem {
     }
 
     public String getDescription() {
+        if (destinationPath != null && exclusiveOffer.getDestinationsTexts().containsKey(destinationPath)) {
+            return exclusiveOffer.getDestinationsTexts().get(destinationPath);
+        }
+
         if (exclusiveOfferVariation != null) {
             return StringUtils.defaultIfBlank(exclusiveOfferVariation.getDescription(), exclusiveOffer.getDescription());
         }

@@ -173,7 +173,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
             if (exclusiveOffer.getGeomarkets() != null
                     && exclusiveOffer.getGeomarkets().contains(geomarket)) {
-                exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode));
+                exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination().getPath()));
             }
         }
     }

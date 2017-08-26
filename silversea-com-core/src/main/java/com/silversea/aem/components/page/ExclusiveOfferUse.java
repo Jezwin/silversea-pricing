@@ -9,8 +9,6 @@ import com.silversea.aem.models.ExclusiveOfferModel;
  */
 public class ExclusiveOfferUse extends AbstractGeolocationAwareUse {
 
-    private ExclusiveOfferModel exclusiveOfferModel;
-
     private boolean available;
 
     private ExclusiveOfferItem exclusiveOfferItem;
@@ -18,13 +16,14 @@ public class ExclusiveOfferUse extends AbstractGeolocationAwareUse {
     @Override
     public void activate() throws Exception {
         super.activate();
-        exclusiveOfferModel = getCurrentPage().adaptTo(ExclusiveOfferModel.class);
 
-        if (exclusiveOfferModel.getGeomarkets().contains(geomarket)) {
+        final ExclusiveOfferModel exclusiveOfferModel = getCurrentPage().adaptTo(ExclusiveOfferModel.class);
+
+        if (exclusiveOfferModel != null && exclusiveOfferModel.getGeomarkets().contains(geomarket)) {
             available = true;
         }
 
-        exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode);
+        exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null);
     }
 
     public boolean isAvailable() {

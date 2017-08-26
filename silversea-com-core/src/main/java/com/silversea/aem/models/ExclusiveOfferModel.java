@@ -15,9 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Model(adaptables = Page.class)
 public class ExclusiveOfferModel {
@@ -47,6 +45,11 @@ public class ExclusiveOfferModel {
     private List<String> cruiseFareAdditions = new ArrayList<>();
 
     private List<String> footNotes = new ArrayList<>();
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/destinations") @Optional
+    private String[] destinationsTextsJson;
+
+    private Map<String, String> destinationsTexts = new HashMap<>();
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/mapOverhead") @Optional
     private String mapOverHead;
@@ -86,6 +89,23 @@ public class ExclusiveOfferModel {
                     final String footNote = jsonObject.optString("notes");
                     if (StringUtils.isNotEmpty(footNote)) {
                         footNotes.add(footNote);
+                    }
+                } catch (JSONException ignored) {
+                }
+            }
+        }
+
+        // init destinations texts
+        if (destinationsTextsJson != null) {
+            for (final String destinationTextJson : destinationsTextsJson) {
+
+                try {
+                    final JSONObject jsonObject = new JSONObject(destinationTextJson);
+
+                    final String reference = jsonObject.optString("reference");
+                    final String text = jsonObject.optString("text");
+                    if (StringUtils.isNotEmpty(reference) && StringUtils.isNotEmpty(text)) {
+                        destinationsTexts.put(reference, text);
                     }
                 } catch (JSONException ignored) {
                 }
@@ -135,6 +155,10 @@ public class ExclusiveOfferModel {
 
     public List<String> getFootNotes() {
         return footNotes;
+    }
+
+    public Map<String, String> getDestinationsTexts() {
+        return destinationsTexts;
     }
 
     public String getMapOverHead() {
