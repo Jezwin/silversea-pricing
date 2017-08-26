@@ -8,71 +8,71 @@
             <tabs jcr:primaryType="nt:unstructured">
                 <items jcr:primaryType="nt:unstructured">
                     <destination
-                            jcr:primaryType="nt:unstructured"
-                            jcr:title="destination"
-                            cq:showOnCreate="{Boolean}false"
-                            sling:resourceType="granite/ui/components/foundation/section">
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="destination"
+                        cq:showOnCreate="{Boolean}false"
+                        sling:resourceType="granite/ui/components/foundation/section">
                         <layout
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                                margin="{Boolean}false"/>
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                            margin="{Boolean}false"/>
                         <items jcr:primaryType="nt:unstructured">
                             <column
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/container">
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
                                     <mapLabel
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="mapLabel"
-                                            fieldLabel="Map Label"
-                                            name="./mapLabel"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="mapLabel"
+                                        fieldLabel="Map Label"
+                                        name="./mapLabel"/>
                                     <excerpt
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="Excerpt"
-                                            fieldLabel="Excerpt"
-                                            name="./excerpt"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="Excerpt"
+                                        fieldLabel="Excerpt"
+                                        name="./excerpt"/>
                                     <destinationId
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="/libs/granite/ui/components/foundation/form/numberfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="destinationId"
-                                            fieldLabel="Destination Id"
-                                            name="./destinationId"
-                                            disabled="{Boolean}true"
-                                            required="{Boolean}true"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="/libs/granite/ui/components/foundation/form/numberfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="destinationId"
+                                        fieldLabel="Destination Id"
+                                        name="./destinationId"
+                                        disabled="{Boolean}true"
+                                        required="{Boolean}true"/>
                                     <longdescription
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="longDescription"
-                                            fieldLabel="Long Description"
-                                            name="./longDescription"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="longDescription"
+                                        fieldLabel="Long Description"
+                                        name="./longDescription"/>
                                     <footnote
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="footnote"
-                                            fieldLabel="Foot note"
-                                            name="./footnote"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="footnote"
+                                        fieldLabel="Foot note"
+                                        name="./footnote"/>
                                     <assetselectionreference
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="assetSelectionReference"
-                                            fieldLabel="Extra Media Gallery"
-                                            rootPath="/content/dam/silversea-com"
-                                            name="./assetSelectionReference"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="assetSelectionReference"
+                                        fieldLabel="Extra Media Gallery"
+                                        rootPath="/content/dam/silversea-com"
+                                        name="./assetSelectionReference"/>
                                     <customHtml
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
-                                            allowBulkEdit="{Boolean}true"
-                                            cq-msm-lockable="customHtml"
-                                            fieldLabel="Discover more"
-                                            name="./customHtml"/>
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="customHtml"
+                                        fieldLabel="Discover more"
+                                        name="./customHtml"/>
                                 </items>
                             </column>
                         </items>
