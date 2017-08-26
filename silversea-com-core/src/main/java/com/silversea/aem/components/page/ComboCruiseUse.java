@@ -10,6 +10,7 @@ import com.silversea.aem.models.SegmentModel;
 import com.silversea.aem.utils.PathUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -113,6 +114,10 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
      */
     public int getLandProgramsNumber() {
         return landProgramsNumber;
+    }
+
+    public Calendar getStartDate() {
+        return comboCruiseModel.getSegments().get(0).getCruise().getStartDate();
     }
 
     /**
