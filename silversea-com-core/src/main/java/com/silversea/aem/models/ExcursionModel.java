@@ -1,7 +1,10 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.constants.WcmConstants;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,12 +51,12 @@ public class ExcursionModel {
 
     private String shortDescription;
 
-    private List<FeatureModel> features;
+    private List<FeatureModel> features = new ArrayList<>();
 
     private String schedule;
 
     @PostConstruct
-    private void init() {
+    private void init() throws Exception {
         String html = description.trim().replaceAll("\\n ", "").replaceAll("<[^>]*>", "");
 
         Pattern pattern = Pattern.compile("(.{0,400}[.,;\\s\\!\\?])");
@@ -61,6 +65,23 @@ public class ExcursionModel {
         matcher.find();
         if (matcher.find()) {
             shortDescription = matcher.group(0);
+        }
+
+        // TODO merge with cruise model code
+        // init cruise type and features
+        final TagManager tagManager = page.getContentResource().getResourceResolver().adaptTo(TagManager.class);
+        if (tagManager != null) {
+            final Tag[] tags = tagManager.getTags(page.getContentResource());
+
+            for (final Tag tag : tags) {
+                if (tag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+                    final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
+
+                    if (featureModel != null) {
+                        features.add(featureModel);
+                    }
+                }
+            }
         }
     }
 
@@ -117,10 +138,6 @@ public class ExcursionModel {
         return page;
     }
 
-    /**
-     * TODO initialize features
-     * @return
-     */
     public List<FeatureModel> getFeatures() {
         return features;
     }

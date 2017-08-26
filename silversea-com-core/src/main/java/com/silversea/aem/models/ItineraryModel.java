@@ -188,7 +188,9 @@ public class ItineraryModel {
             boolean found = false;
 
             for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
-                if (excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
+                if (excursionForCompactedList.getCodeExcursion() != null
+                    && excursion.getCodeExcursion() != null
+                    && excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
                     found = true;
                 }
             }
