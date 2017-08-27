@@ -83,7 +83,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 LOGGER.debug("Cleaning already imported itineraries");
 
                 ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary\"]");
+                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itineraries\"]");
             }
 
             // getting last import date
@@ -144,6 +144,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                             LOGGER.trace("Adding itinerary {} under cruise {}", itinerary.getItineraryId(), cruisePath.getValue());
 
                             final Node itinerariesNode = JcrUtils.getOrAddNode(cruiseContentNode, "itineraries", "nt:unstructured");
+                            itinerariesNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itineraries");
 
                             if (itinerariesNode.hasNode(String.valueOf(itinerary.getItineraryId()))) {
                                 throw new ImporterException("Itinerary item already exists");
