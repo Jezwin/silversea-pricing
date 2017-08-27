@@ -78,7 +78,6 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
-
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -246,7 +245,8 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
             importRunning = false;
         }
 
-        LOGGER.info("Ending prices import, success: {}, errors: {}, api calls : {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
+        LOGGER.info("Ending prices import, success: {}, errors: {}, api calls : {}",
+                +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
 
         return importResult;
     }

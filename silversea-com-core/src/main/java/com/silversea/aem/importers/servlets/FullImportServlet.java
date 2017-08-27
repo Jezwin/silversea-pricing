@@ -128,7 +128,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
             } else if (mode.equals(Mode.itineraries)) {
                 cruisesItinerariesImporter.importAllItems(false);
             } else if (mode.equals(Mode.itinerarieshotels)) {
-                cruisesItinerariesHotelsImporter.importAllItems();
+                cruisesItinerariesHotelsImporter.importAllItems(false);
             } else if (mode.equals(Mode.itinerariesexcursions)) {
                 cruisesItinerariesExcursionsImporter.importAllItems();
             } else if (mode.equals(Mode.itinerarieslandprograms)) {

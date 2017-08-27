@@ -64,7 +64,7 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
 
         LOGGER.debug("Starting itineraries import");
 
-        int successNumber = 0, errorNumber = 0, apiPage = 1;
+        int successNumber = 0, errorNumber = 0, apiPage = 1, itemsWritten = 0;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -78,31 +78,9 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            if (!update) {
-                // Existing itineraries deletion
-                LOGGER.debug("Cleaning already imported itineraries");
-
-                ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itineraries\"]");
-            }
-
             // getting last import date
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
             final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItineraries");
-
-            // init modified voyages cruises
-            final Set<Integer> modifiedCruises = new HashSet<>();
-            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
-            List<Voyage77> cruises;
-            do {
-                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
-
-                for (Voyage77 voyage : cruises) {
-                    modifiedCruises.add(voyage.getVoyageId());
-                }
-
-                apiPage++;
-            } while (cruises.size() > 0);
 
             // Initializing elements necessary to import itineraries
             // cruises mapping
@@ -116,9 +94,63 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
 
+            final Set<Integer> modifiedCruises = new HashSet<>();
+
+            if (!update) {
+                // Existing itineraries deletion
+                LOGGER.debug("Cleaning already imported itineraries");
+
+                ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itineraries\"]");
+            } else {
+                // init modified voyages cruises
+                final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+                List<Voyage77> cruises;
+                do {
+                    cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+
+                    for (Voyage77 voyage : cruises) {
+                        modifiedCruises.add(voyage.getVoyageId());
+
+                        if (cruisesMapping.containsKey(voyage.getVoyageId())) {
+                            for (Map.Entry<String, String> cruisePath : cruisesMapping.get(voyage.getVoyageId()).entrySet()) {
+                                try {
+                                    session.getNode(cruisePath.getValue() + "/jcr:content/itineraries").remove();
+
+                                    itemsWritten++;
+
+                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                        try {
+                                            session.save();
+
+                                            LOGGER.info("{} itineraries cleaned, saving session", +itemsWritten);
+                                        } catch (RepositoryException e) {
+                                            session.refresh(true);
+                                        }
+                                    }
+                                } catch (RepositoryException e) {
+                                    LOGGER.debug("Cannot remove itineraries node for path {}", cruisePath.getValue());
+                                }
+                            }
+                        }
+                    }
+
+                    apiPage++;
+                } while (cruises.size() > 0);
+
+                if (session.hasPendingChanges()) {
+                    try {
+                        session.save();
+
+                        LOGGER.info("{} itineraries cleaned, saving session", +itemsWritten);
+                    } catch (RepositoryException e) {
+                        session.refresh(false);
+                    }
+                }
+            }
+
             // Importing itineraries
             List<Itinerary> itineraries;
-            int itemsWritten = 0;
             apiPage = 1;
 
             do {
