@@ -76,13 +76,13 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     private CruisesItinerariesHotelsImporter cruisesItinerariesHotelsImporter;
 
     @Reference
+    private CruisesItinerariesLandProgramsImporter cruisesItinerariesLandProgramsImporter;
+
+    @Reference
     private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
 
     @Reference
     private CruisesPricesImporter cruisesPricesImporter;
-
-    @Reference
-    private CruisesItinerariesLandProgramsImporter cruisesItinerariesLandProgramsImporter;
 
     @Reference
     private ComboCruisesImporter comboCruisesImporter;
@@ -129,10 +129,10 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 cruisesItinerariesImporter.importAllItems(false);
             } else if (mode.equals(Mode.itinerarieshotels)) {
                 cruisesItinerariesHotelsImporter.importAllItems(false);
-            } else if (mode.equals(Mode.itinerariesexcursions)) {
-                cruisesItinerariesExcursionsImporter.importAllItems();
             } else if (mode.equals(Mode.itinerarieslandprograms)) {
-                cruisesItinerariesLandProgramsImporter.importAllItems();
+                cruisesItinerariesLandProgramsImporter.importAllItems(false);
+            } else if (mode.equals(Mode.itinerariesexcursions)) {
+                cruisesItinerariesExcursionsImporter.importAllItems(false);
             } else if (mode.equals(Mode.prices)) {
                 cruisesPricesImporter.importAllItems(false);
             } else if (mode.equals(Mode.cruisesexclusiveoffers)) {

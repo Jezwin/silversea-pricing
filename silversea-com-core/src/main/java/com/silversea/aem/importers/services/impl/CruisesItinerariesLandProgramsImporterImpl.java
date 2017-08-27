@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -11,7 +12,9 @@ import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.LandsApi;
+import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.LandItinerary;
+import io.swagger.client.model.Voyage77;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -28,9 +31,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Component
@@ -40,6 +41,8 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
 
     protected int sessionRefresh = 100;
     protected int pageSize = 100;
+
+    private boolean importRunning;
 
     @Reference
     protected ResourceResolverFactory resourceResolverFactory;
@@ -59,24 +62,21 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
     }
 
     @Override
-    public ImportResult importAllItems() {
-        return importSampleSet(-1);
-    }
+    public ImportResult importAllItems(final boolean update) throws ImporterException {
+        if (importRunning) {
+            throw new ImporterException("Import is already running");
+        }
 
-    @Override
-    public ImportResult importSampleSet(int size) {
-        LOGGER.debug("Starting land programs import ({})", size == -1 ? "all" : size);
+        LOGGER.debug("Starting land programs import");
+        importRunning = true;
 
-        int successNumber = 0;
-        int errorNumber = 0;
+        final ImportResult importResult = new ImportResult();
         int apiPage = 1;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -86,11 +86,31 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                 throw new ImporterException("Cannot initialize pageManager and session");
             }
 
-            // Existing landPrograms deletion
-            LOGGER.debug("Cleaning already imported land programs");
+            if (!update) {
+                // Existing landPrograms deletion
+                LOGGER.debug("Cleaning already imported land programs");
 
-            ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
-                    + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/landprogram\"]");
+                ImportersUtils.deleteResources(resourceResolver, sessionRefresh, "/jcr:root/content/silversea-com"
+                        + "//element(*,nt:unstructured)[sling:resourceType=\"silversea/silversea-com/components/subpages/itinerary/landprogram\"]");
+            }
+
+            // getting last import date
+            final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
+            final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage, "lastModificationDateCruisesItinerariesLandPrograms");
+
+            // init modified voyages cruises
+            final Set<Integer> modifiedCruises = new HashSet<>();
+            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+            List<Voyage77> cruises;
+            do {
+                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+
+                for (Voyage77 voyage : cruises) {
+                    modifiedCruises.add(voyage.getVoyageId());
+                }
+
+                apiPage++;
+            } while (cruises.size() > 0);
 
             // Initializing elements necessary to import landPrograms
             // itineraries
@@ -104,6 +124,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
             // Importing landPrograms
             List<LandItinerary> landPrograms;
             int itemsWritten = 0;
+            apiPage = 1;
 
             do {
                 landPrograms = landsApi.landsGetItinerary(null, null, null, apiPage, pageSize, null);
@@ -113,6 +134,10 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
 
                     // Trying to deal with one land program
                     try {
+                        if (update && !modifiedCruises.contains(landProgram.getVoyageId())) {
+                            throw new ImporterException("Cruise " + landProgram.getVoyageId() + " is not modified");
+                        }
+
                         final Integer landProgramId = landProgram.getLandId();
                         boolean imported = false;
 
@@ -152,7 +177,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                         landProgramNode.setProperty("date", landProgram.getDate().toGregorianCalendar());
                                         landProgramNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/landprogram");
 
-                                        successNumber++;
+                                        importResult.incrementSuccessNumber();
                                         itemsWritten++;
 
                                         imported = true;
@@ -170,23 +195,17 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                 } catch (RepositoryException e) {
                                     LOGGER.error("Cannot write land program {}", landProgram.getLandId(), e);
 
-                                    errorNumber++;
+                                    importResult.incrementErrorNumber();
                                 }
-                            }
-
-                            if (size != -1 && itemsWritten >= size) {
-                                break;
                             }
                         }
 
                         LOGGER.trace("Land program {} voyage id: {} city id: {} imported : {}", landProgram.getLandId(), landProgram.getVoyageId(), landProgram.getCityId(), imported);
                     } catch (ImporterException e) {
                         LOGGER.warn("Cannot deal with land program {} - {}", landProgram.getLandId(), e.getMessage());
-                    }
-                }
 
-                if (size != -1 && itemsWritten >= size) {
-                    break;
+                        importResult.incrementErrorNumber();
+                    }
                 }
 
                 apiPage++;
@@ -211,18 +230,12 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
         } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+            importRunning = false;
         }
 
-        LOGGER.info("Ending itineraries land programs import, success: {}, errors: {}, api calls : {}", +successNumber, +errorNumber, apiPage);
+        LOGGER.info("Ending itineraries land programs import, success: {}, errors: {}, api calls : {}",
+                +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
 
-        return new ImportResult(successNumber, errorNumber);
-    }
-
-    @Override
-    public ImportResult updateItems() {
-        return null;
+        return importResult;
     }
 }

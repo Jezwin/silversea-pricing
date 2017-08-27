@@ -67,6 +67,12 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private CruisesItinerariesHotelsImporter cruisesItinerariesHotelsImporter;
 
     @Reference
+    private CruisesItinerariesLandProgramsImporter cruisesItinerariesLandProgramsImporter;
+
+    @Reference
+    private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
+
+    @Reference
     private ComboCruisesImporter comboCruisesImporter;
 
     @Reference
@@ -104,7 +110,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
             } else if (mode.equals(Mode.exclusiveoffers)) {
                 exclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.features)) {
-                //featuresImporter.updateFeatures();
+                featuresImporter.updateFeatures();
             } else if (mode.equals(Mode.cruises)) {
                 cruisesImporter.updateItems();
             } else if (mode.equals(Mode.itineraries)) {
@@ -113,6 +119,10 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 cruisesPricesImporter.importAllItems(true);
             } else if (mode.equals(Mode.itinerarieshotels)) {
                 cruisesItinerariesHotelsImporter.importAllItems(true);
+            } else if (mode.equals(Mode.itinerarieslandprograms)) {
+                cruisesItinerariesLandProgramsImporter.importAllItems(true);
+            } else if (mode.equals(Mode.itinerariesexcursions)) {
+                cruisesItinerariesExcursionsImporter.importAllItems(true);
             } else if (mode.equals(Mode.combocruises)) {
                 //comboCruisesImporter.importData(true);
             } else if (mode.equals(Mode.brochures)) {
