@@ -68,6 +68,15 @@ public class ApiUpdater implements Runnable {
     private CruisesPricesImporter cruisesPricesImporter;
 
     @Reference
+    private CruisesItinerariesHotelsImporter cruisesItinerariesHotelsImporter;
+
+    @Reference
+    private CruisesItinerariesLandProgramsImporter cruisesItinerariesLandProgramsImporter;
+
+    @Reference
+    private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -76,55 +85,66 @@ public class ApiUpdater implements Runnable {
             LOGGER.info("Running ...");
 
             // update cities
-            final ImportResult importResultCities = citiesImporter.updateItems();
-            LOGGER.info("Cities import : {} success, {} errors", importResultCities.getSuccessNumber(),
-                    importResultCities.getErrorNumber());
+            ImportResult importResult = citiesImporter.updateItems();
+            LOGGER.info("Cities import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update hotels
-            final ImportResult importResultHotels = hotelsImporter.updateHotels();
-            LOGGER.info("Hotels import : {} success, {} errors", importResultHotels.getSuccessNumber(),
-                    importResultHotels.getErrorNumber());
+            importResult = hotelsImporter.updateHotels();
+            LOGGER.info("Hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update land programs
-            final ImportResult importResultLandPrograms = landProgramsImporter.updateLandPrograms();
-            LOGGER.info("Land programs import : {} success, {} errors", importResultLandPrograms.getSuccessNumber(),
-                    importResultLandPrograms.getErrorNumber());
+            importResult = landProgramsImporter.updateLandPrograms();
+            LOGGER.info("Land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update excursions
-            final ImportResult importResultExcursions = shoreExcursionsImporter.updateShoreExcursions();
-            LOGGER.info("Excursions import : {} success, {} errors", importResultExcursions.getSuccessNumber(),
-                    importResultExcursions.getErrorNumber());
+            importResult = shoreExcursionsImporter.updateShoreExcursions();
+            LOGGER.info("Excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update brochures
-            final ImportResult importResultBrochures = brochuresImporter.updateBrochures();
-            LOGGER.info("Brochures import : {} success, {} errors", importResultBrochures.getSuccessNumber(),
-                    importResultBrochures.getErrorNumber());
+            importResult = brochuresImporter.updateBrochures();
+            LOGGER.info("Brochures import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update features
-            final ImportResult importResultFeatures = featuresImporter.updateFeatures();
-            LOGGER.info("Features import : {} success, {} errors", importResultFeatures.getSuccessNumber(),
-                    importResultFeatures.getErrorNumber());
+            importResult = featuresImporter.updateFeatures();
+            LOGGER.info("Features import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update exclusive offers
-            final ImportResult importResultExclusiveOffers = exclusiveOffersImporter.importAllItems();
-            LOGGER.info("Exclusive offers import : {} success, {} errors", importResultExclusiveOffers.getSuccessNumber(),
-                    importResultExclusiveOffers.getErrorNumber());
+            importResult = exclusiveOffersImporter.importAllItems();
+            LOGGER.info("Exclusive offers import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update cruises
-            final ImportResult importResultCruises = cruisesImporter.updateItems();
-            LOGGER.info("Cruises import : {} success, {} errors", importResultCruises.getSuccessNumber(),
-                    importResultCruises.getErrorNumber());
+            importResult = cruisesImporter.updateItems();
+            LOGGER.info("Cruises import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
-            final ImportResult importResultCruisesItineraries = cruisesItinerariesImporter.importAllItems(true);
-            LOGGER.info("Cruises itineraries import : {} success, {} errors", importResultCruisesItineraries.getSuccessNumber(),
-                    importResultCruisesItineraries.getErrorNumber());
+            importResult = cruisesItinerariesImporter.importAllItems(true);
+            LOGGER.info("Cruises itineraries import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             try {
-                final ImportResult importResultCruisesPrices = cruisesPricesImporter.importAllItems(true);
-                LOGGER.info("Cruises prices import : {} success, {} errors", importResultCruisesPrices.getSuccessNumber(),
-                        importResultCruisesPrices.getErrorNumber());
+                importResult = cruisesPricesImporter.importAllItems(true);
+                LOGGER.info("Cruises prices import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import cruise prices", e);
+            }
+
+            try {
+                importResult = cruisesItinerariesHotelsImporter.importAllItems(true);
+                LOGGER.info("Cruises hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import cruise hotels", e);
+            }
+
+            try {
+                importResult = cruisesItinerariesLandProgramsImporter.importAllItems(true);
+                LOGGER.info("Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import cruise land programs", e);
+            }
+
+            try {
+                importResult = cruisesItinerariesExcursionsImporter.importAllItems(true);
+                LOGGER.info("Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import cruise excursions", e);
             }
 
             // replicate all modifications
