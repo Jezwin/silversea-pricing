@@ -1,7 +1,7 @@
 $(function() {
     $('.c-fyc-light__form').each(function() {
         var $form = $(this);
-        var requestUrl = $form.attr('action');
+        var requestUrl = $form.attr('action').replace('.html','');
         var requestUrlFeedback;
         var $resultWrapper = $form.next('.feedback__wrapper');
 
@@ -51,8 +51,8 @@ $(function() {
         $form.on('change', function(e) {
             e.preventDefault();
             // Reset request url
-            requestUrl = $form.attr('action');
-            requestUrlFeedback = $form.find('.fragment-feedback').attr('href');
+            requestUrl = $form.attr('action').replace('.html','');
+            requestUrlFeedback = $form.find('.fragment-feedback').attr('href').replace('.html','');
 
             var $filterValue = $($form.find(':not([name=":cq_csrf_token"])').serializeArray());
 

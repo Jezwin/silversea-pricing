@@ -1,9 +1,9 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Search hero"></div>
 <div class="c-search-hero">
-    <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference}"
+    <form class="row c-fyc-light__form c-search-hero__form" action="${properties.pageReference @ extension='html'}"
         data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
         <div class="col-sm-3">
-            <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result'}"></a>
+            <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result', extension='html'}"></a>
             <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
                 <option value="all">${'all-destinations' @ i18n}</option>
                 <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
