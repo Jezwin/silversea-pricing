@@ -1101,12 +1101,4 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-cruise"
         sling:message="expedition cruise" />
-    <combocruise-overview-subtitle
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="combocruise-overview-subtitle"
-        sling:message="combocruise overview subtitle" />
-    <combocruise-overview-title
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="combocruise-overview-title"
-        sling:message="combocruise overview title" />
 </jcr:root>
