@@ -15,8 +15,6 @@ $(function() {
             e.stopPropagation();
             if ($targetExpand.hasClass('open') && $(e.target).closest('.search-expand').length === 0) {
                 $trigger.trigger('click');
-            } else {
-                return false;
             }
         })
     });
