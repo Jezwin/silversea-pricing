@@ -30,24 +30,18 @@
             </ul>
         </li>
 
-        <li class="c-main-nav__top__item" data-sly-test.search="${navTop.searchPage}">
-           <div class="c-main-nav__search hidden-sm hidden-xs">
-                <form class="c-main-nav__search__searchbox" action="${search.path @ extension ='html'}">
-                    <input type="search" placeholder="${'type-here-to-search' @ i18n}" name="q" class="c-main-nav__search__searchbox-input" required>
-                    <input type="submit" class="c-main-nav__search__searchbox-submit" value="${'search' @ i18n}">
-                    <span><i class="fa fa-lg fa-search c-main-nav__search__searchbox-icon" aria-hidden="true"></i></span>
-                </form>
-            </div>
-            <div class="form-group form-group-lg c-main-nav__search-mobile visible-xs-block visible-sm-block">
-                <form class="c-main-nav__search-mobile__searchbox" action="${search.path @ extension ='html'}">
-                    <input type="search" placeholder="${'type-here-to-search' @ i18n}" name="q" class="c-main-nav__search-mobile__searchbox-input" required>
-                    <button type="submit" class="c-main-nav__search-mobile__searchbox-submit">
-                        <i class="fa fa-lg fa-search" aria-hidden="true"></i>
-                    </button>
-                </form>
-            </div>
+        <li class="c-main-nav__top__item c-main-nav__top__item--search" data-sly-test.search="${navTop.searchPage}">
+            <a href="#" class="c-main-nav__top__link c-main-nav__top__link--search placeholder">
+                <i class="fa fa-lg fa-search"></i>
+            </a>
+            <form action="${search.path @ extension ='html'}" class="c-main-nav__top__item--search__form" id="main-nav-form-search-expand">
+                <div class="search-expand">
+                    <i class="fa fa-lg fa-search" data-toggle-search="#main-nav-form-search-expand"></i>
+                    <input class="search-expand__input" type="search" placeholder="${'type-here-to-search' @ i18n}"
+                    name="q"><button class="search-expand__btn" type="submit"><span class="hidden-xs">${'search' @i18n}</span>
+                    <span class="visible-xs-inline"><i class="fa fa-lg fa-search"></i></span></button>
+                </div>
+            </form>
         </li>
-
     </ul>
 </div>
-        
