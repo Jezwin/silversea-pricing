@@ -171,7 +171,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
      * @param rootPage the root page from where to collect cruises
      */
     private void collectCruisesPages(final Page rootPage) {
-        if (rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
+        if (rootPage.getContentResource() != null && rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
             final String lang = LanguageHelper.getLanguage(rootPage);
 
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
