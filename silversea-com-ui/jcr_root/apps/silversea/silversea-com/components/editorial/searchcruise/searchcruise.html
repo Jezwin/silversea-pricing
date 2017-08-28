@@ -12,14 +12,15 @@
         <form action="${properties.pageReference @ extension='html'}"
               data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
             <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}">
-                <option value="">${'where-would-you-like-to-go' @ i18n}</option>
+                <option></option>
+                <option value="">${'all-destinations' @ i18n}</option>
                 <sly data-sly-list="${filter.destinations}">
                     <option value="${item.name}">${item.title @ context='html'}</option>
                 </sly>
             </select>
             <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}">
                 <option></option>
-                <option value="">${'when-do-you-want-to-leave' @ i18n}</option>
+                <option value="">${'all-departure-dates' @ i18n}</option>
                 <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
             </select>
             <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
