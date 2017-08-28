@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services;
 
+import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.services.impl.ImportResult;
 
 public interface CruisesExclusiveOffersImporter {
@@ -10,5 +11,5 @@ public interface CruisesExclusiveOffersImporter {
      *
      * @return result of the import
      */
-    ImportResult importAllItems();
+    ImportResult importAllItems() throws ImporterException;
 }

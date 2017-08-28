@@ -36,8 +36,9 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
     static final private Logger LOGGER = LoggerFactory.getLogger(CruisesExclusiveOffersImporterImpl.class);
 
     protected int sessionRefresh = 100;
-
     protected int pageSize = 100;
+
+    private boolean importRunning;
 
     @Reference
     protected ResourceResolverFactory resourceResolverFactory;
@@ -57,20 +58,21 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
     }
 
     @Override
-    public ImportResult importAllItems() {
-        LOGGER.debug("Starting mapping exclusive offers/cruises import");
+    public ImportResult importAllItems() throws ImporterException {
+        if (importRunning) {
+            throw new ImporterException("Import is already running");
+        }
 
-        int successNumber = 0;
-        int errorNumber = 0;
+        LOGGER.debug("Starting mapping exclusive offers/cruises import");
+        importRunning = true;
+
+        final ImportResult importResult = new ImportResult();
         int apiPage = 1;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -117,7 +119,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                             throw new ImporterException("Cruise " + voyageId + " not present in mapping");
                         }
 
-                        // iterate of the cruises found in the mapping
+                        // iterate over the cruises found in the mapping
                         for (Map.Entry<String, Page> cruisePages : cruisesMapping.get(voyageId).entrySet()) {
                             try {
                                 // getting cruise informations
@@ -129,8 +131,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                 final Node cruiseContentNode = cruisePage.getContentResource().adaptTo(Node.class);
 
                                 if (cruiseContentNode == null) {
-                                    throw new ImporterException("Cannot get cruise content node for cruise " +
-                                            cruisePage.getPath());
+                                    throw new ImporterException("Cannot get cruise content node for cruise " + cruisePage.getPath());
                                 }
 
                                 // build list of the exclusive paths for the current lang of the cruise
@@ -157,8 +158,8 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                         LOGGER.trace("Writing exclusive offers paths {} in cruise {}",
                                                 voyageSpecialOffersPaths, cruisePage.getPath());
 
+                                        importResult.incrementSuccessNumber();
                                         itemsWritten++;
-                                        successNumber++;
 
                                         batchSave(session, itemsWritten);
                                     }
@@ -166,8 +167,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                     final Set<String> exclusiveOffersListPty = new HashSet<>();
                                     exclusiveOffersListPty.addAll(Arrays.asList(exclusiveOffersPty));
 
-                                    final Collection disjunction = CollectionUtils.disjunction(exclusiveOffersListPty,
-                                            voyageSpecialOffersPaths);
+                                    final Collection disjunction = CollectionUtils.disjunction(exclusiveOffersListPty, voyageSpecialOffersPaths);
 
                                     // if different write property
                                     if (disjunction.size() > 0) {
@@ -179,8 +179,8 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                         LOGGER.trace("Writing exclusive offers paths {} in cruise {}",
                                                 voyageSpecialOffersPaths, cruisePage.getPath());
 
+                                        importResult.incrementSuccessNumber();
                                         itemsWritten++;
-                                        successNumber++;
 
                                         batchSave(session, itemsWritten);
                                     } else { // else do nothing
@@ -192,13 +192,13 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                 // removing the cruise from mapping
                                 cruisesMapping.remove(voyageId);
                             } catch (ImporterException e) {
-                                errorNumber++;
+                                importResult.incrementErrorNumber();
 
                                 LOGGER.warn(e.getMessage());
                             }
                         }
                     } catch (ImporterException e) {
-                        errorNumber++;
+                        importResult.incrementErrorNumber();
 
                         LOGGER.warn(e.getMessage());
                     }
@@ -207,7 +207,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                 apiPage++;
             } while (voyageSpecialOffers.size() > 0);
 
-            // clearing exclusive offers of cruises not present in the API
+            // cleaning exclusive offers of cruises not present in the API
             for (Map<String, Page> cruisesPages : cruisesMapping.values()) {
                 for (Page cruisePage : cruisesPages.values()) {
                     final Node cruiseContentNode = cruisePage.getContentResource().adaptTo(Node.class);
@@ -222,8 +222,8 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                             cruiseContentNode.getProperty("offer").remove();
                             cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
+                            importResult.incrementSuccessNumber();
                             itemsWritten++;
-                            successNumber++;
 
                             batchSave(session, itemsWritten);
 
@@ -257,15 +257,13 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
         } catch (ApiException e) {
             LOGGER.error("Cannot read exclusive offers from API", e);
         } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+            importRunning = false;
         }
 
         LOGGER.info("Ending mapping exclusive offers/cruises import, success: {}, errors: {}, api calls : {}",
-                +successNumber, +errorNumber, apiPage);
+                +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
 
-        return new ImportResult(successNumber, errorNumber);
+        return importResult;
     }
 
     private void batchSave(Session session, int itemsWritten) throws RepositoryException {

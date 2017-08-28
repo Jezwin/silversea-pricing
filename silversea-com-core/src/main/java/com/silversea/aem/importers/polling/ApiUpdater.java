@@ -77,6 +77,9 @@ public class ApiUpdater implements Runnable {
     private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
 
     @Reference
+    private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
+
+    @Reference
     private Replicator replicator;
 
     @Override
@@ -145,6 +148,13 @@ public class ApiUpdater implements Runnable {
                 LOGGER.info("Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import cruise excursions", e);
+            }
+
+            try {
+                importResult = cruisesExclusiveOffersImporter.importAllItems();
+                LOGGER.info("Cruises exclusive offers import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import cruises exclusive offers", e);
             }
 
             // replicate all modifications
