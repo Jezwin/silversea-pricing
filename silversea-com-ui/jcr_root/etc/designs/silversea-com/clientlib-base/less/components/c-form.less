@@ -204,6 +204,14 @@
             padding: 10px 40px 10px 20px;
         }
     }
+
+    select {
+        &[name='title'], &[name='country'] {
+            + .chosen-container .chosen-single {
+                font-weight: normal;
+            }
+        }
+    }
 }
 
 .form-control {
