@@ -101,17 +101,19 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
             // init modified voyages cruises
             final Set<Integer> modifiedCruises = new HashSet<>();
-            final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
-            List<Voyage77> cruises;
-            do {
-                cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+            if (update) {
+                final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+                List<Voyage77> cruises;
+                do {
+                    cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
 
-                for (Voyage77 voyage : cruises) {
-                    modifiedCruises.add(voyage.getVoyageId());
-                }
+                    for (Voyage77 voyage : cruises) {
+                        modifiedCruises.add(voyage.getVoyageId());
+                    }
 
-                apiPage++;
-            } while (cruises.size() > 0);
+                    apiPage++;
+                } while (cruises.size() > 0);
+            }
 
             // Initializing elements necessary to import prices
             // cruises
