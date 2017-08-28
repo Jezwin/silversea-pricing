@@ -123,4 +123,9 @@ function requestForm() {
             $.signUp.signUpOffers(this, e);
         }
     });
+
+    // Init chosen if form is inside modal
+    $('.chosen.chosen-with-search').chosen({
+        'disable_search' : false
+    });
 }
