@@ -318,13 +318,15 @@ picture {
     &--award {
         padding: 0;
 
-        [class*='col-'] {
-            &:first-child {
-                padding-right: 0;
-            }
+        @media screen and (min-width: @screen-sm) {
+            [class*='col-'] {
+                &:first-child {
+                    padding-right: 0;
+                }
 
-            &:nth-child(2) {
-                padding-left: 0;
+                &:nth-child(2) {
+                    padding-left: 0;
+                }
             }
         }
     }
