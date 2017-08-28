@@ -257,10 +257,6 @@ $(function() {
                 $featureFieldWrapper.addClass('active');
             }
 
-            console.log(featureNumber);
-            console.log($featureFieldWrapper);
-            console.log($featureLabel);
-
             // Build request URL with filter, pagination and number of result per page.
             var requestUrl = $currentForm.data('url');
 
