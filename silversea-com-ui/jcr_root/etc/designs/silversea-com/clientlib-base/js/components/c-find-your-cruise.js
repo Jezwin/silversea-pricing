@@ -78,7 +78,7 @@ $(function() {
             var $featureWrapper = $('.feature-wrapper');
 
             // Create feature list without doublon
-            $resultWrapper.find('.meta_feature_inner').each(function() {
+            $resultWrapper.find('.meta_feature_inner:not(.hidden-xs)').each(function() {
                 var $currentFeature = $(this);
                 featureList[$currentFeature.find('i').attr('class')] = $currentFeature.find('.tooltip').text();
             });
