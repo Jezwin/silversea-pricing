@@ -242,7 +242,7 @@ $(function() {
             });
 
             // Show number of feature selected
-            var $featureLabel = $currentForm.find('.features-filter').closest('.single-filter').find('.text-selected');
+            var $featureLabel = $currentForm.find('.feature-filter').closest('.single-filter').find('.text-selected');
             var $featureFieldWrapper = $featureLabel.closest('.single-filter');
 
             // Highlight features filter
@@ -256,6 +256,10 @@ $(function() {
                 $featureLabel.text(featureNumber + ' ' + $featureLabel.data('features-text'));
                 $featureFieldWrapper.addClass('active');
             }
+
+            console.log(featureNumber);
+            console.log($featureFieldWrapper);
+            console.log($featureLabel);
 
             // Build request URL with filter, pagination and number of result per page.
             var requestUrl = $currentForm.data('url');
