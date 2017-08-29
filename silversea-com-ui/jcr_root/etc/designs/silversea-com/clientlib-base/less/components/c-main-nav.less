@@ -269,6 +269,18 @@
                     border-right: solid 1px @white;
                     width: 25%;
                 }
+
+                &--empty {
+                    cursor: default;
+
+                    &:hover, &:focus, &:active {
+                        background-color: inherit;
+                    }
+
+                    .c-main-nav__top__link {
+                        visibility: hidden;
+                    }
+                }
             }
         }
     }
@@ -286,6 +298,10 @@
                 &--small-md {
                     width: 100%;
                     border-right: 0;
+                }
+
+                &--empty {
+                    display: none;
                 }
             }
         }

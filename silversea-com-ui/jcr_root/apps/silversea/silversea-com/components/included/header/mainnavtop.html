@@ -10,7 +10,8 @@
                 <span>${page2.navigationTitle || page2.title}</span>
             </a>
         </li>
-        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right" data-sly-test.page3Mobile="${navTop.link3MobilePage}">
+        <sly data-sly-test.page3Mobile="${navTop.link3MobilePage}" />
+        <li class="c-main-nav__top__item hidden-lg hidden-md c-main-nav__top__item--right ${!page3Mobile ? 'c-main-nav__top__item--empty' : ''}">
             <a href="${page3Mobile.path @ extension = 'html'}" class="c-main-nav__top__link">
                 <span>${page3Mobile.navigationTitle || page3Mobile.title}</span>
             </a>
