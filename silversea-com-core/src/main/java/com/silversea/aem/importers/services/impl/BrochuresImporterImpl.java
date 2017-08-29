@@ -161,9 +161,9 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                     }
                                 }
 
-                                if (!title.equals(brochure.getTitle())
-                                        || !onlineBrochureUrl.equals(brochure.getBrochureUrl())
-                                        || brochureDigitalOnly.booleanValue() != brochure.getDigitalOnly().booleanValue()
+                                if (!Objects.equals(title, brochure.getTitle())
+                                        || !Objects.equals(onlineBrochureUrl,brochure.getBrochureUrl())
+                                        || !Objects.equals(brochureDigitalOnly, brochure.getDigitalOnly())
                                         || !compareLists(tags, existingTagsList)) {
                                     for (Tag tag : existingTags) {
                                         tags.add(tag.getTagID());
