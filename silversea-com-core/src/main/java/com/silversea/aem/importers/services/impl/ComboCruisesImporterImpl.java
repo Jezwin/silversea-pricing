@@ -1,6 +1,5 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -17,7 +16,6 @@ import io.swagger.client.api.SpecialVoyagesApi;
 import io.swagger.client.model.SpecialVoyage;
 import io.swagger.client.model.VoyagePriceMarket;
 import io.swagger.client.model.VoyageWithItinerary;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -140,7 +138,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
 
             // Initializing elements necessary to import itineraries
             // cruises mapping
-            final Map<Integer, Map<String, String>> cruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
+            final Map<Integer, Map<String, Page>> cruisesMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
                     "cruiseId");
@@ -158,6 +156,10 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
                             final Node comboCruiseContentNode = session.getNode(comboCruisePath.getValue() + "/jcr:content");
 
                             if (comboCruiseContentNode != null) {
+                                if (comboCruiseContentNode.hasNode("suites")) {
+                                    comboCruiseContentNode.getNode("suites").remove();
+                                }
+
                                 comboCruiseContentNode.setProperty("apiTitle", specialVoyage.getSpecialVoyageName());
 
                                 // Creating prices root node under the cruise
@@ -180,20 +182,19 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
                                         throw new ImporterException("Cannot find cruise with id " + voyage.getVoyageId() + " in mapping");
                                     }
 
-                                    final String pageName = JcrUtil.createValidName(StringUtils
-                                            .stripAccents(voyage.getVoyageName() + " - " + voyage.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
-                                            .replaceAll("-+", "-");
+                                    final Page cruisePage = cruisesMapping.get(voyage.getVoyageId()).get(comboCruisePath.getKey());
 
                                     // creating cruise page - uniqueness is derived from cruise code
                                     if (comboCruiseContentNode != null && comboCruiseContentNode.getParent() != null
-                                            && !comboCruiseContentNode.getParent().hasNode(pageName)) {
+                                            && !comboCruiseContentNode.getParent().hasNode(cruisePage.getName())) {
+
                                         final Page segmentPage = pageManager.create(comboCruisePath.getValue(),
-                                                pageName, WcmConstants.PAGE_TEMPLATE_COMBO_CRUISE_SEGMENT, voyage.getVoyageCod() + " - " + voyage.getVoyageName(), false);
+                                                cruisePage.getName(), WcmConstants.PAGE_TEMPLATE_COMBO_CRUISE_SEGMENT, cruisePage.getTitle(), false);
 
                                         final Node segmentPageContentNode = segmentPage.getContentResource().adaptTo(Node.class);
 
                                         if (segmentPageContentNode != null) {
-                                            segmentPageContentNode.setProperty("cruiseReference", cruisesMapping.get(voyage.getVoyageId()).get(comboCruisePath.getKey()));
+                                            segmentPageContentNode.setProperty("cruiseReference", cruisePage.getPath());
                                         }
 
                                         importResult.incrementSuccessNumber();
@@ -209,7 +210,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
                                             }
                                         }
                                     } else {
-                                        LOGGER.warn("Combo cruise already contains segment {} ({})", voyage.getVoyageName(), voyage.getVoyageCod());
+                                        LOGGER.warn("Combo cruise already contains segment {}", voyage.getVoyageCod());
                                     }
                                 } catch (RepositoryException | WCMException | ImporterException e) {
                                     LOGGER.warn("Cannot write combo cruise itinerary informations {}", e.getMessage());
@@ -230,7 +231,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
                 try {
                     session.save();
 
-                    LOGGER.info("{} prices imported, saving session", +itemsWritten);
+                    LOGGER.info("{} items imported, saving session", +itemsWritten);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
