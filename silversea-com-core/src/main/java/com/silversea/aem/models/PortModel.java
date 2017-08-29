@@ -99,7 +99,7 @@ public class PortModel {
         }
 
         if (geolocationTagService != null && StringUtils.isNotEmpty(countryIso2)) {
-            final String tagId = geolocationTagService.getTagFromCountryId(countryIso2);
+            final String tagId = geolocationTagService.getTagIdFromCountryId(countryIso2);
             final TagManager tagManager = page.getContentResource().getResourceResolver().adaptTo(TagManager.class);
 
             if (tagManager != null && StringUtils.isNotEmpty(tagId)) {

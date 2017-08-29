@@ -19,6 +19,9 @@ public class GeolocationTagModel {
     @Inject
     private String market;
 
+    @Inject
+    private String region;
+
     @Inject @Named("Currency") @Optional
     private String currency;
 
@@ -41,6 +44,10 @@ public class GeolocationTagModel {
 
     public String getMarket() {
         return market.toLowerCase();
+    }
+
+    public String getRegion() {
+        return region;
     }
 
     public String getCurrency() {

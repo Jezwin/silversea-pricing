@@ -2,12 +2,16 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.tagging.InvalidTagFormatException;
 import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagException;
 import com.day.cq.tagging.TagManager;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.services.GeolocationTagService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
@@ -24,11 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Service
@@ -36,25 +36,34 @@ public class CountriesImporterImpl implements CountriesImporter {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CountriesImporterImpl.class);
 
+    private boolean importRunning;
+
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
 
     @Reference
     private ApiConfigurationService apiConfig;
 
+    @Reference
+    private GeolocationTagService geolocationTagService;
+
     @Override
-    public ImportResult importData() throws IOException {
+    public ImportResult importData(final boolean update) throws ImporterException {
+        if (importRunning) {
+            throw new ImporterException("Import is already running");
+        }
+
         LOGGER.debug("Starting countries import");
+        importRunning = true;
 
-        int successNumber = 0;
-        int errorNumber = 0;
+        final ImportResult importResult = new ImportResult();
 
-        Map<String, Object> authenticationParams = new HashMap<>();
+        final Map<String, String> tagIdsMapping = geolocationTagService.getTagIdsMapping();
+
+        final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -66,50 +75,104 @@ public class CountriesImporterImpl implements CountriesImporter {
 
             List<Country> countries = countriesApi.countriesGet(null, null);
 
+            Set<String> existingCountries = new HashSet<>();
+
             for (Country country : countries) {
                 LOGGER.debug("Importing country: {}", country.getCountryName());
 
+                existingCountries.add(country.getCountryIso2());
+
                 try {
-                    Tag market;
-                    if (StringUtils.isEmpty(country.getMarket())) {
-                        market = tagManager.createTag("geotagging:nomarket",
-                                "No market", null, false);
+                    // tag exists
+                    if (tagIdsMapping.containsKey(country.getCountryIso2())) {
+                        final String countryTagId = tagIdsMapping.get(country.getCountryIso2());
+
+                        final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromCountryCode(resourceResolver, countryTagId);
+
+                        // get or move the tag if modified
+                        Tag countryTag;
+                        if (!geolocationTagModel.getMarket().equals(country.getMarket()) || !geolocationTagModel.getRegion().equals(country.getMarket())) {
+                            final Tag tag = tagManager.resolve(countryTagId);
+
+                            countryTag = tagManager.moveTag(tag, WcmConstants.GEOLOCATION_TAGS_PREFIX + country.getMarket().toLowerCase()
+                                    + "/" + country.getRegion().toLowerCase() + "/" + country.getCountryIso2().toUpperCase());
+                        } else {
+                            countryTag = tagManager.resolve(countryTagId);
+                        }
+
+                        if (countryTag == null) {
+                            throw new ImporterException("Cannot create or get tag for country ID " + countryTagId);
+                        }
+
+                        // update tags infos
+                        final Node countryNode = countryTag.adaptTo(Node.class);
+                        if (countryNode != null) {
+                            countryNode.setProperty("id", country.getCountryId());
+                            countryNode.setProperty("iso2", country.getCountryIso2());
+                            countryNode.setProperty("iso3", country.getCountryIso3());
+                            countryNode.setProperty("prefix", country.getCountryPrefix());
+                            countryNode.setProperty("market", country.getMarket());
+                            countryNode.setProperty("regionId", country.getRegionId());
+                            countryNode.setProperty("region", country.getRegion());
+                            countryNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                        } else {
+                            throw new ImporterException("Cannot get country node");
+                        }
+
+                        importResult.incrementSuccessNumber();
+                    // tag not exists, creating it
                     } else {
-                        market = tagManager.createTag("geotagging:" + country.getMarket().toLowerCase(),
-                                country.getMarket().toUpperCase(), null, false);
+                        Tag market;
+                        if (StringUtils.isEmpty(country.getMarket())) {
+                            market = tagManager.createTag("geotagging:nomarket",
+                                    "No market", null, false);
+                        } else {
+                            market = tagManager.createTag("geotagging:" + country.getMarket().toLowerCase(),
+                                    country.getMarket().toUpperCase(), null, false);
+                        }
+
+                        Tag regionId;
+                        if (StringUtils.isEmpty(market.getTagID())) {
+                            regionId = tagManager.createTag(market.getTagID() + "/noregion",
+                                    "No region", null, false);
+                        } else {
+                            regionId = tagManager.createTag(market.getTagID() + "/"
+                                            + String.valueOf(country.getRegionId()).toLowerCase(),
+                                    String.valueOf(country.getRegionId()), null, false);
+                        }
+
+                        final Tag countryTag = tagManager.createTag(regionId.getTagID() + "/"
+                                + country.getCountryIso2().toUpperCase(), country.getCountryName(), null, false);
+
+                        final Node countryNode = countryTag.adaptTo(Node.class);
+                        if (countryNode != null) {
+                            countryNode.setProperty("id", country.getCountryId());
+                            countryNode.setProperty("iso2", country.getCountryIso2());
+                            countryNode.setProperty("iso3", country.getCountryIso3());
+                            countryNode.setProperty("prefix", country.getCountryPrefix());
+                            countryNode.setProperty("market", country.getMarket());
+                            countryNode.setProperty("regionId", country.getRegionId());
+                            countryNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                        } else {
+                            throw new ImporterException("Cannot get country node");
+                        }
+
+                        importResult.incrementSuccessNumber();
                     }
-
-                    Tag regionId;
-                    if (StringUtils.isEmpty(market.getTagID())) {
-                        regionId = tagManager.createTag(market.getTagID() + "/noregion",
-                                "No region", null, false);
-                    } else {
-                        regionId = tagManager.createTag(market.getTagID() + "/"
-                                        + String.valueOf(country.getRegionId()).toLowerCase(),
-                                String.valueOf(country.getRegionId()), null, false);
-                    }
-
-                    Tag countryTag = tagManager.createTag(regionId.getTagID() + "/"
-                            + country.getCountryIso2().toUpperCase(), country.getCountryName(), null, false);
-
-                    final Node countryNode = countryTag.adaptTo(Node.class);
-
-                    if (countryNode != null) {
-                        countryNode.setProperty("id", country.getCountryId());
-                        countryNode.setProperty("iso2", country.getCountryIso2());
-                        countryNode.setProperty("iso3", country.getCountryIso3());
-                        countryNode.setProperty("prefix", country.getCountryPrefix());
-                        countryNode.setProperty("market", country.getMarket());
-                        countryNode.setProperty("regionId", country.getRegionId());
-                    } else {
-                        throw new ImporterException("Cannot get country node");
-                    }
-
-                    successNumber++;
-                } catch (InvalidTagFormatException | ImporterException e) {
+                } catch (TagException | InvalidTagFormatException | ImporterException e) {
                     LOGGER.error("Cannot create country {}", country.getCountryIso2(), e);
 
-                    errorNumber++;
+                    importResult.incrementErrorNumber();
+                }
+            }
+
+            for (Map.Entry<String, String> tagIdMapping : tagIdsMapping.entrySet()) {
+                if (!existingCountries.contains(tagIdMapping.getKey())) {
+                    final Tag tag = tagManager.resolve(tagIdMapping.getValue());
+
+                    if (tag != null) {
+                        tagManager.deleteTag(tag, false);
+                    }
                 }
             }
 
@@ -127,17 +190,10 @@ public class CountriesImporterImpl implements CountriesImporter {
         } catch (RepositoryException e) {
             LOGGER.error("Cannot save modifications", e);
         } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
+            importRunning = false;
         }
 
-        return new ImportResult(successNumber, errorNumber);
-    }
-
-    @Override
-    public void importCountry(String id) {
-
+        return importResult;
     }
 
     @Override
