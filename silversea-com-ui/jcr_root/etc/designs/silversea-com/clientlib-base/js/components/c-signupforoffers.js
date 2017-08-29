@@ -37,7 +37,9 @@ $(function() {
             });
 
             // Call plugin after validator plugin
-            $('.chosen').chosen();
+            if (!$.fn.mobileDetect()) {
+                $('.chosen').chosen();
+            }
         });
     });
 });

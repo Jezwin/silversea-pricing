@@ -21,10 +21,6 @@
          input:not([type="checkbox"]) {
             font-size: 14px;
             height: 42px;
-
-            @media screen and (max-width: @screen-sm) {
-                font-size: 16px;
-            }
         }
 
         .chosen-search  input {
@@ -34,10 +30,6 @@
 
     .chosen-container-single .chosen-search input[type="text"] {
         border: 0;
-
-        @media screen and (max-width: @screen-sm) {
-            font-size: 16px;
-        }
     }
 
     .form-group {
@@ -117,8 +109,12 @@
     }
 
     .has-feedback {
-        .form-control {
+        input[type='text'].form-control {
             padding: 10px 20px;
+        }
+
+        select.form-control {
+            padding: 0 20px;
         }
     }
 
@@ -240,8 +236,104 @@
 
 input::-ms-clear {display: none; width:0; height:0;}
 
-input, textarea {
+input, textarea, select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+.form-group-lg select.form-control {
+    font-size: 14px;
+    height: 42px;
+    line-height: 42px;
+}
+
+.mobile {
+    .active select {
+        color: @grey--5;
+    }
+
+    select {
+        background-color: @white;
+        border-radius: 5px;
+        color: @grey--9;
+
+        & + .fa-angle-down {
+            font-size: 18px;
+            display: block;
+            position: absolute;
+            right: 30px;
+        }
+    }
+
+    .c-find-your-cruise-filter {
+        .single-filter {
+            position: relative;
+
+            &.active {
+                select {
+                    background-color: @black;
+                    color: @white;
+
+                    & + .fa-angle-down {
+                        color:@white;
+                    }
+                }
+            }
+
+            select {
+                background-color: @grey--eb;
+                border: 0;
+                color: @black;
+                font-size: 13px;
+                height: 34px;
+                padding-left: 10px;
+                text-transform: capitalize;
+                width: 100%;
+
+                & + .fa-angle-down {
+                    font-size: 13px;
+                    right: 12px;
+                    top: 10px;
+                }
+            }
+        }
+    }
+
+    .c-search-hero select {
+        color: @grey--9;
+        border-color: @grey--d9;
+
+        & + .fa-angle-down {
+            top: 10px;
+        }
+    }
+
+    .c-search-cruise__form select {
+        color: @grey--9;
+        border-color: @grey--d9;
+
+        & + .fa-angle-down {
+            top: 15px;
+        }
+    }
+
+    .c-form select + .fa-angle-down {
+        right: 14px;
+        top: 12px;
+    }
+
+    #countryCode {
+        height: 42px;
+        left: 0;
+        opacity: 0.01;
+        position: absolute;
+        top: 0;
+        width: 100px;
+        z-index: 10;
+    }
+}
+
+.icheckbox_minimal, .iradio_minimal {
+    image-rendering: pixelated;
 }

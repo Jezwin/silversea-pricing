@@ -125,7 +125,9 @@ function requestForm() {
     });
 
     // Init chosen if form is inside modal
-    $('.chosen.chosen-with-search').chosen({
-        'disable_search' : false
-    });
+    if (!$.fn.mobileDetect()) {
+        $('.chosen.chosen-with-search').chosen({
+            'disable_search' : false
+        });
+    }
 }
