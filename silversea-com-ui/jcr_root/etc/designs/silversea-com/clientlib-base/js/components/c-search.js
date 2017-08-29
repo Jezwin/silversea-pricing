@@ -1,4 +1,5 @@
 $(function() {
+    // Open in main navigation
     $('[data-toggle-search]').on('click', function(e) {
         e.preventDefault();
         var $trigger = $(this);
@@ -17,5 +18,11 @@ $(function() {
                 $trigger.trigger('click');
             }
         })
+    });
+
+    // Expand search in search page
+    $('.c-search-result__search-trigger').on('click', function() {
+        $('.c-search-result__expand').toggle();
+        $(this).find('i').toggleClass('fa-angle-up fa-angle-down');
     });
 });
