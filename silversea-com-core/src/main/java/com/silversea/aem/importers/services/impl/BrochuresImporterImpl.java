@@ -154,7 +154,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                 final Tag[] existingTags = tagManager.getTags(metadataResource);
 
                                 // Building tag list id for comparison
-                                List<String> existingTagsList = new ArrayList<>();
+                                final List<String> existingTagsList = new ArrayList<>();
                                 for (Tag tag : existingTags) {
                                     if (tag.getTagID().startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX)) {
                                         existingTagsList.add(tag.getTagID());
@@ -262,7 +262,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
     private static boolean compareLists(List<String> l1, List<String> l2) {
         List<String> cp = new ArrayList<>(l1);
 
-        for (Object o : l2) {
+        for (String o : l2) {
             if (!cp.remove(o)) {
                 return false;
             }
