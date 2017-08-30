@@ -1,6 +1,5 @@
 <div data-sly-use.searchResultsUse="com.silversea.aem.components.editorial.SearchResultsUse" data-sly-test="${(wcmmode.edit || wcmmode.design)}" class="cq-placeholder"
     data-emptytext="Search results"></div>
-
 <div class="c-search-result">
     <div class="c-search-result__form-wrapper">
         <h2 class="c-search-result__form-wrapper__title" data-toggle="collapse" data-target="#c-search-result-panel" aria-expanded="false">
@@ -23,10 +22,10 @@
     <div class="c-search-result__results" data-sly-test="${searchResultsUse.searchResult}">
         <h3 class="c-search-result__results__title">${'results' @ i18n}:</h3>
         <div data-sly-test.isNotEmpty="${searchResultsUse.searchResult.totalMatches > 0}" class="c-search-result__results__list">
-            <div data-sly-repeat.hit="${searchResultsUse.searchResult.hits}" class="c-search-result__results__item">
+            <div data-sly-repeat.hit="${searchResultsUse.searchResult.hits}" class="c-search-result__results__item" tabindex="0">
                 <h4 class="c-search-result__results__item__title">${hit.title @ context='html'}</h4>
                 <p class="c-search-result__results__item__description">${hit.excerpt @ context='html'}</p>
-                <a class="c-search-result__results__link" href="${hit.path @ extension='html'}">
+                <a class="c-search-result__results__link" href="${hit.path @ extension='html'}" tabindex="-1">
                     <span class="hidden">${hit.title @ context='html'}</span>
                 </a>
             </div>

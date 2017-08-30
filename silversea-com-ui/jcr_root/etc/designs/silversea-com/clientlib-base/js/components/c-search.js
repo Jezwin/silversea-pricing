@@ -25,4 +25,15 @@ $(function() {
         $('.c-search-result__expand').toggle();
         $(this).find('i').toggleClass('fa-angle-up fa-angle-down');
     });
+    
+
+    // highlight item on touch
+    var $itemList = $('.c-search-result__results__item');
+    $itemList.on('touchstart', function() {
+        $(this).trigger('focus');
+    });
+
+    $itemList.on('touchend', function() {
+        $(this).trigger('blur');
+    });
 });
