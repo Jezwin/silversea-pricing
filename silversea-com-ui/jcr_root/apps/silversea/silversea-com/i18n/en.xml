@@ -1125,4 +1125,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="restaurants"
         sling:message="Restaurants" />
+    <suites-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-plan"
+        sling:message="Suites plan" />
 </jcr:root>

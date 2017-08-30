@@ -1068,4 +1068,8 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Restaurants"/>
+    <suites-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suites plan"/>
 </jcr:root>
