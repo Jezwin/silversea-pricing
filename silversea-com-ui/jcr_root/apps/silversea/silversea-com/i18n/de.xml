@@ -1037,43 +1037,43 @@
         jcr:primaryType="nt:folder"
         sling:message="Ihre Suchergebnisse"/>
     <eur
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="EUR"
-        sling:message="€" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="€"/>
     <gbp
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="GBP"
-        sling:message="£" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="£"/>
     <usd
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="USD"
-        sling:message="US$" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="US$"/>
     <aud
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="AUD"
-        sling:message="AU$" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="AU$"/>
     <view
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="view"
-        sling:message="View" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View"/>
     <location
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="location"
-        sling:message="Location" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Location"/>
     <fares
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="fares"
-        sling:message="Fares" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Fares"/>
     <view-deck
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="view-deck"
-        sling:message="View deck" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View deck"/>
     <select-your-suite
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="select-your-suite"
-        sling:message="Select your suite" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Select your suite"/>
     <restaurants
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="restaurants"
-        sling:message="Restaurants" />
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Restaurants"/>
 </jcr:root>
