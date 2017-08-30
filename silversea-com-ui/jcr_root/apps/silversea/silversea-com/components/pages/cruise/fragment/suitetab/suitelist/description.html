@@ -25,7 +25,7 @@
                     
                 </p>
                 <a class="btn btn-thin btn-red effect btn-thin request-quote" data-sly-test.appendSuffix="${'{0}{1}' @ format=[suitePrice.suite.name, '.html']}"
-                    href="${requestQuotePath @ extension='html', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">
+                    href="${requestQuotePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">
                     <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                 </a>
             </div>

@@ -1,6 +1,6 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Search cruise"></div>
 <div class="c-search-cruise ${!properties.fileReference ? 'no-image' : ''}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-    <div class="col-sm-7 c-search-cruise__content">
+    <div class="c-search-cruise__content">
         ${properties.text @ context="html"}
         <div class="hidden-xs" data-sly-resource="${'./btn1' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
     </div>
@@ -9,19 +9,28 @@
     </div>
     <div class="col-sm-5 c-search-cruise__form">
         <h3>${'find-your-cruise' @ i18n}</h3>
-        <form action="${properties.pageReference @ extension='html'}"
-              data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse">
-            <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}">
-                <option value="">${'where-would-you-like-to-go' @ i18n}</option>
-                <sly data-sly-list="${filter.destinations}">
-                    <option value="${item.name}">${item.title @ context='html'}</option>
-                </sly>
-            </select>
-            <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}">
-                <option></option>
-                <option data-sly-repeat="${filter.dates}" value="${item}" data-uuid="filters_a_date_${item}" data-sscclicktype="filters">${filter.dates[item]}</option>
-            </select>
-            <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
+        <form class="c-fyc-light__form row" action="${properties.pageReference @ extension='html'}"
+            data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+            <div class="c-search-cruise__form__select-wrapper col-sm-12">
+                <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result', extension='html'}"></a>
+                <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}">
+                    <option value="all">${'where-would-you-like-to-go' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
+                </select>
+            </div>
+            <div class="c-search-cruise__form__select-wrapper col-sm-12">
+                <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}">
+                    <option value="all">${'when-do-you-want-to-leave' @ i18n}</option>
+                    <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
+                        <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}" />
+                        ${month.value} ${item.year}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <button class="btn btn-red" type="submit">${'find-your-cruise' @ i18n} <i class="fa fa-angle-right"></i></button>
+            </div>
         </form>
+        <sly data-sly-include="result.html" />
     </div>
 </div>

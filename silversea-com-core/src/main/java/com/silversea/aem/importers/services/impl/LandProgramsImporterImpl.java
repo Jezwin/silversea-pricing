@@ -72,12 +72,10 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
         int successNumber = 0;
         int errorNumber = 0;
 
-        Map<String, Object> authenticationPrams = new HashMap<>();
-        authenticationPrams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationPrams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -202,10 +200,6 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
         }
 
         LOGGER.debug("Ending land programs import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -220,11 +214,9 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
     public ImportResult updateLandPrograms() {
         LOGGER.debug("Starting land programs update");
 
-        int successNumber = 0;
-        int errorNumber = 0;
-        int apiPage = 1;
+        int successNumber = 0, errorNumber = 0, apiPage = 1;
 
-        Map<String, Object> authenticationParams = new HashMap<>();
+        final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
@@ -242,10 +234,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             LOGGER.debug("Last import date for land programs {}", lastModificationDate);
 
+            // cities mapping
             final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
 
+            // land programs mapping
             final Map<Integer, Map<String, Page>> landProgramsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "landId");

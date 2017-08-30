@@ -32,16 +32,24 @@ body {
     }
     
     &.modal-open {
-		left: 0;
-		right: 0;		
-		position: fixed;
-		overflow: hidden;
+        left: 0;
+        overflow: hidden;
+        position: fixed;
+        right: 0;
     }
 }
 
 /*
 * Reset Css
 */
+hr {
+    border-color: @grey--e6;
+
+    &.spacer {
+        visibility: hidden;
+    }
+}
+
 h1 {
     &.content-title {
         font-size: 30px;
@@ -310,13 +318,15 @@ picture {
     &--award {
         padding: 0;
 
-        [class*='col-'] {
-            &:first-child {
-                padding-right: 0;
-            }
+        @media screen and (min-width: @screen-sm) {
+            [class*='col-'] {
+                &:first-child {
+                    padding-right: 0;
+                }
 
-            &:nth-child(2) {
-                padding-left: 0;
+                &:nth-child(2) {
+                    padding-left: 0;
+                }
             }
         }
     }
@@ -394,7 +404,6 @@ picture {
     
     & .container{
         max-width: 930px;
-        padding: 10px 0 0;
     }
 
     &.editor {
@@ -412,7 +421,7 @@ picture {
     }
 
     &__buttons {
-        padding: 9px 0 4px;
+        padding: 10px 0 4px;
     }
 }
 
@@ -435,10 +444,9 @@ picture {
 ** Modal window
 */
 .modal-open {
-	@media screen and (max-width: @screen-sm) {
-		& .modal {
-		    margin: 0 10px;
-		}
+    @media screen and (max-width: @screen-sm) {
+        & .modal {
+            margin: 0 10px;
+        }
    }
 }
-

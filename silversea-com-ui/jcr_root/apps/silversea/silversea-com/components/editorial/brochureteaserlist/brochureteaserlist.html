@@ -2,7 +2,7 @@
      data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochureTeaserListUse.brochures}"
      class="cq-placeholder" data-emptytext="Brochure teaser list"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
-<section class="o-section" data-sly-test="${brochureTeaserListUse.brochures}">
+<section class="o-section" data-sly-test="${brochureTeaserListUse.brochuresNotLanguageFiltered}">
     <div class="row">
         <div class="col-sm-12">
             <div class="brochureteaserlist__header">

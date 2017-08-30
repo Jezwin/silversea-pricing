@@ -1,38 +1,43 @@
 .c-search-result{
     &__expand{
         display: none;
+
         p{
             font-size: 13px;
             margin-bottom: 24px;
         }
-        &--searchbox-input{
-            border:1px solid @grey;
-            width:98%;
-            height:40px;
-            font-size:16px;
-            color:@black;
+
+        &--searchbox-input {
+            border: 1px solid @grey;
+            width: 98%;
+            height: 40px;
+            font-size: 16px;
+            color: @black;
             padding-left: 18px;
+
             &:focus{
                 -webkit-box-shadow: 0px 0px 5px 0px rgba(118,182,222,1);
                 -moz-box-shadow: 0px 0px 5px 0px rgba(118,182,222,1);
                 box-shadow: 0px 0px 5px 0px rgba(118,182,222,1);
             }
         }
-        &--searchbox-submit{
+
+        &--searchbox-submit {
             background: transparent;
-            width:34px;
-            height:34px;
-            line-height:34px;
-            font-size:12px;
-            border:0;
-            outline:0;
-            text-align:center;
-            cursor:pointer;
-            padding: 0px;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 12px;
+            border: 0;
+            outline: 0;
+            text-align: center;
+            cursor: pointer;
+            padding: 0;
             padding-top: 9px;
             margin-left: -45px;
         }
-        .fa-search{
+
+        .fa-search {
             color: @grey;
             display: block;
             font-size: 18px;
@@ -40,56 +45,66 @@
             width: 35px;
         }
     }
-    &__search-trigger{
+
+    &__search-trigger {
         cursor: pointer;
     }
-    &__results{
-        h3{
+
+    &__results {
+        h3 {
             text-transform: capitalize;
         }
-        &--list-group{
-            border: 0px;
-            .list-group-item{
-                border-right: 0px;
-                border-left: 0px;
+
+        &--list-group {
+            border: 0;
+
+            .list-group-item {
+                border-right: 0;
+                border-left: 0;
                 padding-bottom: 30px;
-                
-                &:first-child{
-                    border-top: 0px;
+
+                &:first-child {
+                    border-top: 0;
                 }
-                &:hover{
+
+                &:hover {
                     color: @white;
                     background-color: @grey--3;
-                    a{
+
+                    a {
                         color: @white;
                     }
                 }
-                h4{
+
+                h4 {
                     font-weight: bold;
                 }
             }
-            .title{
+
+            .title {
                 text-transform: capitalize;
                 text-decoration: underline;
             }
         }
     }
-    
-    &__pagination{
-        &--list{
-            &-item{
+
+    &__pagination {
+        &--list {
+            &-item {
                 float: left;
                 margin: 3px;
                 min-width: 20px;
                 height: 25px;
                 line-height: 25px;
                 text-align: center;
-                &-prev{
+
+                &-prev {
                     color: #d6d5d5;
                 }
+
                 &-active{
-                    color: #fff;
-                    background: #000;
+                    color: @white;
+                    background: @black;
                     padding-left: 5px;
                     padding-right: 5px;
                 }

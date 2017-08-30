@@ -1,33 +1,50 @@
 package com.silversea.aem.importers.utils;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
+import com.day.cq.tagging.Tag;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.impl.ImportResult;
 import io.swagger.client.model.Price;
 import io.swagger.client.model.VoyagePriceMarket;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.*;
 
 /**
+ * TODO javadoc
+ *
  * @author aurelienolivier
  */
 public class CruisesImportUtils {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(CruisesImportUtils.class);
 
-    static public void importCruisePrice(final Session session, final Node cruiseContentNode, final Map.Entry<String, String> cruise,
-                                         final Map<String, Map<String, Resource>> suitesMapping,
-                                         final VoyagePriceMarket priceMarket,
-                                         final Node suitesNode,
-                                         int successNumber, int errorNumber, int itemsWritten,
-                                         int sessionRefresh) throws RepositoryException {
+    static public ImportResult importCruisePrice(final Session session, final Node cruiseContentNode, final Map.Entry<String, String> cruise,
+                                                 final Map<String, Map<String, Resource>> suitesMapping, final VoyagePriceMarket priceMarket,
+                                                 final Node suitesNode, int itemsWritten, int sessionRefresh) throws RepositoryException {
+        final ImportResult importResult = new ImportResult();
+
         // Iterating over prices variation
         for (final Price cruiseOnlyPrice : priceMarket.getCruiseOnlyPrices()) {
             try {
@@ -68,25 +85,143 @@ public class CruisesImportUtils {
 
                 // Writing suite reference based on lang
                 priceVariationNode.setProperty("suiteReference", suites.get(cruise.getKey()).getPath());
-
                 priceVariationNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices/pricevariation");
 
-                successNumber++;
-                itemsWritten++;
+                cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
-                if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-                    try {
-                        session.save();
-
-                        LOGGER.info("{} prices imported, saving session", +itemsWritten);
-                    } catch (RepositoryException e) {
-                        session.refresh(true);
-                    }
-                }
+                importResult.incrementSuccessNumber();
             } catch (ImporterException | RepositoryException e) {
                 LOGGER.warn("Cannot import price for category, {}", e.getMessage());
 
-                errorNumber++;
+                importResult.incrementErrorNumber();
+            }
+        }
+
+        return importResult;
+    }
+
+    public static Map<String, List<String>> getDestinationsMapping(ResourceResolver resourceResolver) {
+        final Iterator<Resource> destinations = resourceResolver.findResources("/jcr:root/content/silversea-com"
+                + "//element(*,cq:PageContent)[sling:resourceType=\"silversea/silversea-com/components/pages/destination\"]", "xpath");
+
+        final Map<String, List<String>> destinationsMapping = new HashMap<>();
+        while (destinations.hasNext()) {
+            final Resource destination = destinations.next();
+
+            final String destinationId = destination.getValueMap().get("destinationId", String.class);
+
+            if (destinationId != null) {
+                if (destinationsMapping.containsKey(destinationId)) {
+                    destinationsMapping.get(destinationId).add(destination.getParent().getPath());
+                } else {
+                    final List<String> destinationPaths = new ArrayList<>();
+                    destinationPaths.add(destination.getParent().getPath());
+                    destinationsMapping.put(destinationId, destinationPaths);
+                }
+
+                LOGGER.trace("Adding destination {} ({}) to cache", destination.getPath(), destinationId);
+            }
+        }
+        return destinationsMapping;
+    }
+
+    public static Map<Integer, String> getFeaturesMap(ResourceResolver resourceResolver) {
+        final Iterator<Resource> features = resourceResolver.findResources("/jcr:root/etc/tags/features//element(*,cq:Tag)[featureId]", "xpath");
+
+        final Map<Integer, String> featuresMapping = new HashMap<>();
+        while (features.hasNext()) {
+            final Resource feature = features.next();
+
+            final Integer featureId = feature.getValueMap().get("featureId", Integer.class);
+
+            if (featureId != null) {
+                final Tag tag = feature.adaptTo(Tag.class);
+                if (tag != null) {
+                    featuresMapping.put(featureId, tag.getTagID());
+
+                    LOGGER.trace("Adding feature {} ({}) to cache", feature.getPath(), featureId);
+                }
+            }
+        }
+        return featuresMapping;
+    }
+
+    public static String getTranslatedCruiseTitle(String language, String voyageName) {
+        String cruiseTitle = voyageName;
+
+        switch (language) {
+            case "fr":
+                cruiseTitle = voyageName.replace(" to ", " à ");
+                break;
+            case "es":
+            case "pt-br":
+                cruiseTitle = voyageName.replace(" to ", " a ");
+                break;
+            case "de":
+                cruiseTitle = voyageName.replace(" to ", " nach ");
+                break;
+        }
+
+        return cruiseTitle;
+    }
+
+    public static Node createCruisePage(PageManager pageManager, String destinationPath, String voyageName, String voyageCode) throws WCMException, RepositoryException {
+        // old : [Voyage Code]-[Departure port]-to-[Arrival port]
+        // new : [Departure port]-to(i18n)-[Arrival port]-[Voyage Code]
+        final String pageName = JcrUtil.createValidName(StringUtils
+                .stripAccents(voyageName + " - " + voyageCode), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                .replaceAll("-+", "-");
+
+        // creating cruise page - uniqueness is derived from cruise code
+        final Page cruisePage = pageManager.create(destinationPath,
+                pageName, WcmConstants.PAGE_TEMPLATE_CRUISE, voyageCode + " - " + voyageName, false);
+
+        final Resource cruiseContentResource = cruisePage.getContentResource();
+        final Node cruiseContentNode = cruiseContentResource.adaptTo(Node.class);
+
+        // setting alias
+        // TODO replace by check on language
+        if (destinationPath.contains("/fr/") || destinationPath.contains("/es/") || destinationPath.contains("/pt-br/")) {
+            cruiseContentNode.setProperty("sling:alias", pageName.replace("-to-", "-a-"));
+        } else if (destinationPath.contains("/de/")) {
+            cruiseContentNode.setProperty("sling:alias", pageName.replace("-to-", "-nach-"));
+        }
+        return cruiseContentNode;
+    }
+
+    public static void associateMapAsset(final AssetManager assetManager, final Session session, final Node cruiseContentNode,
+                                         final String destinationPageName, final String mapUrl, final MimeTypeService mimeTypeService) throws RepositoryException {
+        // download and associate map
+        if (StringUtils.isNotEmpty(mapUrl)) {
+            try {
+                final String filename = StringUtils.substringAfterLast(mapUrl, "/");
+
+                final String assetPath = "/content/dam/silversea-com/api-provided/cruises/"
+                        + destinationPageName + "/" + cruiseContentNode.getParent().getName() + "/" + filename;
+
+                if (session.itemExists(assetPath)) {
+                    cruiseContentNode.setProperty("itinerary", assetPath);
+                } else {
+                    final InputStream inputStream = new URL(mapUrl).openStream();
+                    final Asset asset = assetManager.createAsset(assetPath, inputStream,
+                            mimeTypeService.getMimeType(mapUrl), false);
+
+                    // setting to activate flag on asset
+                    final Node assetNode = asset.adaptTo(Node.class);
+                    if (assetNode != null) {
+                        final Node assetContentNode = assetNode.getNode(JcrConstants.JCR_CONTENT);
+
+                        if (assetContentNode != null) {
+                            assetContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                        }
+                    }
+
+                    cruiseContentNode.setProperty("itinerary", asset.getPath());
+                }
+
+                LOGGER.trace("Creating itinerary asset {}", assetPath);
+            } catch (IOException e) {
+                LOGGER.warn("Cannot import itinerary image {}", mapUrl);
             }
         }
     }

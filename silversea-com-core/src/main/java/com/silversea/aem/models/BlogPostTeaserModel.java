@@ -1,11 +1,9 @@
 package com.silversea.aem.models;
 
-import java.util.Calendar;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import com.day.cq.commons.LanguageUtil;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.helper.UrlHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
@@ -15,10 +13,10 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.LanguageUtil;
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.helper.UrlHelper;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Calendar;
 
 /**
  * Created by mbennabi on 20/02/2017.
@@ -117,7 +115,7 @@ public class BlogPostTeaserModel {
         ValueMap value = resource.getValueMap();
         String imagePath = value.get("fileReference", String.class);
         if (!StringUtils.isNotEmpty(imagePath)) {
-            imagePath = "/content/dam/siversea-com/blog/noimage.png";
+            imagePath = "/content/dam/silversea-com/blog/noimage.png";
         }
         return imagePath;
     }

@@ -72,9 +72,7 @@ public class CitiesImporterImpl implements CitiesImporter {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
@@ -169,16 +167,11 @@ public class CitiesImporterImpl implements CitiesImporter {
                 } while (cities.size() > 0);
             }
 
-            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
-                    "lastModificationDate");
+            ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDate");
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read cities from API", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
         }
 
         LOGGER.debug("Ending cities import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -334,10 +327,7 @@ public class CitiesImporterImpl implements CitiesImporter {
 
         JSONObject jsonObject = new JSONObject();
 
-        ResourceResolver resourceResolver = null;
-        try {
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams);
-
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             Iterator<Resource> cities = resourceResolver.findResources("/jcr:root/content/silversea-com"
                     + "//element(*,cq:Page)[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "xpath");
 
@@ -368,10 +358,6 @@ public class CitiesImporterImpl implements CitiesImporter {
             }
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
-        } finally {
-            if (resourceResolver != null && resourceResolver.isLive()) {
-                resourceResolver.close();
-            }
         }
 
         return jsonObject;

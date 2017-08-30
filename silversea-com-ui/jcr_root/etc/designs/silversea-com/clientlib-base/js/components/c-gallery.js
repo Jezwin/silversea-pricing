@@ -49,6 +49,21 @@ $(function() {
 
                 $component.find('.c-gallery--cc__tab__link').closest('.c-gallery--cc__tab__item').removeClass('active');
                 $component.find('.c-gallery--cc__tab__link[data-category="' + currentCategory + '"]').closest('.c-gallery--cc__tab__item').addClass('active');
+
+                // Init video on click
+                $('.video-link').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).next('.c-video').initVideo();
+                })
+
+                var $slide = $(this);
+                // Set counter according to the current slide
+                $slide.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
+
+                // Kill video if current slide contains video
+                var $video = $slide.find('.slick-current .c-video');
+                $video.find('.s7playpausebutton[selected="false"]').trigger('click');
+                $video.attr('class', 'c-video').empty();
             });
         });
     };

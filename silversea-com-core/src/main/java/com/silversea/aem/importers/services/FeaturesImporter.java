@@ -17,11 +17,4 @@ public interface FeaturesImporter {
      * @return import result
      */
     ImportResult updateFeatures();
-
-    /**
-     * Update only one feature, based on <code>featureCode</code>
-     *
-     * @param featureCode feature code of the feature to update
-     */
-    void importOneFeature(final String featureCode);
 }

@@ -4,9 +4,9 @@
     method="post"
     data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     ${use.prepareBrochureParameters}
-    <input name="requestsource" type="hidden" value="website" />
-    <input name="requesttype" type="hidden" value="BRO" />
-    <input name="sitecountry" type="hidden" value="${use.siteCountry}" />
+    <input name="requestsource" type="hidden" value="BRO" />
+    <input name="requesttype" type="hidden" value="" />
+    <input name="sitecountry" type="hidden" value="${use.countryCodeIso3}" />
     <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
     <input name="brochurecode" type="hidden" value="${use.selectedBrochure.brochureCode}" />
@@ -107,7 +107,7 @@
         <div class="form-group form-group-lg has-feedback input--state" style="width:50%; margin-top:15px;" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
             <select name="country" class="form-control chosen chosen-with-search" required data-error="${'required-state' @ i18n}">
                 <option value="">${'country' @ i18n}*</option>
-                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" >${country.valueMap.name}</option>
+                <option data-sly-repeat.country="${use.countries}" value="${country.valueMap.country_iso2}" >${country.title}</option>
             </select>
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>

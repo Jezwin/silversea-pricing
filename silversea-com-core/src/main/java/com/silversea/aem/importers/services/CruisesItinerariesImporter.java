@@ -9,21 +9,5 @@ public interface CruisesItinerariesImporter {
      *
      * @return result of the import
      */
-    ImportResult importAllItems();
-
-    /**
-     * Import a sample set of itineraries, used for test purpose (import is full)
-     *
-     * @param size number of itineraries to import
-     *
-     * @return result of the import
-     */
-    ImportResult importSampleSet(final int size);
-
-    /**
-     * Update itineraries items based on the last import date stored in the cruises root page
-     *
-     * @return result of the import
-     */
-    ImportResult updateItems();
+    ImportResult importAllItems(final boolean update);
 }

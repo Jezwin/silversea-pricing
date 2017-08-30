@@ -37,7 +37,7 @@ public class ApiConfigurationServiceImpl implements ApiConfigurationService {
     // TODO replace by constants
     @Property(description = "AEM content root path", value = {
             "shipUrl:/content/silversea-com/en/ships",
-            "brochureUrl:/content/dam/siversea-com/brochures",
+            "brochureUrl:/content/dam/silversea-com/brochures",
             "featuresUrl:/etc/tags/features",
             "countriesUrl:/content/silversea-com/en/country",
             "exclusiveOffersUrl:/content/silversea-com/en/exclusive-offers",

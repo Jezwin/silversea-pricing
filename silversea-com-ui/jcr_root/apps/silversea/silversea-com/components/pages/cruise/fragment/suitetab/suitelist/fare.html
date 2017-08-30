@@ -24,7 +24,7 @@
                     <sly
                         data-sly-test.suffix="${'{0}/{1}/{2}{3}' @ format=[pageProperties.cruiseCode, variation.suite.name, variation.suiteCategory, '.html']}" />
                     <a class="btn btn-thin btn-red effect btn-thin request-quote"
-                        href="${requestQuotePath @ extension='html', suffix=suffix}"
+                        href="${requestQuotePath @ extension='html', selectors='s', suffix=suffix}"
                         data-sscclicktype="clic-RAQ">
                         <span>${'request-quote' @i18n}</span><i class="fa fa-angle-right"></i>
                     </a>

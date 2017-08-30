@@ -1,9 +1,9 @@
 $(function() {
-    var $filter = $('.c-fyc-filter');
+    var $filterWrapper = $('.c-fyc-filter');
 
-    if ($filter.length > 0) {
-        var $btnReset = $filter.find('.c-fyc-filter__reset a'),
-            $form = $filter.find('form.c-find-your-cruise-filter'),
+    if ($filterWrapper.length > 0) {
+        var $btnReset = $filterWrapper.find('.c-fyc-filter__reset a'),
+            $form = $filterWrapper.find('form.c-find-your-cruise-filter'),
             $paginationWrapper = $('.c-fyc-pagination'),
             $resultWrapper = $('.c-fyc__result-wrapper'),
             $page = $paginationWrapper.find('a.active').data('page');
@@ -28,29 +28,43 @@ $(function() {
                 var $optionList = $select.find('option');
 
                 // Build obj with available option
-                var jsonStr = $resultWrapper.find('#' + $select.attr('name') +'-filter').text();
-                if(jsonStr !== ''){
+                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').text();
+
+                if (jsonStr !== '') {
                     var filterAvailableObj = JSON.parse(jsonStr);
 
                     // Disabled option not available
                     $optionList.each(function() {
                         var $option = $(this);
-                        
                         $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
                     });
                 }
+            });
 
+            $form.find('.destination-filter, .date-filter, .ship-filter').each(function() {
+                var $select = $(this);
+                var currentFilter = $('#current-' + $select.attr('name') + '-filter').val();
+
+                $select.find('option').each(function() {
+                    var $option = $(this);
+                    $option.attr('selected', $option.val() === currentFilter);
+                });
             });
 
             // Update chosen
             $form.find('.chosen').trigger('chosen:updated');
 
             // Update features filter
-            var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
-            $form.find('.features-filter li').each(function() {
-                var $item = $(this);
-                $item.toggleClass('disabled', filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true);
-            });
+            $items = $form.find('.feature-filter li');
+            if (JSON.parse($('#feature-filter').text() !== '')) {
+                var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
+                $items.each(function() {
+                    var $item = $(this);
+                    $item.toggleClass('disabled', filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true);
+                });
+            } else {
+                $items.toggleClass('disabled', true);
+            }
 
             return updateFilter;
         })();
@@ -64,7 +78,7 @@ $(function() {
             var $featureWrapper = $('.feature-wrapper');
 
             // Create feature list without doublon
-            $resultWrapper.find('.meta_feature_inner').each(function() {
+            $resultWrapper.find('.meta_feature_inner:not(.hidden-xs)').each(function() {
                 var $currentFeature = $(this);
                 featureList[$currentFeature.find('i').attr('class')] = $currentFeature.find('.tooltip').text();
             });
@@ -154,6 +168,8 @@ $(function() {
                 // Reset form
                 $form.trigger('reset');
 
+                $form.find('option').attr('selected', false);
+
                 // Update select chosen plugin
                 $form.find('.chosen').trigger('chosen:updated');
 
@@ -166,11 +182,22 @@ $(function() {
         });
 
         /***************************************************************************
-         * Filter : behavior on form change
+         * Filter : update result label according to the number of results
          **************************************************************************/
-        $form.on('change', function(e, isFromPagination) {
-            // Set active state on reset button
-            var resetState, $currentForm = $(this), featureNumber = 0, $filterValue = $($currentForm.serializeArray()), $paginationWrapper = $('.c-fyc-pagination');
+        var resultLabel = (function resultLabel() {
+            var $matchingValue = $('#matching-value');
+
+            $matchingValue.closest('.c-fyc-filter__text').toggleClass('results', parseInt($('#matching-value').text()) > 1);
+
+            return resultLabel;
+        })();
+
+        /***************************************************************************
+         * Filter : behavior on page load
+         **************************************************************************/
+        var updateFilterState = (function updateFilterState() {
+            var resetState,
+                $filterValue = $($form.serializeArray());
 
             $filterValue.each(function(i, field) {
                 var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
@@ -184,10 +211,6 @@ $(function() {
                     // Remove highlight filter
                     $fieldwrapper.removeClass('active');
                 }
-
-                if (field.name === 'feature') {
-                    featureNumber++;
-                }
             });
 
             // Update reset style state
@@ -197,8 +220,29 @@ $(function() {
                 $btnReset.removeClass('active');
             }
 
+            return updateFilterState;
+        })();
+
+        /***************************************************************************
+         * Filter : behavior on form change
+         **************************************************************************/
+        $form.on('change', function(e, isFromPagination) {
+            updateFilterState();
+
+            // Set active state on reset button
+            var resetState,
+                $currentForm = $(this),
+                featureNumber = 0,
+                $filterValue = $($currentForm.serializeArray());
+
+            $filterValue.each(function(i, field) {
+                if (field.name === 'feature') {
+                    featureNumber++;
+                }
+            });
+
             // Show number of feature selected
-            var $featureLabel = $currentForm.find('.features-filter').closest('.single-filter').find('.text-selected');
+            var $featureLabel = $currentForm.find('.feature-filter').closest('.single-filter').find('.text-selected');
             var $featureFieldWrapper = $featureLabel.closest('.single-filter');
 
             // Highlight features filter
@@ -222,26 +266,23 @@ $(function() {
                 if (field.name === 'feature') {
                     featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
                 } else {
-                    requestUrl = requestUrl + '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                    requestUrl += '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
                 }
             });
 
             // Add features
             if (featuresSelectorValue.length > 0) {
-                requestUrl = requestUrl + '.features_' + featuresSelectorValue.join("|");
+                requestUrl += '.features_' + featuresSelectorValue.join("|");
             } else {
-                requestUrl = requestUrl + '.features_all';
+                requestUrl += '.features_all';
             }
 
             // Add pagination
             $page = (isFromPagination === true) ? $page : '1';
-            requestUrl = requestUrl + '.page_' + $page;
-
-            // Add limit
-            requestUrl = requestUrl + '.limit_' + $form.data('limit');
+            requestUrl += '.page_' + $page;
 
             // Add extension
-            requestUrl = requestUrl + '.html';
+            requestUrl += '.html';
 
             // Update result according to the request URL
             $.ajax({
@@ -252,6 +293,7 @@ $(function() {
 
                     // Update result count
                     $('#matching-value').text($('#count-filter').val());
+                    resultLabel();
 
                     // Update filter
                     updateFilter();

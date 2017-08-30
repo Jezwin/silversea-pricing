@@ -836,7 +836,7 @@
     <voyage-highlights-expedition
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights-expedition"
-        sling:message="voyage highlights Expedition Team" />
+        sling:message="voyage highlight &amp; Expedition Team" />
     <voyage-highlights-introduction
         jcr:primaryType="sling:MessageEntry"
         sling:key="voyage-highlights-introduction"
@@ -1084,13 +1084,21 @@
     <usd
         jcr:primaryType="sling:MessageEntry"
         sling:key="USD"
-        sling:message="$" />
+        sling:message="US$" />
     <aud
         jcr:primaryType="sling:MessageEntry"
         sling:key="AUD"
-        sling:message="$" />
+        sling:message="AU$" />
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
         sling:message="Offer" />
+    <cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise"
+        sling:message="cruise" />
+    <expedition-cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="expedition-cruise"
+        sling:message="expedition cruise" />
 </jcr:root>

@@ -18,7 +18,12 @@
 
     &__content {
         padding-right: 25px;
-        padding-left: 0;
+        width: 58%;
+
+        @media screen and (max-width: @screen-sm) {
+            padding-right: 0;
+            width: 100%;
+        }
 
         h1 {
             font-family: @f-theano_didot;
@@ -98,7 +103,18 @@
         background: rgba(0,0,0,.6) none repeat scroll 0 0;
 
         @media screen and (max-width: @screen-sm) {
-            background: transparent;
+            background: @grey--fa;
+            margin: 0 -15px;
+            padding: 25px 15px;
+        }
+
+        &__select-wrapper {
+            position: relative; 
+            margin-bottom: 15px;
+
+            select {
+                height: 47px;
+            }
         }
 
         h3 {
@@ -124,7 +140,6 @@
         }
 
         .chosen-container {
-            margin-bottom: 15px;
             width: 100% !important;
 
             &.chosen-with-drop {
@@ -135,7 +150,7 @@
 
             .chosen-single {
                 background: @white;
-                border-color: @white;
+                border-color: @grey--eb;
                 border-radius: 0;
                 box-shadow: none;
                 padding: 12px 40px 12px 20px;

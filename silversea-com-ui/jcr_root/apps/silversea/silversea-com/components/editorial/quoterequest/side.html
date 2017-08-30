@@ -20,7 +20,7 @@
         </ul>
     </div>
     <div class="c-quote-request-side__price hidden-xs">
-        <sly data-sly-test="${quoteRequest.isWaitList}">${'waitlist' @ i18n}</sly>
+        <strong data-sly-test="${quoteRequest.isWaitList}">${'waitlist' @ i18n}</strong>
         <sly data-sly-test="${!quoteRequest.isWaitList}">
             ${'fares-from' @ i18n}
             <strong data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.computedPrice}">

@@ -289,8 +289,4 @@ public class FeaturesImporterImpl implements FeaturesImporter {
         return new ImportResult(successNumber, errorNumber);
     }
 
-    @Override
-    public void importOneFeature(String featureCode) {
-        // TODO implement
-    }
 }

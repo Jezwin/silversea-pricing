@@ -11,6 +11,7 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.sling.api.resource.ValueMap;
 
 import java.time.YearMonth;
@@ -62,7 +63,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private Set<YearMonth> availableDepartureDates = new HashSet<>();
 
     // features available from design dialog + available for cruises
-    private Set<FeatureModel> features = new HashSet<>();
+    private Set<FeatureModel> features = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
 
     // features dates available for the subset of filtered cruises
     private Set<FeatureModel> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
@@ -78,23 +79,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     private String destinationIdFilter;
 
-    // true if find your cruise is prefiltered by destination
-    private boolean prefilterByDestination;
-
-    // true if find your cruise is prefiltered by port
-    private boolean prefilterByPort;
-
-    // true if find your cruise is prefiltered by ship
-    private boolean prefilterByShip;
-
-    // true if find your cruise is prefiltered by feature
-    private boolean prefilterByFeature;
-
     // exclusive offer filter (not displayed, used on exclusive offer page)
     private String exclusiveOfferFilter = FILTER_ALL;
 
     // date filter
     private YearMonth dateFilter;
+
+    // duration filter
+    private String durationFilter;
 
     // minimum duration of the duration filter
     private Integer durationFilterMin;
@@ -112,7 +104,19 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private String portFilter = FILTER_ALL;
 
     // features filter
-    private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+    private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getTitle));
+
+    // true if find your cruise is prefiltered by destination
+    private boolean prefilterByDestination;
+
+    // true if find your cruise is prefiltered by port
+    private boolean prefilterByPort;
+
+    // true if find your cruise is prefiltered by ship
+    private boolean prefilterByShip;
+
+    // true if find your cruise is prefiltered by feature
+    private boolean prefilterByFeature;
 
     // current page in the component pagination
     private int activePage = 1;
@@ -186,7 +190,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                         }
                         break;
                     case "duration":
-                        final String durationFilter = splitSelector[1];
+                        durationFilter = splitSelector[1];
                         final String[] splitDuration = durationFilter.split("-");
 
                         if (splitDuration.length == 2) {
@@ -416,6 +420,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                 includeCruise = includeCruise && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && exclusiveOfferInCruise;
+                includeCruiseNotFilteredByPort = includeCruiseNotFilteredByPort && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && exclusiveOfferInCruise;
                 includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && exclusiveOfferInCruise;
@@ -483,12 +488,12 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
         int i = 0;
         for (final CruiseModel cruise : filteredCruises) {
-            if (i >= (activePage - 1) * pageSize) {
-                cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
+            if (i >= activePage * pageSize) {
+                break;
             }
 
-            if (i > activePage * pageSize) {
-                break;
+            if (i >= (activePage - 1) * pageSize) {
+                cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
             }
 
             i++;
@@ -616,6 +621,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         return availableFeatures;
     }
 
+    public Collection<FeatureModel> getInitialDisplayedFeatures() {
+        return CollectionUtils.intersection(availableFeatures, features);
+    }
+
     /**
      * @return durations available for filtered cruises for this lang
      */
@@ -670,6 +679,34 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
      */
     public String getDestinationIdFilter() {
         return destinationIdFilter;
+    }
+
+    public String getExclusiveOfferFilter() {
+        return exclusiveOfferFilter;
+    }
+
+    public YearMonth getDateFilter() {
+        return dateFilter;
+    }
+
+    public String getDurationFilter() {
+        return durationFilter;
+    }
+
+    public String getShipFilter() {
+        return shipFilter;
+    }
+
+    public String getCruiseTypeFilter() {
+        return cruiseTypeFilter;
+    }
+
+    public String getPortFilter() {
+        return portFilter;
+    }
+
+    public Set<FeatureModel> getFeaturesFilter() {
+        return featuresFilter;
     }
 
     /**

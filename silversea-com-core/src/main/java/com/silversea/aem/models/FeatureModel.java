@@ -8,11 +8,13 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.Objects;
 
 @Model(adaptables = Tag.class)
 public class FeatureModel {
 
-    @Inject @Self
+    @Inject
+    @Self
     private Tag tag;
 
     private String title;
@@ -90,8 +92,13 @@ public class FeatureModel {
             return false;
         }
 
-        final FeatureModel objFeatureModel = (FeatureModel)obj;
+        final FeatureModel objFeatureModel = (FeatureModel) obj;
 
         return objFeatureModel.getPath().equals(getPath());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, featureId, icon, featureCode, description, name, path);
     }
 }

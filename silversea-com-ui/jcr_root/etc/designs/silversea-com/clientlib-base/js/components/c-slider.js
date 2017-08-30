@@ -40,11 +40,22 @@ $(function() {
     /***************************************************************************
      * Mozaic Slider
      **************************************************************************/
-    settingSlider['fade'] = true;
-    settingSlider['dots'] = true;
-    settingSlider['autoplaySpeed'] = 5000;
+    var settingMozaicSlider = {
+        prevArrow : prevArrowCustom,
+        nextArrow : nextArrowCustom,
+        fade : true,
+        dots : true,
+        autoplaySpeed : 5000,
+        responsive : [ {
+            breakpoint : 768,
+            settings : {
+                slidesToShow : 1,
+                slidesToScroll : 1
+            }
+        } ]
+    };
 
-    $('.mozaicslider').slick(settingSlider);
+    $('.mozaicslider').slick(settingMozaicSlider);
 
     // mozaic slider on mobile viewport
     $('.mozaic-slider').each(function(index) {
@@ -78,22 +89,4 @@ $(function() {
         $slider_mosaic.find('.link__wrapper').first().clone().appendTo('.mobileSlider_' + index);
     });
 
-    // filled empty mozaic tabbed
-    $('.mozaicslider').each(function() {
-        var $silder = $(this);
-        var $firstItemSlier = $silder.find('.c-mozaicslider:first');
-        var $lastItemSlier = $silder.find('.c-mozaicslider:last');
-
-        // length of emty tabbeds
-        var $emptyTabbedsNumber = 5 - $lastItemSlier.find('.mozaicItem:not(.item-text)').size();
-
-        // clone the n firsts tabbeds to last mozaic
-        if (($emptyTabbedsNumber !== 0) || ($emptyTabbedsNumber !== 5)) {
-            $firstItemSlier.find('.mozaicItem:not(.item-text)').each(function(index) {
-                if (index < $emptyTabbedsNumber) {
-                    $(this).clone().appendTo($lastItemSlier);
-                }
-            })
-        }
-    });
 });

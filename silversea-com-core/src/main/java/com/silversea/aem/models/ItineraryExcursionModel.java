@@ -10,6 +10,8 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @Model(adaptables = Resource.class)
 public class ItineraryExcursionModel {
@@ -96,6 +98,10 @@ public class ItineraryExcursionModel {
 
     public String getLongDescription() {
         return excursion != null ? excursion.getLongDescription() : null;
+    }
+
+    public List<FeatureModel> getFeatures() {
+        return excursion != null ? excursion.getFeatures() : new ArrayList<>();
     }
 
     public Page getPage() {
