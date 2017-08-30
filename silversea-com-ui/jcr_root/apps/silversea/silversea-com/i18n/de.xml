@@ -1052,4 +1052,28 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="AUD"
         sling:message="AU$" />
+    <view
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view"
+        sling:message="View" />
+    <location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="location"
+        sling:message="Location" />
+    <fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares"
+        sling:message="Fares" />
+    <view-deck
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-deck"
+        sling:message="View deck" />
+    <select-your-suite
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-your-suite"
+        sling:message="Select your suite" />
+    <restaurants
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants"
+        sling:message="Restaurants" />
 </jcr:root>
