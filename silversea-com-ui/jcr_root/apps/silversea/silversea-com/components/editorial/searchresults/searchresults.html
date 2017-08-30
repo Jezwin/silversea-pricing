@@ -23,10 +23,13 @@
     <div class="c-search-result__results" data-sly-test="${searchResultsUse.searchResult}">
         <h3 class="c-search-result__results__title">${'results' @ i18n}:</h3>
         <div data-sly-test.isNotEmpty="${searchResultsUse.searchResult.totalMatches > 0}" class="c-search-result__results__list">
-            <a data-sly-repeat.hit="${searchResultsUse.searchResult.hits}" class="c-search-result__results__item" href="${hit.path @ extension='html'}">
+            <div data-sly-repeat.hit="${searchResultsUse.searchResult.hits}" class="c-search-result__results__item">
                 <h4 class="c-search-result__results__item__title">${hit.title @ context='html'}</h4>
                 <p class="c-search-result__results__item__description">${hit.excerpt @ context='html'}</p>
-            </a>
+                <a class="c-search-result__results__link" href="${hit.path @ extension='html'}">
+                    <span class="hidden">${hit.title @ context='html'}</span>
+                </a>
+            </div>
         </div>
 
         <nav data-sly-test="${isNotEmpty}"class="c-search-result__pagination">
