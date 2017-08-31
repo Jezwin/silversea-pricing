@@ -215,6 +215,8 @@ public class CountriesImporterImpl implements CountriesImporter {
             importRunning = false;
         }
 
+        LOGGER.debug("Ending countries import, success: {}, error: {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber());
+
         return importResult;
     }
 
