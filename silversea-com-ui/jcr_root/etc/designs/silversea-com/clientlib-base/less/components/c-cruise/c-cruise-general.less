@@ -31,9 +31,16 @@
         }
     }
 
-    & .c-tab__accordion .c-tab__body {
-        @media screen and (max-width: @screen-sm) {
+    @media screen and (max-width: @screen-sm) {
+        & .c-tab__accordion .c-tab__body {
             padding-top: 61px;
+        }
+
+        ul[data-toggle="dropdown"] {
+            a.c-gallery--cc__tab__link, .c-tab__link a {
+                font-size: 12px;
+                text-transform: uppercase;
+            }
         }
     }
 }

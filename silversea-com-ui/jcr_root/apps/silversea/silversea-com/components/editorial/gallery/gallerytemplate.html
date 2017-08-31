@@ -79,7 +79,7 @@
 <!--/* Gallery with Tab inside page (not modal)*/-->
 <template data-sly-template.galleryCCTab="${ @ map}">
     <div class="c-gallery--cc">
-        <ul class="c-gallery--cc__tab">
+        <ul class="c-gallery--cc__tab" data-toggle="dropdown" aria-expanded="false">
             <li  data-sly-repeat="${map}" class="c-gallery--cc__tab__item ${itemList.count == 1 ? 'active' : ''}">
                 <a class="c-gallery--cc__tab__link" href="#" data-category="${item}">${item}</a>
             </li>
