@@ -46,7 +46,7 @@
     <available-on
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="disponível em"/>
+        sling:message="Disponível em"/>
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

@@ -992,7 +992,7 @@
     <available-on
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on"
-        sling:message="available on" />
+        sling:message="Available on" />
     <find-your-cruise
         jcr:primaryType="sling:MessageEntry"
         sling:key="find-your-cruise"
