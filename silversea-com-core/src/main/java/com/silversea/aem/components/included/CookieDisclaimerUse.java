@@ -28,7 +28,7 @@ public class CookieDisclaimerUse extends WCMUsePojo {
             final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
             description = properties.getInherited(JcrConstants.JCR_DESCRIPTION, String.class);
 
-            String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
+            final String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
             if (tags != null) {
                 for (String tag : tags) {
                     if (tag.equals(geolocationTagId)) {

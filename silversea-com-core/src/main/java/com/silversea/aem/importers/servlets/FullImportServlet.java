@@ -116,7 +116,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
             } else if (mode.equals(Mode.exclusiveoffers)) {
                 exclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.countries)) {
-                countriesImporter.importData();
+                countriesImporter.importData(false);
             } else if (mode.equals(Mode.features)) {
                 featuresImporter.importAllFeatures();
             } else if (mode.equals(Mode.brochures)) {
