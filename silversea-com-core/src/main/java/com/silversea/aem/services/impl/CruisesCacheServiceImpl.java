@@ -176,7 +176,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
 
-            if (cruiseModel != null) {
+            if (cruiseModel != null && cruiseModel.isVisible()) {
                 cruisesByCode.get(lang).put(cruiseModel.getCruiseCode(), cruiseModel);
 
                 if (cruiseModel.getDestination() != null
