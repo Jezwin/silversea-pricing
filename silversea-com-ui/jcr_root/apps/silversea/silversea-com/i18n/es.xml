@@ -910,7 +910,6 @@
     <the-difference-between-each-single-suite-is-availa
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:key="the-difference-between-each-single-suite-is-available-in-the-deck-plan-of-the-ship"
         sling:message="La diferencia entre cada Suite individual está disponible en el plano de cubiertas del barco."/>
     <title
         jcr:mixinTypes="[sling:Message]"
