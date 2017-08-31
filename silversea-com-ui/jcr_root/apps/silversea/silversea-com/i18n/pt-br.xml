@@ -1047,29 +1047,29 @@
     <view
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="View"/>
+        sling:message="[TO BE TRANSLATED]"/>
     <location
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Location"/>
+        sling:message="[TO BE TRANSLATED]"/>
     <fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Fares"/>
+        sling:message="[TO BE TRANSLATED]"/>
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="View deck"/>
+        sling:message="[TO BE TRANSLATED]"/>
     <select-your-suite
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Select your suite"/>
+        sling:message="[TO BE TRANSLATED]"/>
     <restaurants
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Restaurants"/>
+        sling:message="[TO BE TRANSLATED]"/>
     <suites-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Suites plan"/>
+        sling:message="[TO BE TRANSLATED]"/>
 </jcr:root>
