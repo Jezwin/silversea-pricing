@@ -1,10 +1,10 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.tagging.InvalidTagFormatException;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagException;
 import com.day.cq.tagging.TagManager;
-import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CountriesImporter;
@@ -15,7 +15,7 @@ import com.silversea.aem.services.GeolocationTagService;
 import io.swagger.client.ApiException;
 import io.swagger.client.api.CountriesApi;
 import io.swagger.client.model.Country;
-import org.apache.cxf.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -86,16 +86,41 @@ public class CountriesImporterImpl implements CountriesImporter {
                     // tag exists
                     if (tagIdsMapping.containsKey(country.getCountryIso2())) {
                         final String countryTagId = tagIdsMapping.get(country.getCountryIso2());
+                        final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromCountryCode(resourceResolver, country.getCountryIso2());
 
-                        final GeolocationTagModel geolocationTagModel = geolocationTagService.getGeolocationTagModelFromCountryCode(resourceResolver, countryTagId);
+
+                        final String countryPath = "/etc/tags/geotaggging/"
+                                + StringUtils.defaultIfEmpty(country.getMarket(), "nomarket").toLowerCase()
+                                + "/" + JcrUtil.createValidName(StringUtils.defaultIfEmpty(country.getRegion(), "noregion"), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                                + "/" + country.getCountryIso2().toUpperCase();
+
 
                         // get or move the tag if modified
                         Tag countryTag;
-                        if (!geolocationTagModel.getMarket().equals(country.getMarket()) || !geolocationTagModel.getRegion().equals(country.getMarket())) {
+                        if (geolocationTagModel != null
+                                && (!geolocationTagModel.getMarket().equals(country.getMarket())
+                                    || !geolocationTagModel.getRegion().equals(country.getMarket())
+                                    || !geolocationTagModel.getPath().equals(countryPath))) {
+
+                            Tag market;
+                            if (StringUtils.isEmpty(country.getMarket())) {
+                                market = tagManager.createTag("geotagging:nomarket", "No market", null, false);
+                            } else {
+                                market = tagManager.createTag("geotagging:" + country.getMarket().toLowerCase(),
+                                        country.getMarket().toUpperCase(), null, false);
+                            }
+
+                            Tag region;
+                            if (StringUtils.isEmpty(country.getRegion())) {
+                                region = tagManager.createTag(market.getTagID() + "/noregion", "No region", null, false);
+                            } else {
+                                region = tagManager.createTag(market.getTagID() + "/" + JcrUtil.createValidName(country.getRegion(), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING),
+                                        String.valueOf(country.getRegion()), null, false);
+                            }
+
                             final Tag tag = tagManager.resolve(countryTagId);
 
-                            countryTag = tagManager.moveTag(tag, WcmConstants.GEOLOCATION_TAGS_PREFIX + country.getMarket().toLowerCase()
-                                    + "/" + country.getRegion().toLowerCase() + "/" + country.getCountryIso2().toUpperCase());
+                            countryTag = tagManager.moveTag(tag, region.getTagID() + "/" + country.getCountryIso2().toUpperCase());
                         } else {
                             countryTag = tagManager.resolve(countryTagId);
                         }
@@ -124,24 +149,21 @@ public class CountriesImporterImpl implements CountriesImporter {
                     } else {
                         Tag market;
                         if (StringUtils.isEmpty(country.getMarket())) {
-                            market = tagManager.createTag("geotagging:nomarket",
-                                    "No market", null, false);
+                            market = tagManager.createTag("geotagging:nomarket", "No market", null, false);
                         } else {
                             market = tagManager.createTag("geotagging:" + country.getMarket().toLowerCase(),
                                     country.getMarket().toUpperCase(), null, false);
                         }
 
-                        Tag regionId;
-                        if (StringUtils.isEmpty(market.getTagID())) {
-                            regionId = tagManager.createTag(market.getTagID() + "/noregion",
-                                    "No region", null, false);
+                        Tag region;
+                        if (StringUtils.isEmpty(country.getRegion())) {
+                            region = tagManager.createTag(market.getTagID() + "/noregion", "No region", null, false);
                         } else {
-                            regionId = tagManager.createTag(market.getTagID() + "/"
-                                            + String.valueOf(country.getRegionId()).toLowerCase(),
-                                    String.valueOf(country.getRegionId()), null, false);
+                            region = tagManager.createTag(market.getTagID() + "/" + JcrUtil.createValidName(country.getRegion(), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING),
+                                    String.valueOf(country.getRegion()), null, false);
                         }
 
-                        final Tag countryTag = tagManager.createTag(regionId.getTagID() + "/"
+                        final Tag countryTag = tagManager.createTag(region.getTagID() + "/"
                                 + country.getCountryIso2().toUpperCase(), country.getCountryName(), null, false);
 
                         final Node countryNode = countryTag.adaptTo(Node.class);

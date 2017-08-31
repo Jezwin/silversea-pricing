@@ -55,6 +55,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     private ShoreExcursionsImporter shoreExcursionsImporter;
 
     @Reference
+    private CountriesImporter countriesImporter;
+
+    @Reference
     private CruisesImporter cruisesImporter;
 
     @Reference
@@ -110,6 +113,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 shoreExcursionsImporter.updateShoreExcursions();
             } else if (mode.equals(Mode.landprograms)) {
                 landProgramsImporter.updateLandPrograms();
+            } else if (mode.equals(Mode.countries)) {
+                countriesImporter.importData(false);
             } else if (mode.equals(Mode.exclusiveoffers)) {
                 exclusiveOffersImporter.importAllItems();
             } else if (mode.equals(Mode.features)) {
