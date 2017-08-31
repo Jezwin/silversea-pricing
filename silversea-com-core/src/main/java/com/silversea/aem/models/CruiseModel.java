@@ -19,7 +19,10 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class CruiseModel {
@@ -98,6 +101,10 @@ public class CruiseModel {
 
     @PostConstruct
     private void init() {
+        if (itineraries == null) {
+            itineraries = new ArrayList<>();
+        }
+
         final PageManager pageManager = page.getPageManager();
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
