@@ -1129,4 +1129,8 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-plan"
         sling:message="Suites plan" />
+    <early-booking-bonus
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="early-booking-bonus"
+        sling:message="Early booking bonus" />
 </jcr:root>
