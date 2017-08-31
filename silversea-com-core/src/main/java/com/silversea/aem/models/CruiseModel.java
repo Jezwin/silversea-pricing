@@ -74,7 +74,7 @@ public class CruiseModel {
 
     private List<String> splitCruiseFareAdditions = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries")
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
     private List<ItineraryModel> itineraries;
 
     private List<ItineraryModel> compactedItineraries = null;
