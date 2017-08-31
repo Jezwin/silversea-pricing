@@ -14,13 +14,15 @@
             <div class="c-search-cruise__form__select-wrapper col-sm-12">
                 <a class="hidden fragment-feedback" href="${currentNode.path @selectors='result', extension='html'}"></a>
                 <select class="chosen form-control" name="destination" data-placeholder="${'where-would-you-like-to-go' @ i18n}">
-                    <option value="all">${'where-would-you-like-to-go' @ i18n}</option>
+                    <option value="all"></option>
+                    <option value="all">${'all-destinations' @ i18n}</option>
                     <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
                 </select>
             </div>
             <div class="c-search-cruise__form__select-wrapper col-sm-12">
                 <select class="chosen form-control" name="date" data-placeholder="${'when-do-you-want-to-leave' @ i18n}">
-                    <option value="all">${'when-do-you-want-to-leave' @ i18n}</option>
+                    <option value="all"></option>
+                    <option value="all">${'all-departure-dates' @ i18n}</option>
                     <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
                         <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}" />
                         ${month.value} ${item.year}
