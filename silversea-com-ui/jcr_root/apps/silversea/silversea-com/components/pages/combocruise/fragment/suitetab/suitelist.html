@@ -42,17 +42,13 @@
                 <ul class="c-tab__nav dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link c-tab__link--button" data-state="active">
                         <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.plan}">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.plan}">
                         <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button">
+                    </li><li class="c-tab__link c-tab__link--button">
                         <a href="#feature-${itemList.index}"><span>${'features' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.locationImage}">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.locationImage}">
                         <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.virtualTour}">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.virtualTour}">
                         <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
                     </li>
                 </ul>
