@@ -219,6 +219,34 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Ttpo de crucero"/>
+    <view
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
+    <location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
+    <fares
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
+    <view-deck
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
+    <select-your-suite
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
+    <restaurants
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
+    <suites-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="TO BE TRANSLATED"/>
     <CV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1051,32 +1079,4 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="AU$"/>
-    <view
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
-    <location
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
-    <fares
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
-    <view-deck
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
-    <select-your-suite
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
-    <restaurants
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
-    <suites-plan
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
 </jcr:root>
