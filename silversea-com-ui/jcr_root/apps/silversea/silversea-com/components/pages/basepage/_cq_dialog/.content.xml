@@ -171,6 +171,14 @@
                                                     fieldLabel="Description"
                                                     name="./jcr:description"
                                                     renderReadOnly="{Boolean}true"/>
+                                            <pagedescription
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                                    allowBulkEdit="{Boolean}true"
+                                                    cq-msm-lockable="pagedescription"
+                                                    fieldLabel="Page description"
+                                                    name="./pagedescription"
+                                                    renderReadOnly="{Boolean}true"/>
                                         </items>
                                     </moretitles>
                                     <onofftime

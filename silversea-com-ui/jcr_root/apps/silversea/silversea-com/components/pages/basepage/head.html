@@ -5,7 +5,7 @@
       data-sly-use.headlibRenderer="headlibs.html"
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
-<meta data-sly-test.description="${currentPage.description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
+<meta data-sly-test.description="${pageProperties.pagedescription || pageProperties.jcr:description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
 <!--/* open graph tag */-->
 <meta property="fb:app_id" data-sly-test.appID="${currentPage.appId || inheritedPageProperties.appId}" content="${appID}" />
 <meta property="og:title" content="${currentPage.pageTitle || currentPage.title} | Silversea" />
