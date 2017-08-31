@@ -1079,8 +1079,19 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="AU$"/>
+<<<<<<< Upstream, based on origin/develop
     <early-booking-bonus
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="TO BE TRANSLATED"/>
+=======
+    <title-tag
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
+        sling:message="Luxury Cruise from {0} to {1} {2} | Silversea" />
+    <description-tag
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Explore voyage {0} from {1}to {2} on {3} in {4} and experience luxury cruising."
+        sling:message="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising." />
+>>>>>>> d16f088 SSC-2203 SEO Rules Cruise / CC, add specific i18n key for cruise page
 </jcr:root>
