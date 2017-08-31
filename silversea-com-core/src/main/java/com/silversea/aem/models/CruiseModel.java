@@ -10,6 +10,7 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -94,6 +95,9 @@ public class CruiseModel {
     private String[] exclusiveOffersReferences;
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/isVisible") @Default(booleanValues = true)
+    private boolean isVisible;
 
     private String path;
 
@@ -386,6 +390,10 @@ public class CruiseModel {
      */
     public List<String> getCruiseFareAdditions() {
         return splitCruiseFareAdditions;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
     }
 
     /**
