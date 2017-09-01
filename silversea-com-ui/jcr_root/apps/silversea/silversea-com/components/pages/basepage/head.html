@@ -11,8 +11,8 @@
 <meta property="og:title" content="${currentPage.pageTitle || currentPage.title} | Silversea" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="${externalizerHelper.externalizedUrl @ extension='html'}" />
-<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = pageHelper.thumbnail}"/>
-<meta property="og:image" data-sly-test="${pageHelper.thumbnail}" content="${assetHelper.imageUrl}?wid=1200" />
+<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = pageHelper.thumbnail || pageHelper.thumbnailInherited}"/>
+<meta property="og:image" data-sly-test="${pageHelper.thumbnail || pageHelper.thumbnailInherited}" content="${assetHelper.imageUrl}?wid=1200" />
 <meta property="og:description" data-sly-test="${description}" content="${description}" />
 <sly data-sly-list="${pageHelper.languagePages}">
 <link rel="alternate" hreflang="${item}" href="${pageHelper.languagePages[item] @ extension='html'}" /></sly>
