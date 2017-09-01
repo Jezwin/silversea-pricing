@@ -24,6 +24,11 @@ _:-ms-lang(x), .fyc-v2 .result__actions {
     ul {
         display: table;
         margin: 0 auto;
+        white-space: nowrap;
+
+        @media screen and (max-width: @screen-sm) {
+            font-size: 13px;
+        }
 
         li {
             display: table-cell;
