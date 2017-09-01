@@ -28,10 +28,25 @@
                             font-weight: 700;
                             font-size: 25px;
                             color: @blue;
-                            margin: 5px 0;
+                            margin: 5px 0 0;
+                            white-space: nowrap;
 
                             @media screen and (max-width: @screen-xs) {
                                 font-size: 20px;
+                            }
+                        }
+
+                        .lead__top {
+                            &:before {
+                                content: '\00a0';
+                                display: block;
+                            }
+                        }
+
+                        .lead__bottom {
+                            &:after {
+                                content: '\00a0';
+                                display: block;
                             }
                         }
 
