@@ -1076,6 +1076,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="TO BE TRANSLATED"/>
+    <title-tag-base
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="{0} | Silversea"
+        sling:message="{0} | Silversea" />
     <title-tag
         jcr:primaryType="sling:MessageEntry"
         sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
@@ -1085,7 +1089,19 @@
         sling:key="Explore voyage {0} from {1}to {2} on {3} in {4} and experience luxury cruising."
         sling:message="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising." />
     <early-booking-bonus
-        jcr:mixinTypes="[sling:Message]"
-        jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="early-booking-bonus"
+        sling:message="Early booking bonus" />
+    <booking-bonus
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="booking-bonus"
+        sling:message="booking bonus" />
+    <with
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="with"
+        sling:message="with" />
+    <with-early
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="with-early"
+        sling:message="with early" />
 </jcr:root>

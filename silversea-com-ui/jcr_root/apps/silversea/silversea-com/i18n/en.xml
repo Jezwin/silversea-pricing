@@ -1133,6 +1133,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-plan"
         sling:message="Suites plan" />
+    <title-tag-base
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="{0} | Silversea"
+        sling:message="{0} | Silversea" />
     <title-tag
         jcr:primaryType="sling:MessageEntry"
         sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
