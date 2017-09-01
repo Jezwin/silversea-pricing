@@ -3,12 +3,17 @@ package com.silversea.aem.models;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Model(adaptables = Resource.class)
 public class GeolocationTagModel {
+
+    @Inject @Self
+    private Resource resource;
 
     @Inject @Named("iso2")
     private String countryCode;
@@ -18,6 +23,9 @@ public class GeolocationTagModel {
 
     @Inject
     private String market;
+
+    @Inject
+    private String region;
 
     @Inject @Named("Currency") @Optional
     private String currency;
@@ -31,6 +39,13 @@ public class GeolocationTagModel {
     @Inject @Optional
     private String phone;
 
+    private String path;
+
+    @PostConstruct
+    private void init() {
+        path = resource.getPath();
+    }
+
     public String getCountryCode() {
         return countryCode;
     }
@@ -41,6 +56,10 @@ public class GeolocationTagModel {
 
     public String getMarket() {
         return market.toLowerCase();
+    }
+
+    public String getRegion() {
+        return region;
     }
 
     public String getCurrency() {
@@ -62,6 +81,10 @@ public class GeolocationTagModel {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     @Override

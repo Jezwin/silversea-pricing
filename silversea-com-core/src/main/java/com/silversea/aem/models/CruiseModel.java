@@ -10,6 +10,7 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -19,7 +20,10 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class CruiseModel {
@@ -74,7 +78,7 @@ public class CruiseModel {
 
     private List<String> splitCruiseFareAdditions = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries")
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
     private List<ItineraryModel> itineraries;
 
     private List<ItineraryModel> compactedItineraries = null;
@@ -92,12 +96,19 @@ public class CruiseModel {
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/isVisible") @Default(booleanValues = true)
+    private boolean isVisible;
+
     private String path;
 
     private String lang;
 
     @PostConstruct
     private void init() {
+        if (itineraries == null) {
+            itineraries = new ArrayList<>();
+        }
+
         final PageManager pageManager = page.getPageManager();
         final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
@@ -379,6 +390,10 @@ public class CruiseModel {
      */
     public List<String> getCruiseFareAdditions() {
         return splitCruiseFareAdditions;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
     }
 
     /**

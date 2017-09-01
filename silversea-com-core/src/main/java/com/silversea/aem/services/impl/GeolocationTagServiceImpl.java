@@ -56,41 +56,13 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
         }
     }
 
-    /**
-     * Adding all leaf subtags (representing countries in the geotagging tags tree)
-     * @param tag parent tag
-     */
-    private void addTagsToCache(final Tag tag) {
-        Iterator<Tag> children = tag.listChildren();
-
-        if (!children.hasNext()) {
-            LOGGER.trace("Tag {} is a leaf, adding it the map", tag.getTagID());
-
-            // Mapping tag name (iso2) with tag ID
-            tagIdMapping.put(tag.getName(), tag.getTagID());
-
-            // Mapping iso3 code with tag ID
-            final Resource tagResource = tag.adaptTo(Resource.class);
-            if (tagResource != null) {
-                final ValueMap properties = tagResource.getValueMap();
-
-                if (properties.get("iso3", String.class) != null) {
-                    iso3codeTagIdMapping.put(properties.get("iso3", String.class), tag.getTagID());
-                }
-            }
-        } else {
-            LOGGER.trace("Tag {} is not a leaf, browsing children", tag.getTagID());
-
-            while (children.hasNext()) {
-                Tag child = children.next();
-
-                addTagsToCache(child);
-            }
-        }
+    @Override
+    public Map<String, String> getTagIdsMapping() {
+        return tagIdMapping;
     }
 
     @Override
-    public String getTagFromCountryId(final String countryId) {
+    public String getTagIdFromCountryId(final String countryId) {
         LOGGER.trace("Searching for {} in tags mapping, found {}", countryId, tagIdMapping.get(countryId));
 
         return tagIdMapping.get(countryId);
@@ -126,21 +98,53 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
     }
 
     @Override
-    public GeolocationTagModel getGeolocationTagModelFromRequest(SlingHttpServletRequest request) {
+    public GeolocationTagModel getGeolocationTagModelFromRequest(final SlingHttpServletRequest request) {
         final String geolocationTagId = getTagIdFromRequest(request);
 
-        return getGeolocationTagModel(request, geolocationTagId);
+        return getGeolocationTagModel(request.getResourceResolver(), geolocationTagId);
     }
 
     @Override
-    public GeolocationTagModel getGeolocationTagModelCountryCode(final SlingHttpServletRequest request, final String countryCode) {
+    public GeolocationTagModel getGeolocationTagModelFromCountryCode(final ResourceResolver resourceResolver, final String countryCode) {
         final String geolocationTagId = tagIdMapping.get(countryCode);
 
-        return getGeolocationTagModel(request, geolocationTagId);
+        return getGeolocationTagModel(resourceResolver, geolocationTagId);
     }
 
-    private GeolocationTagModel getGeolocationTagModel(SlingHttpServletRequest request, String geolocationTagId) {
-        final ResourceResolver resourceResolver = request.getResourceResolver();
+    /**
+     * Adding all leaf subtags (representing countries in the geotagging tags tree)
+     * @param tag parent tag
+     */
+    private void addTagsToCache(final Tag tag) {
+        Iterator<Tag> children = tag.listChildren();
+
+        if (!children.hasNext()) {
+            LOGGER.trace("Tag {} is a leaf, adding it the map", tag.getTagID());
+
+            // Mapping tag name (iso2) with tag ID
+            tagIdMapping.put(tag.getName(), tag.getTagID());
+
+            // Mapping iso3 code with tag ID
+            final Resource tagResource = tag.adaptTo(Resource.class);
+            if (tagResource != null) {
+                final ValueMap properties = tagResource.getValueMap();
+
+                if (properties.get("iso3", String.class) != null) {
+                    iso3codeTagIdMapping.put(properties.get("iso3", String.class), tag.getTagID());
+                }
+            }
+        } else {
+            LOGGER.trace("Tag {} is not a leaf, browsing children", tag.getTagID());
+
+            while (children.hasNext()) {
+                Tag child = children.next();
+
+                addTagsToCache(child);
+            }
+        }
+    }
+
+    private GeolocationTagModel getGeolocationTagModel(final ResourceResolver resourceResolver, final String geolocationTagId) {
         final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 
         if (tagManager != null && geolocationTagId != null) {

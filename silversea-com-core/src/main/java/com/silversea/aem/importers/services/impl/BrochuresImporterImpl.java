@@ -154,19 +154,21 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                 final Tag[] existingTags = tagManager.getTags(metadataResource);
 
                                 // Building tag list id for comparison
-                                final List<String> existingTagsList = new ArrayList<>();
+                                final List<String> existingGeolocationTagsList = new ArrayList<>();
                                 for (Tag tag : existingTags) {
                                     if (tag.getTagID().startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX)) {
-                                        existingTagsList.add(tag.getTagID());
+                                        existingGeolocationTagsList.add(tag.getTagID());
                                     }
                                 }
 
                                 if (!Objects.equals(title, brochure.getTitle())
-                                        || !Objects.equals(onlineBrochureUrl,brochure.getBrochureUrl())
+                                        || !Objects.equals(onlineBrochureUrl, brochure.getBrochureUrl())
                                         || !Objects.equals(brochureDigitalOnly, brochure.getDigitalOnly())
-                                        || !compareLists(tags, existingTagsList)) {
+                                        || !compareLists(tags, existingGeolocationTagsList)) {
                                     for (Tag tag : existingTags) {
-                                        tags.add(tag.getTagID());
+                                        if (!tag.getTagID().startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX)) {
+                                            tags.add(tag.getTagID());
+                                        }
                                     }
 
                                     // Setting properties
