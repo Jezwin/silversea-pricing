@@ -372,4 +372,14 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     public String getComputedPriceFormated() {
         return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
     }
+
+    public String getPricePrefix() {
+        for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
+            if (exclusiveOffer.getPricePrefix() != null) {
+                return exclusiveOffer.getPricePrefix();
+            }
+        }
+
+        return null;
+    }
 }
