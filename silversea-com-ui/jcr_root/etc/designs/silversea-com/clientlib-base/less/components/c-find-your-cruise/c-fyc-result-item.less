@@ -280,8 +280,31 @@
     }
 
     @media (min-width: @screen-sm-min) and (max-width: @screen-sm) {
-        &__result__content__title {
-            min-height: 32px;
+        &__results__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        &__result {
+            &__wrapper {
+                height: 100%;
+            }
+
+            &__content {
+                padding-bottom: 70px;
+                position: static;
+
+                &__title {
+                    min-height: 32px;
+                }
+
+                &__button {
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                    width: 100%;
+                }
+            }
         }
     }
 
