@@ -21,11 +21,10 @@
 
     &__price {
         font-size: 13px;
+        line-height: 13px;
         text-transform: uppercase;
 
         &__text {
-            display: block;
-
             &--important {
                 font-size: 20px;
                 font-weight: 700;
@@ -34,8 +33,11 @@
             }
 
             &--important2 {
-                font-size: 18px;
+                display: block;
+                font-size: 20px;
                 font-weight: 700;
+                line-height: 20px;
+                margin: 5px 0;
             }
 
             &--important3 {
@@ -49,6 +51,7 @@
             }
 
             &--important5 {
+                display: block;
                 font-size: 26px;
             }
         }
@@ -98,6 +101,10 @@
             &:nth-child(3) span {
                 display: block;
                 font-size: 11px;
+            }
+
+            small {
+                color: @grey--9;
             }
         }
 

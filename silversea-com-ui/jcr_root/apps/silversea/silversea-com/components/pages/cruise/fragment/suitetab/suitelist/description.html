@@ -14,15 +14,23 @@
             </div>
             <div class="c-tab__content--description__price">
                 <p>
-                    <span><strong>${'fares-from' @ i18n}</strong></span><br />
+                    <strong class="text-uppercase">${'fares-from' @ i18n}</strong>
                     <span data-sly-test="${suitePrice.isWaitList}">
                         <strong class="c-suitelist__price__text--important5 text-uppercase">${'waitlist' @ i18n}</strong>
                     </span>
                     <span data-sly-test="${!suitePrice.isWaitList}">
+                        <span data-sly-test.early="${suitePrice.lowestPrice.earlyBookingBonus}">
+                            <strong class="text-lowercase">(${'per-guest' @ i18n})</strong><br />
+                            <small data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = suitePrice.lowestPrice.price}">
+                                ${suitePrice.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}<br />
+                            </small>
+                        </span>
                         <strong class="c-suitelist__price__text--important5 text-uppercase">${suitePrice.lowestPrice.currency @ i18n} ${suitePrice.computedPriceFormated}</strong>
-                        (${'per-guest' @ i18n})
+                        <span data-sly-test="${early}" class="price-suffixe">
+                            ${'with-early' @ i18n} ${'booking-bonus' @ i18n}
+                        </span>
+                        <span data-sly-test="${!early}">(${'per-guest' @ i18n})</span>
                     </span>
-                    
                 </p>
                 <a class="btn btn-thin btn-red effect btn-thin request-quote" data-sly-test.appendSuffix="${'{0}{1}' @ format=[suitePrice.suite.name, '.html']}"
                     href="${requestQuotePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">

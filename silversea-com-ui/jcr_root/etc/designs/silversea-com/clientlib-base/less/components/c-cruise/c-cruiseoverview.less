@@ -9,7 +9,6 @@
                     font-size: 13px;
                     color: @grey--3;
                     text-align: center;
-                    line-height: 1px;
                     margin-bottom: 10px;
 
                     &__elem {
@@ -30,9 +29,16 @@
                             font-size: 25px;
                             color: @blue;
                             margin: 5px 0;
+
                             @media screen and (max-width: @screen-xs) {
                                 font-size: 20px;
                             }
+                        }
+
+                        .price-suffixe {
+                            color: @blue;
+                            display: inline-block;
+                            line-height: 10px;
                         }
 
                         span {
@@ -107,8 +113,10 @@
             border-top: solid 1px @red-expedition;
         }
 
-        .c-tab__content--overview .voyagetable__elem .lead {
-            color: @red-expedition;
+        .c-tab__content--overview .voyagetable__elem {
+            .lead, .price-suffixe {
+                color: @red-expedition;
+            }
         }
     }
 }

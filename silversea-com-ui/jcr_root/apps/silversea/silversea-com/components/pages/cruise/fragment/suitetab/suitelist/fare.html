@@ -18,7 +18,18 @@
                 <td><a href="#" class="text-uppercase" data-toggle="location-tab">${'view-deck' @ i18n}</a></td>
                 <td data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = variation.computedPrice}">
                     <strong class="text-uppercase" data-sly-test="${variation.isWaitList}">${'waitlist' @ i18n}</strong>
-                    <strong class="text-uppercase" data-sly-test="${!variation.isWaitList}">${variation.currency @ i18n} ${priceHelper.valueFormatted}</strong>
+                    <strong data-sly-test="${!variation.isWaitList}">
+                        <sly data-sly-test.early="${variation.earlyBookingBonus}">
+                            <span class="text-uppercase">${'fares-from' @ i18n} : <br /></span>
+                            <small data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = variation.price}">
+                                ${variation.currency @ i18n} ${priceHelper.valueFormatted} (${'per-guest' @ i18n})<br />
+                            </small>
+                            <span class="price-suffixe">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</span>
+                        </sly>
+                        <sly data-sly-use.priceHelper2="${'com.silversea.aem.helper.PriceHelper' @ value = variation.computedPrice}" />
+                        ${variation.currency @ i18n} ${priceHelper2.valueFormatted}
+                        <sly data-sly-test="${early}">(${'per-guest' @ i18n})</sly>
+                    </strong>
                 </td>
                 <td>
                     <sly

@@ -9,9 +9,14 @@
             border: 1px solid @grey--e0;
             padding: 15px;
         }
-        
+
         &__price {
             margin-top: 20px;
+
+            small {
+                color: @grey--9;
+                font-weight: 700;
+            }
         }
     }
 
@@ -86,20 +91,12 @@
                 background-size: 100%,100% 30%,100% 10px,100%;
                 background-attachment: local,local,scroll,local;
                 background-repeat: no-repeat;
-                bottom: 100px;
-                left: 20px;
+                height: 187px;
                 overflow: auto;
-                position: absolute;
-                right: 15px;
-                top: 0;
             }
 
             &__price {
-                bottom: 0;
-                left: 20px;
-                margin-top: 0;
-                position: absolute;
-                right: 15px;
+                position: relative;
 
                 .btn {
                     bottom: 0;
