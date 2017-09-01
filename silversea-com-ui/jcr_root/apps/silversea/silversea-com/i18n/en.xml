@@ -1113,6 +1113,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="fares"
         sling:message="Fares" />
+    <deck
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="deck"
+        sling:message="Deck" />
     <view-deck
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-deck"
