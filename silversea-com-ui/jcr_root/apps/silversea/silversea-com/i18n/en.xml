@@ -1145,4 +1145,16 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="early-booking-bonus"
         sling:message="Early booking bonus" />
+    <booking-bonus
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="booking-bonus"
+        sling:message="booking bonus" />
+    <with
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="with"
+        sling:message="with" />
+    <with-early
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="with-early"
+        sling:message="with early" />
 </jcr:root>

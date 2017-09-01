@@ -23,10 +23,21 @@
         <strong data-sly-test="${quoteRequest.isWaitList}">${'waitlist' @ i18n}</strong>
         <sly data-sly-test="${!quoteRequest.isWaitList}">
             ${'fares-from' @ i18n}
+            <span data-sly-test.early="${quoteRequest.cruisePrice.earlyBookingBonus}">
+                <br />(${'per-guest' @ i18n})
+            </span>
+            <small data-sly-test="${early}"
+                data-sly-use.priceHelper1="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.price}">
+                <br />
+                ${quoteRequest.cruisePrice.currency @ i18n} ${priceHelper1.valueFormatted}
+            </small>
             <strong data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = quoteRequest.cruisePrice.computedPrice}">
                 ${quoteRequest.cruisePrice.currency @ i18n} ${priceHelper.valueFormatted}
             </strong>
-            (${'per-guest' @ i18n})
+            <span data-sly-test="${early}" class="price-suffixe">
+                ${'with-early' @ i18n} <br />${'booking-bonus' @ i18n}
+            </span>
+            <span data-sly-test="${!early}">(${'per-guest' @ i18n})</span>
         </sly>
     </div>
 </div>
