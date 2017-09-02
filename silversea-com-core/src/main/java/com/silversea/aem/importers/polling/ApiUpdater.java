@@ -178,9 +178,7 @@ public class ApiUpdater implements Runnable {
         Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
-        try {
-            final ResourceResolver resourceResolver = resourceResolverFactory
-                    .getServiceResourceResolver(authenticationParams);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final Session session = resourceResolver.adaptTo(Session.class);
 
             if (session == null) {
