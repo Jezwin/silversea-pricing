@@ -94,6 +94,10 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         diningsAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getDinings());
         publicAreasAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getPublicAreas());
 
+        if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
+            itinerariesAssetsList.addAll(AssetUtils.buildAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver()));
+        }
+
         // init assets from itinerary and cruise itself
         for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
             final PortModel portModel = itinerary.getPort();
@@ -105,10 +109,6 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
                     itinerariesAssetsList.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
                 }
             }
-        }
-
-        if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
-            itinerariesAssetsList.addAll(AssetUtils.buildAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver()));
         }
 
         // init number of elements (excursions, hotels, land programs)
