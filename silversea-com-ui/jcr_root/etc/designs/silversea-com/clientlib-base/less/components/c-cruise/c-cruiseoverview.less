@@ -3,41 +3,63 @@
         &--overview {
             .voyage {
                 &table {
-                    display: table;
-                    width: 100%;
-                    text-transform: uppercase;
-                    font-size: 13px;
                     color: @grey--3;
-                    text-align: center;
-                    line-height: 1px;
+                    display: table;
+                    font-size: 13px;
                     margin-bottom: 10px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    width: 100%;
 
                     &__elem {
                         display: table-cell;
-                        width: 1%;
-                        border-bottom: solid 1px @grey--d;
-                        border-right: solid 1px @grey--d;
-                        border-top: solid 1px @grey--d;
+                        border: solid 1px @grey--d;
+                        border-left-width: 0;
                         padding: 10px 3px;
-                        vertical-align: middle;
+                        vertical-align: top;
+                        width: 1%;
 
                         &:first-child {
                             border-left: solid 1px @grey--d;
                         }
 
                         .lead {
-                            font-weight: 700;
-                            font-size: 25px;
                             color: @blue;
-                            margin: 5px 0;
+                            font-size: 25px;
+                            font-weight: 700;
+                            margin: 5px 0 0;
+                            white-space: nowrap;
+
                             @media screen and (max-width: @screen-xs) {
                                 font-size: 20px;
                             }
                         }
 
+                        .lead__top {
+                            &:before {
+                                content: '\A\A';
+                                display: block;
+                                white-space: pre;
+                            }
+                        }
+
+                        .lead__bottom {
+                            &:after {
+                                content: '\A\A';
+                                display: block;
+                                white-space: pre;
+                            }
+                        }
+
+                        .price-suffixe {
+                            color: @blue;
+                            display: inline-block;
+                            line-height: 10px;
+                        }
+
                         span {
-                            line-height: 1;
                             display: block;
+                            line-height: 1;
                         }
                     }
                 }
@@ -50,11 +72,11 @@
                     }
 
                     &__info {
+                        background-color: @blue;
+                        color: @white;
                         font-size: 14px;
-                        color: white;
                         font-weight: bold;
                         text-align: center;
-                        background-color: @blue;
 
                         p {
                             margin: 0;
@@ -107,8 +129,10 @@
             border-top: solid 1px @red-expedition;
         }
 
-        .c-tab__content--overview .voyagetable__elem .lead {
-            color: @red-expedition;
+        .c-tab__content--overview .voyagetable__elem {
+            .lead, .price-suffixe {
+                color: @red-expedition;
+            }
         }
     }
 }

@@ -100,6 +100,10 @@ public class ExclusiveOfferItem {
         return exclusiveOffer.getLightboxReference();
     }
 
+    public String getPricePrefix() {
+        return exclusiveOffer.getPricePrefix();
+    }
+
     public String getPath() {
         return exclusiveOffer.getPath();
     }

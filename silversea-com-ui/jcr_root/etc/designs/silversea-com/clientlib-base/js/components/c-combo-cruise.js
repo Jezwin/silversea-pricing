@@ -16,7 +16,7 @@ $(function() {
 
             // Scroll to panel
             $('html, body').stop().delay(100).animate({
-                scrollTop: $panel.offset().top - $('.c-header').height() - 24
+                scrollTop: $panel.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
             }, 300);
         });
     })

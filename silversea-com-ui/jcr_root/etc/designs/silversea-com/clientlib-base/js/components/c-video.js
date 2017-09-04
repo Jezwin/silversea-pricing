@@ -9,7 +9,7 @@ $(function() {
                 'params' : {
                     'serverurl' : window.location.origin + '/is/image',
                     'contenturl' : 'https://silversea.assetsadobe.com/',
-                    'config' : '/etc/dam/presets/viewer/Video',
+                    'config' : 'etc/dam/presets/viewer/Video',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
                     'posterimage' : asset,
                     'asset' : asset,

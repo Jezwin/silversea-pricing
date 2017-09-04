@@ -1,102 +1,118 @@
-<div class="row c-cruise__overview" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-    <div class="col-sm-6 hidden-xs voyageimg">
-        <div class="voyageimg__info">
-            <p>${cruise.mapOverHead}</p>
+<template data-sly-template.default="${ @ cruise }">
+    <div class="row c-cruise__overview" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+        <div class="col-sm-6 hidden-xs voyageimg">
+            <div class="voyageimg__info">
+                <p>${cruise.mapOverHead}</p>
+            </div>
+            <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
+            <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
         </div>
-        <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
-        <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
-    </div>
-    <div class="col-sm-6">
-        <div class="row">
-            <div class="col-xs-12 voyagetable">
-                <div class="voyagetable__elem">
-                    <a href="#" data-scroll-target=".c-cruise__itineraries">
-                        <span>${'duration' @ i18n}</span>
-                        <span class="lead">${cruise.cruiseModel.duration}</span>
-                        <span>${'days' @ i18n}</span>
-                    </a>
-                </div>
-                <div class="voyagetable__elem">
-                    <a href="#" data-scroll-target=".c-cruise__itineraries">
-                        <span>${'departure' @ i18n}</span>
-                        <span class="lead" data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">
-                            ${dateDay.value}
-                        </span>
-                        <span data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
-                            ${dateYear.value}
-                        </span>
-                    </a>
-                </div>
-                <div class="voyagetable__elem">
-                    <a href="#" data-tab-target="#suitenfare">
-                        <span>${'fares-from' @ i18n}</span>
-                        <span class="lead" data-sly-test="${cruise.isWaitList}">
-                            ${'waitlist' @ i18n}
-                        </span>
-                        <sly data-sly-test="${!cruise.isWaitList}">
-                            <span class="lead">
-                                ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
-                            </span>
-                            <span>(${'per-guest' @ i18n})</span>
-                        </sly>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xs-12 visible-xs voyageimg">
-                <div class="voyageimg__info">
-                    <p>${cruise.mapOverHead}</p>
-                </div>
-                <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
-                <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
-            </div>
-            <div class="col-xs-12 visible-xs">
-                <div class="cruise__header_metainfo">
-                    <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
-                    <span>${cruise.cruiseModel.ship.title}</span>
-                    <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-                    <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
-                        <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
-                            <span class="feature">
-                                <i class="icon-star"></i>
-                                <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
-                            </span>
-                        </li>
-                        <li class="meta_feature_inner" data-sly-repeat="${cruise.cruiseModel.features}">
-                            <span class="feature">
-                                <i class="${item.icon}"></i>
-                                <span class="tooltip"><i></i>${item.title}</span>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12">
-                <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
-
-                    <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
-
-                    <div class="voyagefeature__offer" data-sly-list="${cruise.exclusiveOffers}"
-                        data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
-                        <a data-sly-test="${item.lightboxReference}"
-                           href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
-                           data-toggle="modal"
-                           data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                            <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-xs-12 voyagetable">
+                    <div class="voyagetable__elem">
+                        <a href="#" data-scroll-target=".c-cruise__itineraries">
+                            <span class="lead__top">${'duration' @ i18n}</span>
+                            <span class="lead">${cruise.cruiseModel.duration}</span>
+                            <span class="lead__bottom">${'days' @ i18n}</span>
                         </a>
-                        <p data-sly-test="${!item.lightboxReference}">
-                            <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
-                        </p>
                     </div>
-
-                    <div class="voyagefeature__offer" data-sly-test="${!isEo}">
-                        <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
+                    <div class="voyagetable__elem">
+                        <a href="#" data-scroll-target=".c-cruise__itineraries">
+                            <span class="lead__top">${'departure' @ i18n}</span>
+                            <span class="lead" data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">
+                                ${dateDay.value}
+                            </span>
+                            <span class="lead__bottom" data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
+                                ${dateYear.value}
+                            </span>
+                        </a>
                     </div>
-
-                    <div class="clearfix"></div>
+                    <div class="voyagetable__elem">
+                        <a href="#" data-tab-target="#suitenfare">
+                            <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
+                            <span data-sly-test.prefix="${cruise.pricePrefix}"><br />${prefix}</span>
+                            <span data-sly-test="${!prefix}">
+                                <sly data-sly-test="${!early}"><br /><br /></sly>
+                                ${'fares-from' @ i18n}
+                            </span>
+                            <span class="lead" data-sly-test="${cruise.isWaitList}">
+                                ${'waitlist' @ i18n}
+                            </span>
+                            <span class="text-lowercase" data-sly-test="${early}"
+                                data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = cruise.lowestPrice.price}">
+                                (${'per-guest' @ i18n})<br />
+                                <small class="text-uppercase">${cruise.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
+                            </span>
+                            <sly data-sly-test="${!cruise.isWaitList}">
+                                <span class="lead">
+                                    ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
+                                </span>
+                                <span  data-sly-test="${early}" class="price-suffixe">
+                                    ${'with-early' @ i18n}${'booking-bonus' @ i18n}
+                                </span>
+                                <span data-sly-test="${!early}">(${'per-guest' @ i18n})</span>
+                            </sly>
+                        </a>
+                    </div>
                 </div>
-                <a class="btn btn-thin btn-dark effect pull-right hidden-xs" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
-            </div>
 
+                <div class="col-xs-12 visible-xs voyageimg">
+                    <div class="voyageimg__info">
+                        <p>${cruise.mapOverHead}</p>
+                    </div>
+                    <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
+                    <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
+                </div>
+                <div class="col-xs-12 visible-xs">
+                    <div class="cruise__header_metainfo">
+                        <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
+                        <span>${cruise.cruiseModel.ship.title}</span>
+                        <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
+                        <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
+                            <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
+                                <span class="feature">
+                                    <i class="icon-star"></i>
+                                    <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
+                                </span>
+                            </li>
+                            <li class="meta_feature_inner" data-sly-repeat="${cruise.cruiseModel.features}">
+                                <span class="feature">
+                                    <i class="${item.icon}"></i>
+                                    <span class="tooltip"><i></i>${item.title}</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
+
+                        <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
+
+                        <div class="voyagefeature__offer" data-sly-list="${cruise.exclusiveOffers}"
+                            data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
+                            <a data-sly-test="${item.lightboxReference}"
+                               href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
+                               data-toggle="modal"
+                               data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
+                                <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+                            </a>
+                            <p data-sly-test="${!item.lightboxReference}">
+                                <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+                            </p>
+                        </div>
+
+                        <div class="voyagefeature__offer" data-sly-test="${!isEo}">
+                            <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
+</template>

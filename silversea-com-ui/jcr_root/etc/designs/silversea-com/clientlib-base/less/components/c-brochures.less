@@ -6,6 +6,7 @@
         margin-bottom: 15px;
         margin-top: 20px;
         padding-bottom: 0;
+        word-wrap: break-word;
 
         @media screen (max-width: @screen-md-max) {
             text-align : center;
@@ -22,6 +23,7 @@
 
     &__description {
         font-size: 13px;
+        margin-bottom: 24px;
 
         @media screen and (max-width: @screen-md-max) {
             margin: 10px auto;
@@ -30,6 +32,7 @@
     }
 
     &__btnwrapper {
+        margin: 0 0 5px;
         @media screen and (max-width: @screen-md-max) {
             text-align: center;
         }
@@ -60,8 +63,16 @@
             width: 90%;
             margin-left: 5%;
         }
+        @media screen and (max-width: @screen-sm) {
+            text-align: center;
+        }
         .c-brochure__title {
             text-align: left;
+            @media screen and (max-width: @screen-sm) {
+                text-align: center;
+	            white-space: normal;
+	            word-wrap: break-word;
+            }
         }
 
         .btn {

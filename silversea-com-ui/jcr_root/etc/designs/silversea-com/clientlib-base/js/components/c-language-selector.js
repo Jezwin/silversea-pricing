@@ -24,6 +24,7 @@ $(function() {
 
             $trigger.on('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 var $collapsible = $('#c-language-selector-cloned, #c-language-selector');
                 $collapsible.collapse('toggle');
                 $trigger.attr('aria-expanded', $collapsible.attr('aria-expanded'));

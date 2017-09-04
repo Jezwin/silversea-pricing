@@ -6,6 +6,8 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.s7dam.constants.S7damConstants;
 import com.day.cq.dam.api.s7dam.utils.PublishUtils;
 import com.silversea.aem.services.RunModesService;
+import com.silversea.aem.utils.AssetUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
@@ -30,6 +32,20 @@ public class AssetHelper extends WCMUsePojo {
         imageDelivery = getSlingScriptHelper().getService(ImageDelivery.class);
         publishUtils = getSlingScriptHelper().getService(PublishUtils.class);
         runModesService = getSlingScriptHelper().getService(RunModesService.class);
+    }
+
+    /**
+     * @return the assetType
+     */
+    public Resource getMetadataResource() {
+        if (StringUtils.isNotBlank(assetPath)) {
+            Resource res = getResourceResolver().getResource(assetPath + "/" + JcrConstants.JCR_CONTENT + "/metadata");
+            if (res != null) {
+                return res;
+            }
+        }
+
+        return null;
     }
 
     /**

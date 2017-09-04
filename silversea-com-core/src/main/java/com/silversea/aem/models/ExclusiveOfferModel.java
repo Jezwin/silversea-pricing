@@ -28,6 +28,9 @@ public class ExclusiveOfferModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:title")
     private String title;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/pageTitle") @Optional
+    private String pageTitle;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:description") @Optional
     private String description;
 
@@ -130,7 +133,7 @@ public class ExclusiveOfferModel {
     }
 
     public String getTitle() {
-        return title;
+        return pageTitle != null ? pageTitle : title;
     }
 
     public String getDescription() {

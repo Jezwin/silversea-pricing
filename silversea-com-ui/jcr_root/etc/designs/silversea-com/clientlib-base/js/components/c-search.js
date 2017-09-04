@@ -1,4 +1,5 @@
 $(function() {
+    // Open in main navigation
     $('[data-toggle-search]').on('click', function(e) {
         e.preventDefault();
         var $trigger = $(this);
@@ -17,5 +18,22 @@ $(function() {
                 $trigger.trigger('click');
             }
         })
+    });
+
+    // Expand search in search page
+    $('.c-search-result__search-trigger').on('click', function() {
+        $('.c-search-result__expand').toggle();
+        $(this).find('i').toggleClass('fa-angle-up fa-angle-down');
+    });
+    
+
+    // highlight item on touch
+    var $itemList = $('.c-search-result__results__item');
+    $itemList.on('touchstart', function() {
+        $(this).trigger('focus');
+    });
+
+    $itemList.on('touchend', function() {
+        $(this).trigger('blur');
     });
 });

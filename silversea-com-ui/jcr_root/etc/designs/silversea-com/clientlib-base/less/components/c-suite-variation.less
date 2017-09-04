@@ -39,7 +39,7 @@
                 -webkit-column-count: 1;
                 -moz-column-count: 1;
                 column-count: 1;
-                -webkit-column-gap: inherit²;
+                -webkit-column-gap: inherit;
                 -moz-column-gap: inherit;
                 column-gap: inherit;
             }
@@ -48,6 +48,16 @@
                 list-style-type: disc;
                 margin-bottom: 10px;
             }
+        }
+    }
+
+    .modal-dialog.modal-md{
+        @media screen and (max-width: @screen-xs){
+            margin-top: 25%
+        }
+
+        @media screen and (max-width: @screen-md-min){
+            margin-top: 50%
         }
     }
 }

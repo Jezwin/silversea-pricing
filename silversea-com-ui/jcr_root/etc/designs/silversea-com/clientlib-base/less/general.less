@@ -266,7 +266,6 @@ a {
 */
 .o-img {
     max-width: 100%;
-    width: 100%;
 
     &--small {
         display: block;
@@ -447,6 +446,11 @@ picture {
     @media screen and (max-width: @screen-sm) {
         & .modal {
             margin: 0 10px;
+        }
+   }
+   @media screen and (max-width: @screen-xs) {
+        & .modal {
+            margin: 0px;
         }
    }
 }

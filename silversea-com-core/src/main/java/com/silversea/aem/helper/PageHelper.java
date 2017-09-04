@@ -12,6 +12,8 @@ import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
+import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
+import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
@@ -21,12 +23,14 @@ import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 public class PageHelper extends WCMUsePojo {
     private Page page;
     private String thumbnail;
+    private String thumbnailInherited;
     private Map<String, String> languagePages;
 
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
         Resource resource = null;
+
         if (path != null) {
             resource = getResourceResolver().getResource(path);
         }
@@ -39,6 +43,9 @@ public class PageHelper extends WCMUsePojo {
                 if (imageRes != null) {
                     thumbnail = imageRes.getValueMap().get("fileReference", String.class);
                 }
+
+                final InheritanceValueMap propertiesInherited = new HierarchyNodeInheritanceValueMap(resource);
+                thumbnailInherited = propertiesInherited.getInherited("image/fileReference", String.class);
             }
         }
 
@@ -132,5 +139,12 @@ public class PageHelper extends WCMUsePojo {
      */
     public Map<String, String> getLanguagePages() {
         return languagePages;
+    }
+
+    /**
+     * @return the thumbnailInherited
+     */
+    public String getThumbnailInherited() {
+        return thumbnailInherited;
     }
 }

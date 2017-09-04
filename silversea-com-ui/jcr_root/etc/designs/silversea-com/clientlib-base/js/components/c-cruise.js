@@ -107,4 +107,14 @@ $(function() {
             scrollTop : $($(this).data('scroll-target')).offset().top - $('.c-header').height()
         }, 500);
     });
+
+    /***************************************************************************
+     * Scroll to content expanded
+     **************************************************************************/
+    $('.c-cruise [role="tabpanel"]:not(.c-suitelist__collapse)').on('shown.bs.collapse', function(e) {
+        e.stopPropagation();
+        $('html, body').animate({
+            scrollTop : $(this).prev('[role="button"]').offset().top - $('.c-header').height() - $('.c-main-nav__bottom').height()
+        }, 500);
+    });
 });

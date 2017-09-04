@@ -11,8 +11,17 @@
             </div>
             <div class="c-suitelist__detail">
                 <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
-                <p class="c-suitelist__detail__description">${item.suite.bedroomsInformation @ context='html'}</p>
-                <!-- TODO add decks list -->
+                <p class="c-suitelist__detail__description">
+                    ${item.suite.bedroomsInformation @ context='html'}
+                    <br />
+                    <span data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.locationImage}"
+                        class="text-capitalize">${'deck' @ i18n}</span>
+                        <sly data-sly-repeat.location="${setImage.renditionList}"><!--/*
+                         */--><sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=location.path}" /><!--/*
+                         */-->${assetHelper.metadataResource.valueMap['deckNumber']}<sly data-sly-test="${!locationList.last}">/</sly><!--/*
+                     */--></sly>
+                </p>
+                
             </div>
             <div class="c-suitelist__price">
                 ${'fares-from' @ i18n}
@@ -42,44 +51,40 @@
                 <ul class="c-tab__nav dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link c-tab__link--button" data-state="active">
                         <a href="#description-${itemList.index}"><span>${'description' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.plan}">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.plan}">
                         <a href="#suite-plan-${itemList.index}"><span>${'suites-plan' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button">
+                    </li><li class="c-tab__link c-tab__link--button">
                         <a href="#feature-${itemList.index}"><span>${'features' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.locationImage}">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.locationImage}">
                         <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.virtualTour}">
+                    </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.virtualTour}">
                         <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
                     </li>
                 </ul>
                 <div class="c-tab__body">
                     <div class="c-tab__content c-tab__content--description" id="description-${itemList.index}" data-state="active">
                         <!--/* Description tab */-->
-                        <sly data-sly-use.descriptionTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/description.html"
+                        <sly data-sly-use.descriptionTemplate="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist/description.html"
                              data-sly-call="${descriptionTemplate.default @ suitePrice=item, requestQuotePath=comboCruise.requestQuotePagePath}"/>
                     </div>
                     <div class="c-tab__content c-tab--suite-plan" id="suite-plan-${itemList.index}" data-sly-test="${item.suite.plan}">
                         <!--/* Suite plan tab */-->
-                        <sly data-sly-use.suitePlanTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/suiteplan.html"
+                        <sly data-sly-use.suitePlanTemplate="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist/suiteplan.html"
                              data-sly-call="${suitePlanTemplate.default @ suite=item.suite}"/>
                     </div>
                     <div class="c-tab__content c-tab__content--feature" id="feature-${itemList.index}">
                         <!--/* Features tab */-->
-                        <sly data-sly-use.featureTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/feature.html"
+                        <sly data-sly-use.featureTemplate="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist/feature.html"
                              data-sly-call="${featureTemplate.default @ suite=item.suite}"/>
                     </div>
                     <div class="c-tab__content c-tab__content--suite-location" id="suite-location-${itemList.index}" data-sly-test="${item.suite.locationImage}">
                         <!--/* Suite location tab */-->
-                        <sly data-sly-use.suiteLocationTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/suitelocation.html"
+                        <sly data-sly-use.suiteLocationTemplate="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist/suitelocation.html"
                              data-sly-call="${suiteLocationTemplate.default @ suite=item.suite, index=itemList.index}"/>
                     </div>
                     <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}" data-sly-test="${item.suite.virtualTour}">
                         <!--/* Virtual tour tab */-->
-                        <sly data-sly-use.virtualTourTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/virtualtour.html"
+                        <sly data-sly-use.virtualTourTemplate="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist/virtualtour.html"
                              data-sly-call="${virtualTourTemplate.default @ suite=item.suite}"/>
                     </div>
                 </div>

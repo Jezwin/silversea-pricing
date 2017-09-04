@@ -11,8 +11,9 @@
         </div>
         <div class="col-sm-2">
             <ul data-sly-list="${setImage.renditionList}" class="nav nav-tabs nav-tabs--vertical">
-                <li class="${itemList.first ? 'active' : ''}">
-                    <a role="tab" href="#tab-location-${index}-${itemList.index}" data-toggle="tab">${'deck' @ i18n} ${item.metadata['deckNumber']} </a>
+                <li class="${itemList.first ? 'active' : ''} text-capitalize">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
+                    <a role="tab" href="#tab-location-${index}-${itemList.index}" data-toggle="tab">${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']} </a>
                 </li>
             </ul>
         </div>

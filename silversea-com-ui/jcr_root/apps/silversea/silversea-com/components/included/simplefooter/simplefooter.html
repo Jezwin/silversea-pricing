@@ -1,7 +1,11 @@
-<div class="container" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
+<div class="container"
+    data-sly-use.footer="com.silversea.aem.components.included.FooterUse"
+    data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
     <section class="o-section o-section--callbox">
-        <div class="hidden-xs hidden-sm o-section--callbox--logo">
-            <img class="spritelogo-dark" style="margin: auto;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea">
+        <div class="hidden-xs hidden-sm o-section--callbox--logo text-center">
+            <a href="${pageHelper.homePage.path @ extension='html'}">
+                <img class="spritelogo-dark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea" />
+            </a>
         </div>
         <p data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
             <span class="hidden-xs">
@@ -14,6 +18,6 @@
         </p>
     </section>
     <section class="o-section o-section--legal">
-        <sly data-sly-include="legal.html"></sly>
+        <sly data-sly-include="legal.html" />
     </section>
 </div>

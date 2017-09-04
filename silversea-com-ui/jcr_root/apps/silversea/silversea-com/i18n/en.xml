@@ -1101,4 +1101,64 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="expedition-cruise"
         sling:message="expedition cruise" />
+    <view
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view"
+        sling:message="View" />
+    <location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="location"
+        sling:message="Location" />
+    <fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="fares"
+        sling:message="Fares" />
+    <deck
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="deck"
+        sling:message="Deck" />
+    <view-deck
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-deck"
+        sling:message="View deck" />
+    <select-your-suite
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-your-suite"
+        sling:message="Select your suite" />
+    <restaurants
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="restaurants"
+        sling:message="Restaurants" />
+    <suites-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suites-plan"
+        sling:message="Suites plan" />
+    <title-tag-base
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="{0} | Silversea"
+        sling:message="{0} | Silversea" />
+    <title-tag
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
+        sling:message="Luxury Cruise from {0} to {1} {2} | Silversea" />
+    <description-tag
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising."
+        sling:message="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising." />
+    <early-booking-bonus
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="early-booking-bonus"
+        sling:message="Early booking bonus" />
+    <booking-bonus
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="booking-bonus"
+        sling:message="booking bonus" />
+    <with
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="with"
+        sling:message="with" />
+    <with-early
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="with-early"
+        sling:message="with early" />
 </jcr:root>

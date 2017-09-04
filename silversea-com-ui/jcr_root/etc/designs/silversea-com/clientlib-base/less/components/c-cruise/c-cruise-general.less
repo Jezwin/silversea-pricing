@@ -1,4 +1,12 @@
 .c-cruise {
+    .price-suffixe {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 11px;
+        text-transform: uppercase;
+    }
+
     &__subtitle {
         text-align: center;
         font-size: 30px;
@@ -31,9 +39,16 @@
         }
     }
 
-    & .c-tab__accordion .c-tab__body {
-        @media screen and (max-width: @screen-sm) {
+    @media screen and (max-width: @screen-sm) {
+        & .c-tab__accordion .c-tab__body {
             padding-top: 61px;
+        }
+
+        ul[data-toggle="dropdown"] {
+            a.c-gallery--cc__tab__link, .c-tab__link a {
+                font-size: 12px;
+                text-transform: uppercase;
+            }
         }
     }
 }

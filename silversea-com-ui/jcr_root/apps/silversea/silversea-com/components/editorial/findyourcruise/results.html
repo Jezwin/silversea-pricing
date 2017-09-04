@@ -1,4 +1,4 @@
-<div class="clearfix" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+<div class="clearfix c-fyc__results__wrapper" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
     <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
         <div class="c-fyc__result__wrapper">
             <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
@@ -70,7 +70,8 @@
                     </div>
                     <dl class="c-fyc__result__content__itinerary hidden-xs">
                         <dt>${'itinerary' @ i18n}</dt>
-                        <dd data-sly-repeat.itinerary="${cruiseItem.cruiseModel.itineraries}">${itinerary.port.apiTitle} </dd>
+                        <sly data-sly-repeat.itinerary="${cruiseItem.cruiseModel.itineraries}">
+                            <dd>${itinerary.port.apiTitle}</dd></sly>
                     </dl>
                 </div>
                 <p class="c-fyc__result__content__price">

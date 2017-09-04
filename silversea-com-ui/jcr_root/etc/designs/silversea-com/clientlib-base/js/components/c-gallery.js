@@ -24,16 +24,17 @@ $(function() {
             // Category tab : Slide to the first image of the current category
             $('.c-gallery--cc__tab__link').on('click', function(e) {
                 e.preventDefault();
-                var $link = $(this), targetSlideIndex = $slideFor.find('.slick-slide:not(".slick-cloned")[data-category-target="' + $link.data('category') + '"]').index() - 1;
+                var $link = $(this);
 
-                $link.closest($component).find($slideFor).slick('slickGoTo', targetSlideIndex);
+                if (!$link.closest('.c-gallery--cc__tab__item').hasClass('active')) {
+                    var targetSlideIndex = $slideFor.find('.slick-slide:not(".slick-cloned")[data-category-target="' + $link.data('category') + '"]').index() - 1;
 
-                // Set Active status on the current tab
-                $link.closest('.c-gallery--cc__tab__item').addClass('active').siblings().removeClass('active');
+                    $link.closest($component).find($slideFor).slick('slickGoTo', targetSlideIndex);
+
+                    // Set Active status on the current tab
+                    $link.closest('.c-gallery--cc__tab__item').addClass('active').siblings().removeClass('active');
+                }
             });
-
-            // The following click triggered on init will force the slider to trigger afterChange event
-            $('.active .c-gallery--cc__tab__link').trigger('click');
 
             // Description : Show description on slide change
             $slideFor.on('afterChange', function(event, slick, currentSlide) {
