@@ -1,4 +1,6 @@
 .c-fyc-filter {
+    margin-top: 14px;
+
     &__header {
         position: relative;
         padding-bottom: 10px;
@@ -29,9 +31,21 @@
     }
 
     &__text {
-        font-family: "Times New Roman", Times, serif;
+        font-family: @f-theano_didot;
         font-size: 15px;
         font-weight: bold;
+
+        @media screen and (min-width: @screen-md-max) {
+            font-size: 22px;
+
+            .results-label {
+                font-weight: normal;
+            }
+        }
+
+        #matching-value {
+            font-family: "Times New Roman", Times, serif;
+        }
 
         &.results {
             .result-label {
