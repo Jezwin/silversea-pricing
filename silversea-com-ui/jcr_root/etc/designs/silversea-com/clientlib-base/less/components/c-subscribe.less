@@ -1,9 +1,4 @@
-/*
-* c- SUBSCRIBE
-*/
 .c-subscribe {
-
-    /* phone breakpoint */
     @media screen and (max-width: @screen-sm) {
         border: 0;
     }
@@ -24,30 +19,30 @@
             text-transform: uppercase;
             display: block;
             color: @black;
-			line-height: 20px;
-			margin-bottom: 15px;
-			    
-			 @media screen and (max-width: @screen-md-max) {
-			 	 line-height: 1;
-			 }
-			   			    
+            line-height: 20px;
+            margin-bottom: 15px;
+
+            @media screen and (max-width: @screen-md-max) {
+                line-height: 1;
+            }
+
             &-text {
                 display: block;
                 width: 100%;
                 font-weight: 500;
                 font-size: 15px;
             }
+
             &-important {
                 display: block;
                 width: 100%;
                 font-weight: 600;
                 font-size: 20px;
-                
-	            /* phone breakpoint */
-	            @media screen and (max-width: @screen-md-max) {
-	                font-size: 26px;
-	                font-weight: 400;
-	            }
+
+                @media screen and (max-width: @screen-md-max) {
+                    font-size: 26px;
+                    font-weight: 400;
+                }
             }
         }
 
@@ -60,35 +55,29 @@
             padding: 7px 0 6px 15px;
             font-size: 12px;
 
-            /* phone breakpoint */
+
             @media screen and (max-width: @screen-md-max) {
                 padding: 4px 0 2px 12px;
                 font-size: 12px;
             }
-            
         }
-        
-		.btn i {
-        	margin-right: 17px;
-        	line-height: 14px;
-        	float: right;
-        	
-        	 /* phone breakpoint */
+
+        .btn i {
+            margin-right: 17px;
+            line-height: 14px;
+
             @media screen and (max-width: @screen-md-max) {
-				margin-right: 12px;
+                margin-right: 12px;
             }
         }
-        
+
         .o-input--lg, .c-btn--lg {
-            /* phone breakpoint */
             @media screen and (max-width: @screen-md-max) {
                 height: 32px;
-                //font-size: 14px;
             }
         }
-        
+
         .c-btn--lg {
-            /* phone breakpoint */
             @media screen and (max-width: @screen-md-max) {
                 width: 112px;
             }
@@ -99,9 +88,9 @@
             margin: 0;
             padding: 0;
             font-size: 11px;
-            
+
             @media screen and (max-width: @screen-sm) {
-            	min-height: 12px;
+                min-height: 12px;
             }
         }
 
@@ -112,16 +101,18 @@
             &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
                color: @red;
              }
+
              &::-moz-placeholder { /* Firefox 19+ */
                color: @red;
              }
+
              &:-ms-input-placeholder { /* IE 10+ */
                color: @red;
              }
+
              &:-moz-placeholder { /* Firefox 18- */
                color: @red;
              }
-
         }
 
         &.c-formcookie {
