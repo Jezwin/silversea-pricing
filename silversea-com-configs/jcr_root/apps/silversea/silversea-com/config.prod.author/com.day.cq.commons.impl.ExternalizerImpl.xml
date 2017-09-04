@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="sling:OsgiConfig"
-    externalizer.domains="[local https://author-silversea-prod.adobemsbasic.com,author https://author-silversea-prod.adobemsbasic.com,publish http://www.silversea.com]"
+    externalizer.domains="[local https://wwwa.silversea.com,author https://wwwa.silversea.com,publish https://www.silversea.com]"
     externalizer.host=""
     externalizer.contextpath=""/>
