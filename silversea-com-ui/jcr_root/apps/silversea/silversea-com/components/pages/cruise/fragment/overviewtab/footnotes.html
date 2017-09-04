@@ -1,10 +1,12 @@
-<div class="c-cruise__footnotes" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
-    <ul>
-        <sly data-sly-list.eo="${cruise.exclusiveOffers}">
-            <li data-sly-repeat.footnote="${eo.footNotes}">
-                <i>${footnote}</i>
-            </li>
-        </sly>
-        <li data-sly-test="${cruise.cruiseModel.destination.footnote}"><i>${cruise.cruiseModel.destination.footnote}</i></li>
-    </ul>
-</div>
+<template data-sly-template.default="${ @ cruise }">
+    <div class="c-cruise__footnotes">
+        <ul>
+            <sly data-sly-list.eo="${cruise.exclusiveOffers}">
+                <li data-sly-repeat.footnote="${eo.footNotes}">
+                    <i>${footnote}</i>
+                </li>
+            </sly>
+            <li data-sly-test="${cruise.cruiseModel.destination.footnote}"><i>${cruise.cruiseModel.destination.footnote}</i></li>
+        </ul>
+    </div>
+</template>

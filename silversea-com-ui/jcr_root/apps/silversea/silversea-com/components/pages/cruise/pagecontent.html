@@ -3,7 +3,7 @@
     data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
     <div class="row">
         <div class="col-md-12">
-            <sly data-sly-include="fragment/header.html" />
+            <sly data-sly-use.cruiseHeader="silversea/silversea-com/components/pages/cruise/fragment/header.html" data-sly-call="${cruiseHeader.default @ cruise=cruise}" />
         </div>
     </div>
     <div class="row">
@@ -45,7 +45,7 @@
                         <sly data-sly-include="fragment/overviewtab/cta.html" />
                         <sly data-sly-test="${cruise.enrichmentsFeatures && cruise.enrichmentsFeatures.size > 0}"
                             data-sly-include="fragment/overviewtab/enrichements.html" />
-                        <sly data-sly-include="fragment/overviewtab/footnotes.html" />
+                        <sly data-sly-use.cruiseHeader="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/footnotes.html" data-sly-call="${cruiseHeader.default @ cruise=cruise}" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                     <div class="c-tab__content" id="suitenfare">
