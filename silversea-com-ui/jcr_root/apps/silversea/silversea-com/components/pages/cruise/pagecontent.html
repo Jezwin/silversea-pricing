@@ -38,14 +38,18 @@
                     <div class="c-tab__content c-tab__content--overview" id="overview" data-state="active">
                         <!--/* Overview tab */-->
                         <sly data-sly-include="fragment/overviewtab/overview.html" />
-                        <sly
-                            data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
-                            data-sly-include="fragment/overviewtab/fare.html" />
-                        <sly data-sly-include="fragment/overviewtab/itineraries.html" />
-                        <sly data-sly-include="fragment/overviewtab/cta.html" />
+                        <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
+                            data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
+                            data-sly-call="${fare.default @ cruise=cruise}" />
+                        <sly data-sly-use.itineraries="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/itineraries.html"
+                            data-sly-call="${itineraries.default @ cruise=cruise}" />
+                        <sly data-sly-use.cta="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/cta.html"
+                            data-sly-call="${cta.default @ cruise=cruise}" />
                         <sly data-sly-test="${cruise.enrichmentsFeatures && cruise.enrichmentsFeatures.size > 0}"
-                            data-sly-include="fragment/overviewtab/enrichements.html" />
-                        <sly data-sly-use.cruiseHeader="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/footnotes.html" data-sly-call="${cruiseHeader.default @ cruise=cruise}" />
+                            data-sly-use.enrichements="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/enrichements.html"
+                            data-sly-call="${enrichements.default @ cruise=cruise}" />
+                        <sly data-sly-use.footNotes="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/footnotes.html"
+                            data-sly-call="${footNotes.default @ cruise=cruise}" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                     <div class="c-tab__content" id="suitenfare">
