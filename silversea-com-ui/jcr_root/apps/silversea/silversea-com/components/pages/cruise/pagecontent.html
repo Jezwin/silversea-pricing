@@ -37,7 +37,8 @@
                 <div class="c-tab__body">
                     <div class="c-tab__content c-tab__content--overview" id="overview" data-state="active">
                         <!--/* Overview tab */-->
-                        <sly data-sly-include="fragment/overviewtab/overview.html" />
+                        <sly data-sly-use.overview="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/overview.html"
+                            data-sly-call="${overview.default @ cruise=cruise}" />
                         <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
                             data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
                             data-sly-call="${fare.default @ cruise=cruise}" />
@@ -54,22 +55,29 @@
                     </div>
                     <div class="c-tab__content" id="suitenfare">
                         <!--/* Suite and fares tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist.html" />
+                        <sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
+                            data-sly-call="${suitelist.default @ cruise=cruise}" />
                     </div>
                     <div class="c-tab__content" id="excursion" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
                         <!--/* Excursion tab */-->
-                        <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
+                        <sly data-sly-use.portexcursionslist="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/portexcursionslist.html"
+                            data-sly-call="${portexcursionslist.default @ cruise=cruise}" />
                     </div>
                     <div class="c-tab__content" id="ship">
                         <!--/* Ship tab */-->
-                        <sly data-sly-include="fragment/shiptab/overview.html" />
-                        <sly data-sly-include="fragment/shiptab/suitevariation.html" />
-                        <sly data-sly-include="fragment/shiptab/diningvariation.html" />
-                        <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
+                        <sly data-sly-use.overview="silversea/silversea-com/components/pages/cruise/fragment/shiptab/overview.html"
+                            data-sly-call="${overview.default @ cruise=cruise}" />
+                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/suitevariation.html"
+                            data-sly-call="${suitevariation.default @ cruise=cruise}" />
+                        <sly data-sly-use.diningvariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/diningvariation.html"
+                            data-sly-call="${diningvariation.default @ cruise=cruise}" />
+                        <sly data-sly-use.publicareavariation="silversea/silversea-com/components/pages/cruise/fragment/shiptab/publicareavariation.html"
+                            data-sly-call="${publicareavariation.default @ cruise=cruise}" />
                     </div>
                     <div class="c-tab__content" id="landnhotel" data-sly-test="${cruise.landProgramsNumber > 0 || cruise.hotelsNumber > 0}">
                         <!--/* Land and hotel tab */-->
-                        <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
+                        <sly data-sly-use.portlandprogramlist="silversea/silversea-com/components/pages/cruise/fragment/landprogramtab/portlandprogramlist.html"
+                            data-sly-call="${portlandprogramlist.default @ cruise=cruise}" />
                     </div>
                     <div class="c-tab__content" id="highlight" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}">
                         <!--/* Highlight tab */-->
@@ -78,9 +86,12 @@
                     </div>
                     <div class="c-tab__content" id="photonvideo">
                         <!--/* Photos and videos tab */-->
-                        <sly data-sly-include="fragment/phototab/portextramediagallery.html" />
-                        <sly data-sly-include="fragment/phototab/suitevariation.html" />
-                        <sly data-sly-include="fragment/phototab/diningpublicareavariation.html" />
+                        <sly data-sly-use.portextramediagallery="silversea/silversea-com/components/pages/cruise/fragment/phototab/portextramediagallery.html"
+                            data-sly-call="${portextramediagallery.default @ cruise=cruise}" />
+                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/cruise/fragment/phototab/suitevariation.html"
+                            data-sly-call="${suitevariation.default @ cruise=cruise}" />
+                        <sly data-sly-use.diningpublicareavariation="silversea/silversea-com/components/pages/cruise/fragment/phototab/diningpublicareavariation.html"
+                            data-sly-call="${diningpublicareavariation.default @ cruise=cruise}" />
                     </div>
                 </div>
             </div>
