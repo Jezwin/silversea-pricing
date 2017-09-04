@@ -1086,7 +1086,7 @@
         sling:message="Luxury Cruise from {0} to {1} {2} | Silversea" />
     <description-tag
         jcr:primaryType="sling:MessageEntry"
-        sling:key="Explore voyage {0} from {1}to {2} on {3} in {4} and experience luxury cruising."
+        sling:key="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising."
         sling:message="Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising." />
     <early-booking-bonus
         jcr:primaryType="sling:MessageEntry"

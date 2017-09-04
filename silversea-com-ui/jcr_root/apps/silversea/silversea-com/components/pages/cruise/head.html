@@ -7,7 +7,7 @@
       data-sly-use.headlibRenderer="headlibs.html"
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
-<meta data-sly-test.description="${'Explore voyage {0} from {1}to {2} on {3} in {4} and experience luxury cruising.'@ format=[cruise.cruiseModel.cruiseCode,cruise.cruiseModel.departurePortName,cruise.cruiseModel.arrivalPortName,date.value,cruise.cruiseModel.ship.title], i18n}" name="description" content="${description}"/>
+<meta data-sly-test.description="${'Explore voyage {0} from {1} to {2} on {3} in {4} and experience luxury cruising.'@ format=[cruise.cruiseModel.cruiseCode,cruise.cruiseModel.departurePortName,cruise.cruiseModel.arrivalPortName,date.value,cruise.cruiseModel.ship.title], i18n}" name="description" content="${description}"/>
 <!--/* open graph tag */-->
 <meta property="fb:app_id" data-sly-test.appID="${currentPage.appId || inheritedPageProperties.appId}" content="${appID}" />
 <meta property="og:title" content="${'Luxury Cruise from {0} to {1} {2} | Silversea' @ format=[cruise.cruiseModel.departurePortName, cruise.cruiseModel.arrivalPortName, date.value], i18n}" />
