@@ -676,7 +676,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="dir"
         sling:message="Dir" />
-        
     <lady
         jcr:primaryType="sling:MessageEntry"
         sling:key="lady"
@@ -1135,8 +1134,8 @@
         sling:message="Suites plan" />
     <title-tag-base
         jcr:primaryType="sling:MessageEntry"
-        sling:key="{0} | Silversea"
-        sling:message="{0} | Silversea" />
+        sling:key=" {0} | Silversea"
+        sling:message=" {0} | Silversea" />
     <title-tag
         jcr:primaryType="sling:MessageEntry"
         sling:key="Luxury Cruise from {0} to {1} {2} | Silversea"
