@@ -231,3 +231,34 @@
         }
     }
 }
+
+.ship {
+    .c-tab {
+        &__link {
+            vertical-align: bottom;
+
+            a {
+                line-height: 15px;
+            }
+
+            &[data-state='active'] {
+                vertical-align: bottom;
+
+                a {
+                    line-height: 18px;
+                }
+            }
+        }
+    }
+
+    .c-tab__wrapper{
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
+
+    .c-tab__text{
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
