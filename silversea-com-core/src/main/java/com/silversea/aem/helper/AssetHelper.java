@@ -6,8 +6,6 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.s7dam.constants.S7damConstants;
 import com.day.cq.dam.api.s7dam.utils.PublishUtils;
 import com.silversea.aem.services.RunModesService;
-import com.silversea.aem.utils.AssetUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.slf4j.Logger;
@@ -74,8 +72,6 @@ public class AssetHelper extends WCMUsePojo {
                 && imageDelivery.isEnabled()
                 && assetResource != null) {
             try {
-                LOGGER.debug("{}", publishUtils.externalizeImageDeliveryAsset(assetResource, assetPath));
-
                 return publishUtils.externalizeImageDeliveryAsset(assetResource, assetPath);
             } catch (RepositoryException e) {
                 LOGGER.error("Cannot get Dynamic Media image url", e);
