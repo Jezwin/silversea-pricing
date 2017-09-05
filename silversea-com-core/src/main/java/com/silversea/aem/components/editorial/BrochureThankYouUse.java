@@ -19,7 +19,7 @@ public class BrochureThankYouUse extends WCMUsePojo {
         // The requested brochure will be obtained in the URL suffix
         final String brochurePath = getRequest().getRequestPathInfo().getSuffix();
         if (brochurePath != null) {
-            final Resource assetResource = getResourceResolver().getResource(brochurePath);
+            final Resource assetResource = getResourceResolver().getResource(brochurePath.replace(".html", ""));
 
             if (assetResource != null) {
                 final Asset asset = assetResource.adaptTo(Asset.class);
