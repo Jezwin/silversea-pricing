@@ -9,21 +9,24 @@ public class ExternalizerHelper extends WCMUsePojo {
 
     private String externalizedUrl;
 
+    private String externalizedTranslatedUrl;
+
     @Override
     public void activate() throws Exception {
         String path = get("path", String.class);
         absolute = get("absolute", Boolean.class);
 
-        externalizedUrl = (path != null) ? externalizePath(path, absolute) : "";
+        externalizedUrl = path != null ? externalizePath(path, absolute) : "";
+        externalizedTranslatedUrl = path != null ? externalizeAndTranslatePath(path, absolute) : "";
     }
 
     /**
      * Externalizing the URL
-     * 
+     *
      * @param path Path to externalize
      * @return Externalized URL
      */
-    private String externalizePath(String path, Boolean abs) {
+    private String externalizePath(final String path, final Boolean abs) {
         Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         String externalizedUrl = "";
 
@@ -40,10 +43,24 @@ public class ExternalizerHelper extends WCMUsePojo {
         return externalizedUrl;
     }
 
+    private String externalizeAndTranslatePath(final String path, final Boolean absolute) {
+        final String language = LanguageHelper.getLanguage(getCurrentPage());
+        final String translatedPath = path.replace("/en/", "/" + language + "/");
+
+        return externalizePath(translatedPath, absolute);
+    }
+
     /**
-     * @return the externalizedUrl
+     * @return the externalized URL
      */
     public String getExternalizedUrl() {
         return externalizedUrl;
+    }
+
+    /**
+     * @return the translated externalized URL
+     */
+    public String getExternalizedTranslatedUrl() {
+        return externalizedTranslatedUrl;
     }
 }
