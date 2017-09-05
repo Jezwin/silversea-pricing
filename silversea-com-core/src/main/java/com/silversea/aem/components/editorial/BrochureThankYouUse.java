@@ -17,18 +17,17 @@ public class BrochureThankYouUse extends WCMUsePojo {
     public void activate() throws Exception {
         // Initialize the brochure model
         // The requested brochure will be obtained in the URL suffix
-        String brochurePath = getRequest().getRequestPathInfo().getSuffix();
+        final String brochurePath = getRequest().getRequestPathInfo().getSuffix();
         if (brochurePath != null) {
-            brochurePath = brochurePath.endsWith(".html") ? brochurePath.substring(0, brochurePath.lastIndexOf('.')) : brochurePath;
-            Resource assetResource = getResourceResolver().getResource(brochurePath);
-            Asset asset = assetResource.adaptTo(Asset.class);
+            final Resource assetResource = getResourceResolver().getResource(brochurePath);
 
-            LOGGER.debug("Found asset {}", asset.getPath());
+            if (assetResource != null) {
+                final Asset asset = assetResource.adaptTo(Asset.class);
 
-            if (asset != null) {
-                LOGGER.debug("Adapting asset {} to BrochureModel", asset.getPath());
-
-                brochure = asset.adaptTo(BrochureModel.class);
+                if (asset != null) {
+                    LOGGER.debug("Adapting asset {} to BrochureModel", asset.getPath());
+                    brochure = asset.adaptTo(BrochureModel.class);
+                }
             }
         }
     }

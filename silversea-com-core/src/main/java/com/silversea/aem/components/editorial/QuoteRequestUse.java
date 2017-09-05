@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * TODO split in multiple use class : call request, brochure request and quote request
+ * TODO use {@link com.silversea.aem.components.AbstractGeolocationAwareUse}
  */
 public class QuoteRequestUse extends WCMUsePojo {
 

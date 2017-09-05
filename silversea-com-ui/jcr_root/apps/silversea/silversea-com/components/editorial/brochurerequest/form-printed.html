@@ -1,6 +1,6 @@
-<div data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}" data-sly-test.countrySelector="country_${countryHelper.country}" data-sly-unwrap></div>
-<form class="request-quote-form c-form c-formcookie--redirect"
-    action="${properties.pageReference @ extension='html', selectors=['modalcontent', countrySelector]}${request.requestPathInfo.suffix}"
+<form data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
+    class="request-quote-form c-form c-formcookie--redirect"
+    action="${properties.pageReference @ selectors=['modalcontent'], extension='html'}${request.requestPathInfo.suffix}"
     method="post"
     data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
     ${use.prepareBrochureParameters}
