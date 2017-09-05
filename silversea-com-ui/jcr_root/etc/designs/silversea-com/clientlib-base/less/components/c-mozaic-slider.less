@@ -1,254 +1,147 @@
-.c-slider--style2.slick-mozaic {
-    .slick-prev, .slick-next {
-        margin-top: -50px;
+.c-mozaic {
+    padding: 40px 0;
+    position: relative;
+
+    &:before {
+        .full-width();
+        background-color: @grey--f5;
+        bottom: 0;
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 0;
     }
 
-    .slick-prev {
-        left: 33.33%;
-        margin-left: 3px;
-    }
-
-    .slick-next {
-        right: 33.33%;
-        margin-right: 3px;
-    }
-
-    .c-mozaicslider {
+    .btn-wrapper {
+        color: @white;
+        font-size: 12px;
+        margin-top: 40px;
         position: relative;
+        text-align: center;
+    }
 
-        div[class*='col-'] {
-            padding: 0 5px 10px;
+    &__slider {
+        &:not(.slick-initialized ) {
+            display: none;
         }
 
-        .item-text {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            margin-left: 0;
-
-            .col-sm-4 {
-                position: relative;
-                top: 0;
-                left: 33.33%;
-                border: 1px solid @grey--d;
+        &__slide {
+            &--text {
+                padding: 0 5px;
                 text-align: center;
-                height: 205px;
 
                 .c-mozaicslider {
                     &__title {
-                        font-size: 36px;
                         font-family: @f-theano_didot;
-                        margin-bottom: 4%;
-                        text-transform: uppercase;
                     }
 
                     &__descr {
                         font-size: 13px;
-                        margin-bottom: 0;
-                        padding: 0 12.8%;
+                        margin-bottom: 20px;
+                        padding: 0 15px;
+                    }
+
+                    &__link {
+                        color: @white;
+                        font-size: 12px;
+                        padding-bottom: 7px;
+                        padding-top: 6px;
+                    }
+                }
+            }
+
+            .c-tabbedmozaic__description {
+                background-color: @white;
+                padding: 25px 20px 20px;
+
+                .discover-more {
+                    font-size: 12px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+        .slick-dots {
+            bottom: -25px;
+
+            li:not(.slick-active) button:before {
+                background-color: @grey--ba;
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-lg-min) {
+        &__slider {
+            &__slide {
+                position: relative;
+
+                &:before {
+                    content: ' ';
+                    display: block;
+                    height: 0;
+                    padding-bottom: 66.66%;
+                    top: 0;
+                    width: 100%;
+                }
+
+                .c-tabbedmozaic {
+                    bottom: 5px;
+                    left: 5px;
+                    position: absolute;
+                    right: 5px;
+                    top: 0;
+
+                    .c-tabbedmozaic__image-wrapper {
+                        overflow: hidden;
                     }
                 }
 
-                .link__wrapper {
+                &--text {
+                    left: 50%;
                     position: absolute;
-                    bottom: 23px;
-                    left: 0;
-                    width: 100%;
+                    top: 40px;
+                    transform: translateX(-50%);
+                    z-index: 1;
+
+                    .c-tabbedmozaic {
+                        background-color: @white;
+                        border: 1px solid @grey--c;
+                        bottom: 0;
+                    }
+
+                    .c-mozaicslider {
+                        &__descr {
+                            margin-bottom: 27px;
+                        }
+                    }
                 }
             }
-        }
-    }
-}
 
-.mozaic-slider {
-    display: block;
-
-    @media screen and (max-width: @screen-sm) {
-        display: none;
-    }
-
-    &:not(.c-slider--full-width) .slick-slide > * {
-        margin: 0;
-        padding: 2px;
-    }
-
-    .slick-prev, .slick-next {
-        margin-top: -50px !important;
-        height: 30px;
-        width: 30px;
-        opacity: 1 !important;
-    }
-
-    .slick-prev i, .slick-next i {
-       line-height: 10px;
-    }
-
-    .slick-prev {
-        left: 33.7%;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .slick-next {
-        right: 33.7%;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .c-mozaicslider {
-        display: flex;
-        align-items: stretch;
-        flex-wrap: wrap;
-        height: 100%;
-        min-height:100%;
-
-        &__title {
-            font-size: 30px;
-            font-family: @f-theano_didot;
-            margin-bottom: 4%;
-            text-transform: uppercase;
-        }
-
-        &__descr {
-            font-size: 14px;
-            margin-bottom: 0;
-            padding: 0 5%;
-        }
-    }
-
-    .mozaicItem{
-        display: table-cell;
-    }
-
-    .item-text{
-        text-align: center;
-        background: @white;
-    }
-
-    .mozaicItemText {
-        height: 100%;
-        border: 1px solid grey--ba;
-    }
-
-    .link__wrapper {
-        text-align: center;
-        width: 100%;
-        position: absolute;
-        bottom: 26px;
-
-        i {
-            display: none;
-
-            @media screen and (max-width: @screen-sm) {
-                display: none;
+            .slick-dots {
+                bottom: -15px;
             }
         }
     }
 
-    .c-tabbedmozaic__description, .discover-more {
-        display: none;
-    }
+    .c-btn--slider {
+        &--prev, &--next {
+            color: @white;
+            padding: 5px 12px;
 
-    .slick-dots {
-        display: block !important;
-        bottom: -10px;
-    }
-
-    .slick-track {
-        padding-bottom: 12px;
-    }
-
-    .slick-dots li:not(.slick-active) button:before {
-        background-color: #bababa;
-    }
-}
-
-.mozaicHeader {
-    display: none;
-    text-align: center;
-    width: 80%;
-    margin: auto;
-
-    @media screen and (max-width: @screen-sm) {
-        display: block;
-    }
-
-    .c-mozaicslider__title {
-        text-transform: uppercase;
-        font-size: 30px;
-    }
-
-    .c-mozaicslider__descr {
-        font-size: 13px;
-    }
-}
-
-.mobileSlider {
-    margin-bottom: 10px;
-    background: @white;
-    display: none;
-
-    @media screen and (max-width: @screen-sm) {
-        display: block;
-    }
-
-    .slick-dots{
-        position: relative;
-        bottom: 0;
-    }
-
-    .slick-dots li button:before {
-        background-color: @grey--ba ;
-    }
-
-    .slick-dots li.slick-active button:before {
-        background-color: @black;
-    }
-
-    .slick-dots li {
-        @media screen and (max-width: @screen-sm) {
-            margin: 0 1px;
-            height: 8px;
-            width: 8px;
-        }
-    }
-
-    .c-tabbedmozaic__title {
-        @media screen and (max-width: @screen-sm) {
-            width: 50%;
+            i {
+                margin: 0;
+            }
         }
 
-        @media screen and (max-width: @screen-xs) {
-            width: 80%;
+        &--prev {
+            border-radius: 0 5px 5px 0;
+            float: left;
         }
-    }
 
-    .c-tabbedmozaic__description, .discover-more {
-        display: block;
-        padding: 10px;
-    }
-
-    .link__wrapper {
-        position: relative;
-        text-align: center;
-        width: 100%;
-        bottom: -30px;
-    }
-
-    .discover-more {
-        text-transform: uppercase;
-        margin-top: 10px;
-        padding-left: 10px;
-        font-weight: bold;
-        font-size: 12px;
-
-        .fa{
-            margin-left: 10px;
+        &--next {
+            border-radius: 5px 0 0 5px;
+            float: right;
         }
-    }
-
-    .slick-list{
-        border: 1px solid #e5e5e5;
     }
 }
