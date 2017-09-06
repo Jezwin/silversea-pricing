@@ -91,9 +91,26 @@ $(function() {
             return fillContent;
         }());
 
+        // Set description height
+        function setDescriptionHeight() {
+            var arrayHeight = [];
+            $mozaicSlider.find('.c-tabbedmozaic__description').each(function() {
+                $(this).css('height', '');
+                arrayHeight.push($(this).outerHeight())
+            });
+            var highest = Math.max.apply(Math, arrayHeight);
+            $mozaicSlider.find('.c-tabbedmozaic__description').css('height', highest);
+        }
+
         // Run slick
         $mozaicSlider.on('init', function(event, slick) {
             $mozaicSlider.closest('.c-mozaic').css('visibility', 'visible');
+            setDescriptionHeight();
+        });
+
+        // Set description jeight on resize
+        $(window).on('resize', function() {
+            setDescriptionHeight();
         });
 
         if (isDesktop()) {
@@ -121,6 +138,7 @@ $(function() {
             e.preventDefault();
             $mozaicSlider.slick('slickNext');
         });
+
         $mozaicWrapper.find('.c-btn--slider--prev').on('click', function(e) {
             e.preventDefault();
             $mozaicSlider.slick('slickPrev');

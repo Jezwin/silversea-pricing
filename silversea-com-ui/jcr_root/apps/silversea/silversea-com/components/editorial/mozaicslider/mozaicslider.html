@@ -17,7 +17,7 @@
 
     <div class="c-mozaic__slider" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
         <sly data-sly-list.destination="${fyc.destinations}">
-            <div class=" c-mozaic__slider__slide">
+            <div class="c-mozaic__slider__slide">
                 <div class="c-tabbedmozaic">
                     <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=destination.path}">
                         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
