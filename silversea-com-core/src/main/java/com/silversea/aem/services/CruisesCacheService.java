@@ -70,4 +70,9 @@ public interface CruisesCacheService {
      * @param cruiseCode the cruise code
      */
     void removeCruise(final String lang, final String cruiseCode);
+
+    /**
+     * Build the cache
+     */
+    void buildCruiseCache();
 }
