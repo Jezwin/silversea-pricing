@@ -11,17 +11,7 @@
             </div>
             <div class="c-suitelist__detail">
                 <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
-                <p class="c-suitelist__detail__description">
-                    ${item.suite.bedroomsInformation @ context='html'}
-                    <br />
-                    <span data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.locationImage}"
-                        class="text-capitalize">${'deck' @ i18n}</span>
-                        <sly data-sly-repeat.location="${setImage.renditionList}"><!--/*
-                         */--><sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=location.path}" /><!--/*
-                         */-->${assetHelper.metadataResource.valueMap['deckNumber']}<sly data-sly-test="${!locationList.last}">/</sly><!--/*
-                     */--></sly>
-                </p>
-                
+                <p class="c-suitelist__detail__description">${item.suite.suiteSubTitle @ context='html'}</p>
             </div>
             <div class="c-suitelist__price">
                 ${'fares-from' @ i18n}
