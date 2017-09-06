@@ -56,49 +56,61 @@ $(function() {
     };
 
     $('.c-mozaic__slider').each(function() {
-        var $mozaicSlider = $(this);
-        // Run slick
-        var settingDesktop= {
+        var $mozaicSlider = $(this),
+        settingDesktop= {
             dots : true,
             fade : true,
             rows : 2,
             slidesPerRow : 3
-        };
-
-        var settingMobile= {
+        },
+        settingMobile= {
             dots : true
         };
 
+        // Is Desktop viewport
+        function isDesktop() {
+            return ($.viewportDetect() === 'md' || $.viewportDetect() === 'lg');
+        }
+
         // Fill last slide with content from first slide
         var fillContent = (function fillContent() {
-            // Append placeholder
-            $mozaicSlider.find('.c-mozaic__slider__slide:nth-child(5n + 1)').after('<div class="c-mozaic__slider__slide c-mozaic__slider__slide--cloned"></div>');
+            if (!$mozaicSlider.hasClass('fillup') && isDesktop()) {
+                // Append placeholder
+                $mozaicSlider.find('.c-mozaic__slider__slide:nth-child(5n + 1)').after('<div class="c-mozaic__slider__slide c-mozaic__slider__slide--cloned"></div>');
 
-            // Fill up last slide
-            var itemToFillUp = $mozaicSlider.find('.c-mozaic__slider__slide').length % 6;
-            if (itemToFillUp !== 0) {
-                for (var i = 0; i <= itemToFillUp + 1; i++) {
-                    $mozaicSlider.find('.c-mozaic__slider__slide:not(.c-mozaic__slider__slide--cloned)').eq(i).clone().addClass('c-mozaic__slider__slide--cloned').appendTo($mozaicSlider);
+                // Fill up last slide
+                var itemToFillUp = $mozaicSlider.find('.c-mozaic__slider__slide').length % 6;
+                if (itemToFillUp !== 0) {
+                    for (var i = 0; i <= itemToFillUp + 1; i++) {
+                        $mozaicSlider.find('.c-mozaic__slider__slide:not(.c-mozaic__slider__slide--cloned)').eq(i).clone().addClass('c-mozaic__slider__slide--cloned').appendTo($mozaicSlider);
+                    }
                 }
+
+                $mozaicSlider.addClass('fillup');
             }
             return fillContent;
         }());
 
         // Run slick
-        var $slider;
-        if ($.viewportDetect() === 'md' || $.viewportDetect() === 'lg') {
-            $slider = $mozaicSlider.slick(settingDesktop);
+        $mozaicSlider.on('init', function(event, slick) {
+            $mozaicSlider.closest('.c-mozaic').css('visibility', 'visible');
+        });
+
+        if (isDesktop()) {
+            $mozaicSlider.slick(settingDesktop);
         } else {
-            $slider = $mozaicSlider.slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
+            $mozaicSlider.slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
         }
 
+
+        // Run slick again on viewport changed
         $('body').on('trigger.viewport.changed', function() {
-            if ($.viewportDetect() === 'md' || $.viewportDetect() === 'lg') {
-                // Run slick
+            if (isDesktop()) {
                 $mozaicSlider.slick('unslick');
                 fillContent();
                 $mozaicSlider.slick(settingDesktop);
             } else {
+                $mozaicSlider.removeClass('fillup');
                 $mozaicSlider.slick('unslick').slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
             }
         });
@@ -107,11 +119,11 @@ $(function() {
         var $mozaicWrapper = $mozaicSlider.closest('.c-mozaic');
         $mozaicWrapper.find('.c-btn--slider--next').on('click', function(e) {
             e.preventDefault();
-            $slider.slick('slickNext');
+            $mozaicSlider.slick('slickNext');
         });
         $mozaicWrapper.find('.c-btn--slider--prev').on('click', function(e) {
             e.preventDefault();
-            $slider.slick('slickPrev');
+            $mozaicSlider.slick('slickPrev');
         });
     })
 });

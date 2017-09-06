@@ -27,9 +27,9 @@
                     </h2>
                     <a class="c-tabbedmozaic__link--block" data-sly-test=${destination.path} href="${destination.path @ extension='html'}"></a>
                 </div>
-                <p class="c-tabbedmozaic__description visible-xs-block">
+                <p class="c-tabbedmozaic__description visible-xs-block visible-sm-block">
                     ${destination.description @ context='html'}
-                    <br /><a href="${destination.path @ extension='html'}" class="discover-more">
+                    <a href="${destination.path @ extension='html'}" class="discover-more">
                     ${'discover-more' @ i18n}
                     <i class="fa fa-lg fa-angle-right"></i></a>
                 </p>

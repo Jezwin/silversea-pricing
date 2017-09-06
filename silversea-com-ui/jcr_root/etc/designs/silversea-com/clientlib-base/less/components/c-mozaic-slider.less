@@ -1,6 +1,7 @@
 .c-mozaic {
     padding: 40px 0;
     position: relative;
+    visibility: hidden;
 
     &:before {
         .full-width();
@@ -49,17 +50,6 @@
                     }
                 }
             }
-
-            .c-tabbedmozaic__description {
-                background-color: @white;
-                padding: 25px 20px 20px;
-
-                .discover-more {
-                    font-size: 12px;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                }
-            }
         }
 
         .slick-dots {
@@ -67,6 +57,38 @@
 
             li:not(.slick-active) button:before {
                 background-color: @grey--ba;
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-md-max) {
+        & .slick-list {
+            margin: 0 -15px;
+        }
+
+         &__slider {
+            .slick-initialized &__slide {
+                background-color: @white;
+                display: table-cell;
+                float: none;
+                position: relative;
+                padding: 0 15px;
+            }
+
+            .c-tabbedmozaic {
+                &__description {
+                    margin: 0;
+                    padding: 25px 5px 35px;
+
+                    .discover-more {
+                        bottom: 15px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        left: 20px;
+                        position: absolute;
+                        text-transform: uppercase;
+                    }
+                }
             }
         }
     }
