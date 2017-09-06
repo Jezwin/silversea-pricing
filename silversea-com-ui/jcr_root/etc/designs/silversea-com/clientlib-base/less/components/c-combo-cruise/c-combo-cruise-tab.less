@@ -5,7 +5,7 @@
 }
 
 @media screen and (min-width: @screen-md-min) {
-    .c-tab__link--clear {
+    .c-tab__nav--fixed .c-tab__link--clear {
         padding-top: 6px;
 
         a {
@@ -39,6 +39,11 @@
                 color: @black;
                 height: 66px;
                 line-height: 66px;
+
+                &:before {
+                    border-color: @black;
+                    top: -1px;
+                }
             }
         }
     }
