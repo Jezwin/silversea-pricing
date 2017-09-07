@@ -64,10 +64,14 @@
                     </div>
                     <div class="c-tab__content" id="ship">
                         <!--/* Ship tab */-->
-                        <sly data-sly-include="fragment/shiptab/overview.html" />
-                        <sly data-sly-include="fragment/shiptab/suitevariation.html" />
-                        <sly data-sly-include="fragment/shiptab/diningvariation.html" />
-                        <sly data-sly-include="fragment/shiptab/publicareavariation.html" />
+                        <sly data-sly-use.overview="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/overview.html"
+                            data-sly-call="${overview.default @ comboCruise=comboCruise}" />
+                        <sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/suitevariation.html"
+                            data-sly-call="${suitevariation.default @ comboCruise=comboCruise}" />
+                        <sly data-sly-use.diningvariation="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/diningvariation.html"
+                            data-sly-call="${diningvariation.default @ comboCruise=comboCruise}" />
+                        <sly data-sly-use.publicareavariation="silversea/silversea-com/components/pages/combocruise/fragment/shiptab/publicareavariation.html"
+                            data-sly-call="${publicareavariation.default @ comboCruise=comboCruise}" />
                     </div>
                     <div class="c-tab__content" id="benefitsnevents">
                         <!--/* Benefits and events tab */-->
