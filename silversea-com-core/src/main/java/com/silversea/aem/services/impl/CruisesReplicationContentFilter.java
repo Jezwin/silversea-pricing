@@ -24,7 +24,7 @@ public class CruisesReplicationContentFilter implements ReplicationContentFilter
     private List<String> filteredPaths = new CopyOnWriteArrayList<>();
 
     @Override
-    public boolean accepts(Node node) {
+    public boolean accepts(final Node node) {
         try {
             // Check child node if the current is a page
             if (node.getPrimaryNodeType().isNodeType(NameConstants.NT_PAGE) && node.hasNode(JcrConstants.JCR_CONTENT)) {
@@ -34,7 +34,7 @@ public class CruisesReplicationContentFilter implements ReplicationContentFilter
             // else check node itself
             return checkNode(node);
         } catch (RepositoryException e) {
-            LOGGER.error("Repository exception occurred. Do not accept this Node. {}", e);
+            LOGGER.error("Repository exception occurred", e);
         }
 
         // Default behavior is to accept
@@ -42,19 +42,19 @@ public class CruisesReplicationContentFilter implements ReplicationContentFilter
     }
 
     @Override
-    public boolean accepts(Property property) {
+    public boolean accepts(final Property property) {
         // Default behavior is to return true
         return true;
     }
 
     @Override
-    public boolean allowsDescent(Node node) {
+    public boolean allowsDescent(final Node node) {
         return this.accepts(node);
     }
 
     @Override
     public List<String> getFilteredPaths() {
-        return this.getFilteredPaths();
+        return filteredPaths;
     }
 
     private boolean checkNode(Node node) throws RepositoryException {
@@ -67,7 +67,7 @@ public class CruisesReplicationContentFilter implements ReplicationContentFilter
                 LOGGER.warn("Cruise {} is not visible, do not activate it", node.getPath());
 
                 // Maintain the filteredPaths list whenever accepts returns false
-                filteredPaths.add(node.getPath());
+                filteredPaths.add(node.getParent().getPath());
 
                 return false;
             }

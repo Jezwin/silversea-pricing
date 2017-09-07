@@ -81,6 +81,13 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 ships.get(lang).sort(Comparator.comparing(ShipModel::getTitle));
                 ports.get(lang).sort(Comparator.comparing(PortModel::getApiTitle));
             }
+
+            int i = 0;
+            for (Map.Entry<String, Map<String, CruiseModel>> cruise : cruisesByCode.entrySet()) {
+                i += cruise.getValue().size();
+            }
+
+            LOGGER.info("End of cruise cache build, {} cruises cached", i);
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         }
@@ -185,9 +192,11 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                     ships.get(lang).add(cruiseModel.getShip());
                 }
 
-                for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                    if (itinerary.getPort() != null && !ports.get(lang).contains(itinerary.getPort())) {
-                        ports.get(lang).add(itinerary.getPort());
+                if (cruiseModel.getItineraries() != null) {
+                    for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                        if (itinerary.getPort() != null && !ports.get(lang).contains(itinerary.getPort())) {
+                            ports.get(lang).add(itinerary.getPort());
+                        }
                     }
                 }
 
