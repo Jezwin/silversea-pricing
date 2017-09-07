@@ -1,9 +1,4 @@
 $(function() {
-    // On viewport change
-    $('body').on('trigger.viewport.changed', function() {
-        setBackground();
-    });
-
     // Gallery expander
     $('.c-cruise .expander-open, .c-cruise .expander-close').on('click', function(e) {
         e.preventDefault();
