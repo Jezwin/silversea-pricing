@@ -46,23 +46,28 @@
                     </div>
                     <div class="c-tab__content" id="suitenfare">
                         <!--/* Suites and fares tab */-->
-                        <sly data-sly-include="fragment/suitetab/suitelist.html" />
+                        <sly data-sly-use.suitelist="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist.html"
+                            data-sly-call="${suitelist.default @ comboCruise=comboCruise}" />
                     </div>
                     <div class="c-tab__content" id="route">
                         <!--/* Routes tab */-->
-                        <sly data-sly-include="fragment/routetab/overview.html" />
-                        <sly data-sly-include="fragment/routetab/segmentinfo.html" />
+                        <sly data-sly-use.overview2="silversea/silversea-com/components/pages/combocruise/fragment/routetab/overview.html"
+                            data-sly-call="${overview2.default @ comboCruise=comboCruise}" />
+                        <sly data-sly-use.segmentinfo="silversea/silversea-com/components/pages/combocruise/fragment/routetab/segmentinfo.html"
+                            data-sly-call="${segmentinfo.default @ comboCruise=comboCruise}" />
                     </div>
                     <div class="c-tab__content" id="excursions" data-sly-test="${comboCruise.excursionsNumber > 0}">
                         <!--/* Excursions tab */-->
                         <div data-sly-resource="${'par-ex-top' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                        <sly data-sly-include="fragment/excursiontab/portexcursionslist.html" />
+                        <sly data-sly-use.portexcursionslist="silversea/silversea-com/components/pages/combocruise/fragment/excursiontab/portexcursionslist.html"
+                            data-sly-call="${portexcursionslist.default @ comboCruise=comboCruise}" />
                         <div data-sly-resource="${'par-ex-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                     <div class="c-tab__content" id="landnhotel" data-sly-test="${comboCruise.landProgramsNumber > 0}">
                         <!--/* Land and hotel tab */-->
                         <div data-sly-resource="${'par-lp-top' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                        <sly data-sly-include="fragment/landprogramtab/portlandprogramlist.html" />
+                        <sly data-sly-use.portlandprogramlist="silversea/silversea-com/components/pages/combocruise/fragment/landprogramtab/portlandprogramlist.html"
+                            data-sly-call="${portlandprogramlist.default @ comboCruise=comboCruise}" />
                         <div data-sly-resource="${'par-lp-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                     <div class="c-tab__content" id="ship">
@@ -78,7 +83,8 @@
                     </div>
                     <div class="c-tab__content" id="benefitsnevents">
                         <!--/* Benefits and events tab */-->
-                        <sly data-sly-include="fragment/benefitstab/benefitsandevents.html" />
+                        <sly data-sly-use.benefitsandevents="silversea/silversea-com/components/pages/combocruise/fragment/benefitstab/benefitsandevents.html"
+                            data-sly-call="${benefitsandevents.default @ comboCruise=comboCruise}" />
                         <div data-sly-resource="${'par-benefitsnevents-bottom' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                     </div>
                 </div>
