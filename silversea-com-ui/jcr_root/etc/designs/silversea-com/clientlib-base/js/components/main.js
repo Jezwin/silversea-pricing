@@ -68,7 +68,7 @@ $(function() {
      * iCheck (custom <input type="checkbox"> look and feel)
      **************************************************************************/
     $('.custom-checkbox').iCheck({
-        checkboxClass : 'icheckbox_minimal',
+        checkboxClass : 'icheckbox_minimal'
     });
 
     /***************************************************************************
@@ -112,9 +112,13 @@ $(function() {
             // Cancel synchrone submit
             event.preventDefault();
 
-            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress','postalcode','city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry', 'sitelanguage', 'sitecurrency', 'isnotagent'];
-            var pos = document.cookie.indexOf("userInfo="),
-                marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
+            // Custom behavior for subscribeemail : set false if nit checked, set true if checked
+            $(elem).find('[name="subscribeemail"]').val($(elem).find('[name="subscribeemail-custom"]').is(':checked'))
+
+            var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
+                    'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
+                    'sitelanguage', 'sitecurrency', 'isnotagent' ];
+            var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
 
             // Set cookie if not created
             if (pos <= 0) {
@@ -127,15 +131,17 @@ $(function() {
             // Browse the form fields and extract values to leadApiData
             for (i in form) {
                 index = cookieValues.indexOf(form[i].name);
-                if (index > -1)
+                if (index > -1) {
                     leadApiData[cookieValues[index]] = form[i].value;
+                }
             }
-            if(marketingEffortValue)
+
+            if (marketingEffortValue) {
                 leadApiData['marketingEffort'] = marketingEffortValue;
+            }
 
             $.ajax({
                 type : 'POST',
-                //url: (window.location.href.indexOf('.html') !== -1) ? window.location.href.replace('.html', '.lead.json') : window.location.href + '.lead.json',
                 url: '/bin/lead.json',
                 data : JSON.stringify(leadApiData),
                 contentType : 'application/json',

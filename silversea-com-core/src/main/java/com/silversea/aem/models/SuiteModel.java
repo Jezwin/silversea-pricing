@@ -113,6 +113,10 @@ public class SuiteModel implements ShipAreaModel {
         return thumbnail;
     }
 
+    public String getSuiteSubTitle() {
+        return suiteSubTitle;
+    }
+
     public Page getPage() {
         return page;
     }

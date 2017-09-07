@@ -1,24 +1,4 @@
 $(function() {
-    // On viewport change
-    $('body').on('trigger.viewport.changed', function() {
-        setBackground();
-    });
-
-    // On page load
-    setBackground();
-
-    function setBackground() {
-        var $imageList = $('.c-cruise__gallery__item .o-img');
-
-        $imageList.each(function() {
-            var $image = $(this),
-            mediaSrc = $image.prop('currentSrc') || $image.prop('src');
-
-            $image.closest('.c-cruise__gallery__item').css('background-image', 'url(' + mediaSrc + ')');
-            $image.css('visibility', 'hidden');
-        });
-    }
-
     // Gallery expander
     $('.c-cruise .expander-open, .c-cruise .expander-close').on('click', function(e) {
         e.preventDefault();
@@ -32,12 +12,8 @@ $(function() {
             $wrapper.animate({
                 'height' : $wrapper.find('> div').first().outerHeight()
             }, 600, function() {
-                //var defaultItem = $wrapper.closest('.c-cruise-ship-info').length ? 1 : 0;
-                var indexShownedItem = 1;
-                if ( ($.viewportDetect() === "xs") || ($.viewportDetect() === "sm") ) {
-                    indexShownedItem = 0;
-                }
-                $wrapper.css('height', $wrapper.height()).find('> div:gt(' + indexShownedItem + '):not(.c-cruise__item-expander)').hide();
+                var defaultItem = $wrapper.closest('.c-cruise-ship-info').length ? 1 : 0;
+                $wrapper.css('height', $wrapper.height()).find('> div:gt(' + defaultItem + '):not(.c-cruise__item-expander)').hide();
 
                 $(this).css('height', '').removeClass('open');
 
@@ -54,6 +30,9 @@ $(function() {
             $wrapper.children().each(function() {
                 totalHeight = totalHeight + $(this).outerHeight(true);
             });
+
+            // Call lazy plugin
+            $wrapper.find('.lazy').lazy();
 
             // Animate for slide effect (slide down)
             $wrapper.animate({

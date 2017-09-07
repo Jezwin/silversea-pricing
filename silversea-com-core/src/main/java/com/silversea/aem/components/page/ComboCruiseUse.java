@@ -61,6 +61,7 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
         }
 
         // init prices based on geolocation
+        // TODO duplicated with com.silversea.aem.components.page.CruiseUse
         for (final PriceModel priceModel : comboCruiseModel.getPrices()) {
             if (priceModel.getGeomarket() != null
                     && priceModel.getGeomarket().equals(geomarket)

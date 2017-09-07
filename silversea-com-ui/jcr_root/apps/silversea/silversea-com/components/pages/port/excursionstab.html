@@ -1,28 +1,20 @@
 <sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse" />
 <div class="c-tab__content" id="Excursions">
     <h2>${portUse.portModel.title},</h2>
-    <div class="c-accordion"
-         data-multiview="false"
-         data-more="${'more-info' @ i18n} <i class='fa fa-angle-down'></i>"
-         data-close="${'close' @ i18n} <i class='fa fa-angle-up'></i>"
-         data-sly-list="${portUse.portModel.excursions}">
-        <div class="c-accordion__elem">
-            <div class="c-accordion__header">
-                <div class="c-accordion__title">
-                    <p class="c-accordion__title--veryimportant">${item.title}</p>
-                    <p class="c-accordion__subtitle" data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=item.description, limit=240}">
-                        ${description.textTruncate || item.description}
-                    </p>
+    <div class="c-cruise-itinerary-2__list__item" id="excursion-accordion" role="tablist" aria-multiselectable="true">
+        <div data-sly-repeat.excursion="${portUse.portModel.excursions}" class="panel c-cruise-itinerary-2__list--nested__item">
+            <div class="collapsed panel--nested__heading" role="button" data-toggle="collapse" data-parent="#excursion-accordion" data-target="#ex-${excursionList.count}" aria-expanded="false">
+                <h4 class="panel-title"><strong>${excursion.title}</strong></h4>
+                <sly data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description}"/>
+                <div class="hidden-xs" data-sly-use.helper="${'com.silversea.aem.helper.StringHelper' @ text=description, limit=240}">
+                    ${helper.textTruncate @ context='html'}
                 </div>
-                <div class="c-accordion__action c-accordion__action--light">
-                    ${'more-info' @ i18n} <i class='fa fa-angle-down'></i>
-                </div>
+                <span class="btn-more">${'more-info' @ i18n} <i class="fa fa-angle-down"></i></span>
+                <span class="btn-less">${'close' @ i18n} <i class="fa fa-angle-up"></i></span>
             </div>
-            <div class="c-accordion__body">
-                <div class="c-accordion__body--panel">
-                    <div class="text">
-                        ${item.longDescription || item.apiLongDescription || item.description @ context='html'}
-                    </div>
+            <div id="ex-${excursionList.count}" class="collapse panel--nested__body" role="tabpanel">
+                <div class="panel--nested__body__inner">
+                    ${description @ context='html'}
                 </div>
             </div>
         </div>

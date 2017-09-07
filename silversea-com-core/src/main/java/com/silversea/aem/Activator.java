@@ -21,17 +21,15 @@ public class Activator implements BundleActivator, BundleListener {
 
     @Override
     public void bundleChanged(BundleEvent event) {
-        String symbolicName = event.getBundle().getSymbolicName();
+        if (event.getType() == BundleEvent.STARTED
+                && event.getBundle().getSymbolicName().equals("com.silversea.aem.silversea-com-core")) {
+            final BundleContext context = event.getBundle().getBundleContext();
 
-        if (event.getType() == BundleEvent.STARTED) {
-            LOGGER.info("BundleChanged: " + symbolicName + ", event.type: " + event.getType());
-        }
-
-        final BundleContext context = event.getBundle().getBundleContext();
-
-        final ServiceReference serviceReference = context.getServiceReference(CruisesCacheService.class.getName());
-        if (serviceReference != null) {
-            context.getService(serviceReference);
+            final ServiceReference serviceReference = context.getServiceReference(CruisesCacheService.class.getName());
+            if (serviceReference != null) {
+                final CruisesCacheService cruisesCacheService = (CruisesCacheService) context.getService(serviceReference);
+                cruisesCacheService.buildCruiseCache();
+            }
         }
     }
 }

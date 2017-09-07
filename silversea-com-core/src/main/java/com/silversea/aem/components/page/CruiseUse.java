@@ -11,16 +11,12 @@ import com.silversea.aem.models.*;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CruiseUse extends AbstractGeolocationAwareUse {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(CruiseUse.class);
 
     private CruiseModel cruiseModel;
 
@@ -323,6 +319,13 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     }
 
     /**
+     * @return the computed price, formatted with the locale according to the geolocation
+     */
+    public String getComputedPriceFormated() {
+        return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
+    }
+
+    /**
      * @return true is the cruise is on wait list
      */
     public boolean isWaitList() {
@@ -369,10 +372,9 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         return null;
     }
 
-    public String getComputedPriceFormated() {
-        return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-    }
-
+    /**
+     * @return the price prefix from the first exclusive offer
+     */
     public String getPricePrefix() {
         for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
             if (exclusiveOffer.getPricePrefix() != null) {

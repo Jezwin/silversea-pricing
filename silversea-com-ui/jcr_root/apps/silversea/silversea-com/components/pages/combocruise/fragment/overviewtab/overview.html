@@ -1,14 +1,15 @@
-<sly data-sly-use.comboCruiseUse="com.silversea.aem.components.page.ComboCruiseUse" />
-<h1 class="cc-tab_header_title">
-    ${comboCruiseUse.comboCruiseModel.title @ context='html'}
-</h1>
-<div class="cc-tab_header_desc row">
-    <div class="cc-tab_header_desc_txt col-md-9">
-        <p>${comboCruiseUse.comboCruiseModel.description @ context='html'}</p>
+<template data-sly-template.default="${ @ comboCruise }">
+    <h1 class="cc-tab_header_title">
+        ${comboCruiseUse.comboCruiseModel.title @ context='html'}
+    </h1>
+    <div class="cc-tab_header_desc row">
+        <div class="cc-tab_header_desc_txt col-md-9">
+            <p>${comboCruiseUse.comboCruiseModel.description @ context='html'}</p>
+        </div>
+        <div class="cc-tab_header_desc_cta col-md-3">
+            <a class="btn btn-thin btn-red effect" href="${comboCruiseUse.requestQuotePagePath @ extension='html'}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            <div data-sly-resource="${'btn-overview' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
+            <a class="btn btn-thin btn-dark effect" data-tab-target="#suitenfare"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+        </div>
     </div>
-    <div class="cc-tab_header_desc_cta col-md-3">
-        <a class="btn btn-thin btn-red effect" href="${comboCruiseUse.requestQuotePagePath @ extension='html'}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-        <div data-sly-resource="${'btn-overview' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>
-        <a class="btn btn-thin btn-dark effect" data-tab-target="#suitenfare"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
-    </div>
-</div>
+</template>

@@ -55,38 +55,93 @@ $(function() {
         } ]
     };
 
-    $('.mozaicslider').slick(settingMozaicSlider);
-
-    // mozaic slider on mobile viewport
-    $('.mozaic-slider').each(function(index) {
-
-        var $slider_mosaic = $(this);
-        $slider_mosaic.after("<div class='mobileSlider " + 'mobileSlider_' + index + "'></div>");
-
-        var mozaicItem = document.createElement('div');
-        mozaicItem.className = 'mozaicHeader';
-
-        $slider_mosaic.parent().find('.mobileSlider').before(mozaicItem);
-
-        var $cureent_mozaic_header = $slider_mosaic.parent().find('.mozaicHeader');
-
-        $slider_mosaic.find('.c-mozaicslider__title').first().clone().appendTo($cureent_mozaic_header);
-        $slider_mosaic.find('.c-mozaicslider__descr').first().clone().appendTo($cureent_mozaic_header);
-
-        $slider_mosaic.find(".c-mozaicslider:not(.slick-cloned)").find('.mozaicItem:not(.item-text)').each(function() {
-            $slider_mosaic.parent().find('.mobileSlider').append($(this).html());
-        });
-
-        $('.mobileSlider_' + index).slick({
+    $('.c-mozaic__slider').each(function() {
+        var $mozaicSlider = $(this),
+        settingDesktop= {
             dots : true,
-            infinite : true,
-            speed : 500,
             fade : true,
-            slidesToShow : 1,
-            slidesToScroll : 1
+            rows : 2,
+            slidesPerRow : 3
+        },
+        settingMobile= {
+            dots : true
+        };
+
+        // Is Desktop viewport
+        function isDesktop() {
+            return ($.viewportDetect() === 'md' || $.viewportDetect() === 'lg');
+        }
+
+        // Fill last slide with content from first slide
+        var fillContent = (function fillContent() {
+            if (!$mozaicSlider.hasClass('fillup') && isDesktop()) {
+                // Append placeholder
+                $mozaicSlider.find('.c-mozaic__slider__slide:nth-child(5n + 1)').after('<div class="c-mozaic__slider__slide c-mozaic__slider__slide--cloned"></div>');
+
+                // Fill up last slide
+                var itemToFillUp = $mozaicSlider.find('.c-mozaic__slider__slide').length % 6;
+                if (itemToFillUp !== 0) {
+                    for (var i = 0; i <= itemToFillUp + 1; i++) {
+                        $mozaicSlider.find('.c-mozaic__slider__slide:not(.c-mozaic__slider__slide--cloned)').eq(i).clone().addClass('c-mozaic__slider__slide--cloned').appendTo($mozaicSlider);
+                    }
+                }
+
+                $mozaicSlider.addClass('fillup');
+            }
+            return fillContent;
+        }());
+
+        // Set description height
+        function setDescriptionHeight() {
+            var arrayHeight = [];
+            $mozaicSlider.find('.c-tabbedmozaic__description').each(function() {
+                $(this).css('height', '');
+                arrayHeight.push($(this).outerHeight())
+            });
+            var highest = Math.max.apply(Math, arrayHeight);
+            $mozaicSlider.find('.c-tabbedmozaic__description').css('height', highest);
+        }
+
+        // Run slick
+        $mozaicSlider.on('init', function(event, slick) {
+            $mozaicSlider.closest('.c-mozaic').css('visibility', 'visible');
+            setDescriptionHeight();
         });
 
-        $slider_mosaic.find('.link__wrapper').first().clone().appendTo('.mobileSlider_' + index);
-    });
+        // Set description jeight on resize
+        $(window).on('resize', function() {
+            setDescriptionHeight();
+        });
 
+        if (isDesktop()) {
+            $mozaicSlider.slick(settingDesktop);
+        } else {
+            $mozaicSlider.slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
+        }
+
+
+        // Run slick again on viewport changed
+        $('body').on('trigger.viewport.changed', function() {
+            if (isDesktop()) {
+                $mozaicSlider.slick('unslick');
+                fillContent();
+                $mozaicSlider.slick(settingDesktop);
+            } else {
+                $mozaicSlider.removeClass('fillup');
+                $mozaicSlider.slick('unslick').slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
+            }
+        });
+
+        // Action for prev and next button
+        var $mozaicWrapper = $mozaicSlider.closest('.c-mozaic');
+        $mozaicWrapper.find('.c-btn--slider--next').on('click', function(e) {
+            e.preventDefault();
+            $mozaicSlider.slick('slickNext');
+        });
+
+        $mozaicWrapper.find('.c-btn--slider--prev').on('click', function(e) {
+            e.preventDefault();
+            $mozaicSlider.slick('slickPrev');
+        });
+    })
 });

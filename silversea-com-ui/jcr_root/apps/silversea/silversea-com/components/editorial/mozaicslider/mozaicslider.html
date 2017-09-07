@@ -1,41 +1,45 @@
 <div data-sly-test="${wcmmode.edit && (!properties.pageReference || !properties.jcr:title)}" class="cq-placeholder cq-dd-image" data-emptytext="Mozaic slider"></div>
-<sly data-sly-test="${properties.destinationsReference}"
-    data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.destinationsReference}" />
 
-        <sly data-sly-use.filter="com.silversea.aem.components.editorial.SearchCruiseUse" />
-        <div class="c-mozaicslider"  data-sly-list="${filter.destinations}" >
-            <sly data-sly-use.modulo="${'com.silversea.aem.helper.ArthmeticCalculHelper' @ param1=itemList.count.toString, param2='5'}" />
-             <div class='col-sm-4 mozaicItem item-text' data-sly-test="${modulo.moduloValue == 2}" >
-                <div class="mozaicItemText">
-                    <h3 class="c-mozaicslider__title">${properties.jcr:title @ context="html"}</h3>
-                    <p class="c-mozaicslider__descr">${properties.jcr:description @ context="html"}</p>
-                    <div class="link__wrapper">
-                        <a class="c-mozaicslider__link--block c-btn c-btn--dark" href="${properties.destinationsReference @ extension='html'}">${'view-all' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 mozaicItem">
-                <div>
-                   <div class="c-tabbedmozaic">
-                        <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" >
-                            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                                data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-                        </div>
-                        <h2 class="c-tabbedmozaic__title"><span>${item.title @ context="html"}</span></h2>
-                        <a class="c-tabbedmozaic__link--block" data-sly-test=${item.path} href="${item.path @ extension='html'}"></a>
-                  </div>
-                  <div class="c-tabbedmozaic__description"> ${item.description  @ context='html'} </div>
-                  <a href="${item.path @ extension='html'}" class="discover-more"> ${'discover-more' @ i18n} <i class="fa fa-lg fa-angle-right"></i> </a>
-                </div>
-            </div>
-            <div class='col-sm-4 mozaicItem item-text' data-sly-test="${itemList.last && modulo.moduloValue == 1}" >
-                <div class="mozaicItemText">
-                    <h3 class="c-mozaicslider__title">${properties.jcr:title @ context="html"}</h3>
-                    <p class="c-mozaicslider__descr">${properties.jcr:description @ context="html"}</p>
-                    <div class="link__wrapper">
-                        <a class="c-mozaicslider__link--block c-btn c-btn--dark" href="${properties.destinationsReference @ extension='html'}">${'view-all' @ i18n} <i class="fa fa-lg fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            ${ modulo.moduloValue == 0 && itemList.last == false ? "</div><div class='c-mozaicslider' >" : "" @ context = 'unsafe'}
+<div class="c-mozaic">
+    <div class="col-md-4 c-mozaic__slider__slide c-mozaic__slider__slide--text">
+        <div class="c-tabbedmozaic">
+            <h3 class="c-mozaicslider__title">${properties.jcr:title @ context="html"}</h3>
+            <p class="c-mozaicslider__descr">${properties.jcr:description @ context="html"}</p>
+            <p class="hidden-xs hidden-sm c-mozaicslider__action">
+                <a class="c-btn c-btn--dark c-btn--slider--prev" href="#"><i class="fa fa-lg fa-angle-left"></i></a>
+                <a class="c-mozaicslider__link c-btn c-btn--dark" href="${properties.destinationsReference @ extension='html'}">
+                    &nbsp;${'view-all' @ i18n}&nbsp;
+                </a>
+                <a class="c-btn c-btn--dark c-btn--slider--next" href="#"><i class="fa fa-lg fa-angle-right"></i></a>
+            </p>
         </div>
+    </div>
+
+    <div class="c-mozaic__slider" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+        <sly data-sly-list.destination="${fyc.destinations}">
+            <div class="c-mozaic__slider__slide">
+                <div class="c-tabbedmozaic">
+                    <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=destination.path}">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
+                    </div>
+                    <h2 class="c-tabbedmozaic__title">
+                        <span>${destination.title @ context='html'}</span>
+                    </h2>
+                    <a class="c-tabbedmozaic__link--block" data-sly-test=${destination.path} href="${destination.path @ extension='html'}"></a>
+                </div>
+                <p class="c-tabbedmozaic__description visible-xs-block visible-sm-block">
+                    ${destination.description @ context='html'}
+                    <a href="${destination.path @ extension='html'}" class="discover-more">
+                    ${'discover-more' @ i18n}
+                    <i class="fa fa-lg fa-angle-right"></i></a>
+                </p>
+            </div>
+        </sly>
+    </div>
+    <p class="visible-xs-block visible-sm-block btn-wrapper">
+        <a class="c-mozaicslider__link c-btn c-btn--dark" href="${properties.destinationsReference @ extension='html'}">
+            ${'view-all' @ i18n}
+            <i class="fa fa-lg fa-angle-right"></i>
+        </a>
+    </p>
+</div>

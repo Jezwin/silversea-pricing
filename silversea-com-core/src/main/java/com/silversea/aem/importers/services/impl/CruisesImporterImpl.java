@@ -363,6 +363,29 @@ public class CruisesImporterImpl implements CruisesImporter {
                 apiPage++;
             } while (cruises.size() > 0);
 
+            for (Map.Entry<Integer, Map<String, Page>> cruise : cruisesMapping.entrySet()) {
+                final Collection<Page> cruisePages = cruise.getValue().values();
+
+                for (Page cruisePage : cruisePages) {
+                    final Node cruiseContentNode = cruisePage.getContentResource().adaptTo(Node.class);
+                    try {
+                        final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+
+                        if (startDate.before(Calendar.getInstance())) {
+                            LOGGER.debug("Cruise {} in the past, mark to deactivate", cruiseContentNode.getPath());
+
+                            cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+                            itemsWritten++;
+
+                            batchSave(session, itemsWritten);
+                        }
+                    } catch (RepositoryException e) {
+                        LOGGER.warn("Cannot extract start date from cruise {}", cruiseContentNode.getPath());
+                    }
+                }
+            }
+
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
                     "lastModificationDateCruises", false);
 

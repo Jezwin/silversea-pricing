@@ -28,6 +28,9 @@ public class DestinationModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/destinationId") @Optional
     private String destinationId;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION) @Optional
+    private String description;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
@@ -67,6 +70,10 @@ public class DestinationModel {
 
     public String getDestinationId() {
         return destinationId;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getLongDescription() {

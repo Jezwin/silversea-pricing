@@ -171,6 +171,7 @@ public class CruiseModel {
         final Resource suitesResource = page.getContentResource().getChild("suites");
         if (suitesResource != null) {
             CruiseUtils.collectPrices(prices, suitesResource);
+            prices.sort((o1, o2) -> -o1.getPrice().compareTo(o2.getPrice()));
         }
 
         path = page.getPath();

@@ -8,7 +8,6 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
-import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -16,7 +15,6 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.settings.SlingSettingsService;
-import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,8 +47,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private Map<String, Set<FeatureModel>> features = new HashMap<>();
 
-    @Activate
-    protected void activate(final ComponentContext context) {
+    @Override
+    public void buildCruiseCache() {
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
@@ -79,11 +77,17 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 // collect cruises
                 final Page destinationsPage = pageManager.getPage("/content/silversea-com/" + lang + "/destinations");
                 collectCruisesPages(destinationsPage);
-
                 destinations.get(lang).sort(Comparator.comparing(DestinationModel::getTitle));
                 ships.get(lang).sort(Comparator.comparing(ShipModel::getTitle));
                 ports.get(lang).sort(Comparator.comparing(PortModel::getApiTitle));
             }
+
+            int i = 0;
+            for (Map.Entry<String, Map<String, CruiseModel>> cruise : cruisesByCode.entrySet()) {
+                i += cruise.getValue().size();
+            }
+
+            LOGGER.info("End of cruise cache build, {} cruises cached", i);
         } catch (LoginException e) {
             LOGGER.error("Cannot create resource resolver", e);
         }
@@ -188,9 +192,11 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                     ships.get(lang).add(cruiseModel.getShip());
                 }
 
-                for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                    if (itinerary.getPort() != null && !ports.get(lang).contains(itinerary.getPort())) {
-                        ports.get(lang).add(itinerary.getPort());
+                if (cruiseModel.getItineraries() != null) {
+                    for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+                        if (itinerary.getPort() != null && !ports.get(lang).contains(itinerary.getPort())) {
+                            ports.get(lang).add(itinerary.getPort());
+                        }
                     }
                 }
 

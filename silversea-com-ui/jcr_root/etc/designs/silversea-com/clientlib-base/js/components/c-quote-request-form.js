@@ -2,7 +2,7 @@ $(function() {
     $('.modal').on('shown.bs.modal', function(event) {
         requestForm();
         $(this).find('.custom-checkbox').iCheck({
-            checkboxClass : 'icheckbox_minimal',
+            checkboxClass : 'icheckbox_minimal'
         });
     });
     requestForm();

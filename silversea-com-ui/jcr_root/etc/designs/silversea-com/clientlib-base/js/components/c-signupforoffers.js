@@ -8,7 +8,7 @@ $(function() {
 
             // Call plugin to custom check box look and feel
             $signUpForm.find('.custom-checkbox').iCheck({
-                checkboxClass : 'icheckbox_minimal',
+                checkboxClass : 'icheckbox_minimal'
             });
 
             // Autocomplete form with data from cookie

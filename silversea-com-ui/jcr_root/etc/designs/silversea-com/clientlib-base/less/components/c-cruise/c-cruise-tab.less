@@ -1,5 +1,5 @@
 @media screen and (min-width: @screen-md-min) {
-    .c-tab__link--dark {
+    .c-tab__nav--fixed .c-tab__link--dark {
         padding-top: 6px;
 
         a {
@@ -15,13 +15,6 @@
             }
         }
 
-        span {
-            display: inline-block;
-            line-height: 16px;
-            vertical-align: middle;
-            width: 90%;
-        }
-
         &[data-state='active'] {
             border: 1px solid @black;
             border-bottom: 0;
@@ -34,8 +27,13 @@
                 color: @black;
                 height: 66px;
                 line-height: 66px;
+
+                &:before {
+                    border-color: @black;
+                    left: -1px;
+                    top: -1px;
+                }
             }
-            
         }
     }
 }
