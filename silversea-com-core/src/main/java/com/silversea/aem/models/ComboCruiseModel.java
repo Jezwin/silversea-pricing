@@ -5,7 +5,6 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.utils.CruiseUtils;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -60,7 +59,6 @@ public class ComboCruiseModel {
     @PostConstruct
     private void init() {
         final PageManager pageManager = page.getPageManager();
-        final ResourceResolver resourceResolver = page.getContentResource().getResourceResolver();
 
         // init ship
         final Page shipPage = pageManager.getPage(shipReference);
@@ -72,6 +70,7 @@ public class ComboCruiseModel {
         final Resource suitesResource = page.getContentResource().getChild("suites");
         if (suitesResource != null) {
             CruiseUtils.collectPrices(prices, suitesResource);
+            prices.sort((o1, o2) -> -o1.getPrice().compareTo(o2.getPrice()));
         }
 
         // init thumbnail
@@ -133,9 +132,6 @@ public class ComboCruiseModel {
         return ship;
     }
 
-    /**
-     * @return prices of each suite variation for this cruise
-     */
     public List<PriceModel> getPrices() {
         return prices;
     }
