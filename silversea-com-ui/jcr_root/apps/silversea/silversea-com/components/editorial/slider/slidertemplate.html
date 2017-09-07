@@ -1,24 +1,24 @@
 <template data-sly-template.default>
-	<div class="${properties.mozaicSlider ? 'mozaic-slider' : ''}  ${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
-		data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000, "adaptiveHeight": true ,"slidesToScroll": ${properties.itemNumber || "1"}, "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
-		data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}">
-	</div>
+    <div class="${properties.mozaicSlider ? 'mozaic-slider' : ''}  ${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
+        data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000, "adaptiveHeight": true ,"slidesToScroll": ${properties.itemNumber || "1"}, "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
+        data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}">
+    </div>
 </template>
 
 <template data-sly-template.populatefromSet="${ @ setImagePath, query }">
-	<sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}" />
-	<div class="c-slider c-slider--default" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true, "adaptiveHeight": true }'>
-		<div data-slide-type="${item.metadata.dc:format}">
-			<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-			data-sly-call="${imageTemplate.default @ imagePath=item.path, query=query}" />
-		</div>
-	</div>
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}" />
+    <div class="c-slider c-slider--default" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true, "adaptiveHeight": true }'>
+        <div data-slide-type="${item.metadata.dc:format}">
+            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+            data-sly-call="${imageTemplate.default @ imagePath=item.path, query=query}" />
+        </div>
+    </div>
 </template>
 
 <template data-sly-template.populatefromSetStyle2="${ @ setImagePath}">
-	<sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}" />
-	<div class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true, "adaptiveHeight": true }'>
-		<div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-		data-sly-call="${imageTemplate.default @ imagePath=item.path}"></div>
-	</div>
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}" />
+    <div class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true, "adaptiveHeight": true }'>
+        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+        data-sly-call="${imageTemplate.lazy @ imagePath=item.path, width=930}"></div>
+    </div>
 </template>

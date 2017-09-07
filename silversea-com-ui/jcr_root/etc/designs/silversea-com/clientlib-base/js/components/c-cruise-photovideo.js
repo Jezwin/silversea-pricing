@@ -31,6 +31,9 @@ $(function() {
                 totalHeight = totalHeight + $(this).outerHeight(true);
             });
 
+            // Call lazy plugin
+            $wrapper.find('.lazy').lazy();
+
             // Animate for slide effect (slide down)
             $wrapper.animate({
                 'height' : totalHeight

@@ -1,6 +1,4 @@
 $(function() {
-    $('.cruise .lazy').lazy();
-
     $('.c-cruise .request-quote').on('click', function(e) {
         e.stopPropagation();
     })
@@ -17,9 +15,15 @@ $(function() {
         }, 50);
     });
 
-    // Force reinit slider for cruise for Enrichments and key people slider
+    // call lazy load : load image inside the current tab actived (the one opened on page load)
+    $('.c-cruise .c-tab__content[data-state="active"]').find('.lazy').lazy();
+
     $('.c-cruise .c-tab__content').on('ctabcontent-shown', function() {
+        // Force reinit slider for cruise for Enrichments and key people slider
         $(this).find('.c-slider.slick-initialized:not(.c-slider--for, .c-slider--nav)').slick('unslick').slick(settingSlider);
+
+       // call lazy load : load image inside the current tab opened
+        $(this).find('.lazy:visible').lazy();
     });
 
     $('.c-cruise div[id^="suitelist-collapse"]').on('shown.bs.collapse', function(e) {
@@ -42,6 +46,10 @@ $(function() {
         e.preventDefault();
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
     })
+
+    $('.nav-tabs--vertical [data-toggle="tab"]').on('show.bs.tab', function(e) {
+        $($(e.target).attr('href')).find('.lazy').lazy();
+    });
 
     // Force Scroll top for highlight container on resize
     $(window).on('resize', function() {

@@ -16,12 +16,18 @@
 
 <!--/* Image */-->
 <template data-sly-template.image="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse"
-          data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-    <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
+    data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+        alt="${properties.alt || currentPage.title @context='html'}"
+        title="${properties.jcr:title || currentPage.title @context='html'}"
+        class="o-img cq-dd-image" />
 </template>
 
 <!--/* Image lazy */-->
-<template data-sly-template.image="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse"
-          data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-    <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" class="o-img cq-dd-image" />
+<template data-sly-template.lazy="${ @ imagePath, width}" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse"
+    data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+        alt="${properties.alt || currentPage.title @context='html'}"
+        title="${properties.jcr:title || currentPage.title @context='html'}"
+        class="o-img cq-dd-image lazy" />
 </template>
