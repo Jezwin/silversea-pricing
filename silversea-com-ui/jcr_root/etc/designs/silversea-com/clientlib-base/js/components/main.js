@@ -68,7 +68,7 @@ $(function() {
      * iCheck (custom <input type="checkbox"> look and feel)
      **************************************************************************/
     $('.custom-checkbox').iCheck({
-        checkboxClass : 'icheckbox_minimal',
+        checkboxClass : 'icheckbox_minimal'
     });
 
     /***************************************************************************
