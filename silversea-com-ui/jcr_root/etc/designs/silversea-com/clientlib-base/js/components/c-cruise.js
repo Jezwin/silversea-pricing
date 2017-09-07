@@ -1,4 +1,6 @@
 $(function() {
+    $('.cruise .lazy').lazy();
+
     $('.c-cruise .request-quote').on('click', function(e) {
         e.stopPropagation();
     })
