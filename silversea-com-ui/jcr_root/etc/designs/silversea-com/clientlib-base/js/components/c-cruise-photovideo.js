@@ -4,21 +4,6 @@ $(function() {
         setBackground();
     });
 
-    // On page load
-    setBackground();
-
-    function setBackground() {
-        var $imageList = $('.c-cruise__gallery__item .o-img');
-
-        $imageList.each(function() {
-            var $image = $(this),
-            mediaSrc = $image.prop('currentSrc') || $image.prop('src');
-
-            $image.closest('.c-cruise__gallery__item').css('background-image', 'url(' + mediaSrc + ')');
-            $image.css('visibility', 'hidden');
-        });
-    }
-
     // Gallery expander
     $('.c-cruise .expander-open, .c-cruise .expander-close').on('click', function(e) {
         e.preventDefault();
