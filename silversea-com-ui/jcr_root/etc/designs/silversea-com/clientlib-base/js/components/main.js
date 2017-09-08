@@ -185,9 +185,14 @@ $(function() {
                         window.location.href = $form.attr('action');
                     } else if ($form.hasClass('c-formcookie--modal')) {
                         var target = $form.data('target');
+
+                        // Append content from ajax response inside modal
                         $(target + ' .modal-content').load($form.attr('action'), function(response, status, xhr) {
                             if (status == "success") {
-                                $(target).modal('show');
+                                // Open modal
+                                $(target).on('shown.bs.modal', function(event) {
+                                    requestForm();
+                                }).modal('show');
                             }
                         });
                     }

@@ -1,5 +1,6 @@
 #base=js
 components/main.js
+components/c-quote-request-form.js
 components/c-header.js
 components/burgernav.js
 components/c-modal.js
@@ -14,7 +15,6 @@ components/c-cruise.js
 components/c-cruise-photovideo.js
 components/c-signupforoffers.js
 components/c-ship.js
-components/c-quote-request-form.js
 components/c-destination.js
 components/c-combo-cruise.js
 components/c-video.js
