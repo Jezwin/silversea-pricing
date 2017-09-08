@@ -42,7 +42,7 @@
                     <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${segmentList.count}-${itineraryList.count}" data-parent="#c-cruise-itinerary-list-${segmentList.count}" role="button"
                         data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = itinerary.port.thumbnail}">
                         <div class="c-cruise-itinerary-list__headline__image" data-sly-test="${itinerary.port.thumbnail}"
-                            style="background-image: url(${assetHelper.imageUrl @ context='uri'}?wid=430&fit=hfit,1)"></div>
+                            style="background-image: url(${assetHelper.imageUrl @ context='uri'}?hei=930&wid=930&fit=contrain)"></div>
                         <ul class="c-cruise-itinerary-list__headline__title">
                             <li class="c-cruise-itinerary-list__headline__title__city">${itinerary.port.apiTitle}</li>
                             <li class="c-cruise-itinerary-list__headline__title__country">${itinerary.port.country}</li>
