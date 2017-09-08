@@ -114,7 +114,9 @@ $(function() {
             event.preventDefault();
 
             // Custom behavior for subscribeemail : set false if nit checked, set true if checked
-            $form.find('[name="subscribeemail"]').val($form.find('[name="subscribeemail-custom"]').is(':checked'))
+            if ($form.find('[name="subscribeemail-custom"]').length > 0) {
+                $form.find('[name="subscribeemail"]').val($form.find('[name="subscribeemail-custom"]').is(':checked'));
+            }
 
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
