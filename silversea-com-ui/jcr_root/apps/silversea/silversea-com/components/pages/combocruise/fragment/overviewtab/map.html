@@ -27,7 +27,7 @@
                     <span>${segment.subtitle}</span>
                 </h4>
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                    data-sly-call="${imageTemplate.default @ imagePath=segment.mapReference}"/>
+                    data-sly-call="${imageTemplate.lazy @ imagePath=segment.mapReference, width=930}"/>
                 <div class="map__link">
                     <a href="#" class="btn btn-default" data-tab-target="#route">${'discover-more' @ i18n}<i class="fa fa-angle-right"></i></a>
                 </div>
