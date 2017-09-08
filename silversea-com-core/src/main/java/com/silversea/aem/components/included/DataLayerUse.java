@@ -303,12 +303,12 @@ public class DataLayerUse extends WCMUsePojo {
             }
 
             if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "tgx1COGdhAQQl5v74wM";
+                adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
                 adwords_format = "2";
             }
 
             if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "kdt4CPGbhAQQl5v74wM";
+                adwords_conversion_label = "tgx1COGdhAQQl5v74wM";
                 adwords_format = "2";
             }
 
@@ -334,12 +334,12 @@ public class DataLayerUse extends WCMUsePojo {
             }
 
             if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "-YN5COellggQ2cHp1QM";
+                adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
                 adwords_format = "3";
             }
 
             if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "LKy0CP-ilggQ2cHp1QM";
+                adwords_conversion_label = "-YN5COellggQ2cHp1QM";
                 adwords_format = "3";
             }
 
@@ -365,12 +365,12 @@ public class DataLayerUse extends WCMUsePojo {
             }
 
             if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "8OO5CMzxkQgQ1MDT0AM";
+                adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
                 adwords_format = "3";
             }
 
             if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "htQZCOztkQgQ1MDT0AM";
+                adwords_conversion_label = "8OO5CMzxkQgQ1MDT0AM";
                 adwords_format = "3";
             }
 
@@ -396,12 +396,12 @@ public class DataLayerUse extends WCMUsePojo {
             }
 
             if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "80vfCIDBxSEQgL_7yAM";
+                adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
                 adwords_format = "3";
             }
 
             if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "CkrCCPjBxSEQgL_7yAM";
+                adwords_conversion_label = "80vfCIDBxSEQgL_7yAM";
                 adwords_format = "3";
             }
 
@@ -427,12 +427,12 @@ public class DataLayerUse extends WCMUsePojo {
             }
 
             if (pageCategory2.equals("SFO TY")) {
-                adwords_conversion_label = "We5mCITWhggQzILD0AM";
+                adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
                 adwords_format = "3";
             }
 
             if (pageCategory2.equals("Send E-mail TY")) {
-                adwords_conversion_label = "Id1aCKzRhggQzILD0AM";
+                adwords_conversion_label = "We5mCITWhggQzILD0AM";
                 adwords_format = "3";
             }
 
