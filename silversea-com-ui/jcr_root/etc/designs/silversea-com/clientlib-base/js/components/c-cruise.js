@@ -20,7 +20,7 @@ $(function() {
     });
 
     // call lazy load : load image inside the current tab actived (the one opened on page load)
-    $('.c-tab--cruise > c-tab__body > .c-tab__content[data-state="active"]').find('.lazy').lazy();
+    $('.c-tab--cruise > .c-tab__body > .c-tab__content[data-state="active"]').find('.lazy').lazy();
 
     $('.c-cruise .c-tab__content').on('ctabcontent-shown', function() {
         // Force reinit slider for cruise for Enrichments and key people slider
