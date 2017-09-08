@@ -19,7 +19,7 @@
                     data-sly-test="${landPrograms.size > 0}">
                     <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#land-programs-collapse" data-target="#lp-${itinerary.port.cityId}" aria-expanded="false" aria-controls="lp-${itinerary.port.cityId}">
                         <div class="panel__heading__image">
-                            <sly data-sly-call="${imageTemplate.lazy @ imagePath=itinerary.port.thumbnail, width=120}" />
+                            <sly data-sly-call="${imageTemplate.lazy @ imagePath=itinerary.port.thumbnail, width=400}" />
                         </div>
                         <div class="panel__heading__description">
                             <h3><strong>${itinerary.port.apiTitle}</strong></h3>
