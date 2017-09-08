@@ -3,7 +3,7 @@
         <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
         <p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr' @i18n}</p>
 
-        <div data-sly-repeat="${comboCruise.prices}" class="panel c-suitelist__item ${itemList.count == 1 ? 'c-suitelist__item--first' : ''} contains-slider">
+        <div data-sly-repeat="${comboCruise.prices}" class="panel c-suitelist__item ${itemList.count == 1 ? 'c-suitelist__item--first' : ''}">
             <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
                  data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
                 <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
