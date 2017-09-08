@@ -7,8 +7,9 @@
             <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}"
                  data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
                 <div class="c-suitelist__image" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
-                    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                         data-sly-call="${imageTemplate.default @ imagePath=item.suite.thumbnail}" />
+                    <sly data-sly-test="${item.suite.thumbnail}"
+                        data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                        data-sly-call="${imageTemplate.lazy @ imagePath=item.suite.thumbnail, width=930}" />
                 </div>
                 <div class="c-suitelist__detail">
                     <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
