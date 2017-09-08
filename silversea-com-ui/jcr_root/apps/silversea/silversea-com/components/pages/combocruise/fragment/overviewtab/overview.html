@@ -1,10 +1,10 @@
 <template data-sly-template.default="${ @ comboCruise }">
     <h1 class="cc-tab_header_title">
-        ${comboCruiseUse.comboCruiseModel.title @ context='html'}
+        ${comboCruise.comboCruiseModel.title @ context='html'}
     </h1>
     <div class="cc-tab_header_desc row">
         <div class="cc-tab_header_desc_txt col-md-9">
-            <p>${comboCruiseUse.comboCruiseModel.description @ context='html'}</p>
+            <p>${comboCruise.comboCruiseModel.description @ context='html'}</p>
         </div>
         <div class="cc-tab_header_desc_cta col-md-3">
             <a class="btn btn-thin btn-red effect" href="${comboCruise.requestQuotePagePath @ extension='html'}" data-sscclicktype="clic-RAQ"><span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i></a>
