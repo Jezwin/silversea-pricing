@@ -65,6 +65,14 @@ $(function() {
                 var $video = $slide.find('.slick-current .c-video');
                 $video.find('.s7playpausebutton[selected="false"]').trigger('click');
                 $video.attr('class', 'c-video').empty();
+            }).on('afterChange', function(event, slick, currentSlide) {
+                var $slider = $(this);
+
+                // Wait for end of animation
+                setTimeout(function() {
+                    // call lazy loading
+                    $slider.closest('.c-gallery--cc').find('.slick-active .lazy').lazy();
+                }, $slider.slick('slickGetOption', 'speed'));
             });
         });
     };

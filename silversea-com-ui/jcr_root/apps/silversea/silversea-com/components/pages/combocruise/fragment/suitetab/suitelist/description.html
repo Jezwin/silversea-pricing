@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ suitePrice, requestQuotePath }">
     <div class="row c-tab__content--description__row">
-        <div class="col-sm-6">
+        <div class="col-sm-6 c-tab__content--description__slider">
             <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
                 data-sly-call="${sliderTemplate.populatefromSetStyle2 @ setImagePath=suitePrice.suite.assetSelectionReference}" />
         </div>
