@@ -109,11 +109,12 @@ $(function() {
     'use strict';
     $.signUp = {
         signUpOffers : function(elem, event) {
+            var $form = $(elem);
             // Cancel synchrone submit
             event.preventDefault();
 
             // Custom behavior for subscribeemail : set false if nit checked, set true if checked
-            $(elem).find('[name="subscribeemail"]').val($(elem).find('[name="subscribeemail-custom"]').is(':checked'))
+            $form.find('[name="subscribeemail"]').val($form.find('[name="subscribeemail-custom"]').is(':checked'))
 
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
@@ -126,7 +127,7 @@ $(function() {
             }
             var leadApiData = {},
                 currentData = JSON.parse($.CookieManager.getCookie('userInfo')),
-                form = $(elem).serializeArray();
+                form = $form.serializeArray();
 
             // Browse the form fields and extract values to leadApiData
             for (i in form) {
@@ -150,7 +151,7 @@ $(function() {
 
                     if (typeof data !== 'string') {
                         console.log('Invalid lead API data received');
-                        window.location.href = elem.action;
+                        window.location.href = $form.attr('action');
                         return;
                     }
 
@@ -180,11 +181,11 @@ $(function() {
                     $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
                     $.CookieManager.setCookie('api_indiv_id', data);
 
-                    if (elem.className.match(/c-formcookie--redirect/) !== null) {
-                        window.location.href = elem.action;
-                    } else if (elem.className.match(/c-formcookie--modal/) !== null) {
-                        var target = elem.dataset.target;
-                        $(target + ' .modal-content').load(elem.action, function(response, status, xhr) {
+                    if ($form.hasClass('c-formcookie--redirect')) {
+                        window.location.href = $form.attr('action');
+                    } else if ($form.hasClass('c-formcookie--modal')) {
+                        var target = $form.data('target');
+                        $(target + ' .modal-content').load($form.attr('action'), function(response, status, xhr) {
                             if (status == "success") {
                                 $(target).modal('show');
                             }
