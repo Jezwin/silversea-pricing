@@ -21,11 +21,5 @@ $(function() {
     };
 
     // Init video on page load
-    var $video = $('.c-video');
-
-    $video.each(function(currentVideo, i) {
-        if ($(currentVideo).closest('.c-gallery--cc').length > 0) {
-            $(currentVideo).initVideo();
-        }
-    });
+    $('.c-video').initVideo();
 });
