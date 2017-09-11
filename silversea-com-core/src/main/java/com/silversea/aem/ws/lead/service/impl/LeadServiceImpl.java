@@ -117,8 +117,10 @@ public class LeadServiceImpl implements LeadService {
         request.setCity(lead.getCity());
         request.setCountry(lead.getCountry());
         request.setBrochuresRequested(lead.getBrochurecode());
-        if (lead.getRequesttype() != null && (lead.getRequesttype().equals("BRO") || lead.getRequesttype().equals("EBRO"))) {
-            if (StringUtils.isEmpty(lead.getIsnotagent())) { // isnotagent was not checked
+        if (lead.getRequestsource() != null && (lead.getRequestsource().equals("BRO") || lead.getRequestsource().equals("EBRO"))) {
+            if (lead.getIsnotagent() != null && lead.getIsnotagent().equals("true")) {
+                request.setIsAgent(Short.parseShort("0")); //false - is agent
+            } else {
                 request.setIsAgent(Short.parseShort("1")); //true - is agent
             }
         }
