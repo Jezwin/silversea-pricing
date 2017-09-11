@@ -37,7 +37,7 @@ $(function() {
         });
     }
 
-    $('.video-link').on('click', function(e) {
+    $('.video-link[data-target]').on('click', function(e) {
         e.preventDefault();
         var $link = $(this),
             ajaxContentPath = $link.attr('href'),
