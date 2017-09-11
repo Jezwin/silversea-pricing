@@ -1,5 +1,7 @@
 $(function() {
-    requestForm();
+    $('.modal').on('shown.bs.modal loaded.bs.modal', function(event) {
+        requestForm();
+    });
 });
 
 function requestForm() {

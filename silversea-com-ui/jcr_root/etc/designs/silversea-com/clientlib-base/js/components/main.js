@@ -192,9 +192,8 @@ $(function() {
                         $(target + ' .modal-content').load($form.attr('action'), function(response, status, xhr) {
                             if (status == "success") {
                                 // Open modal
-                                $(target).on('shown.bs.modal', function(event) {
-                                    requestForm();
-                                }).modal('show');
+                                $(target).modal('show');
+                                // Once modal loaded, script from c-quote-request-form.js will be launched
                             }
                         });
                     }
