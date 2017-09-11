@@ -13,12 +13,19 @@ $(function() {
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
                     'posterimage' : asset,
                     'asset' : asset,
-                    'autoplay' : autoplay.toString()
+                    'autoplay' : autoplay.toString(),
+                    'initialbitrate' : '2600'
                 }
             }).init();
         });
     };
 
     // Init video on page load
-    $('.c-video').initVideo();
+    var $video = $('.c-video');
+
+    $video.each(function(currentVideo, i) {
+        if ($(currentVideo).closest('.c-gallery--cc').length > 0) {
+            $(currentVideo).initVideo();
+        }
+    });
 });
