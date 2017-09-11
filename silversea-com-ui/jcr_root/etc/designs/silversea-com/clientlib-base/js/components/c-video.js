@@ -21,5 +21,5 @@ $(function() {
     };
 
     // Init video on page load
-    $('.c-video').initVideo();
+    $('.c-video:not(.c-video--cc-gallery)').initVideo();
 });
