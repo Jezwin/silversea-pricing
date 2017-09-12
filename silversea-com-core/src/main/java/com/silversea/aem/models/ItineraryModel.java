@@ -39,7 +39,9 @@ public class ItineraryModel {
     private Integer itineraryId;
 
     @Inject @Optional
-    private Date date;
+    private Date date; // TODO change by arriveDate
+
+    private Calendar departDate; // used only when itineraries are compacted
 
     @Inject @Optional
     private String arriveTime;
@@ -110,6 +112,14 @@ public class ItineraryModel {
         calendar.setTime(date);
 
         return calendar;
+    }
+
+    public Calendar getDepartDate() {
+        return departDate;
+    }
+
+    public void setDepartDate(final Calendar departDate) {
+        this.departDate = departDate;
     }
 
     public String getArriveTime() {

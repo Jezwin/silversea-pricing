@@ -283,6 +283,7 @@ public class CruiseModel {
             if (lastItinerary != null && lastItinerary.getPort() != null
                     && itineraryModel != null && itineraryModel.getPort() != null
                     && lastItinerary.getPort().getCityId().equals(itineraryModel.getPort().getCityId())) {
+                lastItinerary.setDepartDate(itineraryModel.getDate());
                 lastItinerary.setDepartTime(itineraryModel.getDepartTime());
 
                 lastItinerary.getCompactedExcursions().addAll(itineraryModel.getCompactedExcursions());
