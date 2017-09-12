@@ -1,15 +1,15 @@
 $(function() {
-    $('.modal').on('shown.bs.modal', function(event) {
+    $('.modal').on('shown.bs.modal loaded.bs.modal', function(event) {
         requestForm();
-        $(this).find('.custom-checkbox').iCheck({
-            checkboxClass : 'icheckbox_minimal'
-        });
     });
-    requestForm();
 });
 
-//make code in function to call on modal shown
 function requestForm() {
+    // Customize checkebox
+    $('.custom-checkbox').iCheck({
+        checkboxClass : 'icheckbox_minimal'
+    });
+
     // Autogrow Textarea
     $('.textarea_autogrow').each(function() {
         var $autogrow = $(this),

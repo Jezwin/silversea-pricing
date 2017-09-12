@@ -370,9 +370,11 @@ public class CruisesImporterImpl implements CruisesImporter {
                     final Node cruiseContentNode = cruisePage.getContentResource().adaptTo(Node.class);
                     try {
                         final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+                        final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
 
-                        if (startDate.before(Calendar.getInstance())) {
-                            LOGGER.debug("Cruise {} in the past, mark to deactivate", cruiseContentNode.getPath());
+                        if (startDate.before(Calendar.getInstance()) || !isVisible) {
+                            LOGGER.debug("Cruise {} in the past ({}) or not visible ({}), mark to deactivate",
+                                    cruiseContentNode.getPath(), startDate.getTime(), isVisible);
 
                             cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 

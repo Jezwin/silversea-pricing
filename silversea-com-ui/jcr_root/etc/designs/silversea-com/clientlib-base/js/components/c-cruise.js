@@ -10,13 +10,17 @@ $(function() {
 
     // Force reinit slider
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
+        // load image inside slider first
+        $(this).find('.lazy').lazy();
+
+        // reinit slider with resize event
         setTimeout(function() {
             $(window).trigger('resize');
         }, 50);
     });
 
     // call lazy load : load image inside the current tab actived (the one opened on page load)
-    $('.c-cruise .c-tab__content[data-state="active"]').find('.lazy').lazy();
+    $('.c-tab--cruise > .c-tab__body > .c-tab__content[data-state="active"]').find('.lazy').lazy();
 
     $('.c-cruise .c-tab__content').on('ctabcontent-shown', function() {
         // Force reinit slider for cruise for Enrichments and key people slider
@@ -36,6 +40,7 @@ $(function() {
         $('html, body').animate({
             scrollTop : scrollTargetOffsetTop - $('.c-header').height() - $('.c-main-nav__container').height()
         }, 500);
+
     }).on('hide.bs.collapse', function(e) {
         var $item = $('div[id^="suitelist-collapse"]').not($(this));
         $item.prev('.c-suitelist__heading').removeClass('opacity');
@@ -46,10 +51,6 @@ $(function() {
         e.preventDefault();
         var $tab = $(this).closest('.c-tab ').find('a[href^="#suite-location"]').closest('.c-tab__link').trigger('click');
     })
-
-    $('.nav-tabs--vertical [data-toggle="tab"]').on('show.bs.tab', function(e) {
-        $($(e.target).attr('href')).find('.lazy').lazy();
-    });
 
     // Force Scroll top for highlight container on resize
     $(window).on('resize', function() {

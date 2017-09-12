@@ -111,7 +111,7 @@
     <booking-bonus
         jcr:primaryType="sling:MessageEntry"
         sling:key="booking-bonus"
-        sling:message="booking bonus"/>
+        sling:message=" Reserva Anticipada"/>
     <built-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -259,7 +259,7 @@
     <deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Cubierta"/>
     <deck-plan-details
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -331,7 +331,7 @@
     <early-booking-bonus
         jcr:primaryType="sling:MessageEntry"
         sling:key="early-booking-bonus"
-        sling:message="Early booking bonus"/>
+        sling:message="bono reserva anticipada"/>
     <EC
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -396,7 +396,7 @@
     <fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Tarifas"/>
     <fares-from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -549,7 +549,7 @@
     <land-and-hotel
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Tierra y hotel"/>
+        sling:message="Land y hotel"/>
     <land-programme
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -581,7 +581,7 @@
     <location
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="LOCALIZACIÓN"/>
     <location-images
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -657,11 +657,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Del propietario"/>
+        sling:message="Owner's"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Propietario"/>
+        sling:message="Owner"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -849,7 +849,7 @@
     <restaurants
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Restaurantes"/>
     <restaurants-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -901,7 +901,7 @@
     <select-your-suite
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="SELECCIONE SU SUITE"/>
     <select-your-suite-and-request-a-quote
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -977,7 +977,7 @@
     <suites-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Plano de la Suite"/>
     <SV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1051,7 +1051,7 @@
     <view
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Ver"/>
     <view-all
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1075,7 +1075,7 @@
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="ver cubierta"/>
     <view-deck-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1147,11 +1147,11 @@
     <with
         jcr:primaryType="sling:MessageEntry"
         sling:key="with"
-        sling:message="with"/>
+        sling:message="con"/>
     <with-early
         jcr:primaryType="sling:MessageEntry"
         sling:key="with-early"
-        sling:message="with early"/>
+        sling:message="Bonificación por"/>
     <you-can-utilize-this-page
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

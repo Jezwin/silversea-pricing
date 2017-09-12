@@ -1,8 +1,7 @@
 $(function() {
     /***************************************************************************
-     * Modal
+     * Modal : Clean modal content on close event
      **************************************************************************/
-    // Clean modal content on close event
     $(document).on('hide.bs.modal', function(e) {
         $(e.target).removeData('bs.modal');
 
@@ -15,12 +14,14 @@ $(function() {
         $modalContent.attr('class', 'modal-content');
     });
 
-    // Build modal for image
+    /***************************************************************************
+     * Build modal for image
+     **************************************************************************/
     $('.automatic-modal, .virtual-tour-modal').on('click', function(e) {
         e.preventDefault();
-		
-		$('body').addClass('modal-open');
-		
+
+        $('body').addClass('modal-open');
+
         // HTML layout
         var $modalContent = $('<div class="modal-content modal-content--transparent modal-content--single">'
                 + '<div class="modal-header"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
@@ -37,7 +38,9 @@ $(function() {
         });
     });
 
-    // Modal Gallery for "cruise page" and "inline gallery component"
+    /***************************************************************************
+     * Modal Gallery for "cruise page" and "inline gallery component"
+     **************************************************************************/
     $('.automatic-gallery-modal').on('click', function(e) {
         e.preventDefault();
         var $link = $(this),
@@ -101,14 +104,22 @@ $(function() {
                 // Set total number of slide
                 $slideFor.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-total').html(slideTotalItem);
                 $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-                    var $slide = $(this);
+                    var $slider = $(this);
                     // Set counter according to the current slide
-                    $slide.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
+                    $slider.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
 
                     // Kill video if current slide contains video
-                    var $video = $slide.find('.slick-current .c-video');
+                    var $video = $slider.find('.slick-current .c-video');
                     $video.find('.s7playpausebutton[selected="false"]').trigger('click');
                     $video.attr('class', 'c-video').empty();
+                }).on('afterChange', function(event, slick, currentSlide) {
+                    var $slider = $(this);
+
+                    // Wait for end of animation
+                    setTimeout(function() {
+                        // call lazy loading
+                        $slider.closest('.c-gallery').find('.slick-active .lazy').lazy();
+                    }, $slider.slick('slickGetOption', 'speed'));
                 });
 
                 // Scroll to the target image

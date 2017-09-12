@@ -36,12 +36,10 @@ $(function() {
                 }
             });
 
-            // Description : Show description on slide change
-            $slideFor.on('afterChange', function(event, slick, currentSlide) {
-                var index = currentSlide,
-                    $captionWrapper = $component.find('.c-gallery--cc__caption'),
-                    $currentSlideElement = $(this).find('[data-slick-index = ' + index + ']');
-                $captionWrapper.text($currentSlideElement.find('.c-gallery--cc__text').text());
+            // Init video on click
+            $component.find('.video-link').on('click', function(e) {
+                e.preventDefault();
+                $(this).next('.c-video').initVideo();
             });
 
             // Update category tab according to the current slide
@@ -51,12 +49,6 @@ $(function() {
                 $component.find('.c-gallery--cc__tab__link').closest('.c-gallery--cc__tab__item').removeClass('active');
                 $component.find('.c-gallery--cc__tab__link[data-category="' + currentCategory + '"]').closest('.c-gallery--cc__tab__item').addClass('active');
 
-                // Init video on click
-                $('.video-link').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).next('.c-video').initVideo();
-                })
-
                 var $slide = $(this);
                 // Set counter according to the current slide
                 $slide.closest('.c-gallery__wrappertop').find('.c-gallery__counter .slide-item-current').html(nextSlide + 1);
@@ -65,6 +57,20 @@ $(function() {
                 var $video = $slide.find('.slick-current .c-video');
                 $video.find('.s7playpausebutton[selected="false"]').trigger('click');
                 $video.attr('class', 'c-video').empty();
+            }).on('afterChange', function(event, slick, currentSlide) {
+                var $slider = $(this);
+
+                // Wait for end of animation
+                setTimeout(function() {
+                    // call lazy loading
+                    $slider.closest('.c-gallery--cc').find('.slick-active .lazy').lazy();
+                }, $slider.slick('slickGetOption', 'speed'));
+
+                // Description : Show description on slide change
+                var index = currentSlide,
+                    $captionWrapper = $component.find('.c-gallery--cc__caption'),
+                    $currentSlideElement = $(this).find('[data-slick-index = ' + index + ']');
+                $captionWrapper.text($currentSlideElement.find('.c-gallery--cc__text').text());
             });
         });
     };
