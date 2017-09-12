@@ -2,6 +2,9 @@ $(function() {
     $('.modal').on('shown.bs.modal loaded.bs.modal', function(event) {
         requestForm();
     });
+
+    // on page load for form inside current page
+    requestForm();
 });
 
 function requestForm() {
