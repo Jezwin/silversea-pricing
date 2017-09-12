@@ -23,7 +23,7 @@
                         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
                     </div>
                     <h2 class="c-tabbedmozaic__title">
-                        <span>${destination.title @ context='html'}</span>
+                        <span>${destination.navigationTitle || destination.title @ context='html'}</span>
                     </h2>
                     <a class="c-tabbedmozaic__link--block" data-sly-test=${destination.path} href="${destination.path @ extension='html'}"></a>
                 </div>
