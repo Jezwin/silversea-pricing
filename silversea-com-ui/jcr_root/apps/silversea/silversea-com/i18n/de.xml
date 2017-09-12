@@ -108,6 +108,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Blogartikel"/>
+    <booking-bonus
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message=" Frühbucherbonus"/>
     <built-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -973,6 +977,11 @@
     <suites-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"/>
+    <suites-plan0
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:key="suites-plan"
+        sling:message="Suiteplan"/>
     <SV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1135,6 +1144,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Km"/>
+    <with
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="mit"/>
+    <with-early
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="mit "/>
     <you-can-utilize-this-page
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

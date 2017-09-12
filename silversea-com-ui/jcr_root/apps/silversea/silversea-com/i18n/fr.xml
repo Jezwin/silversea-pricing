@@ -108,6 +108,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Articles de blog"/>
+    <booking-bonus
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="booking bonus"/>
     <built-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -219,7 +223,7 @@
     <cruise-ship-publicarea-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Renommées pour leur excellence culinaire et leur esprit d’innovation, les croisières de luxe Silversea proposent plusieurs options de dîner pendant la traversée, ainsi que de nombreux établissements spécialisés sur tous les bateaux de croisière."/>
+        sling:message="Renommées pour leur excellence culinaire et leur esprit d’innovation, les croisières de luxe Silversea proposent plusieurs options de dîner pendant les voyages, ainsi que de nombreux établissements spécialisés sur tous les bateaux de croisière."/>
     <cruise-ship-restaurant-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -255,7 +259,7 @@
     <deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Pont"/>
     <deck-plan-details
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -327,7 +331,7 @@
     <early-booking-bonus
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Early Booking Bonus"/>
     <EC
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -392,7 +396,7 @@
     <fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Prix"/>
     <fares-from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -545,7 +549,7 @@
     <land-and-hotel
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Hébergement au sol"/>
+        sling:message="Land et Hotels"/>
     <land-programme
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -577,7 +581,7 @@
     <location
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="LOCALISATION"/>
     <location-images
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -653,11 +657,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="du propriétaire"/>
+        sling:message="Owner's"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Propriétaire"/>
+        sling:message="Owner"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -742,7 +746,7 @@
     <previous-voyage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="traversée précédente"/>
+        sling:message="Voyage précédent"/>
     <prof
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -846,7 +850,7 @@
     <restaurants
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Restaurants"/>
     <restaurants-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -866,7 +870,7 @@
     <routes
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Trajets"/>
+        sling:message="Routes"/>
     <routes-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -898,7 +902,7 @@
     <select-your-suite
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="SELECTIONNEZ VOTRE SUITE"/>
     <select-your-suite-and-request-a-quote
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -974,7 +978,7 @@
     <suites-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Plan de la suite"/>
     <SV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1040,11 +1044,11 @@
     <VI
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Vue"/>
+        sling:message="Vista"/>
     <view
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Voir"/>
     <view-all
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1068,7 +1072,7 @@
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="voir le pont"/>
     <view-deck-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1096,7 +1100,7 @@
     <voyage-highlights
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Temps forts de la traversée"/>
+        sling:message="Temps forts du Voyage"/>
     <voyage-highlights-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1108,7 +1112,7 @@
     <voyages
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Traversées"/>
+        sling:message="Voyages"/>
     <VR
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1116,7 +1120,7 @@
     <VS
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Vue"/>
+        sling:message="View"/>
     <waitlist
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1137,6 +1141,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Km"/>
+    <with
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="avec"/>
+    <with-early
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="avec early"/>
     <you-can-utilize-this-page
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
