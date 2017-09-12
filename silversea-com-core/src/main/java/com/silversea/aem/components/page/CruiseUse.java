@@ -360,6 +360,13 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     }
 
     /**
+     * @return the total number of cruise fares additions
+     */
+    public int getCruiseFareAdditionsSize() {
+        return getExclusiveOffersCruiseFareAdditions().size() + cruiseModel.getCruiseFareAdditions().size();
+    }
+
+    /**
      * @return first map overhead
      */
     public String getMapOverHead() {
