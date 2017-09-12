@@ -4,7 +4,7 @@
             ${cruise.cruiseModel.departurePortName} ${'to' @ i18n} ${cruise.cruiseModel.arrivalPortName}
 
             <span class="cruise_header__subtitle">
-                ${cruise.cruiseModel.destination.title}
+                ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
                 <sly data-sly-test.silverseaExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">${'expedition-cruise' @ i18n}</sly>
                 <sly data-sly-test="${!silverseaExpedition}">${'cruise' @ i18n}</sly>
             </span>
