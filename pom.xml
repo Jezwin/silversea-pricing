@@ -14,7 +14,7 @@
     <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>silversea-com</artifactId>
-    <version>1.13.1-SNAPSHOT</version>
+    <version>1.13.1</version>
     <packaging>pom</packaging>
     <name>Silversea.com</name>
     <url />
