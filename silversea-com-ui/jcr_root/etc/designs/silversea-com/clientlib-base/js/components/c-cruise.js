@@ -227,4 +227,47 @@ $(function() {
             return isMobile ? totalHeight[0] + totalHeight[1] : Math.max.apply(Math, totalHeight);
         }
     });
+
+    /***************************************************************************
+     * Read more
+     **************************************************************************/
+    var readMore = (function readMore() {
+        $('.c-cruise-ship-info__item .variationcontent__descr').each(function(i, description) {
+            var $description = $(description);
+            // Re-init hmtl markup
+            $description.attr('data-original-height', '');
+            $description.removeClass('clipped');
+            $description.removeClass('opened');
+
+            if ($description.height() > 137) {
+                var $descriptionToggle = $description.next('.variationcontent__descr__expand');
+                var $moreBtn = $descriptionToggle.find('.read_more');
+                var $lessBtn = $descriptionToggle.find('.read_less');
+
+                $description.attr('data-original-height', $description.height());
+                $description.addClass('clipped');
+
+                // Expand
+                $moreBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $description.addClass('opened');
+                    $description.css('height', $description.data('original-height'))
+                });
+
+                // Collapse
+                $lessBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $description.removeClass('opened');
+                    $description.css('height', '')
+                });
+            }
+        });
+
+        return readMore;
+    })();
+
+    // Init function on resize
+    $('body').on('trigger.viewport.changed', function() {
+        readMore();
+    });
 });
