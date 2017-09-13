@@ -19,6 +19,9 @@ public class DestinationModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/navTitle") @Optional
+    private String navigationTitle;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/mapLabel") @Optional
     private String mapLabel;
 
@@ -58,6 +61,10 @@ public class DestinationModel {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getNavigationTitle() {
+        return navigationTitle;
     }
 
     public String getMapLabel() {
