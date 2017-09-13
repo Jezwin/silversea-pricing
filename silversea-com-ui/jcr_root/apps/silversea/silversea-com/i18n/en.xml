@@ -1035,7 +1035,7 @@
     <your-search-results
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-search-results"
-        sling:message="your search results" />
+        sling:message="your search results :" />
     <clear-all-filters
         jcr:primaryType="sling:MessageEntry"
         sling:key="clear-all-filters"

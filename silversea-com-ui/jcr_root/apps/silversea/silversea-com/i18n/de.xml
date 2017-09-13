@@ -1163,5 +1163,5 @@
     <your-search-results
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Ihre Suchergebnisse"/>
+        sling:message="Ihre Suchergebnisse :"/>
 </jcr:root>
