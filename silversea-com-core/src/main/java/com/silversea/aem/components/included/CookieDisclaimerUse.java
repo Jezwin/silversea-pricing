@@ -6,6 +6,7 @@ import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.tagging.TagConstants;
 import com.silversea.aem.services.GeolocationTagService;
+import org.apache.sling.api.resource.Resource;
 
 /**
  * Created by asiba on 14/03/2017.
@@ -24,15 +25,20 @@ public class CookieDisclaimerUse extends WCMUsePojo {
         if (geolocationTagService != null) {
             final String geolocationTagId = geolocationTagService.getTagIdFromRequest(getRequest());
 
-            // Getting inherited properties
-            final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-            description = properties.getInherited(JcrConstants.JCR_DESCRIPTION, String.class);
+            final Resource cookieDisclaimerResource = !getResource().getName().equals("cookie-disclaimer")
+                    ? getResource().getChild("cookie-disclaimer") : getResource();
 
-            final String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
-            if (tags != null) {
-                for (String tag : tags) {
-                    if (tag.equals(geolocationTagId)) {
-                        showCookieMsg = true;
+            // Getting inherited properties
+            if (cookieDisclaimerResource != null) {
+                final InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(cookieDisclaimerResource);
+                description = properties.getInherited(JcrConstants.JCR_DESCRIPTION, String.class);
+
+                final String[] tags = properties.getInherited(TagConstants.PN_TAGS, String[].class);
+                if (tags != null) {
+                    for (String tag : tags) {
+                        if (tag.equals(geolocationTagId)) {
+                            showCookieMsg = true;
+                        }
                     }
                 }
             }
@@ -42,7 +48,7 @@ public class CookieDisclaimerUse extends WCMUsePojo {
     /**
      * @return the showCookieMsg
      */
-    public Boolean getShowCookieMsg() {
+    public Boolean showCookieMsg() {
         return showCookieMsg;
     }
 
