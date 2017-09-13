@@ -11,7 +11,11 @@ $(function() {
     // Force reinit slider
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         // load image inside slider first
-        $(this).find('.lazy').lazy();
+        $(this).find('.lazy').lazy({
+            afterLoad: function(element) {
+                $(window).trigger('resize');
+            }
+        });
 
         // reinit slider with resize event
         setTimeout(function() {
