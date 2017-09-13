@@ -506,14 +506,17 @@ public class CruisesImporterImpl implements CruisesImporter {
         cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
         cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
 
+        // TODO temporary not write livecopy informations to be compliant with PROD content
         // Set livecopy mixin
-        if (!language.equals("en")) {
+        /* if (!language.equals("en")) {
             cruiseContentNode.addMixin("cq:LiveRelationship");
             cruiseContentNode.addMixin("cq:PropertyLiveSyncCancelled");
 
-            cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"apiTitle", "importedDescription",
-                    "jcr:title", "sling:alias"});
-        }
+            if (!cruiseContentNode.hasProperty("cq:propertyInheritanceCancelled")) {
+                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"apiTitle", "importedDescription",
+                        "jcr:title", "sling:alias"});
+            }
+        } */
 
         CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService);
         cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
