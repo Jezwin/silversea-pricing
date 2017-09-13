@@ -259,7 +259,7 @@
     <deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Deck"/>
     <deck-plan-details
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -331,7 +331,7 @@
     <early-booking-bonus
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Frühbucherbonus"/>
     <EC
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -396,11 +396,11 @@
     <fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Preise"/>
     <fares-from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Tarife von"/>
+        sling:message="Preise ab"/>
     <fares-shown-are-per-guest
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -581,7 +581,7 @@
     <location
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="LAGE"/>
     <location-images
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -657,11 +657,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="des Besitzers"/>
+        sling:message="Owner's"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Besitzer"/>
+        sling:message="Owner"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -849,7 +849,7 @@
     <restaurants
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Restaurants"/>
     <restaurants-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -901,7 +901,7 @@
     <select-your-suite
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="WÄHLEN SIE IHRE SUITE"/>
     <select-your-suite-and-request-a-quote
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1047,7 +1047,7 @@
     <view
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="Ansehen"/>
     <view-all
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1071,7 +1071,7 @@
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="TO BE TRANSLATED"/>
+        sling:message="deckplan ansehen"/>
     <view-deck-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
