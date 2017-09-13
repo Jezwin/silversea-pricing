@@ -511,8 +511,10 @@ public class CruisesImporterImpl implements CruisesImporter {
             cruiseContentNode.addMixin("cq:LiveRelationship");
             cruiseContentNode.addMixin("cq:PropertyLiveSyncCancelled");
 
-            cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"apiTitle", "importedDescription",
-                    "jcr:title", "sling:alias"});
+            if (!cruiseContentNode.hasProperty("cq:propertyInheritanceCancelled")) {
+                cruiseContentNode.setProperty("cq:propertyInheritanceCancelled", new String[]{"apiTitle", "importedDescription",
+                        "jcr:title", "sling:alias"});
+            }
         }
 
         CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService);
