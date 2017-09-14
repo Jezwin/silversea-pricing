@@ -1,7 +1,9 @@
 <div class="clearfix c-fyc__results__wrapper" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
     <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
-        <div class="c-fyc__result__wrapper">
-            <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail @ context='uri'}?wid=360)"> 
+        <div class="c-fyc__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
+            <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=360" />
+            <sly data-sly-test.thumbnailFallback="${currentDesign.path}/clientlib-base/images/cruise-thumbnail.jpg" />
+            <div class="c-fyc__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})"> 
                 <span  data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag">
                     <span class="flag__icon icon-star"></span>
                     <span class="flag__text">${'exclusive offer' @ i18n}</span>
