@@ -1,6 +1,6 @@
 $(function() {
     // Route tab : toggle style for active/inactive tab
-    $('.select-segment dd a').on('click', function(e) {
+    $('.c-combo-cruise .select-segment dd a').on('click', function(e) {
         e.preventDefault();
         var $tab = $(e.target);
         var $item = $tab.closest('dd');
@@ -45,6 +45,27 @@ $(function() {
                 // Open current segment
                 $(tabId).find('.select-segment dd:eq(' + $trigger.closest('[data-slick-index]').data('slick-index') + ') a').trigger('click');
             }
+        });
+    });
+
+    // Open benefit and event tab and scroll to target Accordion
+    $('.c-combo-cruise .c-vertical-teaser').each(function() {
+        var $teaser = $(this);
+        $teaser.find('a').on('click', function(e) {
+            e.preventDefault();
+
+            // First open benefit and event tab
+            $('a[href="#benefitsnevents"]').trigger('click');
+
+            // Next find and scroll to accordion target
+            var $target = $('#' + $(this).attr('href').split("#")[1]);
+
+            $('html, body').animate({
+                scrollTop : $target.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
+            }, 300).promise().then(function() {
+                // Open accordion target
+                $target.trigger('click');
+            });
         });
     });
 });
