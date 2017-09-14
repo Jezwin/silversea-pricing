@@ -7,7 +7,7 @@ $(function() {
     requestForm();
 });
 
-function requestForm() {
+function requestForm() { 
     // Customize checkebox
     $('.custom-checkbox').iCheck({
         checkboxClass : 'icheckbox_minimal'
@@ -121,7 +121,6 @@ function requestForm() {
         }
     }).off('input.bs.validator change.bs.validator').on('submit', function(e) {
         $(this).find('[name="phone"]').val($('#InputTelephoneNumber').intlTelInput("getNumber"));
-
         if (!e.isDefaultPrevented()) {
             $.signUp.signUpOffers(this, e);
         }
