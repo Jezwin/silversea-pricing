@@ -1,9 +1,10 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import org.apache.sling.api.resource.ResourceResolver;
+import com.silversea.aem.utils.AssetUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -13,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class PublicAreaModel implements ShipAreaModel {
@@ -40,6 +43,8 @@ public class PublicAreaModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
     private String virtualTour;
 
+    private List<Asset> assets = new ArrayList<>();
+
     private SuiteModel genericSuite;
 
     @PostConstruct
@@ -53,6 +58,10 @@ public class PublicAreaModel implements ShipAreaModel {
             if (genericSuitePage != null) {
                 genericSuite = genericSuitePage.adaptTo(SuiteModel.class);
             }
+        }
+
+        if (assetSelectionReference != null) {
+            assets.addAll(AssetUtils.buildAssetList(assetSelectionReference, page.getContentResource().getResourceResolver()));
         }
     }
 
@@ -77,6 +86,14 @@ public class PublicAreaModel implements ShipAreaModel {
 
     public String getVirtualTour() {
         return virtualTour;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public Asset getFirstAsset() {
+        return assets.size() > 0 ? assets.get(0) : null;
     }
 
     public Page getPage() {

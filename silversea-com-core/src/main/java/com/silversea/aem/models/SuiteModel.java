@@ -1,22 +1,22 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.utils.AssetUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 @Model(adaptables = Page.class)
 public class SuiteModel implements ShipAreaModel {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(SuiteModel.class);
 
     @Inject @Self
     private Page page;
@@ -57,6 +57,8 @@ public class SuiteModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle") @Optional
     private String suiteSubTitle;
 
+    private List<Asset> assets = new ArrayList<>();
+
     private String name;
 
     @PostConstruct
@@ -73,6 +75,10 @@ public class SuiteModel implements ShipAreaModel {
         }
 
         name = page.getName();
+
+        if (assetSelectionReference != null) {
+            assets.addAll(AssetUtils.buildAssetList(assetSelectionReference, page.getContentResource().getResourceResolver()));
+        }
     }
 
     public String getTitle() {
@@ -107,6 +113,14 @@ public class SuiteModel implements ShipAreaModel {
 
     public String getVirtualTour() {
         return virtualTour;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public Asset getFirstAsset() {
+        return assets.size() > 0 ? assets.get(0) : null;
     }
 
     public String getThumbnail() {

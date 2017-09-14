@@ -47,12 +47,10 @@ public class AssetUtils {
     }
 
     public static List<Asset> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
-        List<Asset> assets = new ArrayList<>();
+        final List<Asset> assets = new ArrayList<>();
 
         for (ShipAreaModel shipArea : shipAreas) {
-            if (StringUtils.isNotBlank(shipArea.getAssetSelectionReference())) {
-                assets.addAll(buildAssetList(shipArea.getAssetSelectionReference(), resourceResolver));
-            }
+            assets.addAll(shipArea.getAssets());
 
             if (StringUtils.isNotBlank(shipArea.getVirtualTour())) {
                 final Resource virtualTourResource = resourceResolver.getResource(shipArea.getVirtualTour());
