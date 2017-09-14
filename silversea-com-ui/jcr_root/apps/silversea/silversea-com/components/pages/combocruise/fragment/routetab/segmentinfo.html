@@ -30,8 +30,10 @@
             <sly data-sly-test.poiname="${'poi-slider{0}' @ format=[segmentList.count]}" />
             <div data-sly-resource="${poiname @ resourceType='silversea/silversea-com/components/editorial/slider'}"></div>
 
-            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                data-sly-call="${imageTemplate.default @ imagePath=segment.focusedMapReference}"/>
+            <div class="segment-section__map">
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                    data-sly-call="${imageTemplate.default @ imagePath=segment.focusedMapReference}"/>
+            </div>
 
             <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list-${segmentList.count}"
                 data-sly-test="${segment.cruise.compactedItineraries}" data-sly-list.itinerary="${segment.cruise.compactedItineraries}">
