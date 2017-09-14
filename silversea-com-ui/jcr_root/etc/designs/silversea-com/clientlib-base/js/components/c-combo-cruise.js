@@ -9,17 +9,20 @@ $(function() {
 
         // init slider inside current tab content
         var $currentSlider;
-        $tab.on('shown.bs.tab', function() {
+        $tab.one('shown.bs.tab', function() {
             var $panel = $($(this).attr('href'));
-            $currentSlider = $panel.find('.c-slider')
+            $currentSlider = $panel.find('.c-slider');
             $currentSlider.slick('unslick').slick(settingSlider);
 
+            // load lazy image
+            $panel.find('.lazy').lazy();
+
             // Scroll to panel
-            $('html, body').stop().delay(100).animate({
-                scrollTop: $panel.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
+            $('html, body').animate({
+                scrollTop : $panel.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
             }, 300);
         });
-    })
+    });
 
     // Overview tab : open suite/route tab for the current item
     $('.c-combo-cruise #overview [data-tab-target]').on('click', function() {
