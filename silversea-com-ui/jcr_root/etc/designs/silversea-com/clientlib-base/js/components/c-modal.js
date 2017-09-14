@@ -114,17 +114,21 @@ $(function() {
                     $video.attr('class', 'c-video').empty();
                 }).on('afterChange', function(event, slick, currentSlide) {
                     var $slider = $(this);
+                    var $sliderActive = $slider.closest('.c-gallery').find('.slick-active');
 
-                    // Wait for end of animation
-                    setTimeout(function() {
-                        // call lazy loading
-                        $slider.closest('.c-gallery').find('.slick-active .lazy').lazy();
-                    }, $slider.slick('slickGetOption', 'speed'));
+                    // call lazy loading for active image
+                    $sliderActive.find('.lazy').lazy();
+
+                    // call lazy loading for 2 previous and next images active
+                    $sliderActive.prev().find('.lazy').lazy();
+                    $sliderActive.prev().prev().find('.lazy').lazy();
+                    $sliderActive.next().find('.lazy').lazy();
+                    $sliderActive.next().next().find('.lazy').lazy();
                 });
 
                 // Scroll to the target image
                 var currentImagePath = $link.attr('href');
-                $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), true);
+                $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), false);
             });
         });
     });
