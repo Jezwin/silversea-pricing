@@ -11,7 +11,11 @@ $(function() {
     // Force reinit slider
     $('.c-suitelist').find('.c-tab__content').on('ctabcontent-shown', function() {
         // load image inside slider first
-        $(this).find('.lazy').lazy();
+        $(this).find('.lazy').lazy({
+            afterLoad: function(element) {
+                $(window).trigger('resize');
+            }
+        });
 
         // reinit slider with resize event
         setTimeout(function() {
@@ -127,5 +131,147 @@ $(function() {
         $('html, body').animate({
             scrollTop : $(this).prev('[role="button"]').offset().top - $('.c-header').height() - $('.c-main-nav__bottom').height()
         }, 500);
+    });
+
+    /***************************************************************************
+     * Cruise fare addiction collapse
+     **************************************************************************/
+    $('.c-list--cruise-fare-additions').each(function() {
+        var $list = $(this);
+        var $wrapper = $list.closest('.c-list--cruise-fare-additions__wrapper');
+        var $items = $list.find('li');
+        var isMobile = $.viewportDetect() === 'xs';
+
+        // Split list into 2 lists
+        var length = $items.length;
+        var halfLength = Math.round(length / 2);
+        var $lastHalf = $($items.splice(halfLength, length - 1)).remove();
+        $list.after($('<ul class="' + $list.attr('class') + '"></ul>').html($lastHalf));
+
+        // Hide content according to viewport
+        var hideContent = (function hideContent() {
+            isMobile = $.viewportDetect() === 'xs';
+
+            $wrapper.find('li').removeClass('hidden');
+            if (isMobile) {
+                $wrapper.find('li:gt(7)').addClass('hidden');
+            } else {
+                $('.c-list--cruise-fare-additions').each(function() {
+                    $(this).find('li:gt(3)').addClass('hidden');
+                });
+            }
+
+            return hideContent;
+        })();
+
+        $('body').on('trigger.viewport.changed', function() {
+            hideContent();
+        })
+
+        // Action show/hide
+        var $trigger = $wrapper.next('.c-list__expand').find('a');
+
+        $trigger.on('click', function(e) {
+            e.preventDefault();
+
+            // Set height just before animation
+            var isClosed = $wrapper.hasClass('closed');
+            $wrapper.css('height', isClosed ? getMaxHeight('closed') : getMaxHeight('opened'));
+
+            // Animate for slide effect
+            if (isClosed) {
+                // open
+                $wrapper.toggleClass('closed opened');
+
+                $wrapper.animate({
+                    'height' : getMaxHeight('opened')
+                }, 300, function() {
+                    // Remove inline height
+                    $wrapper.css('height', '');
+                });
+            } else {
+                // close
+                $wrapper.animate({
+                    'height' : getMaxHeight('closed')
+                }, 300, function() {
+                    $wrapper.toggleClass('closed opened');
+                    // Remove inline height
+                    $wrapper.css('height', '');
+                });
+            }
+        });
+
+        // function get max Height
+        function getMaxHeight(state) {
+            var totalHeight = [];
+            var isMobile = $.viewportDetect() === 'xs';
+            $wrapper.find('.c-list--cruise-fare-additions').each(function() {
+                var $list = $(this);
+                var sum = 0;
+                var items;
+
+                if (state === 'closed') {
+                    if (isMobile) {
+                        $items = $list.find('li:lt(8)');
+                    } else {
+                        $items = $list.find('li:lt(4)');
+                    }
+                } else {
+                    $items = $list.find('li');
+                }
+
+                $items.each(function() {
+                    sum += $(this).outerHeight(true);
+                });
+
+                totalHeight.push(sum);
+            });
+
+            // is mobile return height of both column, is not mobile return only the heighest
+            return isMobile ? totalHeight[0] + totalHeight[1] : Math.max.apply(Math, totalHeight);
+        }
+    });
+
+    /***************************************************************************
+     * Read more
+     **************************************************************************/
+    var readMore = (function readMore() {
+        $('.c-cruise-ship-info__item .variationcontent__descr').each(function(i, description) {
+            var $description = $(description);
+            // Re-init hmtl markup
+            $description.attr('data-original-height', '');
+            $description.removeClass('clipped');
+            $description.removeClass('opened');
+
+            if ($description.height() > 137) {
+                var $descriptionToggle = $description.next('.variationcontent__descr__expand');
+                var $moreBtn = $descriptionToggle.find('.read_more');
+                var $lessBtn = $descriptionToggle.find('.read_less');
+
+                $description.attr('data-original-height', $description.height());
+                $description.addClass('clipped');
+
+                // Expand
+                $moreBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $description.addClass('opened');
+                    $description.css('height', $description.data('original-height'))
+                });
+
+                // Collapse
+                $lessBtn.on('click', function(e) {
+                    e.preventDefault();
+                    $description.removeClass('opened');
+                    $description.css('height', '')
+                });
+            }
+        });
+
+        return readMore;
+    })();
+
+    // Init function on resize
+    $('body').on('trigger.viewport.changed', function() {
+        readMore();
     });
 });

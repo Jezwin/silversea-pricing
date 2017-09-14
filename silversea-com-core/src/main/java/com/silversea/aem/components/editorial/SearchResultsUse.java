@@ -1,13 +1,5 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.jcr.Session;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
@@ -15,6 +7,12 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.SearchResult;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.jcr.Session;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class used for the search results component.
@@ -76,6 +74,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.17_property", "jcr:content/sling:resourceType");
             map.put("group.18_property", "jcr:content/sling:resourceType");
             map.put("group.19_property", "jcr:content/sling:resourceType");
+            map.put("group.20_property", "jcr:content/sling:resourceType");
 
             map.put("group.2_property.operation", "unequals");
             map.put("group.3_property.operation", "unequals");
@@ -94,6 +93,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.17_property.operation", "unequals");
             map.put("group.18_property.operation", "unequals");
             map.put("group.19_property.operation", "unequals");
+            map.put("group.20_property.operation", "unequals");
 
             map.put("group.2_property.value", WcmConstants.RT_PUBLIC_AREA);
             map.put("group.3_property.value", WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION);
@@ -112,6 +112,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.17_property.value", WcmConstants.RT_BLOG_POST_LIST);
             map.put("group.18_property.value", WcmConstants.RT_REDIRECT);
             map.put("group.19_property.value", WcmConstants.RT_COMBO_SEGMENT);
+            map.put("group.20_property.value", "silversea/silversea-ssc/components/pages/landingpage");
 
             Session session = getResourceResolver().adaptTo(Session.class);
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);

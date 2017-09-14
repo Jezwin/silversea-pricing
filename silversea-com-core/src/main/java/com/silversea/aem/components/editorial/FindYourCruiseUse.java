@@ -308,6 +308,17 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             boolean includeCruiseNotFilteredByFeatures = true;
             boolean includeCruiseNotFilteredByCruiseTypes = true;
 
+            if (!cruise.isVisible()) {
+                includeCruise = false;
+                includeCruiseNotFilteredByDestination = false;
+                includeCruiseNotFilteredByShip = false;
+                includeCruiseNotFilteredByPort = false;
+                includeCruiseNotFilteredByDepartureDate = false;
+                includeCruiseNotFilteredByDuration = false;
+                includeCruiseNotFilteredByFeatures = false;
+                includeCruiseNotFilteredByCruiseTypes = false;
+            }
+
             if (destinationIdFilter == null && !destinationFilter.equals(FILTER_ALL) && destinationFilter.equals(cruise.getDestination().getName())) {
                 destinationIdFilter = cruise.getDestination().getDestinationId();
             }

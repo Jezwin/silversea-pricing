@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -21,15 +22,13 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.commons.JcrUtils;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
+import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.HashMap;
@@ -247,5 +246,69 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
         LOGGER.info("Ending cruises import, success: {}, error: {}", +importResult.getSuccessNumber(), +importResult.getErrorNumber());
 
         return importResult;
+    }
+
+    @Override
+    public void markSegmentsForActivation() {
+        LOGGER.debug("Starting combo cruise segments activation");
+
+        int i = 0;
+
+        final Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+            final Session session = resourceResolver.adaptTo(Session.class);
+
+            if (session == null) {
+                throw new ImporterException("Cannot get session");
+            }
+
+            final Iterator<Resource> resources = resourceResolver.findResources(
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)[" +
+                            "sling:resourceType=\"silversea/silversea-com/components/pages/combosegment\"]", "xpath");
+
+            while (resources.hasNext()) {
+                final Resource resource = resources.next();
+                final ValueMap properties = resource.getValueMap();
+
+                final String cruiseReference = properties.get("cruiseReference", String.class);
+
+                if (cruiseReference != null) {
+                    try {
+                        final Node cruiseContentNode = session.getNode(cruiseReference + "/" + JcrConstants.JCR_CONTENT);
+
+                        if (cruiseContentNode.hasProperty("isVisible") && !cruiseContentNode.getProperty("isVisible").getBoolean()) {
+                            cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+                            if (cruiseContentNode.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)) {
+                                cruiseContentNode.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
+                            }
+
+                            i++;
+
+                            LOGGER.debug("Cruise {} mark to be activated", cruiseContentNode.getPath());
+                        }
+                    } catch (PathNotFoundException ignored) {
+                    }
+                }
+            }
+
+            try {
+                if (session.hasPendingChanges()) {
+                    session.save();
+                }
+            } catch (RepositoryException e) {
+                try {
+                    session.refresh(false);
+                } catch (RepositoryException e1) {
+                    LOGGER.error("Cannot refresh session");
+                }
+            }
+        } catch (LoginException | ImporterException | RepositoryException e) {
+            LOGGER.error("Cannot get resource resolver or session", e);
+        }
+
+        LOGGER.debug("Ending segments activation, {} cruises touched", i);
     }
 }

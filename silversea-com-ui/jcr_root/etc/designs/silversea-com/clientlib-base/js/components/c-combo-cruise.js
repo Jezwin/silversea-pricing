@@ -1,6 +1,6 @@
 $(function() {
     // Route tab : toggle style for active/inactive tab
-    $('.select-segment dd a').on('click', function(e) {
+    $('.c-combo-cruise .select-segment dd a').on('click', function(e) {
         e.preventDefault();
         var $tab = $(e.target);
         var $item = $tab.closest('dd');
@@ -9,17 +9,20 @@ $(function() {
 
         // init slider inside current tab content
         var $currentSlider;
-        $tab.on('shown.bs.tab', function() {
+        $tab.one('shown.bs.tab', function() {
             var $panel = $($(this).attr('href'));
-            $currentSlider = $panel.find('.c-slider')
+            $currentSlider = $panel.find('.c-slider');
             $currentSlider.slick('unslick').slick(settingSlider);
 
+            // load lazy image
+            $panel.find('.lazy').lazy();
+
             // Scroll to panel
-            $('html, body').stop().delay(100).animate({
-                scrollTop: $panel.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
+            $('html, body').animate({
+                scrollTop : $panel.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
             }, 300);
         });
-    })
+    });
 
     // Overview tab : open suite/route tab for the current item
     $('.c-combo-cruise #overview [data-tab-target]').on('click', function() {
@@ -45,64 +48,24 @@ $(function() {
         });
     });
 
-    /***************************************************************************
-     * Truncate text
-     **************************************************************************/
-    $('.textTruncate').each(function(i, el){
-        var node = $(el);
-        var limit = parseInt(node.data('limit'));
-        if(node.find('p span').text().length > limit){
-            var trucatedText = node.find('p span').text().substr(0, limit);
+    // Open benefit and event tab and scroll to target Accordion
+    $('.c-combo-cruise .c-vertical-teaser').each(function() {
+        var $teaser = $(this);
+        $teaser.find('a').on('click', function(e) {
+            e.preventDefault();
 
-            node.find('p span').text(trucatedText+'...');
-        }
-    });
+            // First open benefit and event tab
+            $('a[href="#benefitsnevents"]').trigger('click');
 
-    /***************************************************************************
-     * Read more
-     **************************************************************************/
-    var readMore = (function readMore() {
-        $('.c-cruise-ship-info__item .variationcontent__descr').each(function(i, description) {
-            var $description = $(description);
-            // Re-init hmtl markup
-            $description.attr('data-original-height', '');
-            $description.removeClass('clipped');
-            $description.removeClass('opened');
+            // Next find and scroll to accordion target
+            var $target = $('#' + $(this).attr('href').split("#")[1]);
 
-            if ($description.height() > 137) {
-                var $descriptionToggle = $description.next('.variationcontent__descr__expand');
-                var $moreBtn = $descriptionToggle.find('.read_more');
-                var $lessBtn = $descriptionToggle.find('.read_less');
-
-                $description.attr('data-original-height', $description.height());
-                $description.addClass('clipped');
-
-                // Expand
-                $moreBtn.on('click', function(e) {
-                    e.preventDefault();
-                    $description.addClass('opened');
-                    $description.css('height', $description.data('original-height'))
-                });
-
-                // Collapse
-                $lessBtn.on('click', function(e) {
-                    e.preventDefault();
-                    $description.removeClass('opened');
-                    $description.css('height', '')
-                });
-            }
+            $('html, body').animate({
+                scrollTop : $target.offset().top - $('.c-header').height() - 24 - $('.c-main-nav__bottom').height()
+            }, 300).promise().then(function() {
+                // Open accordion target
+                $target.trigger('click');
+            });
         });
-
-        return readMore;
-    })();
-
-    // Init function on click
-    $('.c-cruise .expander-open').on('click', function(e) {
-        readMore();
-    });
-
-    // Init function on resize
-    $('body').on('trigger.viewport.changed', function() {
-        readMore();
     });
 });

@@ -1,32 +1,19 @@
 .c-cruise__fare {
-    border-top: 1px solid #E9E9E9;
+    border-top: 1px solid @grey--e9;
     margin-bottom: 30px;
 
     @media screen and (max-width: @screen-sm) {
         border-top: none;
     }
 
-    .c-list {
-            margin-left: 15px;
-            padding-right: 15px;
-
-        @media screen and (min-width: @screen-md-min) {
-            column-count: 2;
-            column-gap: 45px;
-            font-size: 13px;
-            margin-left: 40px;
-            padding-right: 55px;
-            width: 100%;
-        }
+    .c-list--cruise-fare-additions {
+        padding-left: 30px;
 
         li {
             list-style-type: square;
             margin-bottom: 2px;
             padding-right: 25px;
             width: 100%;
-            -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
-            page-break-inside: avoid; /* Firefox */
-            break-inside: avoid; /* IE 10+ */
         }
     }
 
@@ -34,5 +21,31 @@
         font-size: 12px;
         padding: 20px 0 20px 0;
         text-align: center;
+    }
+
+    .closed {
+        & + .c-list__expand {
+            .view_less {
+                display: none
+            }
+        }
+    }
+
+    .opened {
+        .c-list--cruise-fare-additions li {
+            display: list-item!important;
+        }
+
+        & + .c-list__expand {
+            .view_all {
+                display: none
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        .c-list--cruise-fare-additions {
+            font-size: 13px;
+        }
     }
 }

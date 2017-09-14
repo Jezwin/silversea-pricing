@@ -3,8 +3,10 @@
     <div class="col-xs-12">
         <div class="c-accordion c-accordion--darkbox" data-multiview="false">
             <div class="c-accordion__elem">
-                <div class="c-accordion__header" data-state="${wcmmode.edit || properties.expanded ? 'true' : 'false'}">
-                    <div class="c-accordion__title">
+                <div data-sly-use.stringHelper="${'com.silversea.aem.helper.StringHelper' @ text = properties.jcr:title}"
+                id="${stringHelper.textValidName}" class="c-accordion__header" data-state="${wcmmode.edit || properties.expanded ? 'true' : 'false'}">
+                    <div 
+                    class="c-accordion__title">
                         <p class="c-accordion__title--veryimportant">${properties.jcr:title}</p>
                     </div>
                     <div class="c-accordion__action c-accordion__action--light">

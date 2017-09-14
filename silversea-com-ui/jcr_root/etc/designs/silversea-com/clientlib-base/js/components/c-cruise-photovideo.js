@@ -1,6 +1,6 @@
 $(function() {
     // Gallery expander
-    $('.c-cruise .expander-open, .c-cruise .expander-close').on('click', function(e) {
+    $('.c-cruise .c-cruise__item-expander a').on('click', function(e) {
         e.preventDefault();
         var $trigger = $(this), $wrapper = $trigger.closest('.c-cruise__gallery');
         var totalHeight = 0;
@@ -20,7 +20,7 @@ $(function() {
                 // After animation, launch scrollTo
                 $('html, body').animate({
                     scrollTop : $wrapper.offset().top - $('.c-header').height()
-                }, 1000);
+                }, 0);
             });
         } else {
             // show hidden image group

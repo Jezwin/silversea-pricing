@@ -1,9 +1,10 @@
 package com.silversea.aem.models;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
-import org.apache.sling.api.resource.ResourceResolver;
+import com.silversea.aem.utils.AssetUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -13,13 +14,15 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO remove unused/local variables
  * TODO add plan and location image
  */
 @Model(adaptables = Page.class)
-public class DiningModel  implements ShipAreaModel {
+public class DiningModel implements ShipAreaModel {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(DiningModel.class);
 
@@ -44,6 +47,8 @@ public class DiningModel  implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/diningReference") @Optional
     private String diningReference;
 
+    private List<Asset> assets = new ArrayList<>();
+
     // TODO replace by an injector
     private DiningModel genericDining;
 
@@ -58,6 +63,10 @@ public class DiningModel  implements ShipAreaModel {
             if (genericDiningPage != null) {
                 genericDining = genericDiningPage.adaptTo(DiningModel.class);
             }
+        }
+
+        if (assetSelectionReference != null) {
+            assets.addAll(AssetUtils.buildAssetList(assetSelectionReference, page.getContentResource().getResourceResolver()));
         }
     }
 
@@ -82,6 +91,14 @@ public class DiningModel  implements ShipAreaModel {
 
     public String getVirtualTour() {
         return virtualTour;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public Asset getFirstAsset() {
+        return assets.size() > 0 ? assets.get(0) : null;
     }
 
     public Page getPage() {

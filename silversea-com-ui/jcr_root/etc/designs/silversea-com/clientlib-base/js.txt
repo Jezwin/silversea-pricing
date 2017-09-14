@@ -14,7 +14,6 @@ components/c-herobanner.js
 components/c-cruise.js
 components/c-cruise-photovideo.js
 components/c-signupforoffers.js
-components/c-ship.js
 components/c-destination.js
 components/c-combo-cruise.js
 components/c-video.js

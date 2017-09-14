@@ -26,6 +26,7 @@
     <filter root="/etc/tags/features/rep:policy"/>
     <filter root="/etc/tags/geotagging/rep:policy"/>
     <filter root="/etc/dam/imageserver/configuration/jcr:content/settings"/>
+    <filter root="/etc/dam/video/dynamicmedia/silversea-video-profile"/>
 
     <filter root="/etc/workflow/launcher/config/dam_xmp_writeback"/>
     <filter root="/etc/workflow/launcher/config/metadata_set_lastmodified"/>
