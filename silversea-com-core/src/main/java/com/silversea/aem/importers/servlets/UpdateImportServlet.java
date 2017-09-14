@@ -39,7 +39,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         prices,
         cruisesexclusiveoffers,
 
-        combocruises
+        combocruises,
+        combocruisessegmentsactivation
     }
 
     @Reference
@@ -137,6 +138,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 //comboCruisesImporter.importData(true);
             } else if (mode.equals(Mode.brochures)) {
                 brochuresImporter.updateBrochures();
+            } else if (mode.equals(Mode.combocruisessegmentsactivation)) {
+                comboCruisesImporter.markSegmentsForActivation();
             }
         } catch (ImporterException e) {
             throw new ServletException(e);

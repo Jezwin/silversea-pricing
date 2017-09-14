@@ -3,13 +3,15 @@ package com.silversea.aem.importers.polling;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
-import com.day.cq.wcm.api.Page;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
 import org.apache.felix.scr.annotations.*;
-import org.apache.sling.api.resource.*;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,6 +80,9 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
+
+    @Reference
+    private ComboCruisesImporter comboCruisesImporter;
 
     @Reference
     private Replicator replicator;
@@ -157,17 +162,13 @@ public class ApiUpdater implements Runnable {
                 LOGGER.error("Cannot import cruises exclusive offers", e);
             }
 
+            comboCruisesImporter.markSegmentsForActivation();
+
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
-
-            // TODO get all "silversea/silversea-com/components/pages/combosegment" and mark to activate target of cruiseReference
-            // TODO move it to combocruise diff when ok
-
-            // TODO check is properties are correctly removed in case of assets or tags
-            replicateModifications("/jcr:root/content/dam/element(*,dam:Asset)[jcr:content/toDeactivate or jcr:content/toActivate]");
-            replicateModifications("/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
-            replicateModifications("/jcr:root/content//element(*,cq:Tags)[toDeactivate or toActivate]");
-
+            replicateModifications("/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/etc/tags//element(*,cq:Tags)[toDeactivate or toActivate]");
         } else {
             LOGGER.debug("API updater service run only on author instance");
         }
@@ -179,7 +180,7 @@ public class ApiUpdater implements Runnable {
      * @param query the query of the resources to replicate
      */
     private void replicateModifications(final String query) {
-        Map<String, Object> authenticationParams = new HashMap<>();
+        final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
@@ -192,32 +193,30 @@ public class ApiUpdater implements Runnable {
             int successNumber = 0, errorNumber = 0;
             int j = 0;
 
-            Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
+            final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
 
             while (resources.hasNext()) {
-                Resource resource = resources.next();
+                final Resource resource = resources.next();
+                final Node node = resource.adaptTo(Node.class);
 
-                final Page page = resource.adaptTo(Page.class);
-
-                if (page != null && page.getContentResource() != null) {
-                    final ValueMap pageProperties = page.getProperties();
-                    final Node pageContentNode = page.getContentResource().adaptTo(Node.class);
-
+                if (node != null) {
                     try {
-                        if (pageProperties.get(ImportersConstants.PN_TO_DEACTIVATE, false)) {
-                            replicator.replicate(session, ReplicationActionType.DEACTIVATE, page.getPath());
+                        if (node.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)
+                                && node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).getBoolean()) {
+                            replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
 
-                            pageContentNode.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
+                            node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
-                            LOGGER.trace("{} page deactivated", page.getPath());
+                            LOGGER.trace("{} page deactivated", node.getPath());
                         }
 
-                        if (pageProperties.get(ImportersConstants.PN_TO_ACTIVATE, false)) {
-                            replicator.replicate(session, ReplicationActionType.ACTIVATE, page.getPath());
+                        if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)
+                                && node.getProperty(ImportersConstants.PN_TO_ACTIVATE).getBoolean()) {
+                            replicator.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
 
-                            pageContentNode.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
+                            node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
 
-                            LOGGER.trace("{} page activated", page.getPath());
+                            LOGGER.trace("{} page activated", node.getPath());
                         }
 
                         successNumber++;
@@ -233,18 +232,14 @@ public class ApiUpdater implements Runnable {
                             }
                         }
                     } catch (ReplicationException e) {
-                        LOGGER.error("Cannot replicate page {}", page.getPath());
+                        LOGGER.error("Cannot replicate page {}", node.getPath());
 
                         errorNumber++;
                     } catch (RepositoryException e) {
-                        LOGGER.error("Cannot remove status property on page {}", page.getPath());
+                        LOGGER.error("Cannot remove status property on page {}", node.getPath());
 
                         errorNumber++;
                     }
-                } else {
-                    errorNumber++;
-
-                    LOGGER.error("Cannot get page {}", resource.getPath());
                 }
             }
 
@@ -263,7 +258,7 @@ public class ApiUpdater implements Runnable {
             }
 
             LOGGER.info("Replication done, success: {}, errors: {}", successNumber, errorNumber);
-        } catch (LoginException | ImporterException e) {
+        } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot get resource resolver or session", e);
         }
     }
