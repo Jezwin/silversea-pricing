@@ -160,6 +160,10 @@ public class ApiUpdater implements Runnable {
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
 
+            // TODO get all "silversea/silversea-com/components/pages/combosegment" and mark to activate target of cruiseReference
+            // TODO move it to combocruise diff when ok
+
+            // TODO check is properties are correctly removed in case of assets or tags
             replicateModifications("/jcr:root/content/dam/element(*,dam:Asset)[jcr:content/toDeactivate or jcr:content/toActivate]");
             replicateModifications("/jcr:root/content//element(*,cq:Page)[jcr:content/toDeactivate or jcr:content/toActivate]");
             replicateModifications("/jcr:root/content//element(*,cq:Tags)[toDeactivate or toActivate]");
