@@ -1,5 +1,5 @@
 $(function() {
-    $('.modal').on('shown.bs.modal loaded.bs.modal', function(event) {
+    $('.modal').on('loaded.bs.modal', function(event) {
         requestForm();
     });
 
