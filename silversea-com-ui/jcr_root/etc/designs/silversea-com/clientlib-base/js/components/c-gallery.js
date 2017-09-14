@@ -3,6 +3,13 @@ $(function() {
         this.each(function() {
             var $component = $(this);
 
+            $('.c-slider--for, .c-slider--nav').on('init', function(event, slick) {
+                var $activeSlide = $(this).find('.slick-active');
+                $activeSlide.find('.lazy').lazy();
+                $activeSlide.prev().find('.lazy').lazy();
+                $activeSlide.next().find('.lazy').lazy();
+            });
+
             // Activate sliders in sync
             var $slideFor = $component.find('.c-slider--for').slick({
                 prevArrow : prevArrowCustom,
@@ -60,11 +67,11 @@ $(function() {
             }).on('afterChange', function(event, slick, currentSlide) {
                 var $slider = $(this);
 
-                // Wait for end of animation
-                setTimeout(function() {
-                    // call lazy loading
-                    $slider.closest('.c-gallery--cc').find('.slick-active .lazy').lazy();
-                }, $slider.slick('slickGetOption', 'speed'));
+                // call lazy loading
+                var $activeSlide = $slider.closest('.c-gallery--cc').find('.slick-active');
+                $activeSlide.find('.lazy').lazy();
+                $activeSlide.next().find('.lazy').lazy();
+                $activeSlide.prev().find('.lazy').lazy();
 
                 // Description : Show description on slide change
                 var index = currentSlide,
