@@ -108,20 +108,10 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         }
 
         // init number of elements (excursions, hotels, land programs)
-        if (getItinerariesHasElements()) {
-            for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
-                excursionsNumber += itinerary.getExcursions().size();
-                hotelsNumber += itinerary.getHotels().size();
-                landProgramsNumber += itinerary.getLandPrograms().size();
-            }
-        } else {
-            for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
-                if (itinerary.getPort() != null) {
-                    excursionsNumber += itinerary.getPort().getExcursions().size();
-                    hotelsNumber += itinerary.getPort().getHotels().size();
-                    landProgramsNumber += itinerary.getPort().getLandPrograms().size();
-                }
-            }
+        for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
+            excursionsNumber += getItinerariesHasExcursions() ? itinerary.getExcursions().size() : itinerary.getPort().getExcursions().size();
+            hotelsNumber += getItinerariesHasHotels() ? itinerary.getHotels().size() : itinerary.getPort().getHotels().size();
+            landProgramsNumber += getItinerariesHasLandPrograms() ? itinerary.getLandPrograms().size() : itinerary.getPort().getLandPrograms().size();
         }
 
         // init prices based on geolocation
@@ -187,6 +177,45 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     public boolean getItinerariesHasElements() {
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
             if (itinerary.getExcursions().size() > 0 || itinerary.getLandPrograms().size() > 0 || itinerary.getHotels().size() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return true if at least on itinerary have an excursion
+     */
+    public boolean getItinerariesHasExcursions() {
+        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            if (itinerary.getExcursions().size() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return true if at least on itinerary have an hotels
+     */
+    public boolean getItinerariesHasHotels() {
+        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            if (itinerary.getHotels().size() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return true if at least on itinerary have a land program
+     */
+    public boolean getItinerariesHasLandPrograms() {
+        for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
+            if (itinerary.getLandPrograms().size() > 0) {
                 return true;
             }
         }

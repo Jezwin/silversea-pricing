@@ -2,7 +2,7 @@ $(function() {
     // Route tab : toggle style for active/inactive tab
     $('.c-combo-cruise .select-segment dd a').on('click', function(e) {
         e.preventDefault();
-        var $tab = $(e.target);
+        var $tab = $(this);
         var $item = $tab.closest('dd');
         $item.addClass('active');
         $item.siblings('dd.active').toggleClass('active');
