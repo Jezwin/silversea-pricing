@@ -2,7 +2,8 @@
     class="request-quote-form c-form c-formcookie--redirect"
     action="${properties.pageReference @ selectors=['modalcontent'], extension='html'}${request.requestPathInfo.suffix}"
     method="post"
-    data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse" novalidate>
+    data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse"
+    novalidate>
     ${use.prepareBrochureParameters}
     <input name="requestsource" type="hidden" value="BRO" />
     <input name="requesttype" type="hidden" value="" />
@@ -13,7 +14,7 @@
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
-                <input class="custom-checkbox" type="checkbox" name="isnotagent" value="true" checked="true">
+                <input class="custom-checkbox" type="checkbox" name="isnotagent" value="true" checked="checked">
                 ${'i-am-not-a-travel-agent' @ i18n}
             </label>
         </div>
@@ -48,29 +49,29 @@
         <div class="help-block with-errors"></div>
     </div>
 
-     <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
+    <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
         <div class="form-group form-group-lg has-feedback">
             <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control" required
-            data-countrycodeformat=""
-            data-prepend-placeholder="${'example' @ i18n}"
-            data-country-geolocalized="${helper.country || 'US'}"
-            data-required-error="${'required-phone-number' @ i18n}"
-            data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
+                data-countrycodeformat=""
+                data-prepend-placeholder="${'example' @ i18n}"
+                data-country-geolocalized="${helper.country || 'US'}"
+                data-required-error="${'required-phone-number' @ i18n}"
+                data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
             <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
             <div class="help-block with-errors"></div>
             <input type="hidden" name="phone" />
-            <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
-                <option value="">${'country-code' @ i18n}*</option>
-                <option data-sly-repeat.country="${use.countries}" value="${country.countryCode}" data-country-code="${country.prefix}">${country.title} (${country.prefix})</option>
-            </select>
         </div>
+        <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
+            <option value="">${'country-code' @ i18n}*</option>
+            <option data-sly-repeat.country="${use.countries}" value="${country.countryCode}" data-country-code="${country.prefix}">${country.title} (${country.prefix})</option>
+        </select>
     </div>
 
     <div class="form-group form-group-lg has-feedback">
         <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        data-required-error="${'required-email-address' @ i18n}"
-        data-error="${'incorrect-email-address' @ i18n}" />
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            data-required-error="${'required-email-address' @ i18n}"
+            data-error="${'incorrect-email-address' @ i18n}" />
         <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
         <div class="help-block with-errors incorrect"></div>
     </div>
@@ -125,8 +126,8 @@
                 ${'receive-emails-with-news' @ i18n}
             </label>
         </div>
-
     </div>
+
     <div class="form-group form-group-lg">
         <div class="checkbox">
             <label>
