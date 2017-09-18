@@ -95,6 +95,11 @@ $.fn.requestForm = function() {
 
         (($currentForm.find('#postalAddress').val() == undefined) || ($currentForm.find('#postalAddress').val() == '')) ? $('.hideArea').hide() : $('.hideArea').show();
 
+        // Validate immediately select on chosen 'blur' (needed for form validation when chosen value is modified)
+        $currentForm.find('.chosen').on('change', function(e) {
+            $(this).trigger('blur');
+        });
+
         // Validator !
         $currentForm.validator({
             focus : false,
