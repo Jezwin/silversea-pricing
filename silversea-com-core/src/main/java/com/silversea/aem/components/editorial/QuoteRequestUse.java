@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -69,6 +70,13 @@ public class QuoteRequestUse extends WCMUsePojo {
             final Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
 
             collectCountries(geotaggingTag);
+
+            countries.sort(new Comparator<GeolocationTagModel>() {
+                @Override
+                public int compare(GeolocationTagModel o1, GeolocationTagModel o2) {
+                    return o1.getTitle().compareTo(o2.getTitle());
+                }
+            });
         }
     }
 
