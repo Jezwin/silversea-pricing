@@ -36,13 +36,11 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
         tagIdMapping = new HashMap<>();
         iso3codeTagIdMapping = new HashMap<>();
 
-        Map<String, Object> params = new HashMap<>();
+        final Map<String, Object> params = new HashMap<>();
         params.put(ResourceResolverFactory.SUBSERVICE, "geotagging-cache");
 
-        try {
-            ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(params);
-
-            Resource geotaggingNamespace = resourceResolver.getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(params)) {
+            final Resource geotaggingNamespace = resourceResolver.getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
 
             if (geotaggingNamespace != null) {
                 Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
