@@ -33,19 +33,17 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
 
     @Activate
     public void activate(final ComponentContext context) {
-        tagIdMapping = new HashMap<>();
-        iso3codeTagIdMapping = new HashMap<>();
+        tagIdMapping = new TreeMap<>();
+        iso3codeTagIdMapping = new TreeMap<>();
 
-        Map<String, Object> params = new HashMap<>();
+        final Map<String, Object> params = new HashMap<>();
         params.put(ResourceResolverFactory.SUBSERVICE, "geotagging-cache");
 
-        try {
-            ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(params);
-
-            Resource geotaggingNamespace = resourceResolver.getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
+        try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(params)) {
+            final Resource geotaggingNamespace = resourceResolver.getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
 
             if (geotaggingNamespace != null) {
-                Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
+                final Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
 
                 addTagsToCache(geotaggingTag);
             } else {
@@ -116,7 +114,7 @@ public class GeolocationTagServiceImpl implements GeolocationTagService {
      * @param tag parent tag
      */
     private void addTagsToCache(final Tag tag) {
-        Iterator<Tag> children = tag.listChildren();
+        final Iterator<Tag> children = tag.listChildren();
 
         if (!children.hasNext()) {
             LOGGER.trace("Tag {} is a leaf, adding it the map", tag.getTagID());
