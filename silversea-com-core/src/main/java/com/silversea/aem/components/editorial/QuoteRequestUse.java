@@ -71,12 +71,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 
             collectCountries(geotaggingTag);
 
-            countries.sort(new Comparator<GeolocationTagModel>() {
-                @Override
-                public int compare(GeolocationTagModel o1, GeolocationTagModel o2) {
-                    return o1.getTitle().compareTo(o2.getTitle());
-                }
-            });
+            countries.sort(Comparator.comparing(GeolocationTagModel::getTitle));
         }
     }
 
