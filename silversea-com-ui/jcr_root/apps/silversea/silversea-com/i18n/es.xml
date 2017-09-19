@@ -1091,7 +1091,7 @@
     <view-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Vea nuestros folletos gratuitos"/>
+        sling:message="Ver su folleto"/>
     <virtual-tour
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
