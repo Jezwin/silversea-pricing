@@ -10,9 +10,10 @@ import java.util.List;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.filter.BlogPostPageFilter;
+import com.silversea.aem.models.BlogPostModel;
 
 public class BlogPostTeaserListUse extends WCMUsePojo {
-    private List<Page> blogPostList = new ArrayList<>();
+    private List<BlogPostModel> blogPostList = new ArrayList<>();
     private Integer lastDay;
 
     @Override
@@ -27,7 +28,8 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
             Page blogPost = blogPostPages.next();
 
             if (blogPost != null) {
-                blogPostList.add(blogPost);
+                blogPostList.add(blogPost.adaptTo(BlogPostModel.class));
+                String path = blogPost.adaptTo(BlogPostModel.class).getThumbnail();
                 i++;
             }
         }
@@ -48,7 +50,7 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
     /**
      * @return the blogPostList
      */
-    public List<Page> getBlogPostList() {
+    public List<BlogPostModel> getBlogPostList() {
         return blogPostList;
     }
 

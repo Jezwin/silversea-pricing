@@ -2,17 +2,15 @@
     <sly data-sly-test.isFirst="${count == 1 && ppties.highLightFirst}" />
     <div class="row c-blogpostteaser ${isFirst ? 'c-blogpostteaser--first' : ''}">
         <div class="col-sm-6 c-blogpostteaser__image">
-            <sly data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path = blogPost.path}"
-                data-sly-test.blogPostThumbnail="${pageHelper.thumbnail}" />
-            <sly data-sly-test="${blogPostThumbnail}"
+            <sly data-sly-test.thumbnail="${blogPost.thumbnail}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                data-sly-call="${imageTemplate.default @ imagePath=blogPostThumbnail}" />
-            <img data-sly-test="${!blogPostThumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${blogPost.title}" class="o-img" />
+                data-sly-call="${imageTemplate.default @ imagePath=thumbnail}" />
+            <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${blogPost.title}" class="o-img" />
 
             <div class="c-blogpostteaser__info visible-xs-block">
                 <strong class="c-blogpostteaser__date"
-                    data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=blogPost.properties.publicationDate}"
-                    data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMM yyyy', date=blogPost.properties.publicationDate}">
+                    data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=blogPost.publicationDate}"
+                    data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMM yyyy', date=blogPost.publicationDate}">
                     <span>${dateDay.value}</span> ${dateMonthYear.value}
                 </strong>
                 <h4 class="c-blogpostteaser__title">${blogPost.title}</h4>
@@ -23,8 +21,8 @@
         <div class="col-sm-6 c-blogpostteaser__description">
             <div class="c-blogpostteaser__info">
                 <strong class="c-blogpostteaser__date hidden-xs"
-                    data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=blogPost.properties.publicationDate}"
-                    data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMM yyyy', date=blogPost.properties.publicationDate}">
+                    data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=blogPost.publicationDate}"
+                    data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMM yyyy', date=blogPost.publicationDate}">
                     <span>${dateDay.value}</span> ${dateMonthYear.value}
                 </strong>
                 <h4 class="c-blogpostteaser__title hidden-xs">

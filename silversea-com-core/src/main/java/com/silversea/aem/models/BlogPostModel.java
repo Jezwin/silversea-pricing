@@ -35,6 +35,11 @@ public class BlogPostModel {
     private String title;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
+    @Optional
+    private String description;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/longDescription")
     @Optional
     private String longDescription;
@@ -49,14 +54,23 @@ public class BlogPostModel {
     @Optional
     private String assetSelectionReference;
 
-    public Page next;
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/image/fileReference")
+    @Optional
+    private String thumbnail;
 
-    public Page previous;
+    private String path;
+
+    private Page next;
+
+    private Page previous;
 
     List<Page> listBlog;
 
     @PostConstruct
     private void init() {
+        path = page.getPath();
+
         try{
             listBlog = new ArrayList<>();
             Iterator<Page> childs = page.getParent().listChildren();
@@ -83,28 +97,80 @@ public class BlogPostModel {
         }
     }
 
+    /**
+     * @return the page
+     */
+    public Page getPage() {
+        return page;
+    }
+
+    /**
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
-    public List<Page> getListBlog() {
-        return listBlog;
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
     }
 
-    public void setListBlog(List<Page> listBlog) {
-        this.listBlog = listBlog;
-    }
-
+    /**
+     * @return the longDescription
+     */
     public String getLongDescription() {
         return longDescription;
     }
 
+    /**
+     * @return the publicationDate
+     */
     public Date getPublicationDate() {
         return publicationDate;
     }
 
+    /**
+     * @return the assetSelectionReference
+     */
     public String getAssetSelectionReference() {
         return assetSelectionReference;
     }
 
+    /**
+     * @return the thumbnail
+     */
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @return the path
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * @return the next
+     */
+    public Page getNext() {
+        return next;
+    }
+
+    /**
+     * @return the previous
+     */
+    public Page getPrevious() {
+        return previous;
+    }
+
+    /**
+     * @return the listBlog
+     */
+    public List<Page> getListBlog() {
+        return listBlog;
+    }
 }
