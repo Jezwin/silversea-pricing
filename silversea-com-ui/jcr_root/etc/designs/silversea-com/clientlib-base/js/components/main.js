@@ -143,65 +143,69 @@ $(function() {
                 leadApiData['marketingEffort'] = marketingEffortValue;
             }
 
-            $.ajax({
-                type : 'POST',
-                url: '/bin/lead.json',
-                data : JSON.stringify(leadApiData),
-                contentType : 'application/json',
-                dataType : 'json',
-                success : function(data) {
+            if (!$form.hasClass("c-form--rab")) {
+                $.ajax({
+                    type : 'POST',
+                    url: '/bin/lead.json',
+                    data : JSON.stringify(leadApiData),
+                    contentType : 'application/json',
+                    dataType : 'json',
+                    success : function(data) {
 
-                    if (typeof data !== 'string') {
-                        console.log('Invalid lead API data received');
-                        window.location.href = $form.attr('action');
-                        return;
-                    }
-
-                    //set cookies for datalayer
-                    var submitDate = new Date();
-                    $.CookieManager.setCookie("user_status", submitDate.getTime());
-
-                    var obj = {};
-
-                    // Convert currentData to object
-                    cookieValues.forEach(function(dat, index) {
-                        if (currentData[dat] !== undefined) {
-                            obj[cookieValues[index]] = currentData[dat];
+                        if (typeof data !== 'string') {
+                            console.log('Invalid lead API data received');
+                            window.location.href = $form.attr('action');
+                            return;
                         }
-                    });
 
-                    // Merge object
-                    var objs = [obj, leadApiData];
-                    currentData = objs.reduce(function(r, o) {
-                        Object.keys(o).forEach(function(k) {
-                            r[k] = o[k];
-                        });
-                        return r;
-                    }, {});
+                        //set cookies for datalayer
+                        var submitDate = new Date();
+                        $.CookieManager.setCookie("user_status", submitDate.getTime());
 
-                    // Store object merged in the cookie
-                    $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
-                    $.CookieManager.setCookie('api_indiv_id', data);
+                        var obj = {};
 
-                    if ($form.hasClass('c-formcookie--redirect')) {
-                        window.location.href = $form.attr('action');
-                    } else if ($form.hasClass('c-formcookie--modal')) {
-                        var target = $form.data('target');
-
-                        // Append content from ajax response inside modal
-                        $(target + ' .modal-content').load($form.attr('action'), function(response, status, xhr) {
-                            if (status == "success") {
-                                // Open modal
-                                $(target).modal('show');
-                                // Once modal loaded, script from c-quote-request-form.js will be launched
+                        // Convert currentData to object
+                        cookieValues.forEach(function(dat, index) {
+                            if (currentData[dat] !== undefined) {
+                                obj[cookieValues[index]] = currentData[dat];
                             }
                         });
+
+                        // Merge object
+                        var objs = [obj, leadApiData];
+                        currentData = objs.reduce(function(r, o) {
+                            Object.keys(o).forEach(function(k) {
+                                r[k] = o[k];
+                            });
+                            return r;
+                        }, {});
+
+                        // Store object merged in the cookie
+                        $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
+                        $.CookieManager.setCookie('api_indiv_id', data);
+
+                        if ($form.hasClass('c-formcookie--redirect')) {
+                            window.location.href = $form.attr('action');
+                        } else if ($form.hasClass('c-formcookie--modal')) {
+                            var target = $form.data('target');
+
+                            // Append content from ajax response inside modal
+                            $(target + ' .modal-content').load($form.attr('action'), function(response, status, xhr) {
+                                if (status == "success") {
+                                    // Open modal
+                                    $(target).modal('show');
+                                    // Once modal loaded, script from c-quote-request-form.js will be launched
+                                }
+                            });
+                        }
+                    },
+                    failure : function(errMsg) {
+                        console.log('error LeadAPI', errMsg);
                     }
-                },
-                failure : function(errMsg) {
-                    console.log('error LeadAPI', errMsg);
-                }
-            });
+                });
+            } else {
+                window.location.href = $form.attr('action');
+            }
         }
     }
 }(jQuery);
