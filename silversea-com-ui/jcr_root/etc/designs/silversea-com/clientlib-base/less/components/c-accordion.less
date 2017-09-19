@@ -8,9 +8,6 @@
     }
 }
 
-
-
-
 /*
 ** Editorial Component Accordion
 */
@@ -37,58 +34,6 @@
 
     .c-accordion .c-accordion .c-accordion__header {
         padding-left: 0px;
-    }
-}
-
-/*
-** Overview && Execursion && landnhotel Accordin PORT
-*/
-#Overview,
-#excursion,
-#landnhotel{
-    .c-accordion__header--parent{
-        padding: 0;
-        .c-accordion{
-            &__title{
-                vertical-align: top;
-
-                @media screen and (max-width: @screen-sm) {
-                    text-align: left;
-                    display: table-cell;
-                    vertical-align: middle;
-                }
-
-                .veryimportant{
-                    @media screen and (max-width: @screen-xs) {
-                        line-height: 16px;
-                        font-size: 16px;
-                    }
-                }
-
-                .verysmall{
-                    font-size: 14px;
-                    @media screen and (max-width: @screen-xs) {
-                        line-height: 12px;
-                        font-size: 12px;
-                    }
-                }
-
-                &--thumbnail img {
-                    padding: 3px;
-                }
-            }
-
-            &__action{
-                @media screen and (max-width: @screen-sm) {
-                    width: 10%;
-                    min-width: 10%;
-                    vertical-align: middle;
-                    display: table-cell;
-                    padding: 0 10px 0 0;
-                    text-align: right;
-                }
-            }
-         }
     }
 }
 
