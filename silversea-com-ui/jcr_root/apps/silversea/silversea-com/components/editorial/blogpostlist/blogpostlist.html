@@ -1,15 +1,16 @@
 <sly data-sly-use.blogPostTeaserListUse="com.silversea.aem.components.editorial.BlogPostTeaserListUse" />
 <h3 data-sly-test="${!properties.highLightFirst}" class="c-blogpostlist__subtitle">
-    <sly data-sly-test="${currentPage.name.length <= 2}">
+    <!--/* is month / is year message */-->
+    <sly data-sly-test.isMonth="${currentPage.name.length <= 2}">
         ${'blog-posts' @i18n} ${'from' @i18n} 01 ${'to' @i18n} ${blogPostTeaserListUse.lastDay} ${currentPage.title} ${currentPage.parent.title}
     </sly>
-    <sly data-sly-test="${currentPage.name.length == 4}">
+    <sly data-sly-test="${!isMonth}">
         ${'blog-posts' @i18n} ${'for' @i18n} ${currentPage.title}
     </sly>
 </h3>
 
 <sly data-sly-repeat.blogPost="${blogPostTeaserListUse.blogPostList}">
     <h3 class="c-blogpostlist__subtitle" data-sly-test="${blogPostList.count == 2 && properties.highLightFirst}">${'other-recent-story' @i18n}</h3>
-    <sly  data-sly-use.blogPostTemplate="../blogpostteaser/blogpost.html"
+    <sly data-sly-use.blogPostTemplate="silversea/silversea-com/components/editorial/blogpostteaser/blogpost.html"
         data-sly-call="${blogPostTemplate.default @ blogPost = blogPost, count = blogPostList.count , ppties = properties}" />
 </sly>
