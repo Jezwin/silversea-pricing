@@ -593,7 +593,7 @@
     <mail-me-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="RECEVOIR CETTE BROCHURE PAR E-MAIL"/>
+        sling:message="M'ENVOYER CETTE BROCHURE"/>
     <ME
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1088,7 +1088,7 @@
     <view-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Consultez nos brochures gratuites"/>
+        sling:message="Consultez votre brochure"/>
     <virtual-tour
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
