@@ -1,9 +1,9 @@
 package com.silversea.aem.utils;
 
 import com.adobe.granite.confmgr.Conf;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.helper.LanguageHelper;
 import org.apache.sling.api.resource.Resource;
-
-import java.util.Locale;
 
 public class PathUtils {
 
@@ -16,16 +16,16 @@ public class PathUtils {
 
     /**
      * @param resource
-     * @param locale
+     * @param page
      * @return local path to request quote page path from /conf
      */
-    public static String getRequestQuotePagePath(final Resource resource, final Locale locale) {
+    public static String getRequestQuotePagePath(final Resource resource, final Page page) {
         final Conf confRes = resource.adaptTo(Conf.class);
-        if (confRes != null) {
+        if (confRes != null && page != null) {
             final Resource requestQuotePageConf = confRes.getItemResource("/requestquotepage/page");
 
             if (requestQuotePageConf != null) {
-                final String pagePath = "/content/silversea-com/" + locale.getLanguage()
+                final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)
                         + requestQuotePageConf.getValueMap().get("reference", String.class);
                 if (resource.getResourceResolver().getResource(pagePath) != null) {
                     return pagePath;
