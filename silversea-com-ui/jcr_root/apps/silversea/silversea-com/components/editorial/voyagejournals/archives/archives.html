@@ -1,33 +1,16 @@
-<sly data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalArchiveUse" />
-
-<div class="c-accordion c-accordion--darkbox">
-    <div class="c-accordion__elem">
-        <div class="c-accordion__header">
-            <div class="c-accordion__title">
-                <p>
-                    <strong>${'archives' @ i18n}</strong> <i class="fa fa-angle-down pull-right"></i>
-                </p>
-            </div>
-        </div>
-        <div class="c-accordion__body c-accordion__body--full">
-            <div class="c-accordion c-accordion--light" data-multiview="false" data-sly-list.year="${cpt.archiveYear}">
-                <div class="c-accordion__elem">
-                    <div class="c-accordion__header">
-                        <div class="c-accordion__title">
-                            <p>
-                                <strong>${year.title}</strong> <i class="fa fa-angle-down pull-right h-text-"></i>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="c-accordion__body">
-                        <div class="c-accordion__body--panel">
-                            <ul data-sly-list.month="${year.archiveMonth}">
-                                <li class="c-accordion__archivelink"><a href="${month.path}">${month.title} (${month.monthNumber})</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="c-archives">
+    <h4 class="c-archives__trigger">
+        <a href="#archives" data-toggle="collapse">
+            <strong>${'archives' @ i18n}</strong><i class="fa fa-angle-down pull-right"></i>
+        </a>
+    </h4>
+    <ul data-sly-use.journalArchiveUse="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
+        data-sly-list.archive="${journalArchiveUse.archives}"
+        data-sly-use.archivesTemplate="silversea/silversea-com/components/editorial/voyagejournals/archives/archivestemplate.html"
+        class="collapse" id="archives">
+        <sly data-sly-test="${ archive.type.toString == 'NODE_OPEN' }" data-sly-call="${ archivesTemplate.NODE_OPEN @ item=archive }" />
+        <sly data-sly-test="${ archive.type.toString == 'ITEM_BEGIN' }" data-sly-call="${ archivesTemplate.ITEM_BEGIN @ item=archive }" />
+        <sly data-sly-test="${ archive.type.toString == 'ITEM_END' }" data-sly-call="${ archivesTemplate.ITEM_END }" />
+        <sly data-sly-test="${ archive.type.toString == 'NODE_CLOSE' }" data-sly-call="${ archivesTemplate.NODE_CLOSE }" />
+    </ul>
 </div>

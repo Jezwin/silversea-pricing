@@ -1,47 +1,28 @@
 package com.silversea.aem.components.voyageJournals;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.sling.api.resource.Resource;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.jackrabbit.oak.commons.PathUtils;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.models.JournalArchiveModel;
-import com.silversea.aem.models.JournalArchiveMonthModel;
+import com.day.cq.wcm.api.PageFilter;
+import com.day.cq.wcm.foundation.Navigation;
 
-/**
- * Created by mbennabi on 20/02/2017.
- */
 public class JournalArchiveUse extends WCMUsePojo {
-
-    private JournalArchiveModel archive;
-    private List<JournalArchiveModel> archiveYear;
-    private List<JournalArchiveMonthModel> archiveMonth;
+    Navigation archives;
 
     @Override
     public void activate() throws Exception {
-        archiveYear = new ArrayList<>();
-        Resource resource = getResourceResolver().getResource(getProperties().get("archivePath", String.class));
-        Page parentPage = resource.adaptTo(Page.class);
-        Iterator<Page> childs = parentPage.listChildren();
-        while (childs.hasNext()) {
-            Page child = childs.next();
-            archive = new JournalArchiveModel();
-            archive.setTitle(child.getTitle());
-            archive.setPath(child.getPath());
-            Iterator<Page> childs1 = child.listChildren();
-            archiveMonth = new ArrayList<>();
-            while (childs1.hasNext()) {
-                archiveMonth.add(childs1.next().adaptTo(JournalArchiveMonthModel.class));
-            }
-            archive.setArchiveMonth(archiveMonth);
-            archiveYear.add(archive);
+        String archivePath = getProperties().get("archivePath", String.class);
+
+        if (StringUtils.isNotBlank(archivePath)) {
+            archives = new Navigation(getCurrentPage(), PathUtils.getDepth(archivePath) - 1, new PageFilter(), 2);
         }
     }
 
-    public List<JournalArchiveModel> getArchiveYear() {
-        return archiveYear;
+    /**
+     * @return the archives
+     */
+    public Navigation getArchives() {
+        return archives;
     }
 }
