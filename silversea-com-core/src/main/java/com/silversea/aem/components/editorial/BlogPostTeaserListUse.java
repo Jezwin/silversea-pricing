@@ -29,7 +29,7 @@ public class BlogPostTeaserListUse extends WCMUsePojo {
 
             if (blogPost != null) {
                 blogPostList.add(blogPost.adaptTo(BlogPostModel.class));
-                String path = blogPost.adaptTo(BlogPostModel.class).getThumbnail();
+
                 i++;
             }
         }
