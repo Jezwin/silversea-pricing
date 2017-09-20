@@ -28,8 +28,8 @@
                 <h4 class="c-blogpostteaser__title hidden-xs">
                     <a href="${blogPost.path @ extension='html'}">${blogPost.title}</a>
                 </h4>
-                <p data-sly-test="${blogPost.description && isFirst}"
-                    data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=blogPost.longDescription || blogPost.description, limit=400}">
+                <p data-sly-test="${blogPost.longDescription && isFirst}"
+                    data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=blogPost.longDescription, limit=400}">
                     ${description.textTruncate}
                 </p>
             </div>
