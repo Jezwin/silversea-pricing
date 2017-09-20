@@ -1,7 +1,7 @@
 package com.silversea.aem.models;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class BlogPostModel {
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/publicationDate")
     @Optional
-    private Date publicationDate;
+    private Calendar publicationDate;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
@@ -71,7 +71,7 @@ public class BlogPostModel {
     private void init() {
         path = page.getPath();
 
-        try{
+        try {
             listBlog = new ArrayList<>();
             Iterator<Page> childs = page.getParent().listChildren();
             while (childs.hasNext()) {
@@ -92,8 +92,8 @@ public class BlogPostModel {
                 next = listBlog.get(i + 1);
                 previous = null;
             }
-        }catch(RuntimeException e){
-            LOGGER.error("Error while initializing model {}",e);
+        } catch (RuntimeException e) {
+            LOGGER.error("Error while initializing model {}", e);
         }
     }
 
@@ -128,7 +128,7 @@ public class BlogPostModel {
     /**
      * @return the publicationDate
      */
-    public Date getPublicationDate() {
+    public Calendar getPublicationDate() {
         return publicationDate;
     }
 
