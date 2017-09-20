@@ -150,6 +150,6 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
      * Return path for request quote page
      */
     public String getRequestQuotePagePath() {
-        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 }

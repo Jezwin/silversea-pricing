@@ -297,7 +297,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
      * @return the request quote page
      */
     public String getRequestQuotePagePath() {
-        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage().getLanguage(false));
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 
     /**
