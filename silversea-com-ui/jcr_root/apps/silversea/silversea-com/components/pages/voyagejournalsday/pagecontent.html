@@ -33,22 +33,24 @@
                 </div>
 
                 <div class="c-voyagejournals__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                <div class="c-voyagejournals__info"></div>
-                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
-                    <a href="${cpt.previousPath}"
-                        class="c-pagination--previous"
-                        data-sly-test="${!cpt.first}">
-                        <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${cpt.previous}
+<!--/* 
+                <div class="c-pagination c-pagination--separated">
+                    <span data-sly-repeat="${journalListDaysUse.voyageJournalDays}">${item.path}</span>
+                    <a data-sly-test="${journalListDaysUse.previousDay}"
+                        href="${journalListDaysUse.previousDay.path @ extension='html'}"
+                        class="c-pagination--previous">
+                        <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${journalListDaysUse.previousDay.title}
                     </a>
-                    <a href="${cpt.nextPath}"
-                        class="c-pagination--next"
-                        data-sly-test="${!cpt.last}"> ${'day' @ i18n} ${cpt.next}
+                    <a data-sly-test="${!journalListDaysUse.nextDay}"
+                        href="${journalListDaysUse.nextDay.path @ extension='html'}"
+                        class="c-pagination--next"> ${'day' @ i18n} ${journalListDaysUse.nextDay.title}
                         <i class="fa fa-angle-right fa-lg"></i>
                     </a>
                 </div>
-            </div>
+*/-->
+             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-4 c-voyagejournals-sidebar">
                 <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
                 <div data-sly-resource="${'dayslistdisplay' @ resourceType='silversea/silversea-com/components/editorial/voyagejournals/dayslist'}"></div>
             </div>

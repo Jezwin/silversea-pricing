@@ -1,171 +1,98 @@
 .c-voyagejournals {
+    &__content {
+        img {
+            height: auto;
+            max-width: 100%;
+        }
 
-    /* phone breakpoint */
+        .row {
+            margin: 0 -5px;
+
+            div[class^="col-"] {
+                padding: 0 5px;
+            }
+        }
+    }
+
+    &__link {
+        &:before {
+            background-color: @black;
+            content: ' ';
+            display: block;
+            height: 100%;
+            left: 5px;
+            opacity: 0;
+            position: absolute;
+            right: 5px;
+            top: 0;
+            transition: 0.3s ease;
+        }
+
+        &:hover:before {
+            opacity: 0.5;
+        }
+    }
+
+    &__title-wrapper {
+        color: @white;
+        bottom: 10px;
+        left: 12px;
+        right: 22px;
+        position: absolute;
+    }
+
+    &__ship, &__title {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    &__title {
+        margin-bottom: 10px;
+    }
+
+    &__date, &__id {
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    &__date {
+        float: left;
+    }
+
+    &__id {
+        float: right;
+    }
+
+
+    .text {
+        margin-top: 20px;
+    }
+
     @media screen and (max-width: @screen-sm) {
         padding: 0;
-    }
 
-    &__header {
-        border-bottom: 1px solid @black;
-        margin-bottom: 10px;
-        color: @black;
-
-        h3 {
-            font-size: 14px;
-            margin: 0;
+        &-sidebar {
+            margin-top: 40px;
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 400;
-            margin: 5px 0 10px 0;
-        }
-
-        p {
-            font-size: 13px;
+        &__link {
+            display: block;
+            margin-bottom: 1px;
         }
     }
 
-    &__dayinfo {
-        font-size: 13px;
-        margin-bottom: 20px;
-    }
+    @media screen and (min-width: @screen-md-min) {
+        div[class^="col-"] {
+            margin-bottom: 40px;
+        }
 
-    &__content img {
-        height: auto;
-        max-width: 100%;
-    }
+        &__title-wrapper {
+            bottom: -20px;
+        }
 
-    .c-list {
-        margin: 0 -5px;
-        overflow: hidden;
-
-        &__item {
-            float: left;
-            position: relative;
-            width: 50%;
-            padding-bottom: 25px;
-            padding-left: 5px;
-            padding-right: 5px;
-            margin-bottom: 25px;
-
-            &:nth-child(odd) { 
-                clear: both;
-
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
-                    float: none;
-                }
-            }
-
-            &:nth-child(even) {
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
-                    float: none;
-                }
-            }
-
-            &:hover .overlay img {
-                opacity: 0.5;
-
-                /* phone breakpoint */
-                @media screen and (max-width: @screen-sm) {
-                    opacity: 1;
-                }
-            }
-
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                width: 100%;
-                margin-bottom: 0;
-                padding-bottom: 0;
-                border-top: 1px solid @grey--d;
-            }
-
-            a {
-                display: block;
-                color: @white;
-
-                > * { padding: 0 15px; }
-
-                .voyage-ship-name {
-                    position: absolute;
-                    top: 50%;
-                    z-index: 2;
-                    font-style: italic;
-                    font-size: 18px;
-                    font-weight: 400;
-                    text-transform: capitalize;
-
-                    /* phone breakpoint */
-                    @media screen and (max-width: @screen-sm) {
-                        display: none;
-                    }
-                }
-
-                .voyage-journal-title {
-                    font-size: 18px;
-                    z-index: 2;
-                    position: absolute;
-                    bottom: 13%;
-
-                    /* phone breakpoint */
-                    @media screen and (max-width: @screen-sm) {
-                        font-size: 16px;
-                        bottom: 10%;
-                    }
-                }
-
-                .voyage-date {
-                    position: absolute;
-                    bottom: 3px;
-                    font-size: 14px;
-                    font-weight: @bold;
-                    color: @black;
-                    text-transform: uppercase;
-
-                    /* phone breakpoint */
-                    @media screen and (max-width: @screen-sm) {
-                        color: @white;
-                        font-size: 12px;
-                        bottom: 10px;
-                    }
-                }
-
-                .voyage-id {
-                    position: absolute;
-                    bottom: 3px;
-                    right: 3px;
-                    font-size: 14px;
-                    font-weight: 700;
-                    color: @black;
-                    text-transform: uppercase;
-
-                    /* phone breakpoint */
-                    @media screen and (max-width: @screen-sm) {
-                        color: @white;
-                        font-size: 12px;
-                        bottom: 10px;
-                    }
-                }
-
-                .overlay {
-                    display: block;
-                    background: @black;
-                    padding: 0;
-
-                    img {
-                        width: 100%;
-                        height: auto;
-                        padding: 0;
-                        -moz-transition: 0.3s ease;
-                        -o-transition: 0.3s ease;
-                        -ms-transition: 0.3s ease;
-                        transition: 0.3s ease;
-                        webkit-transition: 0.3s ease;
-                    }
-                }
-            }
+        &__date, &__id {
+            color: @black;
+            font-weight: 700;
         }
     }
 }

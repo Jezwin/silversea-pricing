@@ -1,25 +1,24 @@
-<div class="c-voyagejournals__content"
-     data-sly-use.VoyageJournalsListUse="com.silversea.aem.components.voyageJournals.VoyageJournalsListUse">
-
+<div data-sly-use.voyageJournalsListUse="com.silversea.aem.components.voyageJournals.VoyageJournalsListUse" class="c-voyagejournals__content">
     <div data-sly-test="${(wcmmode.edit || wcmmode.design)}" data-emptytext="Voyage journals list" class="cq-placeholder cq-dd-file"></div>
 
-    <ul class="c-list" data-sly-list="${VoyageJournalsListUse.voyageJournalList}">
-        <li class="c-list__item" data-sly-use.hship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}"
+    <div class="row" data-sly-list="${voyageJournalsListUse.voyageJournalList}">
+        <div class="col-sm-6"
+            data-sly-use.ship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}"
             data-sly-use.cruise="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.cruiseReference}">
-            <a href="${item.path @ extension='html'}">
-                <span class="voyage-ship-name">${hship.page.title}</span>
-                <h2 class="voyage-journal-title">${item.title}</h2>
-                <span class="voyage-date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.properties.date}">
-                    ${date.value}
-                </span>
-                <span class="voyage-id">voyage ${cruise.page.properties.cruiseCode}</span>
-                <span class="overlay">
-                    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
-                    <sly data-sly-call="${imageTemplate.default @ imagePath=item.properties.assetSelectionReference}" />
-                </span>
+            <a href="${item.path @ extension='html'}" class="c-voyagejournals__link">
+                <div class="c-voyagejournals__title-wrapper">
+                    <span class="c-voyagejournals__ship">${cruise.page.properties.cruiseCode} ${ship.page.title}</span>
+                    <h2 class="c-voyagejournals__title">${item.title}</h2>
+                    <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.properties.date}">
+                        ${date.value}
+                    </span>
+                    <span class="c-voyagejournals__id">voyage ${cruise.page.properties.cruiseCode}</span>
+                </div>
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                    data-sly-call="${imageTemplate.default @ imagePath=item.properties.assetSelectionReference}" />
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 
 
     <div class="c-pagination-number">
