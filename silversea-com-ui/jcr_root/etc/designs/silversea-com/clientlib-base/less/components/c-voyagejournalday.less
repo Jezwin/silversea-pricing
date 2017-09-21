@@ -3,6 +3,7 @@
         img {
             height: auto;
             max-width: 100%;
+            width: 100%;
         }
 
         .row {
@@ -63,13 +64,14 @@
         float: right;
     }
 
-
     .text {
         margin-top: 20px;
     }
 
     @media screen and (max-width: @screen-sm) {
-        padding: 0;
+        .voyagejournals &, .voyagejournal & {
+            padding: 0;
+        }
 
         &-sidebar {
             margin-top: 40px;
