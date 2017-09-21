@@ -7,14 +7,20 @@ $(function() {
             var $link = $(this);
             $link.on('click', function(e) {
                 e.preventDefault();
-                var $trigger = $(this);
-                var $targetcollapse = $trigger.next('ul');
 
-                // Toggle current year (close or open)
-                $targetcollapse.collapse('toggle');
+                if ($('.collapsing').length === 0) {
+                    // Toggle only if there is not collapsing at this time
+                    var $trigger = $(this);
+                    var $targetcollapse = $trigger.next('ul');
 
-                // Close other year
-                $archive.find('.collapse').not($targetcollapse).collapse('hide')
+                    // Toggle current year (close or open)
+                    $targetcollapse.collapse('toggle');
+
+                    // Close other year
+                    $archive.find('.collapse').not($targetcollapse).collapse('hide')
+                } else {
+                    return false;
+                }
             });
         });
     });
