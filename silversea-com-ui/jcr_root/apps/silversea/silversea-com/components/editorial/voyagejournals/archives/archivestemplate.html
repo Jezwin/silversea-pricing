@@ -1,16 +1,16 @@
-<template data-sly-template.NODE_OPEN="${ @ item }">
-<ul class="collapse">
-</template>
+<template data-sly-template.NODE_OPEN="${ @ item }"><!--/*
+*/--><ul class="collapse"><!--/*
+*/--></template>
 
-<template data-sly-template.ITEM_BEGIN="${ @ item }">
-<li><a href="${item.page.path @ extension='html'}">${item.page.title}
-<sly data-sly-repeat="${item.page.listChildren}"><span class="c-archives__count" data-sly-test="${itemList.last}">(${itemList.count})</span></sly><i class="fa fa-angle-down pull-right"></i></a>
-</template>
+<template data-sly-template.ITEM_BEGIN="${ @ item }"><!--/*
+*/--><li><a href="${item.page.path @ extension='html'}">${item.page.title}
+<sly data-sly-repeat="${item.page.listChildren}"><span class="c-archives__count" data-sly-test="${itemList.last}">(${itemList.count})</span></sly><i class="fa fa-angle-down pull-right"></i></a><!--/*
+*/--></template>
 
-<template data-sly-template.ITEM_END>
-</li>
-</template>
+<template data-sly-template.ITEM_END><!--/*
+*/--></li><!--/*
+*/--></template>
 
-<template data-sly-template.NODE_CLOSE>
-</ul>
-</template>
+<template data-sly-template.NODE_CLOSE><!--/*
+*/--></ul><!--/*
+*/--></template>

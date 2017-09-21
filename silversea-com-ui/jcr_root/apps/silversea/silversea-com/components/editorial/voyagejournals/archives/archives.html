@@ -7,10 +7,10 @@
     <ul data-sly-use.journalArchiveUse="com.silversea.aem.components.voyageJournals.JournalArchiveUse"
         data-sly-list.archive="${journalArchiveUse.archives}"
         data-sly-use.archivesTemplate="silversea/silversea-com/components/editorial/voyagejournals/archives/archivestemplate.html"
-        class="collapse" id="archives">
-        <sly data-sly-test="${ archive.type.toString == 'NODE_OPEN' }" data-sly-call="${ archivesTemplate.NODE_OPEN @ item=archive }" />
-        <sly data-sly-test="${ archive.type.toString == 'ITEM_BEGIN' }" data-sly-call="${ archivesTemplate.ITEM_BEGIN @ item=archive }" />
-        <sly data-sly-test="${ archive.type.toString == 'ITEM_END' }" data-sly-call="${ archivesTemplate.ITEM_END }" />
-        <sly data-sly-test="${ archive.type.toString == 'NODE_CLOSE' }" data-sly-call="${ archivesTemplate.NODE_CLOSE }" />
+        class="collapse" id="archives"><!--/*
+        */--><sly data-sly-test="${ archive.type.toString == 'NODE_OPEN' }" data-sly-call="${ archivesTemplate.NODE_OPEN @ item=archive }" /><!--/*
+        */--><sly data-sly-test="${ archive.type.toString == 'ITEM_BEGIN' }" data-sly-call="${ archivesTemplate.ITEM_BEGIN @ item=archive }" /><!--/*
+        */--><sly data-sly-test="${ archive.type.toString == 'ITEM_END' }" data-sly-call="${ archivesTemplate.ITEM_END }" /><!--/*
+        */--><sly data-sly-test="${ archive.type.toString == 'NODE_CLOSE' }" data-sly-call="${ archivesTemplate.NODE_CLOSE }" />
     </ul>
 </div>
