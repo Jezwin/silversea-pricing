@@ -13,6 +13,8 @@
     }
 
     &__image {
+        max-height: 200px;
+        overflow: hidden;
         position: relative;
 
         &__link {
@@ -41,6 +43,10 @@
             position: absolute;
             width: calc(~"100% - 30px");
             z-index: 1;
+        }
+
+        .o-img {
+            width: 100%;
         }
     }
 
@@ -104,6 +110,11 @@
 
             .c-blogpostteaser__image, .c-blogpostteaser__description {
                 width: 100%;
+            }
+
+            .c-blogpostteaser__image {
+                max-height: none;
+                overflow: auto;
             }
 
             .c-blogpostteaser__title {
