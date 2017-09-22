@@ -12,7 +12,7 @@
         extension="mp4"
         height="1080"
         keepAspectRatio="true"
-        videoBitrate="15000"
+        videoBitrate="7500"
         videoCodec="MP4 H264 (.mp4)"
         width="0"/>
     <MP4_x0020_-_x0020_0x720_x0020_px_x002c__x0020_7500_x0020_kbps
@@ -23,7 +23,7 @@
         extension="mp4"
         height="720"
         keepAspectRatio="true"
-        videoBitrate="7500"
+        videoBitrate="4000"
         videoCodec="MP4 H264 (.mp4)"
         width="0"/>
     <MP4_x0020_-_x0020_0x360_x0020_px_x002c__x0020_1000_x0020_kbps
