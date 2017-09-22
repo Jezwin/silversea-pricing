@@ -1,26 +1,26 @@
 <div data-sly-use.voyageJournalsListUse="com.silversea.aem.components.voyageJournals.VoyageJournalsListUse" class="c-voyagejournals__content">
     <div data-sly-test="${(wcmmode.edit || wcmmode.design)}" data-emptytext="Voyage journals list" class="cq-placeholder cq-dd-file"></div>
 
-    <div class="row" data-sly-list="${voyageJournalsListUse.voyageJournalList}">
+    <div class="row" data-sly-list.voyageJournal="${voyageJournalsListUse.voyageJournalList}">
         <div class="col-sm-6"
-            data-sly-use.ship="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.shipReference}"
-            data-sly-use.cruise="${'com.silversea.aem.helper.PageHelper' @ path=item.properties.cruiseReference}">
-            <a href="${item.path @ extension='html'}" class="c-voyagejournals__link">
+            data-sly-use.ship="${'com.silversea.aem.helper.PageHelper' @ path=voyageJournal.shipReference}"
+            data-sly-use.cruise="${'com.silversea.aem.helper.PageHelper' @ path=voyageJournal.cruiseReference}">
+            <a href="${voyageJournal.path @ extension='html'}" class="c-voyagejournals__link">
                 <div class="c-voyagejournals__title-wrapper">
                     <span class="c-voyagejournals__ship">${cruise.page.properties.cruiseCode} ${ship.page.title}</span>
-                    <h2 class="c-voyagejournals__title">${item.title}</h2>
-                    <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.properties.date}">
+                    <h2 class="c-voyagejournals__title">${voyageJournal.title}</h2>
+                    <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyageJournal.date}">
                         ${date.value}
                     </span>
                     <span class="c-voyagejournals__id">voyage ${cruise.page.properties.cruiseCode}</span>
                 </div>
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                    data-sly-call="${imageTemplate.default @ imagePath=item.properties.assetSelectionReference}" />
+                    data-sly-call="${imageTemplate.default @ imagePath=voyageJournal.thumbnail}" />
             </a>
         </div>
     </div>
 
-
+<!--/*
     <div class="c-pagination-number">
         <sly data-sly-test.pageSize="${VoyageJournalsListUse.prev >= 0}">
             <a class="c-pagination-number__prev" href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.prev}">&#8592; ${'previous' @ i18n}</a>
@@ -37,4 +37,5 @@
             <a class="c-pagination-number__next" href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.next}">${'next' @ i18n} &#8594;</a>
         </sly>
     </div>
+*/-->
 </div>

@@ -1,7 +1,6 @@
 package com.silversea.aem.models;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
