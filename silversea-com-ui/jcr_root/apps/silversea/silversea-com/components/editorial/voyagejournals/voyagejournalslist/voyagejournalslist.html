@@ -14,8 +14,10 @@
                     </span>
                     <span class="c-voyagejournals__id">voyage ${cruise.page.properties.cruiseCode}</span>
                 </div>
-                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-                    data-sly-call="${imageTemplate.default @ imagePath=voyageJournal.thumbnail}" />
+                <sly data-sly-test.thumbnail="${voyageJournal.thumbnail}"
+                    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                    data-sly-call="${imageTemplate.default @ imagePath=thumbnail}" />
+                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyageJournal.title}" class="o-img" />
             </a>
         </div>
     </div>
