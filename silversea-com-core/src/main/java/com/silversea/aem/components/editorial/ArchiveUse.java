@@ -1,4 +1,4 @@
-package com.silversea.aem.components.voyageJournals;
+package com.silversea.aem.components.editorial;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
@@ -7,7 +7,7 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.foundation.Navigation;
 
-public class JournalArchiveUse extends WCMUsePojo {
+public class ArchiveUse extends WCMUsePojo {
     Navigation archives;
 
     @Override
