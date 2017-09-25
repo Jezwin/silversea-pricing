@@ -22,22 +22,20 @@
         </div>
     </div>
 
-<!--/*
     <div class="c-pagination-number">
-        <sly data-sly-test.pageSize="${VoyageJournalsListUse.prev >= 0}">
-            <a class="c-pagination-number__prev" href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.prev}">&#8592; ${'previous' @ i18n}</a>
-        </sly>
-
-        <sly data-sly-list="${VoyageJournalsListUse.numberOfPages}" data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0 || VoyageJournalsListUse.prev >= 0}">
-            <sly data-sly-test.active="${item == VoyageJournalsListUse.current}"></sly>
-            <a href="${currentPage.path @ extension='html'}?page=${item}" class="${active ? 'active' : ''}">
-                ${item}
-            </a>
-        </sly>
-
-        <sly data-sly-test.pageSize="${VoyageJournalsListUse.next >= 0}">
-            <a class="c-pagination-number__next" href="${currentPage.path @ extension='html'}?page=${VoyageJournalsListUse.next}">${'next' @ i18n} &#8594;</a>
-        </sly>
+        <ul data-sly-test.partition="${voyageJournalsListUse.voyageJournalPartition}" class="clearfix">
+            <li data-sly-test.previousPageIndex="${voyageJournalsListUse.previousPageIndex}">
+                <a href="${currentPage.path @ extension='html'}?page=${previousPageIndex}" title="${previousPageIndex}">&#8592; ${'previous' @ i18n}</a>
+            </li>
+            <li data-sly-repeat.page="${partition}">
+                <a href="${currentPage.path @ extension='html'}?page=${pageList.count}"
+                    class="${voyageJournalsListUse.currentPageIndex == pageList.count ? 'active' : ''}">
+                    ${pageList.count}
+                </a>
+            </li>
+            <li data-sly-test.nextPageIndex="${voyageJournalsListUse.nextPageIndex}">
+                <a href="${currentPage.path @ extension='html'}?page=${nextPageIndex}" title="${nextPageIndex}">${'next' @ i18n} &#8594;</a>
+            </li>
+        </ul>
     </div>
-*/-->
 </div>

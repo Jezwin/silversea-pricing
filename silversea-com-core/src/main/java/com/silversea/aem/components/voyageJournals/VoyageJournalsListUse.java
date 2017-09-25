@@ -14,6 +14,8 @@ import com.silversea.aem.models.VoyageJournalModel;
 
 public class VoyageJournalsListUse extends WCMUsePojo {
     private List<VoyageJournalModel> voyageJournalList;
+    private List<List<VoyageJournalModel>> voyageJournalPartition;
+    private Integer currentPageIndex;
 
     @Override
     public void activate() throws Exception {
@@ -21,7 +23,7 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         final Integer limit = inheritanceValueMap.getInherited("paginationLimit", 10);
 
         String currentPageParam = getRequest().getRequestParameter("page") != null ? getRequest().getRequestParameter("page").toString() : "1";
-        Integer currentPageIndex = Integer.parseInt(currentPageParam);
+        currentPageIndex = Integer.parseInt(currentPageParam);
 
         final Iterator<Page> voyageJournalPages = getCurrentPage().listChildren(new VoyageJournalPageFilter(), true);
         List<VoyageJournalModel> voyageJournalListFull = new ArrayList<>();
@@ -34,7 +36,8 @@ public class VoyageJournalsListUse extends WCMUsePojo {
             }
         }
 
-        List<List<VoyageJournalModel>> voyageJournalPartition = Lists.partition(voyageJournalListFull, limit);
+        voyageJournalPartition = new ArrayList<>();
+        voyageJournalPartition = Lists.partition(voyageJournalListFull, limit);
 
         if (currentPageIndex - 1 < voyageJournalPartition.size()) {
             voyageJournalList = new ArrayList<>();
@@ -47,5 +50,33 @@ public class VoyageJournalsListUse extends WCMUsePojo {
      */
     public List<VoyageJournalModel> getVoyageJournalList() {
         return voyageJournalList;
+    }
+
+    /**
+     * @return the voyageJournalPartition
+     */
+    public List<List<VoyageJournalModel>> getVoyageJournalPartition() {
+        return voyageJournalPartition;
+    }
+
+    /**
+     * @return the currentPageIndex
+     */
+    public Integer getCurrentPageIndex() {
+        return currentPageIndex;
+    }
+
+    /**
+     * @return the previousPageIndex
+     */
+    public Integer getPreviousPageIndex() {
+        return currentPageIndex != 1 ? currentPageIndex - 1 : null;
+    }
+
+    /**
+     * @return the NextPageIndex
+     */
+    public Integer getNextPageIndex() {
+        return currentPageIndex != getVoyageJournalPartition().size() ? currentPageIndex + 1 : null;
     }
 }
