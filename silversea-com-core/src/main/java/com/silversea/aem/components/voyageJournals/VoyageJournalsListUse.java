@@ -3,6 +3,8 @@ package com.silversea.aem.components.voyageJournals;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
@@ -13,7 +15,7 @@ import com.silversea.aem.filter.VoyageJournalPageFilter;
 import com.silversea.aem.models.VoyageJournalModel;
 
 public class VoyageJournalsListUse extends WCMUsePojo {
-    private List<VoyageJournalModel> voyageJournalList;
+    private List<VoyageJournalModel> voyagesCurrent;
     private List<List<VoyageJournalModel>> voyageJournalPartition;
     private Integer currentPageIndex;
 
@@ -26,37 +28,33 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         currentPageIndex = Integer.parseInt(currentPageParam);
 
         final Iterator<Page> voyageJournalPages = getCurrentPage().listChildren(new VoyageJournalPageFilter(), true);
-        List<VoyageJournalModel> voyageJournalListFull = new ArrayList<>();
+
+        // Get every voyages journal
+        List<VoyageJournalModel> voyages = new ArrayList<>();
 
         while (voyageJournalPages.hasNext()) {
             Page voyageJournal = voyageJournalPages.next();
 
             if (voyageJournal != null) {
-                voyageJournalListFull.add(voyageJournal.adaptTo(VoyageJournalModel.class));
+                voyages.add(voyageJournal.adaptTo(VoyageJournalModel.class));
             }
         }
 
+        // Get voyage journal for the given page only
         voyageJournalPartition = new ArrayList<>();
-        voyageJournalPartition = Lists.partition(voyageJournalListFull, limit);
+        voyageJournalPartition = Lists.partition(voyages, limit);
 
         if (currentPageIndex - 1 < voyageJournalPartition.size()) {
-            voyageJournalList = new ArrayList<>();
-            voyageJournalList = voyageJournalPartition.get(currentPageIndex - 1);
+            voyagesCurrent = new ArrayList<>();
+            voyagesCurrent = voyageJournalPartition.get(currentPageIndex - 1);
         }
     }
 
     /**
-     * @return the voyageJournalList
+     * @return the voyagesCurrent
      */
-    public List<VoyageJournalModel> getVoyageJournalList() {
-        return voyageJournalList;
-    }
-
-    /**
-     * @return the voyageJournalPartition
-     */
-    public List<List<VoyageJournalModel>> getVoyageJournalPartition() {
-        return voyageJournalPartition;
+    public List<VoyageJournalModel> getVoyagesCurrent() {
+        return voyagesCurrent;
     }
 
     /**
@@ -70,13 +68,24 @@ public class VoyageJournalsListUse extends WCMUsePojo {
      * @return the previousPageIndex
      */
     public Integer getPreviousPageIndex() {
-        return currentPageIndex != 1 ? currentPageIndex - 1 : null;
+        return currentPageIndex > 1 ? currentPageIndex - 1 : null;
     }
 
     /**
      * @return the NextPageIndex
      */
     public Integer getNextPageIndex() {
-        return currentPageIndex != getVoyageJournalPartition().size() ? currentPageIndex + 1 : null;
+        return currentPageIndex < voyageJournalPartition.size() ? currentPageIndex + 1 : null;
+    }
+
+    /**
+     * @return the Pagination
+     */
+    public List<Integer> getPagination() {
+        Integer pageFrom = currentPageIndex > 2 ? currentPageIndex - 2 : 1 ;
+        Integer pageTo = currentPageIndex < voyageJournalPartition.size() - 2 ? currentPageIndex + 2 : voyageJournalPartition.size();
+
+        // Build integer list filled with int between pageFrom and pageTo
+        return IntStream.rangeClosed(pageFrom, pageTo).boxed().collect(Collectors.toList());
     }
 }

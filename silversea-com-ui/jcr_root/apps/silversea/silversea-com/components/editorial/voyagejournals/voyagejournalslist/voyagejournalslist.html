@@ -1,36 +1,36 @@
 <div data-sly-use.voyageJournalsListUse="com.silversea.aem.components.voyageJournals.VoyageJournalsListUse" class="c-voyagejournals__content">
     <div data-sly-test="${(wcmmode.edit || wcmmode.design)}" data-emptytext="Voyage journals list" class="cq-placeholder cq-dd-file"></div>
 
-    <div class="row" data-sly-list.voyageJournal="${voyageJournalsListUse.voyageJournalList}">
+    <div class="row" data-sly-list.voyage="${voyageJournalsListUse.voyagesCurrent}">
         <div class="col-sm-6"
-            data-sly-use.ship="${'com.silversea.aem.helper.PageHelper' @ path=voyageJournal.shipReference}"
-            data-sly-use.cruise="${'com.silversea.aem.helper.PageHelper' @ path=voyageJournal.cruiseReference}">
-            <a href="${voyageJournal.path @ extension='html'}" class="c-voyagejournals__link">
+            data-sly-use.ship="${'com.silversea.aem.helper.PageHelper' @ path=voyage.shipReference}"
+            data-sly-use.cruise="${'com.silversea.aem.helper.PageHelper' @ path=voyage.cruiseReference}">
+            <a href="${voyage.path @ extension='html'}" class="c-voyagejournals__link">
                 <div class="c-voyagejournals__title-wrapper">
                     <span class="c-voyagejournals__ship">${cruise.page.properties.cruiseCode} ${ship.page.title}</span>
-                    <h2 class="c-voyagejournals__title">${voyageJournal.title}</h2>
-                    <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyageJournal.date}">
+                    <h2 class="c-voyagejournals__title">${voyage.title}</h2>
+                    <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyage.date}">
                         ${date.value}
                     </span>
-                    <span class="c-voyagejournals__id">voyage ${cruise.page.properties.cruiseCode}</span>
+                    <span class="c-voyagejournals__id">${'voyage' @ i18n} ${cruise.page.properties.cruiseCode}</span>
                 </div>
-                <sly data-sly-test.thumbnail="${voyageJournal.thumbnail}"
+                <sly data-sly-test.thumbnail="${voyage.thumbnail}"
                     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                     data-sly-call="${imageTemplate.default @ imagePath=thumbnail}" />
-                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyageJournal.title}" class="o-img" />
+                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyage.title}" class="o-img" />
             </a>
         </div>
     </div>
 
     <div class="c-pagination-number">
-        <ul data-sly-test.partition="${voyageJournalsListUse.voyageJournalPartition}" class="clearfix">
+        <ul data-sly-test.pagination="${voyageJournalsListUse.pagination}" class="clearfix">
             <li data-sly-test.previousPageIndex="${voyageJournalsListUse.previousPageIndex}">
                 <a href="${currentPage.path @ extension='html'}?page=${previousPageIndex}" title="${previousPageIndex}">&#8592; ${'previous' @ i18n}</a>
             </li>
-            <li data-sly-repeat.page="${partition}">
-                <a href="${currentPage.path @ extension='html'}?page=${pageList.count}"
-                    class="${voyageJournalsListUse.currentPageIndex == pageList.count ? 'active' : ''}">
-                    ${pageList.count}
+            <li data-sly-repeat.page="${pagination}">
+                <a href="${currentPage.path @ extension='html'}?page=${page}"
+                    class="${voyageJournalsListUse.currentPageIndex == page ? 'active' : ''}">
+                    ${page}
                 </a>
             </li>
             <li data-sly-test.nextPageIndex="${voyageJournalsListUse.nextPageIndex}">
