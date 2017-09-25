@@ -21,7 +21,7 @@ public class CountryHelper extends AbstractGeolocationAwareUse {
 
         if (StringUtils.isNotEmpty(localizedPhone)) {
             // Remove any non-digit
-            clickableLocalizedPhone = localizedPhone.replaceAll("\\D", "");
+            clickableLocalizedPhone = localizedPhone.replaceAll("\\s", "").replaceAll("-", "");
         }
 
         hrefLangValid = getCurrentPage().getLanguage(false).toLanguageTag();
