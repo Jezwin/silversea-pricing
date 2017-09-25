@@ -65,6 +65,13 @@ public class VoyageJournalsListUse extends WCMUsePojo {
     }
 
     /**
+     * @return the NextPageIndex
+     */
+    public List<List<VoyageJournalModel>> getVoyageJournalPartition() {
+        return voyageJournalPartition;
+    }
+
+    /**
      * @return the previousPageIndex
      */
     public Integer getPreviousPageIndex() {

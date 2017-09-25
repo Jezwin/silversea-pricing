@@ -25,6 +25,9 @@
     <div class="c-pagination-number">
         <ul data-sly-test.pagination="${voyageJournalsListUse.pagination}" class="clearfix">
             <li data-sly-test.previousPageIndex="${voyageJournalsListUse.previousPageIndex}">
+                <a href="${currentPage.path @ extension='html'}?page=1" title="1"> ${'first' @ i18n}</a>
+            </li>
+            <li data-sly-test="${previousPageIndex}">
                 <a href="${currentPage.path @ extension='html'}?page=${previousPageIndex}" title="${previousPageIndex}">&#8592; ${'previous' @ i18n}</a>
             </li>
             <li data-sly-repeat.page="${pagination}">
@@ -35,6 +38,9 @@
             </li>
             <li data-sly-test.nextPageIndex="${voyageJournalsListUse.nextPageIndex}">
                 <a href="${currentPage.path @ extension='html'}?page=${nextPageIndex}" title="${nextPageIndex}">${'next' @ i18n} &#8594;</a>
+            </li>
+            <li data-sly-test="${nextPageIndex}">
+                <a href="${currentPage.path @ extension='html'}?page=${voyageJournalsListUse.voyageJournalPartition.size}" title="${voyageJournalsListUse.voyageJournalPartition.size}">${'last' @ i18n}</a>
             </li>
         </ul>
     </div>
