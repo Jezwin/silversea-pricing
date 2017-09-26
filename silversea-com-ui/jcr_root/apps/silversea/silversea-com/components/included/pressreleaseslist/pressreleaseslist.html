@@ -1,7 +1,7 @@
-<sly data-sly-use.PressreleaseslistUse="com.silversea.aem.components.included.PressReleasesListUse"
+<sly data-sly-use.pressReleaseListUse="com.silversea.aem.components.included.PressReleaseListUse"
     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
 
-<div class="row c-pressreleaseslist" data-sly-list.pressRelease="${PressreleaseslistUse.pressReleaseList}">
+<div class="row c-pressreleaseslist" data-sly-list.pressRelease="${pressReleaseListUse.pressReleasesCurrent}">
     <div class="col-sm-6" data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=pressRelease.path}">
         <div class="c-pressreleaseslist__teaser">
             <div class="c-pressreleaseslist__image">
@@ -18,21 +18,25 @@
         </div>
     </div>
 </div>
-
 <div class="c-pagination-number">
-    <ul class="clearfix">
-        <li data-sly-test.pageSize="${PressreleaseslistUse.prev >= 0}">
-            <a class="c-pagination-number__prev"
-               href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.prev}">&#8592; ${'previous' @ i18n}</a>
+    <ul data-sly-test.pagination="${pressReleaseListUse.pagination}" class="clearfix">
+        <li data-sly-test.previousPageIndex="${pressReleaseListUse.previousPageIndex}">
+            <a href="${currentPage.path @ extension='html'}?page=1" title="1"> ${'first' @ i18n}</a>
         </li>
-        <li data-sly-repeat="${PressreleaseslistUse.numberOfPages}" data-sly-test.pageSize="${PressreleaseslistUse.next >= 0 || PressreleaseslistUse.prev >= 0}">
-            <a href="${currentPage.path @ extension='html'}?page=${item}" class="${item == PressreleaseslistUse.current ? 'active' : ''}">
-                ${item}
+        <li data-sly-test="${previousPageIndex}">
+            <a href="${currentPage.path @ extension='html'}?page=${previousPageIndex}" title="${previousPageIndex}">&#8592; ${'previous' @ i18n}</a>
+        </li>
+        <li data-sly-repeat.page="${pagination}">
+            <a href="${currentPage.path @ extension='html'}?page=${page}"
+                class="${pressReleaseListUse.currentPageIndex == page ? 'active' : ''}">
+                ${page}
             </a>
         </li>
-        <li data-sly-test.pageSize="${PressreleaseslistUse.next >= 0}">
-            <a class="c-pagination-number__next"
-               href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.next}">${'next' @ i18n} &#8594;</a>
+        <li data-sly-test.nextPageIndex="${pressReleaseListUse.nextPageIndex}">
+            <a href="${currentPage.path @ extension='html'}?page=${nextPageIndex}" title="${nextPageIndex}">${'next' @ i18n} &#8594;</a>
+        </li>
+        <li data-sly-test="${nextPageIndex}">
+            <a href="${currentPage.path @ extension='html'}?page=${pressReleaseListUse.pressReleasePartition.size}" title="${pressReleaseListUse.pressReleasePartition.size}">${'last' @ i18n}</a>
         </li>
     </ul>
 </div>

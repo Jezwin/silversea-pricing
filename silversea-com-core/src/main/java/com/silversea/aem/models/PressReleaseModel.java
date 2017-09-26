@@ -14,7 +14,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.Page;
 
 @Model(adaptables = Page.class)
-public class PressRealeseModel {
+public class PressReleaseModel {
     @Inject
     @Self
     private Page page;
