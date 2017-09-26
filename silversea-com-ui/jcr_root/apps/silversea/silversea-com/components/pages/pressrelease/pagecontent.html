@@ -4,14 +4,12 @@
             <div class="col-md-3 col-sm-4 sidebar">
                 <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
             </div>
-            <div class="col-sm-9 col-sm-8 c-pressreleases">
-                <div class="c-pageheader">
-                    <p class="c-pageheader__date"
-                       data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
-                        <strong>${'date' @ i18n}</strong> ${date.value}
-                    </p>
-                    <h1 class="c-pageheader__subtitle">${currentPage.title}</h1>
-                </div>
+            <div class="col-sm-9 col-sm-8 c-pressrelease">
+                <h2 data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format=' MMMMM dd, yyyy', date=pageProperties.publicationDate}"
+                    class="c-pressrelease__date">
+                    <strong>${'date' @ i18n} :</strong> ${date.value}
+                </h2>
+                <h1 class="c-pressrelease__title">${currentPage.title}</h1>
 
                 <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 
