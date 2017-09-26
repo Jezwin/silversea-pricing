@@ -1,38 +1,38 @@
-<div class="container" data-sly-use.PressreleaseslistUse="com.silversea.aem.components.included.PressReleasesListUse">
-    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"></sly>
+<sly data-sly-use.PressreleaseslistUse="com.silversea.aem.components.included.PressReleasesListUse"
+    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
 
-    <div class="row c-pressreleaseslist" data-sly-list="${PressreleaseslistUse.pressReleaseList}">
-        <div class="col-sm-6 col-xs-12 c-pressreleaseslist__elem">
-            <sly data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=item.path}"></sly>
-
-            <div class="c-pressreleaseslist__img">
-                <a href="${item.path @ extension='html'}">
-                    <sly data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail}"></sly>
-                </a>
+<div class="row c-pressreleaseslist" data-sly-list.pressRelease="${PressreleaseslistUse.pressReleaseList}">
+    <div class="col-sm-6" data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=pressRelease.path}">
+        <div class="c-pressreleaseslist__teaser">
+            <div class="c-pressreleaseslist__image">
+                <sly data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail}" />
             </div>
-            <div class="c-pressreleaseslist__descr">
-                <a href="${item.path @ extension='html'}" class="wrapperhover"></a>
-                <p class="date_title" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
-                    ${'date' @ i18n}: <span>${date.value}</span>
-                </p>
-                <h3 class="hidden-xs">${item.title}</h3>
-                <a class="read-more" href="${item.path @ extension='html'}"><span>${'more' @ i18n}</span></a>
+            <div class="c-pressreleaseslist__description">
+                <h4 class="c-pressreleaseslist__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM dd, yyyy', date=pressRelease.properties.publicationDate}">
+                    <strong>${'date' @ i18n}:</strong> ${date.value}
+                </h4>
+                <h3 class="c-pressreleaseslist__title hidden-xs">${pressRelease.title}</h3>
+                <a class="c-pressreleaseslist__link" href="${pressRelease.path @ extension='html'}"><span>${'more' @ i18n}</span><i class="fa fa-angle-right"></i></a>
             </div>
+            <a href="${item.path @ extension='html'}" class="c-pressreleaseslist__link-overlay"></a>
         </div>
     </div>
-    <div class="c-pagination-number">
-        <a data-sly-test.pageSize="${PressreleaseslistUse.prev >= 0}"
-           class="c-pagination-number__prev"
-           href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.prev}">&#8592; ${'previous' @ i18n}</a>
+</div>
 
-        <sly data-sly-list="${PressreleaseslistUse.numberOfPages}" data-sly-test.pageSize="${PressreleaseslistUse.next >= 0 || PressreleaseslistUse.prev >= 0}">
+<div class="c-pagination-number">
+    <ul class="clearfix">
+        <li data-sly-test.pageSize="${PressreleaseslistUse.prev >= 0}">
+            <a class="c-pagination-number__prev"
+               href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.prev}">&#8592; ${'previous' @ i18n}</a>
+        </li>
+        <li data-sly-repeat="${PressreleaseslistUse.numberOfPages}" data-sly-test.pageSize="${PressreleaseslistUse.next >= 0 || PressreleaseslistUse.prev >= 0}">
             <a href="${currentPage.path @ extension='html'}?page=${item}" class="${item == PressreleaseslistUse.current ? 'active' : ''}">
                 ${item}
             </a>
-        </sly>
-
-        <a data-sly-test.pageSize="${PressreleaseslistUse.next >= 0}"
-           class="c-pagination-number__next"
-           href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.next}">${'next' @ i18n} &#8594;</a>
-    </div>
+        </li>
+        <li data-sly-test.pageSize="${PressreleaseslistUse.next >= 0}">
+            <a class="c-pagination-number__next"
+               href="${currentPage.path @ extension='html'}?page=${PressreleaseslistUse.next}">${'next' @ i18n} &#8594;</a>
+        </li>
+    </ul>
 </div>
