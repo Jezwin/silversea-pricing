@@ -4,10 +4,10 @@
             <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
                 data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}" />
 
-            <p data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=pageProperties.publicationDate}"
-                data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM yyyy', date=pageProperties.publicationDate}"
+            <p data-sly-use.dateMonth="${'com.silversea.aem.helper.DateHelper' @ format='MMM', date=pageProperties.publicationDate}"
+                data-sly-use.dateDayYear="${'com.silversea.aem.helper.DateHelper' @ format='dd, yyyy', date=pageProperties.publicationDate}"
                 class="blog__date">
-                <strong><span class="blog__date__day">${dateDay.value}</span> ${dateMonthYear.value}</strong>
+                <strong><span class="blog__date__day">${dateMonth.value}</span> ${dateDayYear.value}</strong>
             </p>
             <h2 class="blog__title">${currentPage.title}</h2>
             <div class="blog__post">
