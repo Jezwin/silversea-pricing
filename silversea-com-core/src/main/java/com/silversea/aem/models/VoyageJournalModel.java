@@ -156,4 +156,30 @@ public class VoyageJournalModel {
     public String getPath() {
         return page.getPath();
     }
+
+    /**
+     * @return the cruiseModel
+     */
+    public CruiseModel getCruiseModel() {
+        Page cruisePage = page.getPageManager().getPage(cruiseReference);
+
+        if (cruisePage != null) {
+            return cruisePage.adaptTo(CruiseModel.class);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return the shipModel
+     */
+    public ShipModel getShipModel() {
+        Page shipPage = page.getPageManager().getPage(shipReference);
+
+        if (shipPage != null) {
+            return shipPage.adaptTo(ShipModel.class);
+        }
+
+        return null;
+    }
 }

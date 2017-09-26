@@ -2,17 +2,15 @@
     <div data-sly-test="${(wcmmode.edit || wcmmode.design)}" data-emptytext="Voyage journals list" class="cq-placeholder cq-dd-file"></div>
 
     <div class="row" data-sly-list.voyage="${voyageJournalsListUse.voyagesCurrent}">
-        <div class="col-sm-6"
-            data-sly-use.ship="${'com.silversea.aem.helper.PageHelper' @ path=voyage.shipReference}"
-            data-sly-use.cruise="${'com.silversea.aem.helper.PageHelper' @ path=voyage.cruiseReference}">
+        <div class="col-sm-6">
             <a href="${voyage.path @ extension='html'}" class="c-voyagejournals__link">
                 <div class="c-voyagejournals__title-wrapper">
-                    <span class="c-voyagejournals__ship">${cruise.page.properties.cruiseCode} ${ship.page.title}</span>
+                    <span class="c-voyagejournals__ship">${voyage.cruiseModel.cruiseCode} ${voyage.shipModel.title}</span>
                     <h2 class="c-voyagejournals__title">${voyage.title}</h2>
                     <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyage.date}">
                         ${date.value}
                     </span>
-                    <span class="c-voyagejournals__id">${'voyage' @ i18n} ${cruise.page.properties.cruiseCode}</span>
+                    <span class="c-voyagejournals__id">${'voyage' @ i18n} ${voyage.cruiseModel.cruiseCode}</span>
                 </div>
                 <sly data-sly-test.thumbnail="${voyage.thumbnail}"
                     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
