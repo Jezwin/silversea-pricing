@@ -36,13 +36,13 @@
                 <div class="c-voyagejournals__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 
                 <ul data-sly-use.pagination="com.silversea.aem.helper.PaginationHelper" class="c-pagination c-pagination--separated clearfix">
-                    <li>
-                        <a data-sly-test="${pagination.previousPage}" href="${pagination.previousPage.path @ extension='html'}" class="c-pagination__link">
+                    <li data-sly-test="${pagination.previousPage}">
+                        <a href="${pagination.previousPage.path @ extension='html'}" class="c-pagination__link">
                             <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${pagination.previousPage.properties.dayNumber}
                         </a>
                     </li>
-                    <li>
-                        <a data-sly-test="${pagination.nextPage}" href="${pagination.nextPage.path @ extension='html'}" class="c-pagination__link">
+                    <li data-sly-test="${pagination.nextPage}">
+                        <a href="${pagination.nextPage.path @ extension='html'}" class="c-pagination__link">
                             ${'day' @ i18n} ${pagination.nextPage.properties.dayNumber} <i class="fa fa-angle-right fa-lg"></i>
                         </a>
                     </li>
