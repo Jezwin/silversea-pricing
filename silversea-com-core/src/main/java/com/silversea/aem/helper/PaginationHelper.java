@@ -29,7 +29,7 @@ public class PaginationHelper extends WCMUsePojo {
         int currentIndex = siblingPages.indexOf(getCurrentPage());
 
         previousPage = currentIndex == 0 ? null : siblingPages.get(currentIndex - 1);
-        nextPage = currentIndex == siblingPages.size() ? null : siblingPages.get(currentIndex + 1);
+        nextPage = currentIndex == siblingPages.size() - 1 ? null : siblingPages.get(currentIndex + 1);
     }
 
     /**
