@@ -82,6 +82,20 @@ public class PressReleaseModel {
     }
 
     /**
+     * @return the publicationDate
+     */
+    public Calendar getPublicationDate() {
+        return publicationDate;
+    }
+
+    /**
+     * @return the longDescription
+     */
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    /**
      * @return the assetSelectionReference
      */
     public String getAssetSelectionReference() {

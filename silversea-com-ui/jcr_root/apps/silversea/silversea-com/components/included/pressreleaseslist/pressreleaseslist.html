@@ -2,13 +2,13 @@
     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
 
 <div class="row c-pressreleaseslist" data-sly-list.pressRelease="${pressReleaseListUse.pressReleasesCurrent}">
-    <div class="col-sm-6" data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=pressRelease.path}">
+    <div class="col-sm-6">
         <div class="c-pressreleaseslist__teaser">
             <div class="c-pressreleaseslist__image">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail}" />
+                <sly data-sly-call="${imageTemplate.default @ imagePath=pressRelease.thumbnail}" />
             </div>
             <div class="c-pressreleaseslist__description">
-                <h4 class="c-pressreleaseslist__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM dd, yyyy', date=pressRelease.properties.publicationDate}">
+                <h4 class="c-pressreleaseslist__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM dd, yyyy', date=pressRelease.publicationDate}">
                     <strong>${'date' @ i18n}:</strong> ${date.value}
                 </h4>
                 <h3 class="c-pressreleaseslist__title hidden-xs">${pressRelease.title}</h3>
