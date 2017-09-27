@@ -120,7 +120,8 @@
         left: 50%;
         max-width: 1200px;
         position: relative;
-        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
         width: 100vw;
 
         &__slider {
@@ -152,6 +153,8 @@
                     left: 50%;
                     position: absolute;
                     top: 40px;
+                    -webkit-transform: translateX(-50%);
+                    -ms-transform: translateX(-50%);
                     transform: translateX(-50%);
                     z-index: 1;
 

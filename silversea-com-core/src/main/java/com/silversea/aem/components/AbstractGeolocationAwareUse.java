@@ -35,10 +35,12 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
             } else {
                 geolocation = geolocationTagService.getGeolocationTagModelFromCountryCode(getRequest().getResourceResolver(), countryCode);
 
-                geomarket = geolocation.getMarket();
-                countryCode = geolocation.getCountryCode();
-                countryCodeIso3 = geolocation.getCountryCodeIso3();
-                currency = geolocation.getCurrency();
+                if (geolocation != null) {
+                    geomarket = geolocation.getMarket();
+                    countryCode = geolocation.getCountryCode();
+                    countryCodeIso3 = geolocation.getCountryCodeIso3();
+                    currency = geolocation.getCurrency();
+                }
             }
         }
     }

@@ -1,17 +1,17 @@
-<div class="c-voyagejournals__content">
-    <ul class="c-list" data-sly-list="${currentPage.listChildren}">
-        <sly data-sly-use.hpage="${'com.silversea.aem.helper.PageHelper' @ path=item.path}"></sly>
-        <li class="c-list__item">
-            <a href="${item.path @ extension='html'}">
-                <h2 class="voyage-journal-title">${currentPage.title} ${'day' @ i18n} ${item.properties.dayNumber}</h2>
-                <span class="voyage-date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=item.properties.publicationDate}">
-                    ${date.value}
-                </span>
-                <span class="overlay">
-                    <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" />
-                    <sly data-sly-call="${imageTemplate.default @ imagePath=hpage.thumbnail}" />
-                </span>
+<div data-sly-use.journalListDaysUse="com.silversea.aem.components.voyageJournals.VoyageJournalDaysListUse" class="c-voyagejournals__content">
+   <div class="row">
+        <div class="col-sm-6" data-sly-repeat.voyageJournalDay="${journalListDaysUse.voyageJournalDays}">
+            <a href="${voyageJournalDay.path @ extension='html'}" class="c-voyagejournals__link">
+                <div class="c-voyagejournals__title-wrapper">
+                    <h2 class="c-voyagejournals__title">${voyageJournalDay.title} ${'day' @ i18n} ${voyageJournalDay.dayNumber}</h2>
+                    <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyageJournalDay.publicationDate}">
+                        ${date.value}
+                    </span>
+                </div>
+                <sly data-sly-test.thumbnail="${voyageJournalDay.thumbnail} "data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                    data-sly-call="${imageTemplate.default @ imagePath=voyageJournalDay.thumbnail}" />
+                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyageJournalDay.title}" class="o-img" />
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>

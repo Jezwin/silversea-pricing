@@ -4,23 +4,29 @@
             <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
                 data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference}" />
 
-            <p data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='dd', date=pageProperties.publicationDate}"
-                data-sly-use.dateMonthYear="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM yyyy', date=pageProperties.publicationDate}"
+            <p data-sly-use.dateMonth="${'com.silversea.aem.helper.DateHelper' @ format='MMM', date=pageProperties.publicationDate}"
+                data-sly-use.dateDayYear="${'com.silversea.aem.helper.DateHelper' @ format='dd, yyyy', date=pageProperties.publicationDate}"
                 class="blog__date">
-                <strong><span class="blog__date__day">${dateDay.value}</span> ${dateMonthYear.value}</strong>
+                <strong><span class="blog__date__day">${dateMonth.value}</span> ${dateDayYear.value}</strong>
             </p>
             <h2 class="blog__title">${currentPage.title}</h2>
             <div class="blog__post">
                 <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
             </div>
-            <div data-sly-use.cpt="com.silversea.aem.components.page.BlogPostUse" class="c-pagination c-pagination--pull-right">
-                <a data-sly-test="${cpt.blog.previous}"
-                    class="c-pagination--previous" href="${cpt.blog.previous.path @ extension='html'}"> <i class="fa fa-angle-left fa-lg"></i> ${'previous' @ i18n}</a>
-                <a data-sly-test="${cpt.blog.next}"
-                    class="c-pagination--next" href="${cpt.blog.next.path @ extension='html'}"> ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i></a>
-            </div>
+            <ul data-sly-use.pagination="com.silversea.aem.helper.PaginationHelper" class="c-pagination c-pagination--separated clearfix">
+                <li data-sly-test="${pagination.previousPage}">
+                    <a href="${pagination.previousPage.path @ extension='html'}" class="c-pagination__link">
+                        <i class="fa fa-angle-left fa-lg"></i> ${'previous' @ i18n}
+                    </a>
+                </li>
+                <li data-sly-test="${pagination.nextPage}">
+                    <a href="${pagination.nextPage.path @ extension='html'}" class="c-pagination__link">
+                        ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="col-sm-3 blog__sidebar">
+        <div class="col-sm-3 blog__sidebar sidebar">
             <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
         </div>
     </div>

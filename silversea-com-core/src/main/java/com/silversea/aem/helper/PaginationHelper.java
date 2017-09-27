@@ -6,40 +6,43 @@ import java.util.List;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageFilter;
 
 /**
  * Created by asiba on 28/03/2017.
  */
 public class PaginationHelper extends WCMUsePojo {
 
-    public Page next;
+    private Page nextPage;
 
-    public Page previous;
+    private Page previousPage;
 
     @Override
     public void activate() throws Exception {
-        List<Page> listPage = new ArrayList<>();
-        Iterator<Page> childs = getCurrentPage().getParent().listChildren();
+        List<Page> siblingPages = new ArrayList<>();
+        Iterator<Page> childs = getCurrentPage().getParent().listChildren(new PageFilter());
 
         while (childs.hasNext()) {
-            listPage.add(childs.next().adaptTo(Page.class));
+            siblingPages.add(childs.next().adaptTo(Page.class));
         }
 
-        int i = listPage.indexOf(getCurrentPage());
+        int currentIndex = siblingPages.indexOf(getCurrentPage());
 
-        if (i + 1 < listPage.size() && i > 0) {
-            next = listPage.get(i + 1);
-            previous = listPage.get(i - 1);
-        }
+        previousPage = currentIndex == 0 ? null : siblingPages.get(currentIndex - 1);
+        nextPage = currentIndex == siblingPages.size() - 1 ? null : siblingPages.get(currentIndex + 1);
+    }
 
-        if (i + 1 >= listPage.size() && i > 0) {
-            next = null;
-            previous = listPage.get(i - 1);
-        }
+    /**
+     * @return the next page
+     */
+    public Page getNextPage() {
+        return nextPage;
+    }
 
-        if (i + 1 < listPage.size() && i <= 0) {
-            next = listPage.get(i + 1);
-            previous = null;
-        }
+    /**
+     * @return the previous page
+     */
+    public Page getPreviousPage() {
+        return previousPage;
     }
 }

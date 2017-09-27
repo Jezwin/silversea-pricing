@@ -168,6 +168,10 @@
         }
     }
 
+    .c-slider .slick-slide > .o-img {
+        margin: 0;
+    }
+
     @media screen and (max-width: @screen-sm) {
         &__item {
             margin-bottom: 10px;
@@ -191,6 +195,8 @@
                     left: 50%;
                     position: absolute;
                     bottom: -14px;
+                    -webkit-transform: translateX(-50%);
+                    -ms-transform: translateX(-50%);
                     transform: translateX(-50%);
                     width: 0;
                 }
@@ -278,6 +284,8 @@
                     position: absolute;
                     right: 9px;
                     top: 50%;
+                    -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
                     transform: translateY(-50%);
                 }
             }

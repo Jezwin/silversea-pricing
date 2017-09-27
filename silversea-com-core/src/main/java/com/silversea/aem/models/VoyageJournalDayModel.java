@@ -1,30 +1,20 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
-import org.apache.sling.models.annotations.injectorspecific.Self;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jcr.Node;
-import java.util.Date;
 
-/**
- * TODO remove commented dead code
- * Created by mbennabi on 17/02/2017.
- */
+import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
+import org.apache.sling.models.annotations.injectorspecific.Self;
+
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+
 @Model(adaptables = Page.class)
 public class VoyageJournalDayModel {
-
-    static final private Logger LOGGER = LoggerFactory.getLogger(VoyageJournalDayModel.class);
-
     @Inject
     @Self
     private Page page;
@@ -32,6 +22,16 @@ public class VoyageJournalDayModel {
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_DESCRIPTION)
+    @Optional
+    private String description;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/image/fileReference")
+    @Optional
+    private String thumbnail;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/longDescription")
@@ -46,7 +46,7 @@ public class VoyageJournalDayModel {
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/publicationDate")
     @Optional
-    private Date publicationDate;
+    private Calendar publicationDate;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/coordinates")
@@ -88,72 +88,121 @@ public class VoyageJournalDayModel {
     @Optional
     private String assetSelectionReference;
 
-    //    private List<JournalListDaysModel> listDays;
-
     @PostConstruct
     private void init() {
-        //        listDays = new ArrayList<>();
-        //        final Iterator<Page> childs = page.getParent().listChildren();
-        //        while (childs.hasNext()) {
-        //            listDays.add(childs.next().adaptTo(JournalListDaysModel.class));
-        //        }
+
     }
 
-    public String getLongDescription() {
-        return longDescription;
+    /**
+     * @return the page
+     */
+    public Page getPage() {
+        return page;
     }
 
+    /**
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return the thumbnail
+     */
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    /**
+     * @return the longDescription
+     */
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    /**
+     * @return the dayNumber
+     */
     public String getDayNumber() {
         return dayNumber;
     }
 
-    public String getPublicationDate() {
-        return publicationDate.toString();
+    /**
+     * @return the publicationDate
+     */
+    public Calendar getPublicationDate() {
+        return publicationDate;
     }
 
+    /**
+     * @return the coordinates
+     */
     public String getCoordinates() {
         return coordinates;
     }
 
+    /**
+     * @return the temperature
+     */
     public String getTemperature() {
         return temperature;
     }
 
+    /**
+     * @return the pressure
+     */
     public String getPressure() {
         return pressure;
     }
 
+    /**
+     * @return the weather
+     */
     public String getWeather() {
         return weather;
     }
 
+    /**
+     * @return the wind
+     */
     public String getWind() {
         return wind;
     }
 
+    /**
+     * @return the heroAssetSelectionReference
+     */
     public String getHeroAssetSelectionReference() {
-        try {
-            if (StringUtils.isBlank(heroAssetSelectionReference)) {
-                Resource res = page.getParent().getContentResource().getResourceResolver().getResource(
-                        page.getParent().getPath());
-                Node node = res.adaptTo(Node.class);
-                heroAssetSelectionReference = node.getProperty("assetSelectionReference").getValue().getString();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return heroAssetSelectionReference;
     }
 
+    /**
+     * @return the author
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * @return the assetSelectionReference
+     */
     public String getAssetSelectionReference() {
         return assetSelectionReference;
+    }
+    
+
+    /**
+     * @return the path
+     */
+    public String getPath() {
+        return page.getPath();
     }
 }

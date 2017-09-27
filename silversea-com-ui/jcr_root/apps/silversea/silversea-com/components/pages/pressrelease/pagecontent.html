@@ -1,34 +1,30 @@
 <section class="o-section">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-3 col-sm-4 sidebar">
                 <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
             </div>
-
-            <div class="col-sm-8 c-pressereleases">
-
-                <div class="c-pageheader">
-                    <p class="c-pageheader__date"
-                       data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMMMM yyyy', date=item.properties.publicationDate}">
-                        <strong>${'date' @ i18n}</strong> ${date.value}
-                    </p>
-                    <h1 class="c-pageheader__subtitle">${currentPage.title}</h1>
-                </div>
+            <div class="col-sm-9 col-sm-8 c-pressrelease">
+                <h2 data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format=' MMMMM dd, yyyy', date=pageProperties.publicationDate}"
+                    class="c-pressrelease__date">
+                    <strong>${'date' @ i18n} :</strong> ${date.value}
+                </h2>
+                <h1 class="c-pressrelease__title">${currentPage.title}</h1>
 
                 <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
 
-                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.helper.PaginationHelper">
-                    <a href="${cpt.previous.path @ extension='html'}"
-                       class="c-pagination--previous"
-                       data-sly-test="${cpt.previous}">
-                        <i class="fa fa-angle-left fa-lg"></i> ${'previous' @ i18n}
-                    </a>
-                    <a href="${cpt.next.path @ extension='html'}"
-                       class="c-pagination--next"
-                       data-sly-test="${cpt.next}"> ${'next' @ i18n}
-                        <i class="fa fa-angle-right fa-lg"></i>
-                    </a>
-                </div>
+                <ul data-sly-use.pagination="com.silversea.aem.helper.PaginationHelper" class="c-pagination c-pagination--separated clearfix">
+                    <li data-sly-test="${pagination.previousPage}">
+                        <a href="${pagination.previousPage.path @ extension='html'}" class="c-pagination__link">
+                            <i class="fa fa-angle-left fa-lg"></i> ${'previous' @ i18n}
+                        </a>
+                    </li>
+                    <li data-sly-test="${pagination.nextPage}">
+                        <a href="${pagination.nextPage.path @ extension='html'}" class="c-pagination__link">
+                            ${'next' @ i18n} <i class="fa fa-angle-right fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

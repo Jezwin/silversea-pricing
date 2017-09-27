@@ -1,37 +1,33 @@
 <div class="o-section o-section--separator c-links" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
-    <div class="aem-Grid aem-Grid--12">
-        <div class="aem-GridColumn aem-GridColumn--default--3 aem-GridColumn--phone--hide">
+    <div class="row">
+        <div class="col-sm-3 hidden-xs">
             <div class="c-list">
                 <a class="c-list__title" href="#">
                     <img class="spritelogo-dark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea">
                 </a>
-                <ul class="c-list__group c-list__group--important" data-sly-list.child="${footer.pagesMainColIterator}">
+                <ul class="c-list__group text-uppercase" data-sly-list.child="${footer.pagesMainColIterator}">
                     <li class="c-list__item">
                         <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="aem-GridColumn aem-GridColumn--default--9 aem-GridColumn--phone--12">
-            <div class="aem-Grid aem-Grid--12">
-                <div class="aem-GridColumn aem-GridColumn--default--4 aem-GridColumn--phone--12" data-sly-repeat="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
-                    <div class="c-list c-list__accordion ${itemList.last ? 'c-list__accordion--full' : ''}">
-                        <span class="c-list__title" data-toggle="collapse" data-target="#collapseFooter-${itemList.index}">
-                          ${item.title}
-                        </span>
-                        <ul class="c-list__group c-list__accordion--content" id="collapseFooter-${itemList.index}">
-                            <li class="c-list__item" data-sly-repeat.child="${item.listChildren}">
-                                <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
-                            </li>
-                            <li class="c-list__item c-list__item--special" data-sly-test="${itemList.last && footer.pageMySilversea.path}">
-                                <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
-                                    <i class="fa fa-user"></i>
-                                    ${footer.pageMySilversea.navigationTitle? footer.pageMySilversea.navigationTitle : footer.pageMySilversea.title}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+        <div class="col-sm-3" data-sly-repeat="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
+            <div class="c-list c-list__accordion ${itemList.last ? 'c-list__accordion--full' : ''}">
+                <span class="c-list__title" data-toggle="collapse" data-target="#collapseFooter-${itemList.index}">
+                  ${item.title}
+                </span>
+                <ul class="c-list__group c-list__accordion--content" id="collapseFooter-${itemList.index}">
+                    <li class="c-list__item" data-sly-repeat.child="${item.listChildren}">
+                        <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
+                    </li>
+                    <li class="c-list__item c-list__item--special" data-sly-test="${itemList.last && footer.pageMySilversea.path}">
+                        <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
+                            <i class="fa fa-user"></i>
+                            ${footer.pageMySilversea.navigationTitle? footer.pageMySilversea.navigationTitle : footer.pageMySilversea.title}
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

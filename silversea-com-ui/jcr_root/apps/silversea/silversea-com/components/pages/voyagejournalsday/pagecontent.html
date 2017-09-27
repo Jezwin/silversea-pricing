@@ -1,54 +1,55 @@
 <section class="o-section">
     <div class="container">
         <div class="row">
-            <div class="col-sm-8 c-voyagejournals" data-sly-use.journalDay="com.silversea.aem.components.page.VoyageJournalDayUse">
-                <sly data-sly-test.compnt="${journalDay.voyageJournalDay}" />
+            <div class="col-sm-8 c-voyagejournals" data-sly-use.voyageJournalDayUse="com.silversea.aem.components.page.VoyageJournalDayUse">
+                <sly data-sly-test.day="${voyageJournalDayUse.voyageJournalDay}" />
 
                 <div class="c-pageheader">
-                    <p class="c-pageheader__date">
-                        <strong>${'day' @ i18n} ${pageProperties.dayNumber @ i18n} |</strong> ${compnt.publicationDate @ format='yyyy-MM-dd', type='date'}
+                    <p class="c-pageheader__date" data-sly-use.dateHelper="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd, yyyy', date=day.publicationDate}">
+                        <strong>${'day' @ i18n} ${day.dayNumber @ i18n} |</strong>
+                        ${dateHelper.value}
                     </p>
-                    <h1 class="c-pageheader__subtitle">${compnt.title @ i18n}</h1>
-                    <p>${'by' @ i18n} ${compnt.author @ i18n}</p>
+                    <h1 class="c-pageheader__subtitle">${day.title @ i18n}</h1>
+                    <p>${'by' @ i18n} ${day.author @ i18n}</p>
 
                     <div class="c-pageheader__properties c-list-inline o-divider--top-dark">
                         <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet">
-                            <li class="c-list-inline__item" data-sly-test="${compnt.coordinates}">
-                                <strong>${'coordinates' @ i18n}:</strong> ${compnt.coordinates}
+                            <li class="c-list-inline__item" data-sly-test.coordinates="${day.coordinates}">
+                                <strong>${'coordinates' @ i18n}:</strong> ${coordinates}
                             </li>
-                            <li class="c-list-inline__item" data-sly-test="${compnt.temperature}">
-                                <strong>${'temperature' @ i18n}:</strong> ${compnt.temperature} ${'temperatureUnit' @ i18n}
+                            <li class="c-list-inline__item" data-sly-test.temperature="${day.temperature}">
+                                <strong>${'temperature' @ i18n}:</strong> ${temperature} ${'temperatureUnit' @ i18n}
                             </li>
-                            <li class="c-list-inline__item" data-sly-test="${compnt.pressure}">
-                                <strong>${'pressure' @ i18n}:</strong> ${compnt.pressure} ${'pressureUnit' @ i18n}
+                            <li class="c-list-inline__item" data-sly-test.pressure="${day.pressure}">
+                                <strong>${'pressure' @ i18n}:</strong> ${pressure} ${'pressureUnit' @ i18n}
                             </li>
-                            <li class="c-list-inline__item" data-sly-test="${compnt.weather}">
-                                <strong>${'weather' @ i18n}:</strong> ${compnt.weather}
+                            <li class="c-list-inline__item" data-sly-test.weather="${day.weather}">
+                                <strong>${'weather' @ i18n}:</strong> ${weather}
                             </li>
-                            <li class="c-list-inline__item" data-sly-test="${compnt.wind}">
-                                <strong>${'wind' @ i18n}:</strong> ${compnt.wind} ${'windUnit' @ i18n}
+                            <li class="c-list-inline__item" data-sly-test.wind="${day.wind}">
+                                <strong>${'wind' @ i18n}:</strong> ${wind} ${'windUnit' @ i18n}
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="c-voyagejournals__content" data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                <div class="c-voyagejournals__info"></div>
-                <div class="c-pagination c-pagination--separated" data-sly-use.cpt="com.silversea.aem.components.voyageJournals.JournalListDaysUse">
-                    <a href="${cpt.previousPath}"
-                        class="c-pagination--previous"
-                        data-sly-test="${!cpt.first}">
-                        <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${cpt.previous}
-                    </a>
-                    <a href="${cpt.nextPath}"
-                        class="c-pagination--next"
-                        data-sly-test="${!cpt.last}"> ${'day' @ i18n} ${cpt.next}
-                        <i class="fa fa-angle-right fa-lg"></i>
-                    </a>
-                </div>
+
+                <ul data-sly-use.pagination="com.silversea.aem.helper.PaginationHelper" class="c-pagination c-pagination--separated clearfix">
+                    <li data-sly-test="${pagination.previousPage}">
+                        <a href="${pagination.previousPage.path @ extension='html'}" class="c-pagination__link">
+                            <i class="fa fa-angle-left fa-lg"></i> ${'day' @ i18n} ${pagination.previousPage.properties.dayNumber}
+                        </a>
+                    </li>
+                    <li data-sly-test="${pagination.nextPage}">
+                        <a href="${pagination.nextPage.path @ extension='html'}" class="c-pagination__link">
+                            ${'day' @ i18n} ${pagination.nextPage.properties.dayNumber} <i class="fa fa-angle-right fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-4 c-voyagejournals-sidebar sidebar">
                 <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
                 <div data-sly-resource="${'dayslistdisplay' @ resourceType='silversea/silversea-com/components/editorial/voyagejournals/dayslist'}"></div>
             </div>

@@ -1,4 +1,8 @@
 .blog {
+    &__title {
+        margin: 5px 0 10px;
+    }
+
     &__container {
         padding-top: 30px;
     }
@@ -17,35 +21,25 @@
         span {
             font-size: 16px;
             position: relative;
-            top: 2px;
+            top: 1px;
         }
     }
-}
 
-.blogposts {
-    .c-accordion__body--panel{
-        border-bottom: solid 1px #e8e8e8;
+    .text {
+        font-size: 13px;
+
+        p {
+            margin-bottom: 24px;
+        }
     }
 
-    .c-accordion__body .c-accordion__title {
-        text-align: right;
-        
-        strong {
-            padding-right: 10px;
-        }
+    &__sidebar hr {
+        margin: -15px 0;
     }
 }
 
 @media screen and (max-width: @screen-sm) {
-    .blogposts {
-        .c-accordion__title {
-            text-align: left;
-        }
-
-        .c-accordion__body {
-            .c-accordion__title {
-                text-align: right;
-            }
-        }
+    .blog__sidebar {
+        margin-top: 40px;
     }
 }

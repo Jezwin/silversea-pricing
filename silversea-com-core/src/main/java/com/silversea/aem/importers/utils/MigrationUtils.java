@@ -334,7 +334,7 @@ public class MigrationUtils {
                             if (assetResource != null) {
                                 final Asset asset = assetResource.adaptTo(Asset.class);
 
-                                if (asset != null) {
+                                if (asset != null && !s7MediaSet.contains(asset)) {
                                     s7MediaSet.add(asset);
 
                                     final Resource setMetadata = s7MediaSet.getChild("jcr:content/metadata");

@@ -1,4 +1,4 @@
-package com.silversea.aem.components.voyageJournals;
+package com.silversea.aem.components.included;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,12 +11,12 @@ import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.Page;
 import com.google.common.collect.Lists;
-import com.silversea.aem.filter.VoyageJournalPageFilter;
-import com.silversea.aem.models.VoyageJournalModel;
+import com.silversea.aem.filter.PressReleasesPageFilter;
+import com.silversea.aem.models.PressReleaseModel;
 
-public class VoyageJournalsListUse extends WCMUsePojo {
-    private List<VoyageJournalModel> voyagesCurrent;
-    private List<List<VoyageJournalModel>> voyageJournalPartition;
+public class PressReleaseListUse extends WCMUsePojo {
+    private List<PressReleaseModel> pressReleasesCurrent;
+    private List<List<PressReleaseModel>> pressReleasePartition;
     private Integer currentPageIndex;
 
     @Override
@@ -27,34 +27,34 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         String currentPageParam = getRequest().getRequestParameter("page") != null ? getRequest().getRequestParameter("page").toString() : "1";
         currentPageIndex = Integer.parseInt(currentPageParam);
 
-        final Iterator<Page> voyageJournalPages = getCurrentPage().listChildren(new VoyageJournalPageFilter(), true);
+        final Iterator<Page> pressReleasePages = getCurrentPage().listChildren(new PressReleasesPageFilter(), true);
 
-        // Get every voyages journal
-        List<VoyageJournalModel> voyages = new ArrayList<>();
+        // Get every press releases
+        List<PressReleaseModel> pressReleases = new ArrayList<>();
 
-        while (voyageJournalPages.hasNext()) {
-            Page voyageJournal = voyageJournalPages.next();
+        while (pressReleasePages.hasNext()) {
+            Page pressRelease = pressReleasePages.next();
 
-            if (voyageJournal != null) {
-                voyages.add(voyageJournal.adaptTo(VoyageJournalModel.class));
+            if (pressRelease != null) {
+                pressReleases.add(pressRelease.adaptTo(PressReleaseModel.class));
             }
         }
 
-        // Get voyage journal for the given page only
-        voyageJournalPartition = new ArrayList<>();
-        voyageJournalPartition = Lists.partition(voyages, limit);
+        // Get press release for the given page only
+        pressReleasePartition = new ArrayList<>();
+        pressReleasePartition = Lists.partition(pressReleases, limit);
 
-        if (currentPageIndex - 1 < voyageJournalPartition.size()) {
-            voyagesCurrent = new ArrayList<>();
-            voyagesCurrent = voyageJournalPartition.get(currentPageIndex - 1);
+        if (currentPageIndex - 1 < pressReleasePartition.size()) {
+            pressReleasesCurrent = new ArrayList<>();
+            pressReleasesCurrent = pressReleasePartition.get(currentPageIndex - 1);
         }
     }
 
     /**
-     * @return the voyagesCurrent
-     */
-    public List<VoyageJournalModel> getVoyagesCurrent() {
-        return voyagesCurrent;
+     * @return the pressReleasesCurrent
+     */ 
+    public List<PressReleaseModel> getPressReleasesCurrent() {
+        return pressReleasesCurrent;
     }
 
     /**
@@ -67,8 +67,8 @@ public class VoyageJournalsListUse extends WCMUsePojo {
     /**
      * @return the NextPageIndex
      */
-    public List<List<VoyageJournalModel>> getVoyageJournalPartition() {
-        return voyageJournalPartition;
+    public List<List<PressReleaseModel>> getPressReleasePartition() {
+        return pressReleasePartition;
     }
 
     /**
@@ -82,7 +82,7 @@ public class VoyageJournalsListUse extends WCMUsePojo {
      * @return the NextPageIndex
      */
     public Integer getNextPageIndex() {
-        return currentPageIndex < voyageJournalPartition.size() ? currentPageIndex + 1 : null;
+        return currentPageIndex < pressReleasePartition.size() ? currentPageIndex + 1 : null;
     }
 
     /**
@@ -90,7 +90,7 @@ public class VoyageJournalsListUse extends WCMUsePojo {
      */
     public List<Integer> getPagination() {
         Integer pageFrom = currentPageIndex > 2 ? currentPageIndex - 2 : 1 ;
-        Integer pageTo = currentPageIndex < voyageJournalPartition.size() - 2 ? currentPageIndex + 2 : voyageJournalPartition.size();
+        Integer pageTo = currentPageIndex < pressReleasePartition.size() - 2 ? currentPageIndex + 2 : pressReleasePartition.size();
 
         // Build integer list filled with int between pageFrom and pageTo
         return IntStream.rangeClosed(pageFrom, pageTo).boxed().collect(Collectors.toList());

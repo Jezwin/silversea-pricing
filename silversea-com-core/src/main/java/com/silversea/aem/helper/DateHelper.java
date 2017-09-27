@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 
 /**
@@ -21,7 +23,9 @@ public class DateHelper extends WCMUsePojo {
         Calendar date = get("date", Calendar.class);
         String format = get("format", String.class);
         Integer month = get("month", Integer.class);
-        Locale locale = getCurrentPage().getLanguage(false);
+        String localeParam = get("locale", String.class);
+
+        Locale locale = StringUtils.isNotBlank(localeParam) ? new Locale(localeParam) : getCurrentPage().getLanguage(false);
         SimpleDateFormat formatter;
 
         if (date != null && format != null) {

@@ -120,9 +120,11 @@
         left: 0;
         box-shadow: 0 0 5px 0 rgba(0,0,0,.15);
         background: @white;
+        -webkit-transform: translate(0,60px);
+        -ms-transform: translate(0,60px);
         transform: translate(0,60px);
-        transition: transform .3s ease-in-out;
         -webkit-transition: transform .3s ease-in-out;
+        transition: transform .3s ease-in-out;
         z-index: -1000;
 
         &__list {
@@ -170,6 +172,8 @@
                 left: -1px;
                 position: absolute;
                 top: 50%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
                 width: 1px;
             }
@@ -230,6 +234,8 @@
         &__bottom {
             box-shadow: none;
             position: relative;
+            -webkit-transform: translate(0,0);
+            -ms-transform: translate(0,0);
             transform: translate(0,0);
             z-index: 1000;
 

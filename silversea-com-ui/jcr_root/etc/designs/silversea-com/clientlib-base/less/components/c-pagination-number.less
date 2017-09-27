@@ -1,16 +1,13 @@
-/*
-** c- Pagination
-*/
 .c-pagination-number {
-
-    @media screen and (max-width: @screen-md-min) {
-        text-align: center;
+    li {
+        float: left;
     }
 
     a {
+        display: block;
         font-size: 14px;
         padding: 0 5px;
-        display: inline-block;
+        text-transform: capitalize;
 
         &:hover {
             background-color: @grey--eb;
@@ -21,11 +18,9 @@
             color: @white;
             font-weight: bold;
         }
-        &.c-pagination-number__prev {
-            color: #d6d5d5;
-            &:hover {
-                background-color: inherit;
-            }
-        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        text-align: center;
     }
 }

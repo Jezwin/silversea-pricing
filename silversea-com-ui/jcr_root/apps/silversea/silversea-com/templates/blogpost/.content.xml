@@ -5,6 +5,7 @@
     jcr:title="SSC - Blog post"
     jcr:description="Allows to create a new blog post"
     allowedPaths="[/content/silversea-com/.*]"
+    showFloatingBar="{Boolean}true"
     ranking="{Long}0">
     <jcr:content
         jcr:primaryType="cq:PageContent"
@@ -16,5 +17,8 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="silversea/silversea-com/components/displayproperties/blogproperties" />
         </par>
+        <parSide
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/iparsys" />
     </jcr:content>
 </jcr:root>

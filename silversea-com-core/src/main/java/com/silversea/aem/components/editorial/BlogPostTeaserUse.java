@@ -2,11 +2,11 @@ package com.silversea.aem.components.editorial;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.wcm.api.Page;
-import com.silversea.aem.models.BlogPostTeaserModel;
+import com.silversea.aem.models.BlogPostModel;
 
 public class BlogPostTeaserUse extends WCMUsePojo {
 
-    private BlogPostTeaserModel blogTeaser;
+    private BlogPostModel blogPost;
 
     @Override
     public void activate() throws Exception {
@@ -16,13 +16,15 @@ public class BlogPostTeaserUse extends WCMUsePojo {
             Page blogPostPage = getPageManager().getPage(blogPostReference);
 
             if (blogPostPage != null) {
-                blogTeaser = blogPostPage.adaptTo(BlogPostTeaserModel.class);
+                blogPost = blogPostPage.adaptTo(BlogPostModel.class);
             }
         }
     }
 
-    public BlogPostTeaserModel getBlogTeaser() {
-        return blogTeaser;
+    /**
+     * @return the blogPost
+     */
+    public BlogPostModel getBlogPost() {
+        return blogPost;
     }
-
 }
