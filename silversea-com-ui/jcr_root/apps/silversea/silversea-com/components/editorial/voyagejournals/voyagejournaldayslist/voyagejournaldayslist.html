@@ -3,7 +3,7 @@
         <div class="col-sm-6" data-sly-repeat.voyageJournalDay="${journalListDaysUse.voyageJournalDays}">
             <a href="${voyageJournalDay.path @ extension='html'}" class="c-voyagejournals__link">
                 <div class="c-voyagejournals__title-wrapper">
-                    <h2 class="c-voyagejournals__title">${voyageJournalDay.title} ${'day' @ i18n} ${voyageJournalDay.dayNumber}</h2>
+                    <h2 class="c-voyagejournals__title">${voyageJournalDay.title} ${'day' @ i18n} &ndash; ${voyageJournalDay.dayNumber}</h2>
                     <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyageJournalDay.publicationDate}">
                         ${date.value}
                     </span>
