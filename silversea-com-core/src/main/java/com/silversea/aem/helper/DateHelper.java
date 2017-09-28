@@ -22,7 +22,7 @@ public class DateHelper extends WCMUsePojo {
     public void activate() throws Exception {
         Calendar date = get("date", Calendar.class);
         String format = get("format", String.class);
-        Integer month = get("month", Integer.class);
+        String month = get("month", String.class);
         String localeParam = get("locale", String.class);
 
         Locale locale = StringUtils.isNotBlank(localeParam) ? new Locale(localeParam) : getCurrentPage().getLanguage(false);
@@ -37,7 +37,7 @@ public class DateHelper extends WCMUsePojo {
         if (month != null) {
             DateFormatSymbols symbols = new DateFormatSymbols(locale);
             String[] monthNames = symbols.getMonths();
-            value = monthNames[month - 1];
+            value = monthNames[Integer.parseInt(month) - 1];
         }
     }
 

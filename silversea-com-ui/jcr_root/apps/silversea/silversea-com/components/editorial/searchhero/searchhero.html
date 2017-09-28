@@ -13,7 +13,7 @@
             <select class="chosen form-control" data-placeholder="${'all-departure-dates' @ i18n}" name="date">
                 <option value="all">${'all-departure-dates' @i18n}</option>
                 <option data-sly-repeat="${fyc.dates}" value="${item.toString}">
-                    <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue}" />
+                    <sly data-sly-use.month="${'com.silversea.aem.helper.DateHelper' @ month=item.monthValue.toString}" />
                     ${month.value} ${item.year}
                 </option>
             </select>
