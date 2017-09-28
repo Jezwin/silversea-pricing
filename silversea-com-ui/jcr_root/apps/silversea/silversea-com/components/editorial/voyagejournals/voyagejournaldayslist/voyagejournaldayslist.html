@@ -4,8 +4,8 @@
             <a href="${voyageJournalDay.path @ extension='html'}" class="c-voyagejournals__link">
                 <div class="c-voyagejournals__title-wrapper">
                     <h2 class="c-voyagejournals__title">
-                        ${journalListDaysUse.voyageJournalDay.cruiseModel.cruiseCode} &ndash; ${journalListDaysUse.voyageJournalDay.shipModel.title}<br />
-                        ${voyageJournalDay.title} ${'day' @ i18n} &ndash; ${voyageJournalDay.dayNumber}
+                        ${journalListDaysUse.voyageJournalDay.cruiseModel.cruiseCode} ${journalListDaysUse.voyageJournalDay.shipModel.title}<br />
+                        ${voyageJournalDay.title} ${'day' @ i18n} ${voyageJournalDay.dayNumber}
                     </h2>
                     <span class="c-voyagejournals__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=voyageJournalDay.publicationDate}">
                         ${date.value}
