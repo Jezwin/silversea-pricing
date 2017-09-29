@@ -1,6 +1,15 @@
 <div data-sly-use.voyageJournalsListUse="com.silversea.aem.components.voyageJournals.VoyageJournalsListUse" class="c-voyagejournals__content">
     <div data-sly-test="${(wcmmode.edit || wcmmode.design)}" data-emptytext="Voyage journals list" class="cq-placeholder cq-dd-file"></div>
-
+    <div class="c-pageheader--nomrg">
+        <p class="c-pageheader__subtitle--small">
+            <sly data-sly-test.isMonth="${currentPage.name.length <= 2}">
+                ${'Voyage Journals' @i18n} ${'from' @i18n} 01 ${'to' @i18n} ${voyageJournalsListUse.lastDay} ${currentPage.title} ${currentPage.parent.title}
+            </sly>
+            <sly data-sly-test="${!isMonth}">
+                ${currentPage.pageTitle || 'other-recent-journals' @ i18n}
+            </sly>
+        </p>
+    </div>
     <div class="row" data-sly-list.voyage="${voyageJournalsListUse.voyagesCurrent}">
         <div class="col-sm-6">
             <a href="${voyage.path @ extension='html'}" class="c-voyagejournals__link">

@@ -1,6 +1,9 @@
 package com.silversea.aem.components.voyageJournals;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +21,7 @@ public class VoyageJournalsListUse extends WCMUsePojo {
     private List<VoyageJournalModel> voyagesCurrent;
     private List<List<VoyageJournalModel>> voyageJournalPartition;
     private Integer currentPageIndex;
+    private Integer lastDay;
 
     @Override
     public void activate() throws Exception {
@@ -47,6 +51,18 @@ public class VoyageJournalsListUse extends WCMUsePojo {
         if (currentPageIndex - 1 < voyageJournalPartition.size()) {
             voyagesCurrent = new ArrayList<>();
             voyagesCurrent = voyageJournalPartition.get(currentPageIndex - 1);
+        }
+
+        // Test if the current page is a month page blog
+        if (getCurrentPage().getName().length() <= 2) {
+            final String month = getCurrentPage().getName(); // month format : MM
+            final String year = getCurrentPage().getParent().getName(); // month format : yyyy
+
+            final Date convertedDate = new SimpleDateFormat("MMyyyy").parse(month + year);
+            final Calendar calendar = Calendar.getInstance();
+            calendar.setTime(convertedDate);
+
+            lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         }
     }
 
@@ -94,5 +110,12 @@ public class VoyageJournalsListUse extends WCMUsePojo {
 
         // Build integer list filled with int between pageFrom and pageTo
         return IntStream.rangeClosed(pageFrom, pageTo).boxed().collect(Collectors.toList());
+    }
+
+    /**
+     * @return the lastDay
+     */
+    public Integer getLastDay() {
+        return lastDay;
     }
 }
