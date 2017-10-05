@@ -110,8 +110,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         // init number of elements (excursions, hotels, land programs)
         for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
             excursionsNumber += getItinerariesHasExcursions() ? itinerary.getExcursions().size() : itinerary.getPort().getExcursions().size();
-            hotelsNumber += getItinerariesHasHotels() ? itinerary.getHotels().size() : itinerary.getPort().getHotels().size();
-            landProgramsNumber += getItinerariesHasLandPrograms() ? itinerary.getLandPrograms().size() : itinerary.getPort().getLandPrograms().size();
+            hotelsNumber += itinerary.getHotels().size();
+            landProgramsNumber += itinerary.getLandPrograms().size();
         }
 
         // init prices based on geolocation

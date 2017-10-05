@@ -17,8 +17,8 @@
         <div id="land-programs-collapse" class="c-cruise-itinerary-2__list" role="tablist"
             data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}"
             data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-            <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.port.landPrograms }" />
-            <sly data-sly-test.hotels="${cruise.itinerariesHasHotels ? itinerary.hotels : itinerary.port.hotels }" />
+            <sly data-sly-test.landPrograms="${itinerary.landPrograms}" />
+            <sly data-sly-test.hotels="${itinerary.hotels}" />
 
             <sly data-sly-test="${itinerary.port}">
                 <div class="panel c-cruise-itinerary-2__list__item"
