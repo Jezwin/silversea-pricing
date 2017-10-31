@@ -121,6 +121,10 @@
     content: "\e918";
 }
 
+.icon-shorex:before {
+    content: "\e91f";
+}
+
 .icon-spade:before {
     content: "\e919";
 }
