@@ -1,4 +1,5 @@
 stages:
+    - analysis
     - build-author-dev
     - build-publishes-dev
     - build-author-test
@@ -9,7 +10,6 @@ stages:
     - build-publishes-stage
     - build-author-prod
     - build-publishes-prod
-    - analysis
 
 ### TEST Build
 analysis_sonar:
