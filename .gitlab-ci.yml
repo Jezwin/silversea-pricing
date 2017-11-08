@@ -9,8 +9,18 @@ stages:
     - build-publishes-stage
     - build-author-prod
     - build-publishes-prod
+    - analysis
 
 ### TEST Build
+analysis_sonar:
+    stage: analysis
+    tags:
+        - maven
+    script:
+        - mvn package sonar:sonar -Dsonar.host.url=http://13.56.217.186/ 
+    only:
+        - develop
+        
 mvn_build_test_author:
     stage: build-author-test
     environment:
