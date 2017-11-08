@@ -17,7 +17,7 @@ analysis_sonar:
     tags:
         - maven
     script:
-        - mvn package sonar:sonar -Dsonar.host.url=http://13.56.217.186/ 
+        - mvn package sonar:sonar -Dsonar.host.url=http://13.56.217.186/ -Dsonar.login=admin -Dsonar.password=4wZ5zjvF0Ve6
     only:
         - develop
         
