@@ -153,14 +153,12 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
                                             cq-msm-lockable="exclusiveOffers"
-                                            fieldLabel="Exclusive Offers"
-                                            renderReadOnly="{Boolean}true">
+                                            fieldLabel="Exclusive Offers">
                                         <field
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                                 name="./offer"
                                                 fieldLabel="Offer"
-                                                disabled="{Boolean}true"
                                                 required="{Boolean}true"
                                                 rootPath="/content/silversea-com" />
                                     </exclusiveoffers>
