@@ -1,0 +1,8 @@
+<template data-sly-template.default="${ @ item, imageTemplate}">
+      <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+	  <a href="${item}" class="lazy automatic-gallery-modal ${isVideo ? 'video-link' : ''}"
+            data-target=".bs-modal-lg">
+      		<sly data-sly-call="${imageTemplate.default @ imagePath=item}" />
+            <i data-sly-test="${isVideo}" class="fa fa-play"></i>
+  		</a>
+</template>

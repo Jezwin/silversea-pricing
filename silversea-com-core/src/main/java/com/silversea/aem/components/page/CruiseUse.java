@@ -10,7 +10,9 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -332,6 +334,24 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
         return gallery;
     }
+    
+    /**
+	 * Put the cruise itinerary map inside voyages gallery.
+	 * The cruise itinerary map will be the first element of the list
+	 * @return gallery
+	 */
+	public LinkedHashMap<String, List<Asset>> getCruiseOverviewGallery() {
+		 LinkedHashMap<String, List<Asset>> gallery = getCruiseGallery();
+		 List<Asset> voyages = gallery.get("voyage");
+		 final Resource members = getResourceResolver().getResource(getCruiseModel().getItinerary());
+		 Asset asset = members.adaptTo(Asset.class);
+		 if ( asset != null && !voyages.isEmpty()) {
+			 voyages.add(0,asset);
+			 gallery.put("voyage", voyages);
+		 }
+		 return gallery;
+	}
+
 
     /**
      * @return return prices corresponding to the current geolocation

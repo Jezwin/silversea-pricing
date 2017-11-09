@@ -1,10 +1,11 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="row c-cruise__overview" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+     <div class="row c-cruise__overview" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
         <div class="col-sm-6 hidden-xs voyageimg">
-            <div class="voyageimg__info">
+            <div class="voyageimg__info">	
                 <p>${cruise.mapOverHead}</p>
             </div>
-            <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
+		    <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
+    			data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.itinerary, imageTemplate = imageTemplate}" />
             <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
         </div>
         <div class="col-sm-6">
@@ -61,8 +62,9 @@
                     <div class="voyageimg__info">
                         <p>${cruise.mapOverHead}</p>
                     </div>
-                    <sly data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}" />
-                    <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
+					<sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
+    					 data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.itinerary, imageTemplate = imageTemplate}" />                    
+    					 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
                 </div>
                 <div class="col-xs-12 visible-xs">
                     <div class="cruise__header_metainfo">
