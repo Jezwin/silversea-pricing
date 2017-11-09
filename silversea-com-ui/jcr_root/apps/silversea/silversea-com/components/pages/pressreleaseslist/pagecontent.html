@@ -1,10 +1,8 @@
 <section class="o-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-4 sidebar">
-                <div data-sly-resource="${'parSide' @ resourceType='wcm/foundation/components/iparsys'}"></div>
-            </div>
-            <div class="col-sm-9 col-sm-8 c-pressreleases">
+            <div class="col-sm-12 col-sm-12 c-pressreleases">
+             <div data-sly-resource="${'parPressereleaseslistheader' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                 <p class="c-pressreleases__description">${currentPage.description}</p>
                 <div data-sly-resource="${'parPressereleaseslist' @ resourceType='silversea/silversea-com/components/included/pressreleaseslist'}"></div>
             </div>

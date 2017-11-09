@@ -12,16 +12,15 @@ import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.models.PriceModel;
 import com.silversea.aem.services.GeolocationTagService;
 import com.silversea.aem.services.RunModesService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Created by mbennabi on 20/04/2017.
- */
 public class DataLayerUse extends WCMUsePojo {
 
     private String country;
@@ -112,7 +111,7 @@ public class DataLayerUse extends WCMUsePojo {
         }
 
         if (externalizer != null) {
-            currentPageUrl = externalizer.publishLink(getResourceResolver(), "http",
+            currentPageUrl = externalizer.publishLink(getResourceResolver(), "https",
                     getCurrentPage().getPath()) + ".html";
         }
 
@@ -240,6 +239,17 @@ public class DataLayerUse extends WCMUsePojo {
                 pageCategory3 = getCurrentPage().getParent().getName();
             }
         }
+        
+        //Destination - fill track_destination
+        if (contentResource.isResourceType(WcmConstants.RT_DESTINATION)) {
+        	destinationId = (String) contentResource.getValueMap().get("destinationId");
+        	destinationName = (String) getCurrentPage().getName();
+        }
+        
+        //Ship Fill Ship
+        if (contentResource.isResourceType(WcmConstants.RT_SHIP)) {
+        	shipName = (String) getCurrentPage().getName();
+        }
 
         // Cruise details
         if (contentResource.isResourceType(WcmConstants.RT_VOYAGE)) {
@@ -250,8 +260,9 @@ public class DataLayerUse extends WCMUsePojo {
 
                 // TODO check value, cruise code != cruise id
                 voyageId = cruiseModel.getCruiseCode();
-
-                departureDay = cruiseModel.getStartDate().getTime().toString();
+                
+                SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+                departureDay = dt1.format(cruiseModel.getStartDate().getTime());
                 voyageDuration = cruiseModel.getDuration();
 
                 voyageDepartureHarbor = cruiseModel.getDeparturePortName();

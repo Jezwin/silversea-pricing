@@ -13,11 +13,11 @@
                 <div class="c-fyc__result__content__inner">
                     <h2 class="c-fyc__result__content__title">${cruiseItem.cruiseModel.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruiseItem.cruiseModel.arrivalPortName}</h2>
                     <ul class="c-fyc__result__content__description ${cruiseItem.cruiseModel.cruiseType}">
-                        <li class="cruise-ship hidden-xs"><strong>${cruiseItem.cruiseModel.ship.title}</strong></li>
-                        <li class="cruise-destination">${cruiseItem.cruiseModel.destination.title}</li>
-                        <li class="cruise-type">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
+                        <li class="cruise-ship hidden-xs" data-shipname="${cruiseItem.cruiseModel.ship.name @ context='unsafe'}"><strong>${cruiseItem.cruiseModel.ship.title}</strong></li>
+                        <li class="cruise-destination" data-destinationname="${cruiseItem.cruiseModel.destination.name @ context='unsafe'}">${cruiseItem.cruiseModel.destination.title}</li>
+                        <li class="cruise-type" data-cruisetype="${cruiseItem.cruiseModel.cruiseType @ context='unsafe'}">${cruiseItem.cruiseModel.cruiseType @ i18n}</li>
                         <li class="cruise-code hidden-xs"><strong>${cruiseItem.cruiseModel.cruiseCode}</strong></li>
-                        <li class="cruise-ship hidden-xs">${cruiseItem.cruiseModel.ship.title}</li>
+                       
                         <li class="meta_feature_inner hidden-xs">
                             <span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
                                 <i class="icon-star"></i> ${'offer' @ i18n}
@@ -92,6 +92,19 @@
             </div>
         </div>
         <a class="c-fyc__result__link" href="${cruiseItem.cruiseModel.path @ extension='html'}"></a>
+       
+        <script data-sly-test="${cruiseItemList.first}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}">
+	        $( document ).ready(function() {
+	        	var dataLayer = window.dataLayer[0];
+	        	dataLayer.track_destination_id = "${cruiseItem.cruiseModel.destination.destinationId @ context='unsafe'}";
+	            dataLayer.track_destination_name = "${cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
+	            dataLayer.track_voyage_id = "${cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
+	            dataLayer.track_departure_date = "${dateFull.value @ context='unsafe'}";
+	            dataLayer.track_voyage_duration = "${cruiseItem.cruiseModel.Duration @ context='unsafe'}";
+	            dataLayer.track_voyage_type = "${cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
+	            dataLayer.track_shipname = "${cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
+	        });
+        </script>
     </div>
 </div>
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/feedback.html" />
