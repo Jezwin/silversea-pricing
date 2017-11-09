@@ -22,38 +22,7 @@ analysis_sonar:
     only:
         - develop
         
-mvn_build_test_author:
-    stage: build-author-test
-    environment:
-        name: Test
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.0.113:4502
-    only:
-        - develop
 
-mvn_build_test_publish1:
-    stage: build-publishes-test
-    environment:
-        name: Test
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.13.79:4503
-    only:
-        - develop
-
-mvn_build_test_publish2:
-    stage: build-publishes-test
-    environment:
-        name: Test
-    tags:
-        - maven
-    script:
-        - mvn clean install -Pauto-install-package -Dcq.url=http://172.31.4.121:4503
-    only:
-        - develop
 
 ### RC Build
 mvn_build_rc_author:
