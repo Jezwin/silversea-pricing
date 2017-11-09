@@ -103,7 +103,8 @@ public class SitemapModel {
                         || WcmConstants.RT_HOTEL.equals(resourceType)
                         || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
                         || WcmConstants.RT_EXCURSIONS.equals(resourceType)
-                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType));
+                        || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType)
+                        || WcmConstants.RT_COMBO_SEGMENT.equals(resourceType));
             }
 
             return true;
