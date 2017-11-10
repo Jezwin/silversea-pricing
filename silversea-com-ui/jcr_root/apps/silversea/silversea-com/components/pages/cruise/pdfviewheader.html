@@ -53,10 +53,10 @@ span.black {
 <div class="header">
 
 	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="header__logo expedition_logo">
-		<img src="http://lagunatravelservice.com/img/travelstyles/silversea-cruises.jpg" alt="Silversea" />
+		<img src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo.png" alt="Silversea" />
 	</div>
 	<div data-sly-test="${!silverExpedition}" class="header__logo expedition_logo">
-		<img src="http://geographical.co.uk/images/articles/travel/Travel_Partners/silverseas/SS_Expedition_Logo_new_60K.jpg" alt="Silversea" />
+		<img src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo.png" alt="Silversea" />
 	</div>
     <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
       <sly data-sly-test.isCcpt="${header.ccptAvailable}">
