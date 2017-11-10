@@ -1,0 +1,77 @@
+<style type="text/css">
+
+/* Header */
+
+span.black {
+    color: #000;
+}
+
+.header {
+    background: black;
+    color: white;
+    height: 18mm;
+}
+.header__logo {
+    width: 180px;
+    float: left;
+    padding: 15px;
+}
+.header__logo img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    padding-left: 8px;
+}
+.header__call {
+    float: right;
+    width: auto;
+    text-align: right;
+    line-height: 1.5;
+    padding-right: 15px;
+    padding-top: 4px;
+    padding-bottom:5px;
+}
+.header__call__beforetitle {
+    font-size: 13px;
+}
+.header__call__title {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.1;
+}
+.header__call__aftertitle {
+    font-size: 11px;
+}
+
+.cruise_logo {
+    padding-top: 24px;
+}
+
+ </style>
+<div class="header">
+
+	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="header__logo expedition_logo">
+		<img src="http://lagunatravelservice.com/img/travelstyles/silversea-cruises.jpg" alt="Silversea" />
+	</div>
+	<div data-sly-test="${!silverExpedition}" class="header__logo expedition_logo">
+		<img src="http://geographical.co.uk/images/articles/travel/Travel_Partners/silverseas/SS_Expedition_Logo_new_60K.jpg" alt="Silversea" />
+	</div>
+    <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
+      <sly data-sly-test.isCcpt="${header.ccptAvailable}">
+       <div class="header__call">
+        <div class="header__call__beforetitle">${header.header_beforeTitle}</div>
+        <div class="header__call__title">${header.header_title}</div>
+        <div class="header__call__aftertitle">${header.header_afterTitle}</div>
+       </div>
+      </sly>
+      <sly data-sly-test="${!isCcpt}">
+       <div class="header__call" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        <div class="header__call__beforetitle">${'call-reservations-team-1' @ i18n}</div>
+        <div class="header__call__title">${countryHelper.localizedPhone}</div>
+        <div class="header__call__aftertitle">${'call-reservations-team-2' @ i18n}</div>
+       </div>
+      </sly>
+     </sly>
+</div>

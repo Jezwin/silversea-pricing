@@ -1,0 +1,37 @@
+<style type="text/css">
+
+
+
+/* Footer */
+.footer {
+    color: black;
+    text-align: left;
+    line-height: 1.2;
+    font-size: 11px;
+
+    padding-top: 5px;
+}
+.footer a {
+    color: black;
+    text-decoration: underline;
+}
+
+.page {
+    color: #313131;
+}
+
+
+ </style>
+
+<div class="footer">
+<sly data-sly-use.footer="com.silversea.ssc.aem.models.PDFCruiseUse" />
+	<p>
+		<span class="uppercase">${'View-more-about-this-expedition-cruise' @ i18n}:</span>
+		<a href="${footer.footerPageUrl @ extension='html'}">${footer.footerPageUrl @ extension='html'}</a>
+	</p>
+	<p>${'View-all-terms-and-conditions' @ i18n}::
+
+			<a data-sly-test="${footer.termsAndConditionsUrl}" href="${footer.termsAndConditionsUrl @ extension='html'}">${footer.termsAndConditionsUrl @ extension='html'}</a>
+
+	</p>
+</div>
