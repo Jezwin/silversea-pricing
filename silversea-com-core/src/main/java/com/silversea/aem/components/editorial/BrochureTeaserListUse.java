@@ -1,5 +1,24 @@
 package com.silversea.aem.components.editorial;
 
+import io.swagger.client.model.Brochure;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.Session;
+
+import org.apache.jackrabbit.JcrConstants;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.tagging.Tag;
@@ -10,241 +29,288 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.TagHelper;
 import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.services.GeolocationTagService;
-import org.apache.jackrabbit.JcrConstants;
-import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserListUse.class);
+	static final private Logger LOGGER = LoggerFactory.getLogger(BrochureTeaserListUse.class);
 
-    private static final String SELECTOR_BROCHURE_GROUP_PREFIX = "brochure_group_";
-    private static final String SELECTOR_LANGUAGE_PREFIX = "language_";
-    private static final String DEFAULT_BROCHURE_GROUP = "default";
+	private static final String SELECTOR_BROCHURE_GROUP_PREFIX = "brochure_group_";
+	private static final String SELECTOR_LANGUAGE_PREFIX = "language_";
+	private static final String DEFAULT_BROCHURE_GROUP = "default";
 
-    private List<BrochureModel> brochures;
+	private List<BrochureModel> brochures;
 
-    private List<BrochureModel> brochuresNotLanguageFiltered;
+	private List<BrochureModel> brochuresNotLanguageFiltered;
 
-    private Map<String, String> languages;
+	private Map<String, String> languages;
 
-    private String currentLanguage;
+	private String currentLanguage;
 
-    private String brochureGroup = DEFAULT_BROCHURE_GROUP;
+	private String brochureGroup = DEFAULT_BROCHURE_GROUP;
 
-    private List<String> geolocationTags;
+	private List<String> geolocationTags;
 
-    @Override
-    public void activate() throws Exception {
-        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
-        final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+	@Override
+	public void activate() throws Exception {
 
-        // Getting context
-        final String geolocationTagId = geolocationTagService != null
-                ? geolocationTagService.getTagIdFromRequest(getRequest())
-                : null;
+		final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(
+				GeolocationTagService.class);
+		final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
-        // init current language
-        currentLanguage = LanguageHelper.getLanguage(getRequest());
-        if (currentLanguage == null) {
-            currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
-        }
+		// Getting context
+		final String geolocationTagId = geolocationTagService != null ? geolocationTagService
+				.getTagIdFromRequest(getRequest()) : null;
 
-        // init selected brochure group
-        final String[] selectors = getRequest().getRequestPathInfo().getSelectors();
-        for (String selector : selectors) {
-            if (selector.startsWith(SELECTOR_BROCHURE_GROUP_PREFIX)) {
-                brochureGroup = selector.replace(SELECTOR_BROCHURE_GROUP_PREFIX, "");
-                break;
-            }
-        }
+		// init current language
+		currentLanguage = LanguageHelper.getLanguage(getRequest());
+		if (currentLanguage == null) {
+			currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
+		}
 
-        // init root path
-        final String brochuresPath = getProperties().get("folderReference",
-                WcmConstants.PATH_DAM_SILVERSEA + "/" + WcmConstants.FOLDER_BROCHURES);
+		// init selected brochure group
+		final String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+		for (String selector : selectors) {
+			if (selector.startsWith(SELECTOR_BROCHURE_GROUP_PREFIX)) {
+				brochureGroup = selector.replace(SELECTOR_BROCHURE_GROUP_PREFIX, "");
+				break;
+			}
+		}
+		Resource collectionBrochureGroup = null;
 
-        // Building tag list
-        geolocationTags = new ArrayList<>();
+		if (!brochureGroup.equals(DEFAULT_BROCHURE_GROUP)) {
+			String path = "/content/dam/collections/f/f0tgBBXWFffX2chukdpy/bg-"+ brochureGroup.toLowerCase();
+			Resource rCollections = getResourceResolver().getResource(path);
+			//ResourceCollection collection = rCollections.adaptTo(ResourceCollection.class);
+			Iterator<Resource> it = rCollections.getChildren().iterator();
+			while (it.hasNext()) {
+				Resource p = it.next();
+				String collectionName = p.getName();
+				if (collectionName.startsWith("bg-") && collectionName.contains(brochureGroup)) {
+					collectionBrochureGroup = p;
+					break;
+				}
+			}
+		}
+		
 
-        if (tagManager != null && geolocationTagId != null) {
-            final Tag geolocationTag = tagManager.resolve(geolocationTagId);
+		// init root path
+		final String brochuresPath = getProperties().get("folderReference",
+				WcmConstants.PATH_DAM_SILVERSEA + "/" + WcmConstants.FOLDER_BROCHURES);
 
-            if (geolocationTag != null) {
-                geolocationTags.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
-            }
-        }
+		// Building tag list
+		geolocationTags = new ArrayList<>();
 
-        // Searching for brochures
-        brochuresNotLanguageFiltered = new ArrayList<>();
-        brochures = new ArrayList<>();
-        languages = new LinkedHashMap<>();
+		if (tagManager != null && geolocationTagId != null) {
+			final Tag geolocationTag = tagManager.resolve(geolocationTagId);
 
-        LOGGER.debug("Searching brochures with tags: {}", geolocationTags);
+			if (geolocationTag != null) {
+				geolocationTags.addAll(TagHelper.getTagIdsWithParents(geolocationTag));
+			}
+		}
 
-        // get all brochures listed in order
-        Resource brochuresRoot = getResourceResolver().getResource(brochuresPath);
+		// Searching for brochures
+		List<BrochureModel> brochuresNotLanguageFilteredNotOrdered = new ArrayList<>();
+		brochures = new ArrayList<>();
+		languages = new LinkedHashMap<>();
 
-        if (brochuresRoot != null) {
-            // filter brochures by localization, language, and group
-            filterResources(brochuresRoot.listChildren());
+		LOGGER.debug("Searching brochures with tags: {}", geolocationTags);
 
-            // build language list
-            for (BrochureModel brochure : brochuresNotLanguageFiltered) {
-                final Tag language = brochure.getLanguage();
+		// get all brochures listed in order
+		Resource brochuresRoot = getResourceResolver().getResource(brochuresPath);
 
-                LOGGER.debug("Searching language for brochure: {}", brochure.getBrochurePath());
+		if (brochuresRoot != null) {
+			// filter brochures by localization, language, and group
+			filterResources(brochuresRoot.listChildren(), brochuresNotLanguageFilteredNotOrdered);
 
-                if (language != null) {
-                    LOGGER.debug("Adding language {} to language list", language.getTagID());
+			if (collectionBrochureGroup != null) {
+				LOGGER.debug("Retrieve brochure {} group order: {}", collectionBrochureGroup.getName());
+				
+				Map<String, Integer> orderBrochure = new HashMap<>();
+				Iterator<Resource> it = collectionBrochureGroup.getChildren().iterator();
+				int i = 0;
+				while (it.hasNext()) {
+					Brochure b = it.next().adaptTo(Brochure.class);
+					orderBrochure.put(b.getBrochureCod(), i++);
+				}
+				
+				Integer numBrochures = brochuresNotLanguageFilteredNotOrdered.size();
+				brochuresNotLanguageFiltered = new ArrayList<>(numBrochures);
+				
+				LOGGER.debug("Ordering {} brochure in {} group", numBrochures, collectionBrochureGroup.getName());
 
-                    languages.put(language.getName(), language.getTitle());
-                }
-            }
+				for (BrochureModel brochure : brochuresNotLanguageFilteredNotOrdered) {
+					String code = brochure.getBrochureCode();
+					if (orderBrochure.containsKey(code)) {
+						brochuresNotLanguageFiltered.add(orderBrochure.get(code), brochure);
+					}
+				}
+			} else {
+				LOGGER.debug("Not order apply");
 
-            if (languages.size() > 0) {
-                String language;
-                if (languages.containsKey(currentLanguage)) {
-                    language = currentLanguage;
-                } else {
-                    language = languages.keySet().iterator().next();
-                }
+				brochuresNotLanguageFiltered = brochuresNotLanguageFilteredNotOrdered;
+			}
 
-                for (BrochureModel brochure : brochuresNotLanguageFiltered) {
-                    // check language
-                    if (isMatchingLanguage(brochure, language)) {
-                        // brochure matches all criteria
-                        brochures.add(brochure);
-                    }
-                }
-            }
-        }
-    }
+			// build language list
+			for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+				final Tag language = brochure.getLanguage();
 
-    /**
-     * @return the list of brochures
-     */
-    public List<BrochureModel> getBrochures() {
-        return brochures;
-    }
+				LOGGER.debug("Searching language for brochure: {}", brochure.getBrochurePath());
 
-    /**
-     * @return the list of brochures, not filtered per language
-     */
-    public List<BrochureModel> getBrochuresNotLanguageFiltered() {
-        return brochuresNotLanguageFiltered;
-    }
+				if (language != null) {
+					LOGGER.debug("Adding language {} to language list", language.getTagID());
 
-    /**
-     * @return the list of languages
-     */
-    public Map<String, String> getLanguages() {
-        return languages;
-    }
+					languages.put(language.getName(), language.getTitle());
+				}
+			}
 
-    /**
-     * @return the current language
-     */
-    public String getCurrentLanguage() {
-        return currentLanguage;
-    }
+			if (languages.size() > 0) {
+				String language;
+				if (languages.containsKey(currentLanguage)) {
+					language = currentLanguage;
+				} else {
+					language = languages.keySet().iterator().next();
+				}
 
-    /**
-     * @return brochure group
-     */
-    public String getCurrentBrochureGroupSelector() {
-        return SELECTOR_BROCHURE_GROUP_PREFIX + brochureGroup;
-    }
+				for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+					// check language
+					if (isMatchingLanguage(brochure, language)) {
+						// brochure matches all criteria
+						brochures.add(brochure);
+					}
+				}
+			}
+		}
+	}
 
-    /**
-     * TODO check if used
-     * @param request
-     * @return
-     */
-    public String getRequestedLanguage(final SlingHttpServletRequest request) {
-        final String[] selectors = request.getRequestPathInfo().getSelectors();
+	/**
+	 * @return the list of brochures
+	 */
+	public List<BrochureModel> getBrochures() {
+		return brochures;
+	}
 
-        for (final String selector : selectors) {
-            if (selector.startsWith(SELECTOR_LANGUAGE_PREFIX)) {
-                return selector.replace(SELECTOR_LANGUAGE_PREFIX, "");
-            }
-        }
+	/**
+	 * @return the list of brochures, not filtered per language
+	 */
+	public List<BrochureModel> getBrochuresNotLanguageFiltered() {
+		return brochuresNotLanguageFiltered;
+	}
 
-        return null;
-    }
+	/**
+	 * @return the list of languages
+	 */
+	public Map<String, String> getLanguages() {
+		return languages;
+	}
 
-    /**
-     * Filter brochures
-     *
-     * @param resources first level of brochures folder in DAM
-     */
-    private void filterResources(final Iterator<Resource> resources) {
-        while (resources.hasNext()) {
-            final Resource resource = resources.next();
-            final String type = resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class);
+	/**
+	 * @return the current language
+	 */
+	public String getCurrentLanguage() {
+		return currentLanguage;
+	}
 
-            if (type != null) {
-                if (type.equals(DamConstants.NT_DAM_ASSET)) {
-                    final Asset asset = resource.adaptTo(Asset.class);
+	/**
+	 * @return brochure group
+	 */
+	public String getCurrentBrochureGroupSelector() {
+		return SELECTOR_BROCHURE_GROUP_PREFIX + brochureGroup;
+	}
 
-                    if (asset != null) {
-                        final BrochureModel brochure = asset.adaptTo(BrochureModel.class);
+	/**
+	 * TODO check if used
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public String getRequestedLanguage(final SlingHttpServletRequest request) {
+		final String[] selectors = request.getRequestPathInfo().getSelectors();
 
-                        // check localization and brochure group
-                        if (isMatchingLocation(brochure, geolocationTags) && isMatchingGroup(brochure, brochureGroup)) {
-                            brochuresNotLanguageFiltered.add(brochure);
-                        }
-                    }
-                } else if (type.equals(DamConstants.NT_SLING_ORDEREDFOLDER)) {
-                    filterResources(resource.listChildren());
-                }
-            }
-        }
-    }
+		for (final String selector : selectors) {
+			if (selector.startsWith(SELECTOR_LANGUAGE_PREFIX)) {
+				return selector.replace(SELECTOR_LANGUAGE_PREFIX, "");
+			}
+		}
 
-    /**
-     * Check if brochure match location
-     *
-     * @param brochure     the brochure
-     * @param locationTags the location tags
-     * @return true id brochure match locations
-     */
-    private boolean isMatchingLocation(final BrochureModel brochure, final List<String> locationTags) {
-        final ArrayList<Tag> brochureLocations = brochure.getLocalizations();
+		return null;
+	}
 
-        for (Tag brochureLocation : brochureLocations) {
-            if (locationTags.contains(brochureLocation.getTagID())) {
-                return true;
-            }
-        }
+	/**
+	 * Filter brochures
+	 *
+	 * @param resources
+	 *            first level of brochures folder in DAM
+	 */
+	private void filterResources(final Iterator<Resource> resources, List<BrochureModel> brochuresList) {
+		while (resources.hasNext()) {
+			final Resource resource = resources.next();
+			final String type = resource.getValueMap().get(JcrConstants.JCR_PRIMARYTYPE, String.class);
 
-        return false;
-    }
+			if (type != null) {
+				if (type.equals(DamConstants.NT_DAM_ASSET)) {
+					final Asset asset = resource.adaptTo(Asset.class);
 
-    /**
-     * Check if brochure match brochure group
-     *
-     * @param brochure  the brochure
-     * @param groupName the group name
-     * @return true if the brochure match the group
-     */
-    private boolean isMatchingGroup(final BrochureModel brochure, final String groupName) {
-        return brochure.getGroupNames().contains(groupName);
-    }
+					if (asset != null) {
+						final BrochureModel brochure = asset.adaptTo(BrochureModel.class);
 
-    /**
-     * Check if brochure match brochure group
-     *
-     * @param brochure     the brochure
-     * @param languageName the language name
-     * @return true if the brochure match the language
-     */
-    private boolean isMatchingLanguage(final BrochureModel brochure, final String languageName) {
-        final Tag brochureLang = brochure.getLanguage();
+						// check localization and brochure group
+						if (isMatchingLocation(brochure, geolocationTags) && isMatchingGroup(brochure, brochureGroup)) {
+							brochuresList.add(brochure);
+						}
+					}
+				} else if (type.equals(DamConstants.NT_SLING_ORDEREDFOLDER)) {
+					filterResources(resource.listChildren(), brochuresList);
+				}
+			}
+		}
+	}
 
-        return brochureLang != null && brochureLang.getName().toUpperCase().equals(languageName.toUpperCase());
-    }
+	/**
+	 * Check if brochure match location
+	 *
+	 * @param brochure
+	 *            the brochure
+	 * @param locationTags
+	 *            the location tags
+	 * @return true id brochure match locations
+	 */
+	private boolean isMatchingLocation(final BrochureModel brochure, final List<String> locationTags) {
+		final ArrayList<Tag> brochureLocations = brochure.getLocalizations();
+
+		for (Tag brochureLocation : brochureLocations) {
+			if (locationTags.contains(brochureLocation.getTagID())) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if brochure match brochure group
+	 *
+	 * @param brochure
+	 *            the brochure
+	 * @param groupName
+	 *            the group name
+	 * @return true if the brochure match the group
+	 */
+	private boolean isMatchingGroup(final BrochureModel brochure, final String groupName) {
+		return brochure.getGroupNames().contains(groupName);
+	}
+
+	/**
+	 * Check if brochure match brochure group
+	 *
+	 * @param brochure
+	 *            the brochure
+	 * @param languageName
+	 *            the language name
+	 * @return true if the brochure match the language
+	 */
+	private boolean isMatchingLanguage(final BrochureModel brochure, final String languageName) {
+		final Tag brochureLang = brochure.getLanguage();
+
+		return brochureLang != null && brochureLang.getName().toUpperCase().equals(languageName.toUpperCase());
+	}
 }
