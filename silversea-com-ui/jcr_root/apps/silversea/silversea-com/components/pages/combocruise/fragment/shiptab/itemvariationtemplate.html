@@ -1,9 +1,9 @@
 <template data-sly-template.default="${ @ list }">
     <div class="row c-cruise-ship-info__item" data-sly-repeat="${list}">
         <div class="col-sm-6 variationimg ${itemList.even ? ' col-sm-push-6' : ''}">
-            
+            <sly data-sly-test.firstAsset="${item.firstAsset}"  >
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.lazy @ imagePath=firstAsset.path, width=930}" />
-            
+            </sly>
         </div>
         <div class="col-sm-6 variationcontent ${itemList.even ? ' col-sm-pull-6' : ''}">
             <div class="ship-mobilewrapper">
