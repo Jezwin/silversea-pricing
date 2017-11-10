@@ -33,7 +33,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     @Reference
     private SlingSettingsService slingSettingsService;
 
-    private Map<String, Map<String, CruiseModel>> cruisesByCode = new HashMap<>();
+    private Map<String, Map<String, CruiseModelLight>> cruisesByCode = new HashMap<>();
 
     private Map<String, List<DestinationModel>> destinations = new HashMap<>();
 
@@ -83,7 +83,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             }
 
             int i = 0;
-            for (Map.Entry<String, Map<String, CruiseModel>> cruise : cruisesByCode.entrySet()) {
+            for (Map.Entry<String, Map<String, CruiseModelLight>> cruise : cruisesByCode.entrySet()) {
                 i += cruise.getValue().size();
             }
 
@@ -94,12 +94,12 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public List<CruiseModel> getCruises(final String lang) {
+    public List<CruiseModelLight> getCruises(final String lang) {
         return new ArrayList<>(cruisesByCode.get(lang).values());
     }
 
     @Override
-    public CruiseModel getCruiseByCruiseCode(final String lang, final String cruiseCode) {
+    public CruiseModelLight getCruiseByCruiseCode(final String lang, final String cruiseCode) {
         return cruisesByCode.get(lang).get(cruiseCode);
     }
 
@@ -142,14 +142,15 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
         LOGGER.debug("Updating cruises cache with {}", cruiseModel.getPath());
 
-        final String cruiseCode = cruiseModel.getCruiseCode();
+        CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
+        final String cruiseCode = cruiseModelLight.getCruiseCode();
         final String lang = cruiseModel.getLang();
 
         if (cruisesByCode.containsKey(lang)) {
-            cruisesByCode.get(lang).put(cruiseCode, cruiseModel);
+            cruisesByCode.get(lang).put(cruiseCode, cruiseModelLight);
         } else {
-            final HashMap<String, CruiseModel> cruiseByCode = new HashMap<>();
-            cruiseByCode.put(cruiseCode, cruiseModel);
+            final HashMap<String, CruiseModelLight> cruiseByCode = new HashMap<>();
+            cruiseByCode.put(cruiseCode, cruiseModelLight);
 
             cruisesByCode.put(lang, cruiseByCode);
         }
@@ -181,7 +182,8 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
 
             if (cruiseModel != null && cruiseModel.isVisible()) {
-                cruisesByCode.get(lang).put(cruiseModel.getCruiseCode(), cruiseModel);
+                CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
+                cruisesByCode.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
 
                 if (cruiseModel.getDestination() != null
                         && !destinations.get(lang).contains(cruiseModel.getDestination())) {

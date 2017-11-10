@@ -33,7 +33,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     private String siteCurrency = WcmConstants.DEFAULT_CURRENCY;
 
-    private CruiseModel selectedCruise;
+    private CruiseModelLight selectedCruise;
 
     private SuiteModel selectedSuite;
 
@@ -109,7 +109,7 @@ public class QuoteRequestUse extends WCMUsePojo {
             }
 
             if (selectedCruise != null) {
-                for (PriceModel price : selectedCruise.getPrices()) {
+                for (PriceModel price : selectedCruise.getLowestPrices().values()) {
                     if (price.getGeomarket().equals(currentMarket)
                             && price.getCurrency().equals(siteCurrency)) {
 
@@ -284,7 +284,7 @@ public class QuoteRequestUse extends WCMUsePojo {
     /**
      * @return selected cruise
      */
-    public CruiseModel getSelectedCruise() {
+    public CruiseModelLight getSelectedCruise() {
         return selectedCruise;
     }
 
