@@ -1,5 +1,56 @@
 <link type="text/css" rel="stylesheet" href="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/css/fonts.css">
 <style type="text/css">
+/* Base */
+body {
+	font-size: 13px;
+    font-family: "opensans";    
+    color: #313131;
+    zoom: 0.75;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+p {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.hidden {
+    display: none !important;
+}
+.col_left {
+    padding-right: 5px;
+}
+.col_right {
+    padding-left: 5px;
+}
+.note {
+    font-size: 10px;
+    font-style: italic;
+    color: #646464;
+    padding: 0;
+    padding-top: 5px;
+}
+
+/* Typography */
+.fa {
+    font-family: 'fontawesome';
+    display: inline-block;
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    text-rendering: auto;
+}
+h1, h2 {
+    font-family: "theanodidot";
+    font-weight: normal;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+.lowercase {
+    text-transform: lowercase;
+}
 
 /* Header */
 
@@ -50,10 +101,523 @@ span.black {
     padding-top: 24px;
 }
 
- </style>
+/* Footer */
+.footer {
+    color: black;
+    text-align: left;
+    line-height: 1.2;
+    font-size: 11px;
+
+    padding-top: 5px;
+}
+.footer a {
+    color: black;
+    text-decoration: underline;
+}
+
+.page {
+    color: #313131;
+}
+
+/* Page Header */
+.page__header {
+    padding: -10px 0 5px 0;
+}
+.page__header__title {
+    text-align: center;
+    color: #313131;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: "theanodidot";
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+.page__header__title__separator {
+    content: '';
+    width: 60%;
+    height: 2px;
+    display: block;
+    margin: 15px auto;
+    background: #6abdbc;
+}
+
+.page__header__title__separator__highlights {
+    content: '';
+    width: 47%;
+    height: 2px;
+    display: block;
+    margin: auto;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 18px;
+
+    background: #6abdbc;
+}
+
+
+
+.page__header__metainfo {
+    width: 100%;
+    float: left;
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding-right: 11px;
+    font-size: 10px;
+}
+.page__header__metainfo__item {
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Section */
+.section {
+    padding: 0 0 20px 0;
+}
+
+/* Section Header */
+.section__header {
+    margin-bottom: 10px;
+    padding-top: 10px;
+    margin-top: -10px;
+    text-align: center;
+}
+.section__header__title {
+    text-align: center;
+    font-size: 25px;
+    text-transform: uppercase;
+    font-family: "theanodidot";
+    padding: 0;
+    margin: 0 0 5px 0;
+    color: #000;
+}
+.voyage__highlights__text .section__header__title {
+
+    margin-bottom: 0px;
+
+}
+.section__header__desc {
+    font-size: 13px;
+}
+
+/* Section Images */
+.section__gallery {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+.section__gallery__col {
+    width: 20%;
+    float: left;
+}
+.section__gallery__item {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.section__gallery__item img {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    ;
+    display: block;
+}
+
+/* Section Table */
+.section__table {
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+}
+.section__table table {
+    width: 100%;
+    text-align: left;
+    border: 1px solid #cdcdcd;
+    border-bottom: none;
+}
+.section__table table thead {
+
+}
+.section__table table thead tr {
+}
+.section__table table thead tr th {
+    background: #aaa;
+    color: white;
+    padding: 7px 15px;
+    margin: 0;
+    text-align: left;
+    text-transform: uppercase;
+}
+.section__table table tbody {
+
+}
+.section__table table tbody tr {
+
+}
+.section__table table tbody tr td {
+    padding: 7px 15px;
+    margin: 0;
+    text-align: left;
+    border-bottom: 1px solid #cdcdcd;
+    vertical-align: top;
+}
+.section__table strong {
+    text-transform: uppercase;
+}
+.section__table__pricenum {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.section__table__pricenote {
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+/* Next / Prev page */
+.next_page {
+    font-size: 12px;
+    font-style: normal;
+    color: #646464;
+    padding: 0;
+    padding-top: 5px;
+    text-align: right;
+    width: 100%;
+    float: left;
+}
+.next_page__text {
+    float: right;
+    width: 70%;
+    margin-top: 2px;
+    font-style: italic;
+}
+.next_page__icon {
+    font-family: 'fontawesome';
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    text-rendering: auto;
+    margin-left: 25px;
+    font-size: 20px;
+    float: right;
+    width: 23px;
+    color: #ABABAB;
+    margin-right:10px;
+
+}
+.prev_page {
+    font-size: 12px;
+    font-style: normal;
+    color: #646464;
+    padding: 5px 0;
+    text-align: left;
+    width: 100%;
+    float: left;
+    margin-top: -45px;
+    margin-left:-3px;
+
+}
+.prev_page__text {
+    float: left;
+    width: 70%;
+    margin-top: 2px;
+    margin-left: 5px;
+    font-style: italic;
+}
+.prev_page__icon {
+    font-family: 'fontawesome';
+    font-weight: normal;
+    font-style: normal;
+    font-size: inherit;
+    text-rendering: auto;
+    margin-left: 5px;
+    font-size: 20px;
+    float: left;
+    width: 15px;
+    color: #ABABAB;
+}
+
+/* Cruise Highlights */
+.cruisehighlights {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+}
+.cruisehighlights__col {
+    width: 50%;
+    float: left;
+}
+
+/* Cruise Highlights Map */
+.cruisehighlights__map {
+    border: 1px solid #6abdbc;
+}
+.cruisehighlights__map__title {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: #6abdbc;
+    text-align: center;
+    display: block;
+    padding: 3px;
+}
+.cruisehighlights__map__img {
+    line-height: 0;
+    width: 100%;
+    height: auto;
+}
+
+/* Cruise Highlights Table */
+.cruisehighlights__table {
+    width: 100%;
+    float: left;
+    border: 1px solid #cdcdcd;
+
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0px;
+    border-collapse: collapse;
+
+}
+
+.cruisehighlights__table tr {
+
+}
+
+.cruisehighlights__table td{
+
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: -10px;
+    border-right: 1px solid #cdcdcd;
+    color: #313131;
+}
+
+.item__duration {
+    width: 30%;
+}
+
+.item__fares {
+    width: 40%;
+}
+
+.cruisehighlights__table td.noborder {
+    border: none;
+}
+
+
+.cruisehighlights__table__col {
+
+    float: left;
+    text-align: center;
+
+    position: relative;
+    padding: 10px;
+
+}
+.cruisehighlights__table__item {
+
+    padding: 10px 2px;
+
+
+
+}
+
+.cruisehighlights__table__beforetitle,
+.cruisehighlights__table__aftertitle {
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+
+
+}
+
+div.cruisehighlights__clear {
+    font-size: 2px;
+
+}
+
+.cruisehighlights__table__beforetitle {
+    margin-bottom: 5px;
+
+
+}
+.cruisehighlights__table__aftertitle {
+    margin-top: 5px;
+}
+
+.cruisehighlights__table__title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #6abdbc;
+    text-transform: uppercase;
+
+
+}
+.price .cruisehighlights__table__aftertitle {
+    font-size: 11px;
+}
+.beforetitlesmall {
+    font-size: 8px;
+    margin-bottom: 0px;
+}
+.aftertitlesmall {
+    font-size: 8px;
+    margin-top: 0px;
+}
+
+.aftertitlesmall__expedition {
+    font-size: 8px;
+    margin-top: 0px;
+    color: #d40728!important;
+}
+
+/* Cruise Highlights Exclusive Offers */
+.cruisehighlights__eo {
+    background: #eee;
+    padding: 10px 15px;
+    font-size: 12px;
+}
+.cruisehighlights__eo__title {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    line-height: 1;
+    display: block;
+}
+.cruisehighlights__eo p {
+    line-height: 1.3;
+    margin-bottom: 7px;
+}
+
+/* Cruise Itinerary */
+.cruiseitinerary {}
+.cruiseitinerary__table {
+
+}
+
+.cruiseitinerary__table .date {
+    width:26%;
+}
+
+.cruiseitinerary__table .port {
+    width:44%;
+}
+
+
+/* Suites */
+.suites {
+    margin-top: 21px;
+}
+.suites__table {}
+.suites__table th {
+	white-space: nowrap;
+}
+
+/* Included */
+.included {}
+.included__list {
+    width: 100%;
+    float: left;
+}
+.included__list ul {
+    margin: 0;
+    padding: 0 8px;
+    line-height: 1.5;
+}
+.included__list ul li {
+    padding: 0 7px;
+}
+.included__list__item {
+    width: 50%;
+    float: left;
+    font-size: 12px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+/* Ship */
+.ship {
+    
+}
+
+.ship__block {
+    margin-bottom: 18px;
+}
+
+.ship__img {
+    width: 33%;
+    float: left;
+    padding-top: 3px;
+}
+.ship__img img {
+    width: 100%;
+    height: auto;
+    line-height: 1;
+}
+.ship__content {
+    width: 66%;
+    float: left;
+    font-size: 12px;
+    line-height: 1.3;
+}
+.ship__table {
+    width: 100%;
+    margin: 10px 0 0 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+/*
+Expedition Color Modificator
+for use: <div class="page expedition"></div>
+*/
+.cruisehighlights__table__title__expedition {
+    font-size: 20px;
+    font-weight: bold;
+
+    text-transform: uppercase;
+    color: #d40728!important;
+}
+.expedition .page__header__title__separator,
+.expedition .page__header__title__separator__highlights,
+.expedition .cruisehighlights__map__title {
+    background-color: #d40728!important;
+}
+.expedition .cruisehighlights__map {
+    border-color: #d40728!important;
+}
+
+.voyage__highlights__text {
+    color: #5C5C5C;
+
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.voyage__highlights__text ul {
+    padding-left: 14px;
+}
+
+div.expedition__clear {
+    padding: 7px;
+}
+
+a.underline {
+    text-decoration: underline;
+}
+
+.voyage__highlights__subtitle {
+    text-align: center;
+}
+
+</style>
 <div class="header">
 
-	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
+	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="header__logo expedition_logo">
 		<img src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo.png" alt="Silversea" />
 	</div>
 	<div data-sly-test="${!silverExpedition}" class="header__logo expedition_logo">

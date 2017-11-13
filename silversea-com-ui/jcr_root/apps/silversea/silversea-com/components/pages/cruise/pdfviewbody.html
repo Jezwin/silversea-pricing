@@ -1,6 +1,6 @@
 <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientLib.css @ categories='apps.silversea-ssc-pdf'}" />
 
-<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.pdfInfo="com.silversea.ssc.aem.models.PDFCruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
     <div class="page__header">
     <img style="display:none" src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo.png" />
     <img style="display:none" src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo.png" />
@@ -33,7 +33,7 @@
         <div class="cruisehighlights__col">
             <div class="col_right">
                 <table class="cruisehighlights__table">
-                    <tr>
+                    <tr class="unbreakable">
                         <td class="cruisehighlights__table__item item__duration">
                             <div class="cruisehighlights__table__beforetitle">${'duration' @ i18n}</div>
                             <div class="cruisehighlights__clear">&nbsp;</div>
@@ -103,7 +103,7 @@
             </div>
 
         </div>
-        <div class="section__table cruiseitinerary__table" data-sly-test="${cruise.cruiseModel.compactedItineraries}">
+        <div class="section__table cruiseitinerary__table" data-sly-test="${pdfInfo.itinerarySplitFirstList}">
             <table cellspacing="0">
                 <thead>
                     <tr>
@@ -112,8 +112,8 @@
                         <th>${'arrive' @ i18n} / ${'depart' @ i18n}</th>
                     </tr>
                 </thead>
-                <tbody data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}">
-                    <tr>
+                <tbody data-sly-list.itinerary="${pdfInfo.itinerarySplitFirstList}">
+                    <tr class="unbreakable">
                         <td class="date"><sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly><sly data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</sly><sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly><sly data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</sly></td>
                         <td class="port"><strong>${itinerary.port.apiTitle}</strong>, ${itinerary.port.country}</td>
                         <td>
@@ -129,14 +129,36 @@
             <div class="next_page__icon">&#xf138;</div>
             <div class="next_page__text">See following page for the rest of the itineraries</div>
         </div>
-        <div class="note">* One hour free WIFI per day for all guests. Unlimited free WIFI for guests sailing on select suite categories</div>
-        <br/>
-        <div class="prev_page">
+
+        <div class="prev_page pagebreakbefore">
             <div class="prev_page__icon">&#xf137;</div>
             <div class="prev_page__text">Itineraries continued from previous page</div>
         </div>
+        <div class="section__table cruiseitinerary__table" data-sly-test="${pdfInfo.itinerarySplitSecondList}">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>${'date' @ i18n}</th>
+                        <th>${'Day-by-day' @ i18n}</th>
+                        <th>${'arrive' @ i18n} / ${'depart' @ i18n}</th>
+                    </tr>
+                </thead>
+                <tbody data-sly-list.itinerary="${pdfInfo.itinerarySplitSecondList}">
+                    <tr class="unbreakable">
+                        <td class="date"><sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly><sly data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</sly><sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly><sly data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</sly></td>
+                        <td class="port"><strong>${itinerary.port.apiTitle}</strong>, ${itinerary.port.country}</td>
+                        <td>
+							<sly data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</sly>
+							<sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
+                            <sly data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTime}</sly>
+						</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="section suites">
+
+    <div class="section suites pagebreak">
         <div class="section__header">
             <h1 class="section__header__title">${'select-your-suite-and-request-a-quote' @i18n}</h1>
             <div class="section__header__desc">
@@ -160,7 +182,7 @@
                     </tr>
                 </thead>
                 <tbody data-sly-repeat="${cruise.prices}">
-                    <tr>
+                    <tr class="unbreakable">
                         <td class="date"><strong>${item.suite.title}</strong>
                         </td>
                         <td class="port">${item.suite.suiteSubTitle @ context='html'}</td>
@@ -187,17 +209,9 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="next_page">
-            <div class="next_page__icon">&#xf138;</div>
-            <div class="next_page__text">See following page for the rest of the suites</div>
-        </div>pagebreak<br/>
-        <div class="prev_page">
-            <div class="prev_page__icon">&#xf137;</div>
-            <div class="prev_page__text">Suites continued from previous page</div>
         </div>            
     </div>
-	<div class="section included">
+	<div class="section included pagebreak">
     <div class="section__header">
         <h1 class="section__header__title">${'included-cruise-fare' @ i18n}</h1>
     </div>
@@ -237,7 +251,7 @@
         </div>
     </div>
 </div>
-	<div data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="expedition voyage__highlights__text">
+	<div data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="expedition voyage__highlights__text pagebreak">
 		<div class="page__header">
 			<h1 class="section__header__title">${'voyage-highlights' @ i18n}</h1>
 			<div class="page__header__title__separator__highlights"></div>
