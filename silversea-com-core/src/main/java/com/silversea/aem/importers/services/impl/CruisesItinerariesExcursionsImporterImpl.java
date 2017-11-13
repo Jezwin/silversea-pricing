@@ -118,6 +118,12 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                 apiPage++;
             } while (cruises.size() > 0);
 
+            // cruises mapping
+            final Map<Integer, Map<String, String>> cruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
+                    "cruiseId");
+            
             // Initializing elements necessary to import excursions
             // itineraries
             final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
@@ -236,7 +242,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
             
             do {
-                excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPage, pageSize, null);
+                excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPageDiff, pageSize, null);
 
                 // Iterating over excursions received from API
                 for (final ShorexItinerary77 excursionDiff : excursionsDiff) {
@@ -271,6 +277,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     if(!excursionDiff.getIsDeleted()){
                                     // TODO to check : getShorexItineraryId() is not unique over API
 	                                    if (!excursionsNode.hasNode(String.valueOf(excursionDiff.getShorexItineraryId()))) {
+	                                    	//Create new excursion
 	                                        final Node excursionNode = excursionsNode.addNode(
 	                                                JcrUtil.createValidChildName(excursionsNode,
 	                                                        String.valueOf(excursionDiff.getShorexItineraryId())));
@@ -318,11 +325,18 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                                     imported = true;
                                     
+                                    //set current cruise to activate state
+                                    final Map<String, String> cruisePaths = cruisesMapping.get(itineraryModel.getCruiseId());
+                                    for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
+                                    	final Node cruiseContentNode = session.getNode(cruisePath.getValue() + "/jcr:content");
+                                    	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                    }
+                                    
                                     if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
                                         try {
                                             session.save();
 
-                                            LOGGER.info("{} excursions imported, saving session", +itemsWritten);
+                                            LOGGER.info("{} excursions imported, saving session", +itemsWrittenDiff);
                                         } catch (RepositoryException e) {
                                             session.refresh(true);
                                         }
@@ -345,8 +359,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                     }
                 }
 
-                apiPage++;
-            } while (excursions.size() > 0);
+                apiPageDiff++;
+            } while (excursionsDiff.size() > 0);
             
             
             
@@ -360,6 +374,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                     session.save();
 
                     LOGGER.info("{} itineraries excursions imported, saving session", +itemsWritten);
+                    LOGGER.info("{} itineraries diff excursions imported, saving session", +itemsWrittenDiff);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -374,8 +389,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             importRunning = false;
         }
 
-        LOGGER.info("Ending itineraries excursions import, success: {}, errors: {}, api calls : {}",
-                +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
+        LOGGER.info("Ending itineraries excursions import, success: {}, errors: {}, api calls : {} and {} for diff",
+                +importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage, apiPageDiff);
 
         return importResult;
     }
