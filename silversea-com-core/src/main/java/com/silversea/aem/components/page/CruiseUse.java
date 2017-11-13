@@ -342,12 +342,14 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	 */
 	public LinkedHashMap<String, List<Asset>> getCruiseOverviewGallery() {
 		 LinkedHashMap<String, List<Asset>> gallery = getCruiseGallery();
-		 List<Asset> voyages = gallery.get("voyage");
 		 final Resource members = getResourceResolver().getResource(getCruiseModel().getItinerary());
-		 Asset asset = members.adaptTo(Asset.class);
-		 if ( asset != null && !voyages.isEmpty()) {
-			 voyages.add(0,asset);
-			 gallery.put("voyage", voyages);
+		 if (members != null) {
+			 Asset asset = members.adaptTo(Asset.class);
+			 List<Asset> voyages = gallery.get("voyage");
+			 if ( asset != null && !voyages.isEmpty()) {
+				 voyages.add(0,asset);
+				 gallery.put("voyage", voyages);
+			 }
 		 }
 		 return gallery;
 	}
