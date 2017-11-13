@@ -5,6 +5,7 @@ import com.day.cq.dam.api.Asset;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.NameConstants;
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
 import com.silversea.aem.helper.LanguageHelper;
@@ -33,7 +34,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     private String siteCurrency = WcmConstants.DEFAULT_CURRENCY;
 
-    private CruiseModelLight selectedCruise;
+    private CruiseModel selectedCruise;
 
     private SuiteModel selectedSuite;
 
@@ -94,8 +95,16 @@ public class QuoteRequestUse extends WCMUsePojo {
                             CruisesCacheService.class);
 
                     if (cruisesCacheService != null) {
-                        selectedCruise = cruisesCacheService.getCruiseByCruiseCode(
+                        //CruiseModelLight only contains the lowest prices
+                        //Must construct the complete CruiseModel in order to have all prices
+                        CruiseModelLight cruiseModelLight = cruisesCacheService.getCruiseByCruiseCode(
                                 LanguageHelper.getLanguage(getCurrentPage()), splitSuffix[0]);
+                        Resource cruiseResource = getResourceResolver().getResource(cruiseModelLight.getPath());
+                        selectedCruise = null;
+                        if (cruiseResource != null) {
+                            Page cruisePage = getPageManager().getPage(cruiseModelLight.getPath());
+                            selectedCruise = cruisePage.adaptTo(CruiseModel.class);
+                        }
 
                         if (selectedCruise != null && splitSuffix.length > 1) {
                             suiteName = splitSuffix[1];
@@ -109,7 +118,7 @@ public class QuoteRequestUse extends WCMUsePojo {
             }
 
             if (selectedCruise != null) {
-                for (PriceModel price : selectedCruise.getLowestPrices().values()) {
+                for (PriceModel price : selectedCruise.getPrices()) {
                     if (price.getGeomarket().equals(currentMarket)
                             && price.getCurrency().equals(siteCurrency)) {
 
@@ -284,7 +293,7 @@ public class QuoteRequestUse extends WCMUsePojo {
     /**
      * @return selected cruise
      */
-    public CruiseModelLight getSelectedCruise() {
+    public CruiseModel getSelectedCruise() {
         return selectedCruise;
     }
 
