@@ -187,7 +187,6 @@
                         </td>
                         <td class="port">${item.suite.suiteSubTitle @ context='html'}</td>
                         <td class="section__table__price">
-                            <div class="section__table__pricenote">${'fares-from' @ i18n}</div>
                             <div data-sly-test="${item.isWaitList}" class="section__table__pricenum">${'waitlist' @ i18n}</div>
                             <sly data-sly-test="${!item.isWaitList}">
                                 <div data-sly-test="${!item.isWaitList}" class="section__table__pricenum">

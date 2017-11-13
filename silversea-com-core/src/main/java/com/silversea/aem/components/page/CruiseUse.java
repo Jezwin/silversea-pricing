@@ -1,5 +1,6 @@
 package com.silversea.aem.components.page;
 
+import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
@@ -51,12 +52,17 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
 
     private Locale locale;
+    
+    private String currentPath;
 
     @Override
     public void activate() throws Exception {
         super.activate();
 
         locale = getCurrentPage().getLanguage(false);
+        
+        setCurrentPath(getSlingScriptHelper().getService(Externalizer.class).publishLink(getResourceResolver(),
+				getCurrentPage().getPath()));
 
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -440,4 +446,12 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
         return null;
     }
+
+	public String getCurrentPath() {
+		return currentPath;
+	}
+
+	public void setCurrentPath(String currentPath) {
+		this.currentPath = currentPath;
+	}
 }

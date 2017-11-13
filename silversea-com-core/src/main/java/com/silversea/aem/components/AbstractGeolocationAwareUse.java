@@ -48,4 +48,8 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
     public String getCountryCodeIso3() {
         return countryCodeIso3;
     }
+    
+    public String getCountryCode() {
+        return countryCode;
+    }
 }
