@@ -10,11 +10,14 @@ import com.silversea.aem.importers.services.CruisesItinerariesExcursionsImporter
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.ShorexItinerary;
+import io.swagger.client.model.ShorexItinerary77;
 import io.swagger.client.model.Voyage77;
+
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -31,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.*;
 
 @Service
@@ -72,6 +76,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
         final ImportResult importResult = new ImportResult();
         int apiPage = 1;
+        int apiPageDiff = 1;
 
         final Map<String, Object> authenticationParams = new HashMap<>();
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -123,10 +128,12 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]", "shorexId");
 
             // Importing excursions
+            //Default update excursion for modified cruise
             List<ShorexItinerary> excursions;
             int itemsWritten = 0;
             apiPage = 1;
 
+            
             do {
                 excursions = shorexesApi.shorexesGetItinerary(null, null, null, apiPage, pageSize, null);
 
@@ -220,6 +227,130 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                 apiPage++;
             } while (excursions.size() > 0);
+            
+            
+            //Update in function of the changeFrom endpoint (real diff)
+            List<ShorexItinerary77> excursionsDiff;
+            int itemsWrittenDiff = 0;
+            apiPageDiff = 1;
+
+            
+            do {
+                excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPage, pageSize, null);
+
+                // Iterating over excursions received from API
+                for (final ShorexItinerary77 excursionDiff : excursionsDiff) {
+
+                    // Trying to deal with one excursion
+                    try {
+                        
+                        final Integer excursionId = excursionDiff.getShorexId();
+                        boolean imported = false;
+
+                        if (!excursionsMapping.containsKey(excursionId)) {
+                            throw new ImporterException(
+                                    "Excursion " + excursionId + " is not present in excursions cache");
+                        }
+
+                        // Iterating over itineraries in cache to write excursion
+                        for (final ItineraryModel itineraryModel : itinerariesMapping) {
+
+                            // Checking if the itinerary correspond to excursion informations
+                            if (itineraryModel.isItineraryBasedOnDayOnly(excursionDiff.getVoyageId(),
+                            		excursionDiff.getDate().toGregorianCalendar())) {
+
+                                // Trying to write or update excursion data on itinerary
+                                try {
+                                    final Resource itineraryResource = itineraryModel.getResource();
+
+                                    LOGGER.trace("Importing excursion {} in itinerary {}",
+                                    		excursionDiff.getShorexItineraryId(), itineraryResource.getPath());
+
+                                    final Node itineraryNode = itineraryResource.adaptTo(Node.class);
+                                    final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
+                                    if(!excursionDiff.getIsDeleted()){
+                                    // TODO to check : getShorexItineraryId() is not unique over API
+	                                    if (!excursionsNode.hasNode(String.valueOf(excursionDiff.getShorexItineraryId()))) {
+	                                        final Node excursionNode = excursionsNode.addNode(
+	                                                JcrUtil.createValidChildName(excursionsNode,
+	                                                        String.valueOf(excursionDiff.getShorexItineraryId())));
+	
+	                                        final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
+	
+	                                        // associating excursion page
+	                                        if (excursionsMapping.get(excursionId).containsKey(lang)) {
+	                                            excursionNode.setProperty("excursionReference",
+	                                                    excursionsMapping.get(excursionId).get(lang));
+	                                        }
+	
+	                                        excursionNode.setProperty("excursionId", excursionId);
+	                                        excursionNode.setProperty("excursionItineraryId", excursionDiff.getShorexItineraryId());
+	                                        excursionNode.setProperty("date", excursionDiff.getDate().toGregorianCalendar());
+	                                        excursionNode.setProperty("plannedDepartureTime", excursionDiff.getPlannedDepartureTime());
+	                                        excursionNode.setProperty("generalDepartureTime", excursionDiff.getGeneralDepartureTime());
+	                                        excursionNode.setProperty("duration", excursionDiff.getDuration());
+	                                        excursionNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/itinerary/excursion");
+	
+	                                        
+	
+	                                        
+                                    }else{
+                                    	//update existing node excursionDiff
+                                    	final Node excursionNodeToUpdate = excursionsNode.getNode(
+                                                JcrUtil.createValidChildName(excursionsNode,
+                                                        String.valueOf(excursionDiff.getShorexItineraryId())));
+                                    	excursionNodeToUpdate.setProperty("date", excursionDiff.getDate().toGregorianCalendar());
+                                    	excursionNodeToUpdate.setProperty("plannedDepartureTime", excursionDiff.getPlannedDepartureTime());
+                                    	excursionNodeToUpdate.setProperty("generalDepartureTime", excursionDiff.getGeneralDepartureTime());
+                                    	excursionNodeToUpdate.setProperty("duration", excursionDiff.getDuration());
+                                    	
+                                    }
+                                    }else{
+                                    	//remove the current excursionDiff
+                                    	final Node excursionNodeToDelete = excursionsNode.getNode(
+                                                JcrUtil.createValidChildName(excursionsNode,
+                                                        String.valueOf(excursionDiff.getShorexItineraryId())));
+                                    	excursionNodeToDelete.remove();
+                                    }
+                                    
+                                    importResult.incrementSuccessNumber();
+                                    itemsWritten++;
+
+                                    imported = true;
+                                    
+                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                        try {
+                                            session.save();
+
+                                            LOGGER.info("{} excursions imported, saving session", +itemsWritten);
+                                        } catch (RepositoryException e) {
+                                            session.refresh(true);
+                                        }
+                                    }
+                                    
+                                } catch (RepositoryException e) {
+                                    LOGGER.error("Cannot write excursion {}", excursionDiff.getShorexId(), e);
+
+                                    importResult.incrementErrorNumber();
+                                }
+                            }
+                        }
+
+                        LOGGER.trace("Excursion {} voyage id: {} city id: {} imported status: {}",
+                        		excursionDiff.getShorexId(), excursionDiff.getVoyageId(), excursionDiff.getCityId(), imported);
+                    } catch (ImporterException e) {
+                        LOGGER.warn("Cannot deal with excursion {} - {}", excursionDiff.getShorexId(), e.getMessage());
+
+                        importResult.incrementErrorNumber();
+                    }
+                }
+
+                apiPage++;
+            } while (excursions.size() > 0);
+            
+            
+            
+            
 
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
                     "lastModificationDateCruisesItinerariesExcursions", false);
