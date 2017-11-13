@@ -111,9 +111,9 @@
 
                         <div class="clearfix"></div>
                     </div>
-                    <div class="share_wrap">
+                    <div class="voyageshare_wrap">
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
-                        <!-- <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a> -->
+                        <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
                     </div>
                     <a class="btn btn-thin btn-dark effect pull-right hidden-xs" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
                     <script type="text/javascript">
@@ -123,10 +123,10 @@
                                 e.preventDefault();
                                 if(!pdfClicked) {
                                     pdfClicked = true;
-                                    $('.share_wrap .fa-refresh').show();
-                                    $('.share_wrap .fa-file-pdf-o').hide();
+                                    $('.voyageshare_wrap .fa-refresh').show();
+                                    $('.voyageshare_wrap .fa-file-pdf-o').hide();
                                     
-            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}.pdf');
+            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCodeIso3 @ context="scriptString"}.pdf');
                                     
                                     console.log('PDF download');
                                     
@@ -135,8 +135,8 @@
                                     var listenPdfInterval = setInterval(function(){
                                         console.log('PDF LOADED!');
                                         clearInterval(listenPdfInterval);
-                                        $('.share_wrap .fa-refresh').hide();
-                                        $('.share_wrap .fa-file-pdf-o').show();
+                                        $('.voyageshare_wrap .fa-refresh').hide();
+                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
                                         pdfClicked = false;
                                     }, 5000);
                     

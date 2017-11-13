@@ -191,8 +191,6 @@
                             <sly data-sly-test="${!item.isWaitList}">
                                 <div data-sly-test="${!item.isWaitList}" class="section__table__pricenum">
                                     <sly data-sly-test.early="${item.lowestPrice.earlyBookingBonus}" data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
-                                        <span>(${'per-guest' @ i18n})</span>
-                                        <br/>
                                         <small>${item.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
                                         <br />
                                     </sly>
