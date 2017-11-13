@@ -1,7 +1,5 @@
 package com.silversea.aem.components.editorial;
 
-import io.swagger.client.model.Brochure;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,11 +10,9 @@ import java.util.Map;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Reference;
 import org.apache.jackrabbit.JcrConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.resource.collection.ResourceCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +22,6 @@ import com.day.cq.dam.api.DamConstants;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
-import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
@@ -35,7 +30,6 @@ import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.TagHelper;
 import com.silversea.aem.models.BrochureModel;
-import com.silversea.aem.models.DestinationModel;
 import com.silversea.aem.services.GeolocationTagService;
 
 public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
@@ -124,7 +118,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 				Integer numBrochures = brochuresNotLanguageFilteredNotOrdered.size();
 				brochuresNotLanguageFiltered = new ArrayList<>();
 				Map<Integer, BrochureModel> brochureTemp = new HashMap<Integer, BrochureModel>();
-
+			
 				brochureGroupOrder = getBrochureGroupOrder(brochureTagId);
 				
 				if (brochureGroupOrder != null) {
@@ -141,6 +135,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 					brochureTemp.forEach((k, v) -> {
 						brochuresNotLanguageFiltered.add(v);
 					});
+					brochureTemp = null;
 				}
 			} 
 			
@@ -182,12 +177,16 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 	}
 
 	/**
-	 * @param brochureId
+	 * Retrieve the specific order from collection based on tag.
+	 * @param brochureTagId:  brochure id tag to get all pdf list
 	 * @throws RepositoryException 
+	 * @return map representing the order or null (not order)
 	 */
-	private Map<String, Integer> getBrochureGroupOrder(String brochureTagId) throws RepositoryException {
+	private Map<String, Integer> getBrochureGroupOrder(String brochureTagId) {
 		Map<String, Integer> resultOrder = null;
 		if (brochureTagId != null) {
+			
+			//create query to QueryBuilder. Search collection under /dam/collection
 			final Map<String, String> map = new HashMap<String, String>();
 			map.put("path", "/content/dam/collections/");
 			map.put("type", "sling:collection");
@@ -196,18 +195,25 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 			
 			Query query = queryBuilder
 					.createQuery(PredicateGroup.create(map), getResourceResolver().adaptTo(Session.class));
+			
 			SearchResult result = query.getResult();
-			if (result.getTotalMatches() == 1) {
-				Resource resourceBrochureGroup = result.getHits().get(0).getResource();
-				ResourceCollection collection = resourceBrochureGroup.adaptTo(ResourceCollection.class);
-				Iterator<Resource> it = collection.getResources();
-				resultOrder = new HashMap<>();
-				int i = 0;
-				while (it.hasNext()) {
-					Resource resourcePdf = it.next();
-	                Asset assetPdf = resourcePdf.adaptTo(Asset.class);
-					BrochureModel brochurePdf = assetPdf.adaptTo(BrochureModel.class);
-					resultOrder.put(brochurePdf.getBrochureCode(), i++);
+			if (result.getTotalMatches() > 0) {
+				try {
+					Resource resourceBrochureGroup = null;
+					//get the first element. First order
+					resourceBrochureGroup = result.getHits().get(0).getResource();
+					ResourceCollection collection = resourceBrochureGroup.adaptTo(ResourceCollection.class);
+					Iterator<Resource> it = collection.getResources();
+					resultOrder = new HashMap<>();
+					int i = 0;
+					while (it.hasNext()) {
+						Resource resourcePdf = it.next();
+						Asset assetPdf = resourcePdf.adaptTo(Asset.class);
+						BrochureModel brochurePdf = assetPdf.adaptTo(BrochureModel.class);
+						resultOrder.put(brochurePdf.getBrochureCode(), i++);
+					}
+				} catch (RepositoryException e) {
+					LOGGER.error("Error during get resources from collection");
 				}
 			}
 		}
