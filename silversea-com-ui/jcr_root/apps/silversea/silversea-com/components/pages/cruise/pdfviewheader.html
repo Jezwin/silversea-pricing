@@ -1,3 +1,4 @@
+<link type="text/css" rel="stylesheet" href="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/css/fonts.css">
 <style type="text/css">
 
 /* Header */
@@ -52,7 +53,7 @@ span.black {
  </style>
 <div class="header">
 
-	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="header__logo expedition_logo">
+	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
 		<img src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo.png" alt="Silversea" />
 	</div>
 	<div data-sly-test="${!silverExpedition}" class="header__logo expedition_logo">
