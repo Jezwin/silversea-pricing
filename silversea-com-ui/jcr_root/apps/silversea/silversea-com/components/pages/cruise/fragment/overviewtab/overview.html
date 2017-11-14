@@ -126,7 +126,7 @@
                                     $('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
                                     
-            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCodeIso3 @ context="scriptString"}.pdf');
+            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}.pdf');
                                     
                                     console.log('PDF download');
                                     

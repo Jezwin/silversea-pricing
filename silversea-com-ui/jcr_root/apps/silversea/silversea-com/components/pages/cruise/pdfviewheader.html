@@ -617,13 +617,14 @@ a.underline {
 
 </style>
 
-<sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
+<sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo',absolute=true}" />
+<sly data-sly-use.externalizerHelperExpedition="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
 
 <div class="header">
 	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="header__logo expedition_logo">
-		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
+		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="Silversea" />
 	</div>
-	<div data-sly-test="${!silverExpedition}" class="header__logo expedition_logo">
+	<div data-sly-test="${!silverExpedition}" class="header__logo cruise_logo">
 		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
 	</div>
     <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
