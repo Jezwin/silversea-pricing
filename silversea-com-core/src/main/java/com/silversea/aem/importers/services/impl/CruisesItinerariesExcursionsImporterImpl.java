@@ -335,7 +335,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                         try {
                                             session.save();
 
-                                            LOGGER.info("{} excursions imported, saving session", +itemsWrittenDiff);
+                                            LOGGER.info("{} excursions diff imported, saving session", +itemsWrittenDiff);
                                         } catch (RepositoryException e) {
                                             session.refresh(true);
                                         }

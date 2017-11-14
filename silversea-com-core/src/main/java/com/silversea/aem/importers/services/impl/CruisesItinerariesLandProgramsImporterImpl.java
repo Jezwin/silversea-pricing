@@ -312,7 +312,7 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                         try {
                                             session.save();
 
-                                            LOGGER.info("{} land programs imported, saving session", +itemsWrittenDiff);
+                                            LOGGER.info("{} land programs diff imported, saving session", +itemsWrittenDiff);
                                         } catch (RepositoryException e) {
                                             session.refresh(true);
                                         }
