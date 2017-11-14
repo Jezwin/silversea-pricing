@@ -118,14 +118,15 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                 apiPage++;
             } while (cruises.size() > 0);
-
+            
+            // Initializing elements necessary to import excursions
+            
             // cruises mapping
             final Map<Integer, Map<String, String>> cruisesMapping = ImportersUtils.getItemsMapping(resourceResolver,
                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
                             "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
                     "cruiseId");
             
-            // Initializing elements necessary to import excursions
             // itineraries
             final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
@@ -314,9 +315,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     }
                                     }else{
                                     	//remove the current excursionDiff
-                                    	final Node excursionNodeToDelete = excursionsNode.getNode(
-                                                JcrUtil.createValidChildName(excursionsNode,
-                                                        String.valueOf(excursionDiff.getShorexItineraryId())));
+                                    	final Node excursionNodeToDelete = excursionsNode.getNode(String.valueOf(excursionDiff.getShorexItineraryId()));
                                     	excursionNodeToDelete.remove();
                                     }
                                     
@@ -363,9 +362,6 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             } while (excursionsDiff.size() > 0);
             
             
-            
-            
-
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
                     "lastModificationDateCruisesItinerariesExcursions", false);
 
