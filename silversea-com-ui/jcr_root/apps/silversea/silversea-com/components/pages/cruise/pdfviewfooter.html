@@ -1,5 +1,5 @@
 <sly data-sly-use.externalizerCSSHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/fonts',absolute=true}" />
-<link type="text/css" rel="stylesheet" href="${externalizerHelper.externalizedUrl @ extension='css'}">
+<link type="text/css" rel="stylesheet" href="${externalizerCSSHelper.externalizedUrl @ extension='css'}">
 
 
 <style type="text/css">
@@ -625,9 +625,10 @@ a.underline {
 </style>
 
 <div class="footer">
-<sly data-sly-use.footer="com.silversea.ssc.aem.models.PDFCruiseUse" />
+<sly data-sly-use.footer="com.silversea.ssc.aem.models.PDFCruiseUse" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
 	<p>
-		<span class="uppercase">${'View-more-about-this-expedition-cruise' @ i18n}:</span>
+	<span data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="uppercase">${'View-more-about-this-expedition-cruise' @ i18n}:</span>
+	<span data-sly-test="${!silverExpedition}" class="uppercase">${'View-more-about-this-expedition-cruise' @ i18n}:</span>
 		<a href="${footer.footerPageUrl @ extension='html'}">${footer.footerPageUrl @ extension='html'}</a>
 	</p>
 	<p>${'View-all-terms-and-conditions' @ i18n}:

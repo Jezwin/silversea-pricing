@@ -142,6 +142,11 @@
                     
                                 }
                             });
+                            
+                            $('#pdf_print').on('click', function (e) {
+								var win = window.open('${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}.pdf', '_blank');
+								win.focus();
+							});
                         });
                         
                         function ajaxPpfDownload(url) {

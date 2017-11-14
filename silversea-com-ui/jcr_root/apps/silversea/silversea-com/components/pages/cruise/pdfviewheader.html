@@ -1,5 +1,5 @@
 <sly data-sly-use.externalizerCSSHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/fonts',absolute=true}" />
-<link type="text/css" rel="stylesheet" href="${externalizerHelper.externalizedUrl @ extension='css'}">
+<link type="text/css" rel="stylesheet" href="${externalizerCSSHelper.externalizedUrl @ extension='css'}">
 <style type="text/css">
 /* Base */
 body {
@@ -620,8 +620,9 @@ a.underline {
 <sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo',absolute=true}" />
 <sly data-sly-use.externalizerHelperExpedition="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
 
-<div class="header">
-	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="header__logo expedition_logo">
+<div class="header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
+${cruise.cruiseModel.cruiseType}
+	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
 		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="Silversea" />
 	</div>
 	<div data-sly-test="${!silverExpedition}" class="header__logo cruise_logo">

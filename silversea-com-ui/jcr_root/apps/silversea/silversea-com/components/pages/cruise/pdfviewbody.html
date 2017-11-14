@@ -202,8 +202,7 @@
 										${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}
 									</strong>
                                 </div>
-                                <div data-sly-test="${early}" class="section__table__pricenote">${'with-early' @ i18n}
-                                    <br/>${'booking-bonus' @ i18n}</div>
+                                <div data-sly-test="${early}" class="section__table__pricenote">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
                                 <div data-sly-test="${!early}" class="section__table__pricenote">${'per-guest' @ i18n}</div>
                             </sly>
                         </td>
