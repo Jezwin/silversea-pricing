@@ -628,7 +628,7 @@ a.underline {
 <sly data-sly-use.footer="com.silversea.ssc.aem.models.PDFCruiseUse" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" />
 	<p>
 	<span data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="uppercase">${'View-more-about-this-expedition-cruise' @ i18n}:</span>
-	<span data-sly-test="${!silverExpedition}" class="uppercase">${'View-more-about-this-expedition-cruise' @ i18n}:</span>
+	<span data-sly-test="${!silverExpedition}" class="uppercase">${'View-more-about-this-cruise' @ i18n}:</span>
 		<a href="${footer.footerPageUrl @ extension='html'}">${footer.footerPageUrl @ extension='html'}</a>
 	</p>
 	<p>${'View-all-terms-and-conditions' @ i18n}:
