@@ -2,8 +2,10 @@
 
 <div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.pdfInfo="com.silversea.ssc.aem.models.PDFCruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
     <div class="page__header">
-    <img style="display:none" src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo.png" />
-    <img style="display:none" src="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo.png" />
+    <sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
+
+    <img style="display:none" src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
+
 
         <h1 class="page__header__title">${cruise.cruiseModel.departurePortName} <span class="lowercase">${'to' @ i18n}</span> ${cruise.cruiseModel.arrivalPortName}</h1>
         <div class="page__header__title__separator"></div>
@@ -23,7 +25,7 @@
                     <sly data-sly-test.imageUrl="${cruise.cruiseModel.itinerary}">
                         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                         <div class="cruisehighlights__map__img">
-                            <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
+                            <img src="${assetHelper.imageUrl}?hei=300&wid=300&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
                         </div>
                     </sly>
                 </div>
@@ -125,15 +127,17 @@
                 </tbody>
             </table>
         </div>
-        <div class="next_page">
-            <div class="next_page__icon">&#xf138;</div>
-            <div class="next_page__text">See following page for the rest of the itineraries</div>
-        </div>
-
-        <div class="prev_page pagebreakbefore">
-            <div class="prev_page__icon">&#xf137;</div>
-            <div class="prev_page__text">Itineraries continued from previous page</div>
-        </div>
+        <sly data-sly-test="${pdfInfo.itinerarySplitSecondList}">
+            <div class="next_page">
+                <div class="next_page__icon">&#xf138;</div>
+                <div class="next_page__text">${'table-break-text-previous' @ i18n}</div>
+            </div>
+    
+            <div class="prev_page pagebreakbefore">
+                <div class="prev_page__icon">&#xf137;</div>
+                <div class="prev_page__text">${'table-break-text-next' @ i18n}</div>
+            </div>
+        </sly>
         <div class="section__table cruiseitinerary__table" data-sly-test="${pdfInfo.itinerarySplitSecondList}">
             <table cellspacing="0">
                 <thead>

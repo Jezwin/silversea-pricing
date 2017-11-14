@@ -1,4 +1,7 @@
-<link type="text/css" rel="stylesheet" href="http://localhost:4502/etc/designs/silversea-ssc/clientlib-pdf/css/fonts.css">
+<sly data-sly-use.externalizerCSSHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/fonts',absolute=true}" />
+<link type="text/css" rel="stylesheet" href="${externalizerHelper.externalizedUrl @ extension='css'}">
+
+
 <style type="text/css">
 /* Base */
 body {
