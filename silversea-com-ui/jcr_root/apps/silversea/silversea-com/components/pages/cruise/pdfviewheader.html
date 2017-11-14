@@ -621,7 +621,6 @@ a.underline {
 <sly data-sly-use.externalizerHelperExpedition="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
 
 <div class="header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
-${cruise.cruiseModel.cruiseType}
 	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
 		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="Silversea" />
 	</div>

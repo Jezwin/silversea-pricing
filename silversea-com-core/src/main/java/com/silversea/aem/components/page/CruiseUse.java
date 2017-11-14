@@ -54,6 +54,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
     private Locale locale;
     
     private String currentPath;
+    
+    private String ccptCode;
 
     @Override
     public void activate() throws Exception {
@@ -63,6 +65,13 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         
         setCurrentPath(getSlingScriptHelper().getService(Externalizer.class).publishLink(getResourceResolver(),
 				getCurrentPage().getPath()));
+        
+        String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+        for(String selectorInfo : selectors){
+        	if (selectorInfo.contains("ccpt_")){
+        		setCcptCode(selectorInfo.replace("ccpt_", ".ccpt_"));
+        	}
+        }
 
         // init cruise model from current page
         if (getRequest().getAttribute("cruiseModel") != null) {
@@ -453,5 +462,13 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
 	public void setCurrentPath(String currentPath) {
 		this.currentPath = currentPath;
+	}
+
+	public String getCcptCode() {
+		return ccptCode;
+	}
+
+	public void setCcptCode(String ccptCode) {
+		this.ccptCode = ccptCode;
 	}
 }

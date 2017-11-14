@@ -126,7 +126,7 @@
                                     $('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
                                     
-            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}.pdf');
+            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf');
                                     
                                     console.log('PDF download');
                                     
@@ -144,7 +144,7 @@
                             });
                             
                             $('#pdf_print').on('click', function (e) {
-								var win = window.open('${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}.pdf', '_blank');
+								var win = window.open('${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf', '_blank');
 								win.focus();
 							});
                         });
