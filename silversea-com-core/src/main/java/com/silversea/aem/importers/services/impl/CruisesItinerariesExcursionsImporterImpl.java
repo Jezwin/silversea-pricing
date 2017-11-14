@@ -18,6 +18,7 @@ import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.ShorexItinerary77;
 import io.swagger.client.model.Voyage77;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -240,10 +241,10 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             int itemsWrittenDiff = 0;
             apiPageDiff = 1;
 
-            
+            LOGGER.info("Launching itineraries excursions diff import");
             do {
                 excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPageDiff, pageSize, null);
-                LOGGER.info("Launching itineraries excursions diff import");
+                
                 // Iterating over excursions received from API
                 for (final ShorexItinerary77 excursionDiff : excursionsDiff) {
 
@@ -274,13 +275,8 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                                     final Node itineraryNode = itineraryResource.adaptTo(Node.class);
                                     final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
-                                    try {
-										Boolean deletedOne = excursionDiff.getIsDeleted();
-									} catch (Exception e) {
-										// TODO: handle exception
-										excursionDiff.setIsDeleted(false);
-									}
-                                    if(!excursionDiff.getIsDeleted()){
+
+                                    if(!BooleanUtils.isTrue(excursionDiff.getIsDeleted())){
                                     // TODO to check : getShorexItineraryId() is not unique over API
 	                                    if (!excursionsNode.hasNode(String.valueOf(excursionDiff.getShorexItineraryId()))) {
 	                                    	//Create new excursion
@@ -309,9 +305,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 	                                        
                                     }else{
                                     	//update existing node excursionDiff
-                                    	final Node excursionNodeToUpdate = excursionsNode.getNode(
-                                                JcrUtil.createValidChildName(excursionsNode,
-                                                        String.valueOf(excursionDiff.getShorexItineraryId())));
+                                    	final Node excursionNodeToUpdate = excursionsNode.getNode(String.valueOf(excursionDiff.getShorexItineraryId()));
                                     	excursionNodeToUpdate.setProperty("date", excursionDiff.getDate().toGregorianCalendar());
                                     	excursionNodeToUpdate.setProperty("plannedDepartureTime", excursionDiff.getPlannedDepartureTime());
                                     	excursionNodeToUpdate.setProperty("generalDepartureTime", excursionDiff.getGeneralDepartureTime());
