@@ -243,7 +243,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
             
             do {
                 excursionsDiff = shorexesApi.shorexesGetItinerary2(lastModificationDate, apiPageDiff, pageSize, null);
-
+                LOGGER.info("Launching itineraries excursions diff import");
                 // Iterating over excursions received from API
                 for (final ShorexItinerary77 excursionDiff : excursionsDiff) {
 
@@ -274,6 +274,12 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
 
                                     final Node itineraryNode = itineraryResource.adaptTo(Node.class);
                                     final Node excursionsNode = JcrUtils.getOrAddNode(itineraryNode, "excursions", "nt:unstructured");
+                                    try {
+										Boolean deletedOne = excursionDiff.getIsDeleted();
+									} catch (Exception e) {
+										// TODO: handle exception
+										excursionDiff.setIsDeleted(false);
+									}
                                     if(!excursionDiff.getIsDeleted()){
                                     // TODO to check : getShorexItineraryId() is not unique over API
 	                                    if (!excursionsNode.hasNode(String.valueOf(excursionDiff.getShorexItineraryId()))) {
@@ -321,7 +327,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     }
                                     
                                     importResult.incrementSuccessNumber();
-                                    itemsWritten++;
+                                    itemsWrittenDiff++;
 
                                     imported = true;
                                     
@@ -332,7 +338,7 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                                     }
                                     
-                                    if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+                                    if (itemsWrittenDiff % sessionRefresh == 0 && session.hasPendingChanges()) {
                                         try {
                                             session.save();
 
