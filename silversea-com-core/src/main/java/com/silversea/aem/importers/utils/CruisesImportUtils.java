@@ -8,6 +8,7 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.day.jcr.vault.util.SHA1;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
@@ -19,6 +20,7 @@ import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.mime.MimeTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -189,8 +191,12 @@ public class CruisesImportUtils {
         return cruiseContentNode;
     }
 
-    public static void associateMapAsset(final AssetManager assetManager, final Session session, final Node cruiseContentNode,
-                                         final String destinationPageName, final String mapUrl, final MimeTypeService mimeTypeService) throws RepositoryException {
+    public static void associateMapAsset(final Session session, final Node cruiseContentNode,
+                                         final String destinationPageName, final String mapUrl, final MimeTypeService mimeTypeService,
+                                         final ResourceResolver resourceResolver) throws RepositoryException {
+        
+        final AssetManager assetManager= resourceResolver.adaptTo(AssetManager.class);
+        
         // download and associate map
         if (StringUtils.isNotEmpty(mapUrl)) {
             try {
@@ -199,13 +205,35 @@ public class CruisesImportUtils {
                 final String assetPath = "/content/dam/silversea-com/api-provided/cruises/"
                         + destinationPageName + "/" + cruiseContentNode.getParent().getName() + "/" + filename;
 
+                //SSC-2416 API Import - map update not taken in account
+                //check if the asset with same name has been changed
+                boolean updateAsset = false;
+                final InputStream inputStream = new URL(mapUrl).openStream();
                 if (session.itemExists(assetPath)) {
+                    Resource existingAsset = resourceResolver.getResource(assetPath);
+                    String existingSha1 = existingAsset.getChild("jcr:content/metadata").adaptTo(ValueMap.class).get("dam:sha1", String.class);
+                    //if asset exists in session but does not have child nodes, the asset was already created in a previous iteration,
+                    //no need to update again
+                    if (existingSha1 != null) {
+                        SHA1 newSha1 = SHA1.digest(inputStream);
+                        if (newSha1 != null) {
+                            String newChecksum = newSha1.toString();
+                            updateAsset = !existingSha1.equals(newChecksum);
+                        }
+                    }
+                } else {
+                    updateAsset = true;
+                }
+
+                if (!updateAsset) {
                     cruiseContentNode.setProperty("itinerary", assetPath);
                 } else {
-                    final InputStream inputStream = new URL(mapUrl).openStream();
+                    LOGGER.info("Creating itinerary asset {}", assetPath);
+                    //assetManager.removeAssetForBinary(assetPath);
+                    //resourceResolver.commit();
                     final Asset asset = assetManager.createAsset(assetPath, inputStream,
-                            mimeTypeService.getMimeType(mapUrl), false);
-
+                            mimeTypeService.getMimeType(mapUrl), true);
+                    LOGGER.info("Creating itinerary asset {} SAVED.", assetPath);
                     // setting to activate flag on asset
                     final Node assetNode = asset.adaptTo(Node.class);
                     if (assetNode != null) {
