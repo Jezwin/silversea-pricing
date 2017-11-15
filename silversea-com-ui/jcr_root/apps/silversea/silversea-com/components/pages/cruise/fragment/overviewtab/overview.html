@@ -144,8 +144,14 @@
                             });
                             
                             $('#pdf_print').on('click', function (e) {
-								var win = window.open('${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf', '_blank');
-								win.focus();
+								$.ajax({
+								    url: '${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+								    async: false,
+								    success: function(r) {
+								    	var win = window.open('${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf', '_blank');
+								    	win.focus();  
+								    }
+								});
 							});
                         });
                         
