@@ -69,7 +69,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         for(String selectorInfo : selectors){
         	if (selectorInfo.contains("ccpt_")){
-        		setCcptCode(selectorInfo.replace("ccpt_", ".ccpt_"));
+        		setCcptCode(selectorInfo.replace("ccpt_", "."));
         	}
         }
 
