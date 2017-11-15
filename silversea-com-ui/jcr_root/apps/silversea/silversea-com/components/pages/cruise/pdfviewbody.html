@@ -166,9 +166,9 @@
                 <p>${'cruise-suites-and-fares-descr' @i18n}</p>
             </div>
         </div>
-        <div data-sly-list="${cruise.prices}" class="section__gallery">
+       <div data-sly-list="${cruise.prices}" class="section__gallery">
             <div data-sly-test.imagePath="${item.suite.thumbnail && itemList.index < 5}" class="section__gallery__col">
-                <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}" class="section__gallery__item">
+                <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.suite.thumbnail}" class="section__gallery__item">
                     <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=crop" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
                 </div>
             </div>
