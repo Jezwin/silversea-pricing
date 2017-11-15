@@ -22,7 +22,7 @@
                     <sly data-sly-test.imageUrl="${cruise.cruiseModel.itinerary}">
                         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                         <div class="cruisehighlights__map__img">
-                            <img src="${assetHelper.imageUrl}?hei=300&wid=300&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
+                            <img src="${assetHelper.imageUrl}?hei=468&wid=360&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
                         </div>
                     </sly>
                 </div>
@@ -96,7 +96,7 @@
 			<div data-sly-repeat="${pdfimages.imagesList}" class="section__gallery__col">
                 <div data-sly-test.imagePath="${item}" class="section__gallery__item">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-                        <img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
+                        <img src="${assetHelper.imageUrl}?hei=468&wid=360&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
                     </sly>
                 </div>
             </div>
@@ -169,7 +169,7 @@
         <div data-sly-list="${cruise.prices}" class="section__gallery">
             <div data-sly-test.imagePath="${item.suite.thumbnail && itemList.index < 5}" class="section__gallery__col">
                 <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}" class="section__gallery__item">
-                    <img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
+                    <img src="${assetHelper.imageUrl}?hei=468&wid=360&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
                 </div>
             </div>
         </div>
