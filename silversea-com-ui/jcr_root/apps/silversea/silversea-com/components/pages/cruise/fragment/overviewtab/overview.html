@@ -125,15 +125,18 @@
                                     pdfClicked = true;
                                     $('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
-                                    
-            						ajaxPpfDownload('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf');
-                                    
-                                    console.log('PDF download');
-                                    
+
+                                    $.ajax({
+                                        url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+                                        async: false,
+                                        success: function(r) {
+                                            var win = window.open('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf', '_blank');
+                                        }
+                                    });
+
                                     // Check PDF Download
                                     clearInterval(listenPdfInterval);
                                     var listenPdfInterval = setInterval(function(){
-                                        console.log('PDF LOADED!');
                                         clearInterval(listenPdfInterval);
                                         $('.voyageshare_wrap .fa-refresh').hide();
                                         $('.voyageshare_wrap .fa-file-pdf-o').show();
@@ -142,7 +145,7 @@
                     
                                 }
                             });
-                            
+
                             $('#pdf_print').on('click', function (e) {
 								$.ajax({
 								    url: '${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
@@ -153,28 +156,7 @@
 								    }
 								});
 							});
-                        });
-                        
-                        function ajaxPpfDownload(url) {
-                            var $iframe,
-                                iframe_doc,
-                                iframe_html;
-                    
-                            if (($iframe = $('#download_iframe')).length === 0) {
-                                $iframe = $("<iframe id='download_iframe'" +  " style='display: none' src='about:blank'></iframe>").appendTo("body");
-                            }
-                    
-                            iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
-                            if (iframe_doc.document) {
-                                iframe_doc = iframe_doc.document;
-                            }
-
-                            iframe_html = "<html><head></head><body><form method='GET' action='" + url +"'>" + "</form>" + "</body></html>";
-                    
-                            iframe_doc.open();
-                            iframe_doc.write(iframe_html);
-                            $(iframe_doc).find('form').submit();
-                        }	
+                        });	
                     </script>
                 </div>
 
