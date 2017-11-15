@@ -274,4 +274,11 @@ $(function() {
     $('body').on('trigger.viewport.changed', function() {
         readMore();
     });
+    
+    /*********************************************************************************
+     * Automatic collapse all suite and fares boxes if the user click outside the list
+     *********************************************************************************/
+    $('body').on('click', function(event) {
+    	$(".c-suitelist").find('.collapse').collapse('hide');	
+    });
 });
