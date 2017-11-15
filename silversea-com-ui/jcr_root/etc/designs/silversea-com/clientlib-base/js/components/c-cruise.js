@@ -274,4 +274,19 @@ $(function() {
     $('body').on('trigger.viewport.changed', function() {
         readMore();
     });
+    
+    
+    /***************************************************************************
+     * Scroll down when Suite And Fares button is clicked (mobile only)
+     **************************************************************************/
+    $('[data-tab-target="#suitenfare"]').on('click', function(event) {
+		var target = $("#suitenfare");
+
+		if( target && target.length ) {
+			event.preventDefault();
+			$('html, body').stop().animate({
+				scrollTop: target.offset().top
+			}, 600); //1000 = 1s speed
+		}
+	});
 });
