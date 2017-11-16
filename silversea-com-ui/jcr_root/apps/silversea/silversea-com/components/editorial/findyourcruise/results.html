@@ -72,8 +72,8 @@
                     </div>
                     <dl class="c-fyc__result__content__itinerary hidden-xs">
                         <dt>${'itinerary' @ i18n}</dt>
-                        <sly data-sly-repeat.itinerary="${cruiseItem.cruiseModel.itineraries}">
-                            <dd>${itinerary.port.apiTitle}</dd></sly>
+                        <sly data-sly-repeat.port="${cruiseItem.cruiseModel.ports}">
+                            <dd>${port.title}</dd></sly>
                     </dl>
                 </div>
                 <p class="c-fyc__result__content__price">
