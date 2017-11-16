@@ -119,43 +119,62 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             var pdfClicked = false;
+                            var downloadWin = '';
+                            var currentWindow = $(window);
                             $('#pdf_share_download').on('click', function (e) {
                                 e.preventDefault();
                                 if(!pdfClicked) {
                                     pdfClicked = true;
-                                    $('.voyageshare_wrap .fa-refresh').show();
+									$('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
-
+                                    
+                                    setTimeout(function(){
                                     $.ajax({
                                         url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
-                                        async: false,
+                                        beforeSend: function(){
+
+                                    		downloadWin = window.open('', '_blank');
+                                    		downloadWin.blur();
+                                    		currentWindow.focus();    
+                                        },
                                         success: function(r) {
-                                            var win = window.open('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf', '_blank');
+	                                        $('.voyageshare_wrap .fa-refresh').hide();
+	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
+                                            downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                            pdfClicked = false;
+                                            setTimeout(function(){
+                                            	downloadWin.close();
+                                            }, 5000);
                                         }
                                     });
-
-                                    // Check PDF Download
-                                    clearInterval(listenPdfInterval);
-                                    var listenPdfInterval = setInterval(function(){
-                                        clearInterval(listenPdfInterval);
-                                        $('.voyageshare_wrap .fa-refresh').hide();
-                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                        pdfClicked = false;
-                                    }, 5000);
-                    
+                                    }, 500);
                                 }
                             });
 
+							var pdfPrintClicked = false;
+							var printWin = '';
                             $('#pdf_print').on('click', function (e) {
-								$.ajax({
-								    url: '${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
-								    async: false,
-								    success: function(r) {
-								    	var win = window.open('${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf', '_blank');
-								    	win.focus();  
-								    }
-								});
-							});
+                                e.preventDefault();
+                                if(!pdfPrintClicked) {
+                                    pdfPrintClicked = true;
+                                    
+                                    $.ajax({
+                                        url: '${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+                                        beforeSend: function(){
+                                    		$('.voyageshare_wrap .fa-refresh').show();
+                                    		$('.voyageshare_wrap .fa-file-pdf-o').hide();
+                                    		printWin = window.open('', '_blank'); 
+                                        },
+                                        success: function(r) {
+	                                        $('.voyageshare_wrap .fa-refresh').hide();
+	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
+                                            printWin.location = '${cruise.currentPath @ context="uri"}.rendition.print.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                            printWin.focus();
+                                            pdfPrintClicked = false;
+                                        }
+                                    });
+                                }
+                            });
                         });	
                     </script>
                 </div>
