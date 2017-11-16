@@ -379,54 +379,6 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		return gallery;
 	}
 
-	/**
-	 * @return return prices corresponding to the current geolocation
-	 */
-	public List<SuitePrice> getPrices() {
-		return prices;
-	}
-
-	/**
-	 * @return the lowest price for this cruise
-	 */
-	public PriceModel getLowestPrice() {
-		return lowestPrice;
-	}
-
-	/**
-	 * @return the computed price, formatted with the locale according to the
-	 *         geolocation
-	 */
-	public String getComputedPriceFormated() {
-		return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-	}
-
-	/**
-	 * @return true is the cruise is on wait list
-	 */
-	public boolean isWaitList() {
-		return isWaitList;
-	}
-
-	/**
-	 * @return get the enrichments features (without venitian society)
-	 */
-	public List<FeatureModel> getEnrichmentsFeatures() {
-		return enrichmentsFeatures;
-	}
-
-	/**
-	 * @return exclusive offers of this cruise
-	 */
-	public List<ExclusiveOfferItem> getExclusiveOffers() {
-		return exclusiveOffers;
-	}
-
-	/**
-	 * @return cruise fare additions of all exclusive offers of this cruise
-	 */
-	public List<String> getExclusiveOffersCruiseFareAdditions() {
-		final List<String> cruiseFareAdditions = new ArrayList<>();
 
     /**
      * @return return prices corresponding to the current geolocation
