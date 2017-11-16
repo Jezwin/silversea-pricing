@@ -208,13 +208,13 @@ public class CruisesImportUtils {
                 //SSC-2416 API Import - map update not taken in account
                 //check if the asset with same name has been changed
                 boolean updateAsset = false;
-                final InputStream inputStream = new URL(mapUrl).openStream();
                 if (session.itemExists(assetPath)) {
                     Resource existingAsset = resourceResolver.getResource(assetPath);
                     String existingSha1 = existingAsset.getChild("jcr:content/metadata").adaptTo(ValueMap.class).get("dam:sha1", String.class);
                     //if asset exists in session but does not have child nodes, the asset was already created in a previous iteration,
                     //no need to update again
                     if (existingSha1 != null) {
+                        final InputStream inputStream = new URL(mapUrl).openStream();
                         SHA1 newSha1 = SHA1.digest(inputStream);
                         if (newSha1 != null) {
                             String newChecksum = newSha1.toString();
@@ -229,10 +229,9 @@ public class CruisesImportUtils {
                     cruiseContentNode.setProperty("itinerary", assetPath);
                 } else {
                     LOGGER.info("Creating itinerary asset {}", assetPath);
-                    //assetManager.removeAssetForBinary(assetPath);
-                    //resourceResolver.commit();
-                    final Asset asset = assetManager.createAsset(assetPath, inputStream,
-                            mimeTypeService.getMimeType(mapUrl), true);
+                    final InputStream mapStream = new URL(mapUrl).openStream();
+                    final Asset asset = assetManager.createAsset(assetPath, mapStream,
+                            mimeTypeService.getMimeType(mapUrl), false);
                     LOGGER.info("Creating itinerary asset {} SAVED.", assetPath);
                     // setting to activate flag on asset
                     final Node assetNode = asset.adaptTo(Node.class);
