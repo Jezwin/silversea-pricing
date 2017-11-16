@@ -11,6 +11,7 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.PathUtils;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.sling.api.resource.ValueMap;
 
@@ -295,6 +296,15 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             features.addAll(featuresFromDesign);
             features.retainAll(cruisesCacheService.getFeatures(lang));
         }
+        
+        // Security adaptation : If voyage is in the past - do not display them
+        List<CruiseModelLight> newAllCruises = new ArrayList<>();
+        for(CruiseModelLight cruise : allCruises){
+			if(cruise.getStartDate().after(Calendar.getInstance())){
+				newAllCruises.add(cruise);
+			}
+		}
+        allCruises = newAllCruises;
 
         // init list of filtered cruises and available values for filters
         final List<CruiseModelLight> filteredCruises = new ArrayList<>();
