@@ -1,5 +1,6 @@
 package com.silversea.aem.components.page;
 
+import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
@@ -50,13 +51,27 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
 	private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
 
-	private Locale locale;
+    private Locale locale;
+    
+    private String currentPath;
+    
+    private String ccptCode;
 
 	@Override
 	public void activate() throws Exception {
 		super.activate();
 
-		locale = getCurrentPage().getLanguage(false);
+        locale = getCurrentPage().getLanguage(false);
+        
+        setCurrentPath(getSlingScriptHelper().getService(Externalizer.class).publishLink(getResourceResolver(),
+				getCurrentPage().getPath()));
+        
+        String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+        for(String selectorInfo : selectors){
+        	if (selectorInfo.contains("ccpt_")){
+        		setCcptCode(selectorInfo.replace("ccpt_", "."));
+        	}
+        }
 
 		// init cruise model from current page
 		if (getRequest().getAttribute("cruiseModel") != null) {
@@ -413,43 +428,107 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	public List<String> getExclusiveOffersCruiseFareAdditions() {
 		final List<String> cruiseFareAdditions = new ArrayList<>();
 
-		for (final ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
-			cruiseFareAdditions.addAll(exclusiveOffer.getCruiseFareAdditions());
-		}
+    /**
+     * @return return prices corresponding to the current geolocation
+     */
+    public List<SuitePrice> getPrices() {
+        return prices;
+    }
 
-		return cruiseFareAdditions;
+    /**
+     * @return the lowest price for this cruise
+     */
+    public PriceModel getLowestPrice() {
+        return lowestPrice;
+    }
+
+    /**
+     * @return the computed price, formatted with the locale according to the geolocation
+     */
+    public String getComputedPriceFormated() {
+        return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
+    }
+
+    /**
+     * @return true is the cruise is on wait list
+     */
+    public boolean isWaitList() {
+        return isWaitList;
+    }
+
+    /**
+     * @return get the enrichments features (without venitian society)
+     */
+    public List<FeatureModel> getEnrichmentsFeatures() {
+        return enrichmentsFeatures;
+    }
+
+    /**
+     * @return exclusive offers of this cruise
+     */
+    public List<ExclusiveOfferItem> getExclusiveOffers() {
+        return exclusiveOffers;
+    }
+
+    /**
+     * @return cruise fare additions of all exclusive offers of this cruise
+     */
+    public List<String> getExclusiveOffersCruiseFareAdditions() {
+        final List<String> cruiseFareAdditions = new ArrayList<>();
+
+        for (final ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
+            cruiseFareAdditions.addAll(exclusiveOffer.getCruiseFareAdditions());
+        }
+
+        return cruiseFareAdditions;
+    }
+
+    /**
+     * @return the total number of cruise fares additions
+     */
+    public int getCruiseFareAdditionsSize() {
+        return getExclusiveOffersCruiseFareAdditions().size() + cruiseModel.getCruiseFareAdditions().size();
+    }
+
+    /**
+     * @return first map overhead
+     */
+    public String getMapOverHead() {
+        for (final ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
+            if (exclusiveOffer.getMapOverHead() != null) {
+                return exclusiveOffer.getMapOverHead();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return the price prefix from the first exclusive offer
+     */
+    public String getPricePrefix() {
+        for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
+            if (exclusiveOffer.getPricePrefix() != null) {
+                return exclusiveOffer.getPricePrefix();
+            }
+        }
+
+        return null;
+    }
+
+	public String getCurrentPath() {
+		return currentPath;
 	}
 
-	/**
-	 * @return the total number of cruise fares additions
-	 */
-	public int getCruiseFareAdditionsSize() {
-		return getExclusiveOffersCruiseFareAdditions().size() + cruiseModel.getCruiseFareAdditions().size();
+	public void setCurrentPath(String currentPath) {
+		this.currentPath = currentPath;
 	}
 
-	/**
-	 * @return first map overhead
-	 */
-	public String getMapOverHead() {
-		for (final ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
-			if (exclusiveOffer.getMapOverHead() != null) {
-				return exclusiveOffer.getMapOverHead();
-			}
-		}
-
-		return null;
+	public String getCcptCode() {
+		return ccptCode;
 	}
 
-	/**
-	 * @return the price prefix from the first exclusive offer
-	 */
-	public String getPricePrefix() {
-		for (ExclusiveOfferItem exclusiveOffer : exclusiveOffers) {
-			if (exclusiveOffer.getPricePrefix() != null) {
-				return exclusiveOffer.getPricePrefix();
-			}
-		}
-
-		return null;
+	public void setCcptCode(String ccptCode) {
+		this.ccptCode = ccptCode;
 	}
 }

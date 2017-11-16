@@ -1,0 +1,262 @@
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html" data-sly-call="${clientLib.css @ categories='apps.silversea-ssc-pdf'}" />
+
+<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.pdfInfo="com.silversea.ssc.aem.models.PDFCruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
+    <div class="page__header">
+    <sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
+    <img style="display:none" src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
+        <h1 class="page__header__title">${cruise.cruiseModel.departurePortName} <span class="lowercase">${'to' @ i18n}</span> ${cruise.cruiseModel.arrivalPortName}</h1>
+        <div class="page__header__title__separator"></div>
+        <div class="page__header__desc">
+            <p class="p1">${cruise.cruiseModel.description @context='html'}</p>
+        </div>
+        <div class="page__header__metainfo">
+            <span class="page__header__metainfo__item">${cruise.cruiseModel.cruiseType @ i18n} |</span>
+            <span class="page__header__metainfo__item">${cruise.cruiseModel.ship.title} |</span>
+            <span class="page__header__metainfo__item">${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
+        </div>
+    </div>
+    <div class="cruisehighlights">
+        <div class="cruisehighlights__col">
+            <div class="col_left">
+                <div class="cruisehighlights__map" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+                    <sly data-sly-test.imageUrl="${cruise.cruiseModel.itinerary}">
+                        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
+                        <div class="cruisehighlights__map__img">
+                            <img src="${assetHelper.imageUrl}?hei=900&wid=900&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
+                        </div>
+                    </sly>
+                </div>
+                <div class="note">${'fares-shown-are-per-guest' @ i18n}</div>
+            </div>
+        </div>
+        <div class="cruisehighlights__col">
+            <div class="col_right">
+                <table class="cruisehighlights__table">
+                    <tr class="unbreakable">
+                        <td class="cruisehighlights__table__item item__duration">
+                            <div class="cruisehighlights__table__beforetitle">${'duration' @ i18n}</div>
+                            <div class="cruisehighlights__clear">&nbsp;</div>
+                            <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}">${cruise.cruiseModel.duration}</div>
+                            <div class="cruisehighlights__clear">&nbsp;</div>
+                            <div class="cruisehighlights__table__aftertitle">${'days' @ i18n}</div>
+                        </td>
+                        <td class="cruisehighlights__table__item item__duration">
+                            <div class="cruisehighlights__table__beforetitle">${'departure' @ i18n}</div>
+                            <div class="cruisehighlights__clear">&nbsp;</div>
+                            <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}" data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">${dateDay.value}</div>
+                            <div class="cruisehighlights__clear">&nbsp;</div>
+                            <div class="cruisehighlights__table__aftertitle" data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">${dateYear.value}</div>
+                        </td>
+                        <td class="noborder cruisehighlights__table__item price item__fares">
+                            <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
+                            <div class="cruisehighlights__table__beforetitle" data-sly-test.prefix="${cruise.pricePrefix}">${prefix}</div>
+                            <div class="cruisehighlights__table__beforetitle" data-sly-test="${!prefix}">${'fares-from' @ i18n}</div>
+                            <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}" data-sly-test="${cruise.isWaitList}"><strong>${'waitlist' @ i18n}</strong></div>
+                            <sly data-sly-test="${early}" data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = cruise.lowestPrice.price}">
+                                <div class="cruisehighlights__table__beforetitle beforetitlesmall">(${'per-guest' @ i18n})</div>
+                                <small class="cruisehighlights__table__title_small">${cruise.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
+                            </sly>
+                            <sly data-sly-test="${!cruise.isWaitList}">
+                                <div class="cruisehighlights__table__title${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}">
+                                    ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
+                                </div>
+                                <div data-sly-test="${early}" class="cruisehighlights__table__aftertitle aftertitlesmall${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}">
+                                    ${'with-early' @ i18n}${'booking-bonus' @ i18n}
+                                </div>
+                                <div class="cruisehighlights__table__aftertitle aftertitlesmall${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? '__expedition' : ''}" data-sly-test="${!early}">(${'per-guest' @ i18n})</div>
+                            </sly>
+                        </td>
+                    </tr>
+                </table>
+                <div class="cruisehighlights__eo">
+                    <div class="cruisehighlights__eo__title"><span class="fa">&#xf005;</span> ${'feature-exclusive-offers' @ i18n}:</div>
+                    <sly data-sly-list="${cruise.exclusiveOffers}" data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
+                        <p><strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}</p>
+                    </sly>
+                    <sly data-sly-test="${!isEo}">
+                        <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
+                    </sly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section cruiseitinerary">
+        <div class="section__header">
+        <h1 data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="section__header__title">
+            ${'expedition-cruise-itinerary' @ i18n}
+        </h1>
+        <h1 data-sly-test="${!silverExpedition}" class="section__header__title">
+			${'cruise-itinerary' @ i18n}
+		</h1>
+            <div class="section__header__desc">
+                <p>${'cruise-itinerary-description' @ i18n}</p>
+            </div>
+        </div>
+        <div class="section__gallery" data-sly-use.pdfimages="com.silversea.ssc.aem.models.PDFCruiseUse">
+			<div data-sly-repeat="${pdfimages.imagesList}" class="section__gallery__col">
+                <div data-sly-test.imagePath="${item}" class="section__gallery__item">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+                        <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=crop" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
+                    </sly>
+                </div>
+            </div>
+
+        </div>
+        <div class="section__table cruiseitinerary__table" data-sly-test="${pdfInfo.itinerarySplitFirstList}">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>${'date' @ i18n}</th>
+                        <th>${'Day-by-day' @ i18n}</th>
+                        <th>${'arrive' @ i18n} / ${'depart' @ i18n}</th>
+                    </tr>
+                </thead>
+                <tbody data-sly-list.itinerary="${pdfInfo.itinerarySplitFirstList}">
+                    <tr class="unbreakable">
+                        <td class="date"><sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly><sly data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</sly><sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly><sly data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</sly></td>
+                        <td class="port"><strong>${itinerary.port.apiTitle}</strong>, ${itinerary.port.country}</td>
+                        <td>
+							<sly data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</sly>
+							<sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
+                            <sly data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTime}</sly>
+						</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+        <sly data-sly-test="${pdfInfo.itinerarySplitSecondList}">
+            <div class="next_page">
+                <div class="next_page__icon">&#xf138;</div>
+                <div class="next_page__text">${'table-break-text-next' @ i18n}</div>
+            </div>
+    
+            <div class="prev_page pagebreakbefore">
+                <div class="prev_page__icon">&#xf137;</div>
+                <div class="prev_page__text">${'table-break-text-previous' @ i18n}</div>
+            </div>
+        </sly>
+        <div class="section__table cruiseitinerary__table" data-sly-test="${pdfInfo.itinerarySplitSecondList}">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>${'date' @ i18n}</th>
+                        <th>${'Day-by-day' @ i18n}</th>
+                        <th>${'arrive' @ i18n} / ${'depart' @ i18n}</th>
+                    </tr>
+                </thead>
+                <tbody data-sly-list.itinerary="${pdfInfo.itinerarySplitSecondList}">
+                    <tr class="unbreakable">
+                        <td class="date"><sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly><sly data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</sly><sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly><sly data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</sly></td>
+                        <td class="port"><strong>${itinerary.port.apiTitle}</strong>, ${itinerary.port.country}</td>
+                        <td>
+							<sly data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</sly>
+							<sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
+                            <sly data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTime}</sly>
+						</td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section suites pagebreak">
+        <div class="section__header">
+            <h1 class="section__header__title">${'select-your-suite-and-request-a-quote' @i18n}</h1>
+            <div class="section__header__desc">
+                <p>${'cruise-suites-and-fares-descr' @i18n}</p>
+            </div>
+        </div>
+       <div data-sly-list="${cruise.prices}" class="section__gallery">
+            <div data-sly-test.imagePath="${item.suite.thumbnail && itemList.index < 5}" class="section__gallery__col">
+                <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.suite.thumbnail}" class="section__gallery__item">
+                    <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
+                </div>
+            </div>
+        </div>
+        <div class="section__table suites__table">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>${'Category' @i18n}</th>
+                        <th>${'Dimensions' @i18n}</th>
+                        <th>${'fares-from' @i18n} (${'per-guest' @i18n})</th>
+                    </tr>
+                </thead>
+                <tbody data-sly-repeat="${cruise.prices}">
+                    <tr class="unbreakable">
+                        <td class="date"><strong>${item.suite.title}</strong>
+                        </td>
+                        <td class="port">${item.suite.suiteSubTitle @ context='html'}</td>
+                        <td class="section__table__price">
+                            <div data-sly-test="${item.isWaitList}" class="section__table__pricenum">${'waitlist' @ i18n}</div>
+                            <sly data-sly-test="${!item.isWaitList}">
+                                <div data-sly-test="${!item.isWaitList}" class="section__table__pricenum">
+                                    <sly data-sly-test.early="${item.lowestPrice.earlyBookingBonus}" data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
+                                        <small>${item.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
+                                        <br />
+                                    </sly>
+                                    <strong>
+										${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}
+									</strong>
+                                </div>
+                                <div data-sly-test="${early}" class="section__table__pricenote">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                                <div data-sly-test="${!early}" class="section__table__pricenote">${'per-guest' @ i18n}</div>
+                            </sly>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>            
+    </div>
+	<div class="section included pagebreak">
+    <div class="section__header">
+        <h1 class="section__header__title">${'included-cruise-fare' @ i18n}</h1>
+    </div>
+    <div data-sly-use.includesItems="com.silversea.ssc.aem.models.PDFCruiseUse" class="included__list__item">
+	    <ul>
+	        <li data-sly-repeat="${includesItems.includedInFareFirstList}">${item}</li>
+	    </ul>
+	</div>
+	<div data-sly-use.includesItems="com.silversea.ssc.aem.models.PDFCruiseUse" class="included__list__item">
+	    <ul>
+	        <li data-sly-repeat="${includesItems.includedInFareSecondList}">${item}</li>
+	    </ul>
+	</div>
+</div>
+	<div class="section ship ship__block">
+    <div data-sly-test.ship="${cruise.cruiseModel.ship}" class="section__header">
+        <h1 class="section__header__title">${ship.title}</h1>
+    </div>
+    <div class="ship__item">
+        <div class="ship__img" data-sly-test.imageUrl="${ship.thumbnail}">
+            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
+            <div class="col_left" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+                <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
+            </div>
+        </div>
+        <div class="ship__content">
+            <div class="col_right">
+                ${ship.longDescription @ context='html'}
+                <table class="ship__table" cellspacing="0">
+                    <tr>
+                        <td><strong>${'guests' @ i18n}:</strong> ${ship.guestsCapacity}</td>
+                        <td><strong>${'crew' @ i18n}:</strong> ${ship.crewCapacity}</td>
+                        <td><strong>${'length' @ i18n}:</strong> ${ship.lengthFt} ${'feet' @ i18n} / ${ship.lengthM} ${'meters' @ i18n}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+	<div data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition' && (properties.voyageHighlights || properties.reference)}" class="expedition voyage__highlights__text pagebreak">
+		<div class="page__header">
+			<h1 class="section__header__title">${'voyage-highlights' @ i18n}</h1>
+			<div class="page__header__title__separator__highlights"></div>
+			<div class="voyage__highlights__subtitle">${'voyage-highlights-introduction' @ i18n}</div>
+			<div class="expedition__clear"></div>
+		</div>
+		<h2 style="text-align: center;"><strong>${cruise.cruiseModel.departurePortName} ${'to' @ i18n} ${cruise.cruiseModel.arrivalPortName}</strong></h2>
+		<h2 style="text-align: center;"><strong data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMMm dd, YYYY', date=cruise.cruiseModel.startDate}">${dateDay.value} | ${cruise.cruiseModel.duration} ${'days' @ i18n} | ${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</strong></h2>
+		${properties.voyageHighlights @ context = 'html'}
+	</div>
+</div>

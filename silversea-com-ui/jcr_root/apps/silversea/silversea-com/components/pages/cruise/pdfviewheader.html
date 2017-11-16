@@ -1,0 +1,32 @@
+<sly data-sly-use.externalizerFontsHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/fonts',absolute=true}" />
+<link type="text/css" rel="stylesheet" href="${externalizerFontsHelper.externalizedUrl @ extension='css'}">
+<sly data-sly-use.externalizerCSSHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/css/svv3',absolute=true}" />
+<link type="text/css" rel="stylesheet" href="${externalizerCSSHelper.externalizedUrl @ extension='css'}">
+
+<sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-logo',absolute=true}" />
+<sly data-sly-use.externalizerHelperExpedition="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
+
+<div class="header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
+	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
+		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="Silversea" />
+	</div>
+	<div data-sly-test="${!silverExpedition}" class="header__logo cruise_logo">
+		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
+	</div>
+    <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
+      <sly data-sly-test.isCcpt="${header.ccptAvailable}">
+       <div class="header__call">
+        <div class="header__call__beforetitle">${header.header_beforeTitle}</div>
+        <div class="header__call__title">${header.header_title}</div>
+        <div class="header__call__aftertitle">${header.header_afterTitle}</div>
+       </div>
+      </sly>
+      <sly data-sly-test="${!isCcpt}">
+       <div class="header__call" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+        <div class="header__call__beforetitle">${'call-reservations-team-1' @ i18n}</div>
+        <div class="header__call__title">${countryHelper.localizedPhone}</div>
+        <div class="header__call__aftertitle">${'call-reservations-team-2' @ i18n}</div>
+       </div>
+      </sly>
+     </sly>
+</div>
