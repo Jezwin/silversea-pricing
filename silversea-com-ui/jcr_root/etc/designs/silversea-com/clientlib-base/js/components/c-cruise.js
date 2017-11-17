@@ -275,6 +275,17 @@ $(function() {
         readMore();
     });
     
+
+    /*********************************************************************************
+     * Automatic collapse all suite and fares boxes if the user click outside the list
+     *********************************************************************************/
+    $('body').on('click', function(event) {
+    	if ($(event.target).hasClass('c-suitelist__collapse') || $(event.target).parents('.c-suitelist__collapse').length != 0) {
+            return false;
+        }
+    	$(".c-suitelist").find('.collapse').collapse('hide');	
+    });
+
     
     /***************************************************************************
      * Scroll down when Suite And Fares button is clicked (mobile only)
@@ -289,4 +300,5 @@ $(function() {
 			}, 600); //1000 = 1s speed
 		}
 	});
+
 });
