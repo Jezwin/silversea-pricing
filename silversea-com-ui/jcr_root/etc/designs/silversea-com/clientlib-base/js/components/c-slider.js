@@ -45,7 +45,7 @@ $(function() {
         nextArrow : nextArrowCustom,
         fade : true,
         dots : true,
-        autoplaySpeed : 5000,
+        autoplaySpeed : 3500,
         responsive : [ {
             breakpoint : 768,
             settings : {

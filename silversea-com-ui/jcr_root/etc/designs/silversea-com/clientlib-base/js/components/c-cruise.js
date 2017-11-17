@@ -275,6 +275,7 @@ $(function() {
         readMore();
     });
     
+
     /*********************************************************************************
      * Automatic collapse all suite and fares boxes if the user click outside the list
      *********************************************************************************/
@@ -284,4 +285,20 @@ $(function() {
         }
     	$(".c-suitelist").find('.collapse').collapse('hide');	
     });
+
+    
+    /***************************************************************************
+     * Scroll down when Suite And Fares button is clicked (mobile only)
+     **************************************************************************/
+    $('[data-tab-target="#suitenfare"]').on('click', function(event) {
+		var target = $("#suitenfare");
+
+		if( target && target.length ) {
+			event.preventDefault();
+			$('html, body').stop().animate({
+				scrollTop: target.offset().top
+			}, 600); //1000 = 1s speed
+		}
+	});
+
 });

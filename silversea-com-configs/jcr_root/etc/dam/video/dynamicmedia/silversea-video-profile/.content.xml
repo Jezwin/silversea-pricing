@@ -12,7 +12,7 @@
         extension="mp4"
         height="1080"
         keepAspectRatio="true"
-        videoBitrate="7500"
+        videoBitrate="4000"
         videoCodec="MP4 H264 (.mp4)"
         width="0"/>
     <MP4_x0020_-_x0020_0x720_x0020_px_x002c__x0020_7500_x0020_kbps
@@ -23,7 +23,7 @@
         extension="mp4"
         height="720"
         keepAspectRatio="true"
-        videoBitrate="4000"
+        videoBitrate="2600"
         videoCodec="MP4 H264 (.mp4)"
         width="0"/>
     <MP4_x0020_-_x0020_0x360_x0020_px_x002c__x0020_1000_x0020_kbps
@@ -34,7 +34,7 @@
         extension="mp4"
         height="360"
         keepAspectRatio="true"
-        videoBitrate="1000"
+        videoBitrate="800"
         videoCodec="MP4 H264 (.mp4)"
         width="0"/>
     <MP4_x0020_-_x0020_0x480_x0020_px_x002c__x0020_2000_x0020_kbps
@@ -45,7 +45,7 @@
         extension="mp4"
         height="480"
         keepAspectRatio="true"
-        videoBitrate="2000"
+        videoBitrate="1400"
         videoCodec="MP4 H264 (.mp4)"
         width="0"/>
 </jcr:root>

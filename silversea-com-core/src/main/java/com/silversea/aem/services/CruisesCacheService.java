@@ -12,14 +12,14 @@ public interface CruisesCacheService {
      * @param lang the lang
      * @return cruises for the defined <code>lang</code>
      */
-    List<CruiseModel> getCruises(final String lang);
+    List<CruiseModelLight> getCruises(final String lang);
 
     /**
      * @param lang
      * @param cruiseCode
      * @return
      */
-    CruiseModel getCruiseByCruiseCode(final String lang, final String cruiseCode);
+    CruiseModelLight getCruiseByCruiseCode(final String lang, final String cruiseCode);
 
     /**
      * @param lang the lang
