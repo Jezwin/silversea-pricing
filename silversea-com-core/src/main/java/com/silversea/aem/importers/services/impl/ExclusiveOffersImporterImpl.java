@@ -341,7 +341,7 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
         exclusiveOfferPageContentNode.setProperty("startDate", exclusiveOffer.getValidFrom().toGregorianCalendar());
         exclusiveOfferPageContentNode.setProperty("endDate", exclusiveOffer.getValidTo().toGregorianCalendar());
 
-        exclusiveOfferPageContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+       // exclusiveOfferPageContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
         // Set geolocation tags for the market
         List<String> geoMarketsList = exclusiveOffer.getMarkets();
