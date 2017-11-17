@@ -14,7 +14,7 @@
         <items jcr:primaryType="nt:unstructured">
             <verticalteasermanual
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Vertical teaser manual"
+                jcr:title="Global options"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout
                     jcr:primaryType="nt:unstructured"
@@ -25,6 +25,11 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
+                        	<uuid
+							    jcr:primaryType="nt:unstructured" 
+							    name="./jcr:mixinTypes"
+							    value="mix:referenceable"
+							    sling:resourceType="granite/ui/components/foundation/form/hidden" />
                             <title
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Title"
@@ -53,6 +58,56 @@
                     </column>
                 </items>
             </verticalteasermanual>
+            <verticalteasermanualDesktop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <heightDesktop
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Min height"
+                                fieldDescription="Set box min-height"
+                                name="./heightDesktop"
+                                min="0"
+                                defaultValue="230"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                        </items>
+                    </column>
+                </items>
+            </verticalteasermanualDesktop>
+             <verticalteasermanualMobile
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Mobile options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <heightMobile
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Min height"
+                                fieldDescription="Set box min-height"
+                                name="./heightMobile"
+                                min="0"
+                                defaultValue="150"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                        </items>
+                    </column>
+                </items>
+            </verticalteasermanualMobile>
         </items>
     </content>
 </jcr:root>
