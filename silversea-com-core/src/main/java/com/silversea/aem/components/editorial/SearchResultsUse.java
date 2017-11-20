@@ -76,6 +76,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.19_property", "jcr:content/sling:resourceType");
             map.put("group.20_property", "jcr:content/sling:resourceType");
             map.put("group.21_property", "jcr:content/sling:resourceType");
+            map.put("group.22_property", "jcr:content/notIndexed");
 
             map.put("group.2_property.operation", "unequals");
             map.put("group.3_property.operation", "unequals");
@@ -96,6 +97,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.19_property.operation", "unequals");
             map.put("group.20_property.operation", "unequals");
             map.put("group.21_property.operation", "unequals");
+            map.put("group.22_property.operation", "not");
 
             map.put("group.2_property.value", WcmConstants.RT_PUBLIC_AREA);
             map.put("group.3_property.value", WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION);
@@ -116,6 +118,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.19_property.value", WcmConstants.RT_COMBO_SEGMENT);
             map.put("group.20_property.value", "silversea/silversea-ssc/components/pages/landingpage");
             map.put("group.21_property.value", WcmConstants.RT_EXCLUSIVE_OFFER);
+            map.put("group.22_property.value", "true");
             
             Session session = getResourceResolver().adaptTo(Session.class);
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
