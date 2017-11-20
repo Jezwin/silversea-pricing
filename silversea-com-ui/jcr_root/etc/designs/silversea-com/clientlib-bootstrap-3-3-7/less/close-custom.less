@@ -35,8 +35,12 @@
     .modal-content--transparent & {
         position: absolute;
         right: 12px;
-        top: 12px;
+        top: 24px;
         z-index: 1;
+        
+        @media (max-width: 767px) {
+        	top: 30px;
+        }
     }
 }
 
