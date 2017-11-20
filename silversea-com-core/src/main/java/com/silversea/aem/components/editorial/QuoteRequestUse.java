@@ -44,7 +44,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 
     private boolean isWaitList = true;
 
-    private String selectedSuiteCategoryCode;
+    public String selectedSuiteCategoryCode;
 
     private BrochureModel selectedBrochure;
 
@@ -131,14 +131,14 @@ public class QuoteRequestUse extends WCMUsePojo {
                             if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
                                 selectedPrice = price;
                                 selectedSuite = price.getSuite();
-
+                                selectedSuiteCategoryCode = price.getSuiteCategory();
                                 lowestPrice = price;
                                 isWaitList = price.isWaitList();
 
                                 break;
                             } else if (suiteCategory == null) {
+                                selectedSuite = price.getSuite();
                                 if (!price.isWaitList() && (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
-                                    selectedSuite = price.getSuite();
                                     lowestPrice = price;
                                     isWaitList = false;
                                 }
@@ -221,9 +221,10 @@ public class QuoteRequestUse extends WCMUsePojo {
      * @return
      */
     public String getSuiteName() {
-        return selectedPrice != null
+        return selectedSuite.getTitle();
+        /*return selectedPrice != null
                 ? selectedSuite.getTitle() + " " + selectedPrice.getSuiteCategory()
-                : selectedSuite.getTitle();
+                : selectedSuite.getTitle();*/
     }
 
     /**
@@ -302,6 +303,10 @@ public class QuoteRequestUse extends WCMUsePojo {
      */
     public boolean isWaitList() {
         return isWaitList;
+    }
+
+    public String getSelectedSuiteCategoryCode() {
+        return selectedSuiteCategoryCode;
     }
 
     /**
