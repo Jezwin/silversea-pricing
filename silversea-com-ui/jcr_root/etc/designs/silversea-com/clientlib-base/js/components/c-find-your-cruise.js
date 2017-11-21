@@ -227,6 +227,22 @@ $(function() {
          * Filter : behavior on form change
          **************************************************************************/
         $form.on('change', function(e, isFromPagination) {
+        	
+            var dataLayer = window.dataLayer[0];
+
+            // Data search
+            var filterOjb = {};
+            $('.c-find-your-cruise-filter').find('select').each(function(i, element) {
+                filterOjb[element.name] = $(element).find(':selected').data('value') || element.value;
+            });
+
+            $('.c-find-your-cruise-filter').find('input:checked').each(function(i, element) {
+                filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
+            });
+
+            dataLayer.search_filters = filterOjb;
+            
+            
             updateFilterState();
 
             // Set active state on reset button
