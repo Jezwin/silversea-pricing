@@ -1,6 +1,7 @@
 package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
 import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -18,6 +19,7 @@ import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -505,7 +507,22 @@ public class CruisesImporterImpl implements CruisesImporter {
         cruiseContentNode.setProperty("cruiseCode", cruise.getVoyageCod());
         cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
         cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
-
+        
+        //SSC-2406 Wrong Cruise URL + Global Search Title
+        //set sling:alias and jcr:title to match voyage name
+        final String alias = JcrUtil.createValidName(StringUtils
+                .stripAccents(cruise.getVoyageName() + " - " + cruise.getVoyageCod()), JcrUtil.HYPHEN_LABEL_CHAR_MAPPING)
+                .replaceAll("-+", "-");
+        if (language.equals("fr") || language.equals("es") || language.equals("pt-br")) {
+            alias.replace("-to-", "-a-");
+        } else if (language.equals("de")) {
+            alias.replace("-to-", "-nach-");
+        }
+        if (!cruiseContentNode.getParent().getName().equals(alias)) {
+            cruiseContentNode.setProperty("sling:alias", alias);
+        }
+        cruiseContentNode.setProperty("jcr:title", cruise.getVoyageCod() + " - " + cruiseTitle );
+        
         // TODO temporary not write livecopy informations to be compliant with PROD content
         // Set livecopy mixin
         /* if (!language.equals("en")) {
