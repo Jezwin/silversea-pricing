@@ -5,7 +5,7 @@
                 <p>${cruise.mapOverHead}</p>
             </div>
 		    <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
-    			data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.itinerary, imageTemplate = imageTemplate}" />
+    			data-sly-call="${overviewImage.listImage @ list = cruise.allAssetWithItinerary, imageTemplate = imageTemplate}" />
             <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
         </div>
         <div class="col-sm-6">
