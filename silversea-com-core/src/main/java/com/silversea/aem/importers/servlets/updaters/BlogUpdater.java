@@ -23,7 +23,7 @@ public class BlogUpdater extends SlingSafeMethodsServlet {
         final String query = "/jcr:root/content/silversea-com//element(*,cq:Page)" +
                 "[jcr:content/sling:resourceType=\"silversea/silversea-com/components/pages/blogpost\"]";
 
-        final String assetsQuery = "/jcr:root/content/dam/silversea-com/blog"
+        final String assetsQuery = "/jcr:root/content/dam/silversea-com/blog-import"
                 + "//element(*,dam:Asset)[jcr:content/metadata/initialPath]";
 
         MigrationUtils.updatePagesAfterMigration(resourceResolverFactory,
