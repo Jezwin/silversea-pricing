@@ -1,7 +1,10 @@
 .c-cruise {
     .c-tab__content {
         &--overview {
-            .voyage {
+        		.slick-slide>* {
+				    margin: 0px !important;
+				}
+	            .voyage {
                 &table {
                     color: @grey--3;
                     display: table;
@@ -67,8 +70,11 @@
                 &img {
                     margin-bottom: 10px;
 
-                    picture img {
-                        border: solid 1px @blue;
+                    picture {
+                    	padding: 0px 1px 0px 1px;
+                    	img {
+                        	border: solid 1px @blue;
+                        }
                     }
 
                     &__info {
@@ -88,6 +94,10 @@
                         color: @grey--5;
                         font-style: italic;
                         margin-top: 10px;
+                    }
+                    
+                     .slick-slide {
+                    	position: relative;
                     }
                 }
 
