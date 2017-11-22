@@ -74,6 +74,7 @@ public interface WcmConstants {
     String RT_DINING_VARIATION = "silversea/silversea-com/components/pages/diningvariation";
     String RT_COMBO_CRUISE = "silversea/silversea-com/components/pages/combocruise";
     String RT_CRUISE = "silversea/silversea-com/components/pages/cruise";
+    String RT_LANDING_PAGE = "silversea/silversea-ssc/components/pages/landingpage";
     
     
     String RT_EXCLUSIVE_OFFER_VARIATION = "silversea/silversea-com/components/pages/exclusiveoffervariation";

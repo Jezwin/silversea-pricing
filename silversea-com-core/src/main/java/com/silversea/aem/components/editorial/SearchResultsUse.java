@@ -116,7 +116,7 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("group.17_property.value", WcmConstants.RT_BLOG_POST_LIST);
             map.put("group.18_property.value", WcmConstants.RT_REDIRECT);
             map.put("group.19_property.value", WcmConstants.RT_COMBO_SEGMENT);
-            map.put("group.20_property.value", "silversea/silversea-ssc/components/pages/landingpage");
+            map.put("group.20_property.value", WcmConstants.RT_LANDING_PAGE);
             map.put("group.21_property.value", WcmConstants.RT_EXCLUSIVE_OFFER);
             map.put("group.22_property.value", "true");
             
