@@ -4,6 +4,18 @@
         		.slick-slide>* {
 				    margin: 0px !important;
 				}
+				.slick-slide {
+	   				min-height:250px;
+					@media  (max-width: 768px ) {
+	   					min-height:150px;
+	   				}
+				}
+				a.lazy.video-link {
+				    min-height: 250px;
+				    @media  (max-width: 768px ) {
+	   					min-height:150px;
+	   				}
+				}
 	            .voyage {
                 &table {
                     color: @grey--3;
