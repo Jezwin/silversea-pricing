@@ -4,18 +4,6 @@
         		.slick-slide>* {
 				    margin: 0px !important;
 				}
-				.slick-slide {
-	   				min-height:250px;
-					@media  (max-width: 768px ) {
-	   					min-height:150px;
-	   				}
-				}
-				a.lazy.video-link {
-				    min-height: 250px;
-				    @media  (max-width: 768px ) {
-	   					min-height:150px;
-	   				}
-				}
 	            .voyage {
                 &table {
                     color: @grey--3;
@@ -81,7 +69,18 @@
 
                 &img {
                     margin-bottom: 10px;
-
+					.slick-slide {
+		   				min-height:250px;
+						@media  (max-width: 768px ) {
+		   					min-height:150px;
+		   				}
+					}
+					a.lazy.video-link {
+					    min-height: 250px;
+					    @media  (max-width: 768px ) {
+		   					min-height:150px;
+		   				}
+					}
                     picture {
                     	padding: 0px 1px 0px 1px;
                     	img {
