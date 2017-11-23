@@ -142,9 +142,6 @@
 	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
                                             downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
                                             pdfClicked = false;
-                                            setTimeout(function(){
-                                            	downloadWin.close();
-                                            }, 5000);
                                         }
                                     });
                                     }, 500);
