@@ -110,6 +110,7 @@ mvn_build_prod_publish1:
     stage: build-publishes-prod
     environment:
         name: Production
+    when: manual
     tags:
         - maven
     script:
@@ -121,6 +122,7 @@ mvn_build_prod_publish2:
     stage: build-publishes-prod
     environment:
         name: Production
+    when: manual
     tags:
         - maven
     script:
