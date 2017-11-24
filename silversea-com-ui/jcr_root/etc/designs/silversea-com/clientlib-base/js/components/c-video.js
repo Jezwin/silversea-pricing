@@ -15,7 +15,7 @@ $(function() {
                     'posterimage' : asset,
                     'asset' : asset,
                     'autoplay' : autoplay.toString(),
-                    'initialbitrate' : '2600'
+                    'initialbitrate' : '800'
                 }
             }).init();
         });
