@@ -7,15 +7,14 @@ $(function() {
             var s7videoviewer = new s7viewers.VideoViewer({
                 'containerId' : $video.attr('id'),
                 'params' : {
-                	"VideoPlayer.ssl" : "on",
+                    'VideoPlayer.ssl' : 'on',
                     'serverurl' : window.location.origin + '/is/image',
                     'contenturl' : 'https://silversea.assetsadobe.com/',
                     'config' : 'etc/dam/presets/viewer/Video',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
                     'posterimage' : asset,
                     'asset' : asset,
-                    'autoplay' : autoplay.toString(),
-                    'initialbitrate' : '800'
+                    'autoplay' : autoplay.toString()
                 }
             }).init();
         });
