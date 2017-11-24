@@ -1,31 +1,35 @@
 package com.silversea.aem.components.page;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 
 import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
-import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.models.PortModel;
 import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.models.ShipModel;
+import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 
@@ -95,22 +99,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 			throw new Exception("Cannot get cruise model");
 		}
 
-		// init pagination
-		final Iterator<Page> children = getCurrentPage().getParent().listChildren();
-		if (children != null && children.hasNext()) {
-			Page child = null;
-			while (children.hasNext()) {
-				previous = child != null ? child.getPath() : null;
-
-				child = children.next();
-
-				if (child.getPath().equals(getCurrentPage().getPath()) && children.hasNext()) {
-					next = children.next().getPath();
-
-					break;
-				}
-			}
-		}
+		String shipName = (cruiseModel.getShip() != null) ? cruiseModel.getShip().getName() : null;
+		searchPreviousAndNextCruise(shipName);
 
 		// init assets from ship areas
 		suitesAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
@@ -191,6 +181,71 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 			if (exclusiveOffer.getGeomarkets() != null && exclusiveOffer.getGeomarkets().contains(geomarket)) {
 				exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination()
 						.getPath()));
+			}
+		}
+	}
+
+	/**
+	 * Search previous and next cruise to show link PREVIOUS VOYAGE | NEXT
+	 * VOYAGE based on ship
+	 * 
+	 * @param shipName
+	 *            Ship name of the current cruise to show
+	 */
+	private void searchPreviousAndNextCruise(String shipName) {
+		final String lang = LanguageHelper.getLanguage(getCurrentPage());
+		final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
+
+		List<CruiseModelLight> allCruises = (cruisesCacheService != null) ? cruisesCacheService.getCruises(lang) : null;
+
+		if (allCruises != null) {
+			// Security adaptation: If voyage is in the past-do not display them
+			List<CruiseModelLight> newAllCruises = new ArrayList<>();
+			for (CruiseModelLight cruise : allCruises) {
+				if (cruise.getStartDate().after(Calendar.getInstance())) {
+					newAllCruises.add(cruise);
+				}
+			}
+			allCruises = newAllCruises;
+
+			// needed inside filter
+			AtomicInteger indexCurrentCruise = new AtomicInteger(-1);
+			AtomicInteger indexLoop = new AtomicInteger(-1);
+			/*
+			 * Sort all cruise based on departed date before filter by ship
+			 * becuase we will save the index of the current voyage inside the
+			 * list
+			 */
+			allCruises.sort((Comparator.comparing(CruiseModelLight::getStartDate)));
+
+			/*
+			 * We filter by ship based on current cruise and we save the index
+			 * of current cruise inside the list (to get previous and next)
+			 */
+			List<CruiseModelLight> listCruiseFilterByShip = allCruises.stream().filter(cruise -> {
+				String shipNameElement = cruise.getShip().getName();
+				boolean isToInsert = shipName.equalsIgnoreCase(shipNameElement);
+				boolean isCurrentCruise = cruise.getCruiseCode().equalsIgnoreCase(cruiseModel.getCruiseCode());
+				if (isToInsert) {
+					indexLoop.incrementAndGet();
+					if (isCurrentCruise && indexCurrentCruise.get() > -1) {
+						indexCurrentCruise.set(indexLoop.get());
+					}
+				}
+				return isToInsert;
+			}).collect(Collectors.toList());
+
+			// Get Previous and Next Cruise
+			if (indexCurrentCruise.get() > -1) {
+				Integer previousCruiseIndex = indexCurrentCruise.get() - 1;
+				Integer nextCruiseIndex = indexCurrentCruise.get() + 1;
+				CruiseModelLight previousCruise = (previousCruiseIndex >= 0) ? listCruiseFilterByShip
+						.get(previousCruiseIndex) : null;
+				CruiseModelLight nextCruise = (nextCruiseIndex < listCruiseFilterByShip.size()) ? listCruiseFilterByShip
+						.get(nextCruiseIndex) : null;
+
+				this.previous = previousCruise.getPath();
+				this.next = nextCruise.getPath();
 			}
 		}
 	}
