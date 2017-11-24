@@ -228,7 +228,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 				boolean isCurrentCruise = cruise.getCruiseCode().equalsIgnoreCase(cruiseModel.getCruiseCode());
 				if (isToInsert) {
 					indexLoop.incrementAndGet();
-					if (isCurrentCruise && indexCurrentCruise.get() > -1) {
+					if (isCurrentCruise && indexCurrentCruise.get() < 0) {
 						indexCurrentCruise.set(indexLoop.get());
 					}
 				}
@@ -239,13 +239,10 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 			if (indexCurrentCruise.get() > -1) {
 				Integer previousCruiseIndex = indexCurrentCruise.get() - 1;
 				Integer nextCruiseIndex = indexCurrentCruise.get() + 1;
-				CruiseModelLight previousCruise = (previousCruiseIndex >= 0) ? listCruiseFilterByShip
-						.get(previousCruiseIndex) : null;
-				CruiseModelLight nextCruise = (nextCruiseIndex < listCruiseFilterByShip.size()) ? listCruiseFilterByShip
-						.get(nextCruiseIndex) : null;
-
-				this.previous = previousCruise.getPath();
-				this.next = nextCruise.getPath();
+				this.previous = (previousCruiseIndex >= 0) ? listCruiseFilterByShip.get(previousCruiseIndex).getPath()
+						: null;
+				this.next = (nextCruiseIndex < listCruiseFilterByShip.size()) ? listCruiseFilterByShip.get(
+						nextCruiseIndex).getPath() : null;
 			}
 		}
 	}
