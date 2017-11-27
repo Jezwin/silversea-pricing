@@ -29,6 +29,11 @@
                                 fieldLabel="Title"
                                 name="./jcr:title"
                                 sling:resourceType="granite/ui/components/foundation/form/textfield"/>
+                            <viewMoreLink
+                                jcr:primaryType="nt:unstructured"
+                                text="Show View-more Link"
+                                name="./viewMoreLink"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
                         </items>
                     </column>
                 </items>
