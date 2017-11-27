@@ -406,9 +406,19 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                 includeCruiseNotFilteredByDuration = false;
                 includeCruiseNotFilteredByFeatures = false;
             }
+            
+            /* Conversion to fix problem with time zone (Find your cruise departure date issue)
+             * Add the timeZone to the startDate: 2017-11-30T19:00:00.000-05:00 in crx/de
+             * startDate from API: 2017-12-01T00:00:00.000Z
+             * calWithTimeZone will be 2017-11-30T19:00:00.000 + (05:00) = 2017-12-01T00:00:00.000Z
+             */
+            Long timeMillsWithTimeZone = cruise.getStartDate().getTimeInMillis() + Math.abs(cruise.getStartDate().getTimeZone().getRawOffset());
+            Calendar calWithTimeZone = new GregorianCalendar();
+            calWithTimeZone.setTime(new Date(timeMillsWithTimeZone));
+            
+            final YearMonth cruiseStartDate = YearMonth.of(calWithTimeZone.get(Calendar.YEAR),
+            		calWithTimeZone.get(Calendar.MONTH) + 1);
 
-            final YearMonth cruiseStartDate = YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
-                    cruise.getStartDate().get(Calendar.MONTH) + 1);
             if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
                 includeCruise = false;
                 includeCruiseNotFilteredByDestination = false;
