@@ -1,5 +1,20 @@
 package com.silversea.aem.components.editorial;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.sling.api.resource.ValueMap;
+
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
@@ -8,16 +23,19 @@ import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
-import com.silversea.aem.models.*;
+import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.DestinationItem;
+import com.silversea.aem.models.DestinationModel;
+import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.models.FeatureModel;
+import com.silversea.aem.models.PortItem;
+import com.silversea.aem.models.PortModel;
+import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.models.ShipItem;
+import com.silversea.aem.models.ShipModel;
 import com.silversea.aem.services.CruisesCacheService;
+import com.silversea.aem.utils.FindYourCruiseUtils;
 import com.silversea.aem.utils.PathUtils;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.sling.api.resource.ValueMap;
-
-import java.time.YearMonth;
-import java.time.format.DateTimeParseException;
-import java.util.*;
 
 /**
  * selectors : destination_all date_all duration_all ship_all cruisetype_all port_all page_2
@@ -31,7 +49,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private Set<FeatureModel> featuresFromDesign = new HashSet<>();
 
     private String type = "v2";
-
+    
     // list of all the cruises available for the lang
     private List<CruiseModelLight> allCruises = new ArrayList<>();
 
@@ -141,7 +159,6 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     @SuppressWarnings("unchecked")
     public void activate() throws Exception {
         super.activate();
-
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
 
@@ -407,17 +424,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                 includeCruiseNotFilteredByFeatures = false;
             }
             
-            /* Conversion to fix problem with time zone (Find your cruise departure date issue)
-             * Add the timeZone to the startDate: 2017-11-30T19:00:00.000-05:00 in crx/de
-             * startDate from API: 2017-12-01T00:00:00.000Z
-             * calWithTimeZone will be 2017-11-30T19:00:00.000 + (05:00) = 2017-12-01T00:00:00.000Z
-             */
-            Long timeMillsWithTimeZone = cruise.getStartDate().getTimeInMillis() + Math.abs(cruise.getStartDate().getTimeZone().getRawOffset());
-            Calendar calWithTimeZone = new GregorianCalendar();
-            calWithTimeZone.setTime(new Date(timeMillsWithTimeZone));
-            
-            final YearMonth cruiseStartDate = YearMonth.of(calWithTimeZone.get(Calendar.YEAR),
-            		calWithTimeZone.get(Calendar.MONTH) + 1);
+            final YearMonth cruiseStartDate = FindYourCruiseUtils.getYearMonthWithTimeZone(cruise.getStartDate());
 
             if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
                 includeCruise = false;
@@ -479,8 +486,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             }
 
             if (includeCruiseNotFilteredByDepartureDate) {
-                availableDepartureDates.add(YearMonth.of(cruise.getStartDate().get(Calendar.YEAR),
-                        cruise.getStartDate().get(Calendar.MONTH) + 1));
+                availableDepartureDates.add(cruiseStartDate);
             }
 
             if (includeCruiseNotFilteredByDuration) {
