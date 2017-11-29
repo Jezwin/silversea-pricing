@@ -104,11 +104,18 @@
                 position: relative;
                 z-index: 1;
                 
-                .c-fyc-btn-discover-more {
-                	@media (min-width: 768px) {
+                .c-fyc-btn-discover-more.btn {
+                	border: none;
+                	padding-top: 3.5px;
+                	text-decoration: underline;
+                	@media (max-width: 767px) {
                 		display: block;
     					text-align: center;
-    					width: 100%;
+    					padding-top: 6px;
+                	}
+                	
+                	&-hide {
+                		display: none;
                 	}
         		}
             }
