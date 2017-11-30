@@ -4,8 +4,9 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.Button;
-import com.silversea.aem.constants.SscConstants;
+import com.silversea.aem.helper.UrlHelper;
 
 public class HeroBannerUse extends WCMUsePojo {
 
@@ -21,17 +22,10 @@ public class HeroBannerUse extends WCMUsePojo {
 		btn2 = getButton("button2");
 		
 		if (btn1.getAnalyticType().equalsIgnoreCase("clic-RAQ") || btn2.getAnalyticType().equalsIgnoreCase("clic-RAQ")) {
-			String pageCategory = getPageProperties().get(SscConstants.PAGE_CATEGORY.toString(), String.class);
-			switch (pageCategory) {
-			case "single ship":
-				this.selectorUrl = SscConstants.SINGLE_SHIP_SUFFIX.toString();
-				this.suffixUrl = getPageProperties().get(SscConstants.SINGLE_SHIP_ID.toString(), String.class) + ".html";
-				break;
-			case "single destination":
-				this.selectorUrl = SscConstants.SINGLE_DESTINATION_SUFFIX.toString();
-				this.suffixUrl = getPageProperties().get(SscConstants.SINGLE_DESTINATION_ID.toString(),String.class) + ".html";
-				break;
-			}
+			Page currentPage = getCurrentPage();
+			String[] selectorSuffixUrl = UrlHelper.createSuffixAndSelectorUrl(currentPage);
+			this.selectorUrl = selectorSuffixUrl[0];
+			this.suffixUrl = selectorSuffixUrl[1];
 		} 
 
 	}

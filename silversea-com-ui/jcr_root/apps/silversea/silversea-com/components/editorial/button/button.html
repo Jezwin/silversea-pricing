@@ -1,6 +1,11 @@
 <div data-sly-test.empty="${wcmmode.edit && !properties.reference}" class="cq-placeholder" data-emptytext="Bouton"></div>
+<sly data-sly-use.button="com.silversea.aem.components.editorial.SSCButtonUse" />
 <div class="${properties.textalign || ''}">
-    <a data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
+    <a data-sly-test="${properties.reference && properties.analyticType != 'clic-RAQ'}" href="${properties.reference @ extension='html'}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
+       <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title}</span>
+       <span class="hidden-sm hidden-xs">${properties.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+    </a>
+    <a data-sly-test="${properties.reference && properties.analyticType == 'clic-RAQ'}" href="${properties.reference @ extension='html', selectors=button.selectorUrl, suffix=button.suffixUrl}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
        <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title}</span>
        <span class="hidden-sm hidden-xs">${properties.title}</span> <i class="fa fa-lg fa-angle-right"></i>
     </a>
