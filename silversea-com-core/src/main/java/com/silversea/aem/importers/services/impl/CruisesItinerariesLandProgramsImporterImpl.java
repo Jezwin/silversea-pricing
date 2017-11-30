@@ -305,7 +305,9 @@ public class CruisesItinerariesLandProgramsImporterImpl implements CruisesItiner
                                     final Map<String, String> cruisePaths = cruisesMapping.get(itineraryModel.getCruiseId());
                                     for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
                                     	final Node cruiseContentNode = session.getNode(cruisePath.getValue() + "/jcr:content");
-                                    	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                    	if(cruiseContentNode.getProperty("isVisible").getBoolean()){
+                                    		cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                    	}
                                     }
                                     
                                     if (itemsWrittenDiff % sessionRefresh == 0 && session.hasPendingChanges()) {
