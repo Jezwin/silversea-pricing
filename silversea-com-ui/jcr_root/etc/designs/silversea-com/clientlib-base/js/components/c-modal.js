@@ -112,18 +112,12 @@ $(function() {
                     var $video = $slider.find('.slick-current .c-video');
                     $video.find('.s7playpausebutton[selected="false"]').trigger('click');
                     $video.attr('class', 'c-video').empty();
+
+                    // Call lazy load for 2 previous and 2 next slides
+                    loadLazyImage($(this));
                 }).on('afterChange', function(event, slick, currentSlide) {
-                    var $slider = $(this);
-                    var $sliderActive = $slider.closest('.c-gallery').find('.slick-active');
-
-                    // call lazy loading for active image
-                    $sliderActive.find('.lazy').lazy();
-
-                    // call lazy loading for 2 previous and next images active
-                    $sliderActive.prev().find('.lazy').lazy();
-                    $sliderActive.prev().prev().find('.lazy').lazy();
-                    $sliderActive.next().find('.lazy').lazy();
-                    $sliderActive.next().next().find('.lazy').lazy();
+                    // Call lazy load for 2 previous and 2 next slides
+                    loadLazyImage($(this));
                 });
 
                 // Scroll to the target image
@@ -132,4 +126,17 @@ $(function() {
             });
         });
     });
+
+    function loadLazyImage($slider) {
+        var $sliderActive = $slider.closest('.c-gallery').find('.slick-active');
+
+        // call lazy loading for active image
+        $sliderActive.find('.lazy').lazy();
+
+        // call lazy loading for 2 previous and next images active
+        $sliderActive.prev().find('.lazy').lazy();
+        $sliderActive.prev().prev().find('.lazy').lazy();
+        $sliderActive.next().find('.lazy').lazy();
+        $sliderActive.next().next().find('.lazy').lazy();
+    }
 });
