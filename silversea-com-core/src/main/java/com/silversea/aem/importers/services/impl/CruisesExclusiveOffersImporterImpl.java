@@ -191,11 +191,15 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
 
                                 // removing the cruise from mapping
                                 cruisesMapping.remove(voyageId);
-                            } catch (RepositoryException | ImporterException e) {
+                            } catch (ImporterException e) {
                                 importResult.incrementErrorNumber();
 
                                 LOGGER.warn(e.getMessage());
                             }
+                         catch (RepositoryException e) {
+                        	importResult.incrementErrorNumber();
+                            LOGGER.error("Cannot import exclusive offers ", e);
+                        }
                         }
                     } catch (ImporterException e) {
                         importResult.incrementErrorNumber();
