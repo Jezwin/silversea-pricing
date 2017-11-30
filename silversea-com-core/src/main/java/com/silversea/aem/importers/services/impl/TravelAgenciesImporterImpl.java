@@ -90,6 +90,8 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("agenciesUrl"));
             final List<String> locales = ImportersUtils.getSiteLocales(pageManager);
 
+            Set<Integer> existingAgencies = new HashSet<>();
+            
             // Iterating over locales to import cities
             for (String locale : locales) {
                 final Page agenciesRootPage = ImportersUtils.getPagePathByLocale(pageManager, rootPage, locale);
@@ -105,7 +107,6 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 
                 do {
                     agencies = agenciesApi.agenciesGet(null, null, null, null, null, apiPage, pageSize);
-                    Set<Integer> existingAgencies = new HashSet<>();
 
                     for (Agency agency : agencies) {
                         LOGGER.trace("Importing agency: {}", agency.getAgency());
@@ -113,24 +114,21 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
 
                         if (agenciesMapping.containsKey(agency.getAgencyId())) {
                             // if agency is found, update it
-                            for (Map.Entry<String, Page> travelAgencies : agenciesMapping.get(agency.getAgencyId()).entrySet()) {
-                                final Page agencyPage = travelAgencies.getValue();
+                            final Page agencyPage = agenciesMapping.get(agency.getAgencyId()).get(locale);
+                            LOGGER.trace("Updating agency {}", agency.getAgency());
 
-                                LOGGER.trace("Updating agency {}", agency.getAgency());
+                            if (agencyPage == null) {
+                                throw new ImporterException("Cannot set agency page " + agency.getAgency());
+                            }
 
-                                if (agencyPage == null) {
-                                    throw new ImporterException("Cannot set agency page " + agency.getAgency());
-                                }
+                            TravelAgencyModel agencyModel = agencyPage.adaptTo(TravelAgencyModel.class);
 
-                                TravelAgencyModel agencyModel = agencyPage.adaptTo(TravelAgencyModel.class);
+                            if (isAgencyUpdated(agency, agencyModel)) {
+                                final Node agencyContentNode = updateAgencyContentNode(agency, agencyPage);
 
-                                if (isAgencyUpdated(agency, agencyModel)) {
-                                    final Node agencyContentNode = updateAgencyContentNode(agency, agencyPage);
+                                agencyContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
-                                    agencyContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-
-                                    LOGGER.trace("Agency {} is marked to be activated", agency.getAgency());
-                                }
+                                LOGGER.debug("Agency {} is marked to be activated", agency.getAgency());
                             }
                         } else {
 
@@ -191,21 +189,24 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
                         }
                     }
 
-                    // remove deleted pages
-                    for (Map.Entry<Integer, Map<String, Page>> agencyMapping : agenciesMapping.entrySet()) {
-                        if (!existingAgencies.contains(agencyMapping.getKey())) {
-                            // delete page for locale
-                            Page agencyPageToDelete = agencyMapping.getValue().get(locale);
-                            if (agencyPageToDelete != null) {
-                                final Node contentNode = agencyPageToDelete.getContentResource().adaptTo(Node.class);
-                                contentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-                                LOGGER.trace("Agency {} is marked to be deactivated", agencyPageToDelete.getTitle());
-                            }
-                        }
-                    }
                     apiPage++;
                 } while (agencies.size() > 0);
             }
+            // remove deleted pages
+            for (Map.Entry<Integer, Map<String, Page>> agencyMapping : agenciesMapping.entrySet()) {
+                if (!existingAgencies.contains(agencyMapping.getKey())) {
+                    for (String locale : locales) {
+                        // delete page for locale
+                        Page agencyPageToDelete = agencyMapping.getValue().get(locale);
+                        if (agencyPageToDelete != null) {
+                            final Node contentNode = agencyPageToDelete.getContentResource().adaptTo(Node.class);
+                            contentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                            LOGGER.debug("Agency {} is marked to be deactivated", agencyPageToDelete.getPath());
+                        }
+                    }
+                }
+            }
+            
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("agenciesUrl"), "lastModificationDate", true);
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot create resource resolver", e);
