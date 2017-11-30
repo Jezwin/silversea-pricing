@@ -173,9 +173,9 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                     if (disjunction.size() > 0) {
                                         cruiseContentNode.setProperty("offer", voyageSpecialOffersPaths
                                                 .toArray(new String[voyageSpecialOffersPaths.size()]));
-
-                                        cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-
+                                        if(cruiseContentNode.getProperty("isVisible").getBoolean()){
+                                        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                        }
                                         LOGGER.trace("Writing exclusive offers paths {} in cruise {}",
                                                 voyageSpecialOffersPaths, cruisePage.getPath());
 
