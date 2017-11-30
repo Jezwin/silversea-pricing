@@ -36,9 +36,12 @@ public interface WcmConstants {
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";
-    final String SUFFIX_SINGLE_DESTINATION= "sd";
-    final String SUFFIX_SINGLE_SHIP= "ss";
-    final String SUFFIX_EXCLUSIVE_OFFER = "eo";
+    
+    //URL Selectors
+    final String SELECTOR_SINGLE_DESTINATION= "sd";
+    final String SELECTOR_SINGLE_SHIP= "ss";
+    final String SELECTOR_EXCLUSIVE_OFFER = "eo";
+    final String SELECTOR_FYC_RESULT = "s";
 
     // Templates
     String PAGE_TEMPLATE_PAGE = "/apps/silversea/silversea-com/templates/page";

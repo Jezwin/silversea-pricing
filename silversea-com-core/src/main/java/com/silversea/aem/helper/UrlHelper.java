@@ -41,17 +41,17 @@ public class UrlHelper {
     	String cqTemplate = currentPage.getProperties().get(NameConstants.NT_TEMPLATE.toLowerCase(), String.class);
 		switch (cqTemplate) {
 		case WcmConstants.PAGE_TEMPLATE_DESTINATION:
-			suffixUrl = WcmConstants.SUFFIX_SINGLE_DESTINATION;
+			suffixUrl = WcmConstants.SELECTOR_SINGLE_DESTINATION;
 			selectorUrl = currentPage.getProperties().get(WcmConstants.PN_DESTINATION_ID, String.class)
 					+ WcmConstants.HTML_SUFFIX;
 			break;
 		case WcmConstants.PAGE_TEMPLATE_SHIP:
-			suffixUrl = WcmConstants.SUFFIX_SINGLE_SHIP;
+			suffixUrl = WcmConstants.SELECTOR_SINGLE_SHIP;
 			selectorUrl = currentPage.getProperties().get(WcmConstants.PN_SHIP_ID, String.class)
 					+ WcmConstants.HTML_SUFFIX;
 			break;
 		case WcmConstants.PAGE_TEMPLATE_EXCLUSIVE_OFFER:
-			suffixUrl = WcmConstants.SUFFIX_EXCLUSIVE_OFFER;
+			suffixUrl = WcmConstants.SELECTOR_EXCLUSIVE_OFFER;
 			selectorUrl = currentPage.getProperties().get(WcmConstants.PN_EXCLUSIVE_OFFER_ID, String.class)
 					+ WcmConstants.HTML_SUFFIX;
 			break;
