@@ -7,10 +7,12 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesExclusiveOffersImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyageSpecialOffersApi;
 import io.swagger.client.model.SpecialOfferByMarket;
 import io.swagger.client.model.VoyageSpecialOffer;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -27,6 +29,8 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Value;
+
 import java.util.*;
 
 @Component
@@ -171,6 +175,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
 
                                     // if different write property
                                     if (disjunction.size() > 0) {
+                                    	cruiseContentNode.setProperty("offer",(Value)null);
                                         cruiseContentNode.setProperty("offer", voyageSpecialOffersPaths
                                                 .toArray(new String[voyageSpecialOffersPaths.size()]));
                                         if(cruiseContentNode.getProperty("isVisible").getBoolean()){
@@ -199,6 +204,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                          catch (RepositoryException e) {
                         	importResult.incrementErrorNumber();
                             LOGGER.error("Cannot import exclusive offers ", e);
+                           
                         }
                         }
                     } catch (ImporterException e) {
