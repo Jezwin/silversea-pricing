@@ -77,7 +77,6 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-            final AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
             final Session session = resourceResolver.adaptTo(Session.class);
 
             final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
@@ -189,7 +188,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         "jcr:title", "sling:alias"});
                             }
 
-                            CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl(), mimeTypeService);
+                            CruisesImportUtils.associateMapAsset(session, cruiseContentNode, destinationPage.getName(), cruise.getMapUrl(), mimeTypeService, resourceResolver);
 
                             successNumber++;
                             itemsWritten++;
@@ -316,7 +315,7 @@ public class CruisesImporterImpl implements CruisesImporter {
                                         throw new ImporterException("Cannot get content cruise node");
                                     }
 
-                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(cruisePages.getValue()), cruiseContentNode, mimeTypeService);
+                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(cruisePages.getValue()), cruiseContentNode, mimeTypeService, resourceResolver);
 
                                     successNumber++;
                                     itemsWritten++;
@@ -344,7 +343,7 @@ public class CruisesImporterImpl implements CruisesImporter {
 
                                     // update cruise data
                                     final Page destinationPage = destinationResource.adaptTo(Page.class);
-                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(destinationPage), cruiseContentNode, mimeTypeService);
+                                    updateCruiseData(assetManager, session, shipsMapping, featuresMapping, cruise, LanguageHelper.getLanguage(destinationPage), cruiseContentNode, mimeTypeService, resourceResolver);
 
                                     successNumber++;
                                     itemsWritten++;
@@ -465,7 +464,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
     private void updateCruiseData(AssetManager assetManager, Session session, Map<Integer, Map<String, String>> shipsMapping,
                                   Map<Integer, String> featuresMapping, Voyage77 cruise,
-                                  String language, Node cruiseContentNode, MimeTypeService mimeTypeService) throws RepositoryException {
+                                  String language, Node cruiseContentNode, MimeTypeService mimeTypeService,
+                                  ResourceResolver resourceResolver) throws RepositoryException {
         // Adding tags
         List<String> tagIds = new ArrayList<>();
 
@@ -518,7 +518,8 @@ public class CruisesImporterImpl implements CruisesImporter {
             }
         } */
 
-        CruisesImportUtils.associateMapAsset(assetManager, session, cruiseContentNode, cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService);
+        CruisesImportUtils.associateMapAsset(session, cruiseContentNode, 
+                cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService, resourceResolver);
         cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
     }
 
