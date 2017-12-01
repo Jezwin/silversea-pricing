@@ -170,14 +170,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 				property = WcmConstants.PN_EXCLUSIVE_OFFER_ID;
 				break;
 			}
-			raqModel = new RequestQuoteModel(splitSuffix[0], selector);
 			// create QueryBuilder query
 			final Map<String, String> map = new HashMap<String, String>();
 			map.put("path", path.toString());
 			map.put("1_property", "cq:template");
 			map.put("1_property.value", template);
 			map.put("2_property", property);
-			map.put("2_property.value", raqModel.getId());
+			map.put("2_property.value", splitSuffix[0]);
 
 			QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
 			Query query = queryBuilder.createQuery(PredicateGroup.create(map),
@@ -187,6 +186,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 			if (result.getTotalMatches() > 0) {
 				Resource resourceResult;
 				try {
+					raqModel = new RequestQuoteModel(splitSuffix[0], selector);
 					// read property thumbnail, raqTitle and jcr:description
 					resourceResult = result.getHits().get(0).getResource();
 					Node node = resourceResult.adaptTo(Node.class);
@@ -348,6 +348,10 @@ public class QuoteRequestUse extends WCMUsePojo {
 
 		return true;
 	}
+	
+	public boolean isSideHtmlToShow() {
+		return (raqModel != null) && !(raqModel.getType().equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT));
+	}
 
 	/**
 	 * used
@@ -402,7 +406,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 	 */
 	@Deprecated
 	public boolean isCruiseRequested() {
-		return selectedCruise != null || raqModel != null;
+		return selectedCruise != null;
 	}
 
 	/**
