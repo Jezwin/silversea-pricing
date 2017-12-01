@@ -16,7 +16,7 @@
         <input type="hidden" name="shipname" value="${use.selectedCruise.ship.title}" />
         <input type="hidden" name="price" value="${use.cruisePrice.price}" />
         <input data-sly-test="${use.isSuiteVariationRequested}" type="hidden" name="suitevariation" value="${use.suiteName}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}" />
-        <input data-sly-test="${use.isSuiteCategoryRequested}" type="hidden" name="suitecategory" value="${use.suiteName @ i18n}" class="datalayer-suite-name" data-tracksuite="${use.suiteName}"/>
+        <input data-sly-test="${use.isSuiteCategoryRequested}" type="hidden" name="suitevariation" value="${use.suiteName} ${use.selectedSuiteCategoryCode}" class="datalayer-suite-name" data-tracksuite="${use.selectedSuiteCategoryCode}"/>
     </sly>
 
     <div class="form-group form-group-lg has-feedback input--title">
