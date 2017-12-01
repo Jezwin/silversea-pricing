@@ -311,5 +311,17 @@ $(function() {
 			}, 600); //1000 = 1s speed
 		}
 	});
+    
+    
+    /***************************************************************************
+     * Open directly the first element on the modal photo and video
+     * link related to ab test v2
+     **************************************************************************/
+    $("#cruise-itinerary-link-ab-test-v2").on('click', function(event) {
+    	var mediaElement = $(".c-cruise__gallery__item.automatic-gallery-modal");
+    	if (mediaElement.length > 0 ) {
+    		mediaElement[0].click();
+    	}
+    });
 
 });
