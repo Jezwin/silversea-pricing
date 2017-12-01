@@ -300,5 +300,16 @@ $(function() {
 			}, 600); //1000 = 1s speed
 		}
 	});
+    /* AB - Test suite and fare button B version*/
+    $('[data-tab-target="#suitenfare-b-version"]').on('click', function(event) {
+		var target = $("#suitenfare-b-version");
+
+		if( target && target.length ) {
+			event.preventDefault();
+			$('html, body').stop().animate({
+				scrollTop: target.offset().top
+			}, 600); //1000 = 1s speed
+		}
+	});
 
 });
