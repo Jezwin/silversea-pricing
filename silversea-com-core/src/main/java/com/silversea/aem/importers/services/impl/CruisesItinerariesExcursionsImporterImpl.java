@@ -328,7 +328,10 @@ public class CruisesItinerariesExcursionsImporterImpl implements CruisesItinerar
                                     final Map<String, String> cruisePaths = cruisesMapping.get(itineraryModel.getCruiseId());
                                     for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
                                     	final Node cruiseContentNode = session.getNode(cruisePath.getValue() + "/jcr:content");
-                                    	if(cruiseContentNode.getProperty("isVisible").getBoolean()){
+                                    	 final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+                                         final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
+
+                                         if (startDate.after(Calendar.getInstance()) || isVisible) {
                                     		cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                                     	}
                                     }
