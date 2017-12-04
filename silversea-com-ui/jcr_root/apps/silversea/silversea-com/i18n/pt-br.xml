@@ -212,6 +212,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Os nossos itinerários são únicos. Encontrará informações detalhadas abaixo sobre portos, horários de partida e de chegada, bem como informações complementares sobre os destinos que irá visitar."/>
+    <cruise-itinerary-description-v2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Os nossos itinerários são únicos. Encontrará informações detalhadas abaixo sobre portos, horários de partida e de chegada, bem como informações complementares sobre os destinos que irá visitar."/>
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -229,6 +233,10 @@
         jcr:primaryType="nt:folder"
         sling:message="As suites Silversea, com vista para o oceano, são das mais espaçosas do cruzeiro e todas possuem um serviço de mordomo. Selecione a sua suite e solicite um orçamento. Os hóspedes que reservem antecipadamente garantem as melhores tarifas e podem escolher a suite que desejam."/>
     <cruise-suites-and-fares-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="As suites com vista para o oceano da Silversea são das mais espaçosas dos cruzeiros de luxo. Todas incluem os serviços de um mordomo, graças ao maior índice de serviço no mar, e quase todas têm uma varanda privada de teca, para que possa respirar o ar fresco do mar mesmo ao lado da sua porta. Selecione a sua suite e solicite um orçamento. Os hóspedes que reservem antecipadamente garantem as melhores tarifas e podem escolher a suite que mais desejam."/>
+    <cruise-suites-and-fares-descr-v2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="As suites com vista para o oceano da Silversea são das mais espaçosas dos cruzeiros de luxo. Todas incluem os serviços de um mordomo, graças ao maior índice de serviço no mar, e quase todas têm uma varanda privada de teca, para que possa respirar o ar fresco do mar mesmo ao lado da sua porta. Selecione a sua suite e solicite um orçamento. Os hóspedes que reservem antecipadamente garantem as melhores tarifas e podem escolher a suite que mais desejam."/>

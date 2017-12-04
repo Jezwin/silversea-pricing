@@ -104,8 +104,8 @@
 <template data-sly-template.abTestV2="${ @ cruise }">
     <div class="c-suitelist ab-test-v2-show" role="tablist">
         <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
-        <p id="ab-test-v2-rename-subtitle-cruise-raq" class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr' @i18n}</p>
-
+        <p class="c-cruise__descr hidden-xs ab-test-v2-hide">${'cruise-suites-and-fares-descr' @i18n}</p>
+		<p class="c-cruise__descr hidden-xs ab-test-v2-show">${'cruise-suites-and-fares-descr-v2' @i18n}</p>
         <div data-sly-repeat="${cruise.prices}" class="panel c-suitelist__item ${itemList.count == 1 ? 'c-suitelist__item--first' : ''}">
             <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}-v2-version"
                  data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}-v2-version">
