@@ -15,12 +15,16 @@
          float: none;
      }
 
-     &__side + .c-quote-request-form__form {
+     &__side:not(.c-quote-request-form__side-B-version) + .c-quote-request-form__form {
          float: left;
 
          @media screen and (max-width: @screen-sm) {
             float: none;
         }
+     }
+     
+     &__side-B-version {
+     	display: none;
      }
 
     .textarea_autogrow {

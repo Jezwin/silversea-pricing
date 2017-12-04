@@ -27,12 +27,21 @@ public interface WcmConstants {
     String PN_BROCHURE_IS_DIGITAL_ONLY = "brochureDigitalOnly";
     String PN_DESTINATION_REFERENCE = "destinationsReference";
     String PN_START_DATE = "startDate";
-
+    final String PN_DESTINATION_ID = "destinationId";
+    final String PN_SHIP_ID = "shipId";
+    final String PN_EXCLUSIVE_OFFER_ID = "exclusiveOfferId";
+    
     // Properties values
     String PV_AVAILABILITY_WAITLIST = "Waitlist";
 
     // HTML Suffix
     String HTML_SUFFIX = ".html";
+    
+    //URL Selectors
+    final String SELECTOR_SINGLE_DESTINATION= "sd";
+    final String SELECTOR_SINGLE_SHIP= "ss";
+    final String SELECTOR_EXCLUSIVE_OFFER = "eo";
+    final String SELECTOR_FYC_RESULT = "s";
 
     // Templates
     String PAGE_TEMPLATE_PAGE = "/apps/silversea/silversea-com/templates/page";
@@ -45,7 +54,9 @@ public interface WcmConstants {
     String PAGE_TEMPLATE_CRUISE = "/apps/silversea/silversea-com/templates/cruise";
     String PAGE_TEMPLATE_TRAVEL_AGENCY = "/apps/silversea/silversea-com/templates/travelagency";
     String PAGE_TEMPLATE_COMBO_CRUISE_SEGMENT = "/apps/silversea/silversea-com/templates/combosegment";
-
+    final String PAGE_TEMPLATE_DESTINATION = "/apps/silversea/silversea-com/templates/destination";
+    final String PAGE_TEMPLATE_SHIP = "/apps/silversea/silversea-com/templates/ship";
+    
     // Resource Type
     String RT_SUB_REDIRECT_PAGE = "subRedirectPage"; // TODO not a resource type
 
