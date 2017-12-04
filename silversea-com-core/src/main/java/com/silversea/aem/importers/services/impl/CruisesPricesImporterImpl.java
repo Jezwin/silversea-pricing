@@ -9,12 +9,14 @@ import com.silversea.aem.importers.services.CruisesPricesImporter;
 import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.PricesApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
+
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -31,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.*;
 
 @Component
@@ -165,9 +168,10 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
 
                     // Trying to deal with price item
                     try {
-                        if (update && !modifiedCruises.contains(price.getVoyageId())) {
+                    	//TEMP DISABLE WAITING FOR REAL DIFF FROM IT
+                      /*  if (update && !modifiedCruises.contains(price.getVoyageId())) {
                             throw new ImporterException("Cruise " + price.getVoyageId() + " is not modified");
-                        }
+                        }*/
 
                         // Checking if price correspond to an existing cruise
                         if (!cruisesMapping.containsKey(cruiseId)) {
@@ -195,6 +199,15 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                                     importResult.incrementSuccessOf(importResultPrices.getSuccessNumber());
                                     importResult.incrementErrorOf(importResultPrices.getErrorNumber());
 
+                                   //TEMP FORCE ACTIVATE 
+                                    final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+                                    final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
+
+                                    if (startDate.after(Calendar.getInstance()) || isVisible) {
+	                               		cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+	                               	}
+                                    //END TEMP FORCE ACTIVATE
+                                    
                                     if (importResultPrices.getSuccessNumber() > 0) {
                                         itemsWritten++;
                                     }
