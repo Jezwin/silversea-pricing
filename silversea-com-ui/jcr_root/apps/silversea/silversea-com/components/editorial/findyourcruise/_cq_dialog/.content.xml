@@ -9,7 +9,7 @@
         <layout
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-            type="nav" />
+            type="nav"/>
         <items jcr:primaryType="nt:unstructured">
             <tab1
                 jcr:primaryType="nt:unstructured"
@@ -18,7 +18,7 @@
                 <layout
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                    margin="{Boolean}false" />
+                    margin="{Boolean}false"/>
                 <items jcr:primaryType="nt:unstructured">
                     <column
                         jcr:primaryType="nt:unstructured"
@@ -26,9 +26,9 @@
                         <items jcr:primaryType="nt:unstructured">
                             <title
                                 jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
                                 fieldLabel="Title"
-                                name="./jcr:title"
-                                sling:resourceType="granite/ui/components/foundation/form/textfield"/>
+                                name="./jcr:title"/>
                         </items>
                     </column>
                 </items>
