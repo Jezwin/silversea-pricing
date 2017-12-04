@@ -4,10 +4,11 @@ $(function() {
             var $video = $(this);
             var asset = $video.data('video-asset');
             var autoplay = $video.data('video-autoplay') !== 'undefined' ? $video.data('video-autoplay') : '0'; // autoplay false by default
+
             var s7videoviewer = new s7viewers.VideoViewer({
                 'containerId' : $video.attr('id'),
                 'params' : {
-                	"VideoPlayer.ssl" : "on",
+                    'VideoPlayer.ssl' : 'on',
                     'serverurl' : window.location.origin + '/is/image',
                     'contenturl' : 'https://silversea.assetsadobe.com/',
                     'config' : 'etc/dam/presets/viewer/Video',
@@ -15,9 +16,26 @@ $(function() {
                     'posterimage' : asset,
                     'asset' : asset,
                     'autoplay' : autoplay.toString(),
-                    'initialbitrate' : '2600'
+                    'waiticon' : 1
                 }
-            }).init();
+            });
+
+            // Bind initComplete event before init()
+            s7videoviewer.setHandlers({
+                'initComplete' : function() {
+                    var $videoElement = $video.find('video');
+
+                    $videoElement.on('loadstart', function() {
+                        // Add loader (svg)
+                        $video.addClass('loading');
+                    }).on('loadeddata', function() {
+                        // remove loader
+                        $video.removeClass('loading');
+                    });
+                }
+            });
+
+            s7videoviewer.init()
         });
     };
 
