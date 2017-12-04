@@ -190,8 +190,8 @@ public class QuoteRequestUse extends WCMUsePojo {
 					// read property thumbnail, raqTitle and jcr:description
 					resourceResult = result.getHits().get(0).getResource();
 					Node node = resourceResult.adaptTo(Node.class);
-					Property propVal = node.getProperty("thumbnail");
-					raqModel.setThumbnail(propVal.getValue().toString());
+					Property propVal = node.getNode("image").getProperty("fileReference");
+					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image" + propVal.getValue().toString() + "?wid=360&fit=constrain");
 					if (selector.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
 						propVal = node.getProperty("jcr:title");
 						raqModel.setTitle(propVal.getValue().toString());
