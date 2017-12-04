@@ -9,9 +9,7 @@ import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
-import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.Value;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
@@ -34,6 +32,8 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.BrochureModel;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.models.ExclusiveOfferVariedModel;
 import com.silversea.aem.models.GeolocationTagModel;
 import com.silversea.aem.models.PriceModel;
 import com.silversea.aem.models.RequestQuoteModel;
@@ -193,10 +193,26 @@ public class QuoteRequestUse extends WCMUsePojo {
 					Property propVal = node.getNode("image").getProperty("fileReference");
 					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image" + propVal.getValue().toString() + "?wid=360&fit=constrain");
 					if (selector.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
-						propVal = node.getProperty("jcr:title");
-						raqModel.setTitle(propVal.getValue().toString());
-						propVal = node.getProperty("jcr:description");
-						raqModel.setDescription(propVal.getValue().toString());
+						//Create an EO model
+						//Loop on EO Variation if there is any match
+						//Then i will sety title and desc
+						Page page = getPageManager().getPage(node.getParent().getPath());
+						ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
+						
+						List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
+			        	for (ExclusiveOfferModel eoVar : availableEOVariation) {
+			        		String fullGeo = String.join("||", eoVar.getGeomarkets());
+			        		
+							if(fullGeo.contains("/" + siteCountry)){
+								if(!eoVar.getDescription().isEmpty()){
+									exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
+									exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
+								}
+							}
+						}
+
+						raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
+						raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
 					} else {
 						propVal = node.getProperty("raqTitle");
 						raqModel.setTitle(propVal.getValue().toString());
