@@ -1069,6 +1069,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Voir toutes les suites"/>
+    <view-more
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more"
+    	sling:message="En savoir plus" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
