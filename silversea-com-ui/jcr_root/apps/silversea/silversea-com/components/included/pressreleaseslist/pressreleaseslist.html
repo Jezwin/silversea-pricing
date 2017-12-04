@@ -5,7 +5,9 @@
     <div class="col-sm-6">
         <div class="c-pressreleaseslist__teaser">
             <div class="c-pressreleaseslist__image">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=pressRelease.thumbnail}" />
+            	<a href="${pressRelease.path @ extension='html'}">
+	                <sly data-sly-call="${imageTemplate.default @ imagePath=pressRelease.thumbnail}" />
+            	</a>
             </div>
             <div class="c-pressreleaseslist__description">
                 <h4 class="c-pressreleaseslist__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM dd, yyyy', date=pressRelease.publicationDate}">
