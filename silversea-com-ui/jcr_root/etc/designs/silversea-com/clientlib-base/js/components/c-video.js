@@ -9,7 +9,7 @@ $(function() {
                 'containerId' : $video.attr('id'),
                 'params' : {
                     'VideoPlayer.ssl' : 'on',
-                    'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
+                    'serverurl' : window.location.origin + '/is/image',
                     'contenturl' : 'https://silversea.assetsadobe.com/',
                     'config' : 'etc/dam/presets/viewer/Video',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
