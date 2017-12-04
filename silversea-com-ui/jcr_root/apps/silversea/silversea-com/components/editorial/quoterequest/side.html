@@ -16,7 +16,7 @@
 	            </li>
 	            <li data-sly-test="${quoteRequest.isSuiteRequested}" class="c-brochure__list__suite"><span class="hidden-xs">${'suite' @ i18n}:</span>
 	                <strong data-sly-test="${quoteRequest.isSuiteVariationRequested}"> ${quoteRequest.suiteName}</strong>
-	                <strong data-sly-test="${quoteRequest.isSuiteCategoryRequested}"> ${quoteRequest.suiteName @ i18n}</strong>
+	                <strong data-sly-test="${quoteRequest.isSuiteCategoryRequested}"> ${quoteRequest.selectedSuiteCategoryCode}</strong>
 	            </li>
 	        </ul>
 	    </div>
