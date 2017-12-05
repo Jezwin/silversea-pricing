@@ -216,6 +216,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-description-v2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>    
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -233,6 +237,10 @@
         jcr:primaryType="nt:folder"
         sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers.  Wählen Sie Ihre Suite und fordern Sie ein Angebot an - Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, ihre Suite zu wählen, belohnt."/>
     <cruise-suites-and-fares-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den großräumigsten aller Luxuskreuzfahrten.  Alle beinhalten die Dienste eines Butlers, dank dem höchsten Anteil an Servicepersonal auf See. Fast alle haben eine private Teak-Veranda, so dass Sie nur vor Ihre Tür treten müssen, um die frische Meeresluft einzuatmen. Wählen Sie Ihre Suite aus und fordern Sie ein Angebot an. Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, die gewünschte Suite auszuwählen, belohnt."/>
+    <cruise-suites-and-fares-descr-v2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silverseas Suiten mit Meeresblick gehören zu den großräumigsten aller Luxuskreuzfahrten.  Alle beinhalten die Dienste eines Butlers, dank dem höchsten Anteil an Servicepersonal auf See. Fast alle haben eine private Teak-Veranda, so dass Sie nur vor Ihre Tür treten müssen, um die frische Meeresluft einzuatmen. Wählen Sie Ihre Suite aus und fordern Sie ein Angebot an. Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, die gewünschte Suite auszuwählen, belohnt."/>

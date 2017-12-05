@@ -115,7 +115,8 @@
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
                         <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
                     </div>
-                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
+                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-hide" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
+                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-show" data-tab-target="#suitenfare-b-version">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
                     <script type="text/javascript">
                         $(document).ready(function () {
                             var pdfClicked = false;
@@ -179,4 +180,9 @@
             </div>
         </div>
     </div>
+   	<!--/* Suite and fares tab */-->
+   	<div id="suitenfare-b-version">
+	 	<sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
+	       		data-sly-call="${suitelist.abTestV2 @ cruise=cruise}" />
+   	</div>
 </template>

@@ -15,3 +15,15 @@
         </div>
     </div>
 </template>
+<template data-sly-template.abTestV2="${ @ cruise }">
+<div data-sly-resource="${'parCruiseIncluded' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+    <div class="c-cruise__fare">
+        <h3 class="c-cruise__subtitle">${'included-cruise-fare' @ i18n}</h3>
+        <div class="c-list--cruise-fare-additions__wrapper row opened">
+            <ul class="c-list c-list--cruise-fare-additions col-sm-6">
+                <li data-sly-repeat="${cruise.exclusiveOffersCruiseFareAdditions}"><strong>${item}</strong></li>
+                <li data-sly-repeat="${cruise.cruiseModel.cruiseFareAdditions}">${item}</li>
+           </ul>
+        </div>
+    </div>
+</template>
