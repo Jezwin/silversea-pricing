@@ -113,7 +113,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 			filterResources(brochuresRoot.listChildren(), brochuresNotLanguageFilteredNotOrdered);
 
 			if (brochureTagId != null) {
-				LOGGER.debug("Retrieve brochure {} group order: {}", brochureTagId);
+				LOGGER.debug("Retrieve brochure {} group order: {}", brochureTagId, brochureGroup);
 
 				Integer numBrochures = brochuresNotLanguageFilteredNotOrdered.size();
 				brochuresNotLanguageFiltered = new ArrayList<>();
@@ -131,6 +131,8 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 							brochureTemp.put(index, brochure);
 						}
 					}
+					
+					LOGGER.debug("Copy {} brochures from brochureTemp to brochuresNotLanguageFiltered", brochureTemp.size());
 					
 					brochureTemp.forEach((k, v) -> {
 						brochuresNotLanguageFiltered.add(v);
@@ -189,7 +191,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 			//create query to QueryBuilder. Search collection under /dam/collection
 			final Map<String, String> map = new HashMap<String, String>();
 			map.put("path", "/content/dam/collections/");
-			map.put("type", "sling:collection");
+			//map.put("type", "sling:collection");
 			map.put("tagid", brochureTagId);
 			QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
 			
