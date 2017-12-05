@@ -6,7 +6,7 @@
     <aboard
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="à bord"/>
+        sling:message="à bord du"/>
     <AC
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -464,7 +464,7 @@
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="De"/>
+        sling:message="a partir de"/>
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -525,7 +525,7 @@
     <in
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="in"/>
+        sling:message="depuis"/>
     <included-cruise-fare
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
