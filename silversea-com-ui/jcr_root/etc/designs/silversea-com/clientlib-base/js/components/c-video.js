@@ -16,12 +16,12 @@ $(function() {
                     'posterimage' : asset,
                     'asset' : asset,
                     'autoplay' : autoplay.toString(),
-                    'waiticon' : 1
+                   // 'waiticon' : 1
                 }
             });
 
             // Bind initComplete event before init()
-            s7videoviewer.setHandlers({
+            /*s7videoviewer.setHandlers({
                 'initComplete' : function() {
                     var $videoElement = $video.find('video');
 
@@ -33,7 +33,7 @@ $(function() {
                         $video.removeClass('loading');
                     });
                 }
-            });
+            });*/
 
             s7videoviewer.init()
         });
