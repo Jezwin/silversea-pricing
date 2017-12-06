@@ -116,9 +116,10 @@ public class QuoteRequestUse extends WCMUsePojo {
 
 		suffix = (suffix != null) ? suffix.replace(".html", "") : null;
 		final String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
+		final String[] splitSelector = (selector != null) ? StringUtils.split(selector, '.') : null;
 
 		if (selector != null && suffix != null) {
-			if (selector.equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
+			if (splitSelector[0].equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
 				prepareSelectedCruise(splitSuffix);
 			} else {
 				prepareRAQModelData(selector, splitSuffix);
