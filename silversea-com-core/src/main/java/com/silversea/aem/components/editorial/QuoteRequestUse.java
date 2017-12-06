@@ -122,7 +122,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 			if (splitSelector[0].equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
 				prepareSelectedCruise(splitSuffix);
 			} else {
-				prepareRAQModelData(selector, splitSuffix);
+				prepareRAQModelData(splitSelector[0], splitSuffix);
 			}
 		}
 
