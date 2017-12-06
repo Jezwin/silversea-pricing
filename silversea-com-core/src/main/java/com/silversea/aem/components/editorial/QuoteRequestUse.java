@@ -115,14 +115,15 @@ public class QuoteRequestUse extends WCMUsePojo {
 		String selector = getRequest().getRequestPathInfo().getSelectorString();
 
 		suffix = (suffix != null) ? suffix.replace(".html", "") : null;
-		final String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
-		final String[] splitSelector = (selector != null) ? StringUtils.split(selector, '.') : null;
-
+		String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
+		String[] splitSelector = (selector != null) ? StringUtils.split(selector, '.') : null;
+		
 		if (selector != null && suffix != null) {
-			if (splitSelector[0].equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
+			String finalSelector = splitSelector[0];
+			if (finalSelector.equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
 				prepareSelectedCruise(splitSuffix);
 			} else {
-				prepareRAQModelData(splitSelector[0], splitSuffix);
+				prepareRAQModelData(finalSelector, splitSuffix);
 			}
 		}
 
@@ -148,13 +149,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 	 * @param splitSuffix
 	 *            destinationId, shipId, exclusiveOfferId
 	 */
-	private void prepareRAQModelData(String splitSelector, String[] splitSuffix) {
+	private void prepareRAQModelData(String splitSelectorR, String[] splitSuffix) {
 		if (splitSuffix != null && splitSuffix.length > 0) {
 			// create QueryBuilder parameter
 			StringBuilder path = new StringBuilder("/content/silversea-com/");
 			path.append(LanguageHelper.getLanguage(getCurrentPage()));
 			String nodePath = null, template = null, property = null;
-			switch (splitSelector) {
+			switch (splitSelectorR) {
 			case WcmConstants.SELECTOR_SINGLE_DESTINATION:
 				path.append("/destinations");
 				template = WcmConstants.PAGE_TEMPLATE_DESTINATION;
@@ -187,13 +188,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 			if (result.getTotalMatches() > 0) {
 				Resource resourceResult;
 				try {
-					raqModel = new RequestQuoteModel(splitSuffix[0], splitSelector);
+					raqModel = new RequestQuoteModel(splitSuffix[0], splitSelectorR);
 					// read property thumbnail, raqTitle and jcr:description
 					resourceResult = result.getHits().get(0).getResource();
 					Node node = resourceResult.adaptTo(Node.class);
 					Property propVal = node.getNode("image").getProperty("fileReference");
 					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image" + propVal.getValue().toString() + "?wid=360&fit=constrain");
-					if (splitSelector.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
+					if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
 						//Create an EO model
 						//Loop on EO Variation if there is any match
 						//Then i will sety title and desc
