@@ -1,11 +1,11 @@
-<sly data-sly-use.portUse="com.silversea.aem.components.page.PortUse" />
+<sly data-sly-use.portUse="com.silversea.ssc.aem.models.PortUse" />
 <section class="o-section">                       
 <div class="c-tab__body">
 	<div class="port_v2">
 	    <sly data-sly-include="port_head.html" />
 	    <sly data-sly-include="port_headdescription.html" />
 	    <sly data-sly-include="port_common.html" />
-	    <sly data-sly-include="port_fyc.html" />
+	    <sly data-sly-test="${portuse.cruiseCounter > 0 }" data-sly-include="port_fyc.html" />
 	    <sly data-sly-test="${portUse.portModel.excursions}" data-sly-include="port_acordion_excursions.html" />
 	    <sly data-sly-test="${portUse.portModel.landPrograms}" data-sly-include="port_acordion_land.html" />
 	    <sly data-sly-test="${portUse.portModel.hotels}" data-sly-include="port_acordion_hotels.html" />
