@@ -148,13 +148,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 	 * @param splitSuffix
 	 *            destinationId, shipId, exclusiveOfferId
 	 */
-	private void prepareRAQModelData(String selector, String[] splitSuffix) {
+	private void prepareRAQModelData(String splitSelector, String[] splitSuffix) {
 		if (splitSuffix != null && splitSuffix.length > 0) {
 			// create QueryBuilder parameter
 			StringBuilder path = new StringBuilder("/content/silversea-com/");
 			path.append(LanguageHelper.getLanguage(getCurrentPage()));
 			String nodePath = null, template = null, property = null;
-			switch (selector) {
+			switch (splitSelector) {
 			case WcmConstants.SELECTOR_SINGLE_DESTINATION:
 				path.append("/destinations");
 				template = WcmConstants.PAGE_TEMPLATE_DESTINATION;
@@ -187,13 +187,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 			if (result.getTotalMatches() > 0) {
 				Resource resourceResult;
 				try {
-					raqModel = new RequestQuoteModel(splitSuffix[0], selector);
+					raqModel = new RequestQuoteModel(splitSuffix[0], splitSelector);
 					// read property thumbnail, raqTitle and jcr:description
 					resourceResult = result.getHits().get(0).getResource();
 					Node node = resourceResult.adaptTo(Node.class);
 					Property propVal = node.getNode("image").getProperty("fileReference");
 					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image" + propVal.getValue().toString() + "?wid=360&fit=constrain");
-					if (selector.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
+					if (splitSelector.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
 						//Create an EO model
 						//Loop on EO Variation if there is any match
 						//Then i will sety title and desc
