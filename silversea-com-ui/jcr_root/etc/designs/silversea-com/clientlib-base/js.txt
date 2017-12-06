@@ -25,3 +25,4 @@ components/c-gallery.js
 components/c-search.js
 components/c-search-cruise-hero.js
 components/c-archives.js
+components/t-port.js

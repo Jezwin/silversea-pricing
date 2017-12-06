@@ -1,0 +1,106 @@
+.container {
+	.footer-v2 {
+		padding: 0;
+	}
+}
+
+.footer-v2 {
+	max-width: 930px;
+	margin: 30px auto 0;
+
+	> .container {
+		padding: 0;
+	}
+
+	.row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+
+
+    .footer-v2-contact {
+        line-height: 14px;
+        line-height: 1;
+        padding: 30px 0;
+        font-weight: 700;
+        font-size: 12px;
+
+        .footer-v2-callbox {
+            padding: 20px;
+			position: relative;
+
+			&.footer-v2-callbox-desktop {
+				display: block;
+			}
+			&.footer-v2-callbox-mobile {
+				display: none;
+			}
+
+			p {
+				max-width: 98%;
+                margin: 0;
+				text-align: left;
+				vertical-align: middle;
+                font-size: 14px;
+				display: inline-block;
+                position: relative;
+
+                i {
+                    width: 35px;
+                    height: 35px;
+                    line-height: 31px;
+					margin: -17px 0 0;
+                    text-align: center;
+                    font-size: 18px;
+                    border: 2px solid black;
+                    border-radius: 50%;
+                    display: inline-block;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                }
+
+				span {
+					&.desktop {
+						display: inline-block;
+					}
+					&.mobile {
+						display: none;
+					}
+				}
+
+				strong {
+					font-size: 18px;
+				}
+            }
+
+			.col {
+				height: 40px;
+
+				&:before {
+			        content: '';
+			        height: 100%;
+			        vertical-align: middle;
+			        display: inline-block;
+			    }
+
+				&.col-left {
+					text-align: right;
+
+					p {
+						padding: 0 0 0 45px;
+					}
+				}
+
+				&.col-right {
+					text-align: left;
+				}
+
+
+			}
+        }
+
+
+    }
+}
