@@ -7,24 +7,17 @@
 			<div class="port_v2__section_content">
 				<div class="port_v2__expander">
 					<div data-sly-repeat.excursion="${portUse.portModel.excursions}" class="port_v2__expander_item">
-						<div data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description}">
-							<div class="port_v2__expander_header">
-								<div class="port_v2__expander_col port_v2__expander_col_title">${excursion.title}</div>
-								<div class="port_v2__expander_col port_v2__expander_col_toggle">
-									<a href="javascript:void(0);" class="port_v2__expander_open"><span>${'more-info' @i18n}</span> <i class="fa fa-angle-down"></i></a>
-									<a href="javascript:void(0);" class="port_v2__expander_close"><span>${'close' @i18n}</span> <i class="fa fa-angle-up"></i></a>
-								</div>
-							</div>
-							<div class="port_v2__expander_content">
-								<p align="justify" style="margin-bottom:0px;margin-top:0px">
-									${description @ context='html'}
-								</p>
+						<div class="port_v2__expander_header">
+							<div class="port_v2__expander_col port_v2__expander_col_title">${excursion.title}</div>
+							<div data-sly-test.description="${excursion.longDescription || excursion.apiLongDescription || excursion.description}" class="port_v2__expander_col port_v2__expander_col_toggle">
+								<a href="javascript:void(0);" class="port_v2__expander_open"><span>${'more-info' @i18n}</span> <i class="fa fa-angle-down"></i></a>
+								<a href="javascript:void(0);" class="port_v2__expander_close"><span>${'close' @i18n}</span> <i class="fa fa-angle-up"></i></a>
 							</div>
 						</div>
-						<div data-sly-test="${!description}">
-							<div class="port_v2__expander_header no_description">
-								<div class="port_v2__expander_col port_v2__expander_col_title">${excursion.title}</div>
-							</div>
+						<div data-sly-test="${excursion.longDescription || excursion.apiLongDescription || excursion.description}" class="port_v2__expander_content">
+							<p align="justify" style="margin-bottom:0px;margin-top:0px">
+								${description @ context='html'}
+							</p>
 						</div>
 					</div>
 				</div>
