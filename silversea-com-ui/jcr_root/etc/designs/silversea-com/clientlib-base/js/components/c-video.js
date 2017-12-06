@@ -17,7 +17,6 @@ $(function() {
                     'asset' : asset,
                     'autoplay' : autoplay.toString(),
                     'waiticon' : 1,
-                    'progressivebitrate' : '3000',
                     'initialbitrate' : '3000'
                 }
             });
