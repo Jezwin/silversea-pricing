@@ -25,6 +25,7 @@ public class PageHelper extends WCMUsePojo {
     private String thumbnail;
     private String thumbnailInherited;
     private Map<String, String> languagePages;
+    private String templateName;
 
     @Override
     public void activate() throws Exception {
@@ -124,7 +125,12 @@ public class PageHelper extends WCMUsePojo {
      */
     public String getTemplateName() {
         String path = getCurrentPage().getProperties().get(NameConstants.NN_TEMPLATE, String.class);
-        return PathUtils.getName(path);
+        templateName = PathUtils.getName(path);
+        return templateName;
+    }
+    
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
     }
 
     /**
