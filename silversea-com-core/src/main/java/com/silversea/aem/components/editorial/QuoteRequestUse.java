@@ -117,7 +117,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 		suffix = (suffix != null) ? suffix.replace(".html", "") : null;
 		String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
 		String[] splitSelector = (selector != null) ? StringUtils.split(selector, '.') : null;
-		
+
 		if (selector != null && suffix != null) {
 			String finalSelector = splitSelector[0];
 			if (finalSelector.equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT)) {
@@ -193,20 +193,21 @@ public class QuoteRequestUse extends WCMUsePojo {
 					resourceResult = result.getHits().get(0).getResource();
 					Node node = resourceResult.adaptTo(Node.class);
 					Property propVal = node.getNode("image").getProperty("fileReference");
-					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image" + propVal.getValue().toString() + "?wid=360&fit=constrain");
+					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image"
+							+ propVal.getValue().toString() + "?wid=360&fit=constrain");
 					if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
-						//Create an EO model
-						//Loop on EO Variation if there is any match
-						//Then i will sety title and desc
+						// Create an EO model
+						// Loop on EO Variation if there is any match
+						// Then I will set title and desc
 						Page page = getPageManager().getPage(node.getParent().getPath());
 						ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
-						
+
 						List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
-			        	for (ExclusiveOfferModel eoVar : availableEOVariation) {
-			        		String fullGeo = String.join("||", eoVar.getGeomarkets());
-			        		
-							if(fullGeo.contains("/" + siteCountry)){
-								if(!eoVar.getDescription().isEmpty()){
+						for (ExclusiveOfferModel eoVar : availableEOVariation) {
+							String fullGeo = String.join("||", eoVar.getGeomarkets());
+
+							if (fullGeo.contains("/" + siteCountry)) {
+								if (!eoVar.getDescription().isEmpty()) {
 									exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
 									exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
 								}
@@ -279,13 +280,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 							if (suiteCategory != null && price.getSuiteCategory().equals(suiteCategory)) {
 								selectedPrice = price;
 								selectedSuite = price.getSuite();
-                                selectedSuiteCategoryCode = price.getSuiteCategory();
+								selectedSuiteCategoryCode = price.getSuiteCategory();
 								lowestPrice = price;
 								isWaitList = price.isWaitList();
 
 								break;
 							} else if (suiteCategory == null) {
-							      selectedSuite = price.getSuite();
+								selectedSuite = price.getSuite();
 								if (!price.isWaitList()
 										&& (lowestPrice == null || price.getPrice() < lowestPrice.getPrice())) {
 									selectedSuite = price.getSuite();
@@ -305,7 +306,10 @@ public class QuoteRequestUse extends WCMUsePojo {
 	}
 
 	/**
-	 * TODO used
+	 * Get brochure information using the path inside the url
+	 * printed-form-lb.modalcontent
+	 * .html/content/dam/silversea-com/brochures/en/WorldCruise_Brochure_2018
+	 * .pdf.html
 	 */
 	public void prepareBrochureParameters() {
 		String selectedBrochurePath = getRequest().getRequestPathInfo().getSuffix();
@@ -313,7 +317,6 @@ public class QuoteRequestUse extends WCMUsePojo {
 		if (!StringUtils.isEmpty(selectedBrochurePath)) {
 			selectedBrochurePath = selectedBrochurePath.endsWith(".html") ? selectedBrochurePath.substring(0,
 					selectedBrochurePath.lastIndexOf('.')) : selectedBrochurePath;
-
 			final Resource assetResource = getResourceResolver().getResource(selectedBrochurePath);
 
 			if (assetResource != null) {
@@ -321,6 +324,11 @@ public class QuoteRequestUse extends WCMUsePojo {
 
 				if (asset != null) {
 					selectedBrochure = asset.adaptTo(BrochureModel.class);
+
+					raqModel = new RequestQuoteModel();
+					raqModel.setThumbnail(selectedBrochure.getCover());
+					raqModel.setTitle(selectedBrochure.getAssetTitle());
+
 				}
 			}
 		}
@@ -367,9 +375,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 
 		return true;
 	}
-	
+
 	public boolean isSideHtmlToShow() {
 		return (raqModel != null) && !(raqModel.getType().equalsIgnoreCase(WcmConstants.SELECTOR_FYC_RESULT));
+	}
+
+	public boolean showSideHtmlBrochure() {
+		return raqModel != null;
 	}
 
 	/**
@@ -378,9 +390,11 @@ public class QuoteRequestUse extends WCMUsePojo {
 	 * @return
 	 */
 	public String getSuiteName() {
-	      return selectedSuite.getTitle();
-	/*	return selectedPrice != null ? selectedSuite.getTitle() + " " + selectedPrice.getSuiteCategory()
-				: selectedSuite.getTitle();*/
+		return selectedSuite.getTitle();
+		/*
+		 * return selectedPrice != null ? selectedSuite.getTitle() + " " +
+		 * selectedPrice.getSuiteCategory() : selectedSuite.getTitle();
+		 */
 	}
 
 	/**
@@ -460,11 +474,10 @@ public class QuoteRequestUse extends WCMUsePojo {
 	public boolean isWaitList() {
 		return isWaitList;
 	}
-	
-	 public String getSelectedSuiteCategoryCode() {
-        return selectedSuiteCategoryCode;
-    }
 
+	public String getSelectedSuiteCategoryCode() {
+		return selectedSuiteCategoryCode;
+	}
 
 	/**
 	 * Collect the countries list - all the leaf of the tree starting with the

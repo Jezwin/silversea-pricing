@@ -1,7 +1,18 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Request Brochure"></div>
-<div class="c-quote-request-form">
+<div class="c-quote-request-form" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
+
+    ${quoteRequest.prepareBrochureParameters}
+
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2 c-call-request-form__form" data-sly-test="${properties.typeForm == 'online-form'}" data-sly-include="./form.html"></div>
-        <div class="col-sm-8 col-sm-offset-2 c-call-request-form__form" data-sly-test="${properties.typeForm == 'printed-form'}" data-sly-include="./form-printed.html"></div>
+    	<div data-sly-test="${quoteRequest.showSideHtmlBrochure}" class="col-sm-5 c-quote-request-form__side c-quote-request-form__side-B-version">
+	   		<sly data-sly-use.side="side.html" data-sly-call="${side.default @ item=quoteRequest }" />
+    	</div>
+   		<div data-sly-test="${properties.typeForm == 'online-form'}" class="col-sm-7 c-call-request-form__form c-quote-request-form__form">
+	   		<sly data-sly-use.form="form.html" data-sly-call="${form.default @ item=quoteRequest }" />
+   		</div>
+		<div data-sly-test="${properties.typeForm == 'printed-form'}" class="col-sm-7 c-call-request-form__form c-quote-request-form__form">
+	   		<sly data-sly-use.formPrinted="form-printed.html" data-sly-call="${formprinted.default @ item=quoteRequest }" />
+   		</div>
     </div>
+
 </div>
