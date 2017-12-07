@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-com</artifactId>
-        <version>1.9.S4-SNAPSHOT</version>
+        <version>${com.revision}</version>
     </parent>
 
     <!-- ====================================================================== -->
@@ -103,12 +103,12 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>silversea-com-cache-tools</artifactId>
-            <version>${project.version}</version>
+            <version>${com.revision}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>silversea-com-core</artifactId>
-            <version>${project.version}</version>
+            <version>${com.revision}</version>
         </dependency>
 
         <!-- Misc librairies dependencies -->
