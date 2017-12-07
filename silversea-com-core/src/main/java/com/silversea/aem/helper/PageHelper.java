@@ -19,6 +19,7 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.WCMException;
 import com.day.cq.wcm.msm.api.LiveRelationship;
 import com.day.cq.wcm.msm.api.LiveRelationshipManager;
+import com.silversea.aem.constants.WcmConstants;
 
 public class PageHelper extends WCMUsePojo {
     private Page page;
@@ -110,6 +111,24 @@ public class PageHelper extends WCMUsePojo {
      */
     public Page getPage() {
         return page;
+    }
+    
+    public Boolean isIndexable(){
+    	Boolean result = true;
+    	final String resourceType = page.getContentResource().getResourceType();
+    	result = !(page.getProperties().get("notIndexed", false)
+                || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
+                || WcmConstants.RT_HOTEL.equals(resourceType)
+                || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
+                || WcmConstants.RT_EXCURSIONS.equals(resourceType)
+                || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType)
+                || WcmConstants.RT_COMBO_SEGMENT.equals(resourceType)
+                || WcmConstants.RT_EXCLUSIVE_OFFER.equals(resourceType)
+                || WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION.equals(resourceType)
+                || WcmConstants.RT_LANDING_PAGE.equals(resourceType)
+                || WcmConstants.RT_LIGHTBOX.equals(resourceType));
+
+    	return result;
     }
 
     /**
