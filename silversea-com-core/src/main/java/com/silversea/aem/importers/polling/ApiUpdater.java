@@ -207,7 +207,7 @@ public class ApiUpdater implements Runnable {
 
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
-                            LOGGER.trace("{} page deactivated", node.getPath());
+                            LOGGER.info("{} page deactivated", node.getPath());
                         }
 
                         if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)
@@ -216,7 +216,7 @@ public class ApiUpdater implements Runnable {
 
                             node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
 
-                            LOGGER.trace("{} page activated", node.getPath());
+                            LOGGER.info("{} page activated", node.getPath());
                         }
 
                         successNumber++;
@@ -226,7 +226,7 @@ public class ApiUpdater implements Runnable {
                             try {
                                 session.save();
 
-                                LOGGER.debug("{} pages replicated, saving session", +j);
+                                LOGGER.info("{} pages replicated, saving session", +j);
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -247,7 +247,7 @@ public class ApiUpdater implements Runnable {
                 if (session.hasPendingChanges()) {
                     session.save();
 
-                    LOGGER.debug("{} pages replicated, saving session", +j);
+                    LOGGER.info("{} pages replicated, saving session", +j);
                 }
             } catch (RepositoryException e) {
                 try {
