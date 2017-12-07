@@ -2,3 +2,5 @@ Sitemap: http://www.silversea.com/sitemap-index.xml
 User-Agent: *
 Allow: /
 Disallow: /etc/*
+Disallow: /content/silversea-com/en/ports_genericblock_data
+Noindex: /content/silversea-com/en/ports_genericblock_data
