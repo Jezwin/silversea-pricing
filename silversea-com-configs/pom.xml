@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.silversea.aem</groupId>
         <artifactId>silversea-com</artifactId>
-        <version>${revision}</version>
+        <version>${com.revision}</version>
    </parent>
 
     <!-- ====================================================================== -->

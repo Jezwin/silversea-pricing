@@ -14,7 +14,7 @@
     <!-- P R O J E C T   D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>silversea-com</artifactId>
-    <version>${revision}</version>
+    <version>${com.revision}</version>
     <packaging>pom</packaging>
     <name>Silversea.com</name>
     <url />
@@ -24,7 +24,7 @@
     <!-- ====================================================================== -->
     <properties>
         <cq.project.name>silversea-com</cq.project.name>
-        <revision>2.0.S5-SNAPSHOT</revision>
+        <com.revision>2.0.S5-SNAPSHOT</com.revision>
     </properties>
 
     <!-- ====================================================================== -->
