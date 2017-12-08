@@ -793,7 +793,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 
-    /**
+	/**
      * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
      */
     public class CruiseItem {
