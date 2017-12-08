@@ -1,4 +1,9 @@
-<div data-sly-use.portUse="com.silversea.ssc.aem.models.PortUse" class="container">
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"
+	data-sly-use.portUse="com.silversea.ssc.aem.models.PortUse"
+	data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+	data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
+	/>
+<div class="container" data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
 	<!--googleoff: all-->
 	<noindex>
 		<!--noindex-->
@@ -9,10 +14,18 @@
 			<div class="port_v2__section_content">
 				<div class="port_v2__imagetext">
 					<div class="row">
-						<div class="col-sm-6 hidden-xs"></div>
+						<div class="col-sm-6 hidden-xs">
+							<div class="c-cruise">
+								<div class="c-tab__content--overview">
+									<div class="voyageimg">
+										<sly data-sly-call="${galleryTemplate.listImage @ list = portUse.portGenericBlockBean.sliderItems, imageTemplate = imageTemplate}" />
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="col-sm-6">
 							<div class="port_v2__imagetext_text">
-								<p>${portUse.portGenericBlockBean.description @ context="html"}</p>								
+								<p>${portUse.portGenericBlockBean.description @ context="html"}</p>
 								<div class="port_v2__imagetext_text_cta">
 									<div class="button parbase aem-GridColumn--tablet--12 aem-GridColumn--phone--12 aem-GridColumn aem-GridColumn--tablet--newline aem-GridColumn--default--2">
 										<div class="text-center">
