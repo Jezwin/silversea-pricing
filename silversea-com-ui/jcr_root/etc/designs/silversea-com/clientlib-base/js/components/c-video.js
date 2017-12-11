@@ -10,15 +10,12 @@ $(function() {
                 'params' : {
                     'ssl' : 'on',
                     'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
-                    'contenturl' : 'https://silversea.assetsadobe.com/',
-                    'config' : 'etc/dam/presets/viewer/Video',
+                    'contenturl' : 'https://silversea.assetsadobe2.com/',
+                    'config' : '/etc/dam/presets/viewer/Video',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
                     'posterimage' : asset,
                     'asset' : asset,
-                    'autoplay' : autoplay.toString(),
-                    'waiticon' : 1,
-                    'progressivebitrate' : '3000',
-                    'initialbitrate' : '3000'
+                    'autoplay' : autoplay.toString()
                 }
             });
 
