@@ -1184,6 +1184,10 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="an-introduction-to-silversea-cruises"
 	    sling:message="An Introduction to Silversea Cruises"/>
+	<an-introduction-to-silversea-expeditions
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-expeditions"
+	    sling:message="An Introduction to Silversea Expeditions"/>
 	<view-our-brochures
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-our-brochures"
