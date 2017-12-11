@@ -9,7 +9,8 @@
 		<!--noindex-->
 		<div class="port_v2__section">
 			<div class="port_v2__section_header">
-				<h3 class="port_v2__section_title"><span>${'an-introduction-to-silversea-cruises' @i18n}</span></h3>
+				<h3 data-sly-test="${portUse.portType != 'expedition'}" class="port_v2__section_title"><span>${'an-introduction-to-silversea-cruises' @i18n}</span></h3>
+				<h3 data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_title"><span>${'an-introduction-to-silversea-expeditions' @i18n}</span></h3>
 			</div>
 			<div class="port_v2__section_content">
 				<div class="port_v2__imagetext">
