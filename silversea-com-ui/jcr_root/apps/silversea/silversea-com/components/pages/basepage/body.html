@@ -2,7 +2,7 @@
 <sly data-sly-include="pagecontent.html" />
 <footer class="c-footer" data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/footer'}"></footer>
 <sly data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse" />
-<div data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper" data-sly-test="${pageHelper.templateName != 'port'}" class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}">
+<div class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}">
     <div data-sly-test="${wcmmode.edit || cookieDisclaimerUse.showCookieMsg}" data-sly-resource="${'cookie-disclaimer' @ resourceType='silversea/silversea-com/components/included/cookiedisclaimer'}"></div>
     <div data-sly-test="${inheritedPageProperties.showFloatingBar}" data-sly-resource="${'floating-bar' @ resourceType='silversea/silversea-com/components/included/floatingbar'}"></div>
 </div>
