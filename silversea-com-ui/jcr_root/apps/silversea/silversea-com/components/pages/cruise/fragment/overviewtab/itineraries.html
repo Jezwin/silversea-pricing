@@ -1,16 +1,30 @@
 <template data-sly-template.default="${ @ cruise }">
     <div class="c-cruise__itineraries">
         <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
-        <p class="c-cruise__descr ab-test-v2-hide">
-            ${'cruise-itinerary-description' @ i18n}
-            <br/>
-            <a href="" data-tab-target="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
-        </p>
-        <p class="c-cruise__descr ab-test-v2-show">
-            ${'cruise-itinerary-description-v2' @ i18n}
-            <br/>
-            <a href="" id="cruise-itinerary-link-ab-test-v2"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
-        </p>
+        <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+	        <p class="c-cruise__descr ab-test-v2-hide">
+	            ${'cruise-itinerary-description' @ i18n}
+	            <br/>
+	            <a href="" data-tab-target="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	        </p>
+	        <p class="c-cruise__descr ab-test-v2-show">
+	            ${'cruise-itinerary-description-v2' @ i18n}
+	            <br/>
+	            <a href="" id="cruise-itinerary-link-ab-test-v2"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	        </p>
+        </sly>
+        <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+	        <p class="c-cruise__descr ab-test-v2-hide">
+	            ${'cruise-itinerary-description-expedition' @ i18n}
+	            <br/>
+	            <a href="" data-tab-target="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	        </p>
+	        <p class="c-cruise__descr ab-test-v2-show">
+	            ${'cruise-itinerary-description-v2-expedition' @ i18n}
+	            <br/>
+	            <a href="" id="cruise-itinerary-link-ab-test-v2"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	        </p>
+        </sly>
         
 
         <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"

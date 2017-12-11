@@ -209,7 +209,15 @@
         sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
     <cruise-itinerary-description-v2
         jcr:primaryType="sling:MessageEntry"
-        sling:key="cruise-itinerary-description"
+        sling:key="cruise-itinerary-description-v2"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
+    <cruise-itinerary-description-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description-expedition"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
+    <cruise-itinerary-description-v2-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description-v2-expedition"
         sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
     <cruise-itinerary-link
         jcr:primaryType="sling:MessageEntry"
@@ -223,9 +231,17 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-ship-restaurant-description"
         sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-restaurant-description-expedition"
+        sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service."/>
     <cruise-ship-suite-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-ship-suite-description"
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite."/>
+    <cruise-ship-suite-description-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-suite-description-expedition"
         sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite."/>
     <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
@@ -233,7 +249,7 @@
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
     <cruise-suites-and-fares-descr-v2
         jcr:primaryType="sling:MessageEntry"
-        sling:key="cruise-suites-and-fares-descr"
+        sling:key="cruise-suites-and-fares-descr-v2"
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
     <cruise-type
         jcr:primaryType="sling:MessageEntry"
