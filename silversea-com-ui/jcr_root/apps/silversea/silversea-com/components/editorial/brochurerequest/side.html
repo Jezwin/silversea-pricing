@@ -6,8 +6,8 @@
 		<sly data-sly-test="${item.raqModel}"> <img class="hidden-xs"
 			src="${item.raqModel.thumbnail}" />
 			<div class="c-quote-request-side__inner">
-				<h3 class="c-quote-request-side__inner__title">${item.raqModel.title}</h3>
-				<p class="c-quote-request-side__inner__description">${item.raqModel.description}</p>
+				<h3 class="c-quote-request-side__inner__title">${item.raqModel.title @ context='html'}</h3>
+				<p class="c-quote-request-side__inner__description">${item.raqModel.description @ context='html'}</p>
 			</div>
 		</sly>
 	</div>

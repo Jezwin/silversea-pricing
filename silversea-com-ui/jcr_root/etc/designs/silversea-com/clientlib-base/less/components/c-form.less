@@ -195,6 +195,45 @@
         }
     }
     
+    .postalcode {
+    	margin-bottom: 0px;
+    	.with-errors {
+    		position: relative;
+    		@media (min-width: 768px) {
+	    		width:200%;
+	    		left: 1px;
+    			
+    		}
+    	}
+    	
+    	.feedback-error {
+    		right: -6px;
+    	}
+    	
+    	.feedback-success {
+    		right: -13px;
+    	}
+    }
+    
+    .city {
+    	.with-errors {
+    		margin-right: 12px;	
+    	}
+    	
+    	.feedback-error {
+    		right: -11px;
+    	}
+    	
+    	.feedback-success {
+    		right: -20px;
+    	}
+    }
+    
+    .select-country {
+    	@media (min-width: 768px) {
+			width: 50%;    	
+    	}
+    }
 
     .input--title {
         .chosen-single {
