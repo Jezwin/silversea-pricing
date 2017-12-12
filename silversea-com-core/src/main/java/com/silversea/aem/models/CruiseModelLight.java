@@ -46,7 +46,9 @@ public class CruiseModelLight {
     private List<FeatureModel> features = new ArrayList<>();
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
-
+    
+    private List<ItineraryModel> itineraries;
+    
     public CruiseModelLight(CruiseModel cruiseModel) {
 
         title = cruiseModel.getTitle();
@@ -78,7 +80,7 @@ public class CruiseModelLight {
         exclusiveOffers = cruiseModel.getExclusiveOffers();
 
         isVisible = cruiseModel.isVisible();
-
+        itineraries = cruiseModel.getItineraries();
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
             ports.add(new PortItem(itinerary.getPort().getName(), itinerary.getPort().getApiTitle()));
         }
@@ -208,4 +210,9 @@ public class CruiseModelLight {
     public String getDestinationId() {
         return destinationId;
     }
+
+	public List<ItineraryModel> getItineraries() {
+		return itineraries;
+	}
+
 }
