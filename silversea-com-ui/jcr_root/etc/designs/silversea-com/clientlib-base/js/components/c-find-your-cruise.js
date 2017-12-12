@@ -40,11 +40,29 @@ $(function() {
                     });
                 }
             });
+            
+            if (window.history.pushState) {
+            	var currentUrl = window.location.href;
+            	var currentUrlSplit = currentUrl.split('/');
+            	var lastPart = currentUrlSplit[currentUrlSplit.length -1];
+            	var firstUsedPart = currentUrlSplit.slice(0, -1).join('/');
+            	var slingSplit = lastPart.split('.');
+            	var pageName = slingSplit[0];
+            	var slingParameterNew = ["destination_" + $('#current-destination-filter').val(), 
+            	                         "date_" + $('#current-date-filter').val(),
+            	                         "ship_" + $('#current-ship-filter').val(),
+            	                         "duration_" + $('#current-duration-filter').val(),
+            	                         "cruisetype_" + $('#current-cruisetype-filter').val(),
+            	                         "port_" + $('#current-port-filter').val(),
+            	                         "page_" + $('#current-page-filter').val()];
+            	window.history.pushState({},null, firstUsedPart + '/' + pageName + '.' + slingParameterNew.join('.') + ".html");
+            }
 
-            $form.find('.destination-filter, .date-filter, .ship-filter').each(function() {
+            $form.find('.destination-filter, .date-filter, .ship-filter, .duration-filter, .cruisetype-filter, .port-filter').each(function() {
                 var $select = $(this);
                 var currentFilter = $('#current-' + $select.attr('name') + '-filter').val();
-
+                //console.log("current filter for " + $select.attr('name') + " haa : " + $('#current-' + $select.attr('name') + '-filter').val());
+               
                 $select.find('option').each(function() {
                     var $option = $(this);
                     $option.attr('selected', $option.val() === currentFilter);
