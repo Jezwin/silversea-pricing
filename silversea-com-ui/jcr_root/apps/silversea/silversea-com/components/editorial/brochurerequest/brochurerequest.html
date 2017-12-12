@@ -5,3 +5,22 @@
         <div class="col-sm-8 col-sm-offset-2 c-call-request-form__form" data-sly-test="${properties.typeForm == 'printed-form'}" data-sly-include="./form-printed.html"></div>
     </div>
 </div>
+<script>
+//Refresh Global Mbox function
+function TargetOffer(){
+  adobe.target.getOffer({  
+  "mbox": "target-global-mbox",  
+  "success": function(offers) {          
+        adobe.target.applyOffer( { 
+           "mbox": "target-global-mbox",
+           "offer": offers 
+        } );
+  },  
+  "error": function(status, error) {          
+    
+  },
+"timeout": 5000
+});
+} TargetOffer()
+
+</script>
