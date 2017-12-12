@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
@@ -216,8 +217,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 						raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
 						raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
 					} else {
+						//raqTitle as title to show
 						propVal = node.getProperty("raqTitle");
 						raqModel.setTitle(propVal.getValue().toString());
+						
+						//jcr:description as description to show
+						propVal = node.getProperty(JcrConstants.JCR_DESCRIPTION);
+						raqModel.setDescription(propVal.getValue().toString());
 					}
 				} catch (Exception e) {
 					LOGGER.error("Error during retrieving raqModel data");
