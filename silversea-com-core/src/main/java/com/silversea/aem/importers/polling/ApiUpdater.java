@@ -43,6 +43,9 @@ public class ApiUpdater implements Runnable {
     private CitiesImporter citiesImporter;
 
     @Reference
+    private TravelAgenciesImporter agenciesImporter;
+
+    @Reference
     private HotelsImporter hotelsImporter;
 
     @Reference
@@ -163,6 +166,10 @@ public class ApiUpdater implements Runnable {
             }
 
             comboCruisesImporter.markSegmentsForActivation();
+
+            //update travel agencies
+            importResult = agenciesImporter.importAllItems();
+            LOGGER.info("Agencies import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
