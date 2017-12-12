@@ -81,28 +81,32 @@
 		        <div class="help-block with-errors"></div>
 		    </div>
 		    <div class="hideArea" style="display:none;">
-		        <div class="form-group form-group-lg has-feedback">
-		            <input style="float: left; width:35%;" type="text"
-		                   name="postalcode"
-		                   class="form-control"
-		                   value=""
-		                   placeholder="${'postal-code' @ i18n}*"
-		                   data-cityzip="city"
-		                   data-cityzip-error="${'required-postal-code-and-city' @ i18n}"
-		                   data-required-error="${'required-postal-code-and-city' @ i18n}"
-		                   required/>
-		            <input style="float: right; width:63%;" type="text"
-		                   name="city"
-		                   class="form-control"
-		                   value=""
-		                   placeholder="${'city' @ i18n}*"
-		                   data-cityzip="postalcode"
-		                   data-cityzip-error="${'required-postal-code-and-city' @ i18n}"
-		                   data-required-error="${'required-postal-code-and-city' @ i18n}"
-		                   required/>
-		            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-		            <div class="help-block with-errors"></div>
-		        </div>
+		    	<div class="row">
+			        <div class="col-sm-4 form-group form-group-lg has-feedback postalcode">
+			            <input type="text"
+			                   name="postalcode"
+			                   class="form-control"
+			                   value=""
+			                   placeholder="${'postal-code' @ i18n}*"
+			                   data-required-error="${'required-postal-code-and-city' @ i18n}"
+			                   required/>
+			            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+			            <div class="help-block with-errors"></div>
+			            <input type="hidden" name="postalcode" />
+			        </div>
+			        <div class="col-sm-8 form-group form-group-lg has-feedback">
+			            <input type="text"
+			                   name="city"
+			                   class="form-control"
+			                   value=""
+			                   placeholder="${'city' @ i18n}*"
+			                   data-required-error="${'required-postal-code-and-city' @ i18n}"
+			                   required/>
+			            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+			            <div class="help-block with-errors"></div>
+			            <input type="hidden" name="city" />
+			        </div>
+		    	</div>
 		        <div class="clearfix"></div>
 		        <div class="form-group form-group-lg has-feedback input--state" style="width:50%; margin-top:15px;" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
 		            <select name="country" class="form-control chosen chosen-with-search" required data-error="${'required-state' @ i18n}">
