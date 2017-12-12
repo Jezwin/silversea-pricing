@@ -107,7 +107,8 @@ public class SitemapModel {
                         || WcmConstants.RT_COMBO_SEGMENT.equals(resourceType)
                         || WcmConstants.RT_EXCLUSIVE_OFFER.equals(resourceType)
                         || WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION.equals(resourceType)
-                        || WcmConstants.RT_LANDING_PAGE.equals(resourceType));
+                        || WcmConstants.RT_LANDING_PAGE.equals(resourceType)
+                        || WcmConstants.RT_LIGHTBOX.equals(resourceType));
             }
 
             return true;
