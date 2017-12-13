@@ -128,24 +128,26 @@
                                     pdfClicked = true;
 									$('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
-                                    
-                                    setTimeout(function(){
-                                    $.ajax({
-                                        url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
-                                        beforeSend: function(){
 
-                                    		downloadWin = window.open('', '_blank');
-                                    		downloadWin.blur();
-                                    		currentWindow.focus();    
-                                        },
-                                        success: function(r) {
-	                                        $('.voyageshare_wrap .fa-refresh').hide();
-	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                            downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                    ajax_download('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.${cruise.cruiseModel.cruiseCode @ context="scriptString"}.pdf');									console.log('share pdf download');
+
+
+                                    // Check PDF Download
+                                    createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', '0');
+                                    clearInterval(listenPdfInterval);
+                                    var listenPdfInterval = setInterval(function(){
+                                        if(readCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}') === '0') {
+                                            console.log('Loading PDF...');
+                                        } else {
+                                            console.log('PDF LOADED!');
+                                            clearInterval(listenPdfInterval);
+                                            $('.voyageshare_wrap .fa-refresh').hide();
+                                            $('.voyageshare_wrap .fa-file-pdf-o').show();                         
+                                            createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', 0, -1);
                                             pdfClicked = false;
                                         }
-                                    });
-                                    }, 500);
+                                    }, 1000);
+
                                 }
                             });
 
@@ -174,6 +176,57 @@
                                 }
                             });
                         });	
+						function ajax_download(url, data) {
+								var $iframe,
+									iframe_doc,
+									iframe_html;
+
+								if (($iframe = $('#download_iframe')).length === 0) {
+									$iframe = $("<iframe id='download_iframe'" +
+												" style='display: none' src='about:blank'></iframe>"
+											   ).appendTo("body");
+								}
+
+								iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
+								if (iframe_doc.document) {
+									iframe_doc = iframe_doc.document;
+								}
+
+								iframe_html = "<html><head></head><body><form method='GET' action='" +
+											  url +"'></form>" +
+											  "</body></html>";
+
+								iframe_doc.open();
+								iframe_doc.write(iframe_html);
+								$(iframe_doc).find('form').submit();
+							}
+						function createCookie(name, value, days) {
+								var expires;
+								if (days) {
+									var date = new Date();
+									date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+									expires = "; expires=" + date.toGMTString();
+								}
+								else {
+									expires = "";
+								}
+								document.cookie = name + "=" + value + expires + "; path=/";
+							}
+
+						function readCookie(c_name) {
+								if (document.cookie.length > 0) {
+									c_start = document.cookie.indexOf(c_name + "=");
+									if (c_start != -1) {
+										c_start = c_start + c_name.length + 1;
+										c_end = document.cookie.indexOf(";", c_start);
+										if (c_end == -1) {
+											c_end = document.cookie.length;
+										}
+										return unescape(document.cookie.substring(c_start, c_end));
+									}
+								}
+								return "";
+							}
                     </script>
                 </div>
 
