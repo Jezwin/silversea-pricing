@@ -26,3 +26,4 @@ components/c-search.js
 components/c-search-cruise-hero.js
 components/c-archives.js
 components/t-port.js
+components/c-portdest.js
