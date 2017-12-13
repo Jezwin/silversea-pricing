@@ -113,7 +113,11 @@
                     </div>
                     <div class="voyageshare_wrap">
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
-                        <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
+						<div id="social_shares_wrapper" style="display:inline-block;width:94px;overflow:hidden;margin:0 3px;vertical-align:middle;height:30px">
+                            <div id="social_shares" style="width:70px;margin-top:-3px" class="jssocials">
+                                
+                            </div>
+                        </div>
                     </div>
                     <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-hide" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
                     <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-show" data-tab-target="#suitenfare-b-version">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
@@ -173,6 +177,17 @@
                                     });
                                 }
                             });
+							var cruiseTypeText = '';
+                            if(${(cruise.cruiseModel.cruiseType == 'silversea-expedition') @ context='scriptString'}){ cruiseTypeText='${'expedition-cruise' @ i18n,context='scriptString'}' } else{cruiseTypeText='${'cruise' @ i18n,context='scriptString'}'};
+                            var shareText  = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
+
+                            $("#social_shares").jsSocials({
+							  showLabel: false,
+							  showCount: false,
+							  shareIn: "popup",
+							  text: shareText ,
+							  shares: ["facebook", "twitter", "googleplus"]
+							 });
                         });	
                     </script>
                 </div>
