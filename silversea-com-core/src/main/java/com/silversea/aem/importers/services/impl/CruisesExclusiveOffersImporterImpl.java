@@ -181,7 +181,7 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
                                         final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
                                         final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
 
-                                        if (startDate.after(Calendar.getInstance()) || isVisible) {
+                                        if (startDate.after(Calendar.getInstance()) && isVisible) {
                                         	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                                         }
                                         LOGGER.trace("Writing exclusive offers paths {} in cruise {}",
