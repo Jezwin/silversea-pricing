@@ -466,11 +466,11 @@
     <g1
         jcr:primaryType="sling:MessageEntry"
         sling:key="G1"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <g2
         jcr:primaryType="sling:MessageEntry"
         sling:key="G2"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:primaryType="sling:MessageEntry"
         sling:key="GBP"
@@ -650,11 +650,11 @@
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
-        sling:message="Owner's"/>
+        sling:message="Owner's 1"/>
     <o2
         jcr:primaryType="sling:MessageEntry"
         sling:key="O2"
-        sling:message="Owner"/>
+        sling:message="Owner's 2"/>
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
@@ -754,11 +754,11 @@
     <r1
         jcr:primaryType="sling:MessageEntry"
         sling:key="R1"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <r2
         jcr:primaryType="sling:MessageEntry"
         sling:key="R2"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:primaryType="sling:MessageEntry"
         sling:key="read-less"
