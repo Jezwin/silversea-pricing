@@ -8,6 +8,7 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.models.*;
 import com.silversea.aem.services.CruisesCacheService;
+
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -35,17 +36,17 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     private Map<String, Map<String, CruiseModelLight>> cruisesByCode = new HashMap<>();
 
-    private Map<String, List<DestinationModel>> destinations = new HashMap<>();
+    private Map<String, List<DestinationModelLight>> destinations = new HashMap<>();
 
-    private Map<String, List<ShipModel>> ships = new HashMap<>();
+    private Map<String, List<ShipModelLight>> ships = new HashMap<>();
 
-    private Map<String, List<PortModel>> ports = new HashMap<>();
+    private Map<String, List<PortModelLight>> ports = new HashMap<>();
 
     private Map<String, Set<Integer>> durations = new HashMap<>();
 
     private Map<String, Set<YearMonth>> departureDates = new HashMap<>();
 
-    private Map<String, Set<FeatureModel>> features = new HashMap<>();
+    private Map<String, Set<FeatureModelLight>> features = new HashMap<>();
 
     @Override
     public void buildCruiseCache() {
@@ -72,14 +73,14 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 ports.put(lang, new ArrayList<>());
                 durations.put(lang, new TreeSet<>());
                 departureDates.put(lang, new TreeSet<>());
-                features.put(lang, new TreeSet<>(Comparator.comparing(FeatureModel::getName)));
+                features.put(lang, new TreeSet<>(Comparator.comparing(FeatureModelLight::getName)));
 
                 // collect cruises
                 final Page destinationsPage = pageManager.getPage("/content/silversea-com/" + lang + "/destinations");
                 collectCruisesPages(destinationsPage);
-                destinations.get(lang).sort(Comparator.comparing(DestinationModel::getTitle));
-                ships.get(lang).sort(Comparator.comparing(ShipModel::getTitle));
-                ports.get(lang).sort(Comparator.comparing(PortModel::getApiTitle));
+                destinations.get(lang).sort(Comparator.comparing(DestinationModelLight::getTitle));
+                ships.get(lang).sort(Comparator.comparing(ShipModelLight::getTitle));
+                ports.get(lang).sort(Comparator.comparing(PortModelLight::getApiTitle));
             }
 
             int i = 0;
@@ -104,17 +105,17 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public List<DestinationModel> getDestinations(final String lang) {
+    public List<DestinationModelLight> getDestinations(final String lang) {
         return destinations.get(lang);
     }
 
     @Override
-    public List<ShipModel> getShips(final String lang) {
+    public List<ShipModelLight> getShips(final String lang) {
         return ships.get(lang);
     }
 
     @Override
-    public List<PortModel> getPorts(final String lang) {
+    public List<PortModelLight> getPorts(final String lang) {
         return ports.get(lang);
     }
 
@@ -129,7 +130,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public Set<FeatureModel> getFeatures(final String lang) {
+    public Set<FeatureModelLight> getFeatures(final String lang) {
         return features.get(lang);
     }
 
@@ -186,18 +187,18 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
                 cruisesByCode.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
 
                 if (cruiseModel.getDestination() != null
-                        && !destinations.get(lang).contains(cruiseModel.getDestination())) {
-                    destinations.get(lang).add(cruiseModel.getDestination());
+                        && !destinations.get(lang).contains(new DestinationModelLight(cruiseModel.getDestination()))) {
+                    destinations.get(lang).add(new DestinationModelLight(cruiseModel.getDestination()));
                 }
 
-                if (cruiseModel.getShip() != null && !ships.get(lang).contains(cruiseModel.getShip())) {
-                    ships.get(lang).add(cruiseModel.getShip());
+                if (cruiseModel.getShip() != null && !ships.get(lang).contains(new ShipModelLight(cruiseModel.getShip()))) {
+                    ships.get(lang).add(new ShipModelLight(cruiseModel.getShip()));
                 }
 
                 if (cruiseModel.getItineraries() != null) {
                     for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                        if (itinerary.getPort() != null && !ports.get(lang).contains(itinerary.getPort())) {
-                            ports.get(lang).add(itinerary.getPort());
+                        if (itinerary.getPort() != null && !ports.get(lang).contains(new PortModelLight(itinerary.getPort()))) {
+                            ports.get(lang).add(new PortModelLight(itinerary.getPort()));
                         }
                     }
                 }
@@ -211,8 +212,14 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
                 departureDates.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
                         cruiseModel.getStartDate().get(Calendar.MONTH) + 1));
-
-                features.get(lang).addAll(cruiseModel.getFeatures());
+                List<FeatureModel> tmpFeat = cruiseModel.getFeatures();
+                List<FeatureModelLight> tmpFeatLight = new ArrayList<>();
+                for (FeatureModel featureModel : tmpFeat) {
+					tmpFeatLight.add(new FeatureModelLight(featureModel));
+				}
+                features.get(lang).addAll(tmpFeatLight);
+                tmpFeat = null;
+                tmpFeatLight = null;
 
                 LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
             }
