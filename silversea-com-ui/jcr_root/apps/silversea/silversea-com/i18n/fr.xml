@@ -6,7 +6,7 @@
     <aboard
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="à bord"/>
+        sling:message="à bord du"/>
     <AC
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -196,6 +196,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Capacité équipage"/>
+     <cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="croisière"/>
     <cruise-enrichments-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -315,7 +319,7 @@
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Dir."/>
+        sling:message="Sir"/>
     <discover-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -393,6 +397,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Excursions"/>
+     <expedition-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="croisière d'expedition"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -472,15 +480,15 @@
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="De"/>
+        sling:message="a partir de"/>
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <G2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -533,7 +541,7 @@
     <in
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="in"/>
+        sling:message="depuis"/>
     <included-cruise-fare
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -665,11 +673,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner's"/>
+        sling:message="Owner's 1"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner"/>
+        sling:message="Owner's 2"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -766,11 +774,11 @@
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <R2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

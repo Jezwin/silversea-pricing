@@ -192,6 +192,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Capacidade da tripulação"/>
+    <cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="cruzeiro"/>
     <cruise-enrichments-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -311,7 +315,7 @@
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Dir"/>
+        sling:message="Sir"/>
     <discover-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -389,6 +393,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Excursões"/>
+    <expedition-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="cruzeiro de expedição"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -472,11 +480,11 @@
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <G2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -661,11 +669,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Proprietário"/>
+        sling:message="Owner's 1"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Proprietário"/>
+        sling:message="Owner's 2"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -761,11 +769,11 @@
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <R2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -945,7 +953,7 @@
     <SL
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Prateado"/>
+        sling:message="Silver"/>
     <starting
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
