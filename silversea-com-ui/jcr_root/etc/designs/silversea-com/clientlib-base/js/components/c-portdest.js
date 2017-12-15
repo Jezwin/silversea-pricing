@@ -37,11 +37,11 @@
                 $.each(port.related_destinations, function(k, v){
                     destinations.push(v.dest_name);
                 });
-                results += "<div class='ports'><span class='port-name'>"+port.port_name+"</span><span class='port-destinations'>"+destinations.join(',')+"</span></div>";
+                results += "<a href='"+port.port_path+".html' class='clearfix c-find-port__result__link'><span class='col-sm-5 c-find-port__result__city'>"+port.port_name+"</span><span class='col-sm-7 c-find-port__result__destination'>"+destinations.join(',')+"</span></a>";
             }
         });
 
-        $('.result-set').html(results);
+        $('.c-find-port__result-list').html(results);
     }
 
     function setCounter(){

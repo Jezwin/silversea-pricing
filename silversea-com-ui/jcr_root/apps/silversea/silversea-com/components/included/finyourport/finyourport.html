@@ -41,7 +41,7 @@
                     <div class="col-sm-7">${'destination' @ i18n}</div>
                 </div>
             </div>
-
+		<div class="c-find-port__result-list">
 		    <a data-sly-repeat="${portdest.portsGlossary}" href="${item.path @ extension='html'}"
                 class="clearfix c-find-port__result__link">
                 <span class="col-sm-5 c-find-port__result__city">${item.name}</span>
@@ -49,6 +49,7 @@
                 	${item.destinations}
                  </span>
             </a>
+         </div>                                                                                                     
 
     </div>
 </div>
