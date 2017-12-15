@@ -68,7 +68,9 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
                             CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
 
                             if (cruiseModel != null) {
-                                cruisesCacheService.addOrUpdateCruise(new CruiseModelLight(cruiseModel), cruiseModel.getLang());
+                            	CruiseModelLight cruiseTemp = new CruiseModelLight(cruiseModel);
+                                //cruisesCacheService.addOrUpdateCruise(cruiseTemp, cruiseModel.getLang());
+                                cruiseTemp = null;
                                 cruiseModel = null;
                             }
                         }
