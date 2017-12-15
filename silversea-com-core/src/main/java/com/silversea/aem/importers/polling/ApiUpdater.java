@@ -174,7 +174,11 @@ public class ApiUpdater implements Runnable {
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
             replicateModifications("/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
             replicateModifications("/jcr:root/etc/tags//element(*,cq:Tags)[toDeactivate or toActivate]");
         } else {
             LOGGER.debug("API updater service run only on author instance");
@@ -191,7 +195,7 @@ public class ApiUpdater implements Runnable {
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
-            final Session session = resourceResolver.adaptTo(Session.class);
+            Session session = resourceResolver.adaptTo(Session.class);
 
             if (session == null) {
                 throw new ImporterException("Cannot get session");
@@ -203,8 +207,8 @@ public class ApiUpdater implements Runnable {
             final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
 
             while (resources.hasNext()) {
-                final Resource resource = resources.next();
-                final Node node = resource.adaptTo(Node.class);
+                Resource resource = resources.next();
+                Node node = resource.adaptTo(Node.class);
 
                 if (node != null) {
                     try {
@@ -247,6 +251,8 @@ public class ApiUpdater implements Runnable {
 
                         errorNumber++;
                     }
+                    resource = null;
+                    node = null;
                 }
             }
 
@@ -265,6 +271,7 @@ public class ApiUpdater implements Runnable {
             }
 
             LOGGER.info("Replication done, success: {}, errors: {}", successNumber, errorNumber);
+            session = null;
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot get resource resolver or session", e);
         }
