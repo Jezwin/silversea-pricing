@@ -54,7 +54,7 @@ public class CruisesEventListenerServiceImpl implements ResourceChangeListener {
             for (final String cruisesPath : cruisesLangPath) {
                 if (resourceChange.getPath().startsWith(cruisesPath) && resourceChange.getPath().endsWith(JcrConstants.JCR_CONTENT)) {
                     final Map<String, Object> jobInfos = new HashMap<>();
-
+                    
                     jobInfos.put("resourcePath", resourceChange.getPath());
                     jobInfos.put("eventType", resourceChange.getType());
 
@@ -64,8 +64,9 @@ public class CruisesEventListenerServiceImpl implements ResourceChangeListener {
                             && resourceChange.getRemovedPropertyNames().contains("cruiseCode")
                             && resourceChange.getRemovedPropertyNames().contains("apiTitle"));
                     }
-
-                    jobManager.addJob(JOB_TOPIC, jobInfos);
+                    if(!resourceChange.getRemovedPropertyNames().contains("toActivate") && !resourceChange.getRemovedPropertyNames().contains("toDeactivate")){
+                    	jobManager.addJob(JOB_TOPIC, jobInfos);
+                    }
 
                     LOGGER.debug("Cruise event job has been started for: {}", resourceChange.getPath());
 
