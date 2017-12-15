@@ -62,7 +62,7 @@ public interface CruisesCacheService {
      * if the cruise is new, it will add it
      * @param cruiseModel to add to cache
      */
-    void addOrUpdateCruise(final CruiseModel cruiseModel);
+    void addOrUpdateCruise(final CruiseModelLight cruiseModel, final String langIn);
 
     /**
      * Remove targeted cruise from cache
