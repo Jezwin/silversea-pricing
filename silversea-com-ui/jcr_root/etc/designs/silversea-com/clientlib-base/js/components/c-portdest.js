@@ -20,7 +20,7 @@
     function showResults(){
         var results = [],
             destinations = [],
-            visiblePorts = null,
+            visiblePorts = [],
             // visiblePorts = $('[name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;}),
             filteredPortData = {};
 
@@ -109,7 +109,7 @@
 
     function initChosen(){
         $('.chosen-select').chosen({display_disabled_options: false});
-        setCounter();
+        //setCounter();
 
         $('[name="itinerary-port"]').off('change').on('change', function(){
             var selected = this.value,
