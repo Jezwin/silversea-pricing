@@ -135,7 +135,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public void addOrUpdateCruise(final CruiseModelLight cruiseModel, final String langIn) {
+    public void addOrUpdateCruise(CruiseModelLight cruiseModel, String langIn) {
         if (cruiseModel == null) {
             LOGGER.warn("Cannot update cache, the cruise model provided is null");
             return;
@@ -158,7 +158,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public void removeCruise(final String lang, final String cruiseCode) {
+    public void removeCruise(String lang, String cruiseCode) {
         if (lang == null || cruiseCode == null) {
             LOGGER.warn("Cannot update cache with info {} {}", lang, cruiseCode);
             return;

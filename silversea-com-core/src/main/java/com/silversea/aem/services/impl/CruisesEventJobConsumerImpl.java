@@ -50,7 +50,7 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
 
         LOGGER.debug("Handling job for {} {}", resourcePath, eventType);
 
-        switch (eventType) {
+       /* switch (eventType) {
             case ADDED:
             case CHANGED:
                 final Map<String, Object> authenticationParams = new HashMap<>();
@@ -100,7 +100,7 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
                 }
 
                 break;
-        }
+        }*/
 
         return JobResult.OK;
     }
