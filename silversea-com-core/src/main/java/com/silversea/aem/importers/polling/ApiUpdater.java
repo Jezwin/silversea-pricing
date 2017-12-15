@@ -170,7 +170,7 @@ public class ApiUpdater implements Runnable {
             //update travel agencies
             importResult = agenciesImporter.importAllItems();
             LOGGER.info("Agencies import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
+            
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
             replicateModifications("/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
@@ -211,7 +211,7 @@ public class ApiUpdater implements Runnable {
                         if (node.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)
                                 && node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).getBoolean()) {
                             replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
-
+                            
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
                             LOGGER.info("{} page deactivated", node.getPath());

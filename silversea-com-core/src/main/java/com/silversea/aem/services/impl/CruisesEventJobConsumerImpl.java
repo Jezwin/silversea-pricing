@@ -5,7 +5,9 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
+
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
@@ -66,7 +68,8 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
                             final CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
 
                             if (cruiseModel != null) {
-                                cruisesCacheService.addOrUpdateCruise(cruiseModel);
+                                cruisesCacheService.addOrUpdateCruise(new CruiseModelLight(cruiseModel), cruiseModel.getLang());
+                                
                             }
                         }
                     }

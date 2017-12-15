@@ -135,7 +135,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     }
 
     @Override
-    public void addOrUpdateCruise(final CruiseModel cruiseModel) {
+    public void addOrUpdateCruise(final CruiseModelLight cruiseModel, final String langIn) {
         if (cruiseModel == null) {
             LOGGER.warn("Cannot update cache, the cruise model provided is null");
             return;
@@ -143,15 +143,15 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
         LOGGER.debug("Updating cruises cache with {}", cruiseModel.getPath());
 
-        CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
-        final String cruiseCode = cruiseModelLight.getCruiseCode();
-        final String lang = cruiseModel.getLang();
+        
+        final String cruiseCode = cruiseModel.getCruiseCode();
+        final String lang = langIn;
 
         if (cruisesByCode.containsKey(lang)) {
-            cruisesByCode.get(lang).put(cruiseCode, cruiseModelLight);
+            cruisesByCode.get(lang).put(cruiseCode, cruiseModel);
         } else {
             final HashMap<String, CruiseModelLight> cruiseByCode = new HashMap<>();
-            cruiseByCode.put(cruiseCode, cruiseModelLight);
+            cruiseByCode.put(cruiseCode, cruiseModel);
 
             cruisesByCode.put(lang, cruiseByCode);
         }
