@@ -546,6 +546,8 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         if (startDate.after(Calendar.getInstance()) && isVisible) {
         	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+        }else{
+        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
         }
     }
 
