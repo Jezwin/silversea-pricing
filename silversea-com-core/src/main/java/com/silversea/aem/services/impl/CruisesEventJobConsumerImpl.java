@@ -50,29 +50,32 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
 
         LOGGER.debug("Handling job for {} {}", resourcePath, eventType);
 
-       /* switch (eventType) {
+        switch (eventType) {
             case ADDED:
             case CHANGED:
                 final Map<String, Object> authenticationParams = new HashMap<>();
                 authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
                 try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
-                    final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-                    final Resource resource = resourceResolver.getResource(resourcePath);
+                    PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+                    Resource resource = resourceResolver.getResource(resourcePath);
 
                     if (resource != null && pageManager != null) {
-                        final Page page = pageManager.getContainingPage(resource);
+                        Page page = pageManager.getContainingPage(resource);
 
                         if (page != null && page.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
 
-                            final CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
+                            CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
 
                             if (cruiseModel != null) {
                                 cruisesCacheService.addOrUpdateCruise(new CruiseModelLight(cruiseModel), cruiseModel.getLang());
-                                
+                                cruiseModel = null;
                             }
                         }
+                        page = null;
                     }
+                    pageManager = null;
+                    resource = null;
                 } catch (LoginException e) {
                     LOGGER.error("Cannot create resource resolver", e);
 
@@ -100,7 +103,7 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
                 }
 
                 break;
-        }*/
+        }
 
         return JobResult.OK;
     }
