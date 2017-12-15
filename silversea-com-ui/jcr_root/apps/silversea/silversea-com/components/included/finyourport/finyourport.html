@@ -1,24 +1,24 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="find your port"></div>
 <sly data-sly-use.portdest="com.silversea.ssc.aem.models.FindPortUse" />
 <div class="port-dest-search" data-path="${portdest.portsRootPage.path @ extension='portdestinations.json'}">
-			<div class="container hidden-xs">
+			<div class="hidden-xs">
                 <div class="row">
 
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <select name="destination" class="chosen-select form-control dropdown-with-disabled-items" data-placeholder="${'destination' @ i18n}">
                             <option value=""></option>
                             <option value="">${'alldestinations' @ i18n}</option>
                             <option data-sly-repeat="${portdest.destinationSet}" value="${item.destId}">${item.destName}</option>
                         </select>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <select name="itinerary-port" class="chosen-select form-control dropdown-with-disabled-items" data-placeholder="${'port-name' @ i18n}">
                             <option value=""></option>
                             <option value="">${'allports' @ i18n}</option>
                             <option data-sly-repeat="${portdest.portsList}" value="${item.cityId}">${item.title}</option>
                          </select>
                     </div>
-                     <div class="col-sm-2">
+                     <div class="col-sm-4">
 						 <button id="counter">Search <span style="display:none;" class="port-count-container">(<span class="port-count"></span> Port)</span> </button>
                     </div>
                 </div>
