@@ -69,7 +69,7 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
 
                             if (cruiseModel != null) {
                             	CruiseModelLight cruiseTemp = new CruiseModelLight(cruiseModel);
-                                //cruisesCacheService.addOrUpdateCruise(cruiseTemp, cruiseModel.getLang());
+                                cruisesCacheService.addOrUpdateCruise(cruiseTemp, cruiseModel.getLang());
                                 cruiseTemp = null;
                                 cruiseModel = null;
                             }
