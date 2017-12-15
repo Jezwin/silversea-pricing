@@ -148,7 +148,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
         final String lang = langIn;
 
         if (cruisesByCode.containsKey(lang)) {
-        	cruisesByCode.get(lang).remove(cruiseCode);
+        	//cruisesByCode.get(lang).remove(cruiseCode);
             cruisesByCode.get(lang).put(cruiseCode, cruiseModel);
         } else {
             final HashMap<String, CruiseModelLight> cruiseByCode = new HashMap<>();
