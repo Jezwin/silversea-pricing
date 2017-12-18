@@ -60,6 +60,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silversea es con frecuencia objeto de reconocimiento por prestigiosas publicaciones de consumo y comercio"/>
+    <agency-name
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Agency name"/>
     <B1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -196,6 +200,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Capacidad para tripulación"/>
+    <cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="crucero"/>
     <cruise-enrichments-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -220,6 +228,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Nuestros itinerarios son insuperables - encuentre a continuación información detallada referida a los puertos de escala, horarios de llegada y salida, así como información suplementaria sobre el destino que visitara"/>
+    <cruise-itinerary-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nuestros itinerarios son insuperables - encuentre a continuación información detallada referida a los puertos de escala, horarios de llegada y salida, así como información suplementaria sobre el destino que visitara"/>
+    <cruise-itinerary-description-v2-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nuestros itinerarios son insuperables - encuentre a continuación información detallada referida a los puertos de escala, horarios de llegada y salida, así como información suplementaria sobre el destino que visitara"/>
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -232,7 +248,15 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Descubra nuestra colección de espacios a bordo donde disfrutará conociendo a viajeros afines y por supuesto, de nuestro servicio todo incluido."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Descubra nuestra colección de espacios a bordo donde disfrutará conociendo a viajeros afines y por supuesto, de nuestro servicio todo incluido."/>
     <cruise-ship-suite-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Las suites con vistas al océano de Silversea se encuentran entre las más espaciosa de los cruceros y todas incluyen servicio de mayordomo.  Seleccione su suite y solicite un presupuesto - los huéspedes que reserven con antelación disfrutarán de las mejores tarifas y de la posibilidad de seleccionar su suite preferida."/>
+    <cruise-ship-suite-description-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Las suites con vistas al océano de Silversea se encuentran entre las más espaciosa de los cruceros y todas incluyen servicio de mayordomo.  Seleccione su suite y solicite un presupuesto - los huéspedes que reserven con antelación disfrutarán de las mejores tarifas y de la posibilidad de seleccionar su suite preferida."/>
@@ -315,7 +339,7 @@
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Dir"/>
+        sling:message="Sir"/>
     <discover-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -393,6 +417,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Excursiones"/>
+     <expedition-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="crucero de expedición"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -476,11 +504,11 @@
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <G2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -665,11 +693,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner's"/>
+        sling:message="Owner's 1"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner"/>
+        sling:message="Owner's 2"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -765,11 +793,11 @@
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <R2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -874,6 +902,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="resultados"/>
+    <results-your-area
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Results In Your Area"/>
     <routes
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1176,6 +1208,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="sus resultados de búsqueda :"/>
+   	<your-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="your location"/>
 	<luxury-cruises
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="luxury-cruises"
@@ -1192,6 +1228,10 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="an-introduction-to-silversea-cruises"
 	    sling:message="An Introduction to Silversea Cruises"/>
+	<an-introduction-to-silversea-expeditions
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-expeditions"
+	    sling:message="An Introduction to Silversea Expeditions"/>
 	<view-our-brochures
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-our-brochures"

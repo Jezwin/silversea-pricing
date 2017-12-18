@@ -41,9 +41,9 @@ public class CruiseModelLight {
 
     private List<PortItem> ports = new ArrayList<>();
 
-    private Map<String, PriceModel> lowestPrices = new HashMap<String, PriceModel>();
+    private Map<String, PriceModelLight> lowestPrices = new HashMap<String, PriceModelLight>();
 
-    private List<FeatureModel> features = new ArrayList<>();
+    private List<FeatureModelLight> features = new ArrayList<>();
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
     
@@ -75,8 +75,14 @@ public class CruiseModelLight {
 
         path = cruiseModel.getPath();
 
-        features = cruiseModel.getFeatures();
-
+        List<FeatureModel> tmpFeat = cruiseModel.getFeatures();
+        List<FeatureModelLight> tmpFeatLight = new ArrayList<>();
+        for (FeatureModel featureModel : tmpFeat) {
+			tmpFeatLight.add(new FeatureModelLight(featureModel));
+		}
+        features = tmpFeatLight;
+        tmpFeat = null;
+       
         exclusiveOffers = cruiseModel.getExclusiveOffers();
 
         isVisible = cruiseModel.isVisible();
@@ -89,6 +95,8 @@ public class CruiseModelLight {
         }
 
         initLowestPrices(cruiseModel);
+        
+        cruiseModel = null;
     }
 
     private void initLowestPrices(CruiseModel cruiseModel) {
@@ -99,12 +107,12 @@ public class CruiseModelLight {
                 String priceKey = priceModel.getGeomarket() + priceModel.getCurrency();
                 if (lowestPrices.containsKey(priceKey)) {
                     // check if price is lower than the one in the table
-                    PriceModel lowestPrice = lowestPrices.get(priceKey);
+                    PriceModelLight lowestPrice = lowestPrices.get(priceKey);
                     if (priceModel.getComputedPrice() < lowestPrice.getComputedPrice()) {
-                        lowestPrices.put(priceKey, priceModel);
+                        lowestPrices.put(priceKey, new PriceModelLight(priceModel));
                     }
                 } else {
-                    lowestPrices.put(priceKey, priceModel);
+                    lowestPrices.put(priceKey, new PriceModelLight(priceModel));
                 }
             }
         }
@@ -188,14 +196,14 @@ public class CruiseModelLight {
     /**
      * @return the lowest price for this cruise per market and currency
      */
-    public Map<String, PriceModel> getLowestPrices() {
+    public Map<String, PriceModelLight> getLowestPrices() {
         return lowestPrices;
     }
 
     /**
      * @return features attached to this cruise
      */
-    public List<FeatureModel> getFeatures() {
+    public List<FeatureModelLight> getFeatures() {
         return features;
     }
 

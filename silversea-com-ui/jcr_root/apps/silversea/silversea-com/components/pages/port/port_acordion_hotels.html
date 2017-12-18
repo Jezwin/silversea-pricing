@@ -1,4 +1,4 @@
-<div data-sly-use.portUse="com.silversea.aem.components.page.PortUse" class="container">
+<div data-sly-use.portUse="com.silversea.ssc.aem.models.PortUse" class="container">
 	<div class="container">
 		<div class="port_v2__section" id="port_v2__hotel">
 			<div class="port_v2__section_header">
@@ -6,7 +6,7 @@
 			</div>
 			<div class="port_v2__section_content">
 				<div class="port_v2__expander">
-					<div data-sly-repeat.hotel="${portUse.portModel.hotels}" class="port_v2__expander_item">
+					<div data-sly-repeat.hotel="${portUse.filteredHotels}" class="port_v2__expander_item">
 						<div class="port_v2__expander_header">
 							<div class="port_v2__expander_col port_v2__expander_col_title">${hotel.name}</div>
 							<div class="port_v2__expander_col port_v2__expander_col_toggle">

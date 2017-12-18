@@ -14,10 +14,12 @@ import com.silversea.aem.importers.services.CruisesImporter;
 import com.silversea.aem.importers.utils.CruisesImportUtils;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Voyage;
 import io.swagger.client.model.Voyage77;
+
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
@@ -35,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.*;
 
 @Service
@@ -537,7 +540,15 @@ public class CruisesImporterImpl implements CruisesImporter {
 
         CruisesImportUtils.associateMapAsset(session, cruiseContentNode, 
                 cruiseContentNode.getParent().getParent().getName(), cruise.getMapUrl(), mimeTypeService, resourceResolver);
-        cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+
+        final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+        final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
+
+        if (startDate.after(Calendar.getInstance()) && isVisible) {
+        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+        }else{
+        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+        }
     }
 
     private void batchSave(Session session, int itemsWritten) throws RepositoryException {
