@@ -1,105 +1,105 @@
-<form data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
-    class="request-quote-form c-form c-formcookie--redirect"
-    action="${properties.pageReference @ extension='html'}${request.requestPathInfo.suffix}"
-    method="post"
-    data-sly-use.use="com.silversea.aem.components.editorial.QuoteRequestUse"
-    novalidate>
-    ${use.prepareBrochureParameters}
-    <input name="requestsource" type="hidden" value="EBRO" />
-    <input name="requesttype" type="hidden" value="" />
-    <input name="sitecountry" type="hidden" value="${countryHelper.countryCodeIso3}" />
-    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
-    <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
-    <input name="brochurecode" type="hidden" value="${use.selectedBrochure.brochureCode}" />
-    <div class="form-group form-group-lg">
-        <div class="checkbox">
-            <label>
-                <input class="custom-checkbox" type="checkbox" name="isnotagent" value="true" checked="checked">
-                ${'i-am-not-a-travel-agent' @ i18n}
-            </label>
-        </div>
-    </div>
-
-    <div class="form-group form-group-lg has-feedback input--title">
-        <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
-            <option value="">${'title' @ i18n}*</option>
-            <option value="mr">${'mr' @i18n}.</option>
-            <option value="mrs">${'mrs' @ i18n}.</option>
-            <option value="miss">${'miss' @ i18n}.</option>
-            <option value="ms">${'ms' @ i18n}.</option>
-            <option value="dr">${'dr' @ i18n}.</option>
-            <option value="dir">${'dir' @ i18n}.</option>
-            <option value="lady">${'lady' @ i18n}.</option>
-            <option value="prof">${'prof' @ i18n}.</option>
-            <option value="lord">${'lord' @ i18n}.</option>
-        </select>
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors"></div>
-    </div>
-
-    <div class="form-group form-group-lg has-feedback">
-        <input type="text" name="firstname" class="form-control" value="" placeholder="${'first-name' @ i18n}*" required data-error="${'required-firstname' @ i18n}" />
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors"></div>
-    </div>
-
-    <div class="form-group form-group-lg has-feedback">
-        <input type="text" name="lastname" class="form-control" value="" placeholder="${'last-name' @ i18n}*" required  data-error="${'required-lastname' @ i18n}" />
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors"></div>
-    </div>
-
-    <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
-        <div class="form-group form-group-lg has-feedback">
-            <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control"
-                data-countrycodeformat=""
-                data-prepend-placeholder="${'example' @ i18n}"
-                data-country-geolocalized="${helper.country || 'US'}"
-                data-required-error="${'required-phone-number' @ i18n}"
-                data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
-            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-            <div class="help-block with-errors"></div>
-            <input type="hidden" name="phone" />
-        </div>
-        <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
-            <option value="">${'country-code' @ i18n}*</option>
-            <option data-sly-repeat.country="${use.countries}" value="${country.countryCode}" data-country-code="${country.prefix}">${country.title} (${country.prefix})</option>
-        </select>
-    </div>
-
-    <div class="form-group form-group-lg has-feedback">
-        <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            data-required-error="${'required-email-address' @ i18n}"
-            data-error="${'incorrect-email-address' @ i18n}" />
-        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
-        <div class="help-block with-errors incorrect"></div>
-    </div>
-
-    <p class="small text-muted">* ${'required-fields' @ i18n}</p>
-
-    <div class="form-group form-group-lg">
-        <div class="checkbox">
-            <label>
-                <input class="custom-checkbox" type="checkbox" name="subscribeemail-custom" value="true" checked="${use.isChecked}" />
-                <input type="hidden" name="subscribeemail" value="false" />
-                ${'receive-emails-with-news' @ i18n}
-            </label>
-        </div>
-    </div>
-
-    <div class="form-group form-group-lg">
-        <div class="checkbox">
-            <label>
-                <input class="custom-checkbox" value="true" type="checkbox" name="workingwithagent" >
-                ${'i-m-currently-booked' @ i18n}
-            </label>
-        </div>
-    </div>
-
-     <div class="row">
-        <div class="col-sm-7 col-sm-offset-5">
-            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="clic-EBRO"><span>${'view-our-free-brochures' @ i18n}</span><i class="fa fa-angle-right"></i></button>
-        </div>
-    </div>
-</form>
+<template data-sly-template.default="${ @ item }">
+		<form data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"
+		    class="request-quote-form c-form c-formcookie--redirect"
+		    action="${properties.pageReference @ extension='html'}${request.requestPathInfo.suffix}"
+		    method="post"
+		    novalidate>
+		    <input name="requestsource" type="hidden" value="EBRO" />
+		    <input name="requesttype" type="hidden" value="" />
+		    <input name="sitecountry" type="hidden" value="${countryHelper.countryCodeIso3}" />
+		    <input name="sitelanguage" type="hidden" value="${countryHelper.hrefLangValid}" />
+		    <input name="sitecurrency" type="hidden" value="${item.siteCurrency}" />
+		    <input name="brochurecode" type="hidden" value="${item.selectedBrochure.brochureCode}" />
+		    <div class="form-group form-group-lg">
+		        <div class="checkbox">
+		            <label>
+		                <input class="custom-checkbox" type="checkbox" name="isnotagent" value="true" checked="checked">
+		                ${'i-am-not-a-travel-agent' @ i18n}
+		            </label>
+		        </div>
+		    </div>
+		
+		    <div class="form-group form-group-lg has-feedback input--title">
+		        <select name="title" class="form-control chosen chosen-with-search" required data-error="${'required-title' @ i18n}">
+		            <option value="">${'title' @ i18n}*</option>
+		            <option value="mr">${'mr' @i18n}.</option>
+		            <option value="mrs">${'mrs' @ i18n}.</option>
+		            <option value="miss">${'miss' @ i18n}.</option>
+		            <option value="ms">${'ms' @ i18n}.</option>
+		            <option value="dr">${'dr' @ i18n}.</option>
+		            <option value="dir">${'dir' @ i18n}.</option>
+		            <option value="lady">${'lady' @ i18n}.</option>
+		            <option value="prof">${'prof' @ i18n}.</option>
+		            <option value="lord">${'lord' @ i18n}.</option>
+		        </select>
+		        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+		        <div class="help-block with-errors"></div>
+		    </div>
+		
+		    <div class="form-group form-group-lg has-feedback">
+		        <input type="text" name="firstname" class="form-control" value="" placeholder="${'first-name' @ i18n}*" required data-error="${'required-firstname' @ i18n}" />
+		        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+		        <div class="help-block with-errors"></div>
+		    </div>
+		
+		    <div class="form-group form-group-lg has-feedback">
+		        <input type="text" name="lastname" class="form-control" value="" placeholder="${'last-name' @ i18n}*" required  data-error="${'required-lastname' @ i18n}" />
+		        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+		        <div class="help-block with-errors"></div>
+		    </div>
+		
+		    <div class="countrycode" data-sly-use.helper="com.silversea.aem.helper.CountryHelper">
+		        <div class="form-group form-group-lg has-feedback">
+		            <input type="text" id="InputTelephoneNumber" name="localphone" class="form-control"
+		                data-countrycodeformat=""
+		                data-prepend-placeholder="${'example' @ i18n}"
+		                data-country-geolocalized="${helper.country || 'US'}"
+		                data-required-error="${'required-phone-number' @ i18n}"
+		                data-countrycodeformat-error="${'check-phone-format' @ i18n}" />
+		            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+		            <div class="help-block with-errors"></div>
+		            <input type="hidden" name="phone" />
+		        </div>
+		        <select name="countryCode" id="countryCode" class="form-control chosen chosen-with-search">
+		            <option value="">${'country-code' @ i18n}*</option>
+		            <option data-sly-repeat.country="${item.countries}" value="${country.countryCode}" data-country-code="${country.prefix}">${country.title} (${country.prefix})</option>
+		        </select>
+		    </div>
+		
+		    <div class="form-group form-group-lg has-feedback">
+		        <input type="email" name="email" class="form-control" value="" placeholder="${'email-address' @ i18n}*" required
+		            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+		            data-required-error="${'required-email-address' @ i18n}"
+		            data-error="${'incorrect-email-address' @ i18n}" />
+		        <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
+		        <div class="help-block with-errors incorrect"></div>
+		    </div>
+		
+		    <p class="small text-muted">* ${'required-fields' @ i18n}</p>
+		
+		    <div class="form-group form-group-lg">
+		        <div class="checkbox">
+		            <label>
+		                <input class="custom-checkbox" type="checkbox" name="subscribeemail-custom" value="true" checked="${item.isChecked}" />
+		                <input type="hidden" name="subscribeemail" value="false" />
+		                ${'receive-emails-with-news' @ i18n}
+		            </label>
+		        </div>
+		    </div>
+		
+		    <div class="form-group form-group-lg">
+		        <div class="checkbox">
+		            <label>
+		                <input class="custom-checkbox" value="true" type="checkbox" name="workingwithagent" >
+		                ${'i-m-currently-booked' @ i18n}
+		            </label>
+		        </div>
+		    </div>
+		
+		     <div class="row">
+		        <div class="col-sm-7 col-sm-offset-5">
+		            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="clic-EBRO"><span>${'view-our-free-brochures' @ i18n}</span><i class="fa fa-angle-right"></i></button>
+		        </div>
+		    </div>
+		</form>
+</template>
