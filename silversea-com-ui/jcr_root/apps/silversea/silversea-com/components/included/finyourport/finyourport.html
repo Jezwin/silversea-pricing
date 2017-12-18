@@ -1,10 +1,36 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder" data-emptytext="find your port"></div>
-<div data-sly-use.search="com.silversea.aem.components.editorial.SearchPortUse" class="c-find-port">
+<sly data-sly-use.portdest="com.silversea.ssc.aem.models.FindPortUse" />
+<div class="port-dest-search" data-path="${portdest.portsRootPage.path @ extension='portdestinations.json'}">
+			<div class="hidden-xs">
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <select name="destination" class="chosen-select form-control dropdown-with-disabled-items" data-placeholder="${'destination' @ i18n}">
+                            <option value=""></option>
+                            <option value="">${'alldestinations' @ i18n}</option>
+                            <option data-sly-repeat="${portdest.destinationSet}" value="${item.destId}">${item.destName}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select name="itinerary-port" class="chosen-select form-control dropdown-with-disabled-items" data-placeholder="${'port-name' @ i18n}">
+                            <option value=""></option>
+                            <option value="">${'allports' @ i18n}</option>
+                            <option data-sly-repeat="${portdest.portsList}" value="${item.cityId}">${item.title}</option>
+                         </select>
+                    </div>
+                     <div class="col-sm-4">
+						 <button id="counter">Search <span style="display:none;" class="port-count-container">( <span class="port-count"></span>Port(s) )</span> </button>
+                    </div>
+                </div>
+            </div>
+</div>
+<div class="c-find-port">
+
     <div class="c-find-port__filter">
         <div class="c-find-port__title">${'port-search-alphabetically' @ i18n}</div>
         <div class="clearfix">
-            <a data-sly-repeat="${search.orderedAlphabetPages}" class="${search.portIndexPage.path == item.path ? 'active' : ''}"
-                href="${search.portsRootPage.path @ extension='html', appendPath=item.name}">${item.name}</a>
+            <a data-sly-repeat="${portdest.orderedAlphabetPages}" class="${portdest.portIndexPage.path == item.path ? 'active' : ''}"
+                href="${portdest.portsRootPage.path @ extension='html', appendPath=item.name}">${item.name}</a>
         </div>
     </div>
     <div class="c-find-port__result">
@@ -15,10 +41,15 @@
                     <div class="col-sm-7">${'destination' @ i18n}</div>
                 </div>
             </div>
-            <a data-sly-repeat.child="${search.ports}" href="${child.path @ extension='html'}"
+		<div class="c-find-port__result-list">
+		    <a data-sly-repeat="${portdest.portsGlossary}" href="${item.path @ extension='html'}"
                 class="clearfix c-find-port__result__link">
-                <span class="col-sm-5 c-find-port__result__city">${child.apiTitle}</span>
-                <span class="col-sm-7 c-find-port__result__destination">${child.country}</span>
+                <span class="col-sm-5 c-find-port__result__city">${item.name}</span>
+                <span class="col-sm-7 c-find-port__result__destination">
+                	${item.destinations}
+                 </span>
             </a>
+         </div>                                                                                                     
+
     </div>
 </div>

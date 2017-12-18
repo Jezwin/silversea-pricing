@@ -27,6 +27,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-ships"
         sling:message="All Ships"/>
+    <alldestinations
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="alldestinations"
+        sling:message="All Destinations"/>
+    <allports
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="allports"
+        sling:message="All Ports"/>
+    <an-introduction-to-silversea-cruises
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="an-introduction-to-silversea-cruises"
+        sling:message="An Introduction to Silversea Cruises"/>
     <and
         jcr:primaryType="sling:MessageEntry"
         sling:key="and"
@@ -306,7 +318,7 @@
     <destination
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination"
-        sling:message="destination"/>
+        sling:message="Destination"/>
     <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-discover-more"
@@ -718,7 +730,7 @@
     <port-name
         jcr:primaryType="sling:MessageEntry"
         sling:key="port-name"
-        sling:message="port name"/>
+        sling:message="Port Name"/>
     <port-results
         jcr:primaryType="sling:MessageEntry"
         sling:key="port-results"
