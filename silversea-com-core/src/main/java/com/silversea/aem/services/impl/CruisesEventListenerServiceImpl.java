@@ -70,7 +70,14 @@ public class CruisesEventListenerServiceImpl implements ResourceChangeListener {
                     	jobManager.addJob(JOB_TOPIC, jobInfos);
                     }
                     }else{
-                    	jobManager.addJob(JOB_TOPIC, jobInfos);
+                    	if(resourceChange.getChangedPropertyNames() != null){
+                    		if(!resourceChange.getChangedPropertyNames().contains("cq:lastModifiedBy") && !resourceChange.getChangedPropertyNames().contains("cq:lastReplicated") && !resourceChange.getChangedPropertyNames().contains("cq:lastReplicatedBy")){
+                    			jobManager.addJob(JOB_TOPIC, jobInfos);
+                    		}
+                    	}else {
+                    		jobManager.addJob(JOB_TOPIC, jobInfos);
+                    	}
+                    	
                     }
 
                     LOGGER.debug("Cruise event job has been started for: {}", resourceChange.getPath());
