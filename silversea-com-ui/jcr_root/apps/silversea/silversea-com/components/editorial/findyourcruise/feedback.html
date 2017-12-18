@@ -7,7 +7,15 @@
 
     <!--/* current ship */-->
     <input type="text" id="current-ship-filter" value="${fyc.shipFilter}" />
+    
+    <input type="text" id="current-duration-filter" value="${fyc.durationFilter}" />
+    
+    <input type="text" id="current-cruisetype-filter" value="${fyc.cruiseTypeFilter}" />
+    
+    <input type="text" id="current-port-filter" value="${fyc.portFilter}" />
 
+ 	<input type="text" id="current-page-filter" value="${fyc.activePage}" />
+ 	
     <!--/* data relative to option available in current result */-->
     <div id="destination-filter" data-sly-test="${fyc.availableDestinations && fyc.availableDestinations.size > 0}">
         {"all":true,<sly data-sly-repeat="${fyc.availableDestinations}">"${item.name}":true<sly data-sly-test="${!itemlist.last}">,</sly></sly>}

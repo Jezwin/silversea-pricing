@@ -8,7 +8,14 @@
           allowedPaths="[/content/silversea-com/.*]"
           ranking="{Long}0">
     <jcr:content
-            jcr:primaryType="cq:PageContent"
-            sling:resourceType="silversea/silversea-com/components/pages/travelagency">
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="silversea/silversea-com/components/pages/travelagency">
+        <par
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="wcm/foundation/components/responsivegrid">
+            <display
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="silversea/silversea-com/components/displayproperties/travelagency" />
+        </par>
     </jcr:content>
 </jcr:root>

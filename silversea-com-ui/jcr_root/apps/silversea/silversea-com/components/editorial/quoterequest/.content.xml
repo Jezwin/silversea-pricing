@@ -4,4 +4,4 @@
     jcr:title="SSC - Quote Request"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
     allowedParents="[*/responsivegrid]"
-    componentGroup="SSC - Editorial"/>
+    componentGroup=".hidden"/>

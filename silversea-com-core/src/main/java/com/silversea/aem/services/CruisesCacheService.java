@@ -25,19 +25,19 @@ public interface CruisesCacheService {
      * @param lang the lang
      * @return destinations of the cruises for the <code>lang</code>
      */
-    List<DestinationModel> getDestinations(final String lang);
+    List<DestinationModelLight> getDestinations(final String lang);
 
     /**
      * @param lang the lang
      * @return ships of the cruises for the <code>lang</code>
      */
-    List<ShipModel> getShips(final String lang);
+    List<ShipModelLight> getShips(final String lang);
 
     /**
      * @param lang the lang
      * @return ports of the cruises for the <code>lang</code>
      */
-    List<PortModel> getPorts(final String lang);
+    List<PortModelLight> getPorts(final String lang);
 
     /**
      * @param lang the lang
@@ -55,21 +55,21 @@ public interface CruisesCacheService {
      * @param lang lang the lang
      * @return features of the cruises for the <code>lang</code>
      */
-    Set<FeatureModel> getFeatures(final String lang);
+    Set<FeatureModelLight> getFeatures(final String lang);
 
     /**
      * Update the cache with the corresponding <code>cruiseModel</code>, if the cruise is modified, it will remove and re-add it to the cache,
      * if the cruise is new, it will add it
      * @param cruiseModel to add to cache
      */
-    void addOrUpdateCruise(final CruiseModel cruiseModel);
+    void addOrUpdateCruise(CruiseModelLight cruiseModel, String langIn);
 
     /**
      * Remove targeted cruise from cache
      * @param lang the lang
      * @param cruiseCode the cruise code
      */
-    void removeCruise(final String lang, final String cruiseCode);
+    void removeCruise(String lang, String cruiseCode);
 
     /**
      * Build the cache

@@ -196,6 +196,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Capacité équipage"/>
+     <cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="croisière"/>
     <cruise-enrichments-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -331,7 +335,7 @@
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Dir."/>
+        sling:message="Sir"/>
     <discover-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -409,6 +413,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Excursions"/>
+     <expedition-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="croisière d'expedition"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -492,11 +500,11 @@
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <G2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -681,11 +689,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner's"/>
+        sling:message="Owner's 1"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner"/>
+        sling:message="Owner's 2"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -782,11 +790,11 @@
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <R2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1189,4 +1197,44 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="vos résultats de recherche :"/>
+	<luxury-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="luxury-cruises"
+	    sling:message="Luxury Cruises"/>
+	<expedition-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="expedition-cruises"
+	    sling:message="Expedition Cruises"/>
+	<view-more
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-more"
+	    sling:message="View more"/>
+	<an-introduction-to-silversea-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-cruises"
+	    sling:message="An Introduction to Silversea Cruises"/>
+	<an-introduction-to-silversea-expeditions
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-expeditions"
+	    sling:message="An Introduction to Silversea Expeditions"/>
+	<view-our-brochures
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-our-brochures"
+	    sling:message="View our Brochures"/>
+	<show-less
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-less"
+	    sling:message="show Less"/>                        
+	<show-all
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-all"
+	    sling:message="Show All"/>
+	<more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="more-about-silversea"
+	    sling:message="More about Silversea"/>
+	<learn-more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="learn-more-about-silversea"
+	    sling:message="Learn more about our luxurious ships and alluring destinations by requesting or downloading a free brochure, and sign up to receive exclsuive offers and news from Silversea."/>
 </jcr:root>

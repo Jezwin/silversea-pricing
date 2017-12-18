@@ -5,7 +5,9 @@ import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
+
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
@@ -55,21 +57,27 @@ public class CruisesEventJobConsumerImpl implements JobConsumer {
                 authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
                 try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
-                    final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-                    final Resource resource = resourceResolver.getResource(resourcePath);
+                    PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+                    Resource resource = resourceResolver.getResource(resourcePath);
 
                     if (resource != null && pageManager != null) {
-                        final Page page = pageManager.getContainingPage(resource);
+                        Page page = pageManager.getContainingPage(resource);
 
                         if (page != null && page.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
 
-                            final CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
+                            CruiseModel cruiseModel = page.adaptTo(CruiseModel.class);
 
                             if (cruiseModel != null) {
-                                cruisesCacheService.addOrUpdateCruise(cruiseModel);
+                            	CruiseModelLight cruiseTemp = new CruiseModelLight(cruiseModel);
+                                cruisesCacheService.addOrUpdateCruise(cruiseTemp, cruiseModel.getLang());
+                                cruiseTemp = null;
+                                cruiseModel = null;
                             }
                         }
+                        page = null;
                     }
+                    pageManager = null;
+                    resource = null;
                 } catch (LoginException e) {
                     LOGGER.error("Cannot create resource resolver", e);
 

@@ -26,13 +26,18 @@ import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.DestinationItem;
 import com.silversea.aem.models.DestinationModel;
+import com.silversea.aem.models.DestinationModelLight;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.models.FeatureModel;
+import com.silversea.aem.models.FeatureModelLight;
 import com.silversea.aem.models.PortItem;
 import com.silversea.aem.models.PortModel;
+import com.silversea.aem.models.PortModelLight;
 import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.models.PriceModelLight;
 import com.silversea.aem.models.ShipItem;
 import com.silversea.aem.models.ShipModel;
+import com.silversea.aem.models.ShipModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.FindYourCruiseUtils;
 import com.silversea.aem.utils.PathUtils;
@@ -46,7 +51,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     private final static String FILTER_ALL = "all";
 
-    private Set<FeatureModel> featuresFromDesign = new HashSet<>();
+    private Set<FeatureModelLight> featuresFromDesign = new HashSet<>();
 
     private String type = "v2";
     
@@ -57,20 +62,20 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private List<CruiseItem> cruises = new ArrayList<>();
 
     // destinations available for all the cruises
-    private List<DestinationModel> destinations = new ArrayList<>();
+    private List<DestinationModelLight> destinations = new ArrayList<>();
  
     // destinations available for the subset of filtered cruises
     private Set<DestinationItem> availableDestinations = new TreeSet<>(Comparator.comparing
             (DestinationItem::getName));
 
     // ships available for all the cruises
-    private List<ShipModel> ships = new ArrayList<>();
+    private List<ShipModelLight> ships = new ArrayList<>();
 
     // ports available for the subset of filtered cruises
     private Set<ShipItem> availableShips = new TreeSet<>(Comparator.comparing(ShipItem::getName));
 
     // ports available for all the cruises
-    private List<PortModel> ports = new ArrayList<>();
+    private List<PortModelLight> ports = new ArrayList<>();
 
     // ports available for the subset of filtered cruises
     private Set<PortItem> availablePorts = new TreeSet<>(Comparator.comparing(PortItem::getName));
@@ -82,10 +87,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private Set<YearMonth> availableDepartureDates = new HashSet<>();
 
     // features available from design dialog + available for cruises
-    private Set<FeatureModel> features = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+    private Set<FeatureModelLight> features = new TreeSet<>(Comparator.comparing(FeatureModelLight::getName));
 
     // features dates available for the subset of filtered cruises
-    private Set<FeatureModel> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModel::getName));
+    private Set<FeatureModelLight> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModelLight::getName));
 
     // durations available for the subset of filtered cruises
     private Set<String> availableDurations = new HashSet<>();
@@ -123,7 +128,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     private String portFilter = FILTER_ALL;
 
     // features filter
-    private Set<FeatureModel> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModel::getTitle));
+    private Set<FeatureModelLight> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModelLight::getTitle));
 
     // true if find your cruise is prefiltered by destination
     private boolean prefilterByDestination;
@@ -184,7 +189,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                         final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
 
                         if (featureModel != null) {
-                            featuresFromDesign.add(featureModel);
+                            featuresFromDesign.add(new FeatureModelLight(featureModel));
                         }
                     }
                 }
@@ -247,7 +252,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                                     final FeatureModel feature = featureTag.adaptTo(FeatureModel.class);
 
                                     if (feature != null) {
-                                        this.featuresFilter.add(feature);
+                                        this.featuresFilter.add(new FeatureModelLight(feature));
                                     }
                                 }
                             }
@@ -291,7 +296,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
                             final FeatureModel featureModel = pageTag.adaptTo(FeatureModel.class);
 
                             if (featureModel != null) {
-                                featuresFilter.add(featureModel);
+                                featuresFilter.add(new FeatureModelLight(featureModel));
                             }
                         }
                     }
@@ -589,7 +594,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     /**
      * @return destinations available for all cruises for this lang
      */
-    public List<DestinationModel> getDestinations() {
+    public List<DestinationModelLight> getDestinations() {
         return destinations;
     }
 
@@ -603,7 +608,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     /**
      * @return ships available for all cruises for this lang
      */
-    public List<ShipModel> getShips() {
+    public List<ShipModelLight> getShips() {
         return ships;
     }
 
@@ -617,7 +622,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     /**
      * @return ports available for all cruises for this lang
      */
-    public List<PortModel> getPorts() {
+    public List<PortModelLight> getPorts() {
         return ports;
     }
 
@@ -645,18 +650,18 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
     /**
      * @return intersection of features configured in design mode and feature of all cruises for this lang
      */
-    public Set<FeatureModel> getFeatures() {
+    public Set<FeatureModelLight> getFeatures() {
         return features;
     }
 
     /**
      * @return features available for filtered cruises for this lang
      */
-    public Set<FeatureModel> getAvailableFeatures() {
+    public Set<FeatureModelLight> getAvailableFeatures() {
         return availableFeatures;
     }
 
-    public Collection<FeatureModel> getInitialDisplayedFeatures() {
+    public Collection<FeatureModelLight> getInitialDisplayedFeatures() {
         return CollectionUtils.intersection(availableFeatures, features);
     }
 
@@ -740,7 +745,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         return portFilter;
     }
 
-    public Set<FeatureModel> getFeaturesFilter() {
+    public Set<FeatureModelLight> getFeaturesFilter() {
         return featuresFilter;
     }
 
@@ -793,14 +798,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 
-    /**
+	/**
      * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
      */
     public class CruiseItem {
 
         private CruiseModelLight cruiseModel;
 
-        private PriceModel lowestPrice;
+        private PriceModelLight lowestPrice;
 
         private boolean isWaitList = true;
         
@@ -829,7 +834,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
             return cruiseModel;
         }
 
-        public PriceModel getLowestPrice() {
+        public PriceModelLight getLowestPrice() {
             return lowestPrice;
         }
 

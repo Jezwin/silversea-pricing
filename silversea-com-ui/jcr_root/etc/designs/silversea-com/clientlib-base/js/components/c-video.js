@@ -7,6 +7,16 @@ $(function() {
 
             var s7videoviewer = new s7viewers.VideoViewer({
                 'containerId' : $video.attr('id'),
+                /*'params' : {
+                    'ssl' : 'on',
+                    'serverurl' : '/is/image',
+                    'contenturl' : 'https://silversea.assetsadobe2.com/',
+                    'config' : '/etc/dam/presets/viewer/Video',
+                    'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
+                    'posterimage' : asset,
+                    'asset' : asset,
+                    'autoplay' : autoplay.toString()
+                }*/
                 'params' : {
                     'ssl' : 'on',
                     'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
@@ -20,6 +30,7 @@ $(function() {
                     'progressivebitrate' : '3000',
                     'initialbitrate' : '3000'
                 }
+
             });
 
             // Bind initComplete event before init()
