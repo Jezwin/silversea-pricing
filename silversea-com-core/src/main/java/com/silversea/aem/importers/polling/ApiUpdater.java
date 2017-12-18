@@ -7,6 +7,8 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.*;
 import com.silversea.aem.importers.services.impl.ImportResult;
+import com.silversea.aem.services.CruisesCacheService;
+
 import org.apache.felix.scr.annotations.*;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,6 +38,9 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private SlingSettingsService slingSettingsService;
+    
+    @Reference
+    private CruisesCacheService cruisesCacheService;
 
     @Reference
     private ResourceResolverFactory resourceResolverFactory;
@@ -180,6 +186,8 @@ public class ApiUpdater implements Runnable {
             replicateModifications("/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
             replicateModifications("/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
             replicateModifications("/jcr:root/etc/tags//element(*,cq:Tags)[toDeactivate or toActivate]");
+            
+            cruisesCacheService.buildCruiseCache();
         } else {
             LOGGER.debug("API updater service run only on author instance");
         }
