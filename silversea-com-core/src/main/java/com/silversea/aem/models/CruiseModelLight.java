@@ -90,6 +90,8 @@ public class CruiseModelLight {
         }
 
         initLowestPrices(cruiseModel);
+        
+        cruiseModel = null;
     }
 
     private void initLowestPrices(CruiseModel cruiseModel) {
