@@ -67,6 +67,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="award-label"
         sling:message="Silversea is regularly lauded by leading consumer and trade publications"/>
+   	<agency-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="agency-name"
+        sling:message="Agency name"/>
     <b1
         jcr:primaryType="sling:MessageEntry"
         sling:key="B1"
@@ -891,6 +895,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="results"
         sling:message="results"/>
+    <results-your-area
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="results-your-area"
+        sling:message="Results In Your Area"/>
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
@@ -1187,6 +1195,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-search-results"
         sling:message="your search results :"/>
+    <your-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="your-location"
+        sling:message="your location"/>
     <luxury-cruises
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="luxury-cruises"
