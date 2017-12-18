@@ -52,7 +52,8 @@
         if(selectedPort !== ''){
             // port selected
             if(selectedDest === ''){ // destination not selected
-                counter = $('[name="destination"] option:not(:disabled)').length-2;
+                //counter = $('[name="destination"] option:not(:disabled)').length-2;
+                counter = false;
             } else { // destination selected
                 counter = 1;
             }
