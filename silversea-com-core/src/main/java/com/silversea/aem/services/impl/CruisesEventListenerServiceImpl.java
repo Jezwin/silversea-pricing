@@ -71,7 +71,7 @@ public class CruisesEventListenerServiceImpl implements ResourceChangeListener {
                     }
                     }else{
                     	if(resourceChange.getChangedPropertyNames() != null){
-                    		if(!resourceChange.getChangedPropertyNames().contains("cq:lastModifiedBy") && !resourceChange.getChangedPropertyNames().contains("cq:lastReplicated") && !resourceChange.getChangedPropertyNames().contains("cq:lastReplicatedBy")){
+                    		if(!resourceChange.getChangedPropertyNames().contains("cq:lastReplicated") && !resourceChange.getChangedPropertyNames().contains("cq:lastReplicatedBy")){
                     			jobManager.addJob(JOB_TOPIC, jobInfos);
                     		}
                     	}else {
