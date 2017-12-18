@@ -6,6 +6,7 @@
     </filter>
 
     <filter root="/apps/sling/servlet/errorhandler"/>
+	<filter root="/apps/cq/Page"/>
 
     <filter root="/etc/dam/dynamicmediaconfig" />
     <filter root="/etc/cloudservices/generic-tracker" />
