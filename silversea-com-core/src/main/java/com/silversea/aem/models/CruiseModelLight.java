@@ -47,7 +47,7 @@ public class CruiseModelLight {
 
     private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
     
-    private List<ItineraryModel> itineraries;
+    private List<String> portPaths = new ArrayList<>();
     
     public CruiseModelLight(CruiseModel cruiseModel) {
 
@@ -86,9 +86,12 @@ public class CruiseModelLight {
         exclusiveOffers = cruiseModel.getExclusiveOffers();
 
         isVisible = cruiseModel.isVisible();
-        itineraries = cruiseModel.getItineraries();
+        
         for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
             ports.add(new PortItem(itinerary.getPort().getName(), itinerary.getPort().getApiTitle()));
+            if (itinerary.getPort().getPath() != null){
+            	portPaths.add(itinerary.getPort().getPath());
+            }
         }
 
         initLowestPrices(cruiseModel);
@@ -219,8 +222,8 @@ public class CruiseModelLight {
         return destinationId;
     }
 
-	public List<ItineraryModel> getItineraries() {
-		return itineraries;
+	public List<String> getPortPaths() {
+		return portPaths;
 	}
 
 }
