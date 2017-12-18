@@ -1,0 +1,50 @@
+<div div data-sly-use.portuse="com.silversea.ssc.aem.models.PortUse" class="container">
+	<div class="port_v2__desc">
+		<div class="port_v2__desc_text">
+			<p>${portuse.summaryBean.firstPart @ context="html"} <span data-sly-test="${portuse.summaryBean.remainingPart}" id="ss_read_more" class="ss_read_more_class" data-text-more="${'view-more' @ i18n}" data-text-less="${'view-less' @ i18n}">${'view-more' @ i18n}</span></p>
+		</div>
+		<div class="port_v2__desc_cta">
+			<div data-sly-test="${portuse.cruiseCounter > 0 }" class="button parbase aem-GridColumn--tablet--12 aem-GridColumn--phone--12 aem-GridColumn aem-GridColumn--tablet--newline aem-GridColumn--default--2">
+				<div class="text-center">
+					<a href="#port_v2__fyc" class="btn btn-dark 12 scrolltoanchor">
+					<span class="visible-sm-inline visible-xs-inline">${'view' @ i18n} ${'cruises' @ i18n}</span>
+					<span class="hidden-sm hidden-xs">${'view' @ i18n} ${'cruises' @ i18n}</span> <i class="fa fa-lg fa-angle-right"></i>
+					</a>
+				</div>
+			</div>
+			<div class="button parbase aem-GridColumn--tablet--12 aem-GridColumn--phone--12 aem-GridColumn aem-GridColumn--tablet--newline aem-GridColumn--default--2">
+				<div class="text-center">
+					<a href="/content/silversea-com/en/request-quote.html" class="btn btn-red 12" data-sscclicktype="clic-RAQ">
+					<span class="visible-sm-inline visible-xs-inline">${'request-quote' @ i18n}</span>
+					<span class="hidden-sm hidden-xs">${'request-quote' @ i18n}</span> <i class="fa fa-lg fa-angle-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-sly-test="${portuse.summaryBean.remainingPart}" class="port_v2__discover">
+		<div class="port_v2__discover_text">
+			${portuse.summaryBean.remainingPart @ context="html"}
+		</div>
+	</div>
+	<div class="port_v2__stats" id="port_v2__stats">
+		<div data-sly-test="${portuse.cruiseCounter > 0 }" class="port_v2__stats_item">
+			<a href="#port_v2__fyc" class="scrolltoanchor">
+				<div class="port_v2__stats_num">${portuse.cruiseCounter}</div>
+				<div class="port_v2__stats_title">${'cruises' @ i18n}</div>
+			</a>
+		</div>
+		<div data-sly-test="${portuse.excursionCounter > 0 }" class="port_v2__stats_item">
+			<a href="#port_v2__excursions" class="scrolltoanchor">
+				<div class="port_v2__stats_num">${portuse.excursionCounter}</div>
+				<div class="port_v2__stats_title">${'excursions' @ i18n}</div>
+			</a>
+		</div>
+		<div data-sly-test="${portuse.landProgrammesCounter > 0 }" class="port_v2__stats_item">
+			<a href="#port_v2__land" class="scrolltoanchor">
+				<div class="port_v2__stats_num">${portuse.landProgrammesCounter}</div>
+				<div class="port_v2__stats_title">${'land-programmes' @ i18n}</div>
+			</a>
+		</div>
+	</div>
+</div>

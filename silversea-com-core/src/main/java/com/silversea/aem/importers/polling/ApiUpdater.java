@@ -43,6 +43,9 @@ public class ApiUpdater implements Runnable {
     private CitiesImporter citiesImporter;
 
     @Reference
+    private TravelAgenciesImporter agenciesImporter;
+
+    @Reference
     private HotelsImporter hotelsImporter;
 
     @Reference
@@ -164,10 +167,18 @@ public class ApiUpdater implements Runnable {
 
             comboCruisesImporter.markSegmentsForActivation();
 
+            //update travel agencies
+            importResult = agenciesImporter.importAllItems();
+            LOGGER.info("Agencies import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
             replicateModifications("/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/content/silversea-com//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/en//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/de//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
             replicateModifications("/jcr:root/etc/tags//element(*,cq:Tags)[toDeactivate or toActivate]");
         } else {
             LOGGER.debug("API updater service run only on author instance");
@@ -184,7 +195,7 @@ public class ApiUpdater implements Runnable {
         authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 
         try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
-            final Session session = resourceResolver.adaptTo(Session.class);
+            Session session = resourceResolver.adaptTo(Session.class);
 
             if (session == null) {
                 throw new ImporterException("Cannot get session");
@@ -196,18 +207,18 @@ public class ApiUpdater implements Runnable {
             final Iterator<Resource> resources = resourceResolver.findResources(query, "xpath");
 
             while (resources.hasNext()) {
-                final Resource resource = resources.next();
-                final Node node = resource.adaptTo(Node.class);
+                Resource resource = resources.next();
+                Node node = resource.adaptTo(Node.class);
 
                 if (node != null) {
                     try {
                         if (node.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)
                                 && node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).getBoolean()) {
                             replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
-
+                            
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
-                            LOGGER.trace("{} page deactivated", node.getPath());
+                            LOGGER.info("{} page deactivated", node.getPath());
                         }
 
                         if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)
@@ -216,7 +227,7 @@ public class ApiUpdater implements Runnable {
 
                             node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
 
-                            LOGGER.trace("{} page activated", node.getPath());
+                            LOGGER.info("{} page activated", node.getPath());
                         }
 
                         successNumber++;
@@ -226,7 +237,7 @@ public class ApiUpdater implements Runnable {
                             try {
                                 session.save();
 
-                                LOGGER.debug("{} pages replicated, saving session", +j);
+                                LOGGER.info("{} pages replicated, saving session", +j);
                             } catch (RepositoryException e) {
                                 session.refresh(true);
                             }
@@ -240,6 +251,8 @@ public class ApiUpdater implements Runnable {
 
                         errorNumber++;
                     }
+                    resource = null;
+                    node = null;
                 }
             }
 
@@ -247,7 +260,7 @@ public class ApiUpdater implements Runnable {
                 if (session.hasPendingChanges()) {
                     session.save();
 
-                    LOGGER.debug("{} pages replicated, saving session", +j);
+                    LOGGER.info("{} pages replicated, saving session", +j);
                 }
             } catch (RepositoryException e) {
                 try {
@@ -258,6 +271,7 @@ public class ApiUpdater implements Runnable {
             }
 
             LOGGER.info("Replication done, success: {}, errors: {}", successNumber, errorNumber);
+            session = null;
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot get resource resolver or session", e);
         }

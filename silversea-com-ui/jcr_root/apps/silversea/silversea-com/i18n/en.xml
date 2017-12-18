@@ -209,7 +209,7 @@
         sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
     <cruise-itinerary-description-v2
         jcr:primaryType="sling:MessageEntry"
-        sling:key="cruise-itinerary-description"
+        sling:key="cruise-itinerary-description-v2"
         sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
     <cruise-itinerary-link
         jcr:primaryType="sling:MessageEntry"
@@ -233,7 +233,7 @@
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
     <cruise-suites-and-fares-descr-v2
         jcr:primaryType="sling:MessageEntry"
-        sling:key="cruise-suites-and-fares-descr"
+        sling:key="cruise-suites-and-fares-descr-v2"
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
     <cruise-type
         jcr:primaryType="sling:MessageEntry"
@@ -466,11 +466,11 @@
     <g1
         jcr:primaryType="sling:MessageEntry"
         sling:key="G1"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <g2
         jcr:primaryType="sling:MessageEntry"
         sling:key="G2"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:primaryType="sling:MessageEntry"
         sling:key="GBP"
@@ -650,11 +650,11 @@
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
-        sling:message="Owner's"/>
+        sling:message="Owner's 1"/>
     <o2
         jcr:primaryType="sling:MessageEntry"
         sling:key="O2"
-        sling:message="Owner"/>
+        sling:message="Owner's 2"/>
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
@@ -754,11 +754,11 @@
     <r1
         jcr:primaryType="sling:MessageEntry"
         sling:key="R1"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <r2
         jcr:primaryType="sling:MessageEntry"
         sling:key="R2"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:primaryType="sling:MessageEntry"
         sling:key="read-less"
@@ -1159,4 +1159,44 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-search-results"
         sling:message="your search results :"/>
+    <luxury-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="luxury-cruises"
+	    sling:message="Luxury Cruises"/>
+	<expedition-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="expedition-cruises"
+	    sling:message="Expedition Cruises"/>
+	<view-more
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-more"
+	    sling:message="View more"/>
+	<an-introduction-to-silversea-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-cruises"
+	    sling:message="An Introduction to Silversea Cruises"/>
+	<an-introduction-to-silversea-expeditions
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-expeditions"
+	    sling:message="An Introduction to Silversea Expeditions"/>
+	<view-our-brochures
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-our-brochures"
+	    sling:message="View our Brochures"/>
+	<show-less
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-less"
+	    sling:message="show Less"/>                        
+	<show-all
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-all"
+	    sling:message="Show All"/>
+	<more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="more-about-silversea"
+	    sling:message="More about Silversea"/>
+	<learn-more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="learn-more-about-silversea"
+	    sling:message="Learn more about our luxurious ships and alluring destinations by requesting or downloading a free brochure, and sign up to receive exclsuive offers and news from Silversea."/> 
 </jcr:root>

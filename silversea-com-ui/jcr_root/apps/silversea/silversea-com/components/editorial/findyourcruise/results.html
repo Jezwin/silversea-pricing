@@ -76,7 +76,7 @@
                             <dd>${port.title}</dd></sly>
                     </dl>
                 </div>
-                <p class="c-fyc__result__content__price">
+                <p class="c-fyc__result__content__price ${!cruiseItem.isWaitList ? 'c-fyc__result__content__price_isWaitList' : ''}">
                     <span data-sly-test="${cruiseItem.pricePrefix}" class="price-prefixe">${cruiseItem.pricePrefix}<br /></span>
                     <strong data-sly-test="${cruiseItem.isWaitList}">${'waitlist' @ i18n}</strong>
                     <span data-sly-test="${!cruiseItem.isWaitList}" class="price-prefixe visible-xs-inline">${'fares-from' @ i18n} <i class="text-lowercase">(${'per-guest' @ i18n})</i><br /></span>

@@ -203,9 +203,11 @@ public class CruisesPricesImporterImpl implements CruisesPricesImporter {
                                     final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
                                     final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
 
-                                    if (startDate.after(Calendar.getInstance()) || isVisible) {
+                                    if (startDate.after(Calendar.getInstance()) && isVisible) {
 	                               		cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-	                               	}
+	                               	}else{
+	                                	cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+	                                }
                                     //END TEMP FORCE ACTIVATE
                                     
                                     if (importResultPrices.getSuccessNumber() > 0) {

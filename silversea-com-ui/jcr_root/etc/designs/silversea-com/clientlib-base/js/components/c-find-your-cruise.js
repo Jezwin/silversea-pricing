@@ -40,11 +40,29 @@ $(function() {
                     });
                 }
             });
+            
+            if (window.history.pushState) {
+            	var currentUrl = window.location.href;
+            	var currentUrlSplit = currentUrl.split('/');
+            	var lastPart = currentUrlSplit[currentUrlSplit.length -1];
+            	var firstUsedPart = currentUrlSplit.slice(0, -1).join('/');
+            	var slingSplit = lastPart.split('.');
+            	var pageName = slingSplit[0];
+            	var slingParameterNew = ["destination_" + $('#current-destination-filter').val(), 
+            	                         "date_" + $('#current-date-filter').val(),
+            	                         "ship_" + $('#current-ship-filter').val(),
+            	                         "duration_" + $('#current-duration-filter').val(),
+            	                         "cruisetype_" + $('#current-cruisetype-filter').val(),
+            	                         "port_" + $('#current-port-filter').val(),
+            	                         "page_" + $('#current-page-filter').val()];
+            	window.history.pushState({},null, firstUsedPart + '/' + pageName + '.' + slingParameterNew.join('.') + ".html");
+            }
 
-            $form.find('.destination-filter, .date-filter, .ship-filter').each(function() {
+            $form.find('.destination-filter, .date-filter, .ship-filter, .duration-filter, .cruisetype-filter, .port-filter').each(function() {
                 var $select = $(this);
                 var currentFilter = $('#current-' + $select.attr('name') + '-filter').val();
-
+                //console.log("current filter for " + $select.attr('name') + " haa : " + $('#current-' + $select.attr('name') + '-filter').val());
+               
                 $select.find('option').each(function() {
                     var $option = $(this);
                     $option.attr('selected', $option.val() === currentFilter);
@@ -227,100 +245,101 @@ $(function() {
          * Filter : behavior on form change
          **************************************************************************/
         $form.on('change', function(e, isFromPagination) {
-        	
-            var dataLayer = window.dataLayer[0];
+            // Ignore change from Port search input (chosen)
+            if ($(e.target).closest('.chosen-search').length === 0) {
+                var dataLayer = window.dataLayer[0];
 
-            // Data search
-            var filterOjb = {};
-            $('.c-find-your-cruise-filter').find('select').each(function(i, element) {
-                filterOjb[element.name] = $(element).find(':selected').data('value') || element.value;
-            });
+                // Data search
+                var filterOjb = {};
+                $('.c-find-your-cruise-filter').find('select').each(function(i, element) {
+                    filterOjb[element.name] = $(element).find(':selected').data('value') || element.value;
+                });
 
-            $('.c-find-your-cruise-filter').find('input:checked').each(function(i, element) {
-                filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
-            });
+                $('.c-find-your-cruise-filter').find('input:checked').each(function(i, element) {
+                    filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
+                });
 
-            dataLayer.search_filters = filterOjb;
-            
-            
-            updateFilterState();
+                dataLayer.search_filters = filterOjb;
 
-            // Set active state on reset button
-            var resetState,
-                $currentForm = $(this),
-                featureNumber = 0,
-                $filterValue = $($currentForm.serializeArray());
+                updateFilterState();
 
-            $filterValue.each(function(i, field) {
-                if (field.name === 'feature') {
-                    featureNumber++;
-                }
-            });
+                // Set active state on reset button
+                var resetState,
+                    $currentForm = $(this),
+                    featureNumber = 0,
+                    $filterValue = $($currentForm.serializeArray());
 
-            // Show number of feature selected
-            var $featureLabel = $currentForm.find('.feature-filter').closest('.single-filter').find('.text-selected');
-            var $featureFieldWrapper = $featureLabel.closest('.single-filter');
+                $filterValue.each(function(i, field) {
+                    if (field.name === 'feature') {
+                        featureNumber++;
+                    }
+                });
 
-            // Highlight features filter
-            if (featureNumber === 0) {
-                $featureLabel.text($featureLabel.data('default-text'));
-                $featureFieldWrapper.removeClass('active');
-            } else if (featureNumber === 1) {
-                $featureLabel.text(featureNumber + ' ' + $featureLabel.data('feature-text'));
-                $featureFieldWrapper.addClass('active');
-            } else {
-                $featureLabel.text(featureNumber + ' ' + $featureLabel.data('features-text'));
-                $featureFieldWrapper.addClass('active');
-            }
+                // Show number of feature selected
+                var $featureLabel = $currentForm.find('.feature-filter').closest('.single-filter').find('.text-selected');
+                var $featureFieldWrapper = $featureLabel.closest('.single-filter');
 
-            // Build request URL with filter, pagination and number of result per page.
-            var requestUrl = $currentForm.data('url');
-
-            var featuresSelectorValue = [];
-            $filterValue.each(function(i, field) {
-                // Add filter
-                if (field.name === 'feature') {
-                    featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
+                // Highlight features filter
+                if (featureNumber === 0) {
+                    $featureLabel.text($featureLabel.data('default-text'));
+                    $featureFieldWrapper.removeClass('active');
+                } else if (featureNumber === 1) {
+                    $featureLabel.text(featureNumber + ' ' + $featureLabel.data('feature-text'));
+                    $featureFieldWrapper.addClass('active');
                 } else {
-                    requestUrl += '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                    $featureLabel.text(featureNumber + ' ' + $featureLabel.data('features-text'));
+                    $featureFieldWrapper.addClass('active');
                 }
-            });
 
-            // Add features
-            if (featuresSelectorValue.length > 0) {
-                requestUrl += '.features_' + featuresSelectorValue.join("|");
-            } else {
-                requestUrl += '.features_all';
+                // Build request URL with filter, pagination and number of result per page.
+                var requestUrl = $currentForm.data('url');
+
+                var featuresSelectorValue = [];
+                $filterValue.each(function(i, field) {
+                    // Add filter
+                    if (field.name === 'feature') {
+                        featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
+                    } else {
+                        requestUrl += '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
+                    }
+                });
+
+                // Add features
+                if (featuresSelectorValue.length > 0) {
+                    requestUrl += '.features_' + featuresSelectorValue.join("|");
+                } else {
+                    requestUrl += '.features_all';
+                }
+
+                // Add pagination
+                $page = (isFromPagination === true) ? $page : '1';
+                requestUrl += '.page_' + $page;
+
+                // Add extension
+                requestUrl += '.html';
+
+                // Update result according to the request URL
+                $.ajax({
+                    type : 'GET',
+                    url : requestUrl,
+                    success : function(result) {
+                        $resultWrapper.html(result);
+
+                        // Update result count
+                        $('#matching-value').text($('#count-filter').val());
+                        resultLabel();
+
+                        // Update filter
+                        updateFilter();
+
+                        // Build feature legend according to the current result
+                        featureListBuild();
+
+                        // Set data layer key according to the current result
+                        searchAnalytics();
+                    }
+                });
             }
-
-            // Add pagination
-            $page = (isFromPagination === true) ? $page : '1';
-            requestUrl += '.page_' + $page;
-
-            // Add extension
-            requestUrl += '.html';
-
-            // Update result according to the request URL
-            $.ajax({
-                type : 'GET',
-                url : requestUrl,
-                success : function(result) {
-                    $resultWrapper.html(result);
-
-                    // Update result count
-                    $('#matching-value').text($('#count-filter').val());
-                    resultLabel();
-
-                    // Update filter
-                    updateFilter();
-
-                    // Build feature legend according to the current result
-                    featureListBuild();
-
-                    // Set data layer key according to the current result
-                    searchAnalytics();
-                }
-            });
         });
     }
 });
