@@ -224,6 +224,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Nuestros itinerarios son insuperables - encuentre a continuación información detallada referida a los puertos de escala, horarios de llegada y salida, así como información suplementaria sobre el destino que visitara"/>
+    <cruise-itinerary-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nuestros itinerarios son insuperables - encuentre a continuación información detallada referida a los puertos de escala, horarios de llegada y salida, así como información suplementaria sobre el destino que visitara"/>
+    <cruise-itinerary-description-v2-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nuestros itinerarios son insuperables - encuentre a continuación información detallada referida a los puertos de escala, horarios de llegada y salida, así como información suplementaria sobre el destino que visitara"/>
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -236,7 +244,15 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Descubra nuestra colección de espacios a bordo donde disfrutará conociendo a viajeros afines y por supuesto, de nuestro servicio todo incluido."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Descubra nuestra colección de espacios a bordo donde disfrutará conociendo a viajeros afines y por supuesto, de nuestro servicio todo incluido."/>
     <cruise-ship-suite-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Las suites con vistas al océano de Silversea se encuentran entre las más espaciosa de los cruceros y todas incluyen servicio de mayordomo.  Seleccione su suite y solicite un presupuesto - los huéspedes que reserven con antelación disfrutarán de las mejores tarifas y de la posibilidad de seleccionar su suite preferida."/>
+    <cruise-ship-suite-description-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Las suites con vistas al océano de Silversea se encuentran entre las más espaciosa de los cruceros y todas incluyen servicio de mayordomo.  Seleccione su suite y solicite un presupuesto - los huéspedes que reserven con antelación disfrutarán de las mejores tarifas y de la posibilidad de seleccionar su suite preferida."/>

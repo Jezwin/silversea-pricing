@@ -223,6 +223,14 @@
     <cruise-itinerary-description-v2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-description-v2-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
         sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>    
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
@@ -236,7 +244,15 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Entdecken Sie unsere zahlreichen Treffpunkte an Bord, wo Sie Zeit mit gleichgesinnten Reisenden und natürlich unseren personalisierten All-inclusive-Service genießen können."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Entdecken Sie unsere zahlreichen Treffpunkte an Bord, wo Sie Zeit mit gleichgesinnten Reisenden und natürlich unseren personalisierten All-inclusive-Service genießen können."/>
     <cruise-ship-suite-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers.  Wählen Sie Ihre Suite und fordern Sie ein Angebot an - Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, ihre Suite zu wählen, belohnt."/>
+    <cruise-ship-suite-description-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers.  Wählen Sie Ihre Suite und fordern Sie ein Angebot an - Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, ihre Suite zu wählen, belohnt."/>
