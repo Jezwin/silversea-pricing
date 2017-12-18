@@ -26,6 +26,7 @@ public class PriceModelLight {
     	price = priceModel.getPrice();
     	earlyBookingBonus = priceModel.getEarlyBookingBonus();
     	suiteCategory = priceModel.getSuiteCategory();
+    	priceModel = null;
     }
 
     public String getAvailability() {
