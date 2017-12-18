@@ -64,7 +64,12 @@ public class CruisesEventListenerServiceImpl implements ResourceChangeListener {
                             && resourceChange.getRemovedPropertyNames().contains("cruiseCode")
                             && resourceChange.getRemovedPropertyNames().contains("apiTitle"));
                     }
+                    
+                    if(resourceChange.getRemovedPropertyNames() != null) {
                     if(!resourceChange.getRemovedPropertyNames().contains("toActivate") && !resourceChange.getRemovedPropertyNames().contains("toDeactivate")){
+                    	jobManager.addJob(JOB_TOPIC, jobInfos);
+                    }
+                    }else{
                     	jobManager.addJob(JOB_TOPIC, jobInfos);
                     }
 
