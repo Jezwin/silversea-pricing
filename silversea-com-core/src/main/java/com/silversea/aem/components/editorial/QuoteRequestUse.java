@@ -332,7 +332,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 					selectedBrochure = asset.adaptTo(BrochureModel.class);
 
 					raqModel = new RequestQuoteModel();
-					raqModel.setThumbnail(asset.getImagePreviewRendition().getPath());
+					raqModel.setThumbnail(asset.getRendition("Web").getPath());
 					raqModel.setTitle(selectedBrochure.getAssetTitle());
 
 				}
