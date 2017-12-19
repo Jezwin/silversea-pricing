@@ -193,6 +193,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 					resourceBrochureGroup = result.getHits().get(0).getResource();
 					ResourceCollection collection = resourceBrochureGroup.adaptTo(ResourceCollection.class);
 					Iterator<Resource> it = collection.getResources();
+					brochureOrdered = new ArrayList<>();
 					while (it.hasNext()) {
 						Resource resourcePdf = it.next();
 						Asset assetPdf = resourcePdf.adaptTo(Asset.class);
