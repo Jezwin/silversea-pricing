@@ -192,30 +192,64 @@
 							  shares: ["facebook", "twitter", "googleplus"]
 							 });
                         });	
-						function ajax_download(url, data) {
-								var $iframe,
-									iframe_doc,
-									iframe_html;
+						function ajax_download(url) {
+							$.ajax({
+					            cache: false,
+					            type: 'GET',
+					            url: 'url
+					            contentType: false,
+					            processData: false,
+					            xhrFields: {
+					                responseType: 'blob'
+					            },
+					            success: function (response, status, xhr) {
 
-								if (($iframe = $('#download_iframe')).length === 0) {
-									$iframe = $("<iframe id='download_iframe'" +
-												" style='display: none' src='about:blank'></iframe>"
-											   ).appendTo("body");
-								}
+					                var filename = "";                   
+					                var disposition = xhr.getResponseHeader('Content-Disposition');
 
-								iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
-								if (iframe_doc.document) {
-									iframe_doc = iframe_doc.document;
-								}
+					                 if (disposition) {
+					                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+					                    var matches = filenameRegex.exec(disposition);
+					                    if (matches !== null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+					                } 
+					                var linkelem = document.createElement('a');
+					                try {
+					                                           var blob = new Blob([response], { type: 'application/octet-stream' });                        
 
-								iframe_html = "<html><head></head><body><form method='GET' action='" +
-											  url +"'></form>" +
-											  "</body></html>";
+					                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+					                        //   IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+					                        window.navigator.msSaveBlob(blob, filename);
+					                    } else {
+					                        var URL = window.URL || window.webkitURL;
+					                        var downloadUrl = URL.createObjectURL(blob);
 
-								iframe_doc.open();
-								iframe_doc.write(iframe_html);
-								$(iframe_doc).find('form').submit();
+					                        if (filename) { 
+					                            // use HTML5 a[download] attribute to specify filename
+					                            var a = document.createElement("a");
+
+					                            // safari doesn't support this yet
+					                            if (typeof a.download === 'undefined') {
+					                                window.location = downloadUrl;
+					                            } else {
+					                                a.href = downloadUrl;
+					                                a.download = filename;
+					                                document.body.appendChild(a);
+					                                
+					                                a.click();
+					                            }
+					                        } else {
+					                            window.location = downloadUrl;
+					                        }
+					                    }   
+
+					                } catch (ex) {
+					                    console.log(ex);
+					                } 
+					            }
+					        });
 							}
+						
+						
 						function createCookie(name, value, days) {
 								var expires;
 								if (days) {
