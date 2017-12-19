@@ -13,6 +13,8 @@ public class PortModelLight {
     private String path;
 
     private String name;
+
+	private String thumbnail;
     
     public PortModelLight(PortModel portModel) {
 
@@ -22,6 +24,7 @@ public class PortModelLight {
         country = portModel.getCountry();
         path = portModel.getPath();
         name = portModel.getName();
+        thumbnail = portModel.getThumbnail();
     }
 
 
@@ -67,4 +70,14 @@ public class PortModelLight {
 
         return objShipModel.getPath().equals(getPath());
     }
+
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 }
