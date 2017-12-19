@@ -134,7 +134,7 @@
 									$('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
 
-                                    ajax_download('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.${cruise.cruiseModel.cruiseCode @ context="scriptString"}.pdf');									console.log('share pdf download');
+                                   /* ajax_download('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.${cruise.cruiseModel.cruiseCode @ context="scriptString"}.pdf');									console.log('share pdf download');
 
 
                                     // Check PDF Download
@@ -151,7 +151,26 @@
                                             createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', 0, -1);
                                             pdfClicked = false;
                                         }
-                                    }, 1000);
+                                    }, 1000);*/
+                                    
+                                    setTimeout(function(){
+                                        $.ajax({
+                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+                                            beforeSend: function(){
+
+                                        		downloadWin = window.open('', '_blank');
+                                        		downloadWin.blur();
+                                        		currentWindow.focus();    
+                                            },
+                                            success: function(r) {
+    	                                        $('.voyageshare_wrap .fa-refresh').hide();
+    	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
+                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                                pdfClicked = false;
+                                            }
+                                        });
+                                        }, 500);
+
 
                                 }
                             });
