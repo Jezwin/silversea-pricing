@@ -19,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.Rendition;
+import com.day.cq.dam.api.RenditionPicker;
+import com.day.cq.dam.commons.util.PrefixRenditionPicker;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
@@ -332,7 +335,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 					selectedBrochure = asset.adaptTo(BrochureModel.class);
 
 					raqModel = new RequestQuoteModel();
-					raqModel.setThumbnail(asset.getRendition("Web").getPath());
+					String thumb = selectedBrochure.getCover();
+					 RenditionPicker renditionPicker = new PrefixRenditionPicker("Web");
+			            Rendition rendition = asset.getRendition(renditionPicker);
+			            if (rendition != null) {
+			            	thumb =  rendition.getPath();
+			            }
+					raqModel.setThumbnail(thumb);
 					raqModel.setTitle(selectedBrochure.getAssetTitle());
 
 				}
