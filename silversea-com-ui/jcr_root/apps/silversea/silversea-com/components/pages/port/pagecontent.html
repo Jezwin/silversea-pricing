@@ -9,6 +9,8 @@
 	    <sly data-sly-test="${portUse.filteredExcursions}" data-sly-include="port_acordion_excursions.html" />
 	    <sly data-sly-test="${portUse.filteredLand}" data-sly-include="port_acordion_land.html" />
 	    <sly data-sly-test="${portUse.filteredHotels}" data-sly-include="port_acordion_hotels.html" />
+	    <sly data-sly-test="${portUse.relatedPortsCount < 3}" data-sly-include="port_related_ports_two.html" />
+	    <sly data-sly-test="${portUse.relatedPortsCount > 2}" data-sly-include="port_related_ports.html" />
     </div>
 </div>                        
 </section>
