@@ -70,17 +70,6 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 			currentLanguage = LanguageHelper.getLanguage(getCurrentPage());
 
 		}
-		String brochureTagId = null;
-
-		// init selected brochure group
-		final String[] selectors = getRequest().getRequestPathInfo().getSelectors();
-		for (String selector : selectors) {
-			if (selector.startsWith(SELECTOR_BROCHURE_GROUP_PREFIX)) {
-				brochureGroup = selector.replace(SELECTOR_BROCHURE_GROUP_PREFIX, "");
-				brochureTagId = SELECTOR_BROCHURE_GROUPS_TAG_PREFIX + brochureGroup;
-				break;
-			}
-		}
 
 		// init root path
 		final String brochuresPath = getProperties().get("folderReference",
@@ -99,6 +88,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 
 		// Searching for brochures
 		List<BrochureModel> brochuresNotLanguageFilteredNotOrdered = new ArrayList<>();
+		List<BrochureModel> brochuresNotOrdered = new ArrayList<>();
 		brochures = new ArrayList<>();
 		languages = new LinkedHashMap<>();
 
@@ -106,48 +96,13 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 
 		// get all brochures listed in order
 		Resource brochuresRoot = getResourceResolver().getResource(brochuresPath);
-		Map<String, Integer> brochureGroupOrder = null;
 		
 		if (brochuresRoot != null) {
 			// filter brochures by localization, language, and group
 			filterResources(brochuresRoot.listChildren(), brochuresNotLanguageFilteredNotOrdered);
 
-			if (brochureTagId != null) {
-				LOGGER.debug("Retrieve brochure {} group order: {}", brochureTagId, brochureGroup);
-
-				Integer numBrochures = brochuresNotLanguageFilteredNotOrdered.size();
-				brochuresNotLanguageFiltered = new ArrayList<>();
-				Map<Integer, BrochureModel> brochureTemp = new HashMap<Integer, BrochureModel>();
-			
-				brochureGroupOrder = getBrochureGroupOrder(brochureTagId);
-				
-				if (brochureGroupOrder != null) {
-					LOGGER.debug("Ordering {} brochure in {} group", numBrochures, brochureTagId);
-					
-					for (BrochureModel brochure : brochuresNotLanguageFilteredNotOrdered) {
-						String code = brochure.getBrochureCode();
-						Integer index = brochureGroupOrder.get(code);
-						if (brochureGroupOrder.containsKey(code) && index < numBrochures) {
-							brochureTemp.put(index, brochure);
-						}
-					}
-					
-					LOGGER.debug("Copy {} brochures from brochureTemp to brochuresNotLanguageFiltered", brochureTemp.size());
-					
-					brochureTemp.forEach((k, v) -> {
-						brochuresNotLanguageFiltered.add(v);
-					});
-					brochureTemp = null;
-				}
-			} 
-			
-			if (brochureTagId == null || brochureGroupOrder == null) {
-				LOGGER.debug("Not order apply");
-				brochuresNotLanguageFiltered = brochuresNotLanguageFilteredNotOrdered;
-			}
-
 			// build language list
-			for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+			for (BrochureModel brochure : brochuresNotLanguageFilteredNotOrdered) {
 				final Tag language = brochure.getLanguage();
 
 				LOGGER.debug("Searching language for brochure: {}", brochure.getBrochurePath());
@@ -167,31 +122,63 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 					language = languages.keySet().iterator().next();
 				}
 
-				for (BrochureModel brochure : brochuresNotLanguageFiltered) {
+				for (BrochureModel brochure : brochuresNotLanguageFilteredNotOrdered) {
 					// check language
 					if (isMatchingLanguage(brochure, language)) {
 						// brochure matches all criteria
-						brochures.add(brochure);
+						brochuresNotOrdered.add(brochure);
 					}
 				}
 			}
+			
+			String brochureTagId = null;
+
+			// init selected brochure group
+			final String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+			for (String selector : selectors) {
+				if (selector.startsWith(SELECTOR_BROCHURE_GROUP_PREFIX)) {
+					brochureGroup = selector.replace(SELECTOR_BROCHURE_GROUP_PREFIX, "");
+					brochureTagId = SELECTOR_BROCHURE_GROUPS_TAG_PREFIX + brochureGroup;
+					break;
+				}
+			}
+			
+			if (brochureTagId != null && !brochuresNotOrdered.isEmpty()) {
+				LOGGER.debug("Retrieve brochure {} group order: {}", brochureTagId, brochureGroup);
+
+				LOGGER.debug("Ordering {} brochure group", brochureTagId);
+				
+				List<BrochureModel> brochuresOrdered = orderBrochures(brochureTagId, brochuresNotOrdered);
+				
+				if (brochuresOrdered != null && !brochuresOrdered.isEmpty()) {
+					LOGGER.debug("Copied {} brochures from brochuresOrdered to brochures", brochuresOrdered.size());
+					brochures = brochuresOrdered;
+				} else {
+					brochures = brochuresNotOrdered;
+				}
+			} else {
+				LOGGER.debug("Not order apply");
+				brochures = brochuresNotOrdered;
+			}
+			
 		}
 	}
 
 	/**
 	 * Retrieve the specific order from collection based on tag.
+	 * @param brochuresNotOrdered 
 	 * @param brochureTagId:  brochure id tag to get all pdf list
 	 * @throws RepositoryException 
 	 * @return map representing the order or null (not order)
 	 */
-	private Map<String, Integer> getBrochureGroupOrder(String brochureTagId) {
-		Map<String, Integer> resultOrder = null;
+	private List<BrochureModel> orderBrochures(String brochureTagId, List<BrochureModel> brochuresNotOrdered) {
+		List<BrochureModel> brochureOrdered = null;
 		if (brochureTagId != null) {
 			
 			//create query to QueryBuilder. Search collection under /dam/collection
 			final Map<String, String> map = new HashMap<String, String>();
 			map.put("path", "/content/dam/collections/");
-			//map.put("type", "sling:collection");
+			map.put("type", "sling:collection");
 			map.put("tagid", brochureTagId);
 			QueryBuilder queryBuilder = getResourceResolver().adaptTo(QueryBuilder.class);
 			
@@ -206,20 +193,22 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
 					resourceBrochureGroup = result.getHits().get(0).getResource();
 					ResourceCollection collection = resourceBrochureGroup.adaptTo(ResourceCollection.class);
 					Iterator<Resource> it = collection.getResources();
-					resultOrder = new HashMap<>();
-					int i = 0;
 					while (it.hasNext()) {
 						Resource resourcePdf = it.next();
 						Asset assetPdf = resourcePdf.adaptTo(Asset.class);
 						BrochureModel brochurePdf = assetPdf.adaptTo(BrochureModel.class);
-						resultOrder.put(brochurePdf.getBrochureCode(), i++);
+						for (BrochureModel b : brochuresNotOrdered) {
+							if (b.getBrochureCode().equalsIgnoreCase(brochurePdf.getBrochureCode())) {
+								brochureOrdered.add(b);
+							}
+						}
 					}
 				} catch (RepositoryException e) {
 					LOGGER.error("Error during get resources from collection");
 				}
 			}
 		}
-		return resultOrder;
+		return brochureOrdered;
 	}
 
 	/**
