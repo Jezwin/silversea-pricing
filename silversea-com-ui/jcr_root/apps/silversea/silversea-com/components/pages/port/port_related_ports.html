@@ -8,7 +8,7 @@
 			<div class="port_v2__postcarousel" id="port_v2__relatedcarousel">
 				<div data-sly-repeat.relatedPorts="${portUse.relatedPorts}" class="port_v2__post">
 					
-					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = relatedPorts.thumbnail"} />
+					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = relatedPorts.thumbnail} />
 					<div class="port_v2__post_img" style="background-image: url('${assetHelper.imageUrl @ context='unsafe'}?hei=372&wid=672&fit=crop');">
 						<a href="${relatedPorts.path @ extension='html'}" title="${relatedPorts.title}"></a>
 					</div>
