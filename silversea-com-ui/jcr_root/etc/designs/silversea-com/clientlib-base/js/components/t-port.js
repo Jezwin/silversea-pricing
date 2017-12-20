@@ -97,6 +97,10 @@ function scrollToAnchor() {
 		return false;
 	});
 }
+function portV2_matchingHeights() {
+	$('.port_v2__post_title').matchHeight();
+	$('.port_v2__post_meta').matchHeight();
+}
 function portV2_CarouselRelated() {
 	var relatedCarousel = $('#port_v2__relatedcarousel');
 	relatedCarousel.on('init', function () {
