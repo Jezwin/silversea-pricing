@@ -1,9 +1,3 @@
-$(document).ready(function() {
-	portv2_ss_read_more();
-	portV2_PageClass();
-	scrollToAnchor();
-});
-
 function portv2_ss_read_more() {
 	$('#ss_read_more').on('click', function() {
 		if(!$('.port_v2__discover_text').hasClass('open')) {

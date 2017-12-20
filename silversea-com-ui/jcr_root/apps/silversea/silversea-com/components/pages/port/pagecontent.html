@@ -12,5 +12,12 @@
 	    <sly data-sly-test="${portUse.relatedPortsCount < 3}" data-sly-use.port_related_two="port_related_ports_two.html" data-sly-call="${port_related_two.default @ portUse=portUse}"  />
 	    <sly data-sly-test="${portUse.relatedPortsCount > 2}" data-sly-use.port_related="port_related_ports.html" data-sly-call="${port_related.default @ portUse=portUse}"/>
     </div>
-</div>                        
+</div>
+<script>
+$(document).ready(function() {
+	portv2_ss_read_more();
+	portV2_PageClass();
+	scrollToAnchor();
+});
+</script>                       
 </section>
