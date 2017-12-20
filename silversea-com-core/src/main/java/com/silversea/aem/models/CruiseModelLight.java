@@ -54,9 +54,11 @@ public class CruiseModelLight {
         title = cruiseModel.getTitle();
 
         departurePortName = cruiseModel.getDeparturePortName();
-
+        try{
         arrivalPortName = cruiseModel.getArrivalPortName();
-
+        }catch(Exception e){
+        	arrivalPortName = "missing";
+        }
         destination = new DestinationItem(cruiseModel.getDestination().getName(), cruiseModel.getDestination().getTitle());
 
         destinationId = cruiseModel.getDestination().getDestinationId();

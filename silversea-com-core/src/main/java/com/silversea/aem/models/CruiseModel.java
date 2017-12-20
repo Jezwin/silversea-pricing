@@ -362,6 +362,7 @@ public class CruiseModel {
      * @return arrival port name
      */
     public String getArrivalPortName() {
+    	try{
         if (itineraries.size() > 0) {
             final ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
 
@@ -369,7 +370,9 @@ public class CruiseModel {
                 return itinerary.getPort().getApiTitle();
             }
         }
-
+    	}catch(Exception e){
+    		
+    	}
         return null;
     }
 
