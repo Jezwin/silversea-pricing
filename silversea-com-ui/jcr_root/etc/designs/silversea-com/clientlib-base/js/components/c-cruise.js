@@ -327,7 +327,7 @@ $(function() {
     
     $("#cruise-itinerary-suite-and-fares-mobile-btn-v2").on('click', function(event) {
     	event.preventDefault();
-    	var mediaElement = $('[href=#overview]');
+    	var mediaElement = $('[href="#overview"]');
     	if (mediaElement.length > 0 ) {
     		mediaElement[0].click();
     		var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
