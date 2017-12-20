@@ -21,13 +21,13 @@
         var results = [],
             destinations = [],
             visiblePorts = [],
-            // visiblePorts = $('[name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;}),
+            // visiblePorts = $('.finyourport [name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;}),
             filteredPortData = {};
 
-        if($.trim($('[name="itinerary-port"]').val()) === ''){
-            visiblePorts = $('[name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;});
+        if($.trim($('.finyourport [name="itinerary-port"]').val()) === ''){
+            visiblePorts = $('.finyourport [name="itinerary-port"] option:gt(1):not(:disabled)').map(function(port){return this.value;});
         } else {
-            visiblePorts.push($.trim($('[name="itinerary-port"]').val()));
+            visiblePorts.push($.trim($('.finyourport [name="itinerary-port"]').val()));
         }
 
         visiblePorts = $.makeArray(visiblePorts);
@@ -45,14 +45,14 @@
     }
 
     function setCounter(){
-        var selectedPort = $.trim($('[name="itinerary-port"]').val()),
-            selectedDest = $.trim($('[name="destination"]').val()),
+        var selectedPort = $.trim($('.finyourport [name="itinerary-port"]').val()),
+            selectedDest = $.trim($('.finyourport [name="destination"]').val()),
             counter = 0;
 
         if(selectedPort !== ''){
             // port selected
             if(selectedDest === ''){ // destination not selected
-                //counter = $('[name="destination"] option:not(:disabled)').length-2;
+                //counter = $('.finyourport [name="destination"] option:not(:disabled)').length-2;
                 counter = false;
             } else { // destination selected
                 counter = 1;
@@ -60,7 +60,7 @@
         } else {
             // port not selected
             if(selectedDest !== ''){ // destination selected
-                counter = $('[name="itinerary-port"] option:not(:disabled)').length-2;
+                counter = $('.finyourport [name="itinerary-port"] option:not(:disabled)').length-2;
             } else {
                 counter = portsDest.length;
             }
@@ -80,15 +80,15 @@
             if(port.port_city_id == selected){
                 $.each(port.related_destinations, function(key, dest){
                     if(selectedDestination === ''){
-                        $('[name="destination"]').children('[value="'+dest.dest_id+'"]').removeAttr('disabled');
+                        $('.finyourport [name="destination"]').children('[value="'+dest.dest_id+'"]').removeAttr('disabled');
                     } else {
-                        $('[name="destination"]').children('[value="'+selectedDestination+'"]').removeAttr('disabled');
+                        $('.finyourport [name="destination"]').children('[value="'+selectedDestination+'"]').removeAttr('disabled');
                     }
                 });
             }
         });
-        $('[name="destination"] option:lt(2)').removeAttr('disabled');
-        $('[name="destination"]').trigger("chosen:updated");
+        $('.finyourport [name="destination"] option:lt(2)').removeAttr('disabled');
+        $('.finyourport [name="destination"]').trigger("chosen:updated");
     }
 
     function selectPorts(selectedPort, selected){
@@ -98,14 +98,14 @@
             });
             if(selectedDest.indexOf(selected) !== -1){
                 if(selectedPort === ''){
-                    $('[name="itinerary-port"]').children('[value="'+port.port_city_id+'"]').removeAttr('disabled');
+                    $('.finyourport [name="itinerary-port"]').children('[value="'+port.port_city_id+'"]').removeAttr('disabled');
                 } else {
-                    $('[name="itinerary-port"]').children('[value="'+selectedPort+'"]').removeAttr('disabled');
+                    $('.finyourport [name="itinerary-port"]').children('[value="'+selectedPort+'"]').removeAttr('disabled');
                 }
             }
         });
-        $('[name="itinerary-port"] option:lt(2)').removeAttr('disabled');
-        $('[name="itinerary-port"]').trigger("chosen:updated");
+        $('.finyourport [name="itinerary-port"] option:lt(2)').removeAttr('disabled');
+        $('.finyourport [name="itinerary-port"]').trigger("chosen:updated");
     }
 
     function initChosen(){
@@ -116,40 +116,40 @@
             var selected = this.value,
                 selectedDestination = $.trim($('[name="destination"]').val());
             if(selectedDestination === ''){
-                $('[name="destination"] option').removeAttr('disabled');
+                $('.finyourport [name="destination"] option').removeAttr('disabled');
             }
             if(selected.trim() === ""){
                 if(selectedDestination !== ''){
                     selectPorts(selected, selectedDestination);
                 } else {
-                    $('[name="itinerary-port"] option').removeAttr('disabled');
+                    $('.finyourport [name="itinerary-port"] option').removeAttr('disabled');
                 }
-                $('[name="itinerary-port"], [name="destination"]').trigger("chosen:updated");
+                $('.finyourport [name="itinerary-port"], .finyourport [name="destination"]').trigger("chosen:updated");
                 setCounter();
                 return;
             }
-            $('[name="destination"] option').attr('disabled', 'disabled');
+            $('.finyourport [name="destination"] option').attr('disabled', 'disabled');
             selectDestinations(selectedDestination, selected);
             setCounter();
         });
 
-        $('[name="destination"]').off('change').on('change', function(){
+        $('.finyourport [name="destination"]').off('change').on('change', function(){
             var selected = this.value,
                 selectedPort = $.trim($('[name="itinerary-port"]').val());
             if(selectedPort === ''){
-                $('[name="itinerary-port"] option').removeAttr('disabled');
+                $('.finyourport [name="itinerary-port"] option').removeAttr('disabled');
             }
             if(selected.trim() === ""){
                 if(selectedPort !== ''){
                     selectDestinations(selected, selectedPort);
                 } else {
-                    $('[name="destination"] option').removeAttr('disabled');
+                    $('.finyourport [name="destination"] option').removeAttr('disabled');
                 }
-                $('[name="itinerary-port"], [name="destination"]').trigger("chosen:updated");
+                $('.finyourport [name="itinerary-port"], .finyourport [name="destination"]').trigger("chosen:updated");
                 setCounter();
                 return;
             }
-            $('[name="itinerary-port"] option').attr('disabled', 'disabled');
+            $('.finyourport [name="itinerary-port"] option').attr('disabled', 'disabled');
             selectPorts(selectedPort, selected);
             setCounter();
         });
