@@ -2,15 +2,15 @@
 <section class="o-section">                       
 <div class="c-tab__body">
 	<div class="port_v2">
-	    <sly data-sly-include="port_head.html" />
-	    <sly data-sly-include="port_headdescription.html" />
-	    <sly data-sly-include="port_common.html" />
-	    <sly data-sly-test="${portuse.cruiseCounter > 0 }" data-sly-include="port_fyc.html" />
-	    <sly data-sly-test="${portUse.filteredExcursions}" data-sly-include="port_acordion_excursions.html" />
-	    <sly data-sly-test="${portUse.filteredLand}" data-sly-include="port_acordion_land.html" />
-	    <sly data-sly-test="${portUse.filteredHotels}" data-sly-include="port_acordion_hotels.html" />
-	    <sly data-sly-test="${portUse.relatedPortsCount < 3}" data-sly-include="port_related_ports_two.html" />
-	    <sly data-sly-test="${portUse.relatedPortsCount > 2}" data-sly-include="port_related_ports.html" />
+	    <sly data-sly-use.fyc="port_head.html" data-sly-call="${fyc.default @ portUse=portUse}"  />
+	    <sly data-sly-use.fyc="port_headdescription.html" data-sly-call="${fyc.default @ portUse=portUse}"/>
+	    <sly data-sly-use.fyc="port_common.html" data-sly-call="${fyc.default @ portUse=portUse}" data-sly-include="port_common.html" />
+	    <sly data-sly-test="${portuse.cruiseCounter > 0 }" data-sly-use.fyc="port_fyc.html" data-sly-call="${fyc.default @ portUse=portUse}"/>
+	    <sly data-sly-test="${portUse.filteredExcursions}" data-sly-use.fyc="port_acordion_excursions.html" data-sly-call="${fyc.default @ portUse=portUse}" />
+	    <sly data-sly-test="${portUse.filteredLand}" data-sly-use.fyc="port_acordion_land.html" data-sly-call="${fyc.default @ portUse=portUse}"  />
+	    <sly data-sly-test="${portUse.filteredHotels}" data-sly-use.fyc="port_acordion_hotels.html" data-sly-call="${fyc.default @ portUse=portUse}"  />
+	    <sly data-sly-test="${portUse.relatedPortsCount < 3}" data-sly-use.fyc="port_related_ports_two.html" data-sly-call="${fyc.default @ portUse=portUse}"  />
+	    <sly data-sly-test="${portUse.relatedPortsCount > 2}" data-sly-use.fyc="port_related_ports.html" data-sly-call="${fyc.default @ portUse=portUse}"/>
     </div>
 </div>                        
 </section>
