@@ -6,7 +6,7 @@
 			<span>${'related-destinations' @i18n}</span>
 		</div>
 		<div class="port_v2__section_content">
-			<div class="port_v2__postcarousel c-slider exclusiveOfferList" id="port_v2__relatedcarousel">
+			<div class="port_v2__postcarousel exclusiveOfferList" id="port_v2__relatedcarousel">
 				<div data-sly-repeat.relatedPorts="${portUse.relatedPorts}" class="port_v2__post">
 						<sly data-sly-test.imageUrl="${relatedPorts.thumbnail}" />
 					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
