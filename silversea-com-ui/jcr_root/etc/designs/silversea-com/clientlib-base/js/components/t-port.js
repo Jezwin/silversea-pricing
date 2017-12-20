@@ -114,8 +114,8 @@ function portV2_CarouselRelated() {
 		slidesToShow: 3,
 		slidesToScroll: 3,
 		speed: 700,
-		prevArrow: '<a class="slick-prev slick-arrow" href="javascript:void(0);"><img class="spriteslider-prev" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAAENAQMAAADnlR+0AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABtJREFUeNrtwQENAAAAwqD3T20PBxQAAAAAcGYT9wABsSlnlQAAAABJRU5ErkJggg==" alt="slider-prev"></a>',
-		nextArrow: '<a class="slick-next slick-arrow" href="javascript:void(0);"><img class="spriteslider-next" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAAENAQMAAADnlR+0AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABtJREFUeNrtwQENAAAAwqD3T20PBxQAAAAAcGYT9wABsSlnlQAAAABJRU5ErkJggg==" alt="slider-next"></a>',
+		prevArrow: '<button type="button" data-role="none" class="slick-prev slick-arrow c-slider-black-arrow" aria-label="Previous" role="button"><i class="fa fa-angle-left"></i></button>',
+		nextArrow: '<button type="button" data-role="none" class="slick-next slick-arrow c-slider-black-arrow" aria-label="Next" role="button"><i class="fa fa-angle-right"></i></button>',
 		responsive: [
 			{
 				breakpoint: 1030,
