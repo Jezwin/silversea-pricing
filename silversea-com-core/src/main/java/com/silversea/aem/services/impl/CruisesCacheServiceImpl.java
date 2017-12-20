@@ -179,6 +179,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
      */
     private void collectCruisesPages(final Page rootPage) {
         if (rootPage.getContentResource() != null && rootPage.getContentResource().isResourceType(WcmConstants.RT_CRUISE)) {
+        	try{
             final String lang = LanguageHelper.getLanguage(rootPage);
 
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
@@ -224,6 +225,9 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
                 LOGGER.debug("Adding cruise at path {} in cache", cruiseModel.getPage().getPath());
             }
+        	}catch(Exception e){
+        		 LOGGER.error("XXX Error adding cruise at path {} in cache", rootPage.getPath());
+        	}
         } else {
             final Iterator<Page> children = rootPage.listChildren();
 
