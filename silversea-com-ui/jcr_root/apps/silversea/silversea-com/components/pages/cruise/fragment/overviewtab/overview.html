@@ -40,11 +40,6 @@
                             <span class="lead" data-sly-test="${cruise.isWaitList}">
                                 ${'waitlist' @ i18n}
                             </span>
-                            <span class="text-lowercase" data-sly-test="${early}"
-                                data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = cruise.lowestPrice.price}">
-                                (${'per-guest' @ i18n})<br />
-                                <small class="text-uppercase">${cruise.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
-                            </span>
                             <sly data-sly-test="${!cruise.isWaitList}">
                                 <span class="lead">
                                     ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
@@ -52,7 +47,6 @@
                                 <span  data-sly-test="${early}" class="price-suffixe">
                                     ${'with-early' @ i18n}${'booking-bonus' @ i18n}
                                 </span>
-                                <span data-sly-test="${!early}">(${'per-guest' @ i18n})</span>
                             </sly>
                         </a>
                     </div>
