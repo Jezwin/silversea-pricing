@@ -196,7 +196,7 @@
 							var cruiseTypeText = '';
                             if(${(cruise.cruiseModel.cruiseType == 'silversea-expedition') @ context='scriptString'}){ cruiseTypeText='${'expedition-cruise' @ i18n,context='scriptString'}' } else{cruiseTypeText='${'cruise' @ i18n,context='scriptString'}'};
                             var shareText  = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
-
+                            if( $("#social_shares").jsSocials != undefined){
                             $("#social_shares").jsSocials({
 							  showLabel: false,
 							  showCount: false,
@@ -204,6 +204,8 @@
 							  text: shareText ,
 							  shares: ["facebook", "twitter", "googleplus"]
 							 });
+                            }
+                            
                         });	
 						function ajax_download(url, data) {
 								var $iframe,
