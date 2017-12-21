@@ -1,8 +1,10 @@
-<div class="c-list--legal" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
-    <ul class="c-list--legal__group">
-        <li class="c-list--legal__item">&#169; ${footer.year} ${'copyright' @ i18n}</li>
-        <li class="c-list--legal__item" data-sly-repeat.child="${footer.pagesBottomLineIterator}">
-            <a href="${child.path @ extension='html'}"><strong>${child.title}</strong></a>
-        </li>
-    </ul>
-</div>
+<template data-sly-template.default="${ @ footer }">
+	<div class="c-list--legal">
+	    <ul class="c-list--legal__group">
+	        <li class="c-list--legal__item">&#169; ${footer.year} ${'copyright' @ i18n}</li>
+	        <li class="c-list--legal__item" data-sly-repeat.child="${footer.pagesBottomLineIterator}">
+	            <a href="${child.path @ extension='html'}"><strong>${child.title}</strong></a>
+	        </li>
+	    </ul>
+	</div>
+</template>

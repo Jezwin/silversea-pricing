@@ -19,6 +19,6 @@
         </p>
     </section>
     <section class="o-section o-section--legal">
-        <sly data-sly-include="legal.html" />
+        <sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @footer=footer}" />
     </section>
 </div>
