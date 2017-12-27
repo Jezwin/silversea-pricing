@@ -1,8 +1,10 @@
 package com.silversea.aem.helper;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -16,32 +18,47 @@ import com.adobe.cq.sightly.WCMUsePojo;
  */
 public class DateHelper extends WCMUsePojo {
 
-    public String value;
+	public String value;
 
-    @Override
-    public void activate() throws Exception {
-        Calendar date = get("date", Calendar.class);
-        String format = get("format", String.class);
-        String month = get("month", String.class);
-        String localeParam = get("locale", String.class);
+	@Override
+	public void activate() throws Exception {
+		Calendar date = get("date", Calendar.class);
+		String format = get("format", String.class);
+		String month = get("month", String.class);
+		String localeParam = get("locale", String.class);
+		String time = get("time", String.class);
 
-        Locale locale = StringUtils.isNotBlank(localeParam) ? new Locale(localeParam) : getCurrentPage().getLanguage(false);
-        SimpleDateFormat formatter;
+		Locale locale = StringUtils.isNotBlank(localeParam) ? new Locale(localeParam)
+				: getCurrentPage().getLanguage(false);
+		SimpleDateFormat formatter;
 
-        if (date != null && format != null) {
-            formatter = new SimpleDateFormat(format, locale);
-            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-            value = formatter.format(date.getTime());
-        }
+		if (date != null && format != null) {
+			formatter = new SimpleDateFormat(format, locale);
+			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+			value = formatter.format(date.getTime());
+		}
 
-        if (month != null) {
-            DateFormatSymbols symbols = new DateFormatSymbols(locale);
-            String[] monthNames = symbols.getMonths();
-            value = monthNames[Integer.parseInt(month) - 1];
-        }
-    }
+		if (month != null) {
+			DateFormatSymbols symbols = new DateFormatSymbols(locale);
+			String[] monthNames = symbols.getMonths();
+			value = monthNames[Integer.parseInt(month) - 1];
+		}
 
-    public String getValue() {
-        return value;
-    }
+		if (time != null) {
+			if (locale.getLanguage().equalsIgnoreCase("en")) {
+				formatter = new SimpleDateFormat("HH:mm");
+				try {
+					Date dateParse = formatter.parse(time);
+					formatter = new SimpleDateFormat("HH:mm aa");
+					value = formatter.format(dateParse);
+				} catch (ParseException e) {
+					value = time;
+				}
+			}
+		}
+	}
+
+	public String getValue() {
+		return value;
+	}
 }
