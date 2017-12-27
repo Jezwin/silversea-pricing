@@ -1,5 +1,6 @@
 package com.silversea.aem.helper;
 
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 public class DateHelper extends WCMUsePojo {
 
 	public String value;
+	
+	private Calendar calendar  = Calendar.getInstance();
 
 	@Override
 	public void activate() throws Exception {
@@ -46,14 +49,12 @@ public class DateHelper extends WCMUsePojo {
 
 		if (time != null) {
 			if (locale.getLanguage().equalsIgnoreCase("en")) {
-				formatter = new SimpleDateFormat("HH:mm");
-				try {
-					Date dateParse = formatter.parse(time);
-					formatter = new SimpleDateFormat("HH:mm aa");
-					value = formatter.format(dateParse);
-				} catch (ParseException e) {
-					value = time;
-				}
+				String closingTime = time.replace(":", "");
+				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
+				// For display purposes only We could just return the last two substring or format Calender.MINUTE as shown below
+				calendar.set(Calendar.MINUTE, Integer.parseInt(closingTime.substring(2, 4)));
+				// time.get(Calendar.AM_PM) returns integer 0 or 1 so let's set the right String value
+				value = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
 			}
 		}
 	}
