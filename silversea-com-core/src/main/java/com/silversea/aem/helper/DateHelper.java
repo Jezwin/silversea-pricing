@@ -55,6 +55,8 @@ public class DateHelper extends WCMUsePojo {
 
 				String AM_PM = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
 				value = calendar.get(Calendar.HOUR) + ":" + minute + " " + AM_PM;
+			} else {
+				value = time;
 			}
 		}
 	}
