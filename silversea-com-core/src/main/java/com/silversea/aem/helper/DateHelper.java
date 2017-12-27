@@ -1,11 +1,8 @@
 package com.silversea.aem.helper;
 
-import java.text.DateFormat;
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -53,8 +50,11 @@ public class DateHelper extends WCMUsePojo {
 				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
 				// For display purposes only We could just return the last two substring or format Calender.MINUTE as shown below
 				calendar.set(Calendar.MINUTE, Integer.parseInt(closingTime.substring(2, 4)));
-				// time.get(Calendar.AM_PM) returns integer 0 or 1 so let's set the right String value
-				value = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
+				
+				String minute = String.format("%02d", calendar.get(Calendar.MINUTE));
+
+				String AM_PM = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
+				value = calendar.get(Calendar.HOUR) + ":" + minute + " " + AM_PM;
 			}
 		}
 	}
