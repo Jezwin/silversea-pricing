@@ -9,6 +9,8 @@ import javax.jcr.RangeIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.Externalizer;
@@ -22,6 +24,9 @@ import com.day.cq.wcm.msm.api.LiveRelationshipManager;
 import com.silversea.aem.constants.WcmConstants;
 
 public class PageHelper extends WCMUsePojo {
+    
+    final static private Logger LOGGER = LoggerFactory.getLogger(PageHelper.class);
+    
     private Page page;
     private String thumbnail;
     private String thumbnailInherited;
@@ -51,8 +56,6 @@ public class PageHelper extends WCMUsePojo {
             }
         }
 
-        // Get hrefLang page
-        languagePages = fillLanguagePages();
     }
 
     private Map<String, String> fillLanguagePages() throws WCMException {
@@ -115,9 +118,9 @@ public class PageHelper extends WCMUsePojo {
     }
     
     public Boolean isIndexable(){
-    	Boolean result = true;
-    	final String resourceType = page.getContentResource().getResourceType();
-    	result = !(page.getProperties().get("notIndexed", false)
+        Boolean result = true;
+        final String resourceType = page.getContentResource().getResourceType();
+        result = !(page.getProperties().get("notIndexed", false)
                 || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
                 || WcmConstants.RT_HOTEL.equals(resourceType)
                 || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
@@ -129,7 +132,7 @@ public class PageHelper extends WCMUsePojo {
                 || WcmConstants.RT_LANDING_PAGE.equals(resourceType)
                 || WcmConstants.RT_LIGHTBOX.equals(resourceType));
 
-    	return result;
+        return result;
     }
 
     /**
@@ -163,7 +166,12 @@ public class PageHelper extends WCMUsePojo {
      * @return the languagePages
      */
     public Map<String, String> getLanguagePages() {
-        return languagePages;
+        try {
+            return fillLanguagePages();
+        } catch (WCMException e) {
+            LOGGER.error("Error filling language pages :" + e.getMessage());
+            return null;
+        }
     }
 
     /**
