@@ -1,0 +1,53 @@
+<template data-sly-template.default="${  @ footer}">
+	<div class="footer_v2" class="container">
+		<sly data-sly-include="form.html" />
+		<sly data-sly-use.linkTemplate="link.html" data-sly-call="${linkTemplate.default @ footer= footer}" />
+		<sly data-sly-use.contactTemplate="contact.html" data-sly-call="${contactTemplate.default @ footer= footer}" />
+		<sly data-sly-use.socialawardTemplate="socialaward.html" data-sly-call="${socialawardTemplate.default @ footer= footer}" />
+		<div class="o-section o-section--separator o-section--legal">
+			<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+		</div>
+	</div>
+</template>
+<template data-sly-template.port="${  @ footer}">
+	<div class="footer-v2" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+		<div class="container_large">
+			<div class="sv_v3__footer-forms">
+				<div class="container">
+					<h3 class="sv_v3__subtitle hidden-xs">${'more-about-silversea' @i18n}</h3>
+					<p class="sv_v3__desc hidden-xs">${'learn-more-about-silversea' @i18n}</p>
+					<sly data-sly-include="form.html" />
+				</div>
+			</div>
+			<div class="footer-v2-contact">
+				<div class="row">
+					<div class="footer-v2-callbox footer-v2-callbox-desktop col-xs-12">
+						<a class="footer-v2-logo" href="http://silversea.com">
+						<img class="spritelogo-dark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea">
+						</a>
+						<div class="col">
+							<p>
+								<span class="desktop">${'call-reservations-team-1' @ i18n} :&nbsp;</span><strong>${countryHelper.localizedPhone}</strong>
+							</p>
+						</div>
+						<p>
+							<span class="desktop">${'call-reservations-team-2' @ i18n}</span>
+						</p>
+					</div>
+					<div class="footer-v2-callbox footer-v2-callbox-mobile col-sm-9 col-xs-12">
+						<span class="mobile phone_number_top svv3_footer_mobile">${'call-reservations-team-1' @ i18n}</span>
+						<sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+						<sly data-sly-call="${googleForwardingNumberTemplate.footer}" />
+						<span class="mobile phone_number_bottom svv3_footer_mobile">${'call-reservations-team-2' @ i18n}</span>
+						<a class="footer-v2-logo" href="https://silversea.com">
+							<img class="spritelogo-dark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="footer-v2-service">
+				<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
+			</div>
+		</div>
+	</div>
+</template>
