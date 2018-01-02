@@ -240,7 +240,14 @@ public class ApiUpdater implements Runnable {
 
                         successNumber++;
                         j++;
-
+                        
+                        //Force some wait in replication process to avoid overusing publisher.
+                        try {
+							Thread.sleep(150);
+						} catch (InterruptedException e1) {
+							 LOGGER.error("Cannot wait");
+						}
+                        
                         if (j % 100 == 0 && session.hasPendingChanges()) {
                             try {
                                 session.save();
