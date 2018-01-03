@@ -86,6 +86,31 @@ public class PageHelper extends WCMUsePojo {
 				 }
 			}
 		}
+        
+        if(currentLng == ""){
+        	 String[] langListHome = {"/en","/es", "/pt-br", "/de", "/fr"};
+        	 for (String lng : langListHome) {
+     			if(currentPath.contains(lng)){
+     				 Page page = getPageManager().getPage(currentPath);
+     				 if(page != null){
+     					 locale = page.getLanguage(false);
+     		             languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+     		             currentLng = lng;
+     				 }
+     			}
+     		}
+             
+             for (String lng : langListHome) {
+     			if(!currentPath.contains(lng)){
+     				 String newPath = currentPath.replace(currentLng, lng);
+     				 Page page = getPageManager().getPage(newPath);
+     				 if(page != null){
+     					 locale = page.getLanguage(false);
+     		             languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
+     				 }
+     			}
+     		}
+        }
        /* LiveRelationshipManager liveRelationshipManager = getResourceResolver().adaptTo(LiveRelationshipManager.class);
         Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         Locale locale;
