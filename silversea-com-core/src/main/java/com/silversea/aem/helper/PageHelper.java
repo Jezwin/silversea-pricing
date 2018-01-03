@@ -59,8 +59,59 @@ public class PageHelper extends WCMUsePojo {
     }
 
     private Map<String, String> fillLanguagePages() throws WCMException {
-        Resource currentRes = getCurrentPage().adaptTo(Resource.class);
-        LiveRelationshipManager liveRelationshipManager = getResourceResolver().adaptTo(LiveRelationshipManager.class);
+        languagePages = new LinkedHashMap<>();
+        Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+        Locale locale;
+        String[] langList = {"/en/","/es/", "/pt-br/", "/de/", "/fr/"};
+        String currentPath = getCurrentPage().getPath();
+        String currentLng = "";
+        for (String lng : langList) {
+			if(currentPath.contains(lng)){
+				 Page page = getPageManager().getPage(currentPath);
+				 if(page != null){
+					 locale = page.getLanguage(false);
+		             languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+		             currentLng = lng;
+				 }
+			}
+		}
+        
+        for (String lng : langList) {
+			if(!currentPath.contains(lng)){
+				 String newPath = currentPath.replace(currentLng, lng);
+				 Page page = getPageManager().getPage(newPath);
+				 if(page != null){
+					 locale = page.getLanguage(false);
+		             languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
+				 }
+			}
+		}
+        
+        if(currentLng == ""){
+        	 String[] langListHome = {"/en","/es", "/pt-br", "/de", "/fr"};
+        	 for (String lng : langListHome) {
+     			if(currentPath.contains(lng)){
+     				 Page page = getPageManager().getPage(currentPath);
+     				 if(page != null){
+     					 locale = page.getLanguage(false);
+     		             languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, currentPath));
+     		             currentLng = lng;
+     				 }
+     			}
+     		}
+             
+             for (String lng : langListHome) {
+     			if(!currentPath.contains(lng)){
+     				 String newPath = currentPath.replace(currentLng, lng);
+     				 Page page = getPageManager().getPage(newPath);
+     				 if(page != null){
+     					 locale = page.getLanguage(false);
+     		             languagePages.put(locale.toLanguageTag(), externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, newPath));
+     				 }
+     			}
+     		}
+        }
+       /* LiveRelationshipManager liveRelationshipManager = getResourceResolver().adaptTo(LiveRelationshipManager.class);
         Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
         Locale locale;
 
@@ -105,7 +156,7 @@ public class PageHelper extends WCMUsePojo {
                     }
                 }
             }
-        }
+        }*/
 
         return languagePages;
     }
