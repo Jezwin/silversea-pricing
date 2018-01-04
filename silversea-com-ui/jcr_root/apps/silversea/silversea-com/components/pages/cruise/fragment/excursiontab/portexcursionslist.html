@@ -6,27 +6,36 @@
                 ${'cruise-excursion-description' @ i18n}
             </p>
             <div id="excursion-collapse" class="c-cruise-itinerary-2__list" role="tablist"
-                data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}"
+                data-sly-list.itinerary="${cruise.itinerariesHasExcursions ? cruise.cruiseModel.ItinerariesStable : cruise.cruiseModel.compactedItineraries }"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-                <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.compactedExcursions : itinerary.port.excursions }" />
+                <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.Excursions : itinerary.port.excursions }" />
 
                 <div class="panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
-                    <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.port.cityId}" aria-expanded="false"  aria-controls="ex-${itinerary.port.cityId}">
+                    <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.itineraryId}" aria-expanded="false"  aria-controls="ex-${itinerary.itineraryId}">
                         <div class="panel__heading__image">
                             <sly data-sly-call="${imageTemplate.lazy @ imagePath=itinerary.port.thumbnail, width=930}" />
                         </div>
                         <div class="panel__heading__description">
                             <h3><strong>${itinerary.port.apiTitle}</strong></h3>
-                            <p data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">
+                            <p>
                                 <span>${itinerary.port.country}</span>
-                                <span class="visible-xs-inline"><br />${date.value}</span>
+                                <span class="visible-xs-inline"><br />
+                                <sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly>
+                            <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
+                            <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
+                            <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
+                            </span>
                             </p>
                         </div>
                         <div class="panel__heading__date hidden-xs">
                             <p>
-                                <span>${date.value}<br /></span>
-                                <small data-sly-test="${itinerary.arriveTime}">${'arrive' @ i18n}: ${itinerary.arriveTime},</small>
-                                <small data-sly-test="${itinerary.departTime}">${'depart' @ i18n} ${itinerary.departTime}</small>
+                                <span>
+							<sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly>
+                            <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
+                            <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
+                            <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
+<br /></span>
+                                
                             </p>
                         </div>
                         <div class="panel__heading__info hidden-xs">
@@ -35,8 +44,8 @@
                         <i class="btn-more fa fa-angle-down"></i>
                         <i class="btn-less fa fa-angle-up"></i>
                     </div>
-                    <div id="ex-${itinerary.port.cityId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/collapse-nested.html">
-                        <sly data-sly-test.parentId="${'{0}{1}' @ format=['ex-', itinerary.port.cityId]}" />
+                    <div id="ex-${itinerary.itineraryId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/collapse-nested.html">
+                        <sly data-sly-test.parentId="${'{0}{1}' @ format=['ex-', itinerary.itineraryId]}" />
                         <sly data-sly-call="${collapseNestedTemplate.default @ list = excursions, parent = parentId}" />
                     </div>
                 </div>

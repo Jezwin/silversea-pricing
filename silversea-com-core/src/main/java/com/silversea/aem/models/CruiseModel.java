@@ -81,6 +81,9 @@ public class CruiseModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
     private List<ItineraryModel> itineraries;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
+    private List<ItineraryModel> itinerariesStable;
+    
     private List<ItineraryModel> compactedItineraries = null;
 
     private String cruiseType;
@@ -265,6 +268,10 @@ public class CruiseModel {
      */
     public List<ItineraryModel> getItineraries() {
         return itineraries;
+    }
+    
+    public List<ItineraryModel> getItinerariesStable() {
+        return itinerariesStable;
     }
 
     /**
