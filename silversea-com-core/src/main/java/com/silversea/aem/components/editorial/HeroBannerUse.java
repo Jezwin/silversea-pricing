@@ -21,8 +21,7 @@ public class HeroBannerUse extends WCMUsePojo {
 		btn1 = getButton("button1");
 		btn2 = getButton("button2");
 		
-		if (btn1.getAnalyticType().equalsIgnoreCase("clic-RAQ") || btn2.getAnalyticType().equalsIgnoreCase("clic-RAQ")) {
-			Page currentPage = getCurrentPage();
+		if ((btn1 !=null && btn1.getAnalyticType().equalsIgnoreCase("clic-RAQ")) || (btn2 != null && btn2.getAnalyticType().equalsIgnoreCase("clic-RAQ"))) {			Page currentPage = getCurrentPage();
 			String[] selectorSuffixUrl = UrlHelper.createSuffixAndSelectorUrl(currentPage);
 			this.selectorUrl = selectorSuffixUrl[0];
 			this.suffixUrl = selectorSuffixUrl[1];
