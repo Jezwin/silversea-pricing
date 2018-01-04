@@ -68,7 +68,7 @@
                         <a data-sly-test="${excursions && excursions.size > 0 && cruise.cruiseModel.cruiseType == 'silversea-cruise'}"
                            href="#"
                            data-tab-target="#excursion"
-                           data-collpase-id="ex-${itinerary.port.cityId}"
+                           data-collpase-id="ex-${itinerary.itineraryId}"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
                             ${'view' @ i18n} ${excursions.size} ${'excursion-s' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle} <i class="fa fa-lg fa-angle-right"></i>
@@ -76,7 +76,7 @@
                         <a data-sly-test="${landPrograms && landPrograms.size > 0}"
                            href="#"
                            data-tab-target="#landnhotel"
-                           data-collpase-id="lp-${itinerary.port.cityId}"
+                           data-collpase-id="lp-${itinerary.itineraryId}"
                            class="c-btn c-btn--white"
                            title="${'view' @ i18n} X ${'land-programme-s' @ i18n}">
                             ${'view' @ i18n} ${landPrograms.size} ${'land-programme-s' @ i18n} ${'in' @ i18n} ${itinerary.port.apiTitle} <i class="fa fa-lg fa-angle-right"></i>
