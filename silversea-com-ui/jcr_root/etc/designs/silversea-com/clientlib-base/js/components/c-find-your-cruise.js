@@ -42,8 +42,9 @@ $(function() {
             });
             
             if (window.history.pushState) {
-            	var currentUrl = window.location.href;
+            	var currentUrl = window.location.href;            	
             	var currentUrlSplit = currentUrl.split('/');
+            	var queryString = window.location.search;
             	var lastPart = currentUrlSplit[currentUrlSplit.length -1];
             	var firstUsedPart = currentUrlSplit.slice(0, -1).join('/');
             	var slingSplit = lastPart.split('.');
@@ -55,7 +56,7 @@ $(function() {
             	                         "cruisetype_" + $('#current-cruisetype-filter').val(),
             	                         "port_" + $('#current-port-filter').val(),
             	                         "page_" + $('#current-page-filter').val()];
-            	window.history.pushState({},null, firstUsedPart + '/' + pageName + '.' + slingParameterNew.join('.') + ".html");
+            	window.history.pushState({},null, firstUsedPart + '/' + pageName + '.' + slingParameterNew.join('.') + ".html" + queryString);
             }
 
             $form.find('.destination-filter, .date-filter, .ship-filter, .duration-filter, .cruisetype-filter, .port-filter').each(function() {
