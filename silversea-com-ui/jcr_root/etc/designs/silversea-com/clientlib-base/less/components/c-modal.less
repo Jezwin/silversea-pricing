@@ -1,0 +1,63 @@
+.modal {
+	 .modal-header {
+	 	&__virtual-tour {
+	 		padding: 0px !important;
+	 	}
+	 }
+	 
+	 &__virtual-tour {
+	 	&-container {
+	 		height: 750px;
+	 	
+		 	 @media screen and (max-width: 767px) {
+	 			height: 435px;
+    	   	 }
+	 	}
+	 	
+	 }
+	 
+	 &-virtual-tour {
+	 	
+	 	 &:before {
+   		 	bottom: 55%;
+    		content: "360\00b0";
+    		font-family: serif;
+    		display: block;
+    		height: 27px;
+    		position: absolute;
+    		right: 31%;
+    		transition: opacity .8s ease;
+    		width: 100px;
+    		z-index: 5;
+    		color: #e8e8e8;
+    		font-size: 48px;
+    		
+    		@media screen and (max-width: 767px) {
+  				right:34%;
+  				top:38%;
+  			}
+		}
+		
+		&:after {
+			position: absolute;
+  			width: 90.5%;
+ 	 		height: 90%;
+  			content: " ";
+  			background-color: rgba(0, 0, 0, 0.4);
+  			z-index: 2;
+  			top: 0;
+  			
+  			@media screen and (max-width: 767px) {
+  				top: 20px;
+	  			width: 92%;
+  			}
+  		}
+	 }
+	 
+	 
+	 &-content__virtual-tour {
+	 	top:6% !important;	 
+	 }
+	 
+	 
+}

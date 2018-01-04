@@ -3,7 +3,8 @@ $(function() {
      * Modal : Clean modal content on close event
      **************************************************************************/
     $(document).on('hide.bs.modal', function(e) {
-        $(e.target).removeData('bs.modal');
+
+    	$(e.target).removeData('bs.modal');
 
         $('body').removeClass('modal-open');
         
@@ -12,12 +13,17 @@ $(function() {
 
         // Force to default class
         $modalContent.attr('class', 'modal-content');
+        
+        if (window.hasOwnProperty('virtualTour')) {
+        	window.virtualTour.destroy();
+        	window.virtualTour = null;
+        }
     });
 
     /***************************************************************************
      * Build modal for image
      **************************************************************************/
-    $('.automatic-modal, .virtual-tour-modal').on('click', function(e) {
+    $('.automatic-modal').on('click', function(e) {
         e.preventDefault();
 
         $('body').addClass('modal-open');
@@ -36,6 +42,50 @@ $(function() {
             $(this).find('.modal-dialog').empty().append($modalContent);
             $(this).find('img').attr('src', imagePath);
         });
+    });
+    
+    
+    $('.modal-virtual-tour').on('click', function(e) {
+        e.preventDefault();
+
+        $('body').addClass('modal-open');
+
+        // HTML layout
+        var $modalContent = $('<div class="modal-content modal-content--transparent modal-content--single modal-content__virtual-tour">'
+                + '<div class="modal-header modal-header__virtual-tour"><button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button></div>'
+                + '<div class="modal-body"><div class="modal__virtual-tour-container" id="virtual-tour-container"></div></div>' + '</div>');
+
+        // Activate Modal
+        $($(this).data('target')).modal('show');
+
+        // Append image inside Modal
+        var imagePath = $(this).attr('href');
+        var captionTitle = $(this).attr('caption-title');
+        
+        $('.modal-dialog').empty().append($modalContent);
+        
+        $('.modal').on('shown.bs.modal', function(e) {
+            
+        	window.virtualTour = PhotoSphereViewer({
+			    container: 'virtual-tour-container',
+			    panorama: imagePath,
+			    anim_speed: '0.4rpm',
+		        move_speed: 1.0,
+		        time_anim: '1000',
+		        min_fov: 10,
+	            default_fov: 179,
+		        caption: captionTitle,
+		        navbar: [
+		            'autorotate', 
+		            'zoom',
+		            'spacer-1',
+		            'caption',
+		            'gyroscope',
+		            'fullscreen'
+		        ]
+			  });
+        });
+        
     });
 
     /***************************************************************************
