@@ -6,7 +6,7 @@
                 ${'cruise-excursion-description' @ i18n}
             </p>
             <div id="excursion-collapse" class="c-cruise-itinerary-2__list" role="tablist"
-                data-sly-list.itinerary="${cruise.cruiseModel.Itineraries}"
+                data-sly-list.itinerary="${cruise.itinerariesHasExcursions ? cruise.cruiseModel.ItinerariesStable : cruise.cruiseModel.compactedItineraries }"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                 <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.Excursions : itinerary.port.excursions }" />
 
@@ -17,14 +17,24 @@
                         </div>
                         <div class="panel__heading__description">
                             <h3><strong>${itinerary.port.apiTitle}</strong></h3>
-                            <p data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">
+                            <p>
                                 <span>${itinerary.port.country}</span>
-                                <span class="visible-xs-inline"><br />${date.value}</span>
+                                <span class="visible-xs-inline"><br />
+                                <sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly>
+                            <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
+                            <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
+                            <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
+                            </span>
                             </p>
                         </div>
                         <div class="panel__heading__date hidden-xs">
                             <p>
-                                <span>${date.value}<br /></span>
+                                <span>
+							<sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly>
+                            <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
+                            <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
+                            <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
+<br /></span>
                                 
                             </p>
                         </div>
