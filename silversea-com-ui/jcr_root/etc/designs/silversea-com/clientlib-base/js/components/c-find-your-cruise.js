@@ -1,6 +1,6 @@
 $(function() {
     var $filterWrapper = $('.c-fyc-filter');
-
+    var firstUpdateFilter = true;
     if ($filterWrapper.length > 0) {
         var $btnReset = $filterWrapper.find('.c-fyc-filter__reset a'),
             $form = $filterWrapper.find('form.c-find-your-cruise-filter'),
@@ -41,7 +41,7 @@ $(function() {
                 }
             });
             
-            if (window.history.pushState) {
+            if (window.history.pushState && !firstUpdateFilter) {
             	var currentUrl = window.location.href;            	
             	var currentUrlSplit = currentUrl.split('/');
             	var queryString = window.location.search;
@@ -58,7 +58,7 @@ $(function() {
             	                         "page_" + $('#current-page-filter').val()];
             	window.history.pushState({},null, firstUsedPart + '/' + pageName + '.' + slingParameterNew.join('.') + ".html" + queryString);
             }
-
+            firstUpdateFilter = false;
             $form.find('.destination-filter, .date-filter, .ship-filter, .duration-filter, .cruisetype-filter, .port-filter').each(function() {
                 var $select = $(this);
                 var currentFilter = $('#current-' + $select.attr('name') + '-filter').val();
