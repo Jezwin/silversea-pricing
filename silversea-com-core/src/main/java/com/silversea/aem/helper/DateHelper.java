@@ -1,4 +1,4 @@
-\package com.silversea.aem.helper;
+package com.silversea.aem.helper;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
