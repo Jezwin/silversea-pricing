@@ -1,4 +1,4 @@
-package com.silversea.aem.helper;
+\package com.silversea.aem.helper;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -44,7 +44,7 @@ public class DateHelper extends WCMUsePojo {
 			value = monthNames[Integer.parseInt(month) - 1];
 		}
 
-		if (time != null) {
+		if (time != null && time != "") { 
 			if (locale.getLanguage().equalsIgnoreCase("en")) {
 				String closingTime = time.replace(":", "");
 				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
