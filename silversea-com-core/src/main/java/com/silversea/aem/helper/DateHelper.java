@@ -44,7 +44,7 @@ public class DateHelper extends WCMUsePojo {
 			value = monthNames[Integer.parseInt(month) - 1];
 		}
 
-		if (time != null && time != "") { 
+		if (time != null && !time.equalsIgnoreCase("")) { 
 			if (locale.getLanguage().equalsIgnoreCase("en")) {
 				String closingTime = time.replace(":", "");
 				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
