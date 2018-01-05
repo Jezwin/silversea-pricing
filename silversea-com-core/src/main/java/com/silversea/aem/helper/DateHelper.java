@@ -16,32 +16,52 @@ import com.adobe.cq.sightly.WCMUsePojo;
  */
 public class DateHelper extends WCMUsePojo {
 
-    public String value;
+	public String value;
+	
+	private Calendar calendar  = Calendar.getInstance();
 
-    @Override
-    public void activate() throws Exception {
-        Calendar date = get("date", Calendar.class);
-        String format = get("format", String.class);
-        String month = get("month", String.class);
-        String localeParam = get("locale", String.class);
+	@Override
+	public void activate() throws Exception {
+		Calendar date = get("date", Calendar.class);
+		String format = get("format", String.class);
+		String month = get("month", String.class);
+		String localeParam = get("locale", String.class);
+		String time = get("time", String.class);
 
-        Locale locale = StringUtils.isNotBlank(localeParam) ? new Locale(localeParam) : getCurrentPage().getLanguage(false);
-        SimpleDateFormat formatter;
+		Locale locale = StringUtils.isNotBlank(localeParam) ? new Locale(localeParam)
+				: getCurrentPage().getLanguage(false);
+		SimpleDateFormat formatter;
 
-        if (date != null && format != null) {
-            formatter = new SimpleDateFormat(format, locale);
-            formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-            value = formatter.format(date.getTime());
-        }
+		if (date != null && format != null) {
+			formatter = new SimpleDateFormat(format, locale);
+			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+			value = formatter.format(date.getTime());
+		}
 
-        if (month != null) {
-            DateFormatSymbols symbols = new DateFormatSymbols(locale);
-            String[] monthNames = symbols.getMonths();
-            value = monthNames[Integer.parseInt(month) - 1];
-        }
-    }
+		if (month != null) {
+			DateFormatSymbols symbols = new DateFormatSymbols(locale);
+			String[] monthNames = symbols.getMonths();
+			value = monthNames[Integer.parseInt(month) - 1];
+		}
 
-    public String getValue() {
-        return value;
-    }
+		if (time != null) {
+			if (locale.getLanguage().equalsIgnoreCase("en")) {
+				String closingTime = time.replace(":", "");
+				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
+				// For display purposes only We could just return the last two substring or format Calender.MINUTE as shown below
+				calendar.set(Calendar.MINUTE, Integer.parseInt(closingTime.substring(2, 4)));
+				
+				String minute = String.format("%02d", calendar.get(Calendar.MINUTE));
+
+				String AM_PM = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
+				value = calendar.get(Calendar.HOUR) + ":" + minute + " " + AM_PM;
+			} else {
+				value = time;
+			}
+		}
+	}
+
+	public String getValue() {
+		return value;
+	}
 }
