@@ -14,7 +14,7 @@ $(function() {
         // Force to default class
         $modalContent.attr('class', 'modal-content');
         
-        if (window.hasOwnProperty('virtualTour')) {
+        if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
         	window.virtualTour.destroy();
         	window.virtualTour = null;
         }
