@@ -149,7 +149,7 @@
                                     
                                     setTimeout(function(){
                                         $.ajax({
-                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf',
                                             beforeSend: function(){
 
                                         		downloadWin = window.open('', '_blank');
