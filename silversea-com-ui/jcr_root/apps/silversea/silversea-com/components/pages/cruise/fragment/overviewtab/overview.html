@@ -149,7 +149,7 @@
                                     
                                     setTimeout(function(){
                                         $.ajax({
-                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf',
                                             beforeSend: function(){
 
                                         		downloadWin = window.open('', '_blank');
@@ -159,7 +159,7 @@
                                             success: function(r) {
     	                                        $('.voyageshare_wrap .fa-refresh').hide();
     	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf';
                                                 pdfClicked = false;
                                             }
                                         });
