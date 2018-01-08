@@ -26,7 +26,22 @@
         position: absolute;
         right: 40px;
     }
-
+    
+     &__label {
+        bottom: 22px;
+	    color: #fff;
+	    font-size: 20px;
+	    position: absolute;
+	    left: 49px;
+	    background-color: rgba(0, 0, 0, 0.5);
+	    padding: 6px;
+	    
+    	@media (max-width: 767px) {
+	    	bottom: 32px;
+	    	font-size: 16px;
+	    }
+    }
+    
     &__tab {
         background-color: @black;
         font-size: 0;

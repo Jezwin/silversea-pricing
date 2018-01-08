@@ -19,6 +19,9 @@
                                 <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                                 <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
                                 <!--/* <p class="c-gallery__caption" data-sly-test.caption="${asset.metadata.dc:title}">${caption}</p> */-->
+                                <sly data-sly-test="${!isVideo}">
+                                	<span data-sly-test.label="${asset.label}" class="c-gallery__label">${label}</span>
+                                </sly>
                             </div>
                         </div>
                     </div>

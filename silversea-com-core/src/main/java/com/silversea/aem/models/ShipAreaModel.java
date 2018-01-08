@@ -15,4 +15,6 @@ public interface ShipAreaModel {
     List<Asset> getAssets();
 
     Asset getFirstAsset();
+    
+    String getTitle();
 }
