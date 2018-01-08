@@ -183,6 +183,8 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
 
                                         if (startDate.after(Calendar.getInstance()) && isVisible) {
                                         	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                        }else{
+                                        	cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
                                         }
                                         LOGGER.trace("Writing exclusive offers paths {} in cruise {}",
                                                 voyageSpecialOffersPaths, cruisePage.getPath());
@@ -233,7 +235,14 @@ public class CruisesExclusiveOffersImporterImpl implements CruisesExclusiveOffer
 
                         if (cruiseContentNode.hasProperty("offer")) {
                             cruiseContentNode.getProperty("offer").remove();
-                            cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                            final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+                            final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
+
+                            if (startDate.after(Calendar.getInstance()) && isVisible) {
+                            	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                            }else{
+                            	cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+                            }
 
                             importResult.incrementSuccessNumber();
                             itemsWritten++;

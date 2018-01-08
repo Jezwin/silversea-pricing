@@ -1,75 +1,77 @@
-<div class="o-section o-section--footersocial" data-sly-use.footer="com.silversea.aem.components.included.FooterUse">
-    <div class="row">
-        <div class="col-sm-6">
-            <!--/* AWARD */-->
-            <div class="o-section o-section--award">
-                <div class="c-list-inline">
-                    <div class="row" data-sly-test.awardPath="${footer.pageAward.path}">
-                        <div class="col-sm-6">
-                            <p class="c-list-inline__title">
-                                ${'award-label' @ i18n}
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="c-list-inline__group c-list-inline__group--award">
-                                <li class="c-list-inline__item c-list-inline__item--award">
-                                    <a href="${awardPath @ extension = 'html'}">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
-                                    </a>
-                                </li>
-                                <li class="c-list-inline__item c-list-inline__item--award">
-                                    <a href="${awardPath @ extension = 'html'}">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
-                                    </a>
-                                </li>
-                                <li class="c-list-inline__item c-list-inline__item--award">
-                                    <a href="${awardPath @ extension = 'html'}">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
-                                    </a>
-                                </li>
-                                <li class="c-list-inline__item c-list-inline__item--award">
-                                    <a href="${awardPath @ extension = 'html'}">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/* /AWARD */-->
-        <!--/* c-SOCIAL */-->
-        <div class="col-sm-6">
-            <div class="o-section o-section--social">
-                <div class="c-list-inline c-list-inline--social c-list-inline--center">
-                    <p class="c-list-inline__followus visible-xs">${'follow-us' @ i18n}</p> 
-                    <ul class="c-list-inline__group c-list-inline__group--social">
-                        <li class="c-list-inline__title c-list-inline__item--social hidden-xs">${'follow-us' @ i18n}</li>
-                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageFacebook}">
-                            <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageYoutube}">
-                            <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageTwitter}">
-                            <a href="${footer.pageTwitter}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageInstagram}">
-                            <a href="${footer.pageInstagram}" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pagePinterest}">
-                            <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                        </li>
-                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageBlog.path}">
-                            <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">
-                                ${footer.pageBlog.navigationTitle? footer.pageBlog.navigationTitle : footer.pageBlog.title}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--/* /c-SOCIAL */-->
-    </div>
-</div>
+<template data-sly-template.default="${  @footer } ">
+	<div class="o-section o-section--footersocial">
+	    <div class="row">
+	        <div class="col-sm-6">
+	            <!--/* AWARD */-->
+	            <div class="o-section o-section--award">
+	                <div class="c-list-inline">
+	                    <div class="row" data-sly-test.awardPath="${footer.pageAward.path}">
+	                        <div class="col-sm-6">
+	                            <p class="c-list-inline__title">
+	                                ${'award-label' @ i18n}
+	                            </p>
+	                        </div>
+	                        <div class="col-sm-6">
+	                            <ul class="c-list-inline__group c-list-inline__group--award">
+	                                <li class="c-list-inline__item c-list-inline__item--award">
+	                                    <a href="${awardPath @ extension = 'html'}">
+	                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
+	                                    </a>
+	                                </li>
+	                                <li class="c-list-inline__item c-list-inline__item--award">
+	                                    <a href="${awardPath @ extension = 'html'}">
+	                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
+	                                    </a>
+	                                </li>
+	                                <li class="c-list-inline__item c-list-inline__item--award">
+	                                    <a href="${awardPath @ extension = 'html'}">
+	                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
+	                                    </a>
+	                                </li>
+	                                <li class="c-list-inline__item c-list-inline__item--award">
+	                                    <a href="${awardPath @ extension = 'html'}">
+	                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="image" class="o-img--small" />
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!--/* /AWARD */-->
+	        <!--/* c-SOCIAL */-->
+	        <div class="col-sm-6">
+	            <div class="o-section o-section--social">
+	                <div class="c-list-inline c-list-inline--social c-list-inline--center">
+	                    <p class="c-list-inline__followus visible-xs">${'follow-us' @ i18n}</p> 
+	                    <ul class="c-list-inline__group c-list-inline__group--social">
+	                        <li class="c-list-inline__title c-list-inline__item--social hidden-xs">${'follow-us' @ i18n}</li>
+	                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageFacebook}">
+	                            <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+	                        </li>
+	                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageYoutube}">
+	                            <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+	                        </li>
+	                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageTwitter}">
+	                            <a href="${footer.pageTwitter}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+	                        </li>
+	                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageInstagram}">
+	                            <a href="${footer.pageInstagram}" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+	                        </li>
+	                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pagePinterest}">
+	                            <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+	                        </li>
+	                        <li class="c-list-inline__item c-list-inline__item--social" data-sly-test="${footer.pageBlog.path}">
+	                            <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">
+	                                ${footer.pageBlog.navigationTitle? footer.pageBlog.navigationTitle : footer.pageBlog.title}
+	                            </a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <!--/* /c-SOCIAL */-->
+	    </div>
+	</div>
+</template>

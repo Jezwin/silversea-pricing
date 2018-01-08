@@ -1,4 +1,5 @@
-<div div data-sly-use.portuse="com.silversea.ssc.aem.models.PortUse" class="container">
+<template data-sly-template.default="${ @ portUse }">
+<div  class="container">
 	<div class="port_v2__desc">
 		<div class="port_v2__desc_text">
 			<p>${portuse.summaryBean.firstPart @ context="html"} <span data-sly-test="${portuse.summaryBean.remainingPart}" id="ss_read_more" class="ss_read_more_class" data-text-more="${'view-more' @ i18n}" data-text-less="${'view-less' @ i18n}">${'view-more' @ i18n}</span></p>
@@ -48,3 +49,4 @@
 		</div>
 	</div>
 </div>
+</template>

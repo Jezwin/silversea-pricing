@@ -60,6 +60,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="A Silversea é regularmente distinguida pelos principais média comerciais e de consumo"/>
+    <agency-name
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Agency name"/>
     <B1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -220,6 +224,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Os nossos itinerários são únicos. Encontrará informações detalhadas abaixo sobre portos, horários de partida e de chegada, bem como informações complementares sobre os destinos que irá visitar."/>
+    <cruise-itinerary-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Os nossos itinerários são únicos. Encontrará informações detalhadas abaixo sobre portos, horários de partida e de chegada, bem como informações complementares sobre os destinos que irá visitar."/>
+    <cruise-itinerary-description-v2-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Os nossos itinerários são únicos. Encontrará informações detalhadas abaixo sobre portos, horários de partida e de chegada, bem como informações complementares sobre os destinos que irá visitar."/>
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -232,7 +244,15 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Descubra a nossa seleção de locais a bordo, onde pode desfrutar da companhia de outros viajantes e claro, do nosso serviço personalizado tudo incluído."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Descubra a nossa seleção de locais a bordo, onde pode desfrutar da companhia de outros viajantes e claro, do nosso serviço personalizado tudo incluído."/>
     <cruise-ship-suite-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="As suites Silversea, com vista para o oceano, são das mais espaçosas do cruzeiro e todas possuem um serviço de mordomo. Selecione a sua suite e solicite um orçamento. Os hóspedes que reservem antecipadamente garantem as melhores tarifas e podem escolher a suite que desejam."/>
+    <cruise-ship-suite-description-expedition
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="As suites Silversea, com vista para o oceano, são das mais espaçosas do cruzeiro e todas possuem um serviço de mordomo. Selecione a sua suite e solicite um orçamento. Os hóspedes que reservem antecipadamente garantem as melhores tarifas e podem escolher a suite que desejam."/>
@@ -878,6 +898,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="resultados"/>
+    <results-your-area
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Results In Your Area"/>
     <routes
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1176,6 +1200,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="os seus resultados da pesquisa :"/>
+    <your-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="your location"/>
 	<luxury-cruises
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="luxury-cruises"
@@ -1216,4 +1244,12 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="learn-more-about-silversea"
 	    sling:message="Learn more about our luxurious ships and alluring destinations by requesting or downloading a free brochure, and sign up to receive exclsuive offers and news from Silversea."/>
+	<related-destinations
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="related-destinations"
+	    sling:message="Related Destinations"/>
+	<view-destination
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-destination"
+	    sling:message="View Destination"/>
 </jcr:root>

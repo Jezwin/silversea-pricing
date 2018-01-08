@@ -67,7 +67,7 @@ $(function() {
 
                 var $slideNav = $modal.find('.c-slider--nav').slick({
                     slidesToShow : 6,
-                    slidesToScroll : 1,
+                    slidesToScroll : 5,
                     asNavFor : '.modal .c-slider--for',
                     focusOnSelect : true
                 });

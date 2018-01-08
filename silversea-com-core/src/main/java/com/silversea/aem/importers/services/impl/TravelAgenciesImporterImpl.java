@@ -161,7 +161,8 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
                                 agencyPageContentNode.setProperty("phone", agency.getPhone());
                                 agencyPageContentNode.setProperty("latitude", agency.getLat());
                                 agencyPageContentNode.setProperty("longitude", agency.getLon());
-
+                                agencyPageContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                                
                                 // Set livecopy mixin
                                 if (!locale.equals("en")) {
                                     agencyPageContentNode.addMixin("cq:LiveRelationship");

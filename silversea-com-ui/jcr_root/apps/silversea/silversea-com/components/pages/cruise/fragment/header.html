@@ -14,7 +14,12 @@
                 ${cruise.cruiseModel.description @context='html'}
             </div>
             <div class="cruise__header__cta">
-                <a class="btn btn-thin btn-dark effect visible-xs" data-tab-target="#suitenfare"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            	<span class="ab-test-v2-hide">
+	                <a class="btn btn-thin btn-dark effect visible-xs" data-tab-target="#suitenfare" id="cruise-itinerary-suite-and-fares-mobile-btn-v1"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            	</span>
+            	<span class="ab-test-v2-show">
+	                <a class="btn btn-thin btn-dark effect visible-xs" id="cruise-itinerary-suite-and-fares-mobile-btn-v2"><span>${'suites-and-fares' @ i18n}</span><i class="fa fa-angle-right"></i></a>
+            	</span>
                 <a class="btn btn-thin btn-red effect" data-sly-test.suffix="${'{0}{1}' @ format=[pageProperties.cruiseCode, '.html']}"
                     href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=suffix}" data-sscclicktype="clic-RAQ">
                     <span>${'request-quote' @ i18n}</span><i class="fa fa-angle-right"></i>

@@ -324,5 +324,27 @@ $(function() {
     		mediaElement[0].click();
     	}
     });
-
+    
+    $("#cruise-itinerary-suite-and-fares-mobile-btn-v2").on('click', function(event) {
+    	event.preventDefault();
+    	var mediaElement = $('[href="#overview"]');
+    	if (mediaElement.length > 0) {
+    		if ($('[href="#overview"]').parent()[0].getAttribute('data-state') !== "active") {
+    			mediaElement[0].click();
+    			setTimeout(function(){ 
+    				var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
+    				if (mediaElement.length > 0 ) {
+    					mediaElement[0].click();
+    				}
+    			}, 1000);
+    		}
+    		else {
+    			var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
+				if (mediaElement.length > 0 ) {
+					mediaElement[0].click();
+				}
+    		}
+    	}
+    });
+    
 });

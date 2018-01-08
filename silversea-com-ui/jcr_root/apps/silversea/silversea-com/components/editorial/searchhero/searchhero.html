@@ -20,7 +20,7 @@
         </div>
         <div class="col-sm-3" data-sly-use.ships="${'com.silversea.aem.helper.PageHelper' @ path=properties.shipsReference}">
             <select class="chosen form-control" data-placeholder="${'all-ships' @ i18n}" name="ship">
-                <option value="">${'all-ships' @ i18n}</option>
+                <option value="all">${'all-ships' @ i18n}</option>
                 <option data-sly-repeat="${fyc.ships}" value="${item.name}">${item.title}</option>
             </select>
         </div>

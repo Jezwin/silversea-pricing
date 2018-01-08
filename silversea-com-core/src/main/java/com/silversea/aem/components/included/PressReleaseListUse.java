@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
@@ -23,8 +25,13 @@ public class PressReleaseListUse extends WCMUsePojo {
     public void activate() throws Exception {
         final InheritanceValueMap inheritanceValueMap = new HierarchyNodeInheritanceValueMap(getResource());
         final Integer limit = inheritanceValueMap.getInherited("paginationLimit", 10);
-
-        String currentPageParam = getRequest().getRequestParameter("page") != null ? getRequest().getRequestParameter("page").toString() : "1";
+        
+    	String suffix = getRequest().getRequestPathInfo().getSuffix();
+    	//press-releases.html/2.html
+    	suffix = (suffix != null) ? suffix.replace(".html", "") : null;
+		String[] splitSuffix = (suffix != null) ? StringUtils.split(suffix, '/') : null;
+    	String currentPageParam = (splitSuffix != null && splitSuffix.length > 0) ? splitSuffix[0] : "1";
+        
         currentPageIndex = Integer.parseInt(currentPageParam);
 
         final Iterator<Page> pressReleasePages = getCurrentPage().listChildren(new PressReleasesPageFilter(), true);

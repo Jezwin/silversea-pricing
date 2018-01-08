@@ -1,0 +1,14 @@
+<!--/* html content if path as suffix for ship and [suite] */-->
+<template data-sly-template.default="${ @ item }">
+	<div data-sly-test="${wcmmode.edit}" class="cq-placeholder"
+		data-emptytext="Brochure request paramaters"></div>
+	<div class="c-quote-request-side row">
+		<sly data-sly-test="${item.raqModel}"> <img class="hidden-xs"
+			src="${item.raqModel.thumbnail}" />
+			<div class="c-quote-request-side__inner">
+				<h3 class="c-quote-request-side__inner__title c-quote-request-side__inner__title__brochure">${item.raqModel.title @ context='html'}</h3>
+				<p class="c-quote-request-side__inner__description">${item.raqModel.description @ context='html'}</p>
+			</div>
+		</sly>
+	</div>
+</template>

@@ -20,13 +20,15 @@ public class HeroBannerUse extends WCMUsePojo {
 	public void activate() throws Exception {
 		btn1 = getButton("button1");
 		btn2 = getButton("button2");
-		
-		if (btn1.getAnalyticType().equalsIgnoreCase("clic-RAQ") || btn2.getAnalyticType().equalsIgnoreCase("clic-RAQ")) {
+
+		if ((btn1 != null && btn1.getAnalyticType() != null && btn1.getAnalyticType().equalsIgnoreCase("clic-RAQ"))
+				|| (btn2 != null && btn2.getAnalyticType() != null
+						&& btn2.getAnalyticType().equalsIgnoreCase("clic-RAQ"))) {
 			Page currentPage = getCurrentPage();
 			String[] selectorSuffixUrl = UrlHelper.createSuffixAndSelectorUrl(currentPage);
 			this.selectorUrl = selectorSuffixUrl[0];
 			this.suffixUrl = selectorSuffixUrl[1];
-		} 
+		}
 
 	}
 
@@ -39,10 +41,9 @@ public class HeroBannerUse extends WCMUsePojo {
 		if (res != null) {
 			final ValueMap properties = res.getValueMap();
 
-			return new Button(properties.get("titleDesktop", String.class),
-					properties.get("titleTablet", String.class), properties.get("reference", String.class),
-					properties.get("color", String.class), properties.get("analyticType", String.class),
-					properties.get("size", String.class));
+			return new Button(properties.get("titleDesktop", String.class), properties.get("titleTablet", String.class),
+					properties.get("reference", String.class), properties.get("color", String.class),
+					properties.get("analyticType", String.class), properties.get("size", String.class));
 		}
 
 		return null;

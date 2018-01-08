@@ -81,6 +81,9 @@ public class CruiseModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
     private List<ItineraryModel> itineraries;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/itineraries") @Optional
+    private List<ItineraryModel> itinerariesStable;
+    
     private List<ItineraryModel> compactedItineraries = null;
 
     private String cruiseType;
@@ -266,6 +269,10 @@ public class CruiseModel {
     public List<ItineraryModel> getItineraries() {
         return itineraries;
     }
+    
+    public List<ItineraryModel> getItinerariesStable() {
+        return itinerariesStable;
+    }
 
     /**
      * TODO compacted itineraries cause inconsistencies in itineraries
@@ -362,6 +369,7 @@ public class CruiseModel {
      * @return arrival port name
      */
     public String getArrivalPortName() {
+    	try{
         if (itineraries.size() > 0) {
             final ItineraryModel itinerary = itineraries.get(itineraries.size() - 1);
 
@@ -369,7 +377,9 @@ public class CruiseModel {
                 return itinerary.getPort().getApiTitle();
             }
         }
-
+    	}catch(Exception e){
+    		
+    	}
         return null;
     }
 

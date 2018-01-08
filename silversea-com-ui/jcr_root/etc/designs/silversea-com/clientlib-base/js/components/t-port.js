@@ -1,9 +1,3 @@
-$(document).ready(function() {
-	portv2_ss_read_more();
-	portV2_PageClass();
-	scrollToAnchor();
-});
-
 function portv2_ss_read_more() {
 	$('#ss_read_more').on('click', function() {
 		if(!$('.port_v2__discover_text').hasClass('open')) {
@@ -96,4 +90,98 @@ function scrollToAnchor() {
 		},1000)
 		return false;
 	});
+}
+function portV2_matchingHeights() {
+	$('.port_v2__post_title').matchHeight();
+	$('.port_v2__post_meta').matchHeight();
+}
+function portV2_CarouselRelated() {
+	var relatedCarousel = $('#port_v2__relatedcarousel');
+	relatedCarousel.on('init', function () {
+		var self = $(this);
+		slickLazyLoad('.slick-slide', '.port_v2__post_img', 0, self, true);
+	});
+	relatedCarousel.slick({
+		dots: true,
+		arrows: true,
+		infinite: true,
+		slidesToShow: 3,
+		slidesToScroll: 3,
+		speed: 700,
+		prevArrow: '<button type="button" data-role="none" class="slick-prev slick-arrow c-slider-black-arrow" aria-label="Previous" role="button"><i class="fa fa-angle-left"></i></button>',
+		nextArrow: '<button type="button" data-role="none" class="slick-next slick-arrow c-slider-black-arrow" aria-label="Next" role="button"><i class="fa fa-angle-right"></i></button>',
+		responsive: [
+			{
+				breakpoint: 1030,
+				settings: {
+					arrows: false,
+					slidesToShow: 3,
+					slidesToScroll: 3
+				}
+			},
+			{
+				breakpoint: 991,
+				settings: {
+					arrows: false,
+					slidesToShow: 3,
+					slidesToScroll: 3
+				}
+			},
+			{
+				breakpoint: 767,
+				settings: {
+					arrows: false,
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					arrows: false,
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
+	});
+	relatedCarousel.on('afterChange', function (event, slick, currentSlide, nextSlide) {
+		var self = $(this);
+		slickLazyLoad('.slick-slide', '.port_v2__post_img', currentSlide, self, true);
+	});
+}
+function slickLazyLoad(slideSelector, imageSelector, currentSlide, self, loadNextPrev) {
+	// Boolean if load next/prev slides
+	var loadNextPrev = loadNextPrev;
+	// Get number of visible slides
+	var itemsNum = self.find(slideSelector + ':not(".slick-cloned").slick-active').length;
+	// Slides Index
+	var slidesCurrent = currentSlide;
+	var slidesNext = currentSlide + itemsNum;
+	var slidesPrev = currentSlide - itemsNum;
+	for (i = 0; i < itemsNum; i++) {
+		// LazyLoad all visible slides
+		var lazySlide = self.find(slideSelector + ':not(".slick-cloned"):eq(' + slidesCurrent + ')').find(imageSelector);
+		var lazyImage = lazySlide.attr("data-bg");
+		lazySlide.attr("style", lazyImage).removeAttr("data-bg");
+
+		if (loadNextPrev) {
+			// LazyLoad all next slides
+			var lazySlide = self.find(slideSelector + ':not(".slick-cloned"):eq(' + slidesNext + ')').find(imageSelector);
+			var lazyImage = lazySlide.attr("data-bg");
+			lazySlide.attr("style", lazyImage).removeAttr("data-bg");
+		}
+
+		if (loadNextPrev) {
+			// LazyLoad all next slides
+			var lazySlide = self.find(slideSelector + ':not(".slick-cloned"):eq(' + slidesPrev + ')').find(imageSelector);
+			var lazyImage = lazySlide.attr("data-bg");
+			lazySlide.attr("style", lazyImage).removeAttr("data-bg");
+		}
+
+		// Move to next slide
+		slidesCurrent++;
+		slidesNext++;
+		slidesPrev++;
+	}
 }

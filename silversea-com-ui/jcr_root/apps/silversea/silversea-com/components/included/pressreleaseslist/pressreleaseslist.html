@@ -1,5 +1,5 @@
 <sly data-sly-use.pressReleaseListUse="com.silversea.aem.components.included.PressReleaseListUse"
-    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" />
+    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" />
 
 <div class="row c-pressreleaseslist" data-sly-list.pressRelease="${pressReleaseListUse.pressReleasesCurrent}">
     <div class="col-sm-6">
@@ -21,22 +21,23 @@
 <div class="c-pagination-number">
     <ul data-sly-test.pagination="${pressReleaseListUse.pagination}" class="clearfix">
         <li data-sly-test.previousPageIndex="${pressReleaseListUse.previousPageIndex}">
-            <a href="${currentPage.path @ extension='html'}?page=1" title="1"> ${'first' @ i18n}</a>
+            <a href="${currentPage.path @ extension='html', suffix=firstItem}" title="1" data-sly-test.firstItem="1.html"> ${'first' @ i18n}</a>
         </li>
         <li data-sly-test="${previousPageIndex}">
-            <a href="${currentPage.path @ extension='html'}?page=${previousPageIndex}" title="${previousPageIndex}">&#8592; ${'previous' @ i18n}</a>
+           <a href="${currentPage.path @ extension='html', suffix=previousPageIndexSuffix}" data-sly-test.previousPageIndexSuffix="${'{0}{1}' @ format=[pressReleaseListUse.previousPageIndex, '.html']}"   title="${previousPageIndexSuffix}">&#8592; ${'previous' @ i18n}</a>
         </li>
-        <li data-sly-repeat.page="${pagination}">
-            <a href="${currentPage.path @ extension='html'}?page=${page}"
+        <li data-sly-repeat.page="${pagination}" >
+            <a href="${currentPage.path @ extension='html', suffix=pageSuffix}" data-sly-test.pageSuffix="${'{0}{1}' @ format=[page, '.html']}"
                 class="${pressReleaseListUse.currentPageIndex == page ? 'active' : ''}">
                 ${page}
             </a>
         </li>
         <li data-sly-test.nextPageIndex="${pressReleaseListUse.nextPageIndex}">
-            <a href="${currentPage.path @ extension='html'}?page=${nextPageIndex}" title="${nextPageIndex}">${'next' @ i18n} &#8594;</a>
+            <a href="${currentPage.path @ extension='html', suffix=nextPageIndexSuffix}" title="${nextPageIndex}" data-sly-test.nextPageIndexSuffix="${'{0}{1}' @ format=[pressReleaseListUse.nextPageIndex, '.html']}">${'next' @ i18n} &#8594;</a>
         </li>
-        <li data-sly-test="${nextPageIndex}">
-            <a href="${currentPage.path @ extension='html'}?page=${pressReleaseListUse.pressReleasePartition.size}" title="${pressReleaseListUse.pressReleasePartition.size}">${'last' @ i18n}</a>
+        <li data-sly-test="${pressReleaseListUse.nextPageIndex}" >
+            <a href="${currentPage.path @ extension='html', suffix=lastItem}" title="${pressReleaseListUse.pressReleasePartition.size}" data-sly-test.lastItem="${'{0}{1}' @ format=[pressReleaseListUse.pressReleasePartition.size, '.html']}">${'last' @ i18n}</a>
         </li>
     </ul>
 </div>
+

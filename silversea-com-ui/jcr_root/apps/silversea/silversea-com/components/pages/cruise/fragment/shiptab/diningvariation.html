@@ -2,7 +2,12 @@
     <div class="c-cruise-ship-info">
         <sly data-sly-test.dinings="${cruise.cruiseModel.ship.dinings}">
             <h3 class="c-cruise__subtitle">${'restaurants' @ i18n}</h3>
-            <p class="c-cruise__descr">${'cruise-ship-restaurant-description' @ i18n}</p>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+	            <p class="c-cruise__descr">${'cruise-ship-restaurant-description' @ i18n}</p>
+            </sly>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+	            <p class="c-cruise__descr">${'cruise-ship-restaurant-description-expedition' @ i18n}</p>
+            </sly>
         </sly>
         <div class="c-cruise__gallery">
             <sly data-sly-use.itemVariationTemplate="silversea/silversea-com/components/pages/cruise/fragment/shiptab/itemvariationtemplate.html" data-sly-call="${itemVariationTemplate.default @ list=dinings}" />

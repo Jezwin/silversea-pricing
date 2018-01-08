@@ -1,4 +1,5 @@
-<div data-sly-use.portUse="com.silversea.ssc.aem.models.PortUse" class="container">
+<template data-sly-template.default="${ @ portUse }">
+<div  class="container">
 	<div class="container">
 		<div class="port_v2__section" id="port_v2__hotel">
 			<div class="port_v2__section_header">
@@ -34,3 +35,4 @@ $(document).ready(function() {
 	portV2_AccordionSlice('#port_v2__hotel');
 });
 </script>
+</template>

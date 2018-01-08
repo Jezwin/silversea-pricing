@@ -32,18 +32,13 @@
                     <div class="voyagetable__elem">
                         <a href="#" data-tab-target="#suitenfare">
                             <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
-                            <span data-sly-test.prefix="${cruise.pricePrefix}"><br />${prefix}</span>
-                            <span data-sly-test="${!prefix}">
-                                <sly data-sly-test="${!early}"><br /><br /></sly>
+                            <span data-sly-test.prefix="${cruise.pricePrefix}" ><br />${prefix}</span>
+                            <span data-sly-test="${!prefix}" >
+                                <sly><br /><br /></sly>
                                 ${'fares-from' @ i18n}
                             </span>
                             <span class="lead" data-sly-test="${cruise.isWaitList}">
                                 ${'waitlist' @ i18n}
-                            </span>
-                            <span class="text-lowercase" data-sly-test="${early}"
-                                data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = cruise.lowestPrice.price}">
-                                (${'per-guest' @ i18n})<br />
-                                <small class="text-uppercase">${cruise.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small>
                             </span>
                             <sly data-sly-test="${!cruise.isWaitList}">
                                 <span class="lead">
@@ -52,7 +47,6 @@
                                 <span  data-sly-test="${early}" class="price-suffixe">
                                     ${'with-early' @ i18n}${'booking-bonus' @ i18n}
                                 </span>
-                                <span data-sly-test="${!early}">(${'per-guest' @ i18n})</span>
                             </sly>
                         </a>
                     </div>
@@ -114,6 +108,11 @@
                     <div class="voyageshare_wrap">
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
                         <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
+						<div id="social_shares_wrapper" style="display:inline-block;width:94px;overflow:hidden;margin:0 3px;vertical-align:middle;height:30px">
+                            <div id="social_shares" style="width:70px;margin-top:-3px" class="jssocials">
+                                
+                            </div>
+                        </div>
                     </div>
                     <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-hide" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
                     <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-show" data-tab-target="#suitenfare-b-version">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
@@ -128,24 +127,45 @@
                                     pdfClicked = true;
 									$('.voyageshare_wrap .fa-refresh').show();
                                     $('.voyageshare_wrap .fa-file-pdf-o').hide();
-                                    
-                                    setTimeout(function(){
-                                    $.ajax({
-                                        url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
-                                        beforeSend: function(){
 
-                                    		downloadWin = window.open('', '_blank');
-                                    		downloadWin.blur();
-                                    		currentWindow.focus();    
-                                        },
-                                        success: function(r) {
-	                                        $('.voyageshare_wrap .fa-refresh').hide();
-	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                            downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                   /* ajax_download('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.${cruise.cruiseModel.cruiseCode @ context="scriptString"}.pdf');									console.log('share pdf download');
+
+
+                                    // Check PDF Download
+                                    createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', '0');
+                                    clearInterval(listenPdfInterval);
+                                    var listenPdfInterval = setInterval(function(){
+                                        if(readCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}') === '0') {
+                                            console.log('Loading PDF...');
+                                        } else {
+                                            console.log('PDF LOADED!');
+                                            clearInterval(listenPdfInterval);
+                                            $('.voyageshare_wrap .fa-refresh').hide();
+                                            $('.voyageshare_wrap .fa-file-pdf-o').show();                         
+                                            createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', 0, -1);
                                             pdfClicked = false;
                                         }
-                                    });
-                                    }, 500);
+                                    }, 1000);*/
+                                    
+                                    setTimeout(function(){
+                                        $.ajax({
+                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf',
+                                            beforeSend: function(){
+
+                                        		downloadWin = window.open('', '_blank');
+                                        		downloadWin.blur();
+                                        		currentWindow.focus();    
+                                            },
+                                            success: function(r) {
+    	                                        $('.voyageshare_wrap .fa-refresh').hide();
+    	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
+                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf';
+                                                pdfClicked = false;
+                                            }
+                                        });
+                                        }, 500);
+
+
                                 }
                             });
 
@@ -173,7 +193,73 @@
                                     });
                                 }
                             });
+							var cruiseTypeText = '';
+                            if(${(cruise.cruiseModel.cruiseType == 'silversea-expedition') @ context='scriptString'}){ cruiseTypeText='${'expedition-cruise' @ i18n,context='scriptString'}' } else{cruiseTypeText='${'cruise' @ i18n,context='scriptString'}'};
+                            var shareText  = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
+                            if( $("#social_shares").jsSocials != undefined){
+                            $("#social_shares").jsSocials({
+							  showLabel: false,
+							  showCount: false,
+							  shareIn: "popup",
+							  text: shareText ,
+							  shares: ["facebook", "twitter", "googleplus"]
+							 });
+                            }
+                            
                         });	
+						function ajax_download(url, data) {
+								var $iframe,
+									iframe_doc,
+									iframe_html;
+
+								if (($iframe = $('#download_iframe')).length === 0) {
+									$iframe = $("<iframe id='download_iframe'" +
+												" style='display: none' src='about:blank'></iframe>"
+											   ).appendTo("body");
+								}
+
+								iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
+								if (iframe_doc.document) {
+									iframe_doc = iframe_doc.document;
+								}
+
+								iframe_html = "<html><head></head><body><form method='GET' action='" +
+											  url +"'></form>" +
+											  "</body></html>";
+
+								iframe_doc.open();
+								iframe_doc.write(iframe_html);
+								$(iframe_doc).find('form').submit();
+							}
+						
+						
+						function createCookie(name, value, days) {
+								var expires;
+								if (days) {
+									var date = new Date();
+									date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+									expires = "; expires=" + date.toGMTString();
+								}
+								else {
+									expires = "";
+								}
+								document.cookie = name + "=" + value + expires + "; path=/";
+							}
+
+						function readCookie(c_name) {
+								if (document.cookie.length > 0) {
+									c_start = document.cookie.indexOf(c_name + "=");
+									if (c_start != -1) {
+										c_start = c_start + c_name.length + 1;
+										c_end = document.cookie.indexOf(";", c_start);
+										if (c_end == -1) {
+											c_end = document.cookie.length;
+										}
+										return unescape(document.cookie.substring(c_start, c_end));
+									}
+								}
+								return "";
+							}
                     </script>
                 </div>
 

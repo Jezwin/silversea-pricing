@@ -22,7 +22,6 @@
                         <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text">
                             <span data-sly-test.early="${item.lowestPrice.earlyBookingBonus}"
                                 data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
-                                <span class="text-lowercase">(${'per-guest' @ i18n})</span><br />
                                 <small>${item.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small><br />
                             </span>
                             <strong class="c-suitelist__price__text--important2">
@@ -32,7 +31,6 @@
                         <span data-sly-test="${early}" class="price-suffixe">
                             ${'with-early' @ i18n} <br />${'booking-bonus' @ i18n}
                         </span>
-                        <span data-sly-test="${!early}">${'per-guest' @ i18n}</span>
                     </sly>
                 </div>
                 <div class="c-suitelist__button">
@@ -125,7 +123,6 @@
                         <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text">
                             <span data-sly-test.early="${item.lowestPrice.earlyBookingBonus}"
                                 data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
-                                <span class="text-lowercase">(${'per-guest' @ i18n})</span><br />
                                 <small>${item.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small><br />
                             </span>
                             <strong class="c-suitelist__price__text--important2">
@@ -135,7 +132,6 @@
                         <span data-sly-test="${early}" class="price-suffixe">
                             ${'with-early' @ i18n} <br />${'booking-bonus' @ i18n}
                         </span>
-                        <span data-sly-test="${!early}">${'per-guest' @ i18n}</span>
                     </sly>
                 </div>
                 <div class="c-suitelist__button">
@@ -199,7 +195,7 @@
                 </div>
             </div>
         </div>
-        <div class="c-cruise__footnotes">
+        <div class="c-cruise__footnotes" style="margin-bottom: 30px">
             <i>${'fares-shown-are-per-guest' @i18n}</i>
         </div>
     </div>
