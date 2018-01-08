@@ -137,19 +137,7 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                 }
 
                                 // Setting properties
-                                if(metadataNode.getProperty("dc:title") != null){
-	                                final String title = metadataNode.getProperty("dc:title").getString();
-	                                if(title == null){
-	                                	metadataNode.setProperty("dc:title", brochure.getTitle());
-	                                }else {
-	                                	if(title.equals("")){
-	                                		metadataNode.setProperty("dc:title", brochure.getTitle());
-	                                	}
-	                                }
-                                }else{
-                                	metadataNode.setProperty("dc:title", brochure.getTitle());
-                                }
-                                
+                                metadataNode.setProperty("dc:title", brochure.getTitle());
                                 metadataNode.setProperty("onlineBrochureUrl", brochure.getBrochureUrl());
                                 metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
                                 metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));
@@ -188,7 +176,17 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                     }
 
                                     // Setting properties
-                                    metadataNode.setProperty("dc:title", brochure.getTitle());
+                                    
+    	                                if(title == null){
+    	                                	metadataNode.getProperty("dc:title").remove();
+    	                                	metadataNode.setProperty("dc:title", brochure.getTitle());
+    	                                }else {
+    	                                	if(title.equals("")){
+    	                                		metadataNode.getProperty("dc:title").remove();
+    	                                		metadataNode.setProperty("dc:title", brochure.getTitle());
+    	                                	}
+    	                                }
+                                    
                                     metadataNode.setProperty("onlineBrochureUrl", brochure.getBrochureUrl());
                                     metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
                                     metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));
