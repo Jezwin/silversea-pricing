@@ -31,7 +31,7 @@ public class HeaderUse extends WCMUsePojo {
     private Page homePage;
     private List<Page> languagePageList;
     private Map<String, String> languagePages;
-    private List<NavPageModel> languagePageListForCurrentPage;
+    private List<NavPageModel> languagePageListForCurrentPage = new ArrayList<NavPageModel>();
 
     @Override
     public void activate() throws Exception {
