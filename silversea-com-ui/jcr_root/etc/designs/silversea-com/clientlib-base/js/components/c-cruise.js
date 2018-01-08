@@ -283,7 +283,6 @@ $(function() {
     	var hideBox = !($(event.target).hasClass('c-suitelist__collapse') || $(event.target).parents('.c-suitelist__collapse').length != 0);
     	if (hideBox) {
     		$(".c-suitelist").find('.collapse').collapse('hide');
-    		
     		clearVirtualTourCruise();
     	}
     });
@@ -401,8 +400,8 @@ $(function() {
     			} 
     		},500);
     	}
-    	
     });
+    
     
     /****************************************************************************
     * Clear all virtual tour to release memory and DOM when the use click
@@ -419,6 +418,11 @@ $(function() {
      * used when the use click on close button or outside the div
      **************************************************************************/
     function clearVirtualTourCruise(){
+
+    	if(window.hasOwnProperty('virtualTourType') &&  window.virtualTourType == "cruise-gallery-virtual-tour") {
+    		return;
+    	}
+    	
     	if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
          	window.virtualTour.destroy();
          	window.virtualTour = null;
@@ -433,6 +437,7 @@ $(function() {
     			descriptionTabElement.click();
     		}
          	$(virtualTourID).empty();
+         	window.virtualTourID = null;
         }
     }
     

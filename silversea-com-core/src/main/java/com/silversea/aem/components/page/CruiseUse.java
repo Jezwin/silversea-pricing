@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,12 +24,13 @@ import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.DiningModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.models.PortModel;
 import com.silversea.aem.models.PriceModel;
-import com.silversea.aem.models.ShipModel;
+import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
@@ -54,6 +56,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	private List<Asset> publicAreasAssetsList = new ArrayList<>();
 
 	private List<Asset> itinerariesAssetsList = new ArrayList<>();
+	
+	private List<Asset> virtualTourAssetsList = new ArrayList<>();
 
 	private List<SuitePrice> prices = new ArrayList<>();
 
@@ -103,10 +107,16 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		searchPreviousAndNextCruise(shipName);
 
 		// init assets from ship areas
-		suitesAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
-		diningsAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getDinings());
-		publicAreasAssetsList = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip()
+		Map<String, List<Asset>> mapAsset =  AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
+		suitesAssetsList = mapAsset.get("assets");
+		virtualTourAssetsList = mapAsset.get("assetsVirtualTour");
+		mapAsset = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getDinings());
+		diningsAssetsList = mapAsset.get("assets");
+		virtualTourAssetsList.addAll(mapAsset.get("assetsVirtualTour"));
+		mapAsset = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip()
 				.getPublicAreas());
+		publicAreasAssetsList = mapAsset.get("assets");
+		virtualTourAssetsList.addAll(mapAsset.get("assetsVirtualTour"));
 
 		if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
 			itinerariesAssetsList.addAll(AssetUtils.buildAssetList(cruiseModel.getAssetSelectionReference(),
@@ -181,6 +191,27 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 			if (exclusiveOffer.getGeomarkets() != null && exclusiveOffer.getGeomarkets().contains(geomarket)) {
 				exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination()
 						.getPath()));
+			}
+		}
+		
+		for(Asset asset : publicAreasAssetsList) {
+			String virtualTour = (String) asset.getMetadata("virtualTour");
+			if (StringUtils.isEmpty(virtualTour)) {
+				virtualTourAssetsList.add(asset);
+			}
+		}
+		
+		for(Asset asset : diningsAssetsList) {
+			DiningModel dinningModel = asset.adaptTo(DiningModel.class);
+			if (StringUtils.isEmpty(dinningModel.getVirtualTour())) {
+				virtualTourAssetsList.add(asset);
+			}
+		}
+		
+		for(Asset asset : suitesAssetsList) {
+			SuiteModel suiteModel = asset.adaptTo(SuiteModel.class);
+			if (StringUtils.isEmpty(suiteModel.getVirtualTour())) {
+				virtualTourAssetsList.add(asset);
 			}
 		}
 	}
@@ -430,7 +461,9 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		if (getAllAssetForPublicArea() != null) {
 			gallery.put("public-areas", getAllAssetForPublicArea());
 		}
-		// TODO : gallery.put("virtual-tours", value);
+		if (getVirtualTourAssetsList() != null) {
+			gallery.put("virtual-tour", getVirtualTourAssetsList());
+		}
 		// TODO : gallery.put("ship-exteriors", value);
 
 		return gallery;
@@ -552,6 +585,10 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
 	public void setCurrentPath(String currentPath) {
 		this.currentPath = currentPath;
+	}
+	
+	public List<Asset> getVirtualTourAssetsList() {
+		return virtualTourAssetsList;
 	}
 
 	public String getCcptCode() {
