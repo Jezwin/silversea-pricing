@@ -69,7 +69,7 @@ public class HeaderUse extends WCMUsePojo {
         
         for (Page pageL : languagePageList) {
         	languagePages.entrySet().forEach(entry -> {
-        	    if(pageL.getPath().contains(entry.getKey())){
+        	    if(pageL.getPath().toLowerCase().contains(entry.getKey().toLowerCase())){
         	    	NavPageModel nPage = new NavPageModel();
         	    	nPage.setPath(entry.getValue());
         	    	nPage.setName(pageL.getName());

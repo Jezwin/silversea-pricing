@@ -27,7 +27,7 @@
                 <i class="fa fa fa-angle-down hidden-md hidden-lg"></i><i class="fa fa-angle-up hidden-md hidden-lg"></i>
             </a>
             <ul id="c-language-selector" class="clearfix collapse c-language-selector__list" data-sly-list="${navTop.languagePageListForCurrentPage}">
-                <li class="c-main-nav__top__item"><a href="${item.path @ context='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.name}</span></a></li>
+                <li class="c-main-nav__top__item"><a href="${item.path @ extension='html'}" class="c-main-nav__top__link"><span>${item.navigationTitle || item.name}</span></a></li>
             </ul>
         </li>
         <li class="c-main-nav__top__item c-main-nav__top__item--small-md hidden-xs hidden-md hidden-lg" data-sly-test="${page3}">
