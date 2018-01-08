@@ -11,11 +11,14 @@
 			<div class="port_v2__section_header">
 				<h3 data-sly-test="${portUse.portType != 'expedition'}" class="port_v2__section_title"><span>${'an-introduction-to-silversea-cruises' @i18n}</span></h3>
 				<h3 data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_title"><span>${'an-introduction-to-silversea-expeditions' @i18n}</span></h3>
+				<div data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_header_separator port_v2__section_header_separator_expedition "></div>
+				<div data-sly-test="${portUse.portType == 'classic'}" class="port_v2__section_header_separator port_v2__section_header_separator_classic "></div>
+				<div data-sly-test="${portUse.portType == 'mixed'}" class="port_v2__section_header_separator port_v2__section_header_separator_mixed"></div>
 			</div>
 			<div class="port_v2__section_content">
 				<div class="port_v2__imagetext">
 					<div class="row">
-						<div class="col-sm-6 hidden-xs">
+						<div class="col-sm-6">
 							<div class="c-cruise">
 								<div class="c-tab__content--overview">
 									<div class="voyageimg">
