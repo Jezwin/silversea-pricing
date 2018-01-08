@@ -148,3 +148,15 @@
 .icon-wheelchair-2:before {
     content: "\e91e";
 }
+
+.icon-asian:before {
+    content: "\e91f";
+}
+
+.icon-ballet:before {
+    content: "\e920";
+}
+
+.icon-whale:before {
+    content: "\e927";
+}
