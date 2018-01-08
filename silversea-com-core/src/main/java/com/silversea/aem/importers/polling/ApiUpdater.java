@@ -176,7 +176,7 @@ public class ApiUpdater implements Runnable {
             //update travel agencies
             importResult = agenciesImporter.importAllItems();
             LOGGER.info("Agencies import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-            
+
             // replicate all modifications
             LOGGER.info("Start replication on modified pages");
             replicateModifications("/jcr:root/content/dam/silversea-com//element(*,dam:AssetContent)[toDeactivate or toActivate]");
@@ -185,7 +185,7 @@ public class ApiUpdater implements Runnable {
             replicateModifications("/jcr:root/content/silversea-com/es//element(*,cq:PageContent)[toDeactivate or toActivate]");
             replicateModifications("/jcr:root/content/silversea-com/pt-br//element(*,cq:PageContent)[toDeactivate or toActivate]");
             replicateModifications("/jcr:root/content/silversea-com/fr//element(*,cq:PageContent)[toDeactivate or toActivate]");
-            replicateModifications("/jcr:root/etc/tags//element(*,cq:Tags)[toDeactivate or toActivate]");
+            replicateModifications("/jcr:root/etc/tags//element(*,cq:Tag)[toDeactivate or toActivate]");
             
             cruisesCacheService.buildCruiseCache();
         } else {
@@ -222,8 +222,19 @@ public class ApiUpdater implements Runnable {
                     try {
                         if (node.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)
                                 && node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).getBoolean()) {
-                            replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
-                            
+                            //SSC-2387/SSC-2434
+                            //unpublish the entire page if it's not an asset or a tag
+                            if (node.getProperty("jcr:primaryType").getString().equals("cq:PageContent")) {
+                                final Resource pageResource = resource.getParent();
+                                final Node pageNode = pageResource.adaptTo(Node.class);
+
+                                if (pageNode != null) {
+                                    replicator.replicate(session, ReplicationActionType.DEACTIVATE, pageNode.getPath());
+                                }
+                            } else {
+                                replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
+                            }
+
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
                             LOGGER.info("{} page deactivated", node.getPath());
