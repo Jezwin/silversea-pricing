@@ -12,7 +12,7 @@ public class SSCButtonUse extends WCMUsePojo {
 	@Override
 	public void activate() throws Exception {
 		String analyticType = getProperties().get("analyticType", String.class);
-		if (analyticType.equalsIgnoreCase("clic-RAQ")) {
+		if (analyticType != null && analyticType.equalsIgnoreCase("clic-RAQ")) {
 			Page currentPage = getCurrentPage();
 			String[] selectorSuffixUrl = UrlHelper.createSuffixAndSelectorUrl(currentPage);
 			this.selectorUrl = selectorSuffixUrl[0];
