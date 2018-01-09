@@ -825,7 +825,7 @@
     <request-a-call
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Rückruf anfordern"/>
+        sling:message="Schreiben Sie uns"/>
     <request-or-download
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

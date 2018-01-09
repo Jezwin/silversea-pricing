@@ -826,7 +826,7 @@
     <request-a-call
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Prendre un rendez-vous téléphonique"/>
+        sling:message="Prendre un RDV téléphonique"/>
     <request-or-download
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
