@@ -1,84 +1,100 @@
 .modal {
-	 .modal-header {
-	 	&__virtual-tour {
-	 		padding: 0px !important;
-	 	}
-	 }
-	 
-	 &__virtual-tour {
-	 	&-container {
-	 		height: 750px;
-	 	
-		 	 @media screen and (max-width: 767px) {
-	 			height: 435px;
-    	   	 }
-	 	}
-	 	
-	 }
-	 
-	 &-virtual-tour {
-	 	
-	 	 &:before {
-   		 	bottom: 55%;
-    		content: "360\00b0";
-    		font-family: serif;
-    		display: block;
-    		height: 27px;
-    		position: absolute;
-    		right: 31%;
-    		transition: opacity .8s ease;
-    		width: 100px;
-    		z-index: 5;
-    		color: #e8e8e8;
-    		font-size: 48px;
-    		
-    		@media screen and (max-width: 767px) {
-  				right:40%;
-  				top:38%;
-  			}
-  			
-  			@media screen and (max-width: 375px) {
-  				right:34%;
-  			}
+	.modal-header {
+		&__virtual-tour {
+			padding: 0px ! important;
 		}
-		
+	}
+
+	&__virtual-tour {
+		&-container {
+			height: 750px;
+			@media screen and (max-width: 767px) {
+				height: 435px;
+			}
+		}
+	}
+
+	&-virtual-tour {
+		&:before {
+			bottom: 55%;
+			content: "360\00b0";
+			font-family: serif;
+			display: block;
+			height: 27px;
+			position: absolute;
+			right: 31%;
+			transition: opacity .8s ease;
+			width: 100px;
+			z-index: 5;
+			color: #e8e8e8;
+			font-size: 48px;
+			@media screen and (max-width: 767px) {
+				right: 40%;
+				top: 38%;
+			}
+
+			@media screen and (max-width: 375px) {
+				right: 34%;
+			}
+		}
+
 		&:after {
 			position: absolute;
-  			width: 90.5%;
- 	 		height: 90%;
-  			content: " ";
-  			background-color: rgba(0, 0, 0, 0.4);
-  			z-index: 2;
-  			top: 0;
-  			
-  			@media screen and (max-width: 880px) {
- 	 			width: 89.5%;
-	 	 		height: 91%;
-  			}
-  			
-  			@media screen and (max-width: 767px) {
-  				top: 20px;
-	  			width: 96%;
-  			}
-  			
-  			@media screen and (max-width: 375px) {
-	  			width: 92%;
-  			}
-  			
-  			  @media only screen 
-			    and (device-width : 414px) 
-			    and (device-height : 736px) 
-			    and (-webkit-device-pixel-ratio : 3) { 
-			        width: 93%;
-			
-			    }
-  		}
-	 }
-	 
-	 
-	 &-content__virtual-tour {
-	 	top:6% !important;	 
-	 }
-	 
-	 
+			width: 90.5%;
+			height: 90%;
+			content: " ";
+			background-color: rgba(0, 0, 0, 0.4);
+			z-index: 2;
+			top: 0;
+		}
+	}
+
+	&-content__virtual-tour {
+		top: 6% ! important;
+	}
 }
+
+
+@media screen and (max-width: 880px) {
+  .modal-virtual-tour:after {
+    width: 90% !important;
+        margin-left: 0px !important;
+
+    height: 91%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal-virtual-tour:after {
+    width: 89% !important;
+    margin-left: 0px !important;
+    height: 91%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .modal-virtual-tour:after {
+    top: 20px;
+    width: 95.5% !important;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .modal-virtual-tour:after {
+    width: 93% !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .modal-virtual-tour:after {
+    width: 91.6% !important;
+    margin-left: 0 !important;
+  }
+}
+@media only screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) {
+  .modal-virtual-tour:after {
+    width: 92.5% !important;
+    margin-left: 0px !important;
+  }
+}
+
+
