@@ -14,6 +14,22 @@
     </picture>
 </template>
 
+<!--/* Responsive image for virtual tour*/-->
+<template data-sly-template.virtualTour="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}" class="picture-virtual-tour">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=crop,
+            ${assetHelper.imageUrl}?hei=${image.mobileRetinaWidth}&wid=${image.mobileRetinaWidth}&fit=crop 2x"
+            media="(max-width: 767px)" />
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop,
+            ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=crop 2x"
+            media="(min-width: 768px)" />
+        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img o-img__virtual-tour cq-dd-image" />
+    </picture>
+</template>
+
 <!--/* Image */-->
 <template data-sly-template.image="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
     <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"

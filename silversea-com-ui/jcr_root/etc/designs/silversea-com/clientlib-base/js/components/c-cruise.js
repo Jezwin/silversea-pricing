@@ -282,7 +282,8 @@ $(function() {
     $('body').on('click', function(event) {
     	var hideBox = !($(event.target).hasClass('c-suitelist__collapse') || $(event.target).parents('.c-suitelist__collapse').length != 0);
     	if (hideBox) {
-    		$(".c-suitelist").find('.collapse').collapse('hide');	
+    		$(".c-suitelist").find('.collapse').collapse('hide');
+    		clearVirtualTourCruise();
     	}
     });
 
@@ -346,5 +347,98 @@ $(function() {
     		}
     	}
     });
+    
+    
+    /***************************************************************************
+     * Create virtual tour in every suite on cruise page when
+     * the use click on VIRTUAL TOUR tab
+     **************************************************************************/
+    $(".cruise-suite-virtual-tour").on('click', function(event) {
+    	event.preventDefault();
+    	
+    	var thisElement = $(this);
+    	var idParent =  $(this).attr('href');
+    	var idContainer = idParent + "-container";
+    	var imagePath = $(idContainer).attr("data-image");
+    	
+    	if (thisElement.attr('data-virtual-tour-exists') == null) { //make sure to not create the virtual tour again
+    		if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
+    			window.virtualTour.destroy();
+    			window.virtualTour = null;
+    		}
+    		
+    		if (window.hasOwnProperty('virtualTourID') && window.virtualTourID != null) {
+    			$(virtualTourID).empty();
+    		}
+    		
+    		var intervalDiv = setInterval(function(){
+    			var active = $(idParent).attr("data-state");
+    			if (active == "active") {
+    				clearInterval(intervalDiv);
+    				thisElement.attr('data-virtual-tour-exists','true');
+    				intervalDiv = null;
+    				if (imagePath != null && idContainer != null) {
+    					window.virtualTourID = idContainer;
+    					window.virtualTour = PhotoSphereViewer({
+    						container: idContainer.replace("#",""),
+    						panorama: imagePath,
+    						anim_speed: '0.4rpm',
+    						move_speed: 1.0,
+    						time_anim: '1000',
+    						min_fov: 10,
+    						default_fov: 179,
+    						navbar: [
+    							'autorotate', 
+    							'zoom',
+    							'spacer-1',
+    							'caption',
+    							'gyroscope',
+    							'fullscreen'
+    							]
+    					});
+    				}
+    			} 
+    		},500);
+    	}
+    });
+    
+    
+    /****************************************************************************
+    * Clear all virtual tour to release memory and DOM when the use click
+    * on close button or on tab that are not the virtual tour
+    **************************************************************************/
+    $(".suitelist-collapse-close").on('click', function(event) {
+    	event.preventDefault();
+    	clearVirtualTourCruise();
+    });
+    
+    
+    /****************************************************************************
+     * Function to clear all virtual tour to release memory and DOM
+     * used when the use click on close button or outside the div
+     **************************************************************************/
+    function clearVirtualTourCruise(){
+
+    	if(window.hasOwnProperty('virtualTourType') &&  window.virtualTourType == "cruise-gallery-virtual-tour") {
+    		return;
+    	}
+    	
+    	if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
+         	window.virtualTour.destroy();
+         	window.virtualTour = null;
+        }
+    	
+    	if (window.hasOwnProperty('virtualTourID') && window.virtualTourID != null) {
+    		var virtualTourTab = window.virtualTourID.replace("-container","");
+    		var descrptionTab = virtualTourTab.replace("virtual-tour", "description");
+    		var descriptionTabElement = $('[href='+descrptionTab+']') ;
+    		$('[href='+virtualTourTab+']').removeAttr('data-virtual-tour-exists');
+    		if ( descriptionTabElement != null) {
+    			descriptionTabElement.click();
+    		}
+         	$(virtualTourID).empty();
+         	window.virtualTourID = null;
+        }
+    }
     
 });

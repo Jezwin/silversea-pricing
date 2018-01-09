@@ -45,7 +45,7 @@
             </div>
             <div id="suitelist-collapse-${itemList.index}" class="c-suitelist__collapse collapse clearfix" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}">
                 <div class="c-tab c-tab__accordion">
-                    <a href="#suitelist-collapse-${itemList.index}" class="collapse-close text-uppercase" data-toggle="collapse"
+                    <a href="#suitelist-collapse-${itemList.index}" class="collapse-close text-uppercase suitelist-collapse-close" data-toggle="collapse"
                        data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}">
                         <i class="fa fa-times"></i> ${'close' @ i18n}
                     </a>
@@ -59,7 +59,7 @@
                         </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.locationImage}">
                             <a href="#suite-location-${itemList.index}"><span>${'suite-location' @i18n}</span></a>
                         </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.virtualTour}">
-                            <a href="#virtual-tour-${itemList.index}"><span>${'virtual-tour' @i18n}</span></a>
+                            <a href="#virtual-tour-${itemList.index}" class="cruise-suite-virtual-tour"><span>${'virtual-tour' @i18n}</span></a>
                         </li>
                     </ul>
                     <div class="c-tab__body">
@@ -86,7 +86,7 @@
                         <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}" data-sly-test="${item.suite.virtualTour}">
                             <!--/* Virtual tour tab */-->
                             <sly data-sly-use.virtualTourTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/virtualtour.html"
-                                 data-sly-call="${virtualTourTemplate.default @ suite=item.suite}"/>
+                                 data-sly-call="${virtualTourTemplate.virtualTour @ suite=item.suite, index=itemList.index}"/>
                         </div>
                     </div>
                     <sly data-sly-use.fareTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/fare.html"
@@ -146,7 +146,7 @@
             </div>
             <div id="suitelist-collapse-${itemList.index}-v2-version" class="c-suitelist__collapse collapse clearfix" role="tabpanel" aria-labelledby="suitelist-collapse-${itemList.index}-v2-version">
                 <div class="c-tab c-tab__accordion">
-                    <a href="#suitelist-collapse-${itemList.index}-v2-version" class="collapse-close text-uppercase" data-toggle="collapse"
+                    <a href="#suitelist-collapse-${itemList.index}-v2-version" class="collapse-close text-uppercase suitelist-collapse-close" data-toggle="collapse"
                        data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}-v2-version">
                         <i class="fa fa-times"></i> ${'close' @ i18n}
                     </a>
@@ -160,7 +160,7 @@
                         </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.locationImage}">
                             <a href="#suite-location-${itemList.index}-v2-version"><span>${'suite-location' @i18n}</span></a>
                         </li><li class="c-tab__link c-tab__link--button" data-sly-test="${item.suite.virtualTour}">
-                            <a href="#virtual-tour-${itemList.index}-v2-version"><span>${'virtual-tour' @i18n}</span></a>
+                            <a href="#virtual-tour-${itemList.index}-v2-version" class="cruise-suite-virtual-tour"><span>${'virtual-tour' @i18n}</span></a>
                         </li>
                     </ul>
                     <div class="c-tab__body">
@@ -187,7 +187,7 @@
                         <div class="c-tab__content c-tab__content--virtual-tour" id="virtual-tour-${itemList.index}-v2-version" data-sly-test="${item.suite.virtualTour}">
                             <!--/* Virtual tour tab */-->
                             <sly data-sly-use.virtualTourTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/virtualtour.html"
-                                 data-sly-call="${virtualTourTemplate.default @ suite=item.suite}"/>
+                                 data-sly-call="${virtualTourTemplate.virtualTourV2 @ suite=item.suite, index=itemList.index}"/>
                         </div>
                     </div>
                     <sly data-sly-use.fareTemplate="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/fare.html"

@@ -23,8 +23,8 @@
         <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
             <strong class="c-variationassetdisplay--label_asset visible-xs-block">${'virtual-tour' @ i18n}</strong>
             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = virualtourLightboxPath}"/>
-            <a href="${assetHelper.imageUrl}?wid=930&fit=fit,1" data-target=".bs-modal-md" class="virtual-tour-modal">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=virualtourLightboxPath}" />
+            <a href="${virualtourLightboxPath}" data-target=".bs-modal-lg" class="modal-virtual-tour">
+                <sly data-sly-call="${imageTemplate.virtualTour @ imagePath=virualtourLightboxPath}" />
             </a>
             <strong class="c-variationassetdisplay--label_asset hidden-xs">${'virtual-tour' @ i18n}</strong>
         </div>

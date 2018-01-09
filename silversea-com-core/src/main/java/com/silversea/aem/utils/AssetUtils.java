@@ -1,15 +1,18 @@
 package com.silversea.aem.utils;
 
-import com.day.cq.dam.api.Asset;
-import com.silversea.aem.models.ShipAreaModel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.resource.collection.ResourceCollection;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.day.cq.dam.api.Asset;
+import com.silversea.aem.models.ShipAreaModel;
 
 /**
  * Utils class for Assets.
@@ -46,8 +49,10 @@ public class AssetUtils {
         return renditionList;
     }
 
-    public static List<Asset> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
-        final List<Asset> assets = new ArrayList<>();
+    public static Map<String,List<Asset>> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
+    	Map<String,List<Asset>> result = new HashMap<>();
+        List<Asset> assets = new ArrayList<>();
+        List<Asset> assetsVirtualTour = new ArrayList<>();
 
         for (ShipAreaModel shipArea : shipAreas) {
             assets.addAll(shipArea.getAssets());
@@ -55,11 +60,14 @@ public class AssetUtils {
             if (StringUtils.isNotBlank(shipArea.getVirtualTour())) {
                 final Resource virtualTourResource = resourceResolver.getResource(shipArea.getVirtualTour());
                 if (virtualTourResource != null) {
-                    assets.add(virtualTourResource.adaptTo(Asset.class));
+                	assetsVirtualTour.add(virtualTourResource.adaptTo(Asset.class));
                 }
             }
         }
+        
+        result.put("assets", assets);
+        result.put("assetsVirtualTour", assetsVirtualTour);
 
-        return assets;
+        return result;
     }
 }
