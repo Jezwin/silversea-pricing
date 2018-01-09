@@ -146,6 +146,8 @@ $(function() {
 
                         // Slide to the first image of the current category
                         $slideFor.slick('slickGoTo', targetSlideIndex);
+                        $(".c-slider--for").slick("slickSetOption", "draggable", true, false);
+                        $(".c-slider--for").slick("slickSetOption", "swipe", true, false);
                     });
 
                     // Update category tab according to the current slide
@@ -196,6 +198,8 @@ $(function() {
 
                 // Scroll to the target image
                 var currentImagePath = $link.attr('href');
+                $(".c-slider--for").slick("slickSetOption", "draggable", true, false);
+                $(".c-slider--for").slick("slickSetOption", "swipe", true, false);
                 $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), false);
             });
         });
@@ -203,7 +207,8 @@ $(function() {
 
     function loadLazyImage($slider) {
         var $sliderActive = $slider.closest('.c-gallery').find('.slick-active');
-
+        $(".c-slider--for").slick("slickSetOption", "draggable", true, false);
+        $(".c-slider--for").slick("slickSetOption", "swipe", true, false);
         // call lazy loading for active image
         $sliderActive.find('.lazy').lazy();
 
@@ -252,7 +257,7 @@ $(function() {
 		    				panorama: imagePath,
 		    				anim_speed: '0.4rpm',
 		    				move_speed: 1.0,
-		    				mousemove: false, //disable move to face slick swipe
+		    				mousemove: true, //disable move to face slick swipe
 		    				time_anim: '1000',
 		    				min_fov: 10,
 		    				default_fov: 179,
@@ -266,6 +271,8 @@ $(function() {
 		    					]
 		    			});
 					}
+					$(".c-slider--for").slick("slickSetOption", "draggable", false, false);
+					$(".c-slider--for").slick("slickSetOption", "swipe", false, false);
 	    	},500);
 		}
     }
