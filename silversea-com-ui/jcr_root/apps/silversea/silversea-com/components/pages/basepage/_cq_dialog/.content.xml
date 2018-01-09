@@ -448,6 +448,18 @@
                                         fieldLabel="Facebook App ID"
                                         name="./appId"
                                         renderReadOnly="{Boolean}true"/>
+                                    <metaTitle
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        cq-msm-lockable="metaTitle"
+                                        fieldLabel="MetaTitle"
+                                        name="./metaTitle"/>
+                                    <metaDescription
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        cq-msm-lockable="metaDescription"
+                                        fieldLabel="MetaDescription"
+                                        name="./metaDescription"/>
                                 </items>
                             </column>
                         </items>

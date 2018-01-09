@@ -5,7 +5,7 @@
       data-sly-use.headlibRenderer="headlibs.html"
       data-sly-use.clientLib="/libs/granite/sightly/templates/clientlib.html"/>
 <meta data-sly-test.keywords="${head.keywords}" name="keywords" content="${keywords}"/>
-<meta data-sly-test.description="${pageProperties.pagedescription || pageProperties.jcr:description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
+<meta data-sly-test.description="${pageProperties.metaDescription || pageProperties.pagedescription || pageProperties.jcr:description || inheritedPageProperties.jcr:description}" name="description" content="${description}"/>
 <meta name="robots" content="noindex" data-sly-test="${!pageHelper.isIndexable}"/>
 <!--/* open graph tag */-->
 <meta property="fb:app_id" data-sly-test.appID="${pageProperties.appId || inheritedPageProperties.appId}" content="${appID}" />
@@ -38,4 +38,4 @@
 <meta name="msapplication-TileColor" content="#2d89ef">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png">
 <meta name="theme-color" content="#ffffff">
-<title>${'{0} | Silversea' @ format=[pageProperties.pageTitle || pageProperties.jcr:title], i18n}</title>
+<title>${'{0} | Silversea' @ format=[pageProperties.metaTitle || pageProperties.pageTitle || pageProperties.jcr:title], i18n}</title>
