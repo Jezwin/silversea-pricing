@@ -30,6 +30,7 @@ import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.models.PortModel;
 import com.silversea.aem.models.PriceModel;
+import com.silversea.aem.models.SilverseaAsset;
 import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
@@ -49,15 +50,15 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 
 	private int landProgramsNumber = 0;
 
-	private List<Asset> suitesAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> suitesAssetsList = new ArrayList<>();
 
-	private List<Asset> diningsAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> diningsAssetsList = new ArrayList<>();
 
-	private List<Asset> publicAreasAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> publicAreasAssetsList = new ArrayList<>();
 
-	private List<Asset> itinerariesAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> itinerariesAssetsList = new ArrayList<>();
 	
-	private List<Asset> virtualTourAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> virtualTourAssetsList = new ArrayList<>();
 
 	private List<SuitePrice> prices = new ArrayList<>();
 
@@ -107,7 +108,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		searchPreviousAndNextCruise(shipName);
 
 		// init assets from ship areas
-		Map<String, List<Asset>> mapAsset =  AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
+		Map<String, List<SilverseaAsset>> mapAsset =  AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
 		suitesAssetsList = mapAsset.get("assets");
 		virtualTourAssetsList = mapAsset.get("assetsVirtualTour");
 		mapAsset = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getDinings());
@@ -117,30 +118,44 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 				.getPublicAreas());
 		publicAreasAssetsList = mapAsset.get("assets");
 		virtualTourAssetsList.addAll(mapAsset.get("assetsVirtualTour"));
-
+		List<Asset> itinerariesAssets = new ArrayList<>();
+		
 		if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
-			itinerariesAssetsList.addAll(AssetUtils.buildAssetList(cruiseModel.getAssetSelectionReference(),
-					getResourceResolver()));
+			itinerariesAssets
+					.addAll(AssetUtils.buildAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver()));
+		}
+
+		for (Asset asset : itinerariesAssets) {
+			SilverseaAsset sscAsset = new SilverseaAsset();
+			sscAsset.setPath(asset.getPath());
+			sscAsset.setName(asset.getName());
+			itinerariesAssetsList.add(sscAsset);
 		}
 
 		// init assets from itinerary and cruise itself
 		for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
-			final PortModel portModel = itinerary.getPort();
+			PortModel portModel = itinerary.getPort();
 
 			if (portModel != null) {
-				final String assetSelectionReference = portModel.getAssetSelectionReference();
+				String assetSelectionReference = portModel.getAssetSelectionReference();
 
 				if (StringUtils.isNotBlank(assetSelectionReference)) {
-					itinerariesAssetsList.addAll(AssetUtils.buildAssetList(assetSelectionReference,
-							getResourceResolver()));
+					itinerariesAssets.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+					for (Asset asset : itinerariesAssets) {
+						SilverseaAsset sscAsset = new SilverseaAsset();
+						sscAsset.setPath(asset.getPath());
+						sscAsset.setName(asset.getName());
+						sscAsset.setLabel(portModel.getTitle());
+						itinerariesAssetsList.add(sscAsset);
+					}
 				}
 			}
 		}
 
 		// init number of elements (excursions, hotels, land programs)
 		for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
-			excursionsNumber += getItinerariesHasExcursions() ? itinerary.getExcursions().size() : itinerary.getPort()
-					.getExcursions().size();
+			excursionsNumber += getItinerariesHasExcursions() ? itinerary.getExcursions().size()
+					: itinerary.getPort().getExcursions().size();
 			hotelsNumber += itinerary.getHotels().size();
 			landProgramsNumber += itinerary.getLandPrograms().size();
 		}
@@ -189,36 +204,16 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		// init exclusive offers based on geolocation
 		for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
 			if (exclusiveOffer.getGeomarkets() != null && exclusiveOffer.getGeomarkets().contains(geomarket)) {
-				exclusiveOffers.add(new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination()
-						.getPath()));
+				exclusiveOffers.add(
+						new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination().getPath()));
 			}
 		}
 		
-		for(Asset asset : publicAreasAssetsList) {
-			String virtualTour = (String) asset.getMetadata("virtualTour");
-			if (StringUtils.isEmpty(virtualTour)) {
-				virtualTourAssetsList.add(asset);
-			}
-		}
-		
-		for(Asset asset : diningsAssetsList) {
-			DiningModel dinningModel = asset.adaptTo(DiningModel.class);
-			if (StringUtils.isEmpty(dinningModel.getVirtualTour())) {
-				virtualTourAssetsList.add(asset);
-			}
-		}
-		
-		for(Asset asset : suitesAssetsList) {
-			SuiteModel suiteModel = asset.adaptTo(SuiteModel.class);
-			if (StringUtils.isEmpty(suiteModel.getVirtualTour())) {
-				virtualTourAssetsList.add(asset);
-			}
-		}
 	}
 
 	/**
-	 * Search previous and next cruise to show link PREVIOUS VOYAGE | NEXT
-	 * VOYAGE based on ship
+	 * Search previous and next cruise to show link PREVIOUS VOYAGE | NEXT VOYAGE
+	 * based on ship
 	 * 
 	 * @param shipName
 	 *            Ship name of the current cruise to show
@@ -243,15 +238,14 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 			AtomicInteger indexCurrentCruise = new AtomicInteger(-1);
 			AtomicInteger indexLoop = new AtomicInteger(-1);
 			/*
-			 * Sort all cruise based on departed date before filter by ship
-			 * becuase we will save the index of the current voyage inside the
-			 * list
+			 * Sort all cruise based on departed date before filter by ship becuase we will
+			 * save the index of the current voyage inside the list
 			 */
 			allCruises.sort((Comparator.comparing(CruiseModelLight::getStartDate)));
 
 			/*
-			 * We filter by ship based on current cruise and we save the index
-			 * of current cruise inside the list (to get previous and next)
+			 * We filter by ship based on current cruise and we save the index of current
+			 * cruise inside the list (to get previous and next)
 			 */
 			List<CruiseModelLight> listCruiseFilterByShip = allCruises.stream().filter(cruise -> {
 				String shipNameElement = cruise.getShip().getName();
@@ -272,8 +266,9 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 				Integer nextCruiseIndex = indexCurrentCruise.get() + 1;
 				this.previous = (previousCruiseIndex >= 0) ? listCruiseFilterByShip.get(previousCruiseIndex).getPath()
 						: null;
-				this.next = (nextCruiseIndex < listCruiseFilterByShip.size()) ? listCruiseFilterByShip.get(
-						nextCruiseIndex).getPath() : null;
+				this.next = (nextCruiseIndex < listCruiseFilterByShip.size())
+						? listCruiseFilterByShip.get(nextCruiseIndex).getPath()
+						: null;
 			}
 		}
 	}
@@ -340,8 +335,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	/**
-	 * @return the number of excursions, of the itineraries or the attached
-	 *         ports
+	 * @return the number of excursions, of the itineraries or the attached ports
 	 */
 	public int getExcursionsNumber() {
 		return excursionsNumber;
@@ -355,8 +349,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	/**
-	 * @return the number of land programs, of the itineraries or the attached
-	 *         ports
+	 * @return the number of land programs, of the itineraries or the attached ports
 	 */
 	public int getLandProgramsNumber() {
 		return landProgramsNumber;
@@ -379,42 +372,45 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	/**
 	 * @return assets from suites of the ship
 	 */
-	public List<Asset> getAllAssetForSuite() {
+	public List<SilverseaAsset> getAllAssetForSuite() {
 		return suitesAssetsList;
 	}
 
 	/**
 	 * @return assets from dinings of the ship
 	 */
-	public List<Asset> getAllAssetForDinning() {
+	public List<SilverseaAsset> getAllAssetForDinning() {
 		return diningsAssetsList;
 	}
 
 	/**
 	 * @return assets from public areas of the ship
 	 */
-	public List<Asset> getAllAssetForPublicArea() {
+	public List<SilverseaAsset> getAllAssetForPublicArea() {
 		return publicAreasAssetsList;
 	}
 
 	/**
 	 * @return assets form itinerary (cities) and the cruise itself
 	 */
-	public List<Asset> getAllAssetForItinerary() {
+	public List<SilverseaAsset> getAllAssetForItinerary() {
 		return itinerariesAssetsList;
 	}
 
 	/**
 	 * @return assets form itinerary and the cruise itself and itinerary map
 	 */
-	public List<Asset> getAllAssetWithItinerary() {
-		List<Asset> listAssetWithMap = new ArrayList<Asset>(itinerariesAssetsList);
+	public List<SilverseaAsset> getAllAssetWithItinerary() {
+		List<SilverseaAsset> listAssetWithMap = new ArrayList<SilverseaAsset>(itinerariesAssetsList);
 		String itineraryMap = (getCruiseModel() != null) ? getCruiseModel().getItinerary() : null;
 		final Resource members = (itineraryMap != null) ? getResourceResolver().getResource(itineraryMap) : null;
 		if (members != null) {
 			Asset asset = members.adaptTo(Asset.class);
 			if (asset != null) {
-				listAssetWithMap.add(0, asset);
+				SilverseaAsset sscAsset = new SilverseaAsset();
+				sscAsset.setName(asset.getName());
+				sscAsset.setPath(asset.getPath());
+				listAssetWithMap.add(0, sscAsset);
 			}
 		}
 		return listAssetWithMap;
@@ -437,16 +433,16 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	/**
 	 * @return common list for dinings and public areas
 	 */
-	public List<Asset> getAllAssetForDinningNPublicAreas() {
-		return Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream()).collect(
-				Collectors.toList());
+	public List<SilverseaAsset> getAllAssetForDinningNPublicAreas() {
+		return Stream.concat(getAllAssetForDinning().stream(), getAllAssetForPublicArea().stream())
+				.collect(Collectors.toList());
 	}
 
 	/**
 	 * @return all the assets of the gallery
 	 */
-	public LinkedHashMap<String, List<Asset>> getCruiseGallery() {
-		LinkedHashMap<String, List<Asset>> gallery;
+	public LinkedHashMap<String, List<SilverseaAsset>> getCruiseGallery() {
+		LinkedHashMap<String, List<SilverseaAsset>> gallery;
 		gallery = new LinkedHashMap<>();
 
 		if (getAllAssetForItinerary() != null) {
@@ -470,23 +466,27 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	/**
-	 * Put the cruise itinerary map inside voyages gallery. The cruise itinerary
-	 * map will be the first element of the list
+	 * Put the cruise itinerary map inside voyages gallery. The cruise itinerary map
+	 * will be the first element of the list
 	 * 
 	 * @return gallery
 	 */
-	public LinkedHashMap<String, List<Asset>> getCruiseOverviewGallery() {
-		LinkedHashMap<String, List<Asset>> gallery = getCruiseGallery();
+	public LinkedHashMap<String, List<SilverseaAsset>> getCruiseOverviewGallery() {
+		LinkedHashMap<String, List<SilverseaAsset>> gallery = getCruiseGallery();
 		String itineraryMap = (getCruiseModel() != null) ? getCruiseModel().getItinerary() : null;
 		final Resource members = (itineraryMap != null) ? getResourceResolver().getResource(itineraryMap) : null;
 		if (members != null) {
 			Asset asset = members.adaptTo(Asset.class);
-			List<Asset> voyages = gallery.get("voyage");
+			List<SilverseaAsset> voyages = gallery.get("voyage");
 			if (asset != null && !voyages.isEmpty()) {
-				voyages.add(0, asset);
+				SilverseaAsset sscAsset = new SilverseaAsset();
+				sscAsset.setName(asset.getName());
+				sscAsset.setPath(asset.getPath());
+				voyages.add(0, sscAsset);
 				gallery.put("voyage", voyages);
 			}
 		}
+
 		return gallery;
 	}
 
@@ -587,7 +587,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		this.currentPath = currentPath;
 	}
 	
-	public List<Asset> getVirtualTourAssetsList() {
+	public List<SilverseaAsset> getVirtualTourAssetsList() {
 		return virtualTourAssetsList;
 	}
 
