@@ -140,7 +140,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 				String assetSelectionReference = portModel.getAssetSelectionReference();
 
 				if (StringUtils.isNotBlank(assetSelectionReference)) {
-					itinerariesAssets.addAll(AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver()));
+					itinerariesAssets = AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver());
 					for (Asset asset : itinerariesAssets) {
 						SilverseaAsset sscAsset = new SilverseaAsset();
 						sscAsset.setPath(asset.getPath());
@@ -445,19 +445,19 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		LinkedHashMap<String, List<SilverseaAsset>> gallery;
 		gallery = new LinkedHashMap<>();
 
-		if (getAllAssetForItinerary() != null) {
+		if (getAllAssetForItinerary() != null && !getAllAssetForItinerary().isEmpty()) {
 			gallery.put("voyage", getAllAssetForItinerary());
 		}
-		if (getAllAssetForSuite() != null) {
+		if (getAllAssetForSuite() != null && !getAllAssetForSuite().isEmpty()) {
 			gallery.put("suites", getAllAssetForSuite());
 		}
-		if (getAllAssetForDinning() != null) {
+		if (getAllAssetForDinning() != null && !getAllAssetForDinning().isEmpty()) {
 			gallery.put("dinings", getAllAssetForDinning());
 		}
-		if (getAllAssetForPublicArea() != null) {
+		if (getAllAssetForPublicArea() != null && !getAllAssetForPublicArea().isEmpty()) {
 			gallery.put("public-areas", getAllAssetForPublicArea());
 		}
-		if (getVirtualTourAssetsList() != null) {
+		if (getVirtualTourAssetsList() != null && !getVirtualTourAssetsList().isEmpty()) {
 			gallery.put("virtual-tour", getVirtualTourAssetsList());
 		}
 		// TODO : gallery.put("ship-exteriors", value);
