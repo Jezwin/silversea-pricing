@@ -330,16 +330,19 @@ $(function() {
     	event.preventDefault();
     	var mediaElement = $('[href="#overview"]');
     	if (mediaElement.length > 0) {
-    		if ($('[href="#overview"]').parent()[0].getAttribute('data-state') !== "active") {
+    		if ($('[href="#overview"]').parent().attr('data-state') !== "active") {
     			mediaElement[0].click();
-    			setTimeout(function(){ 
-    				var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
-    				if (mediaElement.length > 0 ) {
-    					mediaElement[0].click();
+    			var intervalDiv = setInterval(function(){ 
+    				if ($('[href="#overview"]').parent().attr('data-state') == "active") {
+    					clearInterval(intervalDiv);
+    					intervalDiv = null;
+    					var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
+    					if (mediaElement.length > 0 ) {
+    						mediaElement[0].click();
+    					}
     				}
-    			}, 1000);
-    		}
-    		else {
+    			}, 500);
+    		} else {
     			var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
 				if (mediaElement.length > 0 ) {
 					mediaElement[0].click();
