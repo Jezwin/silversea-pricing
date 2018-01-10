@@ -98,9 +98,9 @@
     </div>
 </form>
 <script>
-window.dataLayer[0].track_voyage_id = $('.voyagecode');
-window.dataLayer[0].track_departure_date = $('.departuredate');
-window.dataLayer[0].track_shipname = $('.shipname');
-window.dataLayer[0].track_voyage_duration = $('.voyagelength');
+window.dataLayer[0].track_voyage_id = $('[name=voyagecode]').val();
+window.dataLayer[0].track_departure_date = $('[name=departuredate]').val();
+window.dataLayer[0].track_shipname = $('[name=shipname]').val();
+window.dataLayer[0].track_voyage_duration = $('[name=voyagelength]').val();
 
 </script>
