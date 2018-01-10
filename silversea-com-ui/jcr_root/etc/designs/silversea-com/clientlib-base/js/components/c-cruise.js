@@ -283,7 +283,9 @@ $(function() {
     	var hideBox = !($(event.target).hasClass('c-suitelist__collapse') || $(event.target).parents('.c-suitelist__collapse').length != 0);
     	if (hideBox) {
     		$(".c-suitelist").find('.collapse').collapse('hide');
-    		clearVirtualTourCruise();
+    		if(!$('body').hasClass('modal-open')){
+    			clearVirtualTourCruise();
+    		}
     	}
     });
 
@@ -434,8 +436,8 @@ $(function() {
     	if (window.hasOwnProperty('virtualTourID') && window.virtualTourID != null) {
     		var virtualTourTab = window.virtualTourID.replace("-container","");
     		var descrptionTab = virtualTourTab.replace("virtual-tour", "description");
-    		var descriptionTabElement = $('[href='+descrptionTab+']') ;
-    		$('[href='+virtualTourTab+']').removeAttr('data-virtual-tour-exists');
+    		var descriptionTabElement = $("[href='"+descrptionTab+"']") ;
+    		$("[href='"+virtualTourTab+"']").removeAttr('data-virtual-tour-exists');
     		if ( descriptionTabElement != null) {
     			descriptionTabElement.click();
     		}
