@@ -16,6 +16,7 @@ $(function() {
 
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
         	window.virtualTour.destroy();
+        	$('.modal').off('shown.bs.modal');
         	window.virtualTour = null;
         }
     });
