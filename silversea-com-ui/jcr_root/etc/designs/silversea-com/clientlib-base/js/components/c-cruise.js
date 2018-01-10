@@ -338,13 +338,13 @@ $(function() {
     				if ($('[href="#overview"]').parent().attr('data-state') == "active") {
     					clearInterval(intervalDiv);
     					intervalDiv = null;
-    					var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
-    					mediaElement.click();
+    					var mediaElement2 = $('[data-tab-target="#suitenfare-b-version"]');
+    					mediaElement2.click();
     				}
     			}, 500);
     		} else {
-    			var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
-    			mediaElement.click();
+    			var mediaElement3 = $('[data-tab-target="#suitenfare-b-version"]');
+    			mediaElement3.click();
     		}
     	}
     });
