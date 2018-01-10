@@ -16,7 +16,6 @@ $(function() {
 
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
         	window.virtualTour.destroy();
-        	$('.modal').off('shown.bs.modal');
         	window.virtualTour = null;
         }
     });
@@ -70,7 +69,7 @@ $(function() {
         $('.modal').off('shown.bs.modal');
         
         $('.modal').on('shown.bs.modal', function(e) {
-            
+            $('.modal').off('shown.bs.modal');
         	window.virtualTour = PhotoSphereViewer({
 			    container: 'virtual-tour-container',
 			    panorama: imagePath,
