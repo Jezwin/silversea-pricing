@@ -66,6 +66,7 @@ $(function() {
         var captionTitle = $(this).attr('caption-title');
         
         $('.modal-dialog').empty().append($modalContent);
+        $('.modal').off('shown.bs.modal');
         
         $('.modal').on('shown.bs.modal', function(e) {
             
