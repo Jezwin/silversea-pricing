@@ -339,16 +339,12 @@ $(function() {
     					clearInterval(intervalDiv);
     					intervalDiv = null;
     					var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
-    					if (mediaElement.length > 0 ) {
-    						mediaElement.click();
-    					}
+    					mediaElement.click();
     				}
     			}, 500);
     		} else {
     			var mediaElement = $('[data-tab-target="#suitenfare-b-version"]');
-				if (mediaElement.length > 0 ) {
-					mediaElement.click();
-				}
+    			mediaElement.click();
     		}
     	}
     });
