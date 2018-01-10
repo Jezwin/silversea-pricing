@@ -279,7 +279,7 @@ $(function() {
     /*********************************************************************************
      * Automatic collapse all suite and fares boxes if the user click outside the list
      *********************************************************************************/
-    $('body').on('click', function(event) {
+    $('body:not(.modal-open)').on('click', function(event) {
     	var hideBox = !($(event.target).hasClass('c-suitelist__collapse') || $(event.target).parents('.c-suitelist__collapse').length != 0);
     	if (hideBox) {
     		$(".c-suitelist").find('.collapse').collapse('hide');
