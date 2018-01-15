@@ -26,6 +26,7 @@ $.fn.requestForm = function() {
         $currentForm.each(function() {
             var $form = $(this), userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
             if (userInfo) {
+                alert('inside quote');
                 $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
                 $form.find('[name="firstname"]').val(userInfo.firstname);
                 $form.find('[name="lastname"]').val(userInfo.lastname);
@@ -36,6 +37,8 @@ $.fn.requestForm = function() {
                 $form.find('[name="postalcode"]').val(userInfo.postalcode);
                 $form.find('[name="city"]').val(userInfo.city);
                 $form.find('[name="country"]').val(userInfo.country);
+                $form.find('[name="bookingnumber"]').val(userInfo.bookingnumber);
+                $form.find('[name="vsnumber"]').val(userInfo.vsnumber);
             }
         });
 

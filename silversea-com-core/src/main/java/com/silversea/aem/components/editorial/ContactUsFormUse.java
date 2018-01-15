@@ -2,52 +2,26 @@ package com.silversea.aem.components.editorial;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
-import javax.jcr.Session;
 import javax.jcr.Value;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONObject;
-import org.apache.sling.commons.json.jcr.JsonItemWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.Rendition;
-import com.day.cq.dam.api.RenditionPicker;
-import com.day.cq.dam.commons.util.PrefixRenditionPicker;
-import com.day.cq.search.PredicateGroup;
-import com.day.cq.search.Query;
-import com.day.cq.search.QueryBuilder;
-import com.day.cq.search.result.SearchResult;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.day.cq.wcm.api.NameConstants;
-import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.GeolocationHelper;
-import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.models.BrochureModel;
-import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.ExclusiveOfferModel;
-import com.silversea.aem.models.ExclusiveOfferVariedModel;
 import com.silversea.aem.models.GeolocationTagModel;
-import com.silversea.aem.models.PriceModel;
-import com.silversea.aem.models.RequestQuoteModel;
-import com.silversea.aem.models.SuiteModel;
-import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.services.GeolocationTagService;
 
 
