@@ -1,5 +1,5 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manuel"></div>
-<section data-sly-test="${properties.reference}" id="c-vertical-teaser-${properties.sscUUID}" class="c-vertical-teaser thumbnail benefitsandevents">
+<section data-sly-test="${properties.reference}" id="c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid}" class="c-vertical-teaser thumbnail benefitsandevents">
     <div class="c-vertical-teaser__image-wrapper" data-sly-test.reference="${properties.assetReference}">
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
             data-sly-call="${imageTemplate.default @ imagePath=reference}" />
@@ -16,14 +16,14 @@
     <a class="c-vertical-teaser__link--block" href="${properties.reference @ extension='html'}"></a>
 </section>
 <style data-sly-test="${properties.heightDesktop}">
-	#c-vertical-teaser-${properties.sscUUID @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
+	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
 		min-height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
 	}
 </style>
 
 <style data-sly-test="${properties.heightMobile}">
 	@media (max-width: 767px) {
-		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
 			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 		}
 	}

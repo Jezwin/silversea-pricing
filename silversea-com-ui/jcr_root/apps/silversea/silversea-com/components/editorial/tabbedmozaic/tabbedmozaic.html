@@ -1,7 +1,7 @@
 <div data-sly-test="${wcmmode.edit && (!properties.assetReference || !properties.jcr:title)}" class="cq-placeholder cq-dd-image" data-emptytext="Tabbed mozaic"></div>
 <sly data-sly-test="${properties.reference}"
     data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" />
-<section class="c-tabbedmozaic" id="c-tabbedmozaic-${properties.sscUUID}">
+<section class="c-tabbedmozaic" id="c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid}">
     <div class="c-tabbedmozaic__image-wrapper" data-sly-test.reference="${properties.assetReference}">
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
             data-sly-call="${imageTemplate.default @ imagePath=reference}" />
@@ -11,10 +11,10 @@
 </section>
 <style data-sly-test="${properties.desktopHeight != '0' && properties.desktopHeight}">
 @media (min-width: 992px) {
-	#c-tabbedmozaic-${properties.sscUUID @ context="unsafe"}.c-tabbedmozaic  {
+	#c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-tabbedmozaic  {
 		height: ${properties.desktopHeight || '200' @ context="unsafe"}px !important;
 	}
-    #c-tabbedmozaic-${properties.sscUUID @ context="unsafe"}.c-tabbedmozaic .c-tabbedmozaic__title {
+    #c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-tabbedmozaic .c-tabbedmozaic__title {
 		height: 67%;
 	}
 }

@@ -3,6 +3,6 @@
 <script data-sly-test="${properties.marginBottom}">
 	$( document ).ready(function() {
 		var marginBottomSlider = '${properties.marginBottom || 0 @ context="unsafe"}px';
-		$('#c-slider-${properties.sscUUID @ context="unsafe"}').parent().css("margin-bottom", marginBottomSlider);
+		$('#c-slider-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}').parent().css("margin-bottom", marginBottomSlider);
 	});
 </script>
