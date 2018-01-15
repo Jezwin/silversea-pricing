@@ -53,5 +53,8 @@ $(function() {
     };
 
     // Init video on page load
-    $('.c-video:not(.c-video--cc-gallery)').initVideo();
+    setTimeout(function(){ 
+    	 $('.c-video:not(.c-video--cc-gallery)').initVideo(); 
+    	}, 3000);
+   
 });
