@@ -184,7 +184,7 @@
         margin: 0;
     }
 
-    @media screen and (max-width: @screen-sm) {
+    @media screen and (max-width: @screen-sm) {	
         &__item {
             margin-bottom: 10px;
         }
@@ -239,7 +239,8 @@
             }
         }
     }
-
+    
+    
     @media screen and (min-width: @screen-md-min) {
         &__item {
             border-bottom: 1px solid @grey--d;
@@ -272,7 +273,9 @@
 
             &__title {
                 margin: 0 0 12px;
+                
             }
+            
         }
 
         &__price {
@@ -281,11 +284,165 @@
             padding: 0 10px;
             text-align: center;
             width: 20%;
+            
         }
 
         &__button {
             padding: 0 15px;
             width: 22%;
+            
+            .btn {
+                display: block;
+                padding-right: 21px;
+                position: relative;
+                width: 100%;
+
+                i {
+                    position: absolute;
+                    right: 9px;
+                    top: 50%;
+                    -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                    transform: translateY(-50%);
+                }
+            }
+        }
+        
+    }
+    
+    &__row-card {
+    	.c-suitelist__item {
+            border-bottom: 1px solid @grey--d;
+
+            &--first {
+                border-top: 1px solid @grey--d;
+            }
+        }
+
+        .c-suitelist__heading {
+            padding: 15px 0;
+
+            &.collapsed:not(.opacity):hover {
+                background-color: @grey--e6;
+            }
+        }
+
+        .c-suitelist__image, c-suitelist__detail, c-suitelist__price, c-suitelist__button {
+            float: left;
+            min-height: 1px;
+        }
+
+        .c-suitelist__image {
+            
+            &-card {
+            	width:100%;
+            	margin-top: 22px;
+            	 @media screen and (max-width: 767px) {
+            	 	margin-top: 0px;
+            	 	margin-bottom: 15px;
+            	 }
+            	
+            }
+        }
+
+        .c-suitelist__detail {
+            padding: 0 15px 0 10px;
+            width: 30%;
+            
+            @media screen and (max-width: 767px) {
+    	 		//margin-top: 36%;
+    	 	}
+
+            &__title {
+                margin: 0 0 12px;
+                
+                 &-card {
+	            	margin-bottom: 5px;
+	            	
+	            	@media screen and (max-width: 767px) {
+            	 		margin-bottom: 0px;
+            	 		padding-top: 12px;
+    					font-size: 22px;
+            	 	}
+	            }
+            }
+            
+             &__description {
+                
+                 &-card {
+	            	font-size: 12px;
+	            }
+            }
+            
+             &-card {
+            	width:100%;
+            	background-color: rgba(230, 230, 230,0.8);
+            	text-align: center;
+            	padding-top:18px;
+            }
+        }
+
+        .c-suitelist__price {
+            border: 1px solid @grey--d;
+            border-width: 0 1px;
+            padding: 0 10px;
+            text-align: center;
+            width: 20%;
+            
+            &-card {
+            	width:100%;
+            	border: none;
+            	background-color: rgba(230, 230, 230,0.8);
+            	padding-top:14px;
+            }
+            
+            &-from {
+            	font-size: 12px;
+            }
+            
+            &__text--important2 {
+            	margin: 0px;
+            }
+        }
+
+        .c-suitelist__button {
+            padding: 0 15px;
+            width: 22%;
+            
+            
+            &-card {
+            	width:100%;
+            	background-color: rgba(230, 230, 230,0.8);
+			    padding-left: 25%;
+    			padding-right: 25%;
+    			padding-top: 25px;
+    		    text-align: center;
+			    padding-bottom: 18px;
+			    
+			     @media screen and (max-width: 767px) {
+            	 	margin-top: 0px;
+            	 	margin-bottom: 27px;
+            	 }
+    			
+    			.request-quote {
+    				margin-bottom: 7px;
+				    text-align: center;
+				    padding-top: 7px;
+				    padding-bottom: 7px;
+				    padding-right: 14px !important;
+    			}
+    			
+    			.btn-view-more-detail{
+    				text-align: center;
+				    text-transform: uppercase;
+				    text-decoration: underline;
+				    font-weight: bold;
+				    font-size: 10.5px;
+				    padding: 0;
+				    padding-right: 6px;
+    			}
+            }
+            
 
             .btn {
                 display: block;
@@ -303,5 +460,19 @@
                 }
             }
         }
+        
+        .c-suitelist__row-card {
+        	margin-top: -15px;
+        }
+    }
+    
+	@media screen and (max-width: 767px) {
+    	.c-cruise__subtitle-card {
+    		font-size: 23px;
+    	}
+    	
+    	&-card {
+    		padding: 0 20px 0;
+    	}
     }
 }

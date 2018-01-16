@@ -1099,6 +1099,10 @@
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more"
     	sling:message="View more" />
+   	<view-more-details
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more-details"
+    	sling:message="View more details" />
     <view-deck
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-deck"
