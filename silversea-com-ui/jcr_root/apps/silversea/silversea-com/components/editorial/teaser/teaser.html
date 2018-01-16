@@ -14,10 +14,10 @@
     </div>
     <div class="c-teaser__shader hidden-xs"></div>
     <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
-    <div class="c-teaser__wrapper visible-xs">
-        <h2 class="c-teaser__wrapper__title">${target.page.navigationTitle || target.page.title}</h2>
-    </div>
     <div class="c-teaser__mobile-border">
+	    <div class="c-teaser__wrapper visible-xs">
+	        <h2 class="c-teaser__wrapper__title">${target.page.navigationTitle || target.page.title}</h2>
+	    </div>
 	    <div class="c-teaser__descr-mobile visible-xs-block">
 	        ${target.page.description}
 	    </div>
