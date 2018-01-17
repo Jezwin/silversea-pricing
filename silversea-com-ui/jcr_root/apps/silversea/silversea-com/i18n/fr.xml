@@ -116,6 +116,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="booking bonus"/>
+	<booking-number
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nombre de réservations"/>	
     <built-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -931,10 +935,18 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Sélectionnez et visualisez l’itinéraire"/>
+	<select-inquiry
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Sélectionnez une demande"/>	
     <select-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Choisissez votre langue"/>
+	<select-subject
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Sélectionnez un sujet"/>	
     <select-the-brochure-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1165,6 +1177,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="View"/>
+	<vsnumber
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="par rapport au nombre"/>	
     <waitlist
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
