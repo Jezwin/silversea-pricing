@@ -1067,6 +1067,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="USD"
         sling:message="US$"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="CA$"/>
     <vi
         jcr:primaryType="sling:MessageEntry"
         sling:key="VI"
