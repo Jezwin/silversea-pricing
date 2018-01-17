@@ -24,11 +24,6 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
-                        	<uuid
-      							jcr:primaryType="nt:unstructured" 
-      							name="./jcr:mixinTypes"
-      							value="mix:referenceable"
-      							sling:resourceType="granite/ui/components/foundation/form/hidden" />
                             <itemNumber
                                 jcr:primaryType="nt:unstructured"
                                 fieldLabel="Item(s) per slide"
