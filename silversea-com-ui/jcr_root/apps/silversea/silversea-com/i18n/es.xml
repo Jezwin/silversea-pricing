@@ -1074,7 +1074,7 @@
     <cad
         jcr:primaryType="sling:MessageEntry"
         sling:key="CAD"
-        sling:message="CA$"/>
+        sling:message="C$"/>
     <usd
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

@@ -1070,7 +1070,7 @@
     <cad
         jcr:primaryType="sling:MessageEntry"
         sling:key="CAD"
-        sling:message="CA$"/>
+        sling:message="C$"/>
     <vi
         jcr:primaryType="sling:MessageEntry"
         sling:key="VI"
