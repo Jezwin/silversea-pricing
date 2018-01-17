@@ -1,4 +1,4 @@
-\package com.silversea.aem.components.beans;
+package com.silversea.aem.components.beans;
 
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.ExclusiveOfferModel;
