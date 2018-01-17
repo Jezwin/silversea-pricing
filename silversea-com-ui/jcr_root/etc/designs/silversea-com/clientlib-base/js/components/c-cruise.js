@@ -320,7 +320,7 @@ $(function() {
      * Open directly the first element on the modal photo and video
      * link related to ab test v2
      **************************************************************************/
-    $("#cruise-itinerary-link-ab-test-v2").on('click', function(event) {
+    $(".c-cruise__itineraries .cruise-itinerary-link").on('click', function(event) {
     	event.preventDefault();
     	var mediaElement = $(".c-cruise__gallery__item.automatic-gallery-modal");
     	if (mediaElement.length > 0 ) {
