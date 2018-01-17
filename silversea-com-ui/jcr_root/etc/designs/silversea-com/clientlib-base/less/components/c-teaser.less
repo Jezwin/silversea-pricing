@@ -127,6 +127,8 @@
     		border: 1px solid #ddd;
     		border-top:none;
     		padding: 0px 20px 7px;
+    		padding-top:9px;
+    		margin-top:-9px;
     	}
     }
 
@@ -154,6 +156,9 @@
 
         .fa {
             padding-left: 20px;
+            @media screen and (max-width: @screen-sm) {
+            	padding-left: 8px;
+            }
         }
     }
     &.no-image{
