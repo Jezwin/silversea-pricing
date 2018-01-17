@@ -23,14 +23,15 @@ public class ExclusiveOfferItem {
 
         if (this.exclusiveOffer.getVariations() != null) {
             for (final ExclusiveOfferModel variation : this.exclusiveOffer.getVariations()) {
-                for (final String tagId : variation.getTagIds()) {
-                    // TODO add method to compare geolocation
-                    if (tagId.startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX) && tagId.endsWith("/" + countryCodeIso2)) {
-                        exclusiveOfferVariation = variation;
-                        break;
-                    }
-                }
-
+            	if(variation.getTagIds() != null){
+	                for (final String tagId : variation.getTagIds()) {
+	                    // TODO add method to compare geolocation
+	                    if (tagId.startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX) && tagId.endsWith("/" + countryCodeIso2)) {
+	                        exclusiveOfferVariation = variation;
+	                        break;
+	                    }
+	                }
+            	}
                 if (exclusiveOfferVariation != null) {
                     break;
                 }
