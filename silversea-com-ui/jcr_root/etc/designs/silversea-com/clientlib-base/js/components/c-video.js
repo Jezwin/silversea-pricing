@@ -55,6 +55,6 @@ $(function() {
     // Init video on page load
     setTimeout(function(){ 
     	 $('.c-video:not(.c-video--cc-gallery)').initVideo(); 
-    	}, 3000);
+    	}, 4000);
    
 });
