@@ -20,6 +20,7 @@
     <filter root="/content/silversea-com/rep:policy"/>
     <filter root="/content/silversea-com/en/robots.txt"/>
     <filter root="/content/silversea-com/en/crossdomain.xml"/>
+    <filter root="/content/silversea-com/en/akamai/akamai-sureroute-test-object.htm"/>
     <filter root="/content/dam/silversea-com/rep:policy"/>
 
     <filter root="/etc/blueprints/silversea-com"/>
