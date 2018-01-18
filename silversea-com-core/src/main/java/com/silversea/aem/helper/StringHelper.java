@@ -27,9 +27,9 @@ public class StringHelper extends WCMUsePojo {
 
             // Return truncate text
             if (textHtmlStrip.length() > limit) {
-                textTruncate = textHtmlStrip.substring(0, limit);
-                if (textHtmlStrip.charAt(limit) != ' ') {
-                    textTruncate = textTruncate.substring(0, textTruncate.lastIndexOf(" ")) + "...";
+                textTruncate = textHtmlStrip.substring(0, limit + 1);
+                if (textHtmlStrip.charAt(limit) != '.') {
+                    textTruncate = textTruncate.substring(0, textTruncate.lastIndexOf(".") + 1);
                 }
             } else {
                 textTruncate = textHtmlStrip;

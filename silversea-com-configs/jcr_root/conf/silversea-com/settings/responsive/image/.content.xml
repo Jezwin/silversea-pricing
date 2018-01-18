@@ -45,10 +45,10 @@
                             width="290" />
                         <desktop-3
                             jcr:primaryType="nt:unstructured"
-                            width="210" />
+                            width="290" />
                         <desktop-2
                             jcr:primaryType="nt:unstructured"
-                            width="130" />
+                            width="290" />
                         <desktop-1
                             jcr:primaryType="nt:unstructured"
                             width="50" />

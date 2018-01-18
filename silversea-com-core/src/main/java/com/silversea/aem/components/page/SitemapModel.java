@@ -104,7 +104,11 @@ public class SitemapModel {
                         || WcmConstants.RT_LAND_PROGRAMS.equals(resourceType)
                         || WcmConstants.RT_EXCURSIONS.equals(resourceType)
                         || WcmConstants.RT_TRAVEL_AGENT.equals(resourceType)
-                        || WcmConstants.RT_COMBO_SEGMENT.equals(resourceType));
+                        || WcmConstants.RT_COMBO_SEGMENT.equals(resourceType)
+                        || WcmConstants.RT_EXCLUSIVE_OFFER.equals(resourceType)
+                        || WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION.equals(resourceType)
+                        || WcmConstants.RT_LANDING_PAGE.equals(resourceType)
+                        || WcmConstants.RT_LIGHTBOX.equals(resourceType));
             }
 
             return true;

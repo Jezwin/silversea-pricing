@@ -96,6 +96,12 @@
                                 name="./fullWidth"
                                 value="true" 
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <marginBottom
+								jcr:primaryType="nt:unstructured"
+		                        fieldLabel="Margin bottom"
+		                        name="./marginBottom"
+		                        defaultValue = "0"
+		                        sling:resourceType="granite/ui/components/foundation/form/numberfield" />
                         </items>
                     </column>
                 </items>

@@ -20,6 +20,7 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
     static final private Logger LOGGER = LoggerFactory.getLogger(FullImportServlet.class);
 
     private enum Mode {
+        agencies,
         cities,
         excursions,
         hotels,
@@ -42,6 +43,9 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
         combocruises
     }
 
+    @Reference
+    private TravelAgenciesImporter agenciesImporter;
+    
     @Reference
     private CitiesImporter citiesImporter;
 
@@ -137,6 +141,8 @@ public class FullImportServlet extends SlingSafeMethodsServlet {
                 cruisesPricesImporter.importAllItems(false);
             } else if (mode.equals(Mode.cruisesexclusiveoffers)) {
                 cruisesExclusiveOffersImporter.importAllItems();
+            } else if (mode.equals(Mode.agencies)) {
+                agenciesImporter.importAllItems();
             }
         } catch (ImporterException e) {
             throw new ServletException(e);

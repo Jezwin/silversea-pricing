@@ -1,3 +1,57 @@
-Sitemap: http://www.silversea.com/sitemap-index.xml
 User-Agent: *
+Sitemap:https://www.silversea.com/fr/sitemap.xml
+Sitemap:https://www.silversea.com/sitemap.xml
+Sitemap:https://www.silversea.com/es/sitemap.xml
+Sitemap:https://www.silversea.com/de/sitemap.xml
+Sitemap:https://www.silversea.com/pt-br/sitemap.xml
+Sitemap:https://www.silversea.com/sitemap-index.xml
 Allow: /
+Disallow: /search.html?q=
+Disallow: /content/silversea-com/en/ports_genericblock_data
+Noindex: /content/silversea-com/en/ports_genericblock_data
+Disallow: /ports_genericblock_data
+Noindex: /ports_genericblock_data
+Allow: /etc/*
+Disallow: /content/silversea-com/en/ports_genericblock_data
+Disallow: /*q=
+Disallow: /*destination=
+Disallow: /*date=
+Disallow: /*ship=
+Disallow: /*ships=
+Disallow: /*cleanup=
+Disallow: /*ga=
+Disallow: /*filterType=
+Disallow: /*idPostfix=
+Disallow: /*isHome=
+Disallow: /*htpl=
+Disallow: /*cruisetype-and-features-expanded=
+Disallow: /*duration=
+Disallow: /*itinerary-port=
+Disallow: /*voyage-code=
+Disallow: /*voyage-type=
+Disallow: /*filterSelectionsQueue=
+Disallow: /*hideSearchOptions=
+Disallow: /*page=
+Disallow: /*rpco=
+Disallow: /brochures/digital-form-lb
+Disallow: /brochures/brochure-merci.html
+Disallow: /brochures/printed-form-lb
+Disallow: /fr/demander-un-devis.eo.html(.*)
+Disallow: /*_jcr_content(.*)
+Disallow: /*modalcontent.html
+Disallow: /*folletos/digital-form-lb
+Disallow: /es/solicite-presupuesto.s.html(.*)
+Disallow: /es/solicite-presupuesto.sd.html(.*)
+Disallow: /es/solicite-presupuesto.ss.html(.*)
+Disallow: /de/angebot-anfordern.eo.html(.*)
+Disallow: /de/angebot-anfordern.s.html(.*)
+Disallow: /de/angebot-anfordern.sd.html(.*)
+Disallow: /de/angebot-anfordern.ss.html(.*)
+Disallow: /pt-br/solicite-um-orcamento.eo.html(.*)
+Disallow: /pt-br/solicite-um-orcamento.s.html(.*)
+Disallow: /pt-br/solicite-um-orcamento.sd.html(.*)
+Disallow: /pt-br/solicite-um-orcamento.sd.html(.*)
+Disallow: /request-quote.s.html(.*)
+Disallow: /request-quote.eo.html(.*)
+Disallow: /request-quote.sd.html(.*)
+Disallow: /request-quote.ss.html(.*)

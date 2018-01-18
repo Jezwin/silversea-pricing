@@ -60,6 +60,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silversea wird regelmäßig von führenden Verbraucher- und Fachpublikationen gelobt."/>
+    <agency-name
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Agency name"/>
     <B1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -196,6 +200,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Besatzungskapazität"/>
+    <cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="kreuzfarten"/>
     <cruise-enrichments-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -216,6 +224,18 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-description-v2
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>
+    <cruise-itinerary-description-v2-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Unsere Reisepläne sind einzigartig - nachfolgend finden Sie detaillierte Informationen bezüglich der Anlaufhäfen, Ankunfts- und Abreisezeiten sowie zusätzliche Informationen über die Reiseziele, die Sie besuchen werden."/>    
     <cruise-itinerary-link
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -228,11 +248,23 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Entdecken Sie unsere zahlreichen Treffpunkte an Bord, wo Sie Zeit mit gleichgesinnten Reisenden und natürlich unseren personalisierten All-inclusive-Service genießen können."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Entdecken Sie unsere zahlreichen Treffpunkte an Bord, wo Sie Zeit mit gleichgesinnten Reisenden und natürlich unseren personalisierten All-inclusive-Service genießen können."/>
     <cruise-ship-suite-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers.  Wählen Sie Ihre Suite und fordern Sie ein Angebot an - Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, ihre Suite zu wählen, belohnt."/>
+    <cruise-ship-suite-description-expedition
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den geräumigsten der Kreuzschifffahrt schlechthin und beinhalten alle den Service eines Butlers.  Wählen Sie Ihre Suite und fordern Sie ein Angebot an - Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, ihre Suite zu wählen, belohnt."/>
     <cruise-suites-and-fares-descr
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Silverseas Suiten mit Meeresblick gehören zu den großräumigsten aller Luxuskreuzfahrten.  Alle beinhalten die Dienste eines Butlers, dank dem höchsten Anteil an Servicepersonal auf See. Fast alle haben eine private Teak-Veranda, so dass Sie nur vor Ihre Tür treten müssen, um die frische Meeresluft einzuatmen. Wählen Sie Ihre Suite aus und fordern Sie ein Angebot an. Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, die gewünschte Suite auszuwählen, belohnt."/>
+    <cruise-suites-and-fares-descr-v2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silverseas Suiten mit Meeresblick gehören zu den großräumigsten aller Luxuskreuzfahrten.  Alle beinhalten die Dienste eines Butlers, dank dem höchsten Anteil an Servicepersonal auf See. Fast alle haben eine private Teak-Veranda, so dass Sie nur vor Ihre Tür treten müssen, um die frische Meeresluft einzuatmen. Wählen Sie Ihre Suite aus und fordern Sie ein Angebot an. Gäste, die früh buchen, werden mit den besten Preisen und der Möglichkeit, die gewünschte Suite auszuwählen, belohnt."/>
@@ -307,7 +339,7 @@
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Dir"/>
+        sling:message="Sir"/>
     <discover-more
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -385,6 +417,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Exkursionen"/>
+     <expedition-cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="expeditionskreuzfahrt"/>
     <expedition-team
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -468,11 +504,11 @@
     <G1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <G2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -657,11 +693,11 @@
     <O1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner's"/>
+        sling:message="Owner's 1"/>
     <O2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Owner"/>
+        sling:message="Owner's 2"/>
     <other-recent-journals
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -757,11 +793,11 @@
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 1"/>
     <R2
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Royal"/>
+        sling:message="Royal 2"/>
     <read-less
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -789,7 +825,7 @@
     <request-a-call
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Rückruf anfordern"/>
+        sling:message="Schreiben Sie uns"/>
     <request-or-download
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -866,6 +902,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Resultate"/>
+    <results-your-area
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Results In Your Area"/>
     <routes
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1031,6 +1071,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Suchbegriff hier eingeben"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="C$"/>
     <usd
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1068,6 +1112,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Alle Suiten ansehen"/>
+    <view-more
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more"
+    	sling:message="Mehr über" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1164,4 +1212,56 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Ihre Suchergebnisse :"/>
+   	<your-location
+       jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="your location"/>
+    <luxury-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="luxury-cruises"
+	    sling:message="Luxury Cruises"/>
+	<expedition-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="expedition-cruises"
+	    sling:message="Expedition Cruises"/>
+	<view-more
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-more"
+	    sling:message="View more"/>
+	<an-introduction-to-silversea-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-cruises"
+	    sling:message="An Introduction to Silversea Cruises"/>
+	<an-introduction-to-silversea-expeditions
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-expeditions"
+	    sling:message="An Introduction to Silversea Expeditions"/>
+	<view-our-brochures
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-our-brochures"
+	    sling:message="View our Brochures"/>
+	<show-less
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-less"
+	    sling:message="show Less"/>                        
+	<show-all
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-all"
+	    sling:message="Show All"/>
+	<more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="more-about-silversea"
+	    sling:message="More about Silversea"/>
+	<learn-more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="learn-more-about-silversea"
+	    sling:message="Learn more about our luxurious ships and alluring destinations by requesting or downloading a free brochure, and sign up to receive exclsuive offers and news from Silversea."/>
+	<related-destinations
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="related-destinations"
+	    sling:message="Related Destinations"/>
+	<view-destination
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-destination"
+	    sling:message="View Destination"/>
 </jcr:root>

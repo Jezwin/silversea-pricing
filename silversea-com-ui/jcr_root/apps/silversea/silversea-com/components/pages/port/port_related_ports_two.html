@@ -1,0 +1,30 @@
+<template data-sly-template.default="${ @ portUse }">
+<div class="container">
+	<div class="port_v2__section text-center" id="port_v2__related">
+		<div class="port_v2__section_header">
+			<h3 class="port_v2__section_title">
+			<span>${'related-destinations' @i18n}</span>
+			<div data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_header_separator port_v2__section_header_separator_expedition "></div>
+				<div data-sly-test="${portUse.portType == 'classic'}" class="port_v2__section_header_separator port_v2__section_header_separator_classic "></div>
+				<div data-sly-test="${portUse.portType == 'mixed'}" class="port_v2__section_header_separator port_v2__section_header_separator_mixed"></div>
+				</h3>
+		</div>
+		<div class="port_v2__section_content">
+			<div data-sly-repeat.relatedPorts="${portUse.relatedPorts}" class="port_v2__post single">
+					<sly data-sly-test.imageUrl="${relatedPorts.thumbnail}" />
+					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
+					<div class="port_v2__post_img" style="background-image: url('${assetHelper.imageUrl @ context='unsafe'}?hei=372&wid=672&fit=crop');">
+					<a href="${relatedPorts.path @ extension='html'}" title="${relatedPorts.title}"></a>
+				</div>
+				<div class="port_v2__post_content">
+					<h3 class="port_v2__post_title"><span>${relatedPorts.title}</span></h3>
+					<div class="port_v2__post_meta">${relatedPorts.country}</div>
+					<div class="port_v2__post_cta">
+						<a class="btn btn-dark" href="${relatedPorts.path  @ extension='html'}" title="${relatedPorts.title}" alt="${relatedPorts.title}, ${relatedPorts.country}">${'view-destination' @i18n}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</template>

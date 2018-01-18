@@ -2,8 +2,8 @@
     overflow: hidden;
 
     #s7video_div.s7videoviewer{
-         width:100%; 
-         height:auto;
+         width: 100%; 
+         height: auto;
     }
 
     &.s7videoviewer.s7mouseinput .s7videoplayer .s7iconeffect[state="play"] {
@@ -34,6 +34,23 @@
             -ms-transform: translate(-55%,-50%);
             transform: translate(-55%,-50%);
             width: 84px;
+        }
+
+        .loading& {
+            background-image: url('./../../images/loader.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 50px;
+            width: 50px;
+
+            &:before {
+                display: none;
+            }
+
+            &:after {
+                display: none;
+            }
         }
     }
 }

@@ -1,7 +1,27 @@
 .c-cruise {
     .c-tab__content {
         &--overview {
-            .voyage {
+        		.slick-slide>* {
+				    margin: 0px !important;
+				}
+				.c-cruise__itineraries {
+					.c-cruise-itinerary-list {
+						.c-cruise-itinerary-list__description__button {
+							@media (max-width: 767px) {
+								a.c-btn--white {
+									padding: 8px 5px;	
+								}
+							}
+							.c-btn i.fa-angle-right{
+								vertical-align: -11%;
+								@media (max-width: 767px) {
+									margin-left: 2px;
+								}
+							}
+						}
+					}
+				}
+	            .voyage {
                 &table {
                     color: @grey--3;
                     display: table;
@@ -66,9 +86,23 @@
 
                 &img {
                     margin-bottom: 10px;
-
-                    picture img {
-                        border: solid 1px @blue;
+					.slick-slide {
+		   				min-height:250px;
+						@media  (max-width: 768px ) {
+		   					min-height:150px;
+		   				}
+					}
+					a.lazy.video-link {
+					    min-height: 250px;
+					    @media  (max-width: 768px ) {
+		   					min-height:150px;
+		   				}
+					}
+                    picture {
+                    	padding: 0px 1px 0px 1px;
+                    	img {
+                        	border: solid 1px @blue;
+                        }
                     }
 
                     &__info {
@@ -89,6 +123,10 @@
                         font-style: italic;
                         margin-top: 10px;
                     }
+                    
+                     .slick-slide {
+                    	position: relative;
+                    }
                 }
 
                 &feature {
@@ -106,6 +144,20 @@
                         p, a {
                             float: left;
                         }
+                    }
+                }
+
+                &share_wrap{
+                    display: inline-block;
+                    float: left;
+                    white-space: nowrap;
+
+                    .share{
+                    	color: #646464;
+                        font-size: 18px;
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin: 0 7px;
                     }
                 }
             }

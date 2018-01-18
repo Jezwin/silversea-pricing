@@ -1,0 +1,41 @@
+<template data-sly-template.default="${ @ portUse }">
+<div class="container">
+	<div class="container">
+		<div class="port_v2__section" id="port_v2__land">
+			<div class="port_v2__section_header">
+				<h3 class="port_v2__section_title"><span>${'land-programmes' @i18n} ${'in' @i18n} ${portUse.portModel.title}</span></h3>
+				<div data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_header_separator port_v2__section_header_separator_expedition "></div>
+				<div data-sly-test="${portUse.portType == 'classic'}" class="port_v2__section_header_separator port_v2__section_header_separator_classic "></div>
+				<div data-sly-test="${portUse.portType == 'mixed'}" class="port_v2__section_header_separator port_v2__section_header_separator_mixed"></div>
+			</div>
+			<div class="port_v2__section_content">
+				<div class="port_v2__expander">
+					<div data-sly-repeat.landProgram="${portUse.filteredLand}" class="port_v2__expander_item">
+						<div class="port_v2__expander_header">
+							<div class="port_v2__expander_col port_v2__expander_col_title">${landProgram.title}</div>
+							<div class="port_v2__expander_col port_v2__expander_col_toggle">
+								<a href="javascript:void(0);" class="port_v2__expander_open"><span>${'more-info' @i18n}</span> <i class="fa fa-angle-down"></i></a>
+								<a href="javascript:void(0);" class="port_v2__expander_close"><span>${'close' @i18n}</span> <i class="fa fa-angle-up"></i></a>
+							</div>
+						</div>
+						<div class="port_v2__expander_content">
+							<p align="justify" style="margin-bottom:0px;margin-top:0px">
+								${landProgram.description @ context='html'}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="port_v2__expander_slice" style="">
+					<a class="btn btn-dark uppercase" href="javascript:void(0);" data-less="${'show-less' @i18n} ${'land-programmes' @i18n}" data-more="${'show all' @i18n} ${'land-programmes' @i18n}"><span>${'show all' @i18n} ${'land-programmes' @i18n}</span><i class="fa fa-angle-down"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	portV2_Accordion('#port_v2__land');
+	portV2_AccordionSlice('#port_v2__land');
+});
+</script>
+</template>

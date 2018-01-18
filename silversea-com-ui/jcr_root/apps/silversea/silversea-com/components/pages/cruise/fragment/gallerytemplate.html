@@ -12,14 +12,20 @@
                 <div class="c-gallery__wrappertop">
                      <div class="c-slider c-slider--for" data-sly-list.tab="${map}">
                         <div data-category-target="${tab}" data-sly-repeat.asset="${map[tab]}" data-image="${asset.path}">
-                            <div class="ratio lazy ${assetList.first ? 'ratio-itinerary' : ''}"
+                            <div class="ratio lazy ${assetList.first && tab != 'virtual-tour' ? 'ratio-itinerary' : ''} ${tab == 'virtual-tour' ? 'cruise-gallery-virtual-tour' : ''}"
                                 data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
-                                data-src="${assetHelper.imageUrl @ context='uri'}?hei=930&wid=930&fit=constrain">
+                                id="cruise-gallery-virtual-tour-${tab == 'virtual-tour' ? assetList.index : asset.path}"
+                                data-image-virtual-tour="${asset.path}"
+                                data-src="${assetHelper.imageUrl @ context='uri'}?hei=930&wid=930&fit=${tab == 'virtual-tour' ? 'crop' : 'constrain'}">
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                                 <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                                 <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
                                 <!--/* <p class="c-gallery__caption" data-sly-test.caption="${asset.metadata.dc:title}">${caption}</p> */-->
+                                <sly data-sly-test="${!isVideo}">
+                                	<span data-sly-test.label="${asset.label}" class="c-gallery__label">${label}</span>
+                                </sly>
                             </div>
+                            <div data-sly-test.isVirtualTour="${tab == 'virtual-tour'}" id="cruise-gallery-virtual-tour-${assetList.index}-container"></div>
                         </div>
                     </div>
                     
@@ -27,9 +33,9 @@
                 </div>
                 <div class="c-slider c-slider--nav hidden-xs" data-sly-list="${map}">
                     <div data-sly-repeat.asset="${map[item]}">
-                        <div class="ratio lazy ${assetList.first ? 'ratio-itinerary' : ''}"
+                        <div class="ratio lazy ${assetList.first && item != 'virtual-tour' ? 'ratio-itinerary' : ''} ${item == 'virtual-tour' ? 'cruise-gallery-virtual-tour-thumbnail' : ''}"
                             data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
-                            data-src="${assetHelper.imageUrl @ context='uri'}?hei=930&wid=930&fit=constrain">
+                            data-src="${assetHelper.imageUrl @ context='uri'}?hei=930&wid=930&fit=${item == 'virtual-tour' ? 'crop' : 'constrain'}">
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                             <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                         </div>

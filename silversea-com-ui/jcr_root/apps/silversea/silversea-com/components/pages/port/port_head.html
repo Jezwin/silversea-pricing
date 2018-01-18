@@ -1,0 +1,17 @@
+<template data-sly-template.default="${ @ portUse }">
+<div class="container">
+	<div class="port_v2__header">
+		<h1 data-sly-test="${portUse.portType != 'expedition'}" class="port_v2__header_title">Silversea ${'luxury-cruises' @i18n} ${'to' @i18n} ${portUse.portModel.title}</h1>
+		<h1 data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__header_title">Silversea ${'expedition-cruises' @i18n} ${'to' @i18n} ${portUse.portModel.title}</h1>
+		<div data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_header_separator port_v2__section_header_separator_expedition "></div>
+		<div data-sly-test="${portUse.portType == 'classic'}" class="port_v2__section_header_separator port_v2__section_header_separator_classic "></div>
+		<div data-sly-test="${portUse.portType == 'mixed'}" class="port_v2__section_header_separator port_v2__section_header_separator_mixed"></div>
+	</div>
+</div>
+<div class="container" data-sly-test.imageUrl="${portUse.portModel.thumbnail}">
+	<div class="banner-image">
+	<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
+		<img src="${assetHelper.imageUrl}?hei=375&wid=930&fit=crop" alt="${portUse.portModel.title}" />
+    </div>
+</div>
+</template>

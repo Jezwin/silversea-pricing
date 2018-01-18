@@ -7,11 +7,13 @@ import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CruisesItinerariesImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.ItinerariesApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.Itinerary;
 import io.swagger.client.model.Voyage77;
+
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -28,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.*;
 
 @Service
@@ -199,8 +202,12 @@ public class CruisesItinerariesImporterImpl implements CruisesItinerariesImporte
                                     itineraryNode.setProperty("portReference", portsMapping.get(cityId).get(cruisePath.getKey()));
                                 }
                             }
+                            final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+                            final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
 
-                            cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                            if (startDate.after(Calendar.getInstance()) && isVisible) {
+                            	cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+                            }
 
                             successNumber++;
                             itemsWritten++;

@@ -17,11 +17,14 @@ $(function() {
      * Slider
      **************************************************************************/
     // On page load
+	var $cSlider = $('.c-slider.c-slider-adaptive-height');
+	settingSlider.adaptiveHeight = ($cSlider != null && $cSlider.length > 0) ? true :  false;
     if ($.viewportDetect() === 'xs') {
         $('.c-slider:not(.c-slider--first-slide-only, .c-slider--for, .c-slider--nav)').slick(settingSlider);
     } else {
         $('.c-slider:not(.c-slider--for, .c-slider--nav)').slick(settingSlider);
     }
+    
 
     // Filter
     $('.c-slider.slick-initialized').slick('slickFilter', ':not(cq, .new.section)');
@@ -45,7 +48,7 @@ $(function() {
         nextArrow : nextArrowCustom,
         fade : true,
         dots : true,
-        autoplaySpeed : 5000,
+        autoplaySpeed : 3500,
         responsive : [ {
             breakpoint : 768,
             settings : {

@@ -3,8 +3,31 @@
     <div class="row">
         <!--/*
         include side.html if path has suffix for ship and [suite]*/-->
+        <!-- A version -->
         <div data-sly-test="${quoteRequest.isCruiseRequested}" class="col-sm-5 c-quote-request-form__side" data-sly-include="./side.html"></div>
-
+		<!-- B version -->
+		<div data-sly-test="${quoteRequest.isSideHtmlToShow}" class="col-sm-5 c-quote-request-form__side ${quoteRequest.isSideHtmlToShow ? 'c-quote-request-form__side-B-version' : '' }" data-sly-include="./side.html"></div>
+        
         <div class="col-sm-7 c-quote-request-form__form" data-sly-include="./form.html"></div>
     </div>
 </div>
+
+<script>
+//Refresh Global Mbox function - A/B Test 
+function TargetOffer(){
+  adobe.target.getOffer({  
+  "mbox": "target-global-mbox",  
+  "success": function(offers) {          
+        adobe.target.applyOffer( { 
+           "mbox": "target-global-mbox",
+           "offer": offers 
+        } );
+  },  
+  "error": function(status, error) {          
+    
+  },
+"timeout": 5000
+});
+} TargetOffer()
+
+</script>

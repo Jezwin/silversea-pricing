@@ -15,16 +15,16 @@ public class GeolocationTagModel {
     @Inject @Self
     private Resource resource;
 
-    @Inject @Named("iso2")
+    @Inject @Named("iso2") @Optional
     private String countryCode;
 
-    @Inject @Named("iso3")
+    @Inject @Named("iso3") @Optional
     private String countryCodeIso3;
 
-    @Inject
+    @Inject @Optional
     private String market;
 
-    @Inject
+    @Inject @Optional
     private String region;
 
     @Inject @Named("Currency") @Optional

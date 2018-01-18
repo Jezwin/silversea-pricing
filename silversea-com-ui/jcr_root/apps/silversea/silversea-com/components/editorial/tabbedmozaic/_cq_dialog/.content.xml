@@ -14,7 +14,7 @@
         <items jcr:primaryType="nt:unstructured">
             <tabbedmozaic
                 jcr:primaryType="nt:unstructured"
-                jcr:title="Tabbed mozaic"
+                jcr:title="Global options"
                 sling:resourceType="granite/ui/components/foundation/section">
                 <layout
                     jcr:primaryType="nt:unstructured"
@@ -48,6 +48,31 @@
                     </column>
                 </items>
             </tabbedmozaic>
+            <desktopOptions
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Desktop options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <desktopHeight
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Height"
+                                fieldDescription="Set custom heigth > 0 (px) to the component. height = 0 means no value."
+                                name="./desktopHeight"
+                                defaultValue = "0"
+                                min="0"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+                        </items>
+                    </column>
+                </items>
+            </desktopOptions>
         </items>
     </content>
 </jcr:root>

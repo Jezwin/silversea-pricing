@@ -1,9 +1,6 @@
-<div class="container">
-    <sly data-sly-include="form.html" />
-    <sly data-sly-include="link.html" />
-    <sly data-sly-include="contact.html" />
-    <sly data-sly-include="socialaward.html" />
-    <div class="o-section o-section--separator o-section--legal">
-        <sly data-sly-include="legal.html" />
-    </div>
-</div>
+<sly data-sly-use.footer="com.silversea.aem.components.included.FooterUse"
+	 data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
+<sly data-sly-use.footerTemplate="footertemplate.html">
+	<sly data-sly-test="${pageHelper.templateName != 'port' && pageHelper.templateName != 'cruise' && pageHelper.templateName != 'destination'}" data-sly-call="${footerTemplate.default @ footer= footer}"></sly>
+	<sly data-sly-test="${pageHelper.templateName == 'port' || pageHelper.templateName == 'cruise' || pageHelper.templateName == 'destination' }" data-sly-call="${footerTemplate.port @ footer=footer}"></sly>
+</sly>

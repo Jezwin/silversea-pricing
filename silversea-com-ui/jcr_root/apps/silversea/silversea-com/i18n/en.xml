@@ -27,6 +27,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-ships"
         sling:message="All Ships"/>
+    <alldestinations
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="alldestinations"
+        sling:message="All Destinations"/>
+    <allports
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="allports"
+        sling:message="All Ports"/>
+    <an-introduction-to-silversea-cruises
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="an-introduction-to-silversea-cruises"
+        sling:message="An Introduction to Silversea Cruises"/>
     <and
         jcr:primaryType="sling:MessageEntry"
         sling:key="and"
@@ -55,6 +67,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="award-label"
         sling:message="Silversea is regularly lauded by leading consumer and trade publications"/>
+   	<agency-name
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="agency-name"
+        sling:message="Agency name"/>
     <b1
         jcr:primaryType="sling:MessageEntry"
         sling:key="B1"
@@ -194,7 +210,7 @@
     <cruise-excursion-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-excursion-description"
-        sling:message="Shore excursions provide the highlight of any cruise and allow you to gather a 360° vision of your destination. You may also make your own bespoke arrangements with the Silver Shore Concierge at least two weeks prior to sailing."/>
+        sling:message="Shore excursions provide the highlight of any cruise and allow you to gather a 360° vision of your destination. You may also make your own bespoke arrangements with the Silver Shore Concierge at least 30 days prior to sailing. Please note that the following excursions are provided as a sample of what may be offered on this voyage and are subject to change. We invite guests to visit my.silversea.com 90 days prior to sailing for the most updated information. Please be aware that tours are available on a first-come, first-served basis, and that some tours are very popular with guests often ending up being wait-listed: in order to avoid disappointment, it is therefore suggested to book in advance via my.silversea.com"/>
     <cruise-itinerary
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary"
@@ -207,6 +223,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary-description"
         sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
+    <cruise-itinerary-description-v2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description-v2"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>
+    <cruise-itinerary-description-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description-expedition"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
+    <cruise-itinerary-description-v2-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-itinerary-description-v2-expedition"
+        sling:message="Our itineraries are second-to-none – below please find detailed information regarding ports of call, arrival and departure times, as well as supplemental information about the destinations you’ll visit"/>    
     <cruise-itinerary-link
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-itinerary-link"
@@ -219,13 +247,25 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-ship-restaurant-description"
         sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service."/>
+    <cruise-ship-restaurant-description-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-restaurant-description-expedition"
+        sling:message="Discover our collection of onboard venues where you'll enjoy spending time with like-minded travellers and of course, our personalized all-inclusive service."/>
     <cruise-ship-suite-description
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-ship-suite-description"
         sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite."/>
+    <cruise-ship-suite-description-expedition
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-ship-suite-description-expedition"
+        sling:message="Silversea's oceanview suites are some of the most spacious in cruising, and all include the services of a butler. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite."/>
     <cruise-suites-and-fares-descr
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr"
+        sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
+    <cruise-suites-and-fares-descr-v2
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise-suites-and-fares-descr-v2"
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
     <cruise-type
         jcr:primaryType="sling:MessageEntry"
@@ -278,7 +318,7 @@
     <destination
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination"
-        sling:message="destination"/>
+        sling:message="Destination"/>
     <destination-discover-more
         jcr:primaryType="sling:MessageEntry"
         sling:key="destination-discover-more"
@@ -458,11 +498,11 @@
     <g1
         jcr:primaryType="sling:MessageEntry"
         sling:key="G1"
-        sling:message="Grand"/>
+        sling:message="Grand 1"/>
     <g2
         jcr:primaryType="sling:MessageEntry"
         sling:key="G2"
-        sling:message="Grand"/>
+        sling:message="Grand 2"/>
     <gbp
         jcr:primaryType="sling:MessageEntry"
         sling:key="GBP"
@@ -642,11 +682,11 @@
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
-        sling:message="Owner's"/>
+        sling:message="Owner's One Bedroom"/>
     <o2
         jcr:primaryType="sling:MessageEntry"
         sling:key="O2"
-        sling:message="Owner"/>
+        sling:message="Owner's Two Bedroom"/>
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
@@ -690,7 +730,7 @@
     <port-name
         jcr:primaryType="sling:MessageEntry"
         sling:key="port-name"
-        sling:message="port name"/>
+        sling:message="Port Name"/>
     <port-results
         jcr:primaryType="sling:MessageEntry"
         sling:key="port-results"
@@ -746,11 +786,11 @@
     <r1
         jcr:primaryType="sling:MessageEntry"
         sling:key="R1"
-        sling:message="Royal"/>
+        sling:message="Royal One Bedroom"/>
     <r2
         jcr:primaryType="sling:MessageEntry"
         sling:key="R2"
-        sling:message="Royal"/>
+        sling:message="Royal Two Bedroom "/>
     <read-less
         jcr:primaryType="sling:MessageEntry"
         sling:key="read-less"
@@ -855,6 +895,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="results"
         sling:message="results"/>
+    <results-your-area
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="results-your-area"
+        sling:message="Results In Your Area"/>
     <routes
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes"
@@ -1023,6 +1067,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="USD"
         sling:message="US$"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="C$"/>
     <vi
         jcr:primaryType="sling:MessageEntry"
         sling:key="VI"
@@ -1051,6 +1099,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-suites"
         sling:message="View all suites"/>
+    <view-more
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more"
+    	sling:message="View more" />
     <view-deck
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-deck"
@@ -1147,4 +1199,56 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="your-search-results"
         sling:message="your search results :"/>
+    <your-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="your-location"
+        sling:message="your location"/>
+    <luxury-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="luxury-cruises"
+	    sling:message="Luxury Cruises"/>
+	<expedition-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="expedition-cruises"
+	    sling:message="Expedition Cruises"/>
+	<view-more
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-more"
+	    sling:message="View more"/>
+	<an-introduction-to-silversea-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-cruises"
+	    sling:message="An Introduction to Silversea Cruises"/>
+	<an-introduction-to-silversea-expeditions
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="an-introduction-to-silversea-expeditions"
+	    sling:message="An Introduction to Silversea Expeditions"/>
+	<view-our-brochures
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-our-brochures"
+	    sling:message="View our Brochures"/>
+	<show-less
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-less"
+	    sling:message="show Less"/>                        
+	<show-all
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="show-all"
+	    sling:message="Show All"/>
+	<more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="more-about-silversea"
+	    sling:message="More about Silversea"/>
+	<learn-more-about-silversea
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="learn-more-about-silversea"
+	    sling:message="Learn more about our luxurious ships and alluring destinations by requesting or downloading a free brochure, and sign up to receive exclsuive offers and news from Silversea."/>
+	<related-destinations
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="related-destinations"
+	    sling:message="Related Destinations"/>
+	<view-destination
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="view-destination"
+	    sling:message="View Destination"/>
 </jcr:root>

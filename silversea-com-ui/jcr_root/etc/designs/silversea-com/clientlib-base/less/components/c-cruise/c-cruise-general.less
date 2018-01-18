@@ -18,7 +18,7 @@
 
         @media screen and (max-width: @screen-sm) {
             padding: 10px 0;
-            font-size: 20px;
+            font-size: 25px;
             margin: 0 auto 10px;
         }
     }
@@ -51,12 +51,35 @@
             }
         }
     }
+    
+    .c-suitelist .ab-test-v2-show  {
+    	@media (max-width: 767px){
+    		margin-top:45px;
+    	}
+    }
+    
+    @media (max-width: 767px) {
+	   .voyageshare_wrap {
+    		display: none !important;
+    	}
+    }
+    
+    .c-cruise .c-tab__content--overview .voyagefeature {
+    	@media (max-width: 767px) {
+    		margin-bottom: 18px;
+    	}
+    }
+    
 }
 
 // align text on left in one tab
 #landnhotel .c-cruise__descr {
     text-align: left;
 }
+
+	#suitenfare-b-version {
+		margin-top:18px;		
+	}
 
 // ICONS FEATURES
 .meta_feature {
@@ -255,4 +278,8 @@
             opacity: 1;
         }
     }
+ 	.ab-test-v2-show {
+    	display:none !important;
+    }
+    
 }
