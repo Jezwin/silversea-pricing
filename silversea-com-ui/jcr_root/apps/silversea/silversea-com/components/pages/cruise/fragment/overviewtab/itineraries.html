@@ -31,7 +31,7 @@
              data-sly-test="${cruise.cruiseModel.compactedItineraries}"
              data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}">
             <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.compactedExcursions : itinerary.port.excursions }" />
-            <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.port.landPrograms }" />
+            <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.landPrograms  }" />
 
             <div class="c-cruise-itinerary-list__item panel">
                 <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itineraryList.count}" data-parent="#c-cruise-itinerary-list" role="button"
