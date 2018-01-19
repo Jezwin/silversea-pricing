@@ -137,4 +137,76 @@
             }
         }
     }
+
+
+	/*finedine*/
+	&-finedine {
+        &__image-wrapper {
+    			width: 100%;
+            	@media screen and (max-width: @screen-sm) {
+                    width: 100%;
+                    height: auto;
+                    vertical-align: middle;
+            	}
+    	}
+        &__caption{
+			/*minimum height here is author driven via dialog and is handled using media query on the main component page.*/
+			text-align:left;
+            height:auto;
+			padding: 20px 0px 40px;
+            @media screen and (max-width: @screen-sm) {
+            	text-align:justify;
+                padding: 20px 20px 40px;
+           }
+        }
+
+        &__title {
+           width: 100%;
+           text-align:center;
+           font: 400 30px arial,helvetica,sans-serif;
+    	   word-break: break-word;
+           @media screen and (max-width: @screen-sm) {
+            font: 400 14px arial,helvetica,sans-serif;
+            font-weight: bold;
+           }
+        }
+    }
+
+    /*obaccomodation*/
+    &-oba {
+        &__image-wrapper {
+                float: left;
+    			width: 50%;
+            	@media screen and (max-width: @screen-sm) {
+                width: 100%;
+                height: auto;
+    			vertical-align: middle;
+            	}
+
+    	}
+
+        &__title_sm {
+             @media screen and (max-width: @screen-sm) {
+                    width: 100%;
+                    vertical-align: middle;
+                    }
+
+        }
+
+         &__content {
+                    float: left;
+                    width: 50%;
+                    position: relative;
+                    min-height: 1px;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    margin-top: 15px;
+                    @media screen and (max-width: @screen-sm) {
+                    width: 100%;
+                    vertical-align: middle;
+                    }
+    
+        }
+
+    }
 }

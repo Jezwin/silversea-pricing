@@ -1,8 +1,8 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual"></div>
 
-<section data-sly-test="${properties.reference}" id="c-vertical-teaser-${properties.jcr:uuid}" class="c-vertical-teaser thumbnail benefitsandevents">
+<section data-sly-test="${properties.reference}" id="c-vertical-teaser-${properties.jcr:uuid}" class="c-vertical-teaser benefitsandevents">
     <sly data-sly-use.verticalteasermanualTemplate="silversea/silversea-com/components/editorial/verticalteasermanual/verticalteasermanualtemplate.html" />
-    
+
     <sly data-sly-test="${!properties.type}" data-sly-call="${verticalteasermanualTemplate.default}" />
     <sly data-sly-test="${properties.type == 'finedine'}" data-sly-call="${verticalteasermanualTemplate.finedine}" />
     <sly data-sly-test="${properties.type == 'obaccomodation'}" data-sly-call="${verticalteasermanualTemplate.obaccomodation}" />
