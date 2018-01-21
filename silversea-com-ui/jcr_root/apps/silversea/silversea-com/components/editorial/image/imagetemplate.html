@@ -30,3 +30,15 @@
         title="${properties.jcr:title || currentPage.title @context='html'}"
         class="o-img cq-dd-image lazy" />
 </template>
+
+<!--/* Image lazy port banner slider */-->
+<template data-sly-template.portPageBanner="${ @ imagePath, width, height}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+            srcset="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop,
+            ${assetHelper.imageUrl}?hei=390&wid=930&fit=crop 2x"
+            media="(min-width: 768px)" />
+        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+    </picture>
+</template>

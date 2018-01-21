@@ -22,3 +22,11 @@
         data-sly-call="${imageTemplate.lazy @ imagePath=item.path, width=930}"></div>
     </div>
 </template>
+
+<template data-sly-template.populatefromSetStyle3="${ @ setImagePath}">
+    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}" />
+    <div id="c-slider-${properties.jcr:uuid}" class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true}'>
+        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+        data-sly-call="${imageTemplate.portPageBanner @ imagePath=item.path, width=930, height=390}"></div>
+    </div>
+</template>
