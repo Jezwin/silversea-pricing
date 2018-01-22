@@ -1011,6 +1011,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-plan"
         sling:message="Suites plan"/>
+    <suite-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-plan"
+        sling:message="Suite plan"/>
     <sv
         jcr:primaryType="sling:MessageEntry"
         sling:key="SV"

@@ -567,6 +567,9 @@
 .c-suite-detail-modal {
     padding-right: 2px;
     
+    &-virtual-tour-container {
+    	height: 535px;
+	}
     
     .ratio.lazy {
 	    background-position: center center;
@@ -580,7 +583,7 @@
 	}
     
     &-info {
-    	overflow-y: scroll;
+    	overflow-y: auto;
     	max-height: 194px;
     }
     
@@ -617,6 +620,12 @@
     	height: 535px;
     }
     
+    .nav-tabs>li {
+	    display: table-cell;
+	    text-align: center;
+	    width: 20%;
+	}
+	    
     .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
 	    color: white;
 	    background-color: #333;
@@ -638,6 +647,15 @@
     	width: 32%;
 	   border-top-width: 2px;
     }
+    
+    &-description__counter {
+		bottom: 38px;
+    	color: #fff;
+    	font-size: 18px;
+    	position: absolute;
+    	right: 40px;
+    }
+    
     &-left-side {
         padding-right: 0px;
         padding-top: 0px;
@@ -656,6 +674,10 @@
         padding-top: 5px;
         padding-left: 10px;
         background-color: white;
+        list-style-type: none;
+	    width: 100%;
+	    display: table;
+	    table-layout: fixed;
     }
     &-title {
         font-family: Theano Didot Regular, serif;
@@ -674,6 +696,7 @@
         font-size: 12px;
         padding-left: 6px;
         font-family: Open Sans, arial, helvetica, sans-serif;	
+        cursor: default;
     }
     &-bedrooms {
         justify-content: center;
@@ -740,4 +763,65 @@
 			}
 	   	}
     }
+    
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #f2f2f2;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 7px;
+		background: #ccc;
+		border: 4px solid transparent;
+		background-clip: content-box;
+	}
+
+    .c-slider .slick-prev:before,
+	.port_v2__postcarousel .slick-prev:before,
+	.c-slider .slick-prev:after,
+	.port_v2__postcarousel .slick-prev:after {
+	    left: 52%;
+	}
+	
+	.c-slider .slick-prev:before,
+	.port_v2__postcarousel .slick-prev:before,
+	.c-slider .slick-next:before,
+	.port_v2__postcarousel .slick-next:before,
+	.c-slider .slick-prev:after,
+	.port_v2__postcarousel .slick-prev:after,
+	.c-slider .slick-next:after,
+	.port_v2__postcarousel .slick-next:after {
+	    height: 25px;
+	    width: 25px;
+	}
+	
+	.c-slider .slick-next:before,
+	.port_v2__postcarousel .slick-next:before,
+	.c-slider .slick-next:after,
+	.port_v2__postcarousel .slick-next:after {
+	    left: 47%;
+	}
+	
+	
+	.c-slider .slick-next,
+	.port_v2__postcarousel .slick-next, .c-slider .slick-prev,
+	.port_v2__postcarousel .slick-prev {
+	    height: 9%;
+	    width: 51px;
+	    opacity: 0.8;
+	    background-color: #333;
+	}
+	
+	.c-slider .slick-next,
+	.port_v2__postcarousel .slick-next {
+	    border-radius: 9px 0px 0px 9px;
+	}
+	
+	.c-slider .slick-prev,
+	.port_v2__postcarousel .slick-prev {
+	    border-radius: 1px 9px 9px 0px;
+	}
 }
