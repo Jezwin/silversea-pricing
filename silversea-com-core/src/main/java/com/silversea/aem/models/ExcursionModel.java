@@ -45,6 +45,9 @@ public class ExcursionModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/note") @Optional
+    private String note;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
     private String pois;
@@ -124,6 +127,10 @@ public class ExcursionModel {
 
     public String getLongDescription() {
         return longDescription;
+    }
+    
+    public String getNote() {
+        return note;
     }
 
     public String getPois() {
