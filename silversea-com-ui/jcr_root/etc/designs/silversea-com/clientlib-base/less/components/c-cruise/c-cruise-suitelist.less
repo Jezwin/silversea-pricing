@@ -553,19 +553,62 @@
 		}
 		
 		.close {
-    	left: 6px;
-    	top: 6px;
-    	
-    }
+	    	left: 6px;
+	    	top: 6px;
+    	}
     
      .close:before {
 		height: 20px !important;
 		width: 20px !important;
 	}
+	
+    @media (max-width: 768px) {
+	    .modal-header {
+	    	background-color: black;
+		    padding-top: 17px;
+		    padding-bottom: 7px;
+		    
+		    .close:before {
+			    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMjA4IDIwOCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEuNDE0MjE7Ij48Zz48cGF0aCBkPSJNMTA0LjIwMSwxOTQuNDQ4Yy00OS45OCwwIC05MC42NDIsLTQwLjY2MiAtOTAuNjQyLC05MC42NDhjMCwtNDkuOTggNDAuNjYyLC05MC42NDIgOTAuNjQyLC05MC42NDJjNDkuOTgsMCA5MC42NDIsNDAuNjYyIDkwLjY0Miw5MC42NDJjMCw0OS45ODYgLTQwLjY2Miw5MC42NDggLTkwLjY0Miw5MC42NDhaTTE3Ny4zNjUsMzAuNjQyYy0xOS41NDIsLTE5LjU0MiAtNDUuNTI4LC0zMC4zMDYgLTczLjE2NCwtMzAuMzA2Yy0yNy42MzYsMCAtNTMuNjIyLDEwLjc2NCAtNzMuMTY0LDMwLjMwNmMtMTkuNTQyLDE5LjU0MiAtMzAuMzA2LDQ1LjUyMiAtMzAuMzA2LDczLjE1OGMwLDI3LjY0MiAxMC43NjQsNTMuNjIyIDMwLjMwNiw3My4xNjRjMTkuNTQyLDE5LjU0MiA0NS41MjgsMzAuMzA2IDczLjE2NCwzMC4zMDZjMjcuNjM2LDAgNTMuNjIyLC0xMC43NjQgNzMuMTY0LC0zMC4zMDZjMTkuNTQyLC0xOS41NDIgMzAuMywtNDUuNTIyIDMwLjMsLTczLjE2NGMwLC0yNy42MzYgLTEwLjc1OCwtNTMuNjE2IC0zMC4zLC03My4xNTgiIHN0eWxlPSJmaWxsOiNmZmY7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PHBhdGggZD0iTTE2MS43MjQsMTQzLjUyOWwtMTUuNjk0LDE1LjY5NGwtNDAuMjM2LC00MC4yNGwtMzguMzcxLDM4LjM3bC0xNS4wMTEsLTE1LjAxMWwzOC4zNzEsLTM4LjM3bC0zOS44OTksLTM5Ljg5NmwxNS42OTMsLTE1LjY5M2wzOS44OTYsMzkuODk5bDM4LjM3LC0zOC4zNzFsMTUuMDExLDE1LjAxMWwtMzguMzcsMzguMzcxbDQwLjI0LDQwLjIzNiIgc3R5bGU9ImZpbGw6I2ZmZjtmaWxsLXJ1bGU6bm9uemVybzsiLz48L2c+PC9zdmc+);
+			    content: ' ';
+			    display: block;
+			    height: 23px;
+			    width: 23px;
+			}
+			.close {
+	    		top: -8px;
+	    		
+	    		&-label {
+	    			position: absolute;
+				    top: 5px;
+				    right: 27px;
+				    font-size: 13px;
+				    color: white;
+				    font-weight: 100;
+	    		}
+    		}
+	    }
+    }
 }
 
 .c-suite-detail-modal {
     padding-right: 2px;
+    
+     @media (max-width: 768px) {
+   		background-color: white;
+    }
+    
+    #suite-description {
+    	padding-left: 0px;
+    	padding-right: 0px;
+    	
+	    @media (max-width: 768px) {
+    		height: 452px
+    	}
+    	@media (max-width: 767px) {
+    		height: 226px
+    	}
+    }
     
     &-virtual-tour-container {
     	height: 535px;
@@ -580,6 +623,13 @@
 	    margin: 0;
 	    position: relative;
 	    width: 100%;
+	    
+	    @media (max-width: 768px) {
+    		height: 452px
+    	}
+    	@media (max-width: 767px) {
+    		height: 226px
+    	}
 	}
     
     &-info {
@@ -686,6 +736,11 @@
         margin: 7px 0 26px;
         text-transform: uppercase;
         text-align: center;
+        @media (max-width: 768px) {
+        	margin-top: 21px;
+        	margin-bottom: 16px;
+  	        font-size: 28px;
+        }
     }
     &-long-desc {
         justify-content: center;
@@ -697,6 +752,10 @@
         padding-left: 6px;
         font-family: Open Sans, arial, helvetica, sans-serif;	
         cursor: default;
+        @media (max-width: 768px) {
+        	font-size: 13px;
+        	padding-bottom: 0px;
+    	}
     }
     &-bedrooms {
         justify-content: center;
@@ -707,6 +766,10 @@
         font-size: 11px;
         padding-left: 6px;
         font-family: Open Sans, arial, helvetica, sans-serif;
+        @media (max-width: 768px) {
+        	font-size: 12px;
+        	padding-bottom: 0px;
+    	}
     }
     &-note {
         justify-content: center;
@@ -718,6 +781,9 @@
         padding-left: 6px;
         font-family: Open Sans, arial, helvetica, sans-serif;
         font-style: italic;
+        @media (max-width: 768px) {
+        	font-size: 12px;
+    	}
     }
     &-price {
         //padding-bottom: 11%;
@@ -730,10 +796,16 @@
                 font-size: 12px;
             }
         }
+        @media (max-width: 768px) {
+        	padding-top: 40px;
+    	}
     }
     &-request-quote {
     	padding: 8px 20px;
     	margin-top: 18px;
+    	@media (max-width: 768px) {
+    		margin-top: 11px;
+    	}
     }
     
     #suite-suite-plan {
@@ -813,6 +885,9 @@
 	    width: 51px;
 	    opacity: 0.8;
 	    background-color: #333;
+	    @media (max-width: 768px) {
+	    	height: 20%;
+	    }
 	}
 	
 	.c-slider .slick-next,
@@ -823,5 +898,11 @@
 	.c-slider .slick-prev,
 	.port_v2__postcarousel .slick-prev {
 	    border-radius: 1px 9px 9px 0px;
+	}
+    
+    @media (max-width: 768px) {
+		button.slick-prev.slick-arrow, button.slick-next.slick-arrow {
+    		display: inline-block !important;
+		}
 	}
 }
