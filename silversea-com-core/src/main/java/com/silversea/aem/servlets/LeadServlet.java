@@ -1,52 +1,111 @@
 package com.silversea.aem.servlets;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.silversea.aem.components.beans.Lead;
-import com.silversea.aem.ws.lead.service.LeadService;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.servlet.ServletException;
+
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.common.net.HttpHeaders;
+import com.silversea.aem.components.beans.Lead;
+import com.silversea.aem.ws.lead.service.LeadService;
 
 @SlingServlet(methods = "POST", paths = "/bin/lead", extensions = "json")
 public class LeadServlet extends SlingAllMethodsServlet {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LeadServlet.class);
-
+    /**
+	 * Default Serial ID.
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(LeadServlet.class);
+	private final static String BLACKLIST = "/etc/tags/referrers";
     private static final String CONTENT_APPLICATION_JSON = "application/json";
     private static final String UTF8_ENCODING = "utf-8";
 
     @Reference
     private LeadService leadService;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.apache.sling.api.servlets.SlingAllMethodsServlet#doPost(org.apache.
+	 * sling.api.SlingHttpServletRequest,
+	 * org.apache.sling.api.SlingHttpServletResponse)
+	 */
+	@SuppressWarnings("unchecked")
     protected final void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws ServletException {
         // Retrieve body content from request
-        String body = getBodyFromRequest(request);
+		try {
+			String leadResponse = StringUtils.EMPTY;
+			String body = getBodyFromRequest(request);
+			LOGGER.debug("Lead service request {}", body);
 
-        LOGGER.debug("Lead service request {}", body);
+			String referer = request.getHeader(HttpHeaders.REFERER);
 
-        Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-        String leadResponse = leadService.sendLead(lead);
+			if (null != referer) {
+				LOGGER.debug("The referer obtained here is : - {}", referer);
+				/*
+				 * Converting the above path into a URL object to obtain the
+				 * host name later for black list comparison.
+				 */
+				URI uri = new URI(referer);
+				LOGGER.debug("Assoicated host value here is : - {}", uri.getHost());
 
-        LOGGER.debug("Lead service response {}", leadResponse);
+				List<String> blockList = ListUtils.EMPTY_LIST;
+				Resource blockListResource = request.getResourceResolver().getResource(BLACKLIST);
+				if (null != blockListResource) {
+					ValueMap blockListMap = blockListResource.getValueMap();
+					blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
+					LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
+				}
 
-        writeDomainObject(response, leadResponse);
+				if (blockList.contains(uri.getHost())) {
+					LOGGER.debug("Match found for {}.", uri.getHost());
+					leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
+					LOGGER.debug("Lead service response {}", leadResponse);
+
+				} else {
+					LOGGER.debug("There is no blocked referer here. Executing normal flow");
+					Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+					leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+					LOGGER.debug("Lead service response {}", leadResponse);
+
+				}
+				writeDomainObject(response, leadResponse);
+			} else {
+				LOGGER.debug("The referer obtained here is blank.");
+			}
+		} catch (URISyntaxException e) {
+			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
+			e.printStackTrace();
+		}
+
     }
 
     /**
