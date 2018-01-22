@@ -254,7 +254,7 @@ public class ApiUpdater implements Runnable {
                         
                         //Force some wait in replication process to avoid overusing publisher.
                         try {
-							Thread.sleep(150);
+							Thread.sleep(200);
 						} catch (InterruptedException e1) {
 							 LOGGER.error("Cannot wait");
 						}
