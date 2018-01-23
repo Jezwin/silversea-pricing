@@ -28,10 +28,10 @@ $(function() {
                 var $optionList = $select.find('option');
 
                 // Build obj with available option
-                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').text();
+                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').data('ssc-filter');
 
                 if (jsonStr !== '') {
-                    var filterAvailableObj = JSON.parse(jsonStr);
+                    var filterAvailableObj = jsonStr;
 
                     // Disabled option not available
                     $optionList.each(function() {
@@ -75,8 +75,8 @@ $(function() {
 
             // Update features filter
             $items = $form.find('.feature-filter li');
-            if (JSON.parse($('#feature-filter').text() !== '')) {
-                var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
+            if ($('#feature-filter').data('ssc-filter') !== undefined) {
+                var filterFeatureAvailableObj = $('#feature-filter').data('ssc-filter');
                 $items.each(function() {
                     var $item = $(this);
                     $item.toggleClass('disabled', filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true);
