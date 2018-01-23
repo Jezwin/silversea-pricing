@@ -5,24 +5,24 @@
 	        <p class="c-cruise__descr ab-test-v2-hide">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description' @ i18n}</span>
 	            <br class="c-cruise__descr-br"/>
-	            <a href="" data-tab-target="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
 	        </p>
 	        <p class="c-cruise__descr ab-test-v2-show">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description-v2' @ i18n}</span>
 	            <br class="c-cruise__descr-br"/>
-	            <a href="" id="cruise-itinerary-link-ab-test-v2"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
 	        </p>
         </sly>
         <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
 	        <p class="c-cruise__descr ab-test-v2-hide">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description-expedition' @ i18n}</span>
 	            <br class="c-cruise__descr-br"/>
-	            <a href="" data-tab-target="#photonvideo"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
 	        </p>
 	        <p class="c-cruise__descr ab-test-v2-show">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description-v2-expedition' @ i18n}</span>
 	            <br class="c-cruise__descr-br"/>
-	            <a href="" id="cruise-itinerary-link-ab-test-v2"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
+	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
 	        </p>
         </sly>
         
@@ -31,7 +31,7 @@
              data-sly-test="${cruise.cruiseModel.compactedItineraries}"
              data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}">
             <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.compactedExcursions : itinerary.port.excursions }" />
-            <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.port.landPrograms }" />
+            <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.landPrograms  }" />
 
             <div class="c-cruise-itinerary-list__item panel">
                 <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${itineraryList.count}" data-parent="#c-cruise-itinerary-list" role="button"

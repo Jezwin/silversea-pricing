@@ -186,27 +186,55 @@
     	}
 
         &__title_sm {
-             @media screen and (max-width: @screen-sm) {
-                    width: 100%;
-                    vertical-align: middle;
+            	display: none;
+             	@media screen and (max-width: @screen-sm) {
+                    display: block;
+                    text-align: center;
+                	font: 400 20px arial,helvetica,sans-serif;
+            		font-weight: bold;
+                	text-transform: uppercase;
                     }
 
         }
 
+        &__title {
+            @media screen and (max-width: @screen-sm) {
+                    display: none;
+                    }
+            font: 400 30px arial,helvetica,sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        &__caption{
+			/*minimum height here is author driven via dialog and is handled using media query on the main component page.*/
+			text-align:left;
+            height:auto;
+			padding: 0px 0px 40px;
+            @media screen and (max-width: @screen-sm) {
+            	text-align:justify;
+                padding: 20px 10px 40px;
+           }
+        }
+
          &__content {
                     float: left;
+
                     width: 50%;
                     position: relative;
                     min-height: 1px;
                     padding-left: 15px;
                     padding-right: 15px;
-                    margin-top: 15px;
                     @media screen and (max-width: @screen-sm) {
                     width: 100%;
-                    vertical-align: middle;
-                    }
-    
-        }
+                    text-align: justify;
+        			}
+                     p {
+                        text-align: justify;
+                       }
 
-    }
+
+    	}
+}
+    /*obaccomodation*/
 }

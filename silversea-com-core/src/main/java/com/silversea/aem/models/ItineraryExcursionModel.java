@@ -87,6 +87,10 @@ public class ItineraryExcursionModel {
     public String getDescription() {
         return excursion != null ? excursion.getDescription() : null;
     }
+    
+    public String getNote() {
+        return excursion != null ? excursion.getNote() : null;
+    }
 
     public String getCodeExcursion() {
         return excursion != null ? excursion.getCodeExcursion() : null;

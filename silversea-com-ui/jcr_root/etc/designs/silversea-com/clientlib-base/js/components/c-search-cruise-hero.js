@@ -16,10 +16,10 @@ $(function() {
                 var $optionList = $select.find('option');
 
                 // Build obj with available option
-                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').text();
+                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').data('ssc-filter');
 
                 if (jsonStr !== '') {
-                    var filterAvailableObj = JSON.parse(jsonStr);
+                    var filterAvailableObj = jsonStr;
 
                     // Disabled option not available
                     $optionList.each(function() {

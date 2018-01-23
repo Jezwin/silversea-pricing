@@ -78,6 +78,7 @@ $(function() {
 		        time_anim: '1000',
 		        min_fov: 10,
 	            default_fov: 179,
+				usexmpdata: false,
 		        caption: captionTitle,
 		        navbar: [
 		            'autorotate', 
@@ -262,8 +263,9 @@ $(function() {
 		    				time_anim: '1000',
 		    				min_fov: 10,
 		    				default_fov: 179,
+		    				usexmpdata: true, //it needs to be true to work in mobile
 		    				navbar: [
-		    					'autorotate', 
+		    					'autorotate', 		    					
 		    					'zoom',
 		    					'spacer-1',
 		    					'caption',
