@@ -1,20 +1,12 @@
-<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manuel"></div>
-<section data-sly-test="${properties.reference}" id="c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid}" class="c-vertical-teaser thumbnail benefitsandevents">
-    <div class="c-vertical-teaser__image-wrapper" data-sly-test.reference="${properties.assetReference}">
-        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-            data-sly-call="${imageTemplate.default @ imagePath=reference}" />
-    </div>
-    <div class="caption c-vertical-teaser__caption">
-        <h4 class="c-vertical-teaser__title">${properties.jcr:title @ context="html"}</h4>
-        <p class="c-vertical-teaser__description">
-            ${properties.jcr:description @ context="html"}
-        </p>
-        <a class="c-vertical-teaser__link" href="${properties.reference @ extension='html'}">
-            <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
-        </a>
-    </div>
-    <a class="c-vertical-teaser__link--block" href="${properties.reference @ extension='html'}"></a>
-</section>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual"></div>
+
+<section data-sly-test="${properties.reference}" id="c-vertical-teaser-${properties.jcr:uuid}" class="c-vertical-teaser ${!properties.type ? 'thumbnail' : ''} benefitsandevents">
+    <sly data-sly-use.verticalteasermanualTemplate="silversea/silversea-com/components/editorial/verticalteasermanual/verticalteasermanualtemplate.html" />
+    
+    <sly data-sly-test="${!properties.type}" data-sly-call="${verticalteasermanualTemplate.default}" />
+    <sly data-sly-test="${properties.type == 'finedine'}" data-sly-call="${verticalteasermanualTemplate.finedine}" />
+    <sly data-sly-test="${properties.type == 'obaccomodation'}" data-sly-call="${verticalteasermanualTemplate.obaccomodation}" />
+
 <style data-sly-test="${properties.heightDesktop}">
 	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
 		min-height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
@@ -28,3 +20,4 @@
 		}
 	}
 </style>
+</section>
