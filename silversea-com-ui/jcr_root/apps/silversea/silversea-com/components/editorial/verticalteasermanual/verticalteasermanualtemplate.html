@@ -8,11 +8,11 @@
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
             </p>
-            <a class="c-vertical-teaser__link" href="${properties.reference @ extension='html'}">
+            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
                 <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
             </a>
         </div>
-        <a class="c-vertical-teaser__link--block" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
 </template>
 
 <template data-sly-template.finedine>
@@ -25,11 +25,11 @@
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
             </p>
-            <a class="c-vertical-teaser__link" href="${properties.reference @ extension='html'}">
+            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
                 <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
             </a>
         </div>
-        <a class="c-vertical-teaser__link--block" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
 
 </template>
 
@@ -45,10 +45,10 @@
                 <p class="c-vertical-teaser__description">
                     ${properties.jcr:description @ context="html"}
                 </p>
-                <a class="c-vertical-teaser__link" href="${properties.reference @ extension='html'}">
+                <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
                     <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
                 </a>
             </div>
-            <a class="c-vertical-teaser__link--block" href="${properties.reference @ extension='html'}"></a>
+            <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
 		</div>
 </template>

@@ -67,7 +67,6 @@
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
                                 fieldLabel="Target path"
                                 name="./reference"
-                                required="{Boolean}true"
                                 rootPath="/content/silversea-com"/>
                         </items>
                     </column>

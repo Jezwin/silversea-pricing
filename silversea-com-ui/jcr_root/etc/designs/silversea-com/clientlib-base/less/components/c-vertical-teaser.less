@@ -144,7 +144,8 @@
         &__image-wrapper {
     			width: 100%;
             	@media screen and (max-width: @screen-sm) {
-                    width: 100%;
+                    width: 100vw;
+			    	margin-left: -15px;
                     height: auto;
                     vertical-align: middle;
             	}
@@ -156,18 +157,18 @@
 			padding: 20px 0px 40px;
             @media screen and (max-width: @screen-sm) {
             	text-align:justify;
-                padding: 20px 20px 40px;
+                padding: 20px 0px 40px;
            }
         }
 
         &__title {
            width: 100%;
-           text-align:center;
-           font: 400 30px arial,helvetica,sans-serif;
+           font: 400 24px arial,helvetica,sans-serif;
     	   word-break: break-word;
            @media screen and (max-width: @screen-sm) {
-            font: 400 14px arial,helvetica,sans-serif;
+            font: 400 18px arial,helvetica,sans-serif;
             font-weight: bold;
+            text-align:center;
            }
         }
     }
