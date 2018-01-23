@@ -64,6 +64,10 @@ $(function() {
         	var earlyBonus = ($(this).parent().data('early-bonus') != null) ? $(this).parent().data('early-bonus')   : "";
         	var waitlist = ($(this).parent().data('waitlist') != null) ? $(this).parent().data('waitlist')   : "";
         	var deckLabel = ($(this).parent().data('deck') != null) ? $(this).parent().data('deck')   : "";
+        	var viewAll = ($(this).parent().data('view-all') != null) ? $(this).parent().data('view-all')   : "";
+        	var viewLess = ($(this).parent().data('view-less') != null) ? $(this).parent().data('view-less')   : "";
+        	var close = ($(this).parent().data('close') != null) ? $(this).parent().data('close')   : "";
+
         	var from = "";
         	
         	//suite values
@@ -135,7 +139,7 @@ $(function() {
     		} 
     		
     		//virtual tour tab
-    		var virtualTourToRender = null;
+    		var virtualTourToRender = "";
     		if (virtualTourImage != null) {
     			virtualTourToRender = '<div id="c-suite-detail-modal-virtual-tour-containerDiv" class="c-suite-detail-modal-virtual-tour-container" data-image="'+virtualTourImage+'"></div>';
     		}
@@ -155,19 +159,33 @@ $(function() {
 		$modalContent  = $modalContent.replace("c-suitelist-note-placeholder", note);
 		$modalContent  = $modalContent.replace("c-suitelist-raq-placeholder", requestQuote);
 		$modalContent  = $modalContent.replace("c-suitelist-from-placeholder", from);
-		
+		$modalContent  = $modalContent.replace("c-suitelist-raq-placeholder-mobile", requestQuote);
+		$modalContent  = $modalContent.replace("c-suitelist-from-placeholder-mobile", from);
+		$modalContent  = $modalContent.replace("c-suitelist-view-all-placeholder", viewAll);
+		$modalContent  = $modalContent.replace("c-suitelist-view-less-placeholder", viewLess);
+		$modalContent  = $modalContent.replace("c-suitelist-close-placeholder", close);
+
 		// HTML layout values
 		$modalContent  = $modalContent.replace("c-suitelist-title-placeholder", title);
 		$modalContent  = $modalContent.replace("c-suitelist-longDescription-placeholder", longDescription);
 		$modalContent  = $modalContent.replace("c-suitelist-bedroomsInformation-placeholder", bedroomsInformation);
 		$modalContent  = $modalContent.replace("c-suitelist-raq-link-placeholder", raqLink);
+		$modalContent  = $modalContent.replace("c-suitelist-raq-link-placeholder-mobile", raqLink);
+
 		$modalContent  = $modalContent.replace("c-suitelist-price-placeholder", price);
+		$modalContent  = $modalContent.replace("c-suitelist-price-placeholder-mobile", price);
+
 		$modalContent  = $modalContent.replace("c-suitelist-price-booking-bonus-placeholder", priceEarlyBookingBonus);
-		
+		$modalContent  = $modalContent.replace("c-suitelist-price-booking-bonus-placeholder-mobile", priceEarlyBookingBonus);
+
 		if (early) {
 			$modalContent  = $modalContent.replace("c-suitelist-early-bonus-placeholder", earlyBonus);
+			$modalContent  = $modalContent.replace("c-suitelist-early-bonus-placeholder-mobile", earlyBonus);
+
 		} else {
 			$modalContent  = $modalContent.replace("c-suitelist-early-bonus-placeholder", "");
+			$modalContent  = $modalContent.replace("c-suitelist-early-bonus-placeholder-mobile", "");
+
 		}
 		
 		//description tab
@@ -197,7 +215,7 @@ $(function() {
 		//virtual tour tab
 		if (virtualTourImage != null) {
 			$modalContent  = $modalContent.replace("c-suitelist-virtual-tour-placeholder", virtualTourToRender);
-    		$modalContent  = $modalContent.replace("c-suitelist-nav-virtual-tour-placeholder", navVirtualTour);
+			$modalContent  = $modalContent.replace("c-suitelist-nav-virtual-tour-placeholder", navVirtualTour);
 		}
     			
 		// Activate Modal
@@ -209,6 +227,7 @@ $(function() {
             $modal.off('shown.bs.modal'); //fix bug with modal gallery
 		    
 			$(this).find('.modal-dialog').empty().append($modalContent);
+			$(".modal-dialog").css("padding-top","0%");
 			var numTab = 0; 
 			if (assetSelectionReference != null) {
     			$(".c-suite-detail-modal #descr-tab").removeClass("hidden");
@@ -265,10 +284,9 @@ $(function() {
 
                 //$video.find('.s7playpausebutton[selected="false"]').trigger('click');
                 //$video.attr('class', 'c-video').empty();
-                    });
+             });
                     
- 
-        			$(this).find(".show-deck-image").on("click", function(e) {	
+   			$(this).find(".show-deck-image").on("click", function(e) {	
 		    	e.preventDefault();
 		    	
 		    	var idDeck = $(this).attr("id");
@@ -288,6 +306,19 @@ $(function() {
 					$slideFor.slick('slickGoTo', 0);
 				}
 			});
+			
+			$(this).find(".suite-features-expand a.view_all").on("click", function(e) {
+				$("#suite-features ul").removeClass("expand-ul");
+				$(".suite-features-expand a.view_less").show();
+				$(this).hide();
+			});
+			
+			$(this).find(".suite-features-expand a.view_less").on("click", function(e) {
+				$("#suite-features ul").addClass("expand-ul");
+				$(".suite-features-expand a.view_all").show();
+				$(this).hide();
+			});
+			
 			
 			$(this).find(".c-suite-detail-virtual-tour-lightbox").on("click", function(e) {
 		        e.preventDefault();
