@@ -682,11 +682,11 @@
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
-        sling:message="Owner's 1"/>
+        sling:message="Owner's One Bedroom"/>
     <o2
         jcr:primaryType="sling:MessageEntry"
         sling:key="O2"
-        sling:message="Owner's 2"/>
+        sling:message="Owner's Two Bedroom"/>
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
@@ -786,11 +786,11 @@
     <r1
         jcr:primaryType="sling:MessageEntry"
         sling:key="R1"
-        sling:message="Royal 1"/>
+        sling:message="Royal One Bedroom"/>
     <r2
         jcr:primaryType="sling:MessageEntry"
         sling:key="R2"
-        sling:message="Royal 2"/>
+        sling:message="Royal Two Bedroom "/>
     <read-less
         jcr:primaryType="sling:MessageEntry"
         sling:key="read-less"
@@ -1067,6 +1067,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="USD"
         sling:message="US$"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="C$"/>
     <vi
         jcr:primaryType="sling:MessageEntry"
         sling:key="VI"

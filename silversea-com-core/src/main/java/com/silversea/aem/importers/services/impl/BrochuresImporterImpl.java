@@ -1,5 +1,6 @@
 package com.silversea.aem.importers.services.impl;
 
+import com.ctc.wstx.util.StringUtil;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.constants.WcmConstants;
@@ -9,9 +10,11 @@ import com.silversea.aem.importers.services.BrochuresImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.services.GeolocationTagService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.BrochuresApi;
 import io.swagger.client.model.Brochure;
+
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -24,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.*;
 
 @Service
@@ -172,7 +176,17 @@ public class BrochuresImporterImpl implements BrochuresImporter {
                                     }
 
                                     // Setting properties
-                                    metadataNode.setProperty("dc:title", brochure.getTitle());
+                                    
+    	                                if(title == null){
+    	                                	metadataNode.getProperty("dc:title").remove();
+    	                                	metadataNode.setProperty("dc:title", brochure.getTitle());
+    	                                }else {
+    	                                	if(title.equals("")){
+    	                                		metadataNode.getProperty("dc:title").remove();
+    	                                		metadataNode.setProperty("dc:title", brochure.getTitle());
+    	                                	}
+    	                                }
+                                    
                                     metadataNode.setProperty("onlineBrochureUrl", brochure.getBrochureUrl());
                                     metadataNode.setProperty("brochureDigitalOnly", brochure.getDigitalOnly());
                                     metadataNode.setProperty("cq:tags", tags.toArray(new String[tags.size()]));

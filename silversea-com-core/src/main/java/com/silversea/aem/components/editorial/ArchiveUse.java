@@ -8,7 +8,7 @@ import com.day.cq.wcm.api.PageFilter;
 import com.day.cq.wcm.foundation.Navigation;
 
 public class ArchiveUse extends WCMUsePojo {
-    Navigation archives;
+    public Navigation archives;
 
     @Override
     public void activate() throws Exception {

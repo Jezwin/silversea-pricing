@@ -159,6 +159,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
     // total number of cruises for the current filters
     private int totalMatches;
+    
+    private StringBuilder availableDestinationsJson;
+    private StringBuilder availableShipsJson;
+    private StringBuilder availablePortsJson;
+    private StringBuilder availableDepartureDatesJson;
+    private StringBuilder availableDurationsJson;
+    private StringBuilder availableCruiseTypesJson;
+    private StringBuilder availableFeaturesJson;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -166,7 +174,22 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         super.activate();
         final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
-
+        availableDestinationsJson = new StringBuilder();
+        availableShipsJson = new StringBuilder();
+        availablePortsJson = new StringBuilder();
+        availableDepartureDatesJson = new StringBuilder();
+        availableDurationsJson = new StringBuilder();
+        availableCruiseTypesJson = new StringBuilder();
+        availableFeaturesJson = new StringBuilder();
+        
+        availableDestinationsJson.append("{\"all\":true,");
+        availableShipsJson.append("{\"all\":true,");
+        availablePortsJson.append("{\"all\":true,");
+        availableDepartureDatesJson.append("{\"all\":true,");
+        availableDurationsJson.append("{\"all\":true,");
+        availableCruiseTypesJson.append("{\"all\":true,");
+        availableFeaturesJson.append("{");
+        
         // Get type from configuration
         final Conf confRes = getResource().adaptTo(Conf.class);
         if (confRes != null) {
@@ -538,7 +561,50 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
             i++;
         }
-
+        
+        for (DestinationItem dest : availableDestinations) {
+        	availableDestinationsJson.append("\"" + dest.getName() + "\":true,");
+        }
+        
+        for (ShipItem ship : availableShips) {
+        	availableShipsJson.append("\"" + ship.getName() + "\":true,");
+        }
+        
+        for (PortItem port : availablePorts) {
+        	availablePortsJson.append("\"" + port.getName() + "\":true,");
+        }
+        
+        for (YearMonth depart : availableDepartureDates) {
+        	availableDepartureDatesJson.append("\"" + depart.toString() + "\":true,");
+        }
+        
+        for (String duration : availableDurations) {
+        	availableDurationsJson.append("\""+duration+"\":true,");
+        }
+        
+        for (FeatureModelLight feat : availableFeatures) {
+        	availableFeaturesJson.append("\"" + feat.getName() + "\":true,");
+        }
+        
+        for (String cruiseType : availableCruiseTypes) {
+            availableCruiseTypesJson.append("\"" + cruiseType + "\":true,");
+        }
+        
+        availableDestinationsJson.deleteCharAt(availableDestinationsJson.length()-1);
+        availableShipsJson.deleteCharAt(availableShipsJson.length()-1);
+        availablePortsJson.deleteCharAt(availablePortsJson.length()-1);
+        availableDepartureDatesJson.deleteCharAt(availableDepartureDatesJson.length()-1);
+        availableDurationsJson.deleteCharAt(availableDurationsJson.length()-1);
+        availableCruiseTypesJson.deleteCharAt(availableCruiseTypesJson.length()-1);
+        availableFeaturesJson.deleteCharAt(availableFeaturesJson.length()-1);
+        availableDestinationsJson.append("}");
+        availableShipsJson.append("}");
+        availablePortsJson.append("}");
+        availableDepartureDatesJson.append("}");
+        availableDurationsJson.append("}");
+        availableCruiseTypesJson.append("}");
+        availableFeaturesJson.append("}");
+        
         // Setting convenient booleans for building pagination
         totalMatches = filteredCruises.size();
         pageNumber = (int) Math.ceil((float) totalMatches / (float) PAGE_SIZE);
@@ -796,6 +862,34 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
      */
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+    }
+    
+    public String getAvailableDestinationsJson() {
+        return availableDestinationsJson.toString();
+    }
+    
+    public String getAvailableShipsJson() {
+        return availableShipsJson.toString();
+    }
+    
+    public String getAvailablePortsJson() {
+        return availablePortsJson.toString();
+    }
+    
+    public String getAvailableDepartureDatesJson() {
+        return availableDepartureDatesJson.toString();
+    }
+    
+    public String getAvailableDurationsJson() {
+        return availableDurationsJson.toString();
+    }
+    
+    public String getAvailableCruiseTypesJson() {
+        return availableCruiseTypesJson.toString();
+    }
+    
+    public String getAvailableFeaturesJson() {
+        return availableFeaturesJson.toString();
     }
 
 	/**

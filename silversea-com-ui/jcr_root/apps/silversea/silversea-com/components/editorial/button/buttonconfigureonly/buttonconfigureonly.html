@@ -1,7 +1,15 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Bouton"></div>
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Button"></div>
 <div data-sly-unwrap="${!wcmmode.edit}">
-   <a data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
-      <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title}</span>
-      <span class="hidden-sm hidden-xs">${properties.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-   </a>
+	<sly data-sly-test="${!properties.videoReference}">
+	   <a data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" class="btn btn-${properties.color} ${properties.size}" data-sscclicktype="${properties.analyticType}">
+	      <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title}</span>
+	      <span class="hidden-sm hidden-xs">${properties.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+	   </a>
+	</sly>
+	<sly data-sly-test="${properties.videoReference}">
+        <a data-sly-test="${currentNode.path}" href="${currentNode.path  @ selectors='video', extension='html'}" data-target=".bs-modal-lg" class="btn btn-${properties.color} ${properties.size} video-link-button-config-only" data-sscclicktype="${properties.analyticType}">
+	      <span class="visible-sm-inline visible-xs-inline">${properties.titleTablet || properties.title}</span>
+	      <span class="hidden-sm hidden-xs">${properties.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+	   </a>
+	</sly>
 </div>

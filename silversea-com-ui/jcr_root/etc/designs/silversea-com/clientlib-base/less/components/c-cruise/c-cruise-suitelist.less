@@ -9,6 +9,14 @@
         cursor: pointer;
         transition: background-color 300ms, opacity 300ms;
     }
+    
+    &-virtual-tour-container {
+		height: 450px;
+		
+		 @media screen and (max-width: 767px) {
+	         height: 350px;
+	     }
+    }
 
     &__detail {
         &__title {
@@ -217,6 +225,7 @@
             .c-tab__accordion {
                 .c-tab__nav {
                     margin-top: 30px;
+                    z-index: 500;
                 }
 
                 .c-tab__body {

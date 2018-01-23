@@ -3,6 +3,9 @@
 	<div class="port_v2__header">
 		<h1 data-sly-test="${portUse.portType != 'expedition'}" class="port_v2__header_title">Silversea ${'luxury-cruises' @i18n} ${'to' @i18n} ${portUse.portModel.title}</h1>
 		<h1 data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__header_title">Silversea ${'expedition-cruises' @i18n} ${'to' @i18n} ${portUse.portModel.title}</h1>
+	    <div data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_header_separator port_v2__section_header_separator_expedition "></div>
+		<div data-sly-test="${portUse.portType == 'classic'}" class="port_v2__section_header_separator port_v2__section_header_separator_classic "></div>
+		<div data-sly-test="${portUse.portType == 'mixed'}" class="port_v2__section_header_separator port_v2__section_header_separator_mixed"></div>
 	</div>
 </div>
 <sly data-sly-test="${portUse.portModel.assetSelectionReference}">

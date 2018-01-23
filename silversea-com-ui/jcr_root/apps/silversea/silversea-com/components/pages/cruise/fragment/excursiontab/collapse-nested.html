@@ -34,6 +34,7 @@
             <div class="panel--nested__body__inner">
                 <div class="panel--nested__body__content">
                     ${excursion.apiLongDescription @ context='html'}
+                    <b data-sly-test="${excursion.note}">${excursion.note @ context='html'}</b>
                 </div>
                 <ul class="feature feature-ecgc" data-sly-list.feature="${excursion.features}">
                     <li class="meta_feature_inner">
