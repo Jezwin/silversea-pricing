@@ -43,8 +43,13 @@ $(function() {
     };
 
     // Init video on page load
-    setTimeout(function(){ 
-    	 $('.c-video:not(.c-video--cc-gallery)').initVideo(); 
-    	}, 4000);
-   
+    function initV(){
+    	if(s7viewers != undefined){
+    		$('.c-video:not(.c-video--cc-gallery)').initVideo(); 
+    	}else {
+    		setTimeout(initV(),500);
+    	}
+    }
+    	 
+   initV();
 });
