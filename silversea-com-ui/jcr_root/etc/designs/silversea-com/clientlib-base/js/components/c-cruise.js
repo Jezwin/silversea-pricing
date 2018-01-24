@@ -465,9 +465,11 @@ $(function() {
     			var intervalDiv = setInterval(function(){
 	    			if (!$("body").hasClass("modal-open")) {
 	    				clearInterval(intervalDiv);
-	    				createSuiteDetailLightbox(template);
+	    				setTimeout(function() {
+	    					createSuiteDetailLightbox(template);
+	    				},200);
 	    			} 
-	    		},100);
+	    		},200);
     		}
     	}
 	});
@@ -586,7 +588,6 @@ $(function() {
     		
         var $modalContent = template;
         		
-        $('body').addClass('modal-open');
         //HTML layout label 
 		$modalContent  = $modalContent.replace("c-suitelist-nav-plan-placeholder", navPlan);
 		$modalContent  = $modalContent.replace("c-suitelist-nav-virtual-tour-placeholder", navVirtualTour);
@@ -653,6 +654,9 @@ $(function() {
 		}
     			
 		// Activate Modal
+        $('body').addClass('modal-open');
+
+		$('html').css("overflow", "hidden");
 		$(myThis.data('target')).modal('show');
 		
 		$('.modal').on('shown.bs.modal', function(e) {
