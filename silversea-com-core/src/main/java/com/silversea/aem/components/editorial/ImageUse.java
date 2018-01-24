@@ -16,6 +16,7 @@ public class ImageUse extends WCMUsePojo {
     @Override
     public void activate() {
         Integer widthResponsiveDesktop = 12;
+        Integer widthResponsiveDesktopOld = 12;
         Integer widthResponsiveMobile = 12;
 
         // Get value from the cq:responsive sub node
@@ -39,17 +40,19 @@ public class ImageUse extends WCMUsePojo {
             Resource defaultRes = cqResponsiveRes.getChild(WcmConstants.NN_DEFAULT);
             if (defaultRes != null) {
                 widthResponsiveDesktop = defaultRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
-                if(sliderWidth != null){
-                	widthResponsiveDesktop = sliderWidth;
-                }
+                widthResponsiveDesktopOld = widthResponsiveDesktop;
             }
 
             Resource phoneRes = cqResponsiveRes.getChild(WcmConstants.NN_PHONE);
             if (phoneRes != null) {
                 widthResponsiveMobile = phoneRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
             } else {
-                widthResponsiveMobile = widthResponsiveDesktop;
+                widthResponsiveMobile = widthResponsiveDesktopOld;
             }
+        }
+        
+        if(sliderWidth != null){
+        	widthResponsiveDesktop = sliderWidth;
         }
 
         // Get width from configuration
