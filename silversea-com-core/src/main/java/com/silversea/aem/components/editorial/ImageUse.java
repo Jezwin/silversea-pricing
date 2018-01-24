@@ -20,10 +20,28 @@ public class ImageUse extends WCMUsePojo {
 
         // Get value from the cq:responsive sub node
         Resource cqResponsiveRes = getResource().getChild(NameConstants.NN_RESPONSIVE_CONFIG);
+        Resource parentSlider = getResource().getParent().getParent();
+        Integer sliderWidth = null;
+        if(parentSlider != null){
+        	//We are in a slider 
+        	if(parentSlider.getValueMap().get("sling:resourceType", String.class).equalsIgnoreCase("silversea/silversea-com/components/editorial/slider")){
+        		Integer itemToDisplay = parentSlider.getValueMap().get("itemNumber", Integer.class);
+        		if(itemToDisplay != null){
+        			sliderWidth = 12 / itemToDisplay;
+        			if(itemToDisplay > 1){
+        				sliderWidth = sliderWidth + 1;
+        			}
+        		}
+        	}
+        }
+        
         if (cqResponsiveRes != null) {
             Resource defaultRes = cqResponsiveRes.getChild(WcmConstants.NN_DEFAULT);
             if (defaultRes != null) {
                 widthResponsiveDesktop = defaultRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
+                if(sliderWidth != null){
+                	widthResponsiveDesktop = sliderWidth;
+                }
             }
 
             Resource phoneRes = cqResponsiveRes.getChild(WcmConstants.NN_PHONE);
