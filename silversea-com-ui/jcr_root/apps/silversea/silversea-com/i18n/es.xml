@@ -1018,6 +1018,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Plano de la Suite"/>
+    <suite-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Plano de la Suite"/>
     <SV
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1120,6 +1124,10 @@
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more"
     	sling:message="Más sobre" />
+    <view-more-details
+    	jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+    	sling:message="View more details" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

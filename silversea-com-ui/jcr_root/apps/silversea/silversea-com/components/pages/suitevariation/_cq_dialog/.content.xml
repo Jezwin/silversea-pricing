@@ -97,6 +97,12 @@
                                             name="./suiteSubTitle"
                                             fieldLabel="Suite sub title"
                                             required="{Boolean}true"/>
+                                    <suitesubtitleUpTo
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            name="./suitesubtitleUpTo"
+                                            fieldLabel="Suite sub title (Up to...)"
+                                            required="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>

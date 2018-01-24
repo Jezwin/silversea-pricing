@@ -106,6 +106,17 @@ public class SuiteModel implements ShipAreaModel {
     public String[] getFeatures() {
         return features;
     }
+    
+    public String getFeaturesString() {
+    	StringBuilder featuresString = new StringBuilder();
+    	for(int i=0; i < features.length; i++) {
+    		featuresString.append(features[i]);
+    		if (i < features.length -1) {
+    			featuresString.append("#next#");
+    		}
+    	}
+        return featuresString.toString();
+    }
 
     public String getLocationImage() {
         return locationImage;

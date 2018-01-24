@@ -3,7 +3,6 @@ $(function() {
      * Modal : Clean modal content on close event
      **************************************************************************/
     $(document).on('hide.bs.modal', function(e) {
-
     	$(e.target).removeData('bs.modal');
 
         $('body').removeClass('modal-open');
@@ -18,6 +17,7 @@ $(function() {
         	window.virtualTour.destroy();
         	window.virtualTour = null;
         }
+        
     });
 
     /***************************************************************************
@@ -43,6 +43,9 @@ $(function() {
             $(this).find('img').attr('src', imagePath);
         });
     });
+    
+    
+    
     
     
     /***************************************************************************
