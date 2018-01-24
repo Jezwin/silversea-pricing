@@ -515,15 +515,15 @@ $(function() {
         	var assetSelectionReference = (window.cruiseItem[id].assetSelectionReference != null) ? window.cruiseItem[id].assetSelectionReference : null;
         	var longDescription = (window.cruiseItem[id].longDescription != null) ? window.cruiseItem[id].longDescription : "";
         	var bedroomsInformation = (window.cruiseItem[id].bedroomsInformation != null) ? window.cruiseItem[id].bedroomsInformation : "";
-        	var virtualTourImage = (window.cruiseItem[id].virtualTour != null) ? window.cruiseItem[id].virtualTour : null;
+        	var virtualTourImage = (window.cruiseItem[id].virtualTour != "") ? window.cruiseItem[id].virtualTour : null;
         	
         	var currency = (myThis.data('currency') != null) ? myThis.data('currency')   : "";
         	var raqLink = $("#"+id).find(".link-request-quote-card").attr("href");
         	var early = window.cruiseItem[id].early;
         	var priceEarlyBookingBonus = (window.cruiseItem[id].priceBookingBonus != null) ? currency + " " + window.cruiseItem[id].priceBookingBonus : "";
-        	var suitePlan =  (window.cruiseItem[id].plan != null) ? window.cruiseItem[id].plan : null;
+        	var suitePlan =  (window.cruiseItem[id].plan != "") ? window.cruiseItem[id].plan : null;
         	var features =  (window.cruiseItem[id].features != null) ? window.cruiseItem[id].features : "";
-        	var locationImage =  (window.cruiseItem[id].locationImage != null) ? window.cruiseItem[id].locationImage : null;
+        	var locationImage =  (window.cruiseItem[id].locationImage != "") ? window.cruiseItem[id].locationImage : null;
         	var deck =(window.cruiseItem[id].deck != null) ? window.cruiseItem[id].deck : "";
         	
         	var price = waitlist;
@@ -666,39 +666,58 @@ $(function() {
 			//logic to put active tab
 			var numTab = 0; 
 			if (assetSelectionReference != null) {
-    			$(".c-suite-detail-modal #descr-tab").removeClass("hidden");
-    			$(".c-suite-detail-modal #descr-tab").addClass("active");
-				numTab++;
+				if (window.suiteDesktop) {
+					$(".c-suite-detail-modal #descr-tab").removeClass("hidden");
+					$(".c-suite-detail-modal #descr-tab").addClass("active");
+					numTab++;
+				} else {
+	        		$(".c-suite-detail-modal #suite-description").removeClass("hidden");
+
+				}
 			}
 			if (suitePlan != null) {
-    			$(".c-suite-detail-modal #suite-tab").removeClass("hidden");
-    			if (numTab == 0) {
-    				$(".c-suite-detail-modal #suite-tab").addClass("active");
-    			}
-    			numTab++;
+				if (window.suiteDesktop) {
+					$(".c-suite-detail-modal #suite-tab").removeClass("hidden");
+					if (numTab == 0) {
+						$(".c-suite-detail-modal #suite-tab").addClass("active");
+					}
+					numTab++;
+				} else {
+	        		$(".c-suite-detail-modal #suite-suite-plan").removeClass("hidden");
+				}
     		}
 			if (navFeatures != null) {
-        		$(".c-suite-detail-modal #features-tab").removeClass("hidden");
-    			if (numTab == 0) {
-    				$(".c-suite-detail-modal #features-tab").addClass("active");
-    			}
-    			numTab++;
+				if (window.suiteDesktop) {
+					$(".c-suite-detail-modal #features-tab").removeClass("hidden");
+					if (numTab == 0) {
+						$(".c-suite-detail-modal #features-tab").addClass("active");
+					}
+					numTab++;
+				} else {
+	        		$(".c-suite-detail-modal #suite-features").removeClass("hidden");
+				}
     		}
 			
     		if (locationImage != null) {
-        		$(".c-suite-detail-modal #location-tab").removeClass("hidden");
-    			if (numTab == 0) {
-    				$(".c-suite-detail-modal #location-tab").addClass("active");
+				if (window.suiteDesktop) {
+    				$(".c-suite-detail-modal #location-tab").removeClass("hidden");
+    				if (numTab == 0) {
+    					$(".c-suite-detail-modal #location-tab").addClass("active");
+    				}
+    				numTab++;
+    			} else {
+	        		$(".c-suite-detail-modal #suite-location").removeClass("hidden");
     			}
-    			numTab++;
     		}
     		
     		if (virtualTourImage != null) {
-        		$(".c-suite-detail-modal #virtualtour-tab").removeClass("hidden");
-    			if (numTab == 0) {
-    				$(".c-suite-detail-modal #virtualtour-tab").addClass("active");
+				if (window.suiteDesktop) {
+    				$(".c-suite-detail-modal #virtualtour-tab").removeClass("hidden");
+    				if (numTab == 0) {
+    					$(".c-suite-detail-modal #virtualtour-tab").addClass("active");
+    				}
+    				numTab++;
     			}
-    			numTab++;
     		}
     		
     		//logic to use all space in tab
