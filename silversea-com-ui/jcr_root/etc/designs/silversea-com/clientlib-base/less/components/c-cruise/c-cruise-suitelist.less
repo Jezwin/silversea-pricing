@@ -419,6 +419,11 @@
 	            	margin-bottom: 5px;
 	            	line-height: 24px;
 	            	
+            		@media (min-width: 769px) {
+	            		margin-bottom: 0px;
+    					height: 45px;
+	            	}
+	            	
 	            	@media screen and (max-width: 767px) {
             	 		margin-bottom: 0px;
             	 		padding-top: 12px;
@@ -455,9 +460,13 @@
             	background-color: @grey-l;
             	padding-top:14px;
             	
+            	@media (min-width: 769px) {
+            		display: table;
+            		padding-top: 10px;
+            	}
+            	
             	&-whitelist {
-            		padding-top: 50px;
-            		@media (max-wdith: 767px){
+            		@media (max-width: 767px){
 	            		padding-top:22px;
             		}
             	}
@@ -465,6 +474,14 @@
             
             &-from {
             	font-size: 12px;
+            }
+            
+            &__text {
+            	@media (min-width: 769px){
+	            	display: table-cell;
+   		 			height: 46px;
+    				vertical-align: middle;
+    			}
             }
             
             &__text--important2 {
@@ -483,7 +500,7 @@
             	background-color: @grey-l;
 			    padding-left: 25%;
     			padding-right: 25%;
-    			padding-top: 25px;
+    			padding-top: 18px;
     		    text-align: center;
 			    padding-bottom: 18px;
 			    
