@@ -3,7 +3,7 @@
 <div class="c-quote-request-side row" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
     ${quoteRequest.prepareDestinationParameters}
     <sly data-sly-test=${!quoteRequest.raqModel}>
-	    <img class="hidden-xs" src="${quoteRequest.selectedCruise.thumbnail}" />
+	    <img class="hidden-xs" src="${quoteRequest.selectedCruise.thumbnail}" alt="${quoteRequest.selectedCruise.title ||  currentPage.title}" />
 	    <div class="c-quote-request-side__inner">
 	        <h3 class="c-quote-request-side__inner__title">${quoteRequest.selectedCruise.title}</h3>
 	        <ul class="c-quote-request-side__list">
@@ -43,7 +43,7 @@
 	    </div>
     </sly>
     <sly data-sly-test="${quoteRequest.raqModel}">
-        <img class="hidden-xs" src="${quoteRequest.raqModel.thumbnail}" />
+        <img class="hidden-xs" src="${quoteRequest.raqModel.thumbnail}" alt="${quoteRequest.raqModel.title || currentPage.title}" />
 	    <div class="c-quote-request-side__inner">
 	        <h3 class="c-quote-request-side__inner__title">${quoteRequest.raqModel.title}</h3>
 	        <p class="c-quote-request-side__inner__description">${quoteRequest.raqModel.description}</p>
