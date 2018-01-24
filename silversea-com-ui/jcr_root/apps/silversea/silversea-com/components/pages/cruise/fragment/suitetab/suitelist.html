@@ -257,7 +257,7 @@
 		                    <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important">${'waitlist' @ i18n}</span>
 		                    <sly data-sly-test="${!item.isWaitList}">
 		                        <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text">
-				                    <span class="c-suitelist__price-from">${'fares-from' @ i18n}</span>
+				                    <span class="c-suitelist__price-from">${'from' @ i18n}</span>
 		                            <span data-sly-test.early="${item.lowestPrice.earlyBookingBonus}"
 		                                data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
 		                                <small>${item.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small><br />
@@ -273,13 +273,15 @@
 		                                 	window.cruiseItem[key].price = "${item.computedPriceFormated @ context='scriptString'}"; 
 	                                 	</script>
 		                            </strong>
-		                        </span>
-		                        <span data-sly-test="${early}" class="price-suffixe">
-		                            ${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
-		                            <script>
-		                               	var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
-		                            	window.cruiseItem[key].early = true;
-	                            	</script>
+			                        <span class="price-suffixe">
+			                            <span data-sly-test="${early}">
+			                            	${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
+				                            <script>
+				                               	var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
+				                            	window.cruiseItem[key].early = true;
+			                            	</script>
+			                            </span>
+			                        </span>
 		                        </span>
 		                    </sly>
 		                </div>
