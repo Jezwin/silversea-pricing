@@ -443,40 +443,71 @@ $(function() {
     }
     
     
-    $(window).on("resize", function() {
-    	//check if it is the cruise page
-    	if ($('header').nextAll().hasClass("c-cruise") ) {
-    		var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
-    		if (desktop && (window.suiteDesktop === false)) { //make the switch from mobile to desktop
-    			window.suiteDesktop = true;
-    		} else if (!desktop && (window.suiteDesktop === true)) { //make the switch from desktop to mobile
-    			window.suiteDesktop = false;
-    		}
-    	}
-	});
+   
+    
     /***************************************************************************
      * Build modal for suite detail
      **************************************************************************/
+    $(window).on("resize", function() {
+    	//check if it is the cruise page
+    	if ($('header').nextAll().hasClass("c-cruise") && $(".modal-content").hasClass("modal-content--transparent-suite")) {
+    		var template = null;
+    		var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
+    		if (desktop && (window.suiteDesktop === false)) { //make the switch from mobile to desktop
+    			window.suiteDesktop = true;
+     	    	template = window.templateSuiteDetail;
+    		} else if (!desktop && (window.suiteDesktop === true)) { //make the switch from desktop to mobile
+    			window.suiteDesktop = false;
+            	template = window.templateSuiteDetailMobile;
+    		} 
+    		if (template !=null && window.cruiseIDShowed != null) {
+    			$('body > .modal .modal-content.modal-content--transparent-suite .close').click();
+    			var intervalDiv = setInterval(function(){
+	    			if (!$("body").hasClass("modal-open")) {
+	    				clearInterval(intervalDiv);
+	    				createSuiteDetailLightbox(template);
+	    			} 
+	    		},100);
+    		}
+    	}
+	});
+   
     $('.automatic-modal-suite-detail').on('click', function(e) {
         e.preventDefault();
-
+        window.cruiseIDShowed = $(this).attr('id');
+        var template = window.templateSuiteDetail;
+        var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
+        if (desktop) { //check if not mobile
+        	window.suiteDesktop = true;
+        	template = window.templateSuiteDetail;
+        } else {
+        	window.suiteDesktop = false;
+        	template = window.templateSuiteDetailMobile;
+        }
+        createSuiteDetailLightbox(template)
+    });
+    
+    
+    function createSuiteDetailLightbox(template) {
+    	var myThis = $("#"+window.cruiseIDShowed);
+    	
         if (window.hasOwnProperty("cruiseItem") && window.cruiseItem != null) {
-        	var id = $(this).attr('id');
+        	var id = myThis.attr('id');
         	//label i18n
-        	var navDescription = ($(this).parent().data('nav-description') != null) ? $(this).parent().data('nav-description')   : "";
-        	var navPlan = ($(this).parent().data('nav-plan') != null) ? $(this).parent().data('nav-plan')   : "";
-        	var navFeatures = ($(this).parent().data('nav-features') != null) ? $(this).parent().data('nav-features')   : "";
-        	var navLocation = ($(this).parent().data('nav-location') != null) ? $(this).parent().data('nav-location')   : "";
-        	var navVirtualTour = ($(this).parent().data('nav-virtual-tour') != null) ? $(this).parent().data('nav-virtual-tour')  : "";
+        	var navDescription = (myThis.parent().data('nav-description') != null) ? myThis.parent().data('nav-description')   : "";
+        	var navPlan = (myThis.parent().data('nav-plan') != null) ? myThis.parent().data('nav-plan')   : "";
+        	var navFeatures = (myThis.parent().data('nav-features') != null) ? myThis.parent().data('nav-features')   : "";
+        	var navLocation = (myThis.parent().data('nav-location') != null) ? myThis.parent().data('nav-location')   : "";
+        	var navVirtualTour = (myThis.parent().data('nav-virtual-tour') != null) ? myThis.parent().data('nav-virtual-tour')  : "";
         	
-        	var note = ($(this).parent().data('note') != null) ? $(this).parent().data('note')   : "";
-        	var requestQuote = ($(this).parent().data('request-quote') != null) ? $(this).parent().data('request-quote')   : "";
-        	var earlyBonus = ($(this).parent().data('early-bonus') != null) ? $(this).parent().data('early-bonus')   : "";
-        	var waitlist = ($(this).parent().data('waitlist') != null) ? $(this).parent().data('waitlist')   : "";
-        	var deckLabel = ($(this).parent().data('deck') != null) ? $(this).parent().data('deck')   : "";
-        	var viewAll = ($(this).parent().data('view-all') != null) ? $(this).parent().data('view-all')   : "";
-        	var viewLess = ($(this).parent().data('view-less') != null) ? $(this).parent().data('view-less')   : "";
-        	var close = ($(this).parent().data('close') != null) ? $(this).parent().data('close')   : "";
+        	var note = (myThis.parent().data('note') != null) ? myThis.parent().data('note')   : "";
+        	var requestQuote = (myThis.parent().data('request-quote') != null) ? myThis.parent().data('request-quote')   : "";
+        	var earlyBonus = (myThis.parent().data('early-bonus') != null) ? myThis.parent().data('early-bonus')   : "";
+        	var waitlist = (myThis.parent().data('waitlist') != null) ? myThis.parent().data('waitlist')   : "";
+        	var deckLabel = (myThis.parent().data('deck') != null) ? myThis.parent().data('deck')   : "";
+        	var viewAll = (myThis.parent().data('view-all') != null) ? myThis.parent().data('view-all')   : "";
+        	var viewLess = (myThis.parent().data('view-less') != null) ? myThis.parent().data('view-less')   : "";
+        	var close = (myThis.parent().data('close') != null) ? myThis.parent().data('close')   : "";
         	var from = "";
         	
         	//suite values
@@ -486,7 +517,7 @@ $(function() {
         	var bedroomsInformation = (window.cruiseItem[id].bedroomsInformation != null) ? window.cruiseItem[id].bedroomsInformation : "";
         	var virtualTourImage = (window.cruiseItem[id].virtualTour != null) ? window.cruiseItem[id].virtualTour : null;
         	
-        	var currency = ($(this).data('currency') != null) ? $(this).data('currency')   : "";
+        	var currency = (myThis.data('currency') != null) ? myThis.data('currency')   : "";
         	var raqLink = $("#"+id).find(".link-request-quote-card").attr("href");
         	var early = window.cruiseItem[id].early;
         	var priceEarlyBookingBonus = (window.cruiseItem[id].priceBookingBonus != null) ? currency + " " + window.cruiseItem[id].priceBookingBonus : "";
@@ -499,7 +530,7 @@ $(function() {
         	
         	if (window.cruiseItem[id].price != null) {
         		price = currency + " " + window.cruiseItem[id].price;
-        		from =  ($(this).parent().data('from') != null) ? $(this).parent().data('from')   : "";
+        		from =  (myThis.parent().data('from') != null) ? myThis.parent().data('from')   : "";
         	}
         	
         	//description tab
@@ -553,15 +584,7 @@ $(function() {
     			virtualTourToRender = '<div id="c-suite-detail-modal-virtual-tour-containerDiv" class="c-suite-detail-modal-virtual-tour-container" data-image="'+virtualTourImage+'"></div>';
     		}
     		
-        }
-        var $modalContent = null;
-        if ($('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg")) { //check if not mobile
-        	window.suiteDesktop = true;
-        	$modalContent = window.templateSuiteDetail;
-        } else {
-        	window.suiteDesktop = false;
-        	$modalContent = window.templateSuiteDetailMobile;
-        }
+        var $modalContent = template;
         		
         $('body').addClass('modal-open');
         //HTML layout label 
@@ -630,7 +653,7 @@ $(function() {
 		}
     			
 		// Activate Modal
-		$($(this).data('target')).modal('show');
+		$(myThis.data('target')).modal('show');
 		
 		$('.modal').on('shown.bs.modal', function(e) {
 			
@@ -769,6 +792,7 @@ $(function() {
 				}
 		    });
 		});
-    });
+      }
+    }//createSuiteDetaiLightbox
     
 });

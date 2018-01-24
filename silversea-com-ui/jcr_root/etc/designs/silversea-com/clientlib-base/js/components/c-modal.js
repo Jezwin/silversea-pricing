@@ -17,6 +17,7 @@ $(function() {
         	window.virtualTour.destroy();
         	window.virtualTour = null;
         }
+        
     });
 
     /***************************************************************************
