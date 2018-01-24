@@ -91,21 +91,4 @@
 	 	<sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
 	       		data-sly-call="${suitelist.abTestVersion2 @ cruise=cruise}" />
    	</div>
-   	<script>
-   	var elementToHide = document.getElementsByClassName("ab-test-v2-hide");
-    for (var i = 0; i < elementToHide.length; i++) {
-        elementToHide[i].style.display = "none";
-    }
-    
-	
-	/*ab-test-v2-sw*/
-    var elementToShow = document.getElementsByClassName("ab-test-v2-show");
-    var element = [];
-    for (var i = 0; i < elementToShow.length; i++) {
-        element.push(elementToShow[i]);
-    }
-    for (var i = 0; i < element.length; i++) {
-        element[i].classList.remove("ab-test-v2-show");
-    }
-   	</script>
 </template>
