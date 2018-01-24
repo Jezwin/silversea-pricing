@@ -99,7 +99,11 @@ public class LeadServlet extends SlingAllMethodsServlet {
 				}
 				writeDomainObject(response, leadResponse);
 			} else {
-				LOGGER.debug("The referer obtained here is blank.");
+				LOGGER.debug("There is no blocked referer here. Executing normal flow");
+				Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+				leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+				LOGGER.debug("Lead service response {}", leadResponse);
+				writeDomainObject(response, leadResponse);
 			}
 		} catch (URISyntaxException e) {
 			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
