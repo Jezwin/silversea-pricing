@@ -12,7 +12,7 @@ $(function() {
 
         // Force to default class
         $modalContent.attr('class', 'modal-content');
-
+        $('html').css("overflow", "");
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
         	window.virtualTour.destroy();
         	window.virtualTour = null;

@@ -417,6 +417,7 @@
                 
                  &-card {
 	            	margin-bottom: 5px;
+	            	line-height: 24px;
 	            	
 	            	@media screen and (max-width: 767px) {
             	 		margin-bottom: 0px;
@@ -455,7 +456,10 @@
             	padding-top:14px;
             	
             	&-whitelist {
-            		padding-top:22px;
+            		padding-top: 50px;
+            		@media (max-wdith: 767px){
+	            		padding-top:22px;
+            		}
             	}
             }
             
@@ -578,6 +582,12 @@
 	    	background-color: black;
 		    padding: 15px 15px 0 !important;
 		    
+		    @media (max-width: 768px) {
+		    	position: fixed;
+    			z-index: 1000;
+    			width: 100%;
+		    }
+		    
 		    .close:before {
 			    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMjA4IDIwOCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjEuNDE0MjE7Ij48Zz48cGF0aCBkPSJNMTA0LjIwMSwxOTQuNDQ4Yy00OS45OCwwIC05MC42NDIsLTQwLjY2MiAtOTAuNjQyLC05MC42NDhjMCwtNDkuOTggNDAuNjYyLC05MC42NDIgOTAuNjQyLC05MC42NDJjNDkuOTgsMCA5MC42NDIsNDAuNjYyIDkwLjY0Miw5MC42NDJjMCw0OS45ODYgLTQwLjY2Miw5MC42NDggLTkwLjY0Miw5MC42NDhaTTE3Ny4zNjUsMzAuNjQyYy0xOS41NDIsLTE5LjU0MiAtNDUuNTI4LC0zMC4zMDYgLTczLjE2NCwtMzAuMzA2Yy0yNy42MzYsMCAtNTMuNjIyLDEwLjc2NCAtNzMuMTY0LDMwLjMwNmMtMTkuNTQyLDE5LjU0MiAtMzAuMzA2LDQ1LjUyMiAtMzAuMzA2LDczLjE1OGMwLDI3LjY0MiAxMC43NjQsNTMuNjIyIDMwLjMwNiw3My4xNjRjMTkuNTQyLDE5LjU0MiA0NS41MjgsMzAuMzA2IDczLjE2NCwzMC4zMDZjMjcuNjM2LDAgNTMuNjIyLC0xMC43NjQgNzMuMTY0LC0zMC4zMDZjMTkuNTQyLC0xOS41NDIgMzAuMywtNDUuNTIyIDMwLjMsLTczLjE2NGMwLC0yNy42MzYgLTEwLjc1OCwtNTMuNjE2IC0zMC4zLC03My4xNTgiIHN0eWxlPSJmaWxsOiNmZmY7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PHBhdGggZD0iTTE2MS43MjQsMTQzLjUyOWwtMTUuNjk0LDE1LjY5NGwtNDAuMjM2LC00MC4yNGwtMzguMzcxLDM4LjM3bC0xNS4wMTEsLTE1LjAxMWwzOC4zNzEsLTM4LjM3bC0zOS44OTksLTM5Ljg5NmwxNS42OTMsLTE1LjY5M2wzOS44OTYsMzkuODk5bDM4LjM3LC0zOC4zNzFsMTUuMDExLDE1LjAxMWwtMzguMzcsMzguMzcxbDQwLjI0LDQwLjIzNiIgc3R5bGU9ImZpbGw6I2ZmZjtmaWxsLXJ1bGU6bm9uemVybzsiLz48L2c+PC9zdmc+);
 			    content: ' ';
@@ -650,8 +660,10 @@
 	}
     
     &-info {
-    	overflow-y: auto;
-    	max-height: 194px;
+    	@media (min-width: 769px) {
+    		overflow-y: auto;
+	    	max-height: 194px;
+    	}
     }
     
     &-deck {
@@ -848,7 +860,7 @@
         //padding-bottom: 11%;
         text-align: center;
         font-size: 11px;
-        padding-top: 118px;
+        padding-top: 80px;
         p {
             line-height: 22px;
             span {
