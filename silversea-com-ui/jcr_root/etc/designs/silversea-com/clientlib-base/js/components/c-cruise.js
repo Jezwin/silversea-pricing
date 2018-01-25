@@ -514,7 +514,7 @@ $(function() {
         	
         	//suite values
         	var title = (window.cruiseItem[id].title != null) ? window.cruiseItem[id].title : "";
-        	var assetSelectionReference = (window.cruiseItem[id].assetSelectionReference != null) ? window.cruiseItem[id].assetSelectionReference : null;
+        	var assetSelectionReference = (window.cruiseItem[id].assetSelectionReference != "") ? window.cruiseItem[id].assetSelectionReference : null;
         	var longDescription = (window.cruiseItem[id].longDescription != null) ? window.cruiseItem[id].longDescription : "";
         	var bedroomsInformation = (window.cruiseItem[id].bedroomsInformation != null) ? window.cruiseItem[id].bedroomsInformation : "";
         	var virtualTourImage = (window.cruiseItem[id].virtualTour != "") ? window.cruiseItem[id].virtualTour : null;
@@ -673,6 +673,7 @@ $(function() {
 				if (window.suiteDesktop) {
 					$(".c-suite-detail-modal #descr-tab").removeClass("hidden");
 					$(".c-suite-detail-modal #descr-tab").addClass("active");
+					$(".c-suite-detail-modal #suite-description.tab-pane").addClass("active");
 					numTab++;
 				} else {
 	        		$(".c-suite-detail-modal #suite-description").removeClass("hidden");
@@ -684,6 +685,7 @@ $(function() {
 					$(".c-suite-detail-modal #suite-tab").removeClass("hidden");
 					if (numTab == 0) {
 						$(".c-suite-detail-modal #suite-tab").addClass("active");
+						$(".c-suite-detail-modal #suite-suite-plan.tab-pane").addClass("active");
 					}
 					numTab++;
 				} else {
@@ -695,6 +697,7 @@ $(function() {
 					$(".c-suite-detail-modal #features-tab").removeClass("hidden");
 					if (numTab == 0) {
 						$(".c-suite-detail-modal #features-tab").addClass("active");
+						$(".c-suite-detail-modal #suite-features.tab-pane").addClass("active");
 					}
 					numTab++;
 				} else {
@@ -707,6 +710,7 @@ $(function() {
     				$(".c-suite-detail-modal #location-tab").removeClass("hidden");
     				if (numTab == 0) {
     					$(".c-suite-detail-modal #location-tab").addClass("active");
+						$(".c-suite-detail-modal #suite-location.tab-pane").addClass("active");
     				}
     				numTab++;
     			} else {
@@ -719,6 +723,7 @@ $(function() {
     				$(".c-suite-detail-modal #virtualtour-tab").removeClass("hidden");
     				if (numTab == 0) {
     					$(".c-suite-detail-modal #virtualtour-tab").addClass("active");
+						$(".c-suite-detail-modal .tab-pane #suite-virtual-tour").addClass("active");
     				}
     				numTab++;
     			}
