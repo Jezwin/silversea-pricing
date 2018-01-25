@@ -738,7 +738,7 @@ $(function() {
             	$('.modal').find('.c-suite-detail-modal-description__counter .slide-item-current').html(1);
             	// Set total number of slide
             	$('.modal').find('.c-suite-detail-modal-description__counter .slide-item-total').html(slideTotalItem);
-			if (slideTotalItem == 0) {
+			if (slideTotalItem == 1) {
 				$(".c-suite-detail-modal-description__counter").css("display", "none");
 			}
             
