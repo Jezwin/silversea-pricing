@@ -61,14 +61,15 @@ public class LeadServlet extends SlingAllMethodsServlet {
 	@SuppressWarnings("unchecked")
     protected final void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws ServletException {
         // Retrieve body content from request
+		String leadResponse = StringUtils.EMPTY;
+		String body = getBodyFromRequest(request);
 		try {
-			String leadResponse = StringUtils.EMPTY;
-			String body = getBodyFromRequest(request);
+
 			LOGGER.debug("Lead service request {}", body);
 
-			String referer = request.getHeader(HttpHeaders.REFERER);
+			String referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
 
-			if (null != referer) {
+			if (null != referer && referer != "") {
 				LOGGER.debug("The referer obtained here is : - {}", referer);
 				/*
 				 * Converting the above path into a URL object to obtain the
@@ -83,20 +84,27 @@ public class LeadServlet extends SlingAllMethodsServlet {
 					ValueMap blockListMap = blockListResource.getValueMap();
 					blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
 					LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
-				}
+					
+					if (blockList.contains(uri.getHost())) {
+						LOGGER.debug("Match found for {}.", uri.getHost());
+						leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
+						LOGGER.debug("Lead service response {}", leadResponse);
 
-				if (blockList.contains(uri.getHost())) {
-					LOGGER.debug("Match found for {}.", uri.getHost());
-					leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
-					LOGGER.debug("Lead service response {}", leadResponse);
+					} else {
+						LOGGER.debug("There is no blocked referer here. Executing normal flow");
+						Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+						leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+						LOGGER.debug("Lead service response {}", leadResponse);
 
-				} else {
-					LOGGER.debug("There is no blocked referer here. Executing normal flow");
+					}
+				}else{
+					//No blocklist found - proceed with the lead
 					Lead lead = JsonMapper.getDomainObject(body, Lead.class);
 					leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
 					LOGGER.debug("Lead service response {}", leadResponse);
-
 				}
+
+				
 				writeDomainObject(response, leadResponse);
 			} else {
 				LOGGER.debug("There is no blocked referer here. Executing normal flow");
@@ -107,6 +115,11 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			}
 		} catch (URISyntaxException e) {
 			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
+			//Try to send the lead if pasrsing uri failed
+			Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+			LOGGER.debug("Lead service response {}", leadResponse);
+			writeDomainObject(response, leadResponse);
 			e.printStackTrace();
 		}
 

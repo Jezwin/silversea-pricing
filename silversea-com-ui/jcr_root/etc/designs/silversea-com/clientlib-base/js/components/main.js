@@ -217,3 +217,24 @@ $(function() {
         }
     }
 }(jQuery);
+
+function createCookie(name, value, days) {
+	var expires;
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toGMTString();
+	}
+	else {
+		expires = "";
+	}
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+//Referrer Cookie to use at lead submission level
+var currentReferrer = document.referrer;
+if(currentReferrer.indexOf("www.silversea.com") == -1){
+	if(currentReferrer != ""){
+		createCookie("currentReferrer", currentReferrer, 1);
+	}
+}
