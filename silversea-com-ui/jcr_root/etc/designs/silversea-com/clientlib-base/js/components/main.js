@@ -132,8 +132,8 @@ $(function() {
                 form = $form.serializeArray();
 
             // Browse the form fields and extract values to leadApiData
-            for (i in form) {
-                index = cookieValues.indexOf(form[i].name);
+            for (var i in form) {
+                var index = cookieValues.indexOf(form[i].name);
                 if (index > -1) {
                     leadApiData[cookieValues[index]] = form[i].value;
                 }
@@ -182,7 +182,15 @@ $(function() {
 
                         // Store object merged in the cookie
                         $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
-                        $.CookieManager.setCookie('api_indiv_id', data);
+
+                        var leadRes =JSON.parse(data).leadResponse;
+                        if(leadRes != undefined){
+                        	$.CookieManager.setCookie('api_indiv_id', leadRes);
+                        }
+                        var blockedRef =JSON.parse(data).blockedReferer;
+                        if(blockedRef != undefined){
+                        	$.CookieManager.setCookie('api_blocked_referer', blockedRef);
+                        }
 
                         if ($form.hasClass('c-formcookie--redirect')) {
                             window.location.href = $form.attr('action');
@@ -209,3 +217,24 @@ $(function() {
         }
     }
 }(jQuery);
+
+function createCookie(name, value, days) {
+	var expires;
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toGMTString();
+	}
+	else {
+		expires = "";
+	}
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+//Referrer Cookie to use at lead submission level
+var currentReferrer = document.referrer;
+if(currentReferrer.indexOf("www.silversea.com") == -1){
+	if(currentReferrer != ""){
+		createCookie("currentReferrer", currentReferrer, 1);
+	}
+}

@@ -57,14 +57,19 @@ $(function() {
             });
         }
 
-        var apiIndivId = JSON.parse($.CookieManager.getCookie('api_indiv_id'));
+        var apiIndivId = $.CookieManager.getCookie('api_indiv_id');
         if (apiIndivId != undefined) {
-            window.dataLayer[0].api_indiv_id = apiIndivId;
+            window.dataLayer[0].api_indiv_id = apiIndivId;            
+        }
+        // changes for block referer.
+		var apiBlockedReferer = $.CookieManager.getCookie('api_blocked_referer');
+        if (apiBlockedReferer != undefined) {
+            window.dataLayer[0].api_blocked_referer = apiBlockedReferer;            
         }
 
         var formSubmitDate = $.CookieManager.getCookie('user_status');
         if (formSubmitDate != undefined) {
-            window.dataLayer[0].user_status = formSubmitDate;
+            window.dataLayer[0].user_status = formSubmitDate;            
         }
         
         var pageLoadDate = $.CookieManager.getCookie('user_recency');
