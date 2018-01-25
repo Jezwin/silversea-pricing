@@ -7,7 +7,7 @@
             <sly data-sly-test.thumbnail="${blogPost.thumbnail}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                 data-sly-call="${imageTemplate.default @ imagePath=thumbnail}" />
-            <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${blogPost.title}" class="o-img" />
+            <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${blogPost.title || currentPage.title}" class="o-img" />
 
             <div class="c-blogpostteaser__info visible-xs-block">
                 <strong class="c-blogpostteaser__date">

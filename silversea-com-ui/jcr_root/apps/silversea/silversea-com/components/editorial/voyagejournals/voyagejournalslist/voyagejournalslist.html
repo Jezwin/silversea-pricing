@@ -24,7 +24,7 @@
                 <sly data-sly-test.thumbnail="${voyage.thumbnail}"
                     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                     data-sly-call="${imageTemplate.default @ imagePath=thumbnail}" />
-                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyage.title}" class="o-img" />
+                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyage.title || currentPage.title}}" class="o-img" />
             </a>
         </div>
     </div>

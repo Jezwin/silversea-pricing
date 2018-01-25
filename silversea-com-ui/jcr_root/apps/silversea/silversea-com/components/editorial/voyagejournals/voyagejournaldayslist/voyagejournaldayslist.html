@@ -13,7 +13,7 @@
                 </div>
                 <sly data-sly-test.thumbnail="${voyageJournalDay.thumbnail} "data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                     data-sly-call="${imageTemplate.default @ imagePath=voyageJournalDay.thumbnail}" />
-                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyageJournalDay.title}" class="o-img" />
+                <img data-sly-test="${!thumbnail}" src="${currentDesign.path @ suffix='/clientlib-base/images/blogpost-thumbnail.png'}" alt="${voyageJournalDay.title || currentPage.title}" class="o-img" />
             </a>
         </div>
     </div>
