@@ -654,10 +654,10 @@ $(function() {
 			$modalContent  = $modalContent.replace("c-suitelist-nav-virtual-tour-placeholder", navVirtualTour);
 		}
     			
+		$('html').css("overflow", "hidden");
 		// Activate Modal
         $('body').addClass('modal-open');
 
-		$('html').css("overflow", "hidden");
 		$(myThis.data('target')).modal('show');
 		
 		$('.modal').on('shown.bs.modal', function(e) {
@@ -667,7 +667,7 @@ $(function() {
 		    
 			$(this).find('.modal-dialog').empty().append($modalContent);
 			$(".modal-dialog").css("padding-top","0%"); //remove padding-top only on this modal
-			
+
 			//logic to put active tab
 			var numTab = 0; 
 			if (assetSelectionReference != null) {
@@ -728,7 +728,6 @@ $(function() {
     		//logic to use all space in tab
     		$(".c-suite-detail-modal-navtabs li").css("width", (100 / numTab) + "%");
 			
-    		
     		//create slider
 			 var $slideFor = $(this).find('.c-slider').slick({
                slidesToShow : 1,
@@ -736,9 +735,12 @@ $(function() {
             });
 			// Show / calc counter
             var slideTotalItem = $slideFor.find('.slick-slide:not(.slick-cloned)').length;
-            $('.modal').find('.c-suite-detail-modal-description__counter .slide-item-current').html(1);
-            // Set total number of slide
-            $('.modal').find('.c-suite-detail-modal-description__counter .slide-item-total').html(slideTotalItem);
+            	$('.modal').find('.c-suite-detail-modal-description__counter .slide-item-current').html(1);
+            	// Set total number of slide
+            	$('.modal').find('.c-suite-detail-modal-description__counter .slide-item-total').html(slideTotalItem);
+			if (slideTotalItem == 0) {
+				$(".c-suite-detail-modal-description__counter").css("display", "none");
+			}
             
             $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
                 var $slider = $(this);
