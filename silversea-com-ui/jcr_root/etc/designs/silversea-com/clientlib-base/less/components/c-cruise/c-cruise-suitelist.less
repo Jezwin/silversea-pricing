@@ -604,6 +604,7 @@
 		    	position: fixed;
     			z-index: 1000;
     			width: 100%;
+    			-webkit-overflow-scrolling: touch;
 		    }
 		    
 		    .close:before {
@@ -928,9 +929,20 @@
     
     #suite-suite-plan {
     	padding: 0px 70px;
+    	@media (min-width: 769px) {
+	    	height: 530px;
+    	}
     	@media (max-width: 768px) {
 	    	padding: 0 15px;
     	}	
+    	
+    	img {
+    		@media (min-width: 769px) {
+    			top: 50%;
+    			position: relative;
+    			transform: translateY(-50%);
+    		}
+    	}
     }
     
     #suite-location {

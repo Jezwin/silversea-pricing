@@ -452,7 +452,7 @@ $(function() {
     	//check if it is the cruise page
     	if ($('header').nextAll().hasClass("c-cruise") && $(".modal-content").hasClass("modal-content--transparent-suite")) {
     		var template = null;
-    		var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
+            var desktop = $(window).width() > 768;
     		if (desktop && (window.suiteDesktop === false)) { //make the switch from mobile to desktop
     			window.suiteDesktop = true;
      	    	template = window.templateSuiteDetail;
@@ -478,7 +478,7 @@ $(function() {
         e.preventDefault();
         window.cruiseIDShowed = $(this).attr('id');
         var template = window.templateSuiteDetail;
-        var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
+        var desktop = $(window).width() > 768;
         if (desktop) { //check if not mobile
         	window.suiteDesktop = true;
         	template = window.templateSuiteDetail;
@@ -657,7 +657,7 @@ $(function() {
 		// Activate Modal
         $('body').addClass('modal-open');
 
-		$(myThis.data('target')).modal('show');
+        $(myThis.data('target')).modal('show');
 		
 		$('.modal').on('shown.bs.modal', function(e) {
 			
