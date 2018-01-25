@@ -616,7 +616,10 @@
 			}
 			.close {
 	    		top: -8px;
-	    		
+	    		left: -5px;
+	    		@media (max-width: 414px) {
+	    			left: 0px;
+	    		}
 	    		&-label {
 	    			position: absolute;
 				    top: 5px;
@@ -821,14 +824,13 @@
         text-transform: uppercase;
         text-align: center;
         @media (max-width: 768px) {
-        	margin-top: 21px;
         	margin-bottom: 16px;
+        	margin-top: 54px;
   	        font-size: 37px;
   	        line-height: 26px;
         }
         @media (max-width: 767px) {
   	        font-size: 31px;
-  	        margin-top: 54px;
         }
         
         &-section {
