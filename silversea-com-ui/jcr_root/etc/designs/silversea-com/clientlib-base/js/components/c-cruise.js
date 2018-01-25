@@ -453,7 +453,7 @@ $(function() {
     	//check if it is the cruise page
     	if ($('header').nextAll().hasClass("c-cruise") && $(".modal-content").hasClass("modal-content--transparent-suite")) {
     		var template = null;
-    		var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
+            var desktop = $(window).width() > 768;
     		if (desktop && (window.suiteDesktop === false)) { //make the switch from mobile to desktop
     			window.suiteDesktop = true;
      	    	template = window.templateSuiteDetail;
@@ -479,7 +479,7 @@ $(function() {
         e.preventDefault();
         window.cruiseIDShowed = $(this).attr('id');
         var template = window.templateSuiteDetail;
-        var desktop = $('body').hasClass("viewport-md") || $('body').hasClass("viewport-lg");
+        var desktop = $(window).width() > 768;
         if (desktop) { //check if not mobile
         	window.suiteDesktop = true;
         	template = window.templateSuiteDetail;
@@ -515,7 +515,7 @@ $(function() {
         	
         	//suite values
         	var title = (window.cruiseItem[id].title != null) ? window.cruiseItem[id].title : "";
-        	var assetSelectionReference = (window.cruiseItem[id].assetSelectionReference != null) ? window.cruiseItem[id].assetSelectionReference : null;
+        	var assetSelectionReference = (window.cruiseItem[id].assetSelectionReference != "") ? window.cruiseItem[id].assetSelectionReference : null;
         	var longDescription = (window.cruiseItem[id].longDescription != null) ? window.cruiseItem[id].longDescription : "";
         	var bedroomsInformation = (window.cruiseItem[id].bedroomsInformation != null) ? window.cruiseItem[id].bedroomsInformation : "";
         	var virtualTourImage = (window.cruiseItem[id].virtualTour != "") ? window.cruiseItem[id].virtualTour : null;
@@ -658,7 +658,7 @@ $(function() {
 		// Activate Modal
         $('body').addClass('modal-open');
 
-		$(myThis.data('target')).modal('show');
+        $(myThis.data('target')).modal('show');
 		
 		$('.modal').on('shown.bs.modal', function(e) {
 			
@@ -674,6 +674,7 @@ $(function() {
 				if (window.suiteDesktop) {
 					$(".c-suite-detail-modal #descr-tab").removeClass("hidden");
 					$(".c-suite-detail-modal #descr-tab").addClass("active");
+					$(".c-suite-detail-modal #suite-description.tab-pane").addClass("active");
 					numTab++;
 				} else {
 	        		$(".c-suite-detail-modal #suite-description").removeClass("hidden");
@@ -685,6 +686,7 @@ $(function() {
 					$(".c-suite-detail-modal #suite-tab").removeClass("hidden");
 					if (numTab == 0) {
 						$(".c-suite-detail-modal #suite-tab").addClass("active");
+						$(".c-suite-detail-modal #suite-suite-plan.tab-pane").addClass("active");
 					}
 					numTab++;
 				} else {
@@ -696,6 +698,7 @@ $(function() {
 					$(".c-suite-detail-modal #features-tab").removeClass("hidden");
 					if (numTab == 0) {
 						$(".c-suite-detail-modal #features-tab").addClass("active");
+						$(".c-suite-detail-modal #suite-features.tab-pane").addClass("active");
 					}
 					numTab++;
 				} else {
@@ -708,6 +711,7 @@ $(function() {
     				$(".c-suite-detail-modal #location-tab").removeClass("hidden");
     				if (numTab == 0) {
     					$(".c-suite-detail-modal #location-tab").addClass("active");
+						$(".c-suite-detail-modal #suite-location.tab-pane").addClass("active");
     				}
     				numTab++;
     			} else {
@@ -720,6 +724,7 @@ $(function() {
     				$(".c-suite-detail-modal #virtualtour-tab").removeClass("hidden");
     				if (numTab == 0) {
     					$(".c-suite-detail-modal #virtualtour-tab").addClass("active");
+						$(".c-suite-detail-modal .tab-pane #suite-virtual-tour").addClass("active");
     				}
     				numTab++;
     			}
