@@ -44,7 +44,8 @@ $(function() {
 
     // Init video on page load
     function initV(){
-    	if(s7viewers != undefined){
+        
+    	if(typeof s7viewers !== 'undefined'){
     		$('.c-video:not(.c-video--cc-gallery)').initVideo(); 
     	}else {
     		setTimeout(initV(),500);
