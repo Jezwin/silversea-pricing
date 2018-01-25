@@ -233,8 +233,10 @@ function createCookie(name, value, days) {
 
 //Referrer Cookie to use at lead submission level
 var currentReferrer = document.referrer;
-if(currentReferrer.indexOf("www.silversea.com") == -1){
-	if(currentReferrer != ""){
+if(currentReferrer != ""){
+    var a=document.createElement('a');
+    a.href=currentReferrer;
+    if(a.hostname.indexOf("silversea") == -1){
 		createCookie("currentReferrer", currentReferrer, 1);
 	}
 }
