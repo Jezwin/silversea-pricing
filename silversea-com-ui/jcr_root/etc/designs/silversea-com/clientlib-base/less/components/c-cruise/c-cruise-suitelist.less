@@ -270,7 +270,7 @@
         &__detail {
             padding: 0 15px 0 10px;
             width: 30%;
-
+a
             &__title {
                 margin: 0 0 12px;
                 
@@ -311,28 +311,27 @@
     }
     
     &__row-card {
+    	margin-left:-0px;
+    	margin-right:0px;
     	
     	.panel {
-    		cursor: pointer;	
+    		cursor: pointer;
+   		    padding-left:14px;
+    		padding-right: 0px;
+    		
+    		@media (max-width: 767px) {
+    			padding-left:0px;
+    		}
     	}
     	
-    	 .c-suitelist__button-card {
-			    border: 1px solid white !important;
-			    border-top: none !important;
-				
-			}
-			.c-suitelist__price-card, .c-suitelist__detail-card {
-
-			    border: 1px solid white !important;
-			    border-top: none !important;
-			    border-bottom: none !important;
-			}
-			
-			.c-suitelist__image-card {
-
-			    border: 1px solid white !important;
-			    border-bottom: none !important;
-			}
+    	.c-suitelist__content {
+    		border: 1px solid @grey-l !important;
+    		margin-top: 11px;
+    		@media(min-width: 769px) {
+	    		display: inline-block;
+    		}
+    	}
+    	
     	@media (min-width: 769px) {
 	    	.panel:hover {
 		    	img {
@@ -344,23 +343,25 @@
 				   transition: all 1.2s;
 						
 				}
+				
+				.c-suitelist__content {
+    				border-color:  #777777 !important;
+    				display: inline-block;
+    				
+    			}
 				 .c-suitelist__button-card {
-				    border: 1px solid #777777 !important;
-				    border-top: none !important;
+				    background-color: rgba(230,230,230,0.2);
 					
 				}
 				.c-suitelist__price-card, .c-suitelist__detail-card {
-	
-				    border: 1px solid #777777 !important;
-				    border-top: none !important;
-				    border-bottom: none !important;
+				    background-color: rgba(230,230,230,0.2);
+				    
 				}
 				
 				.c-suitelist__image-card {
-	
-				    border: 1px solid #777777 !important;
-				    border-bottom: none !important;
+				    background-color: rgba(230,230,230,0.2);
 				}
+				
 			
 			}
 		}
@@ -389,7 +390,6 @@
             
             &-card {
             	width:100%;
-            	margin-top: 22px;
             	overflow: hidden;
             	 @media screen and (max-width: 767px) {
             	 	margin-top: 0px;
@@ -410,7 +410,7 @@
         }
 
         .c-suitelist__detail {
-            padding: 0 15px 0 10px;
+            padding: px;
             width: 30%;
             
             &__title {
@@ -422,7 +422,12 @@
 	            	
             		@media (min-width: 769px) {
 	            		margin-bottom: 0px;
-    					height: 45px;
+    					font-size: 18px;
+					    padding: 0px;
+					    padding-top: 5px;
+					    height: 30px;
+					    overflow: hidden;
+					    margin-top: 8px;
 	            	}
 	            	
 	            	@media screen and (max-width: 767px) {
@@ -436,20 +441,25 @@
              &__description {
                 
                  &-card {
-	            	font-size: 12px;
+	            	font-size: 11px;
+	            	@media (min-width: 769px) {
+	            		height: 20px;
+	    				overflow: hidden;
+                	}
+                	@media (max-width: 768px) {
+	            		font-size: 10px;
+                	}
 	            }
             }
             
              &-card {
             	width:100%;
-            	background-color: @grey-l;
+            	background-color: white;
             	text-align: center;
-            	padding-top:18px;
             }
         }
 
         .c-suitelist__price {
-            border: 1px solid @grey--d;
             border-width: 0 1px;
             padding: 0 10px;
             text-align: center;
@@ -457,9 +467,9 @@
             
             &-card {
             	width:100%;
-            	 border: 1px solid @grey-l;
-            	background-color: @grey-l;
+            	background-color: white;
             	padding-top:14px;
+            	border: none;
             	
             	@media (min-width: 769px) {
             		display: table;
@@ -474,7 +484,7 @@
             }
             
             &-from {
-            	font-size: 12px;
+            	font-size: 11px;
             }
             
             &__text {
@@ -487,7 +497,10 @@
             
             &__text--important2 {
             	margin: 0px;
-            	font-size: 21px;
+            	font-size: 18px;
+            }
+            &__text--important {
+            	font-size: 18px;
             }
         }
 
@@ -498,7 +511,7 @@
             
             &-card {
             	width:100%;
-            	background-color: @grey-l;
+            	background-color: white;
 			    padding-left: 25%;
     			padding-right: 25%;
     			padding-top: 18px;
@@ -507,7 +520,7 @@
 			    
 			     @media screen and (max-width: 767px) {
             	 	margin-top: 0px;
-            	 	margin-bottom: 27px;
+            	 	margin-bottom: 0px;
             	 }
     			
     			.request-quote {
@@ -522,10 +535,10 @@
     				text-align: center;
 				    text-transform: uppercase;
 				    text-decoration: underline;
-				    font-weight: bold;
 				    font-size: 10.5px;
 				    padding: 0;
 				    padding-right: 6px;
+				    font-weight: bold;
     			}
             }
             
@@ -576,10 +589,12 @@
     	}
     	
  }
+
+
 .modal-content--transparent-suite {
     	
     	.modal-body {
-		  background-color: #eee;
+		  background-color: white;
 		  padding-top: 0px !important;
 		  padding-bottom: 0px;
 		}
@@ -604,7 +619,7 @@
 		    	position: fixed;
     			z-index: 1000;
     			width: 100%;
-    			-webkit-overflow-scrolling: touch;
+    			top: 0px;
 		    }
 		    
 		    .close:before {
@@ -639,6 +654,7 @@
     
      @media (max-width: 768px) {
    		background-color: white;
+    	padding-right: 0px;
     }
     
     .features-ul {
@@ -653,10 +669,12 @@
     	
 	    @media (max-width: 768px) {
     		height: 462px;
-    		margin-bottom: -34px;	
+    		margin-bottom: -34px;
+    		padding-top: 0%;	
     	}
     	@media (max-width: 767px) {
     		height: 220px;
+    		padding-top: 10%;
     	}
     }
     
@@ -668,11 +686,11 @@
 	    background-position: center center;
 	    background-repeat: no-repeat;
 	    background-size: cover;
-	    cursor: pointer;
 	    height: 537px;
 	    margin: 0;
 	    position: relative;
 	    width: 100%;
+	    cursor: default;
 	    
 	    @media (max-width: 768px) {
     		height: 452px
@@ -685,7 +703,7 @@
     &-info {
     	@media (min-width: 769px) {
     		overflow-y: auto;
-	    	max-height: 194px;
+	    	max-height: 344px;
     	}
     }
     
@@ -738,40 +756,42 @@
     }
     
     .nav-tabs>li {
-	    display: table-cell;
-	    text-align: center;
-	    width: 20%;
+	    //display: table-cell;
+	    text-align: left;
+	    //width: 20%;
 	}
 	    
     .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
 	    color: white;
 	    background-color: #333;
-	   border: 0px solid #333;
+	   border: 1px solid #333;
 	}
 	
 	.nav-tabs>li>a:hover {
-    	background-color: #ddd;
-    	border: 0px solid white;
+    	background-color: white;	
+    	border: 1px solid #333;
 	}
 	.nav>li>a {
 	    padding: 8px 12px;
 	    border-radius: 0px;
-    	border: none;
+    	border: 1px solid white;
 	}    
     
 	
     hr {
     	width: 32%;
 	    border-top-width: 2px;
-	   
+	   	margin-top: 5px;
+    	margin-bottom: 5px;
+    	
         @media (max-width: 768px) {
-		   	width: 87%;
+		   	width: 97%;
     		border-top-width: 1px;
     		margin-top: 18px;
     		margin-bottom: 7px;
 	   }
 	    @media (max-width: 767px) {
-    		margin-top: 16px;
+    		margin-top: 28px;
     		margin-bottom: 8px;
 	   }
     }
@@ -788,8 +808,8 @@
         }
     	
     	@media (max-width: 767px) {
-    		bottom: 0px;
-    		right: 18px;
+    		bottom: -37px;
+    		right: 15px;
     	}
     }
     
@@ -799,9 +819,8 @@
         padding-left: 0px;
     }
     &-right-side {
-        border-left: 1px solid #D8D8D8;
-        margin-top: -21px;
-        padding-top: 55px;
+        padding-top: 22px;
+        height: 558px;
     }
     &-navtabs {
         text-transform: uppercase;
@@ -823,14 +842,17 @@
         margin: 7px 0 26px;
         text-transform: uppercase;
         text-align: center;
+        margin-top: 0px;
         @media (max-width: 768px) {
-        	margin-bottom: 16px;
-        	margin-top: 54px;
+        	margin-bottom: 12px;
+        	margin-top: 35px;
   	        font-size: 37px;
   	        line-height: 26px;
         }
         @media (max-width: 767px) {
   	        font-size: 31px;
+  	        margin-bottom: 16px;
+  	        margin-top: 85px;
         }
         
         &-section {
@@ -853,6 +875,7 @@
         padding-left: 6px;
         font-family: Open Sans, arial, helvetica, sans-serif;	
         cursor: default;
+        margin-right: 5px;
         @media (max-width: 768px) {
         	font-size: 15px;
         	padding-bottom: 0px;
@@ -898,7 +921,14 @@
     &-price {
         text-align: center;
         font-size: 11px;
-        padding-top: 80px;
+        padding-top: 28px;
+        @media (min-width: 769px) {
+	        bottom: 25px;
+	    	position: absolute;
+	    	left: 50%;
+	    	transform: translateX(-50%);
+        }
+    	
         p {
             line-height: 22px;
             span {
@@ -912,10 +942,10 @@
     	&-mobile {
     		@media (max-width: 768px) {
     			padding-top: 18px;
-	    		margin-bottom: 25px;
+	    		margin-bottom: 80px;
     		}
     		@media (max-width: 767px) {
-    			padding-top: 18px;
+    			padding-top: 0px;
     		}
     		
     		hr {
@@ -947,6 +977,13 @@
     			transform: translateY(-50%);
     		}
     	}
+    	
+    	.c-suite-detail-modal-title-section {
+    		@media (max-width: 767px) {
+	    		margin-top: 18px;
+   				margin-bottom: 2px;
+    		}
+    	}
     }
     
     #suite-location {
@@ -974,6 +1011,7 @@
 				    padding-top: 17px;
     				padding-right: 4px;
     				padding-left: 47px;
+    				font-size: 13px;
 			    }
 			    @media screen and (max-width: 767px) {
 			        column-count: 1;
@@ -989,7 +1027,7 @@
 
 			}
   		   @media screen and (max-width: 768px) {
-			  ul.expand-ul li:nth-of-type(1n+12) {
+			  ul.expand-ul li:nth-of-type(1n+20) {
 			    display: none;
 			  }
 			}
@@ -1003,22 +1041,30 @@
 					display: none;
 				}
 			}
+			.c-suite-detail-modal-title-section {
+	    		@media (max-width: 767px) {
+		    		margin-top: 24px;
+	   				margin-bottom: 2px;
+	    		}
+	    	}
     }
     
 	::-webkit-scrollbar {
-		width: 10px;
+		width: 6px;
 	}
 
 	::-webkit-scrollbar-track {
-		background: #f2f2f2;
+		background: #ddd;
+		border-radius: 6px;
 	}
 	
 	::-webkit-scrollbar-thumb {
-		border-radius: 7px;
-		background: #ccc;
-		border: 4px solid transparent;
+		border-radius: 6px;
+		background: #808080ab;
+		border: 2px solid transparent;
 		background-clip: content-box;
 	}
+
 
     .c-slider .slick-prev:before,
 	.port_v2__postcarousel .slick-prev:before,
