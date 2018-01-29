@@ -220,6 +220,7 @@
 											data-waitlist="${'waitlist' @ i18n}"
 											data-view-all="${'view-more' @ i18n}"
 											data-close="${'close' @ i18n}"
+											data-per-guest="${'fares-shown-are-per-guest' @ i18n}"
 											data-view-less="${'view-less' @ i18n}">
 			<div data-sly-repeat="${cruise.prices}" class="panel col-xs-12 col-sm-6 col-md-4 col-lg-4 automatic-modal-suite-detail" data-target=".bs-modal-lg" id="c-suite-card-${itemList.index}" data-currency="${item.lowestPrice.currency @ i18n}">
 						 <script data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.locationImage,  metadata='deckNumber'}"  data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.suite.plan}">

@@ -520,6 +520,7 @@ $(function() {
         	var viewAll = (myThis.parent().data('view-all') != null) ? myThis.parent().data('view-all')   : "";
         	var viewLess = (myThis.parent().data('view-less') != null) ? myThis.parent().data('view-less')   : "";
         	var close = (myThis.parent().data('close') != null) ? myThis.parent().data('close')   : "";
+        	var  perGuest = (myThis.parent().data('per-guest') != null) ? myThis.parent().data('per-guest')   : "";
         	var from = "";
         	
         	//suite values
@@ -552,6 +553,9 @@ $(function() {
 				for(item in assetSelectionReferenceList) {
 					assetSelectionToRender += '<div class="slider-item">';
 					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[item] +'?wid=1200&fit=hfit,1)"></div>';
+					if (item == 0) {
+						assetSelectionToRender += '<div class="c-suite-loader"></div>'; 
+					}
 					assetSelectionToRender += '</div>'; 
 				}
 			}
@@ -609,6 +613,9 @@ $(function() {
 		$modalContent  = $modalContent.replace("c-suitelist-view-all-placeholder", viewAll);
 		$modalContent  = $modalContent.replace("c-suitelist-view-less-placeholder", viewLess);
 		$modalContent  = $modalContent.replace("c-suitelist-close-placeholder", close);
+		$modalContent  = $modalContent.replace("c-suitelist-per-guest-placeholder", perGuest);
+		$modalContent  = $modalContent.replace("c-suitelist-per-guest-placeholder-1", perGuest);
+
 
 		// HTML layout values
 		$modalContent  = $modalContent.replace("c-suitelist-title-placeholder", title);
@@ -803,11 +810,14 @@ $(function() {
 			});
 			
 			$(this).find(".suite-features-expand a.view_less").on("click", function(e) {
+				
 				e.preventDefault();
 				$("#suite-features ul").addClass("expand-ul");
 				$(".suite-features-expand a.view_all").show();
 				$(this).hide();
-
+		        $('.modal-body').animate({
+		            scrollTop: $('.suite-features-title').offset().top / 5 
+		        }, 500);
 			});
 			
 			//create virtual tour on desktop
