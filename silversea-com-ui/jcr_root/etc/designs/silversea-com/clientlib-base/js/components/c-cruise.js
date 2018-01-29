@@ -520,7 +520,6 @@ $(function() {
         	var viewAll = (myThis.parent().data('view-all') != null) ? myThis.parent().data('view-all')   : "";
         	var viewLess = (myThis.parent().data('view-less') != null) ? myThis.parent().data('view-less')   : "";
         	var close = (myThis.parent().data('close') != null) ? myThis.parent().data('close')   : "";
-        	var  perGuest = (myThis.parent().data('per-guest') != null) ? myThis.parent().data('per-guest')   : "";
         	var from = "";
         	
         	//suite values
@@ -613,8 +612,6 @@ $(function() {
 		$modalContent  = $modalContent.replace("c-suitelist-view-all-placeholder", viewAll);
 		$modalContent  = $modalContent.replace("c-suitelist-view-less-placeholder", viewLess);
 		$modalContent  = $modalContent.replace("c-suitelist-close-placeholder", close);
-		$modalContent  = $modalContent.replace("c-suitelist-per-guest-placeholder", perGuest);
-		$modalContent  = $modalContent.replace("c-suitelist-per-guest-placeholder-1", perGuest);
 
 
 		// HTML layout values
