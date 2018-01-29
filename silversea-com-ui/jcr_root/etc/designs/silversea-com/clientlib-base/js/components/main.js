@@ -240,3 +240,82 @@ if(currentReferrer != ""){
 		createCookie("currentReferrer", currentReferrer, 1);
 	}
 }
+
+
+//KONAMI CODE
+$(function() {
+
+	
+	var k = [38, 38, 40, 40, 37, 39, 37, 39],
+	n = 0;
+	$(document).keydown(function (e) {
+	    if (e.keyCode === k[n++]) {
+	    	console.log('yes');
+	        if (n === k.length) {
+	        	$('body').append("<a href='https://www.silversea.com/request-quote.html'><canvas id=q style='position: absolute;top: 0;z-index: 999999;'></a>")
+	        	 for (s = window.screen,
+	                     w = q.width = s.width, // on my monitor: 1920
+	                     h = q.height = s.height,  // on my monitor: 1200
+	                     m = Math.random,   // random number from 0-1
+	                     p = [],
+	                     i = 0; 
+
+	                     // i ranges from 0 to 255, one element for each character horizontally
+	                     // this is enough characters to fill the entire screen horizontally
+	                     // canvas won't let you draw off the screen - so I could set this to 1000
+	                     i < 256;
+
+	                     // initialize p (the y coordinate of each character) to start at 1
+	                     p[i++] = 1);
+
+	                setInterval(
+	                    // every time we call this function we draw the entire screen a very faint black (with a high transparency of 0.05)
+	                    // this means every 33 milliseconds the screen is getting slightly darker
+	                    // this also acts to darken and fade the green characters - when they are first printed they are dark green, then they slowly fade to black
+	                    function() {
+	                        // draw black (0,0,0) with alpha (transparency) value 0.05
+	                        q.getContext('2d').fillStyle='rgba(0,0,0,0.05)';
+	                        // fill the entire screen
+	                        q.getContext('2d').fillRect(0,0,w,h);
+	                        // #0f0 is a short form for color green (#00FF00)
+	                        q.getContext('2d').fillStyle='#0F0';
+
+	                        p.map(
+	                            // this function will be called 256 times - once for each element of array p, 
+	                            function(v,i){
+	                            // map over the array p
+	                            //      v is the value in the array p, which represents the y-coordinate of the text going down
+	                            //      i is the index of the array p, which represents the x coordinate
+	                            // start from unicode char code 30,000 (0x7530) then add a random number from 0-33
+	                            // from wikipedia: http://en.wikipedia.org/wiki/List_of_CJK_Unified_Ideographs,_part_2_of_4
+	                            //      U+753x 	田 	由 	甲 	申 	甴 	电 	甶 	男 	甸 	甹 	町 	画 	甼 	甽 	甾 	甿
+	                            //      U+754x 	畀 	畁 	畂 	畃 	畄 	畅 	畆 	畇 	畈 	畉 	畊 	畋 	界 	畍 	畎 	畏
+	                            //      U+755x 	畐
+	                            randomNum = m()*33;
+	                            // note how the asian characters are slightly different shades
+	                            // of green, this depends on their line thickness etc, and doesn't
+	                            // really happen for english characters
+	                            randomAsianChar = "RAQ";//String.fromCharCode(30000 + randomNum);
+
+	                            q.getContext('2d').fillText(
+	                                randomAsianChar, 
+	                                i*30,   // x coordinate - each character is 10 x 10
+	                                v       // y coordinate 
+	                            );
+	                            // draw at least 758 characters down before reseting to the start
+	                            minimumHeight=758
+	                            num = minimumHeight+m()*10000;
+	                            p[i] = (v>num) ? 0 : v+10   // increment the y coordinate by one character (10 pixels), reset when y-coord gets too big
+	                            })
+	                    },
+	                    33)
+	        	
+	            n = 0;
+	            return false;
+	        }
+	    }
+	    else {
+	        n = 0;
+	    }
+	});
+});
