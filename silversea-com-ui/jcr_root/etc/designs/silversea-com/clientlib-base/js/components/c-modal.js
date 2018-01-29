@@ -7,12 +7,22 @@ $(function() {
 
         $('body').removeClass('modal-open');
         
+        if ($('header').nextAll().hasClass("c-cruise") && $(".modal-content").hasClass("modal-content--transparent-suite")) {
+        	$('html').removeClass("no-scroll-html");
+        	$('body').removeClass("no-scroll-body");
+        	
+        	if (window.suiteDesktop == false) {
+        		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
+        	}
+        }
+        
         var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
 
         // Force to default class
         $modalContent.attr('class', 'modal-content');
-        $('html').css("overflow", "");
+
+        
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
         	window.virtualTour.destroy();
         	window.virtualTour = null;

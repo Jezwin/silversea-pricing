@@ -449,6 +449,12 @@ $(function() {
     /***************************************************************************
      * Build modal for suite detail
      **************************************************************************/
+    
+    $(window).on('popstate', function() { 
+        $(".modal").modal('hide');
+      });
+    
+    
     $(window).on("resize", function() {
     	//check if it is the cruise page
     	if ($('header').nextAll().hasClass("c-cruise") && $(".modal-content").hasClass("modal-content--transparent-suite")) {
@@ -492,6 +498,10 @@ $(function() {
     
     
     function createSuiteDetailLightbox(template) {
+		$('html').addClass("no-scroll-html");
+		// Activate Modal
+        $('body').addClass("no-scroll-body");
+        
     	var myThis = $("#"+window.cruiseIDShowed);
     	
         if (window.hasOwnProperty("cruiseItem") && window.cruiseItem != null) {
@@ -511,6 +521,7 @@ $(function() {
         	var viewAll = (myThis.parent().data('view-all') != null) ? myThis.parent().data('view-all')   : "";
         	var viewLess = (myThis.parent().data('view-less') != null) ? myThis.parent().data('view-less')   : "";
         	var close = (myThis.parent().data('close') != null) ? myThis.parent().data('close')   : "";
+        	var  perGuest = (myThis.parent().data('per-guest') != null) ? myThis.parent().data('per-guest')   : "";
         	var from = "";
         	
         	//suite values
@@ -542,7 +553,10 @@ $(function() {
 				var assetSelectionReferenceList = assetSelectionReference.split("#next#");
 				for(item in assetSelectionReferenceList) {
 					assetSelectionToRender += '<div class="slider-item">';
-					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[item] +'?wid=930&fit=hfit,1)"></div>';
+					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[item] +'?wid=1200&fit=hfit,1)"></div>';
+					if (item == 0) {
+						assetSelectionToRender += '<div class="c-suite-loader"></div>'; 
+					}
 					assetSelectionToRender += '</div>'; 
 				}
 			}
@@ -600,6 +614,9 @@ $(function() {
 		$modalContent  = $modalContent.replace("c-suitelist-view-all-placeholder", viewAll);
 		$modalContent  = $modalContent.replace("c-suitelist-view-less-placeholder", viewLess);
 		$modalContent  = $modalContent.replace("c-suitelist-close-placeholder", close);
+		$modalContent  = $modalContent.replace("c-suitelist-per-guest-placeholder", perGuest);
+		$modalContent  = $modalContent.replace("c-suitelist-per-guest-placeholder-1", perGuest);
+
 
 		// HTML layout values
 		$modalContent  = $modalContent.replace("c-suitelist-title-placeholder", title);
@@ -653,21 +670,28 @@ $(function() {
 			$modalContent  = $modalContent.replace("c-suitelist-virtual-tour-placeholder", virtualTourToRender);
 			$modalContent  = $modalContent.replace("c-suitelist-nav-virtual-tour-placeholder", navVirtualTour);
 		}
-    			
-		$('html').css("overflow", "hidden");
-		// Activate Modal
-        $('body').addClass('modal-open');
 
+    			
+
+        $('body').addClass('modal-open');
         $(myThis.data('target')).modal('show');
-		
+         
 		$('.modal').on('shown.bs.modal', function(e) {
+            
+			var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
+			history.pushState(null, null, urlReplace); // push state that hash into the url
 			
 		  var $modal = $(this);
             $modal.off('shown.bs.modal'); //fix bug with modal gallery
 		    
 			$(this).find('.modal-dialog').empty().append($modalContent);
 			$(".modal-dialog").css("padding-top","0%"); //remove padding-top only on this modal
-
+			if (window.suiteDesktop == false) {
+				$(".modal-content--transparent-suite").parent().parent().css("display", "block"); //remove when modal is close
+				$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "hidden"); //remove when modal is close
+				$(".modal-content--transparent-suite .modal-body").css("overflow-y", "scroll");
+				$(".modal-content--transparent-suite .modal-body").css("max-height", "100vh");
+			}
 			//logic to put active tab
 			var numTab = 0; 
 			if (assetSelectionReference != null) {
@@ -731,7 +755,7 @@ $(function() {
     		}
     		
     		//logic to use all space in tab
-    		$(".c-suite-detail-modal-navtabs li").css("width", (100 / numTab) + "%");
+    		//$(".c-suite-detail-modal-navtabs li").css("width", (100 / numTab) + "%");
 			
     		//create slider
 			 var $slideFor = $(this).find('.c-slider').slick({
@@ -780,15 +804,21 @@ $(function() {
 			
 			//action for view all view less features
 			$(this).find(".suite-features-expand a.view_all").on("click", function(e) {
+				e.preventDefault();
 				$("#suite-features ul").removeClass("expand-ul");
 				$(".suite-features-expand a.view_less").show();
 				$(this).hide();
 			});
 			
 			$(this).find(".suite-features-expand a.view_less").on("click", function(e) {
+				
+				e.preventDefault();
 				$("#suite-features ul").addClass("expand-ul");
 				$(".suite-features-expand a.view_all").show();
 				$(this).hide();
+		        $('.modal-body').animate({
+		            scrollTop: $('.suite-features-title').offset().top / 5 
+		        }, 500);
 			});
 			
 			//create virtual tour on desktop
