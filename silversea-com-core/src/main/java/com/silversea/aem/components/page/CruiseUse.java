@@ -228,7 +228,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 			// Security adaptation: If voyage is in the past-do not display them
 			List<CruiseModelLight> newAllCruises = new ArrayList<>();
 			for (CruiseModelLight cruise : allCruises) {
-				if (cruise.getStartDate().after(Calendar.getInstance())) {
+				if (cruise.getStartDate().after(Calendar.getInstance()) && cruise.isVisible()) {
 					newAllCruises.add(cruise);
 				}
 			}
