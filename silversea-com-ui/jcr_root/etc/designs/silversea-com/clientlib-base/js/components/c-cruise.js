@@ -449,11 +449,11 @@ $(function() {
     /***************************************************************************
      * Build modal for suite detail
      **************************************************************************/
-    
-    $(window).on('popstate', function() { 
-        $(".modal").modal('hide');
-      });
-    
+    $(window).on('hashchange', function (event) {
+        if(window.location.hash != "#modal") {
+            $('.modal').modal('hide');
+        }
+    });
     
     $(window).on("resize", function() {
     	//check if it is the cruise page
@@ -501,6 +501,7 @@ $(function() {
 		$('html').addClass("no-scroll-html");
 		// Activate Modal
         $('body').addClass("no-scroll-body");
+
         
     	var myThis = $("#"+window.cruiseIDShowed);
     	
@@ -823,6 +824,14 @@ $(function() {
 		            scrollTop: $('.suite-features-title').offset().top - 10
 		        }, 500);*/
 			});
+			
+			
+			$(this).find(".close").on("click", function(e) {
+				
+				e.preventDefault();
+				history.back();
+			});
+			
 			
 			//create virtual tour on desktop
 			$(this).find(".c-suite-detail-virtual-tour-lightbox").on("click", function(e) {
