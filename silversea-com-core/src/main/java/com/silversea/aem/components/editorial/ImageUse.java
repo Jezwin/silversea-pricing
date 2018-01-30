@@ -25,14 +25,16 @@ public class ImageUse extends WCMUsePojo {
         Integer sliderWidth = null;
         if(parentSlider != null){
         	//We are in a slider 
-        	if(parentSlider.getValueMap().get("sling:resourceType", String.class).equalsIgnoreCase("silversea/silversea-com/components/editorial/slider")){
-        		Integer itemToDisplay = parentSlider.getValueMap().get("itemNumber", Integer.class);
-        		if(itemToDisplay != null){
-        			sliderWidth = 12 / itemToDisplay;
-        			if(itemToDisplay > 1){
-        				sliderWidth = sliderWidth + 1;
-        			}
-        		}
+        	if(parentSlider.getValueMap() != null && parentSlider.getValueMap().get("sling:resourceType", String.class) != null){
+	        	if(parentSlider.getValueMap().get("sling:resourceType", String.class).equalsIgnoreCase("silversea/silversea-com/components/editorial/slider")){
+	        		Integer itemToDisplay = parentSlider.getValueMap().get("itemNumber", Integer.class);
+	        		if(itemToDisplay != null){
+	        			sliderWidth = 12 / itemToDisplay;
+	        			if(itemToDisplay > 1){
+	        				sliderWidth = sliderWidth + 1;
+	        			}
+	        		}
+	        	}
         	}
         }
         
