@@ -8,7 +8,7 @@ $(function() {
             var s7videoviewer = new s7viewers.VideoViewer({
                 'containerId' : $video.attr('id'),
                 'params' : {
-                    'ssl' : 'on',
+                    'VideoPlayer.ssl' : 'on',
                     'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
                     'contenturl' : 'https://silversea.assetsadobe.com/',
                     'config' : 'etc/dam/presets/viewer/Video',
