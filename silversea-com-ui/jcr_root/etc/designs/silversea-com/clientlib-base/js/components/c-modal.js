@@ -14,7 +14,7 @@ $(function() {
         		history.back();
         	}
             
-        	window.backNavigation = false;
+        	 setTimeout(function(){window.backNavigation = false;},200);
         	
         	if (window.suiteDesktop == false) {
         		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
