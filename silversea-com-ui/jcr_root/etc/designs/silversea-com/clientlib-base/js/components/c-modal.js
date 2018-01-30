@@ -13,6 +13,7 @@ $(function() {
         	if (!window.backNavigation) {
         		history.back();
         	}
+        	window.backNavigation = false;
         	
         	if (window.suiteDesktop == false) {
         		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
