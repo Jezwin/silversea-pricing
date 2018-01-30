@@ -1,6 +1,6 @@
 <template data-sly-template.default="${ @ cruise }">
     <div class="c-cruise__itineraries">
-        <h3 class="c-cruise__subtitle">${'cruise-itinerary' @ i18n}</h3>
+        <span class="c-cruise__subtitle alternative-h">${'cruise-itinerary' @ i18n}</span>
         <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
 	        <p class="c-cruise__descr ab-test-v2-hide">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description' @ i18n}</span>
@@ -91,4 +91,5 @@
 	 	<sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
 	       		data-sly-call="${suitelist.abTestVersion2 @ cruise=cruise}" />
    	</div>
+  	
 </template>
