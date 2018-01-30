@@ -13,6 +13,7 @@ $(function() {
         	if (!window.backNavigation) {
         		history.back();
         	}
+        	console.log("put false");
         	window.backNavigation = false;
         	
         	if (window.suiteDesktop == false) {
