@@ -12,7 +12,7 @@
                         data-sly-call="${imageTemplate.lazy @ imagePath=item.suite.thumbnail, width=930}" />
                 </div>
                 <div class="c-suitelist__detail">
-                    <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
+                    <span class="c-suitelist__detail__title alternative-h" data-sly-text="${item.suite.title}"></span>
                     <p class="c-suitelist__detail__description">${item.suite.suiteSubTitle @ context='html'}</p>
                 </div>
                 <div class="c-suitelist__price">
@@ -113,7 +113,7 @@
                         data-sly-call="${imageTemplate.lazy @ imagePath=item.suite.thumbnail, width=930}" />
                 </div>
                 <div class="c-suitelist__detail">
-                    <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
+                    <span class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></span>
                     <p class="c-suitelist__detail__description">${item.suite.suiteSubTitle @ context='html'}</p>
                 </div>
                 <div class="c-suitelist__price">
@@ -250,7 +250,7 @@
 		                        data-sly-call="${imageTemplate.default @ imagePath=item.suite.thumbnail}" />
 		                </div>
 		                <div class="c-suitelist__detail c-suitelist__detail-card">
-		                    <h3 class="c-suitelist__detail__title c-suitelist__detail__title-card" data-sly-text="${item.suite.title}"></h3>
+		                    <span class="c-suitelist__detail__title c-suitelist__detail__title-card" data-sly-text="${item.suite.title}"></span>
 		                    <p class="c-suitelist__detail__description c-suitelist__detail__description-card">${item.suite.suitesubtitleUpTo @ context='html'}</p>
 		                </div>
 		                <div class="c-suitelist__price c-suitelist__price-card ${item.isWaitList ? 'c-suitelist__price-card-whitelist' : ''}">
