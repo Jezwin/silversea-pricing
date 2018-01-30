@@ -448,11 +448,11 @@ $(function() {
     /***************************************************************************
      * Build modal for suite detail
      **************************************************************************/
-    
-    $(window).on('popstate', function() { 
-        $(".modal").modal('hide');
-      });
-    
+    $(window).on('hashchange', function (event) {
+        if(window.location.hash != "#modal") {
+            $('.modal').modal('hide');
+        }
+    });
     
     $(window).on("resize", function() {
     	//check if it is the cruise page
@@ -500,6 +500,7 @@ $(function() {
 		$('html').addClass("no-scroll-html");
 		// Activate Modal
         $('body').addClass("no-scroll-body");
+
         
     	var myThis = $("#"+window.cruiseIDShowed);
     	
