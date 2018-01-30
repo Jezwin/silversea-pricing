@@ -452,7 +452,6 @@ $(function() {
     $(window).on('hashchange', function (event) {
         if(window.location.hash != "#modal") {
         	window.backNavigation = true;
-        	alert("put true");
             $('.modal').modal('hide');
         }
     });
