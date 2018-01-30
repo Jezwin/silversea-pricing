@@ -245,7 +245,7 @@
 							var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
 							window.cruiseItem[key].assetSelectionReference =  "${setImage.renditionListString @ context='scriptString'}";
 						</script>
-		                <div class="c-suitelist__content">
+		                <div class="c-suitelist__content" id="suite-card-v2-${itemList.index}">
 			                <div class="c-suitelist__image c-suitelist__image-card" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
 		        	           <sly data-sly-test="${item.suite.thumbnail}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
 		        	           	    data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}" />
@@ -287,12 +287,12 @@
 			                    </sly>
 			                </div>
 		                	<div class="c-suitelist__button c-suitelist__button-card">
-			                    <a class="btn btn-thin btn-red effect btn-request-a-quote" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+			                    <a class="btn btn-thin btn-red effect btn-request-a-quote" id="suite-card-v2-raq-${itemList.index}" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
 			                        href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">
 			                        <span>${'request-quote' @i18n}</span>
 									<i class="fa fa-angle-right"></i>			                        
 			                    </a>
-			                    <a class="btn-view-more-detail">
+			                    <a class="btn-view-more-detail" id="suite-card-v2-more-detail-${itemList.index}">
 			                        <span>${'view-more-details' @ i18n}</span>
 			                    </a>
 			                </div>
