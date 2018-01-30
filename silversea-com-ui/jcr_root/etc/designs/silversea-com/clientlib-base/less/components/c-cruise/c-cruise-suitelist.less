@@ -354,6 +354,18 @@ a
     	
     	@media (min-width: 769px) {
 	    	.panel:hover {
+	    		
+	    		
+	    		div.c-suitelist__image.c-suitelist__image-card div {
+				  -moz-transform: scale(1.2);
+				  -webkit-transform: scale(1.2);
+				   transform: scale(1.2);
+				   -moz-transition: all 1.2s;
+				   -webkit-transition: all 1.2s;
+				   transition: all 1.2s;
+						
+				}
+				
 		    	img {
 				  -moz-transform: scale(1.2);
 				  -webkit-transform: scale(1.2);
@@ -411,6 +423,9 @@ a
             &-card {
             	width:100%;
             	overflow: hidden;
+            	position: relative;
+            	height: 210px;
+            	
             	 @media screen and (max-width: 767px) {
             	 	margin-top: 0px;
             	 	margin-bottom: 15px;
@@ -1045,6 +1060,7 @@ a
     	}	
     	
     	img {
+	    	max-height: 100%;
     		@media (min-width: 769px) {
     			top: 50%;
     			position: relative;
@@ -1061,6 +1077,7 @@ a
     }
     
     #suite-location {
+    	
     	@media (max-width: 768px) {
     		padding: 0;
     		

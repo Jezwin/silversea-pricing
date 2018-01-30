@@ -247,9 +247,8 @@
 						</script>
 		                <div class="c-suitelist__content">
 			                <div class="c-suitelist__image c-suitelist__image-card" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
-			                    <sly data-sly-test="${item.suite.thumbnail}"
-		    	                	data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-		        	                data-sly-call="${imageTemplate.default @ imagePath=item.suite.thumbnail}" />
+		        	           <sly data-sly-test="${item.suite.thumbnail}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+		        	           	    data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}" />
 			                </div>
 			                <div class="c-suitelist__detail c-suitelist__detail-card">
 			                    <h3 class="c-suitelist__detail__title c-suitelist__detail__title-card" data-sly-text="${item.suite.title}"></h3>
