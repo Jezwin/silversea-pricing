@@ -467,7 +467,9 @@ $(function() {
             	template = window.templateSuiteDetailMobile;
     		} 
     		if (template !=null && window.cruiseIDShowed != null) {
-    			$('body > .modal .modal-content.modal-content--transparent-suite .close').click();
+    			//$('body > .modal .modal-content.modal-content--transparent-suite .close').click();
+                $('.modal').modal('hide');
+
     			var intervalDiv = setInterval(function(){
 	    			if (!$("body").hasClass("modal-open")) {
 	    				clearInterval(intervalDiv);
