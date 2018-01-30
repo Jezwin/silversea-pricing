@@ -13,6 +13,10 @@ $(function() {
         	
         	if (window.suiteDesktop == false) {
         		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
+        		$(window).on('popstate', null);
+				if(window.iNoBounce != null) {
+					window.iNoBounce.disable();
+				} 
         	}
         }
         

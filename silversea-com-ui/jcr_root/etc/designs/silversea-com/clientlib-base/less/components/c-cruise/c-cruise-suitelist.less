@@ -5,6 +5,26 @@
         }
     }
 
+
+    .btn-request-a-quote {
+    	padding: 8px 20px !important;
+	    font-size: 11px !important;
+	    font-weight: 400 !important;
+	    width: 100% !important;
+	    @media (max-width: 768px) {
+	    	 width: 155px !important;
+    		margin-left: 9px;
+	    }
+	 
+	    
+	    @media (max-width: 767px) {
+	    	width: 100% !important;
+    		padding: 9px 12px !important;
+    		margin-left: 0px;
+    		
+	    }
+    }
+    
     &__heading {
         cursor: pointer;
         transition: background-color 300ms, opacity 300ms;
@@ -327,7 +347,7 @@ a
     	.c-suitelist__content {
     		border: 1px solid @grey-l !important;
     		margin-top: 11px;
-    		@media(min-width: 769px) {
+    		@media(min-width: 768px) {
 	    		display: inline-block;
     		}
     	}
@@ -430,6 +450,10 @@ a
 					    margin-top: 8px;
 	            	}
 	            	
+            	 	@media screen and (max-width: 768px) {
+					    margin-top: 8px;
+            	 	}
+            	 	
 	            	@media screen and (max-width: 767px) {
             	 		margin-bottom: 0px;
             	 		padding-top: 12px;
@@ -597,6 +621,11 @@ a
 		  background-color: white;
 		  padding-top: 0px !important;
 		  padding-bottom: 0px;
+		  
+		  @media(max-width : 768px) {
+		  	overflow-x: hidden;
+		  }
+		  
 		}
 		
 		.close {
@@ -661,6 +690,8 @@ a
     	max-height: 530px;
     	overflow-y: scroll;
     }
+    
+    
     
     @media (min-width: 769px) {
 	    .c-suite-loader {
@@ -887,6 +918,9 @@ a
   	        margin-top: 85px;
         }
         
+         @media (max-width: 737px) {
+  	        margin-top: 114px;
+        }
         &-section {
         	@media (max-width: 768px) {
         		font-size: 30px; 
@@ -1024,6 +1058,9 @@ a
     		
     		.o-img {
     			max-width: 105%;
+    			@media (max-width: 767px) {
+	    			max-width: 100%;
+	    		}
     		}
     		.c-suite-detail-modal-title-section {
 	    		@media (max-width: 767px) {
@@ -1065,7 +1102,7 @@ a
 
 			}
   		   @media screen and (max-width: 768px) {
-			  ul.expand-ul li:nth-of-type(1n+20) {
+			  ul.expand-ul li:nth-of-type(1n+10) {
 			    display: none;
 			  }
 			}
