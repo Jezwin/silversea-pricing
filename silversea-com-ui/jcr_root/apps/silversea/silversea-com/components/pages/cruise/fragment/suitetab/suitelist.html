@@ -211,17 +211,17 @@
 											data-from="${'from' @ i18n}"
 											data-nav-description="${'overview' @i18n}" 
 											data-nav-plan="${'suite-plan' @i18n}" 
-											data-nav-features="${'features' @i18n}"
+											data-nav-features="${'suite-features' @i18n}"
 											data-nav-location="${'suite-location' @i18n}" 
 											data-nav-virtual-tour="${'virtual-tour' @i18n}" 
 											data-request-quote="${'request-quote' @i18n}" 
 											data-early-bonus="${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}" 
 											data-deck="${'deck' @ i18n}"
 											data-waitlist="${'waitlist' @ i18n}"
-											data-view-all="${'view-more' @ i18n}"
+											data-view-all="${'view-more-features' @ i18n}"
 											data-close="${'close' @ i18n}"
 											data-per-guest="${'fares-shown-are-per-guest' @ i18n}"
-											data-view-less="${'view-less' @ i18n}">
+											data-view-less="${'view-less-features' @ i18n}">
 			<div data-sly-repeat="${cruise.prices}" class="panel col-xs-12 col-sm-6 col-md-4 col-lg-4 automatic-modal-suite-detail" data-target=".bs-modal-lg" id="c-suite-card-${itemList.index}" data-currency="${item.lowestPrice.currency @ i18n}">
 						 <script data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.locationImage,  metadata='deckNumber'}"  data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.suite.plan}">
 							var value = {};
@@ -288,9 +288,10 @@
 			                    </sly>
 			                </div>
 		                	<div class="c-suitelist__button c-suitelist__button-card">
-			                    <a class="btn btn-thin btn-red effect btn-thin request-quote link-request-quote-card" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+			                    <a class="btn btn-thin btn-red effect btn-request-a-quote" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
 			                        href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">
 			                        <span>${'request-quote' @i18n}</span>
+									<i class="fa fa-angle-right"></i>			                        
 			                    </a>
 			                    <a class="btn-view-more-detail">
 			                        <span>${'view-more-details' @ i18n}</span>

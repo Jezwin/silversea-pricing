@@ -668,12 +668,14 @@ $(function() {
 			$modalContent  = $modalContent.replace("c-suitelist-nav-virtual-tour-placeholder", navVirtualTour);
 		}
 
-    			
 
         $('body').addClass('modal-open');
         $(myThis.data('target')).modal('show');
          
 		$('.modal').on('shown.bs.modal', function(e) {
+			if(window.scrollSupport != null && window.scrollSupport) { 
+				window.iNoBounce.enable();
+			}
             
 			var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
 			history.pushState(null, null, urlReplace); // push state that hash into the url
@@ -728,6 +730,10 @@ $(function() {
     		}
 			
     		if (locationImage != null) {
+    			var deckList = deck.split("#next#");
+    			if (deckList.length > 4) {
+    				$(".c-suite-detail-modal-deck").css("float", "left");
+    			}
 				if (window.suiteDesktop) {
     				$(".c-suite-detail-modal #location-tab").removeClass("hidden");
     				if (numTab == 0) {
@@ -813,9 +819,9 @@ $(function() {
 				$("#suite-features ul").addClass("expand-ul");
 				$(".suite-features-expand a.view_all").show();
 				$(this).hide();
-		        $('.modal-body').animate({
-		            scrollTop: $('.suite-features-title').offset().top / 5 
-		        }, 500);
+		        /*$('.modal-body').animate({
+		            scrollTop: $('.suite-features-title').offset().top - 10
+		        }, 500);*/
 			});
 			
 			//create virtual tour on desktop

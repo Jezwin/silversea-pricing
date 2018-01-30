@@ -995,6 +995,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite-plan"
         sling:message="Suite plan"/>
+    <suite-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-features"
+        sling:message="Suite features"/>
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
@@ -1107,6 +1111,10 @@
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more"
     	sling:message="View more" />
+    <view-more-features
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more-features"
+    	sling:message="View more features" />
    	<view-more-details
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more-details"
@@ -1123,6 +1131,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-less"
         sling:message="View less"/>
+     <view-less-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-less-features"
+        sling:message="View less features"/>
     <view-online
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-online"
