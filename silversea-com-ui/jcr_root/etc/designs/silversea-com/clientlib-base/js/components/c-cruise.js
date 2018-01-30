@@ -825,6 +825,14 @@ $(function() {
 		        }, 500);*/
 			});
 			
+			
+			$(this).find(".close").on("click", function(e) {
+				
+				e.preventDefault();
+				history.back();
+			});
+			
+			
 			//create virtual tour on desktop
 			$(this).find(".c-suite-detail-virtual-tour-lightbox").on("click", function(e) {
 		        e.preventDefault();
