@@ -48,7 +48,7 @@ $(function() {
     	if(typeof s7viewers !== 'undefined'){
     		$('.c-video:not(.c-video--cc-gallery)').initVideo(); 
     	}else {
-    		setTimeout(initV(),500);
+    		setTimeout(initV(),700);
     	}
     }
     	 
