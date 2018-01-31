@@ -77,71 +77,20 @@
     height: 91%;
   }
 }
-@media screen and (max-width: 767px) {
-  .modal-virtual-tour:after {
-    top: 20px;
-    width: 94% !important;
-  }
+@media (max-width:767px){
+    .modal-virtual-tour::after {
+        width: 300px !important;
+        transform: translate(-50%,8%) !important;
+        -webkit-transform: translateX(-50%, 8%) !important;
+        left:50%;
+    }
 }
 
 
-@media screen and (max-width: 375px) {
-  .modal-virtual-tour:after {
-    width: 91.6% !important;
-    margin-left: 0 !important;
-  }
+@media (max-width:320px){
+    .modal-virtual-tour::after {
+        width: 290px !important;
+    }
 }
-@media only screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) {
-  .modal-virtual-tour:after {
-    width: 92.5% !important;
-    margin-left: 0px !important;
-  }
-}
-
-	@media screen and (max-width: 766px) {
-	  .modal-virtual-tour:after {
-	    width: 96% !important;
-	  }
-	}
-	
-	
-	
-	@media screen and (max-width: 688px) {
-	  .modal-virtual-tour:after {
-	    width: 95% !important;
-	  }
-	}
-	
-	
-	@media screen and (max-width: 500px) {
-	  .modal-virtual-tour:after {
-	    width: 94% !important;
-	  }
-	}
-	
-	@media screen and (max-width: 414px) {
-	  .modal-virtual-tour:after {
-	    width: 93% !important;
-	  }
-	}
-	
-	@media screen and (max-width: 390px) {
-	  .modal-virtual-tour:after {
-	    width: 92% !important;
-	  }
-	}
-	
-	@media screen and (max-width: 320px) {
-	  .modal-virtual-tour:after {
-	    width: 90% !important;
-	  }
-	}
-	
-	
-	@media screen and (max-width: 321px) {
-		.modal-virtual-tour::before {
-	  	  right: 30%;
-		}
-	}
 
 
