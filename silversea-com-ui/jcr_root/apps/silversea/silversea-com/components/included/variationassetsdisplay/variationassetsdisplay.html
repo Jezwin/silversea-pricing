@@ -3,30 +3,27 @@
 <div class="c-variationassetdisplay ${(pageProperties.plan || properties.plan || pageProperties.locationImage || properties.locationImage || pageProperties.virtualTour || properties.virtualTour) ? '' : 'empty'}">
     <div class="row">
         <div class="col-sm-4" data-sly-test.planLightboxPath="${pageProperties.plan || properties.plan}">
-            <strong class="c-variationassetdisplay--label_asset visible-xs-block">${'suite-plan' @ i18n}</strong>
+            <strong class="c-variationassetdisplay--label_asset">${'suite-plan' @ i18n}</strong>
             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = planLightboxPath}"/>
             <a href="${assetHelper.imageUrl}?wid=930&fit=fit,1" data-target=".bs-modal-md" class="automatic-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath}"></sly>
             </a>
-            <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-plan' @ i18n}</strong>
         </div>
         <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path}" />
         <div class="col-sm-4" data-sly-test.locationimagePath="${pageProperties.locationImage || properties.locationImage}"
             data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery', appendPath='/jcr:content'}"
             data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=locationimagePath}">
-            <strong class="c-variationassetdisplay--label_asset visible-xs-block">${'suite-location' @ i18n}</strong>
+            <strong class="c-variationassetdisplay--label_asset">${'suite-location' @ i18n}</strong>
             <a href="#" data-target=".bs-modal-lg" data-gallery=".gallery" class="automatic-gallery-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=setImage.renditionList[0].path}" />
             </a>
-            <strong class="c-variationassetdisplay--label_asset hidden-xs">${'suite-location' @ i18n}</strong>
         </div>
         <div class="col-sm-4" data-sly-test.virualtourLightboxPath="${pageProperties.virtualTour || properties.virtualTour}">
-            <strong class="c-variationassetdisplay--label_asset visible-xs-block">${'virtual-tour' @ i18n}</strong>
+            <strong class="c-variationassetdisplay--label_asset">${'virtual-tour' @ i18n}</strong>
             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = virualtourLightboxPath}"/>
             <a href="${virualtourLightboxPath}" data-target=".bs-modal-lg" class="modal-virtual-tour">
                 <sly data-sly-call="${imageTemplate.virtualTour @ imagePath=virualtourLightboxPath}" />
             </a>
-            <strong class="c-variationassetdisplay--label_asset hidden-xs">${'virtual-tour' @ i18n}</strong>
         </div>
     </div>
 </div>
