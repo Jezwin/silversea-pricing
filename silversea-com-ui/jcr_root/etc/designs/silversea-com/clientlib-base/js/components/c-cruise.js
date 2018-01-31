@@ -741,7 +741,7 @@ $(function() {
 			
     		if (locationImage != null) {
     			var deckList = deck.split("#next#");
-    			if (deckList.length > 4) {
+    			if (deckList.length > 4 && !window.suiteDesktop) {
     				$(".c-suite-detail-modal-deck").css("float", "left");
     			}
 				if (window.suiteDesktop) {
