@@ -287,7 +287,7 @@
 			                    </sly>
 			                </div>
 		                	<div class="c-suitelist__button c-suitelist__button-card">
-			                    <a class="btn btn-thin btn-red effect btn-request-a-quote" id="suite-card-v2-raq-${itemList.index}" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+			                    <a class="btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card" id="suite-card-v2-raq-${itemList.index}" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
 			                        href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">
 			                        <span>${'request-quote' @i18n}</span>
 									<i class="fa fa-angle-right"></i>			                        
