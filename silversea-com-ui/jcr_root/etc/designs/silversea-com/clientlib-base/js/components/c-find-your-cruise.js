@@ -220,15 +220,18 @@ $(function() {
 
             $filterValue.each(function(i, field) {
                 var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
-
-                if (field.value !== 'all') {
-                    resetState = true;
-
-                    // Highlight filter
-                    $fieldwrapper.addClass('active');
-                } else {
-                    // Remove highlight filter
-                    $fieldwrapper.removeClass('active');
+                if (typeof field != "undefined" && field != null){
+                	if (typeof field.value != "undefined"){
+		                if (field.value !== 'all') {
+		                    resetState = true;
+		
+		                    // Highlight filter
+		                    $fieldwrapper.addClass('active');
+		                } else {
+		                    // Remove highlight filter
+		                    $fieldwrapper.removeClass('active');
+		                }
+                	}
                 }
             });
 
