@@ -220,6 +220,17 @@ public class ApiUpdater implements Runnable {
 
                 if (node != null) {
                     try {
+                       
+
+                        if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)
+                                && node.getProperty(ImportersConstants.PN_TO_ACTIVATE).getBoolean()) {
+                            replicator.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
+
+                            node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
+
+                            LOGGER.info("{} page activated", node.getPath());
+                        }
+                        
                         if (node.hasProperty(ImportersConstants.PN_TO_DEACTIVATE)
                                 && node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).getBoolean()) {
                             //SSC-2387/SSC-2434
@@ -229,6 +240,7 @@ public class ApiUpdater implements Runnable {
                                 final Node pageNode = pageResource.adaptTo(Node.class);
 
                                 if (pageNode != null) {
+                                	replicator.replicate(session, ReplicationActionType.DEACTIVATE, node.getPath());
                                     replicator.replicate(session, ReplicationActionType.DEACTIVATE, pageNode.getPath());
                                 }
                             } else {
@@ -238,15 +250,6 @@ public class ApiUpdater implements Runnable {
                             node.getProperty(ImportersConstants.PN_TO_DEACTIVATE).remove();
 
                             LOGGER.info("{} page deactivated", node.getPath());
-                        }
-
-                        if (node.hasProperty(ImportersConstants.PN_TO_ACTIVATE)
-                                && node.getProperty(ImportersConstants.PN_TO_ACTIVATE).getBoolean()) {
-                            replicator.replicate(session, ReplicationActionType.ACTIVATE, node.getPath());
-
-                            node.getProperty(ImportersConstants.PN_TO_ACTIVATE).remove();
-
-                            LOGGER.info("{} page activated", node.getPath());
                         }
 
                         successNumber++;
