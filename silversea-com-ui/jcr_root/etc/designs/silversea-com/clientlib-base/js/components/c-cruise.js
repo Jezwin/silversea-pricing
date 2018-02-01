@@ -858,6 +858,7 @@ $(function() {
 		    						move_speed: 1.0,
 		    						time_anim: '1000',
 		    						min_fov: 10,
+		    						usexmpdata: false,
 		    						default_fov: 179,
 		    						navbar: [
 		    							'autorotate', 
