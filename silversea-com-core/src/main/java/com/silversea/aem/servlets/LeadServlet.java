@@ -66,9 +66,11 @@ public class LeadServlet extends SlingAllMethodsServlet {
 		try {
 
 			LOGGER.debug("Lead service request {}", body);
-
-			String referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
-
+			String referer = "";
+			if(request.getCookie("currentReferrer") != null){
+				referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
+			}
+			
 			if (null != referer && referer != "") {
 				LOGGER.debug("The referer obtained here is : - {}", referer);
 				/*
