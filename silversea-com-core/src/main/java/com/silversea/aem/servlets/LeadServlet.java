@@ -123,6 +123,14 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			LOGGER.debug("Lead service response {}", leadResponse);
 			writeDomainObject(response, leadResponse);
 			e.printStackTrace();
+		} catch (Exception e){
+			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
+			//Try to send the lead if pasrsing uri failed
+			Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+			LOGGER.debug("Lead service response {}", leadResponse);
+			writeDomainObject(response, leadResponse);
+			e.printStackTrace();
 		}
 
     }
