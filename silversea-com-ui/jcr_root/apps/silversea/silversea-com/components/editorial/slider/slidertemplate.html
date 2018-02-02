@@ -17,7 +17,7 @@
 
 <template data-sly-template.populatefromSetStyle2="${ @ setImagePath}">
     <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=setImagePath}" />
-    <div id="c-slider-${properties.sscUUID  || properties.jcr:uuid }" class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}" data-slick='{"dots": true}'>
+    <div id="c-slider-${properties.sscUUID  || properties.jcr:uuid }" class="c-slider c-slider--default c-slider--style2" data-sly-list="${setImage.renditionList}"  data-slick='{"dots": true, "adaptiveHeight": true }'>
         <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
         data-sly-call="${imageTemplate.lazysmall @ imagePath=item.path, width=930}"></div>
     </div>
