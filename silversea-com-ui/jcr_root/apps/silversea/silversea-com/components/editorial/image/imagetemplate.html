@@ -47,6 +47,15 @@
         class="o-img cq-dd-image lazy" />
 </template>
 
+<template data-sly-template.lazysmall="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAQAAABQ+cdNAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiAgIJFy6RFTkUAAAAE0lEQVQI12P8X8+AAZgYGOgjCAC9eQGKi+OE+gAAAABJRU5ErkJggg=="
+        alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
+        title="${properties.jcr:title || currentPage.title @context='html'}"
+        class="o-img cq-dd-image lazy" />
+</template>
+
+
 <!--/* Image lazy port banner slider */-->
 <template data-sly-template.portPageBanner="${ @ imagePath, width, height}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
     <picture data-sly-test.imageUrl="${imagePath}">
