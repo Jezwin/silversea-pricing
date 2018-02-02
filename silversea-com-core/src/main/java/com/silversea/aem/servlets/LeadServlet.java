@@ -66,9 +66,11 @@ public class LeadServlet extends SlingAllMethodsServlet {
 		try {
 
 			LOGGER.debug("Lead service request {}", body);
-
-			String referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
-
+			String referer = "";
+			if(request.getCookie("currentReferrer") != null){
+				referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
+			}
+			
 			if (null != referer && referer != "") {
 				LOGGER.debug("The referer obtained here is : - {}", referer);
 				/*
@@ -114,6 +116,14 @@ public class LeadServlet extends SlingAllMethodsServlet {
 				writeDomainObject(response, leadResponse);
 			}
 		} catch (URISyntaxException e) {
+			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
+			//Try to send the lead if pasrsing uri failed
+			Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+			LOGGER.debug("Lead service response {}", leadResponse);
+			writeDomainObject(response, leadResponse);
+			e.printStackTrace();
+		} catch (Exception e){
 			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
 			//Try to send the lead if pasrsing uri failed
 			Lead lead = JsonMapper.getDomainObject(body, Lead.class);
