@@ -6,7 +6,7 @@
             <i class="fa fa-mail-reply"></i> <a href="#" onclick="history.go(-1);return false">${'perform-a-new-search' @ i18n}</a>
         </p>
         <p>
-            <span class="c-fyc-filter__title">${properties.jcr:title || 'your-search-results' @ i18n}</span><br/>
+            <h3 class="c-fyc-filter__title">${properties.jcr:title || 'your-search-results' @ i18n}</h3><br/>
             <span class="c-fyc-filter__text">
                 <span id="matching-value">${fyc.totalMatches}</span>
                 <span class="result-label">${'result' @ i18n}</span>

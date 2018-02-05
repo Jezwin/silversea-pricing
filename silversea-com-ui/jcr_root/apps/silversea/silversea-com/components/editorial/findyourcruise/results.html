@@ -11,7 +11,7 @@
             </div>
             <div class="c-fyc__result__content">
                 <div class="c-fyc__result__content__inner">
-                    <h2 class="c-fyc__result__content__title">${cruiseItem.cruiseModel.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruiseItem.cruiseModel.arrivalPortName}</h2>
+                    <span class="c-fyc__result__content__title">${cruiseItem.cruiseModel.departurePortName} <em class="text-lowercase">${'to' @ i18n}</em> ${cruiseItem.cruiseModel.arrivalPortName}</span>
                     <ul class="c-fyc__result__content__description ${cruiseItem.cruiseModel.cruiseType}">
                         <li class="cruise-ship hidden-xs" data-shipname="${cruiseItem.cruiseModel.ship.name @ context='unsafe'}"><strong>${cruiseItem.cruiseModel.ship.title}</strong></li>
                         <li class="cruise-destination" data-destinationname="${cruiseItem.cruiseModel.destination.name @ context='unsafe'}">${cruiseItem.cruiseModel.destination.title}</li>
