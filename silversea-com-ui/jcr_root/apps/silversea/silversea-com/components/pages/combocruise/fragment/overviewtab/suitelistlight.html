@@ -11,7 +11,7 @@
                 </div>
                 <div class="c-suitelist__price">
                     ${'fares-from' @ i18n}
-                    <span data-sly-test="${suite.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important">${'waitlist' @ i18n}</span>
+                    <span data-sly-test="${suite.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important2">${'waitlist' @ i18n}</span>
                     <sly data-sly-test="${!suite.isWaitList}">
                         <span class="c-suitelist__price__text c-suitelist__price__text--important2">${suite.lowestPrice.currency @ i18n} ${suite.computedPriceFormated}</span>
                         ${'per-guest' @ i18n}
