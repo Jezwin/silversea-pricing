@@ -56,7 +56,7 @@
                         <div class="ab-test-v2-show">
 	                        <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
 	                            data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
-	                            data-sly-call="${fare.abTestV2 @ cruise=cruise}" />
+	                            data-sly-call="${fare.default @ cruise=cruise}" />
                         </div>
                         <sly data-sly-use.footNotes="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/footnotes.html"
                             data-sly-call="${footNotes.default @ cruise=cruise}" />
