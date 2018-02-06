@@ -63,7 +63,7 @@ public class CruiseModelLight {
 
         destinationId = cruiseModel.getDestination().getDestinationId();
 
-        ship = new ShipItem(cruiseModel.getShip().getName(), cruiseModel.getShip().getTitle());
+        ship = new ShipItem(cruiseModel.getShip().getName(), cruiseModel.getShip().getTitle(),cruiseModel.getShip().getShipId());
 
         startDate = cruiseModel.getStartDate();
 
