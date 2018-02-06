@@ -255,7 +255,7 @@
 			                    <p class="c-suitelist__detail__description c-suitelist__detail__description-card">${item.suite.suitesubtitleUpTo @ context='html'}</p>
 			                </div>
 			                <div class="c-suitelist__price c-suitelist__price-card ${item.isWaitList ? 'c-suitelist__price-card-whitelist' : ''}">
-			                    <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important">${'waitlist' @ i18n}</span>
+			                    <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important2">${'waitlist' @ i18n}</span>
 			                    <sly data-sly-test="${!item.isWaitList}">
 			                        <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text">
 					                    <span class="c-suitelist__price-from">${'from' @ i18n}</span>
