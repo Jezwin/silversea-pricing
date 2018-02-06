@@ -299,7 +299,7 @@ $(function() {
 		if( target && target.length ) {
 			event.preventDefault();
 			$('html, body').stop().animate({
-				scrollTop: target.offset().top - 90
+				scrollTop: target.offset().top - 130
 			}, 600); //1000 = 1s speed
 		}
 	});
@@ -310,7 +310,7 @@ $(function() {
 		if( target && target.length ) {
 			event.preventDefault();
 			$('html, body').stop().animate({
-				scrollTop: target.offset().top - 90
+				scrollTop: target.offset().top - 130
 			}, 600); //1000 = 1s speed
 		}
 	});
