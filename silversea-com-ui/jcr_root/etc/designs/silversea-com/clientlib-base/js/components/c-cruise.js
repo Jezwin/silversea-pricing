@@ -819,7 +819,7 @@ $(function() {
 			$(this).find(".suite-features-expand a.view_all").on("click", function(e) {
 				e.preventDefault();
 				//$("#suite-features ul").removeClass("expand-ul");
-				$('.expand-ul li:nth-of-type(1n+10)').stop().css('display','block').hide().slideDown();
+				$('.expand-ul li:nth-of-type(1n+10)').stop().css('display','list-item').hide().slideDown();
 				$(".suite-features-expand a.view_less").show();
 				$(this).hide();
 			});
