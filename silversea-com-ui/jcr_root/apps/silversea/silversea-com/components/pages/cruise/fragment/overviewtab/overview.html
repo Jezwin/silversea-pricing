@@ -58,7 +58,6 @@
                     </div>
 					<sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
     					data-sly-call="${overviewImage.listImage @ list = cruise.allAssetWithItinerary, imageTemplate = imageTemplate}" />                
-    					 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
                 </div>
                 <div class="col-xs-12 visible-xs">
                     <div class="cruise__header_metainfo">
@@ -105,6 +104,7 @@
 
                         <div class="clearfix"></div>
                     </div>
+                    <p class="voyageimg__label visible-xs">${'fares-shown-are-per-guest' @ i18n}</p>
                     <div class="voyageshare_wrap">
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
                         <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
