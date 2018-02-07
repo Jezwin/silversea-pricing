@@ -85,9 +85,10 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			if(request.getCookie("currentReferrer") != null){
 				referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
 			}
+			
 			if (null != blockListResource) {
-				if((null != referer && referer != "") || (null != ipaddress && ipaddress != "") 
-						|| (null != emailadress && emailadress != "")) {	
+				if((null != referer && referer != "") || (null != ipaddress && ipaddress != "") || 
+						(null != emailadress && emailadress != "")) {	
 					if (null != referer && referer != "") {
 						LOGGER.debug("The referer obtained here is : - {}", referer);
 						/*
@@ -99,17 +100,16 @@ public class LeadServlet extends SlingAllMethodsServlet {
 		
 						List<String> blockList = ListUtils.EMPTY_LIST;
 						
-							ValueMap blockListMap = blockListResource.getValueMap();
-							blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
-							LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
+						ValueMap blockListMap = blockListResource.getValueMap();
+						blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
+						LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
 							
-							if (blockList.contains(uri.getHost())) {
-								LOGGER.debug("Match found for {}.", uri.getHost());
-								leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
-								LOGGER.debug("Lead service response {}", leadResponse);
-		
+						if (blockList.contains(uri.getHost())) {
+							LOGGER.debug("Match found for {}.", uri.getHost());
+							leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);	
 							}
-					}  
+					} 
 					
 					if (null != ipaddress && ipaddress != "") {
 						LOGGER.debug("The ipaddress obtained here is : - {}", ipaddress);
@@ -118,7 +118,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 						ValueMap ipBlockListMap = blockListResource.getValueMap();
 						ipBlockList = Arrays.asList(ipBlockListMap.get("ipblacklist", String[].class));
 						LOGGER.debug("Created ip black list from mappings under {} and its {}", BLACKLIST, ipBlockList);
-						
+					
 						if (ipBlockList.contains(ipaddress)) {
 							LOGGER.debug("Match found for {}.", ipaddress);
 							leadResponse = "{\"blockedReferer\":\"" + ipaddress + "\"}";
@@ -133,7 +133,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 						ValueMap emailBlockListMap = blockListResource.getValueMap();
 						emailBlockList = Arrays.asList(emailBlockListMap.get("emailblacklist", String[].class));
 						LOGGER.debug("Created email black list from mappings under {} and its {}", BLACKLIST, emailBlockList);
-						
+					
 						if (emailBlockList.contains(emailadress)) {
 							LOGGER.debug("Match found for {}.", emailadress);
 							leadResponse = "{\"blockedReferer\":\"" + emailadress + "\"}";
@@ -150,7 +150,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 				} else {
 				LOGGER.debug("There is no blacklisted referer , ipaddress or emailadress here. Executing normal flow");
 				writeLeadResponse(response, body);
-					}
+				}
 			} else {
 				writeLeadResponse(response, body);
 			}
