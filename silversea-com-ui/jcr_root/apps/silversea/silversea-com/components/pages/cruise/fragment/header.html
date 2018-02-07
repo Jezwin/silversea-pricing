@@ -7,10 +7,11 @@
                 ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
                 <sly data-sly-test.silverseaExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">${'expedition-cruise' @ i18n}</sly>
                 <sly data-sly-test="${!silverseaExpedition}">${'cruise' @ i18n}</sly>
+                  <span class="cruise_header__subtitle_ship">
+	            	${cruise.cruiseModel.ship.title}
+	              </span>
             </span>
-            <span class="cruise_header__subtitle cruise_header__subtitle_ship">
-            	${cruise.cruiseModel.ship.title}
-            </span>
+          
         </h1>
         <div class="cruise__header__desc">
             <div class="cruise__header__txt">

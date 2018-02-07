@@ -59,27 +59,6 @@
 					<sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
     					data-sly-call="${overviewImage.listImage @ list = cruise.allAssetWithItinerary, imageTemplate = imageTemplate}" />                
                 </div>
-                <div class="col-xs-12 visible-xs">
-                    <div class="cruise__header_metainfo">
-                        <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
-                        <span>${cruise.cruiseModel.ship.title}</span>
-                        <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-                        <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
-                            <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
-                                <span class="feature">
-                                    <i class="icon-star"></i>
-                                    <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner" data-sly-repeat="${cruise.cruiseModel.features}">
-                                <span class="feature">
-                                    <i class="${item.icon}"></i>
-                                    <span class="tooltip"><i></i>${item.title}</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="col-xs-12">
                     <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
 
