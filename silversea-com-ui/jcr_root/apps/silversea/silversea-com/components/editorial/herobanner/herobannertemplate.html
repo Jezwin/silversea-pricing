@@ -4,7 +4,7 @@
          data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
         <div class="hidden-xs">
 	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-	            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+	            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
 	        </div>
 	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
 	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
@@ -45,7 +45,7 @@
 	            	data-target=".bs-modal-lg">
 	            	<i class="fa fa-play"></i>
 	        	</a>
-                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
             </div>
 	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
 	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
@@ -83,7 +83,7 @@
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
         data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
         <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
         </div>
         <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row hidden-xs">
             <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
@@ -125,7 +125,7 @@
         data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
         <div class="hidden-xs">
             <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
@@ -165,7 +165,7 @@
 	            	data-target=".bs-modal-lg">
 	            	<i class="fa fa-play"></i>
 	        	</a>
-                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
