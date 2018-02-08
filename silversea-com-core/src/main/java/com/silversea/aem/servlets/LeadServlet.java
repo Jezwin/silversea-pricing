@@ -85,66 +85,72 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			if(request.getCookie("currentReferrer") != null){
 				referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
 			}
+			
 			if (null != blockListResource) {
-			if((null != referer && referer != "") || (null != ipaddress && ipaddress != "") || (null != emailadress && emailadress != "")) {	
-			if (null != referer && referer != "") {
-				LOGGER.debug("The referer obtained here is : - {}", referer);
-				/*
-				 * Converting the above path into a URL object to obtain the
-				 * host name later for black list comparison.
-				 */
-				URI uri = new URI(referer);
-				LOGGER.debug("Assoicated host value here is : - {}", uri.getHost());
-
-				List<String> blockList = ListUtils.EMPTY_LIST;
-				
-					ValueMap blockListMap = blockListResource.getValueMap();
-					blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
-					LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
+				if((null != referer && referer != "") || (null != ipaddress && ipaddress != "") || 
+						(null != emailadress && emailadress != "")) {	
+					if (null != referer && referer != "") {
+						LOGGER.debug("The referer obtained here is : - {}", referer);
+						/*
+						 * Converting the above path into a URL object to obtain the
+						 * host name later for black list comparison.
+						 */
+						URI uri = new URI(referer);
+						LOGGER.debug("Assoicated host value here is : - {}", uri.getHost());
+		
+						List<String> blockList = ListUtils.EMPTY_LIST;
+						
+						ValueMap blockListMap = blockListResource.getValueMap();
+						blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
+						LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
+							
+						if (blockList.contains(uri.getHost())) {
+							LOGGER.debug("Match found for {}.", uri.getHost());
+							leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);	
+							}
+					} 
 					
-					if (blockList.contains(uri.getHost())) {
-						LOGGER.debug("Match found for {}.", uri.getHost());
-						leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
-						LOGGER.debug("Lead service response {}", leadResponse);
+					if (null != ipaddress && ipaddress != "") {
+						LOGGER.debug("The ipaddress obtained here is : - {}", ipaddress);
 
-					}
-			}  if (null != ipaddress && ipaddress != "") {
-				LOGGER.debug("The ipaddress obtained here is : - {}", ipaddress);
-
-				List<String> ipBlockList = ListUtils.EMPTY_LIST;
-					ValueMap ipBlockListMap = blockListResource.getValueMap();
-					ipBlockList = Arrays.asList(ipBlockListMap.get("ipblacklist", String[].class));
-					LOGGER.debug("Created ip black list from mappings under {} and its {}", BLACKLIST, ipBlockList);
+						List<String> ipBlockList = ListUtils.EMPTY_LIST;
+						ValueMap ipBlockListMap = blockListResource.getValueMap();
+						ipBlockList = Arrays.asList(ipBlockListMap.get("ipblacklist", String[].class));
+						LOGGER.debug("Created ip black list from mappings under {} and its {}", BLACKLIST, ipBlockList);
 					
-					if (ipBlockList.contains(ipaddress)) {
-						LOGGER.debug("Match found for {}.", ipaddress);
-						leadResponse = "{\"blockedReferer\":\"" + ipaddress + "\"}";
-						LOGGER.debug("Lead service response {}", leadResponse);
-					}
-			}  if (null != emailadress && emailadress != "") {
-				LOGGER.debug("The emailadress obtained here is : - {}", emailadress);
-
-				List<String> emailBlockList = ListUtils.EMPTY_LIST;
-					ValueMap emailBlockListMap = blockListResource.getValueMap();
-					emailBlockList = Arrays.asList(emailBlockListMap.get("emailblacklist", String[].class));
-					LOGGER.debug("Created email black list from mappings under {} and its {}", BLACKLIST, emailBlockList);
+						if (ipBlockList.contains(ipaddress)) {
+							LOGGER.debug("Match found for {}.", ipaddress);
+							leadResponse = "{\"blockedReferer\":\"" + ipaddress + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);
+						}
+					}  
 					
-					if (emailBlockList.contains(emailadress)) {
-						LOGGER.debug("Match found for {}.", emailadress);
-						leadResponse = "{\"blockedReferer\":\"" + emailadress + "\"}";
-						LOGGER.debug("Lead service response {}", leadResponse);
+					if (null != emailadress && emailadress != "") {
+						LOGGER.debug("The emailadress obtained here is : - {}", emailadress);
+
+						List<String> emailBlockList = ListUtils.EMPTY_LIST;
+						ValueMap emailBlockListMap = blockListResource.getValueMap();
+						emailBlockList = Arrays.asList(emailBlockListMap.get("emailblacklist", String[].class));
+						LOGGER.debug("Created email black list from mappings under {} and its {}", BLACKLIST, emailBlockList);
+					
+						if (emailBlockList.contains(emailadress)) {
+							LOGGER.debug("Match found for {}.", emailadress);
+							leadResponse = "{\"blockedReferer\":\"" + emailadress + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);
+						}
+					} 
+					
+					if(leadResponse != StringUtils.EMPTY ) {
+						writeDomainObject(response, leadResponse);
+					} else {
+						LOGGER.debug("There is no blocked referer , ipaddress or emailadress here. Executing normal flow");
+						writeLeadResponse(response, body);
 					}
-			} 
-			if(leadResponse != StringUtils.EMPTY ) {
-				writeDomainObject(response, leadResponse);
-			} else {
-				LOGGER.debug("There is no blocked referer , ipaddress or emailadress here. Executing normal flow");
-				writeLeadResponse(response, body);
-			}
-			} else {
+				} else {
 				LOGGER.debug("There is no blacklisted referer , ipaddress or emailadress here. Executing normal flow");
 				writeLeadResponse(response, body);
-			 }
+				}
 			} else {
 				writeLeadResponse(response, body);
 			}
