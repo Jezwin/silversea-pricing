@@ -2,7 +2,7 @@
     data-sly-use.sideMenu="com.silversea.aem.components.editorial.SideMenuUse"></sly>
 <div class="o-sidemenu" data-sly-test.rootPage="${reference.page || currentPage.parent}">
     <h2 class="o-sidemenu__title">
-        <a href="${rootPage.path @ extension='html'}">${rootPage.navigationTitle || rootPage.title}</a>
+        <a rel="nofollow" href="${rootPage.path @ extension='html'}">${rootPage.navigationTitle || rootPage.title}</a>
     </h2>
     <dl class="o-sidemenu__list">
         <dt class="o-sidemenu__item visible-xs-block accordion-trigger">
