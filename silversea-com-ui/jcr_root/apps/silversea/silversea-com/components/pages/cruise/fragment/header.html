@@ -7,11 +7,18 @@
                 ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
                 <sly data-sly-test.silverseaExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">${'expedition-cruise' @ i18n}</sly>
                 <sly data-sly-test="${!silverseaExpedition}">${'cruise' @ i18n}</sly>
+                  <span class="cruise_header__subtitle_ship">
+	            	${cruise.cruiseModel.ship.title}
+	              </span>
             </span>
+          
         </h1>
         <div class="cruise__header__desc">
             <div class="cruise__header__txt">
                 ${cruise.cruiseModel.description @context='html'}
+            </div>
+            <div class="cruise__header__metainfo cruise__header__metainfo_mobile visible-xs">
+                <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
             </div>
             <div class="cruise__header__cta">
             	<span class="ab-test-v2-hide">
@@ -31,9 +38,7 @@
                 <a data-sly-test="${cruise.previous}" href="${cruise.previous @ extension='html'}"><i class="fa fa-angle-left"></i> <span>${'previous-voyage' @ i18n}</span></a>
                 <a data-sly-test="${cruise.next}" href="${cruise.next @ extension='html'}"><span>${'next-voyage' @ i18n}</span> <i class="fa fa-angle-right"></i></a>
             </div>
-            <div class="cruise__header__metainfo">
-                <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
-                <span>${cruise.cruiseModel.ship.title}</span>
+            <div class="cruise__header__metainfo hidden-xs">
                 <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
                 <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
                     <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
