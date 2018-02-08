@@ -30,10 +30,12 @@ public class ImageSetHelper extends WCMUsePojo {
     
     public String getRenditionListString() {
     	StringBuilder listAsset = new StringBuilder();
-    	for(int i=0; i < renditionList.size(); i++) {
-    		listAsset.append(renditionList.get(i).getPath());
-    		if (i < renditionList.size() -1) {
-    			listAsset.append("#next#");
+    	if (renditionList != null) {
+    		for(int i=0; i < renditionList.size(); i++) {
+    			listAsset.append(renditionList.get(i).getPath());
+    			if (i < renditionList.size() -1) {
+    				listAsset.append("#next#");
+    			}
     		}
     	}
         return listAsset.toString();
@@ -42,18 +44,20 @@ public class ImageSetHelper extends WCMUsePojo {
     public String getMetadataResourceListString() {
     	String metadata = get("metadata", String.class);
     	StringBuilder listAsset = new StringBuilder();
-    	for(int i=0; i < renditionList.size(); i++) {
-    		String assetPath = renditionList.get(i).getPath();
-            Resource res = getResourceResolver().getResource(assetPath + "/" + JcrConstants.JCR_CONTENT + "/metadata");
-            if (res != null && res.getValueMap() != null) {
-            	String properyValue =  res.getValueMap().get(metadata, String.class);
-            	if(properyValue != null) {
-            		listAsset.append(properyValue);
-            		if (i < renditionList.size() -1) {
-            			listAsset.append("#next#");
-            		}
-            	}	
-            }
+    	if (renditionList != null) {
+    		for(int i=0; i < renditionList.size(); i++) {
+    			String assetPath = renditionList.get(i).getPath();
+    			Resource res = getResourceResolver().getResource(assetPath + "/" + JcrConstants.JCR_CONTENT + "/metadata");
+    			if (res != null && res.getValueMap() != null) {
+    				String properyValue =  res.getValueMap().get(metadata, String.class);
+    				if(properyValue != null) {
+    					listAsset.append(properyValue);
+    					if (i < renditionList.size() -1) {
+    						listAsset.append("#next#");
+    					}
+    				}	
+    			}
+    		}
     	}
         return listAsset.toString();
     }
