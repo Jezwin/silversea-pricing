@@ -61,7 +61,7 @@ word-break:break-word;
 }
 </style>
 <div class="inboxcontainer">
-    <h1 class="inbox-header-title">Lead Serevice Data</h1>
+    <h1 class="inbox-header-title">Lead Service Data</h1>
     <div id="specificationTab" class="tab-pane fade in ">
         <div class="product-specifications-tables">
             <div data-sly-use.notfuse="${'com.silversea.aem.components.page.NotificationUse'}" data-sly-unwrap>
@@ -103,7 +103,7 @@ $(document).ready(function() {
                 $("#loader").toggle();
             },
             success : function(data) {
-                location.reload();
+                gotoItem((new Date()).getTime());
             },
             failure : function(errMsg) {
                 console.log('error LeadAPI', errMsg);
@@ -115,4 +115,10 @@ $(document).ready(function() {
 		});
     });
 });
+
+function gotoItem(item){
+    var url = window.location.href;    
+    url += (url.indexOf('?') > -1)?"":"?" + "refresh_token=" + encodeURIComponent(item);
+    window.location.href = url;
+}
 </script>

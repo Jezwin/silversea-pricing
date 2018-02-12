@@ -207,21 +207,23 @@ public class LeadServlet extends SlingAllMethodsServlet {
 	 *            The obtained request parameter.
 	 * @param body
 	 *            The json body.
+	 * @return 
 	 */
-	private void generateLeadDataFile(final SlingHttpServletRequest request,
+	private String generateLeadDataFile(final SlingHttpServletRequest request,
 			String body) {
 		LOGGER.debug("Starting file generation");
 		final Map<String, Object> authenticationParams = new HashMap<>();
 		authenticationParams.put(ResourceResolverFactory.SUBSERVICE,
 				ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+		
+		String fileName = DateUtils.formatDate("yyyyMMddHHmmss'.txt'",
+				new Date());
 		try (final ResourceResolver adminResolver = resourceResolverFactory
 				.getServiceResourceResolver(authenticationParams)) {
 			final Session adminSession = adminResolver.adaptTo(Session.class);
 			if (adminSession == null) {
 				throw new Exception("Cannot initialize session");
 			}
-			String fileName = DateUtils.formatDate("yyyyMMddHHmmss'.txt'",
-					new Date());
 			String path = LEAD_DATA_PATH + "/" + fileName;
 			LOGGER.debug("Generating file : - {} with data :- {}", path, body);
 
@@ -261,6 +263,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 		} catch (Exception e) {
 			LOGGER.error("Exception ", e.getMessage());
 		}
+		return fileName.substring(0, fileName.length() - 4);
 	}
 
 	/**
@@ -329,10 +332,13 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
 		} catch (WebServiceException e) {
 			LOGGER.debug("Lead service request {}", e);
-			generateLeadDataFile(request, body);
-		} finally {
+			String tempId = generateLeadDataFile(request, body);
+			leadResponse = "{\"temporaryId\":\"" + tempId + "\"}";
+		} 
+		finally{
 			LOGGER.debug("Lead service response {}", leadResponse);
 			writeDomainObject(response, leadResponse);
+
 		}
 	}
 

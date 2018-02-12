@@ -197,6 +197,14 @@ $(function() {
                         if(blockedRef != undefined){
                         	$.CookieManager.setCookie('api_blocked_referer', blockedRef);
                         }
+						//SIL-16
+						var temporaryId;
+						if(data !=""){
+                           temporaryId = JSON.parse(data).temporaryId;
+                        }
+                        if(temporaryId != undefined){
+                        	$.CookieManager.setCookie('api_temporary_id', temporaryId);
+                        }
 
                         if ($form.hasClass('c-formcookie--redirect')) {
                             window.location.href = $form.attr('action');
