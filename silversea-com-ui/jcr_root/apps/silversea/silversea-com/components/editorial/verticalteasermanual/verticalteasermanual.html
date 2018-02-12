@@ -50,12 +50,21 @@
 	}
 </style>
 <style data-sly-test="${properties.showBorderMobile}">
-	@media (min-width: 767px) {
+	@media (max-width: 767px) {
 		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"}.c-vertical-teaser {
 			border: 1px solid #ddd !important;
 		}
+	    #c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper {
+			margin-left: 0px;
+		    padding-right: 32px;
+		}
 		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-finedine__caption {
 			padding: 20px 20px 40px !important;
+		}
+		
+		 #c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-oba__caption {
+			padding: 20px 20px 40px !important;
+			border: 1px solid #ddd !important;
 		}
 	}
 </style>
