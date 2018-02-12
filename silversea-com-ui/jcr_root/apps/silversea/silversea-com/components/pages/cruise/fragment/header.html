@@ -3,16 +3,16 @@
         <h1 class="cruise__header__title">
              <span itemprop="name">${cruise.cruiseModel.departurePortName} <span class="cruise__header__title__to">${'to' @ i18n}</span> ${cruise.cruiseModel.arrivalPortName}</span>
 
-            <span class="cruise_header__subtitle">
-                ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
-                <sly data-sly-test.silverseaExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">${'expedition-cruise' @ i18n}</sly>
-                <sly data-sly-test="${!silverseaExpedition}">${'cruise' @ i18n}</sly>
-                  <span class="cruise_header__subtitle_ship">
-	            	${cruise.cruiseModel.ship.title}
-	              </span>
-            </span>
-          
         </h1>
+        <h2 class="cruise_header__subtitle">
+            ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
+            <sly data-sly-test.silverseaExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">${'expedition-cruise' @ i18n}</sly>
+            <sly data-sly-test="${!silverseaExpedition}">${'cruise' @ i18n}</sly>
+              <span class="cruise_header__subtitle_ship">
+         	${cruise.cruiseModel.ship.title}
+           </span>
+        </h2>
+      
         <div class="cruise__header__desc">
             <div class="cruise__header__txt">
                 <span itemprop="description">${cruise.cruiseModel.description @context='html'}</span>
