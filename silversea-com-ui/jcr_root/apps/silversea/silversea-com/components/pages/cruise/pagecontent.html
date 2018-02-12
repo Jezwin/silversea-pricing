@@ -1,8 +1,9 @@
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-<div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}"
+<div itemscope itemtype="http://schema.org/Product" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" class="container c-cruise ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}"
     data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
     <div class="row">
         <div class="col-md-12">
+        	<span itemprop="brand" style="display: none">silversea</span>
             <sly data-sly-use.cruiseHeader="silversea/silversea-com/components/pages/cruise/fragment/header.html" data-sly-call="${cruiseHeader.default @ cruise=cruise}" />
         </div>
     </div>
