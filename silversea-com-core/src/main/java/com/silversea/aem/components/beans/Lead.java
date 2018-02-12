@@ -38,6 +38,12 @@ public class Lead {
     private String brochurecode;
     // Campaign value
     private String marketingEffort;
+    // Contact Us Form
+    private String subject;
+    private String inquiry;
+    private String from_email;
+    private String bookingnumber;
+    private String vsnumber;
 
     public String getPostaladdress() {
         return postaladdress;
@@ -332,4 +338,46 @@ public class Lead {
     public void setIsnotagent(String isnotagent) {
         this.isnotagent = isnotagent;
     }
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getInquiry() {
+		return inquiry;
+	}
+
+	public void setInquiry(String inquiry) {
+		this.inquiry = inquiry;
+	}
+
+	public String getBookingnumber() {
+		return bookingnumber;
+	}
+
+	public void setBookingnumber(String bookingnumber) {
+		this.bookingnumber = bookingnumber;
+	}
+
+	public String getVsnumber() {
+		return vsnumber;
+	}
+
+	public void setVsnumber(String vsnumber) {
+		this.vsnumber = vsnumber;
+	}
+
+	public String getFrom_email() {
+		return from_email;
+	}
+
+	public void setFrom_email(String from_email) {
+		this.from_email = from_email;
+	}
+	
+	
 }

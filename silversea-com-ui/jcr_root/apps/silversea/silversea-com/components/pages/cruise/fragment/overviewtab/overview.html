@@ -29,7 +29,7 @@
                             </span>
                         </a>
                     </div>
-                    <div class="voyagetable__elem">
+                    <div class="voyagetable__elem" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         <a href="#" data-tab-target="#suitenfare">
                             <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
                             <span data-sly-test.prefix="${cruise.pricePrefix}" ><br />${prefix}</span>
@@ -42,13 +42,15 @@
                             </span>
                             <sly data-sly-test="${!cruise.isWaitList}">
                                 <span class="lead">
-                                    ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
+                                	<span itemprop="priceCurrency" content="${cruise.lowestPrice.currency}"></span>
+                                    ${cruise.lowestPrice.currency @ i18n} <span itemprop="price" style="display: inline-block;">${cruise.computedPriceFormated}</span>
                                 </span>
                                 <span  data-sly-test="${early}" class="price-suffixe">
                                     ${'with-early' @ i18n}${'booking-bonus' @ i18n}
                                 </span>
                             </sly>
                         </a>
+                        <span itemprop="itemCondition" content="new" style="display:none">new</span>
                     </div>
                 </div>
 

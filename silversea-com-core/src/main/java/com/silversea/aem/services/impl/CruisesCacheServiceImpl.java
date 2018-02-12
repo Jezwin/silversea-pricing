@@ -101,7 +101,7 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
     @Override
     public CruiseModelLight getCruiseByCruiseCode(final String lang, final String cruiseCode) {
-        return cruisesByCode.get(lang).get(cruiseCode);
+        return (cruisesByCode.get(lang) != null) ? cruisesByCode.get(lang).get(cruiseCode) : null;
     }
 
     @Override
