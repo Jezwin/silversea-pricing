@@ -1,0 +1,118 @@
+<style>
+.inboxcontainer{
+padding: 20px;
+}
+.inbox-header-title{
+text-align:center;
+}
+.notif-table{
+table-layout:fixed;
+word-break:break-word;
+}
+.myButton {
+	-moz-box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	-webkit-box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background-color:#768d87;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
+}
+.myButton:hover {
+	background-color:#6c7c7c;
+}
+.myButton[disabled] {
+	background-color:#768d87;
+    opacity:0.5;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<div class="inboxcontainer">
+    <h1 class="inbox-header-title">Lead Serevice Data</h1>
+    <div id="specificationTab" class="tab-pane fade in ">
+        <div class="product-specifications-tables">
+            <div data-sly-use.notfuse="${'com.silversea.aem.components.page.NotificationUse'}" data-sly-unwrap>
+                <div class="product-specifications-table">
+                    <div id="loader" class="loader" style="display: none"></div>
+                    <table class="table table-striped notif-table">
+                        <tbody>
+                            <tr>
+                                <td colspan="1"><strong>S.No.</strong></td>
+                                <td colspan="2"><strong>File Name</strong></td>
+                            </tr>
+                            <div data-sly-list.notlist = "${notfuse.leadData}">
+                                <tr>
+                                    <td colspan="1"><strong>${notlistList.count}</strong></td>
+                                    <td colspan="2">${notlist}</td>                                    
+                                </tr>
+                            </div>
+                        </tbody>
+                    </table>                    
+                    <button class="myButton" type="submit" id="submitButton" disabled="true">Submit</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('body').addClass('simplepage');
+    var rowSize = $('.table tr').length;
+    if(rowSize > 1){
+    	$('.myButton').prop("disabled", false);
+    }
+    $( ".myButton" ).click(function() {
+        $.ajax({
+            type : 'POST',
+            url: '/bin/lead.json?' + $.param({ reSubmit: 'true' }),
+            beforeSend : function(){
+                $(".table").hide();
+                $("#loader").toggle();
+            },
+            success : function(data) {
+                location.reload();
+            },
+            failure : function(errMsg) {
+                console.log('error LeadAPI', errMsg);
+            },
+            complete : function(){
+                $(".table").show();
+                $("#loader").toggle();   
+            }
+		});
+    });
+});
+</script>
