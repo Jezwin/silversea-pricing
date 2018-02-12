@@ -126,6 +126,10 @@ public class PortModel {
 
         return apiDescription;
     }
+    
+    public String getRealDescription(){
+    	return description;
+    }
 
     public String getApiDescription() {
         return apiDescription;

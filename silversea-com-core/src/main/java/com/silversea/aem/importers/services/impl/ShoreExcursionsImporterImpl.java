@@ -173,6 +173,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
                             excursionPageContentNode.setProperty("apiLongDescription", shorex.getDescription());
                             excursionPageContentNode.setProperty("pois", shorex.getPointsOfInterests());
                             excursionPageContentNode.setProperty("shorexId", shorex.getShorexId());
+                            excursionPageContentNode.setProperty("note", shorex.getNote());
                             
                             if (StringUtils.isNotBlank(shorex.getSymbols())) {
                                 final String[] symbolsIDs = shorex.getSymbols().split(",");
@@ -447,6 +448,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
             excursionContentNode.setProperty("apiLongDescription", excursion.getDescription());
             excursionContentNode.setProperty("pois", excursion.getPointsOfInterests());
             excursionContentNode.setProperty("shorexId", excursion.getShorexId());
+            excursionContentNode.setProperty("note", excursion.getNote());
 
             if (StringUtils.isNotBlank(excursion.getSymbols())) {
                 final String[] symbolsIDs = excursion.getSymbols().split(",");

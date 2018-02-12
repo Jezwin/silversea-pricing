@@ -8,10 +8,10 @@
 
 <div class="header" data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse">
 	<div data-sly-test.silverExpedition="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}" class="header__logo expedition_logo">
-		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="Silversea" />
+		<img src="${externalizerHelperExpedition.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.title || currentPage.title}" />
 	</div>
 	<div data-sly-test="${!silverExpedition}" class="header__logo cruise_logo">
-		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
+		<img src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.title  || currentPage.title}" />
 	</div>
     <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
       <sly data-sly-test.isCcpt="${header.ccptAvailable}">

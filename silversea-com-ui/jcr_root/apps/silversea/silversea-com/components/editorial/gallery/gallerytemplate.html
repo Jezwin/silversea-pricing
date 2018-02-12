@@ -15,6 +15,9 @@
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                                 <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                                 <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                                 <sly data-sly-test="${!isVideo}">
+                                	<span data-sly-test.label="${asset.metadata.dc:title}" class="c-gallery__label">${label}</span>
+                                </sly>
                             </div>
                         </div>
                     </div>
@@ -55,7 +58,9 @@
                                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                                 <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                                 <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
-                                <!--/* <p class="c-gallery__caption" data-sly-test.caption="${asset.metadata.dc:title}">${caption}</p> */-->
+                                <sly data-sly-test="${!isVideo}">
+                                	<span data-sly-test.label="${asset.metadata.dc:title}" class="c-gallery__label">${label}</span>
+                                </sly>
                             </div>
                         </div>
                     </div>
@@ -92,8 +97,10 @@
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                     <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                     <div data-sly-test="${isVideo}" class="c-video c-video--cc-gallery" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
-                    <p class="hidden c-gallery--cc__text">${asset.metadata.dc:title}</p>
-                </div>
+					<sly data-sly-test="${!isVideo}">
+                        <span data-sly-test.label="${asset.metadata.dc:title}" class="c-gallery__label">${label}</span>
+                    </sly>                
+				</div>
             </div>
         </div>
         <!--/* <p class="c-gallery--cc__caption">&nbsp;</p> */-->

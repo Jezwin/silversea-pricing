@@ -16,22 +16,45 @@ public class ImageUse extends WCMUsePojo {
     @Override
     public void activate() {
         Integer widthResponsiveDesktop = 12;
+        Integer widthResponsiveDesktopOld = 12;
         Integer widthResponsiveMobile = 12;
 
         // Get value from the cq:responsive sub node
         Resource cqResponsiveRes = getResource().getChild(NameConstants.NN_RESPONSIVE_CONFIG);
+        Resource parentSlider = getResource().getParent().getParent();
+        Integer sliderWidth = null;
+        if(parentSlider != null){
+        	//We are in a slider 
+        	if(parentSlider.getValueMap() != null && parentSlider.getValueMap().get("sling:resourceType", String.class) != null){
+	        	if(parentSlider.getValueMap().get("sling:resourceType", String.class).equalsIgnoreCase("silversea/silversea-com/components/editorial/slider")){
+	        		Integer itemToDisplay = parentSlider.getValueMap().get("itemNumber", Integer.class);
+	        		if(itemToDisplay != null){
+	        			sliderWidth = 12 / itemToDisplay;
+	        			if(itemToDisplay > 1){
+	        				sliderWidth = sliderWidth + 1;
+	        			}
+	        		}
+	        	}
+        	}
+        }
+        
         if (cqResponsiveRes != null) {
             Resource defaultRes = cqResponsiveRes.getChild(WcmConstants.NN_DEFAULT);
             if (defaultRes != null) {
                 widthResponsiveDesktop = defaultRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
+                widthResponsiveDesktopOld = widthResponsiveDesktop;
             }
 
             Resource phoneRes = cqResponsiveRes.getChild(WcmConstants.NN_PHONE);
             if (phoneRes != null) {
                 widthResponsiveMobile = phoneRes.getValueMap().get(WcmConstants.PN_WIDTH, 12);
             } else {
-                widthResponsiveMobile = widthResponsiveDesktop;
+                widthResponsiveMobile = widthResponsiveDesktopOld;
             }
+        }
+        
+        if(sliderWidth != null){
+        	widthResponsiveDesktop = sliderWidth;
         }
 
         // Get width from configuration

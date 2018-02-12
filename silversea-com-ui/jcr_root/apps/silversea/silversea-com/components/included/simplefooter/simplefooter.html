@@ -4,7 +4,7 @@
     <section class="o-section o-section--callbox">
         <div class="hidden-xs hidden-sm o-section--callbox--logo text-center">
             <a href="${pageHelper.homePage.path @ extension='html'}">
-                <img class="spritelogo-dark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Silversea" />
+                <img class="spritelogo-dark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="  alt="${pageHelper.homePage.title || currentPage.title}" />
             </a>
         </div>
         <p data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">

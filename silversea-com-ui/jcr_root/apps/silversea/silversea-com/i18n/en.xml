@@ -686,11 +686,11 @@
     <o1
         jcr:primaryType="sling:MessageEntry"
         sling:key="O1"
-        sling:message="Owner's 1"/>
+        sling:message="Owner's One Bedroom"/>
     <o2
         jcr:primaryType="sling:MessageEntry"
         sling:key="O2"
-        sling:message="Owner's 2"/>
+        sling:message="Owner's Two Bedroom"/>
     <offer
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
@@ -790,11 +790,11 @@
     <r1
         jcr:primaryType="sling:MessageEntry"
         sling:key="R1"
-        sling:message="Royal 1"/>
+        sling:message="Royal One Bedroom"/>
     <r2
         jcr:primaryType="sling:MessageEntry"
         sling:key="R2"
-        sling:message="Royal 2"/>
+        sling:message="Royal Two Bedroom "/>
     <read-less
         jcr:primaryType="sling:MessageEntry"
         sling:key="read-less"
@@ -1007,6 +1007,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite-plan"
         sling:message="Suite plan"/>
+    <suite-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-features"
+        sling:message="Suite features"/>
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
@@ -1023,6 +1027,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-plan"
         sling:message="Suites plan"/>
+    <suite-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-plan"
+        sling:message="Suite plan"/>
     <sv
         jcr:primaryType="sling:MessageEntry"
         sling:key="SV"
@@ -1079,6 +1087,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="USD"
         sling:message="US$"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="C$"/>
     <vi
         jcr:primaryType="sling:MessageEntry"
         sling:key="VI"
@@ -1111,6 +1123,14 @@
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more"
     	sling:message="View more" />
+    <view-more-features
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more-features"
+    	sling:message="View more features" />
+   	<view-more-details
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more-details"
+    	sling:message="View more details" />
     <view-deck
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-deck"
@@ -1123,6 +1143,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-less"
         sling:message="View less"/>
+     <view-less-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-less-features"
+        sling:message="View less features"/>
     <view-online
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-online"

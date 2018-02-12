@@ -829,7 +829,7 @@
     <request-a-call
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Rückruf anfordern"/>
+        sling:message="Schreiben Sie uns"/>
     <request-or-download
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1014,6 +1014,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Suitenplan"/>
+     <suite-features
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suite features"/>
     <suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1029,6 +1033,10 @@
     <suites-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"/>
+ 	<suite-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suiteplan"/>
     <suites-plan0
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1083,6 +1091,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Suchbegriff hier eingeben"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="C$"/>
     <usd
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1124,6 +1136,14 @@
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more"
     	sling:message="Mehr über" />
+     <view-more-features
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more-features"
+    	sling:message="View more features" />
+   	<view-more-details
+    	jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+    	sling:message="View more details" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1136,6 +1156,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Weniger ansehen"/>
+    <view-less-features
+         jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View less features"/>
     <view-online
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

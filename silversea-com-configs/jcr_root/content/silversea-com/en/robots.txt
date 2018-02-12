@@ -8,9 +8,7 @@ Sitemap:https://www.silversea.com/sitemap-index.xml
 Allow: /
 Disallow: /search.html?q=
 Disallow: /content/silversea-com/en/ports_genericblock_data
-Noindex: /content/silversea-com/en/ports_genericblock_data
 Disallow: /ports_genericblock_data
-Noindex: /ports_genericblock_data
 Allow: /etc/*
 Disallow: /content/silversea-com/en/ports_genericblock_data
 Disallow: /*q=
@@ -38,6 +36,7 @@ Disallow: /brochures/brochure-merci.html
 Disallow: /brochures/printed-form-lb
 Disallow: /fr/demander-un-devis.eo.html(.*)
 Disallow: /*_jcr_content(.*)
+Disallow: /*.pdf
 Disallow: /*modalcontent.html
 Disallow: /*folletos/digital-form-lb
 Disallow: /es/solicite-presupuesto.s.html(.*)

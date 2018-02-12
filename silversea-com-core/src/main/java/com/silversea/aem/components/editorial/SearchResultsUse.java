@@ -77,9 +77,6 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("20_property", "jcr:content/sling:resourceType");
             map.put("21_property", "jcr:content/sling:resourceType");
             map.put("22_property", "jcr:content/notIndexed");
-            map.put("group.23_property", "jcr:content/isVisible");
-            map.put("group.24_property", "jcr:content/isVisible");
-            map.put("group.p.or", "true");
             
             map.put("2_property.operation", "unequals");
             map.put("3_property.operation", "unequals");
@@ -101,8 +98,6 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("20_property.operation", "unequals");
             map.put("21_property.operation", "unequals");
             map.put("22_property.operation", "not");
-            map.put("group.23_property.operation", "not");
-            map.put("group.24_property.operation", "unequals");
 
             map.put("2_property.value", WcmConstants.RT_PUBLIC_AREA);
             map.put("3_property.value", WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION);
@@ -124,8 +119,6 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("20_property.value", WcmConstants.RT_LANDING_PAGE);
             map.put("21_property.value", WcmConstants.RT_EXCLUSIVE_OFFER);
             map.put("22_property.value", "true");
-            map.put("group.23_property.value", "false");
-            map.put("group.24_property.value", "false");
             
             Session session = getResourceResolver().adaptTo(Session.class);
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);

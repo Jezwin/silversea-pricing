@@ -56,6 +56,9 @@ public class SuiteModel implements ShipAreaModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle") @Optional
     private String suiteSubTitle;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/suitesubtitleUpTo") @Optional
+    private String suitesubtitleUpTo;
 
     private List<Asset> assets = new ArrayList<>();
 
@@ -85,7 +88,11 @@ public class SuiteModel implements ShipAreaModel {
         return title;
     }
 
-    public String getLongDescription() {
+    public String getSuitesubtitleUpTo() {
+		return suitesubtitleUpTo;
+	}
+
+	public String getLongDescription() {
         return longDescription != null ? longDescription :
                 (genericSuite != null ? genericSuite.getLongDescription() : null);
     }
@@ -105,6 +112,17 @@ public class SuiteModel implements ShipAreaModel {
 
     public String[] getFeatures() {
         return features;
+    }
+    
+    public String getFeaturesString() {
+    	StringBuilder featuresString = new StringBuilder();
+    	for(int i=0; i < features.length; i++) {
+    		featuresString.append(features[i]);
+    		if (i < features.length -1) {
+    			featuresString.append("#next#");
+    		}
+    	}
+        return featuresString.toString();
     }
 
     public String getLocationImage() {

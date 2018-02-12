@@ -4,6 +4,10 @@
 		<div class="port_v2__section_header">
 			<h3 class="port_v2__section_title">
 			<span>${'related-destinations' @i18n}</span>
+			<div data-sly-test="${portUse.portType == 'expedition'}" class="port_v2__section_header_separator port_v2__section_header_separator_expedition "></div>
+				<div data-sly-test="${portUse.portType == 'classic'}" class="port_v2__section_header_separator port_v2__section_header_separator_classic "></div>
+				<div data-sly-test="${portUse.portType == 'mixed'}" class="port_v2__section_header_separator port_v2__section_header_separator_mixed"></div>
+				</h3>
 		</div>
 		<div class="port_v2__section_content">
 			<div class="port_v2__postcarousel exclusiveOfferList" id="port_v2__relatedcarousel">

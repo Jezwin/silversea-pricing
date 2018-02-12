@@ -10,14 +10,30 @@
             srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain,
             ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=constrain 2x"
             media="(min-width: 768px)" />
-        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+    </picture>
+</template>
+
+<!--/* Responsive image for virtual tour*/-->
+<template data-sly-template.virtualTour="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}" class="picture-virtual-tour">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=crop,
+            ${assetHelper.imageUrl}?hei=${image.mobileRetinaWidth}&wid=${image.mobileRetinaWidth}&fit=crop 2x"
+            media="(max-width: 767px)" />
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop,
+            ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=crop 2x"
+            media="(min-width: 768px)" />
+        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img o-img__virtual-tour cq-dd-image" />
     </picture>
 </template>
 
 <!--/* Image */-->
 <template data-sly-template.image="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
     <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
-        alt="${properties.alt || currentPage.title @context='html'}"
+        alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         title="${properties.jcr:title || currentPage.title @context='html'}"
         class="o-img cq-dd-image" />
 </template>
@@ -26,7 +42,28 @@
 <template data-sly-template.lazy="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
     <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
-        alt="${properties.alt || currentPage.title @context='html'}"
+        alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         title="${properties.jcr:title || currentPage.title @context='html'}"
         class="o-img cq-dd-image lazy" />
+</template>
+
+<template data-sly-template.lazysmall="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAQAAABQ+cdNAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiAgIJFy6RFTkUAAAAE0lEQVQI12P8X8+AAZgYGOgjCAC9eQGKi+OE+gAAAABJRU5ErkJggg=="
+        alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
+        title="${properties.jcr:title || currentPage.title @context='html'}"
+        class="o-img cq-dd-image lazy" />
+</template>
+
+
+<!--/* Image lazy port banner slider */-->
+<template data-sly-template.portPageBanner="${ @ imagePath, width, height}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+            srcset="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop,
+            ${assetHelper.imageUrl}?hei=390&wid=930&fit=crop 2x"
+            media="(min-width: 768px)" />
+        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+    </picture>
 </template>

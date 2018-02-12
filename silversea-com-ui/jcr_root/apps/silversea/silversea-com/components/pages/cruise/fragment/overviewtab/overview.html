@@ -58,28 +58,6 @@
                     </div>
 					<sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
     					data-sly-call="${overviewImage.listImage @ list = cruise.allAssetWithItinerary, imageTemplate = imageTemplate}" />                
-    					 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
-                </div>
-                <div class="col-xs-12 visible-xs">
-                    <div class="cruise__header_metainfo">
-                        <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
-                        <span>${cruise.cruiseModel.ship.title}</span>
-                        <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-                        <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
-                            <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
-                                <span class="feature">
-                                    <i class="icon-star"></i>
-                                    <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner" data-sly-repeat="${cruise.cruiseModel.features}">
-                                <span class="feature">
-                                    <i class="${item.icon}"></i>
-                                    <span class="tooltip"><i></i>${item.title}</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="col-xs-12">
                     <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
@@ -105,6 +83,7 @@
 
                         <div class="clearfix"></div>
                     </div>
+                    <p class="voyageimg__label visible-xs">${'fares-shown-are-per-guest' @ i18n}</p>
                     <div class="voyageshare_wrap">
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
                         <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
@@ -149,7 +128,7 @@
                                     
                                     setTimeout(function(){
                                         $.ajax({
-                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf',
+                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf',
                                             beforeSend: function(){
 
                                         		downloadWin = window.open('', '_blank');
@@ -159,7 +138,7 @@
                                             success: function(r) {
     	                                        $('.voyageshare_wrap .fa-refresh').hide();
     	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.pdf';
+                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf';
                                                 pdfClicked = false;
                                             }
                                         });
@@ -195,18 +174,22 @@
                             });
 							var cruiseTypeText = '';
                             if(${(cruise.cruiseModel.cruiseType == 'silversea-expedition') @ context='scriptString'}){ cruiseTypeText='${'expedition-cruise' @ i18n,context='scriptString'}' } else{cruiseTypeText='${'cruise' @ i18n,context='scriptString'}'};
-                            var shareText  = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
+                            shareText  = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
                             if( $("#social_shares").jsSocials != undefined){
-                            $("#social_shares").jsSocials({
-							  showLabel: false,
-							  showCount: false,
-							  shareIn: "popup",
-							  text: shareText ,
-							  shares: ["facebook", "twitter", "googleplus"]
-							 });
+                            	socialInit();                            
                             }
                             
                         });	
+                        
+                        async function socialInit(){
+                        	$("#social_shares").jsSocials({
+  							  showLabel: false,
+  							  showCount: false,
+  							  shareIn: "popup",
+  							  text: shareText ,
+  							  shares: ["facebook"]
+  							 });
+                        }
 						function ajax_download(url, data) {
 								var $iframe,
 									iframe_doc,
@@ -232,19 +215,6 @@
 								$(iframe_doc).find('form').submit();
 							}
 						
-						
-						function createCookie(name, value, days) {
-								var expires;
-								if (days) {
-									var date = new Date();
-									date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-									expires = "; expires=" + date.toGMTString();
-								}
-								else {
-									expires = "";
-								}
-								document.cookie = name + "=" + value + expires + "; path=/";
-							}
 
 						function readCookie(c_name) {
 								if (document.cookie.length > 0) {
@@ -266,9 +236,4 @@
             </div>
         </div>
     </div>
-   	<!--/* Suite and fares tab */-->
-   	<div id="suitenfare-b-version">
-	 	<sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
-	       		data-sly-call="${suitelist.abTestV2 @ cruise=cruise}" />
-   	</div>
 </template>

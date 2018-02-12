@@ -64,7 +64,8 @@ public class AssetHelper extends WCMUsePojo {
      * @return the final image URL, including dynamic media domain if enabled, and if we are on a publish
      */
     public String getImageUrl() {
-        final Resource assetResource = getResourceResolver().getResource(assetPath);
+        String imageUrl = "";
+    	Resource assetResource = getResourceResolver().getResource(assetPath);
 
         if (runModesService.isPublish()
                 && imageDelivery != null
@@ -77,7 +78,11 @@ public class AssetHelper extends WCMUsePojo {
                 LOGGER.error("Cannot get Dynamic Media image url", e);
             }
         }
+        
+        if (assetPath != null) {
+        	imageUrl = "/is/image" + assetPath;
+        }
 
-        return "/is/image" + assetPath;
+        return imageUrl;
     }
 }

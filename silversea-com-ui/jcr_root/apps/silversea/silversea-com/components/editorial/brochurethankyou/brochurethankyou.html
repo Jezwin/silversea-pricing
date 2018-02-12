@@ -3,11 +3,11 @@
     <div class="col-xs-12 col-sm-4 col-sm-offset-4 c-brochure__thankyou datalayer-brochurecode" data-brochurecode="${brochure.brochure.brochureCode}">
     <sly data-sly-test="${brochure.brochure.onlineBrochureUrl}">
         <a href="${brochure.brochure.onlineBrochureUrl}" target="_blank">
-	        <img class="o-img" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}" />
+	        <img class="o-img" alt="${brochure.brochure.assetTitle || currentPage.title}" src="${brochure.brochure.cover}" />
         </a>
     </sly>
     <sly data-sly-test="${!brochure.brochure.onlineBrochureUrl}" >
-        <img class="o-img" alt="${brochure.brochure.assetTitle}" src="${brochure.brochure.cover}" />
+        <img class="o-img" alt="${brochure.brochure.assetTitle || currentPage.title}" src="${brochure.brochure.cover}" />
     </sly>
         <h2 class="c-brochure__title">${brochure.brochure.assetTitle}</h2>
         <p class="c-brochure__description">${brochure.brochure.assetDescription}</p>

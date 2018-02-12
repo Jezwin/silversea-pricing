@@ -100,9 +100,9 @@ public class QuoteRequestUse extends WCMUsePojo {
 		}
 
 		// init countries list
-		final Resource geotaggingNamespace = getResourceResolver().getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
+		Resource geotaggingNamespace = getResourceResolver().getResource(WcmConstants.PATH_TAGS_GEOLOCATION);
 		if (geotaggingNamespace != null) {
-			final Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
+			Tag geotaggingTag = geotaggingNamespace.adaptTo(Tag.class);
 
 			collectCountries(geotaggingTag);
 
@@ -249,7 +249,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 
 			if (splitSuffix != null) {
 				if (splitSuffix.length > 0) {
-					final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(
+					CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(
 							CruisesCacheService.class);
 
 					if (cruisesCacheService != null) {
@@ -258,18 +258,20 @@ public class QuoteRequestUse extends WCMUsePojo {
 						// have all prices
 						CruiseModelLight cruiseModelLight = cruisesCacheService.getCruiseByCruiseCode(
 								LanguageHelper.getLanguage(getCurrentPage()), splitSuffix[0]);
-						Resource cruiseResource = getResourceResolver().getResource(cruiseModelLight.getPath());
-						selectedCruise = null;
-						if (cruiseResource != null) {
-							Page cruisePage = getPageManager().getPage(cruiseModelLight.getPath());
-							selectedCruise = cruisePage.adaptTo(CruiseModel.class);
-						}
-
-						if (selectedCruise != null && splitSuffix.length > 1) {
-							suiteName = splitSuffix[1];
-
-							if (splitSuffix.length > 2) {
-								suiteCategory = splitSuffix[2];
+						if (cruiseModelLight != null) {
+							Resource cruiseResource = getResourceResolver().getResource(cruiseModelLight.getPath());
+							selectedCruise = null;
+							if (cruiseResource != null) {
+								Page cruisePage = getPageManager().getPage(cruiseModelLight.getPath());
+								selectedCruise = cruisePage.adaptTo(CruiseModel.class);
+							}
+							
+							if (selectedCruise != null && splitSuffix.length > 1) {
+								suiteName = splitSuffix[1];
+								
+								if (splitSuffix.length > 2) {
+									suiteCategory = splitSuffix[2];
+								}
 							}
 						}
 					}
@@ -505,12 +507,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 		Iterator<Tag> children = tag.listChildren();
 
 		if (!children.hasNext()) {
-			final Resource tagResource = tag.adaptTo(Resource.class);
+			Resource tagResource = tag.adaptTo(Resource.class);
 
 			if (tagResource != null) {
-				final GeolocationTagModel geolocationTagModel = tagResource.adaptTo(GeolocationTagModel.class);
+				GeolocationTagModel geolocationTagModel = tagResource.adaptTo(GeolocationTagModel.class);
 
-				if (geolocationTagModel != null) {
+				//good item is title + prefix = France (+33)
+				if (geolocationTagModel != null && StringUtils.isNotEmpty(geolocationTagModel.getTitle()) && StringUtils.isNotEmpty(geolocationTagModel.getPrefix())) {
 					countries.add(geolocationTagModel);
 				}
 			}

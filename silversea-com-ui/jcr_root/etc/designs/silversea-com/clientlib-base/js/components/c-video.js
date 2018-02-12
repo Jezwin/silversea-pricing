@@ -7,26 +7,16 @@ $(function() {
 
             var s7videoviewer = new s7viewers.VideoViewer({
                 'containerId' : $video.attr('id'),
-                /*'params' : {
-                    'ssl' : 'on',
-                    'serverurl' : '/is/image',
-                    'contenturl' : 'https://silversea.assetsadobe2.com/',
-                    'config' : '/etc/dam/presets/viewer/Video',
-                    'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
-                    'posterimage' : asset,
-                    'asset' : asset,
-                    'autoplay' : autoplay.toString()
-                }*/
                 'params' : {
-                    'ssl' : 'on',
+                    'VideoPlayer.ssl' : 'on',
                     'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
                     'contenturl' : 'https://silversea.assetsadobe.com/',
                     'config' : 'etc/dam/presets/viewer/Video',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
+                    // 'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public-ssl/silversea',
                     'posterimage' : asset,
                     'asset' : asset,
                     'autoplay' : autoplay.toString(),
-                    'waiticon' : 1,
                     'progressivebitrate' : '3000',
                     'initialbitrate' : '3000'
                 }
@@ -53,5 +43,14 @@ $(function() {
     };
 
     // Init video on page load
-    $('.c-video:not(.c-video--cc-gallery)').initVideo();
+    function initV(){
+        
+    	if(typeof s7viewers !== 'undefined'){
+    		$('.c-video:not(.c-video--cc-gallery)').initVideo(); 
+    	}else {
+    		setTimeout(initV,700);
+    	}
+    }
+    	 
+   initV();
 });

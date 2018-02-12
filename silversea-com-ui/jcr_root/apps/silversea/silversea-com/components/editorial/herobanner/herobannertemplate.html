@@ -1,54 +1,94 @@
 <template data-sly-template.default>
-    <div class="c-hero-banner" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner" 
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
          data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
-        <div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
-        </div>
-        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
-            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
-                <sly data-sly-test.btn1="${banner.btn1}" />
-                <sly data-sly-test.btn2="${banner.btn2}" />
-                <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
-                    <a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
-                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
-                        <span class="hidden-xs hidden-sm">${btn1.title} </span> <i class="fa fa-lg fa-angle-right"></i>
-                    </a>
-                    <a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
-                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
-                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                    </a>
-                    <a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
-                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
-                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                    </a>
-                    <a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
-                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
-                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                    </a>
-                    
-                </p>
+        <div class="hidden-xs">
+	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	        </div>
+	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
+	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
+	                <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+	                <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+	                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+	                <sly data-sly-test.btn1="${banner.btn1}" />
+	                <sly data-sly-test.btn2="${banner.btn2}" />
+	                <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+	                    <a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title} </span> <i class="fa fa-lg fa-angle-right"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+	                    </a>
+	                    <a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+	                    </a>
+	                    <a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+	                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
+	                    </a>
+	                    
+	                </p>
+	            </div>
+	        </div>
+	        <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+	            data-target=".bs-modal-lg">
+	            <i class="fa fa-play"></i>
+	        </a>
+	    </div>
+	    <div class="hidden-sm hidden-md hidden-lg">
+	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	        	 <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+	            	data-target=".bs-modal-lg">
+	            	<i class="fa fa-play"></i>
+	        	</a>
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
             </div>
-        </div>
-        <a data-sly-test="${properties.videoReference}" class="video-link hidden-xs " href="${currentNode.path @ selectors='video', extension='html'}"
-            data-target=".bs-modal-lg">
-            <i class="fa fa-play"></i>
-        </a>
+	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
+	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
+	                <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+	                <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+	                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+	                <sly data-sly-test.btn1="${banner.btn1}" />
+	                <sly data-sly-test.btn2="${banner.btn2}" />
+	                <div class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+	                	<div class="c-hero-banner__buttons__item">
+		                    <a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                    </a>
+		                    <a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+		                    </a>
+	                    </div>
+	                    <div class="c-hero-banner__buttons__item">
+		                    <a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                    </a>
+		                    <a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+		                        <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+		                    </a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
     </div>
 </template>
 
 <template data-sly-template.home>
-    <div class="c-hero-banner c-hero-banner__search" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
         data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
         <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
         </div>
         <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row hidden-xs">
             <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
                 <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
                 <sly data-sly-test.btn1="${banner.btn1}" />
                 <sly data-sly-test.btn2="${banner.btn2}" />
@@ -80,16 +120,17 @@
 </template>
 
 <template data-sly-template.offer>
-    <div class="c-hero-banner c-hero-banner__search c-hero-banner__exclusiveoffers" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search c-hero-banner__exclusiveoffers"
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
         data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
         <div class="hidden-xs">
             <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                    <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                    <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                    <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
                     <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
                     <sly data-sly-test.btn1="${banner.btn1}" />
                     <sly data-sly-test.btn2="${banner.btn2}" />
@@ -113,40 +154,46 @@
                     </p>
                 </div>
             </div>
+            <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+            	data-target=".bs-modal-lg">
+            	<i class="fa fa-play"></i>
+       		</a>
         </div>
         <div class="hidden-sm hidden-md hidden-lg">
+        	<div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	        	<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+	            	data-target=".bs-modal-lg">
+	            	<i class="fa fa-play"></i>
+	        	</a>
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+            </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                    <h1 class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                    <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                    <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+                    <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
                     <sly data-sly-test.btn1="${banner.btn1}" />
                     <sly data-sly-test.btn2="${banner.btn2}" />
-                    <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
-                        <a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
-                            <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
-                            <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                        </a>
-                        <a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
-                            <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
-                            <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                        </a>
-                        <a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
-                            <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
-                            <span class="hidden-xs hidden-sm">${btn1.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                        </a>
-                        <a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
-                            <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
-                            <span class="hidden-xs hidden-sm">${btn2.title}</span> <i class="fa fa-lg fa-angle-right"></i>
-                        </a>
-                    </p>
+                    <div class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+                    	<div class="c-hero-banner__buttons__item">
+	                        <a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+	                            <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        </a>
+	                        <a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+	                            <span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+	                        </a>
+                    	</div>
+                    	<div class="c-hero-banner__buttons__item">
+	                        <a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+	                            <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        </a>
+	                        <a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+	                            <span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+	                        </a>
+                    	</div>
+                    </div>
                 </div>
             </div>
-            <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
-            </div>
         </div>
-        <a data-sly-test="${properties.videoReference}" class="video-link hidden-xs " href="${currentNode.path @ selectors='video', extension='html'}"
-            data-target=".bs-modal-lg">
-            <i class="fa fa-play"></i>
-        </a>
     </div>
 </template>

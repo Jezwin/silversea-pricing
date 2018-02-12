@@ -50,6 +50,16 @@
     margin: 0 auto 20px;
     max-width: 930px;
     position: relative;
+    
+    span.c-hero-banner__title {
+    	display: block;
+		margin-bottom: 20px !important;
+    	margin-top: 20px !important;
+		margin: .67em 0;
+		color: inherit;
+		font-weight: 500;	
+		line-height: .9 !important;
+    }
 
     &:not(.c-hero-banner__search) {
         margin-bottom: 0;
@@ -136,5 +146,75 @@
 			    clear: left;
             }
         }
+    }
+    
+    @media screen and (max-width: 767px) {
+    	
+    	
+    	.c-hero-banner__title {
+    		margin-top: 18px;
+		    line-height: 0.95 !important;
+		    font-size: 26px;
+		    font-weight: 400;
+		    text-align: center;
+		    text-transform: uppercase;
+		    color: #000;
+    	}
+    	
+    	.video-link {
+    		height: 100% !important;
+    		
+    		.wistia_click_to_play {
+    			position: relative;
+				width: 200px;
+				height: 100% !important;
+				top: 50% !important;
+				transform: translateY(-50%) !important;
+				-webkit-transform: translateY(-50%) !important;
+    		}
+    	}
+    	
+    	.c-hero-banner__description {
+    		display: block;
+			-webkit-margin-before: 0.83em;
+			-webkit-margin-after: 0.83em;
+			-webkit-margin-start: 0px;
+			-webkit-margin-end: 0px;
+			font-weight: 500;
+			margin-top: 20px;
+			font-size: 15px;
+			line-height: 1.4;
+			margin-bottom: 15px;
+			padding: 0px 12px;
+			text-transform: none;
+			color: #000;
+			font-family: 'Open Sans',arial,helvetica,sans-serif;
+			text-align: center;
+    	}
+    	
+    	.c-hero-banner__buttons {
+    		a {
+    			font-weight: 400;
+			    text-transform: uppercase;
+				border: 0;
+			    cursor: pointer;
+			    display: inline-block;
+			    line-height: 1.5;
+			    position: relative;
+				user-select: none;
+			    vertical-align: middle;
+			    font-size: 15px;
+				width: 200px;
+				text-align: center;
+				padding: 6px 0px 10px !important;
+				margin-bottom: 12px;
+    			
+    			span {
+    				padding-right: 0px !important;
+					font-weight: 600;
+				    font-size: 12px;
+    			}
+    		}
+    	}
     }
 }

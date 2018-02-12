@@ -28,15 +28,19 @@ $(function() {
                 var $optionList = $select.find('option');
 
                 // Build obj with available option
-                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').text();
+                var jsonStr = $resultWrapper.find('#' + $select.attr('name') + '-filter').data('ssc-filter');
 
                 if (jsonStr !== '') {
-                    var filterAvailableObj = JSON.parse(jsonStr);
+                    var filterAvailableObj = jsonStr;
 
                     // Disabled option not available
                     $optionList.each(function() {
+                    	try {
                         var $option = $(this);
                         $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
+                    	}catch(error){
+                    		console.log('init issue');
+                    	}
                     });
                 }
             });
@@ -75,8 +79,8 @@ $(function() {
 
             // Update features filter
             $items = $form.find('.feature-filter li');
-            if (JSON.parse($('#feature-filter').text() !== '')) {
-                var filterFeatureAvailableObj = JSON.parse($('#feature-filter').text());
+            if ($('#feature-filter').data('ssc-filter') !== undefined) {
+                var filterFeatureAvailableObj = $('#feature-filter').data('ssc-filter');
                 $items.each(function() {
                     var $item = $(this);
                     $item.toggleClass('disabled', filterFeatureAvailableObj[$item.find('input[name=feature]').val()] !== true);
@@ -220,15 +224,18 @@ $(function() {
 
             $filterValue.each(function(i, field) {
                 var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
-
-                if (field.value !== 'all') {
-                    resetState = true;
-
-                    // Highlight filter
-                    $fieldwrapper.addClass('active');
-                } else {
-                    // Remove highlight filter
-                    $fieldwrapper.removeClass('active');
+                if (typeof field != "undefined" && field != null){
+                	if (typeof field.value != "undefined"){
+		                if (field.value !== 'all') {
+		                    resetState = true;
+		
+		                    // Highlight filter
+		                    $fieldwrapper.addClass('active');
+		                } else {
+		                    // Remove highlight filter
+		                    $fieldwrapper.removeClass('active');
+		                }
+                	}
                 }
             });
 

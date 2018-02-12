@@ -830,7 +830,7 @@
     <request-a-call
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Prendre un rendez-vous téléphonique"/>
+        sling:message="Prendre un RDV téléphonique"/>
     <request-or-download
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1015,6 +1015,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Plan de la suite"/>
+     <suite-features
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Suite features"/>
     <suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1028,6 +1032,10 @@
         jcr:primaryType="nt:folder"
         sling:message="Les suites avec vue sur l’océan de Silversea comptent parmi les plus spacieuses dans l’univers des croisières. Le service de majordome est compris. "/>
     <suites-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Plan de la suite"/>
+    <suite-plan
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Plan de la suite"/>
@@ -1080,6 +1088,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Entrez votre recherche ici"/>
+    <cad
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="CAD"
+        sling:message="C$"/>
     <usd
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1125,6 +1137,14 @@
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more"
     	sling:message="En savoir plus" />
+     <view-more-features
+    	jcr:primaryType="sling:MessageEntry"
+    	sling:key="view-more-features"
+    	sling:message="View more features" />
+    <view-more-details
+    	jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+    	sling:message="View more details" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1137,6 +1157,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Voir moins"/>
+     <view-less-features
+         jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="View less features"/>
     <view-online
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

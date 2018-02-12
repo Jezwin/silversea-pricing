@@ -15,7 +15,7 @@
         padding: 18px 0 5px;
         margin: 10px auto;
         line-height: 1.0909090909;
-
+		
         @media screen and (max-width: @screen-sm) {
             padding: 10px 0;
             font-size: 25px;
@@ -78,7 +78,11 @@
 }
 
 	#suitenfare-b-version {
-		margin-top:18px;		
+		margin-top: 50px;
+		
+		@media (max-width: 767px) {
+			margin-top: 28px;		
+		}		
 	}
 
 // ICONS FEATURES
@@ -168,6 +172,16 @@
     float: right;
     font-size: 13px;
     margin-left: 5px;
+    
+    &_mobile{
+    	float:none;
+    	font-size:12px;
+    	color: #999999;
+    	margin-top: -25px;
+    	margin-bottom: 25px;
+    	margin-left:0px;
+   		 font-style: italic;
+    }
 
     & > span {
        &:after {

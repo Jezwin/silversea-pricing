@@ -3,7 +3,7 @@
 <div data-sly-use.cruise="com.silversea.aem.components.page.CruiseUse" data-sly-use.pdfInfo="com.silversea.ssc.aem.models.PDFCruiseUse" class="page ${cruise.cruiseModel.cruiseType == 'silversea-expedition' ? 'expedition' : ''}">
     <div class="page__header">
     <sly data-sly-use.externalizerHelperClassic="${'com.silversea.aem.helper.ExternalizerHelper' @ path='/etc/designs/silversea-ssc/clientlib-pdf/images/silversea-expeditions-logo',absolute=true}" />
-    <img style="display:none" src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="Silversea" />
+    <img style="display:none" src="${externalizerHelperClassic.externalizedUrl @ extension='png'}" alt="${cruise.cruiseModel.ship.title  || currentPage.title}" />
         <h1 class="page__header__title">${cruise.cruiseModel.departurePortName} <span class="lowercase">${'to' @ i18n}</span> ${cruise.cruiseModel.arrivalPortName}</h1>
         <div class="page__header__title__separator"></div>
         <div class="page__header__desc">
@@ -23,7 +23,7 @@
                     <sly data-sly-test.imageUrl="${cruise.cruiseModel.itinerary}">
                         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
                         <div class="cruisehighlights__map__img">
-                            <img src="${assetHelper.imageUrl}?hei=900&wid=900&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
+                            <img src="${assetHelper.imageUrl}?hei=900&wid=900&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
                         </div>
                     </sly>
                 </div>
@@ -97,7 +97,7 @@
 			<div data-sly-repeat="${pdfimages.imagesList}" class="section__gallery__col">
                 <div data-sly-test.imagePath="${item}" class="section__gallery__item">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-                        <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=crop" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
+                        <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" title="${properties.jcr:title || currentPage.title @context='html'}" />
                     </sly>
                 </div>
             </div>
@@ -170,7 +170,7 @@
        <div data-sly-list="${cruise.prices}" class="section__gallery">
             <div data-sly-test.imagePath="${item.suite.thumbnail && itemList.index < 5}" class="section__gallery__col">
                 <div data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.suite.thumbnail}" class="section__gallery__item">
-                    <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=constrain" alt="${properties.alt || currentPage.title @context='html'}" title="${properties.jcr:title || currentPage.title @context='html'}" />
+                    <img src="${assetHelper.imageUrl}?hei=360&wid=468&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" title="${properties.jcr:title || currentPage.title @context='html'}" />
                 </div>
             </div>
         </div>
@@ -232,7 +232,7 @@
         <div class="ship__img" data-sly-test.imageUrl="${ship.thumbnail}">
             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
             <div class="col_left" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
-                <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
+                <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" title="${properties.jcr:title || currentPage.title}" />
             </div>
         </div>
         <div class="ship__content">

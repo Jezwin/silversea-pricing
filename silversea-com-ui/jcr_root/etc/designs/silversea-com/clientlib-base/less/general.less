@@ -15,6 +15,22 @@ html {
     overflow-y: scroll;
 }
 
+.no-scroll-html {
+	//height: 100%;
+ 	//width: 100%;
+  	overflow: hidden !important;
+}
+.no-scroll-body {
+	//height: 100% !important;
+	overflow: hidden !important;
+	//width: 100% !important;
+}
+
+
+.alternative-h {
+	display: block;
+}
+
 body {
     overflow-x: hidden;
     padding-bottom: 47px;
@@ -73,6 +89,10 @@ a {
         outline: 0;
         text-decoration: none;
     }
+}
+
+.alternative-hr {
+	display:block;
 }
 
 /*
@@ -285,6 +305,10 @@ a {
         display: block;
         margin: 0 auto;
     }
+    
+    &__virtual-tour {
+    	max-width: 132%;
+    }
 }
 
 div.image {
@@ -464,4 +488,15 @@ picture {
 */
 .sidebar .iparys_inherited > div {
     margin-bottom: 20px;
+}
+
+.sv_v3__footer-forms .container{
+	@media (max-width: 376px) {
+		padding-left:0;
+		padding-right:0;
+	}
+	.row .form-group{
+			margin-left:-15px;
+			margin-right:-15px;
+	}
 }
