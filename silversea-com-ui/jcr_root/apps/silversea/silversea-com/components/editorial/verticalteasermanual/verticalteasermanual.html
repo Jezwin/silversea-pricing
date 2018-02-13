@@ -10,15 +10,15 @@
 
 </section>
 <style data-sly-test="${properties.heightDesktop}">
-	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
-		min-height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
+	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"} .c-vertical-teaser .c-vertical-teaser__caption {
+		height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
 	}
 </style>
 
 <style data-sly-test="${properties.heightMobile}">
 	@media (max-width: 767px) {
-		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
-			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"} .c-vertical-teaser .c-vertical-teaser__caption {
+			height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 		}
 	}
 </style>

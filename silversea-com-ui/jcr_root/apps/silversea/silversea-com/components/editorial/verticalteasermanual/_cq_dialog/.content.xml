@@ -102,6 +102,7 @@
                                 sling:resourceType="granite/ui/components/foundation/form/numberfield"
                                 fieldDescription="Image height"
                                 fieldLabel="Image height"
+                                defaultValue="150"
                                 min="0"
                                 name="./imageHeightDesktop"/>
                            <showBorderDesktop
@@ -141,6 +142,7 @@
                                 sling:resourceType="granite/ui/components/foundation/form/numberfield"
                                 fieldDescription="Image height"
                                 fieldLabel="Image height"
+                                defaultValue="150"
                                 min="0"
                                 name="./imageHeightMobile"/>
                              <showBorderMobile
