@@ -1,0 +1,227 @@
+.destination .o-area-property-display {
+    padding-top: 0;
+}
+.o-ss-area-property-display {
+    padding-top: 31px;
+
+    @media screen and (min-width: @screen-md-min) {
+        padding-top: 15px;
+    }
+
+    .o-ss-title {
+        font-weight: 400;
+        font-size: 30px;
+        font-family: 'Theano Didot Regular',serif;
+        margin: 0 0 25px;
+        word-break: break-word;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .o-description p {
+        font: 400 13px @f-sans_serif;
+        line-height: 18px;
+        margin-bottom: 20px;
+    }
+
+    .o-description img {
+        width: 100%;
+    }
+
+    .o-section--separator {
+        @media screen and (min-width: @screen-sm) {
+            border: none;
+            padding: 0;
+        }
+    }
+}
+
+.c-ss-availability {
+    padding: 0 0 20px;
+    margin-bottom: 0;
+
+    @media screen and (min-width: @screen-sm) {
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: 15px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .c-list__item {
+        margin: 0;
+        padding: 0 5px;
+
+        &:first-child, &:nth-child(4n+1) {
+            padding-left: 0; 
+        }
+
+        &:nth-child(4n) {
+            padding-right: 0;
+        }
+
+        @media screen and (max-width: @screen-md-max) {
+             padding: 0;
+        }
+
+        .c-availability__link {
+            display: block;
+            background: @grey--3;
+            color: @white;
+            font: 600 15px @f-sans_serif;
+            margin-bottom: 10px;
+            position: relative;
+            text-align: left;
+            padding: 15px 28px 15px 16px;
+
+            &:hover {
+                background: @black;
+                color: @white;
+            }
+
+            i {
+                position: absolute;
+                right: 16px;
+                top: 50%;
+                margin-top: -8px;
+            }
+        }
+    }
+}
+
+.c-cruise .c-cruise__gallery__featured__left_suite {
+    float: left;
+    padding-right: 6px;
+    width: 50%;
+    padding-bottom: 1%;
+}
+
+@media screen and (max-width: 767px) {
+    .c-cruise .c-cruise__gallery__featured__left_suite {
+        float:none;
+        width: 100%
+    }
+}
+
+.c-cruise .c-cruise__gallery__featured__left_suite .c-cruise__gallery__item__caption {
+    bottom: 10px
+}
+
+.c-cruise .c-cruise__gallery__featured__right_suite {
+    float: left;
+    padding-left: 6px;
+    width: 50%;
+    padding-bottom: 1%;
+}
+
+@media screen and (max-width: 767px) {
+    .c-cruise .c-cruise__gallery__featured__right_suite {
+        float:none;
+        width: 100%
+    }
+}
+
+.c-cruise .c-cruise__gallery__featured__right_suite .c-cruise__gallery__item__caption {
+    top: 10px
+}
+
+.c-cruise .c-suite__gallery__label {
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    left: 9px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 6px;
+    bottom: 10px;
+}
+
+@media screen and (min-width: 767px) {
+    .c-suite-gallery {
+        width: 1200px;
+        margin-left: -120px;
+        margin-top: -35px;
+    }
+}
+
+.c-suite-slider-title {
+    background-color: rgba(255,255,255,0.8);
+    font-family: 'Theano Didot Regular',serif;
+    font-size: 18px;
+    height: 72px;
+    left: 50%;
+    margin: 0 0 10px 0;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    width: 66%;
+    line-height: 1.1;
+
+    span {
+		left: 0;
+        position: absolute;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        top: 50%;
+    }
+}
+
+@media (min-width: 1050px) {
+    .o-ss-slider .slick-prev {
+        display: block;
+    	left: -60px;
+    }
+
+    .o-ss-slider .slick-next {
+        display: block;
+    	right: -60px;
+    }
+}
+.o-ss-slider-property-display {
+    padding-top: 31px;
+
+    @media screen and (min-width: @screen-md-min) {
+        padding-top: 15px;
+    }
+
+    .o-ss-slider-title {
+        font-weight: 400;
+        font-size: 24px;
+        font-family: 'Theano Didot Regular',serif;
+        margin: 0 0 25px;
+        word-break: break-word;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .o-slider-description {
+        font: 400 14px @f-sans_serif;
+        line-height: 18px;
+        margin-bottom: 20px;
+    }
+}
+
+.o-ss-slider {
+    .slick-dots {
+    	margin-bottom : -35px;
+	}
+
+    .c-slider {
+        @media screen and (min-width: 767px) {
+         width: 1200px;
+    	 margin-left: -120px;
+        }
+
+        @media screen and (max-width: 767px) {
+ 		 float:none;
+         width: 100%;
+        }
+    }
+}

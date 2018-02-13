@@ -1,0 +1,26 @@
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+<div data-sly-use.suiteUse="com.silversea.aem.components.page.SuiteUse" 
+	data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}" class="container c-cruise">
+    <div class="row">
+        <div class="col-sm-12">
+            <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+			<div data-sly-resource="${'par4' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+ 			<sly data-sly-use.suitevariation="silversea/silversea-com/components/pages/singlesuite/suitevariation.html"
+                            data-sly-call="${suitevariation.default @ suiteUse=suiteUse}" />
+            <section class="o-section c-ss-availability">
+                <p class="c-ss-availability__title">${currentPage.navigationTitle || currentPage.title @ context='html'} ${'available-on-ships' @ i18n} :</p>
+                <div class="container-fluid" style="width: 1000px;margin-left: -22px;">
+                    <ul class="row c-list" data-sly-list="${suiteUse.suiteReferenceList}">
+                        <li class="col-md-3 c-list__item">
+                            <a href="${item.path @ extension = 'html'}" class="c-availability__link">${item.title}
+                                <i class="fa fa-lg fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <div data-sly-resource="${'par2' @ resourceType='silversea/silversea-com/components/included/suiteslider'}"></div>
+            <div data-sly-resource="${'par3' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+        </div>    
+    </div>
+</div>
