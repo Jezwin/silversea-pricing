@@ -54,6 +54,10 @@
             top: 0;
             width: 100%;
         }
+        
+        &_nodefault {
+        	position:inherit;
+        }
     }
 
     &__label {
@@ -61,6 +65,15 @@
         font-weight: 600;
         padding-right: 8px;
         text-transform: uppercase;
+        
+        &_nodefault {
+        	font-size: 13px;
+		    font-weight: normal;
+		    padding-right: 3px;
+		    text-transform: none;
+		    padding-left: 3px;
+		    text-decoration: underline;
+        }
     }
 
     &--style1 & {
@@ -143,12 +156,9 @@
 	&-finedine {
         &__image-wrapper {
     			width: 100%;
-            	@media screen and (max-width: @screen-sm) {
-                    width: 100vw;
-			    	margin-left: -15px;
-                    height: auto;
-                    vertical-align: middle;
-            	}
+    			position:relative;
+    			
+            	
     	}
         &__caption{
 			/*minimum height here is author driven via dialog and is handled using media query on the main component page.*/
@@ -163,26 +173,45 @@
 
         &__title {
            width: 100%;
-           font: 400 24px arial,helvetica,sans-serif;
+           font-size: 24px;
     	   word-break: break-word;
+    	  text-align:center;
+    	   text-transform: uppercase;
+    	   font-family: @f-theano_didot;
            @media screen and (max-width: @screen-sm) {
-            font: 400 18px arial,helvetica,sans-serif;
+            font-size: 18px;
             font-weight: bold;
-            text-align:center;
+            margin-top: 0px;
+            text-align: left;
+            
            }
+           
+           &__allInclusive {
+	           width: 100%;
+	           font-size: 24px;
+	    	   word-break: break-word;
+	    	   margin-top: 0px;
+			  font-family: Lato;
+			  font-weight: bold;
+			  text-transform: none;
+			  
+	           @media screen and (max-width: @screen-sm) {
+	           	font-size: 20px;
+	           }
+	        }
         }
     }
 
     /*obaccomodation*/
     &-oba {
         &__image-wrapper {
+        	position:relative;
                 float: left;
     			width: 50%;
             	@media screen and (max-width: @screen-sm) {
                 height: auto;
     			vertical-align: middle;
-    			width: 100vw;
-			    margin-left: -15px;
+    			width: 100%;
             	}
 
     	}
@@ -201,7 +230,7 @@
 
         &__title {
             @media screen and (max-width: @screen-sm) {
-                    display: none;
+                    font-size:18px;
                     }
             font: 400 30px @f-theano_didot;
             font-weight: bold;
