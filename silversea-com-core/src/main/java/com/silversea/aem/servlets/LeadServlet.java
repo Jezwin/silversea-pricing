@@ -4,11 +4,15 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -207,17 +211,21 @@ public class LeadServlet extends SlingAllMethodsServlet {
 	 *            The obtained request parameter.
 	 * @param body
 	 *            The json body.
+	 * @param email 
+	 * 			  The email id for generating hash.
 	 * @return 
+	 * @throws UnsupportedEncodingException 
+	 * @throws NoSuchAlgorithmException 
 	 */
 	private String generateLeadDataFile(final SlingHttpServletRequest request,
-			String body) {
+			String body, String email) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		LOGGER.debug("Starting file generation");
 		final Map<String, Object> authenticationParams = new HashMap<>();
 		authenticationParams.put(ResourceResolverFactory.SUBSERVICE,
 				ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 		
-		String fileName = DateUtils.formatDate("yyyyMMddHHmmss'.txt'",
-				new Date());
+		String fileName = generateFileName(email, DateUtils.formatDate("yyyyMMddHHmmss",
+				new Date()));
 		try (final ResourceResolver adminResolver = resourceResolverFactory
 				.getServiceResourceResolver(authenticationParams)) {
 			final Session adminSession = adminResolver.adaptTo(Session.class);
@@ -266,6 +274,66 @@ public class LeadServlet extends SlingAllMethodsServlet {
 		return fileName.substring(0, fileName.length() - 4);
 	}
 
+	/**
+	 * Method to create a random digest.
+	 * 
+	 * @param email
+	 *            The set email id of the user.
+	 * @param formatDate
+	 *            The current date time in millis.
+	 * @return The unique digest.
+	 * @throws NoSuchAlgorithmException 
+	 * @throws UnsupportedEncodingException 
+	 */
+	private String generateFileName(String email, String formatDate) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		String digest = StringUtils.EMPTY;
+		if(StringUtils.isEmpty(email)){
+			LOGGER.debug("Email on this request is null. Creating a random shuffle from date.");
+			email = shuffle(formatDate.concat(formatDate));
+		}
+		MessageDigest algorithm = MessageDigest.getInstance("SHA-1");
+		byte[] hashedBytes = algorithm.digest(email.getBytes("UTF-8"));
+		digest = convertByteArrayToHexString(hashedBytes).concat(shuffle(formatDate));
+		LOGGER.debug("The digested string temporary id looks like: - {}", digest);
+		return digest.concat(".txt");
+	}
+
+	/**
+	 * Logic to shuffle the items internally in a randomized way.
+	 * 
+	 * @param input
+	 *            The input to be randomized.
+	 * @return The randomly created string.
+	 */
+	private static String shuffle(String input){
+        List<Character> characters = new ArrayList<Character>();
+        for(char c:input.toCharArray()){
+            characters.add(c);
+        }
+        StringBuilder output = new StringBuilder(input.length());
+        while(characters.size()!=0){
+            int randPicker = (int)(Math.random()*characters.size());
+            output.append(characters.remove(randPicker));
+        }
+        return output.toString();
+    }
+	
+	/**
+	 * The byte array to hext string converter for the digest.
+	 * 
+	 * @param arrayBytes
+	 *            The array of bytes.
+	 * @return The string representation of the byte array.
+	 */
+	private static String convertByteArrayToHexString(byte[] arrayBytes) {
+	    StringBuffer stringBuffer = new StringBuffer();
+	    for (int i = 0; i < arrayBytes.length; i++) {
+	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16)
+	                .substring(1));
+	    }
+	    return stringBuffer.toString();
+	}
+	
 	/**
 	 * The method designed to resubmit the lead for the failed files. This is
 	 * triggered from the designed console.
@@ -332,7 +400,13 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
 		} catch (WebServiceException e) {
 			LOGGER.debug("Lead service request {}", e);
-			String tempId = generateLeadDataFile(request, body);
+			String tempId = StringUtils.EMPTY;
+			try {
+				tempId = generateLeadDataFile(request, body, lead.getEmail());
+			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e1) {
+				LOGGER.error("The temporary ID couldn't be generated. Please check your settings. {} {}", e,
+						e.getMessage());
+			}
 			leadResponse = "{\"temporaryId\":\"" + tempId + "\"}";
 		} 
 		finally{
