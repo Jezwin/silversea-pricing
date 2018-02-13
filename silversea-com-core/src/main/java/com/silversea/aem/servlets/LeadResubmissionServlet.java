@@ -103,27 +103,27 @@ public class LeadResubmissionServlet extends SlingAllMethodsServlet {
 				LOGGER.debug("The read response is : - {}", body);
 				Lead lead = JsonMapper.getDomainObject(body, Lead.class);
 				try {
+					responseMap.put("filename", childRes.getName());
 					leadResponse = leadService.sendLead(lead);
+					responseMap.put("responsecode", leadResponse);
 				} catch (WebServiceException e) {
 					LOGGER.debug(
 							"Not able to submit the lead corresponding to the resource {}. Continuing to the next one.",
 							childRes.getPath());
+					responseMap.put("responsecode", leadResponse);
+					responseMap.put("status", "failure");
+					responseList.add(responseMap);
 					continue;
 				}
-				responseMap.put("filename", childRes.getName());
-				responseMap.put("responsecode", leadResponse);
-
 				if (!StringUtils.isEmpty(leadResponse)) {
 					LOGGER.debug("Resubmission successful for {} and the response is {}", childRes.getPath(),
 							leadResponse);
 					responseMap.put("status", "success");
+					responseList.add(responseMap);
 					LOGGER.debug("Deleting the child resource..");
 					adminResolver.delete(childRes);
 					adminResolver.commit();
-				} else {
-					responseMap.put("status", "failure");
-				}
-				responseList.add(responseMap);
+				} 
 			}
 			finalLeadResponse.put("leadResponse", responseList);
 			LOGGER.debug("The data structure for the re-submission status is :- {}", finalLeadResponse);

@@ -61,7 +61,7 @@ word-break:break-word;
 }
 </style>
 <div class="inboxcontainer">
-    <h1 class="inbox-header-title">Lead Service Data</h1>
+    <h3 class="inbox-header-title">Lead Service Data</h3>
     <div id="specificationTab" class="tab-pane fade in ">
         <div class="product-specifications-tables">
             <div data-sly-use.notfuse="${'com.silversea.aem.components.page.NotificationUse'}" data-sly-unwrap>
@@ -81,7 +81,17 @@ word-break:break-word;
                             </div>
                         </tbody>
                     </table>                    
-                    <button class="myButton" type="submit" id="submitButton" disabled="true">Submit</button>                    
+                    <button class="myButton" type="submit" id="submitButton" disabled="true">Submit</button> 
+                    <div class="summary" style="display: none">
+                        <h3 class="inbox-header-title">Submitted Data Summary</h3>
+                        <table class="table table-striped notif-table" id="invList">
+                          <tr>
+                            <th colspan='2'> Filename</th>
+                            <th colspan='1'> Response code</th>
+                            <th colspan='1'> Status</th>
+                          </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,28 +107,37 @@ $(document).ready(function() {
     $( ".myButton" ).click(function() {
         $.ajax({
             type : 'POST',
-            url: '/bin/lead.json?' + $.param({ reSubmit: 'true' }),
+            url: '/bin/resubmitlead.json',
             beforeSend : function(){
                 $(".table").hide();
                 $("#loader").toggle();
             },
             success : function(data) {
-                gotoItem((new Date()).getTime());
+                //gotoItem((new Date()).getTime());
+            var tr;
+            $.each(data.leadResponse, function(k, v) {
+              tr = $("<tr></tr>");
+              tr.append("<td colspan='2'>" + v.filename + "</td>");
+              tr.append("<td colspan='1'>" + v.responsecode + "</td>");
+              tr.append("<td colspan='1'>" + v.status + "</td>");
+              $("#invList").append(tr);
+            });
             },
             failure : function(errMsg) {
                 console.log('error LeadAPI', errMsg);
             },
             complete : function(){
                 $(".table").show();
-                $("#loader").toggle();   
+                $("#loader").toggle();  
+                $(".summary").show();
             }
 		});
     });
 });
 
-function gotoItem(item){
+/*function gotoItem(item){
     var url = window.location.href;    
     url += (url.indexOf('?') > -1)?"":"?" + "refresh_token=" + encodeURIComponent(item);
     window.location.href = url;
-}
+}*/
 </script>
