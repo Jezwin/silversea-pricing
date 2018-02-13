@@ -1,61 +1,42 @@
 package com.silversea.aem.servlets;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.jcr.LoginException;
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
 import javax.servlet.ServletException;
 import javax.xml.ws.WebServiceException;
 
 import org.apache.commons.collections.ListUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
-import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.dam.api.DamConstants;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.silversea.aem.components.beans.Lead;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.utils.DateUtils;
+import com.silversea.aem.utils.LeadUtils;
 import com.silversea.aem.ws.lead.service.LeadService;
 
 @SlingServlet(methods = "POST", paths = "/bin/lead", extensions = "json")
@@ -67,9 +48,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(LeadServlet.class);
 	private final static String BLACKLIST = "/etc/tags/referrers";
-    private static final String CONTENT_APPLICATION_JSON = "application/json";
-    private static final String UTF8_ENCODING = "utf-8";
-    private final static String LEAD_DATA_PATH = "/var/leadservicedata";
+    
     @Reference
 	private ResourceResolverFactory resourceResolverFactory;
     private static final String[] IP_HEADER_CANDIDATES = { 
@@ -97,17 +76,9 @@ public class LeadServlet extends SlingAllMethodsServlet {
 	 * org.apache.sling.api.SlingHttpServletResponse)
 	 */
 	protected final void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws ServletException {
-
-		boolean reSubmitFlag = false;
-		reSubmitFlag = Boolean.valueOf(request.getParameter("reSubmit"));
-		LOGGER.debug("The re-submit flag obtained here is: - {}", reSubmitFlag);
-		if (reSubmitFlag) {
-			reSubmit(request, response);
-		} else {
 			sendLead(request, response);
-		}
-        
     }
+	
 	private void sendLead(SlingHttpServletRequest request, SlingHttpServletResponse response) {
 		// Retrieve body content from request
 				String leadResponse = StringUtils.EMPTY;
@@ -179,7 +150,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 							} 
 							
 							if(leadResponse != StringUtils.EMPTY ) {
-								writeDomainObject(response, leadResponse);
+								LeadUtils.writeDomainObject(response, leadResponse);
 							} else {
 								LOGGER.debug("There is no blocked referer , ipaddress or emailadress here. Executing normal flow");
 								writeLeadResponse(request, response, body);
@@ -203,186 +174,6 @@ public class LeadServlet extends SlingAllMethodsServlet {
 
 		
 	}
-
-	/**
-	 * This method is used ot generate the lead data file under /var.
-	 * 
-	 * @param request
-	 *            The obtained request parameter.
-	 * @param body
-	 *            The json body.
-	 * @param email 
-	 * 			  The email id for generating hash.
-	 * @return 
-	 * @throws UnsupportedEncodingException 
-	 * @throws NoSuchAlgorithmException 
-	 */
-	private String generateLeadDataFile(final SlingHttpServletRequest request,
-			String body, String email) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		LOGGER.debug("Starting file generation");
-		final Map<String, Object> authenticationParams = new HashMap<>();
-		authenticationParams.put(ResourceResolverFactory.SUBSERVICE,
-				ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-		
-		String fileName = generateFileName(email, DateUtils.formatDate("yyyyMMddHHmmss",
-				new Date()));
-		try (final ResourceResolver adminResolver = resourceResolverFactory
-				.getServiceResourceResolver(authenticationParams)) {
-			final Session adminSession = adminResolver.adaptTo(Session.class);
-			if (adminSession == null) {
-				throw new Exception("Cannot initialize session");
-			}
-			String path = LEAD_DATA_PATH + "/" + fileName;
-			LOGGER.debug("Generating file : - {} with data :- {}", path, body);
-
-			InputStream inputStream = new ByteArrayInputStream(
-					body.getBytes(StandardCharsets.UTF_8));
-			LOGGER.debug("Setting file metadata..");
-			if (adminSession.nodeExists(path + "/" + JcrConstants.JCR_CONTENT)) {
-				Node node = adminSession.getNode(path + "/"
-						+ JcrConstants.JCR_CONTENT);
-				node.setProperty(JcrConstants.JCR_DATA, adminSession
-						.getValueFactory().createBinary(inputStream));
-				node.setProperty(JcrConstants.JCR_LASTMODIFIED,
-						Calendar.getInstance());
-				node.setProperty(JcrConstants.JCR_LAST_MODIFIED_BY, node
-						.getSession().getUserID());
-			} else {
-				LOGGER.debug("jcr:content not present. Creating it...");
-				Node feedNode = JcrUtil.createPath(path, true,
-						DamConstants.NT_SLING_ORDEREDFOLDER,
-						JcrConstants.NT_FILE, adminSession, false);
-				Node dataNode = feedNode.addNode(JcrConstants.JCR_CONTENT,
-						JcrConstants.NT_RESOURCE);
-				dataNode.setProperty(JcrConstants.JCR_MIMETYPE, "text/plain");
-				dataNode.setProperty(JcrConstants.JCR_ENCODING, UTF8_ENCODING);
-				dataNode.setProperty(JcrConstants.JCR_DATA, adminSession
-						.getValueFactory().createBinary(inputStream));
-			}
-			if (adminSession.isLive() || adminSession.hasPendingChanges()) {
-				adminSession.save();
-			}
-		} catch (LoginException loginException) {
-			LOGGER.error(
-					"Exception while retrieving admin access for Resolver: {}",
-					loginException.getMessage());
-		} catch (RepositoryException repositoryException) {
-			LOGGER.error("Repository Exception: {}", repositoryException);
-		} catch (Exception e) {
-			LOGGER.error("Exception ", e.getMessage());
-		}
-		return fileName.substring(0, fileName.length() - 4);
-	}
-
-	/**
-	 * Method to create a random digest.
-	 * 
-	 * @param email
-	 *            The set email id of the user.
-	 * @param formatDate
-	 *            The current date time in millis.
-	 * @return The unique digest.
-	 * @throws NoSuchAlgorithmException 
-	 * @throws UnsupportedEncodingException 
-	 */
-	private String generateFileName(String email, String formatDate) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		String digest = StringUtils.EMPTY;
-		if(StringUtils.isEmpty(email)){
-			LOGGER.debug("Email on this request is null. Creating a random shuffle from date.");
-			email = shuffle(formatDate.concat(formatDate));
-		}
-		MessageDigest algorithm = MessageDigest.getInstance("SHA-1");
-		byte[] hashedBytes = algorithm.digest(email.getBytes("UTF-8"));
-		digest = convertByteArrayToHexString(hashedBytes).concat(shuffle(formatDate));
-		LOGGER.debug("The digested string temporary id looks like: - {}", digest);
-		return digest.concat(".txt");
-	}
-
-	/**
-	 * Logic to shuffle the items internally in a randomized way.
-	 * 
-	 * @param input
-	 *            The input to be randomized.
-	 * @return The randomly created string.
-	 */
-	private static String shuffle(String input){
-        List<Character> characters = new ArrayList<Character>();
-        for(char c:input.toCharArray()){
-            characters.add(c);
-        }
-        StringBuilder output = new StringBuilder(input.length());
-        while(characters.size()!=0){
-            int randPicker = (int)(Math.random()*characters.size());
-            output.append(characters.remove(randPicker));
-        }
-        return output.toString();
-    }
-	
-	/**
-	 * The byte array to hext string converter for the digest.
-	 * 
-	 * @param arrayBytes
-	 *            The array of bytes.
-	 * @return The string representation of the byte array.
-	 */
-	private static String convertByteArrayToHexString(byte[] arrayBytes) {
-	    StringBuffer stringBuffer = new StringBuffer();
-	    for (int i = 0; i < arrayBytes.length; i++) {
-	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16)
-	                .substring(1));
-	    }
-	    return stringBuffer.toString();
-	}
-	
-	/**
-	 * The method designed to resubmit the lead for the failed files. This is
-	 * triggered from the designed console.
-	 * 
-	 * @param request
-	 *            The obtained request.
-	 * @param response
-	 *            The response to be sent.
-	 */
-	private void reSubmit(final SlingHttpServletRequest request,
-			final SlingHttpServletResponse response) {
-		LOGGER.debug("Starting Resubmission..");
-		final Map<String, Object> authenticationParams = new HashMap<>();
-		authenticationParams.put(ResourceResolverFactory.SUBSERVICE,
-				ImportersConstants.SUB_SERVICE_IMPORT_DATA);
-		
-		try (final ResourceResolver adminResolver = resourceResolverFactory
-				.getServiceResourceResolver(authenticationParams)) {
-			final Session adminSession = adminResolver.adaptTo(Session.class);
-
-			if (adminSession == null) {
-				throw new Exception("Cannot initialize session");
-			}
-			Resource resource = adminResolver.getResource(LEAD_DATA_PATH);
-			Iterator<Resource> resItr = resource.listChildren();
-			while (resItr.hasNext()) {
-				Resource childRes = resItr.next();
-				String leadResponse = StringUtils.EMPTY;
-				String body = IOUtils.toString(
-						JcrUtils.readFile(childRes.adaptTo(Node.class)),
-						StandardCharsets.UTF_8.name());
-				LOGGER.debug("The read response is : - {}", body);
-				Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-				leadResponse = leadService.sendLead(lead);
-				if (!StringUtils.isEmpty(leadResponse)) {
-					LOGGER.debug("Resubmission successful for {} and the response is {}", childRes.getPath(), leadResponse);
-					LOGGER.debug("Deleting the child resource..");
-					adminResolver.delete(childRes);
-					adminResolver.commit();
-				}
-			}
-		} catch (Exception e) {
-			LOGGER.error("Exception occured while resubmitting from the console. "
-					+ "Would not delete the file from under /var/leadservicedata. "
-					+ "You can try submitting again later from the console.", e.getMessage());
-		}
-		LOGGER.debug("Ënding re-submission...");
-	}
-
 	/**
 	 * Wrapper method to write the lead response into a domain object.
 	 * 
@@ -402,7 +193,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
 			LOGGER.debug("Lead service request {}", e);
 			String tempId = StringUtils.EMPTY;
 			try {
-				tempId = generateLeadDataFile(request, body, lead.getEmail());
+				tempId = LeadUtils.generateLeadDataFile(resourceResolverFactory, request, body, getEmailAddress(body));
 			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e1) {
 				LOGGER.error("The temporary ID couldn't be generated. Please check your settings. {} {}", e,
 						e.getMessage());
@@ -411,30 +202,9 @@ public class LeadServlet extends SlingAllMethodsServlet {
 		} 
 		finally{
 			LOGGER.debug("Lead service response {}", leadResponse);
-			writeDomainObject(response, leadResponse);
-
+			LeadUtils.writeDomainObject(response, leadResponse);
 		}
 	}
-
-    /**
-     * Serialize object to json and send it in the response
-     * @param response
-     *                 Http response
-     * @param domainObject
-     *                    Object  to send in the response
-     */
-    protected <T> void writeDomainObject(SlingHttpServletResponse response, T domainObject) {
-        response.setContentType(CONTENT_APPLICATION_JSON);
-        response.setCharacterEncoding(UTF8_ENCODING);
-        String json = JsonMapper.getJson(domainObject);
-
-        try {
-            response.getWriter().write(json);
-        } catch (IOException e) {
-            LOGGER.error("Error while writing json in the response", e);
-        }
-    }
-
     /**
      * Read body from request
      * @param request
