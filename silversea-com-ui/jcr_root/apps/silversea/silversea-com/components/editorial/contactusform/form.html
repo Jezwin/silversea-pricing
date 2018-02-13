@@ -1,5 +1,5 @@
 <sly data-sly-use.countryHelper="${'com.silversea.aem.helper.CountryHelper' @ path = currentPage.path}"/>
-<form class="request-quote-form c-form c-formcookie--redirect" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.ContactUsFormUse" novalidate>
+<form class="request-quote-form c-form c-formcookie--redirect c-contactus" action="${properties.pageReference @ extension='html'}" method="post" data-sly-use.use="com.silversea.aem.components.editorial.ContactUsFormUse" novalidate>
     ${use.prepareDestinationParameters}
     <input name="requestsource" type="hidden" value="CONTACT" />
     <input name="requesttype" type="hidden" value="" />
@@ -119,7 +119,7 @@
 
     <div class="row">
         <div class="col-sm-7 col-sm-offset-5">
-            <button class="btn btn-red effect btn-block btn-lg" data-sscclicktype="clic-RAQ"><span>${'submit' @ i18n}</span><i class="fa fa-angle-right"></i></button>
+            <button class="btn btn-red effect btn-block btn-lg"><span>${'submit' @ i18n}</span><i class="fa fa-angle-right"></i></button>
         </div>
     </div> 
 </form>

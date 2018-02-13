@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+	if($(".c-contactus").length){
   var $form = $(this), userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
   var sub_id;
 $.each(JSON.parse(myJson).subjects, function (index, value) {
@@ -50,7 +51,7 @@ $.each(JSON.parse(myJson).subjects, function (index, value) {
      		$("#from_email").val(userInfo.from_email);
  }
 
-
+	}
 });
 
 

@@ -1,7 +1,7 @@
 (function(){
 
     var portsDest = [];
-
+if($(".finyourport").length){
     $.ajax({
         url: $('.port-dest-search').data('path'),
         async: false,
@@ -158,4 +158,5 @@
     }
 
     $(document).ready(initChosen);
+}
 })();
