@@ -156,12 +156,9 @@
 	&-finedine {
         &__image-wrapper {
     			width: 100%;
-            	@media screen and (max-width: @screen-sm) {
-                    width: 100vw;
-			    	margin-left: -15px;
-                    height: auto;
-                    vertical-align: middle;
-            	}
+    			position:relative;
+    			
+            	
     	}
         &__caption{
 			/*minimum height here is author driven via dialog and is handled using media query on the main component page.*/
@@ -208,13 +205,13 @@
     /*obaccomodation*/
     &-oba {
         &__image-wrapper {
+        	position:relative;
                 float: left;
     			width: 50%;
             	@media screen and (max-width: @screen-sm) {
                 height: auto;
     			vertical-align: middle;
-    			width: 100vw;
-			    margin-left: -15px;
+    			width: 100%;
             	}
 
     	}
@@ -233,7 +230,7 @@
 
         &__title {
             @media screen and (max-width: @screen-sm) {
-                    display: none;
+                    font-size:18px;
                     }
             font: 400 30px @f-theano_didot;
             font-weight: bold;
