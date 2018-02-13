@@ -63,6 +63,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on"
         sling:message="available on"/>
+	<available-on-ships
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="available-on-ships"
+        sling:message="is available on the following ships"/>	
     <award-label
         jcr:primaryType="sling:MessageEntry"
         sling:key="award-label"
@@ -699,6 +703,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-story"
         sling:message="Other recent stories"/>
+	<other-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-suites"
+        sling:message="other luxury oceanview suites"/>
+    <other-suites-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-suites-description"
+        sling:message="Silversea's suites offer one of the highest space-per-guest ratios of any luxury cruise accommodations. All of our suites feature ocean views, and many with a private teak veranda."/>	
     <overview
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
