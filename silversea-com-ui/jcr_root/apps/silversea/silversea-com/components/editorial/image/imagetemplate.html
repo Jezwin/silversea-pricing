@@ -11,10 +11,10 @@
             ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=constrain 2x"
             media="(min-width: 768px)" />
         <sly data-sly-test="${!seo}">
-	        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+	        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
         </sly>
         <sly data-sly-test="${seo}">
-	        <img itemprop="image" src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+	        <img itemprop="image" src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
         </sly>
     </picture>
 </template>
@@ -31,7 +31,7 @@
             srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop,
             ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=crop 2x"
             media="(min-width: 768px)" />
-        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img o-img__virtual-tour cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img o-img__virtual-tour cq-dd-image" />
     </picture>
 </template>
 
@@ -39,7 +39,7 @@
 <template data-sly-template.image="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
     <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
         alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
-        title="${properties.jcr:title || currentPage.title @context='html'}"
+        title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         class="o-img cq-dd-image" />
 </template>
 
@@ -48,7 +48,7 @@
     <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
         alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
-        title="${properties.jcr:title || currentPage.title @context='html'}"
+        title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         class="o-img cq-dd-image lazy" />
 </template>
 
@@ -56,7 +56,7 @@
     <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAQAAABQ+cdNAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiAgIJFy6RFTkUAAAAE0lEQVQI12P8X8+AAZgYGOgjCAC9eQGKi+OE+gAAAABJRU5ErkJggg=="
         alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
-        title="${properties.jcr:title || currentPage.title @context='html'}"
+        title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         class="o-img cq-dd-image lazy" />
 </template>
 
@@ -69,6 +69,6 @@
             srcset="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop,
             ${assetHelper.imageUrl}?hei=390&wid=930&fit=crop 2x"
             media="(min-width: 768px)" />
-        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.jcr:title || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
