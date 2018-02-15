@@ -1,27 +1,36 @@
-<div class="o-ss-slider-property-display">
-        <h1 class="o-ss-slider-title">${'other-suites' @ i18n}</h1>
-        <div class="o-slider-description">
+<div class="c-single-suite-slider-property-display">
+        <h1 class="o-single-suite-slider-title">${'other-suites' @ i18n}</h1>
+        <div class="o-single-suite-slider-description">
            ${'other-suites-description' @ i18n}
         </div>
 </div>
-<div class="o-ss-slider" data-sly-use.reference="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
+<div class="c-single-suite-slider" data-sly-use.reference="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
     data-sly-use.sideMenu="com.silversea.aem.components.editorial.SideMenuUse">
-  <div class="c-slider c-slider--style1 c-slider--arrowoutside"
-         data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "adaptiveHeight": true, "dots" : true}'>
+  <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside"
+         data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "adaptiveHeight": true, "dots" : true}' role="toolbar">
         <div data-sly-repeat="${sideMenu.subPage}" class="slider-item" >
-        	<section class="c-vertical-teaser c-teaser-eo c-vertical-teaser--style1 thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" 
+        	<section class="c-single-suite-slider thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" 
 			    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-			    <div class="c-vertical-teaser__image-wrapper">
+			    <div class="c-single-suite-slider__image-wrapper">
 			        <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
 			    </div>
-				<span class="c-suite-slider-title"><span>${item.navigationTitle || item.title}</span></span>
-			    <a class="c-vertical-teaser__link--block" href="${item.path @ extension='html'}"></a>
+				<div class="caption c-single-suite-slider__caption">
+			        <span class="c-single-suite-slider__title__mobile">${item.navigationTitle || item.title}</span>
+			        <div class="c-single-suite-slider__description"  data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=target.page.description, limit=80}">
+			            ${target.page.description @ context='html'}
+			        </div>
+			        <a class="c-single-suite-slider__link" href="${item.path @ extension='html'}">
+			            <span class="c-single-suite-slider__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+			        </a>
+			    </div>
+				<span class="c-single-suite-slider__title"><span>${item.navigationTitle || item.title}</span></span>
+			    <a class="c-single-suite-slider__link--block" href="${item.path @ extension='html'}"></a>
 			</section>
         </div>
   </div>
 </div>
-<div class="c-cruise__item-expander">
-        <a class="btn btn-thin btn-dark expander-open" href="${currentPage.getParent.getPath}.html"><span>${'view-all-suites' @ i18n}</span><i class="fa fa-angle-down"></i></a>        
+<div class="c-single-suite-slider-button">
+        <a class="btn btn-thin btn-dark" href="${currentPage.getParent.getPath}.html"><span>${'view-all-suites' @ i18n}</span></a>
 </div>
 <script data-sly-test="${properties.marginBottom}">
 	$( document ).ready(function() {
