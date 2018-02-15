@@ -1,21 +1,22 @@
 package com.silversea.aem.components.page;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.models.SilverseaAsset;
 import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.utils.AssetUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * TODO merge with {@link DiningUse}
@@ -59,7 +60,7 @@ public class SuiteUse extends WCMUsePojo {
         	List<Asset> suiteAssets = new ArrayList<>();
         	List<SilverseaAsset> suitesAssetsList = new ArrayList<>();
 
-    		if (StringUtils.isNotBlank(suiteModel.getAssetSelectionReference())) {
+    		if (StringUtils.isNotEmpty(suiteModel.getAssetSelectionReference())) {
     			suiteAssets
     					.addAll(AssetUtils.buildAssetList(suiteModel.getAssetSelectionReference(), getResourceResolver()));
 
@@ -76,21 +77,18 @@ public class SuiteUse extends WCMUsePojo {
         
         int i = 0;
         for (Map.Entry<String, List<SilverseaAsset>> entry : shipSuiteAsset.entrySet()) {
+    		List<SilverseaAsset> value = entry.getValue();
         	if(i < 4) {
-        		List<SilverseaAsset> value = entry.getValue();
         		if(!value.isEmpty()) {
                     initialSuitesAssetsList.add(value.get(0));
                     value.remove(0);
                     i++;
         		}
-        	}
-        }
-        
-        for (Map.Entry<String, List<SilverseaAsset>> entry : shipSuiteAsset.entrySet()) {
-        		List<SilverseaAsset> value = entry.getValue();
+        	} else {
         		if(!value.isEmpty()) {
         			completeSuitesAssetsList.addAll(0, value);
         		}
+        	}
         }
         
         List<SilverseaAsset> mergedSuitesAssetsList = new ArrayList<>();
@@ -118,4 +116,5 @@ public class SuiteUse extends WCMUsePojo {
     public List<SilverseaAsset> getInitialSuitesAssetsList() {
 		return initialSuitesAssetsList;
 	}
+    
 }

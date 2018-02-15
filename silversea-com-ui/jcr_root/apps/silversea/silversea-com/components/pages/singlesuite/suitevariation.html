@@ -1,9 +1,0 @@
-<template data-sly-template.default="${ @ suiteUse }">
- <div class="c-suite-gallery">
-    <div class="c-cruise-photovideo" data-sly-test="${suiteUse.allMapAssetForSuites}">
-            <div class="c-cruise__gallery">
-                <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/singlesuite/gallerytemplate.html" data-sly-call="${galleryTemplate.mapView @ assetMap = suiteUse.allAssetForSuites , initialSuitesAssetsList = suiteUse.initialSuitesAssetsList}" />
-            </div>
-    </div>
-  </div>
-</template>
