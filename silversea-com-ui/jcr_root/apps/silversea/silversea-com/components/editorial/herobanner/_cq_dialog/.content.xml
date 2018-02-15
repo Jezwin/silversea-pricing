@@ -44,6 +44,31 @@
                                         value="offer" />
                                 </items>
                             </type>
+                             <titletag
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Title Html Tag"
+                                name="./titletag">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <h1
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h1"
+                                        value="h1" />
+                                    <h2
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h2"
+                                        value="h2" />
+                                   <h3
+                                        jcr:primaryType="nt:unstructured"
+                                        text="h3"
+                                        value="h3" />
+                                   <span
+                                        jcr:primaryType="nt:unstructured"
+                                        text="span"
+                                        value="span" />
+                                    
+                                </items>
+                            </titletag>
                             <desktopBackgoundPosition
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/select"
