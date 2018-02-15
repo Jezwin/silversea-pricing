@@ -16,7 +16,7 @@
 			    </div>
 				<div class="caption c-single-suite-slider__caption">
 			        <span class="c-single-suite-slider__title__mobile">${item.navigationTitle || item.title}</span>
-			        <div class="c-single-suite-slider__description"  data-sly-use.description="${'com.silversea.aem.helper.StringHelper' @ text=target.page.description, limit=80}">
+			        <div class="c-single-suite-slider__description">
 			            ${target.page.description @ context='html'}
 			        </div>
 			        <a class="c-single-suite-slider__link" href="${item.path @ extension='html'}">
