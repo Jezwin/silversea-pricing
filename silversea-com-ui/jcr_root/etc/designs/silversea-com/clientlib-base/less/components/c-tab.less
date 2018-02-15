@@ -238,3 +238,70 @@
         }
     }
 }
+
+.c-tab-ship {
+	.c-tab__link{
+		text-transform:uppercase !important;
+		padding-top:0px !important;
+		//border-top: 5px solid white;
+		a {
+			height: 80px !important;
+    		line-height: 32px !important;
+    		padding-top:11px;
+    		border-right: solid 1px #ccc !important;
+    		border-top: solid 1px #ccc !important;
+    		font-weight: 700;
+		}
+		&[data-state='active']{
+			    border-top: 5px solid black !important;
+			    
+			    a{
+			    	border-top:none !important;
+			    	height:75px!important;
+			    }
+		}
+	}
+	@media screen and (max-width: @screen-sm) {
+		.c-tab__nav--fixed {
+	        table-layout: fixed;
+		    margin-left: -15px;
+   			width: calc(~"100% + 30px");
+	        .c-tab__link {
+	            border-left: 0;
+	            display: table-cell;
+
+				img{
+					opacity:0.9;
+				}
+	            &:last-child {
+	                a {
+	                    border-right: 0;
+	                }
+	            }
+	
+	            span {
+	                display: inline-block;
+	                line-height: 14px;
+	                vertical-align: middle;
+	                width: 90%;
+	            }
+	
+	            &[data-state='active'] {
+	                a {
+	                    margin-left: -1px;
+	                    position: relative;
+	
+	                    &:before {
+	                        border-left: 1px solid @grey--9;
+	                        bottom: 0;
+	                        content: ' ';
+	                        left: 0;
+	                        position: absolute;
+	                        top: -2px;
+	                    }
+	                }
+	            }
+	        }
+	    }
+    }
+}
