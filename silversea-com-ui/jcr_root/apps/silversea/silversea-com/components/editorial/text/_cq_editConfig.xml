@@ -142,6 +142,18 @@
                             jcr:primaryType="nt:unstructured"
                             cssName="h-serif"
                             text="serif" />
+                        <alternateh1
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h1"
+                            text="Alternate h1" />
+                        <alternateh2
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h2"
+                            text="Alternate h2" />
+                        <alternateh3
+                            jcr:primaryType="nt:unstructured"
+                            cssName="h3"
+                            text="Alternate h3" />
                     </styles>
                 </styles>
             </rtePlugins>
