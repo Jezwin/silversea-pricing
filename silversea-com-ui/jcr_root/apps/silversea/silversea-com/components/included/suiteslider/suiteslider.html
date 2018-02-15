@@ -8,8 +8,9 @@
     data-sly-use.sideMenu="com.silversea.aem.components.editorial.SideMenuUse">
   <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside"
          data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "adaptiveHeight": true, "dots" : true}' role="toolbar">
-        <div data-sly-repeat="${sideMenu.subPage}" class="slider-item" >
-        	<section class="c-single-suite-slider thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" 
+	<sly data-sly-repeat="${sideMenu.subPage}">
+        <div class="slider-item"  data-sly-test="${item.path != currentPage.path}">
+			<section class="c-single-suite-slider thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" 
 			    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
 			    <div class="c-single-suite-slider__image-wrapper">
 			        <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
@@ -27,14 +28,9 @@
 			    <a class="c-single-suite-slider__link--block" href="${item.path @ extension='html'}"></a>
 			</section>
         </div>
+	</sly>
   </div>
 </div>
 <div class="c-single-suite-slider-button">
         <a class="btn btn-thin btn-dark" href="${currentPage.getParent.getPath}.html"><span>${'view-all-suites' @ i18n}</span></a>
 </div>
-<script data-sly-test="${properties.marginBottom}">
-	$( document ).ready(function() {
-		var marginBottomSlider = '${properties.marginBottom || 10 @ context="unsafe"}px';
-		$('#c-slider-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}').parent().css("margin-bottom", marginBottomSlider);
-	});
-</script>
