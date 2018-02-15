@@ -23,8 +23,6 @@ public class HeroBannerUse extends WCMUsePojo {
 	private String suffixUrl;
 	private String selectorUrl;
 
-	private boolean isFirstElement;
-
 	private String imageBackgroundPath;
 
 	@Override
@@ -48,16 +46,7 @@ public class HeroBannerUse extends WCMUsePojo {
         		}
         	}
         }
-		
-        this.isFirstElement = true;
-		if (isInsideSlider(getResource())) {
-			Resource resourceParent = getResource().getParent();
-			if (resourceParent.getChildren() != null && resourceParent.getChildren().iterator().hasNext()) {
-				Resource firstResourceChild =   resourceParent.getChildren().iterator().next();
-				isFirstElement = firstResourceChild.getPath().equalsIgnoreCase(getResource().getPath());
-			}
-			
-		}
+
 		btn1 = getButton("button1");
 		btn2 = getButton("button2");
 
@@ -70,23 +59,6 @@ public class HeroBannerUse extends WCMUsePojo {
 			this.suffixUrl = selectorSuffixUrl[1];
 		}
 
-	}
-
-	private boolean isInsideSlider(Resource resource) {
-		if (resource != null) {
-			Resource resourceParent = resource.getParent();
-			if (resourceParent != null) {
-				if (resourceParent.getResourceType()
-						.equalsIgnoreCase("silversea/silversea-com/components/editorial/slider")) {
-					return true;
-				} else if (resourceParent.getResourceType()
-						.equalsIgnoreCase("wcm/foundation/components/responsivegrid")) { // security check to not iterate until the root
-					return false;
-				}
-			}
-			return isInsideSlider(resourceParent);
-		}
-		return false;
 	}
 
 	/**
@@ -126,10 +98,6 @@ public class HeroBannerUse extends WCMUsePojo {
 
 	public String getSelectorUrl() {
 		return selectorUrl;
-	}
-
-	public boolean getIsFirstElement() {
-		return isFirstElement;
 	}
 
 	public String getImageBackgroundPath() {
