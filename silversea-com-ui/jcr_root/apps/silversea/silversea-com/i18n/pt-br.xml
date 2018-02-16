@@ -56,6 +56,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="disponível em"/>
+	<available-on-ships
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;está disponível nos seguintes navios"/>	
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -706,6 +710,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Outras histórias recentes"/>
+	<other-suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;outras suites de luxo com vista para o oceano"/>
+    <other-suites-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="As suítes de Silversea oferecem um dos índices de espaço-por-hóspede mais altos de qualquer acomodação de cruzeiro de luxo. Todas as nossas suítes possuem vistas para o oceano e muitas com varanda privativa em teca."/>	
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

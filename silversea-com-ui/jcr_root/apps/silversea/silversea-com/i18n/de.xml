@@ -56,6 +56,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="verfügbar an"/>
+	<available-on-ships
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="ist auf folgenden Schiffen verfügbar"/>
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -710,6 +714,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Weitere neue Geschichten"/>
+	<other-suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;andere luxuriöse Oceanview Suiten"/>
+    <other-suites-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;Silverseas Suiten bieten eines der höchsten Raum-pro-Gäste-Verhältnis aller Luxus-Kreuzfahrt-Unterkünfte. Alle unsere Suiten verfügen über Meerblick und viele mit einer privaten Teakholzveranda."/>	
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

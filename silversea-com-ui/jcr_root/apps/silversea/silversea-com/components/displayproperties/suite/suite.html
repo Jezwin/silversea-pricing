@@ -1,9 +1,6 @@
-<div class="o-area-property-display">
-    <div data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html">
-        <sly data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.areaPage.properties.assetSelectionReference}"></sly>
+<div class="c-suite-display">
         <h1 class="o-title">${currentPage.navigationTitle || currentPage.title @ context='html'}</h1>
-        <div class="text">
+        <div class="o-description">
             ${pageProperties.longDescription || currentPage.description @ context='html'}
         </div>
-    </div>
 </div>
