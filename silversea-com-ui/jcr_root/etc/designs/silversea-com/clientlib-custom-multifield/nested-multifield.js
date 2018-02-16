@@ -1,4 +1,4 @@
-/*(function () {
+(function () {
     var DATA_EAEM_NESTED = "data-eaem-nested";
     var CFFW = ".coral-Form-fieldwrapper";
     var JSON_STORE = "JSON_STORE";
@@ -204,4 +204,4 @@
     });
 
     CUI.Widget.registry.register("multifield", CUI.Multifields);
-})();*/
+})();
