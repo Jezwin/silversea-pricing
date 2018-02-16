@@ -346,26 +346,12 @@
 						                                                <column jcr:primaryType="nt:unstructured"
 						                                                        sling:resourceType="granite/ui/components/foundation/container">
 						                                                    <items jcr:primaryType="nt:unstructured">
-						                                                       <type
-																				    jcr:primaryType="nt:unstructured"
-																				    sling:resourceType="granite/ui/components/foundation/form/select"
-																				    fieldLabel="Type"
-																				    name="./type">
-																				  <items jcr:primaryType="nt:unstructured">
-																				    <title
-																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Title"
-																				      	value="title" />
-																				    <description
-																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Description"
-																				      	value="description" />
-																				    <shortDescription 
-																				    	jcr:primaryType="nt:unstructured"
-																				      	text="Short description"
-																				      	value="shortDescription"/>
-																				  </items>
-																				</type>
+						                                                       <token
+						                                                            jcr:primaryType="nt:unstructured"
+                                        											sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Token as price, start-date ..."
+						                                                            fieldLabel="Token"
+						                                                            name="./token"/>
 						                                                        <value
 						                                                            jcr:primaryType="nt:unstructured"
 						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
