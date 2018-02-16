@@ -36,6 +36,8 @@ $.fn.requestForm = function() {
                 $form.find('[name="postalcode"]').val(userInfo.postalcode);
                 $form.find('[name="city"]').val(userInfo.city);
                 $form.find('[name="country"]').val(userInfo.country);
+                $form.find('[name="bookingnumber"]').val(userInfo.bookingnumber);
+                $form.find('[name="vsnumber"]').val(userInfo.vsnumber);
             }
         });
 

@@ -26,26 +26,38 @@
         	text-transform: lowercase;
         }
 
-        .cruise_header__subtitle {
+    }
+    
+    .cruise_header__subtitle {
+        display: block;
+        font-size: 16px;
+        color: @grey--9;
+        font-family: @f-sans_serif;
+        margin-top: 10px;
+        text-transform: uppercase;
+        line-height: 1;
+        text-align: center;
+
+        &:after {
+            content: '';
+            width: 80%;
+            max-width: 550px;
+            height: 2px;
             display: block;
-            font-size: 16px;
-            color: @grey--9;
-            font-family: @f-sans_serif;
-            margin-top: 10px;
+            margin: 20px auto;
+            background: @blue;
 
-            &:after {
-                content: '';
-                width: 80%;
-                max-width: 550px;
-                height: 2px;
-                display: block;
-                margin: 20px auto;
-                background: @blue;
-
-                .expedition & {
-                    background-color: @red-expedition;
-                }
+            .expedition & {
+                background-color: @red-expedition;
             }
+        }
+        
+        &_ship{
+        	font: italic 16px 'Playfair Display',serif;
+        	display: block;
+		    font-size: 19px;
+		    margin-top: 3px;
+		    text-transform: none;
         }
     }
 

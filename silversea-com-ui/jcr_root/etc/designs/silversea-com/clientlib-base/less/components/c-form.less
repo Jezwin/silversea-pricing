@@ -178,6 +178,14 @@
         .input--title .with-errors {
             right: 30px;
         }
+        
+        .input--subject .with-errors {
+            right: 30px;
+        }
+        
+        .input--inquiry .with-errors {
+            right: 30px;
+        }
 
         .countrycode .with-errors {
             top: 0px;
@@ -240,9 +248,21 @@
             padding: 10px 40px 10px 20px;
         }
     }
+    
+    .input--subject {
+        .chosen-single {
+            padding: 10px 40px 10px 20px;
+        }
+    }
+    
+    .input--inquiry {
+        .chosen-single {
+            padding: 10px 40px 10px 20px;
+        }
+    }
 
     select {
-        &[name='title'], &[name='country'] {
+        &[name='title'], &[name='country'], &[name='subject'], &[name='inquiry'] {
             + .chosen-container .chosen-single {
                 font-weight: normal;
             }

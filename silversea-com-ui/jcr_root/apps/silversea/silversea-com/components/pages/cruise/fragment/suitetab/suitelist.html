@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="c-suitelist" role="tablist">
+    <div class="c-suitelist" role="tablist" id="cruise_suite_list_A">
         <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
         <p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr' @i18n}</p>
 
@@ -12,7 +12,7 @@
                         data-sly-call="${imageTemplate.lazy @ imagePath=item.suite.thumbnail, width=930}" />
                 </div>
                 <div class="c-suitelist__detail">
-                    <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
+                    <span class="c-suitelist__detail__title alternative-h" data-sly-text="${item.suite.title}"></span>
                     <p class="c-suitelist__detail__description">${item.suite.suiteSubTitle @ context='html'}</p>
                 </div>
                 <div class="c-suitelist__price">
@@ -100,7 +100,7 @@
     </div>
 </template>
 <template data-sly-template.abTestV2="${ @ cruise }">
-    <div class="c-suitelist ab-test-v2-show" role="tablist">
+    <div class="c-suitelist ab-test-v2-show" role="tablist" id="cruise_suite_list_B">
         <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
         <p class="c-cruise__descr hidden-xs ab-test-v2-hide">${'cruise-suites-and-fares-descr' @i18n}</p>
 		<p class="c-cruise__descr hidden-xs ab-test-v2-show">${'cruise-suites-and-fares-descr-v2' @i18n}</p>
@@ -113,7 +113,7 @@
                         data-sly-call="${imageTemplate.lazy @ imagePath=item.suite.thumbnail, width=930}" />
                 </div>
                 <div class="c-suitelist__detail">
-                    <h3 class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></h3>
+                    <span class="c-suitelist__detail__title" data-sly-text="${item.suite.title}"></span>
                     <p class="c-suitelist__detail__description">${item.suite.suiteSubTitle @ context='html'}</p>
                 </div>
                 <div class="c-suitelist__price">
@@ -204,7 +204,7 @@
 	<script>
 	window.cruiseItem = [];
 	</script>
-    <div class="c-suitelist c-suitelist-card ab-test-v2-show" role="tablist">
+    <div class="c-suitelist c-suitelist-card ab-test-v2-show" role="tablist" id="cruise_suite_list_C">
         <h3 class="c-cruise__subtitle c-cruise__subtitle-card">${'select-your-suite-and-request-a-quote' @i18n}</h3>
 		<p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr-v2' @i18n}</p>
 		<div class="row c-suitelist__row-card" 
@@ -251,21 +251,18 @@
 		        	           	    data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}" />
 			                </div>
 			                <div class="c-suitelist__detail c-suitelist__detail-card">
-			                    <h3 class="c-suitelist__detail__title c-suitelist__detail__title-card" data-sly-text="${item.suite.title}"></h3>
+			                    <span class="c-suitelist__detail__title c-suitelist__detail__title-card alternative-h" data-sly-text="${item.suite.title}"></span>
 			                    <p class="c-suitelist__detail__description c-suitelist__detail__description-card">${item.suite.suitesubtitleUpTo @ context='html'}</p>
 			                </div>
 			                <div class="c-suitelist__price c-suitelist__price-card ${item.isWaitList ? 'c-suitelist__price-card-whitelist' : ''}">
-			                    <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important">${'waitlist' @ i18n}</span>
+			                    <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important2">${'waitlist' @ i18n}</span>
 			                    <sly data-sly-test="${!item.isWaitList}">
 			                        <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text">
 					                    <span class="c-suitelist__price-from">${'from' @ i18n}</span>
 			                            <span data-sly-test.early="${item.lowestPrice.earlyBookingBonus}"
 			                                data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
-			                                <small>${item.lowestPrice.currency @ i18n} ${priceHelper.valueFormatted}</small><br />
-			                                <script> 
-			                                	var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
-			                                	window.cruiseItem[key].priceBookingBonus = "${item.computedPriceFormated @ context='scriptString'}"; 
-			                                </script>
+			                               
+			                             
 			                            </span>
 			                            <strong class="c-suitelist__price__text--important2">
 			                                 ${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}

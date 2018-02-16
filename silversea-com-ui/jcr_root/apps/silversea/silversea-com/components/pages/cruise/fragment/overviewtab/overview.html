@@ -29,7 +29,7 @@
                             </span>
                         </a>
                     </div>
-                    <div class="voyagetable__elem">
+                    <div class="voyagetable__elem" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         <a href="#" data-tab-target="#suitenfare">
                             <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
                             <span data-sly-test.prefix="${cruise.pricePrefix}" ><br />${prefix}</span>
@@ -42,13 +42,15 @@
                             </span>
                             <sly data-sly-test="${!cruise.isWaitList}">
                                 <span class="lead">
-                                    ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormated}
+                                	<span itemprop="priceCurrency" content="${cruise.lowestPrice.currency}"></span>
+                                    ${cruise.lowestPrice.currency @ i18n} <span itemprop="price" style="display: inline-block;">${cruise.computedPriceFormated}</span>
                                 </span>
                                 <span  data-sly-test="${early}" class="price-suffixe">
                                     ${'with-early' @ i18n}${'booking-bonus' @ i18n}
                                 </span>
                             </sly>
                         </a>
+                        <span itemprop="itemCondition" content="new" style="display:none">new</span>
                     </div>
                 </div>
 
@@ -58,28 +60,6 @@
                     </div>
 					<sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html" 
     					data-sly-call="${overviewImage.listImage @ list = cruise.allAssetWithItinerary, imageTemplate = imageTemplate}" />                
-    					 <p class="voyageimg__label">${'fares-shown-are-per-guest' @ i18n}</p>
-                </div>
-                <div class="col-xs-12 visible-xs">
-                    <div class="cruise__header_metainfo">
-                        <span>${cruise.cruiseModel.cruiseType @ i18n}</span>
-                        <span>${cruise.cruiseModel.ship.title}</span>
-                        <span>${'voyage' @ i18n} ${cruise.cruiseModel.cruiseCode}</span>
-                        <ul data-sly-test="${cruise.exclusiveOffers.size > 0 || cruise.cruiseModel.features.size > 0}">
-                            <li class="meta_feature_inner" data-sly-test="${cruise.exclusiveOffers.size > 0}">
-                                <span class="feature">
-                                    <i class="icon-star"></i>
-                                    <span class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
-                                </span>
-                            </li>
-                            <li class="meta_feature_inner" data-sly-repeat="${cruise.cruiseModel.features}">
-                                <span class="feature">
-                                    <i class="${item.icon}"></i>
-                                    <span class="tooltip"><i></i>${item.title}</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="col-xs-12">
                     <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
@@ -105,6 +85,7 @@
 
                         <div class="clearfix"></div>
                     </div>
+                    <p class="voyageimg__label visible-xs">${'fares-shown-are-per-guest' @ i18n}</p>
                     <div class="voyageshare_wrap">
                         <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
                         <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>

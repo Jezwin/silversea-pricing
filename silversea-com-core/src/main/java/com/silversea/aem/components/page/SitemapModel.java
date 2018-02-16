@@ -97,7 +97,7 @@ public class SitemapModel {
                         return false;
                     }
                 }
-
+                
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
                         || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
                         || WcmConstants.RT_HOTEL.equals(resourceType)
@@ -108,6 +108,7 @@ public class SitemapModel {
                         || WcmConstants.RT_EXCLUSIVE_OFFER.equals(resourceType)
                         || WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION.equals(resourceType)
                         || WcmConstants.RT_LANDING_PAGE.equals(resourceType)
+                        || WcmConstants.RT_REDIRECT.equals(resourceType)
                         || WcmConstants.RT_LIGHTBOX.equals(resourceType));
             }
 

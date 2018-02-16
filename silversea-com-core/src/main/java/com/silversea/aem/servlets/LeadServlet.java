@@ -46,6 +46,18 @@ public class LeadServlet extends SlingAllMethodsServlet {
 	private final static String BLACKLIST = "/etc/tags/referrers";
     private static final String CONTENT_APPLICATION_JSON = "application/json";
     private static final String UTF8_ENCODING = "utf-8";
+    private static final String[] IP_HEADER_CANDIDATES = { 
+    	    "X-Forwarded-For",
+    	    "Proxy-Client-IP",
+    	    "WL-Proxy-Client-IP",
+    	    "HTTP_X_FORWARDED_FOR",
+    	    "HTTP_X_FORWARDED",
+    	    "HTTP_X_CLUSTER_CLIENT_IP",
+    	    "HTTP_CLIENT_IP",
+    	    "HTTP_FORWARDED_FOR",
+    	    "HTTP_FORWARDED",
+    	    "HTTP_VIA",
+    	    "REMOTE_ADDR" };
 
     @Reference
     private LeadService leadService;
@@ -62,78 +74,105 @@ public class LeadServlet extends SlingAllMethodsServlet {
     protected final void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws ServletException {
         // Retrieve body content from request
 		String leadResponse = StringUtils.EMPTY;
+		Resource blockListResource = request.getResourceResolver().getResource(BLACKLIST);
 		String body = getBodyFromRequest(request);
 		try {
 
 			LOGGER.debug("Lead service request {}", body);
 			String referer = "";
+			String ipaddress = getClientIpAddress(request);
+			String emailadress = getEmailAddress(body);
 			if(request.getCookie("currentReferrer") != null){
 				referer = request.getCookie("currentReferrer").getValue();//getHeader(HttpHeaders.REFERER);
 			}
 			
-			if (null != referer && referer != "") {
-				LOGGER.debug("The referer obtained here is : - {}", referer);
-				/*
-				 * Converting the above path into a URL object to obtain the
-				 * host name later for black list comparison.
-				 */
-				URI uri = new URI(referer);
-				LOGGER.debug("Assoicated host value here is : - {}", uri.getHost());
-
-				List<String> blockList = ListUtils.EMPTY_LIST;
-				Resource blockListResource = request.getResourceResolver().getResource(BLACKLIST);
-				if (null != blockListResource) {
-					ValueMap blockListMap = blockListResource.getValueMap();
-					blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
-					LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
+			if (null != blockListResource) {
+				if((null != referer && referer != "") || (null != ipaddress && ipaddress != "") || 
+						(null != emailadress && emailadress != "")) {	
+					if (null != referer && referer != "") {
+						LOGGER.debug("The referer obtained here is : - {}", referer);
+						/*
+						 * Converting the above path into a URL object to obtain the
+						 * host name later for black list comparison.
+						 */
+						URI uri = new URI(referer);
+						LOGGER.debug("Assoicated host value here is : - {}", uri.getHost());
+		
+						List<String> blockList = ListUtils.EMPTY_LIST;
+						
+						ValueMap blockListMap = blockListResource.getValueMap();
+						blockList = Arrays.asList(blockListMap.get("blacklist", String[].class));
+						LOGGER.debug("Created black list from mappings under {} and its {}", BLACKLIST, blockList);
+							
+						if (blockList.contains(uri.getHost())) {
+							LOGGER.debug("Match found for {}.", uri.getHost());
+							leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);	
+							}
+					} 
 					
-					if (blockList.contains(uri.getHost())) {
-						LOGGER.debug("Match found for {}.", uri.getHost());
-						leadResponse = "{\"blockedReferer\":\"" + uri.getHost() + "\"}";
-						LOGGER.debug("Lead service response {}", leadResponse);
+					if (null != ipaddress && ipaddress != "") {
+						LOGGER.debug("The ipaddress obtained here is : - {}", ipaddress);
 
+						List<String> ipBlockList = ListUtils.EMPTY_LIST;
+						ValueMap ipBlockListMap = blockListResource.getValueMap();
+						ipBlockList = Arrays.asList(ipBlockListMap.get("ipblacklist", String[].class));
+						LOGGER.debug("Created ip black list from mappings under {} and its {}", BLACKLIST, ipBlockList);
+					
+						if (ipBlockList.contains(ipaddress)) {
+							LOGGER.debug("Match found for {}.", ipaddress);
+							leadResponse = "{\"blockedReferer\":\"" + ipaddress + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);
+						}
+					}  
+					
+					if (null != emailadress && emailadress != "") {
+						LOGGER.debug("The emailadress obtained here is : - {}", emailadress);
+
+						List<String> emailBlockList = ListUtils.EMPTY_LIST;
+						ValueMap emailBlockListMap = blockListResource.getValueMap();
+						emailBlockList = Arrays.asList(emailBlockListMap.get("emailblacklist", String[].class));
+						LOGGER.debug("Created email black list from mappings under {} and its {}", BLACKLIST, emailBlockList);
+					
+						if (emailBlockList.contains(emailadress)) {
+							LOGGER.debug("Match found for {}.", emailadress);
+							leadResponse = "{\"blockedReferer\":\"" + emailadress + "\"}";
+							LOGGER.debug("Lead service response {}", leadResponse);
+						}
+					} 
+					
+					if(leadResponse != StringUtils.EMPTY ) {
+						writeDomainObject(response, leadResponse);
 					} else {
-						LOGGER.debug("There is no blocked referer here. Executing normal flow");
-						Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-						leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
-						LOGGER.debug("Lead service response {}", leadResponse);
-
+						LOGGER.debug("There is no blocked referer , ipaddress or emailadress here. Executing normal flow");
+						writeLeadResponse(response, body);
 					}
-				}else{
-					//No blocklist found - proceed with the lead
-					Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-					leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
-					LOGGER.debug("Lead service response {}", leadResponse);
+				} else {
+				LOGGER.debug("There is no blacklisted referer , ipaddress or emailadress here. Executing normal flow");
+				writeLeadResponse(response, body);
 				}
-
-				
-				writeDomainObject(response, leadResponse);
 			} else {
-				LOGGER.debug("There is no blocked referer here. Executing normal flow");
-				Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-				leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
-				LOGGER.debug("Lead service response {}", leadResponse);
-				writeDomainObject(response, leadResponse);
+				writeLeadResponse(response, body);
 			}
 		} catch (URISyntaxException e) {
 			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
-			//Try to send the lead if pasrsing uri failed
-			Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
-			LOGGER.debug("Lead service response {}", leadResponse);
-			writeDomainObject(response, leadResponse);
+			writeLeadResponse(response, body);
 			e.printStackTrace();
 		} catch (Exception e){
 			LOGGER.debug("Error observed while sending the lead. {} {}",e , e.getMessage());
-			//Try to send the lead if pasrsing uri failed
-			Lead lead = JsonMapper.getDomainObject(body, Lead.class);
-			leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
-			LOGGER.debug("Lead service response {}", leadResponse);
-			writeDomainObject(response, leadResponse);
+			writeLeadResponse(response, body);
 			e.printStackTrace();
 		}
 
     }
+
+	private void writeLeadResponse(final SlingHttpServletResponse response, String body) {
+		String leadResponse;
+		Lead lead = JsonMapper.getDomainObject(body, Lead.class);
+		leadResponse = "{\"leadResponse\":\"" + leadService.sendLead(lead) + "\"}";
+		LOGGER.debug("Lead service response {}", leadResponse);
+		writeDomainObject(response, leadResponse);
+	}
 
     /**
      * Serialize object to json and send it in the response
@@ -186,6 +225,15 @@ public class LeadServlet extends SlingAllMethodsServlet {
     }
 
     /**
+     * @param body from request
+     * @return email
+     *               email address in String format
+     */
+    protected String getEmailAddress(String body) {
+    	Lead leadObject = JsonMapper.getDomainObject(body, Lead.class);
+    	return leadObject.getEmail();
+    }
+    /**
      * Serialize query parameters to json
      * @param request
      *              Http request
@@ -197,7 +245,7 @@ public class LeadServlet extends SlingAllMethodsServlet {
         String json = JsonMapper.getJson(formatParameters(parameters));
         return json;
     }
-
+    
     /**
      * Format query String map
      * @param parameters: map of query param
@@ -252,5 +300,22 @@ public class LeadServlet extends SlingAllMethodsServlet {
                 return null;
             }
         }
+    }
+    
+    /**
+     * Return IP address of the request origin
+     * @param request
+     *              Http request
+     * @return ip
+     *             IP address in string fromat
+     */
+    public static String getClientIpAddress(SlingHttpServletRequest request) {
+        for (String header : IP_HEADER_CANDIDATES) {
+            String ip = request.getHeader(header);
+            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+        }
+        return request.getRemoteAddr();
     }
 }

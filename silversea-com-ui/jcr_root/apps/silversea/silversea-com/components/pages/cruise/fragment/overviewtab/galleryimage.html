@@ -13,7 +13,8 @@
          <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=image.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
           <a href="${image.path}" class="lazy automatic-gallery-modal ${isVideo ? 'video-link' : ''} ${imageList.first ? 'cruise-itinerary-map-link': ''}"
                 data-target=".bs-modal-lg">
-                <sly data-sly-call="${imageTemplate.default @ imagePath=image.path}" />
+                <sly data-sly-test="${imageList.first}"  data-sly-call="${imageTemplate.default @ imagePath=image.path, seo=true}" />
+                <sly data-sly-test="${!imageList.first}"  data-sly-call="${imageTemplate.default @ imagePath=image.path}" />
                 <i data-sly-test="${isVideo}" class="fa fa-play"></i>
             </a>
       </div>

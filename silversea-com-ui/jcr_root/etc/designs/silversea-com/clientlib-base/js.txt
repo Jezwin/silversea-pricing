@@ -29,3 +29,4 @@ components/t-port.js
 components/c-portdest.js
 components/c-button.js
 components/c-singlesuite.js
+components/c-contactus.js
