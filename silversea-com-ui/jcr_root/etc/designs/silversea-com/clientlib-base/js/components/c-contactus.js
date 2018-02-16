@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 	if($(".c-contactus").length){
   var $form = $(this), userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
-  var sub_id;
+  var sub_id, myJson;
 $.each(JSON.parse(myJson).subjects, function (index, value) {
 
         $("#subject").append('<option rel="' + index + '" value="'+JSON.parse(value).subject+'">'+JSON.parse(value).subject+'</option>');
