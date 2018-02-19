@@ -354,9 +354,8 @@
 						                                                            name="./token"/>
 						                                                        <value
 						                                                            jcr:primaryType="nt:unstructured"
-						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        											sling:resourceType="granite/ui/components/foundation/form/textfield"
 						                                                            fieldDescription="Custom value"
-						                                        					rows="10"
 						                                                            fieldLabel="Value"
 						                                                            name="./value"/>
 						                                                         <tags
