@@ -529,11 +529,11 @@
     <get-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Erhalten Sie unsere kostenlosen Broschüren"/>
+        sling:message="Ihre Broschüre ansehen"/>
     <get-your-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Erhalten Sie unsere kostenlosen Broschüren"/>
+        sling:message="Ihre Broschüre ansehen"/>
     <guests
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1179,7 +1179,7 @@
     <view-our-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="ONLINE ANSICHT IHRER BROSCHÜRE"/>
+        sling:message="Ihre Broschüre ansehen"/>
     <virtual-tour
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
