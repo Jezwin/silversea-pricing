@@ -66,7 +66,11 @@ $(function() {
         if (apiBlockedReferer != undefined) {
             window.dataLayer[0].api_blocked_referer = apiBlockedReferer;            
         }
-
+		//SIL-16
+		var apiTemporaryId = $.CookieManager.getCookie('api_temporary_id');
+        if (apiTemporaryId != undefined) {
+            window.dataLayer[0].api_temporary_id = apiTemporaryId;            
+        }
         var formSubmitDate = $.CookieManager.getCookie('user_status');
         if (formSubmitDate != undefined) {
             window.dataLayer[0].user_status = formSubmitDate;            

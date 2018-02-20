@@ -56,6 +56,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="disponible sur"/>
+	<available-on-ships
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;est disponible sur les navires suivants"/>	
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -706,10 +710,26 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Autres journaux récents"/>
+	<other-suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;d'autres suites de luxe avec vue sur l'océan"/>
+    <other-suites-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Les suites Silversea offrent l'un des ratios d'espace par invité les plus élevés de tous les hébergements de luxe. Toutes nos suites offrent une vue sur l'océan, et beaucoup avec une véranda privée en teck."/>	
     <other-recent-story
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="D’autres histoires récentes"/>
+	<other-restaurants
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="autres restaurants"/>
+    <other-restaurants-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Avec l'importance de la nourriture dans la culture italienne, vous vous attendez à manger à Silversea. Et c'est assurément le cas. De plus, l'excellence gastronomique est acquise grâce à notre partenariat avec les prestigieux Grands Chefs Relais &amp; Châteaux."/>	
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1117,6 +1137,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Voir"/>
+	<view-all-pictures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Voir toutes les images"/>	
     <view-all-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
