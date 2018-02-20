@@ -104,6 +104,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultDescription")
 	@Optional
 	private String defaultDescription;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultDescriptionTnc")
+	@Optional
+	private String defaultDescriptionTnC;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultShortDescription")
@@ -286,6 +291,10 @@ public class ExclusiveOfferModel {
 
 	public String getDefaultDescription() {
 		return defaultDescription;
+	}
+	
+	public String getDefaultDescriptionTnC() {
+		return defaultDescriptionTnC;
 	}
 
 	public String getDefaultShortDescription() {
