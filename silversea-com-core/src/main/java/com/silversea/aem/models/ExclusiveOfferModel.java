@@ -106,7 +106,7 @@ public class ExclusiveOfferModel {
 	private String defaultDescription;
 	
 	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/defaultDescriptionTnc")
+	@Named(JcrConstants.JCR_CONTENT + "/defaultDescriptionTnC")
 	@Optional
 	private String defaultDescriptionTnC;
 

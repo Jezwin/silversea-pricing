@@ -37,29 +37,44 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			//-----------------------------------------
 			if(eoConfig.isTitleVoyage()) {
-				String title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "title", eoModel.getDefaultTitle());
+				String title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "title", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
 				eoBean.setDescription(title);
 			}
 			if(eoConfig.isDescriptionVoyage()) {
-				String description = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "description", eoModel.getDefaultDescription());
+				String description = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultDescription());
 				eoBean.setDescription(description);
 			}
 			//-----------------------------------------
 			if(eoConfig.isTitleLigthbox()) {
-				String title = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "title", eoModel.getDefaultTitle());
+				String title = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "title", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
 				eoBean.setDescription(title);
 			}
 			if(eoConfig.isDescriptionLigthbox()) {
-				String description = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "description", eoModel.getDefaultDescription());
+				String description = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
 				eoBean.setDescription(description);
 			}
-
 		}
 
 		return eoBean;
 	}
-
+	
+	private String getValueByBesthMatchTag(String[] customSettings, String type,  String[] defaultValueLevel1, String defaultValueLevel2) {
+		String value = getValueByBesthMatchTag(customSettings, type);
+		if (StringUtils.isEmpty(value)) {
+			return getValueByBesthMatchTag(defaultValueLevel1, type, defaultValueLevel2);
+		}
+		return value;
+	}
+	
 	private String getValueByBesthMatchTag(String[] customSettings, String type, String defaultValue) {
+		String value = getValueByBesthMatchTag(customSettings, type);
+		if (StringUtils.isEmpty(value)) {
+			value = defaultValue;
+		}
+		return value;
+	}
+
+	private String getValueByBesthMatchTag(String[] customSettings, String type) {
 		String value = null;
 		if (customSettings != null) {
 			Gson gson = new GsonBuilder().create();
@@ -90,9 +105,6 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 					}
 				}
 			}
-		}
-		if (StringUtils.isEmpty(value)) {
-			value = defaultValue;
 		}
 		return value;
 	}
