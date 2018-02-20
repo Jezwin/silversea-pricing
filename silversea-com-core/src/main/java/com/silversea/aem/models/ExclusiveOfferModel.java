@@ -113,7 +113,7 @@ public class ExclusiveOfferModel {
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
 	@Optional
-	private String customMainSettings;
+	private String[] customMainSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/expirationDate")
@@ -123,12 +123,12 @@ public class ExclusiveOfferModel {
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customTokenSettings")
 	@Optional
-	private String customTokenSettings;
+	private String[] customTokenSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customTokenValuesSettings")
 	@Optional
-	private String customTokenValuesSettings;
+	private String[] customTokenValuesSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/pathImageLB")
@@ -143,17 +143,17 @@ public class ExclusiveOfferModel {
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customLBSettings")
 	@Optional
-	private String customLBSettings;
+	private String[] customLBSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customVoyageSettings")
 	@Optional
-	private String customVoyageSettings;
+	private String[] customVoyageSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customTnCSettings")
 	@Optional
-	private String customTnCSettings;
+	private String[] customTnCSettings;
 
 	private String path;
 
@@ -292,7 +292,7 @@ public class ExclusiveOfferModel {
 		return defaultShortDescription;
 	}
 
-	public String getCustomMainSettings() {
+	public String[] getCustomMainSettings () {
 		return customMainSettings;
 	}
 
@@ -300,11 +300,11 @@ public class ExclusiveOfferModel {
 		return expirationDate;
 	}
 
-	public String getCustomTokenSettings() {
+	public String[] getCustomTokenSettings() {
 		return customTokenSettings;
 	}
 
-	public String getCustomTokenValuesSettings() {
+	public String[] getCustomTokenValuesSettings() {
 		return customTokenValuesSettings;
 	}
 
@@ -316,15 +316,15 @@ public class ExclusiveOfferModel {
 		return Boolean.valueOf(activeGreysBoxes);
 	}
 
-	public String getCustomLBSettings() {
+	public String[] getCustomLBSettings() {
 		return customLBSettings;
 	}
 
-	public String getCustomVoyageSettings() {
+	public String[] getCustomVoyageSettings() {
 		return customVoyageSettings;
 	}
 
-	public String getCustomTnCSettings() {
+	public String[] getCustomTnCSettings() {
 		return customTnCSettings;
 	}
 }
