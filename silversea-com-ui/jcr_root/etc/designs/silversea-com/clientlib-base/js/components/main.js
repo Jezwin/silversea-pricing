@@ -120,7 +120,7 @@ $(function() {
 
             var cookieValues = [ 'title', 'firstname', 'lastname', 'email', 'phone', 'comments', 'requestsource', 'requesttype', 'subscribeemail', 'workingwithagent', 'postaladdress', 'postalcode',
                     'city', 'country', 'voyagename', 'voyagecode', 'departuredate', 'voyagelength', 'shipname', 'suitecategory', 'suitevariation', 'price', 'brochurecode', 'sitecountry',
-                    'sitelanguage', 'sitecurrency', 'isnotagent' ];
+                    'sitelanguage', 'sitecurrency', 'isnotagent' , 'subject' , 'inquiry' , 'from_email' , 'bookingnumber' , 'vsnumber' ];
             var pos = document.cookie.indexOf("userInfo="), marketingEffortValue = $.CookieManager.getCookie('marketingEffortValue');
 
             // Set cookie if not created
@@ -183,13 +183,27 @@ $(function() {
                         // Store object merged in the cookie
                         $.CookieManager.setCookie('userInfo', JSON.stringify(currentData));
 
-                        var leadRes =JSON.parse(data).leadResponse;
+                        var leadRes;
+                        if(data !=""){
+                           leadRes = JSON.parse(data).leadResponse;
+                        }
                         if(leadRes != undefined){
                         	$.CookieManager.setCookie('api_indiv_id', leadRes);
                         }
-                        var blockedRef =JSON.parse(data).blockedReferer;
+                        var blockedRef;
+ 						if(data !=""){
+                           blockedRef = JSON.parse(data).blockedReferer;
+                        }
                         if(blockedRef != undefined){
                         	$.CookieManager.setCookie('api_blocked_referer', blockedRef);
+                        }
+						//SIL-16
+						var temporaryId;
+						if(data !=""){
+                           temporaryId = JSON.parse(data).temporaryId;
+                        }
+                        if(temporaryId != undefined){
+                        	$.CookieManager.setCookie('api_temporary_id', temporaryId);
                         }
 
                         if ($form.hasClass('c-formcookie--redirect')) {

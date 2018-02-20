@@ -3,7 +3,7 @@
     <div class="c-annoucement__image" data-sly-test.reference="${properties.fileReference}">
         <sly data-sly-call="${imageTemplate.default @ imagePath=reference}" />
     </div>
-    <div class="c-annoucement__content" data-sly-test="${properties.text}">
+    <div class="c-annoucement__content ${properties.text ? '' : 'c-annoucement__content_no_background'}">
         <span class="c-annoucement__content__title">${properties.text @ context="html"}</span>
         <div class="c-annoucement__content__cta">
             <div data-sly-unwrap="${!wcmmode.edit}" data-sly-resource="${'btn1' @ resourceType='silversea/silversea-com/components/editorial/button/buttonconfigureonly'}"></div>

@@ -290,6 +290,10 @@
         &__detail {
             padding: 0 15px 0 10px;
             width: 30%;
+            &-card{
+            	padding-left:5px;
+            	padding-right:5px;
+            }
 a
             &__title {
                 margin: 0 0 12px;
@@ -345,7 +349,7 @@ a
     	}
     	
     	.c-suitelist__content {
-    		border: 1px solid @grey-l !important;
+    		border: 1px solid #cccccc !important;
     		margin-top: 11px;
     		@media(min-width: 768px) {
 	    		display: inline-block;
@@ -353,6 +357,13 @@ a
     	}
     	
     	@media (min-width: 769px) {
+    		.panel{
+    			div.c-suitelist__image.c-suitelist__image-card div, img {
+    				-moz-transition: all 1.2s;
+				   -webkit-transition: all 1.2s;
+				   transition: all 1.2s;
+    			}
+    		}
 	    	.panel:hover {
 	    		
 	    		
@@ -445,7 +456,7 @@ a
         }
 
         .c-suitelist__detail {
-            padding: px;
+            //padding: px;
             width: 30%;
             
             &__title {
@@ -457,7 +468,7 @@ a
 	            	
             		@media (min-width: 768px) {
 	            		margin-bottom: 0px;
-    					font-size: 18px;
+    					font-size: 19px;
 					    padding: 0px;
 					    padding-top: 5px;
 					    height: 30px;
@@ -471,7 +482,7 @@ a
             	 	
 	            	@media screen and (max-width: 767px) {
             	 		margin-bottom: 0px;
-            	 		padding-top: 12px;
+            	 		padding: 12px 1px 0 1px;
     					font-size: 25px;
             	 	}
 	            }
@@ -484,10 +495,7 @@ a
 	            	@media (min-width: 768px) {
 	            		height: 20px;
 	    				overflow: hidden;
-                	}
-                	@media (max-width: 768px) {
-	            		font-size: 10px;
-                	}
+                	}                	
 	            }
             }
             
@@ -927,7 +935,7 @@ a
         margin-top: 0px;
         @media (max-width: 768px) {
         	margin-bottom: 12px;
-        	margin-top: 35px;
+        	margin-top: 40px;
   	        font-size: 37px;
   	        line-height: 26px;
         }
@@ -942,7 +950,7 @@ a
         }
         
          @media (max-width: 500px) {
-  	        margin-top: 85px;
+  	        margin-top: 110px;
         }
         &-section {
         	@media (max-width: 768px) {
@@ -985,6 +993,7 @@ a
         @media (max-width: 768px) {
         	font-size: 14px;
         	padding-bottom: 0px;
+        	padding-top:0px;
     	}
     	 @media (max-width: 767px) {
         	font-size: 12px;
@@ -1030,7 +1039,7 @@ a
             }
         }
         @media (max-width: 768px) {
-        	padding-top: 40px;
+        	padding-top: 0px;
     	}
     	
     	&-mobile {

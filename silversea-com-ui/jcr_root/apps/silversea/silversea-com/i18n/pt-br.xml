@@ -116,6 +116,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="RESERVA ANTECIPADA"/>
+	<booking-number
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Número da reserva"/>	
     <built-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -714,6 +718,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Com a importância da comida na cultura italiana, você esperaria que a refeição fosse uma alta prioridade na Silversea. E com toda a certeza é. Além disso, a excelência gastronômica é dada, graças à nossa parceria com o prestigiado Grands Chefs Relais &amp; Châteaux."/>	
+	<other-suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;outras suites de luxo com vista para o oceano"/>
+    <other-suites-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="As suítes de Silversea oferecem um dos índices de espaço-por-hóspede mais altos de qualquer acomodação de cruzeiro de luxo. Todas as nossas suítes possuem vistas para o oceano e muitas com varanda privativa em teca."/>	
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -938,10 +950,18 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Selecione e visualize a rota"/>
+	<select-inquiry
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Selecione um Inquérito"/>	
     <select-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Selecionar idioma"/>
+	<select-subject
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Selecionar um tema"/>	
     <select-the-brochure-language
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1200,6 +1220,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="View"/>
+	<vsnumber
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Número VS"/>	
     <waitlist
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

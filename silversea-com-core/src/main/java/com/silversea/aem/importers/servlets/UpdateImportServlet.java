@@ -40,7 +40,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         cruisesexclusiveoffers,
 
         combocruises,
-        combocruisessegmentsactivation
+        combocruisessegmentsactivation,
+        
+        ccptgeneration
     }
 
     @Reference
@@ -90,6 +92,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private BrochuresImporter brochuresImporter;
+    
+    @Reference
+    private CcptImporter ccptImporter;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
@@ -140,7 +145,10 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 brochuresImporter.updateBrochures();
             } else if (mode.equals(Mode.combocruisessegmentsactivation)) {
                 comboCruisesImporter.markSegmentsForActivation();
+            } else if (mode.equals(Mode.ccptgeneration)) {
+            	ccptImporter.importAllItems();
             }
+            
         } catch (ImporterException e) {
             throw new ServletException(e);
         }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:description="Allows to manage and display single suites"
+    jcr:mixinTypes="[mix:lockable]"
+    jcr:primaryType="cq:Template"
+    jcr:title="SSC - Single Suite"
+    allowedPaths="[/content/silversea-com/.*]"
+    ranking="{Long}1">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="silversea/silversea-com/components/pages/singlesuite">
+        <par
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/responsivegrid">
+            <display
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="silversea/silversea-com/components/displayproperties/singlesuite"/>
+        </par>
+        <par4
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/responsivegrid">
+            <button
+                jcr:created="{Date}2017-06-09T09:24:41.752-04:00"
+                jcr:createdBy="sabinat"
+                jcr:lastModified="{Date}2017-06-13T07:36:26.310-04:00"
+                jcr:lastModifiedBy="lbellahcen"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="silversea/silversea-com/components/editorial/button"
+                callToActions="\{&quot;title&quot;:&quot;GET YOUR FREE SILVERSEA BROCHURE&quot;,&quot;titleTablet&quot;:&quot;GET YOUR FREE SILVERSEA BROCHURE&quot;,&quot;reference&quot;:&quot;/content/silversea-com/en/brochures&quot;,&quot;color&quot;:&quot;default&quot;,&quot;size&quot;:&quot;&quot;,&quot;analyticType&quot;:&quot;&quot;}"
+                color="default"
+                reference="/content/silversea-com/en/brochures"
+                title="GET YOUR FREE SILVERSEA BROCHURE"
+                titleTablet="GET YOUR FREE SILVERSEA BROCHURE">
+                <cq:responsive jcr:primaryType="nt:unstructured">
+                    <default
+                        jcr:primaryType="nt:unstructured"
+                        width="12"/>
+                    <phone
+                        jcr:primaryType="nt:unstructured"
+                        width="12"/>
+                </cq:responsive>
+            </button>
+        </par4>
+        <par3
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/responsivegrid">
+            <mozaicslider
+                jcr:created="{Date}2017-08-13T05:13:16.704-04:00"
+                jcr:createdBy="sylvainm"
+                jcr:description="With our small luxury ships you can explore the 7 continents discovering the world's most intriguing destinations"
+                jcr:lastModified="{Date}2017-08-21T10:51:37.787-04:00"
+                jcr:lastModifiedBy="sabinat"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="FIND YOUR CRUISE"
+                sling:resourceType="silversea/silversea-com/components/editorial/mozaicslider"
+                destinationsReference="/content/silversea-com/en/destinations/"/>
+        </par3>
+    </jcr:content>
+</jcr:root>

@@ -123,6 +123,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="booking-bonus"
         sling:message="booking bonus"/>
+	<booking-number
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="booking-number"
+        sling:message="Booking Number"/>	
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"
@@ -711,6 +715,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-restaurants-description"
         sling:message="With the importance of food in Italian culture you would expect dining to be a high priority at Silversea. And it most assuredly is. Moreover, gastronomic excellence is a given, thanks to our partnership with the prestigious Grands Chefs Relais &amp; Châteaux."/>
+	<other-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-suites"
+        sling:message="other luxury oceanview suites"/>
+    <other-suites-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-suites-description"
+        sling:message="Silversea's suites offer one of the highest space-per-guest ratios of any luxury cruise accommodations. All of our suites feature ocean views, and many with a private teak veranda."/>	
     <overview
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
@@ -935,10 +947,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-and-view-the-route"
         sling:message="Select and view the route"/>
+	<select-inquiry
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-inquiry"
+        sling:message="Select an Inquiry"/>	
     <select-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-language"
         sling:message="Select language"/>
+	<select-subject
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-subject"
+        sling:message="Select a Subject"/>	
     <select-the-brochure-language
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-the-brochure-language"
@@ -1191,6 +1211,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="VS"
         sling:message="View"/>
+	<vsnumber
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="vsnumber"
+        sling:message="VS Number"/>	
     <waitlist
         jcr:primaryType="sling:MessageEntry"
         sling:key="waitlist"

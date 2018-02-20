@@ -1,9 +1,11 @@
 package com.silversea.aem.ws.lead.service.impl;
 
 import java.util.Dictionary;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.BindingProvider;
 
 import org.apache.cxf.binding.soap.SoapBindingFactory;
 import org.apache.cxf.common.util.StringUtils;
@@ -63,6 +65,11 @@ public class LeadServiceImpl implements LeadService {
         if (lead != null) {
             NewX0020MethodX0020WithX002052X0020Arguments request = new NewX0020MethodX0020WithX002052X0020Arguments();
             LeadFromWeb03Soap leadFromWeb03Soap = getClientProxy();
+            BindingProvider bindingProvider = (BindingProvider) leadFromWeb03Soap;            
+            Map<String, Object> requestContext = bindingProvider.getRequestContext();
+            requestContext.put("javax.xml.ws.client.connectionTimeout",10000);
+            requestContext.put("javax.xml.ws.client.receiveTimeout",10000);
+        
             adaptLeadRequest(request, lead);
             NewX0020MethodX0020WithX002052X0020ArgumentsResponse response = leadFromWeb03Soap.addRequest(request);
 
