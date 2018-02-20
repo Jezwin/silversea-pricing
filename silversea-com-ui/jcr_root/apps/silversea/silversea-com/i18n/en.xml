@@ -63,10 +63,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on"
         sling:message="available on"/>
-	<available-on-ships
+    <available-on-ships
         jcr:primaryType="sling:MessageEntry"
         sling:key="available-on-ships"
-        sling:message="is available on the following ships"/>	
+        sling:message="is available on the following ships"/>
     <award-label
         jcr:primaryType="sling:MessageEntry"
         sling:key="award-label"
@@ -707,6 +707,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-story"
         sling:message="Other recent stories"/>
+    <other-restaurants
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-restaurants"
+        sling:message="other dining restaurants"/>
+    <other-restaurants-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="other-restaurants-description"
+        sling:message="With the importance of food in Italian culture you would expect dining to be a high priority at Silversea. And it most assuredly is. Moreover, gastronomic excellence is a given, thanks to our partnership with the prestigious Grands Chefs Relais &amp; Châteaux."/>
 	<other-suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-suites"
@@ -1115,6 +1123,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all"
         sling:message="View all"/>
+    <view-all-pictures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-all-pictures"
+        sling:message="View all pictures"/>
     <view-all-public-areas
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all-public-areas"

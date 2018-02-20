@@ -714,6 +714,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Otras historias recientes"/>
+	<other-restaurants
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="otros restaurantes"/>
+    <other-restaurants-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Con la importancia de la comida en la cultura italiana, es de esperar que la comida sea una prioridad en Silversea. Y seguramente lo es. Además, la excelencia gastronómica es un hecho, gracias a nuestra asociación con los prestigiosos Grands Chefs Relais &amp; Châteaux."/>	
 	<other-suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1132,6 +1140,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Vea todo"/>
+	<view-all-pictures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ver todas las fotos"/>	
     <view-all-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
