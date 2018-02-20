@@ -19,31 +19,38 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			eoBean = new EoBean();
 
 			if (eoConfig.isTitleMain()) {
-				String title = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "title");
-				if (StringUtils.isEmpty(title)) {
-					title = eoModel.getDefaultTitle();
-				}
+				String title = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "title", eoModel.getDefaultTitle());
 				eoBean.setTitle(title);
 			}
 			if (eoConfig.isDescriptionMain()) {
-				String description = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "description");
-				if (StringUtils.isEmpty(description)) {
-					description = eoModel.getDefaultDescription();
-				}
+				String description = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "description",eoModel.getDefaultDescription());
 				eoBean.setDescription(description);
 			}
 			if (eoConfig.isShortDescriptionMain()) {
-				String shortDescription = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "shortDescription");
-				if (StringUtils.isEmpty(shortDescription)) {
-					shortDescription = eoModel.getDefaultShortDescription();
-				}
+				String shortDescription = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "shortDescription", eoModel.getDefaultShortDescription());
 				eoBean.setShortDescription(shortDescription);
 			}
+			//-----------------------------------------
 			if(eoConfig.isDescriptionTnC()) {
-				String description = getValueByBesthMatchTag(eoModel.getCustomTnCSettings(), "description");
-				if (StringUtils.isEmpty(description)) {
-					description = eoModel.getDefaultDescription();
-				}
+				String description = getValueByBesthMatchTag(eoModel.getCustomTnCSettings(), "description", eoModel.getDefaultDescriptionTnC());
+				eoBean.setDescription(description);
+			}
+			//-----------------------------------------
+			if(eoConfig.isTitleVoyage()) {
+				String title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "title", eoModel.getDefaultTitle());
+				eoBean.setDescription(title);
+			}
+			if(eoConfig.isDescriptionVoyage()) {
+				String description = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "description", eoModel.getDefaultDescription());
+				eoBean.setDescription(description);
+			}
+			//-----------------------------------------
+			if(eoConfig.isTitleLigthbox()) {
+				String title = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "title", eoModel.getDefaultTitle());
+				eoBean.setDescription(title);
+			}
+			if(eoConfig.isDescriptionLigthbox()) {
+				String description = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "description", eoModel.getDefaultDescription());
 				eoBean.setDescription(description);
 			}
 
@@ -52,7 +59,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		return eoBean;
 	}
 
-	private String getValueByBesthMatchTag(String[] customSettings, String type) {
+	private String getValueByBesthMatchTag(String[] customSettings, String type, String defaultValue) {
 		String value = null;
 		if (customSettings != null) {
 			Gson gson = new GsonBuilder().create();
@@ -83,6 +90,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 					}
 				}
 			}
+		}
+		if (StringUtils.isEmpty(value)) {
+			value = defaultValue;
 		}
 		return value;
 	}
