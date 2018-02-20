@@ -231,6 +231,12 @@
 						                                                <column jcr:primaryType="nt:unstructured"
 						                                                        sling:resourceType="granite/ui/components/foundation/container">
 						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
 						                                                       <type
 																				    jcr:primaryType="nt:unstructured"
 																				    sling:resourceType="granite/ui/components/foundation/form/select"

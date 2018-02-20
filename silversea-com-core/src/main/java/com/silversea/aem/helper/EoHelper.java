@@ -39,6 +39,13 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 				}
 				eoBean.setShortDescription(shortDescription);
 			}
+			if(eoConfig.isDescriptionTnC()) {
+				String description = getValueByBesthMatchTag(eoModel.getCustomTnCSettings(), "description");
+				if (StringUtils.isEmpty(description)) {
+					description = eoModel.getDefaultDescription();
+				}
+				eoBean.setDescription(description);
+			}
 
 		}
 
@@ -54,26 +61,27 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 				eoSettings = gson.fromJson(customSettings[i], JsonObject.class); // deserializes json into eoSettings
 
 				if (eoSettings != null) {
-					boolean typeIsTitle = (eoSettings.get("type") != null)
-							? eoSettings.get("type").getAsString().equalsIgnoreCase(type)
-							: false;
-					if (typeIsTitle) {
-						if (eoSettings.get("tags") != null) {
-							String[] tags = eoSettings.get("tags").getAsString().split(",");
-							for (String tag : tags) {
-								tag = tag.replaceAll(WcmConstants.GEOLOCATION_TAGS_PREFIX, "");
-								if (super.isBestMatch(tag)) {
-									value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString()
-											: null;
-									break;
+					boolean isActive = (eoSettings.get("active") != null) ? Boolean.valueOf(eoSettings.get("active").getAsString()) : false;
+					
+					if(isActive) {
+						boolean typeIsTitle = (eoSettings.get("type") != null) ? eoSettings.get("type").getAsString().equalsIgnoreCase(type) : false;
+						if (typeIsTitle) {
+							if (eoSettings.get("tags") != null) {
+								String[] tags = eoSettings.get("tags").getAsString().split(",");
+								for (String tag : tags) {
+									tag = tag.replaceAll(WcmConstants.GEOLOCATION_TAGS_PREFIX, "");
+									if (super.isBestMatch(tag)) {
+										value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString()
+												: null;
+										break;
+									}
 								}
+							} else {
+								value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString() : null;
 							}
-						} else {
-							value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString() : null;
 						}
 					}
 				}
-
 			}
 		}
 		return value;
