@@ -15,7 +15,7 @@ public class ListHelper extends WCMUsePojo {
         List<Object> assetList = get("list", List.class);
 
         if (size != null && assetList != null) {
-            objectListGroup = Lists.partition(assetList, 5);
+            objectListGroup = Lists.partition(assetList, size);
         }
 
     }
