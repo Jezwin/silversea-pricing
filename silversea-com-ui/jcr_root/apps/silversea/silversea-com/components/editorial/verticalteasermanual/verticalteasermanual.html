@@ -10,7 +10,7 @@
 
 </section>
 <style data-sly-test="${properties.heightDesktop}">
-	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption {
+	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
 		height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
 		min-height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
 	}
@@ -18,7 +18,7 @@
 
 <style data-sly-test="${properties.heightMobile}">
 	@media (max-width: 767px) {
-		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
 			height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 		}
