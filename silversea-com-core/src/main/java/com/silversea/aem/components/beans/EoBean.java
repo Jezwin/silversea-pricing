@@ -5,6 +5,8 @@ public class EoBean {
 	private String title;
 	private String description;
 	private String shortDescription;
+	private String image;
+	private boolean greyBoxesSystem;
 	
 	public EoBean() {}
 	
@@ -32,6 +34,22 @@ public class EoBean {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public boolean isGreyBoxesSystem() {
+		return greyBoxesSystem;
+	}
+
+	public void setGreyBoxesSystem(boolean greyBoxesSystem) {
+		this.greyBoxesSystem = greyBoxesSystem;
 	}
 	
 }
