@@ -1,6 +1,21 @@
+<sly data-sly-test="${pageProperties['sling:resourceType'] != 'silversea/silversea-com/components/pages/diningvariation'}">
 <div class="c-dining-display" data-sly-use.cpt="com.silversea.aem.components.displayProperties.DiningVariationDisplayPropertiesUse">
+${currentPage.properties.template}
     <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.diningPage.navigationTitle || cpt.diningPage.title @ context='html'}</h1>
     <div class="o-description">
         ${pageProperties.longDescription || currentPage.description || cpt.diningPage.properties['longDescription'] || cpt.diningPage.description @ context='html'}
     </div>
 </div>
+</sly>
+
+<sly data-sly-test="${pageProperties['sling:resourceType'] == 'silversea/silversea-com/components/pages/diningvariation'}">
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Dinning area variation display properties"></div>
+<div class="o-area-property-display" data-sly-use.cpt="com.silversea.aem.components.displayProperties.DiningVariationDisplayPropertiesUse">
+    <sly data-sly-use.sliderTemplate="silversea/silversea-com/components/editorial/slider/slidertemplate.html"
+        data-sly-call="${sliderTemplate.populatefromSet @ setImagePath=pageProperties.assetSelectionReference || cpt.diningPage.properties['assetSelectionReference']}" />
+    <h1 class="o-title">${currentPage.navigationTitle || currentPage.title || cpt.diningPage.navigationTitle || cpt.diningPage.title @ context='html'}</h1>
+    <div class="text">
+        ${pageProperties.longDescription || currentPage.description || cpt.diningPage.properties['longDescription'] || cpt.diningPage.description @ context='html'}
+    </div>
+</div>
+</sly>
