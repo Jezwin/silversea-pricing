@@ -11,12 +11,23 @@ import com.google.gson.JsonObject;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
+import com.silversea.aem.components.beans.ValueTypeBean;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.importers.services.StyleCache;
 import com.silversea.aem.models.ExclusiveOfferModel;
 
 public class EoHelper extends AbstractGeolocationAwareUse {
 	
-	private Gson gson = new GsonBuilder().create();
+	private StyleCache styleCache;
+	private Gson gson;
+	
+	@Override
+	public void activate() throws Exception {
+		super.activate();
+		styleCache = getSlingScriptHelper().getService(StyleCache.class);
+		gson = new GsonBuilder().create();
+	}
+	
 
 	public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
 		EoBean eoBean = null;
@@ -24,9 +35,15 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			eoBean = new EoBean();
 			String title = null, description = null, shortDescription = null;
 			
-			Map<String, EoValueToReplace> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
-			EoValueToReplace eoValue = new EoValueToReplace(eoModel.getExpirationDate().toString(), "token");
+			Map<String, ValueTypeBean> styles = styleCache.getStyles();
+			
+			Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
+			ValueTypeBean eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
 			tokensAndStyle.put("expiration_date",eoValue);
+			
+			if (styles != null && !styles.isEmpty()) {
+				tokensAndStyle.putAll(styles);
+			}
 			
 			if (eoConfig.isTitleMain()) {
 				title = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "title", eoModel.getDefaultTitle());
@@ -107,27 +124,8 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		return eoBean;
 	}
 	
-	private class EoValueToReplace {
-		private String value;
-		private String type;
-		
-		public EoValueToReplace(String value, String type) {
-			this.value = value;
-			this.type = type;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		public String getType() {
-			return type;
-		}
-		
-	}
-	
-	private Map<String, EoValueToReplace> getTokensByBesthMatchTag(String[] customTokens) {
-		Map<String, EoValueToReplace> tokenByTag = new HashMap<String, EoValueToReplace>();
+	private Map<String, ValueTypeBean> getTokensByBesthMatchTag(String[] customTokens) {
+		Map<String, ValueTypeBean> tokenByTag = new HashMap<String, ValueTypeBean>();
 		if (customTokens != null) {
 			JsonObject eoSettings = null;
 			String value = null, token = null;
@@ -141,7 +139,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 							if (super.isBestMatch(tag)) {
 								value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString() : null;
 								token = (eoSettings.get("token") != null) ? eoSettings.get("token").getAsString() : null;
-								EoValueToReplace eoValue = new EoValueToReplace(value, "token");
+								ValueTypeBean eoValue = new ValueTypeBean(value, "token");
 								tokenByTag.put(token, eoValue);
 								break;
 							}
