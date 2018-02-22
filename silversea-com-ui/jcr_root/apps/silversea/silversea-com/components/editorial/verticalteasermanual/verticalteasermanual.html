@@ -1,12 +1,13 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual"></div>
 
-<section id="c-vertical-teaser-${properties.sscUUID}" class="c-vertical-teaser ${!properties.type ? 'thumbnail' : ''} benefitsandevents">
+<section id="c-vertical-teaser-${properties.sscUUID}" class="c-vertical-teaser ${!properties.type ? 'thumbnail' : ''} ${properties.type == 'defaultnew' ? 'thumbnail' : ''} benefitsandevents">
     <sly data-sly-use.verticalteasermanualTemplate="silversea/silversea-com/components/editorial/verticalteasermanual/verticalteasermanualtemplate.html" />
     
     <sly data-sly-test="${!properties.type}" data-sly-call="${verticalteasermanualTemplate.default}" />
     <sly data-sly-test="${properties.type == 'allInclusive'}" data-sly-call="${verticalteasermanualTemplate.allInclusive}" />
     <sly data-sly-test="${properties.type == 'finedine'}" data-sly-call="${verticalteasermanualTemplate.finedine}" />
     <sly data-sly-test="${properties.type == 'obaccomodation'}" data-sly-call="${verticalteasermanualTemplate.obaccomodation}" />
+    <sly data-sly-test="${properties.type == 'defaultnew'}" data-sly-call="${verticalteasermanualTemplate.defaultnew}" />
 
 </section>
 <style data-sly-test="${properties.heightDesktop}">
@@ -27,7 +28,7 @@
 
 <style data-sly-test="${properties.imageHeightDesktop && properties.type}">
 	@media (min-width: 768px) {
-		#c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper {
+		#c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser__image-wrapper-new {
 			height: ${properties.imageHeightDesktop @ context="unsafe" || 250 }px !important;
 		}
 	}
@@ -35,7 +36,7 @@
 
 <style data-sly-test="${properties.imageHeightMobile && properties.type}">
 	@media (max-width: 767px) {
-		#c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper {
+		#c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser__image-wrapper-new {
 			height: ${properties.imageHeightMobile @ context="unsafe" || 250 }px !important;
 		}
 	}
