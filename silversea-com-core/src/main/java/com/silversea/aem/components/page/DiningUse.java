@@ -2,6 +2,9 @@ package com.silversea.aem.components.page;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.DamConstants;
+import com.day.cq.dam.api.s7dam.constants.S7damConstants;
+import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.models.DiningModel;
 import com.silversea.aem.models.SilverseaAsset;
@@ -51,28 +54,31 @@ public class DiningUse extends WCMUsePojo {
             }
         }
         diningPagesList.add(getCurrentPage());
-        
-        List<String> diningAssetNames = new ArrayList<String>();
-        
-        for(Page diningPage : diningPagesList) {
-        	diningModel = diningPage.adaptTo(DiningModel.class);
-        	List<Asset> diningAssets = new ArrayList<>();
-
-    		if (StringUtils.isNotEmpty(diningModel.getAssetSelectionReference())) {
-    			diningAssets
-    					.addAll(AssetUtils.buildAssetList(diningModel.getAssetSelectionReference(), getResourceResolver()));
-
-	    		for (Asset asset : diningAssets) {
-	    			SilverseaAsset sscAsset = new SilverseaAsset();
-	    			sscAsset.setPath(asset.getPath());
-	    			sscAsset.setName(asset.getName());
-	    			if(!diningAssetNames.contains(asset.getName())) {
-	    				diningAssetNames.add(asset.getName());
-	    				diningAssetsList.add(sscAsset);
-	    			}
-	    		}
-    		}
+                
+		String assetReference = getProperties().get("assetSelectionReference", String.class);
+		Resource resourceAsset = getResourceResolver().getResource(assetReference);
+        if (resourceAsset != null) {
+        	Asset asset = resourceAsset.adaptTo(Asset.class);
+        	if(asset !=null) {
+        		if (!DamUtil.isImage(asset)) {
+        			String dcFormat = asset.getMetadata().get(DamConstants.DC_FORMAT) != null ? asset.getMetadata().get(DamConstants.DC_FORMAT).toString() : null;
+        			if (dcFormat.contains(S7damConstants.S7_MIXED_MEDIA_SET)) {
+        				List<Asset> assetlist = AssetUtils.buildAssetList(assetReference, getResourceResolver());
+        				for (Asset ass : assetlist) {
+        					SilverseaAsset sscAsset = new SilverseaAsset();
+        	    			sscAsset.setPath(ass.getPath());
+        	    			sscAsset.setName(ass.getName());
+        	    			sscAsset.setLabel(ass.getMetadataValue("dc:title"));
+        	    			
+        	    			diningAssetsList.add(sscAsset);
+        	    			
+        				}
+        				
+        			}
+        		} 
+        	}
         }
+        
         
         allDiningAsset.put("DINING", diningAssetsList);
     }
