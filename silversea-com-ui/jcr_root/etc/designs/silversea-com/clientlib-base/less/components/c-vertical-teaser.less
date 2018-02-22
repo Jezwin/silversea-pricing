@@ -8,6 +8,13 @@
     &__image-wrapper {
         position: relative;
     }
+    
+    &__image-wrapper-new{
+    	background-color:black;
+    	img{
+    		transition:0.3s;
+    	}
+    }
 
     picture {
         background-color: @black;
@@ -21,6 +28,7 @@
         transition: opacity 0.3s ease;
         width: 100%;
     }
+    
 
     .thumbnail &__caption {
         height: 230px;
@@ -239,7 +247,6 @@
                     font-size:18px;
                     }
             font: 400 30px @f-theano_didot;
-            font-weight: bold;
             text-transform: uppercase;
         }
 
