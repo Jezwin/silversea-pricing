@@ -52,7 +52,7 @@
                 jcr:lastModifiedBy="sabinat"
                 jcr:primaryType="nt:unstructured"
                 jcr:title="FIND YOUR CRUISE"
-                sling:resourceType="silversea/silversea-com/components/editorial/mozaicslider"
+                sling:resourceType="silversea/silversea-ssc/components/editorial/mozaicslider"
                 destinationsReference="/content/silversea-com/en/destinations/"/>
         </par3>
     </jcr:content>
