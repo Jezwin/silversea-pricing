@@ -22,7 +22,7 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
 
     @Override
     public void activate() throws Exception {
-        final GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
+        GeolocationTagService geolocationTagService = getSlingScriptHelper().getService(GeolocationTagService.class);
 
         if (geolocationTagService != null) {
             geolocation = geolocationTagService.getGeolocationTagModelFromRequest(getRequest());
@@ -44,6 +44,38 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
             }
         }
     }
+    
+	/**
+	 * Check is the tag is a best match. The function compare market, geoArea
+	 * and country withgeolocation obj.
+	 * 
+	 * @param tag
+	 *            Tag to extract market, geoArea and country
+	 * @return true/false if is best match
+	 */
+	protected boolean isBestMatch(String tag) {
+		boolean retVal = false;
+		// split tag by market/geoArea/country as/far-east/CK
+		String[] splitTag = tag.split("/");
+		String market = (splitTag.length > 0) ? splitTag[0] : null;
+		String geoArea = (splitTag.length > 1) ? splitTag[1] : null;
+		String country = (splitTag.length > 2) ? splitTag[2] : null;
+
+		if ((market != null) && (this.geomarket != null)) {
+			retVal = market.equalsIgnoreCase(this.geomarket);
+
+			if (retVal && (geoArea != null) && (this.geolocation.getRegion() != null)) {
+				retVal = geoArea.equalsIgnoreCase(this.geolocation.getRegion());
+
+				if (retVal && (country != null) && (this.countryCode != null || this.countryCodeIso3 != null)) {
+					retVal = (country.equalsIgnoreCase(this.countryCode) || country
+							.equalsIgnoreCase(this.countryCodeIso3));
+				}
+			}
+		}
+
+		return retVal;
+	}
 
     public String getCountryCodeIso3() {
         return countryCodeIso3;

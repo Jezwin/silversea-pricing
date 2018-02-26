@@ -1,8 +1,16 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.constants.WcmConstants;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
@@ -12,175 +20,320 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.*;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.constants.WcmConstants;
 
 @Model(adaptables = Page.class)
 public class ExclusiveOfferModel {
 
-    static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOfferModel.class);
+	static final private Logger LOGGER = LoggerFactory.getLogger(ExclusiveOfferModel.class);
 
-    @Inject @Self
-    private Page page;
+	@Inject
+	@Self
+	private Page page;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:title")
-    private String title;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/jcr:title")
+	private String title;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/pageTitle") @Optional
-    private String pageTitle;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/pageTitle")
+	@Optional
+	private String pageTitle;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/jcr:description") @Optional
-    private String description;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/jcr:description")
+	@Optional
+	private String description;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
-    private String longDescription;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/longDescription")
+	@Optional
+	private String longDescription;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/cq:tags") @Optional
-    private String[] tagIds;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/cq:tags")
+	@Optional
+	private String[] tagIds;
 
-    private List<String> geomarkets = new ArrayList<>();
+	private List<String> geomarkets = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions") @Optional
-    private String[] cruiseFareAdditionsJson;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/cruiseFareAdditions")
+	@Optional
+	private String[] cruiseFareAdditionsJson;
 
-    private List<String> cruiseFareAdditions = new ArrayList<>();
+	private List<String> cruiseFareAdditions = new ArrayList<>();
 
-    private List<String> footNotes = new ArrayList<>();
+	private List<String> footNotes = new ArrayList<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/destinations") @Optional
-    private String[] destinationsTextsJson;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/destinations")
+	@Optional
+	private String[] destinationsTextsJson;
 
-    private Map<String, String> destinationsTexts = new HashMap<>();
+	private Map<String, String> destinationsTexts = new HashMap<>();
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/mapOverhead") @Optional
-    private String mapOverHead;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/mapOverhead")
+	@Optional
+	private String mapOverHead;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/lightboxReference") @Optional
-    private String lightboxReference;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/lightboxReference")
+	@Optional
+	private String lightboxReference;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/pricePrefix") @Optional
-    private String pricePrefix;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/pricePrefix")
+	@Optional
+	private String pricePrefix;
 
-    private String path;
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/activeSystem")
+	@Optional
+	private String activeSystem;
 
-    private List<ExclusiveOfferModel> variations = new ArrayList<>();
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultTitle")
+	@Optional
+	private String defaultTitle;
 
-    @PostConstruct
-    private void init() {
-        // init geotagging
-        if (tagIds != null) {
-            for (String tagId : tagIds) {
-                if (tagId.startsWith("geotagging:")) {
-                    geomarkets.add(tagId.replace("geotagging:", ""));
-                }
-            }
-        }
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultDescription")
+	@Optional
+	private String defaultDescription;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultDescriptionTnC")
+	@Optional
+	private String defaultDescriptionTnC;
 
-        // init cruise fare additions and footnotes
-        if (cruiseFareAdditionsJson != null) {
-            for (final String cruiseFareAdditionJson : cruiseFareAdditionsJson) {
-                try {
-                    final JSONObject jsonObject = new JSONObject(cruiseFareAdditionJson);
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultShortDescription")
+	@Optional
+	private String defaultShortDescription;
 
-                    final String addition = jsonObject.optString("addition");
-                    if (StringUtils.isNotEmpty(addition)) {
-                        cruiseFareAdditions.add(addition);
-                    }
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
+	@Optional
+	private String[] customMainSettings;
 
-                    final String footNote = jsonObject.optString("notes");
-                    if (StringUtils.isNotEmpty(footNote)) {
-                        footNotes.add(footNote);
-                    }
-                } catch (JSONException ignored) {
-                }
-            }
-        }
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/expirationDate")
+	@Optional
+	private Date expirationDate;
 
-        // init destinations texts
-        if (destinationsTextsJson != null) {
-            for (final String destinationTextJson : destinationsTextsJson) {
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customTokenSettings")
+	@Optional
+	private String[] customTokenSettings;
 
-                try {
-                    final JSONObject jsonObject = new JSONObject(destinationTextJson);
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customTokenValuesSettings")
+	@Optional
+	private String[] customTokenValuesSettings;
 
-                    final String reference = jsonObject.optString("reference");
-                    final String text = jsonObject.optString("text");
-                    if (StringUtils.isNotEmpty(reference) && StringUtils.isNotEmpty(text)) {
-                        destinationsTexts.put(reference, text);
-                    }
-                } catch (JSONException ignored) {
-                }
-            }
-        }
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/pathImageLB")
+	@Optional
+	private String pathImageLB;
 
-        // init variations
-        final Iterator<Page> children = page.listChildren();
-        while (children.hasNext()) {
-            final Page child = children.next();
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/activeGreysBoxes")
+	@Optional
+	private String activeGreysBoxes;
 
-            if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
-                final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customLBSettings")
+	@Optional
+	private String[] customLBSettings;
 
-                if (variation != null) {
-                    variations.add(variation);
-                }
-            }
-        }
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customVoyageSettings")
+	@Optional
+	private String[] customVoyageSettings;
 
-        path = page.getPath();
-    }
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customTnCSettings")
+	@Optional
+	private String[] customTnCSettings;
 
-    public String getTitle() {
-        return pageTitle != null ? pageTitle : title;
-    }
+	private String path;
 
-    public String getDescription() {
-        return description;
-    }
+	private List<ExclusiveOfferModel> variations = new ArrayList<>();
 
-    public String getLongDescription() {
-        return longDescription;
-    }
+	@PostConstruct
+	private void init() {
+		// init geotagging
+		if (tagIds != null) {
+			for (String tagId : tagIds) {
+				if (tagId.startsWith("geotagging:")) {
+					geomarkets.add(tagId.replace("geotagging:", ""));
+				}
+			}
+		}
 
-    public String[] getTagIds() {
-        return tagIds;
-    }
+		// init cruise fare additions and footnotes
+		if (cruiseFareAdditionsJson != null) {
+			for (final String cruiseFareAdditionJson : cruiseFareAdditionsJson) {
+				try {
+					final JSONObject jsonObject = new JSONObject(cruiseFareAdditionJson);
 
-    public List<String> getGeomarkets() {
-        return geomarkets;
-    }
+					final String addition = jsonObject.optString("addition");
+					if (StringUtils.isNotEmpty(addition)) {
+						cruiseFareAdditions.add(addition);
+					}
 
-    public List<String> getCruiseFareAdditions() {
-        return cruiseFareAdditions;
-    }
+					final String footNote = jsonObject.optString("notes");
+					if (StringUtils.isNotEmpty(footNote)) {
+						footNotes.add(footNote);
+					}
+				} catch (JSONException ignored) {
+				}
+			}
+		}
 
-    public List<String> getFootNotes() {
-        return footNotes;
-    }
+		// init destinations texts
+		if (destinationsTextsJson != null) {
+			for (final String destinationTextJson : destinationsTextsJson) {
 
-    public Map<String, String> getDestinationsTexts() {
-        return destinationsTexts;
-    }
+				try {
+					final JSONObject jsonObject = new JSONObject(destinationTextJson);
 
-    public String getMapOverHead() {
-        return mapOverHead;
-    }
+					final String reference = jsonObject.optString("reference");
+					final String text = jsonObject.optString("text");
+					if (StringUtils.isNotEmpty(reference) && StringUtils.isNotEmpty(text)) {
+						destinationsTexts.put(reference, text);
+					}
+				} catch (JSONException ignored) {
+				}
+			}
+		}
 
-    public String getLightboxReference() {
-        return lightboxReference;
-    }
+		// init variations
+		final Iterator<Page> children = page.listChildren();
+		while (children.hasNext()) {
+			final Page child = children.next();
 
-    public String getPricePrefix() {
-        return pricePrefix;
-    }
+			if (child.getContentResource().isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION)) {
+				final ExclusiveOfferModel variation = child.adaptTo(ExclusiveOfferModel.class);
 
-    public List<ExclusiveOfferModel> getVariations() {
-        return variations;
-    }
+				if (variation != null) {
+					variations.add(variation);
+				}
+			}
+		}
 
-    public String getPath() {
-        return path;
-    }
+		path = page.getPath();
+	}
+
+	public String getTitle() {
+		return pageTitle != null ? pageTitle : title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getLongDescription() {
+		return longDescription;
+	}
+
+	public String[] getTagIds() {
+		return tagIds;
+	}
+
+	public List<String> getGeomarkets() {
+		return geomarkets;
+	}
+
+	public List<String> getCruiseFareAdditions() {
+		return cruiseFareAdditions;
+	}
+
+	public List<String> getFootNotes() {
+		return footNotes;
+	}
+
+	public Map<String, String> getDestinationsTexts() {
+		return destinationsTexts;
+	}
+
+	public String getMapOverHead() {
+		return mapOverHead;
+	}
+
+	public String getLightboxReference() {
+		return lightboxReference;
+	}
+
+	public String getPricePrefix() {
+		return pricePrefix;
+	}
+
+	public List<ExclusiveOfferModel> getVariations() {
+		return variations;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public boolean getActiveSystem() {
+		return Boolean.valueOf(activeSystem);
+	}
+
+	public String getDefaultTitle() {
+		return defaultTitle;
+	}
+
+	public String getDefaultDescription() {
+		return defaultDescription;
+	}
+	
+	public String getDefaultDescriptionTnC() {
+		return defaultDescriptionTnC;
+	}
+
+	public String getDefaultShortDescription() {
+		return defaultShortDescription;
+	}
+
+	public String[] getCustomMainSettings () {
+		return customMainSettings;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public String[] getCustomTokenSettings() {
+		return customTokenSettings;
+	}
+
+	public String[] getCustomTokenValuesSettings() {
+		return customTokenValuesSettings;
+	}
+
+	public String getPathImageLB() {
+		return pathImageLB;
+	}
+
+	public boolean getActiveGreysBoxes() {
+		return Boolean.valueOf(activeGreysBoxes);
+	}
+
+	public String[] getCustomLBSettings() {
+		return customLBSettings;
+	}
+
+	public String[] getCustomVoyageSettings() {
+		return customVoyageSettings;
+	}
+
+	public String[] getCustomTnCSettings() {
+		return customTnCSettings;
+	}
 }

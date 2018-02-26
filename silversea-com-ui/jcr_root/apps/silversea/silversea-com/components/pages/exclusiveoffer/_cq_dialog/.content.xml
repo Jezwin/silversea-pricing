@@ -231,6 +231,12 @@
 						                                                <column jcr:primaryType="nt:unstructured"
 						                                                        sling:resourceType="granite/ui/components/foundation/container">
 						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
 						                                                       <type
 																				    jcr:primaryType="nt:unstructured"
 																				    sling:resourceType="granite/ui/components/foundation/form/select"
@@ -338,7 +344,7 @@
 						                                        <field jcr:primaryType="nt:unstructured"
 						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
 						                                                acs-commons-nested="JSON_STORE"
-						                                                name="./customField">
+						                                                name="./customTokenValuesSettings">
 						                                            <layout jcr:primaryType="nt:unstructured"
 						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
 						                                                    method="absolute"/>
@@ -578,6 +584,13 @@
 						                            <column jcr:primaryType="nt:unstructured"
 						                                    sling:resourceType="granite/ui/components/foundation/container">
 						                                <items jcr:primaryType="nt:unstructured">
+						                                	<defaultDescriptionTnC
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textarea"
+																fieldDescription="Default description TnC"
+																rows="5"
+																fieldLabel="Default description TnC"
+																name="./defaultDescriptionTnC" />
 						                                     <customTnCSettings
 						                                    		jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"

@@ -1,7 +1,9 @@
 package com.silversea.aem.importers.servlets;
 
-import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.services.*;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -11,8 +13,25 @@ import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import java.io.IOException;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.services.BrochuresImporter;
+import com.silversea.aem.importers.services.CcptImporter;
+import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.importers.services.ComboCruisesImporter;
+import com.silversea.aem.importers.services.CountriesImporter;
+import com.silversea.aem.importers.services.CruisesExclusiveOffersImporter;
+import com.silversea.aem.importers.services.CruisesImporter;
+import com.silversea.aem.importers.services.CruisesItinerariesExcursionsImporter;
+import com.silversea.aem.importers.services.CruisesItinerariesHotelsImporter;
+import com.silversea.aem.importers.services.CruisesItinerariesImporter;
+import com.silversea.aem.importers.services.CruisesItinerariesLandProgramsImporter;
+import com.silversea.aem.importers.services.CruisesPricesImporter;
+import com.silversea.aem.importers.services.ExclusiveOffersImporter;
+import com.silversea.aem.importers.services.FeaturesImporter;
+import com.silversea.aem.importers.services.HotelsImporter;
+import com.silversea.aem.importers.services.LandProgramsImporter;
+import com.silversea.aem.importers.services.ShoreExcursionsImporter;
+import com.silversea.aem.importers.services.StyleCache;
 
 @SlingServlet(paths = "/bin/api-import-diff")
 public class UpdateImportServlet extends SlingSafeMethodsServlet {
@@ -42,7 +61,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
         combocruises,
         combocruisessegmentsactivation,
         
-        ccptgeneration
+        ccptgeneration,
+        
+        stylesconfiguration
     }
 
     @Reference
@@ -95,6 +116,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
     
     @Reference
     private CcptImporter ccptImporter;
+    
+    @Reference
+    private StyleCache styleCache;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
@@ -147,6 +171,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 comboCruisesImporter.markSegmentsForActivation();
             } else if (mode.equals(Mode.ccptgeneration)) {
             	ccptImporter.importAllItems();
+            } else if (mode.equals(Mode.stylesconfiguration)) {
+            	styleCache.buildCache();
             }
             
         } catch (ImporterException e) {
