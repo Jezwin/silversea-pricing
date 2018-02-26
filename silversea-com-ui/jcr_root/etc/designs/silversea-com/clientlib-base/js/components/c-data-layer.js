@@ -84,4 +84,20 @@ $(function() {
 
         return setInfoDataLayer;
     })();
+    
+    //TEMP AB TEST FYC
+    var pagecatAB = dataLayer[0].page_cat1;
+    var pageurlAB = document.location.href;
+
+    var shouldAB = "false";
+
+    if(pagecatAB.indexOf('Find your cruise') > -1 || pagecatAB.indexOf('single ship') > -1 || pagecatAB.indexOf('single destination') > -1 || pagecatAB.indexOf('single exclusive offer') > -1){
+     shouldAB = "true"; 
+    }
+
+    if(pageurlAB.indexOf('landing-dmp-dest') > -1 || pageurlAB.indexOf('landing-dmp-ship') > -1 || pageurlAB.indexOf('landing-dmp-offer') > -1 || pageurlAB.indexOf('landing-ship') > -1 || pageurlAB.indexOf('landing-dest') > -1 || pageurlAB.indexOf('landing-offer') > -1){
+     shouldAB = "true";  
+    }
+
+    dataLayer[0].ABDiscoverMoreActivate = shouldAB;
 });
