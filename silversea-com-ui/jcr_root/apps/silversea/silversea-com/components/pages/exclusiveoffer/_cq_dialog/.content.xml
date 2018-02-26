@@ -500,6 +500,18 @@
 						                            <column jcr:primaryType="nt:unstructured"
 						                                    sling:resourceType="granite/ui/components/foundation/container">
 						                                <items jcr:primaryType="nt:unstructured">
+						                                <defaultMapOverhead
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default voyage map overhead"
+																fieldLabel="Map overhead"
+																name="./defaultMapOverhead" />
+															<defaultFootnote
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default Footnote on voyage"
+																fieldLabel="Default Footnote"
+																name="./defaultFootnote" />
 						                                     <customVoyageSettings
 						                                    		jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -536,6 +548,14 @@
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Short description"
 																				      	value="shortDescription"/>
+																				     <mapOverhead 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Map overhead"
+																				      	value="mapOverhead"/>
+																				     <footnote 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Footnote"
+																				      	value="footnote"/>
 																				  </items>
 																				</type>
 						                                                        <value

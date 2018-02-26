@@ -33,14 +33,14 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		EoBean eoBean = null;
 		if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
 			eoBean = new EoBean();
-			String title = null, description = null, shortDescription = null;
+			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null;
 			
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
 			Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
-			
+			ValueTypeBean eoValue;
 			if(eoModel.getExpirationDate() != null) {
-				ValueTypeBean eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
+				eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
 				tokensAndStyle.put("expiration_date",eoValue);
 			}
 			
@@ -67,6 +67,12 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			if(eoConfig.isDescriptionVoyage()) {
 				description = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultDescription());
+			}
+			if(eoConfig.isMapOverheadVoyage()) {
+				mapOverhead = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "mapOverhead", eoModel.getCustomMainSettings(), eoModel.getDefaultMapOverhead());
+			}
+			if(eoConfig.isFootnoteVoyage()) {
+				footnote = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "footnote", eoModel.getCustomMainSettings(), eoModel.getDefaultFootnote());
 			}
 			//-----------------------------------------
 			if(eoConfig.isTitleLigthbox()) {
@@ -114,6 +120,18 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 						shortDescription = shortDescription.replaceAll(endTag,"</span>");
 					}
 				}
+				if (StringUtils.isNotEmpty(mapOverhead)) {
+					mapOverhead = mapOverhead.replaceAll(keyToReplace, valueToReplace);
+					if (eoValue.getType().equalsIgnoreCase("style")) {
+						mapOverhead = mapOverhead.replaceAll(endTag,"</span>");
+					}
+				}
+				if (StringUtils.isNotEmpty(footnote)) {
+					footnote = footnote.replaceAll(keyToReplace, valueToReplace);
+					if (eoValue.getType().equalsIgnoreCase("style")) {
+						footnote = footnote.replaceAll(endTag,"</span>");
+					}
+				}
 			}
 			if (StringUtils.isNotEmpty(title)) {
 				eoBean.setTitle(title);
@@ -123,6 +141,12 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			if (StringUtils.isNotEmpty(shortDescription)) {
 				eoBean.setShortDescription(shortDescription);
+			}
+			if (StringUtils.isNotEmpty(mapOverhead)) {
+				eoBean.setMapOverhead(mapOverhead);
+			}
+			if (StringUtils.isNotEmpty(footnote)) {
+				eoBean.setFootnote(footnote);
 			}
 		}
 		

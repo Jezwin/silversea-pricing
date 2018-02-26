@@ -15,6 +15,8 @@ public class EoConfigurationBean {
 	
 	private boolean titleVoyage;
 	private boolean descriptionVoyage;
+	private boolean mapOverheadVoyage;
+	private boolean footnoteVoyage;
 	
 	private boolean descriptionTnC;
 
@@ -57,6 +59,22 @@ public class EoConfigurationBean {
 	public void setDescriptionVoyage(boolean descriptionVoyage) {
 		this.descriptionVoyage = descriptionVoyage;
 	}
+	
+	public boolean isMapOverheadVoyage() {
+		return mapOverheadVoyage;
+	}
+
+	public void setMapOverheadVoyage(boolean mapOverheadVoyage) {
+		this.mapOverheadVoyage = mapOverheadVoyage;
+	}
+	
+	public boolean isFootnoteVoyage() {
+		return footnoteVoyage;
+	}
+
+	public void setFootnoteVoyage(boolean footnoteVoyage) {
+		this.footnoteVoyage = footnoteVoyage;
+	}
 
 	public boolean isTitleMain() {
 		return titleMain;
@@ -81,7 +99,7 @@ public class EoConfigurationBean {
 	public void setShortDescriptionMain(boolean shortDescriptionMain) {
 		this.shortDescriptionMain = shortDescriptionMain;
 	}
-
+	
 	public boolean isDescriptionTnC() {
 		return descriptionTnC;
 	}

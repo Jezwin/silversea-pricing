@@ -5,6 +5,8 @@ public class EoBean {
 	private String title;
 	private String description;
 	private String shortDescription;
+	private String footnote;
+	private String mapOverhead;
 	private String image;
 	private boolean greyBoxesSystem;
 	
@@ -34,6 +36,20 @@ public class EoBean {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+	
+	public String getFootnote() {
+		return footnote;
+	}
+	public void setFootnote(String footnote) {
+		this.footnote = footnote;
+	}
+	
+	public String getMapOverhead() {
+		return mapOverhead;
+	}
+	public void setMapOverhead(String mapOverhead) {
+		this.mapOverhead = mapOverhead;
 	}
 
 	public String getImage() {

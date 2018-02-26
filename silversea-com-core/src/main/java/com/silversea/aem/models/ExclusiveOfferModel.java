@@ -114,6 +114,16 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultShortDescription")
 	@Optional
 	private String defaultShortDescription;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultMapOverhead")
+	@Optional
+	private String defaultMapOverhead;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultFootnote")
+	@Optional
+	private String defaultFootnote;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
@@ -299,6 +309,14 @@ public class ExclusiveOfferModel {
 
 	public String getDefaultShortDescription() {
 		return defaultShortDescription;
+	}
+	
+	public String getDefaultMapOverhead() {
+		return defaultMapOverhead;
+	}
+	
+	public String getDefaultFootnote() {
+		return defaultFootnote;
 	}
 
 	public String[] getCustomMainSettings () {
