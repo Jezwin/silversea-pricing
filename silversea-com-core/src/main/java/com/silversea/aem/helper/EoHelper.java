@@ -82,30 +82,33 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			//replace token and style
 			for (String key : tokensAndStyle.keySet()) {
 				eoValue = tokensAndStyle.get(key);
+				String valueToReplace = null,
+						keyToReplace = null,
+						endTag = null;
 				if (eoValue.getType().equalsIgnoreCase("token")) {
-					key = "#" + key + "#";
+					keyToReplace = "#" + key + "#";
+					valueToReplace= eoValue.getValue();
 				} else if (eoValue.getType().equalsIgnoreCase("style")) {
-					key = "<" + key + ">";
+					keyToReplace = "<" + key + ">"; 
+					endTag = "</" + key + ">";
+					valueToReplace= "<span style='" + eoValue.getValue() + "'>";
 				}
 				if (StringUtils.isNotEmpty(title)) {
-					title = title.replaceAll(key, eoValue.getValue());
+					title = title.replaceAll(keyToReplace, valueToReplace);
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						String endStyle = "</" + key + ">";
-						title = title.replaceAll(endStyle,"");
+						title = title.replaceAll(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(description)) {
-					description = description.replaceAll(key, eoValue.getValue());
+					description = description.replaceAll(keyToReplace, valueToReplace);
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						String endStyle = "</" + key + ">";
-						description = description.replaceAll(endStyle,"");
+						description = description.replaceAll(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(shortDescription)) {
-					shortDescription = shortDescription.replaceAll(key, eoValue.getValue());
+					shortDescription = shortDescription.replaceAll(keyToReplace, valueToReplace);
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						String endStyle = "</" + key + ">";
-						shortDescription = shortDescription.replaceAll(endStyle,"");
+						shortDescription = shortDescription.replaceAll(endTag,"</span>");
 					}
 				}
 			}
