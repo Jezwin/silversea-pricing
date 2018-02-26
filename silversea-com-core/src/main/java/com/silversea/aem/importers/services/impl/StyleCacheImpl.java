@@ -36,6 +36,9 @@ public class StyleCacheImpl implements StyleCache {
 	private ResourceResolverFactory resourceResolverFactory;
 
 	public Map<String, ValueTypeBean> getStyles() {
+		if (styles == null) {
+			buildCache();
+		}
 		return styles;
 	}
 	
