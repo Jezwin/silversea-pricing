@@ -7,6 +7,7 @@ public class EoBean {
 	private String shortDescription;
 	private String image;
 	private boolean greyBoxesSystem;
+	private boolean isAvailable;
 	
 	public EoBean() {}
 	
@@ -34,6 +35,14 @@ public class EoBean {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 	public String getImage() {

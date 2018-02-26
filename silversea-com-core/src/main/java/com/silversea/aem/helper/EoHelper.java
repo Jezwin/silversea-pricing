@@ -31,18 +31,26 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
 	public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
 		EoBean eoBean = null;
+		
 		if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
 			eoBean = new EoBean();
-			String title = null, description = null, shortDescription = null;
 			
+			String title = null, description = null, shortDescription = null;
+			ValueTypeBean eoValue = null;
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
 			Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
-			ValueTypeBean eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
-			tokensAndStyle.put("expiration_date",eoValue);
+			if (eoModel.getExpirationDate() != null) {
+				eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
+				tokensAndStyle.put("expiration_date",eoValue);
+			}
 			
 			if (styles != null && !styles.isEmpty()) {
 				tokensAndStyle.putAll(styles);
+			}
+			
+			if (eoModel.getGeomarkets() != null && eoModel.getGeomarkets().contains(geomarket)) {
+				eoBean.setAvailable(true);
 			}
 			
 			if (eoConfig.isTitleMain()) {
@@ -87,7 +95,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 						endTag = null;
 				if (eoValue.getType().equalsIgnoreCase("token")) {
 					keyToReplace = "#" + key + "#";
-					valueToReplace= eoValue.getValue();
+					valueToReplace= "\\	" + eoValue.getValue();
 				} else if (eoValue.getType().equalsIgnoreCase("style")) {
 					keyToReplace = "<" + key + ">"; 
 					endTag = "</" + key + ">";
