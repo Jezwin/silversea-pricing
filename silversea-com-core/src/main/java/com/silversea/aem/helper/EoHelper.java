@@ -38,8 +38,11 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
 			Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
-			ValueTypeBean eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
-			tokensAndStyle.put("expiration_date",eoValue);
+			
+			if(eoModel.getExpirationDate() != null) {
+				ValueTypeBean eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
+				tokensAndStyle.put("expiration_date",eoValue);
+			}
 			
 			if (styles != null && !styles.isEmpty()) {
 				tokensAndStyle.putAll(styles);
