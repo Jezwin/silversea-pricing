@@ -114,6 +114,16 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultShortDescription")
 	@Optional
 	private String defaultShortDescription;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultMapOverhead")
+	@Optional
+	private String defaultMapOverhead;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultFootnote")
+	@Optional
+	private String defaultFootnote;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
@@ -154,6 +164,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/customVoyageSettings")
 	@Optional
 	private String[] customVoyageSettings;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customVoyageFaresSettings")
+	@Optional
+	private String[] customVoyageFaresSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customTnCSettings")
@@ -300,6 +315,14 @@ public class ExclusiveOfferModel {
 	public String getDefaultShortDescription() {
 		return defaultShortDescription;
 	}
+	
+	public String getDefaultMapOverhead() {
+		return defaultMapOverhead;
+	}
+	
+	public String getDefaultFootnote() {
+		return defaultFootnote;
+	}
 
 	public String[] getCustomMainSettings () {
 		return customMainSettings;
@@ -333,6 +356,10 @@ public class ExclusiveOfferModel {
 		return customVoyageSettings;
 	}
 
+	public String[] getCustomVoyageFaresSettings() {
+		return customVoyageFaresSettings;
+	}
+	
 	public String[] getCustomTnCSettings() {
 		return customTnCSettings;
 	}

@@ -500,6 +500,18 @@
 						                            <column jcr:primaryType="nt:unstructured"
 						                                    sling:resourceType="granite/ui/components/foundation/container">
 						                                <items jcr:primaryType="nt:unstructured">
+						                                <defaultMapOverhead
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default voyage map overhead"
+																fieldLabel="Map overhead"
+																name="./defaultMapOverhead" />
+															<defaultFootnote
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default Footnote on voyage"
+																fieldLabel="Default Footnote"
+																name="./defaultFootnote" />
 						                                     <customVoyageSettings
 						                                    		jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -536,6 +548,14 @@
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Short description"
 																				      	value="shortDescription"/>
+																				     <mapOverhead 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Map overhead"
+																				      	value="mapOverhead"/>
+																				     <footnote 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Footnote"
+																				      	value="footnote"/>
 																				  </items>
 																				</type>
 						                                                        <value
@@ -556,6 +576,51 @@
 						                                            </items>
 						                                        </field>
 						                                    </customVoyageSettings>
+						                                    <customVoyagesFaresSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom voyage fares additions values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customVoyagesFaresSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <cruisefare
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Cruise Fares addition"
+						                                                            fieldLabel="Cruise fares"
+						                                                            name="./cruisefare"/>
+						                                                      <footnote
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Cruise Fares footnote"
+						                                                            fieldLabel="Cruise fares footnote"
+						                                                            name="./cruisefarefootnote"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customVoyagesFaresSettings>
 						                              </items>
 						                           </column>
 						                        </items>
