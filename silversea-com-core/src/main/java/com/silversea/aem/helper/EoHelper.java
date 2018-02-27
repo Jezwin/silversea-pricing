@@ -30,7 +30,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		gson = new GsonBuilder().create();
 	}
 	
-
+	
 	public EoBean parseExclusiveOffer(EoConfigurationBean eoConfig, ExclusiveOfferModel eoModel) {
 		EoBean eoBean = null;
 		
@@ -183,6 +183,24 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
 		return eoBean;
 	}
+	
+	protected Map<String, ValueTypeBean> getTokenAnsStyleByTag(ExclusiveOfferModel eoModel) {
+		Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
+		Map<String, ValueTypeBean> styles = styleCache.getStyles();
+
+		ValueTypeBean eoValue = null;
+		if(eoModel.getExpirationDate() != null) {
+			eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
+			tokensAndStyle.put("expiration_date",eoValue);
+		}
+		
+		if (styles != null && !styles.isEmpty()) {
+			tokensAndStyle.putAll(styles);
+		}
+		
+		return tokensAndStyle;
+	}
+	
 	
 	private Map<String, ValueTypeBean> getTokensByBesthMatchTag(String[] customTokens) {
 		Map<String, ValueTypeBean> tokenByTag = new HashMap<String, ValueTypeBean>();
