@@ -2,6 +2,7 @@ package com.silversea.aem.helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -72,8 +73,8 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if(eoConfig.isTitleVoyage()) {
 				title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "title", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
 			}
-			if(eoConfig.isDescriptionVoyage()) {
-				description = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultDescription());
+			if(eoConfig.isShortDescriptionVoyage()) {
+				shortDescription = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "shortDescription", eoModel.getCustomMainSettings(), eoModel.getDefaultShortDescription());
 			}
 			if(eoConfig.isMapOverheadVoyage()) {
 				mapOverhead = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "mapOverhead", eoModel.getCustomMainSettings(), eoModel.getDefaultMapOverhead());
@@ -282,10 +283,10 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 	}
 	
 	private ExclusiveOfferFareModel[] getCruiseFaresValuesByBesthMatchTag(String[] customSettings) {
-		ArrayList<ExclusiveOfferFareModel> value = null;
+		List<ExclusiveOfferFareModel> value = null;
 		if (customSettings != null) {
 			JsonObject eoSettings = null;
-			for (int i = 0; i < customSettings.length && (value == null); i++) {
+			for (int i = 0; i < customSettings.length; i++) {
 				eoSettings = gson.fromJson(customSettings[i], JsonObject.class); 
 
 				if (eoSettings != null) {
@@ -319,7 +320,11 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 				}
 			}
 		}
-		return (ExclusiveOfferFareModel[]) value.toArray();
+		if(value != null){
+			return value.toArray(new ExclusiveOfferFareModel[value.size()]);
+		}else{
+			return null;
+		}
 	}
 
 }
