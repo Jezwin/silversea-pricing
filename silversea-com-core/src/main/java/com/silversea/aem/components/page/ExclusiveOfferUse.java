@@ -23,7 +23,7 @@ public class ExclusiveOfferUse extends AbstractGeolocationAwareUse {
             available = true;
         }
 
-        exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null);
+        exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null, null);
     }
 
     public boolean isAvailable() {
