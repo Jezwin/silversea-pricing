@@ -17,6 +17,7 @@ public class EoConfigurationBean {
 	private boolean descriptionVoyage;
 	private boolean mapOverheadVoyage;
 	private boolean footnoteVoyage;
+	private boolean cruiseFareVoyage;
 	
 	private boolean descriptionTnC;
 
@@ -74,6 +75,14 @@ public class EoConfigurationBean {
 
 	public void setFootnoteVoyage(boolean footnoteVoyage) {
 		this.footnoteVoyage = footnoteVoyage;
+	}
+	
+	public boolean isCruiseFareVoyage() {
+		return cruiseFareVoyage;
+	}
+
+	public void setCruiseFareVoyage(boolean cruiseFareVoyage) {
+		this.cruiseFareVoyage = cruiseFareVoyage;
 	}
 
 	public boolean isTitleMain() {

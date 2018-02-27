@@ -164,6 +164,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/customVoyageSettings")
 	@Optional
 	private String[] customVoyageSettings;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/customVoyageFaresSettings")
+	@Optional
+	private String[] customVoyageFaresSettings;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customTnCSettings")
@@ -351,6 +356,10 @@ public class ExclusiveOfferModel {
 		return customVoyageSettings;
 	}
 
+	public String[] getCustomVoyageFaresSettings() {
+		return customVoyageFaresSettings;
+	}
+	
 	public String[] getCustomTnCSettings() {
 		return customTnCSettings;
 	}
