@@ -95,7 +95,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 						endTag = null;
 				if (eoValue.getType().equalsIgnoreCase("token")) {
 					keyToReplace = "#" + key + "#";
-					valueToReplace= "\\	" + eoValue.getValue();
+					valueToReplace= "\\" + eoValue.getValue();
 				} else if (eoValue.getType().equalsIgnoreCase("style")) {
 					keyToReplace = "<" + key + ">"; 
 					endTag = "</" + key + ">";
@@ -151,7 +151,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 								value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString() : null;
 								token = (eoSettings.get("token") != null) ? eoSettings.get("token").getAsString() : null;
 								ValueTypeBean eoValue = new ValueTypeBean(value, "token");
-								tokenByTag.put(token, eoValue);
+								if(!tokenByTag.containsKey(token)) {
+									tokenByTag.put(token, eoValue);
+								}
 								break;
 							}
 						}
