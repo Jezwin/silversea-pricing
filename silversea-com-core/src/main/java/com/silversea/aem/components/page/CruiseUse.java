@@ -17,9 +17,12 @@ import org.apache.sling.api.resource.Resource;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
+import com.silversea.aem.components.beans.EoBean;
+import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModel;
@@ -36,7 +39,7 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 
-public class CruiseUse extends AbstractGeolocationAwareUse {
+public class CruiseUse extends EoHelper {
 
 	private CruiseModel cruiseModel;
 
@@ -202,10 +205,25 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		}
 
 		// init exclusive offers based on geolocation
+    	EoConfigurationBean eoConfig = new EoConfigurationBean();
+		eoConfig.setTitleMain(true);
+		eoConfig.setShortDescriptionVoyage(true);
+		eoConfig.setDescriptionMain(true);
+		eoConfig.setFootnoteVoyage(true);
+		eoConfig.setMapOverheadVoyage(true);
+		eoConfig.setCruiseFareVoyage(true);
 		for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
 			if (exclusiveOffer.getGeomarkets() != null && exclusiveOffer.getGeomarkets().contains(geomarket)) {
-				exclusiveOffers.add(
-						new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination().getPath()));
+				try{
+					eoConfig.setActiveSystem(exclusiveOffer.getActiveSystem());
+						
+					EoBean result = super.parseExclusiveOffer(eoConfig, exclusiveOffer);
+					exclusiveOffers.add(
+							new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination().getPath(), result));
+			
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 		

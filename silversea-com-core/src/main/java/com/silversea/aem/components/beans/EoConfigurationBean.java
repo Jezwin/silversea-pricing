@@ -14,7 +14,7 @@ public class EoConfigurationBean {
 	private boolean descriptionLigthbox;
 	
 	private boolean titleVoyage;
-	private boolean descriptionVoyage;
+	private boolean shortDescriptionVoyage;
 	private boolean mapOverheadVoyage;
 	private boolean footnoteVoyage;
 	private boolean cruiseFareVoyage;
@@ -53,12 +53,12 @@ public class EoConfigurationBean {
 		this.titleVoyage = titleVoyage;
 	}
 
-	public boolean isDescriptionVoyage() {
-		return descriptionVoyage;
+	public boolean isShortDescriptionVoyage() {
+		return shortDescriptionVoyage;
 	}
 
-	public void setDescriptionVoyage(boolean descriptionVoyage) {
-		this.descriptionVoyage = descriptionVoyage;
+	public void setShortDescriptionVoyage(boolean shortDescriptionVoyage) {
+		this.shortDescriptionVoyage = shortDescriptionVoyage;
 	}
 	
 	public boolean isMapOverheadVoyage() {

@@ -166,7 +166,7 @@ public class ExclusiveOfferModel {
 	private String[] customVoyageSettings;
 	
 	@Inject
-	@Named(JcrConstants.JCR_CONTENT + "/customVoyageFaresSettings")
+	@Named(JcrConstants.JCR_CONTENT + "/customVoyagesFaresSettings")
 	@Optional
 	private String[] customVoyageFaresSettings;
 
@@ -297,7 +297,11 @@ public class ExclusiveOfferModel {
 	}
 
 	public boolean getActiveSystem() {
-		return Boolean.valueOf(activeSystem);
+		if(activeSystem != null){
+			return Boolean.valueOf(activeSystem);
+		}else{
+			return false;
+		}
 	}
 
 	public String getDefaultTitle() {
