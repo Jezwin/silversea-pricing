@@ -12,6 +12,7 @@ public class EoBean {
 	private ExclusiveOfferFareModel[] cruiseFares;
 	private String image;
 	private boolean greyBoxesSystem;
+	private boolean isAvailable;
 	
 	public EoBean() {}
 	
@@ -60,6 +61,14 @@ public class EoBean {
 	}
 	public void setCruiseFares(ExclusiveOfferFareModel[] cruiseFares) {
 		this.cruiseFares = cruiseFares;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 	public String getImage() {
