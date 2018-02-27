@@ -2,9 +2,12 @@ package com.silversea.aem.importers.services.impl;
 
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
+import com.day.jcr.vault.util.SHA1;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.importers.ImporterException;
@@ -13,20 +16,25 @@ import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.CitiesApi;
 import io.swagger.client.model.City;
 import io.swagger.client.model.City77;
+
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.sling.api.resource.*;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
+import org.apache.sling.commons.mime.MimeTypeService;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +42,10 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -50,6 +62,9 @@ public class CitiesImporterImpl implements CitiesImporter {
 
     @Reference
     private ApiConfigurationService apiConfig;
+    
+    @Reference
+    private MimeTypeService mimeTypeService;
 
     @Activate
     protected void activate(final ComponentContext context) {
@@ -251,7 +266,7 @@ public class CitiesImporterImpl implements CitiesImporter {
 
                                     LOGGER.trace("Port {} is marked to be deactivated", city.getCityName());
                                 } else {
-                                    final Node portContentNode = updatePortContentNode(city, portPage);
+                                    final Node portContentNode = updatePortContentNode(city, portPage, session, mimeTypeService,resourceResolver);
 
                                     portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
@@ -272,7 +287,7 @@ public class CitiesImporterImpl implements CitiesImporter {
                                     throw new ImporterException("Cannot create port page for city " + city.getCityName());
                                 }
 
-                                final Node portContentNode = updatePortContentNode(city, portPage);
+                                final Node portContentNode = updatePortContentNode(city, portPage, session, mimeTypeService, resourceResolver);
                                 portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Port {} successfully created", portPage.getPath());
@@ -417,7 +432,8 @@ public class CitiesImporterImpl implements CitiesImporter {
      * @return the content node of the port page, updated
      * @throws ImporterException if the port page cannot be updated
      */
-    private Node updatePortContentNode(City77 city, Page portPage) throws ImporterException {
+    private Node updatePortContentNode(City77 city, Page portPage, Session session, final MimeTypeService mimeTypeService,
+            final ResourceResolver resourceResolver ) throws ImporterException {
         final Node portContentNode = portPage.getContentResource().adaptTo(Node.class);
 
         if (portContentNode == null) {
@@ -436,6 +452,7 @@ public class CitiesImporterImpl implements CitiesImporter {
             portContentNode.setProperty("countryId", city.getCountryId());
             portContentNode.setProperty("countryIso2", city.getCountryIso2());
             portContentNode.setProperty("countryIso3", city.getCountryIso3());
+            associateThumbnail(session, portContentNode, city.getPicUrl(), mimeTypeService, resourceResolver);
 
             // Set livecopy mixin
             if (!LanguageHelper.getLanguage(portPage).equals("en")) {
@@ -446,5 +463,65 @@ public class CitiesImporterImpl implements CitiesImporter {
         }
 
         return portContentNode;
+    }
+    
+    public static void associateThumbnail(final Session session, final Node portContentNode,
+            String mapUrl, final MimeTypeService mimeTypeService,
+            final ResourceResolver resourceResolver) throws RepositoryException {
+
+		final AssetManager assetManager = resourceResolver
+				.adaptTo(AssetManager.class);
+
+		// download and associate thumbnail
+		if (StringUtils.isNotEmpty(mapUrl)) {
+			try {
+				final String filename = StringUtils.substringAfterLast(mapUrl,
+						"/");
+
+				final String assetPath = "/content/dam/silversea-com/api-provided/ports/"
+						+ portContentNode.getParent().getName().charAt(0)
+						+ "/"
+						+ portContentNode.getParent().getName()
+						+ "/"
+						+ filename;
+
+
+				boolean updateAsset = false;
+				if (portContentNode.hasNode("image") == false) {
+					updateAsset = true;
+				}
+
+				if (updateAsset) {
+					LOGGER.info("Creating thumbnail asset {}", assetPath);
+					mapUrl = mapUrl.replace("http:", "https:");
+					final InputStream mapStream = new URL(mapUrl).openStream();
+					final Asset asset = assetManager.createAsset(assetPath,
+							mapStream, mimeTypeService.getMimeType(mapUrl),
+							false);
+					LOGGER.info("Creating thumbnail asset {} SAVED.", assetPath);
+					// setting to activate flag on asset
+					final Node assetNode = asset.adaptTo(Node.class);
+					if (assetNode != null) {
+						final Node assetContentNode = assetNode
+								.getNode(JcrConstants.JCR_CONTENT);
+
+						if (assetContentNode != null) {
+							assetContentNode.setProperty(
+									ImportersConstants.PN_TO_ACTIVATE, true);
+						}
+					}
+					Node imageNode = JcrUtils.getOrAddNode(portContentNode, "image", "nt:unstructured");
+					
+					imageNode.setProperty("fileReference", asset.getPath());
+
+					LOGGER.trace("Creating port thumbnail asset {}", assetPath);
+				}
+
+			} catch (IOException e) {
+				LOGGER.warn("Cannot import port thumbnail image {}", mapUrl);
+			} catch (Exception e){
+				LOGGER.warn("Error while importing port thumbnail {}", mapUrl);
+			}
+		}
     }
 }

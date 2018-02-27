@@ -1,23 +1,27 @@
-<sly data-sly-use.diningUse="com.silversea.aem.components.page.DiningUse" data-sly-unwrap/>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div data-sly-resource="${'menu' @ resourceType='silversea/silversea-com/components/editorial/sidemenu'}"></div>
-        </div>
-        <div class="col-sm-9">
-            <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-            <section class="o-section c-availability">
-                <p class="c-availability__title">${'available-on' @ i18n}</p>
-                <div class="container-fluid">
-                    <ul class="row c-list" data-sly-list="${diningUse.diningReferenceList}">
-                        <li class="col-md-4 c-list__item">
-                            <a href="${item.path @ extension = 'html'}" class="c-availability__link">${item.title}
-                                <i class="fa fa-lg fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+<div class="container c-single-dining" data-sly-use.diningUse="com.silversea.aem.components.page.DiningUse" data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"
+  data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+				<div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
+				<div class="c-single-dining__brouchure" data-sly-resource="${'par2' @ resourceType='silversea/silversea-com/components/editorial/button'}"></div>
+                <sly data-sly-use.pagegallery="silversea/silversea-com/components/pages/dining/singledining/pagegallery.html"
+                            data-sly-call="${pagegallery.default @ diningUse=diningUse}" />
+                <section class="o-section c-single-dining-availability">
+                    <p class="c-single-dining-availability__title">${currentPage.navigationTitle || currentPage.title @ context='html'} ${'available-on-ships' @ i18n} :</p>
+                    <div class="container-fluid">
+                        <ul class="row c-list" data-sly-list="${diningUse.diningReferenceList}">
+                            <li class="col-md-3 c-list__item">
+                                <a href="${item.path @ extension = 'html'}" class="c-availability__link">${item.title}
+                                    <i class="fa fa-lg fa-angle-right"></i>
+                                </a>
+                        	</li>
+                        </ul>
+                    </div>
+                </section>
+ 			<div data-sly-resource="${'slider' @ resourceType='silversea/silversea-com/components/included/diningslider'}"></div>
+			<div data-sly-resource="${'mozaic-slider' @ resourceType='silversea/silversea-ssc/components/editorial/mozaicSlider'}"></div>
+            </div>
         </div>
     </div>
 </div>

@@ -35,9 +35,17 @@
                                         jcr:primaryType="nt:unstructured"
                                         text="Default"
                                         value=""/>
+                                    <defaultnew
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Default new"
+                                        value="defaultnew"/>
+                                    <allInclusive
+                                        jcr:primaryType="nt:unstructured"
+                                        text="OB All Inclusive style"
+                                        value="allInclusive"/>
                                     <finedine
                                         jcr:primaryType="nt:unstructured"
-                                        text="OB All Inclusive/Fine Dining style"
+                                        text="Fine Dining style"
                                         value="finedine"/>
                                     <accomodation
                                         jcr:primaryType="nt:unstructured"
@@ -56,6 +64,11 @@
                                 sling:resourceType="granite/ui/components/foundation/form/textarea"
                                 fieldLabel="Description"
                                 name="./jcr:description"/>
+                            <ctalabel
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="CTA Label (new default)"
+                                name="./ctalabel"/>
                             <image
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -93,6 +106,21 @@
                                 fieldLabel="Min height"
                                 min="0"
                                 name="./heightDesktop"/>
+                           <imageHeightDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Image height"
+                                fieldLabel="Image height"
+                                defaultValue="250"
+                                min="0"
+                                name="./imageHeightDesktop"/>
+                           <showBorderDesktop
+                                jcr:primaryType="nt:unstructured"
+                                text="Show border"
+                                name="./showBorderDesktop"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                           
                         </items>
                     </column>
                 </items>
@@ -118,6 +146,21 @@
                                 fieldLabel="Min height"
                                 min="0"
                                 name="./heightMobile"/>
+                             <imageHeightMobile
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                fieldDescription="Image height"
+                                fieldLabel="Image height"
+                                defaultValue="250"
+                                min="0"
+                                name="./imageHeightMobile"/>
+                             <showBorderMobile
+                                jcr:primaryType="nt:unstructured"
+                                text="Show border"
+                                name="./showBorderMobile"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            
                         </items>
                     </column>
                 </items>

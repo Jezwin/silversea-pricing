@@ -1,23 +1,73 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual"></div>
 
-<section id="c-vertical-teaser-${properties.jcr:uuid}" class="c-vertical-teaser ${!properties.type ? 'thumbnail' : ''} benefitsandevents">
+<section id="c-vertical-teaser-${properties.sscUUID}" class="c-vertical-teaser ${!properties.type ? 'thumbnail' : ''} ${properties.type == 'defaultnew' ? 'thumbnail' : ''} benefitsandevents">
     <sly data-sly-use.verticalteasermanualTemplate="silversea/silversea-com/components/editorial/verticalteasermanual/verticalteasermanualtemplate.html" />
     
     <sly data-sly-test="${!properties.type}" data-sly-call="${verticalteasermanualTemplate.default}" />
+    <sly data-sly-test="${properties.type == 'allInclusive'}" data-sly-call="${verticalteasermanualTemplate.allInclusive}" />
     <sly data-sly-test="${properties.type == 'finedine'}" data-sly-call="${verticalteasermanualTemplate.finedine}" />
     <sly data-sly-test="${properties.type == 'obaccomodation'}" data-sly-call="${verticalteasermanualTemplate.obaccomodation}" />
+    <sly data-sly-test="${properties.type == 'defaultnew'}" data-sly-call="${verticalteasermanualTemplate.defaultnew}" />
 
+</section>
 <style data-sly-test="${properties.heightDesktop}">
-	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
+	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
+		height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
 		min-height: ${properties.heightDesktop @ context="unsafe" || 230 }px !important;
 	}
 </style>
 
 <style data-sly-test="${properties.heightMobile}">
 	@media (max-width: 767px) {
-		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.thumbnail.c-vertical-teaser .c-vertical-teaser__caption {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
+			height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 		}
 	}
 </style>
-</section>
+
+<style data-sly-test="${properties.imageHeightDesktop && properties.type}">
+	@media (min-width: 768px) {
+		#c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser__image-wrapper-new {
+			height: ${properties.imageHeightDesktop @ context="unsafe" || 250 }px !important;
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.imageHeightMobile && properties.type}">
+	@media (max-width: 767px) {
+		#c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper, #c-vertical-teaser-${properties.sscUUID  @ context="unsafe"} .c-vertical-teaser__image-wrapper-new {
+			height: ${properties.imageHeightMobile @ context="unsafe" || 250 }px !important;
+		}
+	}
+</style>
+
+<style data-sly-test="${properties.showBorderDesktop}">
+	@media (min-width: 768px) {
+		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"}.c-vertical-teaser {
+			border: 1px solid #ddd !important;
+		}
+		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-finedine__caption {
+			padding: 20px 20px 40px !important;
+		}
+	}
+</style>
+<style data-sly-test="${properties.showBorderMobile}">
+	@media (max-width: 767px) {
+		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"}.c-vertical-teaser {
+			border: 1px solid #ddd !important;
+		}
+	    #c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-finedine__image-wrapper, #c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-oba__image-wrapper {
+			margin-left: 0px;
+		    padding-right: 32px;
+		}
+		#c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-finedine__caption {
+			padding: 20px 20px 40px !important;
+		}
+		
+		 #c-vertical-teaser-${properties.sscUUID @ context="unsafe"} .c-vertical-teaser-oba__caption {
+			padding: 20px 20px 40px !important;
+			border: 1px solid #ddd !important;
+		}
+	}
+</style>

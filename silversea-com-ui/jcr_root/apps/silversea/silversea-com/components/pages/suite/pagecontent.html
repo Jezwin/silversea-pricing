@@ -1,16 +1,16 @@
-<sly data-sly-use.suiteUse="com.silversea.aem.components.page.SuiteUse"></sly>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div data-sly-resource="${'menu' @ resourceType='silversea/silversea-com/components/editorial/sidemenu'}"></div>
-        </div>
-        <div class="col-sm-9">
+<div class="container c-single-suite" data-sly-use.suiteUse="com.silversea.aem.components.page.SuiteUse" data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"
+  data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='gallery'}">
+    <div class="row"> 
+        <div class="col-sm-12">
             <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-            <section class="o-section c-availability">
-                <p class="c-availability__title">${'available-on' @ i18n}</p>
+            <div class="c-single-suite__brouchure" data-sly-resource="${'par2' @ resourceType='silversea/silversea-com/components/editorial/button'}"></div>
+            <sly data-sly-use.pagegallery="silversea/silversea-com/components/pages/suite/singlesuite/pagegallery.html"
+                            data-sly-call="${pagegallery.default @ suiteUse=suiteUse}" />
+            <section class="o-section c-single-suite-availability">
+                <p class="c-single-suite-availability__title">${currentPage.navigationTitle || currentPage.title @ context='html'} ${'available-on-ships' @ i18n} :</p>
                 <div class="container-fluid">
                     <ul class="row c-list" data-sly-list="${suiteUse.suiteReferenceList}">
-                        <li class="col-md-4 c-list__item">
+                        <li class="col-md-3 c-list__item">
                             <a href="${item.path @ extension = 'html'}" class="c-availability__link">${item.title}
                                 <i class="fa fa-lg fa-angle-right"></i>
                             </a>
@@ -18,6 +18,8 @@
                     </ul>
                 </div>
             </section>
+            <div data-sly-resource="${'slider' @ resourceType='silversea/silversea-com/components/included/suiteslider'}"></div>
+			<div data-sly-resource="${'mozaic-slider' @ resourceType='silversea/silversea-ssc/components/editorial/mozaicSlider'}"></div>
         </div>
     </div>
 </div>

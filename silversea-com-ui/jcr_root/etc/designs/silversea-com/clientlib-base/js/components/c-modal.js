@@ -18,10 +18,13 @@ $(function() {
         	
         	if (window.suiteDesktop == false) {
         		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
-				if(window.iNoBounce != null) {
-					window.iNoBounce.disable();
-				} 
         	}
+        	if(window.iNoBounce != null) {
+        		try {
+        			window.iNoBounce.disable();
+        		}catch(error) {
+        		}
+        	} 
         }
         
         var $modalContent = $('body > .modal .modal-content');

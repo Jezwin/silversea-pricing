@@ -8,8 +8,10 @@
 	        </div>
 	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
 	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-	                <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-	                <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+	                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
 	                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
 	                <sly data-sly-test.btn1="${banner.btn1}" />
 	                <sly data-sly-test.btn2="${banner.btn2}" />
@@ -49,8 +51,10 @@
             </div>
 	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
 	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-	                <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-	                <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+	                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
 	                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
 	                <sly data-sly-test.btn1="${banner.btn1}" />
 	                <sly data-sly-test.btn2="${banner.btn2}" />
@@ -87,8 +91,10 @@
         </div>
         <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row hidden-xs">
             <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-                <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
+                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
+                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
                 <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
                 <sly data-sly-test.btn1="${banner.btn1}" />
                 <sly data-sly-test.btn2="${banner.btn2}" />
@@ -129,8 +135,10 @@
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                    <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-                    <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
                     <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
                     <sly data-sly-test.btn1="${banner.btn1}" />
                     <sly data-sly-test.btn2="${banner.btn2}" />
@@ -169,8 +177,10 @@
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                    <h1 data-sly-test="${banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-                    <span data-sly-test="${!banner.isFirstElement}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
+                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
                     <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
                     <sly data-sly-test.btn1="${banner.btn1}" />
                     <sly data-sly-test.btn2="${banner.btn2}" />

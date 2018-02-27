@@ -9,6 +9,9 @@ Allow: /
 Disallow: /search.html?q=
 Disallow: /content/silversea-com/en/ports_genericblock_data
 Disallow: /ports_genericblock_data
+Disallow: /content/silversea-com/en/notificationupdates(.*)
+Disallow: /notificationupdates(.*)
+
 Allow: /etc/*
 Disallow: /content/silversea-com/en/ports_genericblock_data
 Disallow: /*q=

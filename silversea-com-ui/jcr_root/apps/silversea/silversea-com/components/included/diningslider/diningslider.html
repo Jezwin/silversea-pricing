@@ -1,0 +1,36 @@
+<div class="c-single-dining-slider-property-display">
+        <h2 class="o-single-dining-slider-title">${'other-restaurants' @ i18n}</h2>
+        <div class="o-single-dining-slider-description">
+           ${'other-restaurants-description' @ i18n}
+        </div>
+</div>
+<div class="c-single-dining-slider" data-sly-use.reference="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}"
+    data-sly-use.sideMenu="com.silversea.aem.components.editorial.SideMenuUse">
+  <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside"
+         data-slick='{"slidesToShow": 3, "slidesToScroll": 3, "adaptiveHeight": true, "dots" : true}' role="toolbar">
+	<sly data-sly-repeat="${sideMenu.subPage}">
+        <div class="slider-item"  data-sly-test="${item.path != currentPage.path}">
+			<section class="c-single-dining-slider thumbnail" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=item.path}" 
+			    data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+			    <div class="c-single-dining-slider__image-wrapper">
+			        <sly data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}"></sly>
+			    </div>
+				<div class="caption c-single-dining-slider__caption">
+			        <span class="c-single-dining-slider__title__mobile">${item.navigationTitle || item.title}</span>
+			        <div class="c-single-dining-slider__description">
+			            ${target.page.description @ context='html'}
+			        </div>
+			        <a class="c-single-dining-slider__link" href="${item.path @ extension='html'}">
+			            <span class="c-single-dining-slider__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+			        </a>
+			    </div>
+				<span class="c-single-dining-slider__title"><span>${item.navigationTitle || item.title}</span></span>
+			    <a class="c-single-dining-slider__link--block" href="${item.path @ extension='html'}"></a>
+			</section>
+        </div>
+	</sly>
+  </div>
+</div>
+<div class="c-single-dining-slider-button">
+        <a class="btn btn-thin btn-dark" href="${currentPage.getParent.getPath}.html"><span>${'view-all-restaurants' @ i18n}</span></a>
+</div>

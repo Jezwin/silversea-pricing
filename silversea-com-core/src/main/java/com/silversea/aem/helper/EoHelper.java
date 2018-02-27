@@ -1,5 +1,6 @@
 package com.silversea.aem.helper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ValueTypeBean;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.importers.services.StyleCache;
+import com.silversea.aem.models.ExclusiveOfferFareModel;
 import com.silversea.aem.models.ExclusiveOfferModel;
 
 public class EoHelper extends AbstractGeolocationAwareUse {
@@ -34,13 +36,13 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		
 		if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
 			eoBean = new EoBean();
-			
-			String title = null, description = null, shortDescription = null;
-			ValueTypeBean eoValue = null;
+			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null;
+			ExclusiveOfferFareModel[] cruiseFares = null;
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
 			Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
-			if (eoModel.getExpirationDate() != null) {
+			ValueTypeBean eoValue = null;
+			if(eoModel.getExpirationDate() != null) {
 				eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
 				tokensAndStyle.put("expiration_date",eoValue);
 			}
@@ -72,6 +74,15 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			if(eoConfig.isDescriptionVoyage()) {
 				description = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultDescription());
+			}
+			if(eoConfig.isMapOverheadVoyage()) {
+				mapOverhead = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "mapOverhead", eoModel.getCustomMainSettings(), eoModel.getDefaultMapOverhead());
+			}
+			if(eoConfig.isFootnoteVoyage()) {
+				footnote = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "footnote", eoModel.getCustomMainSettings(), eoModel.getDefaultFootnote());
+			}
+			if(eoConfig.isCruiseFareVoyage()){
+				cruiseFares = getCruiseFaresValuesByBesthMatchTag(eoModel.getCustomVoyageFaresSettings());
 			}
 			//-----------------------------------------
 			if(eoConfig.isTitleLigthbox()) {
@@ -119,6 +130,35 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 						shortDescription = shortDescription.replaceAll(endTag,"</span>");
 					}
 				}
+				if (StringUtils.isNotEmpty(mapOverhead)) {
+					mapOverhead = mapOverhead.replaceAll(keyToReplace, valueToReplace);
+					if (eoValue.getType().equalsIgnoreCase("style")) {
+						mapOverhead = mapOverhead.replaceAll(endTag,"</span>");
+					}
+				}
+				if (StringUtils.isNotEmpty(footnote)) {
+					footnote = footnote.replaceAll(keyToReplace, valueToReplace);
+					if (eoValue.getType().equalsIgnoreCase("style")) {
+						footnote = footnote.replaceAll(endTag,"</span>");
+					}
+				}
+				if(cruiseFares != null && cruiseFares.length > 0){
+					for (int i = 0; i < cruiseFares.length; i++) {
+						if (StringUtils.isNotEmpty(cruiseFares[i].additionalFare)) {
+							cruiseFares[i].additionalFare = cruiseFares[i].additionalFare.replaceAll(keyToReplace, valueToReplace);
+							if (eoValue.getType().equalsIgnoreCase("style")) {
+								cruiseFares[i].additionalFare = cruiseFares[i].additionalFare.replaceAll(endTag,"</span>");
+							}
+						}
+						
+						if (StringUtils.isNotEmpty(cruiseFares[i].footnote)) {
+							cruiseFares[i].footnote = cruiseFares[i].footnote.replaceAll(keyToReplace, valueToReplace);
+							if (eoValue.getType().equalsIgnoreCase("style")) {
+								cruiseFares[i].footnote = cruiseFares[i].footnote.replaceAll(endTag,"</span>");
+							}
+						}
+					}
+				}
 			}
 			if (StringUtils.isNotEmpty(title)) {
 				eoBean.setTitle(title);
@@ -128,6 +168,15 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			if (StringUtils.isNotEmpty(shortDescription)) {
 				eoBean.setShortDescription(shortDescription);
+			}
+			if (StringUtils.isNotEmpty(mapOverhead)) {
+				eoBean.setMapOverhead(mapOverhead);
+			}
+			if (StringUtils.isNotEmpty(footnote)) {
+				eoBean.setFootnote(footnote);
+			}
+			if(cruiseFares != null && cruiseFares.length > 0){
+				eoBean.setCruiseFares(cruiseFares);
 			}
 		}
 		
@@ -212,6 +261,47 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 		}
 		return value;
+	}
+	
+	private ExclusiveOfferFareModel[] getCruiseFaresValuesByBesthMatchTag(String[] customSettings) {
+		ArrayList<ExclusiveOfferFareModel> value = null;
+		if (customSettings != null) {
+			JsonObject eoSettings = null;
+			for (int i = 0; i < customSettings.length && (value == null); i++) {
+				eoSettings = gson.fromJson(customSettings[i], JsonObject.class); 
+
+				if (eoSettings != null) {
+					boolean isActive = (eoSettings.get("active") != null) ? Boolean.valueOf(eoSettings.get("active").getAsString()) : false;
+					
+					if(isActive) {
+						
+							if (eoSettings.get("tags") != null) {
+								String[] tags = eoSettings.get("tags").getAsString().split(",");
+								for (String tag : tags) {
+									tag = tag.replaceAll(WcmConstants.GEOLOCATION_TAGS_PREFIX, "");
+									if (super.isBestMatch(tag)) {
+										ExclusiveOfferFareModel newFare = new ExclusiveOfferFareModel();
+										if((eoSettings.get("cruisefare") != null)){
+											
+											newFare.additionalFare = eoSettings.get("cruisefare").getAsString();
+										}
+										if((eoSettings.get("cruisefarefootnote") != null)){
+											newFare.footnote = eoSettings.get("cruisefarefootnote").getAsString();
+										}
+										if(value == null){
+											value = new ArrayList<ExclusiveOfferFareModel>();
+										}
+										value.add(newFare);
+										break;
+									}
+								}
+							} 
+						
+					}
+				}
+			}
+		}
+		return (ExclusiveOfferFareModel[]) value.toArray();
 	}
 
 }

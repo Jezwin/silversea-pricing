@@ -56,6 +56,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="disponível em"/>
+	<available-on-ships
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;está disponível nos seguintes navios"/>	
     <award-label
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -706,6 +710,22 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Outras histórias recentes"/>
+	<other-restaurants
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="outros restaurantes"/>
+    <other-restaurants-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Com a importância da comida na cultura italiana, você esperaria que a refeição fosse uma alta prioridade na Silversea. E com toda a certeza é. Além disso, a excelência gastronômica é dada, graças à nossa parceria com o prestigiado Grands Chefs Relais &amp; Châteaux."/>	
+	<other-suites
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;outras suites de luxo com vista para o oceano"/>
+    <other-suites-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="As suítes de Silversea oferecem um dos índices de espaço-por-hóspede mais altos de qualquer acomodação de cruzeiro de luxo. Todas as nossas suítes possuem vistas para o oceano e muitas com varanda privativa em teca."/>	
     <overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1013,11 +1033,11 @@
     <suite-features
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Suite features"/>
+        sling:message="Opções"/>
      <view-more-features
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more-features"
-    	sling:message="View more features" />
+    	sling:message="Mais informações" />
     <suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1116,6 +1136,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Ver tudo"/>
+	<view-all-pictures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ver todas as fotos"/>	
     <view-all-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1139,7 +1163,7 @@
    	<view-more-details
     	jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-    	sling:message="View more details" />
+    	sling:message="Mais informações" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1155,7 +1179,7 @@
      <view-less-features
          jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="View less features"/>
+        sling:message="Ver menos"/>
     <view-online
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

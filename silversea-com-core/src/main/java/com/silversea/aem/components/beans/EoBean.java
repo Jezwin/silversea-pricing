@@ -1,10 +1,15 @@
 package com.silversea.aem.components.beans;
 
+import com.silversea.aem.models.ExclusiveOfferFareModel;
+
 public class EoBean {
 	
 	private String title;
 	private String description;
 	private String shortDescription;
+	private String footnote;
+	private String mapOverhead;
+	private ExclusiveOfferFareModel[] cruiseFares;
 	private String image;
 	private boolean greyBoxesSystem;
 	private boolean isAvailable;
@@ -35,6 +40,27 @@ public class EoBean {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+	
+	public String getFootnote() {
+		return footnote;
+	}
+	public void setFootnote(String footnote) {
+		this.footnote = footnote;
+	}
+	
+	public String getMapOverhead() {
+		return mapOverhead;
+	}
+	public void setMapOverhead(String mapOverhead) {
+		this.mapOverhead = mapOverhead;
+	}
+	
+	public ExclusiveOfferFareModel[] getCruiseFares() {
+		return cruiseFares;
+	}
+	public void setCruiseFares(ExclusiveOfferFareModel[] cruiseFares) {
+		this.cruiseFares = cruiseFares;
 	}
 
 	public boolean isAvailable() {

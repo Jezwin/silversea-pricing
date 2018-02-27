@@ -1,0 +1,23 @@
+<template data-sly-template.default="${ @ assetMap, initialSuitesAssetsList}">
+    <div class="c-suite__gallery__featured clearfix" data-sly-list.asset="${initialSuitesAssetsList}" data-sly-use.imageTemplate="silversea/silversea-com/components/pages/suite/singlesuite/galleryimagetemplate.html">
+       <div data-sly-test="${assetList.odd}" class="c-suite__gallery__featured__left">
+            <sly data-sly-call="${imageTemplate.default @ asset=asset }" />
+        </div>
+        <div data-sly-test="${assetList.even}" class="c-suite__gallery__featured__right">
+            <sly data-sly-call="${imageTemplate.default @ asset=asset}" />
+        </div>
+    </div>
+    <div data-sly-use.listHelper="${'com.silversea.aem.helper.ListHelper' @ list = assetMap, size = 2}"
+	 class="c-suite__gallery__featured clearfix" data-sly-repeat="${listHelper.objectListGroup}" data-sly-use.imageTemplate="silversea/silversea-com/components/pages/suite/singlesuite/galleryimagetemplate.html">
+       <div class="c-suite__gallery__featured__left">
+            <sly data-sly-call="${imageTemplate.default @ asset=item[0]}" />
+        </div>
+        <div class="c-suite__gallery__featured__right">
+            <sly data-sly-call="${imageTemplate.default @ asset=item[1]}" />
+        </div>
+    </div>
+    <div data-sly-test="${assetMap}" class="c-suite__item-expander hidden-xs" >
+        <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all-pictures' @ i18n}</span><i class="fa fa-angle-down"></i></a>
+        <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'view-less' @ i18n}</span><i class="fa fa-angle-up"></i></a>
+    </div>
+</template>

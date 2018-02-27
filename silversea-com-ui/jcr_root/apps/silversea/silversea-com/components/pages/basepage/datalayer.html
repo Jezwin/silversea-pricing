@@ -16,7 +16,7 @@
             user_last_visit: '',
             api_indiv_id: '',
             api_blocked_referer:'',
-            
+            api_temporary_id:'',
             page_cat1: '${datalayer.pageCategory1 @context='scriptString'}',
             page_cat2: '${datalayer.pageCategory2 @context='scriptString'}',
             page_cat3: '${datalayer.pageCategory3 @context='scriptString'}',
@@ -56,4 +56,20 @@
             Yahoo_pixel_id: '${datalayer.media.Yahoo_pixel_id @context='scriptString'}'
         
     }];
+    
+    //TEMP AB TEST FYC
+    var pagecatAB = dataLayer[0].page_cat1;
+    var pageurlAB = document.location.href;
+
+    var shouldAB = "false";
+
+    if(pagecatAB.indexOf('Find your cruise') > -1 || pagecatAB.indexOf('single ship') > -1 || pagecatAB.indexOf('single destination') > -1 || pagecatAB.indexOf('single exclusive offer') > -1){
+     shouldAB = "true"; 
+    }
+
+    if(pageurlAB.indexOf('landing-dmp-dest') > -1 || pageurlAB.indexOf('landing-dmp-ship') > -1 || pageurlAB.indexOf('landing-dmp-offer') > -1 || pageurlAB.indexOf('landing-ship') > -1 || pageurlAB.indexOf('landing-dest') > -1 || pageurlAB.indexOf('landing-offer') > -1){
+     shouldAB = "true";  
+    }
+
+    window.dataLayer[0].ABDiscoverMoreActivate = shouldAB;
 </script>
