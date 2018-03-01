@@ -6,6 +6,7 @@ import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.models.ExclusiveOfferModel;
+import com.silversea.aem.utils.PathUtils;
 
 /**
  * Created by asiba on 21/06/2017.
@@ -46,5 +47,9 @@ public class ExclusiveOfferUse extends EoHelper {
      */
     public ExclusiveOfferItem getExclusiveOfferItem() {
         return exclusiveOfferItem;
+    }
+    
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 }
