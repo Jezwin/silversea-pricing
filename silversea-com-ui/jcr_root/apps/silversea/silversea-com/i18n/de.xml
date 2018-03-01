@@ -1037,7 +1037,7 @@
      <suite-features
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Merkmale"/>
+        sling:message="Suite-Eigenschaften"/>
     <suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1163,11 +1163,11 @@
      <view-more-features
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more-features"
-    	sling:message="Mehr über" />
+    	sling:message="Mehr Eigenschaften anzeigen" />
    	<view-more-details
     	jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-    	sling:message="Mehr über" />
+    	sling:message="Mehr Details anzeigen" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1183,7 +1183,7 @@
     <view-less-features
          jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Weniger ansehen"/>
+        sling:message="Weniger Eigenschaften anzeigen"/>
     <view-online
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
