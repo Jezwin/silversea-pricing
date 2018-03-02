@@ -52,22 +52,24 @@ public class StyleCacheImpl implements StyleCache {
 		try (ResourceResolver resourceResolver = resourceResolverFactory
 				.getServiceResourceResolver(authenticationParams)) {
 			Resource pageResource = resourceResolver.getResource("/etc/tags/style");
-			Node tagNode = pageResource.adaptTo(Node.class);
-
-			if (tagNode == null) {
-				throw new ImporterException("Cannot find node");
-			}
-
-			Property styleListProp = tagNode.getProperty("styleList");
-
-			if (styleListProp.getValues() != null) {
-				LOGGER.debug("Check style value");
-				ValueTypeBean valueType = null;
-				for(Value value : styleListProp.getValues()) {
-					String data = value.toString();
-					String[] splitStyle = data.split("#");
-					valueType = new ValueTypeBean(splitStyle[1], "style");
-					styles.put(splitStyle[0], valueType);
+			if(pageResource !=null) {
+				Node tagNode = pageResource.adaptTo(Node.class);
+				
+				if (tagNode == null) {
+					throw new ImporterException("Cannot find node");
+				}
+				
+				Property styleListProp = tagNode.getProperty("styleList");
+				
+				if (styleListProp.getValues() != null) {
+					LOGGER.debug("Check style value");
+					ValueTypeBean valueType = null;
+					for(Value value : styleListProp.getValues()) {
+						String data = value.toString();
+						String[] splitStyle = data.split("#");
+						valueType = new ValueTypeBean(splitStyle[1], "style");
+						styles.put(splitStyle[0], valueType);
+					}
 				}
 			}
 
