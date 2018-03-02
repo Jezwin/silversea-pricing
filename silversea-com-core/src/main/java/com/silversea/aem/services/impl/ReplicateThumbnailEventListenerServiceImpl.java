@@ -115,7 +115,17 @@ public class ReplicateThumbnailEventListenerServiceImpl implements ResourceChang
 												Node otherNode = otherRs.adaptTo(Node.class);
 												otherNode.setProperty("fileReference", fileRef);
 											}else {
-												LOGGER.warn("Cannot find path {}", otherPath);
+												LOGGER.warn("Cannot find path {} - will try to create image node from the parent path", otherPath);
+												//TODO need to create the image node starting from the parent path
+												String otherPathParent = otherPath.replace("/image", "");
+												Resource otherRsParent = resourceResolver.getResource(otherPathParent);
+												if(otherRsParent != null){
+													Node otherNodeParent = otherRsParent.adaptTo(Node.class);
+													Node newOtherNode = otherNodeParent.addNode("image");
+													newOtherNode.setProperty("fileReference", fileRef);
+												}else{
+													LOGGER.warn("Not able to create {} ", otherPath);
+												}
 											}
 										}
 										LOGGER.debug("Property updated");
