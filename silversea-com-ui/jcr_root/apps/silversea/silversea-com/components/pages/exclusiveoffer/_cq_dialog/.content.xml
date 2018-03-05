@@ -315,7 +315,7 @@
 						                                	<expirationDate
 	                                                            jcr:primaryType="nt:unstructured"
                            										sling:resourceType="granite/ui/components/foundation/form/datepicker"
-	                                                            fieldDescription="Date"
+	                                                            fieldDescription="Date - allow also access to expiration_date_short to have it without the year"
   	                                                            fieldLabel="expiration_date"
   	                                                            type="datetime"
 	                                                            name="./expirationDate"/>
