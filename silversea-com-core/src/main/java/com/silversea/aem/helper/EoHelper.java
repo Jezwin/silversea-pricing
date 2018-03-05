@@ -181,6 +181,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if (StringUtils.isNotEmpty(title)) {
 				eoBean.setTitle(title);
 			}
+			if (StringUtils.isNotEmpty(shortTitle)) {
+				eoBean.setShortTitle(shortTitle);
+			}
 			if (StringUtils.isNotEmpty(description)) {
 				eoBean.setDescription(description);
 			}
