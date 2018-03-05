@@ -29,6 +29,8 @@ public class ExclusiveOfferItem {
     
     private String mapOverhead;
     
+    private String exclusiveOfferPath;
+    
     private List<String> cruiseFareAdditions;
     
     private List<String> footnotes;
@@ -36,6 +38,10 @@ public class ExclusiveOfferItem {
     private Boolean newSystem;
 
     private String destinationPath;
+    
+    private String imageLBPath;
+    
+    private Boolean isLBGreyBoxActivated;
 
     public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath, EoBean result) {
 		
@@ -67,6 +73,9 @@ public class ExclusiveOfferItem {
 				mapOverhead = result.getMapOverhead();
 				footnotes = new ArrayList<String>();
 				cruiseFareAdditions = new ArrayList<String>();
+				exclusiveOfferPath = exclusiveOffer.getPath();
+				imageLBPath = exclusiveOffer.getPathImageLB();
+				isLBGreyBoxActivated = exclusiveOffer.getActiveGreysBoxes();
 				if(StringUtils.isNotEmpty(result.getFootnote())){
 					footnotes.add(result.getFootnote());
 				}
@@ -84,6 +93,10 @@ public class ExclusiveOfferItem {
 	        }
 	
 	        this.destinationPath = destinationPath;
+    }
+    
+    public Boolean getNewSystem(){
+    	return newSystem;
     }
 
     public String getTitle() {
@@ -168,6 +181,18 @@ public class ExclusiveOfferItem {
         }
 
         return exclusiveOffer.getLightboxReference();
+    }
+    
+    public String getExclusiveOfferPath(){
+    	return exclusiveOfferPath;
+    }
+    
+    public String getImageLBPath(){
+    	return imageLBPath;
+    }
+    
+    public Boolean getIsLBGreyBoxActivated(){
+    	return isLBGreyBoxActivated;
     }
 
     public String getPricePrefix() {
