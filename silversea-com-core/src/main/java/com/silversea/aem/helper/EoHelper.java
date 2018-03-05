@@ -1,9 +1,12 @@
 package com.silversea.aem.helper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,8 +47,18 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			Map<String, ValueTypeBean> tokensAndStyle = getTokensByBesthMatchTag(eoModel.getCustomTokenValuesSettings());
 			ValueTypeBean eoValue = null;
 			if(eoModel.getExpirationDate() != null) {
-				eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
+				Date expirationDate = eoModel.getExpirationDate();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy", getCurrentPage().getLanguage(false));
+				formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+				eoValue = new ValueTypeBean(formatter.format(expirationDate.getTime()), "token");
 				tokensAndStyle.put("expiration_date",eoValue);
+				
+				SimpleDateFormat formatterShort = new SimpleDateFormat("dd MMMM", getCurrentPage().getLanguage(false));
+				formatterShort.setTimeZone(TimeZone.getTimeZone("GMT"));
+				eoValue = new ValueTypeBean(formatterShort.format(expirationDate.getTime()), "token");
+				tokensAndStyle.put("expiration_date_short",eoValue);
+				
+				
 			}
 			
 			if (styles != null && !styles.isEmpty()) {
@@ -211,8 +224,16 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 
 		ValueTypeBean eoValue = null;
 		if(eoModel.getExpirationDate() != null) {
-			eoValue = new ValueTypeBean(eoModel.getExpirationDate().toString(), "token");
+			Date expirationDate = eoModel.getExpirationDate();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy", getCurrentPage().getLanguage(false));
+			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+			eoValue = new ValueTypeBean(formatter.format(expirationDate.getTime()), "token");
 			tokensAndStyle.put("expiration_date",eoValue);
+			
+			SimpleDateFormat formatterShort = new SimpleDateFormat("dd MMMM", getCurrentPage().getLanguage(false));
+			formatterShort.setTimeZone(TimeZone.getTimeZone("GMT"));
+			eoValue = new ValueTypeBean(formatterShort.format(expirationDate.getTime()), "token");
+			tokensAndStyle.put("expiration_date_short",eoValue);
 		}
 		
 		if (styles != null && !styles.isEmpty()) {
