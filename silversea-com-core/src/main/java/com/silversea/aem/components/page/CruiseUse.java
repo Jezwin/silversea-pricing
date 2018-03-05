@@ -206,7 +206,7 @@ public class CruiseUse extends EoHelper {
 
 		// init exclusive offers based on geolocation
     	EoConfigurationBean eoConfig = new EoConfigurationBean();
-		eoConfig.setTitleMain(true);
+		eoConfig.setTitleVoyage(true);
 		eoConfig.setShortDescriptionVoyage(true);
 		eoConfig.setDescriptionMain(true);
 		eoConfig.setFootnoteVoyage(true);
