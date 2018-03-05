@@ -37,7 +37,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		
 		if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
 			eoBean = new EoBean();
-			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null;
+			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null, shortTitle = null;
 			ExclusiveOfferFareModel[] cruiseFares = null;
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
@@ -59,6 +59,11 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if (eoConfig.isTitleMain()) {
 				title = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "title", eoModel.getDefaultTitle());
 			}
+			
+			if (eoConfig.isShortTitleMain()) {
+				shortTitle = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "shortTitle", eoModel.getDefaultShortTitle());
+			}
+			
 			if (eoConfig.isDescriptionMain()) {
 				description = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "description",eoModel.getDefaultDescription());
 			}
@@ -115,30 +120,42 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 				}
 				if (StringUtils.isNotEmpty(title)) {
 					title = title.replaceAll(keyToReplace, valueToReplace);
+					title = title.replaceAll("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
 						title = title.replaceAll(endTag,"</span>");
 					}
 				}
+				if (StringUtils.isNotEmpty(shortTitle)) {
+					shortTitle = shortTitle.replaceAll(keyToReplace, valueToReplace);
+					shortTitle = shortTitle.replaceAll("\n", "<br>");
+					if (eoValue.getType().equalsIgnoreCase("style")) {
+						shortTitle = shortTitle.replaceAll(endTag,"</span>");
+					}
+				}
 				if (StringUtils.isNotEmpty(description)) {
 					description = description.replaceAll(keyToReplace, valueToReplace);
+					description = description.replaceAll("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
 						description = description.replaceAll(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(shortDescription)) {
 					shortDescription = shortDescription.replaceAll(keyToReplace, valueToReplace);
+					shortDescription = shortDescription.replaceAll("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
 						shortDescription = shortDescription.replaceAll(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(mapOverhead)) {
 					mapOverhead = mapOverhead.replaceAll(keyToReplace, valueToReplace);
+					mapOverhead = mapOverhead.replaceAll("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
 						mapOverhead = mapOverhead.replaceAll(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(footnote)) {
 					footnote = footnote.replaceAll(keyToReplace, valueToReplace);
+					footnote = footnote.replaceAll("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
 						footnote = footnote.replaceAll(endTag,"</span>");
 					}

@@ -5,6 +5,7 @@ import com.silversea.aem.models.ExclusiveOfferFareModel;
 public class EoBean {
 	
 	private String title;
+	private String shortTitle;
 	private String description;
 	private String shortDescription;
 	private String footnote;
@@ -85,6 +86,14 @@ public class EoBean {
 
 	public void setGreyBoxesSystem(boolean greyBoxesSystem) {
 		this.greyBoxesSystem = greyBoxesSystem;
+	}
+
+	public String getShortTitle() {
+		return shortTitle;
+	}
+
+	public void setShortTitle(String shortTitle) {
+		this.shortTitle = shortTitle;
 	}
 	
 }
