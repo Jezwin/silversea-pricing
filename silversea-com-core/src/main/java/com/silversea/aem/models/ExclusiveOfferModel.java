@@ -99,6 +99,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultTitle")
 	@Optional
 	private String defaultTitle;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultShortTitle")
+	@Optional
+	private String defaultShortTitle;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultDescription")
@@ -366,5 +371,9 @@ public class ExclusiveOfferModel {
 	
 	public String[] getCustomTnCSettings() {
 		return customTnCSettings;
+	}
+	
+	public String getDefaultShortTitle() {
+		return defaultShortTitle;
 	}
 }

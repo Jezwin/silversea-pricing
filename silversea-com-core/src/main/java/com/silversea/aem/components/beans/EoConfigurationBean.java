@@ -5,6 +5,7 @@ public class EoConfigurationBean {
 	private boolean activeSystem;
 
 	private boolean titleMain;
+	private boolean shortTitleMain;
 	private boolean descriptionMain;
 	private boolean shortDescriptionMain;
 	
@@ -131,6 +132,14 @@ public class EoConfigurationBean {
 
 	public void setImageLightbox(boolean imageLightbox) {
 		this.imageLightbox = imageLightbox;
+	}
+
+	public boolean isShortTitleMain() {
+		return shortTitleMain;
+	}
+
+	public void setShortTitleMain(boolean shortTitleMain) {
+		this.shortTitleMain = shortTitleMain;
 	}
 	
 
