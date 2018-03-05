@@ -90,7 +90,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 				title = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "title", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
 			}
 			if(eoConfig.isDescriptionLigthbox()) {
-				description = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
+				description = getValueByBesthMatchTag(eoModel.getCustomLBSettings(), "description", eoModel.getCustomMainSettings(), eoModel.getDefaultDescription());
 			}
 			if (eoConfig.isActiveGreysSystem()) {
 				eoBean.setGreyBoxesSystem(eoModel.getActiveGreysBoxes());
