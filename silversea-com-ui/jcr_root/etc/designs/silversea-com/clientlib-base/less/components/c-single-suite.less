@@ -47,8 +47,8 @@
             display : none;
         }
     }
-
-    .c-suite-gallery {
+    
+        .c-suite-gallery {
         margin-top: 20px;
 
         @media screen and (max-width: @screen-sm) {
@@ -67,8 +67,8 @@
                     &__left {
                         float: left;
                         padding-right: 6px;
-                        width: 50%;
-                        padding-bottom: 1%;
+                        width: 60%;
+                        padding-bottom: 0%;
                     }
 
                     @media screen and (max-width: 767px) {
@@ -81,9 +81,9 @@
 
                     &__right {
                         float: left;
-                        padding-left: 6px;
-                        width: 50%;
-                        padding-bottom: 1%;
+                        padding-left: 0px;
+                        width: 40%;
+                        padding-bottom: 0%;
                     }
 
                     @media screen and (max-width: 767px) {
@@ -106,6 +106,38 @@
                     overflow: hidden;
                     padding-bottom: 53%;
                     position: relative;
+
+                    &:after {
+                        background-color: @white;
+                        bottom: 0;
+                        content: '';
+                        display: block;
+                        left: 0;
+                        height: 5px;
+                        position: absolute;
+                        width: 100%;
+                    }
+
+                    img {
+                        display: block;
+                        height: auto;
+                        min-width: 100%;
+                        max-width: 100%;
+                        width: 100%;
+                    }
+                }
+
+                &__item__right {
+                    background-color: @grey--c3;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    display: block;
+                    height: 0;
+                    overflow: hidden;
+                    padding-bottom: 53%;
+                    position: relative;
+                	padding-top: 103%;
 
                     &:after {
                         background-color: @white;
@@ -140,8 +172,13 @@
                          display: none;
                		}
 
-            	}	
+            	}
         	}
+
+         	.inactiveLink {
+                   pointer-events: none;
+                   cursor: default;
+            }
 
             .automatic-gallery-modal {
                 &:before {
@@ -156,7 +193,7 @@
                     transition: opacity 0.3s ease;
                     width: 85px;
                 }
-        
+
                 &:hover:before {
                     opacity: 1;
                 }
