@@ -47,6 +47,14 @@
         .fa-angle-right {
             display : none;
         }
+        .btn-default {
+        	transition:0.7s;
+        }
+        .btn-default:hover{
+        	@media screen and (min-width: @screen-sm) {
+		    	background: #999;
+		    }
+		}
     }
 
     .c-dining-gallery {
@@ -272,6 +280,9 @@
             margin-bottom: 15px;
             text-align: center;
             text-transform: uppercase;
+            @media screen and (min-width: @screen-sm) {
+            	font-family: 'Theano Didot Regular',serif;
+            }
         }
 
         .row {
