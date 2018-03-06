@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ cruise }">
+<template data-sly-template.oldVersionA="${ @ cruise }">
     <div class="c-suitelist" role="tablist" id="cruise_suite_list_A">
         <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
         <p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr' @i18n}</p>
@@ -102,8 +102,7 @@
 <template data-sly-template.abTestV2="${ @ cruise }">
     <div class="c-suitelist ab-test-v2-show" role="tablist" id="cruise_suite_list_B">
         <h3 class="c-cruise__subtitle">${'select-your-suite-and-request-a-quote' @i18n}</h3>
-        <p class="c-cruise__descr hidden-xs ab-test-v2-hide">${'cruise-suites-and-fares-descr' @i18n}</p>
-		<p class="c-cruise__descr hidden-xs ab-test-v2-show">${'cruise-suites-and-fares-descr-v2' @i18n}</p>
+		<p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr-v2' @i18n}</p>
         <div data-sly-repeat="${cruise.prices}" class="panel c-suitelist__item ${itemList.count == 1 ? 'c-suitelist__item--first' : ''}">
             <div role="tab" class="clearfix c-suitelist__heading collapsed" data-target="#suitelist-collapse-${itemList.index}-v2-version"
                  data-toggle="collapse" data-parent=".c-suitelist" aria-expanded="false" aria-controls="suitelist-collapse-${itemList.index}-v2-version">
@@ -200,11 +199,11 @@
         </div>
     </div>
 </template>
-<template data-sly-template.abTestVersion2="${ @ cruise }">
+<template data-sly-template.default="${ @ cruise }">
 	<script>
 	window.cruiseItem = [];
 	</script>
-    <div class="c-suitelist c-suitelist-card ab-test-v2-show" role="tablist" id="cruise_suite_list_C">
+    <div class="c-suitelist c-suitelist-card" role="tablist" id="cruise_suite_list_C">
         <h3 class="c-cruise__subtitle c-cruise__subtitle-card">${'select-your-suite-and-request-a-quote' @i18n}</h3>
 		<p class="c-cruise__descr hidden-xs">${'cruise-suites-and-fares-descr-v2' @i18n}</p>
 		<div class="row c-suitelist__row-card" 
