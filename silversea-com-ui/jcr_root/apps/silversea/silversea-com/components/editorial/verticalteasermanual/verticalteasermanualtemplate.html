@@ -12,7 +12,8 @@
                 <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
             </a>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block c-vertical-teaser__link-ligthbox" data-sly-test="${properties.reference && properties.openModal}" href="#"></a>
 </template>
 
 <template data-sly-template.defaultnew>
@@ -29,7 +30,8 @@
                 <span class="c-vertical-teaser__label"><sly data-sly-test="${!properties.ctalabel}">${'discover-more' @ i18n}</sly><sly data-sly-test="${properties.ctalabel}">${properties.ctalabel}</sly></span><i class="fa fa-angle-right"></i>
             </a>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block c-vertical-teaser__link-ligthbox" data-sly-test="${properties.reference && properties.openModal}" href="#"></a>
 </template>
 
 <template data-sly-template.allInclusive>
@@ -46,8 +48,8 @@
 	            </a>
             </p>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
-
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block c-vertical-teaser__link-ligthbox" data-sly-test="${properties.reference && properties.openModal}" href="#"></a>
 </template>
 
 <template data-sly-template.finedine>
@@ -64,8 +66,8 @@
 	            </a>
             </p>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
-
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block c-vertical-teaser__link-ligthbox" data-sly-test="${properties.reference && properties.openModal}" href="#"></a>
 </template>
 
 <template data-sly-template.obaccomodation>
@@ -84,6 +86,7 @@
 	                    <span class="c-vertical-teaser__label c-vertical-teaser__label">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
 	                </a>
             </div>
-            <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
+            <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+            <a class="c-vertical-teaser__link--block c-vertical-teaser__link-ligthbox" data-sly-test="${properties.reference && properties.openModal}" href="#"></a>
 		</div>
 </template>
