@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ suiteUse }">
  <div class="c-suite-gallery" data-sly-test="${suiteUse.allMapAssetForSuites}">
-                <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/suite/singlesuite/gallerytemplate.html" data-sly-call="${galleryTemplate.default @ assetMap = suiteUse.allAssetForSuites , initialSuitesAssetsList = suiteUse.initialSuitesAssetsList}" />
+                <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/suite/singlesuite/gallerytemplate.html" data-sly-call="${galleryTemplate.default @ suiteAssetList = suiteUse.mergedSuitesAssetsList}" />
   </div>
 </template>

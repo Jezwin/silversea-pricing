@@ -34,7 +34,8 @@ public class SuiteUse extends WCMUsePojo {
     private List<Page> suiteReferenceList = new ArrayList<>();
     private List<Page> suitePagesList = new ArrayList<>();
 	private List<SilverseaAsset> initialSuitesAssetsList = new ArrayList<>();
-	private List<SilverseaAsset> completeSuitesAssetsList = new ArrayList<>();;
+	private List<SilverseaAsset> completeSuitesAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> mergedSuitesAssetsList = new ArrayList<>();;
 	private Map<String, List<SilverseaAsset>> shipSuiteAsset = new HashMap<String, List<SilverseaAsset>>();
 	private Map<String, List<SilverseaAsset>> allShipSuiteAsset = new HashMap<String, List<SilverseaAsset>>();;
 	
@@ -86,7 +87,6 @@ public class SuiteUse extends WCMUsePojo {
         	}
         }
                     
-        List<SilverseaAsset> mergedSuitesAssetsList = new ArrayList<>();
         mergedSuitesAssetsList.addAll(initialSuitesAssetsList);
         mergedSuitesAssetsList.addAll(completeSuitesAssetsList);
         allShipSuiteAsset.put("SUITES", mergedSuitesAssetsList);
@@ -103,6 +103,10 @@ public class SuiteUse extends WCMUsePojo {
     public List<SilverseaAsset> getAllAssetForSuites() {
 		return completeSuitesAssetsList;
 	}
+    
+    public List<SilverseaAsset> getMergedSuitesAssetsList(){
+    	return mergedSuitesAssetsList;
+    }
     
     public Map<String, List<SilverseaAsset>> getAllMapAssetForSuites() {
 		return allShipSuiteAsset;
