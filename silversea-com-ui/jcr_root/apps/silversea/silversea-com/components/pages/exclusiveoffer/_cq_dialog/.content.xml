@@ -199,27 +199,27 @@
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textfield"
 																fieldDescription="Default exclusive offer title"
-																fieldLabel="Default title"
+																fieldLabel="Default title - (Exclusive offer page, Lightbox)"
 																name="./defaultTitle" />
 															<defaultShortTitle
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textfield"
 																fieldDescription="Default exclusive offer short title"
-																fieldLabel="Default short title"
+																fieldLabel="Default short title - (Home page, voyage page, Tnc page)"
 																name="./defaultShortTitle" />
 															<defaultDescription
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textarea"
 																fieldDescription="Default exclusive description"
 																rows="10"
-																fieldLabel="Default description"
+																fieldLabel="Default description - (Exclusive offer page, Lightbox, Tnc page)"
 																name="./defaultDescription" />
 															<defaultShortDescription
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textarea"
 																fieldDescription="Default exclusive short description"
 																rows="5"
-																fieldLabel="Default short description"
+																fieldLabel="Default short description - (Home page, voyage page)"
 																name="./defaultShortDescription" />
 						                                    <customMainSettings 
 						                                    		jcr:primaryType="nt:unstructured"
@@ -251,19 +251,19 @@
 																				  <items jcr:primaryType="nt:unstructured">
 																				    <title
 																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Title"
+																				      	text="Title - (Exclusive offer page, Lightbox)"
 																				      	value="title" />
 																				    <shortTitle
 																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Short title"
+																				      	text="Short title - (Home page, voyage page, Tnc page)"
 																				      	value="shortTitle" />
 																				    <description
 																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Description"
+																				      	text="Description - (Exclusive offer page, Lightbox, Tnc page)"
 																				      	value="description" />
 																				    <shortDescription 
 																				    	jcr:primaryType="nt:unstructured"
-																				      	text="Short description"
+																				      	text="Short description - (Home page, voyage page)"
 																				      	value="shortDescription"/>
 																				  </items>
 																				</type>
@@ -278,7 +278,7 @@
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
 		                                                                            allowCreate="{Boolean}true"
-		                                                                            fieldLabel="Tags"
+		                                                                            fieldLabel="Geolocation tags"
 		                                                                            name="./tags"/>
 						                                                    </items>
 						                                                </column>
@@ -378,7 +378,7 @@
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
 		                                                                            allowCreate="{Boolean}true"
-		                                                                            fieldLabel="Tags"
+		                                                                            fieldLabel="Geolocation tags"
 		                                                                            name="./tags"/>
 						                                                    </items>
 						                                                </column>
@@ -456,11 +456,11 @@
 																				  <items jcr:primaryType="nt:unstructured">
 																				    <title
 																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Title"
+																				      	text="Title - (Lightbox)"
 																				      	value="title" />
 																				    <description
 																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Description"
+																				      	text="Description - (Lightbox)"
 																				      	value="description" />
 																				  </items>
 																				</type>
@@ -475,7 +475,7 @@
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
 		                                                                            allowCreate="{Boolean}true"
-		                                                                            fieldLabel="Tags"
+		                                                                            fieldLabel="Geolocation tags"
 		                                                                            name="./tags"/>
 						                                                    </items>
 						                                                </column>
@@ -514,13 +514,13 @@
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textfield"
 																fieldDescription="Default voyage map overhead"
-																fieldLabel="Map overhead"
+																fieldLabel="Map overhead - (Voyage page)"
 																name="./defaultMapOverhead" />
 															<defaultFootnote
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textfield"
 																fieldDescription="Default Footnote on voyage"
-																fieldLabel="Default Footnote"
+																fieldLabel="Default Footnote - (Voyage page)"
 																name="./defaultFootnote" />
 						                                     <customVoyageSettings
 						                                    		jcr:primaryType="nt:unstructured"
@@ -552,19 +552,19 @@
 																				  <items jcr:primaryType="nt:unstructured">
 																				    <title
 																				      	jcr:primaryType="nt:unstructured"
-																				      	text="Title"
-																				      	value="title" />
+																				      	text="Short title - (Voyage page)"
+																				      	value="shortTitle" />
 																				     <shortDescription 
 																				    	jcr:primaryType="nt:unstructured"
-																				      	text="Short description"
+																				      	text="Short description - (Voyage page)"
 																				      	value="shortDescription"/>
 																				     <mapOverhead 
 																				    	jcr:primaryType="nt:unstructured"
-																				      	text="Map overhead"
+																				      	text="Map overhead - (Voyage page)"
 																				      	value="mapOverhead"/>
 																				     <footnote 
 																				    	jcr:primaryType="nt:unstructured"
-																				      	text="Footnote"
+																				      	text="Footnote - (Voyage page)"
 																				      	value="footnote"/>
 																				  </items>
 																				</type>
@@ -579,7 +579,7 @@
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
 		                                                                            allowCreate="{Boolean}true"
-		                                                                            fieldLabel="Tags"
+		                                                                            fieldLabel="Geolocation tags"
 		                                                                            name="./tags"/>
 						                                                    </items>
 						                                                </column>
@@ -624,7 +624,7 @@
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
 		                                                                            allowCreate="{Boolean}true"
-		                                                                            fieldLabel="Tags"
+		                                                                            fieldLabel="Geolocation tags"
 		                                                                            name="./tags"/>
 						                                                    </items>
 						                                                </column>
@@ -662,7 +662,7 @@
 						                                	<defaultDescriptionTnC
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textarea"
-																fieldDescription="Default description TnC"
+																fieldDescription="Default description - (TnC page)"
 																rows="5"
 																fieldLabel="Default description TnC"
 																name="./defaultDescriptionTnC" />
@@ -696,7 +696,7 @@
 																				  <items jcr:primaryType="nt:unstructured">
 																				     <description 
 																				    	jcr:primaryType="nt:unstructured"
-																				      	text="Description"
+																				      	text="Description - (Tnc page)"
 																				      	value="description"/>
 																				  </items>
 																				</type>
@@ -711,7 +711,7 @@
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
 		                                                                            allowCreate="{Boolean}true"
-		                                                                            fieldLabel="Tags"
+		                                                                            fieldLabel="Geolocation tags"
 		                                                                            name="./tags"/>
 						                                                    </items>
 						                                                </column>

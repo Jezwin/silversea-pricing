@@ -76,7 +76,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			//-----------------------------------------
 			if(eoConfig.isTitleVoyage()) {
-				title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "title", eoModel.getCustomMainSettings(), eoModel.getDefaultTitle());
+				title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "title", eoModel.getCustomMainSettings(), eoModel.getDefaultShortTitle());
 			}
 			if(eoConfig.isShortDescriptionVoyage()) {
 				shortDescription = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "shortDescription", eoModel.getCustomMainSettings(), eoModel.getDefaultShortDescription());
