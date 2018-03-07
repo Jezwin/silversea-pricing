@@ -125,67 +125,67 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 						endTag = null;
 				if (eoValue.getType().equalsIgnoreCase("token")) {
 					keyToReplace = "#" + key + "#";
-					valueToReplace= "\\" + eoValue.getValue();
+					valueToReplace= eoValue.getValue();
 				} else if (eoValue.getType().equalsIgnoreCase("style")) {
 					keyToReplace = "<" + key + ">"; 
 					endTag = "</" + key + ">";
 					valueToReplace= "<span style='" + eoValue.getValue() + "'>";
 				}
 				if (StringUtils.isNotEmpty(title)) {
-					title = title.replaceAll(keyToReplace, valueToReplace);
-					title = title.replaceAll("\n", "<br>");
+					title = title.replace(keyToReplace, valueToReplace);
+					title = title.replace("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						title = title.replaceAll(endTag,"</span>");
+						title = title.replace(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(shortTitle)) {
-					shortTitle = shortTitle.replaceAll(keyToReplace, valueToReplace);
-					shortTitle = shortTitle.replaceAll("\n", "<br>");
+					shortTitle = shortTitle.replace(keyToReplace, valueToReplace);
+					shortTitle = shortTitle.replace("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						shortTitle = shortTitle.replaceAll(endTag,"</span>");
+						shortTitle = shortTitle.replace(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(description)) {
-					description = description.replaceAll(keyToReplace, valueToReplace);
-					description = description.replaceAll("\n", "<br>");
+					description = description.replace(keyToReplace, valueToReplace);
+					description = description.replace("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						description = description.replaceAll(endTag,"</span>");
+						description = description.replace(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(shortDescription)) {
-					shortDescription = shortDescription.replaceAll(keyToReplace, valueToReplace);
-					shortDescription = shortDescription.replaceAll("\n", "<br>");
+					shortDescription = shortDescription.replace(keyToReplace, valueToReplace);
+					shortDescription = shortDescription.replace("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						shortDescription = shortDescription.replaceAll(endTag,"</span>");
+						shortDescription = shortDescription.replace(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(mapOverhead)) {
-					mapOverhead = mapOverhead.replaceAll(keyToReplace, valueToReplace);
-					mapOverhead = mapOverhead.replaceAll("\n", "<br>");
+					mapOverhead = mapOverhead.replace(keyToReplace, valueToReplace);
+					mapOverhead = mapOverhead.replace("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						mapOverhead = mapOverhead.replaceAll(endTag,"</span>");
+						mapOverhead = mapOverhead.replace(endTag,"</span>");
 					}
 				}
 				if (StringUtils.isNotEmpty(footnote)) {
-					footnote = footnote.replaceAll(keyToReplace, valueToReplace);
-					footnote = footnote.replaceAll("\n", "<br>");
+					footnote = footnote.replace(keyToReplace, valueToReplace);
+					footnote = footnote.replace("\n", "<br>");
 					if (eoValue.getType().equalsIgnoreCase("style")) {
-						footnote = footnote.replaceAll(endTag,"</span>");
+						footnote = footnote.replace(endTag,"</span>");
 					}
 				}
 				if(cruiseFares != null && cruiseFares.length > 0){
 					for (int i = 0; i < cruiseFares.length; i++) {
 						if (StringUtils.isNotEmpty(cruiseFares[i].additionalFare)) {
-							cruiseFares[i].additionalFare = cruiseFares[i].additionalFare.replaceAll(keyToReplace, valueToReplace);
+							cruiseFares[i].additionalFare = cruiseFares[i].additionalFare.replace(keyToReplace, valueToReplace);
 							if (eoValue.getType().equalsIgnoreCase("style")) {
-								cruiseFares[i].additionalFare = cruiseFares[i].additionalFare.replaceAll(endTag,"</span>");
+								cruiseFares[i].additionalFare = cruiseFares[i].additionalFare.replace(endTag,"</span>");
 							}
 						}
 						
 						if (StringUtils.isNotEmpty(cruiseFares[i].footnote)) {
-							cruiseFares[i].footnote = cruiseFares[i].footnote.replaceAll(keyToReplace, valueToReplace);
+							cruiseFares[i].footnote = cruiseFares[i].footnote.replace(keyToReplace, valueToReplace);
 							if (eoValue.getType().equalsIgnoreCase("style")) {
-								cruiseFares[i].footnote = cruiseFares[i].footnote.replaceAll(endTag,"</span>");
+								cruiseFares[i].footnote = cruiseFares[i].footnote.replace(endTag,"</span>");
 							}
 						}
 					}
