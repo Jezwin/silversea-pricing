@@ -1,12 +1,13 @@
-<template data-sly-template.default data-sly-use.model="com.silversea.aem.components.included.ModalDetailUse">
+<template data-sly-template.default data-sly-use.modal="com.silversea.aem.components.included.ModalDetailUse">
 	<div class="modal-header">
 	    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${model.c @ extension='html', selectors='modalcontentmobile'}"></span>
+	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${currentPage.path @ extension='html', selectors='modalcontentmobile'}"></span>
 	</div>
 	<div class="modal-body">
 	
 	<div style="float: left;height: 100.0%;width:100%" class="LB-EO"> 
-		Desktops ${model.c @ contenxt = "html"}
-	
+		Desktops ${currentPage.path @ context = "html"}
+			Desktops ${modal.detail.title @ context = "html"}
+			
 	</div>
 </template>
