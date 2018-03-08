@@ -27,6 +27,13 @@ $(function() {
         	} 
         }
         
+        var $modal = $(".modal");
+    	var $modalBody = $modal.find(".modal-body");
+    	if ($modalBody.hasClass("automatic-modal-body-modal-detail")) {
+    		$('html').removeClass("no-scroll-html");
+        	$('body').removeClass("no-scroll-body");
+    	}
+        
         var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
 
