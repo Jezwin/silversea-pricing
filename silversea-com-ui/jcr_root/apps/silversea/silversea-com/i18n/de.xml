@@ -108,6 +108,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Eine Auswahl an Mehrwertleistungen"/>
+	<brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="brochures"
+        sling:message="Brochures"/>
     <blog
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

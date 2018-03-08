@@ -126,7 +126,11 @@
 	<booking-number
         jcr:primaryType="sling:MessageEntry"
         sling:key="booking-number"
-        sling:message="Booking Number"/>	
+        sling:message="Booking Number"/>
+	<brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="brochures"
+        sling:message="Brochures"/>
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"

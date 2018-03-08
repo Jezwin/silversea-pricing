@@ -64,6 +64,40 @@
                                                 renderReadOnly="{Boolean}true"
                                                 text="Hide in Navigation"
                                                 value="true"/>
+											<showfloatingbrochure
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                fieldLabel="Show/Hide Floating Brochure"
+												fieldDescription="A blank here would mean it would not be preferred over design mode. A value of show/hide would give it preference over design mode settings."
+                                                name="./showFloatingBrochure">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <blank
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Blank (Default)"
+                                                        value="blank"/>
+                                                    <show
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Show"
+                                                        value="show"/>
+                                                    <hide
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Hide"
+                                                        value="hide"/>
+                                                </items>
+                                            </showfloatingbrochure>
+                                            <showcssselector
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                                cq-msm-lockable="cssSelector"
+                                                fieldLabel="Whitelist for CSS Selectors"
+												fieldDescription="Enter a list of class names (without the starting dot) for which the floating brochure must be displayed on the page. Blank here means it would be displayed for the whole page."
+                                                renderReadOnly="{Boolean}true">
+                                                <field
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                    name="./cssSelector"
+                                                    required="{Boolean}false"/>
+                                            </showcssselector>
                                             <showfloatingbar
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/foundation/form/radiogroup"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    activeTab="{Long}0"
+    title="Floating Brochure (Design)"
+    xtype="tabpanel">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <basic
+            jcr:primaryType="cq:Widget"
+            title="General"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <text
+                    jcr:primaryType="nt:unstructured"
+                    fieldDescription="Enter Floating Brochure Text."
+                    fieldLabel="Text"
+                    name="./text"
+                    xtype="textfield"/>
+                <cta
+                    jcr:primaryType="nt:unstructured"
+                    fieldDescription="Enter CTA Text."
+                    fieldLabel="CTA Text"
+                    name="./cta"
+                    xtype="textfield"/>
+                <ctaLink
+                    jcr:primaryType="nt:unstructured"
+                    fieldDescription="Enter CTA Link."
+                    fieldLabel="CTA Link"
+                    name="./ctaLink"
+                    xtype="textfield"/>
+                <topPadding
+                    jcr:primaryType="nt:unstructured"
+                    fieldDescription="Enter Top Padding (Must be greater than 150) "
+                    fieldLabel="Top Padding"
+                    minValue="{Long}150"
+                    name="./topPadding"
+                    xtype="numberfield"/>
+                <image
+                    jcr:primaryType="nt:unstructured"
+                    fieldDescription="Enter Image path."
+                    fieldLabel="Image"
+                    name="./image"
+                    rootPath="/content/dam"
+                    xtype="pathfield"/>
+                <showFloatingBrochure
+                    jcr:primaryType="cq:Widget"
+                    fieldLabel="Show/Hide Floating Brochure"
+                    name="./showFloatingBrochure"
+                    type="select"
+                    xtype="selection">
+                    <options jcr:primaryType="cq:WidgetCollection">
+                        <show
+                            jcr:primaryType="nt:unstructured"
+                            text="Show"
+                            value="{Boolean}true"/>
+                        <hide
+                            jcr:primaryType="nt:unstructured"
+                            text="Hide"
+                            value="{Boolean}false"/>
+                    </options>
+                </showFloatingBrochure>
+            </items>
+        </basic>
+    </items>
+</jcr:root>

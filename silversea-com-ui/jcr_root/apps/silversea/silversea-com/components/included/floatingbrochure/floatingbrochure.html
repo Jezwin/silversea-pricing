@@ -1,0 +1,33 @@
+<style>
+    .floating-form {
+        top: ${currentStyle.topPadding || "150"  @ context="unsafe"}px;
+    }
+</style>
+<div data-sly-test="${wcmmode.edit || wcmmode.design}" class="cq-placeholder" data-emptytext="Floating Brochure"></div>
+
+    <sly data-sly-test.isunDefined="${!pageProperties.showFloatingBrochure}"/>
+    <sly data-sly-test.defaultValue="${pageProperties.showFloatingBrochure == 'blank'}"/>
+    <sly data-sly-test.defaultShowValue="${pageProperties.showFloatingBrochure == 'show'}"/>
+
+    <sly data-sly-test="${defaultValue || isunDefined}">
+        <sly data-sly-test="${currentStyle.showFloatingBrochure == 'true'}">
+        <div class="floating-form" id="floating_form" data-flyout-tag-list="${pageProperties.cssSelector}">
+            <div class="floating-opener">${'brochures' @ i18n}</div>
+            <div class="sliding-form">
+                <div class="floating-form-heading">${currentStyle.text @ context='html'}</div>
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=currentStyle.image}"/>
+                <button class="flyout_cta flyout_cta btn btn-dark btn-block effect"><a data-sly-test=${currentStyle.ctaLink} class="flyout_link" href="${currentStyle.ctaLink @ extension='html'}">${currentStyle.cta}</a></button>
+            </div>
+        </div>
+        </sly>
+    </sly>
+    <sly data-sly-test="${defaultShowValue}">
+        <div class="floating-form" id="floating_form" data-flyout-tag-list="${pageProperties.cssSelector}">
+            <div class="floating-opener">${'brochures' @ i18n}</div>
+            <div class="sliding-form">
+                <div class="floating-form-heading">${currentStyle.text @ context='html'}</div>
+                <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=currentStyle.image}"/>
+                <button class="flyout_cta flyout_cta btn btn-dark btn-block effect"><a data-sly-test=${currentStyle.ctaLink} class="flyout_link" href="${currentStyle.ctaLink @ extension='html'}">${currentStyle.cta}</a></button>
+            </div>
+        </div>
+    </sly>

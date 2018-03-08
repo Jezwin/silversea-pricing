@@ -30,3 +30,4 @@ components/c-portdest.js
 components/c-button.js
 components/c-singlesuite.js
 components/c-contactus.js
+components/c-floatingbrochure.js
