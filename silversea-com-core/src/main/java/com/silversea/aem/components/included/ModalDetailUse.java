@@ -26,6 +26,7 @@ public class ModalDetailUse extends WCMUsePojo {
 				detail.setVirtualTour(suiteVariation.getVirtualTour());
 				detail.setFileReference(suiteVariation.getSuiteReference());
 				detail.setFeatures(suiteVariation.getFeatures());
+				detail.setShipId(suiteVariation.getShipId());
 			}
 		} else if (getCurrentPage().getPath().contains("/dinings/")) {
 			PublicAreaModel publicArea = getCurrentPage().adaptTo(PublicAreaModel.class);
@@ -36,6 +37,7 @@ public class ModalDetailUse extends WCMUsePojo {
 				detail.setAssetSelectionReference(publicArea.getAssetSelectionReference());
 				detail.setVirtualTour(publicArea.getVirtualTour());
 				detail.setFileReference(publicArea.getThumbnail());
+				detail.setShipId(publicArea.getShipId());
 			}
 		} else if (getCurrentPage().getPath().contains("/public-areas/")) {
 			DiningModel dining = getCurrentPage().adaptTo(DiningModel.class);
@@ -46,6 +48,7 @@ public class ModalDetailUse extends WCMUsePojo {
 				detail.setAssetSelectionReference(dining.getAssetSelectionReference());
 				detail.setVirtualTour(dining.getVirtualTour());
 				detail.setFileReference(dining.getThumbnail());
+				detail.setShipId(dining.getShipId());
 			}
 		}
 
@@ -53,6 +56,10 @@ public class ModalDetailUse extends WCMUsePojo {
 
 	public ModalDetailBean getDetail() {
 		return detail;
+	}
+	
+	public String getRaqLink() {
+		return "request-quote";
 	}
 	
 }

@@ -11,6 +11,7 @@ public class ModalDetailBean {
 	private String virtualTour;
 	private String[] features;
 	private String fileReference;
+	private String shipId;
 	
 	public String getTitle() {
 		return title;
@@ -65,5 +66,11 @@ public class ModalDetailBean {
 	}
 	public void setFileReference(String fileReference) {
 		this.fileReference = fileReference;
+	}
+	public String getShipId() {
+		return shipId;
+	}
+	public void setShipId(String shipId) {
+		this.shipId = shipId;
 	}
 }
