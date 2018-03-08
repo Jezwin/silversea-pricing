@@ -1,5 +1,7 @@
 var prevArrowCustom ="<button type='button' data-role='none' class='slick-prev' aria-label='Previous' tabindex='0' role='button'><i class='fa fa-angle-left'></i></button>",
 nextArrowCustom ="<button type='button' data-role='none' class='slick-next' aria-label='Next' tabindex='0' role='button'><i class='fa fa-angle-right'></i></button>",
+prevArrowCustomBlack ="<button type='button' data-role='none' class='slick-prev c-slider-black-arrow' aria-label='Previous' tabindex='0' role='button'><i class='fa fa-angle-left'></i></button>",
+nextArrowCustomBlack ="<button type='button' data-role='none' class='slick-next c-slider-black-arrow' aria-label='Next' tabindex='0' role='button'><i class='fa fa-angle-right'></i></button>",
 settingSlider = {
     prevArrow : prevArrowCustom,
     nextArrow : nextArrowCustom,
@@ -58,7 +60,7 @@ $(function() {
         } ]
     };
 
-    $('.c-mozaic__slider').each(function() {
+    $('.c-mozaic:not(".c-mozaic-nine") .c-mozaic__slider').each(function() {
         var $mozaicSlider = $(this),
         settingDesktop= {
             dots : true,
@@ -146,5 +148,89 @@ $(function() {
             e.preventDefault();
             $mozaicSlider.slick('slickPrev');
         });
+    })
+    
+        $('.c-mozaic-nine .c-mozaic__slider').each(function() {
+        var $mozaicSlider = $(this),
+        settingDesktop= {
+            prevArrow : prevArrowCustomBlack,
+            nextArrow : nextArrowCustomBlack,
+            dots : true,
+            fade : true,
+            rows : 3,
+            slidesPerRow : 3
+        },
+        settingMobile= {
+            dots : true
+        };
+
+        // Is Desktop viewport
+        function isDesktop() {
+            return ($.viewportDetect() === 'md' || $.viewportDetect() === 'lg');
+        }
+
+        // Fill last slide with content from first slide
+        var fillContent = (function fillContent() {
+            if (!$mozaicSlider.hasClass('fillup') && isDesktop()) {
+                // Append placeholder
+               // $mozaicSlider.find('.c-mozaic__slider__slide:nth-child(5n + 1)').after('<div class="c-mozaic__slider__slide c-mozaic__slider__slide--cloned"></div>');
+
+                // Fill up last slide
+                var itemToFillUp = $mozaicSlider.find('.c-mozaic__slider__slide').length % 9;
+                itemToFillUp = 9 - itemToFillUp;
+                
+                if (itemToFillUp !== 0) {
+                    for (var i = 0; i < itemToFillUp; i++) {
+                        $mozaicSlider.find('.c-mozaic__slider__slide:not(.c-mozaic__slider__slide--cloned)').eq(i).clone().addClass('c-mozaic__slider__slide--cloned').appendTo($mozaicSlider);
+                    }
+                }
+
+                $mozaicSlider.addClass('fillup');
+            }
+            return fillContent;
+        }());
+
+        // Set description height
+        function setDescriptionHeight() {
+            var arrayHeight = [];
+            $mozaicSlider.find('.c-tabbedmozaic__description').each(function() {
+                $(this).css('height', '');
+                arrayHeight.push($(this).outerHeight())
+            });
+            var highest = Math.max.apply(Math, arrayHeight);
+            $mozaicSlider.find('.c-tabbedmozaic__description').css('height', highest);
+        }
+
+        // Run slick
+        $mozaicSlider.on('init', function(event, slick) {
+            $mozaicSlider.closest('.c-mozaic').css('visibility', 'visible');
+            setDescriptionHeight();
+        });
+
+        // Set description jeight on resize
+        $(window).on('resize', function() {
+            setDescriptionHeight();
+        });
+
+        if (isDesktop()) {
+            $mozaicSlider.slick(settingDesktop);
+        } else {
+            $mozaicSlider.slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
+        }
+
+
+        // Run slick again on viewport changed
+        $('body').on('trigger.viewport.changed', function() {
+            if (isDesktop()) {
+                $mozaicSlider.slick('unslick');
+                fillContent();
+                $mozaicSlider.slick(settingDesktop);
+            } else {
+                $mozaicSlider.removeClass('fillup');
+                $mozaicSlider.slick('unslick').slick(settingMobile).slick('slickFilter',':not(.c-mozaic__slider__slide--cloned)');
+            }
+        }); 
+
+       
     })
 });
