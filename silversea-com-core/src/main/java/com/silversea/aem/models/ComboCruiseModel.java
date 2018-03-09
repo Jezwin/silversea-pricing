@@ -98,6 +98,7 @@ public class ComboCruiseModel {
                 segments.add(segmentModel);
             }
         }
+        duration = duration + 1;
     }
 
     public String getTitle() {
