@@ -582,6 +582,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Reisepläne"/>
+    <itinerary-and-fares
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Übersicht und Preise"/>
     <key-fact
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

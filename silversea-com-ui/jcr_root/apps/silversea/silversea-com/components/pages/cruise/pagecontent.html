@@ -12,10 +12,7 @@
             <div class="c-tab c-tab__accordion c-tab--cruise">
                 <ul class="c-tab__nav c-tab__nav--fixed dropdown-menu" data-toggle="dropdown" aria-expanded="false">
                     <li class="c-tab__link c-tab__link--dark" data-state="active">
-                        <a href="#overview"><span id="ab-test-v2-rename-overview">${'overview' @i18n}</span></a>
-                    </li>
-                    <li class="c-tab__link c-tab__link--dark ab-test-v2-hide">
-                        <a href="#suitenfare"><span>${'suites-and-fares' @i18n}</span></a>
+                        <a href="#overview"><span>${'itinerary-and-fares' @i18n}</span></a>
                     </li>
                     <li class="c-tab__link c-tab__link--dark" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
                         <a href="#excursion"><span>${'excursions' @i18n}</span></a>
@@ -40,33 +37,14 @@
                         <!--/* Overview tab */-->
                         <sly data-sly-use.overview="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/overview.html"
                             data-sly-call="${overview.default @ cruise=cruise}" />
-                        <div class="ab-test-v2-hide">
-	                        <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
-	                            data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
-	                            data-sly-call="${fare.default @ cruise=cruise}" />
-                        </div>
                         <sly data-sly-use.itineraries="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/itineraries.html"
                             data-sly-call="${itineraries.default @ cruise=cruise}" />
-                        <sly data-sly-use.cta="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/cta.html"
-                            data-sly-call="${cta.default @ cruise=cruise}" />
-                        <div class="ab-test-v2-hide">
-	                        <sly data-sly-test="${cruise.enrichmentsFeatures && cruise.enrichmentsFeatures.size > 0}"
-    	                        data-sly-use.enrichements="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/enrichements.html"
-        	                    data-sly-call="${enrichements.default @ cruise=cruise}" />
-      	                </div>
-                        <div class="ab-test-v2-show">
-	                        <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
-	                            data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
-	                            data-sly-call="${fare.default @ cruise=cruise}" />
-                        </div>
+                        <sly data-sly-test="${cruise.exclusiveOffersCruiseFareAdditions.size > 0 || cruise.cruiseModel.cruiseFareAdditions.size > 0}"
+                            data-sly-use.fare="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/fare.html"
+                            data-sly-call="${fare.default @ cruise=cruise}" />
                         <sly data-sly-use.footNotes="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/footnotes.html"
                             data-sly-call="${footNotes.default @ cruise=cruise}" />
                         <div data-sly-resource="${'par' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
-                    </div>
-                    <div class="c-tab__content" id="suitenfare">
-                        <!--/* Suite and fares tab */-->
-                        <sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
-                            data-sly-call="${suitelist.default @ cruise=cruise}" />
                     </div>
                     <div class="c-tab__content" id="excursion" data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-cruise' && cruise.excursionsNumber > 0}">
                         <!--/* Excursion tab */-->

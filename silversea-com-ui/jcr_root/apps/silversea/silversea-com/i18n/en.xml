@@ -571,6 +571,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="itineraries"
         sling:message="Itineraries"/>
+    <itinerary-and-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="itinerary-and-fares"
+        sling:message="itinerary and fares"/>
     <key-fact
         jcr:primaryType="sling:MessageEntry"
         sling:key="key-fact"
