@@ -19,7 +19,7 @@ $(function () {
         if (modalBody.hasClass("automatic-modal-body-modal-detail")) {
             $('html').addClass("no-scroll-html");
             $('body').addClass("no-scroll-body");
-
+            
             $modal.off('shown.bs.modal'); //fix bug with modal gallery
 
             //create slider
@@ -51,6 +51,15 @@ $(function () {
 
             //only mobile
             if (modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
+				$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("display", "block"); //remove when modal is close
+				$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "hidden"); //remove when modal is close
+				$(".automatic-modal-body-modal-detail-mobile").css("overflow-y", "scroll");
+				$(".automatic-modal-body-modal-detail-mobile").css("max-height", "100vh");
+				
+            	if(window.scrollSupport != null && window.scrollSupport) { 
+      				window.iNoBounce.enable();
+      			}
+      			
                 //action for view all view less features
                 $(this).find(".modal-detail-features-expand a.view_all").on("click", function (e) {
                     e.preventDefault();

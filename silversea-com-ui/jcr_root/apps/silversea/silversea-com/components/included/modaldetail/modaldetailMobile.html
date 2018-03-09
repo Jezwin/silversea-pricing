@@ -1,12 +1,65 @@
 <template data-sly-template.default data-sly-use.modal="com.silversea.aem.components.included.ModalDetailUse">
-	<div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${currentPage.path @ extension='html', selectors='modalcontentdesktop'}"></span>
-	</div>
-	<div class="modal-body">
-	
-	<div style="float: left;height: 100.0%;width:100%" class="LB-EO"> 
-		Mobile ${currentPage.path @ context = "html"}
-			Mobile ${modal.detail.title @ context = "html"}
-	</div>
+    <div class="modal-header modal-header-modal-detail">
+        <button class="close" type="button" aria-label="Close"><span class="close-label">${'close' @ i18n}</span></button>
+    </div>
+    <div class="modal-body automatic-modal-body-modal-detail-mobile automatic-modal-body-modal-detail">
+        <div class="row clearfix c-modal-detail-modal">
+            <div data-sly-test="${modal.detail.assetSelectionReference}"  class="col-xs-12" id="modal-detail-overview" data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=modal.detail.assetSelectionReference}">
+                <div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}' data-sly-list="${setImage.renditionList}">
+					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
+					<div class="slider-item">
+						<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url(${assetHelper.imageUrl @ context='unsafe'}?wid=1200&fit=hfit,1)"></div>
+						<div data-sly-test="${itemList.first}" class="c-modal-detail-loader"></div>
+					</div>
+				 </div> 
+ 				 <div class="c-modal-detail-modal-description__counter"><span class="slide-item-current"></span> / <span class="slide-item-total"></span></div> 
+            </div>
+            <div class="col-xs-12">
+                <h1 class="c-modal-detail-modal-title">${modal.detail.title @ context="html"}</h1>     
+                <div class="c-modal-detail-modal-info">		
+                 	<div class="c-modal-detail-modal-long-desc">${modal.detail.longDescription @ context="html"}</div>     
+                 	<hr size="10px">     
+                 	<div class="c-modal-detail-modal-bedrooms">${modal.detail.bedroomsInformation @ context="html"}</div>    
+                 </div>
+                 <div class="c-modal-detail-modal-price text-uppercase"> 
+                     <a class="btn btn-lg btn-red effect btn-thin request-quote c-modal-detail-modal-request-quote" href="${modal.raqLink @ extension='html', suffix=modal.suffix, selectors=modal.selector}" data-sscclicktype="clic-RAQ"> <span>${'request-quote' @i18n}</span> </a>     
+                 </div>
+            </div>
+            <div data-sly-test="${modal.detail.plan}"  class="col-xs-12" id="modal-detail-plan">
+            	<h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${'suite-plan' @i18n}</h1>
+                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=modal.detail.plan}" />
+ 			 	<img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="plan" title="plan" class="o-img" />   
+            </div>
+            <div data-sly-test="${modal.detail.features}" class="col-xs-12" id="modal-detail-features">
+                <h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${'suite-features' @i18n}</h1>
+	             <div class="row">
+		            <ul class="col-sm-12 expand-ul" data-sly-list=${modal.detail.features}>
+		                <li>${item}</li>
+		            </ul>
+		            <div class="col-xs-12">
+						<div class="modal-detail-features-expand">
+							<a href="#" class="view_all">${'view-more-features' @ i18n} &nbsp;<i class="fa fa-angle-down"></i></a>
+							<a href="#" class="view_less">${'view-less-features' @ i18n} &nbsp;<i class="fa fa-angle-up"></i></a>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div data-sly-test="${modal.detail.locationImage}" class="col-xs-12" id="modal-detail-location" data-sly-use.locationImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=modal.detail.locationImage,  metadata='deckNumber'}">
+                <h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${'suite-location' @i18n}</h1>
+                <div class="c-modal-detail-modal-deck" data-sly-list="${locationImage.renditionList}">
+					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
+					<a id="'${itemList.index}'" class="btn btn-thin show-deck-image ${itemList.first ? 'activeDeck' : ''}" href="#"> 
+						<span> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
+					</a>
+				</div>  
+				<div data-sly-list="${locationImage.renditionList}">
+					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
+					<img id="deck-${itemList.index}" src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="location" title="Location" class="o-img ${!itemList.first ? 'hidden' : ''}" />
+				</div>
+            </div>
+            <div class="c-modal-detail-modal-price text-uppercase"> 
+            	<a class="btn btn-lg btn-red effect btn-thin request-quote c-modal-detail-modal-request-quote" href="${modal.raqLink @ extension='html', suffix=modal.suffix, selectors=modal.selector}" data-sscclicktype="clic-RAQ"> <span>${'request-quote' @i18n}</span> </a>     
+            </div> 
+        </div>
+    </div>
 </template>

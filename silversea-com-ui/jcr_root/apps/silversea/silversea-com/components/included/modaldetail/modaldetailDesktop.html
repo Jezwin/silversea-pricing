@@ -56,13 +56,13 @@
                  </div>     
              </div>     
              <div class="col-xs-4 c-modal-detail-modal-right-side">     
-                 <h1 class="c-suitelist-card-title c-modal-detail-modal-title">${modal.detail.title @ context="html"}</h1>     
+                 <h1 class="c-modal-detail-modal-title">${modal.detail.title @ context="html"}</h1>     
                  <div class="c-modal-detail-modal-info">		
-                 	<div class="c-suitelist-card-long-desc c-modal-detail-modal-long-desc">${modal.detail.longDescription @ context="html"}</div>     
+                 	<div class="c-modal-detail-modal-long-desc">${modal.detail.longDescription @ context="html"}</div>     
                  	<hr size="10px">     
-                 	<div class="c-suitelist-card-bedrooms c-modal-detail-modal-bedrooms">${modal.detail.bedroomsInformation @ context="html"}</div>    
-              </div> 
-                 <div class="c-suitelist-card-price c-modal-detail-modal-price text-uppercase"> 
+                 	<div class="c-modal-detail-modal-bedrooms">${modal.detail.bedroomsInformation @ context="html"}</div>    
+                 </div> 
+                 <div class="c-modal-detail-modal-price text-uppercase"> 
                      <a class="btn btn-lg btn-red effect btn-thin request-quote c-modal-detail-modal-request-quote" href="${modal.raqLink @ extension='html', suffix=modal.suffix, selectors=modal.selector}" data-sscclicktype="clic-RAQ"> <span>${'request-quote' @i18n}</span> </a>     
                  </div>     
              </div>     

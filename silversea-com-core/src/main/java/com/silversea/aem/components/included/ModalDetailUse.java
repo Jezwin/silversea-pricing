@@ -3,7 +3,6 @@ package com.silversea.aem.components.included;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.components.beans.ModalDetailBean;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.UrlHelper;
 import com.silversea.aem.models.DiningModel;
 import com.silversea.aem.models.PublicAreaModel;
 import com.silversea.aem.models.SuiteVariationModel;
