@@ -108,6 +108,9 @@ $(function () {
             
             $modal.off('shown.bs.modal'); //fix bug with modal gallery
 
+            var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
+			history.pushState(null, null, urlReplace); // push state that hash into the url
+			
             //create slider
             var $slideFor = $(this).find('.c-slider').slick({
                 slidesToShow: 1,

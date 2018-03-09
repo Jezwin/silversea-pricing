@@ -340,6 +340,26 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Jantar"/>
+     <dining-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining location"/>
+    <dining-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining plan"/>
+    <dining-features
+       jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining features"/>
+    <dining-overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining overview"/>
+    <dining-virtual-tour
+       jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining virtual tour"/>
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -814,6 +834,26 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Áreas Públicas"/>
+    <public-areas-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas location"/>
+    <public-areas-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas plan"/>
+    <public-areas-features
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas features"/>
+    <public-areas-overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas overview"/>
+    <public-areas-virtual-tour
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas virtual tour"/>
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1038,6 +1078,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Características das suites"/>
+    <suite-overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Visión de conjunto de la suite"/>
+     <suite-virtual-tour
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Visita virtual de la suite"/>
      <view-more-features
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more-features"

@@ -27,12 +27,12 @@
                  </div>
             </div>
             <div data-sly-test="${modal.detail.plan}"  class="col-xs-12" id="modal-detail-plan">
-            	<h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${'suite-plan' @i18n}</h1>
+            	<h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${modal.type['plan'] @i18n}</h1>
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=modal.detail.plan}" />
  			 	<img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="plan" title="plan" class="o-img" />   
             </div>
             <div data-sly-test="${modal.detail.features}" class="col-xs-12" id="modal-detail-features">
-                <h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${'suite-features' @i18n}</h1>
+                <h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${modal.type['features']  @i18n}</h1>
 	             <div class="row">
 		            <ul class="col-sm-12 expand-ul" data-sly-list=${modal.detail.features}>
 		                <li>${item}</li>
@@ -46,7 +46,7 @@
 				</div>
             </div>
             <div data-sly-test="${modal.detail.locationImage}" class="col-xs-12" id="modal-detail-location" data-sly-use.locationImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=modal.detail.locationImage,  metadata='deckNumber'}">
-                <h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${'suite-location' @i18n}</h1>
+                <h1 class="c-modal-detail-modal-title c-modal-detail-modal-title-section">${modal.type['location'] @i18n}</h1>
                 <div class="c-modal-detail-modal-deck" data-sly-list="${locationImage.renditionList}">
 					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
 					<a id="'${itemList.index}'" class="btn btn-thin show-deck-image ${itemList.first ? 'activeDeck' : ''}" href="#"> 

@@ -343,6 +343,26 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="dining"
         sling:message="Dining"/>
+    <dining-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining-location"
+        sling:message="Dining location"/>
+    <dining-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining-plan"
+        sling:message="Dining plan"/>
+    <dining-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining-features"
+        sling:message="Dining features"/>
+    <dining-overview
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining-overview"
+        sling:message="Dining overview"/>
+    <dining-virtual-tour
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="dining-virtual-tour"
+        sling:message="Dining virtual tour"/>
     <dir
         jcr:primaryType="sling:MessageEntry"
         sling:key="dir"
@@ -811,6 +831,26 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="public-areas"
         sling:message="Public Areas"/>
+   	<public-areas-location
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas-location"
+        sling:message="Public Area location"/>
+    <public-areas-plan
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas-plan"
+        sling:message="Public Area plan"/>
+    <public-areas-features
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas-features"
+        sling:message="Public Area features"/>
+    <public-areas-overview
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas-overview"
+        sling:message="Public Area overview"/>
+    <public-areas-virtual-tour
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="public-areas-virtual-tour"
+        sling:message="Public Area virtual tour"/>
     <r1
         jcr:primaryType="sling:MessageEntry"
         sling:key="R1"
@@ -1035,6 +1075,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suite-features"
         sling:message="Suite features"/>
+    <suite-overview
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-overview"
+        sling:message="Suite overview"/>
+    <suite-virtual-tour
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="suite-virtual-tour"
+        sling:message="Suite virtual tour"/>
     <suites
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites"
@@ -1051,10 +1099,6 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="suites-plan"
         sling:message="Suites plan"/>
-    <suite-plan
-        jcr:primaryType="sling:MessageEntry"
-        sling:key="suite-plan"
-        sling:message="Suite plan"/>
     <sv
         jcr:primaryType="sling:MessageEntry"
         sling:key="SV"
