@@ -4,14 +4,24 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.search.PredicateGroup;
 import com.day.cq.search.Query;
 import com.day.cq.search.QueryBuilder;
+import com.day.cq.search.facets.Facet;
+import com.day.cq.search.result.Hit;
+import com.day.cq.search.result.ResultPage;
 import com.day.cq.search.result.SearchResult;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import org.apache.commons.lang3.StringUtils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
+
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,10 +33,12 @@ import java.util.Map;
 public class SearchResultsUse extends WCMUsePojo {
 
     private SearchResult searchResult;
+    private List<Hit> hitsListFiletered;
     private String searchText;
     private String pageRequested;
     private long numberOfPages;
     private int pageRequestedInt;
+    private Boolean noResult;
 
     private int hitsPerPage = 10;
 
@@ -78,6 +90,11 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("21_property", "jcr:content/sling:resourceType");
             map.put("22_property", "jcr:content/notIndexed");
             
+           // map.put("group.23_property", "jcr:content/isVisible");
+           // map.put("group.24_property", "jcr:content/isVisible");
+           // map.put("group.p.or", "true");
+
+            
             map.put("2_property.operation", "unequals");
             map.put("3_property.operation", "unequals");
             map.put("4_property.operation", "unequals");
@@ -98,6 +115,10 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("20_property.operation", "unequals");
             map.put("21_property.operation", "unequals");
             map.put("22_property.operation", "not");
+            
+           // map.put("group.23_property.operation", "not");
+           // map.put("group.24_property.operation", "unequals");
+
 
             map.put("2_property.value", WcmConstants.RT_PUBLIC_AREA);
             map.put("3_property.value", WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION);
@@ -120,6 +141,9 @@ public class SearchResultsUse extends WCMUsePojo {
             map.put("21_property.value", WcmConstants.RT_EXCLUSIVE_OFFER);
             map.put("22_property.value", "true");
             
+            //map.put("group.23_property.value", "false");
+            //map.put("group.24_property.value", "false");
+            
             Session session = getResourceResolver().adaptTo(Session.class);
             QueryBuilder builder = getResourceResolver().adaptTo(QueryBuilder.class);
             Query query = builder.createQuery(PredicateGroup.create(map), session);
@@ -134,6 +158,27 @@ public class SearchResultsUse extends WCMUsePojo {
             query.setHitsPerPage(hitsPerPage);
 
             searchResult = query.getResult();
+            
+            //hitsListFiletered = searchResult.getHits();
+            hitsListFiletered = new ArrayList<Hit>();
+            for (int i = 0; i < searchResult.getHits().size(); i++) {
+            	Boolean isVisible = searchResult.getHits().get(i).getProperties().get("isVisible", Boolean.class);
+				if(isVisible != null){
+					if(!isVisible){
+						
+					}else{
+						hitsListFiletered.add(searchResult.getHits().get(i));
+					}
+				}else{
+					hitsListFiletered.add(searchResult.getHits().get(i));
+				}
+			}
+            
+            if(hitsListFiletered.size() == 0){
+            	noResult = true;
+            }else{
+            	noResult = false;
+            }
 
             numberOfPages = searchResult.getTotalMatches() / hitsPerPage;
         }
@@ -141,6 +186,10 @@ public class SearchResultsUse extends WCMUsePojo {
 
     public SearchResult getSearchResult() {
         return searchResult;
+    }
+    
+    public List<Hit> getHitsListFiletered(){
+    	return hitsListFiletered;
     }
 
     public String getSearchText() {
@@ -194,6 +243,10 @@ public class SearchResultsUse extends WCMUsePojo {
 
     public boolean getShowPrev() {
         return pageRequestedInt > 3;
+    }
+    
+    public Boolean getNoResult(){
+    	return noResult;
     }
 
     public boolean getShowNext() {
