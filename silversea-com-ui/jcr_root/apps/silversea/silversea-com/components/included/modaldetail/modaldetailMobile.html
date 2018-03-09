@@ -53,12 +53,12 @@
 						<span> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
 					</a>
 				</div>  
-				<div data-sly-list="${locationImage.renditionList}">
+				<div class="c-modal-detail-modal-location-image" data-sly-list="${locationImage.renditionList}">
 					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
 					<img id="deck-${itemList.index}" src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="location" title="Location" class="o-img ${!itemList.first ? 'hidden' : ''}" />
 				</div>
             </div>
-            <div class="c-modal-detail-modal-price text-uppercase"> 
+            <div class="c-modal-detail-modal-price text-uppercase c-modal-detail-modal-price-last"> 
             	<a class="btn btn-lg btn-red effect btn-thin request-quote c-modal-detail-modal-request-quote" href="${modal.raqLink @ extension='html', suffix=modal.suffix, selectors=modal.selector}" data-sscclicktype="clic-RAQ"> <span>${'request-quote' @i18n}</span> </a>     
             </div> 
         </div>

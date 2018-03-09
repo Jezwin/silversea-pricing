@@ -142,6 +142,12 @@
 	    }
     }
     
+    &-location-image {
+     	@media (max-width: 768px) {
+   	    		text-align: center;
+    	}
+    }
+    
     &-deck {
     	text-align: center;
     	margin-bottom: 35px;
@@ -151,6 +157,10 @@
 	    	padding-top: 22px;
 	    	margin-bottom: 18px;
    	    	padding-left: 12px;
+   	    	
+   	    	div {
+   	    		text-align: center;
+   	    	}
     	}
     	
     	@media (max-width: 767px) {
@@ -362,7 +372,6 @@
 	    	transform: translateX(-50%);
         }
         
-        
         .modal-detail-early-booking {
         	font-size: 11px !important;
         }
@@ -375,6 +384,9 @@
         }
         @media (max-width: 768px) {
         	padding-top: 20px;
+        	&-last {
+	        	padding-bottom: 65px;
+        	}
     	}
     	
     	&-mobile {

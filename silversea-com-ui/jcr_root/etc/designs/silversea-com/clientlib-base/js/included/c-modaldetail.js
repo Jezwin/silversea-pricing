@@ -8,6 +8,8 @@ $(function () {
 			$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "hidden"); //remove when modal is close
 			$(".automatic-modal-body-modal-detail-mobile").css("overflow-y", "scroll");
 			$(".automatic-modal-body-modal-detail-mobile").css("max-height", "100vh");
+			$(".automatic-modal-body-modal-detail-mobile").parent().css("top", "0%");
+			$(".automatic-modal-body-modal-detail-mobile").parent().parent().css("padding-top", "0px");
 			
         	if(window.scrollSupport != null && window.scrollSupport) { 
   				window.iNoBounce.enable();
@@ -27,10 +29,6 @@ $(function () {
                 $('.expand-ul li:nth-of-type(1n+10)').stop().slideUp();
                 $(this).hide();
             });
-            /*$(this).find(".close").on("click", function (e) {
-                e.preventDefault();
-                $('.modal').modal('hide');
-            });*/
         }
 	};//linkEventToModalDetailMobile
 	
@@ -38,8 +36,10 @@ $(function () {
 		var modalBody = $(".modal-body");
 	    //only desktop
         if (modalBody.hasClass("automatic-modal-body-modal-detail-desktop")) {
+        	modalBody.parent().parent().parent().css("top", "9%");
+
             //create virtual tour on desktop
-            $(this).find(".c-modal-detail-virtual-tour-lightbox").on("click", function (e) {
+        	modalBody.find(".c-modal-detail-virtual-tour-lightbox").on("click", function (e) {
                 e.preventDefault();
                 if (!window.hasOwnProperty('virtualTour') || window.virtualTour == null) {
                     var imagePath = $("#c-modal-detail-modal-virtual-tour-containerDiv").data().image;
@@ -77,13 +77,24 @@ $(function () {
         var $modal = $(".modal");
         var $modalBody = $modal.find(".modal-body");
         if ($modalBody.hasClass("automatic-modal-body-modal-detail")) {
-
-            var href = $(".c-modaldetail-link").data("href");
-            var target = $(".c-modaldetail-link").data("target");
-            $(target + " .modal-content").empty();
-            $.get(href, function (data) {
-                $(target + " .modal-content").html(data);
-            });
+        	var changeTemplate = false;
+        	if ($modalBody.hasClass("automatic-modal-body-modal-detail-desktop")) {
+        		if ($(window).width() <= 768) {
+        			changeTemplate-= true;
+        		}
+        	} else if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
+        		if ($(window).width() > 768) {
+        			changeTemplate-= true;
+        		}
+        	}
+        	if (changeTemplate) {
+        		var href = $(".c-modaldetail-link").data("href");
+        		var target = $(".c-modaldetail-link").data("target");
+        		$(target + " .modal-content").empty();
+        		$.get(href, function (data) {
+        			$(target + " .modal-content").html(data);
+        		});
+        	}
         }
     });
 
