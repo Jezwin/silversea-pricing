@@ -31,3 +31,4 @@ components/c-button.js
 components/c-singledining.js
 components/c-singlesuite.js
 components/c-contactus.js
+included/c-modaldetail.js

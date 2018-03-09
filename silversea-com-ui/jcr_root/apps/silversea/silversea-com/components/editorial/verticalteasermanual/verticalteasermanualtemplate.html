@@ -12,7 +12,11 @@
                 <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
             </a>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <sly data-sly-test="${properties.openModal}">
+	        <a class="c-vertical-teaser__link--block hidden-xs hidden-sm" data-sly-test="${properties.reference}"  rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
+	        <a class="c-vertical-teaser__link--block visible-xs visible-sm" data-sly-test="${properties.reference}" rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
+        </sly>
 </template>
 
 <template data-sly-template.defaultnew>
@@ -29,7 +33,11 @@
                 <span class="c-vertical-teaser__label"><sly data-sly-test="${!properties.ctalabel}">${'discover-more' @ i18n}</sly><sly data-sly-test="${properties.ctalabel}">${properties.ctalabel}</sly></span><i class="fa fa-angle-right"></i>
             </a>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <sly data-sly-test="${properties.openModal}">
+	        <a class="c-vertical-teaser__link--block hidden-xs" data-sly-test="${properties.reference}"  rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
+	        <a class="c-vertical-teaser__link--block visible-xs" data-sly-test="${properties.reference}" rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
+        </sly>
 </template>
 
 <template data-sly-template.allInclusive>
@@ -46,10 +54,12 @@
 	            </a>
             </p>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
-
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+		<sly data-sly-test="${properties.openModal}">
+	        <a class="c-vertical-teaser__link--block hidden-xs" data-sly-test="${properties.reference}"  rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
+	        <a class="c-vertical-teaser__link--block visible-xs" data-sly-test="${properties.reference}" rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
+        </sly>
 </template>
-
 <template data-sly-template.finedine>
 		<div class="c-vertical-teaser-finedine__image-wrapper" data-sly-test.reference="${properties.assetReference}">
             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
@@ -64,8 +74,11 @@
 	            </a>
             </p>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
-
+        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <sly data-sly-test="${properties.openModal}">
+	        <a class="c-vertical-teaser__link--block hidden-xs" data-sly-test="${properties.reference}"  rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
+	        <a class="c-vertical-teaser__link--block visible-xs" data-sly-test="${properties.reference}" rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
+        </sly>
 </template>
 
 <template data-sly-template.obaccomodation>
@@ -84,6 +97,10 @@
 	                    <span class="c-vertical-teaser__label c-vertical-teaser__label">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
 	                </a>
             </div>
-            <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}"></a>
+           <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+	       <sly data-sly-test="${properties.openModal}">
+	        	<a class="c-vertical-teaser__link--block hidden-xs" data-sly-test="${properties.reference}"  rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
+	        	<a class="c-vertical-teaser__link--block visible-xs" data-sly-test="${properties.reference}" rel="nofollow" data-toggle="modal" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
+        	</sly>
 		</div>
 </template>

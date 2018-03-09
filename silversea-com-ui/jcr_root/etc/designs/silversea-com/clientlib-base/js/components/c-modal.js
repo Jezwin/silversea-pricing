@@ -27,6 +27,23 @@ $(function() {
         	} 
         }
         
+        var $modal = $(".modal");
+    	var $modalBody = $modal.find(".modal-body");
+    	if ($modalBody.hasClass("automatic-modal-body-modal-detail")) {
+    		$('html').removeClass("no-scroll-html");
+        	$('body').removeClass("no-scroll-body");
+        	
+        	if(window.iNoBounce != null) {
+        		try {
+        			window.iNoBounce.disable();
+        		}catch(error) {
+        		}
+        	} 
+        	if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
+        		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "auto"); //remove when modal is close
+        	}
+    	}
+        
         var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
 

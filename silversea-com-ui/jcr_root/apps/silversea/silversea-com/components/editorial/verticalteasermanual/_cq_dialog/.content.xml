@@ -81,6 +81,12 @@
                                 fieldLabel="Target path"
                                 name="./reference"
                                 rootPath="/content/silversea-com"/>
+                            <openModal
+                                jcr:primaryType="nt:unstructured"
+                                text="Enable lightbox"
+                                name="./openModal"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>
