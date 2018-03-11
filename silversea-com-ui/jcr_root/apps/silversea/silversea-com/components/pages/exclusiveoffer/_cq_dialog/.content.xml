@@ -363,11 +363,14 @@
 						                                                        sling:resourceType="granite/ui/components/foundation/container">
 						                                                    <items jcr:primaryType="nt:unstructured">
 						                                                       <token
-						                                                            jcr:primaryType="nt:unstructured"
-                                        											sling:resourceType="granite/ui/components/foundation/form/textfield"
-						                                                            fieldDescription="Token as price, start-date ..."
-						                                                            fieldLabel="Token"
-						                                                            name="./token"/>
+											                                        jcr:primaryType="nt:unstructured"
+											                                        sling:resourceType="granite/ui/components/foundation/form/select"
+											                                        fieldLabel="Token"
+											                                        name="./token">
+											                                         <datasource
+											                                            jcr:primaryType="nt:unstructured"
+											                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoTokenDatasource"
+											                                            addNone="{Boolean}true"/>
 						                                                        <value
 						                                                            jcr:primaryType="nt:unstructured"
                                         											sling:resourceType="granite/ui/components/foundation/form/textfield"
