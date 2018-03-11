@@ -17,8 +17,8 @@ import com.adobe.cq.sightly.WCMUsePojo;
 public class DateHelper extends WCMUsePojo {
 
 	public String value;
-
-	private Calendar calendar = Calendar.getInstance();
+	
+	private Calendar calendar  = Calendar.getInstance();
 
 	@Override
 	public void activate() throws Exception {
@@ -44,45 +44,28 @@ public class DateHelper extends WCMUsePojo {
 			value = monthNames[Integer.parseInt(month) - 1];
 		}
 
-		value = convertTime(time, locale.getLanguage());
-	}
-
-	private String convertTime(String time, String language) {
-		String result = null;
-		if (time != null && !time.equalsIgnoreCase("")) {
-			if (language.equalsIgnoreCase("en")) {
+		if (time != null && !time.equalsIgnoreCase("")) { 
+			if (locale.getLanguage().equalsIgnoreCase("en")) {
 				String closingTime = time.replace(":", "");
 				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
-				// For display purposes only We could just return the last two substring or
-				// format Calender.MINUTE as shown below
+				// For display purposes only We could just return the last two substring or format Calender.MINUTE as shown below
 				calendar.set(Calendar.MINUTE, Integer.parseInt(closingTime.substring(2, 4)));
-				int hour = calendar.get(Calendar.HOUR);
+				
 				String minute = String.format("%02d", calendar.get(Calendar.MINUTE));
 
 				String AM_PM = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
-				// workournd from 00:00pm to 12:00pm
-				if (hour == 00 && AM_PM.equalsIgnoreCase("PM")) {
-					hour = 12;
+				//workournd from 00:00pm to 12:00pm 
+				if (AM_PM.) {
+					
 				}
-				result = hour + ":" + minute + " " + AM_PM;
+				value = calendar.get(Calendar.HOUR) + ":" + minute + " " + AM_PM;
 			} else {
-				result = time;
+				value = time;
 			}
 		}
-		return result;
 	}
 
 	public String getValue() {
 		return value;
-	}
-
-	public static void main(String args[]) {
-		DateHelper dateHelper = new DateHelper();
-		String value = dateHelper.convertTime("12:00", "en");
-		System.out.println(value);
-		value = dateHelper.convertTime("13:00", "fr");
-		System.out.println(value);
-		value = dateHelper.convertTime("13:00", "en");
-		System.out.println(value);
 	}
 }
