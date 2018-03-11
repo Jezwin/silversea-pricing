@@ -656,7 +656,8 @@ $(function() {
 		
 		//suitetab
 		if (suitePlan != null) {
-			$modalContent  = $modalContent.replace("c-suitelist-plan-placeholder", suitePlan);
+			var suitePlanToRender ='<img src="'+ suitePlan + '?hei=930&wid=930&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img" />';
+			$modalContent  = $modalContent.replace("c-suitelist-plan-placeholder", suitePlanToRender);
 		}
 		
 		//features tab
