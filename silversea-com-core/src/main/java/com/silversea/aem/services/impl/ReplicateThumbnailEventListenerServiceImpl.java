@@ -73,9 +73,13 @@ public class ReplicateThumbnailEventListenerServiceImpl implements ResourceChang
 					if(resourceChange.getPath().contains("jcr:content/image") ){ // we are talking about a thumbnail
 						Set<String> listPropsChanged = resourceChange.getChangedPropertyNames();
 						if(listPropsChanged == null){
-							listPropsChanged = resourceChange.getAddedPropertyNames();
+							if(resourceChange.getAddedPropertyNames() != null){
+								listPropsChanged = resourceChange.getAddedPropertyNames();
+							}
 						}else{
-							listPropsChanged.addAll(resourceChange.getAddedPropertyNames());
+							if(resourceChange.getAddedPropertyNames() != null){
+								listPropsChanged.addAll(resourceChange.getAddedPropertyNames());
+							}
 						}
 						boolean updateThumbnail = false;
 						if (listPropsChanged != null) {
