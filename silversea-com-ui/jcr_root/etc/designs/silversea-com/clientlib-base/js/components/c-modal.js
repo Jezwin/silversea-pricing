@@ -45,8 +45,8 @@ $(function() {
         	if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
         		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "auto"); 
         		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("top", "9%"); 
-    			$(".automatic-modal-body-modal-detail-mobile").parent().css("top", "9%");
         	}
+
     	}
         
         var $modalContent = $('body > .modal .modal-content');
