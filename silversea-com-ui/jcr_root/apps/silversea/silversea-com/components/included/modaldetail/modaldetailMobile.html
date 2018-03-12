@@ -1,8 +1,8 @@
 <template data-sly-template.default data-sly-use.modal="com.silversea.aem.components.included.ModalDetailUse">
     <div class="modal-header modal-header-modal-detail">
         <button class="close" type="button" aria-label="Close" data-dismiss="modal" ><span class="close-label">${'close' @ i18n}</span></button>
-  	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${currentPage.path @ extension='html', selectors='modalcontentdesktop'}"></span>
-    </div>
+        <sly data-sly-use.extPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
+ 	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${extPath.externalizedTranslatedUrl @ extension='html', selectors='modalcontentdesktop'}"></span>    </div>
     <div class="modal-body automatic-modal-body-modal-detail-mobile automatic-modal-body-modal-detail">
         <div class="row clearfix c-modal-detail-modal">
             <div data-sly-test="${modal.detail.assetSelectionReference}"  class="col-xs-12" id="modal-detail-overview" data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=modal.detail.assetSelectionReference}">
@@ -58,7 +58,7 @@
 					<img id="deck-${itemList.index}" src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="location" title="Location" class="o-img ${!itemList.first ? 'hidden' : ''}" />
 				</div>
             </div>
-            <div class="c-modal-detail-modal-price text-uppercase c-modal-detail-modal-price-last"> 
+            <div data-sly-test="${modal.showLastMobileRaq}" class="c-modal-detail-modal-price text-uppercase c-modal-detail-modal-price-last"> 
             	<a class="btn btn-lg btn-red effect btn-thin request-quote c-modal-detail-modal-request-quote" href="${modal.raqLink @ extension='html', suffix=modal.suffix, selectors=modal.selector}" data-sscclicktype="clic-RAQ"> <span>${'request-quote' @i18n}</span> </a>     
             </div> 
         </div>

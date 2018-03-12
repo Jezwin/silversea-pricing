@@ -6,8 +6,10 @@ $(function () {
         if (modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
 			$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("display", "block"); //remove when modal is close
 			$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "hidden"); //remove when modal is close
+			$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("top", "0%"); //remove when modal is close
 			$(".automatic-modal-body-modal-detail-mobile").css("overflow-y", "scroll");
 			$(".automatic-modal-body-modal-detail-mobile").css("max-height", "100vh");
+			$(".automatic-modal-body-modal-detail-mobile").css("min-height", "100vh");
 			$(".automatic-modal-body-modal-detail-mobile").parent().css("top", "0%");
 			$(".automatic-modal-body-modal-detail-mobile").parent().parent().css("padding-top", "0px");
 			
@@ -100,7 +102,11 @@ $(function () {
         		var target = $(".c-modaldetail-link").data("target");
         		$(target + " .modal-content").empty();
         		$.get(href, function (data) {
+        			if ( window.$slickSlider != null) {
+        				 window.$slickSlider.slick("unslick");
+        			}
         			$(target + " .modal-content").html(data);
+        			createSlider($(target + " .modal-body"));
         		});
         	}
         }
@@ -117,33 +123,40 @@ $(function () {
             var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
 			history.pushState(null, null, urlReplace); // push state that hash into the url
 			
-            //create slider
-            var $slideFor = $(this).find('.c-slider').slick({
-                slidesToShow: 1,
-                slidesToScroll: 1
-            });
-            var slideTotalItem = $slideFor.find('.slick-slide:not(.slick-cloned)').length;
-
-            // Show / calc counter
-            $('.modal').find('.c-modal-detail-modal-description__counter .slide-item-current').html(1);
-            // Set total number of slide
-            $('.modal').find('.c-modal-detail-modal-description__counter .slide-item-total').html(slideTotalItem);
-            if (slideTotalItem == 1) {
-                $(".c-modal-detail-modal-description__counter").css("display", "none");
-            }
-            $slideFor.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-                var $slider = $(this);
-                // Set counter according to the current slide
-                $('.modal').find('.c-modal-detail-modal-description__counter .slide-item-current').html(nextSlide + 1);
-            });
-
-            //workaround for bug virtual tour full screen
-            $(this).find("#descr-tab").on("click", function (e) {
-                if ($slideFor != null) {
-                    $slideFor.slick('slickGoTo', 0);
-                }
-            });
+            createSlider(modalBody);
         }
     });
+    
+    function createSlider(modalBody){
+    	//create slider
+        var $slideFor = modalBody.find('.c-slider').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1
+        });
+        
+        window.$slickSlider = $slideFor;
+        
+        var slideTotalItem = $slideFor.find('.slick-slide:not(.slick-cloned)').length;
+
+        // Show / calc counter
+        $('.modal').find('.c-modal-detail-modal-description__counter .slide-item-current').html(1);
+        // Set total number of slide
+        $('.modal').find('.c-modal-detail-modal-description__counter .slide-item-total').html(slideTotalItem);
+        if (slideTotalItem == 1) {
+            $(".c-modal-detail-modal-description__counter").css("display", "none");
+        }
+        $slideFor.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            var $slider = $(this);
+            // Set counter according to the current slide
+            $('.modal').find('.c-modal-detail-modal-description__counter .slide-item-current').html(nextSlide + 1);
+        });
+
+        //workaround for bug virtual tour full screen
+        modalBody.find("#descr-tab").on("click", function (e) {
+            if ($slideFor != null) {
+                $slideFor.slick('slickGoTo', 0);
+            }
+        });
+    };//modalBody
 
 });
