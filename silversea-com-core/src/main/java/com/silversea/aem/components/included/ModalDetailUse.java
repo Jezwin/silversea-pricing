@@ -17,6 +17,7 @@ public class ModalDetailUse extends WCMUsePojo {
 
 	private ModalDetailBean detail;
 	private Map<String, String> type =new HashMap<>();
+	private boolean showLastMobileRaq;
 
 	@Override
 	public void activate() throws Exception {
@@ -89,5 +90,9 @@ public class ModalDetailUse extends WCMUsePojo {
 
 	public Map<String, String> getType() {
 		return type;
+	}
+	
+	public boolean showLastMobileRaq() {
+		return (detail != null) && (detail.getPlan() != null || detail.getFeatures() != null || detail.getLocationImage() != null);
 	}
 }

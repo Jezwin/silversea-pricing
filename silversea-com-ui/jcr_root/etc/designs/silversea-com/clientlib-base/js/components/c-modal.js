@@ -30,6 +30,9 @@ $(function() {
         var $modal = $(".modal");
     	var $modalBody = $modal.find(".modal-body");
     	if ($modalBody.hasClass("automatic-modal-body-modal-detail")) {
+    		if ( window.$slickSlider != null) {
+				 window.$slickSlider.slick("unslick");
+			}
     		$('html').removeClass("no-scroll-html");
         	$('body').removeClass("no-scroll-body");
         	
@@ -40,8 +43,10 @@ $(function() {
         		}
         	} 
         	if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
-        		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "auto"); //remove when modal is close
+        		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "auto"); 
+        		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("top", "9%"); 
         	}
+
     	}
         
         var $modalContent = $('body > .modal .modal-content');
