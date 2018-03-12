@@ -70,6 +70,14 @@ $(function () {
                     }, 500);
                 }
             });
+        	
+        	modalBody.find("#features-tab.c-navtab__link--button a").on("click", function (e) {
+        		 $(".modal-body .tab-content").addClass("tab-content-grey");
+        	});
+    	  
+        	modalBody.find(".c-navtab__link--button:not(#features-tab) a").on("click", function (e) {
+        		$(".modal-body .tab-content").removeClass("tab-content-grey");
+        	});
         }
 	};//linkEventToModalDetailDesktop
 	
@@ -101,12 +109,10 @@ $(function () {
     $('.modal').on('shown.bs.modal', function (e) {
         var $modal = $(this);
         var modalBody = $modal.find(".modal-body");
-
+        
         if (modalBody.hasClass("automatic-modal-body-modal-detail")) {
             $('html').addClass("no-scroll-html");
             $('body').addClass("no-scroll-body");
-            
-            $modal.off('shown.bs.modal'); //fix bug with modal gallery
 
             var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
 			history.pushState(null, null, urlReplace); // push state that hash into the url
@@ -139,4 +145,5 @@ $(function () {
             });
         }
     });
+
 });

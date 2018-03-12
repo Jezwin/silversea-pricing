@@ -843,6 +843,16 @@ $(function() {
 				 $('.modal').modal('hide');
 			});
 			
+			if (window.suiteDesktop == true) {
+				
+				$(this).find("#features-tab.c-navtab__link--button a").on("click", function (e) {
+	        		 $(".modal-body .tab-content").addClass("tab-content-grey");
+	        	});
+	    	  
+				$(this).find(".c-navtab__link--button:not(#features-tab) a").on("click", function (e) {
+	        		$(".modal-body .tab-content").removeClass("tab-content-grey");
+	        	});
+			}
 			
 			//create virtual tour on desktop
 			$(this).find(".c-suite-detail-virtual-tour-lightbox").on("click", function(e) {
