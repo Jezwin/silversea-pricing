@@ -78,6 +78,8 @@ public class CruiseUse extends EoHelper {
 	private String currentPath;
 
 	private String ccptCode;
+	
+	private String taCode;
 
 	@Override
 	public void activate() throws Exception {
@@ -89,9 +91,13 @@ public class CruiseUse extends EoHelper {
 				getCurrentPage().getPath()));
 
 		String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+		taCode = "";
 		for (String selectorInfo : selectors) {
 			if (selectorInfo.contains("ccpt_")) {
 				setCcptCode(selectorInfo.replace("ccpt_", "."));
+			}
+			if (selectorInfo.contains("ta_")) {
+				setTaCode(selectorInfo.replace("ta_", "."));
 			}
 		}
 
@@ -612,8 +618,16 @@ public class CruiseUse extends EoHelper {
 	public String getCcptCode() {
 		return ccptCode;
 	}
+	
+	public String getTaCode() {
+		return taCode;
+	}
 
 	public void setCcptCode(String ccptCode) {
 		this.ccptCode = ccptCode;
+	}
+	
+	public void setTaCode(String taCode) {
+		this.taCode = taCode;
 	}
 }
