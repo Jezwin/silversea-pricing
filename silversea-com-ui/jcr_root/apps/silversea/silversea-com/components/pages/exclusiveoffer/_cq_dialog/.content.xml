@@ -371,6 +371,7 @@
 											                                            jcr:primaryType="nt:unstructured"
 											                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoTokenDatasource"
 											                                            addNone="{Boolean}true"/>
+											                                     </token>
 						                                                        <value
 						                                                            jcr:primaryType="nt:unstructured"
                                         											sling:resourceType="granite/ui/components/foundation/form/textfield"
@@ -734,6 +735,36 @@
 		                        jcr:primaryType="nt:unstructured"
 		                        jcr:title="Help"
 		                        sling:resourceType="granite/ui/components/foundation/container">
+		                         <layout jcr:primaryType="nt:unstructured"
+             							sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						       	 <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="List of styles"
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+						                                	 <style
+						                                         jcr:primaryType="nt:unstructured"
+						                                         sling:resourceType="granite/ui/components/foundation/form/select">
+						                                         <datasource
+						                                            jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoHelperDatasource"
+						                                            addNone="{Boolean}true"/>
+						                                     </style>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
 		                    </eoHelp>
 		                </items>
                     </automaticExclusiveoffer>
