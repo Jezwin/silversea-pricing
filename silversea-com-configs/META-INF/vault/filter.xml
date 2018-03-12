@@ -13,6 +13,8 @@
     <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-es"/>
     <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-fr"/>
     <filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-pt-br"/>
+	<filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-it"/>
+	<filter root="/conf/global/settings/dam/adminui-extension/metadataprofile/lang-ru"/>
 
     <filter root="/conf/silversea-com"/>
 
