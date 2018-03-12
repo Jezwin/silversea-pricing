@@ -120,8 +120,7 @@ $(function () {
             $('html').addClass("no-scroll-html");
             $('body').addClass("no-scroll-body");
 
-            var urlReplace = "#" + $(this).attr('id'); // make the hash the id of the modal shown
-			history.pushState(null, null, urlReplace); // push state that hash into the url
+            window.location.hash = "#modal";
 			
             createSlider(modalBody);
         }
