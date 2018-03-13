@@ -43,31 +43,30 @@ public class DateHelper extends WCMUsePojo {
 			String[] monthNames = symbols.getMonths();
 			value = monthNames[Integer.parseInt(month) - 1];
 		}
-
-		value = convertTime(time, locale.getLanguage());
+		if (time != null && !time.equalsIgnoreCase("")) {
+			value = convertTime(time, locale.getLanguage());
+		}
 	}
 
 	private String convertTime(String time, String language) {
 		String result = null;
-		if (time != null && !time.equalsIgnoreCase("")) {
-			if (language.equalsIgnoreCase("en")) {
-				String closingTime = time.replace(":", "");
-				calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
-				// For display purposes only We could just return the last two substring or
-				// format Calender.MINUTE as shown below
-				calendar.set(Calendar.MINUTE, Integer.parseInt(closingTime.substring(2, 4)));
-				int hour = calendar.get(Calendar.HOUR);
-				String minute = String.format("%02d", calendar.get(Calendar.MINUTE));
+		if (language.equalsIgnoreCase("en")) {
+			String closingTime = time.replace(":", "");
+			calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(closingTime.substring(0, 2)));
+			// For display purposes only We could just return the last two substring or
+			// format Calender.MINUTE as shown below
+			calendar.set(Calendar.MINUTE, Integer.parseInt(closingTime.substring(2, 4)));
+			int hour = calendar.get(Calendar.HOUR);
+			String minute = String.format("%02d", calendar.get(Calendar.MINUTE));
 
-				String AM_PM = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
-				// workournd from 00:00pm to 12:00pm
-				if (hour == 00 && AM_PM.equalsIgnoreCase("PM")) {
-					hour = 12;
-				}
-				result = hour + ":" + minute + " " + AM_PM;
-			} else {
-				result = time;
+			String AM_PM = calendar.get(Calendar.AM_PM) == 0 ? "AM" : "PM";
+			// workournd from 00:00pm to 12:00pm
+			if (hour == 00 && AM_PM.equalsIgnoreCase("PM")) {
+				hour = 12;
 			}
+			result = hour + ":" + minute + " " + AM_PM;
+		} else {
+			result = time;
 		}
 		return result;
 	}
