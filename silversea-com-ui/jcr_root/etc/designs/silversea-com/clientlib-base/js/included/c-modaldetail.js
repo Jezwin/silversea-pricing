@@ -18,19 +18,24 @@ $(function () {
   			}
   			
             //action for view all view less features
-            $(this).find(".modal-detail-features-expand a.view_all").on("click", function (e) {
+        	modalBody.find(".modal-detail-features-expand a.view_all").on("click", function (e) {
                 e.preventDefault();
                 $('.expand-ul li:nth-of-type(1n+10)').stop().css('display', 'list-item').hide().slideDown();
                 $(".modal-detail-features-expand a.view_less").show();
                 $(this).hide();
             });
 
-            $(this).find(".modal-detail-features-expand a.view_less").on("click", function (e) {
+        	modalBody.find(".modal-detail-features-expand a.view_less").on("click", function (e) {
                 e.preventDefault();
                 $(".modal-detail-features-expand a.view_all").show();
                 $('.expand-ul li:nth-of-type(1n+10)').stop().slideUp();
                 $(this).hide();
             });
+        	
+        	if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
+            	window.virtualTour.destroy();
+            	window.virtualTour = null;
+            }
         }
 	};//linkEventToModalDetailMobile
 	
@@ -169,6 +174,6 @@ $(function () {
         });
 
         
-    };//modalBody
+    };//createSlider
 
 });
