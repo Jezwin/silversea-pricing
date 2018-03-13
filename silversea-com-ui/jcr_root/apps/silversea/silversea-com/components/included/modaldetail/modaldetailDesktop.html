@@ -41,7 +41,7 @@
                     <div role="tabpanel" class="tab-pane" id="modal-detail-location" data-sly-use.locationImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=modal.detail.locationImage,  metadata='deckNumber'}" >  
 						<div class="c-modal-detail-modal-deck" data-sly-list="${locationImage.renditionList}">
 							<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
-							<a id="'${itemList.index}'" class="btn btn-thin show-deck-image ${itemList.first ? 'activeDeck' : ''}" href="#"> 
+							<a id="${itemList.index}" class="btn btn-thin show-deck-image ${itemList.first ? 'activeDeck' : ''}" href="#"> 
 								<span> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
 							</a>
 						</div>  
