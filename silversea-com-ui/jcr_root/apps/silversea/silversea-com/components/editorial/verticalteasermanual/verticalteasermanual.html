@@ -8,7 +8,6 @@
     <sly data-sly-test="${properties.type == 'finedine'}" data-sly-call="${verticalteasermanualTemplate.finedine}" />
     <sly data-sly-test="${properties.type == 'obaccomodation'}" data-sly-call="${verticalteasermanualTemplate.obaccomodation}" />
     <sly data-sly-test="${properties.type == 'defaultnew'}" data-sly-call="${verticalteasermanualTemplate.defaultnew}" />
-
 </section>
 <style data-sly-test="${properties.heightDesktop}">
 	#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
@@ -17,14 +16,37 @@
 	}
 </style>
 
-<style data-sly-test="${properties.heightMobile}">
+<style data-sly-test="${properties.heightMobile && properties.heightMobile != '0'}">
 	@media (max-width: 767px) {
-		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption-default, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
 			height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
 		}
 	}
+	@media (max-width: 767px) {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption_default-new {
+			height: ${properties.heightMobile @ context="unsafe" }px !important;
+			min-height: ${properties.heightMobile @ context="unsafe" || 150 }px !important;
+		}
+	}
 </style>
+
+
+<style data-sly-test="${!properties.heightMobile || properties.heightMobile == '0'}">
+	@media (max-width: 767px) {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption.c-vertical-teaser__caption_default, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-finedine__caption, #c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser-oba__caption {
+			height: 150px !important;
+			min-height: 150px !important;
+		}
+	}
+	@media (max-width: 767px) {
+		#c-vertical-teaser-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-vertical-teaser .c-vertical-teaser__caption_default-new {
+			height: auto !important;
+			min-height: 150px !important;
+		}
+	}
+</style>
+
 
 <style data-sly-test="${properties.imageHeightDesktop && properties.type}">
 	@media (min-width: 768px) {
