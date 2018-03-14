@@ -79,7 +79,7 @@
                                rel="nofollow"
                                data-toggle="modal"
                                data-target=".bs-modal-lg">
-                                <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+                                <strong>${item.title @ context='html'}:&nbsp;</strong>${item.description @ context='html'}
                             </a>
                             <p data-sly-test="${!item.lightboxReference && !item.newSystem}">
                                 <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
