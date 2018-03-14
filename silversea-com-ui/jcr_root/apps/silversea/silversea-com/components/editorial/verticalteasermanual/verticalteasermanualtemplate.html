@@ -3,7 +3,7 @@
             <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
                 data-sly-call="${imageTemplate.default @ imagePath=reference}" />
         </div>
-        <div class="caption c-vertical-teaser__caption">
+        <div class="caption c-vertical-teaser__caption c-vertical-teaser__caption_default">
              <span class="c-vertical-teaser__title alternative-h">${properties.jcr:title @ context="html"}</span>
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
@@ -24,7 +24,7 @@
             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
                 data-sly-call="${imageTemplate.resp @ imagePath=reference}" />
         </div>
-        <div class="caption c-vertical-teaser__caption">
+        <div class="caption c-vertical-teaser__caption c-vertical-teaser__caption_default-new">
              <span class="c-vertical-teaser__title alternative-h">${properties.jcr:title @ context="html"}</span>
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}

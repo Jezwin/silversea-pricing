@@ -147,11 +147,9 @@
                             <heightMobile
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/numberfield"
-                                defaultValue="150"
                                 fieldDescription="Set box min-height"
                                 fieldLabel="Min height"
-                                min="0"
-                                name="./heightMobile"/>
+                                 name="./heightMobile"/>
                              <imageHeightMobile
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/form/numberfield"
