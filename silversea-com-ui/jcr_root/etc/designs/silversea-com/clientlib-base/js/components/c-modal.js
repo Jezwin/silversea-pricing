@@ -40,6 +40,8 @@ $(function() {
         		history.back();
         	}
         	
+        	setTimeout(function(){window.backNavigation = false;},200);
+        	
         	if(window.iNoBounce != null) {
         		try {
         			window.iNoBounce.disable();
