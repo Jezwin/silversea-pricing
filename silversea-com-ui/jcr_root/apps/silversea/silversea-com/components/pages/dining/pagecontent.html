@@ -20,8 +20,10 @@
                     </div>
                     <sly data-sly-test="${diningUse.diningReferenceList.size > 3}"> 
 	                 <style>
-	                 .c-single-suite-availability li.col-md-3.c-list__item {
-						    float:left !important;
+	                 @media (min-width:768px){
+		                 .c-single-suite-availability li.col-md-3.c-list__item {
+							    float:left !important;
+							}
 						}
 	                 </style>
                  </sly>
