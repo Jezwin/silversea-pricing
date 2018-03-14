@@ -36,6 +36,10 @@ $(function() {
     		$('html').removeClass("no-scroll-html");
         	$('body').removeClass("no-scroll-body");
         	
+        	if (!window.backNavigation) {
+        		history.back();
+        	}
+        	
         	if(window.iNoBounce != null) {
         		try {
         			window.iNoBounce.disable();

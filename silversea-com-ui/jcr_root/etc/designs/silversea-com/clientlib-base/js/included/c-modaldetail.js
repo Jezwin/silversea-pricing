@@ -138,7 +138,7 @@ $(function () {
             	 $('html').addClass("no-scroll-html");
                  $('body').addClass("no-scroll-body");
 
-                 window.location.hash = "#modal";
+                 //window.location.hash = "#modal";
                  history.pushState(null, null, "#modal"); // push state that hash into the url
                  createSlider(modalBody);
             });
