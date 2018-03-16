@@ -44,11 +44,11 @@ public class PathUtils {
     public static String getBrochuresPagePath(final Resource resource, final Page page) {
         final Conf confRes = resource.adaptTo(Conf.class);
         if (confRes != null && page != null) {
-            final Resource requestQuotePageConf = confRes.getItemResource("/brochurespage/page");
+            final Resource brochuresPageConf = confRes.getItemResource("/brochurespage/page");
 
-            if (requestQuotePageConf != null) {
+            if (brochuresPageConf != null) {
                 final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)
-                        + requestQuotePageConf.getValueMap().get("reference", String.class);
+                        + brochuresPageConf.getValueMap().get("reference", String.class);
                 if (resource.getResourceResolver().getResource(pagePath) != null) {
                     return pagePath;
                 }
