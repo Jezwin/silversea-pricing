@@ -51,7 +51,7 @@ public class SuiteModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteReference") @Optional
     private String suiteReference;
 
-    // TODO replace by injector
+	// TODO replace by injector
     private SuiteModel genericSuite;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSubTitle") @Optional
@@ -156,4 +156,8 @@ public class SuiteModel implements ShipAreaModel {
     public String getName() {
         return name;
     }
+    
+    public String getSuiteReference() {
+		return suiteReference;
+	}
 }
