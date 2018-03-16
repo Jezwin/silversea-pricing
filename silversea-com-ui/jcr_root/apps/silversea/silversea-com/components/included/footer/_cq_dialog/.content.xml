@@ -59,6 +59,12 @@
                                 fieldLabel="My Silversea"
                                 name="./mySilverseaReference"
                                 rootPath="/content/silversea-com" />
+                            <brochureimage
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Brochure Image"
+                                name="./brochureimage"
+                                rootPath="/content/dam"/>
                         </items>
                     </column>
                 </items>
