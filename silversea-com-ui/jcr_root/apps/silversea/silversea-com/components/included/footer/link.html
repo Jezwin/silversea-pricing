@@ -34,3 +34,35 @@
 	    </div>
 	</div>
 </template>
+<template data-sly-template.style1="${ @ footer }">
+	<div class="o-section c-links">
+	    <div class="row">
+	        <div class="col-sm-3 hidden-xs">
+	            <div class="c-list">
+	                <ul class="c-list__group" data-sly-list.child="${footer.pagesMainColIterator2}">
+	                    <li class="c-list__item">
+	                        <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	        <div class="col-sm-3" data-sly-repeat="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
+	            <div class="c-list c-list__accordion ${itemList.last ? 'c-list__accordion--full' : ''}">
+	                <span class="c-list__title visible-xs" data-toggle="collapse" data-target="#collapseFooter-1${itemList.index}">
+	                  ${item.title}
+	                </span>
+	                <ul class="c-list__group c-list__accordion--content" id="collapseFooter-1${itemList.index}">
+                    	<li class="c-list__item" data-sly-test="${itemList.last && footer.pageMySilversea.path}">
+	                        <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
+	                            ${footer.pageMySilversea.navigationTitle? footer.pageMySilversea.navigationTitle : footer.pageMySilversea.title}
+	                        </a>
+	                    </li>
+	                    <li class="c-list__item" data-sly-repeat.child="${item.listChildren}">
+	                        <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</template>

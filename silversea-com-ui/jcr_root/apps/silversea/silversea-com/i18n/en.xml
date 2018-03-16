@@ -127,6 +127,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="booking-number"
         sling:message="Booking Number"/>	
+    <brochure-text
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="brochure-text"
+        sling:message="Get a more detailed look at all Silversea's Luxury Cruises and Expeditions by reading our brochures, it's completely free."/>
     <built-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="built-date"
@@ -519,6 +523,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="get-our-free-brochures"
         sling:message="Get your free brochure"/>
+    <get-our-free-brochures1
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="get-our-free-brochures1"
+        sling:message="Get our free brochures"/>
     <get-your-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -983,6 +991,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="silversea-blog-archive"
         sling:message="Silversea Blog Archive"/>
+    <silversea-brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="silversea-brochures"
+        sling:message="Silversea Brochures"/>
     <silversea-cruise
         jcr:primaryType="sling:MessageEntry"
         sling:key="silversea-cruise"

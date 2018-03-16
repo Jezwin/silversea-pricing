@@ -11,6 +11,7 @@ import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
 import com.day.cq.commons.inherit.InheritanceValueMap;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.utils.PathUtils;
 
 /**
  * Model for the footer mbennabi 31/05/2017
@@ -20,7 +21,9 @@ import com.day.cq.wcm.api.Page;
 public class FooterUse extends WCMUsePojo {
 
     private Iterator<Page> pagesMainColIterator;
+    private Iterator<Page> pagesMainColIterator2;
     private Iterator<Page> pagesBottomLineIterator;
+    private Iterator<Page> pagesBottomLineIterator2;
 
     private Page pageSubCol1;
     private Page pageSubCol2;
@@ -36,6 +39,7 @@ public class FooterUse extends WCMUsePojo {
     private String twitterReference;
     private String instagramReference;
     private String pinterestReference;
+    private String brochureimage;
 
     /**
      * Initialize the component.
@@ -43,7 +47,6 @@ public class FooterUse extends WCMUsePojo {
     @Override
     public void activate() throws Exception {
         InheritanceValueMap properties = new HierarchyNodeInheritanceValueMap(getResource());
-
         final String[] mainCol = properties.getInherited("reference", String[].class);
         ArrayList<Page> pagesMainCol = new ArrayList<Page>();
         if (mainCol != null) {
@@ -52,6 +55,7 @@ public class FooterUse extends WCMUsePojo {
             }
         }
         pagesMainColIterator = pagesMainCol.iterator();
+        pagesMainColIterator2 = pagesMainCol.iterator();
 
         // internal pages
         final String subCol1 = properties.getInherited("subCol1", String.class);
@@ -87,6 +91,10 @@ public class FooterUse extends WCMUsePojo {
             }
         }
         pagesBottomLineIterator = pagesBottomLine.iterator();
+        pagesBottomLineIterator2 = pagesBottomLine.iterator();
+        
+        //brochure image
+        brochureimage = properties.getInherited("brochureimage", String.class);
     }
 
     /**
@@ -172,12 +180,32 @@ public class FooterUse extends WCMUsePojo {
     public Iterator<Page> getPagesBottomLineIterator() {
         return pagesBottomLineIterator;
     }
+    
+    public Iterator<Page> getPagesBottomLineIterator2() {
+        return pagesBottomLineIterator2;
+    }
 
     public Iterator<Page> getPagesMainColIterator() {
         return pagesMainColIterator;
     }
     
+    public Iterator<Page> getPagesMainColIterator2() {
+        return pagesMainColIterator2;
+    }
+    
     public int getYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
+    
+    /**
+     * @return the brochures page
+     */
+    public String getBrochuresPagePath() {
+        return PathUtils.getBrochuresPagePath(getResource(), getCurrentPage());
+    }
+
+	public String getBrochureimage() {
+		return brochureimage;
+	}
+    
 }
