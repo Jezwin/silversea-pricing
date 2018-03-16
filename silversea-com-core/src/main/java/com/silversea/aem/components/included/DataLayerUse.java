@@ -36,6 +36,7 @@ public class DataLayerUse extends WCMUsePojo {
     private String pageCategory2 = "";
     private String pageCategory3 = "";
     private String destinationId = "";
+    private String shipId = "";
     private String destinationName = "";
     private String voyageId = "";
     private String departureDay = "";
@@ -249,6 +250,7 @@ public class DataLayerUse extends WCMUsePojo {
         //Ship Fill Ship
         if (contentResource.isResourceType(WcmConstants.RT_SHIP)) {
         	shipName = (String) getCurrentPage().getName();
+        	shipId = (String) contentResource.getValueMap().get("shipId");
         }
 
         // Cruise details
@@ -270,6 +272,7 @@ public class DataLayerUse extends WCMUsePojo {
                 voyageType = cruiseModel.getCruiseType();
 
                 shipName = cruiseModel.getShip().getName();
+                shipId = cruiseModel.getShip().getShipId();
 
                 // init lowest price and waitlist based on geolocation
                 PriceModel lowestPrice = null;
@@ -510,6 +513,10 @@ public class DataLayerUse extends WCMUsePojo {
         return destinationId;
     }
 
+    public String getShipId() {
+        return shipId;
+    }
+    
     public String getDestinationName() {
         return destinationName;
     }
