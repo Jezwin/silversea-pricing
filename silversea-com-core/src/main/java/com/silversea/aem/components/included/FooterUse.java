@@ -21,9 +21,7 @@ import com.silversea.aem.utils.PathUtils;
 public class FooterUse extends WCMUsePojo {
 
     private Iterator<Page> pagesMainColIterator;
-    private Iterator<Page> pagesMainColIterator2;
     private Iterator<Page> pagesBottomLineIterator;
-    private Iterator<Page> pagesBottomLineIterator2;
 
     private Page pageSubCol1;
     private Page pageSubCol2;
@@ -40,6 +38,18 @@ public class FooterUse extends WCMUsePojo {
     private String instagramReference;
     private String pinterestReference;
     private String brochureimage;
+    
+    //New Black Brochure Style
+    private Iterator<Page> pagesCol1Iterator;
+    private Iterator<Page> pagesCol2Iterator;
+    private Iterator<Page> pagesCol3Iterator;
+    private Iterator<Page> pagesCol4Iterator;
+    private Iterator<Page> pagesBottomLineIterator2;
+    
+    private String Col1title;
+    private String Col2title;
+    private String Col3title;
+    private String Col4title;
 
     /**
      * Initialize the component.
@@ -55,8 +65,6 @@ public class FooterUse extends WCMUsePojo {
             }
         }
         pagesMainColIterator = pagesMainCol.iterator();
-        pagesMainColIterator2 = pagesMainCol.iterator();
-
         // internal pages
         final String subCol1 = properties.getInherited("subCol1", String.class);
         final String subCol2 = properties.getInherited("subCol2", String.class);
@@ -93,8 +101,48 @@ public class FooterUse extends WCMUsePojo {
         pagesBottomLineIterator = pagesBottomLine.iterator();
         pagesBottomLineIterator2 = pagesBottomLine.iterator();
         
-        //brochure image
+        //brochure style properties
+        final String[] Col1 = properties.getInherited("col1", String[].class);
+        ArrayList<Page> pagesCol1 = new ArrayList<Page>();
+        if (Col1 != null) {
+            for (int i = 0; i < Col1.length; i++) {
+            	pagesCol1.add(getPageFromPath(Col1[i]));
+            }
+        }
+        
+        final String[] Col2 = properties.getInherited("col2", String[].class);
+        ArrayList<Page> pagesCol2 = new ArrayList<Page>();
+        if (Col2 != null) {
+            for (int i = 0; i < Col2.length; i++) {
+            	pagesCol2.add(getPageFromPath(Col2[i]));
+            }
+        }
+        
+        final String[] Col3 = properties.getInherited("col3", String[].class);
+        ArrayList<Page> pagesCol3 = new ArrayList<Page>();
+        if (Col3 != null) {
+            for (int i = 0; i < Col3.length; i++) {
+            	pagesCol3.add(getPageFromPath(Col3[i]));
+            }
+        }
+        
+        final String[] Col4 = properties.getInherited("col4", String[].class);
+        ArrayList<Page> pagesCol4 = new ArrayList<Page>();
+        if (Col4 != null) {
+            for (int i = 0; i < Col4.length; i++) {
+            	pagesCol4.add(getPageFromPath(Col4[i]));
+            }
+        }
+        
+        pagesCol1Iterator = pagesCol1.iterator();
+        pagesCol2Iterator = pagesCol2.iterator();
+        pagesCol3Iterator = pagesCol3.iterator();
+        pagesCol4Iterator = pagesCol4.iterator();
         brochureimage = properties.getInherited("brochureimage", String.class);
+        Col1title = properties.getInherited("Col1title", String.class);
+        Col2title = properties.getInherited("Col2title", String.class);
+        Col3title = properties.getInherited("Col3title", String.class);
+        Col4title = properties.getInherited("Col4title", String.class);
     }
 
     /**
@@ -180,17 +228,9 @@ public class FooterUse extends WCMUsePojo {
     public Iterator<Page> getPagesBottomLineIterator() {
         return pagesBottomLineIterator;
     }
-    
-    public Iterator<Page> getPagesBottomLineIterator2() {
-        return pagesBottomLineIterator2;
-    }
 
     public Iterator<Page> getPagesMainColIterator() {
         return pagesMainColIterator;
-    }
-    
-    public Iterator<Page> getPagesMainColIterator2() {
-        return pagesMainColIterator2;
     }
     
     public int getYear() {
@@ -200,12 +240,49 @@ public class FooterUse extends WCMUsePojo {
     /**
      * @return the brochures page
      */
+    
+    
     public String getBrochuresPagePath() {
         return PathUtils.getBrochuresPagePath(getResource(), getCurrentPage());
     }
 
+	public Iterator<Page> getPagesCol1Iterator() {
+		return pagesCol1Iterator;
+	}
+
+	public Iterator<Page> getPagesCol2Iterator() {
+		return pagesCol2Iterator;
+	}
+
+	public Iterator<Page> getPagesCol3Iterator() {
+		return pagesCol3Iterator;
+	}
+
+	public Iterator<Page> getPagesCol4Iterator() {
+		return pagesCol4Iterator;
+	}
+
 	public String getBrochureimage() {
 		return brochureimage;
 	}
-    
+
+	public String getCol1title() {
+		return Col1title;
+	}
+
+	public String getCol2title() {
+		return Col2title;
+	}
+
+	public String getCol3title() {
+		return Col3title;
+	}
+
+	public String getCol4title() {
+		return Col4title;
+	}
+
+	public Iterator<Page> getPagesBottomLineIterator2() {
+		return pagesBottomLineIterator2;
+	}
 }
