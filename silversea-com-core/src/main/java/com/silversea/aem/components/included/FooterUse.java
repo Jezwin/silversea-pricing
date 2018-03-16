@@ -46,7 +46,6 @@ public class FooterUse extends WCMUsePojo {
     private Iterator<Page> pagesCol4Iterator;
     private Iterator<Page> pagesBottomLineIterator2;
     
-    private String Col1title;
     private String Col2title;
     private String Col3title;
     private String Col4title;
@@ -139,7 +138,6 @@ public class FooterUse extends WCMUsePojo {
         pagesCol3Iterator = pagesCol3.iterator();
         pagesCol4Iterator = pagesCol4.iterator();
         brochureimage = properties.getInherited("brochureimage", String.class);
-        Col1title = properties.getInherited("Col1title", String.class);
         Col2title = properties.getInherited("Col2title", String.class);
         Col3title = properties.getInherited("Col3title", String.class);
         Col4title = properties.getInherited("Col4title", String.class);
@@ -264,10 +262,6 @@ public class FooterUse extends WCMUsePojo {
 
 	public String getBrochureimage() {
 		return brochureimage;
-	}
-
-	public String getCol1title() {
-		return Col1title;
 	}
 
 	public String getCol2title() {
