@@ -31,8 +31,23 @@ public class EoTokenDataSource extends WCMUsePojo {
 		final ResourceResolver resolver = getResource().getResourceResolver();
 
 		final Map<String, String> tokens = new LinkedHashMap<String, String>();
+		
+		String pageUrl = null;
+		if(getRequest().getQueryString().contains("%2F")) {
+			/*
+			 * item=%2Fcontent%2Fsilversea-com%2Fen%2Fexclusive-offers%2Fsilver-select-program
+			 * */
+			pageUrl = getRequest().getQueryString().replace("%2F", "/").replace("item=", "");
+		} else {
+			/*/
+			 * mnt/override/apps/silversea/silversea-com/components/pages/exclusiveoffer/_cq_dialog.html/content/silversea-com/en/exclusive-offers/silver-select-program/jcr:content
+			 * */
+			String[] splitURL = getRequest().getPathInfo().split("_cq_dialog.html");
+			if (splitURL != null && splitURL.length > 0) {
+				pageUrl = splitURL[1].replace("/jcr:content", "");
+			}
+		}
 
-		String pageUrl = getRequest().getQueryString().replace("%2F", "/").replace("item=", "");
 
 		if (pageUrl != null) {
 			Resource resource = getResourceResolver().resolve(pageUrl);
