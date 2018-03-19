@@ -1,16 +1,20 @@
 package com.silversea.aem.components.included;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.components.beans.ModalDetailBean;
-import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.PriceHelper;
+import com.silversea.aem.models.ComboCruiseModel;
 import com.silversea.aem.models.DiningModel;
+import com.silversea.aem.models.PriceModel;
 import com.silversea.aem.models.PublicAreaModel;
+import com.silversea.aem.models.SuiteModel;
 import com.silversea.aem.models.SuiteVariationModel;
 import com.silversea.aem.utils.PathUtils;
 
@@ -25,22 +29,32 @@ public class ModalDetailUse extends WCMUsePojo {
 		String suffix = getRequest().getRequestPathInfo().getSuffix();
 		String selector = getRequest().getRequestPathInfo().getSelectorString();
 		
-		if (suffix.contains("suites-prices")) {
+		if (getCurrentPage().getPath().contains("/destinations/")) { 
 			key = "suite";
-			SuitePrice suitePrice = getCurrentPage().adaptTo(SuitePrice.class);
-			if (suitePrice != null && suitePrice.getSuite() != null) {
+			ComboCruiseModel comboCruiseModel = getCurrentPage().adaptTo(ComboCruiseModel.class);
+			SuiteModel suiteModel = null;
+			PriceModel priceModel = null;
+			Locale locale = getCurrentPage().getLanguage(false);
+			for (PriceModel p : comboCruiseModel.getPrices()) {
+				if(p.getSuiteCategory().equalsIgnoreCase(suffix)) {
+					suiteModel = p.getSuite(); 
+					priceModel= p;
+				}
+			}
+			if (suiteModel != null && priceModel != null) {
 				detail = new ModalDetailBean();
-				detail.setTitle(suitePrice.getSuite().getTitle());
-				detail.setLongDescription(suitePrice.getSuite().getLongDescription());
-				detail.setBedroomsInformation(suitePrice.getSuite().getBedroomsInformation());
-				detail.setAssetSelectionReference(suitePrice.getSuite().getAssetSelectionReference());
-				detail.setPlan(suitePrice.getSuite().getPlan());
-				detail.setLocationImage(suitePrice.getSuite().getLocationImage());
-				detail.setVirtualTour(suitePrice.getSuite().getVirtualTour());
-				detail.setFileReference(suitePrice.getSuite().getSuiteReference());
-				detail.setFeatures(suitePrice.getSuite().getFeatures());
-				detail.setLowestPrice(suitePrice.getLowestPrice());
-				detail.setComputedPriceFormated(suitePrice.getComputedPriceFormated());
+				detail.setTitle(suiteModel.getTitle());
+				detail.setLongDescription(suiteModel.getLongDescription());
+				detail.setBedroomsInformation(suiteModel.getBedroomsInformation());
+				detail.setAssetSelectionReference(suiteModel.getAssetSelectionReference());
+				detail.setPlan(suiteModel.getPlan());
+				detail.setLocationImage(suiteModel.getLocationImage());
+				detail.setVirtualTour(suiteModel.getVirtualTour());
+				detail.setFileReference(suiteModel.getSuiteReference());
+				detail.setFeatures(suiteModel.getFeatures());
+				detail.setLowestPrice(priceModel);
+				String computedPriceFormated = PriceHelper.getValue(locale, priceModel.getComputedPrice());
+				detail.setComputedPriceFormated(computedPriceFormated);
 			}
 		} else if (getCurrentPage().getPath().contains("/suites/")) {
 			key = "suite";
