@@ -3,4 +3,5 @@
     jcr:primaryType="cq:Component"
     jcr:title="SSC - Floating Brochure"
     sling:resourceSuperType="silversea/silversea-com/components/parbase"
-    componentGroup=".hidden"/>
+    componentGroup=".hidden"
+    designDialogPath="/apps/silversea/silversea-com/components/included/floatingbrochure/cq:design_dialog"/>

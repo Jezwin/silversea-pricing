@@ -28,31 +28,12 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <text
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                        fieldDescription="Enter Floating Brochure Text."
-                                        fieldLabel="Text"
-                                        name="./text"/>
-                                    <cta
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                        fieldDescription="Enter CTA Text."
-                                        fieldLabel="CTA Text"
-                                        name="./cta"/>
-                                    <ctaLink
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                        fieldDescription="Enter CTA Link."
-                                        fieldLabel="CTA Link"
-                                        name="./ctaLink"/>
-                                    <topPadding
+                                    <bottomPadding
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/numberfield"
-                                        fieldDescription="Enter Top Padding (Must be greater than 150) "
-                                        fieldLabel="Top Padding"
-                                        min="150"
-                                        name="./topPadding"/>
+                                        fieldDescription="Enter Bottom Padding"
+                                        fieldLabel="Bottom Padding"
+                                        name="./bottomPadding"/>
                                     <image
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
@@ -61,6 +42,38 @@
                                         name="./image"
                                         rootPath="/content/dam"/>
                                     <showFloatingBrochure/>
+                                    <scrollTop
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                        fieldDescription="Enter amount to be scrolled before this component can be seen"
+                                        fieldLabel="Scroll top amount"
+                                        name="./scrollTop"/>
+                                    <whitelistcssselector
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                        cq-msm-lockable="whitelistSelector"
+                                        fieldDescription="Enter a list of class names (without the starting dot) for which the floating brochure must be displayed on the page. Blank here means it would be displayed for the whole page. This has low precedence over page level selectors."
+                                        fieldLabel="Whitelist for CSS Selectors"
+                                        renderReadOnly="{Boolean}true">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            name="./whitelistSelector"
+                                            required="{Boolean}false"/>
+                                    </whitelistcssselector>
+                                    <blacklistcssselector
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                        cq-msm-lockable="blacklistSelector"
+                                        fieldDescription="Enter a list of class names (without the starting dot) for which the floating brochure must be hidden from the page. Blank here means it would be hidden for the whole page. This has low precedence over page level selectors."
+                                        fieldLabel="Blacklist for CSS Selectors"
+                                        renderReadOnly="{Boolean}true">
+                                        <field
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            name="./blacklistSelector"
+                                            required="{Boolean}false"/>
+                                    </blacklistcssselector>
                                 </items>
                             </column>
                         </items>
