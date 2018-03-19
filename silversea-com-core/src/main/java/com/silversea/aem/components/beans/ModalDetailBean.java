@@ -1,5 +1,7 @@
 package com.silversea.aem.components.beans;
 
+import com.silversea.aem.models.PriceModel;
+
 public class ModalDetailBean {
 
 	private String title;
@@ -12,6 +14,8 @@ public class ModalDetailBean {
 	private String[] features;
 	private String fileReference;
 	private String shipId;
+	private PriceModel lowestPrice;
+	private String computedPriceFormated;
 	
 	public String getTitle() {
 		return title;
@@ -72,5 +76,17 @@ public class ModalDetailBean {
 	}
 	public void setShipId(String shipId) {
 		this.shipId = shipId;
+	}
+	public PriceModel getLowestPrice() {
+		return lowestPrice;
+	}
+	public void setLowestPrice(PriceModel lowestPrice) {
+		this.lowestPrice = lowestPrice;
+	}
+	public String getComputedPriceFormated() {
+		return computedPriceFormated;
+	}
+	public void setComputedPriceFormated(String computedPriceFormated) {
+		this.computedPriceFormated = computedPriceFormated;
 	}
 }

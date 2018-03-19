@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.silversea.aem.components.beans.ModalDetailBean;
+import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.DiningModel;
 import com.silversea.aem.models.PublicAreaModel;
@@ -17,12 +18,31 @@ public class ModalDetailUse extends WCMUsePojo {
 
 	private ModalDetailBean detail;
 	private Map<String, String> type =new HashMap<>();
-	private boolean showLastMobileRaq;
 
 	@Override
 	public void activate() throws Exception {
 		String key = null;
-		if (getCurrentPage().getPath().contains("/suites/")) {
+		String suffix = getRequest().getRequestPathInfo().getSuffix();
+		String selector = getRequest().getRequestPathInfo().getSelectorString();
+		
+		if (suffix.contains("suites-prices")) {
+			key = "suite";
+			SuitePrice suitePrice = getCurrentPage().adaptTo(SuitePrice.class);
+			if (suitePrice != null && suitePrice.getSuite() != null) {
+				detail = new ModalDetailBean();
+				detail.setTitle(suitePrice.getSuite().getTitle());
+				detail.setLongDescription(suitePrice.getSuite().getLongDescription());
+				detail.setBedroomsInformation(suitePrice.getSuite().getBedroomsInformation());
+				detail.setAssetSelectionReference(suitePrice.getSuite().getAssetSelectionReference());
+				detail.setPlan(suitePrice.getSuite().getPlan());
+				detail.setLocationImage(suitePrice.getSuite().getLocationImage());
+				detail.setVirtualTour(suitePrice.getSuite().getVirtualTour());
+				detail.setFileReference(suitePrice.getSuite().getSuiteReference());
+				detail.setFeatures(suitePrice.getSuite().getFeatures());
+				detail.setLowestPrice(suitePrice.getLowestPrice());
+				detail.setComputedPriceFormated(suitePrice.getComputedPriceFormated());
+			}
+		} else if (getCurrentPage().getPath().contains("/suites/")) {
 			key = "suite";
 			SuiteVariationModel suiteVariation = getCurrentPage().adaptTo(SuiteVariationModel.class);
 			if (suiteVariation != null) {

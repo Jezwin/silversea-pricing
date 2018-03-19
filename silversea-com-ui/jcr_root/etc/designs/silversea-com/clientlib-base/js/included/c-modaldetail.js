@@ -119,6 +119,8 @@ $(function () {
  
     $('.modal-detail-link-ajax').on('click', function(e) {
         e.preventDefault();
+        $('html').addClass("no-scroll-html");
+        $('body').addClass("no-scroll-body");
         var $link = $(this),
             ajaxContentPath = $link.attr('href'),
             modalTarget = $link.data('target'),
@@ -135,8 +137,6 @@ $(function () {
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function() {
                 var modalBody = $modal.find(".modal-body");
-            	 $('html').addClass("no-scroll-html");
-                 $('body').addClass("no-scroll-body");
 
                  //window.location.hash = "#modal";
                  history.pushState(null, null, "#modal"); // push state that hash into the url
