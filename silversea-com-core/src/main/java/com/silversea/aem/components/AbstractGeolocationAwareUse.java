@@ -65,7 +65,7 @@ public class AbstractGeolocationAwareUse extends WCMUsePojo {
 			retVal = market.equalsIgnoreCase(this.geomarket);
 
 			if (retVal && (geoArea != null) && (this.geolocation.getRegion() != null)) {
-				retVal = geoArea.equalsIgnoreCase(this.geolocation.getRegion());
+				retVal = geoArea.equalsIgnoreCase(this.geolocation.getRegion()) || geoArea.equalsIgnoreCase(this.geolocation.getRegionFromPath());
 
 				if (retVal && (country != null) && (this.countryCode != null || this.countryCodeIso3 != null)) {
 					retVal = (country.equalsIgnoreCase(this.countryCode) || country
