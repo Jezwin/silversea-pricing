@@ -872,7 +872,7 @@ $(function() {
 		    						time_anim: '1000',
 		    						min_fov: 10,
 		    						usexmpdata: false,
-		    						default_fov: 179,
+		    						default_fov: 100,
 		    						navbar: [
 		    							'autorotate', 
 		    							'zoom',
