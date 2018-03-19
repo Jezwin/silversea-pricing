@@ -15,6 +15,7 @@ import com.silversea.aem.utils.PathUtils;
 
 public class ModalDetailUse extends WCMUsePojo {
 
+	private boolean showRaq = false;
 	private ModalDetailBean detail;
 	private Map<String, String> type =new HashMap<>();
 	private boolean showLastMobileRaq;
@@ -37,6 +38,7 @@ public class ModalDetailUse extends WCMUsePojo {
 				detail.setFileReference(suiteVariation.getSuiteReference());
 				detail.setFeatures(suiteVariation.getFeatures());
 				detail.setShipId(suiteVariation.getShipId());
+				this.showRaq = true;
 			}
 		} else if (getCurrentPage().getPath().contains("/dinings/")) {
 			key = "dining";
@@ -93,6 +95,10 @@ public class ModalDetailUse extends WCMUsePojo {
 	}
 	
 	public boolean showLastMobileRaq() {
-		return (detail != null) && (detail.getPlan() != null || detail.getFeatures() != null || detail.getLocationImage() != null);
+		return showRaq() && (detail != null) && (detail.getPlan() != null || detail.getFeatures() != null || detail.getLocationImage() != null);
+	}
+
+	public boolean showRaq() {
+		return showRaq;
 	}
 }
