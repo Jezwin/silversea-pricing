@@ -3,6 +3,12 @@ $(document).ready(function(){
 
         $('.floating-opener').off('click').on('click', function(){
             $(this).parent().toggleClass('visible');
+            if($(this).parent().hasClass("visible")){
+            	$(this).parent().css("right", "0px");
+        	}else{
+        		$(this).parent().css("right", "-220px");	
+        	}
+            
         });
 
         var $floatingBrochure = $('.floating-form'),
@@ -53,15 +59,27 @@ $(document).ready(function(){
                 isInViewport = false;
 
                 if(blacklist_elems.length && areElemsInView($(blacklist_elems))){
-                    $floatingBrochure.hide();
+                	$floatingBrochure.css("right", "-270px");
+                   // $floatingBrochure.hide();
                 } else { 
                     if(whitelisted_elems.length && areElemsInView($(whitelisted_elems))){
-                        $floatingBrochure.show();
+                        //$floatingBrochure.show();
+                    	if($floatingBrochure.hasClass("visible")){
+                    		$floatingBrochure.css("right", "0px");
+                    	}else{
+                    		$floatingBrochure.css("right", "-220px");	
+                    	}
                     } else {
                         if(window.scrollY >= minScroll){
-                            $floatingBrochure.show();
+                           // $floatingBrochure.show();
+                        	if($floatingBrochure.hasClass("visible")){
+                        		$floatingBrochure.css("right", "0px");
+                        	}else{
+                        		$floatingBrochure.css("right", "-220px");	
+                        	}
                         } else {
-                            $floatingBrochure.hide();
+                        	$floatingBrochure.css("right", "-270px");
+                           // $floatingBrochure.hide();
                         }
                     }
                 }

@@ -8,16 +8,16 @@
     <sly data-sly-test.isunDefined="${!pageProperties.showFloatingBrochure}"/>
     <sly data-sly-test.defaultValue="${pageProperties.showFloatingBrochure == 'blank'}"/>
     <sly data-sly-test.defaultShowValue="${pageProperties.showFloatingBrochure == 'show'}"/>
-    <div class="floating-brochure-ab-no-display">
+    <div class="floating-brochure-ab-no-display" id="floating-brochure">
         <sly data-sly-test="${defaultValue || isunDefined}">
             <sly data-sly-test="${currentStyle.showFloatingBrochure == 'true'}">
             <div class="floating-form" id="floating_form" data-scrolltop="${currentStyle.scrollTop}" data-flyout-tag-whitelist = "${floatingbrochure.whiteListArray}" data-flyout-tag-blacklist="${floatingbrochure.blackListArray}">
-                <div class="floating-opener">${'brochures' @ i18n}</div>
+                <div class="floating-opener" id="floating-brochure-opener">${'brochures' @ i18n}</div>
                 <div class="sliding-form">
                     <div class="floating-form-heading">${'floating-brochure-heading' @ i18n}</div>
                     <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=currentStyle.image}"/>
                     <sly data-sly-use.floatingbrochure="com.silversea.aem.components.included.FloatingBrochureUse" />
-                    <button class="flyout_cta flyout_cta btn btn-dark btn-block effect"><a data-sly-test=${floatingbrochure.brochuresPagePath} class="flyout_link" href="${floatingbrochure.brochuresPagePath @ extension='html'}">${'floating-brochure-ctatext' @ i18n}</a></button>
+                    <button class="flyout_cta flyout_cta btn btn-dark btn-block effect" id="floating-brochure-cta"><a data-sly-test=${floatingbrochure.brochuresPagePath} class="flyout_link" href="${floatingbrochure.brochuresPagePath @ extension='html'}">${'floating-brochure-ctatext' @ i18n}</a></button>
                 </div>
             </div>
             </sly>
@@ -29,7 +29,7 @@
             <div class="sliding-form">
                 <div class="floating-form-heading">${'floating-brochure-heading' @ i18n}</div>
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=currentStyle.image}"/>
-				<button class="flyout_cta flyout_cta btn btn-dark btn-block effect"><a data-sly-test=${floatingbrochure.brochuresPagePath} class="flyout_link" href="${floatingbrochure.brochuresPagePath @ extension='html'}">${'floating-brochure-ctatext' @ i18n}</a></button>
+				<button class="flyout_cta flyout_cta btn btn-dark btn-block effect" id="floating-brochure-cta"><a data-sly-test=${floatingbrochure.brochuresPagePath} class="flyout_link" href="${floatingbrochure.brochuresPagePath @ extension='html'}">${'floating-brochure-ctatext' @ i18n}</a></button>
             </div>
         </div>
     </sly>
