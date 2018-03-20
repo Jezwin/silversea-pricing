@@ -23,8 +23,10 @@ public class SuitePrice {
     private boolean isWaitList = true;
 
     private Locale locale;
+    
+    private String suiteCategory;
 
-    public SuitePrice(final SuiteModel suiteModel, final PriceModel price, final Locale locale) {
+    public SuitePrice(final SuiteModel suiteModel, final PriceModel price, final Locale locale, String suiteCategory) {
         this.suiteModel = suiteModel;
         pricesVariations.add(price);
 
@@ -34,6 +36,8 @@ public class SuitePrice {
         }
 
         this.locale = locale;
+        
+        this.suiteCategory = suiteCategory;
     }
 
     public SuiteModel getSuite() {
@@ -67,4 +71,9 @@ public class SuitePrice {
             isWaitList = false;
         }
     }
+
+	public String getSuiteCategory() {
+		return suiteCategory;
+	}
+
 }

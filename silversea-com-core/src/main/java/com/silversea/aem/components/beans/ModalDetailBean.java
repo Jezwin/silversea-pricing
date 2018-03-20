@@ -16,6 +16,8 @@ public class ModalDetailBean {
 	private String shipId;
 	private PriceModel lowestPrice;
 	private String computedPriceFormated;
+	private boolean isWaitList;
+	private String currency;
 	
 	public String getTitle() {
 		return title;
@@ -88,5 +90,17 @@ public class ModalDetailBean {
 	}
 	public void setComputedPriceFormated(String computedPriceFormated) {
 		this.computedPriceFormated = computedPriceFormated;
+	}
+	public boolean isWaitList() {
+		return isWaitList;
+	}
+	public void setWaitList(boolean isWaitList) {
+		this.isWaitList = isWaitList;
+	}
+	public String getCurrency() {
+		return currency;
+	}
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 }

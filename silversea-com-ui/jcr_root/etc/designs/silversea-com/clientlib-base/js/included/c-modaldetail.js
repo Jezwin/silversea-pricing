@@ -43,7 +43,7 @@ $(function () {
 		var modalBody = $(".modal-body");
 	    //only desktop
         if (modalBody.hasClass("automatic-modal-body-modal-detail-desktop")) {
-        	modalBody.parent().parent().parent().css("top", "9%");
+        	modalBody.parent().parent().parent().css("top", "8%");
 
             //create virtual tour on desktop
         	modalBody.find(".c-modal-detail-virtual-tour-lightbox").on("click", function (e) {
@@ -95,11 +95,11 @@ $(function () {
         	var changeTemplate = false;
         	if ($modalBody.hasClass("automatic-modal-body-modal-detail-desktop")) {
         		if ($(window).width() <= 768) {
-        			changeTemplate-= true;
+        			changeTemplate= true;
         		}
         	} else if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
         		if ($(window).width() > 768) {
-        			changeTemplate-= true;
+        			changeTemplate= true;
         		}
         	}
         	if (changeTemplate) {

@@ -78,7 +78,7 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
                 }
 
                 if (!added) {
-                    prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale));
+                    prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale, priceModel.getSuiteCategory()));
                 }
 
                 // Init lowest price

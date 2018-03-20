@@ -1,15 +1,16 @@
 package com.silversea.aem.models;
 
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.silversea.aem.constants.WcmConstants;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.silversea.aem.constants.WcmConstants;
 
 @Model(adaptables = Resource.class)
 public class PriceModel {

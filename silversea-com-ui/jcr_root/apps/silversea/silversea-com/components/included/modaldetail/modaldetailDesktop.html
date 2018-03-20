@@ -2,7 +2,7 @@
 	 <div class="modal-body automatic-modal-body-modal-detail-desktop automatic-modal-body-modal-detail">     
         <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
         <sly data-sly-use.extPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
- 	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${extPath.externalizedTranslatedUrl @ extension='html', selectors='modalcontentmobile'}"></span>
+ 	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${extPath.externalizedTranslatedUrl @ extension='html', selectors='modalcontentmobile', suffix=modal.suffixResizeUrl}"></span>
          <div class="row clearfix c-modal-detail-modal">     
              <div class="col-xs-8 c-modal-detail-modal-left-side">     
                  <ul class="nav nav-tabs  c-modal-detail-modal-navtabs" role="tablist">     
@@ -66,9 +66,9 @@
                  	<p>
 						<span class="suite-early-booking">${'from' @ i18n}</span> 
 						<span> 
-							<strong class="c-suitelist__price__text--important5">  
-								<span data-sly-test="${modal.detail.isWaitList}">${'waitlist' @ i18n}</span>
-								<span data-sly-test="${!modal.detail.isWaitList}">${modal.detail.lowestPrice.currency @ i18n} ${modal.detail.computedPriceFormated}</span> 
+							<strong>  
+								<span class="c-modal-detail-modal-price-and-currency" data-sly-test="${modal.detail.isWaitList}">${'waitlist' @ i18n}</span>
+								<span class="c-modal-detail-modal-price-and-currency" data-sly-test="${!modal.detail.isWaitList}">${modal.detail.currency @ i18n} ${modal.detail.computedPriceFormated}</span> 
 							</strong> 
 					    </span> 
 		   				<span data-sly-test="${modal.detail.lowestPrice.earlyBookingBonus}" class="suite-early-booking">${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}</span> 
