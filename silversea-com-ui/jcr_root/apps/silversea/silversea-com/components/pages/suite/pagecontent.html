@@ -17,9 +17,19 @@
                         </li>
                     </ul>
                 </div>
+                <sly data-sly-test="${suiteUse.suiteReferenceList.size > 3}"> 
+	                 <style>
+	                 @media (min-width:768px){
+	                 	.c-single-suite-availability li.col-md-3.c-list__item {
+	                 
+						    	float:left !important;
+							}
+						}
+	                 </style>
+                 </sly>
             </section>
             <div data-sly-resource="${'slider' @ resourceType='silversea/silversea-com/components/included/suiteslider'}"></div>
-			<div data-sly-resource="${'mozaic-slider' @ resourceType='silversea/silversea-com/components/editorial/mozaicslider'}"></div>
+			<div data-sly-resource="${'mozaic-slider' @ resourceType='silversea/silversea-ssc/components/editorial/mozaicSlider'}"></div>
         </div>
     </div>
 </div>

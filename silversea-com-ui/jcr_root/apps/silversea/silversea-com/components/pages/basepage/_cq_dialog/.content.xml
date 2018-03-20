@@ -506,6 +506,12 @@
                                         cq-msm-lockable="metaDescription"
                                         fieldLabel="MetaDescription"
                                         name="./metaDescription"/>
+                                   <canonicalURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        cq-msm-lockable="canonicalURL"
+                                        fieldLabel="canonicalURL"
+                                        name="./canonicalURL"/>
                                 </items>
                             </column>
                         </items>

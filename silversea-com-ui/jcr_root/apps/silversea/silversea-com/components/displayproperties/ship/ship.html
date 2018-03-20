@@ -3,6 +3,11 @@
     <div class="c-pageheader__decription text">
         ${pageProperties.longDescription || currentPage.description @ context='html' }
     </div>
+    <div class="c-pageheader__deckplan hidden-xs" data-sly-test="${pageProperties.deckPlan}">
+        <a data-sly-test.deckPlan="${pageProperties.deckPlan}" href="${deckPlan}" target="_blank" class="hidden-xs">
+                <strong>${'view-deck-plan' @ i18n}</strong>
+        </a>
+    </div>
     <div class="c-pageheader__properties" data-sly-test="${pageProperties.guestsCapacity || pageProperties.crewCapacity || pageProperties.builtDate || pageProperties.tonnage}">
         <ul class="c-list-inline__group c-list-inline__group--justify-tablet c-list-inline__group--divider-dark-tablet h-important">
             <li class="c-list-inline__item c-list-inline__item--no-separated">

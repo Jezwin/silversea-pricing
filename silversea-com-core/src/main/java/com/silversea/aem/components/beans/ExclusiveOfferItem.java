@@ -1,9 +1,14 @@
 package com.silversea.aem.components.beans;
 
+import com.ctc.wstx.util.StringUtil;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.models.ExclusiveOfferModel;
-import org.apache.commons.lang3.StringUtils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.scripting.SlingScriptHelper;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,82 +20,159 @@ public class ExclusiveOfferItem {
     private ExclusiveOfferModel exclusiveOffer;
 
     private ExclusiveOfferModel exclusiveOfferVariation;
+    
+    private String title;
+    
+    private String description;
+    
+    private String shortDescription;
+    
+    private String mapOverhead;
+    
+    private String exclusiveOfferPath;
+    
+    private List<String> cruiseFareAdditions;
+    
+    private List<String> footnotes;
+    
+    private Boolean newSystem;
 
     private String destinationPath;
+    
+    private String imageLBPath;
+    
+    private Boolean isLBGreyBoxActivated;
 
-    public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath) {
-        this.exclusiveOffer = exclusiveOffer;
+    public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath, EoBean result) {
+		
+	        this.exclusiveOffer = exclusiveOffer;
+	        newSystem = false;
+	        if(result == null){ //Rely on the old system
+		        if (this.exclusiveOffer.getVariations() != null) {
+		            for (final ExclusiveOfferModel variation : this.exclusiveOffer.getVariations()) {
+		            	if(variation.getTagIds() != null){
+			                for (final String tagId : variation.getTagIds()) {
+			                    // TODO add method to compare geolocation
+			                    if (tagId.startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX) && tagId.endsWith("/" + countryCodeIso2)) {
+			                        exclusiveOfferVariation = variation;
+			                        break;
+			                    }
+			                }
+		            	}
+		                if (exclusiveOfferVariation != null) {
+		                    break;
+		                }
+		            }
+		        }
+	        }else{ //Rely on the new EO System 
+	        	newSystem = true;
 
-        if (this.exclusiveOffer.getVariations() != null) {
-            for (final ExclusiveOfferModel variation : this.exclusiveOffer.getVariations()) {
-            	if(variation.getTagIds() != null){
-	                for (final String tagId : variation.getTagIds()) {
-	                    // TODO add method to compare geolocation
-	                    if (tagId.startsWith(WcmConstants.GEOLOCATION_TAGS_PREFIX) && tagId.endsWith("/" + countryCodeIso2)) {
-	                        exclusiveOfferVariation = variation;
-	                        break;
-	                    }
-	                }
-            	}
-                if (exclusiveOfferVariation != null) {
-                    break;
-                }
-            }
-        }
-
-        this.destinationPath = destinationPath;
+				title = result.getTitle();
+				description = result.getDescription();
+				shortDescription = result.getShortDescription();
+				mapOverhead = result.getMapOverhead();
+				footnotes = new ArrayList<String>();
+				cruiseFareAdditions = new ArrayList<String>();
+				exclusiveOfferPath = exclusiveOffer.getPath();
+				imageLBPath = exclusiveOffer.getPathImageLB();
+				isLBGreyBoxActivated = exclusiveOffer.getActiveGreysBoxes();
+				if(StringUtils.isNotEmpty(result.getFootnote())){
+					footnotes.add(result.getFootnote());
+				}
+				if(result.getCruiseFares() != null && result.getCruiseFares().length > 0){
+					for (int i = 0; i < result.getCruiseFares().length; i++) {
+						if (StringUtils.isNotEmpty(result.getCruiseFares()[i].additionalFare)){
+							cruiseFareAdditions.add(result.getCruiseFares()[i].additionalFare);
+						}
+						if (StringUtils.isNotEmpty(result.getCruiseFares()[i].footnote)){
+							footnotes.add(result.getCruiseFares()[i].footnote);
+						}
+					}
+				}
+				
+	        }
+	
+	        this.destinationPath = destinationPath;
+    }
+    
+    public Boolean getNewSystem(){
+    	return newSystem;
     }
 
     public String getTitle() {
-        if (exclusiveOfferVariation != null) {
-            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getTitle(), exclusiveOffer.getTitle());
-        }
-
-        return exclusiveOffer.getTitle();
+    	if(!newSystem){
+	        if (exclusiveOfferVariation != null) {
+	            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getTitle(), exclusiveOffer.getTitle());
+	        }
+	
+	        return exclusiveOffer.getTitle();
+    	}else{
+    		return title;
+    	}
     }
 
     public String getDescription() {
-        if (destinationPath != null && exclusiveOffer.getDestinationsTexts().containsKey(destinationPath)) {
-            return exclusiveOffer.getDestinationsTexts().get(destinationPath);
-        }
-
-        if (exclusiveOfferVariation != null) {
-            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getDescription(), exclusiveOffer.getDescription());
-        }
-
-        return exclusiveOffer.getDescription();
+    	if(!newSystem){
+	        if (destinationPath != null && exclusiveOffer.getDestinationsTexts().containsKey(destinationPath)) {
+	            return exclusiveOffer.getDestinationsTexts().get(destinationPath);
+	        }
+	
+	        if (exclusiveOfferVariation != null) {
+	            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getDescription(), exclusiveOffer.getDescription());
+	        }
+	
+	        return exclusiveOffer.getDescription();
+    	}else{
+    		return shortDescription;
+    	}
     }
 
     public String getLongDescription() {
-        if (exclusiveOfferVariation != null) {
-            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getLongDescription(), exclusiveOffer.getLongDescription());
-        }
-
-        return exclusiveOffer.getLongDescription();
+    	if(!newSystem){
+	        if (exclusiveOfferVariation != null) {
+	            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getLongDescription(), exclusiveOffer.getLongDescription());
+	        }
+	
+	        return exclusiveOffer.getLongDescription();
+    	}else{
+    		return description;
+    	}
     }
 
     public List<String> getCruiseFareAdditions() {
-        if (exclusiveOfferVariation != null && exclusiveOfferVariation.getCruiseFareAdditions() != null && !exclusiveOfferVariation.getCruiseFareAdditions().isEmpty()) {
-            return exclusiveOfferVariation.getCruiseFareAdditions();
-        }
-
-        return exclusiveOffer.getCruiseFareAdditions();
+    	if(!newSystem){
+	        if (exclusiveOfferVariation != null && exclusiveOfferVariation.getCruiseFareAdditions() != null && !exclusiveOfferVariation.getCruiseFareAdditions().isEmpty()) {
+	            return exclusiveOfferVariation.getCruiseFareAdditions();
+	        }
+	
+	        return exclusiveOffer.getCruiseFareAdditions();
+    	}else{
+    		return cruiseFareAdditions;
+    	}
     }
 
     public List<String> getFootNotes() {
-        if (exclusiveOfferVariation != null && exclusiveOfferVariation.getFootNotes() != null && !exclusiveOfferVariation.getFootNotes().isEmpty()) {
-            return exclusiveOfferVariation.getFootNotes();
-        }
-
-        return exclusiveOffer.getFootNotes();
+    	if(!newSystem){
+	        if (exclusiveOfferVariation != null && exclusiveOfferVariation.getFootNotes() != null && !exclusiveOfferVariation.getFootNotes().isEmpty()) {
+	            return exclusiveOfferVariation.getFootNotes();
+	        }
+	
+	        return exclusiveOffer.getFootNotes();
+    	}else{
+    		return footnotes;
+    	}
     }
 
     public String getMapOverHead() {
-        if (exclusiveOfferVariation != null) {
-            return StringUtils.defaultString(exclusiveOfferVariation.getMapOverHead(), exclusiveOffer.getMapOverHead());
-        }
-
-        return exclusiveOffer.getMapOverHead();
+    	if(!newSystem){
+	        if (exclusiveOfferVariation != null) {
+	            return StringUtils.defaultString(exclusiveOfferVariation.getMapOverHead(), exclusiveOffer.getMapOverHead());
+	        }
+	
+	        return exclusiveOffer.getMapOverHead();
+    	}else{
+    		return mapOverhead;
+    	}
     }
 
     public String getLightboxReference() {
@@ -99,6 +181,18 @@ public class ExclusiveOfferItem {
         }
 
         return exclusiveOffer.getLightboxReference();
+    }
+    
+    public String getExclusiveOfferPath(){
+    	return exclusiveOfferPath;
+    }
+    
+    public String getImageLBPath(){
+    	return imageLBPath;
+    }
+    
+    public Boolean getIsLBGreyBoxActivated(){
+    	return isLBGreyBoxActivated;
     }
 
     public String getPricePrefix() {

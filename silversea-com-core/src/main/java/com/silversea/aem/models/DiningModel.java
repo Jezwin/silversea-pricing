@@ -46,6 +46,9 @@ public class DiningModel implements ShipAreaModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/diningReference") @Optional
     private String diningReference;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipId") @Optional
+    private String shipId;
 
     private List<Asset> assets = new ArrayList<>();
 
@@ -103,5 +106,9 @@ public class DiningModel implements ShipAreaModel {
 
     public Page getPage() {
         return page;
+    }
+    
+    public String getShipId() {
+ 		return shipId;
     }
 }

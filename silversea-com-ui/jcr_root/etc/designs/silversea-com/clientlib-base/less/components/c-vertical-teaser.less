@@ -5,8 +5,28 @@
     	margin-bottom: 20px;
     }
     
+    @media(min-width: 769px){
+    	.hideModalMobile {
+    		display: none;
+    	}
+    }
+    
+      @media(max-width: 768px){
+    	.hideModalDekstop {
+    		display: none;
+    	}
+    }
+    
+    
     &__image-wrapper {
         position: relative;
+    }
+    
+    &__image-wrapper-new{
+    	background-color:black;
+    	img{
+    		transition:0.3s;
+    	}
     }
 
     picture {
@@ -21,6 +41,7 @@
         transition: opacity 0.3s ease;
         width: 100%;
     }
+    
 
     .thumbnail &__caption {
         height: 230px;
@@ -157,7 +178,10 @@
         &__image-wrapper {
     			width: 100%;
     			position:relative;
-    			
+    			background-color:black;
+    			img{
+    				transition:0.2s;
+    			}
             	
     	}
         &__caption{
@@ -213,7 +237,10 @@
     			vertical-align: middle;
     			width: 100%;
             	}
-
+				background-color:black;
+    			img{
+    				transition:0.2s;
+    			}
     	}
 
         &__title_sm {
@@ -233,7 +260,6 @@
                     font-size:18px;
                     }
             font: 400 30px @f-theano_didot;
-            font-weight: bold;
             text-transform: uppercase;
         }
 

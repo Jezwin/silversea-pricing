@@ -6,7 +6,7 @@
     sling:resourceType="sling:redirect"
     sling:target="/tagging"
     hidden="{Boolean}true"
-    languages="[en,de,es,fr,it,pt_br,zh_cn,zh_tw,ja,ko_kr]">
+    languages="[en,de,es,fr,it,pt_br,zh_cn,zh_tw,ja,ko_kr,ru]">
     <languages>
         <en/>
         <fr/>

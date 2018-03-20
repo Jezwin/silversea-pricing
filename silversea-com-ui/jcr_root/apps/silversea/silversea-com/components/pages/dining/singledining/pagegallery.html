@@ -1,0 +1,5 @@
+<template data-sly-template.default="${ @ diningUse }">
+ <div class="c-dining-gallery" data-sly-test="${diningUse.allAssetForDining}">
+                <sly data-sly-use.galleryTemplate="silversea/silversea-com/components/pages/dining/singledining/gallerytemplate.html" data-sly-call="${galleryTemplate.default @ diningAssetsList = diningUse.allAssetForDining}" />
+  </div>
+</template>

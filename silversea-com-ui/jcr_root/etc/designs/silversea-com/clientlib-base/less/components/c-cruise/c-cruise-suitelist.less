@@ -521,6 +521,7 @@ a
             	@media (min-width: 768px) {
             		display: table;
             		padding-top: 10px;
+            		height: 58px;
             	}
             	
             	&-whitelist {
@@ -711,8 +712,13 @@ a
     
     .features-ul {
     	max-height: 530px;
-    	overflow-y: scroll;
+    	overflow-y: auto;
+    	overflow-x: hidden;
     }
+    
+    .tab-content-grey {
+		background-color: rgba(238,238,238,0.4)!important;
+	}
     
     
     
@@ -742,17 +748,10 @@ a
     	padding-right: 0px;
     	
 	    @media (max-width: 768px) {
-    		height: 462px;
-    		margin-bottom: -34px;
-    		padding-top: 0%;	
+    		min-height: 462px;
     	}
     	@media (max-width: 767px) {
-    		height: 220px;
-    		padding-top: 5%;
-    	}
-    	@media (max-width: 500px) {
-    		height: 220px;
-    		padding-top: 10%;
+    		min-height: 220px;
     	}
     }
     
@@ -846,9 +845,7 @@ a
     }
     
     .nav-tabs>li {
-	    //display: table-cell;
 	    text-align: left;
-	    //width: 20%;
 	}
 	    
     .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
@@ -898,7 +895,7 @@ a
         }
     	
     	@media (max-width: 767px) {
-    		bottom: -37px;
+    		bottom: 10px;
     		right: 15px;
     	}
     }
@@ -935,23 +932,15 @@ a
         margin-top: 0px;
         @media (max-width: 768px) {
         	margin-bottom: 12px;
-        	margin-top: 40px;
+        	margin-top: 20px;
   	        font-size: 37px;
   	        line-height: 26px;
         }
         @media (max-width: 767px) {
   	        font-size: 31px;
   	        margin-bottom: 16px;
-  	        margin-top: 85px;
         }
         
-         @media (max-width: 737px) {
-  	        margin-top: 114px;
-        }
-        
-         @media (max-width: 500px) {
-  	        margin-top: 110px;
-        }
         &-section {
         	@media (max-width: 768px) {
         		font-size: 30px; 

@@ -28,6 +28,8 @@ components/c-archives.js
 components/t-port.js
 components/c-portdest.js
 components/c-button.js
+components/c-singledining.js
 components/c-singlesuite.js
 components/c-contactus.js
 components/c-floatingbrochure.js
+included/c-modaldetail.js

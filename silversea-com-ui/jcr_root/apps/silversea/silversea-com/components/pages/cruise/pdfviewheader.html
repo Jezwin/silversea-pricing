@@ -15,18 +15,22 @@
 	</div>
     <sly data-sly-use.header="com.silversea.ssc.aem.models.PDFCruiseUse">
       <sly data-sly-test.isCcpt="${header.ccptAvailable}">
-       <div class="header__call">
-        <div class="header__call__beforetitle">${header.header_beforeTitle}</div>
-        <div class="header__call__title">${header.header_title}</div>
-        <div class="header__call__aftertitle">${header.header_afterTitle}</div>
-       </div>
+      <sly data-sly-test="${!header.taSelected}">
+	       <div class="header__call">
+	        <div class="header__call__beforetitle">${header.header_beforeTitle}</div>
+	        <div class="header__call__title">${header.header_title}</div>
+	        <div class="header__call__aftertitle">${header.header_afterTitle}</div>
+	       </div>
+       </sly>
       </sly>
       <sly data-sly-test="${!isCcpt}">
-       <div class="header__call" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
-        <div class="header__call__beforetitle">${'call-reservations-team-1' @ i18n}</div>
-        <div class="header__call__title">${countryHelper.localizedPhone}</div>
-        <div class="header__call__aftertitle">${'call-reservations-team-2' @ i18n}</div>
-       </div>
+	      <sly data-sly-test="${!header.taSelected}">
+		       <div class="header__call" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+		        <div class="header__call__beforetitle">${'call-reservations-team-1' @ i18n}</div>
+		        <div class="header__call__title">${countryHelper.localizedPhone}</div>
+		        <div class="header__call__aftertitle">${'call-reservations-team-2' @ i18n}</div>
+		       </div>
+	       </sly>
       </sly>
      </sly>
 </div>

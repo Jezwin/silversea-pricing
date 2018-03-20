@@ -68,13 +68,20 @@
 
                         <div class="voyagefeature__offer" data-sly-list="${cruise.exclusiveOffers}"
                             data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
-                            <a data-sly-test="${item.lightboxReference}"
+                            <a data-sly-test="${item.lightboxReference && !item.newSystem}"
                                href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
                                data-toggle="modal"
                                data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
                                 <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
                             </a>
-                            <p data-sly-test="${!item.lightboxReference}">
+                            <a data-sly-test="${item.newSystem}"
+                               href="${item.exclusiveOfferPath @ extension='html', selectors='modalcontent'}" 
+                               rel="nofollow"
+                               data-toggle="modal"
+                               data-target=".bs-modal-lg">
+                                <strong>${item.title @ context='html'}:&nbsp;</strong>${item.description @ context='html'}
+                            </a>
+                            <p data-sly-test="${!item.lightboxReference && !item.newSystem}">
                                 <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
                             </p>
                         </div>
@@ -95,8 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-hide" data-tab-target="#suitenfare">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
-                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs ab-test ab-test-v2-show" data-tab-target="#suitenfare-b-version">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
+                    <a class="btn btn-thin btn-dark effect pull-right hidden-xs" data-tab-target="#suitenfare-b-version">${'suites-and-fares' @ i18n} <span><i class="fa fa-angle-right"></i></span></a>
                     <script type="text/javascript">
                         $(document).ready(function () {
                             var pdfClicked = false;
@@ -130,7 +136,7 @@
                                     
                                     setTimeout(function(){
                                         $.ajax({
-                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf',
+                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf',
                                             beforeSend: function(){
 
                                         		downloadWin = window.open('', '_blank');
@@ -140,7 +146,7 @@
                                             success: function(r) {
     	                                        $('.voyageshare_wrap .fa-refresh').hide();
     	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.t.pdf';
+                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf';
                                                 pdfClicked = false;
                                             }
                                         });

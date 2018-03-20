@@ -46,8 +46,11 @@ public class SuiteVariationModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteReference") @Optional
     private String suiteReference;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipId") @Optional
+    private String shipId;
 
-    private SuiteModel suite;
+	private SuiteModel suite;
 
     @PostConstruct
     private void init() {
@@ -85,4 +88,13 @@ public class SuiteVariationModel {
     public String[] getFeatures() {
         return features;
     }
+
+	public String getSuiteReference() {
+		return suiteReference;
+	}
+	
+   public String getShipId() {
+		return shipId;
+   }
+
 }
