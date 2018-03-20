@@ -100,6 +100,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Además de nuestras tarifas con todo incluido, usted disfrutará de una atención exclusiva y de servicios reservados a nuestros huéspedes del World Cruise 2019. Una impresionante selección de beneficios añadidos y de exclusivos eventos culturales diseñados para convertir esta experiencia en el viaje de su vida."/>
+	<brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="brochures"
+        sling:message="Brochures"/>
     <benefits-and-events-title
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -525,6 +529,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Un folleto gratuito"/>
+	<floating-brochure-ctatext
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="floating-brochure-ctatext"
+        sling:message="Get our free brochures"/>
+    <floating-brochure-heading
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="floating-brochure-heading"
+        sling:message="Silversea Brochures"/>
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
