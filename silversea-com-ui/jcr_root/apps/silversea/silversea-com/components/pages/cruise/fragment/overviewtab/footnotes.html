@@ -4,10 +4,10 @@
         <ul>
             <sly data-sly-list.eo="${cruise.exclusiveOffers}">
                 <li data-sly-repeat.footnote="${eo.footNotes}">
-                    <i>${footnote}</i>
+                    <i>${footnote @ context='html'}</i>
                 </li>
             </sly>
-            <li data-sly-test="${cruise.cruiseModel.destination.footnote}"><i>${cruise.cruiseModel.destination.footnote}</i></li>
+            <li data-sly-test="${cruise.cruiseModel.destination.footnote}"><i>${cruise.cruiseModel.destination.footnote  @ context='html' }</i></li>
         </ul>
     </div>
 </template>
