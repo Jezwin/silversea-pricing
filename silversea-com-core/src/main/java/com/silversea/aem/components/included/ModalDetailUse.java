@@ -38,7 +38,6 @@ public class ModalDetailUse extends WCMUsePojo {
 				detail.setFileReference(suiteVariation.getSuiteReference());
 				detail.setFeatures(suiteVariation.getFeatures());
 				detail.setShipId(suiteVariation.getShipId());
-				this.showRaq = true;
 			}
 		} else if (getCurrentPage().getPath().contains("/dinings/")) {
 			key = "dining";
