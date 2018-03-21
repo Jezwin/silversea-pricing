@@ -30,6 +30,12 @@
                                 fieldLabel="Asset selection"
                                 name="./assetSelectionReference"
                                 rootPath="/content/dam/silversea-com" />
+                           <enableInlineGalleryHB
+                                jcr:primaryType="nt:unstructured"
+                                text="Enable Inline Gallery Image on HeroBanner"
+                                name="./enableInlineGalleryHB"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>

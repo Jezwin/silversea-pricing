@@ -51,6 +51,17 @@
     max-width: 930px;
     position: relative;
     
+    &-mobile-version {
+    	.c-hero-banner__image {
+	    	display: none;
+    	}
+    	@media screen and (max-width: 767px) {
+			 .slick-prev, .slick-next {
+			    display: inline-block !important;
+			}
+		}
+    }
+    
     span.c-hero-banner__title, h2.c-hero-banner__title, h3.c-hero-banner__title {
     	display: block;
 		margin-bottom: 20px !important;

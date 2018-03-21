@@ -1,21 +1,39 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Hero banner"></div>
-<sly data-sly-use.heroBannerTemplate="silversea/silversea-com/components/editorial/herobanner/herobannertemplate.html" />
-<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default}" />
-<sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home}" />
-<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer}" />
-<style>
-	@media (min-width: 768px){
-		#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image {
-	    	background-position: ${properties.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
-	    }
-	}
-	@media (max-width: 767px){
-	    #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image  {
-	    	background-position: ${properties.mobileBackgoundPosition || "center" @ context="unsafe"} !important;
-	    }
-	    
-	    #c-hero-banner-${properties.sscUUID @context="unsafe"}  .c-hero-banner__image   {
-			height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
+<sly data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
+	<sly data-sly-use.heroBannerTemplate="silversea/silversea-com/components/editorial/herobanner/herobannertemplate.html" />
+	<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default @ banner=banner}" />
+	<sly data-sly-test="${properties.type == 'home'}" data-sly-call="${heroBannerTemplate.home @ banner=banner}" />
+	<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
+	<style>
+		@media (min-width: 768px){
+			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image {
+		    	background-position: ${properties.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
+		    }
 		}
-	}
-</style>
+		@media (max-width: 767px){
+		    #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image  {
+		    	background-position: ${properties.mobileBackgoundPosition || "center" @ context="unsafe"} !important;
+		    }
+		    
+		    #c-hero-banner-${properties.sscUUID @context="unsafe"}  .c-hero-banner__image   {
+				height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
+			}
+		}
+	</style>
+	<sly data-sly-test="${properties.enableInlineGallery && banner.inlineGalleryID}">
+		<script>
+		    $(document).ready(function() {   
+		    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version .c-hero-banner__image').replaceWith($('${banner.inlineGalleryID @ context="unsafe"}'));
+		    	$('${banner.inlineGalleryID @ context="unsafe"}').css("margin-top","0px");
+		    	$('${banner.inlineGalleryID @ context="unsafe"}').css("margin-bottom","0px");
+			});
+		</script>
+		<style>
+			@media screen and (max-width: 767px) {
+				${banner.inlineGalleryID @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
+				    height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
+				}
+			}
+		</style>
+	</sly>
+</sly>
