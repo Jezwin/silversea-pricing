@@ -96,7 +96,11 @@ public class HeroBannerUse extends WCMUsePojo {
 		map.put("path", path);
 
         map.put("property", "sling:resourceType");
-        map.put("property.value", "silversea/silversea-com/components/editorial/" + type);
+        if(type.equalsIgnoreCase("inlinegallery")) {
+        	map.put("property.value", "silversea/silversea-com/components/editorial/inlinegallery");
+        } else if(type.equalsIgnoreCase("inlinegalleryLanding")) {
+        	map.put("property.value", "silversea/silversea-ssc/components/editorial/inlinegalleryLanding");
+        }
 
         map.put("boolproperty", "enableInlineGalleryHB");
         map.put("boolproperty.value", "true");
@@ -121,7 +125,7 @@ public class HeroBannerUse extends WCMUsePojo {
                 if(type.equalsIgnoreCase("inlinegallery")) {
                 	id = "#c-inline-gallery-" + properties.get("sscUUID", String.class);
                 } else if(type.equalsIgnoreCase("inlinegalleryLanding")) {
-                	id = "#c-inline-gallery-" + properties.get("sscUUID", String.class);
+                	id = "#c-inline-gallery-landing-" + properties.get("sscUUID", String.class);
                 }
             }
         } catch (RepositoryException e) {

@@ -22,16 +22,24 @@
 	</style>
 	<sly data-sly-test="${properties.enableInlineGallery && banner.inlineGalleryID}">
 		<script>
-		    $(document).ready(function() {   
-		    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version .c-hero-banner__image').replaceWith($('${banner.inlineGalleryID @ context="unsafe"}'));
-		    	$('${banner.inlineGalleryID @ context="unsafe"}').css("margin-top","0px");
-		    	$('${banner.inlineGalleryID @ context="unsafe"}').css("margin-bottom","0px");
-			});
+			if($(window).width() < 768){
+			    $(document).ready(function() {   
+			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version .c-hero-banner__image').replaceWith($('${banner.inlineGalleryID @ context="unsafe"}'));
+			    	$('${banner.inlineGalleryID @ context="unsafe"}').addClass("inside-hero-banner");
+			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version.c-hero-banner-landing__image').css("display", "inline-block");
+				});
+			}
 		</script>
 		<style>
 			@media screen and (max-width: 767px) {
 				${banner.inlineGalleryID @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
 				    height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
+				}
+			}
+			@media(max-width: 767px) {
+				${banner.inlineGalleryID @ context="unsafe"}.inside-hero-banner {
+			    	margin-top: 0px !important;
+			    	margin-bottom: 0px !important;
 				}
 			}
 		</style>

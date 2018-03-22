@@ -52,12 +52,15 @@
     position: relative;
     
     &-mobile-version {
-    	.c-hero-banner__image {
-	    	display: none;
+    	@media (max-width: 767px){
+	    	.c-hero-banner__image {
+		    	display: none;
+	    	}
     	}
     	@media screen and (max-width: 767px) {
 			 .slick-prev, .slick-next {
 			    display: inline-block !important;
+			    z-index: 1500;
 			}
 		}
     }
