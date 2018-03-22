@@ -35,6 +35,9 @@
 				${banner.inlineGalleryID @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
 				    height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
 				}
+				${banner.inlineGalleryID @ context="unsafe"}.inside-hero-banner .c-inline-gallery-slider__image-wrapper  .o-img {
+					height: ${properties.mobileheight @ context="unsafe" || 250 }px !important;
+				}
 			}
 			@media(max-width: 767px) {
 				${banner.inlineGalleryID @ context="unsafe"}.inside-hero-banner {
