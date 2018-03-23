@@ -1,5 +1,6 @@
 package com.silversea.aem.models;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -40,6 +41,8 @@ public class GeolocationTagModel {
     private String phone;
 
     private String path;
+    
+    private String regionFromPath;
 
     @PostConstruct
     private void init() {
@@ -90,5 +93,19 @@ public class GeolocationTagModel {
     @Override
     public String toString() {
         return market;
+    }
+    
+    public String getRegionFromPath() { 
+    	String region = null;
+    	if (StringUtils.isNotEmpty(path)) {
+    		String[] splitPath = path.split("geotagging/");
+    		if(splitPath != null && splitPath.length > 0) {
+    			String[] areaSplit = splitPath[1].split("/");
+    			if (areaSplit != null & areaSplit.length > 1) {
+    				region = areaSplit[1];
+    			}
+    		}
+    	}
+    	return region;
     }
 }

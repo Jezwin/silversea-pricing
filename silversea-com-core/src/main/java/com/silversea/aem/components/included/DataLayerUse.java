@@ -36,6 +36,7 @@ public class DataLayerUse extends WCMUsePojo {
     private String pageCategory2 = "";
     private String pageCategory3 = "";
     private String destinationId = "";
+    private String shipId = "";
     private String destinationName = "";
     private String voyageId = "";
     private String departureDay = "";
@@ -93,12 +94,20 @@ public class DataLayerUse extends WCMUsePojo {
             event = getPageProperties().get("pageEvent", String.class);
         }
 
-        if (contentResource.isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) && event.equals("")) {
+        if ((contentResource.isResourceType(WcmConstants.RT_DESTINATION) || contentResource.isResourceType(WcmConstants.RT_EXCLUSIVE_OFFER) || contentResource.isResourceType(WcmConstants.RT_SHIP) || contentResource.isResourceType(WcmConstants.RT_PORT)) && event.equals("")) {
             event = "searchresults";
         }
 
-        if (contentResource.isResourceType(WcmConstants.RT_DESTINATION) && event.equals("")) {
+        if ((contentResource.isResourceType(WcmConstants.RT_CRUISE) || contentResource.isResourceType(WcmConstants.RT_COMBO_CRUISE)) && event.equals("")) {
             event = "offerdetail";
+        }
+        
+        if (contentResource.isResourceType(WcmConstants.RT_LANDING_PAGE) && event.equals("")) {
+            event = "home";
+        }
+        
+        if(event.equals("")){
+        	event = "other";
         }
 
         // users data
@@ -249,6 +258,7 @@ public class DataLayerUse extends WCMUsePojo {
         //Ship Fill Ship
         if (contentResource.isResourceType(WcmConstants.RT_SHIP)) {
         	shipName = (String) getCurrentPage().getName();
+        	shipId = (String) contentResource.getValueMap().get("shipId");
         }
 
         // Cruise details
@@ -270,6 +280,7 @@ public class DataLayerUse extends WCMUsePojo {
                 voyageType = cruiseModel.getCruiseType();
 
                 shipName = cruiseModel.getShip().getName();
+                shipId = cruiseModel.getShip().getShipId();
 
                 // init lowest price and waitlist based on geolocation
                 PriceModel lowestPrice = null;
@@ -510,6 +521,10 @@ public class DataLayerUse extends WCMUsePojo {
         return destinationId;
     }
 
+    public String getShipId() {
+        return shipId;
+    }
+    
     public String getDestinationName() {
         return destinationName;
     }

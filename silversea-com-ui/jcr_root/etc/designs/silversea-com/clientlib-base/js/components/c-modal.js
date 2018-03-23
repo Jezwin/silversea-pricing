@@ -63,8 +63,12 @@ $(function() {
 
         
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
-        	window.virtualTour.destroy();
-        	window.virtualTour = null;
+        	try {
+        		window.virtualTour.destroy();
+        	}catch(error) {       		
+        	}finally {
+        		window.virtualTour = null;
+        	}
         }
         
     });

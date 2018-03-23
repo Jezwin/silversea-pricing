@@ -35,4 +35,25 @@ public class PathUtils {
 
         return null;
     }
+    /**
+     * @param resource
+      @param page
+      @return local path to request brochures page path from /conf
+     */
+    public static String getBrochuresPagePath(final Resource resource, final Page page) {
+        final Conf confRes = resource.adaptTo(Conf.class);
+        if (confRes != null && page != null) {
+            final Resource brochuresPageConf = confRes.getItemResource("/brochurespage/page");
+
+            if (brochuresPageConf != null) {
+                final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)
+                        + brochuresPageConf.getValueMap().get("reference", String.class);
+                if (resource.getResourceResolver().getResource(pagePath) != null) {
+                    return pagePath;
+                }
+            }
+        }
+
+        return null;
+    }
 }

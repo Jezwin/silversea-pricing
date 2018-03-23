@@ -21,7 +21,7 @@
                  	<div class="c-modal-detail-modal-long-desc">${modal.detail.longDescription @ context="html"}</div>     
                  	<div class="c-modal-detail-modal-bedrooms">${modal.detail.bedroomsInformation @ context="html"}</div>    
                  </div>
-                 <div class="c-modal-detail-modal-price text-uppercase"> 
+                 <div class="c-modal-detail-modal-price text-uppercase" data-sly-test="${modal.showRaq}"> 
                  	<p>
 						<span class="suite-early-booking">${'from' @ i18n}</span> 
 						<span> 

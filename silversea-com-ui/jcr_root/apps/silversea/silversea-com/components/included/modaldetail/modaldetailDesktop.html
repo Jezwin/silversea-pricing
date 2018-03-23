@@ -57,12 +57,12 @@
              </div>     
              <div class="col-xs-4 c-modal-detail-modal-right-side">     
                  <h1 class="c-modal-detail-modal-title">${modal.detail.title @ context="html"}</h1>     
-                 <div class="c-modal-detail-modal-info">		
+                 <div class="c-modal-detail-modal-info ${!modal.showRaq ? 'c-modal-detail-modal-info-long' : ''}">		
                  	<div class="c-modal-detail-modal-long-desc">${modal.detail.longDescription @ context="html"}</div>     
                  	<hr size="10px">     
                  	<div class="c-modal-detail-modal-bedrooms">${modal.detail.bedroomsInformation @ context="html"}</div>    
                  </div> 
-                 <div class="c-modal-detail-modal-price text-uppercase"> 
+                 <div class="c-modal-detail-modal-price text-uppercase" data-sly-test="${modal.showRaq}"> 
                  	<p>
 						<span class="suite-early-booking">${'from' @ i18n}</span> 
 						<span> 

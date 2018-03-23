@@ -23,6 +23,7 @@ import com.silversea.aem.utils.PathUtils;
 
 public class ModalDetailUse extends AbstractGeolocationAwareUse {
 
+	private boolean showRaq = false;
 	private ModalDetailBean detail;
 	private Map<String, String> type = new HashMap<>();
 	private String suffixResizeUrl;
@@ -159,11 +160,14 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 	}
 
 	public boolean showLastMobileRaq() {
-		return (detail != null)
-				&& (detail.getPlan() != null || detail.getFeatures() != null || detail.getLocationImage() != null);
+			return showRaq() && (detail != null) && (detail.getPlan() != null || detail.getFeatures() != null || detail.getLocationImage() != null);
 	}
 
 	public String getSuffixResizeUrl() {
 		return suffixResizeUrl;
+	}
+
+	public boolean showRaq() {
+		return showRaq;
 	}
 }
