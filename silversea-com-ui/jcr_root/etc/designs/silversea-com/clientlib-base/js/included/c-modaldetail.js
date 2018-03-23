@@ -43,7 +43,7 @@ $(function () {
 		var modalBody = $(".modal-body");
 	    //only desktop
         if (modalBody.hasClass("automatic-modal-body-modal-detail-desktop")) {
-        	modalBody.parent().parent().parent().css("top", "9%");
+        	modalBody.parent().parent().parent().css("top", "8%");
 
             //create virtual tour on desktop
         	modalBody.find(".c-modal-detail-virtual-tour-lightbox").on("click", function (e) {
@@ -95,11 +95,11 @@ $(function () {
         	var changeTemplate = false;
         	if ($modalBody.hasClass("automatic-modal-body-modal-detail-desktop")) {
         		if ($(window).width() <= 768) {
-        			changeTemplate-= true;
+        			changeTemplate= true;
         		}
         	} else if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
         		if ($(window).width() > 768) {
-        			changeTemplate-= true;
+        			changeTemplate= true;
         		}
         	}
         	if (changeTemplate) {
@@ -119,6 +119,8 @@ $(function () {
  
     $('.modal-detail-link-ajax').on('click', function(e) {
         e.preventDefault();
+        $('html').addClass("no-scroll-html");
+        $('body').addClass("no-scroll-body");
         var $link = $(this),
             ajaxContentPath = $link.attr('href'),
             modalTarget = $link.data('target'),
@@ -135,8 +137,6 @@ $(function () {
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function() {
                 var modalBody = $modal.find(".modal-body");
-            	 $('html').addClass("no-scroll-html");
-                 $('body').addClass("no-scroll-body");
 
                  //window.location.hash = "#modal";
                  history.pushState(null, null, "#modal"); // push state that hash into the url

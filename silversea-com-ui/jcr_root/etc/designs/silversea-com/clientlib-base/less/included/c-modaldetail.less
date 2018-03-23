@@ -13,6 +13,17 @@
 	}
 }
 
+@media (min-width:768px){
+	.modal-detail-link-hideDesktop {
+		display:none;
+	}
+}
+
+@media (max-width:767px){
+	.modal-detail-link-hideMobile {
+		display:none;
+	}
+}
 
 @media (max-width: 768px) {
 	
@@ -386,6 +397,11 @@
 	    	position: absolute;
 	    	left: 50%;
 	    	transform: translateX(-50%);
+        }
+        
+        &-and-currency {
+        	display: block;
+    		font-size: 26px !important;
         }
         
         .modal-detail-early-booking {
