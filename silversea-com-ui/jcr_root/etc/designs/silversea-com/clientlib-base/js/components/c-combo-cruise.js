@@ -68,4 +68,19 @@ $(function() {
             });
         });
     });
+    
+    jQuery("a.coolanchorminusbig").click(function(){
+		//check if it has a hash (i.e. if it's an anchor link)
+		if(this.hash){
+			var hash = this.hash.substr(1);
+			var $toElement = jQuery("[id="+hash+"]");
+			var toPosition = $toElement.offset().top - 310;
+			//scroll to element
+			jQuery("body,html").animate({
+				scrollTop : toPosition
+			},1000)
+			return false;
+		}
+	});
+    
 });
