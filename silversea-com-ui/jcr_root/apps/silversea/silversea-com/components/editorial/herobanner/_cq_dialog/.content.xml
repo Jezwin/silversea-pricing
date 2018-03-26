@@ -146,6 +146,12 @@
                                 name="./disabledTextBackground"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <enableInlineGallery
+                                jcr:primaryType="nt:unstructured"
+                                text="Enable Inline Gallery Image"
+                                name="./enableInlineGallery"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>

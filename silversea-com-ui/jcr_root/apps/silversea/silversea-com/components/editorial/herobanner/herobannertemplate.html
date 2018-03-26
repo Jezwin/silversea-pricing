@@ -1,7 +1,6 @@
-<template data-sly-template.default>
+<template data-sly-template.default="${ @ banner}">
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner" 
-         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
-         data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
 	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
 	            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
@@ -41,7 +40,7 @@
 	            <i class="fa fa-play"></i>
 	        </a>
 	    </div>
-	    <div class="hidden-sm hidden-md hidden-lg">
+	    <div class="hidden-sm hidden-md hidden-lg ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}">
 	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
 	        	 <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
 	            	data-target=".bs-modal-lg">
@@ -79,16 +78,25 @@
 	            </div>
 	        </div>
 	    </div>
+
     </div>
 </template>
 
-<template data-sly-template.home>
+<template data-sly-template.home="${ @ banner}">
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
-         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
-        data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
-        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
-            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
-        </div>
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+		<sly data-sly-test="${!properties.enableInlineGallery || !banner.inlineGalleryID}">
+	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+	        </div>
+         </sly>
+		<sly data-sly-test="${properties.enableInlineGallery && banner.inlineGalleryID}">
+			<div class="c-hero-banner-mobile-version">
+			 	<div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+		            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+		        </div>
+			</div>
+		</sly>         
         <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row hidden-xs">
             <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
                 <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
@@ -125,10 +133,9 @@
     </div>
 </template>
 
-<template data-sly-template.offer>
+<template data-sly-template.offer="${ @ banner}">
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search c-hero-banner__exclusiveoffers"
-         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}"
-        data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
+         data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
             <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
@@ -167,7 +174,7 @@
             	<i class="fa fa-play"></i>
        		</a>
         </div>
-        <div class="hidden-sm hidden-md hidden-lg">
+        <div class="hidden-sm hidden-md hidden-lg ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}">
         	<div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
 	        	<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
 	            	data-target=".bs-modal-lg">
@@ -205,5 +212,5 @@
                 </div>
             </div>
         </div>
-    </div>
+	    </div>
 </template>
