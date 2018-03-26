@@ -26,7 +26,8 @@
 			    $(document).ready(function() {   
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version .c-hero-banner__image').replaceWith($('${banner.inlineGalleryID @ context="unsafe"}'));
 			    	$('${banner.inlineGalleryID @ context="unsafe"}').addClass("inside-hero-banner");
-			    	$('#c-hero-banner-landing-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version.c-hero-banner-landing__image').css("display", "inline-block");
+			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version.c-hero-banner-landing__image').css("display", "inline-block");
+			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version a.automatic-gallery-modal').removeClass("automatic-gallery-modal");
 				});
 			}
 		</script>
@@ -43,6 +44,9 @@
 				${banner.inlineGalleryID @ context="unsafe"}.inside-hero-banner {
 			    	margin-top: 0px !important;
 			    	margin-bottom: 0px !important;
+				}
+				#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image .video-link {
+					display: none;  
 				}
 			}
 		</style>

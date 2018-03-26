@@ -1,20 +1,16 @@
 package com.silversea.aem.components.editorial;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.apache.felix.scr.annotations.Reference;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
@@ -40,6 +36,8 @@ public class HeroBannerUse extends WCMUsePojo {
 	private String selectorUrl;
 
 	private String imageBackgroundPath;
+	private String imageBackgroundPathMobile;
+
 	private String inlineGalleryID;
 
 	@Override
@@ -60,10 +58,12 @@ public class HeroBannerUse extends WCMUsePojo {
 						List<Asset> assetlist = AssetUtils.buildAssetList(assetReference, getResourceResolver());
 						if (assetlist.size() > 0) {
 							this.imageBackgroundPath = assetlist.get(0).getPath();
+							this.imageBackgroundPathMobile = assetlist.get(0).getPath();
 						}
 					}
 				} else {
 					this.imageBackgroundPath = assetReference;
+					this.imageBackgroundPathMobile = assetReference;
 				}
 				if (enableInlineGallery!= null && enableInlineGallery) {
 					this.inlineGalleryID = searchInlineGalleryID("inlinegallery");
@@ -127,6 +127,33 @@ public class HeroBannerUse extends WCMUsePojo {
                 } else if(type.equalsIgnoreCase("inlinegalleryLanding")) {
                 	id = "#c-inline-gallery-landing-" + properties.get("sscUUID", String.class);
                 }
+                String assetSelectionReference = properties.get("assetSelectionReference", String.class);
+                if (StringUtils.isEmpty(assetSelectionReference)) {
+                	assetSelectionReference = getCurrentPage().getProperties().get("assetSelectionReference", String.class);
+                }
+                if (StringUtils.isNotEmpty(assetSelectionReference)) {
+                	Resource resourceAsset = getResourceResolver().getResource(assetSelectionReference);
+
+            		if (resourceAsset != null) {
+            			Asset asset = resourceAsset.adaptTo(Asset.class);
+            			if (asset != null) {
+            				if (!DamUtil.isImage(asset)) {
+            					String dcFormat = asset.getMetadata().get(DamConstants.DC_FORMAT) != null
+            							? asset.getMetadata().get(DamConstants.DC_FORMAT).toString()
+            							: null;
+            					if (dcFormat.contains(S7damConstants.S7_MIXED_MEDIA_SET)) {
+            						List<Asset> assetlist = AssetUtils.buildAssetList(assetSelectionReference, getResourceResolver());
+            						if (assetlist.size() > 0) {
+            							this.imageBackgroundPathMobile = assetlist.get(0).getPath();
+            						}
+            					}
+            				} else {
+            					this.imageBackgroundPathMobile = assetSelectionReference;
+            				}
+            			}
+            		}
+                }
+	                
             }
         } catch (RepositoryException e) {
         }
@@ -174,6 +201,10 @@ public class HeroBannerUse extends WCMUsePojo {
 
 	public String getImageBackgroundPath() {
 		return imageBackgroundPath;
+	}
+	
+	public String getImageBackgroundPathMobile() {
+		return imageBackgroundPathMobile;
 	}
 
 	public String getInlineGalleryID() {
