@@ -1299,7 +1299,7 @@
 	<view-our-brochures
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-our-brochures"
-	    sling:message="View our Brochures"/>
+	    sling:message="Online ansicht broschüre"/>
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"

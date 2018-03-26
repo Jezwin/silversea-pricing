@@ -1291,7 +1291,7 @@
 	<view-our-brochures
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-our-brochures"
-	    sling:message="View our Brochures"/>
+	    sling:message="Veja seu folheto"/>
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
