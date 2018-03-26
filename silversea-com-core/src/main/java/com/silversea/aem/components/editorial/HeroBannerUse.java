@@ -65,7 +65,7 @@ public class HeroBannerUse extends WCMUsePojo {
 				} else {
 					this.imageBackgroundPath = assetReference;
 				}
-				if (enableInlineGallery) {
+				if (enableInlineGallery!= null && enableInlineGallery) {
 					this.inlineGalleryID = searchInlineGalleryID("inlinegallery");
 					if(this.inlineGalleryID == null) {
 						this.inlineGalleryID = searchInlineGalleryID("inlinegalleryLanding");
