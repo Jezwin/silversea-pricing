@@ -301,7 +301,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 			for (Map.Entry<Integer, Map<String, Page>> excursions : excursionsMapping.entrySet()) {
 				shorexToDisactive = null;
 				Integer shorexID = excursions.getKey();
-				LOGGER.debug("Check shorexID: {}", shorexID);
+				LOGGER.trace("Check shorexID: {}", shorexID);
 
 				for (Shorex eAPI : excursionsListAPI) {
 
@@ -315,7 +315,7 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 							.get(shorexID).entrySet()) {
 						Page excursionPage = excursionsPages.getValue();
 
-						LOGGER.trace("Updating excursion {}", shorexID);
+						LOGGER.debug("Updating excursion {}", shorexID);
 
 						if (excursionPage == null) {
 							throw new ImporterException(

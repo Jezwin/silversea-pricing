@@ -278,7 +278,7 @@ public class HotelsImporterImpl implements HotelsImporter {
 							.get(hotelID).entrySet()) {
 						Page excursionPage = excursionsPages.getValue();
 
-						LOGGER.trace("Updating hotel {}", hotelID);
+						LOGGER.debug("Updating hotel {}", hotelID);
 
 						if (excursionPage == null) {
 							throw new ImporterException(
