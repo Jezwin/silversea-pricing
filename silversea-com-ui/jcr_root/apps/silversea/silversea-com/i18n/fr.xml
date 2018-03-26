@@ -128,6 +128,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Nombre de réservations"/>	
+    <brochure-text
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Obtenez un aperçu plus détaillé de toutes les croisières et expéditions de luxe de Silversea en lisant nos brochures, c'est entièrement gratuit."/>
     <built-date
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -562,6 +566,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Demandez nos brochures gratuites"/>
+    <get-our-free-brochures1
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="&#xa;Obtenez nos brochures gratuites"/>
     <get-your-free-brochures
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1055,6 +1063,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Archives du blog de Silversea"/>
+    <silversea-brochures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Brochures Silversea"/>
     <silversea-cruise
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1356,7 +1368,7 @@
 	<view-our-brochures
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-our-brochures"
-	    sling:message="View our Brochures"/>
+	    sling:message="Voir nos brochures"/>
 	<show-less
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="show-less"
