@@ -6,12 +6,12 @@
 	<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
 	<style>
 		@media (min-width: 768px){
-			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image {
+			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture div {
 		    	background-position: ${properties.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
 		    }
 		}
 		@media (max-width: 767px){
-		    #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image  {
+		    #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture div  {
 		    	background-position: ${properties.mobileBackgoundPosition || "center" @ context="unsafe"} !important;
 		    }
 		    
