@@ -2,7 +2,7 @@
 	 <div class="modal-body automatic-modal-body-modal-detail-desktop automatic-modal-body-modal-detail">     
         <button class="close c-btn--close" type="button" data-dismiss="modal" aria-label="Close"></button>
         <sly data-sly-use.extPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
- 	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${extPath.externalizedTranslatedUrl @ extension='html', selectors='modalcontentmobile', suffix=modal.suffixResizeUrl}"></span>
+ 	    <span class="c-modaldetail-link" data-target=".bs-modal-lg" data-href="${extPath.externalizedTranslatedUrl @ extension='html', selectors=['modalcontentmobile',modal.suffixResizeUrl]}"></span>
          <div class="row clearfix c-modal-detail-modal">     
              <div class="col-xs-8 c-modal-detail-modal-left-side">     
                  <ul class="nav nav-tabs  c-modal-detail-modal-navtabs" role="tablist">     
