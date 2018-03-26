@@ -183,6 +183,16 @@ public class CitiesImporterImpl implements CitiesImporter {
             }
 
             ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDate");
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} cities imported, saving session");
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
@@ -315,6 +325,16 @@ public class CitiesImporterImpl implements CitiesImporter {
 
                 apiPage++;
             } while (cities.size() > 0);
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} cities imported, saving session", +itemsWritten);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
 
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDate", true);
         } catch (LoginException | ImporterException e) {

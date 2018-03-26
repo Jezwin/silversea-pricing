@@ -27,4 +27,10 @@ public interface HotelsImporter {
      * @param hotelId the hotel ID of the hotel to import
      */
     void importOneHotel(final String hotelId);
+    
+    /**
+     * Disactive all hotels not present in API
+     *
+     */
+    ImportResult disactiveAllItemDeltaByAPI();
 }

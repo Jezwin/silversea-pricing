@@ -247,6 +247,16 @@ public class ExclusiveOffersImporterImpl implements ExclusiveOffersImporter {
 
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("exclusiveOffersUrl"),
                     "lastModificationDate", true);
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} exclusive offers, saving session", +itemsWritten);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {

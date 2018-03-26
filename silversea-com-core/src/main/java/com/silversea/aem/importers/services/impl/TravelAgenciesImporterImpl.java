@@ -209,6 +209,17 @@ public class TravelAgenciesImporterImpl implements TravelAgenciesImporter {
             }
             
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("agenciesUrl"), "lastModificationDate", true);
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} travel agencies imported, saving session");
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+            
         } catch (LoginException | ImporterException | RepositoryException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {

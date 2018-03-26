@@ -24,4 +24,10 @@ public interface ShoreExcursionsImporter {
      * @param shoreExcursionId the shore excursion ID of the shore excursion to import
      */
     void importOneShoreExcursion(final String shoreExcursionId);
+    
+    /**
+     * Disactive all shore excursion not present in API
+     *
+     */
+    ImportResult disactiveAllItemDeltaByAPI();
 }
