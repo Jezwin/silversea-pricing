@@ -96,8 +96,8 @@
 			<sly data-sly-repeat="${comboCruise.prices}" >
 			<div class="panel col-xs-12 col-sm-6 col-md-4 col-lg-4">
     	           <div class="c-suitelist__content" id="suite-card-v2-${itemList.index}">
-					<a class="link-open-modal modal-detail-link-ajax modal-detail-link-hideMobile" data-target=".bs-modal-lg" href="${comboCruise.comboCruiseModel.page.path @ extension='html', selectors='modalcontentdesktop', suffix=item.suiteCategory}"></a>
-	 				<a class="link-open-modal modal-detail-link-ajax modal-detail-link-hideDesktop" data-target=".bs-modal-lg" href="${comboCruise.comboCruiseModel.page.path @ extension='html', selectors='modalcontentmobile', suffix=item.suiteCategory}"></a>			
+					<a class="link-open-modal modal-detail-link-ajax modal-detail-link-hideMobile" data-target=".bs-modal-lg" href="${comboCruise.comboCruiseModel.page.path @ extension='html', selectors=['modalcontentdesktop', item.suiteCategory]}"></a>
+	 				<a class="link-open-modal modal-detail-link-ajax modal-detail-link-hideDesktop" data-target=".bs-modal-lg" href="${comboCruise.comboCruiseModel.page.path @ extension='html', selectors=['modalcontentmobile', item.suiteCategory]}"></a>			
 	                <div class="c-suitelist__image c-suitelist__image-card">
         	           <sly data-sly-test="${item.suite.thumbnail}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
         	           	    data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}" />
