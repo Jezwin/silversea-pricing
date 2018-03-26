@@ -253,7 +253,7 @@ public class HotelsImporterImpl implements HotelsImporter {
 			List<Hotel> hotelsAPI = hotelsApi.hotelsGet(null, page, perPage, null);
 			List<Hotel> hotelsListAPI = new ArrayList<>();
 			
-			LOGGER.debug("Check all excursion in jcr: {}", hotelsMapping.size());
+			LOGGER.debug("Check all hotel in jcr: {}", hotelsMapping.size());
 			
 			while(hotelsAPI.size() != 0){
 				hotelsListAPI.addAll(hotelsAPI);
@@ -264,7 +264,7 @@ public class HotelsImporterImpl implements HotelsImporter {
 			for (Map.Entry<Integer, Map<String, Page>> hotel : hotelsMapping.entrySet()) {
 				itemToCheck = null;
 				Integer hotelID = hotel.getKey();
-				LOGGER.debug("Check shorexID: {}", hotelID);
+				LOGGER.debug("Check hotelID: {}", hotelID);
 
 				for (Hotel hAPI : hotelsListAPI) {
 
@@ -289,12 +289,12 @@ public class HotelsImporterImpl implements HotelsImporter {
 
 						if (excursionContentNode == null) {
 							throw new ImporterException(
-									"Cannot set properties for excursion " + hotelID);
+									"Cannot set properties for hotel " + hotelID);
 						}
 
 						excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
 
-						LOGGER.trace("Excursion {} is marked to be deactivated", hotelID);
+						LOGGER.trace("Hotel {} is marked to be deactivated", hotelID);
 					}
 					successNumber++;
 					itemsWritten++;

@@ -460,7 +460,7 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 							.get(landID).entrySet()) {
 						Page landPage = landPages.getValue();
 
-						LOGGER.trace("Updating excursion {}", landID);
+						LOGGER.trace("Updating landing {}", landID);
 
 						if (landPage == null) {
 							throw new ImporterException(
