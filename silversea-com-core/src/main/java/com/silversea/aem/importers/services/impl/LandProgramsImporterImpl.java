@@ -196,10 +196,21 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
             ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateLandPrograms");
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read land programs from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Cannot save modification", e);
         }
 
         LOGGER.debug("Ending land programs import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -368,6 +379,16 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
             } while (landPrograms.size() > 0);
 
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateLandPrograms", true);
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} lands programs imported, saving session");
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {

@@ -194,10 +194,23 @@ public class HotelsImporterImpl implements HotelsImporter {
 
             ImportersUtils.setLastModificationDate(pageManager, session, apiConfig.apiRootPath("citiesUrl"),
                     "lastModificationDateHotels");
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
+            
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
             LOGGER.error("Cannot read hotels from API", e);
+        } catch (RepositoryException e) {
+            LOGGER.error("Cannot save modification", e);
         }
 
         LOGGER.debug("Ending hotels import, success: {}, error: {}", +successNumber, +errorNumber);
@@ -366,6 +379,16 @@ public class HotelsImporterImpl implements HotelsImporter {
             } while (hotels.size() > 0);
 
             ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("citiesUrl"), "lastModificationDateHotels", true);
+            
+            if (session.hasPendingChanges()) {
+                try {
+                    session.save();
+
+                    LOGGER.debug("{} hotels imported, saving session");
+                } catch (RepositoryException e) {
+                    session.refresh(false);
+                }
+            }
         } catch (LoginException | ImporterException e) {
             LOGGER.error("Cannot create resource resolver", e);
         } catch (ApiException e) {
