@@ -436,15 +436,12 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 			List<Land> landAPI = landsApi.landsGet(null, page, perPage, null);
 			List<Land> landListAPI = new ArrayList<>();
 			
-			for(int i = 0; i < landAPI.size(); i++) {
-				landListAPI.add(landAPI.get(i));
-				if (i == landAPI.size() -1) {
-					page++;
-					perPage+=1000;
-					landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
-				}
+			while(landAPI.size() != 0){
+				landListAPI.addAll(landAPI);
+				page++;
+				landAPI = landsApi.landsGet(null, page, perPage, null);
 			}
-			
+						
 			LOGGER.debug("Check all land programs in jcr: {}", landProgramsMapping.size());
 			
 			for (Map.Entry<Integer, Map<String, Page>> land : landProgramsMapping.entrySet()) {

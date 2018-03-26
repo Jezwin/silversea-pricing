@@ -248,20 +248,17 @@ public class HotelsImporterImpl implements HotelsImporter {
 	                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
 	                            "[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]", "hotelId");
 
-			int itemsWritten = 0, page = 1, perPage = 1000;
+			int itemsWritten = 0, page = 1, perPage = 100;
 			Hotel itemToCheck = null;
 			List<Hotel> hotelsAPI = hotelsApi.hotelsGet(null, page, perPage, null);
 			List<Hotel> hotelsListAPI = new ArrayList<>();
 			
 			LOGGER.debug("Check all excursion in jcr: {}", hotelsMapping.size());
-
-			for(int i = 0; i < hotelsAPI.size(); i++) {
-				hotelsListAPI.add(hotelsAPI.get(i));
-				if (i == hotelsAPI.size() -1) {
-					page++;
-					perPage+=1000;
-					hotelsAPI = hotelsApi.hotelsGet(null, page, perPage, null);
-				}
+			
+			while(hotelsAPI.size() != 0){
+				hotelsListAPI.addAll(hotelsAPI);
+				page++;
+				hotelsAPI = hotelsApi.hotelsGet(null, page, perPage, null);
 			}
 			
 			for (Map.Entry<Integer, Map<String, Page>> hotel : hotelsMapping.entrySet()) {

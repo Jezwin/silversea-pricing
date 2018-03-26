@@ -285,20 +285,17 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 							+ "[sling:resourceType=\"silversea/silversea-com/components/pages/excursion\"]",
 					"shorexId");
 
-			int itemsWritten = 0, page = 1, perPage = 1000;
+			int itemsWritten = 0, page = 1, perPage = 100;
 			Shorex shorexToDisactive = null;
 			List<Shorex> excursionsAPI = shorexesApi.shorexesGet(null, page, perPage, null);
 			List<Shorex> excursionsListAPI = new ArrayList<>();
 			
 			LOGGER.debug("Check all excursion in jcr: {}", excursionsMapping.size());
 
-			for(int i = 0; i < excursionsAPI.size(); i++) {
-				excursionsListAPI.add(excursionsAPI.get(i));
-				if (i == excursionsAPI.size() -1) {
-					page++;
-					perPage+=1000;
-					excursionsAPI = shorexesApi.shorexesGet(null, page, perPage, null);
-				}
+			while(excursionsAPI.size() != 0){
+				excursionsListAPI.addAll(excursionsAPI);
+				page++;
+				excursionsAPI = shorexesApi.shorexesGet(null, page, perPage, null);
 			}
 			
 			for (Map.Entry<Integer, Map<String, Page>> excursions : excursionsMapping.entrySet()) {
