@@ -33,14 +33,13 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 	@Override
 	public void activate() throws Exception {
 		String key = null;
-		String suffix = getRequest().getRequestPathInfo().getSuffix();
-		String selector = getRequest().getRequestPathInfo().getSelectorString();
+		String[] selectors = getRequest().getRequestPathInfo().getSelectors();
 		String resourceType = getProperties().get(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, String.class);
-
+		
 		switch (resourceType) {
 		case "silversea/silversea-com/components/pages/combocruise":
-			if (StringUtils.isNotEmpty(suffix)) {
-				suffix = suffix.replace("/", "");
+			if (selectors != null && selectors.length > 0) {
+				String suiteCode = selectors[1];
 				key = "suite";
 				List<PriceModel> prices = new ArrayList<>();
 				Resource suitesResource = getCurrentPage().getContentResource().getChild("suites");
@@ -55,7 +54,7 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 					if (priceModel.getGeomarket() != null && priceModel.getGeomarket().equals(geomarket)
 							&& priceModel.getCurrency().equals(currency)) {
 
-						if (priceModel.getSuiteCategory().equalsIgnoreCase(suffix)) {
+						if (priceModel.getSuiteCategory().equalsIgnoreCase(suiteCode)) {
 							suitePriceModel = new SuitePrice(priceModel.getSuite(), priceModel, locale,
 									priceModel.getSuiteCategory());
 						}
@@ -79,7 +78,7 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 					detail.setCurrency(suitePriceModel.getLowestPrice().getCurrency());
 					detail.setComputedPriceFormated(suitePriceModel.getComputedPriceFormated());
 					detail.setWaitList(suitePriceModel.isWaitList());
-					suffixResizeUrl = suffix;
+					suffixResizeUrl = suiteCode;
 					suffixUrl = suitePriceModel.getSuite().getName() + WcmConstants.HTML_SUFFIX;
 					selectorUrl = WcmConstants.SELECTOR_FYC_RESULT;
 				}
