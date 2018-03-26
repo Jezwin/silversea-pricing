@@ -3,13 +3,16 @@ package com.silversea.aem.components.page;
 import com.day.cq.commons.Filter;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.constants.WcmConstants;
+
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -98,6 +101,14 @@ public class SitemapModel {
                     }
                 }
                 
+                if(WcmConstants.RT_CRUISE.equals(resourceType)){
+                	//Check if it is activated.
+                	ValueMap isVisible = page.getContentResource().getValueMap();
+                    if(isVisible.get("isVisible", String.class) == "false"){
+                    	return false;
+                    }
+                }
+                
                 return !(page.getProperties().get(WcmConstants.PN_NOT_IN_SITEMAP, false)
                         || resourceType.endsWith(WcmConstants.RT_SUB_REDIRECT_PAGE)
                         || WcmConstants.RT_HOTEL.equals(resourceType)
@@ -109,6 +120,10 @@ public class SitemapModel {
                         || WcmConstants.RT_EXCLUSIVE_OFFER_VARIATION.equals(resourceType)
                         || WcmConstants.RT_LANDING_PAGE.equals(resourceType)
                         || WcmConstants.RT_REDIRECT.equals(resourceType)
+                        || WcmConstants.RT_SITEMAP.equals(resourceType)
+                        || WcmConstants.RT_SITEMAP_INDEX.equals(resourceType)
+                        || WcmConstants.RT_PRESS_RELEASE_LIST.equals(resourceType)
+                        || WcmConstants.RT_SUB_REDIRECT_PAGE.equals(resourceType)
                         || WcmConstants.RT_LIGHTBOX.equals(resourceType));
             }
 

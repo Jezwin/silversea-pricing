@@ -2,24 +2,14 @@
     <div class="c-cruise__itineraries">
         <span class="c-cruise__subtitle alternative-h">${'cruise-itinerary' @ i18n}</span>
         <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
-	        <p class="c-cruise__descr ab-test-v2-hide">
-	            <span class="c-cruise__descr-text">${'cruise-itinerary-description' @ i18n}</span>
-	            <br class="c-cruise__descr-br"/>
-	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
-	        </p>
-	        <p class="c-cruise__descr ab-test-v2-show">
+	        <p class="c-cruise__descr">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description-v2' @ i18n}</span>
 	            <br class="c-cruise__descr-br"/>
 	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
 	        </p>
         </sly>
         <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
-	        <p class="c-cruise__descr ab-test-v2-hide">
-	            <span class="c-cruise__descr-text">${'cruise-itinerary-description-expedition' @ i18n}</span>
-	            <br class="c-cruise__descr-br"/>
-	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
-	        </p>
-	        <p class="c-cruise__descr ab-test-v2-show">
+	        <p class="c-cruise__descr">
 	            <span class="c-cruise__descr-text">${'cruise-itinerary-description-v2-expedition' @ i18n}</span>
 	            <br class="c-cruise__descr-br"/>
 	            <a href="" class="cruise-itinerary-link"><strong>${'cruise-itinerary-link' @ i18n}</strong></a>
@@ -89,7 +79,7 @@
        	<!--/* Suite and fares tab */-->
    	<div id="suitenfare-b-version">
 	 	<sly data-sly-use.suitelist="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist.html"
-	       		data-sly-call="${suitelist.abTestVersion2 @ cruise=cruise}" />
+	       		data-sly-call="${suitelist.default @ cruise=cruise}" />
    	</div>
   	
 </template>

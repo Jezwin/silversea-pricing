@@ -1,0 +1,17 @@
+<template data-sly-template.default="${ @ diningAssetsList}">
+    <div data-sly-use.listHelper="${'com.silversea.aem.helper.ListHelper' @ list = diningAssetsList, size = 3}"
+	 class="c-dining__gallery__featured clearfix" data-sly-repeat="${listHelper.objectListGroup}" data-sly-use.imageTemplate="silversea/silversea-com/components/pages/dining/singledining/galleryimagetemplate.html">
+       <div class="c-dining__gallery__featured__left">
+            <sly data-sly-call="${imageTemplate.default @ asset=item[0] , listSize=diningAssetsList.size}" />
+            <sly data-sly-call="${imageTemplate.default @ asset=item[2] , listSize=diningAssetsList.size}" />
+        </div>
+        <div class="c-dining__gallery__featured__right">
+            <sly data-sly-call="${imageTemplate.rightColumn @ asset=item[1] , listSize=diningAssetsList.size}" />
+        </div>    
+    </div>
+
+    <div data-sly-test="${diningAssetsList.size > 3}" class="c-dining__item-expander hidden-xs" >
+        <a class="btn btn-thin btn-dark expander-open" href="#"><span>${'view-all-pictures' @ i18n}</span><i class="fa fa-angle-down"></i></a>
+        <a class="btn btn-thin btn-dark expander-close" href="#"><span>${'view-less' @ i18n}</span><i class="fa fa-angle-up"></i></a>
+    </div>
+</template>

@@ -98,6 +98,7 @@ public class ComboCruiseModel {
                 segments.add(segmentModel);
             }
         }
+        duration = duration + 1;
     }
 
     public String getTitle() {
@@ -142,5 +143,9 @@ public class ComboCruiseModel {
 
     public List<SegmentModel> getSegments() {
         return segments;
+    }
+    
+    public Page getPage() {
+        return page;
     }
 }

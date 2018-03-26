@@ -656,7 +656,8 @@ $(function() {
 		
 		//suitetab
 		if (suitePlan != null) {
-			$modalContent  = $modalContent.replace("c-suitelist-plan-placeholder", suitePlan);
+			var suitePlanToRender ='<img src="'+ suitePlan + '?hei=930&wid=930&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img" />';
+			$modalContent  = $modalContent.replace("c-suitelist-plan-placeholder", suitePlanToRender);
 		}
 		
 		//features tab
@@ -843,6 +844,16 @@ $(function() {
 				 $('.modal').modal('hide');
 			});
 			
+			if (window.suiteDesktop == true) {
+				
+				$(this).find("#features-tab.c-navtab__link--button a").on("click", function (e) {
+	        		 $(".modal-body .tab-content").addClass("tab-content-grey");
+	        	});
+	    	  
+				$(this).find(".c-navtab__link--button:not(#features-tab) a").on("click", function (e) {
+	        		$(".modal-body .tab-content").removeClass("tab-content-grey");
+	        	});
+			}
 			
 			//create virtual tour on desktop
 			$(this).find(".c-suite-detail-virtual-tour-lightbox").on("click", function(e) {
@@ -861,7 +872,7 @@ $(function() {
 		    						time_anim: '1000',
 		    						min_fov: 10,
 		    						usexmpdata: false,
-		    						default_fov: 179,
+		    						default_fov: 100,
 		    						navbar: [
 		    							'autorotate', 
 		    							'zoom',

@@ -171,7 +171,7 @@
 
                     .c-mozaicslider {
                         &__title {
-                            font-size: 36px;
+                            font-size: 30px;
                             margin-top: 0;
                             font-weight: 500;
     						line-height: 1.1;
@@ -223,4 +223,40 @@
             float: right;
         }
     }
+}
+
+.c-mozaic-nine {
+	@media screen and (min-width: 992px){
+		width:100%;
+		left: auto;
+    	transform: none;
+		
+	}
+	&:before{
+		background-color:transparent;
+	}
+	.c-tabbedmozaic__image-wrapper{
+		height:100%;
+		min-height:200px;
+		@media (max-width:991px){
+			min-height:300px;	
+		}
+		@media (max-width:767px){
+			min-height:250px;
+		}
+	}
+	.c-slider-black-arrow{
+		top:50% !important;
+		
+	}
+	.slick-arrow{
+		@media (max-width:991px){
+			display:none !important;
+		}
+	}
+	.slick-dots{
+		@media (max-width:767px){
+			width:100% !important;
+		}
+	}
 }

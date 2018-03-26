@@ -17,9 +17,12 @@ import org.apache.sling.api.resource.Resource;
 import com.day.cq.commons.Externalizer;
 import com.day.cq.dam.api.Asset;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
+import com.silversea.aem.components.beans.EoBean;
+import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModel;
@@ -36,7 +39,7 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 
-public class CruiseUse extends AbstractGeolocationAwareUse {
+public class CruiseUse extends EoHelper {
 
 	private CruiseModel cruiseModel;
 
@@ -75,6 +78,8 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	private String currentPath;
 
 	private String ccptCode;
+	
+	private String taCode;
 
 	@Override
 	public void activate() throws Exception {
@@ -86,9 +91,13 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 				getCurrentPage().getPath()));
 
 		String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+		taCode = "";
 		for (String selectorInfo : selectors) {
 			if (selectorInfo.contains("ccpt_")) {
 				setCcptCode(selectorInfo.replace("ccpt_", "."));
+			}
+			if (selectorInfo.contains("ta_")) {
+				setTaCode(selectorInfo.replace("ta_", "."));
 			}
 		}
 
@@ -176,7 +185,7 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 				}
 
 				if (!added) {
-					prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale));
+					prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale, priceModel.getSuiteCategory()));
 				}
 
 				// Init lowest price
@@ -186,7 +195,6 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 					} else if (lowestPrice.getComputedPrice() > priceModel.getComputedPrice()) {
 						lowestPrice = priceModel;
 					}
-
 					// Init wait list
 					isWaitList = false;
 				}
@@ -202,10 +210,25 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 		}
 
 		// init exclusive offers based on geolocation
+    	EoConfigurationBean eoConfig = new EoConfigurationBean();
+		eoConfig.setTitleVoyage(true);
+		eoConfig.setShortDescriptionVoyage(true);
+		eoConfig.setDescriptionMain(true);
+		eoConfig.setFootnoteVoyage(true);
+		eoConfig.setMapOverheadVoyage(true);
+		eoConfig.setCruiseFareVoyage(true);
 		for (ExclusiveOfferModel exclusiveOffer : cruiseModel.getExclusiveOffers()) {
 			if (exclusiveOffer.getGeomarkets() != null && exclusiveOffer.getGeomarkets().contains(geomarket)) {
-				exclusiveOffers.add(
-						new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination().getPath()));
+				try{
+					eoConfig.setActiveSystem(exclusiveOffer.getActiveSystem());
+						
+					EoBean result = super.parseExclusiveOffer(eoConfig, exclusiveOffer);
+					exclusiveOffers.add(
+							new ExclusiveOfferItem(exclusiveOffer, countryCode, cruiseModel.getDestination().getPath(), result));
+			
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -594,8 +617,16 @@ public class CruiseUse extends AbstractGeolocationAwareUse {
 	public String getCcptCode() {
 		return ccptCode;
 	}
+	
+	public String getTaCode() {
+		return taCode;
+	}
 
 	public void setCcptCode(String ccptCode) {
 		this.ccptCode = ccptCode;
+	}
+	
+	public void setTaCode(String taCode) {
+		this.taCode = taCode;
 	}
 }

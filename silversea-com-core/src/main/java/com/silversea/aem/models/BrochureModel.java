@@ -46,6 +46,10 @@ public class BrochureModel {
 
     public String getCover() {
         if (asset != null) {
+        	Rendition renditionPng = asset.getRendition("cover.png");
+        	if(renditionPng != null){
+        		return renditionPng.getPath();
+        	}
             RenditionPicker renditionPicker = new PrefixRenditionPicker("cover");
             Rendition rendition = asset.getRendition(renditionPicker);
             if (rendition != null) {
