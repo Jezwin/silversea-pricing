@@ -3,5 +3,5 @@
     jcr:primaryType="nt:unstructured">
     <page
         jcr:primaryType="nt:unstructured"
-        reference="/brochures"/>
+        reference="/brochures" />
 </jcr:root>

@@ -1,10 +1,16 @@
 (function () {
     var DATA_EAEM_NESTED = "data-eaem-nested";
     var CFFW = ".coral-Form-fieldwrapper";
-
+    var JSON_STORE = "JSON_STORE";
     //reads multifield data from server, creates the nested composite multifields and fills them
     var addDataInFields = function () {
         $(document).on("dialog-ready", function() {
+        	
+        	var eamDataNested = $("[" + DATA_EAEM_NESTED + "]").data("eaemNested");
+        	if (eamDataNested != JSON_STORE) {
+        		return;
+        	}
+        	
             var mName = $("[" + DATA_EAEM_NESTED + "]").data("name");
 
             if(!mName){
@@ -112,6 +118,12 @@
     //collect data from widgets in multifield and POST them to CRX as JSON
     var collectDataFromFields = function(){
         $(document).on("click", ".cq-dialog-submit", function () {
+        	
+        	var eamDataNested = $("[" + DATA_EAEM_NESTED + "]").data("eaemNested");
+        	if (eamDataNested != JSON_STORE) {
+        		return;
+        	}
+        	
             var $form = $(this).closest("form.foundation-form");
 
             var mName = $("[" + DATA_EAEM_NESTED + "]").data("name");

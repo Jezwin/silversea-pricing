@@ -104,6 +104,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Um conjunto de comodidades com mais-valias"/>
+	<brochures
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="brochures"
+        sling:message="Brochures"/>
     <blog
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -344,6 +348,26 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Jantar"/>
+     <dining-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining location"/>
+    <dining-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining plan"/>
+    <dining-features
+       jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining features"/>
+    <dining-overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining overview"/>
+    <dining-virtual-tour
+       jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Dining virtual tour"/>
     <dir
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -505,6 +529,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="um catálogo"/>
+	<floating-brochure-ctatext
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="floating-brochure-ctatext"
+        sling:message="Get our free brochures"/>
+    <floating-brochure-heading
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="floating-brochure-heading"
+        sling:message="Silversea Brochures"/>
     <from
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -586,6 +618,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Itinerários"/>
+    <itinerary-and-fares
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Itinerarios e tarifas"/>
     <key-fact
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -718,6 +754,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Outras histórias recentes"/>
+	<other-restaurants
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="outros restaurantes"/>
+    <other-restaurants-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Com a importância da comida na cultura italiana, você esperaria que a refeição fosse uma alta prioridade na Silversea. E com toda a certeza é. Além disso, a excelência gastronômica é dada, graças à nossa parceria com o prestigiado Grands Chefs Relais &amp; Châteaux."/>	
 	<other-suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -810,6 +854,26 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Áreas Públicas"/>
+    <public-areas-location
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas location"/>
+    <public-areas-plan
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas plan"/>
+    <public-areas-features
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas features"/>
+    <public-areas-overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas overview"/>
+    <public-areas-virtual-tour
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Public Areas virtual tour"/>
     <R1
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1037,11 +1101,19 @@
     <suite-features
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Suite features"/>
+        sling:message="Características das suites"/>
+    <suite-overview
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Visión de conjunto de la suite"/>
+     <suite-virtual-tour
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Visita virtual de la suite"/>
      <view-more-features
     	jcr:primaryType="sling:MessageEntry"
     	sling:key="view-more-features"
-    	sling:message="View more features" />
+    	sling:message="Ver mais características" />
     <suites
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1140,6 +1212,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Ver tudo"/>
+	<view-all-pictures
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ver todas as fotos"/>	
     <view-all-public-areas
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1163,7 +1239,7 @@
    	<view-more-details
     	jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-    	sling:message="View more details" />
+    	sling:message="Ver mais detalhes" />
     <view-deck
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1179,7 +1255,7 @@
      <view-less-features
          jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="View less features"/>
+        sling:message="Ver menos características"/>
     <view-online
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

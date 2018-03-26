@@ -18,11 +18,42 @@ $(function() {
         	
         	if (window.suiteDesktop == false) {
         		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
-				if(window.iNoBounce != null) {
-					window.iNoBounce.disable();
-				} 
         	}
+        	if(window.iNoBounce != null) {
+        		try {
+        			window.iNoBounce.disable();
+        		}catch(error) {
+        		}
+        	} 
         }
+        
+        var $modal = $(".modal");
+    	var $modalBody = $modal.find(".modal-body");
+    	if ($modalBody.hasClass("automatic-modal-body-modal-detail")) {
+    		if ( window.$slickSlider != null) {
+				 window.$slickSlider.slick("unslick");
+			}
+    		$('html').removeClass("no-scroll-html");
+        	$('body').removeClass("no-scroll-body");
+        	
+        	if (!window.backNavigation) {
+        		history.back();
+        	}
+        	
+        	setTimeout(function(){window.backNavigation = false;},200);
+        	
+        	if(window.iNoBounce != null) {
+        		try {
+        			window.iNoBounce.disable();
+        		}catch(error) {
+        		}
+        	} 
+        	if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
+        		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "auto"); 
+        		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("top", "9%"); 
+        	}
+
+    	}
         
         var $modalContent = $('body > .modal .modal-content');
         $modalContent.empty();
@@ -32,8 +63,12 @@ $(function() {
 
         
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
-        	window.virtualTour.destroy();
-        	window.virtualTour = null;
+        	try {
+        		window.virtualTour.destroy();
+        	}catch(error) {       		
+        	}finally {
+        		window.virtualTour = null;
+        	}
         }
         
     });

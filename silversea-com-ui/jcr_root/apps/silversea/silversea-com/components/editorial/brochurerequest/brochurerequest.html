@@ -4,13 +4,13 @@
     ${quoteRequest.prepareBrochureParameters}
 
     <div class="row">
-    	<div data-sly-test="${quoteRequest.showSideHtmlBrochure}" class="c-quote-request-form__side c-quote-request-form__side-B-version">
+    	<div data-sly-test="${quoteRequest.showSideHtmlBrochure}" class="c-quote-request-form__side col-sm-5">
 	   		<sly data-sly-use.side="side.html" data-sly-call="${side.default @ item=quoteRequest }" />
     	</div>
-   		<div data-sly-test="${properties.typeForm == 'online-form'}" class="col-sm-8 col-sm-offset-2 c-call-request-form__form">
+   		<div data-sly-test="${properties.typeForm == 'online-form'}" class="${quoteRequest.showSideHtmlBrochure ? 'col-sm-7' : 'col-sm-8 col-sm-offset-2'} c-call-request-form__form">
 	   		<sly data-sly-use.form="form.html" data-sly-call="${form.default @ item=quoteRequest }" />
    		</div>
-		<div data-sly-test="${properties.typeForm == 'printed-form'}" class="col-sm-8 col-sm-offset-2 c-call-request-form__form">
+		<div data-sly-test="${properties.typeForm == 'printed-form'}" class="${quoteRequest.showSideHtmlBrochure ? 'col-sm-7' : 'col-sm-8 col-sm-offset-2'} c-call-request-form__form">
 	   		<sly data-sly-use.formPrinted="form-printed.html" data-sly-call="${formprinted.default @ item=quoteRequest }" />
    		</div>
     </div>

@@ -42,6 +42,9 @@ public class PublicAreaModel implements ShipAreaModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
     private String virtualTour;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipId") @Optional
+    private String shipId;
 
     private List<Asset> assets = new ArrayList<>();
 
@@ -99,4 +102,8 @@ public class PublicAreaModel implements ShipAreaModel {
     public Page getPage() {
         return page;
     }
+    
+    public String getShipId() {
+		return shipId;
+   }
 }

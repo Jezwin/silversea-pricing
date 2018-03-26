@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
-          xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0" jcr:primaryType="nt:unstructured">
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured">
     <content jcr:primaryType="nt:unstructured">
         <items jcr:primaryType="nt:unstructured">
             <tabs jcr:primaryType="nt:unstructured">
@@ -64,27 +63,74 @@
                                                 renderReadOnly="{Boolean}true"
                                                 text="Hide in Navigation"
                                                 value="true"/>
+                                            <showfloatingbrochure
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                                fieldDescription="A blank here would mean it would not be preferred over design mode. A value of show/hide would give it preference over design mode settings."
+                                                fieldLabel="Show/Hide Floating Brochure"
+                                                name="./showFloatingBrochure">
+                                                <items jcr:primaryType="nt:unstructured">
+                                                    <blank
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Blank (Default)"
+                                                        value="blank"/>
+                                                    <show
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Show"
+                                                        value="show"/>
+                                                    <hide
+                                                        jcr:primaryType="nt:unstructured"
+                                                        text="Hide"
+                                                        value="hide"/>
+                                                </items>
+                                            </showfloatingbrochure>
+                                            <whitelistcssselector
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                                cq-msm-lockable="whitelistSelector"
+                                                fieldDescription="Enter a list of class names (without the starting dot) for which the floating brochure must be displayed on the page. Blank here means it would be displayed for the whole page."
+                                                fieldLabel="Whitelist for CSS Selectors"
+                                                renderReadOnly="{Boolean}true">
+                                                <field
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                    name="./whitelistSelector"
+                                                    required="{Boolean}false"/>
+                                            </whitelistcssselector>
+                                            <blacklistcssselector
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/multifield"
+                                                cq-msm-lockable="blacklistSelector"
+                                                fieldDescription="Enter a list of class names (without the starting dot) for which the floating brochure must be hidden from the page. Blank here means it would be hidden for the whole page."
+                                                fieldLabel="Blacklist for CSS Selectors"
+                                                renderReadOnly="{Boolean}true">
+                                                <field
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                                    name="./blacklistSelector"
+                                                    required="{Boolean}false"/>
+                                            </blacklistcssselector>
                                             <showfloatingbar
                                                 jcr:primaryType="nt:unstructured"
+                                                sling:orderBefore="charset"
                                                 sling:resourceType="granite/ui/components/foundation/form/radiogroup"
                                                 allowBulkEdit="{Boolean}true"
                                                 cq-msm-lockable="showFloatingBar"
                                                 renderReadOnly="{Boolean}true"
-                                                text="Show Floating Bar"
-                                                sling:orderBefore="charset">
+                                                text="Show Floating Bar">
                                                 <items jcr:primaryType="nt:unstructured">
                                                     <show
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="granite/ui/components/foundation/form/radio"
                                                         name="./showFloatingBar"
-                                                        value="{Boolean}true"
-                                                        text="Show" />
+                                                        text="Show"
+                                                        value="{Boolean}true"/>
                                                     <hide
                                                         jcr:primaryType="nt:unstructured"
                                                         sling:resourceType="granite/ui/components/foundation/form/radio"
                                                         name="./showFloatingBar"
-                                                        value="{Boolean}false"
-                                                        text="Hide" />
+                                                        text="Hide"
+                                                        value="{Boolean}false"/>
                                                 </items>
                                             </showfloatingbar>
                                             <charset
@@ -380,11 +426,11 @@
                         </items>
                     </advanced>
                     <analyticsandseo
+                        cq:showOnCreate="{Boolean}false"
                         jcr:primaryType="nt:unstructured"
                         jcr:title="Analytics &amp; Seo"
-                        cq:showOnCreate="{Boolean}false"
-                        sling:resourceType="granite/ui/components/foundation/section"
-                        sling:orderBefore="thumbnail">
+                        sling:orderBefore="thumbnail"
+                        sling:resourceType="granite/ui/components/foundation/section">
                         <layout
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
@@ -460,6 +506,12 @@
                                         cq-msm-lockable="metaDescription"
                                         fieldLabel="MetaDescription"
                                         name="./metaDescription"/>
+                                   <canonicalURL
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                        cq-msm-lockable="canonicalURL"
+                                        fieldLabel="canonicalURL"
+                                        name="./canonicalURL"/>
                                 </items>
                             </column>
                         </items>

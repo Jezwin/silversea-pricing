@@ -9,7 +9,7 @@
                 <items jcr:primaryType="nt:unstructured">
                     <exclusiveoffer
                         jcr:primaryType="nt:unstructured"
-                        jcr:title="Exclusive Offer"
+                        jcr:title="Exclusive Offer Legacy"
                         cq:showOnCreate="{Boolean}false"
                         sling:resourceType="granite/ui/components/foundation/section">
                         <layout
@@ -156,7 +156,619 @@
                             </column>
                         </items>
                     </destinationsTab>
-                </items>
+                    
+                    <automaticExclusiveoffer
+                    	cq:showOnCreate="{Boolean}false"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Exclusive Offer Settings"
+                        active="{Boolean}true"
+                        sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+							active="{Boolean}true"
+                            sling:resourceType="granite/ui/components/foundation/layouts/tabs" />
+		               		<items jcr:primaryType="nt:unstructured">
+		               			<eoMain
+			                       jcr:primaryType="nt:unstructured"
+			                       jcr:title="1° - Main"
+			                       active="{Boolean}true"
+			                       sling:resourceType="granite/ui/components/foundation/container">
+                      				<layout jcr:primaryType="nt:unstructured"
+             							sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						       	 <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="Main Settings"
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+							                                 <activeSystem
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																name="./activeSystem"
+																text="Active system"
+																fieldDescription="Active the new EO System"
+																value="true"/>
+							                              	<defaultTitle
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default exclusive offer title"
+																fieldLabel="Default title - (Exclusive offer page, Lightbox)"
+																name="./defaultTitle" />
+															<defaultShortTitle
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default exclusive offer short title"
+																fieldLabel="Default short title - (Home page, voyage page, Tnc page)"
+																name="./defaultShortTitle" />
+															<defaultDescription
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textarea"
+																fieldDescription="Default exclusive description"
+																rows="10"
+																fieldLabel="Default description - (Exclusive offer page, Lightbox, Tnc page)"
+																name="./defaultDescription" />
+															<defaultShortDescription
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textarea"
+																fieldDescription="Default exclusive short description"
+																rows="5"
+																fieldLabel="Default short description - (Home page, voyage page)"
+																name="./defaultShortDescription" />
+						                                    <customMainSettings 
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom fields">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customMainSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <type
+																				    jcr:primaryType="nt:unstructured"
+																				    sling:resourceType="granite/ui/components/foundation/form/select"
+																				    fieldLabel="Type"
+																				    name="./type">
+																				  <items jcr:primaryType="nt:unstructured">
+																				    <title
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Title - (Exclusive offer page, Lightbox)"
+																				      	value="title" />
+																				    <shortTitle
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Short title - (Home page, voyage page, Tnc page)"
+																				      	value="shortTitle" />
+																				    <description
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Description - (Exclusive offer page, Lightbox, Tnc page)"
+																				      	value="description" />
+																				    <shortDescription 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Short description - (Home page, voyage page)"
+																				      	value="shortDescription"/>
+																				  </items>
+																				</type>
+						                                                        <value
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+						                                                            fieldDescription="Custom value"
+						                                        					rows="10"
+						                                                            fieldLabel="Value"
+						                                                            name="./value"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customMainSettings>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
+		                    </eoMain>
+		                    <eoToken
+		                        jcr:primaryType="nt:unstructured"
+		                        jcr:title="2° - Token"
+		                        sling:resourceType="granite/ui/components/foundation/container">
+		                        <layout jcr:primaryType="nt:unstructured"
+             						sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						        <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="Token Settings "
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+						                                	<expirationDate
+	                                                            jcr:primaryType="nt:unstructured"
+                           										sling:resourceType="granite/ui/components/foundation/form/datepicker"
+	                                                            fieldDescription="Date - allow also access to expiration_date_short to have it without the year"
+  	                                                            fieldLabel="expiration_date"
+  	                                                            type="datetime"
+	                                                            name="./expirationDate"/>
+						                                    <customTokenSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                        	sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                        	 class="full-width"
+						                                            fieldLabel="Custom tokens">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customTokenSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                        <token
+						                                                            jcr:primaryType="nt:unstructured"
+                                        											sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Token as price, start-date ..."
+						                                                            fieldLabel="Token"
+						                                                            name="./token"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                   </customTokenSettings>
+						                                   <customTokenValuesSettings
+						                                   			jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom token values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customTokenValuesSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                       <token
+											                                        jcr:primaryType="nt:unstructured"
+											                                        sling:resourceType="granite/ui/components/foundation/form/select"
+											                                        fieldLabel="Token"
+											                                        name="./token">
+											                                         <datasource
+											                                            jcr:primaryType="nt:unstructured"
+											                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoTokenDatasource"
+											                                            addNone="{Boolean}true"/>
+											                                     </token>
+						                                                        <value
+						                                                            jcr:primaryType="nt:unstructured"
+                                        											sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Custom value"
+						                                                            fieldLabel="Value"
+						                                                            name="./value"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customTokenValuesSettings>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
+		                    </eoToken>
+		                    <eoLB
+			                       jcr:primaryType="nt:unstructured"
+			                       jcr:title="3° - Lightbox"
+			                       sling:resourceType="granite/ui/components/foundation/container">
+                      				<layout jcr:primaryType="nt:unstructured"
+             							sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						       	 <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="Ligthbox Settings"
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+						                                	 <pathImageLB
+								                             	jcr:primaryType="nt:unstructured"
+								                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+								                                fieldLabel="Path image"
+   																fieldDescription="Image to show inside the ligthbox"
+								                                rootPath="/content/dam/silversea-com/"
+								                                name="./pathImageLB" />
+							                                 <activeGreysBoxes
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																name="./activeGreysBoxes"
+																text="Active grey-boxes system"
+																fieldDescription="Active greys-boxes system inside the lightbox"
+																value="true"/>
+						                                     <customLBSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom lightbox values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customLBSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <type
+																				    jcr:primaryType="nt:unstructured"
+																				    sling:resourceType="granite/ui/components/foundation/form/select"
+																				    fieldLabel="Type"
+																				    name="./type">
+																				  <items jcr:primaryType="nt:unstructured">
+																				    <title
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Title - (Lightbox)"
+																				      	value="title" />
+																				    <description
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Description - (Lightbox)"
+																				      	value="description" />
+																				  </items>
+																				</type>
+						                                                        <value
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+						                                                            fieldDescription="Custom value"
+						                                        					rows="10"
+						                                                            fieldLabel="Value"
+						                                                            name="./value"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customLBSettings>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
+		                    </eoLB>
+		                    <eoVoyage
+		                    	cq:showOnCreate="{Boolean}false"
+		                        jcr:primaryType="nt:unstructured"
+		                        jcr:title="4° - Voyage"
+		                        sling:resourceType="granite/ui/components/foundation/container">
+		                        <layout jcr:primaryType="nt:unstructured"
+             							sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						       	 <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="Voyage Settings"
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+						                                <defaultMapOverhead
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default voyage map overhead"
+																fieldLabel="Map overhead - (Voyage page)"
+																name="./defaultMapOverhead" />
+															<defaultFootnote
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textfield"
+																fieldDescription="Default Footnote on voyage"
+																fieldLabel="Default Footnote - (Voyage page)"
+																name="./defaultFootnote" />
+						                                     <customVoyageSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom voyage values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customVoyageSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <type
+																				    jcr:primaryType="nt:unstructured"
+																				    sling:resourceType="granite/ui/components/foundation/form/select"
+																				    fieldLabel="Type"
+																				    name="./type">
+																				  <items jcr:primaryType="nt:unstructured">
+																				    <title
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Short title - (Voyage page)"
+																				      	value="shortTitle" />
+																				     <shortDescription 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Short description - (Voyage page)"
+																				      	value="shortDescription"/>
+																				     <mapOverhead 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Map overhead - (Voyage page)"
+																				      	value="mapOverhead"/>
+																				     <footnote 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Footnote - (Voyage page)"
+																				      	value="footnote"/>
+																				  </items>
+																				</type>
+						                                                        <value
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+						                                                            fieldDescription="Custom value"
+						                                        					rows="10"
+						                                                            fieldLabel="Value"
+						                                                            name="./value"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customVoyageSettings>
+						                                    <customVoyagesFaresSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom voyage fares additions values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customVoyagesFaresSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <cruisefare
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Cruise Fares addition"
+						                                                            fieldLabel="Cruise fares"
+						                                                            name="./cruisefare"/>
+						                                                      <footnote
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+						                                                            fieldDescription="Cruise Fares footnote"
+						                                                            fieldLabel="Cruise fares footnote"
+						                                                            name="./cruisefarefootnote"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customVoyagesFaresSettings>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
+		                    </eoVoyage>
+		                   	<eoTnc
+		                    	cq:showOnCreate="{Boolean}false"
+		                        jcr:primaryType="nt:unstructured"
+		                        jcr:title="5° - Terms And Conditions"
+		                        sling:resourceType="granite/ui/components/foundation/container">
+		                         <layout jcr:primaryType="nt:unstructured"
+             							sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						       	 <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="Terms And Conditions Settings"
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+						                                	<defaultDescriptionTnC
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textarea"
+																fieldDescription="Default description - (TnC page)"
+																rows="5"
+																fieldLabel="Default description TnC"
+																name="./defaultDescriptionTnC" />
+						                                     <customTnCSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom TnC values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customTnCSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <type
+																				    jcr:primaryType="nt:unstructured"
+																				    sling:resourceType="granite/ui/components/foundation/form/select"
+																				    fieldLabel="Type"
+																				    name="./type">
+																				  <items jcr:primaryType="nt:unstructured">
+																				     <description 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Description - (Tnc page)"
+																				      	value="description"/>
+																				  </items>
+																				</type>
+						                                                        <value
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+						                                                            fieldDescription="Custom value"
+						                                        					rows="10"
+						                                                            fieldLabel="Value"
+						                                                            name="./value"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customTnCSettings>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
+		                    </eoTnc>
+		                    <eoHelp
+		                    	cq:showOnCreate="{Boolean}false"
+		                        jcr:primaryType="nt:unstructured"
+		                        jcr:title="Help"
+		                        sling:resourceType="granite/ui/components/foundation/container">
+		                         <layout jcr:primaryType="nt:unstructured"
+             							sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						       	 <items jcr:primaryType="nt:unstructured">
+						            <column jcr:primaryType="nt:unstructured"
+						                    sling:resourceType="granite/ui/components/foundation/container">
+						                <items jcr:primaryType="nt:unstructured">
+						                    <fieldset jcr:primaryType="nt:unstructured"
+						                            jcr:title="List of styles"
+						                            sling:resourceType="granite/ui/components/foundation/form/fieldset">
+						                        <layout jcr:primaryType="nt:unstructured"
+						                                sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+						                        <items jcr:primaryType="nt:unstructured">
+						                            <column jcr:primaryType="nt:unstructured"
+						                                    sling:resourceType="granite/ui/components/foundation/container">
+						                                <items jcr:primaryType="nt:unstructured">
+						                                	 <style
+						                                         jcr:primaryType="nt:unstructured"
+						                                         sling:resourceType="granite/ui/components/foundation/form/select">
+						                                         <datasource
+						                                            jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoHelperDatasource"
+						                                            addNone="{Boolean}true"/>
+						                                     </style>
+						                              </items>
+						                           </column>
+						                        </items>
+						                    </fieldset>
+						                </items>
+						            </column>
+						        </items>
+		                    </eoHelp>
+		                </items>
+                    </automaticExclusiveoffer>
+                 </items>
             </tabs>
         </items>
     </content>

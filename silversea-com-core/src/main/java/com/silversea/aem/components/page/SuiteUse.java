@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.DamConstants;
+import com.day.cq.dam.api.s7dam.constants.S7damConstants;
+import com.day.cq.dam.commons.util.DamUtil;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.models.SilverseaAsset;
 import com.silversea.aem.models.SuiteModel;
@@ -31,7 +34,8 @@ public class SuiteUse extends WCMUsePojo {
     private List<Page> suiteReferenceList = new ArrayList<>();
     private List<Page> suitePagesList = new ArrayList<>();
 	private List<SilverseaAsset> initialSuitesAssetsList = new ArrayList<>();
-	private List<SilverseaAsset> completeSuitesAssetsList = new ArrayList<>();;
+	private List<SilverseaAsset> completeSuitesAssetsList = new ArrayList<>();
+	private List<SilverseaAsset> mergedSuitesAssetsList = new ArrayList<>();;
 	private Map<String, List<SilverseaAsset>> shipSuiteAsset = new HashMap<String, List<SilverseaAsset>>();
 	private Map<String, List<SilverseaAsset>> allShipSuiteAsset = new HashMap<String, List<SilverseaAsset>>();;
 	
@@ -54,44 +58,35 @@ public class SuiteUse extends WCMUsePojo {
             }
         }
         
-        for(Page suitePage : suitePagesList) {
-        	String shipLabel = suitePage.getParent(2).getNavigationTitle().toUpperCase();
-        	suiteModel = suitePage.adaptTo(SuiteModel.class);
-        	List<Asset> suiteAssets = new ArrayList<>();
-        	List<SilverseaAsset> suitesAssetsList = new ArrayList<>();
-
-    		if (StringUtils.isNotEmpty(suiteModel.getAssetSelectionReference())) {
-    			suiteAssets
-    					.addAll(AssetUtils.buildAssetList(suiteModel.getAssetSelectionReference(), getResourceResolver()));
-
-	    		for (Asset asset : suiteAssets) {
-	    			SilverseaAsset sscAsset = new SilverseaAsset();
-	    			sscAsset.setPath(asset.getPath());
-	    			sscAsset.setName(asset.getName());
-	    			sscAsset.setLabel(shipLabel);
-	    			suitesAssetsList.add(sscAsset);
-	    		}
-	    		shipSuiteAsset.put(shipLabel, suitesAssetsList);
-    		}
-        }
-        
-        int i = 0;
-        for (Map.Entry<String, List<SilverseaAsset>> entry : shipSuiteAsset.entrySet()) {
-    		List<SilverseaAsset> value = entry.getValue();
-        	if(i < 4) {
-        		if(!value.isEmpty()) {
-                    initialSuitesAssetsList.add(value.get(0));
-                    value.remove(0);
-                    i++;
-        		}
-        	} else {
-        		if(!value.isEmpty()) {
-        			completeSuitesAssetsList.addAll(0, value);
-        		}
+		String assetReference = getProperties().get("assetSelectionReference", String.class);
+		Resource resourceAsset = getResourceResolver().getResource(assetReference);
+        if (resourceAsset != null) {
+        	Asset asset = resourceAsset.adaptTo(Asset.class);
+        	if(asset !=null) {
+        		if (!DamUtil.isImage(asset)) {
+        			String dcFormat = asset.getMetadata().get(DamConstants.DC_FORMAT) != null ? asset.getMetadata().get(DamConstants.DC_FORMAT).toString() : null;
+        			if (dcFormat.contains(S7damConstants.S7_MIXED_MEDIA_SET)) {
+        				List<Asset> assetlist = AssetUtils.buildAssetList(assetReference, getResourceResolver());
+        			       int i = 0;
+        				for (Asset ass : assetlist) {
+        					SilverseaAsset sscAsset = new SilverseaAsset();
+        	    			sscAsset.setPath(ass.getPath());
+        	    			sscAsset.setName(ass.getName());
+        	    			sscAsset.setLabel(ass.getMetadataValue("dc:title"));
+        	    			if(i < 4)  {
+        	    				initialSuitesAssetsList.add(sscAsset);
+        	    			}else
+        	    			{
+        	    				completeSuitesAssetsList.add(sscAsset);
+        	    			}
+        	    			i++;
+        				}
+        				
+        			}
+        		} 
         	}
         }
-        
-        List<SilverseaAsset> mergedSuitesAssetsList = new ArrayList<>();
+                    
         mergedSuitesAssetsList.addAll(initialSuitesAssetsList);
         mergedSuitesAssetsList.addAll(completeSuitesAssetsList);
         allShipSuiteAsset.put("SUITES", mergedSuitesAssetsList);
@@ -108,6 +103,10 @@ public class SuiteUse extends WCMUsePojo {
     public List<SilverseaAsset> getAllAssetForSuites() {
 		return completeSuitesAssetsList;
 	}
+    
+    public List<SilverseaAsset> getMergedSuitesAssetsList(){
+    	return mergedSuitesAssetsList;
+    }
     
     public Map<String, List<SilverseaAsset>> getAllMapAssetForSuites() {
 		return allShipSuiteAsset;

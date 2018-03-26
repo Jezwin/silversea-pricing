@@ -35,11 +35,10 @@ public class PathUtils {
 
         return null;
     }
-    
     /**
      * @param resource
-     * @param page
-     * @return local path to request brochures page path from /conf
+      @param page
+      @return local path to request brochures page path from /conf
      */
     public static String getBrochuresPagePath(final Resource resource, final Page page) {
         final Conf confRes = resource.adaptTo(Conf.class);
