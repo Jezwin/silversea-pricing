@@ -144,4 +144,8 @@ public class ComboCruiseModel {
     public List<SegmentModel> getSegments() {
         return segments;
     }
+    
+    public Page getPage() {
+        return page;
+    }
 }

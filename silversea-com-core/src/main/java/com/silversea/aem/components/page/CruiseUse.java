@@ -185,7 +185,7 @@ public class CruiseUse extends EoHelper {
 				}
 
 				if (!added) {
-					prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale));
+					prices.add(new SuitePrice(priceModel.getSuite(), priceModel, locale, priceModel.getSuiteCategory()));
 				}
 
 				// Init lowest price
@@ -195,7 +195,6 @@ public class CruiseUse extends EoHelper {
 					} else if (lowestPrice.getComputedPrice() > priceModel.getComputedPrice()) {
 						lowestPrice = priceModel;
 					}
-
 					// Init wait list
 					isWaitList = false;
 				}
