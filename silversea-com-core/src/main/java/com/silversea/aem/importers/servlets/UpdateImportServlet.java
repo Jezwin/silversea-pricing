@@ -53,7 +53,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
 		stylesconfiguration,
 		
-		excursionsDisactive
+		excursionsDisactive, landProgramsDisactive,hotelsDisactive
 	}
 
 	@Reference
@@ -167,7 +167,11 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 			} else if (mode.equals(Mode.stylesconfiguration)) {
 				styleCache.buildCache();
 			} else if (mode.equals(Mode.excursionsDisactive)) {
-				shoreExcursionsImporter.disactiveAllShoreExcursionsDeltaByAPI();
+				shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
+			} else if (mode.equals(Mode.landProgramsDisactive)) {
+				landProgramsImporter.disactiveAllItemDeltaByAPI();
+			}  else if (mode.equals(Mode.hotelsDisactive)) {
+				hotelsImporter.disactiveAllItemDeltaByAPI();
 			}
 
 		} catch (ImporterException e) {

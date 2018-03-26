@@ -24,4 +24,10 @@ public interface LandProgramsImporter {
      * @param landProgramId the land program ID of the land program to import
      */
     void importOneLandProgram(final String landProgramId);
+    
+    /**
+     * Disactive all land programs excursion not present in API
+     *
+     */
+    ImportResult disactiveAllItemDeltaByAPI();
 }

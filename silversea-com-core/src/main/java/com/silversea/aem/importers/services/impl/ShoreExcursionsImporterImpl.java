@@ -258,8 +258,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 
 		return new ImportResult(successNumber, errorNumber);
 	}
-
-	public ImportResult disactiveAllShoreExcursionsDeltaByAPI() {
+	
+	@Override
+	public ImportResult disactiveAllItemDeltaByAPI() {
 		LOGGER.debug("Starting shore excursions disactive delta API");
 
 		int successNumber = 0, errorNumber = 0;
@@ -289,6 +290,8 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 			List<Shorex> excursionsAPI = shorexesApi.shorexesGet(null, page, perPage, null);
 			List<Shorex> excursionsListAPI = new ArrayList<>();
 			
+			LOGGER.debug("Check all excursion in jcr: {}", excursionsMapping.size());
+
 			for(int i = 0; i < excursionsAPI.size(); i++) {
 				excursionsListAPI.add(excursionsAPI.get(i));
 				if (i == excursionsAPI.size() -1) {
@@ -304,11 +307,9 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 				LOGGER.debug("Check shorexID: {}", shorexID);
 
 				for (Shorex eAPI : excursionsListAPI) {
-					//LOGGER.debug("Check excursion: {}", eAPI.getShorexName());
 
-					if (shorexID.equals(eAPI.getShorexId())) {
+					if (shorexID.intValue() == (eAPI.getShorexId().intValue())) {
 						shorexToDisactive = eAPI;
-						break;
 					}
 				}
 				if (shorexToDisactive == null) {
@@ -324,7 +325,6 @@ public class ShoreExcursionsImporterImpl implements ShoreExcursionsImporter {
 									"Cannot set excursion page " + shorexID);
 						}
 
-						// depending of the city status, mark the page to be activated or deactivated
 						Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
 
 						if (excursionContentNode == null) {

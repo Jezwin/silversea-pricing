@@ -11,13 +11,17 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.LandProgramsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.models.LandProgramModel;
 import com.silversea.aem.services.ApiConfigurationService;
 import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.LandsApi;
+import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.model.Land;
 import io.swagger.client.model.Land77;
+import io.swagger.client.model.Shorex;
+
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -34,6 +38,8 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -401,6 +407,124 @@ public class LandProgramsImporterImpl implements LandProgramsImporter {
 
         return new ImportResult(successNumber, errorNumber);
     }
+    
+	public ImportResult disactiveAllItemDeltaByAPI() {
+		LOGGER.debug("Starting land programs disactive delta API");
+
+		int successNumber = 0, errorNumber = 0;
+
+		Map<String, Object> authenticationParams = new HashMap<>();
+		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+		try (ResourceResolver resourceResolver = resourceResolverFactory
+				.getServiceResourceResolver(authenticationParams)) {
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+			Session session = resourceResolver.adaptTo(Session.class);
+
+			LandsApi landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
+
+			if (pageManager == null || session == null) {
+				throw new ImporterException("Cannot initialize pageManager and session");
+			}
+
+	        Map<Integer, Map<String, Page>> landProgramsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                            "[sling:resourceType=\"silversea/silversea-com/components/pages/landprogram\"]", "landId");
+
+			int itemsWritten = 0, page = 1, perPage = 1000;
+			Land landItem = null;
+			List<Land> landAPI = landsApi.landsGet(null, page, perPage, null);
+			List<Land> landListAPI = new ArrayList<>();
+			
+			for(int i = 0; i < landAPI.size(); i++) {
+				landListAPI.add(landAPI.get(i));
+				if (i == landAPI.size() -1) {
+					page++;
+					perPage+=1000;
+					landsApi = new LandsApi(ImportersUtils.getApiClient(apiConfig));
+				}
+			}
+			
+			LOGGER.debug("Check all land programs in jcr: {}", landProgramsMapping.size());
+			
+			for (Map.Entry<Integer, Map<String, Page>> land : landProgramsMapping.entrySet()) {
+				landItem = null;
+				Integer landID = land.getKey();
+
+				for (Land lAPI : landListAPI) {
+					
+					if (landID.intValue() == lAPI.getLandId().intValue()) {
+						landItem = lAPI;
+					}
+				}
+				if (landItem == null) {
+					LOGGER.debug("Check landId: {}", landID);
+					for (Map.Entry<String, Page> landPages : landProgramsMapping
+							.get(landID).entrySet()) {
+						Page landPage = landPages.getValue();
+
+						LOGGER.trace("Updating excursion {}", landID);
+
+						if (landPage == null) {
+							throw new ImporterException(
+									"Cannot set land page " + landID);
+						}
+
+						Node landProgramContentNode = landPage.getContentResource().adaptTo(Node.class);
+
+						if (landProgramContentNode == null) {
+							throw new ImporterException(
+									"Cannot set properties for land " + landPages);
+						}
+
+						landProgramContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+						LOGGER.trace("Land program {} is marked to be deactivated", landID);
+					}
+					successNumber++;
+					itemsWritten++;
+
+				} 
+				try {
+					if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+						try {
+							session.save();
+
+							LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+						} catch (RepositoryException e) {
+							session.refresh(true);
+						}
+					}
+				} catch (RepositoryException e) {
+					errorNumber++;
+
+					LOGGER.warn("Import error {}", e.getMessage());
+				}
+			}
+
+
+			if (session.hasPendingChanges()) {
+				try {
+					session.save();
+
+					LOGGER.debug("{} land programs imported, saving session", +itemsWritten);
+				} catch (RepositoryException e) {
+					session.refresh(false);
+				}
+			}
+		} catch (LoginException | ImporterException e) {
+			LOGGER.error("Cannot create resource resolver", e);
+		} catch (ApiException e) {
+			LOGGER.error("Cannot read excursions from API", e);
+		} catch (RepositoryException e) {
+			LOGGER.error("Error writing data", e);
+		}
+
+		LOGGER.debug("Ending land programs disactive update, success: {}, error: {}", +successNumber, +errorNumber);
+
+		return new ImportResult(successNumber, errorNumber);
+	}
+
 
     @Override
     public void importOneLandProgram(String landProgramId) {

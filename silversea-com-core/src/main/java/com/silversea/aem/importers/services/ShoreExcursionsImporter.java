@@ -29,5 +29,5 @@ public interface ShoreExcursionsImporter {
      * Disactive all shore excursion not present in API
      *
      */
-    ImportResult disactiveAllShoreExcursionsDeltaByAPI();
+    ImportResult disactiveAllItemDeltaByAPI();
 }

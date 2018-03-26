@@ -16,8 +16,11 @@ import com.silversea.aem.utils.StringsUtils;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.HotelsApi;
+import io.swagger.client.api.ShorexesApi;
 import io.swagger.client.model.Hotel;
 import io.swagger.client.model.Hotel77;
+import io.swagger.client.model.Shorex;
+
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -34,6 +37,8 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -217,6 +222,127 @@ public class HotelsImporterImpl implements HotelsImporter {
 
         return new ImportResult(successNumber, errorNumber);
     }
+    
+	@Override
+	public ImportResult disactiveAllItemDeltaByAPI() {
+		LOGGER.debug("Starting hotels disactive delta API");
+
+		int successNumber = 0, errorNumber = 0;
+
+		Map<String, Object> authenticationParams = new HashMap<>();
+		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+		try (ResourceResolver resourceResolver = resourceResolverFactory
+				.getServiceResourceResolver(authenticationParams)) {
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+			Session session = resourceResolver.adaptTo(Session.class);
+
+			HotelsApi hotelsApi = new HotelsApi(ImportersUtils.getApiClient(apiConfig));
+			
+			if (pageManager == null || session == null) {
+				throw new ImporterException("Cannot initialize pageManager and session");
+			}
+
+			// excursions mapping
+			Map<Integer, Map<String, Page>> hotelsMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+	                    "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+	                            "[sling:resourceType=\"silversea/silversea-com/components/pages/hotel\"]", "hotelId");
+
+			int itemsWritten = 0, page = 1, perPage = 1000;
+			Hotel itemToCheck = null;
+			List<Hotel> hotelsAPI = hotelsApi.hotelsGet(null, page, perPage, null);
+			List<Hotel> hotelsListAPI = new ArrayList<>();
+			
+			LOGGER.debug("Check all excursion in jcr: {}", hotelsMapping.size());
+
+			for(int i = 0; i < hotelsAPI.size(); i++) {
+				hotelsListAPI.add(hotelsAPI.get(i));
+				if (i == hotelsAPI.size() -1) {
+					page++;
+					perPage+=1000;
+					hotelsAPI = hotelsApi.hotelsGet(null, page, perPage, null);
+				}
+			}
+			
+			for (Map.Entry<Integer, Map<String, Page>> hotel : hotelsMapping.entrySet()) {
+				itemToCheck = null;
+				Integer hotelID = hotel.getKey();
+				LOGGER.debug("Check shorexID: {}", hotelID);
+
+				for (Hotel hAPI : hotelsListAPI) {
+
+					if (hotelID.equals(hAPI.getHotelId())) {
+						itemToCheck = hAPI;
+					}
+				}
+				if (itemToCheck == null) {
+
+					for (Map.Entry<String, Page> excursionsPages : hotelsMapping
+							.get(hotelID).entrySet()) {
+						Page excursionPage = excursionsPages.getValue();
+
+						LOGGER.trace("Updating hotel {}", hotelID);
+
+						if (excursionPage == null) {
+							throw new ImporterException(
+									"Cannot set hotel page " + hotelID);
+						}
+
+						Node excursionContentNode = excursionPage.getContentResource().adaptTo(Node.class);
+
+						if (excursionContentNode == null) {
+							throw new ImporterException(
+									"Cannot set properties for excursion " + hotelID);
+						}
+
+						excursionContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+
+						LOGGER.trace("Excursion {} is marked to be deactivated", hotelID);
+					}
+					successNumber++;
+					itemsWritten++;
+
+				}
+				try {
+					if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+						try {
+							session.save();
+
+							LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+						} catch (RepositoryException e) {
+							session.refresh(true);
+						}
+					}
+				} catch (RepositoryException e) {
+					errorNumber++;
+
+					LOGGER.warn("Import error {}", e.getMessage());
+				}
+			}
+
+
+			if (session.hasPendingChanges()) {
+				try {
+					session.save();
+
+					LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+				} catch (RepositoryException e) {
+					session.refresh(false);
+				}
+			}
+		} catch (LoginException | ImporterException e) {
+			LOGGER.error("Cannot create resource resolver", e);
+		} catch (ApiException e) {
+			LOGGER.error("Cannot read excursions from API", e);
+		} catch (RepositoryException e) {
+			LOGGER.error("Error writing data", e);
+		}
+
+		LOGGER.debug("Ending hotels disactive update, success: {}, error: {}", +successNumber, +errorNumber);
+
+		return new ImportResult(successNumber, errorNumber);
+	}
+
 
     /**
      * TODO it seems a lot of elements are marked as modified on API, compare API data against CRX data before update
