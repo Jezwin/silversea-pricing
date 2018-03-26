@@ -94,7 +94,7 @@
                     </div>
                     <p class="voyageimg__label visible-xs">${'fares-shown-are-per-guest' @ i18n}</p>
                     <div class="voyageshare_wrap">
-                        <a href="#" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
+                        <a href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf' target="_blank" class="share" id="pdf_share_download" rel="nofollow"><i class="fa fa-refresh fa-spin" style="display: none;"></i><i class="fa fa-file-pdf-o"></i></a>
                         <a href="#" class="share" id="pdf_print" rel="nofollow"><i class="fa fa-print"></i></a>
 						<div id="social_shares_wrapper" style="display:inline-block;width:94px;overflow:hidden;margin:0 3px;vertical-align:middle;height:30px">
                             <div id="social_shares" style="width:70px;margin-top:-3px" class="jssocials">
@@ -108,53 +108,7 @@
                             var pdfClicked = false;
                             var downloadWin = '';
                             var currentWindow = $(window);
-                            $('#pdf_share_download').on('click', function (e) {
-                                e.preventDefault();
-                                if(!pdfClicked) {
-                                    pdfClicked = true;
-									$('.voyageshare_wrap .fa-refresh').show();
-                                    $('.voyageshare_wrap .fa-file-pdf-o').hide();
-
-                                   /* ajax_download('${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}.${cruise.cruiseModel.cruiseCode @ context="scriptString"}.pdf');									console.log('share pdf download');
-
-
-                                    // Check PDF Download
-                                    createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', '0');
-                                    clearInterval(listenPdfInterval);
-                                    var listenPdfInterval = setInterval(function(){
-                                        if(readCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}') === '0') {
-                                            console.log('Loading PDF...');
-                                        } else {
-                                            console.log('PDF LOADED!');
-                                            clearInterval(listenPdfInterval);
-                                            $('.voyageshare_wrap .fa-refresh').hide();
-                                            $('.voyageshare_wrap .fa-file-pdf-o').show();                         
-                                            createCookie('ss_pdf_download-${cruise.cruiseModel.cruiseCode @ context="scriptString"}', 0, -1);
-                                            pdfClicked = false;
-                                        }
-                                    }, 1000);*/
-                                    
-                                    setTimeout(function(){
-                                        $.ajax({
-                                            url: '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf',
-                                            beforeSend: function(){
-
-                                        		downloadWin = window.open('', '_blank');
-                                        		downloadWin.blur();
-                                        		currentWindow.focus();    
-                                            },
-                                            success: function(r) {
-    	                                        $('.voyageshare_wrap .fa-refresh').hide();
-    	                                        $('.voyageshare_wrap .fa-file-pdf-o').show();
-                                                downloadWin.location = '${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf';
-                                                pdfClicked = false;
-                                            }
-                                        });
-                                        }, 500);
-
-
-                                }
-                            });
+                            
 
 							var pdfPrintClicked = false;
 							var printWin = '';
