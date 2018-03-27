@@ -84,22 +84,22 @@ $(function() {
             	 }
             	if(typeof prevemail !== 'undefined'){
             		if(prevemail == $el.val()){
-            			return prevbrite;
+            			return window.answerBrite;
             		}else{
                 		prevemail = $el.val();
-                		prevbrite = window.briteVerify($el.val());
-                	  return prevbrite;
+                		window.briteVerify($el.val());
+                	  return window.answerBrite;
                 	}
             		
             	}else{
             		prevemail = $el.val();
-            		prevbrite = window.briteVerify($el.val());
-            	  return prevbrite;
+            		window.briteVerify($el.val());
+            	  return window.answerBrite;
             	}
             }
         }
     }).off('input.bs.validator change.bs.validator focusout.bs.validator').on('submit', function(e) {
-
+    		
         if (!e.isDefaultPrevented()) {
             $.signUp.signUpOffers(this, e);
         }
@@ -275,26 +275,33 @@ if(currentReferrer != ""){
 		createCookie("currentReferrer", currentReferrer, 1);
 	}
 }
-
+window.answerBrite = "";
 //BriteVerify Basic Implementation
 window.briteVerify = function(email){
-	var url = "https://bpi.briteverify.com/emails.json?apikey=XXX";
+	var url = "https://bpi.briteverify.com/emails.json?username=murasylvain1";
+	//var url = "https://bpi.briteverify.com/emails.json?apikey=5d1f252d-23d5-4a05-98fd-c5c7531b6bee";
+
 	 $.ajax({
 		    url: url,
 		    dataType: 'jsonp',
+		    cache:true,
 		    data: {
 		      address: email
 		    },
 		    success: function(response) {
-		    	var result = jQuery.parseJSON( response );
-		    	var valid = result["status"];
-		    	if(valid == "Invalid"){
-		    		return "error";
+		    	var valid = response["status"];
+
+		    	if(valid == "invalid"){
+		    		window.answerBrite = "error";
+		    	}else{
+		    		window.answerBrite = "";
 		    	}
-		    	return true;
+		    	$("[name='email']").blur();
 	        }
 	});
+	
 }
+
 
 //KONAMI CODE
 $(function() {

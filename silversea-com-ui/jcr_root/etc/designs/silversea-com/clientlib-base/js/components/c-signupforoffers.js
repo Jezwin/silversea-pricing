@@ -37,17 +37,17 @@ $(function() {
                     	 }
                     	if(typeof prevemail !== 'undefined'){
                     		if(prevemail == $el.val()){
-                    			return prevbrite;
+                    			return window.answerBrite;
                     		}else{
                         		prevemail = $el.val();
-                        		prevbrite = window.briteVerify($el.val());
-                        	  return prevbrite;
+                        		window.briteVerify($el.val());
+                        	  return window.answerBrite;
                         	}
                     		
                     	}else{
                     		prevemail = $el.val();
-                    		prevbrite = window.briteVerify($el.val());
-                    	  return prevbrite;
+                    		window.briteVerify($el.val());
+                    	  return window.answerBrite;
                     	}
                     }
                 }
