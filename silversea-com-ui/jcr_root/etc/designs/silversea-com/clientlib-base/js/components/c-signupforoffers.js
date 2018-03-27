@@ -29,6 +29,27 @@ $(function() {
                 feedback : {
                     success : 'feedback-success',
                     error : 'feedback-error'
+                },custom : {                    
+                    email : function($el){
+                    	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    	 if(!re.test($el.val())){
+                    		 return "error";
+                    	 }
+                    	if(typeof prevemail !== 'undefined'){
+                    		if(prevemail == $el.val()){
+                    			return prevbrite;
+                    		}else{
+                        		prevemail = $el.val();
+                        		prevbrite = window.briteVerify($el.val());
+                        	  return prevbrite;
+                        	}
+                    		
+                    	}else{
+                    		prevemail = $el.val();
+                    		prevbrite = window.briteVerify($el.val());
+                    	  return prevbrite;
+                    	}
+                    }
                 }
             }).on('submit', function(e) {
                 if (!e.isDefaultPrevented()) {

@@ -255,6 +255,25 @@ if(currentReferrer != ""){
 	}
 }
 
+//BriteVerify Basic Implementation
+window.briteVerify = function(email){
+	var url = "https://bpi.briteverify.com/emails.json?apikey=XXX";
+	 $.ajax({
+		    url: url,
+		    dataType: 'jsonp',
+		    data: {
+		      address: email
+		    },
+		    success: function(response) {
+		    	var result = jQuery.parseJSON( response );
+		    	var valid = result["status"];
+		    	if(valid == "Invalid"){
+		    		return "error";
+		    	}
+		    	return true;
+	        }
+	});
+}
 
 //KONAMI CODE
 $(function() {
