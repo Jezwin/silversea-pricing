@@ -1,10 +1,13 @@
 package com.silversea.aem.models;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.tagging.Tag;
-import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
-import com.silversea.aem.services.GeolocationTagService;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Optional;
@@ -12,12 +15,11 @@ import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
+import com.silversea.aem.services.GeolocationTagService;
 
 @Model(adaptables = Page.class)
 public class PortModel {
@@ -79,21 +81,31 @@ public class PortModel {
 
             if (child.getName().equals("excursions")) {
                 Iterator<Page> excursionsPages = child.listChildren();
-
+                
+                ExcursionModel excursionModel = null;
                 while (excursionsPages.hasNext()) {
-                    excursions.add(excursionsPages.next().adaptTo(ExcursionModel.class));
+                	excursionModel = excursionsPages.next().adaptTo(ExcursionModel.class);
+                	if (excursionModel != null && !excursionModel.isToDeactivate()) {
+                		excursions.add(excursionModel);
+                	}
                 }
             } else if (child.getName().equals("land-programs")) {
                 Iterator<Page> landProgramsPages = child.listChildren();
-
+                LandProgramModel landProgramModel = null;
                 while (landProgramsPages.hasNext()) {
-                    landPrograms.add(landProgramsPages.next().adaptTo(LandProgramModel.class));
+                	landProgramModel = landProgramsPages.next().adaptTo(LandProgramModel.class);
+                	if (landProgramModel != null && !landProgramModel.isToDeactivate()) {
+                		landPrograms.add(landProgramModel);
+                	}
                 }
             } else if (child.getName().equals("hotels")) {
                 Iterator<Page> hotelsPages = child.listChildren();
-
+                HotelModel hotelModel = null;
                 while (hotelsPages.hasNext()) {
-                    hotels.add(hotelsPages.next().adaptTo(HotelModel.class));
+                	hotelModel = hotelsPages.next().adaptTo(HotelModel.class);
+                	if (hotelModel != null && !hotelModel.isToDeactivate()) {
+                		hotels.add(hotelModel);
+                	}
                 }
             }
         }
