@@ -34,6 +34,7 @@ public class LandProgramModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/landCode") @Optional
     private String landCode;
+    
 
     private String shortDescription;
     
@@ -58,7 +59,7 @@ public class LandProgramModel {
         return landId;
     }
 
-    public String getLandCode() {
+	public String getLandCode() {
         return landCode;
     }
 }

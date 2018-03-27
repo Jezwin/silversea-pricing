@@ -97,6 +97,29 @@ public class ItineraryModel {
                 port = portPage.adaptTo(PortModel.class);
             }
         }
+        List<ItineraryExcursionModel> excursionToShow = new ArrayList<>();
+        for (ItineraryExcursionModel excursion : this.excursions) {
+        	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
+        		excursionToShow.add(excursion);
+        	}
+        }
+        this.excursions = excursionToShow;
+        
+        List<ItineraryLandProgramModel> landProgramsToShow = new ArrayList<>();
+        for (ItineraryLandProgramModel  landProgram : this.landPrograms) {
+        	if(landProgram.getLandProgram() != null && StringUtils.isNotEmpty(landProgram.getLandProgram().getLandCode())) {
+        		landProgramsToShow.add(landProgram);
+        	}
+        }
+        this.landPrograms = landProgramsToShow;
+        
+        List<ItineraryHotelModel> hotelsToShow = new ArrayList<>();
+        for (ItineraryHotelModel  hotel : this.hotels) {
+        	if(hotel.getHotel() != null && StringUtils.isNotEmpty(hotel.getHotel().getCode())) {
+        		hotelsToShow.add(hotel);
+        	}
+        }
+        this.hotels = hotelsToShow;
     }
 
     public Resource getResource() {
@@ -195,26 +218,29 @@ public class ItineraryModel {
 
         compactedExcursions = new ArrayList<>();
         for (ItineraryExcursionModel excursion : excursions) {
-            boolean found = false;
-
-            for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
-                if (excursionForCompactedList.getCodeExcursion() != null
-                    && excursion.getCodeExcursion() != null
-                    && excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
-                    found = true;
-                }
-            }
-
-            if (!found) {
-                // trick to deep clone the itinerary item
-                // without implementing java clone method
-                final ItineraryExcursionModel excursionCopy = excursion.getResource().adaptTo(ItineraryExcursionModel.class);
-
-                if (excursionCopy != null) {
-                    excursionCopy.setGeneralDepartureTime(null);
-                    compactedExcursions.add(excursionCopy);
-                }
-            }
+        	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
+        		boolean found = false;
+        		
+        		for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {
+        			if (excursionForCompactedList.getCodeExcursion() != null
+        					&& excursion.getCodeExcursion() != null
+        					&& excursionForCompactedList.getCodeExcursion().equals(excursion.getCodeExcursion())) {
+        				found = true;
+        			}
+        		}
+        		
+        		if (!found) {
+        			// trick to deep clone the itinerary item
+        			// without implementing java clone method
+        			final ItineraryExcursionModel excursionCopy = excursion.getResource().adaptTo(ItineraryExcursionModel.class);
+        			
+        			if (excursionCopy != null) {
+        				excursionCopy.setGeneralDepartureTime(null);
+        				compactedExcursions.add(excursionCopy);
+        			}
+        		}
+        	}
+        	
         }
 
         return compactedExcursions;

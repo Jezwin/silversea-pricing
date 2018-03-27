@@ -52,4 +52,8 @@ public class ItineraryHotelModel {
     public String getCode() {
         return hotel != null ? hotel.getCode() : null;
     }
+
+	public HotelModel getHotel() {
+		return hotel;
+	}
 }

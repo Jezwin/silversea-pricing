@@ -51,7 +51,7 @@ public class ExcursionModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
     private String pois;
-
+    
     private String shortDescription;
 
     private List<FeatureModel> features = new ArrayList<>();
@@ -153,7 +153,7 @@ public class ExcursionModel {
         return schedule;
     }
 
-    /**
+	/**
      * TODO replace by {@link java.time.Duration}
      */
     @Deprecated

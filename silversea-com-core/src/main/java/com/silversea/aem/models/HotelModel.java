@@ -32,7 +32,8 @@ public class HotelModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/code") @Optional
     private String code;
 
-    private String shortDescription;
+
+	private String shortDescription;
 
     @PostConstruct
     private void init() {
