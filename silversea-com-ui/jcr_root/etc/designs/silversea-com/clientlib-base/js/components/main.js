@@ -76,7 +76,28 @@ $(function() {
      **************************************************************************/
     // On submit store mandatory value
     $('.c-formcookie').validator({
-        focus : false
+        focus : false,custom : {                    
+            email : function($el){
+            	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            	 if(!re.test($el.val())){
+            		 return "error";
+            	 }
+            	if(typeof prevemail !== 'undefined'){
+            		if(prevemail == $el.val()){
+            			return prevbrite;
+            		}else{
+                		prevemail = $el.val();
+                		prevbrite = window.briteVerify($el.val());
+                	  return prevbrite;
+                	}
+            		
+            	}else{
+            		prevemail = $el.val();
+            		prevbrite = window.briteVerify($el.val());
+            	  return prevbrite;
+            	}
+            }
+        }
     }).off('input.bs.validator change.bs.validator focusout.bs.validator').on('submit', function(e) {
 
         if (!e.isDefaultPrevented()) {
