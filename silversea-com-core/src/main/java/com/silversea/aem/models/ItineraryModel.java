@@ -99,7 +99,7 @@ public class ItineraryModel {
         }
         List<ItineraryExcursionModel> excursionToShow = new ArrayList<>();
         for (ItineraryExcursionModel excursion : this.excursions) {
-        	if(excursion.getExcursion() != null && !excursion.getExcursion().isToDeactivate() && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
+        	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
         		excursionToShow.add(excursion);
         	}
         }
@@ -107,7 +107,7 @@ public class ItineraryModel {
         
         List<ItineraryLandProgramModel> landProgramsToShow = new ArrayList<>();
         for (ItineraryLandProgramModel  landProgram : this.landPrograms) {
-        	if(landProgram.getLandProgram() != null && !landProgram.getLandProgram().isToDeactivate() && StringUtils.isNotEmpty(landProgram.getLandProgram().getLandCode())) {
+        	if(landProgram.getLandProgram() != null && StringUtils.isNotEmpty(landProgram.getLandProgram().getLandCode())) {
         		landProgramsToShow.add(landProgram);
         	}
         }
@@ -115,7 +115,7 @@ public class ItineraryModel {
         
         List<ItineraryHotelModel> hotelsToShow = new ArrayList<>();
         for (ItineraryHotelModel  hotel : this.hotels) {
-        	if(hotel.getHotel() != null && !hotel.getHotel().isToDeactivate() && StringUtils.isNotEmpty(hotel.getHotel().getCode())) {
+        	if(hotel.getHotel() != null && StringUtils.isNotEmpty(hotel.getHotel().getCode())) {
         		hotelsToShow.add(hotel);
         	}
         }
@@ -218,7 +218,7 @@ public class ItineraryModel {
 
         compactedExcursions = new ArrayList<>();
         for (ItineraryExcursionModel excursion : excursions) {
-        	if(excursion.getExcursion() != null && !excursion.getExcursion().isToDeactivate() && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
+        	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
         		boolean found = false;
         		
         		for (ItineraryExcursionModel excursionForCompactedList : compactedExcursions) {

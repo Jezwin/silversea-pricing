@@ -85,7 +85,7 @@ public class PortModel {
                 ExcursionModel excursionModel = null;
                 while (excursionsPages.hasNext()) {
                 	excursionModel = excursionsPages.next().adaptTo(ExcursionModel.class);
-                	if (excursionModel != null && !excursionModel.isToDeactivate()) {
+                	if (excursionModel != null && StringUtils.isNotEmpty(excursionModel.getCodeExcursion())) {
                 		excursions.add(excursionModel);
                 	}
                 }
@@ -94,7 +94,7 @@ public class PortModel {
                 LandProgramModel landProgramModel = null;
                 while (landProgramsPages.hasNext()) {
                 	landProgramModel = landProgramsPages.next().adaptTo(LandProgramModel.class);
-                	if (landProgramModel != null && !landProgramModel.isToDeactivate()) {
+                	if (landProgramModel != null && StringUtils.isNotEmpty(landProgramModel.getLandCode())) {
                 		landPrograms.add(landProgramModel);
                 	}
                 }
@@ -103,7 +103,7 @@ public class PortModel {
                 HotelModel hotelModel = null;
                 while (hotelsPages.hasNext()) {
                 	hotelModel = hotelsPages.next().adaptTo(HotelModel.class);
-                	if (hotelModel != null && !hotelModel.isToDeactivate()) {
+                	if (hotelModel != null && StringUtils.isNotEmpty(hotelModel.getName())) {
                 		hotels.add(hotelModel);
                 	}
                 }

@@ -31,9 +31,6 @@ public class HotelModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/code") @Optional
     private String code;
-    
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/toDeactivate") @Optional
-    private boolean toDeactivate;
 
 
 	private String shortDescription;
@@ -61,9 +58,5 @@ public class HotelModel {
 
     public Page getPage() {
         return page;
-    }
-
-    public boolean isToDeactivate() {
-    	return toDeactivate;
     }
 }
