@@ -56,4 +56,8 @@ public class ItineraryLandProgramModel {
     public String getLandCode() {
         return landProgram != null ? landProgram.getLandCode() : null;
     }
+
+	public LandProgramModel getLandProgram() {
+		return landProgram;
+	}
 }

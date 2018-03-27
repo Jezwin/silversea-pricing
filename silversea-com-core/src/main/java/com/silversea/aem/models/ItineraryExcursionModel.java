@@ -120,7 +120,11 @@ public class ItineraryExcursionModel {
         return excursion != null ? excursion.getSchedule() : null;
     }
 
-    public class Duration {
+    public ExcursionModel getExcursion() {
+		return excursion;
+	}
+
+	public class Duration {
         int hours;
         int minutes;
 
