@@ -195,6 +195,12 @@
 																text="Active system"
 																fieldDescription="Active the new EO System"
 																value="true"/>
+															<categoryEO
+		                                                       jcr:primaryType="nt:unstructured"
+		                                                       sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                       allowCreate="{Boolean}true"
+		                                                       fieldLabel="Category EO (Exclusive Offer List component)"
+		                                                       name="./categoryEO"/>
 							                              	<defaultTitle
 																jcr:primaryType="nt:unstructured"
 																sling:resourceType="granite/ui/components/foundation/form/textfield"

@@ -179,6 +179,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/customTnCSettings")
 	@Optional
 	private String[] customTnCSettings;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/categoryEO")
+	@Optional
+	private String[] categoryEO;
 
 	private String path;
 
@@ -375,5 +380,9 @@ public class ExclusiveOfferModel {
 	
 	public String getDefaultShortTitle() {
 		return defaultShortTitle;
+	}
+
+	public String[] getCategoryEO() {
+		return categoryEO;
 	}
 }
