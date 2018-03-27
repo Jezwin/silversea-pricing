@@ -51,6 +51,9 @@ public class ExcursionModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/pois") @Optional
     private String pois;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/toDeactivate") @Optional
+    private boolean toDeactivate;
 
     private String shortDescription;
 
@@ -153,7 +156,11 @@ public class ExcursionModel {
         return schedule;
     }
 
-    /**
+    public boolean isToDeactivate() {
+		return toDeactivate;
+	}
+
+	/**
      * TODO replace by {@link java.time.Duration}
      */
     @Deprecated
