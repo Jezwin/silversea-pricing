@@ -18,21 +18,23 @@
     <div class="c-mozaic__slider" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
         <sly data-sly-list.destination="${fyc.destinations}">
             <div class="c-mozaic__slider__slide">
-                <div class="c-tabbedmozaic">
-                    <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=destination.path}">
-                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
-                    </div>
-                    <h2 class="c-tabbedmozaic__title">
-                        <span>${destination.navigationTitle || destination.title @ context='html'}</span>
-                    </h2>
-                    <a class="c-tabbedmozaic__link--block" data-sly-test=${destination.path} href="${destination.path @ extension='html'}"></a>
+            	<div class="boxShadow">
+	                <div class="c-tabbedmozaic">
+	                    <div class="c-tabbedmozaic__image-wrapper" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=destination.path}">
+	                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=target.thumbnail}" />
+	                    </div>
+	                    <h2 class="c-tabbedmozaic__title">
+	                        <span>${destination.navigationTitle || destination.title @ context='html'}</span>
+	                    </h2>
+	                    <a class="c-tabbedmozaic__link--block" data-sly-test=${destination.path} href="${destination.path @ extension='html'}"></a>
+	                </div>
+	                <p class="c-tabbedmozaic__description visible-xs-block visible-sm-block">
+	                    ${destination.description @ context='html'}
+	                    <a href="${destination.path @ extension='html'}" class="discover-more">
+	                    ${'discover-more' @ i18n}
+	                    <i class="fa fa-lg fa-angle-right"></i></a>
+	                </p>
                 </div>
-                <p class="c-tabbedmozaic__description visible-xs-block visible-sm-block">
-                    ${destination.description @ context='html'}
-                    <a href="${destination.path @ extension='html'}" class="discover-more">
-                    ${'discover-more' @ i18n}
-                    <i class="fa fa-lg fa-angle-right"></i></a>
-                </p>
             </div>
         </sly>
     </div>
