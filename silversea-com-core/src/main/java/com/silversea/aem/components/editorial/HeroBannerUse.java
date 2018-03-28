@@ -27,7 +27,6 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.beans.Button;
 import com.silversea.aem.helper.UrlHelper;
-import com.silversea.aem.models.LandProgramModel;
 import com.silversea.aem.utils.AssetUtils;
 
 public class HeroBannerUse extends WCMUsePojo {
