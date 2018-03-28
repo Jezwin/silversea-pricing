@@ -385,10 +385,10 @@
 
 @media screen and (max-width: 767px) {
 
-    .slider .c-slider--style1 .slick-prev,
+    .slider .c-slider--style1:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev,
     .port_v2__postcarousel--style1 .slick-prev,
     .c-mozaic-nine .c-mozaic__slider--style1 .slick-prev,
-    .slider .c-slider--style1 .slick-next,
+    .slider .c-slider--style1:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next,
     .port_v2__postcarousel--style1 .slick-next,
     .c-mozaic-nine .c-mozaic__slider--style1 .slick-next {
         display: inline-block !important;
@@ -398,16 +398,16 @@
 
 
 
-    .slider .c-slider .slick-prev:before,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev:before,
     .port_v2__postcarousel .slick-prev:before,
     .c-mozaic-nine .c-mozaic__slider .slick-prev:before,
-    .slider .c-slider .slick-next:before,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:before,
     .port_v2__postcarousel .slick-next:before,
     .c-mozaic-nine .c-mozaic__slider .slick-next:before,
-    .slider .c-slider .slick-prev:after,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev:after,
     .port_v2__postcarousel .slick-prev:after,
     .c-mozaic-nine .c-mozaic__slider .slick-prev:after,
-    .slider .c-slider .slick-next:after,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:after,
     .port_v2__postcarousel .slick-next:after,
     .c-mozaic-nine .c-mozaic__slider .slick-next:after {
         height: 20px;
@@ -415,10 +415,10 @@
     }
 
 
-    .slider .c-slider .slick-prev:after,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev:after,
     .port_v2__postcarousel .slick-prev:after,
     .c-mozaic-nine .c-mozaic__slider .slick-prev:after,
-    .slider .c-slider .slick-next:after,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:after,
     .port_v2__postcarousel .slick-next:after,
     .c-mozaic-nine .c-mozaic__slider .slick-next:after {
         border: 1px solid;
@@ -442,27 +442,27 @@
     	}
     }
 
-    .slider .c-slider:not(.c-slider--full-width) .slick-slide>*, .port_v2__postcarousel:not(.c-slider--full-width) .slick-slide>*, .c-mozaic-nine .c-mozaic__slider:not(.c-slider--full-width) .slick-slide>* {
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-slide>*, .port_v2__postcarousel:not(.c-slider--full-width) .slick-slide>*, .c-mozaic-nine .c-mozaic__slider:not(.c-slider--full-width) .slick-slide>* {
         margin: 0 10px;
     }
     
-    .slider .c-slider .slick-prev:before,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev:before,
 	.port_v2__postcarousel .slick-prev:before,
 	.c-mozaic-nine .c-mozaic__slider .slick-prev:before,
-	.slider .c-slider .slick-next:before,
+	.slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:before,
 	.port_v2__postcarousel .slick-next:before,
 	.c-mozaic-nine .c-mozaic__slider .slick-next:before {
 	    border: none;
 	}
-	.parbase:not(.exclusiveOfferList) .slider .c-slider-black-arrow {
+	.parbase:not(.exclusiveOfferList) .slider:not(.c-slider--full-width):not(.inside-hero-banner) .c-slider-black-arrow {
         top: 50%;
     }
     
-    .slider .slick-next {
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next {
     	right: -57px;
     }
     
-    .slider .slick-prev {
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev {
     	left: -57px;
     }
 }
