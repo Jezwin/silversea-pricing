@@ -11,6 +11,8 @@ import javax.jcr.Session;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
@@ -28,6 +30,8 @@ import com.silversea.aem.helper.UrlHelper;
 import com.silversea.aem.utils.AssetUtils;
 
 public class HeroBannerUse extends WCMUsePojo {
+	
+	static final private Logger LOGGER = LoggerFactory.getLogger(HeroBannerUse.class);
 	
 	private Button btn1;
 	private Button btn2;
@@ -156,6 +160,7 @@ public class HeroBannerUse extends WCMUsePojo {
 	                
             }
         } catch (RepositoryException e) {
+        	LOGGER.error(e.getMessage());
         }
 		return id;
 	}
