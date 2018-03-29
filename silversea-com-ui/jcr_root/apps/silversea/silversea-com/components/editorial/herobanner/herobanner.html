@@ -37,7 +37,7 @@
                             var slickElement = $(".modal .modal-content--gallery .c-gallery .c-slider");
                             if(gallery != null && gallery.length > 0 && slickElement != null && slickElement.slick != null && slickElement.hasClass('slick-initialized')) {
                                 $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); 
-                                setTimeout(function(){ $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); }, 400);
+                                setTimeout(function(){ $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); }, 500);
                                 clearInterval(intervalGallery);
                             }
 			    		},1000);
