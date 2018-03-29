@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ banner}">
-    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner" 
+    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}" 
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
 	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
@@ -83,7 +83,7 @@
 </template>
 
 <template data-sly-template.home="${ @ banner}">
-    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
 		<sly data-sly-test="${!properties.enableInlineGallery || !banner.inlineGalleryID}">
 	        <div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
@@ -140,7 +140,7 @@
 </template>
 
 <template data-sly-template.offer="${ @ banner}">
-    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search c-hero-banner__exclusiveoffers"
+    <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search c-hero-banner__exclusiveoffers ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}"
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
             <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">

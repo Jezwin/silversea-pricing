@@ -24,11 +24,25 @@
 		<script>
 			if($(window).width() < 768){
 			    $(document).ready(function() {   
+
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version .c-hero-banner__image').replaceWith($('${banner.inlineGalleryID @ context="unsafe"}'));
 			    	$('${banner.inlineGalleryID @ context="unsafe"}').addClass("inside-hero-banner");
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version.c-hero-banner-landing__image').css("display", "inline-block");
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version a.automatic-gallery-modal:not(.video-link)').removeClass("automatic-gallery-modal");
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version a.automatic-gallery-modal.video-link').css("left", "50%");
+
+			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version').delegate("a.automatic-gallery-modal.video-link","click", function(){
+						var intervalGallery = setInterval(function(){
+                            var gallery = $(".modal .modal-content--gallery .c-gallery");
+                            var slickElement = $(".modal .modal-content--gallery .c-gallery .c-slider");
+                            if(gallery != null && gallery.length > 0 && slickElement != null && slickElement.slick != null && slickElement.hasClass('slick-initialized')) {
+                                $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); 
+                                setTimeout(function(){ $(".modal .modal-content--gallery .c-gallery .c-slider").slick("slickSetOption", "swipe",false , false); }, 400);
+                                clearInterval(intervalGallery);
+                            }
+			    		},1000);
+                    });
+
 			    	
 				});
 			}
