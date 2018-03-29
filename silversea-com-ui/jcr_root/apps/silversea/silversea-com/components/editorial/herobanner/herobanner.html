@@ -49,6 +49,9 @@
 		</script>
 		<style>
 			@media screen and (max-width: 767px) {
+				.inline-gallery-included .c-inline-gallery .slick-slide a {
+				    margin: 0!important;
+				}
 				${banner.inlineGalleryID @ context="unsafe"}.c-inline-gallery.c-slider .slick-slide > div {
 				    height:${properties.mobileheight || 220 @ context="unsafe"}px !important;
 				}
