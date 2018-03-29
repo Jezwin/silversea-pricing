@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -14,7 +13,6 @@ import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.DamConstants;
 import com.day.cq.dam.api.s7dam.constants.S7damConstants;
@@ -25,11 +23,12 @@ import com.day.cq.search.QueryBuilder;
 import com.day.cq.search.result.Hit;
 import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
+import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.Button;
 import com.silversea.aem.helper.UrlHelper;
 import com.silversea.aem.utils.AssetUtils;
 
-public class HeroBannerUse extends WCMUsePojo {
+public class HeroBannerUse extends AbstractGeolocationAwareUse {
 	
 	static final private Logger LOGGER = LoggerFactory.getLogger(HeroBannerUse.class);
 	
@@ -41,16 +40,26 @@ public class HeroBannerUse extends WCMUsePojo {
 
 	private String imageBackgroundPath;
 	private String imageBackgroundPathMobile;
-
+	
+	private String title;
+	private String description;
+	private String background;
+	
 	private String inlineGalleryID;
 
 	@Override
 	public void activate() throws Exception {
-
-		String assetReference = getProperties().get("assetReference", String.class);
+		super.activate();
+		this.title = getProperties().get("text", String.class);
+		this.description = getProperties().get("jcr:description", String.class);
+		this.background = getProperties().get("assetReference", String.class);
 		Boolean enableInlineGallery = getProperties().get("enableInlineGallery", Boolean.class);
-		Resource resourceAsset = getResourceResolver().getResource(assetReference);
+		Resource resourceAsset = getResourceResolver().getResource(this.background);
 
+		if(geomarket != null) {
+			getValueByMarket(geomarket.toUpperCase());
+		}
+		
 		if (resourceAsset != null) {
 			Asset asset = resourceAsset.adaptTo(Asset.class);
 			if (asset != null) {
@@ -59,15 +68,15 @@ public class HeroBannerUse extends WCMUsePojo {
 							? asset.getMetadata().get(DamConstants.DC_FORMAT).toString()
 							: null;
 					if (dcFormat.contains(S7damConstants.S7_MIXED_MEDIA_SET)) {
-						List<Asset> assetlist = AssetUtils.buildAssetList(assetReference, getResourceResolver());
+						List<Asset> assetlist = AssetUtils.buildAssetList(this.background, getResourceResolver());
 						if (assetlist.size() > 0) {
 							this.imageBackgroundPath = assetlist.get(0).getPath();
 							this.imageBackgroundPathMobile = assetlist.get(0).getPath();
 						}
 					}
 				} else {
-					this.imageBackgroundPath = assetReference;
-					this.imageBackgroundPathMobile = assetReference;
+					this.imageBackgroundPath = this.background;
+					this.imageBackgroundPathMobile = this.background;
 				}
 				if (enableInlineGallery!= null && enableInlineGallery) {
 					this.inlineGalleryID = searchInlineGalleryID("inlinegallery");
@@ -89,7 +98,22 @@ public class HeroBannerUse extends WCMUsePojo {
 			this.selectorUrl = selectorSuffixUrl[0];
 			this.suffixUrl = selectorSuffixUrl[1];
 		}
-
+		
+	}
+	
+	private void getValueByMarket(String market) {
+		String value = getProperties().get("title" + market, String.class);
+		if(StringUtils.isNotEmpty(value)) {
+			this.title = value;
+		}
+		value = getProperties().get("description" + market, String.class);
+		if(StringUtils.isNotEmpty(value)) {
+			this.description = value;
+		}
+		value = getProperties().get("background" + market, String.class);
+		if(StringUtils.isNotEmpty(value)) {
+			this.background = value;
+		}
 	}
 	
 	private String searchInlineGalleryID(String type) {
@@ -214,6 +238,18 @@ public class HeroBannerUse extends WCMUsePojo {
 
 	public String getInlineGalleryID() {
 		return inlineGalleryID;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getBackground() {
+		return background;
 	}
 
 }

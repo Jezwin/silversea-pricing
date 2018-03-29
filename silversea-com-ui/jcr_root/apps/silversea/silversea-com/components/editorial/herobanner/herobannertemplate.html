@@ -2,16 +2,16 @@
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner" 
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
-	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	        <div class="c-hero-banner__image" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 	            <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
 	        </div>
 	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
 	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-	                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
-	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
-	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
-	                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+	                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+	                <p class="c-hero-banner__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
 	                <sly data-sly-test.btn1="${banner.btn1}" />
 	                <sly data-sly-test.btn2="${banner.btn2}" />
 	                <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
@@ -41,7 +41,7 @@
 	        </a>
 	    </div>
 	    <div class="hidden-sm hidden-md hidden-lg ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}">
-	        <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	        <div class="c-hero-banner__image" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 	        	 <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
 	            	data-target=".bs-modal-lg">
 	            	<i class="fa fa-play"></i>
@@ -50,11 +50,11 @@
             </div>
 	        <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
 	            <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-	                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
-	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
-	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
-	                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+	                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+	                <p class="c-hero-banner__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
 	                <sly data-sly-test.btn1="${banner.btn1}" />
 	                <sly data-sly-test.btn2="${banner.btn2}" />
 	                <div class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
@@ -86,30 +86,30 @@
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
 		<sly data-sly-test="${!properties.enableInlineGallery || !banner.inlineGalleryID}">
-	        <div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	        <div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 	            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
 	        </div>
-	        <div class="c-hero-banner__image visible-xs" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+	        <div class="c-hero-banner__image visible-xs" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 	            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
 	        </div>
          </sly>
 		<sly data-sly-test="${properties.enableInlineGallery && banner.inlineGalleryID}">
 			<div class="c-hero-banner-mobile-version">
-			 	<div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+			 	<div class="c-hero-banner__image hidden-xs" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 		            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
 		        </div>
-		        <div class="c-hero-banner__image visible-xs" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+		        <div class="c-hero-banner__image visible-xs" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 		            <sly data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
 		        </div>
 			</div>
 		</sly>         
         <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row hidden-xs">
             <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
-                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
-                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
-                <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+                <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+                <p class="c-hero-banner__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
                 <sly data-sly-test.btn1="${banner.btn1}" />
                 <sly data-sly-test.btn2="${banner.btn2}" />
                 <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
@@ -143,16 +143,16 @@
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner__search c-hero-banner__exclusiveoffers"
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
-            <div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+            <div class="c-hero-banner__image" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
                 <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
-	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
-	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
-                    <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+                    <p class="c-hero-banner__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
                     <sly data-sly-test.btn1="${banner.btn1}" />
                     <sly data-sly-test.btn2="${banner.btn2}" />
                     <p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
@@ -181,7 +181,7 @@
        		</a>
         </div>
         <div class="hidden-sm hidden-md hidden-lg ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}">
-        	<div class="c-hero-banner__image" data-sly-test.reference="${properties.assetReference || pageHelper.thumbnail}">
+        	<div class="c-hero-banner__image" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 	        	<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
 	            	data-target=".bs-modal-lg">
 	            	<i class="fa fa-play"></i>
@@ -190,11 +190,11 @@
             </div>
             <div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
                 <div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
-                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h1>
-	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h2>
-	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</h3>
-	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${properties.text || pageProperties.jcr:title @ context="html"}</span>
-                    <p class="c-hero-banner__description">${properties.jcr:description || pageProperties.jcr:description @ context="html"}</p>
+                    <h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+	                <h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+	                <h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+	                <span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+                    <p class="c-hero-banner__description">${banner.description || pageProperties.jcr:description @ context="html"}</p>
                     <sly data-sly-test.btn1="${banner.btn1}" />
                     <sly data-sly-test.btn2="${banner.btn2}" />
                     <div class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
