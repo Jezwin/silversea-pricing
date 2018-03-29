@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -49,11 +50,17 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if(eoModel.getExpirationDate() != null) {
 				Date expirationDate = eoModel.getExpirationDate();
 				SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM, yyyy", getCurrentPage().getLanguage(false));
+				if(getCurrentPage().getLanguage(false).getLanguage().equals("de")){
+					formatter = new SimpleDateFormat("dd. MMMM yyyy", getCurrentPage().getLanguage(false));
+				}
 				formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
 				eoValue = new ValueTypeBean(formatter.format(expirationDate.getTime()), "token");
 				tokensAndStyle.put("expiration_date",eoValue);
 				
 				SimpleDateFormat formatterShort = new SimpleDateFormat("dd MMMM", getCurrentPage().getLanguage(false));
+				if(getCurrentPage().getLanguage(false).getLanguage().equals("de")){
+					formatter = new SimpleDateFormat("dd. MMMM", getCurrentPage().getLanguage(false));
+				}
 				formatterShort.setTimeZone(TimeZone.getTimeZone("GMT"));
 				eoValue = new ValueTypeBean(formatterShort.format(expirationDate.getTime()), "token");
 				tokensAndStyle.put("expiration_date_short",eoValue);
