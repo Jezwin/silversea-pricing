@@ -75,7 +75,31 @@
 
     .ab-footer-b-version {
 	     display: none;
-	
+	     
+	     .c-list--legal__group {
+	     	@media (min-width: 768px) {
+		     	text-align: left;
+	     	}
+	     	margin-left: -9px;
+	     }
+	     
+	     .o-section {
+	     	padding-top: 0px;
+	     }
+		
+		.o-separator-hr {
+			left: 50%;
+		    margin-left: -50vw;
+		    margin-right: -50vw;
+		    position: relative;
+		    right: 50%;
+		    width: 100vw;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		    background-position: center center;
+		    overflow: hidden;
+		    border-color: #ddd;
+		}
         .c-links {
             padding: 20px 0px;
             font-weight: 600;
@@ -83,6 +107,10 @@
             @media (max-width: 767px) {
                 margin-top: -45px;
             }
+         }
+         
+         .row-section-links {
+         	margin-left: -9px;
          }
 
         .c-brand-logo {
@@ -200,6 +228,13 @@
         .c-callbox {
             &__msg {
                 display: block;
+                
+                &--icon {
+                	font-size: 27px;
+                	i {
+                		    margin-left: 10px;
+                	}
+                }
 
                 &--desktop {
                     @media (max-width: 767px) {
@@ -209,7 +244,8 @@
             }
 
         	&__number {
-                margin-left: 0px;
+        		font-size: 26px;
+        		margin-left: 0px;
             }
 
             &__inner {
@@ -219,6 +255,7 @@
 
         .c-button-list {
                 margin-bottom: 25px;
+                margin-top: 25px;
         }
 
 		 @media (max-width: 767px) {
@@ -231,6 +268,11 @@
 
                .c-list--legal__item {
                         display: inline-block;
+                        margin-left: 5px;
+                }
+                
+                .row-footer-social {
+                	margin-left: -23px;
                 }
 
                .row {
