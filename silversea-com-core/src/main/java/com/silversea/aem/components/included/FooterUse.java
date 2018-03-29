@@ -45,6 +45,7 @@ public class FooterUse extends WCMUsePojo {
     private Iterator<Page> pagesCol3Iterator;
     private Iterator<Page> pagesCol4Iterator;
     private Iterator<Page> pagesBottomLineIterator2;
+    private Iterator<Page> pagesBottomLineIterator3;
     
     private String Col2title;
     private String Col3title;
@@ -99,6 +100,7 @@ public class FooterUse extends WCMUsePojo {
         }
         pagesBottomLineIterator = pagesBottomLine.iterator();
         pagesBottomLineIterator2 = pagesBottomLine.iterator();
+        pagesBottomLineIterator3 = pagesBottomLine.iterator();
         
         //brochure style properties
         final String[] Col1 = properties.getInherited("col1", String[].class);
@@ -278,5 +280,9 @@ public class FooterUse extends WCMUsePojo {
 
 	public Iterator<Page> getPagesBottomLineIterator2() {
 		return pagesBottomLineIterator2;
+	}
+	
+	public Iterator<Page> getPagesBottomLineIterator3() {
+		return pagesBottomLineIterator3;
 	}
 }
