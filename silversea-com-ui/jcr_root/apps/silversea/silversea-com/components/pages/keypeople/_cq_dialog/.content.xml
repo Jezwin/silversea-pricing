@@ -61,6 +61,80 @@
                             </column>
                         </items>
                     </basic>
+                    <cruiseAssignation
+                            jcr:primaryType="nt:unstructured"
+                            jcr:title="Cruises Assignation"
+                            cq:showOnCreate="{Boolean}false"
+                            sling:resourceType="granite/ui/components/foundation/section">
+                        <layout
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                                margin="{Boolean}false"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <column
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/container">
+                                <items jcr:primaryType="nt:unstructured">
+                                     <customLBSettings
+						                                    		jcr:primaryType="nt:unstructured"
+						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
+						                                            class="full-width"
+						                                            fieldLabel="Custom lightbox values">
+						                                        <field jcr:primaryType="nt:unstructured"
+						                                                sling:resourceType="granite/ui/components/foundation/form/fieldset"
+						                                                acs-commons-nested="JSON_STORE"
+						                                                name="./customLBSettings">
+						                                            <layout jcr:primaryType="nt:unstructured"
+						                                                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+						                                                    method="absolute"/>
+						                                            <items jcr:primaryType="nt:unstructured">
+						                                                <column jcr:primaryType="nt:unstructured"
+						                                                        sling:resourceType="granite/ui/components/foundation/container">
+						                                                    <items jcr:primaryType="nt:unstructured">
+						                                                    	<active
+																					jcr:primaryType="nt:unstructured"
+																					sling:resourceType="granite/ui/components/foundation/form/checkbox"
+																					name="./active"
+																					text="Active"
+																					value="true"/>
+						                                                       <type
+																				    jcr:primaryType="nt:unstructured"
+																				    sling:resourceType="granite/ui/components/foundation/form/select"
+																				    fieldLabel="Type"
+																				    name="./type">
+																				  <items jcr:primaryType="nt:unstructured">
+																				    <title
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Title - (Lightbox)"
+																				      	value="title" />
+																				    <description
+																				      	jcr:primaryType="nt:unstructured"
+																				      	text="Description - (Lightbox)"
+																				      	value="description" />
+																				  </items>
+																				</type>
+						                                                        <value
+						                                                            jcr:primaryType="nt:unstructured"
+						                                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+						                                                            fieldDescription="Custom value"
+						                                        					rows="10"
+						                                                            fieldLabel="Value"
+						                                                            name="./value"/>
+						                                                         <tags
+		                                                                            jcr:primaryType="nt:unstructured"
+		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
+		                                                                            allowCreate="{Boolean}true"
+		                                                                            fieldLabel="Geolocation tags"
+		                                                                            name="./tags"/>
+						                                                    </items>
+						                                                </column>
+						                                            </items>
+						                                        </field>
+						                                    </customLBSettings>
+                                </items>
+                            </column>
+                        </items>
+                    </cruiseAssignation>
                 </items>
             </tabs>
         </items>
