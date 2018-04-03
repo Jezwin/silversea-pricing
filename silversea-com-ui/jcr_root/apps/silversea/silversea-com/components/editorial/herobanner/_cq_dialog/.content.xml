@@ -358,6 +358,138 @@
                     </column>
                 </items>
             </button2>
+            <ft
+                jcr:primaryType="nt:unstructured"
+                jcr:title="FT Options" 
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleFT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleFT"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionFT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionFT"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundFT
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundFT"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </ft>
+            <eu
+                jcr:primaryType="nt:unstructured"
+                jcr:title="EU Options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleEU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleEU"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionEU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionEU"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundEU
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundEU"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </eu>
+            <as
+                jcr:primaryType="nt:unstructured"
+                jcr:title="AS Options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleAS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleAS"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionAS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionAS"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundAS
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundAS"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </as>
+            <uk
+                jcr:primaryType="nt:unstructured"
+                jcr:title="UK Options"
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false" />
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                        	<titleUK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Title"
+                                name="./titleUK"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                         	<descriptionUK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Description"
+                                name="./descriptionUK"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                            <backgroundUK
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Background"
+                                name="./backgroundUK"
+                                rootPath="/content/dam/silversea-com"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
+                        </items>
+                    </column>
+                </items>
+            </uk>
         </items>
     </content>
 </jcr:root>
