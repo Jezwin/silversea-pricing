@@ -176,6 +176,10 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 													
 												}
 												cruiseNode.setProperty("reference", newKeyPeopleList.toArray(new String[newKeyPeopleList.size()]));
+												Boolean isVisible = cruiseNode.getProperty("isVisible").getBoolean();
+												if(isVisible){
+													cruiseNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+												}
 											}
 										}
 									}
@@ -213,6 +217,10 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 											}
 											
 											cruiseNode.setProperty("reference", newKeyPeopleList.toArray(new String[newKeyPeopleList.size()]));
+											Boolean isVisible = cruiseNode.getProperty("isVisible").getBoolean();
+											if(isVisible){
+												cruiseNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+											}
 										}
 									}
 									
@@ -265,6 +273,10 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 											}
 											
 											cruiseNode.setProperty("reference", newKeyPeopleList.toArray(new String[newKeyPeopleList.size()]));
+											Boolean isVisible = cruiseNode.getProperty("isVisible").getBoolean();
+											if(isVisible){
+												cruiseNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+											}
 										}
 									}
 								}
@@ -292,6 +304,10 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 													
 												}
 												cruiseNode.setProperty("reference", newKeyPeopleList.toArray(new String[newKeyPeopleList.size()]));
+												Boolean isVisible = cruiseNode.getProperty("isVisible").getBoolean();
+												if(isVisible){
+													cruiseNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+												}
 											}
 										}
 									}
