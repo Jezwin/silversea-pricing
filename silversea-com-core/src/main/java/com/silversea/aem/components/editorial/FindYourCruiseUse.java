@@ -20,23 +20,18 @@ import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
+import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.helper.PriceHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.DestinationItem;
-import com.silversea.aem.models.DestinationModel;
 import com.silversea.aem.models.DestinationModelLight;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.models.FeatureModel;
 import com.silversea.aem.models.FeatureModelLight;
 import com.silversea.aem.models.PortItem;
-import com.silversea.aem.models.PortModel;
 import com.silversea.aem.models.PortModelLight;
-import com.silversea.aem.models.PriceModel;
-import com.silversea.aem.models.PriceModelLight;
 import com.silversea.aem.models.ShipItem;
-import com.silversea.aem.models.ShipModel;
 import com.silversea.aem.models.ShipModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.FindYourCruiseUtils;
@@ -892,66 +887,4 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         return availableFeaturesJson.toString();
     }
 
-	/**
-     * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
-     */
-    public class CruiseItem {
-
-        private CruiseModelLight cruiseModel;
-
-        private PriceModelLight lowestPrice;
-
-        private boolean isWaitList = true;
-        
-        private Locale locale;
-
-        private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
-
-        public CruiseItem(final CruiseModelLight cruiseModelLight, final String market, final String currency, final Locale locale) {
-            // init lowest price and waitlist based on geolocation
-            this.cruiseModel = cruiseModelLight;
-            this.lowestPrice = cruiseModelLight.getLowestPrices().get(market + currency);
-            this.isWaitList = this.lowestPrice == null;
-            
-            // init exclusive offers based on geolocation
-            for (ExclusiveOfferModel exclusiveOffer : cruiseModelLight.getExclusiveOffers()) {
-                if (exclusiveOffer.getGeomarkets() != null
-                        && exclusiveOffer.getGeomarkets().contains(market.toLowerCase())) {
-                    exclusiveOffers.add(exclusiveOffer);
-                }
-            }
-
-            this.locale = locale;
-        }
-
-        public CruiseModelLight getCruiseModel() {
-            return cruiseModel;
-        }
-
-        public PriceModelLight getLowestPrice() {
-            return lowestPrice;
-        }
-
-        public String getLowestPriceFormated() {
-            return PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-        }
-
-        public boolean isWaitList() {
-            return isWaitList;
-        }
-
-        public String getPricePrefix() {
-            for (ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
-                if (exclusiveOffer.getPricePrefix() != null) {
-                    return exclusiveOffer.getPricePrefix();
-                }
-            }
-
-            return null;
-        }
-
-        public List<ExclusiveOfferModel> getExclusiveOffers() {
-            return exclusiveOffers;
-        }
-    }
 }
