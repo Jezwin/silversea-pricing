@@ -40,6 +40,7 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 		case "silversea/silversea-com/components/pages/combocruise":
 			if (selectors != null && selectors.length > 0) {
 				String suiteCode = selectors[1];
+				this.showRaq = true;
 				key = "suite";
 				List<PriceModel> prices = new ArrayList<>();
 				Resource suitesResource = getCurrentPage().getContentResource().getChild("suites");
