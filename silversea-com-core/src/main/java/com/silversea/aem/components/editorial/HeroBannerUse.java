@@ -197,10 +197,20 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 
 		if (res != null) {
 			final ValueMap properties = res.getValueMap();
-
-			return new Button(properties.get("titleDesktop", String.class), properties.get("titleTablet", String.class),
-					properties.get("reference", String.class), properties.get("color", String.class),
+			String link = properties.get("reference", String.class);
+			
+			if(geomarket != null) {
+				String value = getProperties().get(path + "Link" + geomarket.toUpperCase(), String.class);
+				if(StringUtils.isNotEmpty(value)) {
+					link = value;
+				}
+			}
+			
+			Button btn = new Button(properties.get("titleDesktop", String.class), properties.get("titleTablet", String.class),
+					link, properties.get("color", String.class),
 					properties.get("analyticType", String.class), properties.get("size", String.class));
+			
+			return btn;
 		}
 
 		return null;
