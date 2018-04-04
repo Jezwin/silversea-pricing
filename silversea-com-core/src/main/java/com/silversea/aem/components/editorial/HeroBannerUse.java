@@ -54,11 +54,12 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 		this.description = getProperties().get("jcr:description", String.class);
 		this.background = getProperties().get("assetReference", String.class);
 		Boolean enableInlineGallery = getProperties().get("enableInlineGallery", Boolean.class);
-		Resource resourceAsset = getResourceResolver().getResource(this.background);
-
+		
 		if(geomarket != null) {
 			getValueByMarket(geomarket.toUpperCase());
 		}
+		
+		Resource resourceAsset = getResourceResolver().getResource(this.background);
 		
 		if (resourceAsset != null) {
 			Asset asset = resourceAsset.adaptTo(Asset.class);
