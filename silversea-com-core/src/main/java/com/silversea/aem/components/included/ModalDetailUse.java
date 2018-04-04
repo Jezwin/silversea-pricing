@@ -32,6 +32,7 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 
 	@Override
 	public void activate() throws Exception {
+		super.activate();
 		String key = null;
 		String[] selectors = getRequest().getRequestPathInfo().getSelectors();
 		String resourceType = getProperties().get(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, String.class);
