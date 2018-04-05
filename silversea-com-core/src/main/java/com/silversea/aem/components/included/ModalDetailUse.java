@@ -32,6 +32,7 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 
 	@Override
 	public void activate() throws Exception {
+		super.activate();
 		String key = null;
 		String[] selectors = getRequest().getRequestPathInfo().getSelectors();
 		String resourceType = getProperties().get(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, String.class);
@@ -40,6 +41,7 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 		case "silversea/silversea-com/components/pages/combocruise":
 			if (selectors != null && selectors.length > 0) {
 				String suiteCode = selectors[1];
+				this.showRaq = true;
 				key = "suite";
 				List<PriceModel> prices = new ArrayList<>();
 				Resource suitesResource = getCurrentPage().getContentResource().getChild("suites");
