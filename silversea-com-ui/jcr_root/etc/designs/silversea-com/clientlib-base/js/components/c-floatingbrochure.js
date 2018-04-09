@@ -1,12 +1,14 @@
 $(document).ready(function(){
-    if($(window).width() > 767){
+    if($(window).width() > 768){
 
         $('.floating-opener').off('click').on('click', function(){
             $(this).parent().toggleClass('visible');
             if($(this).parent().hasClass("visible")){
             	$(this).parent().css("right", "0px");
+            	$('.floating-opener .fa-close').show();
         	}else{
-        		$(this).parent().css("right", "-220px");	
+        		$(this).parent().css("right", "-220px");
+        		$('.floating-opener .fa-close').hide();
         	}
             
         });
