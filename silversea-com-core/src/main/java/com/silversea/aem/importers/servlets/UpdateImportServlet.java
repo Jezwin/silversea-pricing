@@ -53,7 +53,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
 		stylesconfiguration,
 		
-		excursionsDisactive, landProgramsDisactive,hotelsDisactive
+		excursionsDisactive, landProgramsDisactive,hotelsDisactive, citiesDisactive
 	}
 
 	@Reference
@@ -130,6 +130,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 		try {
 			if (mode.equals(Mode.cities)) {
 				citiesImporter.updateItems();
+			} else if (mode.equals(Mode.citiesDisactive)) {
+				citiesImporter.DesactivateUselessPort();
 			} else if (mode.equals(Mode.hotels)) {
 				hotelsImporter.updateHotels();
 			} else if (mode.equals(Mode.excursions)) {

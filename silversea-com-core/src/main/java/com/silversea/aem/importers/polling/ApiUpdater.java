@@ -104,6 +104,10 @@ public class ApiUpdater implements Runnable {
             // update cities
             ImportResult importResult = citiesImporter.updateItems();
             LOGGER.info("Cities import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            //desactivate port without planned cruises
+            importResult = citiesImporter.DesactivateUselessPort();
+            LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
 
             // update hotels
             importResult = hotelsImporter.updateHotels();
