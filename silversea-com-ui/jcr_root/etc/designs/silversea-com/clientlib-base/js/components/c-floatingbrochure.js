@@ -7,8 +7,10 @@ $(document).ready(function(){
             	$(this).parent().css("right", "0px");
             	$('.floating-opener .fa-close').show();
         	}else{
-        		$(this).parent().css("right", "-220px");
+        		$(this).parent().css("right", "-223px");
         		$('.floating-opener .fa-close').hide();
+        		 sessionStorage.setItem('broHasBeenClosed', 'true');
+        		
         	}
             
         });
@@ -69,7 +71,7 @@ $(document).ready(function(){
                     	if($floatingBrochure.hasClass("visible")){
                     		$floatingBrochure.css("right", "0px");
                     	}else{
-                    		$floatingBrochure.css("right", "-220px");	
+                    		$floatingBrochure.css("right", "-223px");	
                     	}
                     } else {
                         if(window.scrollY >= minScroll){
@@ -77,7 +79,7 @@ $(document).ready(function(){
                         	if($floatingBrochure.hasClass("visible")){
                         		$floatingBrochure.css("right", "0px");
                         	}else{
-                        		$floatingBrochure.css("right", "-220px");	
+                        		$floatingBrochure.css("right", "-223px");	
                         	}
                         } else {
                         	$floatingBrochure.css("right", "-270px");

@@ -18,6 +18,13 @@ public interface CitiesImporter {
      * @return result of the import
      */
     ImportResult updateItems();
+    
+    /**
+     * Desactivate Cities that got no cruises planned
+     *
+     * @return result of the import
+     */
+    ImportResult DesactivateUselessPort();
 
     /**
      * Import only one item

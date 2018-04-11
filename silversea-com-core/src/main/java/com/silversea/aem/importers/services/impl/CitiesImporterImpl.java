@@ -14,7 +14,12 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.CitiesImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.ItineraryModel;
+import com.silversea.aem.models.PortItem;
 import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.StringsUtils;
 
 import io.swagger.client.ApiException;
@@ -39,6 +44,7 @@ import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
@@ -47,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
+import java.util.Map.Entry;
 
 @Service
 @Component
@@ -202,6 +209,156 @@ public class CitiesImporterImpl implements CitiesImporter {
         LOGGER.debug("Ending cities import, success: {}, error: {}", +successNumber, +errorNumber);
 
         return new ImportResult(successNumber, errorNumber);
+    }
+    
+    public ImportResult DesactivateUselessPort(){
+    	int successNumber = 0;
+    	int errorNumber = 0;
+    	
+        Map<String, Object> authenticationParams = new HashMap<>();
+        authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+    	
+    	 try (final ResourceResolver resourceResolver = resourceResolverFactory.getServiceResourceResolver(authenticationParams)) {
+             final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+             final Session session = resourceResolver.adaptTo(Session.class);
+             
+
+             if (pageManager == null || session == null) {
+                 throw new ImporterException("Cannot initialize pageManager and session");
+             }
+
+             final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("citiesUrl"));
+
+             final Map<Integer, Map<String, Page>> portsMapping = ImportersUtils.getItemsPageMapping(resourceResolver, //<cityid,portpage>
+                     "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+                             "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
+             
+             final Map<Integer, Map<String, Page>> cruisesMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+                     "/jcr:root/content/silversea-com/en//element(*,cq:PageContent)" +
+                             "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
+                     "cruiseId");
+
+             
+             List<CruiseModel> allCruises = new ArrayList<>();
+             
+             for (Integer cruiseMapIds : cruisesMapping.keySet()) {
+            	 for (Map.Entry<String, Page> cruisePages : cruisesMapping.get(cruiseMapIds).entrySet()) {
+            		 if(cruisePages.getValue().getContentResource().isResourceType(WcmConstants.RT_CRUISE)){
+	                     CruiseModel cruiseTemp = cruisePages.getValue().adaptTo(CruiseModel.class);
+	                     if(cruiseTemp != null){
+	                    	 allCruises.add(cruiseTemp);
+	                    	 //LOGGER.debug("adding a cruise in all cruises");
+	                     }
+            		 }
+            	 }
+			}
+             
+             LOGGER.debug("all cruises built");
+         	
+         	 for (Integer portKeyId : portsMapping.keySet()) {
+				//Check for each port if we should desactivate the page
+         		 Boolean shouldDesactivate = true;
+         		 
+         		 for (CruiseModel cruiseModelLight : allCruises) {
+         			 for (ItineraryModel portItem : cruiseModelLight.getItineraries()) {
+         				 if(portItem.getPort() != null){
+         					if(portItem.getPort().getCityId() != null){
+								if(portItem.getPort().getCityId().equals(portKeyId)){ //pk t null ?
+									if( cruiseModelLight.getStartDate().after(Calendar.getInstance())){
+										shouldDesactivate = false;
+										break;
+									}
+								}
+         					}
+         				 }
+						if(!shouldDesactivate){
+							break;
+						}
+					}
+				}
+         		 
+         		if(shouldDesactivate){
+         			//Mark the page as to be deactivated.
+         			for (Map.Entry<String, Page> portMapPage : portsMapping.get(portKeyId).entrySet()) {
+         				Page portPage = portMapPage.getValue();
+         				final Node portContentNode = portPage.getContentResource().adaptTo(Node.class);
+
+                        if (portContentNode != null) {
+                        	if(portContentNode.hasProperty("cq:lastReplicationAction")){
+	                        	if(portContentNode.getProperty("cq:lastReplicationAction").getString().equals("Activate")){
+		                        	LOGGER.debug("{} city will be desactivated", portPage.getPath());
+		                        	portContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+		                        	successNumber++;
+	                        	}
+                        	}else{
+                        		LOGGER.debug("{} city will be desactivated", portPage.getPath());
+	                        	portContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+	                        	successNumber++;
+                        	}
+                        }else{
+                        	errorNumber++;
+                        }
+         			}
+         			
+         			if (successNumber % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        try {
+                            session.save();
+
+                            LOGGER.debug("{} cities desactivated, saving session", +successNumber);
+                        } catch (RepositoryException e) {
+                            session.refresh(true);
+                        }
+                    }
+         		}else{ //Activate if we now have a cruise that we were not having before	
+         			for (Map.Entry<String, Page> portMapPage : portsMapping.get(portKeyId).entrySet()) {
+         				Page portPage = portMapPage.getValue();
+         				final Node portContentNode = portPage.getContentResource().adaptTo(Node.class);
+
+                        if (portContentNode != null) {
+                        	if(portContentNode.hasProperty("cq:lastReplicationAction")){
+	                        	if(!portContentNode.getProperty("cq:lastReplicationAction").getString().equals("Activate")){
+		                        	LOGGER.debug("{} city will be activated", portPage.getPath());
+		                        	portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+		                        	successNumber++;
+	                        	}
+                        	}else{
+                        		LOGGER.debug("{} city will be activated", portPage.getPath());
+	                        	portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+	                        	successNumber++;
+                        	}
+                        }else{
+                        	errorNumber++;
+                        }
+         			}
+         			
+         			if (successNumber % sessionRefresh == 0 && session.hasPendingChanges()) {
+                        try {
+                            session.save();
+
+                            LOGGER.debug("{} cities desactivated/activated, saving session", +successNumber);
+                        } catch (RepositoryException e) {
+                            session.refresh(true);
+                        }
+                    }
+         		}
+			}
+         	 
+         	 if (session.hasPendingChanges()) {
+                 try {
+                     session.save();
+
+                     LOGGER.debug("{} cities desactived, saving session", +successNumber);
+                 } catch (RepositoryException e) {
+                     session.refresh(false);
+                 }
+             }
+             
+             
+    	 } catch (LoginException | ImporterException | RepositoryException e) {
+             LOGGER.error("Cannot create resource resolver", e);
+         } 
+    	
+    	return new ImportResult(successNumber, errorNumber);
     }
 
     /**
