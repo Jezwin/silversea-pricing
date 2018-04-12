@@ -177,7 +177,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         availableCruiseTypesJson = new StringBuilder();
         availableFeaturesJson = new StringBuilder();
         
-        availableDestinationsJson.append("{\"all\":true,");
+        availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,");
         availableShipsJson.append("{\"all\":true,");
         availablePortsJson.append("{\"all\":true,");
         availableDepartureDatesJson.append("{\"all\":true,");
@@ -328,7 +328,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
         if (cruisesCacheService != null) {
             allCruises = cruisesCacheService.getCruises(lang);
-            destinations = cruisesCacheService.getDestinations(lang);
+            destinations = cruisesCacheService.getDestinations(lang);         
             ships = cruisesCacheService.getShips(lang);
             ports = cruisesCacheService.getPorts(lang);
             dates.addAll(cruisesCacheService.getDepartureDates(lang));
@@ -857,6 +857,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
      */
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+    }
+    
+    public String getWorldCruisesPagePath() {
+        return PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
+    }
+    
+    public String getGrandVoyagesPagePath() {
+        return PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
     }
     
     public String getAvailableDestinationsJson() {
