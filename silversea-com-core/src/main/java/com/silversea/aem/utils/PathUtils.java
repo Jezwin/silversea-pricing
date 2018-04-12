@@ -56,4 +56,30 @@ public class PathUtils {
 
         return null;
     }
+    
+    public static String getWorldCruisesPagePath(final Resource resource, final Page page) {
+        final Conf confRes = resource.adaptTo(Conf.class);
+        if (confRes != null && page != null) {
+            final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)
+                        + "/destinations/world-cruises";
+            if (resource.getResourceResolver().getResource(pagePath) != null) {
+                return pagePath;
+            }
+        }
+
+        return null;
+    }
+    
+    public static String getGrandVoyagesPagePath(final Resource resource, final Page page) {
+        final Conf confRes = resource.adaptTo(Conf.class);
+        if (confRes != null && page != null) {
+            final String pagePath = "/content/silversea-com/" + LanguageHelper.getLanguage(page)
+                        + "/destinations/grand-voyages-cruise";
+            if (resource.getResourceResolver().getResource(pagePath) != null) {
+                return pagePath;
+            }
+        }
+
+        return null;
+    }
 }
