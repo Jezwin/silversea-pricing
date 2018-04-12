@@ -1,4 +1,4 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Hero banner"></div>
+<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Hero banner - (#c-hero-banner-${properties.sscUUID})"></div>
 <sly data-sly-use.banner="com.silversea.aem.components.editorial.HeroBannerUse">
 	<sly data-sly-use.heroBannerTemplate="silversea/silversea-com/components/editorial/herobanner/herobannertemplate.html" />
 	<sly data-sly-test="${!properties.type}" data-sly-call="${heroBannerTemplate.default @ banner=banner}" />
@@ -6,7 +6,7 @@
 	<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
 	<style>
 		@media (min-width: 768px){
-			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture div {
+			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture img {
 		    	background-position: ${properties.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
 		    }
 		}
@@ -76,4 +76,20 @@
 			}
 		</style>
 	</sly>
+	<style data-sly-test="${properties.cssDesktop}">
+		@media(min-width: 991px) {
+			${properties.cssDesktop @ context='html'}
+		}
+	</style>
+	<style data-sly-test="${properties.cssTablet}">
+		@media(max-width: 990px) and (min-width: 768px) {
+			${properties.cssTablet @ context='html'}
+		}
+	</style>
+	<style data-sly-test="${properties.cssMobile}">
+		@media (max-width: 767px) {
+			${properties.cssMobile @ context='html'}
+		}
+	</style>
 </sly>
+
