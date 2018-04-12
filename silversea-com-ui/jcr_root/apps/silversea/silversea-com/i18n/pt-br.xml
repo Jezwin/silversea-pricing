@@ -1392,4 +1392,12 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-destination"
 	    sling:message="View Destination"/>
+	<world-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="world-cruises"
+	    sling:message="World Cruises"/>
+	<grand-voyages
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="grand-voyages"
+	    sling:message="Grand Voyages"/>
 </jcr:root>

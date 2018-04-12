@@ -111,7 +111,7 @@
 	<brochures
         jcr:primaryType="sling:MessageEntry"
         sling:key="brochures"
-        sling:message="Brochures"/>
+        sling:message="Broschüren"/>
     <blog
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1396,4 +1396,12 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="view-destination"
 	    sling:message="View Destination"/>
+	<world-cruises
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="world-cruises"
+	    sling:message="Weiltreisen"/>
+	<grand-voyages
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="grand-voyages"
+	    sling:message="Grand Voyage"/>
 </jcr:root>
