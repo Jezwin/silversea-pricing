@@ -1,16 +1,17 @@
 $(document).ready(function(){
     if($(window).width() > 768){
-
+    	window.lastBroState = "";
         $('.floating-opener').off('click').on('click', function(){
             $(this).parent().toggleClass('visible');
             if($(this).parent().hasClass("visible")){
             	$(this).parent().css("right", "0px");
             	$('.floating-opener .fa-close').show();
+            	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureClickOpen');
         	}else{
         		$(this).parent().css("right", "-223px");
         		$('.floating-opener .fa-close').hide();
         		 sessionStorage.setItem('broHasBeenClosed', 'true');
-        		
+        		 s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureClickClose');
         	}
             
         });
@@ -64,25 +65,49 @@ $(document).ready(function(){
 
                 if(blacklist_elems.length && areElemsInView($(blacklist_elems))){
                 	$floatingBrochure.css("right", "-270px");
+                	if(window.lastBroState != "FloatingBrochureHide"){
+	                	window.lastBroState = "FloatingBrochureHide";
+	                	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureHide');
+                	}
                    // $floatingBrochure.hide();
                 } else { 
                     if(whitelisted_elems.length && areElemsInView($(whitelisted_elems))){
                         //$floatingBrochure.show();
                     	if($floatingBrochure.hasClass("visible")){
                     		$floatingBrochure.css("right", "0px");
+                    		if(window.lastBroState != "FloatingBrochureDisplayedOpen"){
+        	                	window.lastBroState = "FloatingBrochureDisplayedOpen";
+        	                	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureDisplayedOpen');
+                    		}
                     	}else{
                     		$floatingBrochure.css("right", "-223px");	
+                    		if(window.lastBroState != "FloatingBrochureDisplayedClosed"){
+        	                	window.lastBroState = "FloatingBrochureDisplayedClosed";
+        	                	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureDisplayedClosed');
+                    		}
                     	}
                     } else {
                         if(window.scrollY >= minScroll){
                            // $floatingBrochure.show();
                         	if($floatingBrochure.hasClass("visible")){
                         		$floatingBrochure.css("right", "0px");
+                        		if(window.lastBroState != "FloatingBrochureDisplayedOpen"){
+            	                	window.lastBroState = "FloatingBrochureDisplayedOpen";
+            	                	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureDisplayedOpen');
+                        		}
                         	}else{
-                        		$floatingBrochure.css("right", "-223px");	
+                        		$floatingBrochure.css("right", "-223px");
+                        		if(window.lastBroState != "FloatingBrochureDisplayedClosed"){
+            	                	window.lastBroState = "FloatingBrochureDisplayedClosed";
+            	                	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureDisplayedClosed');
+                        		}
                         	}
                         } else {
                         	$floatingBrochure.css("right", "-270px");
+                        	if(window.lastBroState != "FloatingBrochureHide"){
+        	                	window.lastBroState = "FloatingBrochureHide";
+        	                	s.tl($('.c-main-nav__top__link')[0],'o','FloatingBrochureHide');
+                        	}
                            // $floatingBrochure.hide();
                         }
                     }
