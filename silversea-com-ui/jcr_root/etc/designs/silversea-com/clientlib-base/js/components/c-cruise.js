@@ -560,10 +560,10 @@ $(function() {
 			var assetSelectionToRender = "";
     		if (assetSelectionReference != null) {
 				var assetSelectionReferenceList = assetSelectionReference.split("#next#");
-				for(item in assetSelectionReferenceList) {
+				for(var i = 0; i < assetSelectionReferenceList.length -1; i++) {
 					assetSelectionToRender += '<div class="slider-item">';
-					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[item] +'?wid=1200&fit=hfit,1)"></div>';
-					if (item == 0) {
+					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[i] +'?wid=1200&fit=hfit,1)"></div>';
+					if (i == 0) {
 						assetSelectionToRender += '<div class="c-suite-loader"></div>'; 
 					}
 					assetSelectionToRender += '</div>'; 
@@ -574,8 +574,8 @@ $(function() {
     		var featuresToRender = "";
     		if (navFeatures != null) {
     			var featuresList = features.split("#next#");
-    			for(item in featuresList) {
-    				featuresToRender += "<li>"+featuresList[item]+"</li>";
+    			for(var i=0; i < featuresList.length - 1; i++) {
+    				featuresToRender += "<li>"+featuresList[i]+"</li>";
     			}
     		}
     		
