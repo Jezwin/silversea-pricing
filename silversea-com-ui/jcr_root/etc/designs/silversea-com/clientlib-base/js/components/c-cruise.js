@@ -560,10 +560,10 @@ $(function() {
 			var assetSelectionToRender = "";
     		if (assetSelectionReference != null) {
 				var assetSelectionReferenceList = assetSelectionReference.split("#next#");
-				for(item in assetSelectionReferenceList) {
+				for(var i = 0; i < assetSelectionReferenceList.length; i++) {
 					assetSelectionToRender += '<div class="slider-item">';
-					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[item] +'?wid=1200&fit=hfit,1)"></div>';
-					if (item == 0) {
+					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[i] +'?wid=1200&fit=hfit,1)"></div>';
+					if (i == 0) {
 						assetSelectionToRender += '<div class="c-suite-loader"></div>'; 
 					}
 					assetSelectionToRender += '</div>'; 
@@ -574,8 +574,8 @@ $(function() {
     		var featuresToRender = "";
     		if (navFeatures != null) {
     			var featuresList = features.split("#next#");
-    			for(item in featuresList) {
-    				featuresToRender += "<li>"+featuresList[item]+"</li>";
+    			for(var i=0; i < featuresList.length; i++) {
+    				featuresToRender += "<li>"+featuresList[i]+"</li>";
     			}
     		}
     		
@@ -584,23 +584,24 @@ $(function() {
 			var deckToRender = "";
     		if (locationImage != null) {
     			var deckList = deck.split("#next#");
-    			for(item in deckList) {
+
+    			for(var i=0; i < deckList.length; i++) {
     				var classItem = "btn btn-thin show-deck-image";
-    				var idItem = "deck-"+item;
-    				if (item == 0) {
+    				var idItem = "deck-"+ i;
+    				if (i == 0) {
     					classItem += " activeDeck";
     				}
-    				deckToRender += '<a id="'+idItem+'" class="'+classItem+'" href="#"> <span> '+ deckLabel + ' ' +deckList[item] +'</span></a>';
+    				deckToRender += '<a id="'+idItem+'" class="'+classItem+'" href="#"> <span> '+ deckLabel + ' ' +deckList[i] +'</span></a>';
+
     			}
-    			
     			var locationImageList = locationImage.split("#next#");
     			var style="";
-    			for(item in locationImageList) {
-    				var idItem = "deck-"+item+"-image";
-    				if (item != 0) {
+    			for(var i=0; i < locationImageList.length; i++) {
+    				var idItem = "deck-"+i+"-image";
+    				if (i != 0) {
     					style = "style='display:none'";
     				}
-    				locationImageToRender += '<img id="'+idItem+'" src="'+ locationImageList[item] +'"?hei=930&wid=930&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img"' + style + '/>';
+    				locationImageToRender += '<img id="'+idItem+'" src="'+ locationImageList[i] +'"?hei=930&wid=930&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img"' + style + '/>';
     			}
     		} 
     		
