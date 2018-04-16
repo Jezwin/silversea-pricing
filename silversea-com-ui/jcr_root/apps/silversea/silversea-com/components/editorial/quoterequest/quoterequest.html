@@ -1,4 +1,4 @@
-<div class="c-quote-request-form" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
+<div class="c-quote-request-form ${quoteRequest.isGPDR ? 'gpdr' : ''}" data-sly-use.quoteRequest="com.silversea.aem.components.editorial.QuoteRequestUse">
     ${quoteRequest.prepareDestinationParameters}
     <div class="row">
         <!--/*
