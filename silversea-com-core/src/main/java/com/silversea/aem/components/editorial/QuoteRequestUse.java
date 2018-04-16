@@ -413,6 +413,17 @@ public class QuoteRequestUse extends WCMUsePojo {
 		 * selectedPrice.getSuiteCategory() : selectedSuite.getTitle();
 		 */
 	}
+	
+	public String getGeoMarket(){
+		return currentMarket;
+	}
+	
+	public Boolean getIsGPDR(){
+		if(currentMarket.toLowerCase().equals("uk") || currentMarket.toLowerCase().equals("eu") || currentMarket.toLowerCase().equals("emea")){
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * used

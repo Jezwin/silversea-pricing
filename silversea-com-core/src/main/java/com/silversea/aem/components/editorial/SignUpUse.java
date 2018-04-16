@@ -27,4 +27,15 @@ public class SignUpUse extends AbstractGeolocationAwareUse {
     public String getSiteCurrency() {
         return currency;
     }
+    
+    public String getGeoMarket(){
+    	return geomarket;
+    }
+    
+	public Boolean getIsGPDR(){
+		if(geomarket.toLowerCase().equals("uk") || geomarket.toLowerCase().equals("eu") || geomarket.toLowerCase().equals("emea")){
+			return true;
+		}
+		return false;
+	}
 }

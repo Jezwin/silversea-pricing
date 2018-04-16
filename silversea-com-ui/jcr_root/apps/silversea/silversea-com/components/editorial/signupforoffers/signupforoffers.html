@@ -6,7 +6,7 @@
      class="cq-placeholder"
      data-emptytext="Sign up for offers"></div>
 
-<form class="c-formcookie c-formcookie--redirect c-signupforoffer c-form" data-disable="false" action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
+<form class="c-formcookie c-formcookie--redirect c-signupforoffer c-form ${signUpUse.isGPDR ? 'gpdr' : ''}" data-disable="false" action="${rabWidgetUse.pageReference || properties.pageReference @ extension='html'}" novalidate>
     <input name="requestsource" type="hidden" value="SFO" />
     <input name="requesttype" type="hidden" value="" />
     <input name="sitecountry" type="hidden" value="${signUpUse.countryCodeIso3}" />
@@ -65,9 +65,32 @@
 
     <div class="row">
         <div class="col-sm-6 col-sm-offset-6">
-            <button class="btn btn-red btn-default btn-block pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO">
+            <button class="btn btn-red btn-default btn-block pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO" data-sly-test="${!signUpUse.isGPDR}">
                 ${'sign-up-for-offers' @ i18n} <i class="fa fa-angle-right"></i>
+            </button>
+            <button class="btn btn-red btn-default btn-block pull-right c-btn--lg" type="submit" data-sscclicktype="clic-SFO" data-sly-test="${signUpUse.isGPDR}">
+                ${'submit' @ i18n} <i class="fa fa-angle-right"></i>
             </button>
         </div>
     </div>
 </form>
+
+<script>
+//Refresh Global Mbox function - A/B Test 
+function TargetOffer(){
+  adobe.target.getOffer({  
+  "mbox": "target-global-mbox",  
+  "success": function(offers) {          
+        adobe.target.applyOffer( { 
+           "mbox": "target-global-mbox",
+           "offer": offers 
+        } );
+  },  
+  "error": function(status, error) {          
+    
+  },
+"timeout": 5000
+});
+} TargetOffer()
+
+</script>
