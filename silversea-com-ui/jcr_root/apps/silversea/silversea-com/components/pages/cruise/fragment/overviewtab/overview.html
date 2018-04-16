@@ -68,28 +68,28 @@
 
                         <div class="voyagefeature__offer" data-sly-list.EO="${cruise.exclusiveOffers}"
                             data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
-                            <a data-sly-test="${item.lightboxReference && !item.newSystem}"
-                               href="${item.lightboxReference @ extension='html', selectors='modalcontent'}"
+                            <a data-sly-test="${EO.lightboxReference && !EO.newSystem}"
+                               href="${EO.lightboxReference @ extension='html', selectors='modalcontent'}"
                                data-toggle="modal"
                                data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                                <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+                                <strong>${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
                             </a>
-                            <a data-sly-test="${item.newSystem}"
-                               href="${item.exclusiveOfferPath @ extension='html', selectors='modalcontent'}" 
+                            <a data-sly-test="${EO.newSystem}"
+                               href="${EO.exclusiveOfferPath @ extension='html', selectors='modalcontent'}" 
                                rel="nofollow"
                                data-toggle="modal"
                                data-target=".bs-modal-lg">
-                                <strong>${item.title @ context='html'}:&nbsp;</strong>${item.description @ context='html'}
+                                <strong>${EO.title @ context='html'}:&nbsp;</strong>${EO.description @ context='html'}
                             </a>
-                            <p data-sly-test="${!item.lightboxReference && !item.newSystem}">
-                                <strong>${item.title}:&nbsp;</strong>${item.description @ context='html'}
+                            <p data-sly-test="${!EO.lightboxReference && !EO.newSystem}">
+                                <strong>${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
                             </p>
-                            <p data-sly-test="${cruise.isVS && EOList.last}">${'VS-EO-Message' @ i18n}</p>
+                            <p data-sly-test="${cruise.isVS && EOList.last}"><strong>${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                         </div>
 
                         <div class="voyagefeature__offer" data-sly-test="${!isEo}">
                             <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
-                            <p data-sly-test="${cruise.isVS}">${'VS-EO-Message' @ i18n}</p>
+                            <p data-sly-test="${cruise.isVS}"><strong>${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                         </div>
 
                         <div class="clearfix"></div>

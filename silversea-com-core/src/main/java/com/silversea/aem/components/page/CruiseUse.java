@@ -208,7 +208,8 @@ public class CruiseUse extends EoHelper {
 			if (feature.getFeatureCode() != null
 					&& !feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)) {
 				enrichmentsFeatures.add(feature);
-			}else if(feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)){
+			}else if(feature.getFeatureCode() != null
+					&&feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)){
 				isVS = true;
 			}
 		}
