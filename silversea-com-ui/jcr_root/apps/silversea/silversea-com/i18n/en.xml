@@ -1391,4 +1391,12 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="grand-voyages"
 	    sling:message="Grand Voyages"/>
+	<VS-EO-Title
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="VS-EO-Title"
+	    sling:message="Venetian Society sailing"/>
+	<VS-EO-Message
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="VS-EO-Message"
+	    sling:message=" members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
 </jcr:root>
