@@ -68,6 +68,8 @@ public class CruiseUse extends EoHelper {
 	private PriceModel lowestPrice = null;
 
 	private boolean isWaitList = true;
+	
+	private boolean isVS = false;
 
 	private List<FeatureModel> enrichmentsFeatures = new ArrayList<>();
 
@@ -206,6 +208,8 @@ public class CruiseUse extends EoHelper {
 			if (feature.getFeatureCode() != null
 					&& !feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)) {
 				enrichmentsFeatures.add(feature);
+			}else if(feature.getFeatureCode().equals(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY)){
+				isVS = true;
 			}
 		}
 
@@ -540,6 +544,10 @@ public class CruiseUse extends EoHelper {
 	 */
 	public boolean isWaitList() {
 		return isWaitList;
+	}
+	
+	public boolean isVS() {
+		return isVS;
 	}
 
 	/**

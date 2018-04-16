@@ -1404,4 +1404,8 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="grand-voyages"
 	    sling:message="Grandes Viajes"/>
+	<VS-EO-Message
+	    jcr:primaryType="sling:MessageEntry"
+	    sling:key="VS-EO-Message"
+	    sling:message="<b>Crucero Venetian Society</b>: los miembros del club Venetian Society beneficiaran de un descuento del 5% sobre el precio del crucero"/>
 </jcr:root>
