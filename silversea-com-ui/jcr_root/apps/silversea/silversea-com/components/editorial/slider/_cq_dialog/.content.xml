@@ -102,6 +102,13 @@
 		                        name="./marginBottom"
 		                        defaultValue = "0"
 		                        sling:resourceType="granite/ui/components/foundation/form/numberfield" />
+		                   <hideDot
+                                jcr:primaryType="nt:unstructured"
+                                text="Hide Dots"
+                                fieldDescription="Hide the navigation dots of the slider"
+                                name="./hideDot"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>

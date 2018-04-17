@@ -1,5 +1,5 @@
 <template data-sly-template.default>
-    <div id="c-slider-${properties.sscUUID || properties.jcr:uuid }" class="${properties.mozaicSlider ? 'mozaic-slider' : ''}  ${!wcmmode.edit ? 'c-slider' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
+    <div id="c-slider-${properties.sscUUID || properties.jcr:uuid }" class="${properties.mozaicSlider ? 'mozaic-slider' : ''}  ${!wcmmode.edit ? 'c-slider' : ''} ${properties.hideDot ? 'hideDot' : ''} c-slider--${properties.style || 'style1'} ${properties.fullWidth && !wcmmode.edit ? 'c-slider--full-width' : ''} ${properties.firstSlideOnly ? 'c-slider--first-slide-only' : ''}"
         data-slick='{"autoplay": ${properties.autoPlay || "false"}, "autoplaySpeed": 5000, "adaptiveHeight": true ,"slidesToScroll": ${properties.itemNumber || "1"}, "slidesToShow": ${properties.itemNumber || "1"}, "fade": ${properties.transition == "fade" ? "true" : "false"}, "dots": true}'
         data-sly-resource="${'parSlide' @ resourceType='wcm/foundation/components/parsys'}">
     </div>
