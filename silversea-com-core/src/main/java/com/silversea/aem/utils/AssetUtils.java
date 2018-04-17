@@ -78,4 +78,36 @@ public class AssetUtils {
 
         return result;
     }
+    
+    public static List<SilverseaAsset> buildSilverseaAssetList(String setPath, ResourceResolver resourceResolver, String label) {
+        List<SilverseaAsset> renditionList = new ArrayList<>();
+
+        // Dynamic Media Image Set
+        Resource members = resourceResolver.getResource(setPath + "/jcr:content/related/s7Set");
+
+        if (members != null) {
+            ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
+
+            if (membersCollection != null) {
+                final Iterator<Resource> it = membersCollection.getResources();
+                SilverseaAsset sscAsset = null;
+                while (it.hasNext()) {
+                    Asset asset = it.next().adaptTo(Asset.class);
+                    if (asset != null) {
+                    	sscAsset =  new SilverseaAsset();
+                    	sscAsset.setPath(asset.getPath());
+                    	sscAsset.setName(asset.getName());
+                    	if(StringUtils.isNotEmpty(label)) {
+                    		sscAsset.setLabel(label);
+                    	} else {
+                    		sscAsset.setLabel(asset.getMetadataValue("dc:title"));
+                    	}
+                        renditionList.add(sscAsset);
+                    }
+                }
+            }
+        }
+
+        return renditionList;
+    }
 }

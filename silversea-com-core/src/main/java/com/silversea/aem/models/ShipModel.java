@@ -38,6 +38,9 @@ public class ShipModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String assetGallerySelectionReference;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/photoVideoSuiteSelectionReference") @Optional
+    private String photoVideoSuiteSelectionReference;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/deckPlan") @Optional
     private String deckPlan;
@@ -122,7 +125,11 @@ public class ShipModel {
         return assetGallerySelectionReference;
     }
 
-    public String getDeckPlan() {
+    public String getPhotoVideoSuiteSelectionReference() {
+		return photoVideoSuiteSelectionReference;
+	}
+
+	public String getDeckPlan() {
         return deckPlan;
     }
 

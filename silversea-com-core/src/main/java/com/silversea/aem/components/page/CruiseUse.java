@@ -117,11 +117,17 @@ public class CruiseUse extends EoHelper {
 
 		String shipName = (cruiseModel.getShip() != null) ? cruiseModel.getShip().getName() : null;
 		searchPreviousAndNextCruise(shipName);
-
-		// init assets from ship areas
-		Map<String, List<SilverseaAsset>> mapAsset =  AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
-		suitesAssetsList = mapAsset.get("assets");
+		
+		Map<String, List<SilverseaAsset>> mapAsset = mapAsset =  AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getSuites());
 		virtualTourAssetsList = mapAsset.get("assetsVirtualTour");
+		
+		if (cruiseModel.getShip() != null && StringUtils.isNotEmpty(cruiseModel.getShip().getPhotoVideoSuiteSelectionReference())) {
+			suitesAssetsList = AssetUtils.buildSilverseaAssetList(cruiseModel.getShip().getPhotoVideoSuiteSelectionReference(), getResourceResolver(), null);
+		} else {
+			suitesAssetsList = mapAsset.get("assets");
+		}
+			
+		// init assets from ship areas
 		mapAsset = AssetUtils.addAllShipAreaAssets(getResourceResolver(), cruiseModel.getShip().getDinings());
 		diningsAssetsList = mapAsset.get("assets");
 		virtualTourAssetsList.addAll(mapAsset.get("assetsVirtualTour"));
