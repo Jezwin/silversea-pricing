@@ -1383,11 +1383,11 @@
 	<more-about-silversea
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="more-about-silversea"
-	    sling:message="More about Silversea"/>
+	    sling:message="Más acerca de silversea"/>
 	<learn-more-about-silversea
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="learn-more-about-silversea"
-	    sling:message="Learn more about our luxurious ships and alluring destinations by requesting or downloading a free brochure, and sign up to receive exclsuive offers and news from Silversea."/>
+	    sling:message="Obtenga más información sobre nuestros lujosos barcos y nuestros inolvidables destinos solicitando o descargando un catálogo gratuito. Regístrese si desea recibir noticias y ofertas exclusivas de Silversea."/>
 	<related-destinations
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="related-destinations"
