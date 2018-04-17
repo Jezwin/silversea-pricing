@@ -898,7 +898,7 @@
     <refurb-date
         jcr:primaryType="sling:MessageEntry"
         sling:key="refurb-date"
-        sling:message="Last refurbishement"/>
+        sling:message="Last refurbishment"/>
     <request-a-brochure
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-a-brochure"
