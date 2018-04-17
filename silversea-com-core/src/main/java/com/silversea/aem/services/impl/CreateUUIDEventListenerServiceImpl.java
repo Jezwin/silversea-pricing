@@ -67,7 +67,8 @@ public class CreateUUIDEventListenerServiceImpl implements ResourceChangeListene
 				session = resourceResolver.adaptTo(Session.class);
 				for (ResourceChange resourceChange : changes) {
 					//check if sscUUID triggered the event or not
-					Set<String> listPropsChanged = resourceChange.getChangedPropertyNames();
+					Set<String> listPropsChanged = (resourceChange.getAddedPropertyNames() != null) ?  resourceChange.getAddedPropertyNames() : resourceChange.getChangedPropertyNames();
+
 					boolean updateUUID = false;
 					if (listPropsChanged != null) {
 						updateUUID = true;
