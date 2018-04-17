@@ -39,4 +39,13 @@ public interface CitiesImporter {
      * @return a JSON object with id/path mapping
      */
     JSONObject getJsonMapping();
+    
+    /**
+     * Import all port image
+     * 
+     * @return result of the import
+     * */
+    
+    ImportResult importAllPortImages();
+    
 }

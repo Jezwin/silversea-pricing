@@ -1,32 +1,19 @@
 package com.silversea.aem.importers.services.impl;
 
-import com.day.cq.commons.jcr.JcrConstants;
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.dam.api.Asset;
-import com.day.cq.dam.api.AssetManager;
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
-import com.day.cq.wcm.api.WCMException;
-import com.day.jcr.vault.util.SHA1;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.importers.ImporterException;
-import com.silversea.aem.importers.ImportersConstants;
-import com.silversea.aem.importers.services.CitiesImporter;
-import com.silversea.aem.importers.utils.ImportersUtils;
-import com.silversea.aem.models.CruiseModel;
-import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.ItineraryModel;
-import com.silversea.aem.models.PortItem;
-import com.silversea.aem.services.ApiConfigurationService;
-import com.silversea.aem.services.CruisesCacheService;
-import com.silversea.aem.utils.StringsUtils;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import io.swagger.client.ApiException;
-import io.swagger.client.ApiResponse;
-import io.swagger.client.api.CitiesApi;
-import io.swagger.client.model.City;
-import io.swagger.client.model.City77;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +22,11 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.jackrabbit.commons.JcrUtils;
-import org.apache.sling.api.resource.*;
+import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
@@ -44,16 +35,29 @@ import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
+import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.commons.jcr.JcrUtil;
+import com.day.cq.dam.api.Asset;
+import com.day.cq.dam.api.AssetManager;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
+import com.day.cq.wcm.api.WCMException;
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.LanguageHelper;
+import com.silversea.aem.importers.ImporterException;
+import com.silversea.aem.importers.ImportersConstants;
+import com.silversea.aem.importers.services.CitiesImporter;
+import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.ItineraryModel;
+import com.silversea.aem.services.ApiConfigurationService;
+import com.silversea.aem.utils.StringsUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.*;
-import java.util.Map.Entry;
+import io.swagger.client.ApiException;
+import io.swagger.client.ApiResponse;
+import io.swagger.client.api.CitiesApi;
+import io.swagger.client.model.City;
+import io.swagger.client.model.City77;
 
 @Service
 @Component
@@ -506,6 +510,113 @@ public class CitiesImporterImpl implements CitiesImporter {
 
         return new ImportResult(successNumber, errorNumber);
     }
+    
+    @Override
+	public ImportResult importAllPortImages() {
+		LOGGER.info("Starting import all port images API");
+
+		int successNumber = 0, errorNumber = 0;
+
+		Map<String, Object> authenticationParams = new HashMap<>();
+		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
+
+		try (ResourceResolver resourceResolver = resourceResolverFactory
+				.getServiceResourceResolver(authenticationParams)) {
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+			Session session = resourceResolver.adaptTo(Session.class);
+
+			CitiesApi citiesApi = new CitiesApi(ImportersUtils.getApiClient(apiConfig));
+			
+			if (pageManager == null || session == null) {
+				throw new ImporterException("Cannot initialize pageManager and session");
+			}  
+
+			// excursions mapping
+			Map<Integer, Map<String, Page>> citiesMapping = ImportersUtils.getItemsPageMapping(resourceResolver,
+					 "/jcr:root/content/silversea-com//element(*,cq:PageContent)" +
+	                            "[sling:resourceType=\"silversea/silversea-com/components/pages/port\"]", "cityId");
+
+			int itemsWritten = 0, page = 1, perPage = 100;
+			City itemToCheck = null;
+			List<City> citiesAPI = citiesApi.citiesGet(null, null, page, perPage, null, null, null);
+			List<City> citiesListAPI = new ArrayList<>();
+			LOGGER.info("Check all cities in jcr: {}", citiesListAPI.size());
+			
+			while(citiesAPI.size() != 0){
+				citiesListAPI.addAll(citiesAPI);
+				page++;
+				citiesAPI = citiesApi.citiesGet(null, null, page, perPage, null, null, null);
+			}
+			
+			for (Map.Entry<Integer, Map<String, Page>> city : citiesMapping.entrySet()) {
+				itemToCheck = null;
+				Integer cityID = city.getKey();
+				LOGGER.debug("Check cityID: {}", cityID);
+
+				for (City cAPI : citiesListAPI) {
+
+					if (cityID.equals(cAPI.getCityId())) {
+						itemToCheck = cAPI;
+					}
+				}
+				if (itemToCheck != null) {
+					for (Map.Entry<String, Page> citiiePages : citiesMapping
+							.get(cityID).entrySet()) {
+						Page cityPage = citiiePages.getValue();
+
+						LOGGER.debug("Updating port {}", cityID);
+						
+						if (cityPage == null) {
+							throw new ImporterException(
+									"Cannot set city page " + cityID);
+						}
+						Node portContentNode = cityPage.getContentResource().adaptTo(Node.class);
+						associateThumbnail(session, portContentNode, itemToCheck.getPicUrl(), mimeTypeService, resourceResolver);
+					}
+
+					successNumber++;
+					itemsWritten++;
+
+				}
+				try {
+					if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+						try {
+							session.save();
+
+							LOGGER.debug("{} hotels imported, saving session", +itemsWritten);
+						} catch (RepositoryException e) {
+							session.refresh(true);
+						}
+					}
+				} catch (RepositoryException e) {
+					errorNumber++;
+
+					LOGGER.warn("Import error {}", e.getMessage());
+				}
+			}
+
+
+			if (session.hasPendingChanges()) {
+				try {
+					session.save();
+
+					LOGGER.debug("{} port image imported, saving session", +itemsWritten);
+				} catch (RepositoryException e) {
+					session.refresh(false);
+				}
+			}
+		} catch (LoginException | ImporterException e) {
+			LOGGER.error("Cannot create resource resolver", e);
+		} catch (ApiException e) {
+			LOGGER.error("Cannot read excursions from API", e);
+		} catch (RepositoryException e) {
+			LOGGER.error("Error writing data", e);
+		}
+
+		LOGGER.debug("Ending port image imported, success: {}, error: {}", +successNumber, +errorNumber);
+
+		return new ImportResult(successNumber, errorNumber);
+	}
 
     @Override
     public void importOneItem(final String cityId) {
