@@ -107,7 +107,7 @@
 	<brochures
         jcr:primaryType="sling:MessageEntry"
         sling:key="brochures"
-        sling:message="Brochures"/>
+        sling:message="Catálogos"/>
     <blog
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

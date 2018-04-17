@@ -103,7 +103,7 @@
 	<brochures
         jcr:primaryType="sling:MessageEntry"
         sling:key="brochures"
-        sling:message="Brochures"/>
+        sling:message="folletos"/>
     <benefits-and-events-title
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
