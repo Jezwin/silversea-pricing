@@ -105,10 +105,6 @@ public class ApiUpdater implements Runnable {
             ImportResult importResult = citiesImporter.updateItems();
             LOGGER.info("Cities import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
             
-            //desactivate port without planned cruises
-            importResult = citiesImporter.DesactivateUselessPort();
-            LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
             // update hotels
             importResult = hotelsImporter.updateHotels();
             LOGGER.info("Hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
@@ -174,6 +170,11 @@ public class ApiUpdater implements Runnable {
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import cruises exclusive offers", e);
             }
+            
+            //desactivate port without planned cruises
+            importResult = citiesImporter.DesactivateUselessPort();
+            LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+
 
             comboCruisesImporter.markSegmentsForActivation();
 
