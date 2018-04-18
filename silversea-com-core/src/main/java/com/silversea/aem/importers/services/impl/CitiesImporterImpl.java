@@ -264,21 +264,25 @@ public class CitiesImporterImpl implements CitiesImporter {
          		 Boolean shouldDesactivate = true;
          		 
          		 for (CruiseModel cruiseModelLight : allCruises) {
-         			 for (ItineraryModel portItem : cruiseModelLight.getItineraries()) {
-         				 if(portItem.getPort() != null){
-         					if(portItem.getPort().getCityId() != null){
-								if(portItem.getPort().getCityId().equals(portKeyId)){ //pk t null ?
-									if( cruiseModelLight.getStartDate().after(Calendar.getInstance())){
-										shouldDesactivate = false;
-										break;
-									}
-								}
-         					}
-         				 }
-						if(!shouldDesactivate){
-							break;
+         			 if(cruiseModelLight != null && cruiseModelLight.getItineraries() != null) {
+	         			 for (ItineraryModel portItem : cruiseModelLight.getItineraries()) {
+	         				 if(portItem != null) {
+		         				 if(portItem.getPort() != null){
+		         					if(portItem.getPort().getCityId() != null){
+										if(portItem.getPort().getCityId().equals(portKeyId)){ //pk t null ?
+											if( cruiseModelLight.getStartDate().after(Calendar.getInstance())){
+												shouldDesactivate = false;
+												break;
+											}
+										}
+		         					}
+		         				 }
+	         				 }
+							if(!shouldDesactivate){
+								break;
+							}
 						}
-					}
+         			}
 				}
          		 
          		if(shouldDesactivate){
