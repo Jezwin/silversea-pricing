@@ -53,7 +53,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
 		stylesconfiguration,
 		
-		excursionsDisactive, landProgramsDisactive,hotelsDisactive, citiesDisactive
+		excursionsDisactive, landProgramsDisactive,hotelsDisactive, citiesDisactive,
+		
+		importAllPortImages
 	}
 
 	@Reference
@@ -174,6 +176,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 				landProgramsImporter.disactiveAllItemDeltaByAPI();
 			}  else if (mode.equals(Mode.hotelsDisactive)) {
 				hotelsImporter.disactiveAllItemDeltaByAPI();
+			} else if (mode.equals(Mode.importAllPortImages)) {
+				citiesImporter.importAllPortImages();
 			}
 
 		} catch (ImporterException e) {
