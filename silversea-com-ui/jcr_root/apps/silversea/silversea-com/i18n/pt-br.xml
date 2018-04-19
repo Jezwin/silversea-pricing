@@ -1403,7 +1403,7 @@
 	<VS-EO-Title
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Title"
-	    sling:message="ruzeiro Venetian Society"/>
+	    sling:message="Cruzeiro Venetian Society"/>
 	<VS-EO-Message
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
