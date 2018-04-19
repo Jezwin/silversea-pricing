@@ -8,6 +8,7 @@
     <input name="sitecurrency" type="hidden" value="${use.siteCurrency}" />
     <sly data-sly-test="${use.isCruiseRequested}">
         <input type="hidden" name="voyagename" value="${use.selectedCruise.title}" />
+        <input type="hidden" name="destinationid" value="${use.selectedCruise.destination.destinationId}" />
         <input type="hidden" name="voyagecode" value="${use.selectedCruise.cruiseCode}" />
         <input type="hidden" name="departuredate"
             data-sly-use.startDate="${'com.silversea.aem.helper.DateHelper' @ format='dd MMM yyyy', date=use.selectedCruise.startDate, locale='en'}"
@@ -102,5 +103,5 @@ window.dataLayer[0].track_voyage_id = $('[name=voyagecode]').val();
 window.dataLayer[0].track_departure_date = $('[name=departuredate]').val();
 window.dataLayer[0].track_shipname = $('[name=shipname]').val();
 window.dataLayer[0].track_voyage_duration = $('[name=voyagelength]').val();
-
+window.dataLayer[0].track_destination_id = $('[name=destinationid]').val();
 </script>
