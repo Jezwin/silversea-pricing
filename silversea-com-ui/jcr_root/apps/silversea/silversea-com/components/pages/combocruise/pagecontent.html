@@ -32,9 +32,9 @@
                         <!--/* Overview tab */-->
                         <sly data-sly-use.overview0="silversea/silversea-com/components/pages/combocruise/fragment/overviewtab/overview.html"
                             data-sly-call="${overview0.default @ comboCruise=comboCruise}" />
+                        <sly data-sly-include="fragment/overviewtab/gallery.html" />
                         <sly data-sly-use.map="silversea/silversea-com/components/pages/combocruise/fragment/overviewtab/map.html"
                             data-sly-call="${map.default @ comboCruise=comboCruise}" />
-                        <sly data-sly-include="fragment/overviewtab/gallery.html" />
                         <div data-sly-resource="${'par-overview-middle' @ resourceType='wcm/foundation/components/responsivegrid'}"></div>
                         <sly data-sly-use.suitelist="silversea/silversea-com/components/pages/combocruise/fragment/suitetab/suitelist.html"
                             data-sly-call="${suitelist.default @ comboCruise=comboCruise}" />
