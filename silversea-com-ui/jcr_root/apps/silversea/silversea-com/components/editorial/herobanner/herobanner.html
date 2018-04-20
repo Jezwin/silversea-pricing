@@ -6,7 +6,7 @@
 	<sly data-sly-test="${properties.type == 'offer'}" data-sly-call="${heroBannerTemplate.offer @ banner=banner}" />
 	<style>
 		@media (min-width: 768px){
-			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture img {
+			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture img, #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image {
 		    	background-position: ${properties.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
 		    }
 		}
