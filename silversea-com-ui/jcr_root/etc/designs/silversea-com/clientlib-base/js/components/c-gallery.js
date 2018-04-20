@@ -72,7 +72,9 @@ $(function() {
                 $activeSlide.find('.lazy').lazy();
                 $activeSlide.next().find('.lazy').lazy();
                 $activeSlide.prev().find('.lazy').lazy();
-
+                setTimeout(function() {
+                	$activeSlide.find('.lazy').lazy();
+                }, 50);
                 // Description : Show description on slide change
                 var index = currentSlide,
                     $captionWrapper = $component.find('.c-gallery--cc__caption'),

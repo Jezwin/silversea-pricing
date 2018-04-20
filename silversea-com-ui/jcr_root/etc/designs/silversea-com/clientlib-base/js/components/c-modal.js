@@ -275,6 +275,9 @@ $(function() {
         $sliderActive.prev().prev().find('.lazy').lazy();
         $sliderActive.next().find('.lazy').lazy();
         $sliderActive.next().next().find('.lazy').lazy();
+        setTimeout(function() {
+        	$sliderActive.find('.lazy').lazy();
+        }, 50);
     }
     
     function createVirtualTour(myThis, event) {
