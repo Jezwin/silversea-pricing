@@ -1,8 +1,8 @@
 <div data-sly-use.brochureTeaserListUse="com.silversea.aem.components.editorial.BrochureTeaserListUse"
      data-sly-test="${(wcmmode.edit || wcmmode.design) && !brochureTeaserListUse.brochures}"
-     class="cq-placeholder" data-emptytext="Brochure teaser list"></div>
+     class="cq-placeholder" data-emptytext="Brochure teaser list - (#o-section-${properties.sscUUID})"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentPage.path, absolute=false}" />
-<section class="o-section" data-sly-test="${brochureTeaserListUse.brochures}">
+<section class="o-section"  data-sly-test="${brochureTeaserListUse.brochures}">
     <div class="row">
         <div class="col-sm-12">
             <div class="brochureteaserlist__header">
@@ -25,6 +25,6 @@
 </section>
 
 <section data-sly-test="${brochureTeaserListUse.brochures}" data-sly-list.brochure="${brochureTeaserListUse.brochures}">
-    <sly data-sly-use.brochureTemplate="../brochureteaser/brochure.html" data-sly-call="${brochureTemplate.default @ brochure = brochure, currentStyle = currentStyle}" />
+    <sly data-sly-use.brochureTemplate="../brochureteaser/brochure.html" data-sly-call="${brochureTemplate.default @ brochure = brochure, currentStyle = currentStyle, fontSizeTitleDesktop = properties.fontSizeTitleDesktop, fontSizeTitleTablet = properties.fontSizeTitleTablet, fontSizeTitleMobile = properties.fontSizeTitleMobile,fontSizeTextDesktop = properties.fontSizeTextDesktop, fontSizeTextTablet = properties.fontSizeTextTablet, fontSizeTextMobile = properties.fontSizeTextMobile }" />
     <hr data-sly-test="${!brochureList.last}" />
 </section>

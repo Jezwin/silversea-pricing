@@ -1,16 +1,16 @@
-<template data-sly-template.default="${ @ brochure, currentStyle }">
+<template data-sly-template.default="${ @ brochure, currentStyle, fontSizeTitleDesktop, fontSizeTitleTablet, fontSizeTitleMobile, fontSizeTextDesktop, fontSizeTextTablet, fontSizeTextMobile}">
 <sly data-sly-use.externalizedOnlinePath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentStyle.onlineRequestFormReference, absolute=false}" />
 <sly data-sly-use.externalizedPrintedPath="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentStyle.printedRequestFormReference, absolute=false}" />
     <div class="row">
         <div class="col-md-12 visible-sm visible-xs">
-            <h3 class="c-brochure__title">${brochure.assetTitle}</h3>
+            <h3 class="c-brochure__title  ${fontSizeTitleDesktop} ${fontSizeTitleTablet} ${fontSizeTitleMobile}">${brochure.assetTitle}</h3>
         </div>
         <div class="col-md-7">
             <img class="c-brochure__img" alt="${brochure.assetTitle || currentPage.title}" src="${brochure.cover}" />
         </div>
         <div class="col-md-5">
-            <span class="c-brochure__title visible-lg visible-md alternative-h">${brochure.assetTitle}</span>
-            <p class="c-brochure__description">${brochure.assetDescription}</p>
+            <span class="c-brochure__title visible-lg visible-md alternative-h ${fontSizeTitleDesktop} ${fontSizeTitleTablet} ${fontSizeTitleMobile}">${brochure.assetTitle}</span>
+            <p class="c-brochure__description ${fontSizeTextDesktop} ${fontSizeTextTablet} ${fontSizeTextMobile}">${brochure.assetDescription}</p>
             <p class="c-brochure__btnwrapper"
                data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=currentStyle.onlineRequestFormReference}">
                 <a data-sly-test="${currentStyle.onlineRequestFormReference}"
