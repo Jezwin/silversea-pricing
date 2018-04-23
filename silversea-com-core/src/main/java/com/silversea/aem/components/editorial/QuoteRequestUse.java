@@ -77,6 +77,8 @@ public class QuoteRequestUse extends WCMUsePojo {
 	private boolean isWaitList = true;
 
 	public String selectedSuiteCategoryCode;
+	
+	public String selectedDestinationId;
 
 	private BrochureModel selectedBrochure;
 
@@ -164,6 +166,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 				path.append("/destinations");
 				template = WcmConstants.PAGE_TEMPLATE_DESTINATION;
 				property = WcmConstants.PN_DESTINATION_ID;
+				selectedDestinationId = splitSuffix[0];
 				break;
 			case WcmConstants.SELECTOR_SINGLE_SHIP:
 				path.append("/ships");
@@ -279,6 +282,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 			}
 
 			if (selectedCruise != null) {
+				selectedDestinationId = selectedCruise.getDestination().getDestinationId();
 				for (PriceModel price : selectedCruise.getPrices()) {
 					if (price.getGeomarket().equals(currentMarket) && price.getCurrency().equals(siteCurrency)) {
 
@@ -358,6 +362,10 @@ public class QuoteRequestUse extends WCMUsePojo {
 	 */
 	public BrochureModel getSelectedBrochure() {
 		return selectedBrochure;
+	}
+	
+	public String getSelectedDestinationId() {
+		return selectedDestinationId;
 	}
 
 	/**
