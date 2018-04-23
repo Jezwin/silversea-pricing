@@ -502,7 +502,7 @@
     <find-your-cruise
         jcr:primaryType="sling:MessageEntry"
         sling:key="find-your-cruise"
-        sling:message="find your cruise"/>
+        sling:message="find a cruise"/>
     <first
         jcr:primaryType="sling:MessageEntry"
         sling:key="first"
