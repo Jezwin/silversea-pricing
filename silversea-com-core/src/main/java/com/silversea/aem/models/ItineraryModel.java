@@ -106,8 +106,10 @@ public class ItineraryModel {
         List<ItineraryExcursionModel> excursionToShow = new ArrayList<>();
         for (ItineraryExcursionModel excursion : this.excursions) {
         	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
-        		excursionToShow.add(excursion);
-        		hasDedicatedShorex = true;
+        		if(!excursionToShow.stream().anyMatch(dto -> dto.getExcursion().getCodeExcursion() == excursion.getExcursion().getCodeExcursion())){
+        			excursionToShow.add(excursion);
+        			hasDedicatedShorex = true;
+        		}
         	}
         }
         Collections.sort(excursionToShow, new Comparator<ItineraryExcursionModel>(){

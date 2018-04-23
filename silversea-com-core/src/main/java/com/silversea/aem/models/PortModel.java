@@ -87,8 +87,11 @@ public class PortModel {
                 ExcursionModel excursionModel = null;
                 while (excursionsPages.hasNext()) {
                 	excursionModel = excursionsPages.next().adaptTo(ExcursionModel.class);
+                	final ExcursionModel excursionModelFinal = excursionModel;
                 	if (excursionModel != null && StringUtils.isNotEmpty(excursionModel.getCodeExcursion())) {
-                		excursions.add(excursionModel);
+                		if(!excursions.stream().anyMatch(dto -> dto.getCodeExcursion() == excursionModelFinal.getCodeExcursion())){
+                			excursions.add(excursionModel);
+                		}
                 	}
                 }
             } else if (child.getName().equals("land-programs")) {
