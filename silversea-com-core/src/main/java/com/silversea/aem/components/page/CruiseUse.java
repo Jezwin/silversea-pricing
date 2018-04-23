@@ -171,7 +171,7 @@ public class CruiseUse extends EoHelper {
 
 		// init number of elements (excursions, hotels, land programs)
 		for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
-			excursionsNumber += getItinerariesHasExcursions() ? itinerary.getExcursions().size()
+			excursionsNumber += itinerary.getHasDedicatedShorex() ? itinerary.getExcursions().size()
 					: itinerary.getPort().getExcursions().size();
 			hotelsNumber += itinerary.getHotels().size();
 			landProgramsNumber += itinerary.getLandPrograms().size();

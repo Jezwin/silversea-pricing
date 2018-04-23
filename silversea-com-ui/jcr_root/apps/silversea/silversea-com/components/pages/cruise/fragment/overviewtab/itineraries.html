@@ -20,7 +20,7 @@
         <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list"
              data-sly-test="${cruise.cruiseModel.compactedItineraries}"
              data-sly-list.itinerary="${cruise.cruiseModel.compactedItineraries}">
-            <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.compactedExcursions : itinerary.port.excursions }" />
+            <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.compactedExcursions : itinerary.port.excursions }" />
             <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.landPrograms  }" />
 
             <div class="c-cruise-itinerary-list__item panel">

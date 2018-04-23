@@ -75,11 +75,14 @@ public class ItineraryModel {
     private Integer cruiseId;
 
     private PortModel port;
+    
+    private Boolean hasDedicatedShorex;
 
     @PostConstruct
     private void init() {
         final Resource itinerariesContentResource = resource.getParent();
-
+        hasDedicatedShorex = false;
+        
         if (itinerariesContentResource != null) {
             final Resource cruiseContentResource = itinerariesContentResource.getParent();
 
@@ -101,6 +104,7 @@ public class ItineraryModel {
         for (ItineraryExcursionModel excursion : this.excursions) {
         	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
         		excursionToShow.add(excursion);
+        		hasDedicatedShorex = true;
         	}
         }
         this.excursions = excursionToShow;
@@ -191,6 +195,10 @@ public class ItineraryModel {
 
     public PortModel getPort() {
         return port;
+    }
+    
+    public Boolean getHasDedicatedShorex(){
+    	return hasDedicatedShorex;
     }
 
     public Integer getPortId() {
