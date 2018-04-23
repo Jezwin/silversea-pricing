@@ -1,6 +1,8 @@
 package com.silversea.aem.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -118,9 +120,17 @@ public class PortModel {
                 country = tagManager.resolve(tagId);
             }
         }
-
+        
         path = page.getPath();
         name = page.getName();
+        
+        Collections.sort(excursions, new Comparator<ExcursionModel>(){
+        	@Override
+        	  public int compare(ExcursionModel o1, ExcursionModel o2)
+        	  {
+        	     return o1.getTitle().compareTo(o2.getTitle());
+        	  }
+        	});
     }
 
     public String getTitle() {
