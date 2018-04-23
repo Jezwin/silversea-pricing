@@ -53,8 +53,8 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
             if (segment.getCruise() != null) {
                 for (ItineraryModel itinerary : segment.getCruise().getCompactedItineraries()) {
                     if (itinerary.getPort() != null) {
-                        excursionsNumber += itinerary.getPort().getExcursions().size();
-                        landProgramsNumber += itinerary.getPort().getLandPrograms().size();
+                        excursionsNumber += itinerary.getHasDedicatedShorex() ? itinerary.getExcursions().size() : itinerary.getPort().getExcursions().size();
+                        landProgramsNumber += itinerary.getLandPrograms().size();
                     }
                 }
             }

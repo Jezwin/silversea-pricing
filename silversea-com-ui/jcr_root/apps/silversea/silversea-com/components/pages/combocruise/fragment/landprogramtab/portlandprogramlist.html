@@ -10,9 +10,9 @@
     </p>
     <div id="land-programs-collapse" class="c-cruise-itinerary-2__list" role="tablist"
         data-sly-list.segment="${comboCruise.comboCruiseModel.segments}">
-        <sly data-sly-list.itinerary="${segment.cruise.compactedItineraries}"
+        <sly data-sly-list.itinerary="${segment.cruise.ItinerariesStable}"
             data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-            <sly data-sly-test.landPrograms="${segment.cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.port.landPrograms}" />
+            <sly data-sly-test.landPrograms="${itinerary.landPrograms}" />
 
             <sly data-sly-test="${itinerary.port}">
                 <div class="panel c-cruise-itinerary-2__list__item"

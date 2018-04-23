@@ -37,8 +37,8 @@
 
             <div class="c-cruise-itinerary-list" id="c-cruise-itinerary-list-${segmentList.count}"
                 data-sly-test="${segment.cruise.compactedItineraries}" data-sly-list.itinerary="${segment.cruise.compactedItineraries}">
-                <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.compactedExcursions : itinerary.port.excursions }"/>
-                <sly data-sly-test.landPrograms="${cruise.itinerariesHasLandPrograms ? itinerary.landPrograms : itinerary.port.landPrograms }"/>
+                <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.compactedExcursions : itinerary.port.excursions }"/>
+                <sly data-sly-test.landPrograms="${itinerary.landPrograms}"/>
 
                 <div class="c-cruise-itinerary-list__item panel">
                     <div class="c-cruise-itinerary-list__headline collapsed clearfix" data-toggle="collapse" data-target="#collapse-${segmentList.count}-${itineraryList.count}" data-parent="#c-cruise-itinerary-list-${segmentList.count}" role="button"
@@ -69,9 +69,9 @@
                             ${description.textTruncate @ context='html'}
                         </div>
                         <p class="c-cruise-itinerary-list__description__button" data-sly-test="${(excursions && excursions.size > 0) || (landPrograms && landPrograms.size > 0)}">
-                            <a data-sly-test="${excursions && excursions.size > 0 && cruise.cruiseModel.cruiseType == 'silversea-cruise'}"
+                            <a data-sly-test="${excursions && excursions.size > 0}"
                                 href="#"
-                                data-tab-target="#excursion"
+                                data-tab-target="#excursions"
                                 data-collpase-id="ex-${itinerary.port.cityId}"
                                 class="c-btn c-btn--white"
                                 title="${'view' @ i18n} X ${'excursion-s' @ i18n}">
