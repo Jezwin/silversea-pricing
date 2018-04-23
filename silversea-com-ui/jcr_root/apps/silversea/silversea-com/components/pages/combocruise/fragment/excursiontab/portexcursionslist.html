@@ -10,9 +10,9 @@
                 <sly data-sly-list.itinerary="${segment.cruise.ItinerariesStable}"
                     data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
                     <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.compactedExcursions : itinerary.port.excursions}" />
-
-                    <div class="panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
-                        <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.port.cityId}" aria-expanded="false"  aria-controls="ex-${itinerary.port.cityId}">
+					<sly data-sly-test.excursionLastGeneric="${!itinerary.hasDedicatedShorex && itineraryList.last}" />
+                    <div class="panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0 && !excursionLastGeneric}">
+                        <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.port.cityId}-${itineraryList.index}" aria-expanded="false"  aria-controls="ex-${itinerary.port.cityId}-${itineraryList.index}">
                             <div class="panel__heading__image">
                                 <sly data-sly-call="${imageTemplate.lazy @ imagePath=itinerary.port.thumbnail, width=400}" />
                             </div>
@@ -36,8 +36,8 @@
                             <i class="btn-more fa fa-angle-down"></i>
                             <i class="btn-less fa fa-angle-up"></i>
                         </div>
-                        <div id="ex-${itinerary.port.cityId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/collapse-nested.html">
-                            <sly data-sly-test.parentId="${'{0}{1}' @ format=['ex-', itinerary.port.cityId]}" />
+                        <div id="ex-${itinerary.port.cityId}-${itineraryList.index}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/excursiontab/collapse-nested.html">
+                            <sly data-sly-test.parentId="${'{0}{1}-{2}' @ format=['ex-', itinerary.port.cityId, itineraryList.index]}" />
                             <sly data-sly-call="${collapseNestedTemplate.default @ list = excursions, parent = parentId}" />
                         </div>
                     </div>

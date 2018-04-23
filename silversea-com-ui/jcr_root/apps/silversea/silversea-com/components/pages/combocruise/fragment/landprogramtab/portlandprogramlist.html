@@ -17,7 +17,7 @@
             <sly data-sly-test="${itinerary.port}">
                 <div class="panel c-cruise-itinerary-2__list__item"
                     data-sly-test="${landPrograms.size > 0}">
-                    <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#land-programs-collapse" data-target="#lp-${itinerary.port.cityId}" aria-expanded="false" aria-controls="lp-${itinerary.port.cityId}">
+                    <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#land-programs-collapse" data-target="#lp-${itinerary.port.cityId}-${itineraryList.index}" aria-expanded="false" aria-controls="lp-${itinerary.port.cityId}-${itineraryList.index}">
                         <div class="panel__heading__image">
                             <sly data-sly-call="${imageTemplate.lazy @ imagePath=itinerary.port.thumbnail, width=400}" />
                         </div>
@@ -39,8 +39,8 @@
                         <i class="btn-more fa fa-angle-down"></i>
                         <i class="btn-less fa fa-angle-up"></i>
                     </div>
-                    <div id="lp-${itinerary.port.cityId}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/landprogramtab/collapse-nested.html">
-                        <sly data-sly-test.parentId="${'{0}{1}' @ format=['lp-', itinerary.port.cityId]}" />
+                    <div id="lp-${itinerary.port.cityId}-${itineraryList.index}" class="collapse panel__body c-cruise-itinerary-2__list--nested" role="tabpanel" aria-expanded="false" data-sly-use.collapseNestedTemplate="silversea/silversea-com/components/pages/cruise/fragment/landprogramtab/collapse-nested.html">
+                        <sly data-sly-test.parentId="${'{0}{1}-{2}' @ format=['lp-', itinerary.port.cityId, itineraryList.index]}" />
                         <sly data-sly-call="${collapseNestedTemplate.default @ list = landPrograms, parent = parentId}" />
                     </div>
                 </div>

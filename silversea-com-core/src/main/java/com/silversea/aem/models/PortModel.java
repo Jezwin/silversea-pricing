@@ -88,7 +88,7 @@ public class PortModel {
                 while (excursionsPages.hasNext()) {
                 	excursionModel = excursionsPages.next().adaptTo(ExcursionModel.class);
                 	final ExcursionModel excursionModelFinal = excursionModel;
-                	if (excursionModel != null && StringUtils.isNotEmpty(excursionModel.getCodeExcursion())) {
+                	if (excursionModel != null && StringUtils.isNotEmpty(excursionModel.getCodeExcursion()) && StringUtils.isNotEmpty(excursionModel.getApiLongDescription())) {
                 		if(!excursions.stream().anyMatch(dto -> dto.getCodeExcursion() == excursionModelFinal.getCodeExcursion())){
                 			excursions.add(excursionModel);
                 		}
