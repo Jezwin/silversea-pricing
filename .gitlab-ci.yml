@@ -22,7 +22,17 @@ analysis_sonar:
     only:
         - develop
         
-
+### Dev Build
+mvn_build_dev_author:
+    stage: build-author-dev
+    environment:
+        name: Dev
+    tags:
+        - maven
+    script:
+        - mvn clean install -Pauto-install-package -Dcq.password=r2d2c3po -Dcq.user=admin  -Dcq.url=http://54.67.8.45:4502
+    only:
+        - /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}-DEV$/
 
 ### RC Build
 mvn_build_rc_author:
