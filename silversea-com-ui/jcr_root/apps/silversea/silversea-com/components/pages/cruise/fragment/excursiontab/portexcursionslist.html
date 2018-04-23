@@ -6,9 +6,9 @@
                 ${'cruise-excursion-description' @ i18n}
             </p>
             <div id="excursion-collapse" class="c-cruise-itinerary-2__list" role="tablist"
-                data-sly-list.itinerary="${cruise.itinerariesHasExcursions ? cruise.cruiseModel.ItinerariesStable : cruise.cruiseModel.compactedItineraries }"
+                data-sly-list.itinerary="${cruise.cruiseModel.ItinerariesStable}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
-                <sly data-sly-test.excursions="${cruise.itinerariesHasExcursions ? itinerary.Excursions : itinerary.port.excursions }" />
+                <sly data-sly-test.excursions="${itinerary.hasDedicatedShorex ? itinerary.Excursions : itinerary.port.excursions }" />
 
                 <div class="panel c-cruise-itinerary-2__list__item" data-sly-test="${excursions && excursions.size > 0}">
                     <div class="collapsed panel__heading" role="button" data-toggle="collapse" data-parent="#excursion-collapse" data-target="#ex-${itinerary.itineraryId}" aria-expanded="false"  aria-controls="ex-${itinerary.itineraryId}">
@@ -34,7 +34,7 @@
                             <span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
                             <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
                             <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
-<br /></span>
+							<br /></span>
                                 
                             </p>
                         </div>
