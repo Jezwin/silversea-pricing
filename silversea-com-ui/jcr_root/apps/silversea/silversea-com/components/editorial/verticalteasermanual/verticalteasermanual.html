@@ -1,4 +1,4 @@
-<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual"></div>
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Vertical teaser manual - (#c-vertical-teaser-${properties.sscUUID})"></div>
 
 <section id="c-vertical-teaser-${properties.sscUUID}" class="c-vertical-teaser ${!properties.type ? 'thumbnail' : ''} ${properties.type == 'defaultnew' ? 'thumbnail' : ''} benefitsandevents">
     <sly data-sly-use.verticalteasermanualTemplate="silversea/silversea-com/components/editorial/verticalteasermanual/verticalteasermanualtemplate.html" />
@@ -92,4 +92,19 @@
 			border: 1px solid #ddd !important;
 		}
 	}
+</style>
+<style data-sly-test="${properties.cssDesktop}">
+    @media(min-width: 991px) {
+        ${properties.cssDesktop @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssTablet}">
+    @media(max-width: 990px) and (min-width: 768px) {
+        ${properties.cssTablet @ context='html'}
+    }
+</style>
+<style data-sly-test="${properties.cssMobile}">
+    @media (max-width: 767px) {
+        ${properties.cssMobile @ context='html'}
+    }
 </style>
