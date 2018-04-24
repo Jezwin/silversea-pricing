@@ -373,31 +373,32 @@ a
     	@media (min-width: 769px) {
     		.panel{
     			div.c-suitelist__image.c-suitelist__image-card div, img {
-    				-moz-transition: all 1.2s;
-				   -webkit-transition: all 1.2s;
-				   transition: all 1.2s;
+    			  transform: scale(1.05);
+			    -webkit-transition: all 0.5s linear;
+			    -moz-transition: all 1s linear;
+			    -o-transition: all 1s linear;
+			    transition: all 0.5s linear;
     			}
     		}
 	    	.panel:hover {
 	    		
 	    		
 	    		div.c-suitelist__image.c-suitelist__image-card div {
-				  -moz-transform: scale(1.2);
-				  -webkit-transform: scale(1.2);
-				   transform: scale(1.2);
-				   -moz-transition: all 1.2s;
-				   -webkit-transition: all 1.2s;
-				   transition: all 1.2s;
-						
+				   transform: scale(1.0);
+			         -ms-transform: scale(1.0);
+			        -moz-transform: scale(1.0);
+			        -webkit-transform: scale(1.0);
+			        -o-transform: scale(1.0);
+				    opacity: 0.5;
 				}
 				
 		    	img {
-				  -moz-transform: scale(1.2);
-				  -webkit-transform: scale(1.2);
-				  transform: scale(1.2);
-				   -moz-transition: all 1.2s;
-				   -webkit-transition: all 1.2s;
-				   transition: all 1.2s;
+				    transform: scale(1.0);
+			         -ms-transform: scale(1.0);
+			        -moz-transform: scale(1.0);
+			        -webkit-transform: scale(1.0);
+			        -o-transform: scale(1.0);
+				    opacity: 0.5;
 						
 				}
 				
@@ -416,7 +417,7 @@ a
 				}
 				
 				.c-suitelist__image-card {
-				    background-color: rgba(230,230,230,0.2);
+				    background-color: black;
 				}
 				
 			
