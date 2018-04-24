@@ -15,7 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -75,11 +78,14 @@ public class ItineraryModel {
     private Integer cruiseId;
 
     private PortModel port;
+    
+    private Boolean hasDedicatedShorex;
 
     @PostConstruct
     private void init() {
         final Resource itinerariesContentResource = resource.getParent();
-
+        hasDedicatedShorex = false;
+        
         if (itinerariesContentResource != null) {
             final Resource cruiseContentResource = itinerariesContentResource.getParent();
 
@@ -100,9 +106,19 @@ public class ItineraryModel {
         List<ItineraryExcursionModel> excursionToShow = new ArrayList<>();
         for (ItineraryExcursionModel excursion : this.excursions) {
         	if(excursion.getExcursion() != null && StringUtils.isNotEmpty(excursion.getExcursion().getCodeExcursion())) {
-        		excursionToShow.add(excursion);
+        		if(!excursionToShow.stream().anyMatch(dto -> dto.getExcursion().getCodeExcursion() == excursion.getExcursion().getCodeExcursion())){
+        			excursionToShow.add(excursion);
+        			hasDedicatedShorex = true;
+        		}
         	}
         }
+        Collections.sort(excursionToShow, new Comparator<ItineraryExcursionModel>(){
+        	@Override
+        	  public int compare(ItineraryExcursionModel o1, ItineraryExcursionModel o2)
+        	  {
+        	     return o1.getTitle().compareTo(o2.getTitle());
+        	  }
+        	});
         this.excursions = excursionToShow;
         
         List<ItineraryLandProgramModel> landProgramsToShow = new ArrayList<>();
@@ -111,6 +127,13 @@ public class ItineraryModel {
         		landProgramsToShow.add(landProgram);
         	}
         }
+        Collections.sort(landProgramsToShow, new Comparator<ItineraryLandProgramModel>(){
+        	@Override
+        	  public int compare(ItineraryLandProgramModel o1, ItineraryLandProgramModel o2)
+        	  {
+        	     return o1.getTitle().compareTo(o2.getTitle());
+        	  }
+        	});
         this.landPrograms = landProgramsToShow;
         
         List<ItineraryHotelModel> hotelsToShow = new ArrayList<>();
@@ -191,6 +214,10 @@ public class ItineraryModel {
 
     public PortModel getPort() {
         return port;
+    }
+    
+    public Boolean getHasDedicatedShorex(){
+    	return hasDedicatedShorex;
     }
 
     public Integer getPortId() {
