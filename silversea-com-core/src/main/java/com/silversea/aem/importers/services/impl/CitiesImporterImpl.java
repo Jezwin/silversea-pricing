@@ -800,6 +800,8 @@ public class CitiesImporterImpl implements CitiesImporter {
 						if (assetContentNode != null) {
 							assetContentNode.setProperty(
 									ImportersConstants.PN_TO_ACTIVATE, true);
+							portContentNode.setProperty(
+									ImportersConstants.PN_TO_ACTIVATE, true);
 						}
 					}
 					Node imageNode = JcrUtils.getOrAddNode(portContentNode, "image", "nt:unstructured");
