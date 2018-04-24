@@ -154,7 +154,7 @@ $(function() {
 
                         if (typeof data !== 'string') {
                             console.log('Invalid lead API data received');
-                            window.location.href = $form.attr('action');
+                            window.location.href = $form.attr('action') + "?did=" + dataLayer[0].track_destination_id;
                             return;
                         }
 
@@ -207,7 +207,7 @@ $(function() {
                         }
 
                         if ($form.hasClass('c-formcookie--redirect')) {
-                            window.location.href = $form.attr('action');
+                            window.location.href = $form.attr('action') + "?did=" + dataLayer[0].track_destination_id; //add destination id as a parameter if available
                         } else if ($form.hasClass('c-formcookie--modal')) {
                             var target = $form.data('target');
 
@@ -254,6 +254,18 @@ if(currentReferrer != ""){
 		createCookie("currentReferrer", currentReferrer, 1);
 	}
 }
+
+
+//Get did parameter for TY Page destination id datalayer fetch
+(function () {
+	var match = RegExp('[?&]did=([^&]*)').exec(window.location.search);
+
+	
+	var did = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	if (did != null && did.length > 0) {
+		dataLayer[0].track_destination_id = did;
+	}
+})();
 
 
 //KONAMI CODE
