@@ -80,7 +80,7 @@ public class CreateUUIDEventListenerServiceImpl implements ResourceChangeListene
 					if (updateUUID) {
 						Resource resource = resourceResolver.getResource(resourceChange.getPath());
 						Node node = resource.adaptTo(Node.class);
-						if (node != null && node.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) != null) {
+						if (node != null && node.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) && node.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) != null) {
 							Value val = node.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY).getValue();
 							if (val != null && (val.getString().startsWith("silversea/silversea-ssc/components/editorial/")
 									|| val.getString().startsWith("silversea/silversea-com/components/editorial/"))) {
