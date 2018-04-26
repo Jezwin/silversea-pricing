@@ -3,6 +3,16 @@
     
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
 	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+	
+	
+	&:hover picture img {
+	    transform: scale(1.0);
+	    -ms-transform: scale(1.0);
+        -moz-transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+        -o-transform: scale(1.0);
+	    opacity: 0.5;
+	}
     
 
     @media screen and (max-width: @screen-sm) {
@@ -24,6 +34,7 @@
     
     &__image-wrapper {
         position: relative;
+         overflow: hidden;
     }
     
     &__image-wrapper-new{
@@ -35,14 +46,16 @@
 
     picture {
         background-color: @black;
+         img {
+		    transform: scale(1.05);
+		    -webkit-transition: all 0.5s linear;
+		    -moz-transition: all 1s linear;
+		    -o-transition: all 1s linear;
+		    transition: all 0.5s linear;
+		}
     }
 
     .o-img {
-        -moz-transition: opacity 0.3s ease;
-        -o-transition: opacity 0.3s ease;
-        -ms-transition: opacity 0.3s ease;
-        -webkit-transition: opacity 0.3s ease;
-        transition: opacity 0.3s ease;
         width: 100%;
     }
     
@@ -183,6 +196,8 @@
     			width: 100%;
     			position:relative;
     			background-color:black;
+    			overflow: hidden;
+    			
     			img{
     				transition:0.2s;
     			}
@@ -236,10 +251,13 @@
         	position:relative;
                 float: left;
     			width: 50%;
+    			overflow: hidden;
             	@media screen and (max-width: @screen-sm) {
                 height: auto;
     			vertical-align: middle;
     			width: 100%;
+    
+    			
             	}
 				background-color:black;
     			img{
