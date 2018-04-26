@@ -87,6 +87,12 @@
                                 name="./openModal"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <openLinkNewTab
+                                jcr:primaryType="nt:unstructured"
+                                text="Open link new tab"
+                                name="./openLinkNewTab"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>
