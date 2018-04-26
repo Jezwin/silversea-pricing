@@ -8,11 +8,23 @@
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
             </p>
-            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
-                <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
-            </a>
+            <sly data-sly-test="${!properties.openLinkNewTab}">
+	            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
+	                <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            </a>
+            </sly>
+            <sly data-sly-test="${properties.openLinkNewTab}">
+            	<a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" target="_blank">
+	                <span class="c-vertical-teaser__label">${'discover-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            </a>
+            </sly>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <sly data-sly-test="${!properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        </sly>
+        <sly data-sly-test="${properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}" target="_blank"></a>
+        </sly>
         <sly data-sly-test="${properties.openModal}">
 	        <a class="c-vertical-teaser__link--block hideModalDesktop modal-detail-link-ajax" data-sly-test="${properties.reference}"  rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
 	        <a class="c-vertical-teaser__link--block hideModalMobile modal-detail-link-ajax" data-sly-test="${properties.reference}" rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
@@ -29,11 +41,23 @@
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
             </p>
-            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
-                <span class="c-vertical-teaser__label"><sly data-sly-test="${!properties.ctalabel}">${'discover-more' @ i18n}</sly><sly data-sly-test="${properties.ctalabel}">${properties.ctalabel}</sly></span><i class="fa fa-angle-right"></i>
-            </a>
+            <sly data-sly-test="${!properties.openLinkNewTab}">
+	            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
+    	            <span class="c-vertical-teaser__label"><sly data-sly-test="${!properties.ctalabel}">${'discover-more' @ i18n}</sly><sly data-sly-test="${properties.ctalabel}">${properties.ctalabel}</sly></span><i class="fa fa-angle-right"></i>
+        	    </a>
+        	</sly>
+        	<sly data-sly-test="${properties.openLinkNewTab}">
+	            <a class="c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" target="_blank">
+    	            <span class="c-vertical-teaser__label"><sly data-sly-test="${!properties.ctalabel}">${'discover-more' @ i18n}</sly><sly data-sly-test="${properties.ctalabel}">${properties.ctalabel}</sly></span><i class="fa fa-angle-right"></i>
+        	    </a>
+        	</sly>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <sly data-sly-test="${!properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        </sly>
+        <sly data-sly-test="${properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}" target="_blank"></a>
+        </sly>
         <sly data-sly-test="${properties.openModal}">
 	        <a class="c-vertical-teaser__link--block hideModalDesktop modal-detail-link-ajax" data-sly-test="${properties.reference}"  rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
 	        <a class="c-vertical-teaser__link--block hideModalMobile modal-detail-link-ajax" data-sly-test="${properties.reference}" rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
@@ -49,12 +73,24 @@
    			<h4 class="c-vertical-teaser-finedine__title c-vertical-teaser-finedine__title__allInclusive">${properties.jcr:title @ context="html"}</h4>
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
-	            <a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
-	                <span class="c-vertical-teaser__label c-vertical-teaser__label_nodefault">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
-	            </a>
+                <sly data-sly-test="${!properties.openLinkNewTab}">
+	            	<a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
+	                	<span class="c-vertical-teaser__label c-vertical-teaser__label_nodefault">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            	</a>
+	            </sly>
+	            <sly data-sly-test="${properties.openLinkNewTab}">
+	            	<a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" target="_blank">
+	                	<span class="c-vertical-teaser__label c-vertical-teaser__label_nodefault">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            	</a>
+	            </sly>
             </p>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        <sly data-sly-test="${!properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        </sly>
+        <sly data-sly-test="${properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}" target="_blank"></a>
+        </sly>
 		<sly data-sly-test="${properties.openModal}">
 	        <a class="c-vertical-teaser__link--block hideModalDesktop modal-detail-link-ajax" data-sly-test="${properties.reference}"  rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
 	        <a class="c-vertical-teaser__link--block hideModalMobile modal-detail-link-ajax" data-sly-test="${properties.reference}" rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
@@ -69,12 +105,24 @@
         	<h4 class="c-vertical-teaser-finedine__title">${properties.jcr:title @ context="html"}</h4>
             <p class="c-vertical-teaser__description">
                 ${properties.jcr:description @ context="html"}
-	            <a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
-	                <span class="c-vertical-teaser__label c-vertical-teaser__label_nodefault">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
-	            </a>
+                <sly data-sly-test="${!properties.openLinkNewTab}">
+	            	<a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
+	                	<span class="c-vertical-teaser__label c-vertical-teaser__label_nodefault">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            	</a>
+	            </sly>
+	            <sly data-sly-test="${properties.openLinkNewTab}">
+	            	<a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" target="_blank">
+	                	<span class="c-vertical-teaser__label c-vertical-teaser__label_nodefault">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	            	</a>
+	            </sly>
             </p>
         </div>
-        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+         <sly data-sly-test="${!properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        </sly>
+        <sly data-sly-test="${properties.openLinkNewTab}">
+	        <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}" target="_blank"></a>
+        </sly>
         <sly data-sly-test="${properties.openModal}">
 	        <a class="c-vertical-teaser__link--block hideModalDesktop modal-detail-link-ajax" data-sly-test="${properties.reference}"  rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
 	        <a class="c-vertical-teaser__link--block hideModalMobile modal-detail-link-ajax" data-sly-test="${properties.reference}" rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
@@ -93,11 +141,23 @@
                     ${properties.jcr:description @ context="html"}
 	                
                 </p>
-                <a class="c-vertical-teaser__link c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
+                <sly data-sly-test="${!properties.openLinkNewTab}">
+	                <a class="c-vertical-teaser__link c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
 	                    <span class="c-vertical-teaser__label c-vertical-teaser__label">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
 	                </a>
+	             </sly>
+	             <sly data-sly-test="${properties.openLinkNewTab}">
+	                <a class="c-vertical-teaser__link c-vertical-teaser__link" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}" target="_blank">
+	                    <span class="c-vertical-teaser__label c-vertical-teaser__label">${'read-more' @ i18n}</span><i class="fa fa-angle-right"></i>
+	                </a>
+	             </sly>
             </div>
-           <a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+            <sly data-sly-test="${!properties.openLinkNewTab}">
+	        	<a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}"></a>
+        	</sly>
+        	<sly data-sly-test="${properties.openLinkNewTab}">
+	        	<a class="c-vertical-teaser__link--block" data-sly-test="${properties.reference && !properties.openModal}" href="${properties.reference @ extension='html'}" target="_blank"></a>
+	        </sly>
 	       <sly data-sly-test="${properties.openModal}">
 	        	<a class="c-vertical-teaser__link--block hideModalDesktop modal-detail-link-ajax" data-sly-test="${properties.reference}"  rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentdesktop'}"></a>
 	        	<a class="c-vertical-teaser__link--block hideModalMobile modal-detail-link-ajax" data-sly-test="${properties.reference}" rel="nofollow" data-target=".bs-modal-lg" href="${properties.reference @ extension='html', selectors='modalcontentmobile'}"></a>
