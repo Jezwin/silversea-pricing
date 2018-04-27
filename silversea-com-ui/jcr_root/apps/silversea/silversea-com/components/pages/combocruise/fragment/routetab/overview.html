@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ comboCruise }">
-    <h1 class="cc-tab_header_title">${'routes' @ i18n}</h1>
+    <h1 class="cc-tab_header_title">${'itineraries' @ i18n}</h1>
     <div class="cc-tab_header_desc row">
         <div class="cc-tab_header_desc_txt col-sm-9" data-sly-resource="${'routes-description' @ resourceType='silversea/silversea-com/components/editorial/text'}"></div>
         <div class="cc-tab_header_desc_cta col-sm-3">
@@ -9,9 +9,9 @@
         </div>
     </div>
     <div class="select-segment">
-        <h2>${'select-and-view-the-route' @ i18n}</h2>
+        <h2>${'select-and-view-the-itineraries' @ i18n}</h2>
         <dl class="nav nav-tabs">
-            <dt>${'select-and-view-the-route' @ i18n}</dt>
+            <dt>${'select-and-view-the-itineraries' @ i18n}</dt>
             <dd data-sly-repeat.segment="${comboCruise.comboCruiseModel.segments}" class="${segmentlist.count == 1 ? 'active' : ''}">
                 <a href="#segmentinfo-${segmentlist.count}" data-toggle="tab">
                     <time data-sly-test="${segment.cruise.startDate}"
