@@ -27,6 +27,9 @@ public class PublicAreaModel implements ShipAreaModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
     private String title;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/navTitle") @Optional
+    private String navigationTitle;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
@@ -76,6 +79,10 @@ public class PublicAreaModel implements ShipAreaModel {
         return title != null ? title :
                 (genericSuite != null ? genericSuite.getTitle() : null);
     }
+    
+    public String getNavigationTitle() {
+		return navigationTitle;
+	}
 
     public String getAssetSelectionReference() {
         return assetSelectionReference != null ? assetSelectionReference :

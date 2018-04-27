@@ -108,7 +108,8 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 			PublicAreaModel publicArea = getCurrentPage().adaptTo(PublicAreaModel.class);
 			if (publicArea != null) {
 				detail = new ModalDetailBean();
-				detail.setTitle(publicArea.getTitle());
+				String title = (StringUtils.isNotEmpty(publicArea.getNavigationTitle())) ? publicArea.getNavigationTitle() : publicArea.getTitle();
+				detail.setTitle(title);
 				detail.setLongDescription(publicArea.getLongDescription());
 				detail.setAssetSelectionReference(publicArea.getAssetSelectionReference());
 				detail.setVirtualTour(publicArea.getVirtualTour());
@@ -121,7 +122,8 @@ public class ModalDetailUse extends AbstractGeolocationAwareUse {
 			DiningModel dining = getCurrentPage().adaptTo(DiningModel.class);
 			if (dining != null) {
 				detail = new ModalDetailBean();
-				detail.setTitle(dining.getTitle());
+				String title = (StringUtils.isNotEmpty(dining.getNavigationTitle())) ? dining.getNavigationTitle() : dining.getTitle();
+				detail.setTitle(title);
 				detail.setLongDescription(dining.getLongDescription());
 				detail.setAssetSelectionReference(dining.getAssetSelectionReference());
 				detail.setVirtualTour(dining.getVirtualTour());
