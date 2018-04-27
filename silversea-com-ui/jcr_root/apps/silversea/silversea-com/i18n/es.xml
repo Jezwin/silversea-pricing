@@ -778,6 +778,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Visión de conjunto"/>
+    <overview-and-fares
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Visión de conjunto y tarifas"/>
     <per-guest
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1018,6 +1022,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Seleccione y vea la ruta"/>
+    <select-and-view-the-itineraries
+           jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Seleccione y vea itinerario"/>
 	<select-inquiry
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

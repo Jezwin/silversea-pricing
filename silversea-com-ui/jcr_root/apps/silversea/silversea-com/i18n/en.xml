@@ -771,6 +771,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
         sling:message="Overview"/>
+    <overview-and-fares
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="overview-and-fares"
+        sling:message="Overview and fares"/>
     <per-guest
         jcr:primaryType="sling:MessageEntry"
         sling:key="per-guest"
@@ -1011,6 +1015,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-and-view-the-route"
         sling:message="Select and view the route"/>
+   	<select-and-view-the-itineraries
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="select-and-view-the-itineraries"
+        sling:message="Select and view the itineraries"/>
 	<select-inquiry
         jcr:primaryType="sling:MessageEntry"
         sling:key="select-inquiry"
