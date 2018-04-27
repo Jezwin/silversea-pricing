@@ -59,6 +59,12 @@
                                 fieldLabel="My Silversea"
                                 name="./mySilverseaReference"
                                 rootPath="/content/silversea-com" />
+                            <hideGreySectionFooter
+                               jcr:primaryType="nt:unstructured"
+                               text="Hide More About Silversea section"
+                               name="./hideGreySectionFooter"
+                               value="true"
+                               sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>
