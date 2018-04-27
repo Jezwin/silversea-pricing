@@ -4,8 +4,8 @@
                 data-sly-call="${imageTemplate.default @ imagePath=reference}" />
         </div>
         <div class="caption c-vertical-teaser__caption c-vertical-teaser__caption_default">
-             <span class="c-vertical-teaser__title alternative-h">${properties.jcr:title @ context="html"}</span>
-            <p class="c-vertical-teaser__description">
+             <span class="c-vertical-teaser__title alternative-h ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}">${properties.jcr:title @ context="html"}</span>
+            <p class="c-vertical-teaser__description ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}">
                 ${properties.jcr:description @ context="html"}
             </p>
             <sly data-sly-test="${!properties.openLinkNewTab}">
@@ -37,8 +37,8 @@
                 data-sly-call="${imageTemplate.resp @ imagePath=reference}" />
         </div>
         <div class="caption c-vertical-teaser__caption c-vertical-teaser__caption_default-new">
-             <span class="c-vertical-teaser__title alternative-h">${properties.jcr:title @ context="html"}</span>
-            <p class="c-vertical-teaser__description">
+             <span class="c-vertical-teaser__title alternative-h ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}">${properties.jcr:title @ context="html"}</span>
+            <p class="c-vertical-teaser__description ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}">
                 ${properties.jcr:description @ context="html"}
             </p>
             <sly data-sly-test="${!properties.openLinkNewTab}">
@@ -70,8 +70,8 @@
                 data-sly-call="${imageTemplate.resp @ imagePath=reference}" />
         </div>
         <div class="c-vertical-teaser-finedine__caption">
-   			<h4 class="c-vertical-teaser-finedine__title c-vertical-teaser-finedine__title__allInclusive">${properties.jcr:title @ context="html"}</h4>
-            <p class="c-vertical-teaser__description">
+   			<h4 class="c-vertical-teaser-finedine__title c-vertical-teaser-finedine__title__allInclusive ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}">${properties.jcr:title @ context="html"}</h4>
+            <p class="c-vertical-teaser__description ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}">
                 ${properties.jcr:description @ context="html"}
                 <sly data-sly-test="${!properties.openLinkNewTab}">
 	            	<a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
@@ -102,8 +102,8 @@
                 data-sly-call="${imageTemplate.resp @ imagePath=reference}" />
         </div>
         <div class="c-vertical-teaser-finedine__caption">
-        	<h4 class="c-vertical-teaser-finedine__title">${properties.jcr:title @ context="html"}</h4>
-            <p class="c-vertical-teaser__description">
+        	<h4 class="c-vertical-teaser-finedine__title ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}">${properties.jcr:title @ context="html"}</h4>
+            <p class="c-vertical-teaser__description ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}">
                 ${properties.jcr:description @ context="html"}
                 <sly data-sly-test="${!properties.openLinkNewTab}">
 	            	<a class="c-vertical-teaser__link c-vertical-teaser__link_nodefault" data-sly-test="${properties.reference}" href="${properties.reference @ extension='html'}">
@@ -135,9 +135,9 @@
                 data-sly-call="${imageTemplate.resp @ imagePath=reference}" />
         </div>
 		<div class="c-vertical-teaser-oba__content">
-            <h4 class="c-vertical-teaser-oba__title">${properties.jcr:title @ context="html"}</h4>
+            <h4 class="c-vertical-teaser-oba__title ${properties.fontSizeTitleDesktop} ${properties.fontSizeTitleTablet} ${properties.fontSizeTitleMobile}">${properties.jcr:title @ context="html"}</h4>
             <div class="c-vertical-teaser-oba__caption">
-                <p class="c-vertical-teaser__description">
+                <p class="c-vertical-teaser__description ${properties.fontSizeTextDesktop} ${properties.fontSizeTextTablet} ${properties.fontSizeTextMobile}">
                     ${properties.jcr:description @ context="html"}
 	                
                 </p>
