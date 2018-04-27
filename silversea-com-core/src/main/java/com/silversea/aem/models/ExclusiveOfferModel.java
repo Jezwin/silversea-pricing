@@ -129,6 +129,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultFootnote")
 	@Optional
 	private String defaultFootnote;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultEoFootnotes")
+	@Optional
+	private String defaultEoFootnotes;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
@@ -336,6 +341,10 @@ public class ExclusiveOfferModel {
 	
 	public String getDefaultFootnote() {
 		return defaultFootnote;
+	}
+	
+	public String getDefaultEoFootnotes() {
+		return defaultEoFootnotes;
 	}
 
 	public String[] getCustomMainSettings () {

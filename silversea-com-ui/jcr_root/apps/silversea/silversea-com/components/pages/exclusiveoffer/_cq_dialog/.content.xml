@@ -227,6 +227,13 @@
 																rows="5"
 																fieldLabel="Default short description - (Home page, voyage page)"
 																name="./defaultShortDescription" />
+															<defaultEoFootnotes
+																jcr:primaryType="nt:unstructured"
+																sling:resourceType="granite/ui/components/foundation/form/textarea"
+																fieldDescription="Default exclusive footnotes description"
+																rows="5"
+																fieldLabel="Default footnotes - (Exclusive offer page,)"
+																name="./defaultEoFootnotes" />
 						                                    <customMainSettings 
 						                                    		jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -271,6 +278,10 @@
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Short description - (Home page, voyage page)"
 																				      	value="shortDescription"/>
+																				     <footnotes 
+																				    	jcr:primaryType="nt:unstructured"
+																				      	text="Footnotes - (Exclusive offer page)"
+																				      	value="footnotes"/>
 																				  </items>
 																				</type>
 						                                                        <value

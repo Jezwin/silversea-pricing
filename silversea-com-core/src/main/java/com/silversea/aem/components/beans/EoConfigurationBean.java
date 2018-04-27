@@ -8,6 +8,7 @@ public class EoConfigurationBean {
 	private boolean shortTitleMain;
 	private boolean descriptionMain;
 	private boolean shortDescriptionMain;
+	private boolean footnotesMain;
 	
 	private boolean activeGreysSystem;
 	private boolean imageLightbox;
@@ -140,6 +141,14 @@ public class EoConfigurationBean {
 
 	public void setShortTitleMain(boolean shortTitleMain) {
 		this.shortTitleMain = shortTitleMain;
+	}
+
+	public boolean isFootnotesMain() {
+		return footnotesMain;
+	}
+
+	public void setFootnotesMain(boolean footnotesMain) {
+		this.footnotesMain = footnotesMain;
 	}
 	
 
