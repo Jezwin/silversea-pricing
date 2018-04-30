@@ -159,6 +159,16 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/pathImageLB")
 	@Optional
 	private String pathImageLB;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/positionDescriptionDesktopLB")
+	@Optional
+	private String positionDescriptionDesktopLB;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/positionDescriptionMobileLB")
+	@Optional
+	private String positionDescriptionMobileLB;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/activeGreysBoxes")
@@ -393,5 +403,13 @@ public class ExclusiveOfferModel {
 
 	public String[] getCategoryEO() {
 		return categoryEO;
+	}
+
+	public String getPositionDescriptionDesktopLB() {
+		return positionDescriptionDesktopLB;
+	}
+
+	public String getPositionDescriptionMobileLB() {
+		return positionDescriptionMobileLB;
 	}
 }

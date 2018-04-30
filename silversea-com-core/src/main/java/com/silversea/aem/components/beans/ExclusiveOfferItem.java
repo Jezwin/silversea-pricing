@@ -41,6 +41,10 @@ public class ExclusiveOfferItem {
     private String imageLBPath;
     
     private Boolean isLBGreyBoxActivated;
+    
+    private String positionDescriptionDesktopLB;
+    
+    private String positionDescriptionMobileLB;
 
     public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath, EoBean result) {
 		
@@ -76,6 +80,8 @@ public class ExclusiveOfferItem {
 				imageLBPath = exclusiveOffer.getPathImageLB();
 				isLBGreyBoxActivated = exclusiveOffer.getActiveGreysBoxes();
 				eoFootnotes  =result.getEoFootnotes();
+				positionDescriptionDesktopLB = exclusiveOffer.getPositionDescriptionDesktopLB();
+				positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
 				if(StringUtils.isNotEmpty(result.getFootnote())){
 					footnotes.add(result.getFootnote());
 				}
@@ -205,5 +211,13 @@ public class ExclusiveOfferItem {
 
 	public String getEoFootnotes() {
 		return eoFootnotes;
+	}
+
+	public String getPositionDescriptionDesktopLB() {
+		return positionDescriptionDesktopLB;
+	}
+
+	public String getPositionDescriptionMobileLB() {
+		return positionDescriptionMobileLB;
 	}
 }
