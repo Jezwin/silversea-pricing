@@ -1,15 +1,12 @@
 package com.silversea.aem.components.beans;
 
-import com.ctc.wstx.util.StringUtil;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.EoHelper;
-import com.silversea.aem.models.ExclusiveOfferModel;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.scripting.SlingScriptHelper;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.models.ExclusiveOfferModel;
 
 /**
  * Class used to store informations about exclusive offer and the best
@@ -28,6 +25,8 @@ public class ExclusiveOfferItem {
     private String shortDescription;
     
     private String mapOverhead;
+    
+    private String eoFootnotes;
     
     private String exclusiveOfferPath;
     
@@ -76,6 +75,7 @@ public class ExclusiveOfferItem {
 				exclusiveOfferPath = exclusiveOffer.getPath();
 				imageLBPath = exclusiveOffer.getPathImageLB();
 				isLBGreyBoxActivated = exclusiveOffer.getActiveGreysBoxes();
+				eoFootnotes  =result.getEoFootnotes();
 				if(StringUtils.isNotEmpty(result.getFootnote())){
 					footnotes.add(result.getFootnote());
 				}
@@ -202,4 +202,8 @@ public class ExclusiveOfferItem {
     public String getPath() {
         return exclusiveOffer.getPath();
     }
+
+	public String getEoFootnotes() {
+		return eoFootnotes;
+	}
 }

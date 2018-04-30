@@ -1,6 +1,5 @@
 package com.silversea.aem.components.page;
 
-import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
@@ -29,6 +28,7 @@ public class ExclusiveOfferUse extends EoHelper {
         	EoConfigurationBean eoConfig = new EoConfigurationBean();
     		eoConfig.setTitleLigthbox(true);
     		eoConfig.setDescriptionLigthbox(true);
+    		eoConfig.setFootnotesMain(true);
     		eoConfig.setActiveSystem(exclusiveOfferModel.getActiveSystem());
     		EoBean result = super.parseExclusiveOffer(eoConfig, exclusiveOfferModel);
             exclusiveOfferItem = new ExclusiveOfferItem(exclusiveOfferModel, countryCode, null, result);
