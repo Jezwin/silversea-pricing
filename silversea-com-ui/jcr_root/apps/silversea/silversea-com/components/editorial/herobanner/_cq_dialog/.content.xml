@@ -562,6 +562,33 @@
                     <column jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/foundation/container">
                         <items jcr:primaryType="nt:unstructured">
+                        	<showScrollActionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                text="Show scroll action"
+                                name="./showScrollActionDesktop"
+                                value="true"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <textScrollActionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                fieldLabel="Text scroll action"
+                                name="./textScrollActionDesktop"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield" />
+                             <colorScrollActionDesktop
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Color scroll action"
+                                name="./colorScrollActionDesktop">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <white
+                                        jcr:primaryType="nt:unstructured"
+                                        text="white"
+                                        value="white" />
+                                    <black
+                                        jcr:primaryType="nt:unstructured"
+                                        text="black"
+                                        value="black" />
+                                </items>
+                            </colorScrollActionDesktop>
 							<cssDesktop
 							    jcr:primaryType="nt:unstructured"
 							    sling:resourceType="granite/ui/components/foundation/form/textarea"

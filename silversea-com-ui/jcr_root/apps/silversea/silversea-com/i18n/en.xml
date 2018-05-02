@@ -999,6 +999,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="routes-description"
         sling:message="Leaving from San Francisco and arriving in London, the Tale of Tales is our most audacious world cruise to date. 5 continents, 31 countries, 52 ports and 17 overnights in just 132-days mean that this journey is your tale to tell."/>
+    <scroll-to-continue
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="scroll-to-continue"
+        sling:message="Scroll to continue"/>
     <schedule
         jcr:primaryType="sling:MessageEntry"
         sling:key="schedule"

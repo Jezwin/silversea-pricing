@@ -1006,6 +1006,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Die Tale of Tales, die in San Francisco beginnt und in London endet, ist unsere bisher waghalsigste Weltkreuzfahrt. Fünf Kontinente, 31 Länder, 52 Häfen und 17 Übernachtungen in nur 132 Tagen: Diese Reise werden Sie nie vergessen. "/>
+     <scroll-to-continue
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Scroll to continue"/>
     <schedule
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

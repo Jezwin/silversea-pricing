@@ -61,6 +61,48 @@
 		}
     }
     
+    	&-scrolldown {
+		position: absolute;
+	    bottom: 0%;
+	    margin: auto;
+	    transform: translateX(-50%);
+	    left: 50%;
+	    color: #FFF;
+	    cursor: pointer;
+	    font-size: 17px;
+	    z-index: 1500;
+	    display: none;
+	    text-align: center;
+    	margin-bottom: 10px;
+    	text-transform: uppercase;
+    	line-height: 10px;
+	    
+	    span {
+	    	display: block;
+	    }
+	    
+	    i {
+	    	font-size: 30px;
+	    	transition: all .5s ease;
+    		-webkit-transition: all .5s ease;
+	    }
+	    
+	    i:hover {
+		    transform: translateY(5px);
+		    transition: all .5s ease;
+    		-webkit-transition: all .5s ease;
+		}
+	    
+    	@media (min-width: 768px) {
+	    	&-desktop-black {
+	    		color: #333;
+	    	}
+	    	&-desktop {
+	    		display: block;
+	    	}
+    	}
+	}
+    
     span.c-hero-banner__title, h2.c-hero-banner__title, h3.c-hero-banner__title {
     	display: block;
 		margin-bottom: 20px !important;

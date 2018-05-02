@@ -1007,6 +1007,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Au départ de San Francisco jusqu’à Londres, réservez le Tale of Tales, la plus audacieuse des croisières autour du monde. 5 continents, 31 pays, 52 ports et 17 nuits en seulement 132 jours, composent l’histoire que vous racontera ce voyage."/>
+    <scroll-to-continue
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Scroll to continue"/>
     <schedule
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

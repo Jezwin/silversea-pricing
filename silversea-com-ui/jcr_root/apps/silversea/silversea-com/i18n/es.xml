@@ -1006,6 +1006,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Salir de San Francisco y llegar a Londres, el Cuento de los Cuentos es nuestro crucero más audaz hasta la fecha. 5 continentes, 31 países, 52 puertos y 17 pernoctaciones en tan solo 132 días significa que este viaje es de lo único de lo que hablarás."/>
+    <scroll-to-continue
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Scroll to continue"/>
     <schedule
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
