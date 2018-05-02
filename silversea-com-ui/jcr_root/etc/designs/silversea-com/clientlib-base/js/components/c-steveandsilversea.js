@@ -8,15 +8,34 @@
             url: dataUrl,
             success: function(data){
                 var elems = $(data).find("[data-image]"),
+                    sources=[],
                     t = [];
                 Array.prototype.forEach.call(elems, function(e) {
-                    t.push({
-                        href: e.dataset.image
-                    });
+
+					var posterPath = $(e).find('.ratio').css('background-image').replace('url(','').replace(')','').replace(/\"/gi, "");
+                    if(e.dataset.image){
+                        if(e.dataset.image.indexOf('mp4') > 0){
+                            var src =  {
+                                        href: e.dataset.image,
+                                        type: 'video/mp4'
+                                    };
+                            sources.push(src);
+                            t.push({
+                                poster:posterPath,
+                                type: 'video/*',
+                                sources:sources
+                            });
+                        } else {
+                            t.push({
+                                href: e.dataset.image
+                        });
+                        }
+                    }
                 });
                 console.log(t);
                 blueimp.Gallery(t, {
                     container: '#blueimp-gallery',
+                    startSlideshow: false,
                     onclose: function(){
 						if (document.exitFullscreen) {
                             document.exitFullscreen()
