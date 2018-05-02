@@ -3,6 +3,7 @@ package com.silversea.aem.helper;
 import com.adobe.cq.dam.dm.delivery.api.ImageDelivery;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
+import com.day.cq.dam.api.Asset;
 import com.day.cq.dam.api.s7dam.constants.S7damConstants;
 import com.day.cq.dam.api.s7dam.utils.PublishUtils;
 import com.silversea.aem.services.RunModesService;
@@ -55,6 +56,18 @@ public class AssetHelper extends WCMUsePojo {
             if (res != null) {
                 return res.getValueMap().get(S7damConstants.PN_S7_TYPE, String.class);
             }
+        }
+
+        return null;
+    }
+    
+    /**
+     * @return the asset
+     */
+    public Asset getAsset() {
+        if (StringUtils.isNotBlank(assetPath)) {
+            Asset asset = getResourceResolver().getResource(assetPath).adaptTo(Asset.class);
+            return asset;
         }
 
         return null;

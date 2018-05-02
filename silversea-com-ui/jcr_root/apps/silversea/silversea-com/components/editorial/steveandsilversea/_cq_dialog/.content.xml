@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="SSC - SteveAndSilversea "
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <steveandsilversea
+                jcr:primaryType="nt:unstructured"
+                jcr:title="SteveAndSilversea "
+                sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                    margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <title
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="Title"
+                                name="./title"/>
+                            <imagePath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Image to Open Gallery"
+                                name="./imagePath"
+                                rootPath="/content/dam/silversea-com"/>
+                            <assetSelection
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="Asset Selection Path"
+                                name="./assetSelection"
+                                rootPath="/content/dam/silversea-com"/>
+                            <ctatext
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                fieldLabel="CTA Text"
+                                name="./ctatext"/>
+                            <ctalink
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                fieldLabel="CTA Link"
+                                name="./ctalink"
+                                rootPath="/content/silversea-com"/>
+                            <displayWatermark
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                name="./displayWatermark"
+                                text="Display Watermark"
+                                value="true"/>
+                            <order
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/select"
+                                fieldLabel="Order of Content (Mobile)"
+                                name="./order">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <imagefirst
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Image/Video First"
+                                        value="imagefirst"/>
+                                    <textfirst
+                                        jcr:primaryType="nt:unstructured"
+                                        text="Title/Description First"
+                                        value="textfirst"/>
+                                </items>
+                            </order>
+                            <desktopContentWidth
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/foundation/form/numberfield"
+                                defaultValue="6"
+                                fieldLabel="Width of Content Column (Desktop)"
+                                max="{Long}12"
+                                min="{Long}0"
+                                name="./desktopContentWidth"/>
+                        </items>
+                    </column>
+                </items>
+            </steveandsilversea>
+        </items>
+    </content>
+</jcr:root>
