@@ -14,7 +14,7 @@
                 <div class="content__title">${properties.title}</div>
                 <div class="content__descr">${properties.text @ context='html'}</div>
                 <div class="content__cta">
-                    <a href="${properties.ctalink}" class="read_more">${properties.ctatext}</a>
+                    <a href="${properties.ctalink}" class="${!properties.ctalink? 'blueimp-cont' : ''}">${properties.ctatext}</a>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
 </div>
-<div class="row c-steveandsilversea c-steveandsilversea-mobile  hidden-sm hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+<div class="row c-steveandsilversea c-steveandsilversea-mobile hidden-sm hidden-md hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
             <div class="col-sm-6 col-sm-6-image-mobile">
                 <div class="image">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
@@ -41,7 +41,7 @@
                     <div class="content__title">${properties.title}</div>
                     <div class="content__descr">${properties.text @ context='html'}</div>
                     <div class="content__cta">
-                        <a href="${properties.ctalink}" class="read_more">${properties.ctatext}</a>
+                        <a href="${properties.ctalink}" class="${!properties.ctalink? 'blueimp-cont' : ''}">${properties.ctatext}</a>
                     </div>
                 </div>
             </div>

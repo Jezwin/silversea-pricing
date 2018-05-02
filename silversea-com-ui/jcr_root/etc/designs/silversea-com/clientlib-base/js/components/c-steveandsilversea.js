@@ -37,16 +37,27 @@
             }
         });
 
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen()
+         if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+            $(window).resize();
         } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen()
+            document.documentElement.webkitRequestFullscreen();
+            $(window).resize();
         } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen()
+            document.documentElement.mozRequestFullScreen();
+            $(window).resize();
         } else if (document.documentElement.msRequestFullscreen) {
-            document.documentElement.msRequestFullscreen()
+            document.documentElement.msRequestFullscreen();
+            $(window).resize();
         }
 
+    });
+    $(window).resize(function() {
+        if((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+            $("html").css("overflow", "hidden");
+        } else {
+            $("html").css("overflow", "auto");
+        }
     });
 })();
 
