@@ -9,22 +9,27 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
 
 import com.adobe.granite.confmgr.Conf;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
+import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.DestinationItem;
+import com.silversea.aem.models.DestinationModel;
 import com.silversea.aem.models.DestinationModelLight;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.models.FeatureModel;
@@ -36,863 +41,896 @@ import com.silversea.aem.models.ShipModelLight;
 import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.FindYourCruiseUtils;
 import com.silversea.aem.utils.PathUtils;
+import com.silversea.aem.ws.client.factory.WorldAndGrandVoyageCache;
 
 /**
- * selectors : destination_all date_all duration_all ship_all cruisetype_all port_all page_2
+ * selectors : destination_all date_all duration_all ship_all cruisetype_all
+ * port_all page_2
  */
 public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
-    private final static int PAGE_SIZE = 15;
+	private final static int PAGE_SIZE = 15;
 
-    private final static String FILTER_ALL = "all";
+	private final static String FILTER_ALL = "all";
 
-    private Set<FeatureModelLight> featuresFromDesign = new HashSet<>();
+	private Set<FeatureModelLight> featuresFromDesign = new HashSet<>();
 
-    private String type = "v2";
-    
-    // list of all the cruises available for the lang
-    private List<CruiseModelLight> allCruises = new ArrayList<>();
+	private String type = "v2";
 
-    // list of the cruises filtered of the current page
-    private List<CruiseItem> cruises = new ArrayList<>();
+	// list of all the cruises available for the lang
+	private List<CruiseModelLight> allCruises = new ArrayList<>();
 
-    // destinations available for all the cruises
-    private List<DestinationModelLight> destinations = new ArrayList<>();
- 
-    // destinations available for the subset of filtered cruises
-    private Set<DestinationItem> availableDestinations = new TreeSet<>(Comparator.comparing
-            (DestinationItem::getName));
+	// list of the cruises filtered of the current page
+	private List<CruiseItem> cruises = new ArrayList<>();
 
-    // ships available for all the cruises
-    private List<ShipModelLight> ships = new ArrayList<>();
+	// destinations available for all the cruises
+	private List<DestinationModelLight> destinations = new ArrayList<>();
 
-    // ports available for the subset of filtered cruises
-    private Set<ShipItem> availableShips = new TreeSet<>(Comparator.comparing(ShipItem::getName));
+	// destinations available for the subset of filtered cruises
+	private Set<DestinationItem> availableDestinations = new TreeSet<>(Comparator.comparing(DestinationItem::getName));
 
-    // ports available for all the cruises
-    private List<PortModelLight> ports = new ArrayList<>();
+	// ships available for all the cruises
+	private List<ShipModelLight> ships = new ArrayList<>();
 
-    // ports available for the subset of filtered cruises
-    private Set<PortItem> availablePorts = new TreeSet<>(Comparator.comparing(PortItem::getName));
+	// ports available for the subset of filtered cruises
+	private Set<ShipItem> availableShips = new TreeSet<>(Comparator.comparing(ShipItem::getName));
 
-    // departure dates available for the cruises
-    private Set<YearMonth> dates = new TreeSet<>();
+	// ports available for all the cruises
+	private List<PortModelLight> ports = new ArrayList<>();
 
-    // departure dates available for the subset of filtered cruises
-    private Set<YearMonth> availableDepartureDates = new HashSet<>();
+	// ports available for the subset of filtered cruises
+	private Set<PortItem> availablePorts = new TreeSet<>(Comparator.comparing(PortItem::getName));
 
-    // features available from design dialog + available for cruises
-    private Set<FeatureModelLight> features = new TreeSet<>(Comparator.comparing(FeatureModelLight::getName));
+	// departure dates available for the cruises
+	private Set<YearMonth> dates = new TreeSet<>();
 
-    // features dates available for the subset of filtered cruises
-    private Set<FeatureModelLight> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModelLight::getName));
+	// departure dates available for the subset of filtered cruises
+	private Set<YearMonth> availableDepartureDates = new HashSet<>();
 
-    // durations available for the subset of filtered cruises
-    private Set<String> availableDurations = new HashSet<>();
+	// features available from design dialog + available for cruises
+	private Set<FeatureModelLight> features = new TreeSet<>(Comparator.comparing(FeatureModelLight::getName));
 
-    // cruise types available for the subset of filtered cruises
-    private Set<String> availableCruiseTypes = new HashSet<>();
+	// features dates available for the subset of filtered cruises
+	private Set<FeatureModelLight> availableFeatures = new TreeSet<>(Comparator.comparing(FeatureModelLight::getName));
 
-    // destination filter
-    private String destinationFilter = FILTER_ALL;
+	// durations available for the subset of filtered cruises
+	private Set<String> availableDurations = new HashSet<>();
 
-    private String destinationIdFilter;
+	// cruise types available for the subset of filtered cruises
+	private Set<String> availableCruiseTypes = new HashSet<>();
 
-    // exclusive offer filter (not displayed, used on exclusive offer page)
-    private String exclusiveOfferFilter = FILTER_ALL;
+	// destination filter
+	private String destinationFilter = FILTER_ALL;
 
-    // date filter
-    private YearMonth dateFilter;
+	private String destinationIdFilter;
 
-    // duration filter
-    private String durationFilter;
+	// exclusive offer filter (not displayed, used on exclusive offer page)
+	private String exclusiveOfferFilter = FILTER_ALL;
 
-    // minimum duration of the duration filter
-    private Integer durationFilterMin;
+	// date filter
+	private YearMonth dateFilter;
 
-    // maximum duration of the duration filter
-    private Integer durationFilterMax;
+	// duration filter
+	private String durationFilter;
 
-    // ship filter
-    private String shipFilter = FILTER_ALL;
+	// minimum duration of the duration filter
+	private Integer durationFilterMin;
 
-    // cruise type filter
-    private String cruiseTypeFilter = FILTER_ALL;
+	// maximum duration of the duration filter
+	private Integer durationFilterMax;
 
-    // port filter
-    private String portFilter = FILTER_ALL;
+	// ship filter
+	private String shipFilter = FILTER_ALL;
 
-    // features filter
-    private Set<FeatureModelLight> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModelLight::getTitle));
+	// cruise type filter
+	private String cruiseTypeFilter = FILTER_ALL;
 
-    // true if find your cruise is prefiltered by destination
-    private boolean prefilterByDestination;
+	// port filter
+	private String portFilter = FILTER_ALL;
 
-    // true if find your cruise is prefiltered by port
-    private boolean prefilterByPort;
+	// features filter
+	private Set<FeatureModelLight> featuresFilter = new TreeSet<>(Comparator.comparing(FeatureModelLight::getTitle));
 
-    // true if find your cruise is prefiltered by ship
-    private boolean prefilterByShip;
+	// true if find your cruise is prefiltered by destination
+	private boolean prefilterByDestination;
 
-    // true if find your cruise is prefiltered by feature
-    private boolean prefilterByFeature;
+	// true if find your cruise is prefiltered by port
+	private boolean prefilterByPort;
 
-    // current page in the component pagination
-    private int activePage = 1;
+	// true if find your cruise is prefiltered by ship
+	private boolean prefilterByShip;
 
-    // total number of pages
-    private int pageNumber;
+	// true if find your cruise is prefiltered by feature
+	private boolean prefilterByFeature;
 
-    // true if the current page in pagination is the first page
-    private boolean isFirstPage;
+	// current page in the component pagination
+	private int activePage = 1;
 
-    // true if the current page in pagination is the last page
-    private boolean isLastPage;
+	// total number of pages
+	private int pageNumber;
 
-    // array containing the pages for the pagination
-    private List<Integer> pagination;
+	// true if the current page in pagination is the first page
+	private boolean isFirstPage;
 
-    // total number of cruises for the current filters
-    private int totalMatches;
-    
-    private StringBuilder availableDestinationsJson;
-    private StringBuilder availableShipsJson;
-    private StringBuilder availablePortsJson;
-    private StringBuilder availableDepartureDatesJson;
-    private StringBuilder availableDurationsJson;
-    private StringBuilder availableCruiseTypesJson;
-    private StringBuilder availableFeaturesJson;
+	// true if the current page in pagination is the last page
+	private boolean isLastPage;
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public void activate() throws Exception {
-        super.activate();
-        final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
-        final String lang = LanguageHelper.getLanguage(getCurrentPage());
-        availableDestinationsJson = new StringBuilder();
-        availableShipsJson = new StringBuilder();
-        availablePortsJson = new StringBuilder();
-        availableDepartureDatesJson = new StringBuilder();
-        availableDurationsJson = new StringBuilder();
-        availableCruiseTypesJson = new StringBuilder();
-        availableFeaturesJson = new StringBuilder();
-        
-        availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,");
-        availableShipsJson.append("{\"all\":true,");
-        availablePortsJson.append("{\"all\":true,");
-        availableDepartureDatesJson.append("{\"all\":true,");
-        availableDurationsJson.append("{\"all\":true,");
-        availableCruiseTypesJson.append("{\"all\":true,");
-        availableFeaturesJson.append("{");
-        
-        // Get type from configuration
-        final Conf confRes = getResource().adaptTo(Conf.class);
-        if (confRes != null) {
-            final ValueMap fycConf = confRes.getItem("/findyourcruise/findyourcruise");
+	// array containing the pages for the pagination
+	private List<Integer> pagination;
 
-            if (fycConf != null) {
-                type = fycConf.get("type", String.class);
-            }
-        }
+	// total number of cruises for the current filters
+	private int totalMatches;
 
-        // Get tags to display
-        if (tagManager != null) {
-            final String[] tags = getCurrentStyle().get(TagConstants.PN_TAGS, String[].class);
+	private StringBuilder availableDestinationsJson;
+	private StringBuilder availableShipsJson;
+	private StringBuilder availablePortsJson;
+	private StringBuilder availableDepartureDatesJson;
+	private StringBuilder availableDurationsJson;
+	private StringBuilder availableCruiseTypesJson;
+	private StringBuilder availableFeaturesJson;
 
-            if (tags != null) {
-                for (String tagId : tags) {
-                    final Tag tag = tagManager.resolve(tagId);
+	@Override
+	@SuppressWarnings("unchecked")
+	public void activate() throws Exception {
+		super.activate();
+		final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
+		final String lang = LanguageHelper.getLanguage(getCurrentPage());
+		availableDestinationsJson = new StringBuilder();
+		availableShipsJson = new StringBuilder();
+		availablePortsJson = new StringBuilder();
+		availableDepartureDatesJson = new StringBuilder();
+		availableDurationsJson = new StringBuilder();
+		availableCruiseTypesJson = new StringBuilder();
+		availableFeaturesJson = new StringBuilder();
 
-                    if (tag != null) {
-                        final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
+		availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,");
+		availableShipsJson.append("{\"all\":true,");
+		availablePortsJson.append("{\"all\":true,");
+		availableDepartureDatesJson.append("{\"all\":true,");
+		availableDurationsJson.append("{\"all\":true,");
+		availableCruiseTypesJson.append("{\"all\":true,");
+		availableFeaturesJson.append("{");
 
-                        if (featureModel != null) {
-                            featuresFromDesign.add(new FeatureModelLight(featureModel));
-                        }
-                    }
-                }
-            }
-        }
+		// Get type from configuration
+		final Conf confRes = getResource().adaptTo(Conf.class);
+		if (confRes != null) {
+			final ValueMap fycConf = confRes.getItem("/findyourcruise/findyourcruise");
 
-        // Parse selectors
-        final String[] selectors = getRequest().getRequestPathInfo().getSelectors();
-        for (final String selector : selectors) {
-            final String[] splitSelector = selector.split("_");
+			if (fycConf != null) {
+				type = fycConf.get("type", String.class);
+			}
+		}
 
-            if (splitSelector.length == 2) {
-                switch (splitSelector[0]) {
-                    case "destination":
-                        destinationFilter = splitSelector[1];
-                        break;
-                    case "date":
-                        try {
-                            dateFilter = YearMonth.parse(splitSelector[1]);
-                        } catch (DateTimeParseException ignored) {
-                        }
-                        break;
-                    case "duration":
-                        durationFilter = splitSelector[1];
-                        final String[] splitDuration = durationFilter.split("-");
+		// Get tags to display
+		if (tagManager != null) {
+			final String[] tags = getCurrentStyle().get(TagConstants.PN_TAGS, String[].class);
 
-                        if (splitDuration.length == 2) {
-                            try {
-                                durationFilterMin = Integer.parseInt(splitDuration[0]);
-                                durationFilterMax = Integer.parseInt(splitDuration[1]);
-                            } catch (NumberFormatException ignored) {
-                            }
-                        } else {
-                            try {
-                                durationFilterMin = Integer.parseInt(durationFilter);
-                            } catch (NumberFormatException ignored) {
-                            }
-                        }
+			if (tags != null) {
+				for (String tagId : tags) {
+					final Tag tag = tagManager.resolve(tagId);
 
-                        break;
-                    case "ship":
-                        shipFilter = splitSelector[1];
-                        break;
-                    case "cruisetype":
-                        cruiseTypeFilter = splitSelector[1];
-                        break;
-                    case "port":
-                        portFilter = splitSelector[1];
-                        break;
-                    case "features":
-                        final String featuresFilter = splitSelector[1];
-                        final String[] splitFeatures = featuresFilter.split("\\|");
+					if (tag != null) {
+						final FeatureModel featureModel = tag.adaptTo(FeatureModel.class);
 
-                        if (splitFeatures.length > 0 && tagManager != null) {
-                            for (final String splitFeature : splitFeatures) {
-                                final Tag featureTag = tagManager.resolve(
-                                        WcmConstants.TAG_NAMESPACE_FEATURES + splitFeature);
+						if (featureModel != null) {
+							featuresFromDesign.add(new FeatureModelLight(featureModel));
+						}
+					}
+				}
+			}
+		}
 
-                                if (featureTag != null) {
-                                    final FeatureModel feature = featureTag.adaptTo(FeatureModel.class);
+		// Parse selectors
+		final String[] selectors = getRequest().getRequestPathInfo().getSelectors();
+		for (final String selector : selectors) {
+			final String[] splitSelector = selector.split("_");
 
-                                    if (feature != null) {
-                                        this.featuresFilter.add(new FeatureModelLight(feature));
-                                    }
-                                }
-                            }
-                        }
+			if (splitSelector.length == 2) {
+				switch (splitSelector[0]) {
+				case "destination":
+					destinationFilter = splitSelector[1];
+					break;
+				case "date":
+					try {
+						dateFilter = YearMonth.parse(splitSelector[1]);
+					} catch (DateTimeParseException ignored) {
+					}
+					break;
+				case "duration":
+					durationFilter = splitSelector[1];
+					final String[] splitDuration = durationFilter.split("-");
 
-                        break;
-                    case "page":
-                        try {
-                            activePage = Integer.parseInt(splitSelector[1]);
-                        } catch (NumberFormatException ignored) {
-                        }
-                        break;
-                }
-            }
-        }
+					if (splitDuration.length == 2) {
+						try {
+							durationFilterMin = Integer.parseInt(splitDuration[0]);
+							durationFilterMax = Integer.parseInt(splitDuration[1]);
+						} catch (NumberFormatException ignored) {
+						}
+					} else {
+						try {
+							durationFilterMin = Integer.parseInt(durationFilter);
+						} catch (NumberFormatException ignored) {
+						}
+					}
 
-        // Apply default filtering for specific pages types
-        final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
-        switch (currentPageResourceType) {
-            case WcmConstants.RT_DESTINATION:
-                destinationFilter = getCurrentPage().getName();
-                prefilterByDestination = true;
-                break;
-            case WcmConstants.RT_PORT:
-                portFilter = getCurrentPage().getName();
-                prefilterByPort = true;
-                break;
-            case WcmConstants.RT_SHIP:
-                shipFilter = getCurrentPage().getName();
-                prefilterByShip = true;
-                break;
-            case WcmConstants.RT_EXCLUSIVE_OFFER:
-                exclusiveOfferFilter = getCurrentPage().getPath();
-                break;
-            case WcmConstants.RT_FEATURE:
-                final Tag[] pageTags = getCurrentPage().getTags();
+					break;
+				case "ship":
+					shipFilter = splitSelector[1];
+					break;
+				case "cruisetype":
+					cruiseTypeFilter = splitSelector[1];
+					break;
+				case "port":
+					portFilter = splitSelector[1];
+					break;
+				case "features":
+					final String featuresFilter = splitSelector[1];
+					final String[] splitFeatures = featuresFilter.split("\\|");
 
-                if (pageTags != null) {
-                    for (final Tag pageTag : pageTags) {
-                        if (pageTag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
-                            final FeatureModel featureModel = pageTag.adaptTo(FeatureModel.class);
+					if (splitFeatures.length > 0 && tagManager != null) {
+						for (final String splitFeature : splitFeatures) {
+							final Tag featureTag = tagManager
+									.resolve(WcmConstants.TAG_NAMESPACE_FEATURES + splitFeature);
 
-                            if (featureModel != null) {
-                                featuresFilter.add(new FeatureModelLight(featureModel));
-                            }
-                        }
-                    }
-                }
+							if (featureTag != null) {
+								final FeatureModel feature = featureTag.adaptTo(FeatureModel.class);
 
-                prefilterByFeature = true;
-                break;
-        }
+								if (feature != null) {
+									this.featuresFilter.add(new FeatureModelLight(feature));
+								}
+							}
+						}
+					}
 
-        // get cruises from cache
-        final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
-        if (cruisesCacheService != null) {
-            allCruises = cruisesCacheService.getCruises(lang);
-            destinations = cruisesCacheService.getDestinations(lang);         
-            ships = cruisesCacheService.getShips(lang);
-            ports = cruisesCacheService.getPorts(lang);
-            dates.addAll(cruisesCacheService.getDepartureDates(lang));
+					break;
+				case "page":
+					try {
+						activePage = Integer.parseInt(splitSelector[1]);
+					} catch (NumberFormatException ignored) {
+					}
+					break;
+				}
+			}
+		}
 
-            features.addAll(featuresFromDesign);
-            features.retainAll(cruisesCacheService.getFeatures(lang));
-        }
-        
-        // Security adaptation : If voyage is in the past - do not display them
-        List<CruiseModelLight> newAllCruises = new ArrayList<>();
-        for(CruiseModelLight cruise : allCruises){
-			if(cruise.getStartDate().after(Calendar.getInstance())){
+
+		// Apply default filtering for specific pages types
+		final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
+		switch (currentPageResourceType) {
+		case WcmConstants.RT_DESTINATION:
+			destinationFilter = getCurrentPage().getName();
+			prefilterByDestination = true;
+			break;
+		case WcmConstants.RT_PORT:
+			portFilter = getCurrentPage().getName();
+			prefilterByPort = true;
+			break;
+		case WcmConstants.RT_SHIP:
+			shipFilter = getCurrentPage().getName();
+			prefilterByShip = true;
+			break;
+		case WcmConstants.RT_EXCLUSIVE_OFFER:
+			exclusiveOfferFilter = getCurrentPage().getPath();
+			break;
+		case WcmConstants.RT_FEATURE:
+			final Tag[] pageTags = getCurrentPage().getTags();
+
+			if (pageTags != null) {
+				for (final Tag pageTag : pageTags) {
+					if (pageTag.getTagID().startsWith(WcmConstants.TAG_NAMESPACE_FEATURES)) {
+						final FeatureModel featureModel = pageTag.adaptTo(FeatureModel.class);
+
+						if (featureModel != null) {
+							featuresFilter.add(new FeatureModelLight(featureModel));
+						}
+					}
+				}
+			}
+
+			prefilterByFeature = true;
+			break;
+		}
+
+		// get cruises from cache
+		final CruisesCacheService cruisesCacheService = getSlingScriptHelper().getService(CruisesCacheService.class);
+		if (cruisesCacheService != null) {
+			allCruises = cruisesCacheService.getCruises(lang);
+			destinations = cruisesCacheService.getDestinations(lang);
+			ships = cruisesCacheService.getShips(lang);
+			ports = cruisesCacheService.getPorts(lang);
+			dates.addAll(cruisesCacheService.getDepartureDates(lang));
+
+			features.addAll(featuresFromDesign);
+			features.retainAll(cruisesCacheService.getFeatures(lang));
+		}
+
+		// Security adaptation : If voyage is in the past - do not display them
+		List<CruiseModelLight> newAllCruises = new ArrayList<>();
+		for (CruiseModelLight cruise : allCruises) {
+			if (cruise.getStartDate().after(Calendar.getInstance())) {
 				newAllCruises.add(cruise);
 			}
 		}
-        allCruises = newAllCruises;
-
-        // init list of filtered cruises and available values for filters
-        final List<CruiseModelLight> filteredCruises = new ArrayList<>();
-        for (final CruiseModelLight cruise : allCruises) {
-            boolean includeCruise = true;
-            boolean includeCruiseNotFilteredByDestination = true;
-            boolean includeCruiseNotFilteredByShip = true;
-            boolean includeCruiseNotFilteredByPort = true;
-            boolean includeCruiseNotFilteredByDepartureDate = true;
-            boolean includeCruiseNotFilteredByDuration = true;
-            boolean includeCruiseNotFilteredByFeatures = true;
-            boolean includeCruiseNotFilteredByCruiseTypes = true;
-
-            if (!cruise.isVisible()) {
-                includeCruise = false;
-                includeCruiseNotFilteredByDestination = false;
-                includeCruiseNotFilteredByShip = false;
-                includeCruiseNotFilteredByPort = false;
-                includeCruiseNotFilteredByDepartureDate = false;
-                includeCruiseNotFilteredByDuration = false;
-                includeCruiseNotFilteredByFeatures = false;
-                includeCruiseNotFilteredByCruiseTypes = false;
-            }
-
-            if (destinationIdFilter == null && !destinationFilter.equals(FILTER_ALL) && destinationFilter.equals(cruise.getDestination().getName())) {
-                destinationIdFilter = cruise.getDestinationId();
-            }
-
-            if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)) {
-                includeCruise = false;
-                includeCruiseNotFilteredByShip = false;
-                includeCruiseNotFilteredByPort = false;
-                includeCruiseNotFilteredByDepartureDate = false;
-                includeCruiseNotFilteredByDuration = false;
-                includeCruiseNotFilteredByFeatures = false;
-                includeCruiseNotFilteredByCruiseTypes = false;
-            }
-
-            if (!shipFilter.equals(FILTER_ALL) && !cruise.getShip().getName().equals(shipFilter)) {
-                includeCruise = false;
-                includeCruiseNotFilteredByDestination = false;
-                includeCruiseNotFilteredByPort = false;
-                includeCruiseNotFilteredByDepartureDate = false;
-                includeCruiseNotFilteredByDuration = false;
-                includeCruiseNotFilteredByFeatures = false;
-                includeCruiseNotFilteredByCruiseTypes = false;
-            }
-
-            try {
-                final int cruiseDuration = Integer.parseInt(cruise.getDuration());
-
-                // TODO merge if
-                if (durationFilterMin != null && durationFilterMax != null
-                        && (cruiseDuration < durationFilterMin || cruiseDuration > durationFilterMax)) {
-                    includeCruise = false;
-                    includeCruiseNotFilteredByDestination = false;
-                    includeCruiseNotFilteredByShip = false;
-                    includeCruiseNotFilteredByPort = false;
-                    includeCruiseNotFilteredByDepartureDate = false;
-                    includeCruiseNotFilteredByFeatures = false;
-                    includeCruiseNotFilteredByCruiseTypes = false;
-                } else if (durationFilterMin != null && durationFilterMax == null
-                        && cruiseDuration < durationFilterMin) {
-                    includeCruise = false;
-                    includeCruiseNotFilteredByDestination = false;
-                    includeCruiseNotFilteredByShip = false;
-                    includeCruiseNotFilteredByPort = false;
-                    includeCruiseNotFilteredByDepartureDate = false;
-                    includeCruiseNotFilteredByFeatures = false;
-                    includeCruiseNotFilteredByCruiseTypes = false;
-                }
-            } catch (NumberFormatException ignored) {
-            }
-
-            if (!portFilter.equals(FILTER_ALL)) {
-                boolean portInItinerary = false;
-                for (final PortItem port : cruise.getPorts()) {
-                    if (port.getName().equals(portFilter)) {
-                        portInItinerary = true;
-                        break;
-                    }
-                }
-
-                includeCruise = includeCruise && portInItinerary;
-                includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && portInItinerary;
-                includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && portInItinerary;
-                includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && portInItinerary;
-                includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && portInItinerary;
-                includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && portInItinerary;
-                includeCruiseNotFilteredByCruiseTypes = includeCruiseNotFilteredByCruiseTypes && portInItinerary;
-            }
-
-            if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
-                includeCruise = false;
-                includeCruiseNotFilteredByDestination = false;
-                includeCruiseNotFilteredByShip = false;
-                includeCruiseNotFilteredByPort = false;
-                includeCruiseNotFilteredByDepartureDate = false;
-                includeCruiseNotFilteredByDuration = false;
-                includeCruiseNotFilteredByFeatures = false;
-            }
-            
-            final YearMonth cruiseStartDate = FindYourCruiseUtils.getYearMonthWithTimeZone(cruise.getStartDate());
-
-            if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
-                includeCruise = false;
-                includeCruiseNotFilteredByDestination = false;
-                includeCruiseNotFilteredByShip = false;
-                includeCruiseNotFilteredByPort = false;
-                includeCruiseNotFilteredByDuration = false;
-                includeCruiseNotFilteredByFeatures = false;
-                includeCruiseNotFilteredByCruiseTypes = false;
-            }
-
-            if (this.features.size() > 0 && !cruise.getFeatures().containsAll(this.featuresFilter)) {
-                includeCruise = false;
-                includeCruiseNotFilteredByDestination = false;
-                includeCruiseNotFilteredByShip = false;
-                includeCruiseNotFilteredByPort = false;
-                includeCruiseNotFilteredByDepartureDate = false;
-                includeCruiseNotFilteredByDuration = false;
-                includeCruiseNotFilteredByCruiseTypes = false;
-            }
-
-            if (!exclusiveOfferFilter.equals(FILTER_ALL)) {
-                boolean exclusiveOfferInCruise = false;
-                for (final ExclusiveOfferModel exclusiveOffer : cruise.getExclusiveOffers()) {
-                    if (exclusiveOffer.getPath().equals(exclusiveOfferFilter)) {
-                        exclusiveOfferInCruise = true;
-                        break;
-                    }
-                }
-
-                includeCruise = includeCruise && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByPort = includeCruiseNotFilteredByPort && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && exclusiveOfferInCruise;
-                includeCruiseNotFilteredByCruiseTypes = includeCruiseNotFilteredByCruiseTypes && exclusiveOfferInCruise;
-            }
-
-            // include cruise in the filtered cruises list
-            if (includeCruise) {
-                filteredCruises.add(cruise);
-            }
-
-            // add elements to the filter of filters lists
-            if (includeCruiseNotFilteredByDestination) {
-                availableDestinations.add(cruise.getDestination());
-            }
-
-            if (includeCruiseNotFilteredByShip) {
-                availableShips.add(cruise.getShip());
-            }
-
-            if (includeCruiseNotFilteredByPort) {
-                for (PortItem port : cruise.getPorts()) {
-                        availablePorts.add(port);
-                }
-            }
-
-            if (includeCruiseNotFilteredByDepartureDate) {
-                availableDepartureDates.add(cruiseStartDate);
-            }
-
-            if (includeCruiseNotFilteredByDuration) {
-                try {
-                    final int cruiseDuration = Integer.parseInt(cruise.getDuration());
-                    if (cruiseDuration < 9) {
-                        availableDurations.add("1-8");
-                    } else if (cruiseDuration > 9 && cruiseDuration < 13) {
-                        availableDurations.add("9-12");
-                    } else if (cruiseDuration > 12 && cruiseDuration < 19) {
-                        availableDurations.add("13-18");
-                    } else if (cruiseDuration >= 19) {
-                        availableDurations.add("19");
-                    }
-                } catch (NumberFormatException ignored) {
-                }
-            }
-
-            if (includeCruiseNotFilteredByFeatures) {
-                availableFeatures.addAll(cruise.getFeatures());
-            }
-
-            if (includeCruiseNotFilteredByCruiseTypes) {
-                availableCruiseTypes.add(cruise.getCruiseType());
-            }
-        }
-
-        filteredCruises.sort(Comparator.comparing(CruiseModelLight::getStartDate));
-
-        // build the cruises list for the current page
-        int pageSize = PAGE_SIZE; // TODO replace by configuration
-
-        Locale locale = getCurrentPage().getLanguage(false);
-
-        int i = 0;
-        for (final CruiseModelLight cruise : filteredCruises) {
-            if (i >= activePage * pageSize) {
-                break;
-            }
-
-            if (i >= (activePage - 1) * pageSize) {
-                cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
-            }
-
-            i++;
-        }
-        
-        for (DestinationItem dest : availableDestinations) {
-        	availableDestinationsJson.append("\"" + dest.getName() + "\":true,");
-        }
-        
-        for (ShipItem ship : availableShips) {
-        	availableShipsJson.append("\"" + ship.getName() + "\":true,");
-        }
-        
-        for (PortItem port : availablePorts) {
-        	availablePortsJson.append("\"" + port.getName() + "\":true,");
-        }
-        
-        for (YearMonth depart : availableDepartureDates) {
-        	availableDepartureDatesJson.append("\"" + depart.toString() + "\":true,");
-        }
-        
-        for (String duration : availableDurations) {
-        	availableDurationsJson.append("\""+duration+"\":true,");
-        }
-        
-        for (FeatureModelLight feat : availableFeatures) {
-        	availableFeaturesJson.append("\"" + feat.getName() + "\":true,");
-        }
-        
-        for (String cruiseType : availableCruiseTypes) {
-            availableCruiseTypesJson.append("\"" + cruiseType + "\":true,");
-        }
-        
-        availableDestinationsJson.deleteCharAt(availableDestinationsJson.length()-1);
-        availableShipsJson.deleteCharAt(availableShipsJson.length()-1);
-        availablePortsJson.deleteCharAt(availablePortsJson.length()-1);
-        availableDepartureDatesJson.deleteCharAt(availableDepartureDatesJson.length()-1);
-        availableDurationsJson.deleteCharAt(availableDurationsJson.length()-1);
-        availableCruiseTypesJson.deleteCharAt(availableCruiseTypesJson.length()-1);
-        availableFeaturesJson.deleteCharAt(availableFeaturesJson.length()-1);
-        availableDestinationsJson.append("}");
-        availableShipsJson.append("}");
-        availablePortsJson.append("}");
-        availableDepartureDatesJson.append("}");
-        availableDurationsJson.append("}");
-        availableCruiseTypesJson.append("}");
-        availableFeaturesJson.append("}");
-        
-        // Setting convenient booleans for building pagination
-        totalMatches = filteredCruises.size();
-        pageNumber = (int) Math.ceil((float) totalMatches / (float) PAGE_SIZE);
-        isFirstPage = activePage == 1;
-        isLastPage = activePage == getPagesNumber();
-
-        // Build pagination
-        pagination = buildPagination();
-    }
-
-    /**
-     * @return pagination according to the active page
-     */
-    private List<Integer> buildPagination() {
-        pagination = new ArrayList<>();
-
-        // Add active page
-        pagination.add(activePage);
-
-        // Add two previous pages
-        pagination.add(0, activePage - 1 > 0 ? activePage - 1 : null);
-        pagination.add(0, activePage - 2 > 0 ? activePage - 2 : null);
-
-        // Add previous page and first
-        pagination.add(0, isFirstPage() ? null : activePage - 1);
-        pagination.add(0, isFirstPage() ? null : 1);
-
-        // Add two next pages
-        pagination.add(activePage + 1 > pageNumber ? null : activePage + 1);
-        pagination.add(activePage + 2 > pageNumber ? null : activePage + 2);
-
-        // Add next and last page
-        pagination.add(isLastPage() ? null : activePage + 1);
-        pagination.add(isLastPage() ? null : pageNumber);
-
-        return pagination;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @return the list of cruises
-     */
-    public List<CruiseItem> getCruises() {
-        return cruises;
-    }
-
-    /**
-     * @return destinations available for all cruises for this lang
-     */
-    public List<DestinationModelLight> getDestinations() {
-        return destinations;
-    }
-
-    /**
-     * @return destinations available for filtered cruises for this lang
-     */
-    public Set<DestinationItem> getAvailableDestinations() {
-        return availableDestinations;
-    }
-
-    /**
-     * @return ships available for all cruises for this lang
-     */
-    public List<ShipModelLight> getShips() {
-        return ships;
-    }
-
-    /**
-     * @return ships available for filtered cruises for this lang
-     */
-    public Set<ShipItem> getAvailableShips() {
-        return availableShips;
-    }
-
-    /**
-     * @return ports available for all cruises for this lang
-     */
-    public List<PortModelLight> getPorts() {
-        return ports;
-    }
-
-    /**
-     * @return ports available for filtered cruises for this lang
-     */
-    public Set<PortItem> getAvailablePorts() {
-        return availablePorts;
-    }
-
-    /**
-     * @return dates available for all cruises for this lang
-     */
-    public Set<YearMonth> getDates() {
-        return dates;
-    }
-
-    /**
-     * @return dates available for filtered cruises for this lang
-     */
-    public Set<YearMonth> getAvailableDepartureDates() {
-        return availableDepartureDates;
-    }
-
-    /**
-     * @return intersection of features configured in design mode and feature of all cruises for this lang
-     */
-    public Set<FeatureModelLight> getFeatures() {
-        return features;
-    }
-
-    /**
-     * @return features available for filtered cruises for this lang
-     */
-    public Set<FeatureModelLight> getAvailableFeatures() {
-        return availableFeatures;
-    }
-
-    public Collection<FeatureModelLight> getInitialDisplayedFeatures() {
-        return CollectionUtils.intersection(availableFeatures, features);
-    }
-
-    /**
-     * @return durations available for filtered cruises for this lang
-     */
-    public Set<String> getAvailableDurations() {
-        return availableDurations;
-    }
-
-    /**
-     * @return cruise types available for filtered cruises for this lang
-     */
-    public Set<String> getAvailableCruiseTypes() {
-        return availableCruiseTypes;
-    }
-
-    /**
-     * @return true if the component is prefiltered by destination (e.g. present in page with resource type destination)
-     */
-    public boolean isPrefilteredByDestination() {
-        return prefilterByDestination;
-    }
-
-    /**
-     * @return true if the component is prefiltered by port (e.g. present in page with resource type port)
-     */
-    public boolean isPrefilteredByPort() {
-        return prefilterByPort;
-    }
-
-    /**
-     * @return true if the component is prefiltered by ship (e.g. present in page with resource type ship)
-     */
-    public boolean isPrefilteredByShip() {
-        return prefilterByShip;
-    }
-
-    /**
-     * @return true if the component is prefiltered by feature (e.g. present in page with resource type feature)
-     */
-    public boolean isPrefilteredByFeature() {
-        return prefilterByFeature;
-    }
-
-    /**
-     * @return the destination filter value of destination (filter or prefilter), {@link #FILTER_ALL} is not filled
-     */
-    public String getDestinationFilter() {
-        return destinationFilter;
-    }
-
-    /**
-     * @return the destination ID filter value of destination (filter or prefilter), {@link #FILTER_ALL} is not filled
-     */
-    public String getDestinationIdFilter() {
-        return destinationIdFilter;
-    }
-
-    public String getExclusiveOfferFilter() {
-        return exclusiveOfferFilter;
-    }
-
-    public YearMonth getDateFilter() {
-        return dateFilter;
-    }
-
-    public String getDurationFilter() {
-        return durationFilter;
-    }
-
-    public String getShipFilter() {
-        return shipFilter;
-    }
-
-    public String getCruiseTypeFilter() {
-        return cruiseTypeFilter;
-    }
-
-    public String getPortFilter() {
-        return portFilter;
-    }
-
-    public Set<FeatureModelLight> getFeaturesFilter() {
-        return featuresFilter;
-    }
-
-    /**
-     * @return the number of pages
-     */
-    public int getPagesNumber() {
-        return pageNumber;
-    }
-
-    /**
-     * @return the index of the active page
-     */
-    public int getActivePage() {
-        return activePage;
-    }
-
-    /**
-     * @return true if the page is the first in the pagination
-     */
-    public boolean isFirstPage() {
-        return isFirstPage;
-    }
-
-    /**
-     * @return true if the page is the last in the pagination
-     */
-    public boolean isLastPage() {
-        return isLastPage;
-    }
-
-    /**
-     * @return the pagination
-     */
-    public List<Integer> getPagination() {
-        return pagination;
-    }
-
-    /**
-     * @return the totalMatches
-     */
-    public int getTotalMatches() {
-        return totalMatches;
-    }
-
-    /**
-     * @return the request quote page
-     */
-    public String getRequestQuotePagePath() {
-        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
-    }
-    
-    public String getWorldCruisesPagePath() {
-        return PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
-    }
-    
-    public String getGrandVoyagesPagePath() {
-        return PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
-    }
-    
-    public String getAvailableDestinationsJson() {
-        return availableDestinationsJson.toString();
-    }
-    
-    public String getAvailableShipsJson() {
-        return availableShipsJson.toString();
-    }
-    
-    public String getAvailablePortsJson() {
-        return availablePortsJson.toString();
-    }
-    
-    public String getAvailableDepartureDatesJson() {
-        return availableDepartureDatesJson.toString();
-    }
-    
-    public String getAvailableDurationsJson() {
-        return availableDurationsJson.toString();
-    }
-    
-    public String getAvailableCruiseTypesJson() {
-        return availableCruiseTypesJson.toString();
-    }
-    
-    public String getAvailableFeaturesJson() {
-        return availableFeaturesJson.toString();
-    }
+		allCruises = newAllCruises;
+		
+		allCruises = checkWorldCruiseGrandVoyages("wc",allCruises);
+		allCruises = checkWorldCruiseGrandVoyages("gv", allCruises);
+
+		// init list of filtered cruises and available values for filters
+		final List<CruiseModelLight> filteredCruises = new ArrayList<>();
+		for (final CruiseModelLight cruise : allCruises) {
+			boolean includeCruise = true;
+			boolean includeCruiseNotFilteredByDestination = true;
+			boolean includeCruiseNotFilteredByShip = true;
+			boolean includeCruiseNotFilteredByPort = true;
+			boolean includeCruiseNotFilteredByDepartureDate = true;
+			boolean includeCruiseNotFilteredByDuration = true;
+			boolean includeCruiseNotFilteredByFeatures = true;
+			boolean includeCruiseNotFilteredByCruiseTypes = true;
+
+			if (!cruise.isVisible() && !destinationFilter.equalsIgnoreCase("wc") && !destinationFilter.equalsIgnoreCase(("gv"))) {
+				includeCruise = false;
+				includeCruiseNotFilteredByDestination = false;
+				includeCruiseNotFilteredByShip = false;
+				includeCruiseNotFilteredByPort = false;
+				includeCruiseNotFilteredByDepartureDate = false;
+				includeCruiseNotFilteredByDuration = false;
+				includeCruiseNotFilteredByFeatures = false;
+				includeCruiseNotFilteredByCruiseTypes = false;
+			}
+
+			if (destinationIdFilter == null && !destinationFilter.equals(FILTER_ALL)
+					&& destinationFilter.equals(cruise.getDestination().getName())) {
+				destinationIdFilter = cruise.getDestinationId();
+			}
+			
+
+			if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter) && !destinationFilter.equalsIgnoreCase("wc")  && !destinationFilter.equalsIgnoreCase(("gv"))) {
+				includeCruise = false;
+				includeCruiseNotFilteredByShip = false;
+				includeCruiseNotFilteredByPort = false;
+				includeCruiseNotFilteredByDepartureDate = false;
+				includeCruiseNotFilteredByDuration = false;
+				includeCruiseNotFilteredByFeatures = false;
+				includeCruiseNotFilteredByCruiseTypes = false;
+			}
+
+			if (!shipFilter.equals(FILTER_ALL) && !cruise.getShip().getName().equals(shipFilter)) {
+				includeCruise = false;
+				includeCruiseNotFilteredByDestination = false;
+				includeCruiseNotFilteredByPort = false;
+				includeCruiseNotFilteredByDepartureDate = false;
+				includeCruiseNotFilteredByDuration = false;
+				includeCruiseNotFilteredByFeatures = false;
+				includeCruiseNotFilteredByCruiseTypes = false;
+			}
+
+			try {
+				final int cruiseDuration = Integer.parseInt(cruise.getDuration());
+
+				// TODO merge if
+				if (durationFilterMin != null && durationFilterMax != null
+						&& (cruiseDuration < durationFilterMin || cruiseDuration > durationFilterMax)) {
+					includeCruise = false;
+					includeCruiseNotFilteredByDestination = false;
+					includeCruiseNotFilteredByShip = false;
+					includeCruiseNotFilteredByPort = false;
+					includeCruiseNotFilteredByDepartureDate = false;
+					includeCruiseNotFilteredByFeatures = false;
+					includeCruiseNotFilteredByCruiseTypes = false;
+				} else if (durationFilterMin != null && durationFilterMax == null
+						&& cruiseDuration < durationFilterMin) {
+					includeCruise = false;
+					includeCruiseNotFilteredByDestination = false;
+					includeCruiseNotFilteredByShip = false;
+					includeCruiseNotFilteredByPort = false;
+					includeCruiseNotFilteredByDepartureDate = false;
+					includeCruiseNotFilteredByFeatures = false;
+					includeCruiseNotFilteredByCruiseTypes = false;
+				}
+			} catch (NumberFormatException ignored) {
+			}
+
+			if (!portFilter.equals(FILTER_ALL)) {
+				boolean portInItinerary = false;
+				for (final PortItem port : cruise.getPorts()) {
+					if (port.getName().equals(portFilter)) {
+						portInItinerary = true;
+						break;
+					}
+				}
+
+				includeCruise = includeCruise && portInItinerary;
+				includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && portInItinerary;
+				includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && portInItinerary;
+				includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate && portInItinerary;
+				includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && portInItinerary;
+				includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && portInItinerary;
+				includeCruiseNotFilteredByCruiseTypes = includeCruiseNotFilteredByCruiseTypes && portInItinerary;
+			}
+
+			if (!cruiseTypeFilter.equals(FILTER_ALL) && !cruise.getCruiseType().equals(cruiseTypeFilter)) {
+				includeCruise = false;
+				includeCruiseNotFilteredByDestination = false;
+				includeCruiseNotFilteredByShip = false;
+				includeCruiseNotFilteredByPort = false;
+				includeCruiseNotFilteredByDepartureDate = false;
+				includeCruiseNotFilteredByDuration = false;
+				includeCruiseNotFilteredByFeatures = false;
+			}
+
+			final YearMonth cruiseStartDate = FindYourCruiseUtils.getYearMonthWithTimeZone(cruise.getStartDate());
+
+			if (dateFilter != null && !cruiseStartDate.equals(dateFilter)) {
+				includeCruise = false;
+				includeCruiseNotFilteredByDestination = false;
+				includeCruiseNotFilteredByShip = false;
+				includeCruiseNotFilteredByPort = false;
+				includeCruiseNotFilteredByDuration = false;
+				includeCruiseNotFilteredByFeatures = false;
+				includeCruiseNotFilteredByCruiseTypes = false;
+			}
+
+			if (this.features.size() > 0 && !cruise.getFeatures().containsAll(this.featuresFilter)) {
+				includeCruise = false;
+				includeCruiseNotFilteredByDestination = false;
+				includeCruiseNotFilteredByShip = false;
+				includeCruiseNotFilteredByPort = false;
+				includeCruiseNotFilteredByDepartureDate = false;
+				includeCruiseNotFilteredByDuration = false;
+				includeCruiseNotFilteredByCruiseTypes = false;
+			}
+
+			if (!exclusiveOfferFilter.equals(FILTER_ALL)) {
+				boolean exclusiveOfferInCruise = false;
+				for (final ExclusiveOfferModel exclusiveOffer : cruise.getExclusiveOffers()) {
+					if (exclusiveOffer.getPath().equals(exclusiveOfferFilter)) {
+						exclusiveOfferInCruise = true;
+						break;
+					}
+				}
+
+				includeCruise = includeCruise && exclusiveOfferInCruise;
+				includeCruiseNotFilteredByDestination = includeCruiseNotFilteredByDestination && exclusiveOfferInCruise;
+				includeCruiseNotFilteredByShip = includeCruiseNotFilteredByShip && exclusiveOfferInCruise;
+				includeCruiseNotFilteredByPort = includeCruiseNotFilteredByPort && exclusiveOfferInCruise;
+				includeCruiseNotFilteredByDepartureDate = includeCruiseNotFilteredByDepartureDate
+						&& exclusiveOfferInCruise;
+				includeCruiseNotFilteredByDuration = includeCruiseNotFilteredByDuration && exclusiveOfferInCruise;
+				includeCruiseNotFilteredByFeatures = includeCruiseNotFilteredByFeatures && exclusiveOfferInCruise;
+				includeCruiseNotFilteredByCruiseTypes = includeCruiseNotFilteredByCruiseTypes && exclusiveOfferInCruise;
+			}
+
+			// include cruise in the filtered cruises list
+			if (includeCruise) {
+				filteredCruises.add(cruise);
+			}
+
+			// add elements to the filter of filters lists
+			if (includeCruiseNotFilteredByDestination) {
+				availableDestinations.add(cruise.getDestination());
+			}
+
+			if (includeCruiseNotFilteredByShip) {
+				availableShips.add(cruise.getShip());
+			}
+
+			if (includeCruiseNotFilteredByPort) {
+				for (PortItem port : cruise.getPorts()) {
+					availablePorts.add(port);
+				}
+			}
+
+			if (includeCruiseNotFilteredByDepartureDate) {
+				availableDepartureDates.add(cruiseStartDate);
+			}
+
+			if (includeCruiseNotFilteredByDuration) {
+				try {
+					final int cruiseDuration = Integer.parseInt(cruise.getDuration());
+					if (cruiseDuration < 9) {
+						availableDurations.add("1-8");
+					} else if (cruiseDuration > 9 && cruiseDuration < 13) {
+						availableDurations.add("9-12");
+					} else if (cruiseDuration > 12 && cruiseDuration < 19) {
+						availableDurations.add("13-18");
+					} else if (cruiseDuration >= 19) {
+						availableDurations.add("19");
+					}
+				} catch (NumberFormatException ignored) {
+				}
+			}
+
+			if (includeCruiseNotFilteredByFeatures) {
+				availableFeatures.addAll(cruise.getFeatures());
+			}
+
+			if (includeCruiseNotFilteredByCruiseTypes) {
+				availableCruiseTypes.add(cruise.getCruiseType());
+			}
+		}
+
+		filteredCruises.sort(Comparator.comparing(CruiseModelLight::getStartDate));
+
+		// build the cruises list for the current page
+		int pageSize = PAGE_SIZE; // TODO replace by configuration
+
+		Locale locale = getCurrentPage().getLanguage(false);
+
+		int i = 0;
+		for (final CruiseModelLight cruise : filteredCruises) {
+			if (i >= activePage * pageSize) {
+				break;
+			}
+
+			if (i >= (activePage - 1) * pageSize) {
+				cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
+			}
+
+			i++;
+		}
+
+		for (DestinationItem dest : availableDestinations) {
+			availableDestinationsJson.append("\"" + dest.getName() + "\":true,");
+		}
+
+		for (ShipItem ship : availableShips) {
+			availableShipsJson.append("\"" + ship.getName() + "\":true,");
+		}
+
+		for (PortItem port : availablePorts) {
+			availablePortsJson.append("\"" + port.getName() + "\":true,");
+		}
+
+		for (YearMonth depart : availableDepartureDates) {
+			availableDepartureDatesJson.append("\"" + depart.toString() + "\":true,");
+		}
+
+		for (String duration : availableDurations) {
+			availableDurationsJson.append("\"" + duration + "\":true,");
+		}
+
+		for (FeatureModelLight feat : availableFeatures) {
+			availableFeaturesJson.append("\"" + feat.getName() + "\":true,");
+		}
+
+		for (String cruiseType : availableCruiseTypes) {
+			availableCruiseTypesJson.append("\"" + cruiseType + "\":true,");
+		}
+
+		availableDestinationsJson.deleteCharAt(availableDestinationsJson.length() - 1);
+		availableShipsJson.deleteCharAt(availableShipsJson.length() - 1);
+		availablePortsJson.deleteCharAt(availablePortsJson.length() - 1);
+		availableDepartureDatesJson.deleteCharAt(availableDepartureDatesJson.length() - 1);
+		availableDurationsJson.deleteCharAt(availableDurationsJson.length() - 1);
+		availableCruiseTypesJson.deleteCharAt(availableCruiseTypesJson.length() - 1);
+		availableFeaturesJson.deleteCharAt(availableFeaturesJson.length() - 1);
+		availableDestinationsJson.append("}");
+		availableShipsJson.append("}");
+		availablePortsJson.append("}");
+		availableDepartureDatesJson.append("}");
+		availableDurationsJson.append("}");
+		availableCruiseTypesJson.append("}");
+		availableFeaturesJson.append("}");
+
+		// Setting convenient booleans for building pagination
+		totalMatches = filteredCruises.size();
+		pageNumber = (int) Math.ceil((float) totalMatches / (float) PAGE_SIZE);
+		isFirstPage = activePage == 1;
+		isLastPage = activePage == getPagesNumber();
+
+		// Build pagination
+		pagination = buildPagination();
+	}
+
+	private List<CruiseModelLight> checkWorldCruiseGrandVoyages(String filter, List<CruiseModelLight> allCruises) {
+		Map<String, Map<String, CruiseModelLight>> mapWcAndGv = WorldAndGrandVoyageCache
+				.getInstance(getResourceResolver()).getCache();
+		if (destinationFilter.equalsIgnoreCase(filter)) {
+			allCruises = new ArrayList<>();
+			for (Entry<String, Map<String, CruiseModelLight>> entry : mapWcAndGv.entrySet()) {
+				String key = entry.getKey();
+				if (key.contains(filter.toUpperCase())) {
+					for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
+						allCruises.add(entryCruise.getValue());
+					}
+				}
+			}
+		}
+		
+		return allCruises;
+	}
+
+	/**
+	 * @return pagination according to the active page
+	 */
+	private List<Integer> buildPagination() {
+		pagination = new ArrayList<>();
+
+		// Add active page
+		pagination.add(activePage);
+
+		// Add two previous pages
+		pagination.add(0, activePage - 1 > 0 ? activePage - 1 : null);
+		pagination.add(0, activePage - 2 > 0 ? activePage - 2 : null);
+
+		// Add previous page and first
+		pagination.add(0, isFirstPage() ? null : activePage - 1);
+		pagination.add(0, isFirstPage() ? null : 1);
+
+		// Add two next pages
+		pagination.add(activePage + 1 > pageNumber ? null : activePage + 1);
+		pagination.add(activePage + 2 > pageNumber ? null : activePage + 2);
+
+		// Add next and last page
+		pagination.add(isLastPage() ? null : activePage + 1);
+		pagination.add(isLastPage() ? null : pageNumber);
+
+		return pagination;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @return the list of cruises
+	 */
+	public List<CruiseItem> getCruises() {
+		return cruises;
+	}
+
+	/**
+	 * @return destinations available for all cruises for this lang
+	 */
+	public List<DestinationModelLight> getDestinations() {
+		return destinations;
+	}
+
+	/**
+	 * @return destinations available for filtered cruises for this lang
+	 */
+	public Set<DestinationItem> getAvailableDestinations() {
+		return availableDestinations;
+	}
+
+	/**
+	 * @return ships available for all cruises for this lang
+	 */
+	public List<ShipModelLight> getShips() {
+		return ships;
+	}
+
+	/**
+	 * @return ships available for filtered cruises for this lang
+	 */
+	public Set<ShipItem> getAvailableShips() {
+		return availableShips;
+	}
+
+	/**
+	 * @return ports available for all cruises for this lang
+	 */
+	public List<PortModelLight> getPorts() {
+		return ports;
+	}
+
+	/**
+	 * @return ports available for filtered cruises for this lang
+	 */
+	public Set<PortItem> getAvailablePorts() {
+		return availablePorts;
+	}
+
+	/**
+	 * @return dates available for all cruises for this lang
+	 */
+	public Set<YearMonth> getDates() {
+		return dates;
+	}
+
+	/**
+	 * @return dates available for filtered cruises for this lang
+	 */
+	public Set<YearMonth> getAvailableDepartureDates() {
+		return availableDepartureDates;
+	}
+
+	/**
+	 * @return intersection of features configured in design mode and feature of all
+	 *         cruises for this lang
+	 */
+	public Set<FeatureModelLight> getFeatures() {
+		return features;
+	}
+
+	/**
+	 * @return features available for filtered cruises for this lang
+	 */
+	public Set<FeatureModelLight> getAvailableFeatures() {
+		return availableFeatures;
+	}
+
+	public Collection<FeatureModelLight> getInitialDisplayedFeatures() {
+		return CollectionUtils.intersection(availableFeatures, features);
+	}
+
+	/**
+	 * @return durations available for filtered cruises for this lang
+	 */
+	public Set<String> getAvailableDurations() {
+		return availableDurations;
+	}
+
+	/**
+	 * @return cruise types available for filtered cruises for this lang
+	 */
+	public Set<String> getAvailableCruiseTypes() {
+		return availableCruiseTypes;
+	}
+
+	/**
+	 * @return true if the component is prefiltered by destination (e.g. present in
+	 *         page with resource type destination)
+	 */
+	public boolean isPrefilteredByDestination() {
+		return prefilterByDestination;
+	}
+
+	/**
+	 * @return true if the component is prefiltered by port (e.g. present in page
+	 *         with resource type port)
+	 */
+	public boolean isPrefilteredByPort() {
+		return prefilterByPort;
+	}
+
+	/**
+	 * @return true if the component is prefiltered by ship (e.g. present in page
+	 *         with resource type ship)
+	 */
+	public boolean isPrefilteredByShip() {
+		return prefilterByShip;
+	}
+
+	/**
+	 * @return true if the component is prefiltered by feature (e.g. present in page
+	 *         with resource type feature)
+	 */
+	public boolean isPrefilteredByFeature() {
+		return prefilterByFeature;
+	}
+
+	/**
+	 * @return the destination filter value of destination (filter or prefilter),
+	 *         {@link #FILTER_ALL} is not filled
+	 */
+	public String getDestinationFilter() {
+		return destinationFilter;
+	}
+
+	/**
+	 * @return the destination ID filter value of destination (filter or prefilter),
+	 *         {@link #FILTER_ALL} is not filled
+	 */
+	public String getDestinationIdFilter() {
+		return destinationIdFilter;
+	}
+
+	public String getExclusiveOfferFilter() {
+		return exclusiveOfferFilter;
+	}
+
+	public YearMonth getDateFilter() {
+		return dateFilter;
+	}
+
+	public String getDurationFilter() {
+		return durationFilter;
+	}
+
+	public String getShipFilter() {
+		return shipFilter;
+	}
+
+	public String getCruiseTypeFilter() {
+		return cruiseTypeFilter;
+	}
+
+	public String getPortFilter() {
+		return portFilter;
+	}
+
+	public Set<FeatureModelLight> getFeaturesFilter() {
+		return featuresFilter;
+	}
+
+	/**
+	 * @return the number of pages
+	 */
+	public int getPagesNumber() {
+		return pageNumber;
+	}
+
+	/**
+	 * @return the index of the active page
+	 */
+	public int getActivePage() {
+		return activePage;
+	}
+
+	/**
+	 * @return true if the page is the first in the pagination
+	 */
+	public boolean isFirstPage() {
+		return isFirstPage;
+	}
+
+	/**
+	 * @return true if the page is the last in the pagination
+	 */
+	public boolean isLastPage() {
+		return isLastPage;
+	}
+
+	/**
+	 * @return the pagination
+	 */
+	public List<Integer> getPagination() {
+		return pagination;
+	}
+
+	/**
+	 * @return the totalMatches
+	 */
+	public int getTotalMatches() {
+		return totalMatches;
+	}
+
+	/**
+	 * @return the request quote page
+	 */
+	public String getRequestQuotePagePath() {
+		return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+	}
+
+	public String getWorldCruisesPagePath() {
+		return PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
+	}
+
+	public String getGrandVoyagesPagePath() {
+		return PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
+	}
+
+	public String getAvailableDestinationsJson() {
+		return availableDestinationsJson.toString();
+	}
+
+	public String getAvailableShipsJson() {
+		return availableShipsJson.toString();
+	}
+
+	public String getAvailablePortsJson() {
+		return availablePortsJson.toString();
+	}
+
+	public String getAvailableDepartureDatesJson() {
+		return availableDepartureDatesJson.toString();
+	}
+
+	public String getAvailableDurationsJson() {
+		return availableDurationsJson.toString();
+	}
+
+	public String getAvailableCruiseTypesJson() {
+		return availableCruiseTypesJson.toString();
+	}
+
+	public String getAvailableFeaturesJson() {
+		return availableFeaturesJson.toString();
+	}
 
 }
