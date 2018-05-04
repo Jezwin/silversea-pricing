@@ -1,10 +1,3 @@
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-</div>
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SteveAndSilversea"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
 
@@ -14,7 +7,7 @@
                 <div class="content__title">${properties.title}</div>
                 <div class="content__descr">${properties.text @ context='html'}</div>
                 <div class="content__cta">
-                    <a href="${properties.ctalink}" class="${!properties.ctalink? 'blueimp-cont' : ''}">${properties.ctatext}</a>
+                    <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
                 </div>
             </div>
         </div>
@@ -41,7 +34,7 @@
                     <div class="content__title">${properties.title}</div>
                     <div class="content__descr">${properties.text @ context='html'}</div>
                     <div class="content__cta">
-                        <a href="${properties.ctalink}" class="${!properties.ctalink? 'blueimp-cont' : ''}">${properties.ctatext}</a>
+                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
                     </div>
                 </div>
             </div>

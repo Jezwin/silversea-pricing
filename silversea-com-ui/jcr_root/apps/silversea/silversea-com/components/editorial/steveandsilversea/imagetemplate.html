@@ -1,7 +1,7 @@
 <template data-sly-template.default="${ @ imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=imagePath}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}"/>
         <a href="${imagePath}" class="lazy c-steveandsilversea__gallery__item ${isVideo ? 'video-link' : ''}
-             steveandsilversea-modal blueimp-cont" data-target=".bs-modal-lg" 
+             automatic-gallery-modal" data-target=".bs-modal-lg" 
             data-src="${assetHelper.imageUrl @ context='uri'}?hei=530&fit=constrain">
             <i data-sly-test="${isVideo}" class="fa fa-play"></i>
         </a>
