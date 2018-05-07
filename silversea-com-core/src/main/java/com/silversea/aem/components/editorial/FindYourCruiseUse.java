@@ -12,24 +12,25 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.sling.api.resource.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.ValueMap;
 
 import com.adobe.granite.confmgr.Conf;
+import com.day.cq.commons.Externalizer;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagConstants;
 import com.day.cq.tagging.TagManager;
-import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.helper.ExternalizerHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.DestinationItem;
-import com.silversea.aem.models.DestinationModel;
 import com.silversea.aem.models.DestinationModelLight;
 import com.silversea.aem.models.ExclusiveOfferModel;
 import com.silversea.aem.models.FeatureModel;
@@ -161,6 +162,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	// total number of cruises for the current filters
 	private int totalMatches;
 
+	private String comboCruiseCodeInResults;
+
+	private Map<String, String> mapCruiseCodeWcAnGV;
+
 	private StringBuilder availableDestinationsJson;
 	private StringBuilder availableShipsJson;
 	private StringBuilder availablePortsJson;
@@ -168,6 +173,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	private StringBuilder availableDurationsJson;
 	private StringBuilder availableCruiseTypesJson;
 	private StringBuilder availableFeaturesJson;
+	private StringBuilder worldAndGrandVoyageCruiseJson;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -182,6 +188,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		availableDurationsJson = new StringBuilder();
 		availableCruiseTypesJson = new StringBuilder();
 		availableFeaturesJson = new StringBuilder();
+		worldAndGrandVoyageCruiseJson = new StringBuilder();
 
 		availableDestinationsJson.append("{\"all\":true,\"gv\":true,\"wc\":true,");
 		availableShipsJson.append("{\"all\":true,");
@@ -190,6 +197,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		availableDurationsJson.append("{\"all\":true,");
 		availableCruiseTypesJson.append("{\"all\":true,");
 		availableFeaturesJson.append("{");
+		worldAndGrandVoyageCruiseJson.append("{");
 
 		// Get type from configuration
 		final Conf confRes = getResource().adaptTo(Conf.class);
@@ -293,7 +301,6 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			}
 		}
 
-
 		// Apply default filtering for specific pages types
 		final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
 		switch (currentPageResourceType) {
@@ -352,8 +359,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			}
 		}
 		allCruises = newAllCruises;
-		
-		allCruises = checkWorldCruiseGrandVoyages("wc",allCruises);
+
+		allCruises = checkWorldCruiseGrandVoyages("wc", allCruises);
 		allCruises = checkWorldCruiseGrandVoyages("gv", allCruises);
 
 		// init list of filtered cruises and available values for filters
@@ -368,7 +375,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			boolean includeCruiseNotFilteredByFeatures = true;
 			boolean includeCruiseNotFilteredByCruiseTypes = true;
 
-			if (!cruise.isVisible() && !destinationFilter.equalsIgnoreCase("wc") && !destinationFilter.equalsIgnoreCase(("gv"))) {
+			if (!cruise.isVisible() && !destinationFilter.equalsIgnoreCase("wc")
+					&& !destinationFilter.equalsIgnoreCase(("gv"))) {
 				includeCruise = false;
 				includeCruiseNotFilteredByDestination = false;
 				includeCruiseNotFilteredByShip = false;
@@ -380,12 +388,12 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			}
 
 			if (destinationIdFilter == null && !destinationFilter.equals(FILTER_ALL)
-					&& destinationFilter.equals(cruise.getDestination().getName())) {
+					&& destinationFilter.equals(cruise.getDestination().getName()) && !destinationFilter.equalsIgnoreCase("wc") && !destinationFilter.equalsIgnoreCase(("gv"))) {
 				destinationIdFilter = cruise.getDestinationId();
 			}
-			
 
-			if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter) && !destinationFilter.equalsIgnoreCase("wc")  && !destinationFilter.equalsIgnoreCase(("gv"))) {
+			if (!destinationFilter.equals(FILTER_ALL) && !cruise.getDestination().getName().equals(destinationFilter)
+					&& !destinationFilter.equalsIgnoreCase("wc") && !destinationFilter.equalsIgnoreCase(("gv"))) {
 				includeCruise = false;
 				includeCruiseNotFilteredByShip = false;
 				includeCruiseNotFilteredByPort = false;
@@ -504,6 +512,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			// include cruise in the filtered cruises list
 			if (includeCruise) {
 				filteredCruises.add(cruise);
+				if (mapCruiseCodeWcAnGV != null && mapCruiseCodeWcAnGV.get(cruise.getCruiseCode()) != null) {
+					String comboCruiseCode = mapCruiseCodeWcAnGV.get(cruise.getCruiseCode());
+					if (this.comboCruiseCodeInResults == null) {
+						this.comboCruiseCodeInResults = comboCruiseCode;
+					} else if (!(this.comboCruiseCodeInResults.equalsIgnoreCase(comboCruiseCode))) {
+						this.comboCruiseCodeInResults = "";
+					}
+				}
 			}
 
 			// add elements to the filter of filters lists
@@ -598,6 +614,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			availableCruiseTypesJson.append("\"" + cruiseType + "\":true,");
 		}
 
+		worldAndGrandVoyageCruiseJson.append("\"worldCruisePath\":\"" + getWorldCruisesPagePath() + "\",");
+		worldAndGrandVoyageCruiseJson.append("\"grandVoyageCruisePath\":\"" + getGrandVoyagesPagePath() + "\"");
+
 		availableDestinationsJson.deleteCharAt(availableDestinationsJson.length() - 1);
 		availableShipsJson.deleteCharAt(availableShipsJson.length() - 1);
 		availablePortsJson.deleteCharAt(availablePortsJson.length() - 1);
@@ -612,6 +631,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		availableDurationsJson.append("}");
 		availableCruiseTypesJson.append("}");
 		availableFeaturesJson.append("}");
+		worldAndGrandVoyageCruiseJson.append("}");
 
 		// Setting convenient booleans for building pagination
 		totalMatches = filteredCruises.size();
@@ -624,20 +644,21 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	private List<CruiseModelLight> checkWorldCruiseGrandVoyages(String filter, List<CruiseModelLight> allCruises) {
-		Map<String, Map<String, CruiseModelLight>> mapWcAndGv = WorldAndGrandVoyageCache
-				.getInstance(getResourceResolver()).getCache();
 		if (destinationFilter.equalsIgnoreCase(filter)) {
+			mapCruiseCodeWcAnGV = new TreeMap<>();
+			Map<String, Map<String, CruiseModelLight>> mapWcAndGv = WorldAndGrandVoyageCache
+					.getInstance(getResourceResolver()).getCache();
 			allCruises = new ArrayList<>();
 			for (Entry<String, Map<String, CruiseModelLight>> entry : mapWcAndGv.entrySet()) {
 				String key = entry.getKey();
 				if (key.contains(filter.toUpperCase())) {
 					for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
+						mapCruiseCodeWcAnGV.put(entryCruise.getValue().getCruiseCode(), key);
 						allCruises.add(entryCruise.getValue());
 					}
 				}
 			}
 		}
-		
 		return allCruises;
 	}
 
@@ -898,10 +919,20 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	public String getWorldCruisesPagePath() {
+		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults)) {
+			Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+			String path = PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
+			return externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, path);
+		}
 		return PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
 	}
 
 	public String getGrandVoyagesPagePath() {
+		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults)) {
+			Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+			String path = PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
+			return externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, path);
+		}
 		return PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
 	}
 
@@ -933,4 +964,11 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		return availableFeaturesJson.toString();
 	}
 
+	public String getComboCruiseCodeInResults() {
+		return comboCruiseCodeInResults;
+	}
+
+	public String getWorldAndGrandVoyageCruiseJson() {
+		return worldAndGrandVoyageCruiseJson.toString();
+	}
 }
