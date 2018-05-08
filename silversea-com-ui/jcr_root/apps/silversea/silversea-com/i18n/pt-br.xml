@@ -363,7 +363,7 @@
     <dining-overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Dining overview"/>
+        sling:message="Panorâmica das refeições"/>
     <dining-virtual-tour
        jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -873,7 +873,7 @@
     <public-areas-overview
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Public Areas overview"/>
+        sling:message="Panorâmica das zonas públicas"/>
     <public-areas-virtual-tour
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1220,6 +1220,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Ver"/>
+    <view-cruises
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Ver Os Cruzeiros"/>
     <view-all
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

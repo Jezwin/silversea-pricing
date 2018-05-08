@@ -1203,6 +1203,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="view"
         sling:message="View"/>
+    <view-cruises
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="view-cruises"
+        sling:message="View cruises"/>
     <view-all
         jcr:primaryType="sling:MessageEntry"
         sling:key="view-all"
