@@ -1009,7 +1009,7 @@
      <scroll-to-continue
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Scroll to continue"/>
+        sling:message="Zum fortfahren scrollen"/>
     <schedule
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
