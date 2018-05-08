@@ -12,7 +12,7 @@
 <template data-sly-template.port="${  @ footer}">
 	<div class="footer-v2 ab-footer-a-version" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
 		<div class="container_large">
-			<div class="sv_v3__footer-forms">
+			<div class="sv_v3__footer-forms ${properties.hideGreySectionFooter ? 'ab-hide-footer-more-about-silversea' : ''}">
 				<div class="container">
 					<h3 class="sv_v3__subtitle hidden-xs">${'more-about-silversea' @i18n}</h3>
 					<p class="sv_v3__desc hidden-xs">${'learn-more-about-silversea' @i18n}</p>
