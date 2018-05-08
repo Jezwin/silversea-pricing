@@ -129,6 +129,11 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultFootnote")
 	@Optional
 	private String defaultFootnote;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultEoFootnotes")
+	@Optional
+	private String defaultEoFootnotes;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
@@ -154,6 +159,16 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/pathImageLB")
 	@Optional
 	private String pathImageLB;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/positionDescriptionDesktopLB")
+	@Optional
+	private String positionDescriptionDesktopLB;
+	
+	@Inject
+	@Named(JcrConstants.JCR_CONTENT + "/positionDescriptionMobileLB")
+	@Optional
+	private String positionDescriptionMobileLB;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/activeGreysBoxes")
@@ -337,6 +352,10 @@ public class ExclusiveOfferModel {
 	public String getDefaultFootnote() {
 		return defaultFootnote;
 	}
+	
+	public String getDefaultEoFootnotes() {
+		return defaultEoFootnotes;
+	}
 
 	public String[] getCustomMainSettings () {
 		return customMainSettings;
@@ -384,5 +403,13 @@ public class ExclusiveOfferModel {
 
 	public String[] getCategoryEO() {
 		return categoryEO;
+	}
+
+	public String getPositionDescriptionDesktopLB() {
+		return positionDescriptionDesktopLB;
+	}
+
+	public String getPositionDescriptionMobileLB() {
+		return positionDescriptionMobileLB;
 	}
 }

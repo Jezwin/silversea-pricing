@@ -41,7 +41,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		
 		if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
 			eoBean = new EoBean();
-			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null, shortTitle = null;
+			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null, shortTitle = null, eofootnotes = null;
 			ExclusiveOfferFareModel[] cruiseFares = null;
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
@@ -89,6 +89,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			if (eoConfig.isShortDescriptionMain()) {
 				shortDescription = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "shortDescription", eoModel.getDefaultShortDescription());
+			}
+			if (eoConfig.isFootnotesMain()) {
+				eofootnotes = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "footnotes", eoModel.getDefaultEoFootnotes());
 			}
 			//-----------------------------------------
 			if(eoConfig.isDescriptionTnC()) {
@@ -210,6 +213,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if (StringUtils.isNotEmpty(shortDescription)) {
 				eoBean.setShortDescription(shortDescription);
 			}
+			if (StringUtils.isNotEmpty(eofootnotes)) {
+				eoBean.setEoFootnotes(eofootnotes);
+			}
 			if (StringUtils.isNotEmpty(mapOverhead)) {
 				eoBean.setMapOverhead(mapOverhead);
 			}
@@ -220,7 +226,6 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 				eoBean.setCruiseFares(cruiseFares);
 			}
 		}
-		
 
 		return eoBean;
 	}

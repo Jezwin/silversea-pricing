@@ -1,15 +1,12 @@
 package com.silversea.aem.components.beans;
 
-import com.ctc.wstx.util.StringUtil;
-import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.EoHelper;
-import com.silversea.aem.models.ExclusiveOfferModel;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.scripting.SlingScriptHelper;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.silversea.aem.constants.WcmConstants;
+import com.silversea.aem.models.ExclusiveOfferModel;
 
 /**
  * Class used to store informations about exclusive offer and the best
@@ -29,6 +26,8 @@ public class ExclusiveOfferItem {
     
     private String mapOverhead;
     
+    private String eoFootnotes;
+    
     private String exclusiveOfferPath;
     
     private List<String> cruiseFareAdditions;
@@ -42,6 +41,10 @@ public class ExclusiveOfferItem {
     private String imageLBPath;
     
     private Boolean isLBGreyBoxActivated;
+    
+    private String positionDescriptionDesktopLB;
+    
+    private String positionDescriptionMobileLB;
 
     public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath, EoBean result) {
 		
@@ -76,6 +79,9 @@ public class ExclusiveOfferItem {
 				exclusiveOfferPath = exclusiveOffer.getPath();
 				imageLBPath = exclusiveOffer.getPathImageLB();
 				isLBGreyBoxActivated = exclusiveOffer.getActiveGreysBoxes();
+				eoFootnotes  =result.getEoFootnotes();
+				positionDescriptionDesktopLB = exclusiveOffer.getPositionDescriptionDesktopLB();
+				positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
 				if(StringUtils.isNotEmpty(result.getFootnote())){
 					footnotes.add(result.getFootnote());
 				}
@@ -202,4 +208,16 @@ public class ExclusiveOfferItem {
     public String getPath() {
         return exclusiveOffer.getPath();
     }
+
+	public String getEoFootnotes() {
+		return eoFootnotes;
+	}
+
+	public String getPositionDescriptionDesktopLB() {
+		return positionDescriptionDesktopLB;
+	}
+
+	public String getPositionDescriptionMobileLB() {
+		return positionDescriptionMobileLB;
+	}
 }

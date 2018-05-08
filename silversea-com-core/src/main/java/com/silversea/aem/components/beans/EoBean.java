@@ -14,6 +14,7 @@ public class EoBean {
 	private String image;
 	private boolean greyBoxesSystem;
 	private boolean isAvailable;
+	private String eoFootnotes;
 	
 	public EoBean() {}
 	
@@ -46,6 +47,15 @@ public class EoBean {
 	public String getFootnote() {
 		return footnote;
 	}
+	
+	public String getEoFootnotes() {
+		return eoFootnotes;
+	}
+	
+	public void setEoFootnotes(String eoFootnotes) {
+		this.eoFootnotes = eoFootnotes;
+	} 
+	
 	public void setFootnote(String footnote) {
 		this.footnote = footnote;
 	}
