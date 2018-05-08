@@ -33,8 +33,7 @@
                         <a href="#" data-tab-target="#suitenfare">
                             <sly data-sly-test.early="${cruise.lowestPrice.earlyBookingBonus}" />
                             <span data-sly-test.prefix="${cruise.pricePrefix}" ><br />${prefix}</span>
-                            <span data-sly-test="${!prefix}" >
-                                <sly><br /><br /></sly>
+                            <span class="lead__top" data-sly-test="${!prefix}" >
                                 ${'fares-from' @ i18n}
                             </span>
                             <span class="lead" data-sly-test="${cruise.isWaitList}">
