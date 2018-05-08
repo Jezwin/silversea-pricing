@@ -143,7 +143,12 @@
             }
 
             &:hover {
-                background: @grey--9;
+            	@media (min-width: 768px) {
+	                background: @grey--9;
+            	}
+            	@media (max-width: 767px) {
+	                background: @black;
+            	}
             }
         }
     }
