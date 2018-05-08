@@ -31,6 +31,9 @@ public class DiningModel implements ShipAreaModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE) @Optional
     private String title;
+    
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/navTitle") @Optional
+    private String navigationTitle;
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
@@ -77,7 +80,11 @@ public class DiningModel implements ShipAreaModel {
         return title;
     }
 
-    public String getLongDescription() {
+    public String getNavigationTitle() {
+		return navigationTitle;
+	}
+
+	public String getLongDescription() {
         return longDescription != null ? longDescription :
                 (genericDining != null ? genericDining.getLongDescription() : null);
     }
