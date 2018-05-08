@@ -1002,6 +1002,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Com partida de São Francisco e chegada a Londres, o Tale of Tales é, até à data, o nosso cruzeiro mundial mais ousado. 5 continentes, 31 países, 52 portos e 17 noites em apenas 132 dias, o que significa que, com esta viagem, terá muito para contar."/>
+    <scroll-to-continue
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Scroll to continue"/>
     <schedule
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

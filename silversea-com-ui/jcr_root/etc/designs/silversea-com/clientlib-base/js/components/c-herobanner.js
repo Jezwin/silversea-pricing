@@ -61,4 +61,12 @@ $(function() {
 	        });
     	}
     });
+    
+	$('.c-hero-banner .c-hero-banner-scrolldown').on('click', function(e) { 
+		e.stopPropagation();
+		var target = $(this).closest(".herobanner").next().offset().top;
+		var height =  $(this).closest(".c-hero-banner").height() != null ? $(this).closest(".c-hero-banner").height() : $(this).closest(".herobanner").height();
+		var speed = 750; 
+		$('html, body').animate({scrollTop: target - 90}, speed ); 
+	});
 });

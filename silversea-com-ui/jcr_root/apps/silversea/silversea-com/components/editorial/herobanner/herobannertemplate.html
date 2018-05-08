@@ -35,6 +35,10 @@
 	                </p>
 	            </div>
 	        </div>
+	        <div class="c-hero-banner-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-scrolldown-desktop' : '' } c-hero-banner-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        		<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        		<span><i class="fa fa-angle-down"></i></span>
+        	</div>
 	        <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
 	            data-target=".bs-modal-lg">
 	            <i class="fa fa-play"></i>
@@ -132,6 +136,10 @@
                 </p>
             </div>
         </div>
+        <div class="c-hero-banner-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-scrolldown-desktop' : '' } c-hero-banner-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        	<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        	<span><i class="fa fa-angle-down"></i></span>
+        </div>
         <a data-sly-test="${properties.videoReference}" class="video-link hidden-xs " href="${currentNode.path @ selectors='video', extension='html'}"
             data-target=".bs-modal-lg">
             <i class="fa fa-play"></i>
@@ -175,6 +183,10 @@
                     </p>
                 </div>
             </div>
+            <div class="c-hero-banner-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-scrolldown-desktop' : '' } c-hero-banner-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+        		<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+        		<span><i class="fa fa-angle-down"></i></span>
+        	</div>
             <a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
             	data-target=".bs-modal-lg">
             	<i class="fa fa-play"></i>
