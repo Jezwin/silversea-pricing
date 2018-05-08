@@ -77,7 +77,16 @@ $(function() {
 
         $form.on('submit', function(e) {
             e.preventDefault();
-            document.location.href = requestUrl + '.html';
+            var $resultWrapper = $form.next('.feedback__wrapper');
+
+            var destFilter = $resultWrapper.find("#current-destination-filter").val();
+            if (typeof destFilter != "undefined" && destFilter != null && (destFilter == "wc" || destFilter == "gv")) {
+            		var jsonStr = JSON.parse(JSON.stringify($resultWrapper.find('#world-grand-voyage-path').data('ssc-path')))
+            		var path = (destFilter == "wc" ) ? jsonStr["worldCruisePath"] : jsonStr["grandVoyageCruisePath"];
+            		window.location.href = path + '.html';
+            } else {
+            	document.location.href = requestUrl + '.html';
+            }
         });
 
     })

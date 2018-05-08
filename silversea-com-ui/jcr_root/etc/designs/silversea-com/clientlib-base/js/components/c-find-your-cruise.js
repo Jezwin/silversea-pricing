@@ -257,17 +257,18 @@ $(function() {
             if ($(e.target).closest('.chosen-search').length === 0) {
                 var dataLayer = window.dataLayer[0];
                 var needToRedirect = false;
-                $('.c-find-your-cruise-filter .destination-tracking').find('select option:selected').each(function(i, element) {
-                   if($(element).val() == "gv"){
-                	   window.location.href = "https://www.silversea.com" + $(element).data('ssc-link');
-                	   needToRedirect = true;
-                   }
-                   if($(element).val() == "wc"){
-                	   window.location.href = "https://www.silversea.com" + $(element).data('ssc-link');
-                	   needToRedirect = true;
-                   }
-                });
                 
+                $('.c-find-your-cruise-filter .destination-tracking').find('select option:selected').each(function(i, element) {
+                    if($(element).val() == "gv"){
+                 	   window.location.href = "https://www.silversea.com" + $(element).data('ssc-link');
+                 	   needToRedirect = true;
+                    }
+                    if($(element).val() == "wc"){
+                 	   window.location.href = "https://www.silversea.com" + $(element).data('ssc-link');
+                 	   needToRedirect = true;
+                    }
+                 });
+
                 if(!needToRedirect){
 	                // Data search
 	                var filterOjb = {};
