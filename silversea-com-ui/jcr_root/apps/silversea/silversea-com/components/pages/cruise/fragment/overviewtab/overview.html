@@ -63,7 +63,7 @@
                 <div class="col-xs-12">
                     <div class="voyagefeature" data-sly-use.lightbox="${'com.silversea.aem.helper.PageHelper' @ path=pageProperties.shipReference}">
 
-                        <p><strong><i class="fa fa-star"></i> ${'feature-exclusive-offers' @ i18n}:</strong></p>
+                        <p><strong> ${'feature-exclusive-offers' @ i18n}:</strong></p>
 
                         <div class="voyagefeature__offer" data-sly-list.EO="${cruise.exclusiveOffers}"
                             data-sly-test.isEo="${cruise.exclusiveOffers.size > 0}">
@@ -71,17 +71,17 @@
                                href="${EO.lightboxReference @ extension='html', selectors='modalcontent'}"
                                data-toggle="modal"
                                data-target=".bs-${lightbox.page.properties.modalSize || 'modal-lg'}">
-                                <strong>${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
+                                <strong><i class="fa fa-star"></i> ${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
                             </a>
                             <a data-sly-test="${EO.newSystem}"
                                href="${EO.exclusiveOfferPath @ extension='html', selectors='modalcontent'}" 
                                rel="nofollow"
                                data-toggle="modal"
                                data-target=".bs-modal-lg">
-                                <strong>${EO.title @ context='html'}:&nbsp;</strong>${EO.description @ context='html'}
+                                <strong><i class="fa fa-star"></i> ${EO.title @ context='html'}:&nbsp;</strong>${EO.description @ context='html'}
                             </a>
                             <p data-sly-test="${!EO.lightboxReference && !EO.newSystem}">
-                                <strong>${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
+                                <strong><i class="fa fa-star"></i> ${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
                             </p>
                             <p data-sly-test="${cruise.isVS && EOList.last}"><strong>${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                         </div>
