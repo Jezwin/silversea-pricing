@@ -1,0 +1,167 @@
+.c-steveandsilversea {
+        margin: 10px -5px;
+    	background-color: #273333;
+        color: white;
+    	padding: 10px;
+		
+        .image {
+            padding: 0;
+        	margin-top: 20px;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+    	.video-link {
+        	position: relative;
+    	}
+
+        .col-sm-6-image-mobile {
+             order: 2;
+            -webkit-order: 2;
+            -moz-order: 2;
+            -ms-order: 2;
+        }
+
+        .col-sm-6-content-mobile {
+            order: 1;
+            -webkit-order: 1;
+            -moz-order: 1;
+            -ms-order: 1;
+        }
+
+    	.col-sm-6-content {
+        	padding-right: 0px;
+    	}
+
+        .content {
+        	margin-top: 20px;
+            @media screen and (max-width: @screen-sm) {
+                padding: 0;
+            }
+
+            &__title {
+                padding: 0;
+                font-size: 27px;
+                line-height: 1.2;
+                font-weight: normal;
+    			font-family: 'Theano Didot Regular',serif;
+            	text-transform: uppercase;
+
+                @media screen and (max-width: @screen-sm) {
+                    font-size: 25px;
+                    text-align: center;
+                }
+
+            	&:after {
+                	content: '';
+                    width: 20%;
+                    max-width: 435px;
+                    height: 2px;
+                    display: block;
+                    margin: 20px auto;
+                    background-color: #d40728;
+                    margin-left: 0px;
+                	@media screen and (max-width: @screen-sm) {
+                	 margin-left: 40%;
+            	 	}
+            	}
+            }
+
+            &__descr {
+                padding: 0;
+                margin: 0 0 18px;
+                font-size: 14px;
+                line-height: 1.5;
+            	font-family: arial,helvetica,sans-serif;
+
+				 @media screen and (max-width: @screen-sm) {
+                	 text-align: center;
+            	 }
+            }
+
+       	    &__cta {
+                padding: 0;
+                margin: 0 0 18px;
+                font-size: 14px;
+                line-height: 1.5;
+            	text-decoration: underline;
+            	font-family: arial,helvetica,sans-serif;
+
+            	@media screen and (max-width: @screen-sm) {
+                	 text-align: center;
+            	 }
+            }
+
+        	&__watermark {
+                  position: absolute;
+                  font-size: 12px;
+                  left: 6%;
+                  top: 90%;
+            	  font-family: arial,helvetica,sans-serif;
+        	}
+
+        	&__tag {
+				  position: absolute;
+                  font-size: 12px;
+                  left: 6%;
+                  top: 92%;
+            	  font-family: arial,helvetica,sans-serif;
+        	}
+
+        	&__nowatermark {
+            	display: none;
+        	}
+        }
+
+    	&__gallery {
+            .c-gallery__label {
+                display: none;
+            }
+        }
+
+    	&__gallery {
+			&__item {
+               		background-color: @grey--c3;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    display: block;
+                    height: 0;
+                    overflow: hidden;
+                    padding-bottom: 53%;
+                    position: relative;
+            		padding-top: 4%;
+
+                    &:after {
+                        background-color: @white;
+                        bottom: 0;
+                        content: '';
+                        display: block;
+                        left: 0;
+                        height: 0px;
+                        position: absolute;
+                        width: 100%;
+                    }
+
+                    img {
+                        display: block;
+                        height: auto;
+                        min-width: 100%;
+                        max-width: 100%;
+                        width: 100%;
+                    }
+                }     
+    	}
+}
+
+.c-steveandsilversea-mobile {
+			display: -webkit-box;   
+            display: -moz-box;      
+            display: -ms-flexbox;   
+            display: -webkit-flex;  
+            display: flex;
+			flex-direction: column;
+}

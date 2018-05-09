@@ -1,0 +1,75 @@
+<div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SteveAndSilversea"></div>
+<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
+
+<div class="row c-steveandsilversea hidden-xs" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+        <div class="col-sm-6-content">
+            <div class="content">
+                <div class="content__title">${properties.title}</div>
+                <div class="content__descr">${properties.text @ context='html'}</div>
+                <div class="content__cta">
+                    <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
+                </div>
+            </div>
+        </div>
+         <div class="col-sm-6-image">
+         	<div class="image">
+                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
+                	data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
+				<div class="${properties.displayWatermark ? 'content__watermark' : 'content__nowatermark'}">&#169; Steve McCurry</div>
+                <div class="${properties.displayWatermark ? 'content__nowatermark' : 'content__tag'}"> ${assetHelper.asset.metadata.dc:title} </div>
+            </div>
+        </div>
+</div>
+<div class="row c-steveandsilversea c-steveandsilversea-mobile hidden-sm hidden-md hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+            <div class="col-sm-6 col-sm-6-image-mobile">
+                <div class="image">
+                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
+                        data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
+                    <div class="${properties.displayWatermark ? 'content__watermark' : 'content__nowatermark'}">&#169; Steve McCurry</div>
+                    <div class="${properties.displayWatermark ? 'content__nowatermark' : 'content__tag'}"> ${assetHelper.asset.metadata.dc:title} </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-6-content-mobile">
+                <div class="content">
+                    <div class="content__title">${properties.title}</div>
+                    <div class="content__descr">${properties.text @ context='html'}</div>
+                    <div class="content__cta">
+                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
+                    </div>
+                </div>
+            </div>
+</div>
+<style data-sly-test="${properties.order == '' || properties.order == 'imagefirst'}">
+		.c-steveandsilversea-mobile .col-sm-6-image-mobile {
+			order: 1;
+           -webkit-order: 1;
+           -moz-order: 1;
+           -ms-order: 1;
+		}
+        .c-steveandsilversea-mobile .col-sm-6-content-mobile {
+			order: 2;
+           -webkit-order: 2;
+           -moz-order: 2;
+           -ms-order: 2;
+		}
+</style>
+<style data-sly-test="${properties.order == 'textfirst'}">
+		.c-steveandsilversea-mobile .col-sm-6-content-mobile {
+			order: 1;
+           -webkit-order: 1;
+           -moz-order: 1;
+           -ms-order: 1;
+		}
+        .c-steveandsilversea-mobile .col-sm-6-image-mobile {
+			order: 2;
+           -webkit-order: 2;
+           -moz-order: 2;
+           -ms-order: 2;
+		}
+</style>
+<script>
+ var contentWidth = '${properties.desktopContentWidth @ context="unsafe"}';
+ var imageWidth = 12 - contentWidth ;
+	$('.c-steveandsilversea .col-sm-6-content').addClass('col-sm-'+contentWidth);
+    $('.c-steveandsilversea .col-sm-6-image').addClass('col-sm-'+imageWidth);
+</script>
