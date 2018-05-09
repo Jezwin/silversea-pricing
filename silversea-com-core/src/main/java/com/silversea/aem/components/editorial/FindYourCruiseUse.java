@@ -919,7 +919,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	public String getWorldCruisesPagePath() {
-		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults)) {
+		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults) && shipFilter.equals(FILTER_ALL) && dateFilter != null) {
 			Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
 			String path = PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
 			return externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, path);
@@ -928,7 +928,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	public String getGrandVoyagesPagePath() {
-		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults)) {
+		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults) && shipFilter.equals(FILTER_ALL) && dateFilter != null) {
 			Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
 			String path = PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
 			return externalizer.externalLink(getResourceResolver(), Externalizer.LOCAL, path);

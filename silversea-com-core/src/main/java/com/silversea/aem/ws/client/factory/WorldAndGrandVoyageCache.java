@@ -60,6 +60,7 @@ public class WorldAndGrandVoyageCache {
 		map.put("1_property", "cq:lastReplicationAction");
 		map.put("1_property.value", "Activate");
 		map.put("type", "cq:PageContent");
+		map.put("p.limit", "5000");
 
 		QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
 
