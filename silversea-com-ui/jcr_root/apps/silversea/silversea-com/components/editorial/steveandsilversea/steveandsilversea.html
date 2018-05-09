@@ -1,7 +1,7 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SteveAndSilversea"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
 
-<div class="row c-steveandsilversea hidden-xs" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+<div class="row c-steveandsilversea hidden-xs hidden-sm" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
         <div class="col-sm-6-content">
             <div class="content">
                 <div class="content__title">${properties.title}</div>
@@ -20,7 +20,7 @@
             </div>
         </div>
 </div>
-<div class="row c-steveandsilversea c-steveandsilversea-mobile hidden-sm hidden-md hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
+<div class="row c-steveandsilversea c-steveandsilversea-mobile hidden-md hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
             <div class="col-sm-6 col-sm-6-image-mobile">
                 <div class="image">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
@@ -29,7 +29,7 @@
                     <div class="${properties.displayWatermark ? 'content__nowatermark' : 'content__tag'}"> ${assetHelper.asset.metadata.dc:title} </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-sm-6-content-mobile">
+            <div class="col-sm-12 col-sm-6-content-mobile">
                 <div class="content">
                     <div class="content__title">${properties.title}</div>
                     <div class="content__descr">${properties.text @ context='html'}</div>
