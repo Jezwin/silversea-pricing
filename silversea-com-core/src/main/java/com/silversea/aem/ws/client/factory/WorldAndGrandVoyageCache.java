@@ -67,7 +67,7 @@ public class WorldAndGrandVoyageCache {
 		Query query = queryBuilder.createQuery(PredicateGroup.create(map), resourceResolver.adaptTo(Session.class));
 		SearchResult result = query.getResult();
 		if (result.getTotalMatches() > 0) {
-			LOGGER.debug("Find {} in {}", result.getTotalMatches(), type);
+			LOGGER.info("Find {} in {}", result.getTotalMatches(), type);
 
 			List<Hit> listResult = result.getHits();
 			try {
