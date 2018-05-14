@@ -82,14 +82,13 @@ public class WorldAndGrandVoyageCache {
 
 		while (children.hasNext()) {
 			Page page = children.next();
-			LOGGER.info("Check page{}", page.getName());
+			LOGGER.debug("Check page{}", page.getName());
 
 			String cruiseReference = page.getProperties().get("cruiseReference", String.class);
 			String resourceType = page.getProperties().get("sling:resourceType", String.class);
 
 			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType) && resourceType.equals("silversea/silversea-com/components/pages/combosegment") ) {
 				Page pageCruise = pageManager.getPage(cruiseReference);
-				LOGGER.info("Double check page{}", page.getName());
 
 				if (pageCruise != null && pageCruise.adaptTo(CruiseModel.class) != null) {
 					cruiseModel = pageCruise.adaptTo(CruiseModel.class);

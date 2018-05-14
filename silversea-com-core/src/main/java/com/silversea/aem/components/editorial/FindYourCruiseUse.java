@@ -919,21 +919,21 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	}
 
 	public String getWorldCruisesPagePath() {
+		Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+		String path =  PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
 		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults) && !(shipFilter.equals(FILTER_ALL) && dateFilter == null)) {
-			Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-			String path = PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
-			return externalizer.relativeLink(getRequest(), path);
+			path = PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
 		}
-		return PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
+		return externalizer.relativeLink(getRequest(), path);
 	}
 
 	public String getGrandVoyagesPagePath() {
+		Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
+		String path =  PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
 		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults) &&  !(shipFilter.equals(FILTER_ALL) && dateFilter == null)) {
-			Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-			String path = PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
-			return  externalizer.relativeLink(getRequest(), path);
+			path = PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
 		}
-		return PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
+		return externalizer.relativeLink(getRequest(), path);
 	}
 
 	public String getAvailableDestinationsJson() {
