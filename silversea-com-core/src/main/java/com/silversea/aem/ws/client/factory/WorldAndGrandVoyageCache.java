@@ -47,13 +47,6 @@ public class WorldAndGrandVoyageCache {
 	}
 
 	public Map<String, Map<String, CruiseModelLight>> getCache() {
-		for (Entry<String, Map<String, CruiseModelLight>> entry : cache.entrySet()) {
-			String key = entry.getKey();
-			for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
-			    LOGGER.info("key {} : {}",key, entryCruise.getKey() );
-			}
-		}
-
 		return cache;
 	}
 
@@ -116,6 +109,12 @@ public class WorldAndGrandVoyageCache {
 						this.cache.put(comboCruiseCode, list);
 					}
 				}
+			}
+		}
+		for (Entry<String, Map<String, CruiseModelLight>> entry : cache.entrySet()) {
+			String key = entry.getKey();
+			for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
+			    LOGGER.info("key {} : {}",key, entryCruise.getKey());
 			}
 		}
 	}
