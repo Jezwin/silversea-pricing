@@ -1,10 +1,12 @@
 package com.silversea.aem.ws.client.factory;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,17 +36,75 @@ public class WorldAndGrandVoyageCache {
 	}
 
 	public static WorldAndGrandVoyageCache getInstance(ResourceResolver resolverImport) {
-		//if (instance == null) {
+		if (instance == null) {
 			instance = new WorldAndGrandVoyageCache();
 			resourceResolver = resolverImport;
-			instance.buildCache("world-cruises");
-			instance.buildCache("grand-voyages-cruise");
-		//}
+			instance.buildCacheByResource("world-cruises");
+			instance.buildCacheByResource("grand-voyages-cruise");
+		}
 		return instance;
 	}
 
 	public Map<String, Map<String, CruiseModelLight>> getCache() {
 		return cache;
+	}
+
+	private void buildCacheByResource(String type) {
+		LOGGER.info("Starting create wc and gv cache by resource...");
+		if (this.cache == null) {
+			this.cache = new HashMap<>();
+		}
+		if (resourceResolver == null) {
+			return;
+		}
+		try {
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+			Page rootPage = pageManager.getPage("/content/silversea-com/en/destinations/" + type);
+			Iterator<Page> children = rootPage.listChildren();
+			while (children.hasNext()) {
+				Page page = children.next();
+				loopAllCruises(page);
+			}
+
+		} catch (Exception e) {
+			LOGGER.error("Error during get resources from destination/{}{}", type, e);
+		}
+		LOGGER.info("Finish create wc and gv cache resource...");
+	}
+
+	private void loopAllCruises(Page rootPage) {
+		Iterator<Page> children = rootPage.listChildren();
+		CruiseModel cruiseModel = null;
+		Map<String, CruiseModelLight> list = null;
+		CruiseModelLight cruiseModelLight = null;
+		String comboCruiseCode = rootPage.getProperties().get("comboCruiseCode", String.class);
+		PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+
+		while (children.hasNext()) {
+			Page page = children.next();
+
+			String cruiseReference = page.getProperties().get("cruiseReference", String.class);
+			String resourceType = page.getProperties().get("sling:resourceType", String.class);
+			String cqLastReplicationAction = page.getProperties().get("cq:lastReplicationAction", String.class);
+
+			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType)
+					&& resourceType.equals("silversea/silversea-com/components/pages/combosegment") && cqLastReplicationAction.equalsIgnoreCase("Activate")) {
+				Page pageCruise = pageManager.getPage(cruiseReference);
+				if (pageCruise != null && pageCruise.adaptTo(CruiseModel.class) != null) {
+					cruiseModel = pageCruise.adaptTo(CruiseModel.class);
+					cruiseModelLight = new CruiseModelLight(cruiseModel);
+					if (StringUtils.isNotEmpty(comboCruiseCode)) {
+						if (!this.cache.containsKey(comboCruiseCode)) {
+							this.cache.put(comboCruiseCode, new HashMap<>());
+						}
+						list = this.cache.get(comboCruiseCode);
+						list.put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
+						this.cache.remove(comboCruiseCode);
+						this.cache.put(comboCruiseCode, list);
+					}
+				}
+			}
+		}
 	}
 
 	private void buildCache(String type) {
@@ -86,7 +146,8 @@ public class WorldAndGrandVoyageCache {
 							if (page != null && page.adaptTo(CruiseModel.class) != null) {
 								cruiseModel = page.adaptTo(CruiseModel.class);
 								cruiseModelLight = new CruiseModelLight(cruiseModel);
-								String parentPath = hit.getResource().getParent().getParent().getPath() + "/jcr:content";
+								String parentPath = hit.getResource().getParent().getParent().getPath()
+										+ "/jcr:content";
 								Node nodeParent = resourceResolver.getResource(parentPath).adaptTo(Node.class);
 								String comboCruiseCode = nodeParent.getProperty("comboCruiseCode").getString();
 								if (!this.cache.containsKey(comboCruiseCode)) {
