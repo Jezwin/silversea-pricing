@@ -37,12 +37,12 @@ public class WorldAndGrandVoyageCache {
 	}
 
 	public static WorldAndGrandVoyageCache getInstance(ResourceResolver resolverImport) {
-		//if (instance == null) {
+		if (instance == null) {
 			instance = new WorldAndGrandVoyageCache();
 			resourceResolver = resolverImport;
 			instance.buildCacheByResource("world-cruises");
 			instance.buildCacheByResource("grand-voyages-cruise");
-		//}
+		}
 		return instance;
 	}
 
@@ -63,10 +63,7 @@ public class WorldAndGrandVoyageCache {
 			Page rootPage = pageManager.getPage("/content/silversea-com/en/destinations/" + type);
 			Iterator<Page> children = rootPage.listChildren();
 			while (children.hasNext()) {
-				Page page = children.next();
-				LOGGER.info("Check main page{}", page.getName());
-
-				loopAllCruises(page);
+				loopAllCruises(children.next());
 			}
 
 		} catch (Exception e) {
@@ -89,10 +86,8 @@ public class WorldAndGrandVoyageCache {
 
 			String cruiseReference = page.getProperties().get("cruiseReference", String.class);
 			String resourceType = page.getProperties().get("sling:resourceType", String.class);
-			String cqLastReplicationAction = page.getProperties().get("cq:lastReplicationAction", String.class);
 
-			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType)  && StringUtils.isNotEmpty(cqLastReplicationAction) 
-					&& resourceType.equals("silversea/silversea-com/components/pages/combosegment") && cqLastReplicationAction.equalsIgnoreCase("Activate")) {
+			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType) && resourceType.equals("silversea/silversea-com/components/pages/combosegment") ) {
 				Page pageCruise = pageManager.getPage(cruiseReference);
 				LOGGER.info("Double check page{}", page.getName());
 
@@ -111,12 +106,6 @@ public class WorldAndGrandVoyageCache {
 				}
 			}
 		}
-		for (Entry<String, Map<String, CruiseModelLight>> entry : cache.entrySet()) {
-			String key = entry.getKey();
-			for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
-			    LOGGER.info("key {} : {}",key, entryCruise.getKey());
-			}
-		}
 	}
 
 	private void buildCache(String type) {
@@ -129,8 +118,6 @@ public class WorldAndGrandVoyageCache {
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("path", "/content/silversea-com/en/destinations/" + type + "/");
-		map.put("1_property", "cq:lastReplicationAction");
-		map.put("1_property.value", "Activate");
 		map.put("type", "cq:PageContent");
 		map.put("p.limit", "5000");
 

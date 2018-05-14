@@ -174,8 +174,6 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	private StringBuilder availableCruiseTypesJson;
 	private StringBuilder availableFeaturesJson;
 	private StringBuilder worldAndGrandVoyageCruiseJson;
-	
-	private Map<String, Map<String, CruiseModelLight>> mapWcAndGv;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -352,8 +350,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			features.addAll(featuresFromDesign);
 			features.retainAll(cruisesCacheService.getFeatures(lang));
 		}
-		mapWcAndGv = WorldAndGrandVoyageCache.getInstance(getResourceResolver()).getCache();
-		
+
 		// Security adaptation : If voyage is in the past - do not display them
 		List<CruiseModelLight> newAllCruises = new ArrayList<>();
 		for (CruiseModelLight cruise : allCruises) {
@@ -649,6 +646,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	private List<CruiseModelLight> checkWorldCruiseGrandVoyages(String filter, List<CruiseModelLight> allCruises) {
 		if (destinationFilter.equalsIgnoreCase(filter)) {
 			mapCruiseCodeWcAnGV = new TreeMap<>();
+			Map<String, Map<String, CruiseModelLight>> mapWcAndGv = WorldAndGrandVoyageCache
+					.getInstance(getResourceResolver()).getCache();
 			allCruises = new ArrayList<>();
 			for (Entry<String, Map<String, CruiseModelLight>> entry : mapWcAndGv.entrySet()) {
 				String key = entry.getKey();
