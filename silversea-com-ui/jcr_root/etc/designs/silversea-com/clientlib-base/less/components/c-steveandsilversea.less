@@ -1,8 +1,12 @@
 .c-steveandsilversea {
-        margin: 10px -5px;
+        @media screen and (min-width: @screen-lg-min) {
+        	margin: 10px -5px;
+    	}
     	background-color: #273333;
         color: white;
-    	padding: 10px;
+    	@media screen and (min-width: @screen-sm-min) {
+        	padding: 10px;
+    	}
 		
 		.automatic-gallery-modal {
                 &:before {
@@ -22,7 +26,12 @@
                     opacity: 1;
                 }
         }
-		
+
+    	.inactiveLink {
+                pointer-events: none;
+                cursor: default;
+        }
+
         .image {
             padding: 0;
         	margin-top: 20px;
