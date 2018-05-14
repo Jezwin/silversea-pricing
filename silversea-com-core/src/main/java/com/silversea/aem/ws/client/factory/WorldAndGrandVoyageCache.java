@@ -34,12 +34,12 @@ public class WorldAndGrandVoyageCache {
 	}
 
 	public static WorldAndGrandVoyageCache getInstance(ResourceResolver resolverImport) {
-		if (instance == null) {
+		//if (instance == null) {
 			instance = new WorldAndGrandVoyageCache();
 			resourceResolver = resolverImport;
 			instance.buildCache("world-cruises");
 			instance.buildCache("grand-voyages-cruise");
-		}
+		//}
 		return instance;
 	}
 
