@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -46,6 +47,13 @@ public class WorldAndGrandVoyageCache {
 	}
 
 	public Map<String, Map<String, CruiseModelLight>> getCache() {
+		for (Entry<String, Map<String, CruiseModelLight>> entry : cache.entrySet()) {
+			String key = entry.getKey();
+			for (Entry<String, CruiseModelLight> entryCruise : entry.getValue().entrySet()) {
+			    LOGGER.info("key {} : {}",key, entryCruise.getKey() );
+			}
+		}
+
 		return cache;
 	}
 
@@ -63,6 +71,8 @@ public class WorldAndGrandVoyageCache {
 			Iterator<Page> children = rootPage.listChildren();
 			while (children.hasNext()) {
 				Page page = children.next();
+				LOGGER.info("Check main page{}", page.getName());
+
 				loopAllCruises(page);
 			}
 
@@ -82,6 +92,7 @@ public class WorldAndGrandVoyageCache {
 
 		while (children.hasNext()) {
 			Page page = children.next();
+			LOGGER.info("Check page{}", page.getName());
 
 			String cruiseReference = page.getProperties().get("cruiseReference", String.class);
 			String resourceType = page.getProperties().get("sling:resourceType", String.class);
@@ -90,6 +101,8 @@ public class WorldAndGrandVoyageCache {
 			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType)  && StringUtils.isNotEmpty(cqLastReplicationAction) 
 					&& resourceType.equals("silversea/silversea-com/components/pages/combosegment") && cqLastReplicationAction.equalsIgnoreCase("Activate")) {
 				Page pageCruise = pageManager.getPage(cruiseReference);
+				LOGGER.info("Double check page{}", page.getName());
+
 				if (pageCruise != null && pageCruise.adaptTo(CruiseModel.class) != null) {
 					cruiseModel = pageCruise.adaptTo(CruiseModel.class);
 					cruiseModelLight = new CruiseModelLight(cruiseModel);
