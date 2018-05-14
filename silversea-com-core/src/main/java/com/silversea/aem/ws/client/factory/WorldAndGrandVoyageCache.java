@@ -87,7 +87,7 @@ public class WorldAndGrandVoyageCache {
 			String resourceType = page.getProperties().get("sling:resourceType", String.class);
 			String cqLastReplicationAction = page.getProperties().get("cq:lastReplicationAction", String.class);
 
-			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType)
+			if (StringUtils.isNotEmpty(cruiseReference) && StringUtils.isNotEmpty(resourceType)  && StringUtils.isNotEmpty(cqLastReplicationAction) 
 					&& resourceType.equals("silversea/silversea-com/components/pages/combosegment") && cqLastReplicationAction.equalsIgnoreCase("Activate")) {
 				Page pageCruise = pageManager.getPage(cruiseReference);
 				if (pageCruise != null && pageCruise.adaptTo(CruiseModel.class) != null) {
