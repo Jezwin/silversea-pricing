@@ -83,12 +83,12 @@
                             <p data-sly-test="${!EO.lightboxReference && !EO.newSystem}">
                                 <strong><i class="fa fa-star"></i> ${EO.title}:&nbsp;</strong>${EO.description @ context='html'}
                             </p>
-                            <p data-sly-test="${cruise.isVS && EOList.last}"><strong>${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
+                            <p data-sly-test="${cruise.isVS && EOList.last}"><strong><i class="icon-shield-v"></i> ${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                         </div>
 
                         <div class="voyagefeature__offer" data-sly-test="${!isEo}">
                             <p><strong>${'feature-no-exclusive-offers-title' @ i18n}&nbsp;</strong>${'feature-no-exclusive-offers-description' @ i18n}</p>
-                            <p data-sly-test="${cruise.isVS}"><strong>${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
+                            <p data-sly-test="${cruise.isVS}"><strong><i class="icon-shield-v"></i> ${'VS-EO-Title' @ i18n}:&nbsp;</strong>${'VS-EO-Message' @ i18n}</p>
                         </div>
 
                         <div class="clearfix"></div>
