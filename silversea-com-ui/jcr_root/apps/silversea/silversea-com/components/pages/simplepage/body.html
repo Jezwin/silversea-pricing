@@ -1,9 +1,9 @@
 <header data-sly-resource="${'header' @ resourceType='silversea/silversea-com/components/included/simpleheader'}"></header>
 <sly data-sly-include="pagecontent.html"></sly>
 <footer class="c-footer" data-sly-resource="${'footer' @ resourceType='silversea/silversea-com/components/included/simplefooter'}"></footer>
-<div data-sly-resource="${'cookie-disclaimer' @ resourceType='silversea/silversea-com/components/included/cookiedisclaimer'}"></div>
-<div class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}" data-sly-test="${inheritedPageProperties.showFloatingBar}">
-    <div data-sly-resource="${'floating-bar' @ resourceType='silversea/silversea-com/components/included/floatingbar'}"></div>
+<sly data-sly-use.cookieDisclaimerUse="com.silversea.aem.components.included.CookieDisclaimerUse" />
+<div class="c-floating-bar ${wcmmode.edit ? 'editor' : ''}">
+    <div data-sly-test="${wcmmode.edit || cookieDisclaimerUse.showCookieMsg}" data-sly-resource="${'cookie-disclaimer' @ resourceType='silversea/silversea-com/components/included/cookiedisclaimer'}"></div>
 </div>
 <div data-sly-resource="${'cloudservices' @ resourceType='cq/cloudserviceconfigs/components/servicecomponents'}" data-sly-unwrap></div>
 <sly data-sly-include="modal.html"></sly>
