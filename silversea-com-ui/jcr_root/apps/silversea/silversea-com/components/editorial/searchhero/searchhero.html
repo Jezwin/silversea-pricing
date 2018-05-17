@@ -7,8 +7,6 @@
             <select class="chosen form-control" data-placeholder="${'all-destinations' @ i18n}" name="destination">
                 <option value="all">${'all-destinations' @ i18n}</option>
                 <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
-                <option value="wc">${'world-cruises' @ i18n}</option>
-                <option value="gv">${'grand-voyages' @ i18n}</option>
             </select>
         </div>
         <div class="col-sm-3">
