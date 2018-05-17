@@ -79,8 +79,8 @@ public class WorldAndGrandVoyageCache {
 		CruiseModelLight cruiseModelLight = null;
 		String comboCruiseCode = rootPage.getProperties().get("comboCruiseCode", String.class);
 		PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
-
-		while (children.hasNext()) {
+		boolean stopLoop = false;
+		while (children.hasNext() && !stopLoop) {
 			Page page = children.next();
 			LOGGER.debug("Check page{}", page.getName());
 
@@ -101,6 +101,7 @@ public class WorldAndGrandVoyageCache {
 						list.put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
 						this.cache.remove(comboCruiseCode);
 						this.cache.put(comboCruiseCode, list);
+						stopLoop = true;
 					}
 				}
 			}

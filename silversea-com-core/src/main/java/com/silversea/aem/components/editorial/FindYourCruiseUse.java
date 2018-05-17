@@ -356,12 +356,16 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		for (CruiseModelLight cruise : allCruises) {
 			if (cruise.getStartDate().after(Calendar.getInstance())) {
 				newAllCruises.add(cruise);
+				if((destinationFilter.equalsIgnoreCase("wc") || destinationFilter.equalsIgnoreCase(("gv"))) && shipFilter.equals(FILTER_ALL) && dateFilter == null ) {
+					availableDestinations.add(cruise.getDestination());
+				}
 			}
 		}
 		allCruises = newAllCruises;
 
 		allCruises = checkWorldCruiseGrandVoyages("wc", allCruises);
 		allCruises = checkWorldCruiseGrandVoyages("gv", allCruises);
+		
 
 		// init list of filtered cruises and available values for filters
 		final List<CruiseModelLight> filteredCruises = new ArrayList<>();
@@ -411,6 +415,10 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 				includeCruiseNotFilteredByDuration = false;
 				includeCruiseNotFilteredByFeatures = false;
 				includeCruiseNotFilteredByCruiseTypes = false;
+			}
+			
+			if((destinationFilter.equalsIgnoreCase("wc") || destinationFilter.equalsIgnoreCase(("gv"))) && shipFilter.equals(FILTER_ALL) && dateFilter == null ) {
+				includeCruiseNotFilteredByDestination = false;
 			}
 
 			try {
