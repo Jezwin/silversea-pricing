@@ -1,9 +1,16 @@
 #c-cookie {
     color: @white;
-    text-align: center;
 
     &[data-show='false'] {
         display: none;
+    }
+    
+     
+    	.container {
+    		padding-top: 12px;
+    		@media screen and (max-width: @screen-md-min) {
+    			padding:12px;
+    		}
     }
 
     p {
@@ -13,9 +20,10 @@
         vertical-align: middle;
 
         @media screen and (max-width: @screen-md-min) {
-            max-width: 79%;
+            max-width: 89%;
         }
     }
+    
     &__close {
         background: none;
         display: inline-block;
