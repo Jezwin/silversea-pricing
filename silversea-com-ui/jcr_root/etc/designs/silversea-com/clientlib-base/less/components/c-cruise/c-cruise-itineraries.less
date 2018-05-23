@@ -89,7 +89,8 @@
             padding-right: 30px;
 
             &__expand {
-                .btn-more, .btn-less {
+                .btn-more,
+                .btn-less {
                     span {
                         display: none;
                     }
@@ -116,7 +117,8 @@
                 }
             }
 
-            &__title, &__duration {
+            &__title,
+            &__duration {
                 float: left;
                 width: 50%;
             }
@@ -148,7 +150,8 @@
             &[aria-expanded=true] {
                 padding-left: calc(~"43% + 25px");
 
-                .c-cruise-itinerary-list__headline__title, .c-cruise-itinerary-list__headline__date {
+                .c-cruise-itinerary-list__headline__title,
+                .c-cruise-itinerary-list__headline__date {
                     float: none;
                     padding: 0;
                 }
@@ -170,19 +173,19 @@
 }
 
 .c-cruise__itineraries {
-		.c-cruise__descr-text {
-			@media (max-width: 767px) {
-				display:none;	
-			}
-		}
-		
-		.c-cruise__descr-br {
-			@media (max-width: 767px) {
-				display:none;	
-			}
-		}
-		
-		@media (max-width: 767px) {
-				margin-top: 30px;	
-		}
+    .c-cruise__descr-text {
+        @media (max-width: 767px) {
+            display:none;
+        }
+    }
+
+    .c-cruise__descr-br {
+        @media (max-width: 767px) {
+            display:none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        margin-top: 30px;
+    }
 }
