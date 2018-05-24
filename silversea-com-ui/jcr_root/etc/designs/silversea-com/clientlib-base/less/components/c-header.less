@@ -1,5 +1,5 @@
 .header-fixed() {
-    border-bottom: solid 1px rgba(255,255,255,.3);
+    border-bottom: solid 1px @white--03;
     position: fixed;
     top: 0;
     width: 100%;
@@ -40,11 +40,11 @@
         max-width: 202px;
         width: 100%;
     }
-    
-	@media screen and (max-width: @screen-sm) {
-	    &__logoholder {
-	   		padding: 0 15px 0 10px;
-	    }
-	}
+
+    @media screen and (max-width: @screen-sm) {
+        &__logoholder {
+            padding: 0 15px 0 10px;
+        }
+    }
 
 }

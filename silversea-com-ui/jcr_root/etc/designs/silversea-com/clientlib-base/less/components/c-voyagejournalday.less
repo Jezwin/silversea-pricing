@@ -9,7 +9,8 @@
         .row {
             margin: 0 -5px;
 
-            div[class^="col-"], div[class*=" col-"] {
+            div[class^="col-"],
+            div[class*=" col-"] {
                 padding: 0 5px;
 
                 &:nth-child(odd) {
@@ -46,7 +47,8 @@
         position: absolute;
     }
 
-    &__ship, &__title {
+    &__ship,
+    &__title {
         font-size: 18px;
         margin: 0;
     }
@@ -55,7 +57,8 @@
         margin-bottom: 10px;
     }
 
-    &__date, &__id {
+    &__date,
+    &__id {
         font-size: 12px;
         text-transform: uppercase;
     }
@@ -73,7 +76,8 @@
     }
 
     @media screen and (max-width: @screen-sm) {
-        .voyagejournals &, .voyagejournal & {
+        .voyagejournals &,
+        .voyagejournal & {
             padding: 0;
         }
 
@@ -104,7 +108,8 @@
             bottom: -20px;
         }
 
-        &__date, &__id {
+        &__date,
+        &__id {
             color: @black;
             font-weight: 700;
         }

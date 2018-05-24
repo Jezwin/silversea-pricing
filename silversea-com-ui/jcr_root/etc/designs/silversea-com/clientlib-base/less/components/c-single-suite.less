@@ -11,7 +11,7 @@
         .o-title {
                 font-weight: 400;
                 font-size: 36px;
-                font-family: 'Theano Didot Regular',serif;
+                font-family:@f-theano_didot;
                 margin: 0 0 25px;
                 word-break: break-word;
                 text-align: center;
@@ -26,7 +26,7 @@
 				    right: 0px;
 				    bottom: 0px;
 				    left: 0px;
-				    background: rgb(0, 0, 0);
+				    background: @black;
 				    margin: auto;
 			        margin-top: 12px;
 					margin-bottom: -7px;
@@ -35,7 +35,7 @@
 
         .o-description {
                 font: 400 13px;
-            	font-family: "Open Sans", arial, helvetica, sans-serif;
+            	font-family: @f-open_sans;
                 line-height: 18px;
                 margin-bottom: 20px;
                 text-align: justify;
@@ -51,7 +51,7 @@
         }
         .btn-default:hover{
         	 @media screen and (min-width: @screen-sm) {
-		    	background: #999;
+		    	background: @grey--9;
 		    }
 		}
     }
@@ -80,7 +80,7 @@
                         padding-bottom: 0%;
                     }
 
-                    @media screen and (max-width: 767px) {
+                    @media screen and (max-width: @screen-sm:) {
                         &__left {
                             float:none;
                             width: 100%;
@@ -95,7 +95,7 @@
                         padding-bottom: 0%;
                     }
 
-                    @media screen and (max-width: 767px) {
+                    @media screen and (max-width: @screen-sm:) {
                         &__right {
                             float:none;
                             width: 100%;
@@ -169,11 +169,11 @@
                 }
 
                 &__label {
-                	color: #fff;
+                	color: @white;
                     font-size: 12px;
                     position: absolute;
                     left: 9px;
-                    background-color: rgba(0,0,0,0.5);
+                    background-color: @grey--05;
                     padding: 6px;
                     bottom: 10px;
 
@@ -282,7 +282,7 @@
             text-align: center;
             text-transform: uppercase;
             @media screen and (min-width: @screen-sm) {
-            	font-family: 'Theano Didot Regular',serif;
+            	font-family: @f-theano_didot;
             }
         }
 
@@ -292,10 +292,10 @@
         }
 
 		.c-list {
-			@media screen and (min-width: 991px) {
+			@media screen and (min-width: @screen-md-max) {
 				text-align:center;
 			}
-            @media screen and (max-width: 991px) and (min-width: 768px){
+            @media screen and (max-width: @screen-md-max) and (min-width: @screen-md-min){
                         max-width: 300px;
                         margin: 0 auto;
                 }
@@ -304,7 +304,7 @@
         .c-list__item {
             margin: 0;
             padding: 0 5px;
-            @media screen and (min-width: 991px) {
+            @media screen and (min-width: @screen-md-max) {
 	    		display:inline-block !important;
 			    float:none;
 			    margin: 0 auto;

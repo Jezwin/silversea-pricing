@@ -18,12 +18,12 @@
     }
 
     .form-group-lg {
-         input:not([type="checkbox"]) {
+        input:not([type="checkbox"]) {
             font-size: 14px;
             height: 42px;
         }
 
-        .chosen-search  input {
+        .chosen-search input {
             height: inherit;
         }
     }
@@ -42,7 +42,7 @@
         }
 
         .feedback-success {
-            background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAA/FBMVEX///91oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj4dGXx7AAAAU3RSTlMADz0Bdtc6AjTb928GDcK4IJn97Udqbu+kGcv8/tMTBPQ7Yi75oQ7FzheD8EU+839BIwrUuSnrHQnS51dt+kxgRIIssurlEPbjN2vRoBa1kTJ4jwCFDCIAAADmSURBVCjPddJZO4JRFMXxpZAU6ZjiPQm9Zpl6FakMmcn0//7fxZ3nqN2+XL9n7aslGTeWkn1pjU9MmpLRVJbpXN7qzMwCFOaGRUVwzC8YDxfBwZIhqWUclAxZWSXylNeGpVLEedY3jNImeMgZUo3xsGXI9g4edvcM2gc4ODSkdgRwHEYnp5KkszpAEsp5XK9JUgmg0Qzk4hJaV1K7A9ANpJlAROf6JgueWyn9R3e9GCLuH8CRPAYiqf0EEeB4fvkvUrcFHo9/HRSp+gYe3q099D+Act7cSuWTxteIhen7Z5Qo0x9MfgHXXCy02lvH1QAAAABJRU5ErkJggg==');
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAA/FBMVEX///91oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj51oj4dGXx7AAAAU3RSTlMADz0Bdtc6AjTb928GDcK4IJn97Udqbu+kGcv8/tMTBPQ7Yi75oQ7FzheD8EU+839BIwrUuSnrHQnS51dt+kxgRIIssurlEPbjN2vRoBa1kTJ4jwCFDCIAAADmSURBVCjPddJZO4JRFMXxpZAU6ZjiPQm9Zpl6FakMmcn0//7fxZ3nqN2+XL9n7aslGTeWkn1pjU9MmpLRVJbpXN7qzMwCFOaGRUVwzC8YDxfBwZIhqWUclAxZWSXylNeGpVLEedY3jNImeMgZUo3xsGXI9g4edvcM2gc4ODSkdgRwHEYnp5KkszpAEsp5XK9JUgmg0Qzk4hJaV1K7A9ANpJlAROf6JgueWyn9R3e9GCLuH8CRPAYiqf0EEeB4fvkvUrcFHo9/HRSp+gYe3q099D+Act7cSuWTxteIhen7Z5Qo0x9MfgHXXCy02lvH1QAAAABJRU5ErkJggg==');
             height: 26px;
             right: -35px;
             top: 10px;
@@ -126,17 +126,18 @@
 
     .has-success ~ .chosen-container {
         .chosen-drop {
-            border-color: #3c763d;
+            border-color: @green--35;
         }
     }
 
     .has-error {
         .chosen-container {
-            .chosen-single, .chosen-drop {
+            .chosen-single,
+            .chosen-drop {
                 border-color: @red;
             }
 
-            .chosen-single span{
+            .chosen-single span {
                 color: @red;
             }
         }
@@ -162,8 +163,9 @@
 
     .has-success {
         .chosen-container {
-            .chosen-single, .chosen-drop {
-                border-color: #3c763d;
+            .chosen-single,
+            .chosen-drop {
+                border-color: @green--35;
             }
         }
     }
@@ -178,11 +180,11 @@
         .input--title .with-errors {
             right: 30px;
         }
-        
+
         .input--subject .with-errors {
             right: 30px;
         }
-        
+
         .input--inquiry .with-errors {
             right: 30px;
         }
@@ -202,45 +204,45 @@
             }
         }
     }
-    
+
     .postalcode {
-    	margin-bottom: 0px;
-    	.with-errors {
-    		position: relative;
-    		@media (min-width: 768px) {
-	    		width:200%;
-	    		left: 1px;
-    			
-    		}
-    	}
-    	
-    	.feedback-error {
-    		right: -6px;
-    	}
-    	
-    	.feedback-success {
-    		right: -13px;
-    	}
+        margin-bottom: 0px;
+        .with-errors {
+            position: relative;
+            @media (min-width: @screen-md-min) {
+                width:200%;
+                left: 1px;
+
+            }
+        }
+
+        .feedback-error {
+            right: -6px;
+        }
+
+        .feedback-success {
+            right: -13px;
+        }
     }
-    
+
     .city {
-    	.with-errors {
-    		margin-right: 12px;	
-    	}
-    	
-    	.feedback-error {
-    		right: -11px;
-    	}
-    	
-    	.feedback-success {
-    		right: -20px;
-    	}
+        .with-errors {
+            margin-right: 12px;
+        }
+
+        .feedback-error {
+            right: -11px;
+        }
+
+        .feedback-success {
+            right: -20px;
+        }
     }
-    
+
     .select-country {
-    	@media (min-width: 768px) {
-			width: 50%;    	
-    	}
+        @media (min-width: @screen-md-min) {
+            width: 50%;
+        }
     }
 
     .input--title {
@@ -248,13 +250,13 @@
             padding: 10px 40px 10px 20px;
         }
     }
-    
+
     .input--subject {
         .chosen-single {
             padding: 10px 40px 10px 20px;
         }
     }
-    
+
     .input--inquiry {
         .chosen-single {
             padding: 10px 40px 10px 20px;
@@ -262,7 +264,10 @@
     }
 
     select {
-        &[name='title'], &[name='country'], &[name='subject'], &[name='inquiry'] {
+        &[name='title'],
+        &[name='country'],
+        &[name='subject'],
+        &[name='inquiry'] {
             + .chosen-container .chosen-single {
                 font-weight: normal;
             }
@@ -294,9 +299,15 @@
     }
 }
 
-input::-ms-clear {display: none; width:0; height:0;}
+input::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
 
-input, textarea, select {
+input,
+textarea,
+select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -336,7 +347,7 @@ input, textarea, select {
                     color: @white;
 
                     & + .fa-angle-down {
-                        color:@white;
+                        color: @white;
                     }
                 }
             }
@@ -394,6 +405,7 @@ input, textarea, select {
     }
 }
 
-.icheckbox_minimal, .iradio_minimal {
+.icheckbox_minimal,
+.iradio_minimal {
     image-rendering: pixelated;
 }

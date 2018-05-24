@@ -3,6 +3,7 @@
 ** Callbox for header
 ** 3 differents states
 **/
+
 .c-call {
     display: table;
     height: @nav-top-height;
@@ -11,11 +12,11 @@
     text-align: right;
     float: right;
     color: @white;
-    
-	@media screen and (max-width: @screen-sm) {
-		padding-right: 10px;
-	}
-	
+
+    @media screen and (max-width: @screen-sm) {
+        padding-right: 10px;
+    }
+
     &__inner {
         display: table-cell;
         vertical-align: middle;
@@ -60,6 +61,7 @@
 ** Callbox like baner
 ** 2 differents states
 **/
+
 .c-callbox {
     min-width: 200px;
     width: 100%;
@@ -108,9 +110,10 @@
         }
     }
 }
+
 .o-section-call {
-	padding: 30px 0;
-	
+    padding: 30px 0;
+
     .btn {
         @media screen and (max-width: @screen-sm) {
             margin-left: auto;
@@ -119,13 +122,15 @@
         }
     }
 }
+
 /*
 ** c- Callbox
 ** Callbox for simple page
 **/
+
 .simplepage {
-    .c-brochure{
-        &:before{
+    .c-brochure {
+        &:before {
             background: none;
             width: 1px;
         }
@@ -136,9 +141,9 @@
         font-weight: bold;
         line-height: 28px;
         text-align: center;
-        border-top:1px solid @grey--d;
+        border-top: 1px solid @grey--d;
         padding-top: 20px;
-        &--logo{
+        &--logo {
             margin-bottom: 20px;
         }
 
@@ -154,5 +159,5 @@
             border-bottom: 1px solid @grey--d;
         }
     }
-    
+
 }
