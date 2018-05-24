@@ -3,7 +3,7 @@
 <div id="c-cookie" data-show="false"
      data-sly-test="${cookieDisclaimerUse.showCookieMsg && cookieDisclaimerUse.description}" >
     <div class="container">
-        <p>${cookieDisclaimerUse.description}</p>
+        <p>${cookieDisclaimerUse.description @context='html'}</p>
         <button id="c-cookie__close" onClick="s_objectID='cookies-close-disclaimer';">
             <span class="hidden-xs">${'close' @ i18n}</span>
             <i class="fa fa-times fa-lg"></i>
