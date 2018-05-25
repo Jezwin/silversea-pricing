@@ -385,7 +385,13 @@ public class QuoteRequestUse extends WCMUsePojo {
 	public Boolean getIsChecked() {
 		final String[] tags = getProperties().get(NameConstants.PN_TAGS, String[].class);
 
-		if (tags != null) {
+		if(siteCountry.toLowerCase().equals("ca") || siteCountry.toLowerCase().equals("can")){
+			return false;
+		}else {
+			return true;
+		}
+		//TODO to remove after all
+		/*if (tags != null) {
 			final TagManager tagManager = getResourceResolver().adaptTo(TagManager.class);
 
 			// TODO replace by TagManager#getTags
@@ -396,9 +402,9 @@ public class QuoteRequestUse extends WCMUsePojo {
 					}
 				}
 			}
-		}
+		}*/
 
-		return true;
+		//return true;
 	}
 
 	public boolean isSideHtmlToShow() {
@@ -427,10 +433,10 @@ public class QuoteRequestUse extends WCMUsePojo {
 	}
 	
 	public Boolean getIsGPDR(){
-		if(currentMarket.toLowerCase().equals("uk") || currentMarket.toLowerCase().equals("eu") || currentMarket.toLowerCase().equals("emea")){
-			return true;
+		if(siteCountry.toLowerCase().equals("ca") || siteCountry.toLowerCase().equals("can")){
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	/**

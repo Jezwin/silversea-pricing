@@ -33,9 +33,9 @@ public class SignUpUse extends AbstractGeolocationAwareUse {
     }
     
 	public Boolean getIsGPDR(){
-		if(geomarket.toLowerCase().equals("uk") || geomarket.toLowerCase().equals("eu") || geomarket.toLowerCase().equals("emea")){
-			return true;
+		if(countryCode.toLowerCase().equals("ca") || countryCode.toLowerCase().equals("can")){
+			return false;
 		}
-		return false;
+		return true;
 	}
 }
