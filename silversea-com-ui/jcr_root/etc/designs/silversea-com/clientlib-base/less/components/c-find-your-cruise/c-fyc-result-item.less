@@ -15,15 +15,16 @@
             position: absolute;
             top: 0;
             width: 100%;
-            @media (max-width: 767px){
-	            box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
-				-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-            	
-            }
+
         }
 
         &__wrapper {
             cursor: pointer;
+            @media (max-width: 767px) {
+			    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
+				-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+			}
+            
         }
 
         &__image {
