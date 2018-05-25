@@ -817,9 +817,12 @@
           "name": "Culinary"
         },
         {
-          "order": 0,
+          "order": 47,
           "id": 4,
-          "name": "explorer"
+          "name": "explorer",
+          "prevSize": 32,
+          "code": 59730,
+          "tempChar": ""
         },
         {
           "order": 0,
@@ -827,12 +830,12 @@
           "name": "Opera"
         },
         {
-          "order": 39,
+          "order": 44,
           "id": 6,
           "name": "whale",
           "prevSize": 32,
           "code": 59687,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 0,
@@ -1165,7 +1168,7 @@
           "name": "black",
           "prevSize": 32,
           "code": 59682,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 3,
@@ -1182,12 +1185,12 @@
             59689
           ],
           "tempChar": [
-            "",
             "",
             "",
             "",
             "",
-            ""
+            "",
+            ""
           ]
         },
         {
@@ -1196,7 +1199,7 @@
           "name": "black2",
           "prevSize": 32,
           "code": 59690,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 5,
@@ -1214,13 +1217,13 @@
             59697
           ],
           "tempChar": [
-            "",
             "",
             "",
             "",
             "",
             "",
-            ""
+            "",
+            ""
           ]
         },
         {
@@ -1229,7 +1232,7 @@
           "name": "black3",
           "prevSize": 32,
           "code": 59698,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 7,
@@ -1248,14 +1251,14 @@
             59706
           ],
           "tempChar": [
-            "",
             "",
             "",
             "",
             "",
             "",
             "",
-            ""
+            "",
+            ""
           ]
         },
         {
@@ -1264,7 +1267,7 @@
           "name": "black4",
           "prevSize": 32,
           "code": 59707,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 9,
@@ -1280,11 +1283,11 @@
             59712
           ],
           "tempChar": [
-            "",
             "",
             "",
             "",
-            ""
+            "",
+            ""
           ]
         },
         {
@@ -1293,7 +1296,7 @@
           "name": "new",
           "prevSize": 32,
           "code": 59713,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 11,
@@ -1308,10 +1311,10 @@
             59717
           ],
           "tempChar": [
-            "",
             "",
             "",
-            ""
+            "",
+            ""
           ]
         },
         {
@@ -1320,7 +1323,7 @@
           "name": "silversea",
           "prevSize": 32,
           "code": 59718,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 13,
@@ -1328,7 +1331,7 @@
           "name": "swim",
           "prevSize": 32,
           "code": 59719,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 14,
@@ -1336,7 +1339,7 @@
           "name": "tasting-food",
           "prevSize": 32,
           "code": 59720,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 15,
@@ -1344,7 +1347,7 @@
           "name": "tasting-liquor-WINE",
           "prevSize": 32,
           "code": 59721,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 16,
@@ -1352,7 +1355,7 @@
           "name": "transfer-wheelchair",
           "prevSize": 32,
           "code": 59722,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 17,
@@ -1360,7 +1363,7 @@
           "name": "unesco",
           "prevSize": 32,
           "code": 59723,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 18,
@@ -1368,7 +1371,7 @@
           "name": "warning",
           "prevSize": 32,
           "code": 59724,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 19,
@@ -1376,7 +1379,7 @@
           "name": "clock-moon",
           "prevSize": 32,
           "code": 59725,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 20,
@@ -1384,7 +1387,7 @@
           "name": "food-cap",
           "prevSize": 32,
           "code": 59726,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 21,
@@ -1392,7 +1395,7 @@
           "name": "free",
           "prevSize": 32,
           "code": 59727,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 22,
@@ -1400,7 +1403,7 @@
           "name": "golf",
           "prevSize": 32,
           "code": 59728,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 23,
@@ -1408,7 +1411,7 @@
           "name": "limited-space-book",
           "prevSize": 32,
           "code": 59729,
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 5,

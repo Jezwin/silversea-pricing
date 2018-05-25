@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?13rcdi');
-  src:  url('fonts/icomoon.eot?13rcdi#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?13rcdi') format('truetype'),
-    url('fonts/icomoon.woff?13rcdi') format('woff'),
-    url('fonts/icomoon.svg?13rcdi#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?8ozqo5');
+  src:  url('fonts/icomoon.eot?8ozqo5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?8ozqo5') format('truetype'),
+    url('fonts/icomoon.woff?8ozqo5') format('woff'),
+    url('fonts/icomoon.svg?8ozqo5#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -125,6 +125,9 @@
 }
 .icon-Ballet:before {
   content: "\e921";
+}
+.icon-explorer:before {
+  content: "\e952";
 }
 .icon-whale:before {
   content: "\e927";
