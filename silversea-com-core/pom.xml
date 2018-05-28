@@ -127,7 +127,10 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
         </dependency>
-
+		<dependency> 
+				<artifactId>oak-commons</artifactId>
+				<groupId>org.apache.jackrabbit</groupId>
+		</dependency>
         <!-- OSGI dependencies -->
         <dependency>
             <groupId>org.osgi</groupId>
