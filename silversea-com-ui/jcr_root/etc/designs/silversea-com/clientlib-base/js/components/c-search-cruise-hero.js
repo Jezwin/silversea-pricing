@@ -4,7 +4,14 @@ $(function() {
         var requestUrl = $form.attr('action').replace('.html','');
         var requestUrlFeedback;
         var $resultWrapper = $form.next('.feedback__wrapper');
-
+        
+        $form.find('[name=date]').val("all");
+        $form.find('[name=destination]').val("all");
+        $form.find('[name=ship]').val("all");
+        $form.find('[name=date]').trigger("chosen:updated");
+        $form.find('[name=destination]').trigger("chosen:updated");
+        $form.find('[name=ship]').trigger("chosen:updated");
+        
         /***********************************************************************
          * Update Filter according to result : compare option list full and
          * option available
