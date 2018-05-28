@@ -1,20 +1,8 @@
-<div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="Find your cruise"></div>
-<div data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
-    id="destination-fyc-switchable-block" class="c-fyc destination-switchable-block">
+<div data-sly-test.empty="${wcmmode.edit}"
+	class="cq-placeholder cq-dd-image" data-emptytext="Find your cruise"></div>
 
-    <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/filter.html" />
-
-    <sly data-sly-test.type="${fyc.type || 'v2'}" />
-    <div data-sly-test="${type == 'v2'}" class="c-fyc__header hidden-xs clearfix">
-        <span class="c-fyc__header__inner">
-            <span class="c-fyc__header__inner__departure">${'departure' @ i18n}</span>
-            <span class="c-fyc__header__inner__ship">${'ship' @ i18n} / ${'voyage' @ i18n}</span>
-            <span class="c-fyc__header__inner__feature">${'features' @ i18n}</span>
-            <span class="c-fyc__header__inner__port">${'ports' @ i18n}</span>
-        </span>
-        <span class="c-fyc__header__inner">${'fares-from' @ i18n} <span>(${'per-guest' @ i18n})</span></span>
-    </div>
-    <div class="c-fyc__result-wrapper clearfix ${fyc.type || 'v2'}">
-        <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/results.html" />
-    </div>
-</div>
+<sly
+	data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse"
+	data-sly-use.findyourcruiseTemplate="silversea/silversea-com/components/editorial/findyourcruise/findyourcruisetemplate.html" />
+<sly data-sly-call="${findyourcruiseTemplate.v2 @ fyc=fyc}" />
+<sly data-sly-call="${findyourcruiseTemplate.v1 @ fyc=fyc}" />
