@@ -1,8 +1,20 @@
+.c-steveandsilversea__gallery .c-slider--for .slick-slide .ratio {
+    background-size: contain !important;
+}
+
+
+.c-steveandsilversea__gallery .slick-track {
+    background: black !important;
+}
+
 .c-steveandsilversea {
+
     @media screen and (min-width: @screen-lg-min) {
         margin: 10px -5px;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
-    background-color: @black--18;
+    background-color: #273333;
     color: white;
     @media screen and (min-width: @screen-sm-min) {
         padding: 10px;
@@ -20,6 +32,7 @@
             right: 10px;
             transition: opacity 0.3s ease;
             width: 85px;
+            pointer-events: none;
         }
 
         &:hover:before {
@@ -37,7 +50,7 @@
         margin-top: 20px;
         padding-top: 12px;
         padding-right: 14px;
-        @media (max-width: @screen-md-min) {
+        @media (max-width: 768px) {
             padding-right: 0px;
             padding-top: 0px;
 
@@ -86,7 +99,7 @@
             font-size: 27px;
             line-height: 1.1;
             font-weight: normal;
-            font-family: @f-theano_didot;
+            font-family: 'Theano Didot Regular', serif;
             text-transform: uppercase;
             padding-right: 50px;
 
@@ -104,7 +117,7 @@
                 height: 1px;
                 display: block;
                 margin: 15px auto;
-                background-color: @gold;
+                background-color: gold;
                 margin-left: 0px;
                 @media screen and (max-width: @screen-sm) {
                     margin-left: 39%;
@@ -117,7 +130,7 @@
             margin: 0 0 18px;
             font-size: 14px;
             line-height: 18px;
-            font-family: @f-open_sans;
+            font-family: 'Open Sans', arial, helvetica, sans-serif;
             padding-right: 46px;
             @media screen and (max-width: @screen-sm) {
                 text-align: center;
@@ -132,7 +145,7 @@
             font-size: 14px;
             line-height: 1.5;
             text-decoration: underline;
-            font-family: @f-sans_serif;
+            font-family: arial, helvetica, sans-serif;
 
             @media screen and (max-width: @screen-sm) {
                 text-align: center;
@@ -144,7 +157,7 @@
             font-size: 12px;
             left: 6%;
             top: 90%;
-            font-family: @f-open_sans;
+            font-family: 'Open Sans', arial, helvetica, sans-serif;
         }
 
         &__tag {
@@ -152,7 +165,7 @@
             font-size: 12px;
             left: 6%;
             top: 92%;
-            font-family: @f-open_sans;
+            font-family: 'Open Sans', arial, helvetica, sans-serif;
         }
 
         &__nowatermark {
@@ -169,7 +182,7 @@
 
     &__gallery {
         &__item {
-            background-color: @transparent;
+            background-color: transparent;
             background-position: center center;
             background-repeat: no-repeat;
             background-size: contain;
@@ -216,19 +229,19 @@
 }
 
 
-@media (min-width: @screen-md-max) {
+@media (min-width: 991px) {
     .row.c-steveandsilversea {
         padding-bottom: 24px;
     }
 }
 
-@media(max-width: @screen-md-max) and (min-width: @screen-md-min) {
+@media(max-width: 990px) and (min-width: 768px) {
     .row.c-steveandsilversea {
         padding-bottom: 40px;
     }
 }
 
-@media (max-width: @screen-sm) {
+@media (max-width: 767px) {
     .row.c-steveandsilversea {
         padding-bottom: 30px;
     }
