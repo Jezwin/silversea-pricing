@@ -42,7 +42,7 @@
         }
 
         [type="submit"] {
-            background-color: transparent;
+            background-color: @transparent;
             border: 0;
             height: 100%;
             padding: 0 15px;
@@ -68,9 +68,11 @@
             margin: 0 -15px;
             overflow: hidden;
             position: relative;
-            padding: 0 15px 10px;;
+            padding: 0 15px 10px;
 
-            &:hover, &:focus, &:active {
+            &:hover,
+            &:focus,
+            &:active {
                 background-color: @grey--3;
                 color: @white;
             }
@@ -92,7 +94,7 @@
             left: 0;
             position: absolute;
             top: 0;
-            width:100%;
+            width: 100%;
         }
     }
 

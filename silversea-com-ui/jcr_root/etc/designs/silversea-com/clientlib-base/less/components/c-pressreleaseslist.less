@@ -1,6 +1,7 @@
 .pressreleaseslist .o-sidemenu__title {
     margin-top: 0;
 }
+
 .c-pressreleases__description {
     font-size: 13px;
 }
@@ -8,7 +9,8 @@
 .c-pressreleaseslist {
     margin: 0 -5px;
 
-    div[class^="col-"], div[class*=" col-"] {
+    div[class^="col-"],
+    div[class*=" col-"] {
         padding: 0 5px;
 
         &:nth-child(odd) {
@@ -40,10 +42,10 @@
             transition: opacity 300ms;
             width: 100%;
             z-index: 1;
-			cursor:pointer;
+            cursor: pointer;
         }
     }
- 
+
     &__date {
         font-size: 14px;
         line-height: 16px;
@@ -100,8 +102,8 @@
         font-size: 26px;
         line-height: 1.4;
         margin: 0;
-        @media (max-width:767px){
-        	text-align: center;
+        @media (max-width: @screen-sm) {
+            text-align: center;
         }
     }
 }

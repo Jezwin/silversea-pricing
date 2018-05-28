@@ -1,8 +1,9 @@
-@media (max-width:767px){
-	.destination .c-fyc-filter {
-		margin-top: 45px;
-	}
+@media (max-width:@screen-sm) {
+    .destination .c-fyc-filter {
+        margin-top: 45px;
+    }
 }
+
 .c-fyc-filter {
     margin-top: 14px;
 
@@ -34,9 +35,9 @@
         font-family: @f-theano_didot;
         font-size: 22px;
         font-weight: normal;
-   		display: block;
-    	margin-bottom: 0px;
-    	padding-bottom: 4px;
+        display: block;
+        margin-bottom: 0px;
+        padding-bottom: 4px;
     }
 
     &__text {
@@ -53,7 +54,7 @@
         }
 
         #matching-value {
-            font-family: "Times New Roman", Times, serif;
+            font-family: @f-times-new-roman;
         }
 
         &.results {
@@ -143,12 +144,12 @@
             }
 
             &:hover {
-            	@media (min-width: 768px) {
-	                background: @grey--9;
-            	}
-            	@media (max-width: 767px) {
-	                background: @black;
-            	}
+                @media (min-width: @screen-md-min) {
+                    background: @grey--9;
+                }
+                @media (max-width: @screen-sm) {
+                    background: @black;
+                }
             }
         }
     }
