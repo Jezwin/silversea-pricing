@@ -4,7 +4,7 @@
 
 
 .c-steveandsilversea__gallery .slick-track {
-    background: black !important;
+    background: @black !important;
 }
 
 .c-steveandsilversea {
@@ -14,8 +14,8 @@
         margin-left: 0px !important;
         margin-right: 0px !important;
     }
-    background-color: #273333;
-    color: white;
+    background-color: @black--18;
+    color: @white;
     @media screen and (min-width: @screen-sm-min) {
         padding: 10px;
     }
@@ -50,7 +50,7 @@
         margin-top: 20px;
         padding-top: 12px;
         padding-right: 14px;
-        @media (max-width: 768px) {
+        @media (max-width: @screen-md-min) {
             padding-right: 0px;
             padding-top: 0px;
 
@@ -99,7 +99,7 @@
             font-size: 27px;
             line-height: 1.1;
             font-weight: normal;
-            font-family: 'Theano Didot Regular', serif;
+            font-family: @f-theano_didot;
             text-transform: uppercase;
             padding-right: 50px;
 
@@ -117,7 +117,7 @@
                 height: 1px;
                 display: block;
                 margin: 15px auto;
-                background-color: gold;
+                background-color: @gold;
                 margin-left: 0px;
                 @media screen and (max-width: @screen-sm) {
                     margin-left: 39%;
@@ -130,7 +130,7 @@
             margin: 0 0 18px;
             font-size: 14px;
             line-height: 18px;
-            font-family: 'Open Sans', arial, helvetica, sans-serif;
+            font-family: @f-open_sans;
             padding-right: 46px;
             @media screen and (max-width: @screen-sm) {
                 text-align: center;
@@ -145,7 +145,7 @@
             font-size: 14px;
             line-height: 1.5;
             text-decoration: underline;
-            font-family: arial, helvetica, sans-serif;
+            font-family: @f-sans_serif;
 
             @media screen and (max-width: @screen-sm) {
                 text-align: center;
@@ -157,7 +157,7 @@
             font-size: 12px;
             left: 6%;
             top: 90%;
-            font-family: 'Open Sans', arial, helvetica, sans-serif;
+            font-family: @f-open_sans;
         }
 
         &__tag {
@@ -165,7 +165,7 @@
             font-size: 12px;
             left: 6%;
             top: 92%;
-            font-family: 'Open Sans', arial, helvetica, sans-serif;
+            font-family:@f-open_sans;
         }
 
         &__nowatermark {
@@ -229,19 +229,19 @@
 }
 
 
-@media (min-width: 991px) {
+@media (min-width: @screen-md-max) {
     .row.c-steveandsilversea {
         padding-bottom: 24px;
     }
 }
 
-@media(max-width: 990px) and (min-width: 768px) {
+@media(max-width: 990px) and (min-width: @screen-md-min) {
     .row.c-steveandsilversea {
         padding-bottom: 40px;
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: @screen-sm) {
     .row.c-steveandsilversea {
         padding-bottom: 30px;
     }
