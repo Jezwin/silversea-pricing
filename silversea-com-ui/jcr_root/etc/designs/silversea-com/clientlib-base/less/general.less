@@ -355,7 +355,7 @@ picture {
     }
 
     &--social {
-        @media (min-width: 768px) {
+        @media (min-width: @screen-md-min) {
             float: right;
         }
         padding: 10px 0 0 0;
@@ -474,7 +474,7 @@ picture {
 }
 
 .header-h6 {
-    font: 700 12px 'Open Sans', arial, helvetica, sans-serif;
+    font: 700 12px @f-open_sans;
     text-transform: uppercase;
     padding-bottom: 5px;
 }
@@ -548,9 +548,9 @@ picture {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: @screen-sm) {
     .h1 {
-        font-family: 'Theano Didot Regular', serif;
+        font-family: @f-theano_didot;
         font-size: 30px;
     }
 }

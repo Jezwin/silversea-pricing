@@ -7,14 +7,14 @@
             .c-cruise__itineraries {
                 .c-cruise-itinerary-list {
                     .c-cruise-itinerary-list__description__button {
-                        @media (max-width: 767px) {
+                        @media (max-width: @screen-sm) {
                             a.c-btn--white {
                                 padding: 8px 5px;
                             }
                         }
                         .c-btn i.fa-angle-right {
                             vertical-align: -11%;
-                            @media (max-width: 767px) {
+                            @media (max-width: @screen-sm) {
                                 margin-left: 2px;
                             }
                         }
@@ -90,13 +90,13 @@
                     margin-bottom: 10px;
                     .slick-slide {
                         min-height: 250px;
-                        @media (max-width: 768px) {
+                        @media (max-width: @screen-md-min) {
                             min-height:150px;
                         }
                     }
                     a.lazy.video-link {
                         min-height: 250px;
-                        @media (max-width: 768px) {
+                        @media (max-width: @screen-md-min) {
                             min-height:150px;
                         }
 
@@ -163,7 +163,7 @@
                     white-space: nowrap;
 
                     .share {
-                        color: #646464;
+                        color: @grey--39;
                         font-size: 18px;
                         display: inline-block;
                         vertical-align: middle;
