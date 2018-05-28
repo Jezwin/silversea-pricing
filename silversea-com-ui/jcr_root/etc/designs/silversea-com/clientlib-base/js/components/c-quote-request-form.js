@@ -38,6 +38,7 @@ $.fn.requestForm = function() {
                 $form.find('[name="country"]').val(userInfo.country);
                 $form.find('[name="bookingnumber"]').val(userInfo.bookingnumber);
                 $form.find('[name="vsnumber"]').val(userInfo.vsnumber);
+                $form.find('[name="state"]').val(userInfo.state);
             }
         });
 

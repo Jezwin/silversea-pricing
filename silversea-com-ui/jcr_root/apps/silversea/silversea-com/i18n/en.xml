@@ -1091,6 +1091,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="starting"
         sling:message="Starting"/>
+    <state
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="state"
+        sling:message="State"/>
     <submit
         jcr:primaryType="sling:MessageEntry"
         sling:key="submit"

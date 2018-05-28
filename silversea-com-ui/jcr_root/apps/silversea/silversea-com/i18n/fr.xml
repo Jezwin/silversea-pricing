@@ -1095,6 +1095,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Silver&#xa;"/>
+    <state
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="state"
+        sling:message="State"/>
     <starting
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
