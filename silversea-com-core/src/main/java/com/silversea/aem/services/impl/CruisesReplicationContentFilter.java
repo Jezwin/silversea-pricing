@@ -4,7 +4,7 @@ import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.replication.ReplicationContentFilter;
 import com.day.cq.wcm.api.NameConstants;
 import com.silversea.aem.constants.WcmConstants;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
+import org.apache.sling.jcr.resource.api.JcrResourceConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
