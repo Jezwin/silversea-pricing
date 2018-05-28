@@ -135,7 +135,7 @@
                 font-size: 10px;
                 text-transform: uppercase;
 
-                &__isWaitList {
+                &_isWaitList {
                     margin-bottom: 12px !important;
                 }
 
@@ -1096,14 +1096,7 @@
                     width: 100%;
                     min-width: 100%;
 
-                    &:before {
-                        content: "";
-                        border-right: 1px solid @white;
-                        bottom: -10px;
-                        position: absolute;
-                        left: 20%;
-                        top: -10px;
-                    }
+
 
                     > * {
                         display: table-cell;
@@ -1111,14 +1104,15 @@
                         vertical-align: top;
                     }
 
+                    .bar-for-code {
+                        color: @grey;
+                        padding-right: 5px;
+                    }
+
                     .cruise-code {
                         font-size: 10px;
 
-                        &:before {
-                            content: "\2758";
-                            color: @grey;
-                            padding-right: 5px;
-                        }
+
 
                     }
                 }
@@ -1173,15 +1167,15 @@
                         display: none;
                     }
 
-                    &__item--duration {
-                        color: @grey--3;
-                        font-size: 13px;
-                    }
-
                     &__item {
                         margin-top: 10px;
                         font-size: 15px;
                         word-spacing: 4px;
+                        
+                        &__duration {
+                        color: @grey--3;
+                        font-size: 13px;
+                    }
                     }
                 }
 
@@ -1225,8 +1219,8 @@
                     }
 
                     .cruise-destination {
-                        font-size: 30px;
-                        font-family: @freight;
+                        font-size: 26px;
+                        font-family: @freight-text;
                     }
 
                     .cruise-ship_2 {

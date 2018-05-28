@@ -22,7 +22,7 @@
                                 </dd>
                             </dl>
                         </li>
-                        <li class="c-fyc-v2__result__content__summary__item c-fyc-v2__result__content__summary__item--duration">
+                        <li class="c-fyc-v2__result__content__summary__item c-fyc-v2__result__content__summary__item__duration">
 
                             <dl>
                                 <dt class="visible-xs">${'duration' @ i18n}</dt>
@@ -61,11 +61,16 @@
                         <li class="meta_feature_inner hidden-xs"><span class="feature" data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}">
 								<i class="icon-star"></i> ${'offer' @ i18n} <span
 								class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
-                            </span> <span class="feature" data-sly-repeat.feature="${cruiseItem.cruiseModel.features}">                           
-								<i class="${feature.icon}"></i> <span class="tooltip"><i></i>${feature.title}</span>
                             </span>
-                            <span class="cruise-code hidden-xs">${cruiseItem.cruiseModel.cruiseCode}</span>
+                            <div style="display:inline" class="feature" data-sly-list="${cruiseItem.cruiseModel.features}">
+                                <i class="${item.icon}"></i>
+                                <span class="tooltip"><i></i>${item.title}</span>
+                            </div>
+                            <span data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="bar-for-code">|</span>
+                            <span class="cruise-code hidden-xs">#${cruiseItem.cruiseModel.cruiseCode}</span>
                         </li>
+
+
                     </ul>
                     <div class="c-fyc-v2__result__content__price">
                         <div class="${cruiseItem.isWaitList ? 'c-fyc-v2__result__content__price__isWaitList' : 'c-fyc-v2__result__content__price__notWaitList'}">
