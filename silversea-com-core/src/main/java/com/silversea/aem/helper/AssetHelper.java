@@ -1,6 +1,5 @@
 package com.silversea.aem.helper;
 
-import com.adobe.cq.dam.dm.delivery.api.ImageDelivery;
 import com.adobe.cq.sightly.WCMUsePojo;
 import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.dam.api.Asset;
@@ -18,7 +17,6 @@ public class AssetHelper extends WCMUsePojo {
 
     static final private Logger LOGGER = LoggerFactory.getLogger(AssetHelper.class);
 
-    private ImageDelivery imageDelivery;
     private PublishUtils publishUtils;
     private RunModesService runModesService;
 
@@ -28,7 +26,6 @@ public class AssetHelper extends WCMUsePojo {
     public void activate() throws Exception {
         assetPath = get("assetPath", String.class);
 
-        imageDelivery = getSlingScriptHelper().getService(ImageDelivery.class);
         publishUtils = getSlingScriptHelper().getService(PublishUtils.class);
         runModesService = getSlingScriptHelper().getService(RunModesService.class);
     }
@@ -81,9 +78,8 @@ public class AssetHelper extends WCMUsePojo {
     	Resource assetResource = getResourceResolver().getResource(assetPath);
 
         if (runModesService.isPublish()
-                && imageDelivery != null
-                && publishUtils != null
-                && imageDelivery.isEnabled()
+                && runModesService.getCurrentRunMode().contains("dynamicmedia")
+                && publishUtils != null                
                 && assetResource != null) {
             try {
                 return publishUtils.externalizeImageDeliveryAsset(assetResource, assetPath);
