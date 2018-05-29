@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-         <div class="col-sm-6-image">
+         <div class="col-sm-6-image image-div">
          	<div class="image">
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
                 	data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
@@ -21,7 +21,7 @@
         </div>
 </div>
 <div class="row c-steveandsilversea c-steveandsilversea-mobile hidden-md hidden-lg" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
-            <div class="col-sm-6 col-sm-6-image-mobile">
+            <div class="col-sm-6 col-sm-6-image-mobile image-div">
                 <div class="image">
                     <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=properties.imagePath}" data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/steveandsilversea/imagetemplate.html" 
                         data-sly-call="${imageTemplate.default @ imagePath=properties.imagePath}"></sly>
@@ -73,7 +73,7 @@
 	$('.c-steveandsilversea .col-sm-6-content').addClass('col-sm-'+contentWidth);
     $('.c-steveandsilversea .col-sm-6-image').addClass('col-sm-'+imageWidth);
     $(function(){
-         $('.c-steveandsilversea .col-sm-6').find(".lazy").lazy(); 
+         $('.c-steveandsilversea .image-div').find(".lazy").lazy(); 
         } );
 </script>
 
