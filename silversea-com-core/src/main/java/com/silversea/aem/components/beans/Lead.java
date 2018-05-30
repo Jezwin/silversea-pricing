@@ -35,6 +35,7 @@ public class Lead {
     private String postalcode;
     private String city;
     private String country;
+    private String state;
     private String brochurecode;
     // Campaign value
     private String marketingEffort;
@@ -76,6 +77,15 @@ public class Lead {
     public void setCountry(String country) {
         this.country = country;
     }
+    
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 
     public String getSuitecategory() {
         return suitecategory;

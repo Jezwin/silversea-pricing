@@ -97,15 +97,18 @@
        
         <script data-sly-test="${cruiseItemList.first}" data-sly-use.dateFull="${'com.silversea.aem.helper.DateHelper' @ format='yyyy-MM-dd', date=cruiseItem.cruiseModel.startDate}">
 	        $( document ).ready(function() {
-	        	var dataLayer = window.dataLayer[0];
-	        	dataLayer.track_destination_id = "${cruiseItem.cruiseModel.destination.destinationId @ context='unsafe'}";
-	            dataLayer.track_destination_name = "${cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
-	            dataLayer.track_voyage_id = "${cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
-	            dataLayer.track_departure_date = "${dateFull.value @ context='unsafe'}";
-	            dataLayer.track_voyage_duration = "${cruiseItem.cruiseModel.Duration @ context='unsafe'}";
-	            dataLayer.track_voyage_type = "${cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
-	            dataLayer.track_shipname = "${cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
-	            dataLayer.track_ship_id = "${cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
+	        	var dataLayerVar = window.dataLayer[0];
+	        	dataLayerVar.track_destination_id = "${cruiseItem.cruiseModel.destinationId @ context='unsafe'}";
+	        	dataLayerVar.track_destination_name = "${cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
+	        	dataLayerVar.track_voyage_id = "${cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
+	        	dataLayerVar.track_departure_date = "${dateFull.value @ context='unsafe'}";
+	        	dataLayerVar.track_voyage_duration = "${cruiseItem.cruiseModel.Duration @ context='unsafe'}";
+	        	dataLayerVar.track_voyage_type = "${cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
+	        	dataLayerVar.track_shipname = "${cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
+	        	dataLayerVar.track_ship_id = "${cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
+	        	dataLayerVar.track_voyage_departure_harbor = "${cruiseItem.cruiseModel.departurePortName @ context='unsafe'}";
+	        	dataLayerVar.track_voyage_arrival_harbor = "${cruiseItem.cruiseModel.arrivalPortName @ context='unsafe'}";
+	        	dataLayerVar.track_revenue = "${cruiseItem.lowestPrice.currency @ context='unsafe'} ${cruiseItem.lowestPriceFormated @ context='unsafe'}";
 	        });
         </script>
     </div>

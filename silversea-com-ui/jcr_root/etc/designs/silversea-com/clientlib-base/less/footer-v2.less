@@ -1,22 +1,21 @@
 .container {
-	.footer-v2 {
-		padding: 0;
-	}
+    .footer-v2 {
+        padding: 0;
+    }
 }
 
 .footer-v2 {
-	max-width: 930px;
-	margin: 30px auto 0;
+    max-width: 930px;
+    margin: 30px auto 0;
 
-	> .container {
-		padding: 0;
-	}
+    > .container {
+        padding: 0;
+    }
 
-	.row {
-		margin-left: 0;
-		margin-right: 0;
-	}
-
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
 
 
     .footer-v2-contact {
@@ -28,32 +27,32 @@
 
         .footer-v2-callbox {
             padding: 20px;
-			position: relative;
+            position: relative;
 
-			&.footer-v2-callbox-desktop {
-				display: block;
-			}
-			&.footer-v2-callbox-mobile {
-				display: none;
-			}
+            &.footer-v2-callbox-desktop {
+                display: block;
+            }
+            &.footer-v2-callbox-mobile {
+                display: none;
+            }
 
-			p {
-				max-width: 98%;
+            p {
+                max-width: 98%;
                 margin: 0;
-				text-align: left;
-				vertical-align: middle;
+                text-align: left;
+                vertical-align: middle;
                 font-size: 14px;
-				display: inline-block;
+                display: inline-block;
                 position: relative;
 
                 i {
                     width: 35px;
                     height: 35px;
                     line-height: 31px;
-					margin: -17px 0 0;
+                    margin: -17px 0 0;
                     text-align: center;
                     font-size: 18px;
-                    border: 2px solid black;
+                    border: 2px solid @black;
                     border-radius: 50%;
                     display: inline-block;
                     position: absolute;
@@ -61,46 +60,42 @@
                     left: 0;
                 }
 
-				span {
-					&.desktop {
-						display: inline-block;
-					}
-					&.mobile {
-						display: none;
-					}
-				}
+                span {
+                    &.desktop {
+                        display: inline-block;
+                    }
+                    &.mobile {
+                        display: none;
+                    }
+                }
 
-				strong {
-					font-size: 18px;
-				}
+                strong {
+                    font-size: 18px;
+                }
             }
 
-			.col {
-				height: 40px;
+            .col {
+                height: 40px;
 
-				&:before {
-			        content: '';
-			        height: 100%;
-			        vertical-align: middle;
-			        display: inline-block;
-			    }
+                &:before {
+                    content: '';
+                    height: 100%;
+                    vertical-align: middle;
+                    display: inline-block;
+                }
 
-				&.col-left {
-					text-align: right;
+                &.col-left {
+                    text-align: right;
 
-					p {
-						padding: 0 0 0 45px;
-					}
-				}
+                    p {
+                        padding: 0 0 0 45px;
+                    }
+                }
 
-				&.col-right {
-					text-align: left;
-				}
-
-
-			}
+                &.col-right {
+                    text-align: left;
+                }
+            }
         }
-
-
     }
 }

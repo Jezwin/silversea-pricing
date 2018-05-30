@@ -76,11 +76,11 @@
                 }
 
                 &[data-state='active'] {
-                    background: transparent;
+                    background: @transparent;
                     border: 2px solid @black;
 
                     a {
-                        background-color: transparent;
+                        background-color: @transparent;
                         color: @black;
                         height: auto;
                         line-height: inherit;
@@ -116,7 +116,7 @@
                 padding: 0;
                 padding-top: 52px;
                 position: absolute;
-                z-index:10;
+                z-index: 10;
             }
 
             .c-tab__body {
@@ -158,7 +158,7 @@
                 }
 
                 a {
-                    background-color: white;
+                    background-color: @white;
                     padding: 0;
                     display: block;
                     height: 50px;
@@ -189,7 +189,9 @@
                             content: "\f106";
                         }
 
-                        a:hover, a:focus, a:active {
+                        a:hover,
+                        a:focus,
+                        a:active {
                             background-color: @white;
                         }
                     }
@@ -240,123 +242,122 @@
 }
 
 .c-tab-ship {
-	.c-tab__link{
-		text-transform:uppercase !important;
-		padding-top:0px !important;
-		//border-top: 5px solid white;
-		a {
-			height: 80px !important;
-    		line-height: 32px !important;
-    		padding-top:11px;
-    		border-right: solid 1px #ccc !important;
-    		border-top: solid 1px #ccc !important;
-    		font-weight: 700;
-		}
-		&[data-state='active']{
-			    border-top: 5px solid black !important;
-			    
-			    a{
-			    	border-top:none !important;
-			    	height:75px!important;
-			    }
-		}
-	}
-	@media screen and (max-width: @screen-sm) {
-		.c-tab__nav--fixed {
-	        table-layout: fixed;
-		    margin-left: -15px;
-   			width: calc(~"100% + 30px");
-	        .c-tab__link {
-	            border-left: 0;
-	            display: table-cell;
+    .c-tab__link {
+        text-transform: uppercase !important;
+        padding-top: 0px !important;
+        a {
+            height: 80px !important;
+            line-height: 32px !important;
+            padding-top: 11px;
+            border-right: solid 1px @grey--c !important;
+            border-top: solid 1px @grey--c !important;
+            font-weight: 700;
+        }
+        &[data-state='active'] {
+            border-top: 5px solid @black !important;
 
-				img{
-					opacity:0.9;
-				}
-	            &:last-child {
-	                a {
-	                    border-right: 0;
-	                }
-	            }
-	
-	            span {
-	                display: inline-block;
-	                line-height: 14px;
-	                vertical-align: middle;
-	                width: 90%;
-	            }
-	
-	            &[data-state='active'] {
-	                a {
-	                    margin-left: -1px;
-	                    position: relative;
-	
-	                    &:before {
-	                        border-left: 1px solid @grey--9;
-	                        bottom: 0;
-	                        content: ' ';
-	                        left: 0;
-	                        position: absolute;
-	                        top: -2px;
-	                    }
-	                }
-	            }
-	        }
-	    }
+            a {
+                border-top: none !important;
+                height: 75px!important;
+            }
+        }
+    }
+    @media screen and (max-width: @screen-sm) {
+        .c-tab__nav--fixed {
+            table-layout: fixed;
+            margin-left: -15px;
+            width: calc(~"100% + 30px");
+            .c-tab__link {
+                border-left: 0;
+                display: table-cell;
+
+                img {
+                    opacity: 0.9;
+                }
+                &:last-child {
+                    a {
+                        border-right: 0;
+                    }
+                }
+
+                span {
+                    display: inline-block;
+                    line-height: 14px;
+                    vertical-align: middle;
+                    width: 90%;
+                }
+
+                &[data-state='active'] {
+                    a {
+                        margin-left: -1px;
+                        position: relative;
+
+                        &:before {
+                            border-left: 1px solid @grey--9;
+                            bottom: 0;
+                            content: ' ';
+                            left: 0;
+                            position: absolute;
+                            top: -2px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 .combocruise {
-	#overview.c-tab__content--overview {
-		.c-gallery--cc {
-			.c-gallery__label {
-				font-size: 15px;
-				
-				@media (max-width: 767px) {
-					font-size: 11px;
-				}
-			}
-		}
-	}
+    #overview.c-tab__content--overview {
+        .c-gallery--cc {
+            .c-gallery__label {
+                font-size: 15px;
+
+                @media (max-width: @screen-sm) {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: @screen-sm) {
     html.es {
-    	.c-tab-ship .c-tab__nav--fixed .c-tab__link a { 
-        	font-size: 11px;
-        	padding-left:0px;
-        	padding-right:0px;
-    	}
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 11px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
     }
-    
+
     html.de {
-    	.c-tab-ship .c-tab__nav--fixed .c-tab__link a { 
-        	font-size: 11px;
-        	padding-left:0px;
-        	padding-right:0px;
-    	}
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 11px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
     }
 }
 
 @media screen and (max-width: 400px) {
     html.es {
-    	.c-tab-ship .c-tab__nav--fixed .c-tab__link a { 
-        	font-size: 9px;
-        	padding-left:0px;
-        	padding-right:0px;
-    	}
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 9px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
     }
-    
+
     html.de {
-    	.c-tab-ship .c-tab__nav--fixed .c-tab__link a { 
-        	font-size: 10px;
-        	padding-left:0px;
-        	padding-right:0px;
-    	}
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 10px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: @screen-md-min) {
     .combocruise {
         #route {
 
@@ -380,12 +381,11 @@
             }
         }
         #benefitsnevents {
-        	.cc-tab_header_title, .cc-tab_header_desc_txt {
-        		text-align: center;
-        	}
+            .cc-tab_header_title,
+            .cc-tab_header_desc_txt {
+                text-align: center;
+            }
         }
 
     }
 }
-
-

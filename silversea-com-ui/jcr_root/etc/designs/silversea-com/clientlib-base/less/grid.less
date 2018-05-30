@@ -18,21 +18,25 @@
 @import (once) "/etc/clientlibs/wcm/foundation/grid/grid_base.less";
 
 /* maximum amount of grid cells to be provided */
+
 @max_col: 12;
 
 /* example configuration */
 
 /* default breakpoint */
+
 .aem-Grid {
     .generate-grid(default, @max_col);
 }
 
 /* add gutter in the grid */
+
 .aem-GridColumn {
     padding: 0 5px;
 }
 
 /* smaller screen (phone) breakpoint */
+
 @media (max-width: 767px) {
     .aem-Grid {
         .generate-grid(phone, @max_col);
@@ -40,6 +44,7 @@
 }
 
 /* tablet breakpoint */
+
 @media (min-width: 768px) and (max-width: 991px) {
     .aem-Grid {
         .generate-grid(tablet, @max_col);

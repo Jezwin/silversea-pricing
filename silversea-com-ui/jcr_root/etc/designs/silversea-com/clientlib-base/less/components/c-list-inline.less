@@ -1,11 +1,11 @@
 .c-list-inline {
     font-size: 12px;
-    
+
     .c-list-inline__followus {
-       text-transform: uppercase;
-       font-weight: 700;
-       margin-bottom:8px;
-   }
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
 
     p {
         margin: 0;
@@ -60,7 +60,6 @@
 
         &--divider-dark-tablet {
             .c-list-inline__item {
-                position: relative;
                 position: relative;
                 padding-right: 10px;
                 margin-right: 5px;
@@ -146,21 +145,21 @@
             line-height: 20px;
             vertical-align: middle;
 
-            @media (max-width:767px) {
-        		display: inline-block;
-        		padding-left: 15px;
-        		padding-right: 15px;
-        		
-        	}
-        	
+            @media (max-width: @screen-sm) {
+                display: inline-block;
+                padding-left: 15px;
+                padding-right: 15px;
+
+            }
+
             .fa {
                 font-size: 20px;
             }
 
-           &.c-list-inline__title {
-               text-transform: uppercase;
-               font-weight: 700;
-           }
+            &.c-list-inline__title {
+                text-transform: uppercase;
+                font-weight: 700;
+            }
         }
     }
 }

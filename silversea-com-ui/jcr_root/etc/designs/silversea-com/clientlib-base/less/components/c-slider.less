@@ -1,14 +1,16 @@
-.c-slider, .port_v2__postcarousel, .c-mozaic-nine .c-mozaic__slider{
+.c-slider,
+.port_v2__postcarousel,
+.c-mozaic-nine .c-mozaic__slider {
     margin-bottom: 20px;
     visibility: hidden;
 
-    &.slick-initialized{
+    &.slick-initialized {
         visibility: visible !important;
     }
     &.hideDot {
-    	.slick-dots {
-    		display:none !important;
-    	}
+        .slick-dots {
+            display: none !important;
+        }
     }
 
     .parbase {
@@ -20,7 +22,8 @@
     }
 
     .slick-slide {
-        &, a:focus {
+        &,
+        a:focus {
             outline: 0;
         }
 
@@ -29,19 +32,21 @@
         }
     }
 
-    &:not(.c-slider--full-width) .slick-slide > *{
+    &:not(.c-slider--full-width) .slick-slide > * {
         margin: 0 5px;
-        @media (max-width: 767px) {
-        	 margin: 0 10px;
+        @media (max-width: @screen-sm) {
+            margin: 0 10px;
         }
     }
 
-    .slick-prev, .slick-next {
+    .slick-prev,
+    .slick-next {
         height: 100%;
         width: 80px;
         z-index: 1;
 
-        &:before, &:after {
+        &:before,
+        &:after {
             content: " ";
             display: block;
             height: 40px;
@@ -64,7 +69,8 @@
     }
 
     .slick-prev {
-        &:before, &:after {
+        &:before,
+        &:after {
             left: 60%;
             -webkit-transform: translate(-50%, -50%) rotateZ(135deg);
             -ms-transform: translate(-50%, -50%) rotateZ(135deg);
@@ -73,7 +79,8 @@
     }
 
     .slick-next {
-        &:before, &:after {
+        &:before,
+        &:after {
             left: 40%;
             -webkit-transform: translate(-50%, -50%) rotateZ(-45deg);
             -ms-transform: translate(-50%, -50%) rotateZ(-45deg);
@@ -89,7 +96,8 @@
         width: auto;
     }
 
-    &--nav, &--for {
+    &--nav,
+    &--for {
         .lazy {
             &:after {
                 background-image: url('./../../images/loader.svg');
@@ -114,23 +122,27 @@
             border: 1px solid @white;
         }
 
-        .slick-prev, .slick-next {
+        .slick-prev,
+        .slick-next {
             width: 30px;
 
-            &:before, &:after {
+            &:before,
+            &:after {
                 height: 30px;
                 width: 30px;
             }
         }
 
         .slick-prev {
-            &:before, &:after {
+            &:before,
+            &:after {
                 left: 80%;
             }
         }
 
         .slick-next {
-            &:before, &:after {
+            &:before,
+            &:after {
                 right: -20%;
                 left: auto;
             }
@@ -162,23 +174,25 @@
         }
 
         .video-link .fa-play {
-            -webkit-transform: translate(-45%,-50%) scale(0.5);
-            -ms-transform: translate(-45%,-50%) scale(0.5);
-            transform: translate(-45%,-50%) scale(0.5);
+            -webkit-transform: translate(-45%, -50%) scale(0.5);
+            -ms-transform: translate(-45%, -50%) scale(0.5);
+            transform: translate(-45%, -50%) scale(0.5);
 
             @media screen and (min-width: @screen-lg-min) {
-                -webkit-transform: translate(-45%,-50%) scale(0.8);
-                -ms-transform: translate(-45%,-50%) scale(0.8);
-                transform: translate(-45%,-50%) scale(0.8);
+                -webkit-transform: translate(-45%, -50%) scale(0.8);
+                -ms-transform: translate(-45%, -50%) scale(0.8);
+                transform: translate(-45%, -50%) scale(0.8);
             }
         }
     }
 
     &--for {
-        .slick-prev, .slick-next {
+        .slick-prev,
+        .slick-next {
             height: 100px;
 
-            &:before, &:after {
+            &:before,
+            &:after {
                 height: 54px;
                 width: 54px;
             }
@@ -246,7 +260,8 @@
 
         }
 
-        .slick-prev, .slick-next {
+        .slick-prev,
+        .slick-next {
             background-color: @black;
             border: 0;
             border-radius: 4px;
@@ -259,7 +274,8 @@
             transform: translate(0px, -50%);
             width: 40px;
 
-            &:before, &:after {
+            &:before,
+            &:after {
                 display: none;
             }
         }
@@ -283,7 +299,8 @@
         margin-left: 56px;
         margin-right: 56px;
 
-        .slick-next, .slick-prev {
+        .slick-next,
+        .slick-prev {
             background-color: @grey--5;
             margin: 0;
         }
@@ -298,7 +315,8 @@
     }
 
     &--style2:not(.c-slider--arrowoutside) {
-        .slick-next, .slick-prev {
+        .slick-next,
+        .slick-prev {
             opacity: .6;
 
             &:hover {
@@ -310,7 +328,8 @@
     &--style3 {
         margin-bottom: 40px;
 
-        .slick-prev, .slick-next {
+        .slick-prev,
+        .slick-next {
             border: 0;
             bottom: -40px;
             color: @black;
@@ -322,7 +341,8 @@
             transform: none;
             width: 40px;
 
-            &:before, &:after {
+            &:before,
+            &:after {
                 display: none;
             }
         }
@@ -348,6 +368,7 @@
 }
 
 /* POI Slider for ComboCruise */
+
 .segment-section {
     .c-slider.slick-dotted {
         margin-bottom: 5px;
@@ -387,13 +408,15 @@
     }
 }
 
-.c-slider  {
-	 .c-annoucement, .c-vertical-teaser, .c-custom-teaser {
-    	margin-bottom: 5px !important;
-	}	
+.c-slider {
+    .c-annoucement,
+    .c-vertical-teaser,
+    .c-custom-teaser {
+        margin-bottom: 5px !important;
+    }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: @screen-md-min) {
 
     .slider .c-slider--style1:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev,
     .port_v2__postcarousel--style1 .slick-prev,
@@ -422,7 +445,7 @@
     .c-mozaic-nine .c-mozaic__slider .slick-next:after {
         height: 20px;
         width: 20px;
-        opacity:0.5;
+        opacity: 0.5;
     }
 
 
@@ -436,45 +459,46 @@
         border-width: 0 3px 3px 0;
         border-color: #333 !important;
     }
-    
-    
+
+
     .c-tabbedmozaic {
-    	.c-tabbedmozaic__description {
-    		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-        	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-        	margin-bottom: 2px !important;
-    	}
+        .c-tabbedmozaic__description {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            margin-bottom: 2px !important;
+        }
     }
 
-    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-slide>*, .port_v2__postcarousel:not(.c-slider--full-width) .slick-slide>*, .c-mozaic-nine .c-mozaic__slider:not(.c-slider--full-width) .slick-slide>* {
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-slide > *,
+    .port_v2__postcarousel:not(.c-slider--full-width) .slick-slide > *,
+    .c-mozaic-nine .c-mozaic__slider:not(.c-slider--full-width) .slick-slide > * {
         margin: 0 10px;
     }
-    
-    .c-slider  {
-	 	.c-signature-teaser {
-    		margin-bottom: 5px !important;
-		}	
-	}
-    
-    
+
+    .c-slider {
+        .c-signature-teaser {
+            margin-bottom: 5px !important;
+        }
+    }
+
+
     .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev:before,
-	.port_v2__postcarousel .slick-prev:before,
-	.c-mozaic-nine .c-mozaic__slider .slick-prev:before,
-	.slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:before,
-	.port_v2__postcarousel .slick-next:before,
-	.c-mozaic-nine .c-mozaic__slider .slick-next:before {
-	    border: none;
-	}
-	.parbase:not(.exclusiveOfferList) .slider:not(.c-slider--full-width):not(.inside-hero-banner) .c-slider-black-arrow {
+    .port_v2__postcarousel .slick-prev:before,
+    .c-mozaic-nine .c-mozaic__slider .slick-prev:before,
+    .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:before,
+    .port_v2__postcarousel .slick-next:before,
+    .c-mozaic-nine .c-mozaic__slider .slick-next:before {
+        border: none;
+    }
+    .parbase:not(.exclusiveOfferList) .slider:not(.c-slider--full-width):not(.inside-hero-banner) .c-slider-black-arrow {
         top: 50%;
     }
-    
+
     .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next {
-    	right: -57px;
+        right: -57px;
     }
-    
+
     .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev {
-    	left: -57px;
+        left: -57px;
     }
 }
-

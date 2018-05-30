@@ -1,9 +1,11 @@
 package com.silversea.aem.components.editorial;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -25,6 +27,7 @@ import com.day.cq.search.result.SearchResult;
 import com.day.cq.wcm.api.Page;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.Button;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.UrlHelper;
 import com.silversea.aem.utils.AssetUtils;
 
@@ -44,19 +47,38 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 	private String title;
 	private String description;
 	private String background;
+	private String desktopBackgoundPosition;
+	private String mobileBackgoundPosition;
+	private String linkBtn1;
+	private String linkBtn2;
 	
 	private String inlineGalleryID;
 
 	@Override
 	public void activate() throws Exception {
+		
 		super.activate();
-		this.title = getProperties().get("text", String.class);
-		this.description = getProperties().get("jcr:description", String.class);
-		this.background = getProperties().get("assetReference", String.class);
 		Boolean enableInlineGallery = getProperties().get("enableInlineGallery", Boolean.class);
 		
 		if(geomarket != null) {
+			getAdvanceGeolocation();
 			getValueByMarket(geomarket.toUpperCase());
+		}
+		
+		if (StringUtils.isEmpty(this.title)) {
+			this.title = getProperties().get("text", String.class);
+		}
+		if (StringUtils.isEmpty(this.description)) {
+			this.description = getProperties().get("jcr:description", String.class);
+		}
+		if (StringUtils.isEmpty(this.background)) {
+			this.background = getProperties().get("assetReference", String.class);
+		}
+		if (StringUtils.isEmpty(this.desktopBackgoundPosition)) {
+			this.desktopBackgoundPosition = getProperties().get("desktopBackgoundPosition", String.class);
+		}
+		if (StringUtils.isEmpty(this.mobileBackgoundPosition)) {
+			this.mobileBackgoundPosition = getProperties().get("mobileBackgoundPosition", String.class);
 		}
 		
 		Resource resourceAsset = getResourceResolver().getResource(this.background);
@@ -102,17 +124,48 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 		
 	}
 	
+	private void getAdvanceGeolocation() {
+		if (getResource().hasChildren() && getResource().getChild("listText") != null && getResource().getChildren() != null ) {
+			Iterator<Resource> geoChildren = getResource().getChild("listText").getChildren().iterator();
+			Resource res = null;
+			Node node= null;
+			while (geoChildren.hasNext()) {
+				res = geoChildren.next();
+				node= res.adaptTo(Node.class);
+				try {
+					if (node.hasProperty("geoTag") && node.getProperty("geoTag") != null) {
+						String[] geoTag = node.getProperty("geoTag") != null ? node.getProperty("geoTag").getString().split(WcmConstants.GEOLOCATION_TAGS_PREFIX) : null;
+						if (geoTag != null && geoTag.length > 0) {
+							if(super.isBestMatch(geoTag[1])) {
+								this.title = node.hasProperty("titleGeo")  ? node.getProperty("titleGeo").getString() : null;
+								this.description = node.hasProperty("descriptionGeo") ? node.getProperty("descriptionGeo").getString() : null;
+								this.background = node.hasProperty("backgroundGeo")  ? node.getProperty("backgroundGeo").getString() : null;
+								this.desktopBackgoundPosition = node.hasProperty("desktopBackgoundPositionGeo")  ? node.getProperty("desktopBackgoundPositionGeo").getString() : null;
+								this.mobileBackgoundPosition = node.hasProperty("mobileBackgoundPositionGeo")  ? node.getProperty("mobileBackgoundPositionGeo").getString() : null;
+								this.linkBtn1 = node.hasProperty("button1LinkGeo")  ? node.getProperty("button1LinkGeo").getString() : null;
+								this.linkBtn2 = node.hasProperty("button2LinkGeo")  ? node.getProperty("button2LinkGeo").getString() : null;
+								break;
+							}
+						}
+					}	
+				} catch (Exception e) {
+					LOGGER.error("Error to get geoTag {}", e.getMessage());
+				}
+			}
+		}
+	}
+
 	private void getValueByMarket(String market) {
 		String value = getProperties().get("title" + market, String.class);
-		if(StringUtils.isNotEmpty(value)) {
+		if(StringUtils.isEmpty(this.title) && StringUtils.isNotEmpty(value)) {
 			this.title = value;
 		}
 		value = getProperties().get("description" + market, String.class);
-		if(StringUtils.isNotEmpty(value)) {
+		if(StringUtils.isEmpty(this.description) && StringUtils.isNotEmpty(value)) {
 			this.description = value;
 		}
 		value = getProperties().get("background" + market, String.class);
-		if(StringUtils.isNotEmpty(value)) {
+		if(StringUtils.isEmpty(this.background) &&  StringUtils.isNotEmpty(value)) {
 			this.background = value;
 		}
 	}
@@ -205,6 +258,12 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 				if(StringUtils.isNotEmpty(value)) {
 					link = value;
 				}
+				
+				if (path.equalsIgnoreCase("button1") && StringUtils.isNotEmpty(this.linkBtn1)) {
+					link = this.linkBtn1;
+				} else if (path.equalsIgnoreCase("button2") && StringUtils.isNotEmpty(this.linkBtn2)) {
+					link = this.linkBtn2;
+				}
 			}
 			
 			Button btn = new Button(properties.get("titleDesktop", String.class), properties.get("titleTablet", String.class),
@@ -261,6 +320,14 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 
 	public String getBackground() {
 		return background;
+	}
+
+	public String getDesktopBackgoundPosition() {
+		return desktopBackgoundPosition;
+	}
+
+	public String getMobileBackgoundPosition() {
+		return mobileBackgoundPosition;
 	}
 
 }

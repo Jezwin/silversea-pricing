@@ -123,6 +123,7 @@ public class LeadServiceImpl implements LeadService {
         request.setZip(lead.getPostalcode());
         request.setCity(lead.getCity());
         request.setCountry(lead.getCountry());
+        request.setState(lead.getState());
         request.setBrochuresRequested(lead.getBrochurecode());
         if (lead.getRequestsource() != null && (lead.getRequestsource().equals("BRO") || lead.getRequestsource().equals("EBRO"))) {
             if (lead.getIsnotagent() != null && lead.getIsnotagent().equals("true")) {

@@ -1,13 +1,13 @@
 .cruise__header {
     margin-bottom: 25px;
 
-	@media (max-width: 767px) {
-    	.btn-dark:hover {
-    		color: #fff;
-    		background-color: #000 !important;
-    	}
+    @media (max-width: @screen-sm) {
+        .btn-dark:hover {
+            color: #fff;
+            background-color: #000 !important;
+        }
     }
-    
+
     .cruise__header__title {
         text-align: center;
         color: @black;
@@ -17,17 +17,17 @@
         text-transform: uppercase;
         line-height: 1;
 
-        
-         @media screen and (max-width: 767px) {
+
+        @media screen and (max-width: @screen-sm) {
             font-size: 30px;
         }
-        
+
         &__to {
-        	text-transform: lowercase;
+            text-transform: lowercase;
         }
 
     }
-    
+
     .cruise_header__subtitle {
         display: block;
         font-size: 16px;
@@ -51,13 +51,13 @@
                 background-color: @red-expedition;
             }
         }
-        
-        &_ship{
-        	font: italic 16px 'Playfair Display',serif;
-        	display: block;
-		    font-size: 19px;
-		    margin-top: 3px;
-		    text-transform: none;
+
+        &_ship {
+            font: italic 16px @f-playfair-display;
+            display: block;
+            font-size: 19px;
+            margin-top: 3px;
+            text-transform: none;
         }
     }
 
@@ -98,8 +98,8 @@
                     top: 1px;
                 }
             }
-            
-          
+
+
 
             @media screen and (max-width: @screen-sm) {
                 display: block;

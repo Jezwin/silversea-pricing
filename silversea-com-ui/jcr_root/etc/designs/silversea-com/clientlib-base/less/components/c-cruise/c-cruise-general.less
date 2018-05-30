@@ -15,7 +15,7 @@
         padding: 18px 0 5px;
         margin: 10px auto;
         line-height: 1.0909090909;
-		
+
         @media screen and (max-width: @screen-sm) {
             padding: 10px 0;
             font-size: 25px;
@@ -32,7 +32,7 @@
 
         & a {
             text-decoration: underline;
-            
+
             &:hover {
                 text-decoration: none;
             }
@@ -45,37 +45,39 @@
         }
 
         ul[data-toggle="dropdown"] {
-            a.c-gallery--cc__tab__link, .c-tab__link a {
+            a.c-gallery--cc__tab__link,
+            .c-tab__link a {
                 font-size: 12px;
                 text-transform: uppercase;
             }
         }
     }
-    
-    .c-suitelist .ab-test-v2-show  {
-    	@media (max-width: 767px){
-    		margin-top:45px;
-    	}
+
+    .c-suitelist .ab-test-v2-show {
+        @media (max-width: @screen-sm) {
+            margin-top:45px;
+        }
     }
-    
-    @media (max-width: 767px) {
-	   .voyageshare_wrap {
-    		display: none !important;
-    	}
+
+    @media (max-width: @screen-sm) {
+        .voyageshare_wrap {
+            display: none !important;
+        }
     }
-    
+
     .c-cruise .c-tab__content--overview .voyagefeature {
-    	@media (max-width: 767px) {
-    		margin-bottom: 18px;
-    	}
+        @media (max-width: @screen-sm) {
+            margin-bottom: 18px;
+        }
     }
-    
-    #landnhotel p.c-cruise__descr, #excursion p.c-cruise__descr{
-    	@media (max-width: 767px) {
-    		text-align: justify;
-    	}
+
+    #landnhotel p.c-cruise__descr,
+    #excursion p.c-cruise__descr {
+        @media (max-width: @screen-sm) {
+            text-align: justify;
+        }
     }
-    
+
 }
 
 // align text on left in one tab
@@ -83,13 +85,13 @@
     text-align: left;
 }
 
-	#suitenfare-b-version {
-		margin-top: 50px;
-		
-		@media (max-width: 767px) {
-			margin-top: 28px;		
-		}		
-	}
+#suitenfare-b-version {
+    margin-top: 50px;
+
+    @media (max-width: @screen-sm) {
+        margin-top: 28px;
+    }
+}
 
 // ICONS FEATURES
 .meta_feature {
@@ -124,7 +126,7 @@
                 left: -20px;
                 background: @white;
                 border-radius: 4px;
-                border:1px solid @black;
+                border: 1px solid @black;
                 text-align: center;
                 padding: 5px 20px;
                 width: 160px;
@@ -146,7 +148,8 @@
                     }
                 }
 
-                &:after, &:before {
+                &:after,
+                &:before {
                     top: 100%;
                     left: 24px;
                     border: solid transparent;
@@ -178,32 +181,32 @@
     float: right;
     font-size: 13px;
     margin-left: 5px;
-    
-    &_mobile{
-    	float:none;
-    	font-size:12px;
-    	color: #999999;
-    	margin-top: -25px;
-    	margin-bottom: 25px;
-    	margin-left:0px;
-   		 font-style: italic;
+
+    &_mobile {
+        float: none;
+        font-size: 12px;
+        color: @grey--60;
+        margin-top: -25px;
+        margin-bottom: 25px;
+        margin-left: 0px;
+        font-style: italic;
     }
 
     & > span {
-       &:after {
-           content: '|';
-           position: relative;
-           top: -1px;
-           display: inline-block;
-           margin: 0 2px 0 6px;
-           font-size: 11px;
-       }
+        &:after {
+            content: '|';
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            margin: 0 2px 0 6px;
+            font-size: 11px;
+        }
 
-       &:last-child {
-           &:after {
-               display: none;
-           }
-       }
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }
     }
 
     ul {
@@ -298,8 +301,8 @@
             opacity: 1;
         }
     }
- 	.ab-test-v2-show {
-    	display:none !important;
+    .ab-test-v2-show {
+        display: none !important;
     }
-    
+
 }
