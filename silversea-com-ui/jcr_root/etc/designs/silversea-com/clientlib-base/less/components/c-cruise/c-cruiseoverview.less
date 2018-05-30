@@ -1,27 +1,27 @@
 .c-cruise {
     .c-tab__content {
         &--overview {
-        		.slick-slide>* {
-				    margin: 0px !important;
-				}
-				.c-cruise__itineraries {
-					.c-cruise-itinerary-list {
-						.c-cruise-itinerary-list__description__button {
-							@media (max-width: 767px) {
-								a.c-btn--white {
-									padding: 8px 5px;	
-								}
-							}
-							.c-btn i.fa-angle-right{
-								vertical-align: -11%;
-								@media (max-width: 767px) {
-									margin-left: 2px;
-								}
-							}
-						}
-					}
-				}
-	            .voyage {
+            .slick-slide > * {
+                margin: 0px !important;
+            }
+            .c-cruise__itineraries {
+                .c-cruise-itinerary-list {
+                    .c-cruise-itinerary-list__description__button {
+                        @media (max-width: @screen-sm) {
+                            a.c-btn--white {
+                                padding: 8px 5px;
+                            }
+                        }
+                        .c-btn i.fa-angle-right {
+                            vertical-align: -11%;
+                            @media (max-width: @screen-sm) {
+                                margin-left: 2px;
+                            }
+                        }
+                    }
+                }
+            }
+            .voyage {
                 &table {
                     color: @grey--3;
                     display: table;
@@ -88,29 +88,29 @@
 
                 &img {
                     margin-bottom: 10px;
-					.slick-slide {
-		   				min-height:250px;
-						@media  (max-width: 768px ) {
-		   					min-height:150px;
-		   				}
-					}
-					a.lazy.video-link {
-					    min-height: 250px;
-					    @media  (max-width: 768px ) {
-		   					min-height:150px;
-		   				}
-		   				
-		   				picture {
-		   					height: 100%;
-		   					img {
-		   						height: 100%;
-		   					}
-		   				}
-					}
+                    .slick-slide {
+                        min-height: 250px;
+                        @media (max-width: @screen-md-min) {
+                            min-height:150px;
+                        }
+                    }
+                    a.lazy.video-link {
+                        min-height: 250px;
+                        @media (max-width: @screen-md-min) {
+                            min-height:150px;
+                        }
+
+                        picture {
+                            height: 100%;
+                            img {
+                                height: 100%;
+                            }
+                        }
+                    }
                     picture {
-                    	padding: 0px 1px 0px 1px;
-                    	img {
-                        	border: solid 1px @blue;
+                        padding: 0px 1px 0px 1px;
+                        img {
+                            border: solid 1px @blue;
                         }
                     }
 
@@ -132,9 +132,9 @@
                         font-style: italic;
                         margin-top: 10px;
                     }
-                    
-                     .slick-slide {
-                    	position: relative;
+
+                    .slick-slide {
+                        position: relative;
                     }
                 }
 
@@ -150,19 +150,20 @@
 
                     &__offer {
 
-                        p, a {
+                        p,
+                        a {
                             float: left;
                         }
                     }
                 }
 
-                &share_wrap{
+                &share_wrap {
                     display: inline-block;
                     float: left;
                     white-space: nowrap;
 
-                    .share{
-                    	color: #646464;
+                    .share {
+                        color: @grey--39;
                         font-size: 18px;
                         display: inline-block;
                         vertical-align: middle;
@@ -191,7 +192,8 @@
         }
 
         .c-tab__content--overview .voyagetable__elem {
-            .lead, .price-suffixe {
+            .lead,
+            .price-suffixe {
                 color: @red-expedition;
             }
         }

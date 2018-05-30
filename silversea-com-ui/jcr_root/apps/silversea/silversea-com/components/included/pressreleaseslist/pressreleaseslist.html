@@ -11,7 +11,7 @@
                 <h4 class="c-pressreleaseslist__date" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='MMMMM dd, yyyy', date=pressRelease.publicationDate}">
                     <strong>${'date' @ i18n}:</strong> ${date.value}
                 </h4>
-                <h3 class="c-pressreleaseslist__title hidden-xs">${pressRelease.title}</h3>
+                <h3 class="c-pressreleaseslist__title">${pressRelease.title}</h3>
                 <a class="c-pressreleaseslist__link" href="${pressRelease.path @ extension='html'}"><span>${'more' @ i18n}</span><i class="fa fa-angle-right"></i></a>
             </div>
             <a href="${pressRelease.path @ extension='html'}" class="c-pressreleaseslist__link-overlay"></a>

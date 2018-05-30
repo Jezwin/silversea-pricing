@@ -169,6 +169,13 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 						shortDescription = shortDescription.replace(endTag,"</span>");
 					}
 				}
+				if (StringUtils.isNotEmpty(eofootnotes)) {
+					eofootnotes = eofootnotes.replace(keyToReplace, valueToReplace);
+					eofootnotes = eofootnotes.replace("\n", "<br>");
+					if (eoValue.getType().equalsIgnoreCase("style")) {
+						eofootnotes = eofootnotes.replace(endTag,"</span>");
+					}
+				}
 				if (StringUtils.isNotEmpty(mapOverhead)) {
 					mapOverhead = mapOverhead.replace(keyToReplace, valueToReplace);
 					mapOverhead = mapOverhead.replace("\n", "<br>");

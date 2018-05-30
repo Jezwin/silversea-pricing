@@ -106,7 +106,16 @@
 			        </div>
 		    	</div>
 		    	<div class="clearfix"></div>
-		    	<div class="form-group form-group-lg has-feedback input--state select-country">
+		    	<div class="row">
+		    	 <div class="col-sm-4 form-group form-group-lg has-feedback state">
+			            <input type="text"
+			            		name="state"
+		                   		class="form-control"
+		                  	 	value=""
+		                   		placeholder="${'state' @ i18n}"/>
+			           
+			        </div>
+			     <div class="col-sm-8 form-group form-group-lg has-feedback input--state select-country">
 		            <select name="country" class="form-control chosen chosen-with-search" required data-error="${'required-state' @ i18n}">
 		                <option value="">${'country' @ i18n}*</option>
 		                <option data-sly-repeat.country="${item.countries}" value="${country.valueMap.country_iso2}" >${country.title}</option>
@@ -114,6 +123,8 @@
 		            <span class="form-control-feedback hidden-xs" aria-hidden="true"></span>
 		            <div class="help-block with-errors"></div>
 		        </div>
+		    	</div>
+
 			</div>
 			
 		

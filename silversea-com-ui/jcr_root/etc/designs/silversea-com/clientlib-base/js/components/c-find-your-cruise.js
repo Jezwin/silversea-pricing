@@ -137,16 +137,16 @@ $(function() {
 
             // Data from first result
             $cruise = $resultWrapper.find('.c-fyc__result:first');
-            dataLayer.track_destination_id = $('.c-fyc__result-wrapper #current-destination-filter').data('value');
-            dataLayer.track_destination_name = $('.c-fyc__result-wrapper #current-destination-filter').val();
-            dataLayer.track_voyage_id = $cruise.find('.cruise-code').text().trim();
-            dataLayer.track_departure_date = $cruise.find('.c-fyc__result__content__summary__item:first dd').data('date');
-            dataLayer.track_voyage_duration = $cruise.find('.c-fyc__result__content__summary__item--duration dd strong').text().trim();
-            dataLayer.track_voyage_departure_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:first').text().trim();
-            dataLayer.track_voyage_arrival_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:last').text().trim();
-            dataLayer.track_voyage_type = $cruise.find('.cruise-type').text().trim();
-            dataLayer.track_shipname = $cruise.find('.cruise-ship').text().trim();
-            dataLayer.track_revenue = $cruise.find('.c-fyc__result__content__price strong').text().trim();
+            //dataLayer.track_destination_id = $('.c-fyc__result-wrapper #current-destination-filter').data('value');
+            //dataLayer.track_destination_name = $('.c-fyc__result-wrapper #current-destination-filter').val();
+            //dataLayer.track_voyage_id = $cruise.find('.cruise-code').text().trim();
+            //dataLayer.track_departure_date = $cruise.find('.c-fyc__result__content__summary__item:first dd').data('date');
+           // dataLayer.track_voyage_duration = $cruise.find('.c-fyc__result__content__summary__item--duration dd strong').text().trim();
+            //dataLayer.track_voyage_departure_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:first').text().trim();
+           // dataLayer.track_voyage_arrival_harbor = $cruise.find('.c-fyc__result__content__itinerary dd:last').text().trim();
+            //dataLayer.track_voyage_type = $cruise.find('.cruise-type').text().trim();
+           //dataLayer.track_shipname = $cruise.find('.cruise-ship').text().trim();
+            //dataLayer.track_revenue = $cruise.find('.c-fyc__result__content__price strong').text().trim();
 
             return searchAnalytics;
         })();

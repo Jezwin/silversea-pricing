@@ -80,9 +80,9 @@
             max-width: none;
             position: absolute;
             top: 50%;
-            -webkit-transform: translate(-50%,-50%);
-            -ms-transform: translate(-50%,-50%);
-            transform: translate(-50%,-50%);
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
 
             @media screen and (max-width: @screen-sm) {
                 min-height: inherit;
@@ -102,7 +102,7 @@
 
     &__form {
         padding: 25px;
-        background: rgba(0,0,0,.6) none repeat scroll 0 0;
+        background: @grey--6 none repeat scroll 0 0;
 
         @media screen and (max-width: @screen-sm) {
             background: @grey--fa;
@@ -111,7 +111,7 @@
         }
 
         &__select-wrapper {
-            position: relative; 
+            position: relative;
             margin-bottom: 15px;
 
             select {
@@ -199,7 +199,8 @@
                         line-height: 24px;
                         margin: 0 15px 0 4px;
 
-                        &.highlighted, &.result-selected {
+                        &.highlighted,
+                        &.result-selected {
                             background: @black;
                             color: @white;
                         }

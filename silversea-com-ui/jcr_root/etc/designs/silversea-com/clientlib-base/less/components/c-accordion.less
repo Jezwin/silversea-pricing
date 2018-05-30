@@ -11,6 +11,7 @@
 /*
 ** Editorial Component Accordion
 */
+
 .accordion {
     .c-accordion {
         margin-bottom: 10px;
@@ -20,6 +21,7 @@
 /*
 ** Component Accordion
 */
+
 .c-accordion {
     border-right: solid 1px @grey--e8;
     border-left: solid 1px @grey--e8;
@@ -30,7 +32,7 @@
         .c-accordion__header {
             padding-left: 25px;
             @media screen and (max-width: @screen-xs) {
-                 padding-left: 0;
+                padding-left: 0;
             }
         }
 
@@ -48,7 +50,9 @@
             border: solid 1px @grey--e8;
             padding: 0;
 
-            &:hover, &:active, &:focus {
+            &:hover,
+            &:active,
+            &:focus {
                 background-color: @white;
                 cursor: pointer;
             }
@@ -58,11 +62,11 @@
                 border: 0;
                 color: @white;
 
-                .fa.fa-angle-up{
+                .fa.fa-angle-up {
                     color: @white;
                 }
             }
-            
+
         }
 
         .c-accordion__elem {
@@ -89,7 +93,9 @@
         padding: 3px;
         table-layout: fixed;
 
-        &:hover, &:active, &:focus {
+        &:hover,
+        &:active,
+        &:focus {
             cursor: pointer;
             background-color: @grey--e6;
         }

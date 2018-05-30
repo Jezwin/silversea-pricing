@@ -15,15 +15,16 @@
             position: absolute;
             top: 0;
             width: 100%;
-            @media (max-width: 767px){
-	            box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
-				-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-            	
-            }
+
         }
 
         &__wrapper {
             cursor: pointer;
+            @media (max-width: @screen-sm) {
+			    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
+				-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+			}
+            
         }
 
         &__image {
@@ -58,7 +59,7 @@
 
                 &:before {
                     border-top: 75px solid @black;
-                    border-right: 75px solid transparent;
+                    border-right: 75px solid @transparent;
                     content: " ";
                     display: block;
                     height: 0;
@@ -69,7 +70,8 @@
                     width: 0;
                 }
 
-                &__icon, &__text {
+                &__icon,
+                &__text {
                     display: block;
                     margin: 0 auto;
                     position: relative;
@@ -108,33 +110,33 @@
             &__button {
                 position: relative;
                 z-index: 1;
-                
+
                 .c-fyc-btn-discover-more.btn {
-                	border: none;
-                	padding-top: 3.5px;
-                	text-decoration: underline;
-                	@media (max-width: 767px) {
-                		display: block;
-    					text-align: center;
-    					padding-top: 0px;
-                	}
-                	@media (max-width: 587px) {
-    					padding-top: 6px;
-                	}
-        		}
-        		
-        		.c-fyc-btn-discover-more.btn.ab-test-v2-show {
-            		display: none;
-            	}
-        		
+                    border: none;
+                    padding-top: 3.5px;
+                    text-decoration: underline;
+                    @media (max-width: @screen-sm) {
+                        display: block;
+                        text-align: center;
+                        padding-top: 0px;
+                    }
+                    @media (max-width: 587px) {
+                        padding-top: 6px;
+                    }
+                }
+
+                .c-fyc-btn-discover-more.btn.ab-test-v2-show {
+                    display: none;
+                }
+
             }
 
             &__price {
                 font-size: 10px;
                 text-transform: uppercase;
-                
+
                 &_isWaitList {
-                  	margin-bottom: 12px !important;
+                    margin-bottom: 12px !important;
                 }
 
                 .price-suffixe {
@@ -174,7 +176,7 @@
                 border: 1px solid @grey--d3;
                 transition: background-color .3s ease-in-out;
 
-                &:hover{
+                &:hover {
                     background-color: @grey--d9;
                 }
             }
@@ -193,7 +195,7 @@
 
                     &:before {
                         border-top: 82px solid @black;
-                        border-right: 85px solid transparent;
+                        border-right: 85px solid @transparent;
                         -webkit-transform: rotate(45deg);
                         -ms-transform: rotate(45deg);
                         transform: rotate(45deg);
@@ -246,7 +248,8 @@
                         }
 
                         dl {
-                            dt, dd {
+                            dt,
+                            dd {
                                 line-height: 1;
                             }
 
@@ -279,7 +282,7 @@
                     line-height: 1;
                     margin: 12px 0 0;
                     text-align: center;
-                    
+
                     .price-prefixe {
                         font-size: 11px;
                     }
@@ -309,7 +312,8 @@
             float: none;
             width: 100%;
 
-            &:nth-child(odd), &:nth-child(even) {
+            &:nth-child(odd),
+            &:nth-child(even) {
                 padding: 0;
             }
         }
@@ -378,8 +382,8 @@
             }
         }
 
-        .v1 &__result {	
-            border-bottom: 1px solid @grey--d3; 
+        .v1 &__result {
+            border-bottom: 1px solid @grey--d3;
             font-size: 12px;
             padding: 10px 0;
 
@@ -419,7 +423,8 @@
                 }
 
                 &__description {
-                    .cruise-code, .cruise-ship:first-of-type {
+                    .cruise-code,
+                    .cruise-ship:first-of-type {
                         display: none;
                     }
 
@@ -433,7 +438,7 @@
                     }
                 }
 
-                &__summary { 
+                &__summary {
                     background-color: @grey--f9;
                     border: 1px solid @grey--e6;
                     display: inline-block;
@@ -445,7 +450,9 @@
                         margin-right: 5px;
                     }
 
-                    &__item, dl, dd {
+                    &__item,
+                    dl,
+                    dd {
                         display: inline;
                     }
                 }
@@ -471,7 +478,8 @@
                     }
                 }
 
-                &__price, &__button {
+                &__price,
+                &__button {
                     float: right;
                     text-align: center;
                     width: 160px;
@@ -500,7 +508,7 @@
                 color: @white;
 
                 .c-fyc__result__content__summary {
-                    background-color: transparent; 
+                    background-color: transparent;
                 }
 
                 .tooltip {
@@ -569,7 +577,8 @@
                         font-style: italic;
                     }
 
-                    .meta_feature_inner, .cruise-ship:not(:first-of-type) {
+                    .meta_feature_inner,
+                    .cruise-ship:not(:first-of-type) {
                         display: none;
                     }
                 }
@@ -624,7 +633,8 @@
                     }
 
                     dd {
-                        &:first-of-type , &:last-of-type  {
+                        &:first-of-type,
+                        &:last-of-type {
                             font-size: 12px;
                             font-weight: 700;
                             text-transform: uppercase;
