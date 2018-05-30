@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -27,7 +28,6 @@ import com.day.cq.tagging.TagManager;
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.CruiseItem;
 import com.silversea.aem.constants.WcmConstants;
-import com.silversea.aem.helper.ExternalizerHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.models.DestinationItem;
@@ -43,6 +43,7 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.FindYourCruiseUtils;
 import com.silversea.aem.utils.PathUtils;
 import com.silversea.aem.ws.client.factory.WorldAndGrandVoyageCache;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor.Logger;
 
 /**
  * selectors : destination_all date_all duration_all ship_all cruisetype_all
@@ -50,9 +51,9 @@ import com.silversea.aem.ws.client.factory.WorldAndGrandVoyageCache;
  */
 public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
-	private final static int PAGE_SIZE = 15;
+	private static final int MAX_RESULT_PER_PAGE = 20;
 
-	private final static String FILTER_ALL = "all";
+	private static final String FILTER_ALL = "all";
 
 	private Set<FeatureModelLight> featuresFromDesign = new HashSet<>();
 
@@ -99,6 +100,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
 	// cruise types available for the subset of filtered cruises
 	private Set<String> availableCruiseTypes = new HashSet<>();
+
+	private int resultPerPage;
 
 	// destination filter
 	private String destinationFilter = FILTER_ALL;
@@ -235,6 +238,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
 			if (splitSelector.length == 2) {
 				switch (splitSelector[0]) {
+				case "psize":
+					resultPerPage = Integer.parseInt(splitSelector[1]);
+					break;
 				case "destination":
 					destinationFilter = splitSelector[1];
 					break;
@@ -300,6 +306,12 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 				}
 			}
 		}
+		if (resultPerPage == 0) {
+			resultPerPage = Optional.ofNullable(get("psize", String.class)).map(Integer::parseInt).orElse(15);
+		}
+		if (resultPerPage > MAX_RESULT_PER_PAGE) {
+			resultPerPage = MAX_RESULT_PER_PAGE;
+		}
 
 		// Apply default filtering for specific pages types
 		final String currentPageResourceType = getCurrentPage().getContentResource().getResourceType();
@@ -356,7 +368,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		for (CruiseModelLight cruise : allCruises) {
 			if (cruise.getStartDate().after(Calendar.getInstance())) {
 				newAllCruises.add(cruise);
-				if((destinationFilter.equalsIgnoreCase("wc") || destinationFilter.equalsIgnoreCase(("gv"))) && shipFilter.equals(FILTER_ALL) && dateFilter == null ) {
+				if ((destinationFilter.equalsIgnoreCase("wc") || destinationFilter.equalsIgnoreCase(("gv")))
+						&& shipFilter.equals(FILTER_ALL) && dateFilter == null) {
 					availableDestinations.add(cruise.getDestination());
 				}
 			}
@@ -365,7 +378,6 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
 		allCruises = checkWorldCruiseGrandVoyages("wc", allCruises);
 		allCruises = checkWorldCruiseGrandVoyages("gv", allCruises);
-		
 
 		// init list of filtered cruises and available values for filters
 		final List<CruiseModelLight> filteredCruises = new ArrayList<>();
@@ -392,7 +404,8 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 			}
 
 			if (destinationIdFilter == null && !destinationFilter.equals(FILTER_ALL)
-					&& destinationFilter.equals(cruise.getDestination().getName()) && !destinationFilter.equalsIgnoreCase("wc") && !destinationFilter.equalsIgnoreCase(("gv"))) {
+					&& destinationFilter.equals(cruise.getDestination().getName())
+					&& !destinationFilter.equalsIgnoreCase("wc") && !destinationFilter.equalsIgnoreCase(("gv"))) {
 				destinationIdFilter = cruise.getDestinationId();
 			}
 
@@ -416,8 +429,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 				includeCruiseNotFilteredByFeatures = false;
 				includeCruiseNotFilteredByCruiseTypes = false;
 			}
-			
-			if((destinationFilter.equalsIgnoreCase("wc") || destinationFilter.equalsIgnoreCase(("gv"))) && shipFilter.equals(FILTER_ALL) && dateFilter == null ) {
+
+			if ((destinationFilter.equalsIgnoreCase("wc") || destinationFilter.equalsIgnoreCase(("gv")))
+					&& shipFilter.equals(FILTER_ALL) && dateFilter == null) {
 				includeCruiseNotFilteredByDestination = false;
 			}
 
@@ -577,17 +591,16 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 		filteredCruises.sort(Comparator.comparing(CruiseModelLight::getStartDate));
 
 		// build the cruises list for the current page
-		int pageSize = PAGE_SIZE; // TODO replace by configuration
 
 		Locale locale = getCurrentPage().getLanguage(false);
 
 		int i = 0;
 		for (final CruiseModelLight cruise : filteredCruises) {
-			if (i >= activePage * pageSize) {
+			if (i >= activePage * resultPerPage) {
 				break;
 			}
 
-			if (i >= (activePage - 1) * pageSize) {
+			if (i >= (activePage - 1) * resultPerPage) {
 				cruises.add(new CruiseItem(cruise, geomarket, currency, locale));
 			}
 
@@ -643,7 +656,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
 		// Setting convenient booleans for building pagination
 		totalMatches = filteredCruises.size();
-		pageNumber = (int) Math.ceil((float) totalMatches / (float) PAGE_SIZE);
+		pageNumber = (int) Math.ceil((float) totalMatches / (float) resultPerPage);
 		isFirstPage = activePage == 1;
 		isLastPage = activePage == getPagesNumber();
 
@@ -745,6 +758,14 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 	 */
 	public List<PortModelLight> getPorts() {
 		return ports;
+	}
+
+	/**
+	 * 
+	 * @return number of results per page.
+	 */
+	public int getResultPerPage() {
+		return resultPerPage;
 	}
 
 	/**
@@ -928,8 +949,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
 	public String getWorldCruisesPagePath() {
 		Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-		String path =  PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
-		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults) && !(shipFilter.equals(FILTER_ALL) && dateFilter == null)) {
+		String path = PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage());
+		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults)
+				&& !(shipFilter.equals(FILTER_ALL) && dateFilter == null)) {
 			path = PathUtils.getWorldCruisesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
 		}
 		return externalizer.relativeLink(getRequest(), path);
@@ -937,8 +959,9 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
 
 	public String getGrandVoyagesPagePath() {
 		Externalizer externalizer = getResourceResolver().adaptTo(Externalizer.class);
-		String path =  PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
-		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults) &&  !(shipFilter.equals(FILTER_ALL) && dateFilter == null)) {
+		String path = PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage());
+		if (StringUtils.isNotEmpty(this.comboCruiseCodeInResults)
+				&& !(shipFilter.equals(FILTER_ALL) && dateFilter == null)) {
 			path = PathUtils.getGrandVoyagesPagePath(getResource(), getCurrentPage(), this.comboCruiseCodeInResults);
 		}
 		return externalizer.relativeLink(getRequest(), path);

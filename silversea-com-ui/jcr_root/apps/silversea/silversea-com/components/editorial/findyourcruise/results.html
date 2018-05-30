@@ -1,4 +1,5 @@
-<div class="clearfix c-fyc__results__wrapper" data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse">
+<template data-sly-template.resultsv1="${@ fyc}">
+<div class="clearfix c-fyc__results__wrapper" >
     <div class="c-fyc__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
         <div class="c-fyc__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
             <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=360" />
@@ -113,6 +114,11 @@
         </script>
     </div>
 </div>
-<sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/feedback.html" />
-<sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/pagination.html" />
+<sly data-sly-use.feedbackTemplate="silversea/silversea-com/components/editorial/findyourcruise/feedback.html" data-sly-call="${feedbackTemplate.feedbackv1 @ fyc=fyc}" />
+<sly data-sly-use.paginationTemplate="silversea/silversea-com/components/editorial/findyourcruise/pagination.html" data-sly-call="${paginationTemplate.pagination @ fyc=fyc}" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />
+<div class="v2-feature-wrapper hidden-xs"></div>
+</template>
+<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise/results.html"  	
+ 	 data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruiseUse' @ psize='15'}" 
+ 	 data-sly-call="${resultsTemplate.resultsv1 @ fyc=fyc}" />

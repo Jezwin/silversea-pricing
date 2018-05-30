@@ -1,12 +1,12 @@
-$(function () {
+var v1 = function () {
     var $filterWrapper = $('.c-fyc-filter');
     var firstUpdateFilter = true;
     if ($filterWrapper.length > 0) {
-        var $btnReset = $filterWrapper.find('.c-fyc-filter__reset a'),
-            $form = $filterWrapper.find('form.c-find-your-cruise-filter'),
-            $paginationWrapper = $('.c-fyc-pagination'),
-            $resultWrapper = $('.c-fyc__result-wrapper'),
-            $page = $paginationWrapper.find('a.active').data('page');
+        var $btnReset = $filterWrapper.find('.c-fyc-filter__reset a');
+        var $form = $filterWrapper.find('form.c-find-your-cruise-filter');
+        var $paginationWrapper = $('.c-fyc-pagination');
+        var $resultWrapper = $('.c-fyc__result-wrapper');
+        var $page = $paginationWrapper.find('a.active').data('page');
 
         // Filter : open feature drop down
         $('.features-filter').on('click', function (e) {
@@ -364,17 +364,17 @@ $(function () {
             }
         });
     }
-});
-$(function () {
+};
+
+var v2 = function () {
     var $filterWrapper = $('.c-fyc-v2-filter');
     var firstUpdateFilter = true;
     if ($filterWrapper.length > 0) {
-        var $btnReset = $filterWrapper.find('.c-fyc-v2-filter__reset a'),
-            $form = $filterWrapper.find('form.c-fyc-v2-filter__form'),
-            $paginationWrapper = $('.c-fyc-v2-pagination'),
-            $resultWrapper = $('.c-fyc-v2__result-wrapper'),
-            $page = $paginationWrapper.find('a.active').data('page');
-
+        var $btnReset = $filterWrapper.find('.c-fyc-v2-filter__reset a');
+        var $form = $filterWrapper.find('form');
+        var $paginationWrapper = $('.c-fyc-v2-pagination');
+        var $resultWrapper = $('.c-fyc-v2__result-wrapper');
+        var $page = $paginationWrapper.find('a.active').data('page');
         // Filter : open feature drop down
         $('.v2-features-filter').on('click', function (e) {
             e.stopPropagation();
@@ -396,6 +396,7 @@ $(function () {
 
                 // Build obj with available option
                 var jsonStr = $resultWrapper.find('#v2-' + $select.attr('name') + '-filter').data('ssc-filter');
+
 
                 if (jsonStr !== '') {
                     var filterAvailableObj = jsonStr;
@@ -442,8 +443,8 @@ $(function () {
             // Update chosen
             $form.find('.chosen').trigger('chosen:updated');
 
-            // Update features filter
-            $items = $form.find('.feature-filter li');
+            // Update features filter            
+            $items = $form.find('.v2-feature-filter li');
             if ($('#v2-feature-filter').data('ssc-filter') !== undefined) {
                 var filterFeatureAvailableObj = $('#v2-feature-filter').data('ssc-filter');
                 $items.each(function () {
@@ -463,7 +464,7 @@ $(function () {
         var featureListBuild = (function featureListBuild() {
             var template = '<span><i></i></span>';
             var featureList = {};
-            var $featureWrapper = $('.feature-wrapper');
+            var $featureWrapper = $('.v2-feature-wrapper');
 
             // Create feature list without doublon
             $resultWrapper.find('.meta_feature_inner:not(.hidden-xs)').each(function () {
@@ -496,22 +497,23 @@ $(function () {
                 filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
             });
 
-            dataLayer.search_filters = filterOjb;
-            dataLayer.search_page_number = $page;
-            dataLayer.search_results_number = $('#matching-value').text();
+            dataLayer.search_v2_filters = filterOjb;
+            dataLayer.search_v2_page_number = $page;
+            dataLayer.search_v2_results_number = $('#v2-matching-value').text();
 
             // Data from first result TODO
             $cruise = $resultWrapper.find('.c-fyc-v2__result:first');
-            dataLayer.track_destination_id = $('.c-fyc-v2__result-wrapper #current-destination-filter').data('value');
-            dataLayer.track_destination_name = $('.c-fyc-v2__result-wrapper #current-destination-filter').val();
-            dataLayer.track_voyage_id = $cruise.find('.cruise-code').text().trim();
-            dataLayer.track_departure_date = $cruise.find('.c-fyc-v2__result__content__summary__item:first dd').data('date');
-            dataLayer.track_voyage_duration = $cruise.find('.c-fyc-v2__result__content__summary__item--duration dd strong').text().trim();
-            dataLayer.track_voyage_departure_harbor = $cruise.find('.c-fyc-v2__result__content__itinerary dd:first').text().trim();
-            dataLayer.track_voyage_arrival_harbor = $cruise.find('.c-fyc-v2__result__content__itinerary dd:last').text().trim();
-            dataLayer.track_voyage_type = $cruise.find('.cruise-type').text().trim();
-            dataLayer.track_shipname = $cruise.find('.cruise-ship').text().trim();
-            dataLayer.track_revenue = $cruise.find('.c-fyc-v2__result__content__price strong').text().trim();
+            dataLayer.track_v2_destination_id = $('.c-fyc-v2__result-wrapper #v2-current-destination-filter').data('value');
+            dataLayer.track_v2_destination_name = $('.c-fyc-v2__result-wrapper #v2-current-destination-filter').val();
+            dataLayer.track_v2_voyage_id = $cruise.find('.cruise-code').text().trim();
+            dataLayer.track_v2_departure_date = $cruise.find('.c-fyc-v2__result__content__summary__item:first dd').data('date');
+            dataLayer.track_v2_voyage_duration = $cruise.find('.c-fyc-v2__result__content__summary__item--duration dd strong').text().trim();
+            dataLayer.track_v2_voyage_departure_harbor = $cruise.find('.c-fyc-v2__result__content__itinerary dd:first').text().trim();
+            dataLayer.track_v2_voyage_arrival_harbor = $cruise.find('.c-fyc-v2__result__content__itinerary dd:last').text().trim();
+
+            dataLayer.track_v2_voyage_type = $cruise.find('.cruise-type').text().trim();
+            dataLayer.track_v2_shipname = $cruise.find('.cruise-ship').text().trim();
+            dataLayer.track_v2_revenue = $cruise.find('.c-fyc-v2__result__content__price strong').text().trim();
 
             return searchAnalytics;
         })();
@@ -575,7 +577,7 @@ $(function () {
         var resultLabel = (function resultLabel() {
             var $matchingValue = $('#v2-matching-value');
 
-            $matchingValue.closest('.c-fyc-v2-filter__text').toggleClass('results', parseInt($('#matching-value').text()) > 1);
+            $matchingValue.closest('.c-fyc-v2-filter__text').toggleClass('results', parseInt($('#v2-matching-value').text()) > 1);
 
             return resultLabel;
         })();
@@ -588,7 +590,7 @@ $(function () {
                 $filterValue = $($form.serializeArray());
 
             $filterValue.each(function (i, field) {
-                var $fieldwrapper = $('[name="' + field.name + '"]').closest('.single-filter');
+                var $fieldwrapper = $('.c-fyc-v2-filter form [name="' + field.name + '"]').closest('.single-filter');
                 if (typeof field != "undefined" && field != null) {
                     if (typeof field.value != "undefined") {
                         if (field.value !== 'all') {
@@ -623,7 +625,7 @@ $(function () {
                 var dataLayer = window.dataLayer[0];
                 var needToRedirect = false;
 
-                $('.c-find-your-cruise-filter .destination-tracking').find('select option:selected').each(function (i, element) {
+                $('c-fyc-v2-filter form .destination-tracking').find('select option:selected').each(function (i, element) {
                     if ($(element).val() == "gv") {
                         window.location.href = "https://www.silversea.com" + $(element).data('ssc-link');
                         needToRedirect = true;
@@ -637,11 +639,11 @@ $(function () {
                 if (!needToRedirect) {
                     // Data search
                     var filterOjb = {};
-                    $('.v2-c-find-your-cruise-filter').find('select').each(function (i, element) {
+                    $('c-fyc-v2-filter form').find('select').each(function (i, element) {
                         filterOjb[element.name] = $(element).find(':selected').data('value') || element.value;
                     });
 
-                    $('.v2-c-find-your-cruise-filter').find('input:checked').each(function (i, element) {
+                    $('c-fyc-v2-filter form').find('input:checked').each(function (i, element) {
                         filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
                     });
 
@@ -656,7 +658,7 @@ $(function () {
                         $filterValue = $($currentForm.serializeArray());
 
                     $filterValue.each(function (i, field) {
-                        if (field.name === 'feature') {
+                        if (field.name === 'v2-feature') {
                             featureNumber++;
                         }
                     });
@@ -683,12 +685,13 @@ $(function () {
                     var featuresSelectorValue = [];
                     $filterValue.each(function (i, field) {
                         // Add filter
-                        if (field.name === 'feature') {
+                        if (field.name === 'v2-feature') {
                             featuresSelectorValue.push(field.value.replace(/\//g, 'forwardSlash'));
                         } else {
                             requestUrl += '.' + field.name + '_' + field.value.replace(/\//g, 'forwardSlash');
                         }
                     });
+
 
                     // Add features
                     if (featuresSelectorValue.length > 0) {
@@ -712,7 +715,7 @@ $(function () {
                             $resultWrapper.html(result);
 
                             // Update result count
-                            $('#v2-matching-value').text($('#count-filter').val());
+                            $('#v2-matching-value').text($('#v2-count-filter').val());
                             resultLabel();
 
                             // Update filter
@@ -729,4 +732,9 @@ $(function () {
             }
         });
     }
+};
+
+$(function () {
+    v1();
+    v2();
 });
