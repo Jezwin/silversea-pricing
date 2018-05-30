@@ -619,6 +619,69 @@
 									<viewheightDesktop100 jcr:primaryType="nt:unstructured" text="View Height: 100vh" value="viewHeightDesktop100" />
 			                      </items>
 			                </viewHeightDesktop>
+			                <maxHeightDesktop
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="Max Height"
+			                        fieldDescription="Choose the max height"
+			                        name="./maxHeightDesktop">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                        <maxHeightDesktop1005 jcr:primaryType="nt:unstructured" text="Max Height: 1005px" value="maxHeightDesktop1005" />
+									<maxHeightDesktop1010 jcr:primaryType="nt:unstructured" text="Max Height: 1010px" value="maxHeightDesktop1010" />
+									<maxHeightDesktop1015 jcr:primaryType="nt:unstructured" text="Max Height: 1015px" value="maxHeightDesktop1015" />
+									<maxHeightDesktop1020 jcr:primaryType="nt:unstructured" text="Max Height: 1020px" value="maxHeightDesktop1020" />
+									<maxHeightDesktop1025 jcr:primaryType="nt:unstructured" text="Max Height: 1025px" value="maxHeightDesktop1025" />
+									<maxHeightDesktop1030 jcr:primaryType="nt:unstructured" text="Max Height: 1030px" value="maxHeightDesktop1030" />
+									<maxHeightDesktop1035 jcr:primaryType="nt:unstructured" text="Max Height: 1035px" value="maxHeightDesktop1035" />
+									<maxHeightDesktop1040 jcr:primaryType="nt:unstructured" text="Max Height: 1040px" value="maxHeightDesktop1040" />
+									<maxHeightDesktop1045 jcr:primaryType="nt:unstructured" text="Max Height: 1045px" value="maxHeightDesktop1045" />
+									<maxHeightDesktop1050 jcr:primaryType="nt:unstructured" text="Max Height: 1050px" value="maxHeightDesktop1050" />
+									<maxHeightDesktop1055 jcr:primaryType="nt:unstructured" text="Max Height: 1055px" value="maxHeightDesktop1055" />
+									<maxHeightDesktop1060 jcr:primaryType="nt:unstructured" text="Max Height: 1060px" value="maxHeightDesktop1060" />
+									<maxHeightDesktop1065 jcr:primaryType="nt:unstructured" text="Max Height: 1065px" value="maxHeightDesktop1065" />
+									<maxHeightDesktop1070 jcr:primaryType="nt:unstructured" text="Max Height: 1070px" value="maxHeightDesktop1070" />
+									<maxHeightDesktop1075 jcr:primaryType="nt:unstructured" text="Max Height: 1075px" value="maxHeightDesktop1075" />
+									<maxHeightDesktop1080 jcr:primaryType="nt:unstructured" text="Max Height: 1080px" value="maxHeightDesktop1080" />
+									<maxHeightDesktop1085 jcr:primaryType="nt:unstructured" text="Max Height: 1085px" value="maxHeightDesktop1085" />
+									<maxHeightDesktop1090 jcr:primaryType="nt:unstructured" text="Max Height: 1090px" value="maxHeightDesktop1090" />
+									<maxHeightDesktop1095 jcr:primaryType="nt:unstructured" text="Max Height: 1095px" value="maxHeightDesktop1095" />
+									<maxHeightDesktop1100 jcr:primaryType="nt:unstructured" text="Max Height: 1100px" value="maxHeightDesktop1100" />
+									<maxHeightDesktop1105 jcr:primaryType="nt:unstructured" text="Max Height: 1105px" value="maxHeightDesktop1105" />
+									<maxHeightDesktop1110 jcr:primaryType="nt:unstructured" text="Max Height: 1110px" value="maxHeightDesktop1110" />
+									<maxHeightDesktop1115 jcr:primaryType="nt:unstructured" text="Max Height: 1115px" value="maxHeightDesktop1115" />
+									<maxHeightDesktop1120 jcr:primaryType="nt:unstructured" text="Max Height: 1120px" value="maxHeightDesktop1120" />
+									<maxHeightDesktop1125 jcr:primaryType="nt:unstructured" text="Max Height: 1125px" value="maxHeightDesktop1125" />
+									<maxHeightDesktop1130 jcr:primaryType="nt:unstructured" text="Max Height: 1130px" value="maxHeightDesktop1130" />
+									<maxHeightDesktop1135 jcr:primaryType="nt:unstructured" text="Max Height: 1135px" value="maxHeightDesktop1135" />
+									<maxHeightDesktop1140 jcr:primaryType="nt:unstructured" text="Max Height: 1140px" value="maxHeightDesktop1140" />
+									<maxHeightDesktop1145 jcr:primaryType="nt:unstructured" text="Max Height: 1145px" value="maxHeightDesktop1145" />
+									<maxHeightDesktop1150 jcr:primaryType="nt:unstructured" text="Max Height: 1150px" value="maxHeightDesktop1150" />
+									<maxHeightDesktop1155 jcr:primaryType="nt:unstructured" text="Max Height: 1155px" value="maxHeightDesktop1155" />
+									<maxHeightDesktop1160 jcr:primaryType="nt:unstructured" text="Max Height: 1160px" value="maxHeightDesktop1160" />
+									<maxHeightDesktop1165 jcr:primaryType="nt:unstructured" text="Max Height: 1165px" value="maxHeightDesktop1165" />
+									<maxHeightDesktop1170 jcr:primaryType="nt:unstructured" text="Max Height: 1170px" value="maxHeightDesktop1170" />
+									<maxHeightDesktop1175 jcr:primaryType="nt:unstructured" text="Max Height: 1175px" value="maxHeightDesktop1175" />
+									<maxHeightDesktop1180 jcr:primaryType="nt:unstructured" text="Max Height: 1180px" value="maxHeightDesktop1180" />
+									<maxHeightDesktop1185 jcr:primaryType="nt:unstructured" text="Max Height: 1185px" value="maxHeightDesktop1185" />
+									<maxHeightDesktop1190 jcr:primaryType="nt:unstructured" text="Max Height: 1190px" value="maxHeightDesktop1190" />
+									<maxHeightDesktop1195 jcr:primaryType="nt:unstructured" text="Max Height: 1195px" value="maxHeightDesktop1195" />
+									<maxHeightDesktop1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightDesktop1200" />
+									<maxHeightDesktop1205 jcr:primaryType="nt:unstructured" text="Max Height: 1205px" value="maxHeightDesktop1205" />
+									<maxHeightDesktop1210 jcr:primaryType="nt:unstructured" text="Max Height: 1210px" value="maxHeightDesktop1210" />
+									<maxHeightDesktop1215 jcr:primaryType="nt:unstructured" text="Max Height: 1215px" value="maxHeightDesktop1215" />
+									<maxHeightDesktop1220 jcr:primaryType="nt:unstructured" text="Max Height: 1220px" value="maxHeightDesktop1220" />
+									<maxHeightDesktop1225 jcr:primaryType="nt:unstructured" text="Max Height: 1225px" value="maxHeightDesktop1225" />
+									<maxHeightDesktop1230 jcr:primaryType="nt:unstructured" text="Max Height: 1230px" value="maxHeightDesktop1230" />
+									<maxHeightDesktop1235 jcr:primaryType="nt:unstructured" text="Max Height: 1235px" value="maxHeightDesktop1235" />
+									<maxHeightDesktop1240 jcr:primaryType="nt:unstructured" text="Max Height: 1240px" value="maxHeightDesktop1240" />
+									<maxHeightDesktop1245 jcr:primaryType="nt:unstructured" text="Max Height: 1245px" value="maxHeightDesktop1245" />
+									<maxHeightDesktop1250 jcr:primaryType="nt:unstructured" text="Max Height: 1250px" value="maxHeightDesktop1250" />
+	                            </items>
+                            </maxHeightDesktop>
 							<cssDesktop
 							    jcr:primaryType="nt:unstructured"
 							    sling:resourceType="granite/ui/components/foundation/form/textarea"
@@ -670,6 +733,69 @@
 										<viewheightTablet100  jcr:primaryType="nt:unstructured" text="View Height: 100vh" value="viewHeightTablet100" />
 			                       </items>
 			                </viewHeightTablet>
+			                <maxHeightTablet
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="Max Height"
+			                        fieldDescription="Choose the max height"
+			                        name="./maxHeightTablet">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                        <maxHeightTablet1005 jcr:primaryType="nt:unstructured" text="Max Height: 1005px" value="maxHeightTablet1005" />
+									<maxHeightTablet1010 jcr:primaryType="nt:unstructured" text="Max Height: 1010px" value="maxHeightTablet1010" />
+									<maxHeightTablet1015 jcr:primaryType="nt:unstructured" text="Max Height: 1015px" value="maxHeightTablet1015" />
+									<maxHeightTablet1020 jcr:primaryType="nt:unstructured" text="Max Height: 1020px" value="maxHeightTablet1020" />
+									<maxHeightTablet1025 jcr:primaryType="nt:unstructured" text="Max Height: 1025px" value="maxHeightTablet1025" />
+									<maxHeightTablet1030 jcr:primaryType="nt:unstructured" text="Max Height: 1030px" value="maxHeightTablet1030" />
+									<maxHeightTablet1035 jcr:primaryType="nt:unstructured" text="Max Height: 1035px" value="maxHeightTablet1035" />
+									<maxHeightTablet1040 jcr:primaryType="nt:unstructured" text="Max Height: 1040px" value="maxHeightTablet1040" />
+									<maxHeightTablet1045 jcr:primaryType="nt:unstructured" text="Max Height: 1045px" value="maxHeightTablet1045" />
+									<maxHeightTablet1050 jcr:primaryType="nt:unstructured" text="Max Height: 1050px" value="maxHeightTablet1050" />
+									<maxHeightTablet1055 jcr:primaryType="nt:unstructured" text="Max Height: 1055px" value="maxHeightTablet1055" />
+									<maxHeightTablet1060 jcr:primaryType="nt:unstructured" text="Max Height: 1060px" value="maxHeightTablet1060" />
+									<maxHeightTablet1065 jcr:primaryType="nt:unstructured" text="Max Height: 1065px" value="maxHeightTablet1065" />
+									<maxHeightTablet1070 jcr:primaryType="nt:unstructured" text="Max Height: 1070px" value="maxHeightTablet1070" />
+									<maxHeightTablet1075 jcr:primaryType="nt:unstructured" text="Max Height: 1075px" value="maxHeightTablet1075" />
+									<maxHeightTablet1080 jcr:primaryType="nt:unstructured" text="Max Height: 1080px" value="maxHeightTablet1080" />
+									<maxHeightTablet1085 jcr:primaryType="nt:unstructured" text="Max Height: 1085px" value="maxHeightTablet1085" />
+									<maxHeightTablet1090 jcr:primaryType="nt:unstructured" text="Max Height: 1090px" value="maxHeightTablet1090" />
+									<maxHeightTablet1095 jcr:primaryType="nt:unstructured" text="Max Height: 1095px" value="maxHeightTablet1095" />
+									<maxHeightTablet1100 jcr:primaryType="nt:unstructured" text="Max Height: 1100px" value="maxHeightTablet1100" />
+									<maxHeightTablet1105 jcr:primaryType="nt:unstructured" text="Max Height: 1105px" value="maxHeightTablet1105" />
+									<maxHeightTablet1110 jcr:primaryType="nt:unstructured" text="Max Height: 1110px" value="maxHeightTablet1110" />
+									<maxHeightTablet1115 jcr:primaryType="nt:unstructured" text="Max Height: 1115px" value="maxHeightTablet1115" />
+									<maxHeightTablet1120 jcr:primaryType="nt:unstructured" text="Max Height: 1120px" value="maxHeightTablet1120" />
+									<maxHeightTablet1125 jcr:primaryType="nt:unstructured" text="Max Height: 1125px" value="maxHeightTablet1125" />
+									<maxHeightTablet1130 jcr:primaryType="nt:unstructured" text="Max Height: 1130px" value="maxHeightTablet1130" />
+									<maxHeightTablet1135 jcr:primaryType="nt:unstructured" text="Max Height: 1135px" value="maxHeightTablet1135" />
+									<maxHeightTablet1140 jcr:primaryType="nt:unstructured" text="Max Height: 1140px" value="maxHeightTablet1140" />
+									<maxHeightTablet1145 jcr:primaryType="nt:unstructured" text="Max Height: 1145px" value="maxHeightTablet1145" />
+									<maxHeightTablet1150 jcr:primaryType="nt:unstructured" text="Max Height: 1150px" value="maxHeightTablet1150" />
+									<maxHeightTablet1155 jcr:primaryType="nt:unstructured" text="Max Height: 1155px" value="maxHeightTablet1155" />
+									<maxHeightTablet1160 jcr:primaryType="nt:unstructured" text="Max Height: 1160px" value="maxHeightTablet1160" />
+									<maxHeightTablet1165 jcr:primaryType="nt:unstructured" text="Max Height: 1165px" value="maxHeightTablet1165" />
+									<maxHeightTablet1170 jcr:primaryType="nt:unstructured" text="Max Height: 1170px" value="maxHeightTablet1170" />
+									<maxHeightTablet1175 jcr:primaryType="nt:unstructured" text="Max Height: 1175px" value="maxHeightTablet1175" />
+									<maxHeightTablet1180 jcr:primaryType="nt:unstructured" text="Max Height: 1180px" value="maxHeightTablet1180" />
+									<maxHeightTablet1185 jcr:primaryType="nt:unstructured" text="Max Height: 1185px" value="maxHeightTablet1185" />
+									<maxHeightTablet1190 jcr:primaryType="nt:unstructured" text="Max Height: 1190px" value="maxHeightTablet1190" />
+									<maxHeightTablet1195 jcr:primaryType="nt:unstructured" text="Max Height: 1195px" value="maxHeightTablet1195" />
+									<maxHeightTablet1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightTablet1200" />
+									<maxHeightTablet1205 jcr:primaryType="nt:unstructured" text="Max Height: 1205px" value="maxHeightTablet1205" />
+									<maxHeightTablet1210 jcr:primaryType="nt:unstructured" text="Max Height: 1210px" value="maxHeightTablet1210" />
+									<maxHeightTablet1215 jcr:primaryType="nt:unstructured" text="Max Height: 1215px" value="maxHeightTablet1215" />
+									<maxHeightTablet1220 jcr:primaryType="nt:unstructured" text="Max Height: 1220px" value="maxHeightTablet1220" />
+									<maxHeightTablet1225 jcr:primaryType="nt:unstructured" text="Max Height: 1225px" value="maxHeightTablet1225" />
+									<maxHeightTablet1230 jcr:primaryType="nt:unstructured" text="Max Height: 1230px" value="maxHeightTablet1230" />
+									<maxHeightTablet1235 jcr:primaryType="nt:unstructured" text="Max Height: 1235px" value="maxHeightTablet1235" />
+									<maxHeightTablet1240 jcr:primaryType="nt:unstructured" text="Max Height: 1240px" value="maxHeightTablet1240" />
+									<maxHeightTablet1245 jcr:primaryType="nt:unstructured" text="Max Height: 1245px" value="maxHeightTablet1245" />
+									<maxHeightTablet1250 jcr:primaryType="nt:unstructured" text="Max Height: 1250px" value="maxHeightTablet1250" />
+	                            </items>
+                            </maxHeightTablet>
 							<cssTablet
 							    jcr:primaryType="nt:unstructured"
 							    sling:resourceType="granite/ui/components/foundation/form/textarea"
@@ -721,6 +847,70 @@
 										<viewheightMobile100 jcr:primaryType="nt:unstructured" text="View Height: 100vh" value="viewHeightMobile100" />
 			                       </items>
 			                </viewHeightMobile>
+			                <maxHeightMobile
+			                        jcr:primaryType="nt:unstructured"
+			                        sling:resourceType="granite/ui/components/foundation/form/select"
+			                        fieldLabel="Max Height"
+			                        fieldDescription="Choose the max height"
+			                        name="./maxHeightMobile">
+			                      <items jcr:primaryType="nt:unstructured">
+			                        <default
+			                            jcr:primaryType="nt:unstructured"
+			                            text="default"
+			                            value=""/>
+			                        <maxHeightMobile1005 jcr:primaryType="nt:unstructured" text="Max Height: 1005px" value="maxHeightMobile1005" />
+									<maxHeightMobile1010 jcr:primaryType="nt:unstructured" text="Max Height: 1010px" value="maxHeightMobile1010" />
+									<maxHeightMobile1015 jcr:primaryType="nt:unstructured" text="Max Height: 1015px" value="maxHeightMobile1015" />
+									<maxHeightMobile1020 jcr:primaryType="nt:unstructured" text="Max Height: 1020px" value="maxHeightMobile1020" />
+									<maxHeightMobile1025 jcr:primaryType="nt:unstructured" text="Max Height: 1025px" value="maxHeightMobile1025" />
+									<maxHeightMobile1030 jcr:primaryType="nt:unstructured" text="Max Height: 1030px" value="maxHeightMobile1030" />
+									<maxHeightMobile1035 jcr:primaryType="nt:unstructured" text="Max Height: 1035px" value="maxHeightMobile1035" />
+									<maxHeightMobile1040 jcr:primaryType="nt:unstructured" text="Max Height: 1040px" value="maxHeightMobile1040" />
+									<maxHeightMobile1045 jcr:primaryType="nt:unstructured" text="Max Height: 1045px" value="maxHeightMobile1045" />
+									<maxHeightMobile1050 jcr:primaryType="nt:unstructured" text="Max Height: 1050px" value="maxHeightMobile1050" />
+									<maxHeightMobile1055 jcr:primaryType="nt:unstructured" text="Max Height: 1055px" value="maxHeightMobile1055" />
+									<maxHeightMobile1060 jcr:primaryType="nt:unstructured" text="Max Height: 1060px" value="maxHeightMobile1060" />
+									<maxHeightMobile1065 jcr:primaryType="nt:unstructured" text="Max Height: 1065px" value="maxHeightMobile1065" />
+									<maxHeightMobile1070 jcr:primaryType="nt:unstructured" text="Max Height: 1070px" value="maxHeightMobile1070" />
+									<maxHeightMobile1075 jcr:primaryType="nt:unstructured" text="Max Height: 1075px" value="maxHeightMobile1075" />
+									<maxHeightMobile1080 jcr:primaryType="nt:unstructured" text="Max Height: 1080px" value="maxHeightMobile1080" />
+									<maxHeightMobile1085 jcr:primaryType="nt:unstructured" text="Max Height: 1085px" value="maxHeightMobile1085" />
+									<maxHeightMobile1090 jcr:primaryType="nt:unstructured" text="Max Height: 1090px" value="maxHeightMobile1090" />
+									<maxHeightMobile1095 jcr:primaryType="nt:unstructured" text="Max Height: 1095px" value="maxHeightMobile1095" />
+									<maxHeightMobile1100 jcr:primaryType="nt:unstructured" text="Max Height: 1100px" value="maxHeightMobile1100" />
+									<maxHeightMobile1105 jcr:primaryType="nt:unstructured" text="Max Height: 1105px" value="maxHeightMobile1105" />
+									<maxHeightMobile1110 jcr:primaryType="nt:unstructured" text="Max Height: 1110px" value="maxHeightMobile1110" />
+									<maxHeightMobile1115 jcr:primaryType="nt:unstructured" text="Max Height: 1115px" value="maxHeightMobile1115" />
+									<maxHeightMobile1120 jcr:primaryType="nt:unstructured" text="Max Height: 1120px" value="maxHeightMobile1120" />
+									<maxHeightMobile1125 jcr:primaryType="nt:unstructured" text="Max Height: 1125px" value="maxHeightMobile1125" />
+									<maxHeightMobile1130 jcr:primaryType="nt:unstructured" text="Max Height: 1130px" value="maxHeightMobile1130" />
+									<maxHeightMobile1135 jcr:primaryType="nt:unstructured" text="Max Height: 1135px" value="maxHeightMobile1135" />
+									<maxHeightMobile1140 jcr:primaryType="nt:unstructured" text="Max Height: 1140px" value="maxHeightMobile1140" />
+									<maxHeightMobile1145 jcr:primaryType="nt:unstructured" text="Max Height: 1145px" value="maxHeightMobile1145" />
+									<maxHeightMobile1150 jcr:primaryType="nt:unstructured" text="Max Height: 1150px" value="maxHeightMobile1150" />
+									<maxHeightMobile1155 jcr:primaryType="nt:unstructured" text="Max Height: 1155px" value="maxHeightMobile1155" />
+									<maxHeightMobile1160 jcr:primaryType="nt:unstructured" text="Max Height: 1160px" value="maxHeightMobile1160" />
+									<maxHeightMobile1165 jcr:primaryType="nt:unstructured" text="Max Height: 1165px" value="maxHeightMobile1165" />
+									<maxHeightMobile1170 jcr:primaryType="nt:unstructured" text="Max Height: 1170px" value="maxHeightMobile1170" />
+									<maxHeightMobile1175 jcr:primaryType="nt:unstructured" text="Max Height: 1175px" value="maxHeightMobile1175" />
+									<maxHeightMobile1180 jcr:primaryType="nt:unstructured" text="Max Height: 1180px" value="maxHeightMobile1180" />
+									<maxHeightMobile1185 jcr:primaryType="nt:unstructured" text="Max Height: 1185px" value="maxHeightMobile1185" />
+									<maxHeightMobile1190 jcr:primaryType="nt:unstructured" text="Max Height: 1190px" value="maxHeightMobile1190" />
+									<maxHeightMobile1195 jcr:primaryType="nt:unstructured" text="Max Height: 1195px" value="maxHeightMobile1195" />
+									<maxHeightMobile1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightMobile1200" />
+									<maxHeightMobile1200 jcr:primaryType="nt:unstructured" text="Max Height: 1200px" value="maxHeightMobile1200" />
+									<maxHeightMobile1205 jcr:primaryType="nt:unstructured" text="Max Height: 1205px" value="maxHeightMobile1205" />
+									<maxHeightMobile1210 jcr:primaryType="nt:unstructured" text="Max Height: 1210px" value="maxHeightMobile1210" />
+									<maxHeightMobile1215 jcr:primaryType="nt:unstructured" text="Max Height: 1215px" value="maxHeightMobile1215" />
+									<maxHeightMobile1220 jcr:primaryType="nt:unstructured" text="Max Height: 1220px" value="maxHeightMobile1220" />
+									<maxHeightMobile1225 jcr:primaryType="nt:unstructured" text="Max Height: 1225px" value="maxHeightMobile1225" />
+									<maxHeightMobile1230 jcr:primaryType="nt:unstructured" text="Max Height: 1230px" value="maxHeightMobile1230" />
+									<maxHeightMobile1235 jcr:primaryType="nt:unstructured" text="Max Height: 1235px" value="maxHeightMobile1235" />
+									<maxHeightMobile1240 jcr:primaryType="nt:unstructured" text="Max Height: 1240px" value="maxHeightMobile1240" />
+									<maxHeightMobile1245 jcr:primaryType="nt:unstructured" text="Max Height: 1245px" value="maxHeightMobile1245" />
+									<maxHeightMobile1250 jcr:primaryType="nt:unstructured" text="Max Height: 1250px" value="maxHeightMobile1250" />
+	                            </items>
+                            </maxHeightMobile>
 							<cssMobile
 							    jcr:primaryType="nt:unstructured"
 							    sling:resourceType="granite/ui/components/foundation/form/textarea"

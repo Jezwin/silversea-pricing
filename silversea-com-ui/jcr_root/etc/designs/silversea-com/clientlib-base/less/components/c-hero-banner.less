@@ -151,12 +151,25 @@
     }
 
     &__image {
-        .full-width;
+		.full-width;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
         height: 330px;
         overflow: hidden;
+        
+        min-height: 200px;
+        
+		@media (min-width: @screen-lg-min){
+        	max-height:1000px
+        }
+        
+		@media(min-width:@screen-md-min) and (max-width:@screen-md-max){
+        	max-height: 964px;
+        }
+        @media (max-width: @screen-sm){
+        	max-height: 752px;
+        }
 
         .o-img {
             left: 50%;
