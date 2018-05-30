@@ -7,12 +7,12 @@
 	<style>
 		@media (min-width: 768px){
 			#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture img, #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image {
-		    	background-position: ${properties.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
+		    	background-position: ${banner.desktopBackgoundPosition || "center" @ context="unsafe"} !important;
 		    }
 		}
 		@media (max-width: 767px){
 		    #c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner__image picture div  {
-		    	background-position: ${properties.mobileBackgoundPosition || "center" @ context="unsafe"} !important;
+		    	background-position: ${banner.mobileBackgoundPosition || "center" @ context="unsafe"} !important;
 		    }
 		    
 		    #c-hero-banner-${properties.sscUUID @context="unsafe"}  .c-hero-banner__image   {
