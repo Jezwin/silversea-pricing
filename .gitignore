@@ -14,9 +14,13 @@
 # Maven
 log/
 target/
+**/META-INF/
 
 # Brackets
 .brackets.json
 
 # Git stats
 git_stats/
+
+#Vim
+*~

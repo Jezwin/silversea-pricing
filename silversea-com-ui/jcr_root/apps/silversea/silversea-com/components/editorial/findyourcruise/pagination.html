@@ -1,5 +1,6 @@
+<template data-sly-template.pagination="${@ fyc}">
 <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
-<nav class="c-fyc-pagination"  data-sly-use.fyc="com.silversea.aem.components.editorial.FindYourCruiseUse" data-sly-test="${fyc.pagesNumber > 1}">
+<nav class="c-fyc-pagination" data-sly-test="${fyc.pagesNumber > 1}">
     <ul data-sly-list.page="${fyc.pagination}">
         <li data-sly-test.currentPage="${page}">
             <a href="#" data-page="${currentPage}" title="${currentPage}"
@@ -13,3 +14,4 @@
         </li>
     </ul>
 </nav>
+</template>
