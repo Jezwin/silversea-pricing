@@ -22,7 +22,7 @@
     <all-destinations
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Alle Destinationen"/>
+        sling:message="Weltreisen"/>
     <all-ships
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -38,7 +38,7 @@
     <arrive
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Ankommen"/>
+        sling:message="Ankunft"/>
     <aud
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -315,7 +315,7 @@
     <depart
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Abreisen"/>
+        sling:message="Abreise"/>
     <departure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1419,7 +1419,7 @@
 	<world-cruises
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="world-cruises"
-	    sling:message="Weiltreisen"/>
+	    sling:message="Weltreisen"/>
 	<grand-voyages
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="grand-voyages"
