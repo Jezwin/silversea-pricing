@@ -497,23 +497,13 @@ var v2 = function () {
                 filterOjb[element.name.replace('[]', '[' + i + ']')] = $(element).data('value');
             });
 
-            dataLayer.search_v2_filters = filterOjb;
-            dataLayer.search_v2_page_number = $page;
-            dataLayer.search_v2_results_number = $('#v2-matching-value').text();
+            dataLayer.search_filters = filterOjb;
+            dataLayer.search_page_number = $page;
+            dataLayer.search_results_number = $('#v2-matching-value').text();
 
             // Data from first result TODO
             $cruise = $resultWrapper.find('.c-fyc-v2__result:first');
-            dataLayer.track_v2_destination_id = $('.c-fyc-v2__result-wrapper #v2-current-destination-filter').data('value');
-            dataLayer.track_v2_destination_name = $('.c-fyc-v2__result-wrapper #v2-current-destination-filter').val();
-            dataLayer.track_v2_voyage_id = $cruise.find('.cruise-code').text().trim();
-            dataLayer.track_v2_departure_date = $cruise.find('.c-fyc-v2__result__content__summary__item:first dd').data('date');
-            dataLayer.track_v2_voyage_duration = $cruise.find('.c-fyc-v2__result__content__summary__item--duration dd strong').text().trim();
-            dataLayer.track_v2_voyage_departure_harbor = $cruise.find('.c-fyc-v2__result__content__itinerary dd:first').text().trim();
-            dataLayer.track_v2_voyage_arrival_harbor = $cruise.find('.c-fyc-v2__result__content__itinerary dd:last').text().trim();
-
-            dataLayer.track_v2_voyage_type = $cruise.find('.cruise-type').text().trim();
-            dataLayer.track_v2_shipname = $cruise.find('.cruise-ship').text().trim();
-            dataLayer.track_v2_revenue = $cruise.find('.c-fyc-v2__result__content__price strong').text().trim();
+ 
 
             return searchAnalytics;
         })();

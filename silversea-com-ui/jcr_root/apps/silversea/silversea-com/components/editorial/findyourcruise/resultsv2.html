@@ -83,7 +83,7 @@
                             <span data-sly-test="${!cruiseItem.isWaitList}" class="price-prefixe">${'from' @ i18n}</span>
                             <span data-sly-test="${!cruiseItem.isWaitList}" class="price-prefixe text-uppercase">${cruiseItem.lowestPrice.currency @ i18n}</span>
                             <span data-sly-test="${!cruiseItem.isWaitList}">${cruiseItem.lowestPriceFormated}</span>
-                            <div data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} ${'early-booking-bonus' @ i18n}</div>
+                            <div data-sly-test="${cruiseItem.lowestPrice.earlyBookingBonus}" class="price-suffixe">${'with' @ i18n} 10% ${'early-booking-bonus' @ i18n}</div>
                         </div>
 
                         <div class="c-fyc-v2__result__content__button text-center">
@@ -103,15 +103,18 @@
             $(document)
                 .ready(
                     function() {
-                        var dataLayer = window.dataLayer[0];
-                        dataLayer.track_destination_id = "${cruiseItem.cruiseModel.destination.destinationId @ context='unsafe'}";
-                        dataLayer.track_destination_name = "${cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
-                        dataLayer.track_voyage_id = "${cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
-                        dataLayer.track_departure_date = "${dateFull.value @ context='unsafe'}";
-                        dataLayer.track_voyage_duration = "${cruiseItem.cruiseModel.Duration @ context='unsafe'}";
-                        dataLayer.track_voyage_type = "${cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
-                        dataLayer.track_shipname = "${cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
-                        dataLayer.track_ship_id = "${cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
+                        var dataLayerVar = window.dataLayer[0];
+	        	        dataLayerVar.track_destination_id = "${cruiseItem.cruiseModel.destinationId @ context='unsafe'}";
+	        	        dataLayerVar.track_destination_name = "${cruiseItem.cruiseModel.destination.name @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_id = "${cruiseItem.cruiseModel.CruiseCode @ context='unsafe'}";
+	        	        dataLayerVar.track_departure_date = "${dateFull.value @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_duration = "${cruiseItem.cruiseModel.Duration @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_type = "${cruiseItem.cruiseModel.CruiseType @ context='unsafe'}";
+	        	        dataLayerVar.track_shipname = "${cruiseItem.cruiseModel.ship.name @ context='unsafe'}";
+	        	        dataLayerVar.track_ship_id = "${cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_departure_harbor = "${cruiseItem.cruiseModel.departurePortName @ context='unsafe'}";
+	        	        dataLayerVar.track_voyage_arrival_harbor = "${cruiseItem.cruiseModel.arrivalPortName @ context='unsafe'}";
+	        	        dataLayerVar.track_revenue = "${cruiseItem.lowestPrice.currency @ context='unsafe'} ${cruiseItem.lowestPriceFormated @ context='unsafe'}";
                     });
 
         </script>
@@ -121,6 +124,4 @@
 <sly data-sly-use.paginationTemplate="silversea/silversea-com/components/editorial/findyourcruise/pagination.html" data-sly-call="${paginationTemplate.pagination @ fyc=fyc}" />
 <sly data-sly-include="/apps/silversea/silversea-com/components/editorial/findyourcruise/featuresnote.html" />
 </template>
-<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise/resultsv2.html"  	
- 	 data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruiseUse' @ psize='9'}" 
- 	 data-sly-call="${resultsTemplate.resultsv2 @ fyc=fyc}" />
+<sly data-sly-use.resultsTemplate="silversea/silversea-com/components/editorial/findyourcruise/resultsv2.html" data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruiseUse' @ psize='9'}" data-sly-call="${resultsTemplate.resultsv2 @ fyc=fyc}" />
