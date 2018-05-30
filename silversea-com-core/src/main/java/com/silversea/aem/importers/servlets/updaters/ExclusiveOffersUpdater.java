@@ -10,7 +10,6 @@ import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.Arrays;
 
 @SlingServlet(paths = "/bin/exclusiveoffers-updater", extensions = "html")
 public class ExclusiveOffersUpdater extends SlingSafeMethodsServlet {
