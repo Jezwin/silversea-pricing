@@ -9,7 +9,7 @@ var v1 = function () {
         var $page = $paginationWrapper.find('a.active').data('page');
 
         // Filter : open feature drop down
-        $('.features-filter').on('click', function (e) {
+        $('.feature-filter').on('click', function (e) {
             e.stopPropagation();
             if ($(e.target).closest('li').hasClass('disabled')) {
                 e.preventDefault();
@@ -376,7 +376,7 @@ var v2 = function () {
         var $resultWrapper = $('.c-fyc-v2__result-wrapper');
         var $page = $paginationWrapper.find('a.active').data('page');
         // Filter : open feature drop down
-        $('.v2-features-filter').on('click', function (e) {
+        $('.v2-feature-filter').on('click', function (e) {
             e.stopPropagation();
             if ($(e.target).closest('li').hasClass('disabled')) {
                 e.preventDefault();
