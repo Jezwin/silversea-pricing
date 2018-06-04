@@ -20,13 +20,12 @@ function applyNewStyle() {
         $("body")
             .append(
                 '<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.min.css" type="text/css">');
-        $(".btn:has(> .fa-lg)").css('text-align','left');
-        $(".c-btn:has(> .fa-lg)").css('text-align','left');
-
+        $(".btn:has(> .fa-angle-right)").css('text-align', 'left'); //couldn't apply from plain css
+        $(".c-btn:has(> .fa-angle-right)").css('text-align', 'left');
     });
     setTimeout(function () {
         applyWidths();
-        reapplyTransitions();        
+        reapplyTransitions();
     }, 300);
 }
 
@@ -49,5 +48,6 @@ function applyWithoutTransitions(callback) {
         for (var i = 0; i < elements.length; i++) {
             elements[i].$element.css('transition-duration', elements[i].duration);
         }
+        elements = [];
     }
 }
