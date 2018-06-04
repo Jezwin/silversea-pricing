@@ -1,6 +1,33 @@
-/*FIND YOUR CRUISE */
-
-.c-fyc__result__content__button .btn {
+.c-subscribe__form .btn, //T-PORT
+.c-fyc__result__content__button .btn //FIND YOUR CRUISE
+    {
     font-size: ~"@{nd-button-font-size} !important";
+    font-weight: normal !important;
     padding: ~"@{nd-button-padding} !important";
+}
+
+.c-hero-banner__buttons .btn:not(.pull-right):not(.btn-thin) span //HERO BANNER
+    {
+    padding-right: 3px !important;
+}
+
+.c-hero-banner-landing .btn span {
+    font-weight: normal !important;
+}
+
+.btn-thin {
+    i.fa.fa-lg.fa-angle-right {
+        font-size: @nd-button-font-size+5;
+        float: right;
+    }
+}
+
+.btn:not(.btn-thin) i.fa.fa-lg.fa-angle-right {
+    font-size: @nd-button-font-size+5;
+    float: right;
+    line-height: 13.5px !important;
+    position: relative !important;
+    top: 0 !important;
+    transform: unset !important;
+    vertical-align: -15% !important;
 }
