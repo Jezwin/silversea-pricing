@@ -1,115 +1,19 @@
-/*
-  * Combo Cruise fix
-  */
-.cc-overview__benefitsandevents {
-    margin-top: 35px;
-    margin-bottom: 20px;
-}
-
-.de .combocruise {
-	.c-tab__nav--fixed .c-tab__link--clear span{
-		font-size:13px;
-	}
-}
-
-/*
- * Fix Combo cruise CTA Arrow
- */
- .cc-tab_header_desc_cta a i, .cc-tab_header_desc_cta .btn i, .cc-tab_header_desc_cta a .btn i.fa-lg, .cc-tab_header_desc_cta .btn .btn i.fa-lg {
- 	top:50%;
- 	transform:translateY(-50%);
- 	-webkit-transform:translateY(-50%);
- }
- 
- /*
- * Fix WC / GV - header
- */
- 
- .c-combo-cruise-header__content__resume{
- 	padding: 10px 0;
- }
-
- .c-combo-cruise-header__content__title{
- 	line-height:1.2;
- }
- 
- 
- /*
- * Last combp cruise fix mobile
- */
- @media only screen and (max-width: @screen-sm) {
+@media only screen and (max-width: @screen-sm) {
 .combocruise {
-        .c-combo-cruise-header__content__details {
-                     margin-top: 15px !important;
-                         margin-bottom: 15px !important;
-        }
-        .c-combo-cruise-header__image {
-                height:200px !important;
-        }
-        .c-tab__content--overview {
-                margin-top: 15px !important;
-        }
-        .c-tab__body {
-                margin-top: 50px !important;
-        }
-        
-        .c-tab__content c-tab__content--overview {
-            margin-bottom: 35px !important;
-        }
-        
         .c-tab__link {
             font-size:18px !important;
-        }
-        
+        }        
           h1.c-combo-cruise-header__content__title {
                     font-size: 35px !important;
-                line-height: 1.1 !important;
-                margin: 0px !important;
         }
-        
-        .c-slider .c-slider--for .c-slider--style2 .slick-initialized .slick-slider {
-            margin-top: 50px !important;
-        }
-     
-        h3.c-section-title text-center {
-            margin-top:40px !important;
-        }
-        
-        .cc-suitelist c-suitelist--overviewtab {
-            margin-top:40px !important;
-        }
-        
-        .cc-overview__benefitsandevents {
-            margin-top:50px !important;
-         }
      }
 }
-
 @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
 	.combocruise{
 	   .c-combo-cruise-header__content__title {
 	            font-size:44px;
-	            color: black;
 	    }
-	   
-	    .c-slider--style2 .slick-prev, .c-slider--style2 .slick-next {
-	        margin: 0 -17px;
-		}
-	
-		.o-img {
-		    max-width: 100%;
-		    width: 100%;
-		}
 	}
-}
-
-/*
- * Fix combo cruise mobile map slider height
- */
-@media screen and (max-width: @screen-sm) {
-.cc-overview__map .map__slider .map__slider-item .map__title {
-    min-height: 126px;
-}
 }
 
  

@@ -1,119 +1,22 @@
 .c-signature-teaser {
-    position: relative;
-    display: block;
-    line-height: 1.42857143;
-    background-color: @white;
-    
-    @media(max-width: @screen-sm){
-   	     box-shadow: @grey--015 0px 1px 2px 0px;
-   	    -webkit-box-shadow: 0 1px 2px 0 @grey--015;
-    }
-   	
-   
-    &__image-wrapper {
-        position: relative;
-		background-color: @black;
-		overflow:hidden;
-        picture {
-        max-height:120px;
-        height:120px;
-        @media screen and (max-width: @screen-sm) {
-            height:210px !important;
-            max-height:210px !important;
-        }
-        
-        }
-    }
-
-
-    picture {
-	 
-	  @media (min-width: 768px) {
-        img {
-        	 transform: scale(1.05);
-	   		-webkit-transition: all 0.5s linear;
-	    	-moz-transition: all 1s linear;
-	    	-o-transition: all 1s linear;
-	    	transition: all 0.5s linear;
-        }
-	  }       
-    }
-
-    &:hover picture {
-        opacity: .5;
-        @media (min-width: 768px) {
-        
-	        img {
-		          transform: scale(1.0);
-		         -ms-transform: scale(1.0);
-		        -moz-transform: scale(1.0);
-		        -webkit-transform: scale(1.0);
-		        -o-transform: scale(1.0);
-	        }
-        }
-    }
-
-     &__caption {
-       
-        padding: 7px 10px 3px;
-        
-        @media (max-width: @screen-sm) {
-  	        padding: 12px 10px 16px;
-        }
-    }
-
     &__title {
         font-family: @f-theano_didot;
         font-size: 16px;
-        margin: 0;
-        margin-top:5px;
-        text-transform: uppercase;
-        text-align:center;
-        line-height: 1.1;
-   		display: block;
     }
 
     &__description {
         font-size: 13px;
-        margin: 0;
     }
-
-    &__link {
-        bottom: 9px;
-        position: absolute;
-
-        &--block {
-            height: 100%;
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-        }
-    }
-
-    &--style1 {
-    
+    &--style1 {    
         @media screen and (max-width: @screen-sm) {
             &__title {
                 font-size: 26px;
-                line-height: 1;
-                padding: 17px 0 10px;
             }
         }
-    }
-    
+    }    
     @media screen and (max-width: @screen-sm) {
-	        .c-signature-teaser__link--block {
-	                border: 1px solid @grey--d;
-	        }
-	
-	        .signatureTeaser.parbase.slick-slide {
-	                margin-bottom: 20px !important;
-	        }
-	
 	        .c-signature-teaser--style1 .c-signature-teaser__title {
-	                padding: 5px 0px 30px;
-	                font-size:22px
+	                font-size:22px;
 	        }
 	}
 }

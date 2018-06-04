@@ -1,148 +1,40 @@
-.landingteasermanual{
-	.thumbnail{
-		border-radius: 6px;
-	}
-}
 .c-landing-teaser {
-    position: relative;
-
-    @media screen and (max-width: @screen-sm) {
-    	margin-bottom: 20px;
-    }
-    
-    &__image-wrapper {
-        position: relative;
-    }
-
-    picture {
-        background-color: @black;
-    }
-
-    .o-img {
-        -moz-transition: opacity 0.3s ease;
-        -o-transition: opacity 0.3s ease;
-        -ms-transition: opacity 0.3s ease;
-        -webkit-transition: opacity 0.3s ease;
-        transition: opacity 0.3s ease;
-    }
-
-    .thumbnail &__caption {
-        height: 170px;
-        padding: 20px 20px 40px;
-        @media (min-height: @screen-md-min) and (max-height: @screen-md-max){
-			padding: 10px 10px 10px;
-			height: 210px;
-		}
-        @media screen and (max-width: @screen-sm) {
-            height: auto;
-        }
-    }
-
     &__title {
         font-family: @f-theano_didot;
         font-size: 20px;
-        margin: 0 0 10px 0;
-        text-transform: uppercase;
         @media (min-height: @screen-md-min) and (max-height: @screen-md-max){
         	font-size:15px;
-        	margin: 0 0 2px 0;
         }
     }
-
     &__description {
         font-size: 13px;
-        margin: 0;
     }
-
-    &__link {
-        bottom: 9px;
-        position: absolute;
-
-        &--block {
-            height: 100%;
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-        }
-    }
-
     &__label {
         font-size: 11px;
-        font-weight: 600;
-        padding-right: 8px;
-        text-transform: uppercase;
     }
 
     &--style1 & {
         @media screen and (max-width: @screen-sm) {
             &__title {
                 font-size: 26px;
-                line-height: 1;
-                padding: 17px 0 10px;
             }
         }
     }
-
     &--style2 & {
-        &__caption {
-            height: 90px;
-        }
-
-        &__title {
-            background-color: @grey--08;
-            font-size: 20px;
-            height: 76px;
-            left: 50%;
-            position: absolute;
-            text-align: center;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            -webkit-transform: translate(-50%, -50%);
-            width: 80%;
-
+        &__title {            
+            font-size: 20px;           
             @media screen and (max-width: @screen-sm) {
                 font-size: 18px;
-            }
-
-            span {
-                left: 0;
-                padding: 5px 20px;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                -webkit-transform: translateY(-50%);
-                width: 100%;
             }
         }
     }
 
     &--manual {
-        margin-bottom: 20px;
-
         .c-landing-teaser__caption {
-            padding: 20px 20px 40px;
-            height: 160px;
-
-            @media screen and (max-width: @screen-sm) {
-                height: auto;
-            }
-
             .c-landing-teaser {
-                &__title {
-                    margin-bottom: 15px;
-                }
-
                 &__link__label {
                     font-size: 12px;
-                    font-weight: 700;
                 }
-            }
-        }
-
-        &:hover {
-            .o-img {
-                opacity: 1;
             }
         }
     }

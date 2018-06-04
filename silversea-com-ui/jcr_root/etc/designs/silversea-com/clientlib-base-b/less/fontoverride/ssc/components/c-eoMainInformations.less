@@ -1,95 +1,28 @@
 .c-eo_maininfo {
-    padding-bottom: 20px;
     font-family: @f-open_sans;
-
-    &-title {
-        font-weight: bold;
-        display: block;
-        font-size: 30px;
-        text-align: center;
-        margin-top: 0px;
-      
+    &-title {       
+        font-size: 30px;      
     }
-
     &-description {
         font-size: 14px;
-        text-align: justify;
-        display: block;
     }
-
     &-shortDescription {
-        font-size: 14px;
-        text-align: justify;
-        display: block;
-    }
-    
+        font-size: 14px;       
+    }    
     &-footnotes {
-    	font-style: italic;
     	font-size: 11.0px;
     }
-
-    &-new-title {
-        line-height: 25px;
-        margin-bottom: 25px !important;
-
-         @media (max-width: @screen-sm) {
-            margin-top:20px !important;
-          }
-
+    &-new-title {    
         .times {
-            font-family: @f-times-new-roman;
-            display: block;
-            margin-bottom: 11px;
-            font-weight: 500;
+            font-family: @f-times-new-roman;          
             font-size: 36px;
-			line-height: 31px;
             @media (max-width: @screen-sm) {
-            	font-size:29px;
-            	line-height: 26px;
+            	font-size:29px;            	
             }
         }
         .open {
-            line-height: 1.1;
-            display: block;
-            font-weight: 500;
-            color: grey;
-            margin-bottom: 30px;
-            text-transform: uppercase;
             font-family: @f-open_sans;
             font-size: 18px;
         }
     }
-}
-
-
-@media (max-width: @screen-sm) {
-	.c-eo_maininfo.c-eo_maininfo-top, .c-eo_maininfo.c-eo_maininfo-bottom, .c-eo_maininfo.c-eo_maininfo.c-eo_maininfo-default, .c-eo_maininfo.c-eo_maininfo- {
-		display: flex;
-    	flex-direction: column;
-    	
-    	.c-eo_maininfo-title {
-			order : 1;
-		}
-		.c-eo_maininfo-footnotes {
-			order : 4;
-		}
-	}
-	
-	.c-eo_maininfo.c-eo_maininfo-top {
-		.c-eo_maininfo-description {
-			order: 2;
-		}
-		.exclusiveOfferBoxes, .eoBoxes {
-			order: 3;
-		}
-	}
-	
-	.c-eo_maininfo.c-eo_maininfo-bottom, .c-eo_maininfo.c-eo_maininfo-default, .c-eo_maininfo.c-eo_maininfo- {
-		.exclusiveOfferBoxes, .eoBoxes {
-			order: 2;
-		}
-		.c-eo_maininfo-description {
-			order: 3;
-		}
-	}
 }

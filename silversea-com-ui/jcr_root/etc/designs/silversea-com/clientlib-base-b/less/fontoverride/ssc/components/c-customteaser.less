@@ -1,94 +1,13 @@
 .c-custom-teaser {
-	position:relative;
-	line-height: 1.42857143;
-	
-	box-shadow: @grey--015 0px 1px 2px 0px;
-	-webkit-box-shadow: 0 1px 2px 0 @grey--015;
-	
-	
-	&:hover{
-		@media (min-width: @screen-md-min){
-			picture div {
-				opacity:0.5;
-				transform: scale(1.0);
-                -ms-transform: scale(1.0);
-        		-moz-transform: scale(1.0);
-        		-webkit-transform: scale(1.0);
-        		-o-transform: scale(1.0);
-			}
-		}
-	}
-	
-	&-image {
-		height: 275px;
-		position: relative;
-		background-color:black;
-		overflow: hidden;
-		
-		@media (min-width:768px){
-		
-			picture div {
-				 transform: scale(1.05);
-		    	-webkit-transition: all 0.5s linear;
-		    	-moz-transition: all 1s linear;
-		    	-o-transition: all 1s linear;
-		    	transition: all 0.5s linear;
-			}
-		}
-	}
-	
-	&-caption {
-		padding: 20px 20px 20px 0px;
-	}
-	
 	&-title {
-	    font-family: @f-theano_didot;
-	    margin: 0 0 10px 0;
-	    background-color: @white;
-	    margin-bottom: 16px;
-	    line-height: .94;
-	    text-transform: uppercase;
-	    display: block;
-	    color: @black;
-	    font-size: 20px;
-	    position: inherit;
-	    left: auto;
-	    top: auto;
-	    width: 100%;
-	}
-	
+	    font-family: @f-theano_didot;	    
+	    font-size: 20px;	    
+	}	
 	&-description {
-		font-size: 13px;
-    	margin: 0;
+		font-size: 13px;    	
     	font-family: @f-open_sans;
-	}
-	
-	&-link {
-		text-decoration: underline;
-	}
-	
-	&-label {
-		margin-right: 3px;
-	}
-	
-	&-wrapperhover {
-		display: block;
-	    margin: 0;
-	    padding: 0;
-	    position: absolute;
-	    z-index: 7;
-	    width: 100%;
-	    height: 100%;
-	}
-	
+	}		
 	&-image-label {
-		bottom: 12px;
-	    color:  @white;
-	    font-size: 14px;
-	    position: absolute;
-	    background-color: @grey--05;
-	    padding: 6px;
-	    right: 14px;
-	    text-transform: uppercase;
+	    font-size: 14px;	   
 	}
 }
