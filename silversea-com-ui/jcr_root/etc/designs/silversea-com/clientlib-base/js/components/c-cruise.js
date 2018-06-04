@@ -119,7 +119,7 @@ $(function() {
     $('.c-cruise a[data-scroll-target]').on('click', function(e) {
         e.preventDefault();
         $('html, body').animate({
-            scrollTop : $($(this).data('scroll-target')).offset().top - $('.c-header').height()
+            scrollTop : $($(this).data('scroll-target')).offset().top - $('.c-header').height() - 80
         }, 500);
     });
 
