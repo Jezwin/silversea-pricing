@@ -66,9 +66,11 @@
 								<i class="icon-star"></i> ${'offer' @ i18n} <span
 								class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
                             </span>
-                            <span class="feature" data-sly-list="${cruiseItem.cruiseModel.features}">
-                                <i class="${item.icon}"></i>
-                                <span class="tooltip"><i></i>${item.title}</span>
+                            <span data-sly-list="${cruiseItem.cruiseModel.features}">
+                                   <span class="feature">
+	                                <i class="${item.icon}"></i>
+	                                <span class="tooltip"><i></i>${item.title}</span>
+	                            </span>
                             </span>
                             <span data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="bar-for-code">|</span>
                             <span class="cruise-code hidden-xs">#${cruiseItem.cruiseModel.cruiseCode}</span>
