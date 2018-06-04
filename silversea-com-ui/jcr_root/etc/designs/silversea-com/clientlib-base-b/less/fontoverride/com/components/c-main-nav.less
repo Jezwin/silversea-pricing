@@ -1,0 +1,31 @@
+.c-main-nav {
+
+    &__top {    
+
+        &__item {          
+            font-size: 11px;                     
+        }
+    }
+
+    &__bottom {        
+        &__link {
+            font-size: 12px;         
+        }
+    }
+
+    @media screen and (max-width: @screen-md-max) {
+        &__bottom,
+        &__top {
+            &__link {                
+                font-size: 12px;               
+            }
+        }
+    }
+
+    &__subnav {  
+        &__link {           
+            font-size: 10px;       
+        }
+    }
+
+}

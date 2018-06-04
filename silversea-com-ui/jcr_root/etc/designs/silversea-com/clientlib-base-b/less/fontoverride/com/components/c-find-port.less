@@ -1,0 +1,25 @@
+.c-find-port {
+    &__title {
+        font-size: 12px;             
+    }
+
+    &__result {
+        &__destination,
+        &__header {        
+            font-size: 11px;           
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            &__city {
+                font-size: 13px;
+            }
+
+            &__destination,
+            &__header {
+                font-size: 12px;
+            }
+        }
+    }
+}

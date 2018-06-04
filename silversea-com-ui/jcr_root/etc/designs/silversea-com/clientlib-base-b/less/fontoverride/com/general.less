@@ -1,0 +1,74 @@
+/*
+* General style
+*/
+
+.container {
+    font-family: @f-sans_serif;
+}
+
+
+h1 {
+    &.content-title {
+        font-size: 30px;
+    }
+}
+
+
+/*
+** RTE component
+*/
+
+.text {
+    font-size: 13px;
+}
+
+/*
+** Button
+**/
+
+.btn {
+    &-lg {
+        font-size: 12px;
+    }
+}
+
+.c-btn {
+    &--white {
+        font-size: 11px;
+    }
+}
+
+/*
+* c- INPUT
+*/
+
+.o-input {
+    font-size: 14px;
+
+    &--lg {
+        font-size: 15px;
+
+        @media screen and (max-width: @screen-md-max) {
+            font-size: 14px;
+        }
+
+        @media screen and (max-width: @screen-sm) {
+            font-size: 13px;
+        }
+
+        @media screen and (max-width: @screen-xxs) {
+            font-size: 12px;
+        }
+    }
+}
+
+.header-h6 {
+    font: 700 12px @f-open_sans;
+}
+
+@media (max-width: @screen-sm) {
+    .h1 {
+        font-family: @f-theano_didot;
+        font-size: 30px;
+    }
+}

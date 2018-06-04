@@ -1,0 +1,74 @@
+/*
+ * General Fix, see SIL-151 Jira Task.  
+ */
+.modal-dialog {
+	.modal-content {
+		/*
+		 *Fix top  
+		 */
+	    top: 9%;
+	    transform: none;
+	    
+	   
+	    
+	    /* 
+	     * Add 2 new style title-lb-text and subtitle-lb-text to apply in all lightbox via Content Management
+	     */
+	    .title-lb-text {
+		    text-align: center;
+		    @media (max-width: @screen-sm) {
+			   font-size: 27px !important;
+			   margin-bottom: 5px;
+			   margin-top: 0px;
+		    }
+	    }
+	    .subtitle-lb-text {
+		   text-align: center;
+	    	@media (max-width: @screen-sm) {
+			   font-size: 12px; 
+			   margin-bottom: 0px;
+			}
+		}
+	    
+	    /*
+	     * Change padding to display the CTA RAQ
+	     */
+	    .modal-header {
+		    padding: 8px 15px 0px;
+		    @media (max-width: @screen-sm) {
+		    	padding-bottom: 0px;
+		    	padding-top: 15px;
+		    }
+		}
+		
+		/*
+	     * Change padding-top and margin to display the CTA RAQ
+	     */
+		.modal-body {
+			margin-top: 0px;
+	    	margin-bottom: 0px;
+	    	padding-top: 5px;
+		}
+	 }
+}
+
+/**
+ * Prevent scroll body when modal is open
+ */
+body.modal-open {
+    left: inherit;
+    overflow: inherit;
+    position: inherit;
+    right: inherit;
+    overflow-x:hidden;
+}
+
+  .simplepage{
+ 	.modal-dialog {
+		.modal-content {
+		 	 @media (max-width: @screen-md-min) {
+			    	top: 0%;
+			    }
+		    }
+	    }
+ }

@@ -1,0 +1,147 @@
+/*
+ * Fix Space below hero banner
+ */
+ @media screen and (min-width: @screen-md-min){
+	.parbase.herobanner{
+		margin-bottom:5px !important;
+	}
+	
+	.c-hero-banner:not(.c-hero-banner__search){
+		margin-bottom: 10px;
+	}
+	
+	.c-slider.c-slider--full-width {
+		margin-bottom:0px;
+	}
+	
+	.slider + .searchhero {
+		margin-top:-20px;
+	}
+}
+@media (max-width: @screen-sm){
+	.c-slider--first-slide-only{
+		visibility: visible !important;
+	}
+}
+
+
+ /*
+  * Hero Banner Mobile Fix
+  */
+  @media (max-width: @screen-sm){
+	  .c-hero-banner__content {
+	  	h1{
+	  		text-align:center;
+	  	}
+	  	.c-hero-banner-landing__description {
+	  		max-width:90%;
+	  		text-align:center;
+	  	}
+	  }
+  }
+
+  
+  /*
+ * Hero Banner EO global fix
+ */
+ .c-hero-banner__exclusiveoffers  {
+ 	.c-hero-banner__image{
+        height: 330px;
+        @media (max-width: @screen-sm){
+        	height:195px;
+        }
+    }
+
+ @media (min-width: @screen-md-min){
+    .c-hero-banner__content:not(.c-hero-banner__content--white){
+	    	top: 50%; 
+		    transform: translateY(-50%);
+		    -webkit-transform: translateY(-50%);
+		    overflow:visible !important;
+    	}
+    	.c-hero-banner__content--white{
+    		padding-bottom:10px;
+    		margin-left: 15px;
+    	}
+	}
+}
+
+/*
+ * FIX Hero Banner white content
+ */
+ .ship, .destination {
+	 .c-hero-banner__content--white{
+	 	padding-bottom:5px;
+	 }
+ }
+ 
+ /*
+  * FIX HERO BANNER CONTENT WIDTH
+  */
+  .c-hero-banner__exclusiveoffers.c-hero-banner{
+  	@media screen and (min-width: @screen-md-min){
+		  .col-sm-5.c-hero-banner__content:not(.c-hero-banner__content--white){
+		  	width:58%;
+		  } 
+	  
+	  }
+  }
+ 
+  /*
+  * Fix video link following new size of HB content
+  */
+  .c-hero-banner .video-link, .c-hero-banner-landing .video-link {
+  	z-index:10;
+  	width:200px;
+  	@media (max-width: @screen-sm){
+  		height:200px;
+  		bottom:0;
+  		top:auto;
+  	}
+  	
+  }
+  
+  /*
+ * Fix whitebackground for all HeroBanner
+ */
+ .c-hero-banner__content--white, c-hero-banner-landing__content--white{
+ 	@media screen and (min-width: @screen-md-min){
+ 		min-height:300px !important;
+ 		.c-hero-banner__buttons, .c-hero-banner-landing__buttons{
+	 		position:absolute !important;
+	 		bottom:1px !important;
+ 		}
+ 	}
+ 	color:black !important;
+ 	h1{
+ 		line-height:0.9 !important;
+ 	}
+ }
+ 
+ 
+ /*
+ * Fix WISTIA Play button mobile 
+ */
+ @media (max-width:@screen-sm){
+    .wistia_click_to_play{
+        height: 200px!important;
+    }
+}
+ 
+  /*
+  * Fix Simple hero banner on simple page mobile spacing with first title
+  */
+  @media (max-width:@screen-sm) {
+    .herobanner {
+        margin-bottom:-10px !important;
+    }
+}
+
+/*
+ * Fix exclusive offer hero banner - tablet space under title
+ */
+ @media(min-width:@screen-md-min) and (max-width:@screen-md-max){
+	.c-hero-banner__exclusiveoffers .col-sm-5.c-hero-banner__content.c-hero-banner__content--white h1 {
+	    margin-bottom:5px;
+	}
+}

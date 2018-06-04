@@ -1,0 +1,91 @@
+/*
+ * Tab fixing
+ */
+ .tabcontainer  .col-md-12 {
+ 	padding:0;
+ }
+ 
+ /*
+  * Alternate TTabs design
+  */
+ .page {
+ 	@media screen and (min-width: @screen-md-min){
+	 	.c-tab__link[data-state='active'] a {
+	    background-color: @white;
+	       background: @grey--3;
+	    border: 0;
+	    border-radius: 0;
+	    color: @white;
+	    margin: 0;
+	        height: 35px;
+	    line-height: 35px;
+	}
+	.c-tab__link[data-state='active'] {
+	    background-color: @white;
+	    border: 1px solid @grey--9;
+	    border-bottom: 0;
+	    vertical-align: bottom;
+	    padding-top: 0;
+	    border: 0px;
+	}
+	
+	
+	        
+	.c-tab__link a {
+	    display: block;
+	    height: 35px;
+	    line-height: 35px;
+	    font-weight: 700;
+	    background-color: @grey--9;
+	    border: 0px;
+	    color: @white;
+	    font-family: @f-open_sans;
+	    font-size: 12px;
+	    font-weight: 600;
+	    margin: 0;
+	    text-align: center;
+	    text-transform: uppercase;
+	}
+	
+	.c-tab__link {
+	    text-align: center;
+	    padding: 1px;
+	    border: 0px
+	}
+	
+	.c-tab__nav {
+	    display: table;
+	    width: 100%;
+	    margin-bottom: 9px;
+	}
+	.c-tab__link a:hover {
+	    background-color: @grey--3;
+	    border: 0;
+	    border-radius: 0;
+	    color: @white;
+	    margin: 0;
+	}
+}
+ 	
+ }
+ 
+ /*
+  * Fix Tab potentiel overflow
+  */
+.c-tab__nav--fixed .c-tab__link--clear span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 
+ * Fix tab on mobile missing margin 
+ */
+ .page{
+	 .c-tab.c-tab__accordion {
+	 	@media (max-width: @screen-sm){
+	 		margin-left:15px;
+	 		margin-right:15px;
+	 	}
+	 }
+ }
+ 

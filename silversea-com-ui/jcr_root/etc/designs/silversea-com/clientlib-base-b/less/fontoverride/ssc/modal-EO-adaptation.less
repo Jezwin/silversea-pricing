@@ -1,0 +1,175 @@
+.modal-content {
+	overflow: hidden;
+	.modal-body{
+		.LB-EO{
+			position: relative;
+			float: left;
+			height: 100%;
+			
+			 @media screen and (min-width: @screen-sm) {
+				.offerTitle {font-size:30px}
+				}
+			@media screen and (max-width: @screen-sm) {
+			 .offerTitle {font-size:26px}
+			}
+			.new-eo-modal-imageblock{
+				position: absolute;
+			    background-size: cover !important;
+			    height:120%;
+			    top: -66px;
+			    left: -15px;
+			    min-height:630px;
+			}
+			
+			.new-eo-modal-textblock{
+					margin-top: -35px;
+					h1,h2{
+						    font-family: @f-theano_didot;
+						    text-transform: uppercase;
+					}
+					
+					p {
+						    line-height: 19.5px;
+					}
+					.new-eo-modal-greybox{
+						text-align: center;
+						font-family: @f-theano_didot;
+						i{
+							    margin-bottom: 0;
+							    text-align: center;
+							    font-family: @f-theano_didot;
+							    font-style: italic;
+							    color: @green--55;
+							    line-height: 1;
+							    margin-bottom: 5px;
+							    display: block;
+						}
+					}
+					
+					.new-eo-modal-greybox-or-first{
+						    position: absolute;
+						    right: -8px;
+						    top: 0;
+						    bottom: 0;
+						    margin: auto;
+					}
+					
+					.new-eo-modal-greybox-or-second{
+						    position: absolute;
+						    left: -10px;
+						    top: 0;
+						    bottom: 0;
+						    margin: auto;
+					}
+					@media (min-width: @screen-md-min) {
+						.new-eo-modal-position-topDesktop {
+							display: flex;
+						    flex-direction: column;
+						    .new-eo-modal-description {
+								order: 1 ;					    	
+						    }
+							.c-exclusive-offer-boxes, .c-eo_boxes {
+								order: 2;
+							}
+						}
+					}
+					@media (max-width: @screen-sm) {
+						.new-eo-modal-position-topMobile {
+							display: flex;
+						    flex-direction: column;
+						    .new-eo-modal-description {
+								order: 1 ;					    	
+						    }
+						    .c-exclusive-offer-boxes, .c-eo_boxes {
+								order: 2;
+							}
+						}
+					}
+				}
+				
+				
+				
+				.new-eo-modal-description {
+				    font-family :  @f-open_sans;
+				}
+				
+				.new-eo-modal-footnotes {
+					font-size: 11px;
+					font-family :  @f-open_sans;
+				    font-style: italic;
+				}
+				
+				.new-eo-modal-cta{
+					text-align: center;
+				    margin-top: 0;
+				    margin-bottom: 30px;
+				    
+				    .btn_base{
+				    	text-transform: uppercase;
+						background: @black;
+					    border: 0;
+					    border-radius: 5px;
+					    color: #fff;
+					    cursor: pointer;
+					    display: inline-block;
+					    font: 600 12px @f-open_sans;
+					    line-height: 1.5;
+					    margin-bottom: 5px;
+					    min-height: 30px;
+					    padding: 7px 12px 5px 12px;
+					    position: relative;
+					    text-align: center;
+					    -ms-touch-action: manipulation;
+					    touch-action: manipulation;
+					    transition: all 0.5s ease;
+					    -webkit-transition: all 0.5s ease;
+					    -moz-transition: all 0.5s ease;
+					    -ms-transition: all 0.5s ease;
+					    -o-transition: all 0.5s ease;
+					    -webkit-user-select: none;
+					    -moz-user-select: none;
+					    -ms-user-select: none;
+					    user-select: none;
+					    vertical-align: middle;
+					    font-size: 12px;
+					    min-height: 44px;
+					    padding: 13px 23px;
+					    text-decoration: none;
+				    }
+				    
+				    .btn_base-red{
+				    	    background: @red;
+				    	    &:hover{
+				    	    	background: @red--39;
+				    	    }
+				    }
+			}
+			
+			.new-eo-modal-textblock p {
+				text-align:left;
+			}
+			
+			/*
+			 * TO CHECK
+			 */
+			 @media (max-width:765px) {
+				.modal-content .modal-body .LB-EO .new-eo-modal-textblock .new-eo-modal-greybox-or-first {
+					right: 50%;
+					top: 155px;
+				}
+				
+				.modal-content .modal-body .LB-EO .new-eo-modal-textblock .new-eo-modal-greybox-or-second {
+					position: absolute;
+					left: 44%;
+					top: 0;
+					bottom: 167px;
+					margin: auto;
+				}
+				
+				.new-eo-modal-greybox {
+					margin:0px !important;
+				}
+			}
+		}
+	}
+}

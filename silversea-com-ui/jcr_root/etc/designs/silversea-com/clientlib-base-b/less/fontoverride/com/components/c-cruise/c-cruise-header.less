@@ -1,0 +1,38 @@
+.cruise__header {   
+    .cruise__header__title {       
+        font-size: 38px;       
+        font-family: @f-theano_didot;       
+        @media screen and (max-width: @screen-sm) {
+            font-size: 30px;
+        }     
+    }
+
+    .cruise_header__subtitle {       
+        font-size: 16px;        
+        font-family: @f-sans_serif;
+
+        &_ship {
+            font: italic 16px @f-playfair-display;          
+            font-size: 19px;         
+        }
+    }
+
+    .cruise__header__desc {
+      
+        .cruise__header__txt {           
+            font-size: 14px;          
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .cruise__header__meta {     
+        font-size: 12px;
+        .cruise__header__nextprev {
+            a:nth-child(2):before {                
+                font-size: 11px;
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+.c-cruise-itinerary-2 {
+    &__list { 
+        &__item {           
+            .panel {
+                &__heading {         
+                    &__description {                        
+                        h3 {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }        
+
+        &--nested {
+            &__item {               
+                .panel--nested {
+                    &__heading {                      
+                        font-size: 12px;
+                      
+                        h4 {
+                            font-size: 14px;
+                        }                        
+                    }                   
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__list {
+            &__item {
+                .panel {
+                    &__heading {
+
+                        &__description {
+                            small {
+                                font-size: 12px;
+                            }
+                        }  
+                    }
+                }
+            }
+        }
+    }
+}

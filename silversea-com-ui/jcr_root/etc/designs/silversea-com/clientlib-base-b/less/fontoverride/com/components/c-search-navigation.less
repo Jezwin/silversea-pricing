@@ -1,0 +1,39 @@
+.c-main-nav__top {  
+    &__item--search {
+        &__form {
+            .search-expand {              
+                &__input,
+                &__btn {                    
+                    font-size: 12px;                    
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-md-max) {
+        .c-main-nav__top__item--search {           
+            &__form {
+                .search-expand {
+                    > i {                      
+                        font-size: 24px;                        
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        .c-main-nav__top__item--search {
+            &__form {
+                .search-expand {
+                    &__btn {
+                        i {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,62 @@
+.c-mozaic {
+    .btn-wrapper {       
+        font-size: 12px;       
+    }
+
+    &__slider {      
+        &__slide {
+            &--text {             
+                .c-mozaicslider {
+                    &__title {
+                        font-family: @f-theano_didot;
+                        font-size: 30px;
+                    }
+
+                    &__title_small {
+                        font-size: 26px;
+                    }
+
+                    &__descr {
+                        font-size: 13px;                      
+                    }
+
+                    &__link {                      
+                        font-size: 12px;                       
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-md-max) {
+        &__slider {
+            .c-tabbedmozaic {
+                &__description {                 
+                    .discover-more {                  
+                        font-size: 12px;                     
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-lg-min) {       
+        &__slider {
+            &__slide { 
+                &--text {    
+                    .c-mozaicslider {
+                        &__title {
+                            font-size: 30px;                           
+                        }
+
+                        &__title_small {
+                            font-size: 29px;
+                        }                        
+                    }
+                }
+            }
+        }
+    }
+}
+
+

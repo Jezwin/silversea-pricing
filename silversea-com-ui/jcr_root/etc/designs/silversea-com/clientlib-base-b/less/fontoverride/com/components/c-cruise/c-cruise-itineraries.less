@@ -1,0 +1,46 @@
+.c-cruise-itinerary-list {
+    font-size: 13px;
+    &__headline {
+        &__title {
+            &__city {
+                font-size: 16px;              
+            }
+        }
+
+        &__date {
+            &__duration {
+                font-size: 12px;
+            }
+        }
+
+        &__expand {
+            font-size: 14px;
+          
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {     
+        &__headline {           
+            &__title {              
+                &__city {
+                    font-size: 18px;
+                }
+
+                &__country {
+                    font-size: 14px;
+                }
+            }
+
+            &__date {             
+                &__duration {
+                    font-size: 14px;
+                }
+
+                &__time {
+                    font-size: 12px;
+                }
+            }
+        }   
+    }
+}
+

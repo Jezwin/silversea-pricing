@@ -1,0 +1,25 @@
+/*
+ * FIX HEADER
+ */
+ .c-header .c-call__title {
+ 	font-size:10px;
+ 	display:none !important;
+ }
+ 
+ /*
+ * Fix Mobile header logo size
+ */
+ @media  (max-width: @screen-sm)   {
+	.c-header__logo {
+	    width: 120%;
+	}
+}
+
+/*
+  * Fix Phone number UK on very small device 
+  */
+  .c-call__inner .c-call__number {
+    @media(width:320px){
+    	font-size: 12px;
+    }
+  }

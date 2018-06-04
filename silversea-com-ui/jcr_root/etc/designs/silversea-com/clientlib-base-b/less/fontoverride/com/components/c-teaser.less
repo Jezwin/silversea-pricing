@@ -1,0 +1,27 @@
+.c-teaser {
+    &__wrapper {
+        &__title {
+            font: 22px @f-theano_didot;           
+            @media screen and (max-width: @screen-sm) {              
+                font-family: @f-theano_didot;              
+                font-size: 20px;                
+            }
+        }
+
+        &__descr {        
+            font-size: 13px;           
+        }
+    }   
+    &__descr-mobile {
+        @media screen and (max-width: @screen-sm) {
+            font-size: 13px;           
+        }
+    }
+    &__link {      
+        font-size: 100%;        
+        font-family: @f-sans_serif;             
+        @media screen and (max-width: @screen-sm) {           
+            font-size: 11px;           
+        }     
+    }
+}
