@@ -1,11 +1,16 @@
 .c-cruise-ship-info {
+
+	&.ab-test-v2-show {
+		display: none;
+	}
+	
     .c-cruise-ship-info__item {
         margin: 10px 0;
 
         &:nth-of-type(1n+3) {
             display: none;
         }
-
+		
         @media screen and (max-width: @screen-sm) {
             &:nth-of-type(1n+2) {
                 display: none;
@@ -96,6 +101,7 @@
         }
     }
 }
+
 
 .ship-mobilewrapper {
     @media screen and (max-width: @screen-sm) {
