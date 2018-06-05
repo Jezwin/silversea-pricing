@@ -65,7 +65,7 @@
 								window.cruiseItem[key] = value;	
 							</script>
 							<script data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.assetSelectionReference}">
-								var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
+								var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
 								window.cruiseItem[key].assetSelectionReference =  "${setImage.renditionListString @ context='scriptString'}";
 							</script>
 			                <div class="c-suitelist__content" id="suite-card-v2-${itemList.index}">
@@ -90,7 +90,7 @@
 				                            <strong class="c-suitelist__price__text--important2">
 				                                 ${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}
 				                                 <script>
-				                                	var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
+				                                	var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
 				                                 	window.cruiseItem[key].price = "${item.computedPriceFormated @ context='scriptString'}"; 
 			                                 	</script>
 				                            </strong>
@@ -98,7 +98,7 @@
 					                            <span data-sly-test="${early}">
 					                            	${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
 						                            <script>
-						                               	var key = "c-suite-card-${itemList.index  @ context='scriptString' }";
+						                               	var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
 						                            	window.cruiseItem[key].early = true;
 					                            	</script>
 					                            </span>
