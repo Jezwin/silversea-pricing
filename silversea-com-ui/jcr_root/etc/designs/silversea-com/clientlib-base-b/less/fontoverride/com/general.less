@@ -3,7 +3,7 @@
 */
 
 .container {
-    font-family: @f-sans_serif;
+    font-family: @suisse;
 }
 
 
@@ -68,7 +68,43 @@ h1 {
 
 @media (max-width: @screen-sm) {
     .h1 {
-        font-family: @freight;
+        font-family: @freight-bold;
         font-size: 30px;
     }
 }
+
+/*
+ * ADDITION
+ */
+ @media (min-width: @screen-md-min) {
+	h1, .h1{
+		font-size:@h1-desktop-fontsize-50;
+	}
+	h2, .h2{
+		font-size:@h2-desktop-fontsize-40;
+	}
+	h3, .h3{
+		font-size:@h3-desktop-fontsize-30;
+	}
+	h4, .h4{
+		font-size:@h4-desktop-fontsize-24;
+	}
+}
+
+ @media (max-width: @screen-sm) {
+	h1, .h1{
+		font-size:@h1-mobile-fontsize-36;
+	}
+	h2, .h2{
+		font-size:@h2-mobile-fontsize-28;
+	}
+	h3, .h3{
+		font-size:@h3-mobile-fontsize-22;
+	}
+	h4, .h4{
+		font-size:@h4-mobile-fontsize-16;
+	}
+}
+
+.h-serif{font-family:@freight-bold;}
+.h-sansserif{font-family:@suisse;}

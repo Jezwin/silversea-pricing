@@ -1,13 +1,13 @@
 .c-annoucement {
     &__content {
         &__title {
-            font-family: @freight;
+            font-family: @freight-bold;
           
             h2 {
-                font-size: 41px;
+                font-size: @h2-desktop-fontsize-40;
                
                 @media screen and (max-width: @screen-sm) {
-                    font-size: 28px;
+                    font-size: @h2-mobile-fontsize-28;
                 }
 
                 sup {
@@ -26,7 +26,7 @@
                 }
 
                 sup {
-                    font-family: @freight;
+                    font-family: @freight-bold;
                     font-size: 11px;
                    
                     @media screen and (max-width: @screen-sm) {
@@ -36,10 +36,10 @@
             }
 
             h3 {
-                font-size: 32px;
+                font-size: @h3-desktop-fontsize-32;
                 
                 @media screen and (max-width: @screen-sm) {
-                    font-size: 20px;
+                    font-size: @h3-mobile-fontsize-22;
                 }
             }
         }

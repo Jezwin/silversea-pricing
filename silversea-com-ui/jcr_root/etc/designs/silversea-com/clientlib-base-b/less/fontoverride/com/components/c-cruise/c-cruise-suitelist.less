@@ -1,13 +1,13 @@
 .c-suitelist {
 
     .btn-request-a-quote {
-        font-size: 11px !important;     
+        font-size: @button-desktop-fontsize-11 !important;     
         
     }
   
     &__detail {
         &__title {
-            font-family: @freight;
+            font-family: @freight-bold;
             font-size: 22px;           
 
             @media screen and (max-width: @screen-sm) {
@@ -66,38 +66,38 @@
             &__title {
                 &-card {
                     @media (min-width: @screen-md-min) {
-                        font-size: 19px;
+                        font-size: @subheader-desktop-fontsize-20;
                     }
                     @media screen and (max-width: @screen-sm) {                       
-                        font-size: 25px;
+                        font-size: @h3-mobile-fontsize-24;
                     }
                 }
             }
 
             &__description {
                 &-card {
-                    font-size: 11px;                   
+                    font-size: @footnote-desktop-fontsize-11;                   
                 }
             }
         }
 
         .c-suitelist__price {             
             &-from {
-                font-size: 11px;
+                font-size: @footnote-desktop-fontsize-11;
             }
 
             &__text--important2 {
-                font-size: 18px;
+                font-size: @kicker-desktop-fontsize-18;
             }
             &__text--important {
-                font-size: 18px;
+                font-size: @kicker-desktop-fontsize-18;
             }
         }
 
         .c-suitelist__button {          
             &-card {              
                 .btn-view-more-detail {
-                    font-size: 10.5px;
+                    font-size: @footnote-desktop-fontsize-11;
                 }
             }
         }
@@ -118,7 +118,7 @@
 
 .c-suite-detail-modal {
     &-footnotes {
-        font-size: 11px;     
+        font-size: @footnote-desktop-fontsize-11;     
     }
 
     &-deck {
@@ -128,21 +128,21 @@
     }
     
     &-description__counter {
-        font-size: 18px;
+        font-size:@kicker-desktop-fontsize-18;
     }   
     &-navtabs {
-        font-size: 12px;       
+        font-size: @button-desktop-fontsize-12;       
     }
     &-title {
-        font-family: @freight;
-        font-size: 25px;       
+        font-family: @freight-bold;
+        font-size: @subheader-desktop-fontsize-24;       
         @media (max-width: @screen-md-min) {
-            font-size: 37px;
+            font-size: @h1-mobile-fontsize-36;
         }
 
         &-section {
             @media (max-width: @screen-md-min) {
-                font-size: 30px;
+                font-size: @h2-mobile-fontsize-30;
             }
             @media (max-width: @screen-sm) {
                 font-size: 26px;
@@ -150,40 +150,40 @@
         }
     }
     &-long-desc {       
-        font-size: 12px;      
+        font-size: @button-desktop-fontsize-14;      
         font-family: @suisse;       
         @media (max-width: @screen-md-min) {
-            font-size: 15px;
+            font-size: @body-mobile-fontsize-14;
         }
         @media (max-width: @screen-sm) {
-            font-size: 13px;
+            font-size: @body-mobile-fontsize-14;
         }
     }
     &-bedrooms {       
-        font-size: 11px;        
+        font-size: @footnote-desktop-fontsize-11;        
         font-family: @suisse;
         @media (max-width: @screen-md-min) {
-            font-size: 14px;           
+            font-size: @body-mobile-fontsize-13;           
         }
         @media (max-width: @screen-sm) {
-            font-size: 12px;
+            font-size: @body-mobile-fontsize-12;
         }
     }
     &-note {        
-        font-size: 11px;
+        font-size: @footnote-desktop-fontsize-11;
         font-family: @suisse;
         @media (max-width: @screen-md-min) {
-            font-size: 14px;
+            font-size: @body-mobile-fontsize-13;
         }
         @media (max-width: @screen-sm) {
-            font-size: 12px;
+            font-size: @body-mobile-fontsize-12;
         }
     }
     &-price {       
-        font-size: 11px; 
+        font-size: @footnote-desktop-fontsize-11; 
 
         .suite-early-booking {
-            font-size: 11px !important;
+            font-size: @footnote-desktop-fontsize-11 !important;
         }
 
         p {
@@ -195,14 +195,14 @@
     #suite-features {
         ul {
             font-family: @suisse;
-            font-size: 12px;          
+            font-size: @body-desktop-fontsize-14;          
             @media screen and (max-width: @screen-md-min) {             
-                font-size: 13px;
+                font-size: @body-mobile-fontsize-13;
             }
         }
        
         .suite-features-expand {            
-            font-size: 12px;           
+            font-size: @button-mobile-fontsize-12;           
         }
     }    
 }
