@@ -1,0 +1,101 @@
+@media (max-width: @screen-md-min) {
+    .modal-header-modal-detail {            
+        .close {           
+            &-label {                
+                font-size: 13px;               
+            }
+        }
+    }
+}
+
+.c-modal-detail-modal {
+    &-footnotes {       
+        font-size: @footnote-desktop-fontsize-11;        
+    }
+    &-deck {            
+        a {          
+            font-family: @suisse;            
+        }       
+    }
+    &-description__counter {      
+        font-size: 18px;       
+    }   
+    &-navtabs {       
+        font-size: 12px;       
+    }
+    &-title {
+        font-family: @freight-bold;
+        font-size: 25px;      
+        @media (max-width: @screen-md-min) {           
+            font-size: 37px;           
+        }
+        @media (max-width: @screen-sm) {
+            font-size: 31px;         
+        }
+
+        &-section {
+            @media (max-width: @screen-md-min) {
+                font-size: 30px;
+            }
+            @media (max-width: @screen-sm) {
+                font-size: 26px;              
+            }
+        }
+    }
+    &-long-desc {
+        font-size: @body-desktop-fontsize-14;
+        font-family: @suisse;        
+        @media (max-width: @screen-md-min) {
+            font-size: 15px;         
+        }
+        @media (max-width: @screen-sm) {
+            font-size: @body-mobile-fontsize-13;
+        }
+    }
+    &-bedrooms {      
+        font-size: 11px;        
+        font-family: @suisse;
+        @media (max-width: @screen-md-min) {
+            font-size: 14px;          
+        }
+        @media (max-width: @screen-sm) {
+            font-size: 12px;
+        }
+    }
+    &-note {      
+        font-size: 11px;        
+        font-family: @suisse;        
+        @media (max-width: @screen-md-min) {
+            font-size: 14px;
+        }
+        @media (max-width: @screen-sm) {
+            font-size: 12px;
+        }
+    }
+    &-price {       
+        font-size: 11px;       
+        &-and-currency {
+            font-size: 26px !important;
+        }
+        .modal-detail-early-booking {
+            font-size: 11px !important;
+        }
+        p {
+            span {
+                font-size: 12px;
+            }
+        }        
+    }
+    #modal-detail-features {
+        ul {
+            font-family: @suisse;
+            font-size: 12px;          
+            @media screen and (max-width: @screen-md-min) {                
+                font-size: 13px;
+            }          
+        }       
+        .modal-detail-features-expand {
+            font-size: 12px;                     
+        }
+    }   
+}

@@ -1,0 +1,46 @@
+.c-cruise-itinerary-list {
+    font-size: @body-mobile-fontsize-13;
+    &__headline {
+        &__title {
+            &__city {
+                font-size: @body-mobile-fontsize-14;              
+            }
+        }
+
+        &__date {
+            &__duration {
+                font-size: @body-mobile-fontsize-12;
+            }
+        }
+
+        &__expand {
+            font-size: @body-mobile-fontsize-14;
+          
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {     
+        &__headline {           
+            &__title {              
+                &__city {
+                    font-size: @kicker-desktop-fontsize-18;
+                }
+
+                &__country {
+                    font-size: @body-desktop-fontsize-14;
+                }
+            }
+
+            &__date {             
+                &__duration {
+                    font-size: @body-desktop-fontsize-14;
+                }
+
+                &__time {
+                    font-size: @footnote-desktop-fontsize-11;
+                }
+            }
+        }   
+    }
+}
+

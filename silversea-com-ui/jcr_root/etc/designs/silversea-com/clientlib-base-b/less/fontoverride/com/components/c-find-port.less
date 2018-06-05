@@ -1,0 +1,26 @@
+.c-find-port {
+    &__title {
+        font-size: @body-desktop-fontsize-14;             
+    }
+
+    &__result {
+        &__destination,
+        &__header {        
+            font-size: @footnote-desktop-fontsize-11;           
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            &__city {
+                font-size: @body-desktop-fontsize-14;
+            }
+
+            &__destination,
+            &__header {
+                font-size: @label-desktop-fontsize-12;
+                line-height: 20px;
+            }
+        }
+    }
+}

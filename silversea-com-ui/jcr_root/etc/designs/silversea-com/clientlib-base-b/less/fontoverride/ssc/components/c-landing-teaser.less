@@ -1,0 +1,41 @@
+.c-landing-teaser {
+    &__title {
+        font-family: @freight-bold;
+        font-size: @subheader-desktop-fontsize-20;
+        @media (min-height: @screen-md-min) and (max-height: @screen-md-max){
+        	font-size:15px;
+        }
+    }
+    &__description {
+        font-size: @body-desktop-fontsize-14;
+    }
+    &__label {
+        font-size: 11px;
+    }
+
+    &--style1 & {
+        @media screen and (max-width: @screen-sm) {
+            &__title {
+                font-size: 26px;
+            }
+        }
+    }
+    &--style2 & {
+        &__title {            
+            font-size: @subheader-desktop-fontsize-20;           
+            @media screen and (max-width: @screen-sm) {
+                font-size: @subheader-mobile-fontsize-18;
+            }
+        }
+    }
+
+    &--manual {
+        .c-landing-teaser__caption {
+            .c-landing-teaser {
+                &__link__label {
+                    font-size: @label-desktop-fontsize-12;
+                }
+            }
+        }
+    }
+}
