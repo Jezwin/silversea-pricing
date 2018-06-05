@@ -5,7 +5,7 @@
         <div class="col-sm-4" data-sly-test.planLightboxPath="${pageProperties.plan || properties.plan}">
             <strong class="c-variationassetdisplay--label_asset">${'suite-plan' @ i18n}</strong>
             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = planLightboxPath}"/>
-            <a href="${assetHelper.imageUrl}?wid=930&fit=fit,1" data-target=".bs-modal-md" class="automatic-modal">
+            <a href="${assetHelper.imageUrl}?wid=1200&fit=fit,1" data-target=".bs-modal-md" class="automatic-modal">
                 <sly data-sly-call="${imageTemplate.default @ imagePath=planLightboxPath}"></sly>
             </a>
         </div>
