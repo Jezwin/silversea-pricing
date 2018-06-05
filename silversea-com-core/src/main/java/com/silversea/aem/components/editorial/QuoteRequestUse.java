@@ -201,7 +201,7 @@ public class QuoteRequestUse extends WCMUsePojo {
 					Node node = resourceResult.adaptTo(Node.class);
 					Property propVal = node.getNode("image").getProperty("fileReference");
 					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image"
-							+ propVal.getValue().toString() + "?wid=360&fit=constrain");
+							+ propVal.getValue().toString() + "?wid=450&fit=constrain");
 					if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
 						// Create an EO model
 						// Loop on EO Variation if there is any match
