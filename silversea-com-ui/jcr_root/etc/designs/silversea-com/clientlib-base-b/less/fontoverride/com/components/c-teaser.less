@@ -1,27 +1,27 @@
 .c-teaser {
     &__wrapper {
         &__title {
-            font: 22px @freight-bold;           
+            font: @kicker-desktop-fontsize-22 @freight-bold;           
             @media screen and (max-width: @screen-sm) {              
                 font-family: @freight-bold;              
-                font-size: 20px;                
+                font-size: @subheader-mobile-fontsize-20;                
             }
         }
 
         &__descr {        
-            font-size: 13px;           
+            font-size: @body-desktop-fontsize-14;           
         }
     }   
     &__descr-mobile {
         @media screen and (max-width: @screen-sm) {
-            font-size: 13px;           
+            font-size: @body-mobile-fontsize-13;           
         }
     }
     &__link {      
         font-size: 100%;        
         font-family: @suisse;             
         @media screen and (max-width: @screen-sm) {           
-            font-size: 11px;           
+            font-size: @button-mobile-fontsize-11;           
         }     
     }
 }

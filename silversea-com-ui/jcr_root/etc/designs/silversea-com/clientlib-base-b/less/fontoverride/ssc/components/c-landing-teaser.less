@@ -1,13 +1,13 @@
 .c-landing-teaser {
     &__title {
         font-family: @freight-bold;
-        font-size: 20px;
+        font-size: @subheader-desktop-fontsize-20;
         @media (min-height: @screen-md-min) and (max-height: @screen-md-max){
         	font-size:15px;
         }
     }
     &__description {
-        font-size: 13px;
+        font-size: @body-desktop-fontsize-14;
     }
     &__label {
         font-size: 11px;
@@ -22,9 +22,9 @@
     }
     &--style2 & {
         &__title {            
-            font-size: 20px;           
+            font-size: @subheader-desktop-fontsize-20;           
             @media screen and (max-width: @screen-sm) {
-                font-size: 18px;
+                font-size: @subheader-mobile-fontsize-18;
             }
         }
     }
@@ -33,7 +33,7 @@
         .c-landing-teaser__caption {
             .c-landing-teaser {
                 &__link__label {
-                    font-size: 12px;
+                    font-size: @label-desktop-fontsize-12;
                 }
             }
         }

@@ -2,10 +2,10 @@
 	.modal-body{
 		.LB-EO{			
 			 @media screen and (min-width: @screen-sm) {
-				.offerTitle {font-size:30px}
+				.offerTitle {font-size:@h3-desktop-fontsize-30}
 				}
 			@media screen and (max-width: @screen-sm) {
-			 .offerTitle {font-size:26px}
+			 .offerTitle {font-size:@h3-mobile-fontsize-24}
 			}			
 			.new-eo-modal-textblock{
 					h1,h2{
@@ -22,14 +22,14 @@
 				    font-family :  @suisse;
 				}				
 				.new-eo-modal-footnotes {
-					font-size: 11px;
+					font-size: @footnote-desktop-fontsize-11;
 					font-family :  @suisse;
 				}
 				
 				.new-eo-modal-cta{
 				    .btn_base{				    	
-					    font: 600 12px @suisse;					    
-					    font-size: 12px;
+					    font: 600 @button-desktop-fontsize-12 @suisse;					    
+					    font-size: @button-desktop-fontsize-12;
 				    }
 			}
 		}
