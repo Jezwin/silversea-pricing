@@ -15,7 +15,6 @@ function applyWidths() {
 }
 
 function applyNewStyle() {
-    //$("*").addClass("no-transition");
     var reapplyTransitions = applyWithoutTransitions(function () {
         $("body")
             .append(
@@ -32,22 +31,22 @@ function applyNewStyle() {
 
 
 function applyWithoutTransitions(callback) {
-    var elements = [];
+    var lazySetTransitionTo = function ($el, duration, next) {
+        return function () {
+            $el.css('transition-duration', duration);
+            $el = [];
+            next();
+        }
+    };
+    var goBack = function () {};
     $("*").filter(function (e, element) {
         return $(element).css('transition-duration') != '0s';
     }).each(function () {
         var $this = $(this);
-        elements.push({
-            "$element": $this,
-            "duration": $this.css('transition-duration')
-        });
+        goBack = lazySetTransitionTo($this, $this.css('transition-duration'), goBack);
         $this.css('transition-duration', '0s')
+        $this = [];
     });
     callback();
-    return function () {
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].$element.css('transition-duration', elements[i].duration);
-        }
-        elements = [];
-    }
+    return goBack;
 }
