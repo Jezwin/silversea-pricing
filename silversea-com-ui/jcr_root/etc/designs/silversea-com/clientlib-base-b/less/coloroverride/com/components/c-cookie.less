@@ -1,43 +1,6 @@
 #c-cookie {
     color: @white;
-
-    &[data-show='false'] {
-        display: none;
-    }
-    
-     
-    	.container {
-    		padding-top: 8px;
-    		text-align:center;
-    		@media screen and (max-width: @screen-md-min) {
-    			padding:8px;
-    		}
-    }
-
-    p {
-        display: inline-block;
-        max-width: 87%;
-        padding-right: 1%;
-        vertical-align: middle;
-        margin: 0 0 4px;
-        @media screen and (max-width: @screen-md-min) {
-            max-width: 87%;
-            margin-bottom: 0px;
-        	padding-bottom: 0px;
-        }
-    }
-    
-    a {
-     text-decoration:underline;
-    }
-    
     &__close {
-        background: none;
-        display: inline-block;
-        border: 0;
-        text-transform: uppercase;
-        margin: 0 0 5px;
-        padding: 0 0px 0px 4px;
         .fa-lg{
             -webkit-text-stroke: 3px #333333;
             font-size: 25px;
