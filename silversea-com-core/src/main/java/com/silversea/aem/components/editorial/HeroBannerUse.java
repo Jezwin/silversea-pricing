@@ -134,17 +134,20 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 				node= res.adaptTo(Node.class);
 				try {
 					if (node.hasProperty("geoTag") && node.getProperty("geoTag") != null) {
-						String[] geoTag = node.getProperty("geoTag") != null ? node.getProperty("geoTag").getString().split(WcmConstants.GEOLOCATION_TAGS_PREFIX) : null;
-						if (geoTag != null && geoTag.length > 0) {
-							if(super.isBestMatch(geoTag[1])) {
-								this.title = node.hasProperty("titleGeo")  ? node.getProperty("titleGeo").getString() : null;
-								this.description = node.hasProperty("descriptionGeo") ? node.getProperty("descriptionGeo").getString() : null;
-								this.background = node.hasProperty("backgroundGeo")  ? node.getProperty("backgroundGeo").getString() : null;
-								this.desktopBackgoundPosition = node.hasProperty("desktopBackgoundPositionGeo")  ? node.getProperty("desktopBackgoundPositionGeo").getString() : null;
-								this.mobileBackgoundPosition = node.hasProperty("mobileBackgoundPositionGeo")  ? node.getProperty("mobileBackgoundPositionGeo").getString() : null;
-								this.linkBtn1 = node.hasProperty("button1LinkGeo")  ? node.getProperty("button1LinkGeo").getString() : null;
-								this.linkBtn2 = node.hasProperty("button2LinkGeo")  ? node.getProperty("button2LinkGeo").getString() : null;
-								break;
+						String[] geoTagList = node.getProperty("geoTag") != null ? node.getProperty("geoTag").getString().split(",") : null;
+						for (String tag : geoTagList) {
+							String[] geoTag = tag.split(WcmConstants.GEOLOCATION_TAGS_PREFIX);
+							if (geoTag != null && geoTag.length > 0) {
+								if(super.isBestMatch(geoTag[1])) {
+									this.title = node.hasProperty("titleGeo")  ? node.getProperty("titleGeo").getString() : null;
+									this.description = node.hasProperty("descriptionGeo") ? node.getProperty("descriptionGeo").getString() : null;
+									this.background = node.hasProperty("backgroundGeo")  ? node.getProperty("backgroundGeo").getString() : null;
+									this.desktopBackgoundPosition = node.hasProperty("desktopBackgoundPositionGeo")  ? node.getProperty("desktopBackgoundPositionGeo").getString() : null;
+									this.mobileBackgoundPosition = node.hasProperty("mobileBackgoundPositionGeo")  ? node.getProperty("mobileBackgoundPositionGeo").getString() : null;
+									this.linkBtn1 = node.hasProperty("button1LinkGeo")  ? node.getProperty("button1LinkGeo").getString() : null;
+									this.linkBtn2 = node.hasProperty("button2LinkGeo")  ? node.getProperty("button2LinkGeo").getString() : null;
+									break;
+								}
 							}
 						}
 					}	
