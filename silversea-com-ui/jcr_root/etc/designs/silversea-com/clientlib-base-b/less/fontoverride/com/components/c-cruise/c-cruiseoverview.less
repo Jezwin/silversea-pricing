@@ -1,0 +1,40 @@
+.c-cruise {
+    .c-tab__content {
+        &--overview {    
+            .voyage {
+                &table {                  
+                    font-size: 13px;           
+                    &__elem {               
+                        .lead {                           
+                            font-size: 25px;                          
+                            @media screen and (max-width: @screen-xs) {
+                                font-size: 20px;
+                            }
+                        }    
+                    }
+                }
+
+                &img {
+
+                    &__info {                        
+                        font-size: @body-desktop-fontsize-14;                     
+                    }
+
+                    &__label {
+                        font-size: @label-desktop-fontsize-12;                       
+                    }
+                }
+
+                &feature {                   
+                    font-size: 13px;    
+                }
+
+                &share_wrap {                   
+                    .share {                       
+                        font-size: 18px;                      
+                    }
+                }
+            }
+        }
+    }
+}

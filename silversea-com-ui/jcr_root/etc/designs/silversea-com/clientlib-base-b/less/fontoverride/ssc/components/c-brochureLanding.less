@@ -1,0 +1,190 @@
+.c-brochureLanding-mobileTablet {	
+	&-title {		
+		font-family: @freight-bold;		
+		@media(max-width: @screen-md-min) {
+			font-size: 34px;
+		}		
+	  	@media(max-width: @screen-sm) {
+			font-size: 25px;
+		}		
+	}	
+	&-details {    	
+	    font-family: @suisse;		
+	    line-height: 25px;
+		@media(max-width: @screen-md-min) {
+			font-size: 17px;
+		}
+	  	@media(max-width: @screen-sm) {
+			font-size: 15px;
+		}
+	}	
+	&-btn {	
+		a {		 
+		    font: 600 12px @suisse;		   
+			@media(max-width: @screen-md-min) {
+			    font-size: 14px;
+		    }
+	  		@media(max-width: @screen-sm) {
+			    font-size: 12px;
+		    }	    	
+		}
+	}
+}
+.c-brochureLanding{
+	.lp17__brochure_inner {	   
+	    font-family: @f-lato;	 
+	    .lp17__brochure_col {      			
+			.lp17__brochure_text {
+			    ul{
+			    	font-size: 16px;
+			    }
+			    .lp17__brochure_text_desc{
+			    	font-size: 15px;
+			    }
+			    .btnlp17 {
+				    font-size: 17px;				   
+				    @media (max-width: @screen-sm){
+				    	font-size:14px;
+				    }
+				}
+			}
+		}
+	}
+
+	.bloc-brochures{
+	    font-family: @f-lato;  	    
+	    .leftbloc{	    	
+    		.title{    			
+			    font-size: 37px;			  
+    		}
+    		.title-2017{
+			    font-size: 30px;			   
+			    font-family: @freight-bold;			  
+    		}
+    		.subtitle{    			
+			    font-size: 19px;			   
+    		}
+    		.subtitle-2017{    		
+			    font-size: 20px;			   
+			    font-family:@f-lato;			    
+    		}
+    		.action{    			
+    			.btn_base{
+				    font: 600 12px @suisse;				   
+    			}
+    		}
+    		.action-2017{    			
+    			.btn_base{
+				    font-size: 20px;
+    			}
+    		}
+	    }
+	}	
+	.bloc-brochures.bloc-brochures-landing2017.bloc-brochures-landingNSW4 {
+		.title-2017 {
+			font-size:34px;			
+			@media (max-width: @screen-sm) {
+				font-size: 25px;    			
+			}
+		}
+		.subtitle-2017 {		
+		    font-size: 17px;		   
+		    font-family: @suisse;  		    
+		    p {
+			    @media (max-width: @screen-sm) {
+			    	font-size: 15px; 	    		
+			    }
+		    }
+		}		
+		a.landing_nws3_body_bro_cta.bound {			
+			font-size: 14px;			
+			@media (max-width: @screen-sm) {				
+    			font-size: 12px;
+			}			
+			span {
+				font-size: 14px;				
+				@media (max-width: @screen-sm) {
+    				font-size: 12px;
+				}
+			}
+		}	
+	}
+	
+	.bloc-brochures.bloc-brochures-landing2018 {	
+		.title-2018 {
+			font-size:30px;		
+			font-family: @freight-bold;			
+		}
+		.subtitle-2018 {
+		    font-size: 15px;    		
+		    font-family: @f-lato;		   
+		    p {
+			    @media (max-width: @screen-sm) {
+			    	font-size: 15px; 	    			
+			    }
+		    }
+		}		
+		.action-2018{
+                .btn-bro {                  
+                    font-size: 14px;                
+                    font-family: @suisse;                  
+                }
+    			.btn_base{    				   
+						font-size: 14px;						
+						font-family: @suisse;						
+    			}
+    		}
+		a.landing_nws3_body_bro_cta.bound {			
+			font-size: 14px;			
+			@media (max-width: @screen-sm) {
+    			font-size: 12px}			
+			span {
+				font-size: 14px;				
+				@media (max-width: @screen-sm) {
+    				font-size: 12px;
+				}
+			}
+		}		
+	}
+}
+
+ @media(max-width: @screen-md-min) {
+    .c-brochureLanding2018-mobileTablet-btn {
+        .btn-bro {            
+            font-family: @suisse;          
+            font-size: 12px;           
+        }        
+        a {           
+            font-family: @suisse;          
+            font-size: 12px;        
+        }
+    }
+}
+@media (min-width: @screen-sm) and (max-width: @screen-md-max){
+	.c-mobile-bloc-brochures-landing2018{
+		.c-brochureLanding-mobileTablet-title{
+				font-size:30px;			
+			font-family: @freight-bold;		
+		}			
+		.c-brochureLanding2018-mobileTablet-btn {           	
+        .btn-bro {          
+            font-family: @suisse;           
+            font-size: 12px;           
+        }        
+    }
+	}	
+}
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max){
+	.brochureLanding {
+		.c-brochureLanding-mobileTablet-title{
+			    font-size: 25px !important;			 
+			    font-family: @freight-bold;
+		}
+		.c-brochureLanding2018-mobileTablet-btn{
+			        a {           
+            font-family: @suisse;           
+            font-size: 12px;           
+        }       
+		}
+	}
+}

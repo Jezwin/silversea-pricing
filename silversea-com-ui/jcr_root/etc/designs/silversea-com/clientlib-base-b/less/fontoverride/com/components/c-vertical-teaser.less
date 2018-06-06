@@ -1,0 +1,74 @@
+.c-vertical-teaser {
+    &__title {
+        font-family: @freight-bold;
+        font-size: @subheader-desktop-fontsize-20;      
+    }
+    &__description {
+        font-size: @body-desktop-fontsize-14;
+    }
+
+    &__label {
+        font-size: 11px;       
+        &_nodefault {
+            font-size: 13px;           
+        }
+    }
+
+    &--style1 & {
+        @media screen and (max-width: @screen-sm) {
+            &__title {
+                font-size: 26px;                
+            }
+        }
+    }
+
+    &--style2 & {      
+        &__title {           
+            font-size: 20px;           
+            @media screen and (max-width: @screen-sm) {
+                font-size: 18px;
+            }
+        }
+    }
+
+    &--manual {       
+        .c-vertical-teaser__caption {            
+            .c-vertical-teaser {
+                &__link__label {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    &-finedine {      
+        &__title {            
+            font-size: 24px;            
+            font-family: @freight-bold;
+            @media screen and (max-width: @screen-sm) {
+                font-size: 18px;           
+            }
+            &__allInclusive {              
+                font-size: 24px;               
+                font-family: @f-lato;              
+                @media screen and (max-width: @screen-sm) {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    &-oba {
+        &__title_sm {           
+            @media screen and (max-width: @screen-sm) {              
+                font: 400 20px @freight-bold;               
+            }
+        }
+        &__title {
+            @media screen and (max-width: @screen-sm) {
+                font-size:18px;
+            }
+            font: 400 30px @freight-bold;           
+        }
+    }
+}
