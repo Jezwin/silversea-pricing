@@ -1,7 +1,4 @@
 .c-combo-cruise {
-    .c-gallery--cc {
-        margin-bottom: 40px;
-    }
 
     @media screen and (min-width: @screen-sm) {
         .c-suitelist--overviewtab {
@@ -16,89 +13,12 @@
         &_title,
         &_title > * {
             color: @black;
-            font-size: 30px;
-            font-weight: 400;
-            font-family: @f-theano_didot;
-            text-transform: uppercase;
-            line-height: 28px;
-            margin: 10px 0;
-
-            @media screen and (max-width: @screen-xs) {
-                margin: 0 0 20px;
-            }
         }
 
         &_desc {
-            display: table;
-            width: 100%;
-            margin: 0 0 25px;
-
-            &_txt {
-                padding-bottom: 10px;
-                padding-left: 0;
-                display: table-cell;
-                vertical-align: top;
-                font-size: 13px;
-                margin-bottom: 20px;
-                margin-top: 10px;
-
-                @media screen and (max-width: @screen-sm) {
-                    display: block;
-                    margin-bottom: 0;
-                }
-
-                p {
-                    margin: 0 0 20px;
-                    font-size: 14px;
-                    white-space: pre-wrap;
-                }
-            }
-
             &_cta {
-                padding: 0 0 0 30px;
-                display: table-cell;
-                vertical-align: top;
-
-                @media screen and (max-width: @screen-sm) {
-                    display: block;
-                    padding: 10px 0 0;
-                    margin: 0 0 10px;
-                    text-align: center;
-                }
-
-                a,
-                .btn {
-                    width: 200px;
-                    max-width: 100%;
-                    float: right;
-                    padding: 10px 20px;
-                    margin: 0 0 10px 0;
-                    position: relative;
-                    font-size: 11px;
-                    font-weight: 400;
-
-                    @media screen and (max-width: @screen-sm) {
-                        margin: 0 auto 15px;
-                        display: block;
-                        float: none;
-                    }
-
-                    i,
-                    .btn i.fa-lg {
-                        position: absolute;
-                        top: 8px;
-                        right: 20px;
-                        font-size: 16px;
-                        line-height: normal;
-                        vertical-align: inherit;
-                    }
-                }
-
                 div {
-                    margin: 0;
-
                     .btn-default {
-                        transition: background 1s;
 
                         &:hover {
                             background: @grey--9;
@@ -107,22 +27,5 @@
                 }
             }
         }
-    }
-}
-
-.cc-section-title {
-    margin: 10px 0;
-    text-align: center;
-    font-size: 30px;
-    font-family: @f-theano_didot;
-    text-transform: uppercase;
-}
-
-.cc-section-description {
-    padding: 0;
-
-    p {
-        max-width: 680px;
-        margin: 0 auto;
     }
 }
