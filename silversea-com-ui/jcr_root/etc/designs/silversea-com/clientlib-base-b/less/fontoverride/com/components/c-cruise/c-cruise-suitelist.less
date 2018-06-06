@@ -1,0 +1,208 @@
+.c-suitelist {
+
+    .btn-request-a-quote {
+        font-size: @button-desktop-fontsize-11 !important;     
+        
+    }
+  
+    &__detail {
+        &__title {
+            font-family: @freight-bold;
+            font-size: 22px;           
+
+            @media screen and (max-width: @screen-sm) {
+                font-size: 21px;
+            }
+        }       
+    }
+
+    &__price {
+        font-size: 13px;
+       
+        &__text {
+            &--important {
+                font-size: 20px;                
+            }
+
+            &--important2 {               
+                font-size: 20px;              
+            }
+
+            &--important3 {
+                font-size: 16px;              
+            }
+
+            &--important4 {
+                font-size: 13px;
+            }
+
+            &--important5 {           
+                font-size: 26px;
+            }
+        }
+    }
+
+    &__suite-table.table {      
+        font-size: 12px;    
+      
+        td {
+            &:nth-child(3) span {              
+                font-size: 11px;
+            }           
+        }
+    }
+
+    &__collapse {        
+        &__title {
+            font-size: 16px;           
+        }
+        .c-tab__body {
+            font-size: 13px;    
+        }
+    }
+
+    &__row-card {
+        .c-suitelist__detail {
+            &__title {
+                &-card {
+                    @media (min-width: @screen-md-min) {
+                        font-size: @subheader-desktop-fontsize-20;
+                    }
+                    @media screen and (max-width: @screen-sm) {                       
+                        font-size: @h3-mobile-fontsize-24;
+                    }
+                }
+            }
+
+            &__description {
+                &-card {
+                    font-size: @footnote-desktop-fontsize-11;                   
+                }
+            }
+        }
+
+        .c-suitelist__price {             
+            &-from {
+                font-size: @footnote-desktop-fontsize-11;
+            }
+
+            &__text--important2 {
+                font-size: @kicker-desktop-fontsize-18;
+            }
+            &__text--important {
+                font-size: @kicker-desktop-fontsize-18;
+            }
+        }
+
+        .c-suitelist__button {          
+            &-card {              
+                .btn-view-more-detail {
+                    font-size: @footnote-desktop-fontsize-11;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        .c-cruise__subtitle-card {
+            font-size: 27px;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .c-cruise__subtitle-card {
+            font-size: 23px;
+        }
+    }
+}
+
+.c-suite-detail-modal {
+    &-footnotes {
+        font-size: @footnote-desktop-fontsize-11;     
+    }
+
+    &-deck {
+        a {           
+            font-family: @suisse;          
+        }      
+    }
+    
+    &-description__counter {
+        font-size:@kicker-desktop-fontsize-18;
+    }   
+    &-navtabs {
+        font-size: @button-desktop-fontsize-12;       
+    }
+    &-title {
+        font-family: @freight-bold;
+        font-size: @subheader-desktop-fontsize-28;       
+        @media (max-width: @screen-md-min) {
+            font-size: @h1-mobile-fontsize-36;
+        }
+
+        &-section {
+            @media (max-width: @screen-md-min) {
+                font-size: @h2-mobile-fontsize-30;
+            }
+            @media (max-width: @screen-sm) {
+                font-size: 26px;
+            }
+        }
+    }
+    &-long-desc {       
+        font-size: @button-desktop-fontsize-14;      
+        font-family: @suisse;       
+        @media (max-width: @screen-md-min) {
+            font-size: @body-mobile-fontsize-14;
+        }
+        @media (max-width: @screen-sm) {
+            font-size: @body-mobile-fontsize-14;
+        }
+    }
+    &-bedrooms {       
+        font-size: @footnote-desktop-fontsize-11;        
+        font-family: @suisse;
+        @media (max-width: @screen-md-min) {
+            font-size: @body-mobile-fontsize-13;           
+        }
+        @media (max-width: @screen-sm) {
+            font-size: @body-mobile-fontsize-12;
+        }
+    }
+    &-note {        
+        font-size: @footnote-desktop-fontsize-11;
+        font-family: @suisse;
+        @media (max-width: @screen-md-min) {
+            font-size: @body-mobile-fontsize-13;
+        }
+        @media (max-width: @screen-sm) {
+            font-size: @body-mobile-fontsize-12;
+        }
+    }
+    &-price {       
+        font-size: @footnote-desktop-fontsize-11; 
+
+        .suite-early-booking {
+            font-size: @footnote-desktop-fontsize-11 !important;
+        }
+
+        p {
+            span {
+                font-size: 12px;
+            }
+        }
+    }
+    #suite-features {
+        ul {
+            font-family: @suisse;
+            font-size: @body-desktop-fontsize-14;          
+            @media screen and (max-width: @screen-md-min) {             
+                font-size: @body-mobile-fontsize-13;
+            }
+        }
+       
+        .suite-features-expand {            
+            font-size: @button-mobile-fontsize-12;           
+        }
+    }    
+}

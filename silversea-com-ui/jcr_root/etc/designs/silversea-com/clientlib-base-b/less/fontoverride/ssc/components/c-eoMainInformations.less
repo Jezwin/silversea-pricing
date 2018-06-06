@@ -1,0 +1,28 @@
+.c-eo_maininfo {
+    font-family: @suisse;
+    &-title {       
+        font-size: @h1-desktop-fontsize-48;      
+    }
+    &-description {
+        font-size: @body-desktop-fontsize-14;
+    }
+    &-shortDescription {
+        font-size: @body-desktop-fontsize-14;       
+    }    
+    &-footnotes {
+    	font-size: @footnote-desktop-fontsize-11;
+    }
+    &-new-title {    
+        .times {
+            font-family: @freight-bold;          
+            font-size: @h1-desktop-fontsize-48;
+            @media (max-width: @screen-sm) {
+            	font-size:@h1-mobile-fontsize-34;            	
+            }
+        }
+        .open {
+            font-family: @suisse;
+            font-size: 18px;
+        }
+    }
+}

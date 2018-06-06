@@ -1,0 +1,35 @@
+.c-single-suite {   
+    .c-suite-display {      
+        .o-title {         
+            font-size: @h1-desktop-fontsize-48;
+            font-family: @freight-bold;          
+        }
+
+        .o-description {
+            font: 400 @body-desktop-fontsize-14;
+            font-family: @suisse;
+        }
+    }
+    .c-suite-gallery {    
+        .c-suite__gallery {
+            &__label {              
+                font-size: @label-desktop-fontsize-12;
+            }
+        }
+    }
+
+    .c-suite__item-expander {      
+        .btn {          
+            font-size: @button-desktop-fontsize-11;        
+        }
+    }
+
+    .c-single-suite-availability {            
+        &__title {
+            font-size: 17px;          
+            @media screen and (min-width: @screen-sm) {
+                font-family: @freight-bold;
+            }
+        }            
+    }
+}

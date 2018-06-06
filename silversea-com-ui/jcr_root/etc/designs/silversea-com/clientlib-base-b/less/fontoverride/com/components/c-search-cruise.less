@@ -1,0 +1,58 @@
+.c-search-cruise {   
+    &__content {   
+        h1 {
+            font-family: @freight-bold;
+            font-size: @h1-desktop-fontsize-48;          
+            @media screen and (max-width: @screen-sm) {
+                font-size: @h1-mobile-fontsize-38;             
+            }
+        }
+
+        p {
+            font-size: 20px;         
+            @media screen and (max-width: @screen-sm) {
+                font-size: 16px;              
+            }
+        }
+
+        .btn {           
+            font-size: 16px;         
+        }
+    }
+
+    &__form {
+        h3 {            
+            font-size: 24px;          
+            font-family: @freight-bold;            
+            @media screen and (max-width: @screen-sm) {            
+                font-weight: 400;
+            }
+            @media screen and (max-width: @screen-xs) {
+                font-size: 20px;
+            }
+        }
+
+        .chosen-container {        
+            .chosen-single {            
+                span {
+                    font-size: 16px;
+                }              
+            }
+
+            .chosen-drop {             
+                .chosen-results {                    
+                    li {
+                        font-size: 13px;                 
+                    }
+                }
+            }
+        }
+
+        .btn {         
+            font-size: 16px;         
+            @media screen and (max-width: @screen-xs) {
+                font-size: 12px;
+            }         
+        }
+    }
+}

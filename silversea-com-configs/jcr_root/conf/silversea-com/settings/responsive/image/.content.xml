@@ -18,40 +18,40 @@
                     <image jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
-                            width="930" />
+                            width="1200" />
                         <desktop-11
                             jcr:primaryType="nt:unstructured"
-                            width="850" />
+                            width="1100" />
                         <desktop-10
                             jcr:primaryType="nt:unstructured"
-                            width="770" />
+                            width="1000" />
                         <desktop-9
                             jcr:primaryType="nt:unstructured"
-                            width="690" />
+                            width="900" />
                         <desktop-8
                             jcr:primaryType="nt:unstructured"
-                            width="610" />
+                            width="800" />
                         <desktop-7
                             jcr:primaryType="nt:unstructured"
-                            width="530" />
+                            width="700" />
                         <desktop-6
                             jcr:primaryType="nt:unstructured"
-                            width="450" />
+                            width="600" />
                         <desktop-5
                             jcr:primaryType="nt:unstructured"
-                            width="370" />
+                            width="500" />
                         <desktop-4
                             jcr:primaryType="nt:unstructured"
-                            width="290" />
+                            width="400" />
                         <desktop-3
                             jcr:primaryType="nt:unstructured"
-                            width="250" />
+                            width="300" />
                         <desktop-2
                             jcr:primaryType="nt:unstructured"
                             width="210" />
                         <desktop-1
                             jcr:primaryType="nt:unstructured"
-                            width="50" />
+                            width="100" />
                         <mobile-12
                             jcr:primaryType="nt:unstructured"
                             width="737" />
@@ -114,10 +114,10 @@
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
-                            width="300" />
+                            width="400" />
                         <mobile-12
                             jcr:primaryType="nt:unstructured"
-                            width="300" />
+                            width="400" />
                     </variationassetsdisplay>
                     <pressreleaseslist jcr:primaryType="nt:unstructured">
                         <desktop-12

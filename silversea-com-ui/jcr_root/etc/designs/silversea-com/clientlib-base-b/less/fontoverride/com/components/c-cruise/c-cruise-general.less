@@ -1,0 +1,60 @@
+.c-cruise {
+    .price-suffixe {
+        font-size: @footnote-desktop-fontsize-11;
+    }
+
+    &__subtitle {       
+        font-size: @h3-desktop-fontsize-30;      
+        font-family: @freight-bold;      
+
+        @media screen and (max-width: @screen-sm) {
+            font-size: @h3-mobile-fontsize-24;
+        }
+    }
+
+    &__descr {
+        font-size: @body-desktop-fontsize-14;
+    }
+
+    @media screen and (max-width: @screen-sm) {    
+        ul[data-toggle="dropdown"] {
+            a.c-gallery--cc__tab__link,
+            .c-tab__link a {
+                font-size: @body-mobile-fontsize-12;
+            }
+        }
+    }    
+}
+
+// ICONS FEATURES
+.meta_feature {
+    &_inner {      
+        font-size: 12px;  
+    }
+}
+
+// C-CRUISE META INFO
+.cruise__header__metainfo {
+    font-size: @body-desktop-fontsize-14;
+
+    &_mobile {
+        font-size: @body-mobile-fontsize-12;       
+    }
+
+    & > span {
+        &:after {
+            font-size: 11px;
+        }
+    }
+
+    .meta_feature_inner {    
+        font-size: @body-desktop-fontsize-14;       
+    }
+}
+
+// C-CRUISE ITEM EXPANDER BTN
+.c-cruise__item-expander {
+    .btn {       
+        font-size: @button-desktop-fontsize-11;  
+    }
+}
