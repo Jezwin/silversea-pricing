@@ -3,23 +3,10 @@
         background: @black;
         border-left: solid 1px @grey;
         color: @white;
-        display: inline-block;
-        float: right;
-        height: @nav-top-height;
-        max-width: 120px;
 
         &__btn {
-            .c-btn();
             background-color: @black;
-            border-radius: 0;
             color: @white;
-            font-size: 18px;
-            height: 100%;
-            width: 100%;
-
-            &:focus {
-                outline: 0;
-            }
         }
 
         &.is-active {
@@ -28,18 +15,6 @@
                 border-left: solid 1px @white;
                 color: @black;
             }
-
-            .fa-bars {
-                display: none;
-            }
-
-            .fa-close {
-                display: inherit;
-            }
-        }
-
-        .fa-close {
-            display: none;
         }
     }
 }
