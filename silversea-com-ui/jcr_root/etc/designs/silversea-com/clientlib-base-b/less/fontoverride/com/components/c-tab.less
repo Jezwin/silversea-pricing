@@ -1,0 +1,66 @@
+.c-tab {
+    &__link {  
+        @media screen and (min-width: @screen-md-min) {
+            &--button {              
+                a {                  
+                    font-size: @button-desktop-fontsize-12;                                   
+                }
+            }
+        }
+    }
+
+    &__accordion {
+        @media screen and (max-width: @screen-sm) {                      
+            .c-tab__link {              
+                &[data-state='active'] {                  
+                    font-size: 18px;                                    
+                }
+                a {                  
+                    font-size: 14px;                                  
+                }
+            }           
+        }
+    }
+}
+
+.combocruise {
+    #overview.c-tab__content--overview {
+        .c-gallery--cc {
+            .c-gallery__label {
+                font-size: 15px;
+
+                @media (max-width: @screen-sm) {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: @screen-sm) {
+    html.es {
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 11px;           
+        }
+    }
+
+    html.de {
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 11px;          
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    html.es {
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 9px;          
+        }
+    }
+
+    html.de {
+        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
+            font-size: 10px;           
+        }
+    }
+}

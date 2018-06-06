@@ -1,5 +1,5 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="c-cruise-ship-info">
+    <div class="c-cruise-ship-info ab-test-v2-hide">
         <sly data-sly-test.suites="${cruise.cruiseModel.ship.suites}">
             <h3 class="c-cruise__subtitle">${'suites' @ i18n}</h3>
             <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
@@ -17,4 +17,116 @@
             </div>
         </div>
     </div>
+</template>
+<template data-sly-template.v2="${ @ cruise }">
+	<div class="c-cruise-ship-info ab-test-v2-show">
+		 <sly data-sly-test.suites="${cruise.cruiseModel.ship.suites}">
+            <h3 class="c-cruise__subtitle">${'suites' @ i18n}</h3>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType != 'silversea-expedition'}">
+	            <p class="c-cruise__descr">${'cruise-ship-suite-description' @ i18n}</p>
+            </sly>
+            <sly data-sly-test="${cruise.cruiseModel.cruiseType == 'silversea-expedition'}">
+	            <p class="c-cruise__descr">${'cruise-ship-suite-description-expedition' @ i18n}</p>
+            </sly>
+        </sly>
+	    <div class="c-suitelist c-suitelist-card " role="tablist" id="cruise_suite_list_ship-tab">
+			<div class="row c-suitelist__row-card" 
+												data-from="${'from' @ i18n}"
+												data-nav-description="${'overview' @i18n}" 
+												data-nav-plan="${'suite-plan' @i18n}" 
+												data-nav-features="${'suite-features' @i18n}"
+												data-nav-location="${'suite-location' @i18n}" 
+												data-nav-virtual-tour="${'virtual-tour' @i18n}" 
+												data-request-quote="${'request-quote' @i18n}" 
+												data-early-bonus="${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}" 
+												data-deck="${'deck' @ i18n}"
+												data-waitlist="${'waitlist' @ i18n}"
+												data-view-all="${'view-more-features' @ i18n}"
+												data-close="${'close' @ i18n}"
+												data-per-guest="${'fares-shown-are-per-guest' @ i18n}"
+												data-view-less="${'view-less-features' @ i18n}">
+				<div data-sly-repeat="${cruise.prices}" class="panel col-xs-12 col-sm-6 col-md-4 col-lg-4 automatic-modal-suite-detail" data-target=".bs-modal-lg" id="c-suite-card-ship-tab-${itemList.index}" data-currency="${item.lowestPrice.currency @ i18n}">
+							 <script data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.locationImage,  metadata='deckNumber'}"  data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = item.suite.plan}">
+								var value = {};
+								var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
+								value.title = "${item.suite.title @ context='scriptString'}";
+								value.longDescription = "${item.suite.longDescription @ context='scriptString'}";
+								value.bedroomsInformation = "${item.suite.bedroomsInformation @ context='scriptString'}";
+								value.assetSelectionReference = "${item.suite.assetSelectionReference @ context='scriptString'}";
+								value.plan = "${item.suite.plan @ context='scriptString'}";
+								value.locationImage = "${item.suite.locationImage @ context='scriptString'}";
+								value.virtualTour = "${item.suite.virtualTour @ context='scriptString'}";
+								value.fileReference = "${item.suite.fileReference @ context='scriptString'}";
+								value.features = "${item.suite.featuresString @ context='scriptString'}";
+								value.suiteSubTitle = "${item.suite.suiteSubTitle @ context='scriptString'}";
+								value.plan = "${assetHelper.imageUrl @ context='scriptString'}";
+								value.locationImage = "${setImage.renditionListString @ context='scriptString'}";
+								value.deck = "${setImage.metadataResourceListString @ context='scriptString'}";
+								window.cruiseItem[key] = value;	
+							</script>
+							<script data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=item.suite.assetSelectionReference}">
+								var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
+								window.cruiseItem[key].assetSelectionReference =  "${setImage.renditionListString @ context='scriptString'}";
+							</script>
+			                <div class="c-suitelist__content" id="suite-card-v2-${itemList.index}">
+				                <div class="c-suitelist__image c-suitelist__image-card" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+			        	           <sly data-sly-test="${item.suite.thumbnail}" data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+			        	           	    data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}" />
+				                </div>
+				                <div class="c-suitelist__detail c-suitelist__detail-card">
+				                    <span class="c-suitelist__detail__title c-suitelist__detail__title-card alternative-h" data-sly-text="${item.suite.title}"></span>
+				                    <p class="c-suitelist__detail__description c-suitelist__detail__description-card">${item.suite.suitesubtitleUpTo @ context='html'}</p>
+				                </div>
+				                <div class="c-suitelist__price c-suitelist__price-card ${item.isWaitList ? 'c-suitelist__price-card-whitelist' : ''}">
+				                    <span data-sly-test="${item.isWaitList}" class="c-suitelist__price__text c-suitelist__price__text--important2">${'waitlist' @ i18n}</span>
+				                    <sly data-sly-test="${!item.isWaitList}">
+				                        <span data-sly-test="${!item.isWaitList}" class="c-suitelist__price__text">
+						                    <span class="c-suitelist__price-from">${'from' @ i18n}</span>
+				                            <span data-sly-test.early="${item.lowestPrice.earlyBookingBonus}"
+				                                data-sly-use.priceHelper="${'com.silversea.aem.helper.PriceHelper' @ value = item.lowestPrice.price}">
+				                               
+				                             
+				                            </span>
+				                            <strong class="c-suitelist__price__text--important2">
+				                                 ${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}
+				                                 <script>
+				                                	var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
+				                                 	window.cruiseItem[key].price = "${item.computedPriceFormated @ context='scriptString'}"; 
+			                                 	</script>
+				                            </strong>
+					                        <span class="price-suffixe">
+					                            <span data-sly-test="${early}">
+					                            	${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
+						                            <script>
+						                               	var key = "c-suite-card-ship-tab-${itemList.index  @ context='scriptString' }";
+						                            	window.cruiseItem[key].early = true;
+					                            	</script>
+					                            </span>
+					                        </span>
+				                        </span>
+				                    </sly>
+				                </div>
+			                	<div class="c-suitelist__button c-suitelist__button-card">
+				                    <a class="btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card" id="suite-card-v2-raq-${itemList.index}" data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+				                        href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}" data-sscclicktype="clic-RAQ">
+				                        <span>${'request-quote' @i18n}</span>
+										<i class="fa fa-angle-right"></i>			                        
+				                    </a>
+				                    <a class="btn-view-more-detail" id="suite-card-v2-more-detail-${itemList.index}">
+				                        <span>${'view-more-details' @ i18n}</span>
+				                    </a>
+				                </div>
+			                </div>
+		                </div>
+		            </div>
+			
+	        <div class="c-cruise__footnotes" style="margin-bottom: 30px">
+	            <i>${'fares-shown-are-per-guest' @i18n}</i>
+	        </div>
+	    </div>
+	    <sly data-sly-use.suiteDetailDesktop="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/suitedetail-v2.html"
+	                         data-sly-call="${suiteDetailDesktop.desktop}"/>
+	    <sly data-sly-use.suiteDetailMobile="silversea/silversea-com/components/pages/cruise/fragment/suitetab/suitelist/suitedetail-v2.html"
+	                         data-sly-call="${suiteDetailMobile.mobile}"/>
+	 </div>
 </template>

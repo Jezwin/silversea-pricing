@@ -18,7 +18,7 @@
     <div class="container" data-sly-test.imageUrl="${portUse.portModel.thumbnail}">
     	<div class="banner-image">
     	<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
-    		<img src="${assetHelper.imageUrl}?hei=375&wid=930&fit=crop" alt="${portUse.portModel.title || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" />
+    		<img src="${assetHelper.imageUrl}?hei=375&wid=1200&fit=crop" alt="${portUse.portModel.title || assetHelper.metadataResource.valueMap['dc:title']  || currentPage.title}" />
         </div>
     </div>
 </sly>

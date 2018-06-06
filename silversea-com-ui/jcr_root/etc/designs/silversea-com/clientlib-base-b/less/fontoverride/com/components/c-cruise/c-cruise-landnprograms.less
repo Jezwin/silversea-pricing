@@ -1,0 +1,48 @@
+.c-cruise-itinerary-2 {
+    &__list { 
+        &__item {           
+            .panel {
+                &__heading {         
+                    &__description {                        
+                        h3 {
+                            font-size: @kicker-desktop-fontsize-18;
+                        }
+                    }
+                }
+            }
+        }        
+
+        &--nested {
+            &__item {               
+                .panel--nested {
+                    &__heading {                      
+                        font-size: @body-desktop-fontsize-14;
+                      .btn-more, .btn-less{
+                      	font-size:@footnote-desktop-fontsize-11;
+                      }
+                        h4 {
+                            font-size: @body-desktop-fontsize-16;
+                        }                        
+                    }                   
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__list {
+            &__item {
+                .panel {
+                    &__heading {
+
+                        &__description {
+                            small {
+                                font-size: @footnote-desktop-fontsize-11;
+                            }
+                        }  
+                    }
+                }
+            }
+        }
+    }
+}

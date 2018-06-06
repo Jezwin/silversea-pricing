@@ -21,7 +21,7 @@
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
     <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
     <sly data-sly-use.externalizerHelperGV="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.grandVoyagesPagePath  }" />
-    <form class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}"
+    <form id="filter-form" class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='results'}"
         data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
         <div class="filter-wrapper collapse clearfix" id="filter-collapse">
             <div class="single-filter destination-tracking" data-sly-test="${!fyc.isPrefilteredByDestination}">
@@ -125,7 +125,7 @@
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
     <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
     <sly data-sly-use.externalizerHelperGV="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.grandVoyagesPagePath  }" />
-    <form class="c-fyc-v2-filter__form" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='resultsv2'}" data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
+    <form id="filter-form-v2" class="c-fyc-v2-filter__form" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='resultsv2'}" data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
         <div class="v2-filter-wrapper collapse clearfix" id="v2-filter-collapse">
             <div class="single-filter destination-tracking" data-sly-test="${!fyc.isPrefilteredByDestination}">
                 <select class="chosen destination-filter" name="destination">
@@ -189,7 +189,7 @@
                         <ul class="v2-feature-filter">
                             <li data-sly-repeat.feature="${fyc.features}">
                                 <input id="v2-${feature.name}" type="checkbox" name="feature" value="${feature.name}" data-value="${feature.name}" />
-                                <label class="feature-name" for="${feature.name}"><i class="${feature.icon}"></i>
+                                <label class="feature-name" for="v2-${feature.name}"><i class="${feature.icon}"></i>
                                     ${feature.title}</label>
                             </li>
                         </ul>
@@ -212,9 +212,6 @@
 <div class="c-fyc-v2-filter"
     data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
     <div class="c-fyc-v2-filter__header text-center text-uppercase">
-        <p class="c-fyc-v2-filter__action">
-            <i class="fa fa-mail-reply"></i> <a href="#" onclick="history.go(-1);return false">${'perform-a-new-search' @ i18n}</a>
-        </p>
         <p>
             <h3 class="c-fyc-v2-filter__title">${properties.jcr:title || 'your-search-results' @ i18n}</h3>
             <span class="c-fyc-v2-filter__text">
@@ -231,7 +228,7 @@
     <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
     <sly data-sly-use.externalizerHelperWC="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.worldCruisesPagePath }" />
     <sly data-sly-use.externalizerHelperGV="${'com.silversea.aem.helper.ExternalizerHelper' @ path=fyc.grandVoyagesPagePath  }" />
-    <form class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='resultsv2'}"
+    <form id="filter-form-v2" class="c-find-your-cruise-filter" action="/" autocomplete="off" data-url="${ externalizerHelper.externalizedUrl @ selectors='resultsv2'}"
         data-limit="${currentStyle.paginationLimit || 10}" data-lang="${pageHelper.homePage.name}">
         <div class="v2-filter-wrapper collapse clearfix" id="v2-filter-collapse">
             <div class="single-filter destination-tracking" data-sly-test="${!fyc.isPrefilteredByDestination}">
@@ -296,7 +293,7 @@
                             <li data-sly-repeat.feature="${fyc.features}">
                                 <input id="v2-${feature.name}" type="checkbox" name="feature" value="${feature.name}"
                                     data-value="${feature.name}"/>
-                                <label class="feature-name" for="${feature.name}"><i class="${feature.icon}"></i>
+                                <label class="feature-name" for="v2-${feature.name}"><i class="${feature.icon}"></i>
                                     ${feature.title}</label>
                             </li>
                         </ul>

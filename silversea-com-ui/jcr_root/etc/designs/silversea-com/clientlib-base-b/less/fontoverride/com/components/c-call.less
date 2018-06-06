@@ -1,0 +1,60 @@
+/*
+** c- Call
+** Callbox for header
+** 3 differents states
+**/
+
+.c-call {
+
+    &__inner {
+        
+        .c-call__title {
+            font-size: 12px;
+        }
+        .c-call__number {
+            font-size: @body-desktop-fontsize-14;
+            .c-call__number_icon {
+                font-size: 11px;
+            }
+        }
+        .c-call__msg {
+            font-size: @footnote-desktop-fontsize-9;          
+        }
+    }
+}
+
+/*
+** c- Callbox
+** Callbox like baner
+** 2 differents states
+**/
+
+.c-callbox {
+    &__msg {
+     
+        &--icon {
+            font-size: 20px;
+        }
+       
+        &--desktop {
+            font-size: @body-desktop-fontsize-14;
+        }
+    }
+    &__number {        
+        font-size: @kicker-desktop-fontsize-18;       
+    }
+}
+
+/*
+** c- Callbox
+** Callbox for simple page
+**/
+
+.simplepage {
+    .o-section--callbox {        
+        font-size: @body-desktop-fontsize-14;        
+        strong {
+            font-size: @kicker-desktop-fontsize-18;
+        }        
+    }
+}

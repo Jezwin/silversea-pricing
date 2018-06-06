@@ -2,7 +2,7 @@
 <div
 	data-sly-use.fyc="${'com.silversea.aem.components.editorial.FindYourCruiseUse' @ psize='15'}"
 	id="destination-fyc-switchable-block"
-	class="c-fyc-old destination-switchable-block">
+	class="c-fyc-old  c-fyc destination-switchable-block">
 	<sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise/filter.html" data-sly-call="${filterTemplate.filterv1 @ fyc=fyc}" />
 
 	<sly data-sly-test.type="${fyc.type || 'v2'}" />

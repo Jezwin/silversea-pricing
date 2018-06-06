@@ -3,7 +3,7 @@
 
     <div class="c-fyc-v2__result" data-sly-repeat.cruiseItem="${fyc.cruises}">
         <div class="c-fyc-v2__result__wrapper" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = cruiseItem.cruiseModel.thumbnail}">
-            <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=360" />
+            <sly data-sly-test.thumbnail="${assetHelper.imageUrl}?wid=450" />
             <sly data-sly-test.thumbnailFallback="${currentDesign.path}/clientlib-base/images/cruise-thumbnail.jpg" />
             <div class="c-fyc-v2__result__image" style="background-image: url(${cruiseItem.cruiseModel.thumbnail ? thumbnail : thumbnailFallback @ context='uri'})">
                 <span data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="flag"> <span class="flag__icon icon-star"></span> <span class="flag__text">${'exclusive offer' @ i18n}</span>
@@ -66,9 +66,11 @@
 								<i class="icon-star"></i> ${'offer' @ i18n} <span
 								class="tooltip"><i></i>${'Exclusive Offer' @ i18n}</span>
                             </span>
-                            <span class="feature" data-sly-list="${cruiseItem.cruiseModel.features}">
-                                <i class="${item.icon}"></i>
-                                <span class="tooltip"><i></i>${item.title}</span>
+                            <span data-sly-list="${cruiseItem.cruiseModel.features}">
+                                   <span class="feature">
+	                                <i class="${item.icon}"></i>
+	                                <span class="tooltip"><i></i>${item.title}</span>
+	                            </span>
                             </span>
                             <span data-sly-test="${cruiseItem.exclusiveOffers.size > 0 || cruiseItem.cruiseModel.features.size > 0}" class="bar-for-code">|</span>
                             <span class="cruise-code hidden-xs">#${cruiseItem.cruiseModel.cruiseCode}</span>

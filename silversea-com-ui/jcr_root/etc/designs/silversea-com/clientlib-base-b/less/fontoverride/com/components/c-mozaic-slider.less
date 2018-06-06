@@ -1,0 +1,62 @@
+.c-mozaic {
+    .btn-wrapper {       
+        font-size: @button-desktop-fontsize-12;       
+    }
+
+    &__slider {      
+        &__slide {
+            &--text {             
+                .c-mozaicslider {
+                    &__title {
+                        font-family: @freight-bold;
+                        font-size: @h3-desktop-fontsize-30;
+                    }
+
+                    &__title_small {
+                        font-size: @h4-desktop-fontsize-26;
+                    }
+
+                    &__descr {
+                        font-size: @body-desktop-fontsize-14;                      
+                    }
+
+                    &__link {                      
+                        font-size: @button-desktop-fontsize-12;                       
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-md-max) {
+        &__slider {
+            .c-tabbedmozaic {
+                &__description {                 
+                    .discover-more {                  
+                        font-size: @button-mobile-fontsize-12;                     
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-lg-min) {       
+        &__slider {
+            &__slide { 
+                &--text {    
+                    .c-mozaicslider {
+                        &__title {
+                            font-size: @h3-desktop-fontsize-30;                           
+                        }
+
+                        &__title_small {
+                            font-size: @h3-desktop-fontsize-30;
+                        }                        
+                    }
+                }
+            }
+        }
+    }
+}
+
+

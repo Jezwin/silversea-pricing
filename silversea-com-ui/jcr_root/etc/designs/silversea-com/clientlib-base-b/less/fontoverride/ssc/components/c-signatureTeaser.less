@@ -1,0 +1,22 @@
+.c-signature-teaser {
+    &__title {
+        font-family: @freight-bold;
+        font-size: 16px;
+    }
+
+    &__description {
+        font-size: @body-desktop-fontsize-14;
+    }
+    &--style1 {    
+        @media screen and (max-width: @screen-sm) {
+            &__title {
+                font-size: 26px;
+            }
+        }
+    }    
+    @media screen and (max-width: @screen-sm) {
+	        .c-signature-teaser--style1 .c-signature-teaser__title {
+	                font-size:22px;
+	        }
+	}
+}
