@@ -1,138 +1,26 @@
 .c-annoucement {
-    position: relative;
-
-	box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
-	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
 	border: 1px solid #ddd;
-    margin-bottom: 5px !important;
     
-    .wrapperhover {
-        height: 100%;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 1;
-    }
-
-    &__image {
-        img {
-            width: 100%;
-        }
-    }
-
     &__content {
         background-color: rgba(0,0,0,.5);
         color: @white;
-        left: 13%;
-        padding: 15px 10px 5px 10px;
-        position: absolute;
-        top: 20%;
-        width: 37%;
         
-        &_no_background{
-        	background-color:transparent;
-        	.c-annoucement__content__title{
-        		height:118px;
-        	}
-        }
 
         @media screen and (max-width: @screen-sm) {
-            background-color: transparent;
             border: 1px solid @grey--d;
             color: @black;
-            padding: 20px 20px 15px 20px;
-            position: static;
-            width: 100%;
         }
 
-        &__title {
-            display: block;
-            font-family: @f-theano_didot;
-            line-height: 1;
-            margin: 0 0 20px;
-            text-transform: uppercase;
-
-            @media screen and (max-width: @screen-sm) {
-                margin: 0 0 30px;
-            }
-
-            h2 {
-                font-size: 41px;
-                margin: 0;
-
-                @media screen and (max-width: @screen-sm) {
-                    font-size: 28px;
-                }
-
-                sup {
-                    font-size: 17px;
-                    position: relative;
-                    top: -20px;
-
-                    @media screen and (max-width: @screen-sm) {
-                        font-size: 11px;
-                        top: -16px;
-                    }
-                }
-            }
-
-            a {
-                display: block;
-                font-size: 31px;
-                margin-bottom: 26px;
-                text-decoration: none;
-
-                @media screen and (max-width: @screen-sm) {
-                    font-size: 15px;
-                    margin-top: 15px;
-                }
-
-                &:hover {
-                    text-decoration: none;
-                }
-
-                sup {
-                    font-family: @f-theano_didot;
-                    font-size: 11px;
-                    text-transform: uppercase;
-                    top: -6px;
-
-                    @media screen and (max-width: @screen-sm) {
-                        font-size: 9px;
-                        top: -4px;
-                    }
-                }
-            }
-
-            h3 {
-                font-size: 32px;
-                line-height: 1.2;
-                margin: 0;
-
-                @media screen and (max-width: @screen-sm) {
-                    font-size: 20px;
-                }
-            }
-        }
 
         &__cta {
             a {
-                float: left;
-                margin-right: 2px;
-                padding: 8px 20px;
-                position: relative;
-                z-index: 2;
 
                 @media screen and (max-width: @screen-sm) {
                     background-color: @black;
                     color: @white;
-                    float: none;
                 }
             }
         }
 
-        .btn {
-            border: 0;
-        }
     }
 }
