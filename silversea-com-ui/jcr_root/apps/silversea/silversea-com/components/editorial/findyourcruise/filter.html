@@ -211,10 +211,7 @@
 <template data-sly-template.filterv2old="${@ fyc}">
 <div class="c-fyc-v2-filter"
     data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper">
-    <div class="c-fyc-v2-filter__header text-center text-uppercase">
-        <p class="c-fyc-v2-filter__action">
-            <i class="fa fa-mail-reply"></i> <a href="#" onclick="history.go(-1);return false">${'perform-a-new-search' @ i18n}</a>
-        </p>
+    <div class="c-fyc-v2-filter__header text-center text-uppercase">     
         <p>
             <h3 class="c-fyc-v2-filter__title">${properties.jcr:title || 'your-search-results' @ i18n}</h3>
             <span class="c-fyc-v2-filter__text">

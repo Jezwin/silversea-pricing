@@ -30,7 +30,7 @@ $(function() {
 
                     // Disabled option not available
                     $optionList.each(function() {
-                        try {
+                       try {
                             var $option = $(this);
                             $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
                         } catch (error) {
