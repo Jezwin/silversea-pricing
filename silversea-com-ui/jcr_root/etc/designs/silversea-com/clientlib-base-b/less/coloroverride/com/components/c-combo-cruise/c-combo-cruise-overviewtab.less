@@ -2,66 +2,22 @@
     .map__slider {
         border: 1px solid @grey--e6;
         background: @white;
-        text-align: center;
 
         .map__slider-item {
-            margin: 0;
 
             .map__title {
-                text-transform: uppercase;
                 color: @grey--14;
-                margin: 5px 0 10px;
-                padding: 10px;
                 background: @white;
-                font-size: 22px;
-                font-family: @f-theano_didot;
-                word-break: break-word;
-
-                span {
-                    font-size: 13px;
-                    font-family: @f-sans_serif;
-                    display: block;
-                    margin-bottom: 10px;
-                }
-
-                span + span {
-                    margin-bottom: 0;
-                    margin-top: 10px;
-                }
             }
 
-            & > * {
-                margin: 0;
-            }
-
-            img {
-                width: 100%;
-            }
 
             .map__link {
                 background-color: @grey--e;
-
-                @media screen and (max-width: @screen-sm) {
-                    padding-bottom: 25px;
-                }
-
-                .c-btn {
-                    font-size: 11px;
-                    line-height: 16px;
-                    margin: 10px;
-                }
-
-                .btn {
-                    font-size: 10px;
-                    margin-bottom: 10px;
-                    padding: 9px 17px;
-                }
             }
         }
     }
 
     .slick-dots {
-        bottom: 10px;
 
         li button:before {
             background: @grey--ca;
