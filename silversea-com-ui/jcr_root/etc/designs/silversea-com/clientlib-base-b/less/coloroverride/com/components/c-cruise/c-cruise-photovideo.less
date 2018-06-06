@@ -1,0 +1,111 @@
+.c-cruise {
+    .c-cruise__gallery {
+        margin-bottom: 20px;
+        margin-top: 40px;
+        overflow: hidden;
+        transition: max-height 1s;
+        width: 100%;
+
+        &__featured {
+            padding: 0 1px;
+
+            &:nth-of-type(1n+2) {
+                display: none;
+            }
+
+            &__left {
+                float: left;
+                padding-right: 1px;
+                width: 60%;
+
+                @media screen and (max-width: @screen-sm) {
+                    float: none;
+                    width: 100%;
+                }
+
+                .c-cruise__gallery__item__caption {
+                    bottom: 10px;
+                }
+            }
+
+            &__right {
+                float: left;
+                padding-left: 1px;
+                width: 40%;
+
+                @media screen and (max-width: @screen-sm) {
+                    float: none;
+                    width: 100%;
+                }
+
+                .c-cruise__gallery__item__caption {
+                    top: 10px;
+                }
+            }
+        }
+
+        &__label {
+            color: #fff;
+            font-size: 12px;
+            position: absolute;
+            left: 9px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 6px;
+            top: 8px;
+        }
+
+        &__item {
+            background-color: @grey--c3;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: block;
+            height: 0;
+            overflow: hidden;
+            padding-bottom: 53%;
+            position: relative;
+
+            &:after {
+                background-color: @white;
+                bottom: 0;
+                content: '';
+                display: block;
+                left: 0;
+                height: 2px;
+                position: absolute;
+                width: 100%;
+            }
+
+            img {
+                display: block;
+                height: auto;
+                min-width: 100%;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            &__caption {
+                background: rgba(0, 0, 0, .6);
+                color: @white;
+                display: inline-block;
+                font-size: 12px;
+                left: 10px;
+                line-height: 1;
+                padding: 10px;
+                position: absolute;
+            }
+        }
+
+        &.open {
+            .expander-open {
+                display: none;
+            }
+        }
+
+        &:not(.open) {
+            .expander-close {
+                display: none;
+            }
+        }
+    }
+}

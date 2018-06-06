@@ -1,0 +1,127 @@
+/*
+* Reset Css
+*/
+
+hr {
+    border-color: @grey--e6;
+}
+
+
+.c-btn {
+
+    &--dark {
+        background: @black;
+        color: @white;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background: @grey--9;
+        }
+    }
+
+    &--grey {
+        background: @grey--c5;
+        color: @black;
+        &:hover,
+        &:focus,
+        &:active {
+            background: @grey--9;
+        }
+    }
+
+    &--red {
+        background: @red;
+        color: @white;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background: @red-d;
+            color: @white;
+        }
+    }
+
+    &--white {
+        border: 1px solid @grey--8;
+        background-color: @white;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: @grey--e6;
+        }
+    }
+}
+
+/*
+* c- INPUT
+*/
+
+.o-input {
+    border: solid 1px @grey--8;
+
+    &--dark {
+        background-color: @grey--eb;
+        color: @grey--2b;
+    }
+}
+
+/*
+* Form error
+*/
+
+.has-error {
+    select {
+        -webkit-text-fill-color: @red;
+    }
+}
+
+
+/*
+* o- SECTION
+*/
+
+.o-section {
+
+    &--separator {
+        border-top: solid 1px @grey--d;
+    }
+
+}
+
+/*
+** o- divider
+*/
+
+.o-divider {
+    &--bottom {
+        &-dark {
+            border-bottom: 1px solid @black;
+        }
+    }
+
+    &--top {
+        &-dark {
+            border-top: 1px solid @black;
+        }
+    }
+}
+
+/*
+** Floating bar
+*/
+
+.c-floating-bar {
+    background-color: rgba(0, 0, 0, .75);
+}
+
+/*
+ * Fix Hover CTA Black
+ */
+
+.btn.btn-default {
+    &:hover {
+        background: rgb(153, 153, 153);
+    }
+}

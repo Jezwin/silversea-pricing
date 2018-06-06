@@ -1,0 +1,79 @@
+.brochureteaserlist {
+    &__header {
+        width: 100%;
+        padding: 0 0 30px 0;
+        text-align: center;
+        display: table;
+
+        @media screen and (max-width: @screen-sm) {
+            display: block;
+        }
+
+        &__label {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+            font-weight: bold;
+            padding: 0 15px 0 0;
+            font-size: 14px;
+            height: 40px;
+            width: 50%;
+            float: none;
+
+            @media screen and (max-width: @screen-sm) {
+                text-align: center;
+                padding-right: 15px;
+                padding-bottom: 15px;
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        &__select {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: left;
+            padding-left: 0;
+            width: 50%;
+            
+
+            @media screen and (max-width: @screen-sm) {
+                position: relative;
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
+
+            .chosen-container-single {
+                max-width: 240px;
+                width: 100% !important;
+
+               & .chosen-single {
+                    border-radius: 0 !important;
+                    width: 100%;
+                    box-shadow: none;
+                    background: none;
+                    display: table;
+                    padding: 2px 12px;
+                    height: 40px;
+                    border: 1px solid @grey--d3;
+
+                   & span { 
+                        display: table-cell;
+                        margin-right: 8px;
+                        vertical-align: middle;
+                        font-weight: 700;
+                    }
+                   div b:before{
+                       content: "\f0d7"
+                   }
+                }
+
+                & .chosen-drop {
+                    border-color: @grey--d3;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,51 @@
+.c-combo-cruise {
+    .c-tab.c-tab__accordion {
+        margin-top: 24px;
+    }
+}
+
+@media screen and (min-width: @screen-md-min) {
+    .c-tab__nav--fixed .c-tab__link--clear {
+        padding-top: 6px;
+
+        a {
+            background-color: @grey--d;
+            color: @black;
+            height: 60px;
+            line-height: 60px;
+            text-transform: uppercase;
+            transition: background 200ms ease-in-out;
+
+            &:hover {
+                background-color: @grey--e;
+            }
+        }
+
+        span {
+            display: inline-block;
+            line-height: 14px;
+            vertical-align: middle;
+            width: 90%;
+        }
+
+        &[data-state='active'] {
+            border: 1px solid @black;
+            border-bottom: 0;
+            font-weight: 400;
+            padding-top: 0;
+
+            a {
+                background-color: @white;
+                color: @black;
+                height: 66px;
+                line-height: 66px;
+
+                &:before {
+                    border-color: @black;
+                    left: -1px;
+                    top: -1px;
+                }
+            }
+        }
+    }
+}

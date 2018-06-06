@@ -1,0 +1,201 @@
+.c-cruise {
+    .c-tab__content {
+        &--overview {
+            .slick-slide > * {
+                margin: 0px !important;
+            }
+            .c-cruise__itineraries {
+                .c-cruise-itinerary-list {
+                    .c-cruise-itinerary-list__description__button {
+                        @media (max-width: @screen-sm) {
+                            a.c-btn--white {
+                                padding: 8px 5px;
+                            }
+                        }
+                        .c-btn i.fa-angle-right {
+                            vertical-align: -11%;
+                            @media (max-width: @screen-sm) {
+                                margin-left: 2px;
+                            }
+                        }
+                    }
+                }
+            }
+            .voyage {
+                &table {
+                    color: @grey--3;
+                    display: table;
+                    font-size: 13px;
+                    margin-bottom: 10px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    width: 100%;
+
+                    &__elem {
+                        display: table-cell;
+                        border: solid 1px @grey--d;
+                        border-left-width: 0;
+                        padding: 10px 3px;
+                        vertical-align: top;
+                        width: 1%;
+
+                        &:first-child {
+                            border-left: solid 1px @grey--d;
+                        }
+
+                        .lead {
+                            color: @blue;
+                            font-size: 25px;
+                            font-weight: 700;
+                            margin: 5px 0 0;
+                            white-space: nowrap;
+
+                            @media screen and (max-width: @screen-xs) {
+                                font-size: 20px;
+                            }
+                        }
+
+                        .lead__top {
+                            &:before {
+                                content: '\A\A';
+                                display: block;
+                                white-space: pre;
+                                height: 20px;
+                            }
+                        }
+
+                        .lead__bottom {
+                            &:after {
+                                content: '\A\A';
+                                display: block;
+                                white-space: pre;
+                                height: 20px;
+                            }
+                        }
+
+                        .price-suffixe {
+                            color: @blue;
+                            display: inline-block;
+                            line-height: 10px;
+                        }
+
+                        span {
+                            display: block;
+                            line-height: 1;
+                        }
+                    }
+                }
+
+                &img {
+                    margin-bottom: 10px;
+                    .slick-slide {
+                        min-height: 250px;
+                        @media (max-width: @screen-md-min) {
+                            min-height:150px;
+                        }
+                    }
+                    a.lazy.video-link {
+                        min-height: 250px;
+                        @media (max-width: @screen-md-min) {
+                            min-height:150px;
+                        }
+
+                        picture {
+                            height: 100%;
+                            img {
+                                height: 100%;
+                            }
+                        }
+                    }
+                    picture {
+                        padding: 0px 1px 0px 1px;
+                        img {
+                            border: solid 1px @blue;
+                        }
+                    }
+
+                    &__info {
+                        background-color: @blue;
+                        color: @white;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-align: center;
+
+                        p {
+                            margin: 0;
+                        }
+                    }
+
+                    &__label {
+                        font-size: 12px;
+                        color: @grey--5;
+                        font-style: italic;
+                        margin-top: 10px;
+                    }
+
+                    .slick-slide {
+                        position: relative;
+                    }
+                }
+
+                &feature {
+                    background: @grey--e;
+                    padding: 10px 15px;
+                    font-size: 13px;
+                    margin-bottom: 10px;
+
+                    & > .btn {
+                        padding: 8px 20px;
+                    }
+
+                    &__offer {
+
+                        p,
+                        a {
+                            float: left;
+                        }
+                    }
+                }
+
+                &share_wrap {
+                    display: inline-block;
+                    float: left;
+                    white-space: nowrap;
+
+                    .share {
+                        color: @grey--39;
+                        font-size: 18px;
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin: 0 7px;
+                    }
+                }
+            }
+
+            .cruise__header_metainfo {
+                float: none;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    &.expedition {
+        .c-tab__content--overview .voyageimg picture {
+            border: solid 1px @red-expedition;
+            border-top: solid 1px @grey--3;
+        }
+
+        .c-tab__content--overview .voyageimg__info {
+            background: @grey--3;
+            border-top: solid 1px @red-expedition;
+        }
+
+        .c-tab__content--overview .voyagetable__elem {
+            .lead,
+            .price-suffixe {
+                color: @red-expedition;
+            }
+        }
+    }
+}

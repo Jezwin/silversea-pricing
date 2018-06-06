@@ -1,0 +1,61 @@
+/*
+* c- LIST GROUP
+*/
+
+.c-list-group {
+    width: 100%;
+    color: @grey--5;
+
+    &.dayslist {
+        font-size: 13px;
+    }
+
+    &--center {
+        text-align: center;
+    }
+
+    &--striped {
+
+        .c-list-group__item:nth-child(odd) {
+            background-color: @grey--e8;
+
+            &:hover,
+            &:focus,
+            &:active {
+                border: 0;
+                background-color: @grey--3;
+                color: @white;
+            }
+        }
+        .c-list-group__item--active:nth-child(odd) {
+            border: 0;
+            background-color: @grey--3;
+            color: @white;
+        }
+    }
+    &__item {
+        display: table;
+        width: 100%;
+        padding: 10px 15px;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &--active {
+            border: 0;
+            background-color: @grey--3;
+            color: @white;
+        }
+
+        span {
+            display: table-cell;
+
+            &:nth-child(1) {
+                width: 30%;
+            }
+        }
+    }
+    &__title {
+        font-weight: 700;
+    }
+}

@@ -1,0 +1,111 @@
+.c-cruise-ship-info {
+
+	&.ab-test-v2-show {
+		display: none;
+	}
+	
+    .c-cruise-ship-info__item {
+        margin: 10px 0;
+
+        &:nth-of-type(1n+3) {
+            display: none;
+        }
+		
+        @media screen and (max-width: @screen-sm) {
+            &:nth-of-type(1n+2) {
+                display: none;
+            }
+        }
+
+        .variationimg {
+            padding: 0;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .variationcontent {
+            padding: 10px 0 0 30px;
+
+            @media screen and (max-width: @screen-sm) {
+                padding: 0;
+            }
+
+            &__title {
+                padding: 0;
+                margin: 10px 0;
+                font-size: 30px;
+                line-height: 1.2;
+                font-family: @f-theano_didot;
+
+                @media screen and (max-width: @screen-sm) {
+                    font-size: 25px;
+                    text-align: center;
+                }
+            }
+
+            &__descr {
+                padding: 0;
+                margin: 0 0 18px;
+                font-size: 13px;
+                line-height: 1.5;
+
+                p {
+                    margin-bottom: 0;
+                }
+
+                &.clipped {
+                    height: 137px;
+                    overflow: hidden;
+                    transition: height 300ms ease;
+
+                    & ~ .variationcontent__descr__expand .read_less {
+                        display: none;
+                    }
+                }
+
+                &.clipped.opened {
+                    & ~ .variationcontent__descr__expand {
+                        .read_less {
+                            display: inline;
+                        }
+
+                        .read_more {
+                            display: none;
+                        }
+                    }
+                }
+
+                &:not(.clipped) ~ .variationcontent__descr__expand {
+                    display: none;
+                }
+
+                &__expand {
+                    text-align: center;
+                    font-size: 12px;
+                    padding: 0 0 10px 0;
+                }
+            }
+        }
+
+        .col-sm-pull-6 {
+            &.variationcontent {
+                padding: 10px 30px 0 0;
+
+                @media screen and (max-width: @screen-sm) {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
+
+.ship-mobilewrapper {
+    @media screen and (max-width: @screen-sm) {
+        padding: 15px;
+        border: 1px solid @grey--e8;
+    }
+}

@@ -1,0 +1,26 @@
+.c-pagination-number {
+    li {
+        float: left;
+    }
+
+    a {
+        display: block;
+        font-size: 14px;
+        padding: 0 5px;
+        text-transform: capitalize;
+
+        &:hover {
+            background-color: @grey--eb;
+        }
+
+        &.active {
+            background-color: @black;
+            color: @white;
+            font-weight: bold;
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        text-align: center;
+    }
+}

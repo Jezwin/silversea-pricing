@@ -1,0 +1,130 @@
+.c-subscribe {
+    @media screen and (max-width: @screen-sm) {
+        border: 0;
+    }
+
+    &__form {
+        padding: 20px 20px 0 20px;
+        border: solid 1px @grey--d;
+
+        &:first-child {
+            /* phone breakpoint */
+            @media screen and (max-width: @screen-sm) {
+                margin-bottom: 30px;
+            }
+        }
+
+        &--label {
+            font-family: @f-theano_didot;
+            text-transform: uppercase;
+            display: block;
+            color: @black;
+            line-height: 20px;
+            margin-bottom: 15px;
+
+            @media screen and (max-width: @screen-md-max) {
+                line-height: 1;
+            }
+
+            &-text {
+                display: block;
+                width: 100%;
+                font-weight: 500;
+                font-size: 15px;
+            }
+
+            &-important {
+                display: block;
+                width: 100%;
+                font-weight: 600;
+                font-size: 20px;
+
+                @media screen and (max-width: @screen-md-max) {
+                    font-size: 26px;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .btn {
+            position: absolute;
+            right: 15px;
+            top: 0;
+            width: 130px;
+            min-width: 100px;
+            padding: 7px 0 6px 15px;
+            font-size: 12px;
+
+
+            @media screen and (max-width: @screen-md-max) {
+                padding: 4px 0 2px 12px;
+                font-size: 12px;
+            }
+        }
+
+        .btn i {
+            margin-right: 17px;
+            line-height: 14px;
+
+            @media screen and (max-width: @screen-md-max) {
+                margin-right: 12px;
+            }
+        }
+
+        .o-input--lg,
+        .c-btn--lg {
+            @media screen and (max-width: @screen-md-max) {
+                height: 32px;
+            }
+        }
+
+        .c-btn--lg {
+            @media screen and (max-width: @screen-md-max) {
+                width: 112px;
+            }
+        }
+
+        &--error {
+            min-height: 30px;
+            margin: 0;
+            padding: 0;
+            font-size: 11px;
+
+            @media screen and (max-width: @screen-sm) {
+                min-height: 12px;
+            }
+        }
+
+        & .has-error.has-danger .o-input {
+            color: @red;
+            border: solid 1px @red;
+
+            &::-webkit-input-placeholder {
+                /* Chrome/Opera/Safari */
+                color: @red;
+            }
+
+            &::-moz-placeholder {
+                /* Firefox 19+ */
+                color: @red;
+            }
+
+            &:-ms-input-placeholder {
+                /* IE 10+ */
+                color: @red;
+            }
+
+            &:-moz-placeholder {
+                /* Firefox 18- */
+                color: @red;
+            }
+        }
+
+        &.c-formcookie {
+            .btn.disabled {
+                opacity: 1;
+                cursor: pointer;
+            }
+        }
+    }
+}

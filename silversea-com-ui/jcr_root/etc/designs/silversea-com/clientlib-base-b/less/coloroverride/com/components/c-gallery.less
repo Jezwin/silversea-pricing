@@ -1,0 +1,269 @@
+.c-gallery {
+    &__wrappertop {
+        position: relative;
+        top: -1px;
+    }
+
+    &__caption {
+        background: @grey--6;
+        bottom: 25px;
+        color: @white;
+        display: inline-block;
+        font-size: 22px;
+        font-weight: 300;
+        left: 20px;
+        line-height: 1;
+        max-width: calc(~"100% - 130px");
+        padding: 10px 20px 10px 10px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    &__virtual-tour {
+        height: 930px;
+    }
+
+    .cruise-gallery-virtual-tour {
+
+        &:before {
+            content: "";
+            display: block;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            background-color: @grey--03;
+        }
+
+        &:not(:required):after {
+            content: '360\00b0';
+            display: block;
+            font-size: 100px;
+            width: 1em;
+            height: 1em;
+            z-index: 3243;
+            background-image: none;
+            margin-top: -0.5em;
+            margin-left: -0.65em;
+            color: @white;
+            font-family: @f-serif;
+            @media screen and (max-width: @screen-sm) {
+                font-size: 56px;
+                margin-top: -0.35em;
+                margin-left: -0.4em;
+            }
+        }
+    }
+
+    .cruise-gallery-virtual-tour-thumbnail {
+        &:not(:required):after {
+            content: '360\00b0';
+            display: block;
+            font-size: 30px;
+            width: 1em;
+            height: 1em;
+            z-index: 3243;
+            background-image: none;
+            margin-top: 0em;
+            margin-left: 0em;
+            color: @white;
+            font-family: @f-serif;
+            @media screen and (max-width: @screen-sm) {
+                font-size: 8px;
+                margin-top: -0.35em;
+                margin-left: -0.4em;
+            }
+        }
+
+        &:before {
+            content: "";
+            display: block;
+            height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            background-color: @grey--03;
+        }
+    }
+
+    &__counter {
+        bottom: 12px;
+        color: @white;
+        font-size: 18px;
+        position: absolute;
+        right: 14px;
+    }
+
+    &__label {
+        bottom: 12px;
+        color: @white;
+        font-size: 20px;
+        position: absolute;
+        left: 14px;
+        background-color: @grey--05;
+        padding: 6px;
+
+        @media (max-width: @screen-sm) {
+            font-size: 13px;
+            max-width: 75%;
+        }
+    }
+
+    &__tab {
+        background-color: @black;
+        font-size: 0;
+        &__item {
+            display: inline-block;
+        }
+
+        &__link {
+            color: @white;
+            display: inline-block;
+            font-size: 13px;
+            padding: 12px;
+            text-transform: uppercase;
+            &.active {
+                background-color: @grey--053;
+            }
+
+            &:hover {
+                background-color: @grey--003;
+                color: @white;
+            }
+
+            &:focus {
+                color: @white;
+            }
+        }
+    }
+}
+
+.c-gallery--cc {
+    margin: 0 auto;
+    max-width: 670px;
+    &__tab {
+        margin-bottom: 20px;
+        text-align: center;
+        &__item {
+            display: inline-block;
+            color: @grey--7;
+            &.active {
+                border: 2px solid @black;
+                color: @black;
+                font-weight: 700;
+            }
+        }
+
+        &__link {
+            display: block;
+            font-size: 12px;
+            padding: 10px 20px;
+            text-transform: uppercase;
+        }
+    }
+
+    @media screen and (max-width: @screen-xs) {
+        &__tab {
+            padding-top: 52px;
+            position: relative;
+            &[aria-expanded="true"] {
+                .c-gallery--cc__tab__item {
+                    display: block;
+                    &.active:before {
+                        content: "\f106";
+                    }
+                }
+            }
+
+            &__item {
+                border: solid 1px @grey--d9;
+                border-top-width: 0;
+                display: none;
+                line-height: 28px;
+                text-align: left;
+                width: 100%;
+                &.active {
+                    border: solid 1px @grey--d9;
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    &:before {
+                        content: "\f107";
+                        font-family: FontAwesome;
+                        font-size: 18px;
+                        font-weight: normal;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .c-slider--style2 {
+        margin-bottom: 20px;
+        .slick-next,
+        .slick-prev {
+            display: block ! important;
+            opacity: 1;
+        }
+    }
+
+    &__caption {
+        border: 1px solid @grey--e6;
+        border-width: 1px 0;
+        color: @grey--7;
+        font-size: 13px;
+        font-style: italic;
+        margin: -10px 0 10px;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .c-slider--nav {
+        margin-bottom: 10px;
+        margin-top: 0;
+        padding: 0 95px;
+        @media screen and (max-width: @screen-sm) {
+            padding: 0;
+        }
+
+        &:after {
+            border-bottom: 1px solid @grey--e6;
+            bottom: -10px;
+            content: ' ';
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+        .video-link .fa-play {
+            -webkit-transform: translate(-45%, -50%) scale(0.4);
+            -ms-transform: translate(-45%, -50%) scale(0.4);
+            transform: translate(-45%, -50%) scale(0.4);
+        }
+
+        .slick-next,
+        .slick-prev {
+            background-color: @transparent;
+            color: @grey--ca;
+        }
+
+        .slick-active:not(.slick-current) {
+            opacity: .6;
+        }
+
+        .slick-slide {
+            .ratio {
+                &:before {
+                    padding-bottom: 100%;
+                }
+            }
+        }
+    }
+}

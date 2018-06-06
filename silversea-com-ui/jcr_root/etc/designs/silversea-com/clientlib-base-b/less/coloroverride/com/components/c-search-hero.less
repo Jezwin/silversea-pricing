@@ -1,0 +1,110 @@
+.c-hero-banner__search {
+    .c-hero-banner__image {
+        height: 450px;
+
+        @media screen and (max-width: @screen-sm) {
+            height: 195px;
+            background-position: center 0;
+        }
+    }
+
+    @media screen and (min-width: @screen-sm) {
+        .c-hero-banner__content:not(.c-hero-banner__content--white) {
+            color: @black;
+        }
+    }
+}
+
+.c-search-hero {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 17px 0;
+    position: relative;
+
+    &:before {
+        background-color: @grey--d;
+        content: ' ';
+        display: block;
+        height: 100%;
+        left: 50%;
+        position: absolute;
+        top: 0;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        width: 100vw;
+    }
+
+    .chosen-container {
+        .chosen-single {
+            background: @white;
+            border: 1px solid @white;
+            height: 40px;
+
+            @media screen and (max-width: @screen-sm) {
+                height: 34px;
+                padding: 8px 12px 0;
+            }
+        }
+
+        &.chosen-with-drop {
+            .chosen-single {
+                border: 1px solid @black;
+            }
+        }
+    }
+
+    &__form {
+        .col-sm-3 {
+            @media screen and (max-width: @screen-sm) {
+                &:not(:last-of-type) {
+                    margin-bottom: 15px;
+                }
+            }
+
+            @media screen and (min-width: @screen-md-min) {
+                &:not(:first-child) {
+                    padding-left: 5px;
+                }
+
+                &:not(:last-of-type) {
+                    padding-right: 5px;
+                }
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            height: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 0;
+            position: relative;
+            width: 100%;
+
+            @media screen and (max-width: @screen-sm) {
+                display: block;
+                height: 34px;
+                font-size: 12px;
+            }
+
+            i {
+                position: absolute;
+                right: 18px;
+                top: 50%;
+                font-size: 18px;
+                font-weight: 400;
+                margin-top: -9px;
+            }
+        }
+    }
+}
+
+.slider,
+.herobanner {
+    + .searchhero {
+        @media screen and (min-width: @screen-md-min) {
+            margin-top: -40px;
+        }
+    }
+}

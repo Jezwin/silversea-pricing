@@ -1,0 +1,69 @@
+.c-video {
+    overflow: hidden;
+
+    #s7video_div.s7videoviewer {
+        width: 100%;
+        height: auto;
+    }
+
+    &.s7videoviewer.s7mouseinput .s7videoplayer .s7iconeffect[state="play"] {
+        background: none;
+
+        &:before {
+            color: @white;
+            content: "\f04b";
+            font: normal normal normal 50px/1 FontAwesome;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        &:after {
+            border: 3px solid @white;
+            border-radius: 50%;
+            content: "";
+            display: block;
+            left: 50%;
+            height: 84px;
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translate(-55%, -50%);
+            -ms-transform: translate(-55%, -50%);
+            transform: translate(-55%, -50%);
+            width: 84px;
+        }
+
+        .loading& {
+            background-image: url('./../../images/loader.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 50px;
+            width: 50px;
+
+            &:before {
+                display: none;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+
+.video {
+    .c-video {
+        .s7container {
+            video {
+                width: 100% !important;
+            }
+            .s7controlbar {
+                //opacity:1 !important;
+            }
+        }
+    }
+}

@@ -1,0 +1,191 @@
+.c-cruise-itinerary-list {
+    border: 1px solid @grey--e8;
+    font-size: 13px;
+
+    &__item {
+        min-height: 80px;
+
+        [data-toggle=collapse] {
+            cursor: pointer;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid @grey--e8;
+        }
+    }
+
+    &__headline {
+        line-height: 1.3;
+        min-height: 80px;
+        padding: 18px 103px 18px 148px;
+        position: relative;
+
+        &.collapsed {
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: @grey--e6;
+            }
+
+            .btn-less {
+                display: none;
+            }
+        }
+
+        &:not(.collapsed) {
+            .btn-more {
+                display: none;
+            }
+        }
+
+        &__image {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: calc(~"100% - 3px");
+            left: 3px;
+            position: absolute;
+            top: 3px;
+            width: 135px;
+        }
+
+        &__title {
+            &__city {
+                font-size: 16px;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+
+        &__date {
+            &__duration {
+                font-size: 12px;
+            }
+        }
+
+        &__expand {
+            font-size: 14px;
+            position: absolute;
+            right: 10px;
+            top: 15px;
+        }
+    }
+
+    &__description {
+        padding: 0 15px;
+
+        &__text {
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        &__button {
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and (max-width: @screen-xxs) {
+        &__headline {
+            padding-right: 30px;
+
+            &__expand {
+                .btn-more,
+                .btn-less {
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__item {
+            position: relative;
+        }
+
+        &__headline {
+            position: static;
+
+            &__image {
+                transition: all 0.35s ease;
+            }
+
+            &:not(.collapsed) {
+                .c-cruise-itinerary-list__headline__image {
+                    width: 43.15%;
+                }
+            }
+
+            &__title,
+            &__duration {
+                float: left;
+                width: 50%;
+            }
+
+            &__title {
+                padding-right: 10px;
+
+                &__city {
+                    font-size: 18px;
+                }
+
+                &__country {
+                    font-size: 14px;
+                }
+            }
+
+            &__date {
+                padding-left: 10px;
+
+                &__duration {
+                    font-size: 14px;
+                }
+
+                &__time {
+                    font-size: 12px;
+                }
+            }
+
+            &[aria-expanded=true] {
+                padding-left: calc(~"43% + 25px");
+
+                .c-cruise-itinerary-list__headline__title,
+                .c-cruise-itinerary-list__headline__date {
+                    float: none;
+                    padding: 0;
+                }
+
+                .c-cruise-itinerary-list__headline__title__country {
+                    display: none;
+                }
+            }
+        }
+
+        &__description {
+            padding-left: calc(~"43% + 25px");
+
+            &__button {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.c-cruise__itineraries {
+    .c-cruise__descr-text {
+        @media (max-width: @screen-sm) {
+            display:none;
+        }
+    }
+
+    .c-cruise__descr-br {
+        @media (max-width: @screen-sm) {
+            display:none;
+        }
+    }
+
+    @media (max-width: @screen-sm) {
+        margin-top: 30px;
+    }
+}

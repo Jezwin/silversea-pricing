@@ -1,0 +1,1316 @@
+
+.c-fyc {
+    .meta_feature_inner {
+        .feature {
+            float: none;
+            margin-right: 5px;
+        }
+    }
+
+    &__result {
+        position: relative;
+
+        &__link {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+        }
+
+        &__wrapper {
+            cursor: pointer;
+            @media (max-width: @screen-sm) {
+                box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
+                -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+            }
+
+        }
+
+        &__image {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: relative;
+
+            &:before {
+                background-color: @black;
+                content: "";
+                height: 100%;
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .flag {
+                color: @white;
+                display: block;
+                left: 0;
+                height: 75px;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                -webkit-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                width: 75px;
+
+                &:before {
+                    border-top: 75px solid @black;
+                    border-right: 75px solid @transparent;
+                    content: " ";
+                    display: block;
+                    height: 0;
+                    position: absolute;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    width: 0;
+                }
+
+                &__icon,
+                &__text {
+                    display: block;
+                    margin: 0 auto;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                &__icon {
+                    font-size: 16px;
+                    margin-bottom: 2px;
+                }
+
+                &__text {
+                    font-size: 8px;
+                    font-weight: 600;
+                    line-height: 1;
+                    text-transform: uppercase;
+                    width: 72px;
+                }
+            }
+        }
+
+        &__content {
+            &__title {
+                font-weight: 700;
+                line-height: 1;
+                margin: 0 0 3px;
+                text-transform: uppercase;
+            }
+
+            &__description.silversea-expedition {
+                .cruise-type {
+                    color: @red-expedition;
+                }
+            }
+
+            &__button {
+                position: relative;
+                z-index: 1;
+
+                .c-fyc-btn-discover-more.btn {
+                    border: none;
+                    padding-top: 3.5px;
+                    text-decoration: underline;
+                    @media (max-width: @screen-sm) {
+                        display: block;
+                        text-align: center;
+                        padding-top: 0px;
+                    }
+                    @media (max-width: 587px) {
+                        padding-top: 6px;
+                    }
+                }
+
+                .c-fyc-btn-discover-more.btn.ab-test-v2-show {
+                    display: none;
+                }
+
+            }
+
+            &__price {
+                font-size: 10px;
+                text-transform: uppercase;
+
+                &_isWaitList {
+                    margin-bottom: 12px !important;
+                }
+
+                .price-suffixe {
+                    color: @black;
+                    display: block;
+                    font-size: 10px;
+                }
+            }
+
+            &__summary {
+                text-transform: uppercase;
+            }
+
+            dl {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        &__result {
+            font-size: 12px;
+            float: left;
+            margin-bottom: 16px;
+            width: 50%;
+
+            &:nth-child(odd) {
+                clear: both;
+                padding-right: 8px;
+            }
+
+            &:nth-child(even) {
+                padding-left: 8px;
+            }
+
+            &__wrapper {
+                border: 1px solid @grey--d3;
+                transition: background-color .3s ease-in-out;
+
+                &:hover {
+                    background-color: @grey--d9;
+                }
+            }
+
+            &__image {
+                padding-top: 50%;
+
+                .flag {
+                    height: 82px;
+                    left: auto;
+                    right: 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    width: 82px;
+
+                    &:before {
+                        border-top: 82px solid @black;
+                        border-right: 85px solid @transparent;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+
+                    &__text {
+                        font-size: 9px;
+                    }
+                }
+            }
+
+            &__content {
+                padding: 16px 16px 5px;
+                position: relative;
+
+                &__title {
+                    font-size: 16px;
+                    margin-bottom: 25px;
+                }
+
+                &__description {
+                    border-top: 2px solid @blue;
+                    font-weight: 700;
+                    line-height: 18px;
+                    padding-top: 10px;
+
+                    .cruise-type {
+                        color: @blue;
+                        font-style: italic;
+                    }
+
+                    &.silversea-expedition {
+                        border-color: @red-expedition;
+                    }
+                }
+
+                &__summary {
+                    border: 1px solid @grey--c;
+                    display: flex;
+                    letter-spacing: -0.3px;
+                    margin-top: 7px;
+                    text-align: center;
+
+                    &__item {
+                        padding: 13px 5px 9px;
+                        width: 100% / 3;
+
+                        &:not(:last-child) {
+                            border-right: 1px solid @grey--c;
+                        }
+
+                        dl {
+                            dt,
+                            dd {
+                                line-height: 1;
+                            }
+
+                            dt {
+                                color: @grey--a3;
+                                font-size: 11px;
+                                font-weight: 600;
+                                padding-bottom: 6px;
+                            }
+
+                            strong {
+                                display: block;
+                                font-size: 13px;
+                                margin: 5px 0;
+                            }
+                        }
+
+                        &--ship dl {
+                            strong {
+                                font-size: 15px;
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+
+                &__price {
+                    color: @black;
+                    font-size: 11px;
+                    line-height: 1;
+                    margin: 12px 0 0;
+                    text-align: center;
+
+                    .price-prefixe {
+                        font-size: 11px;
+                    }
+
+                    strong {
+                        color: @black;
+                        font-size: 20px;
+                        line-height: 1.3;
+                    }
+                }
+
+                &__button {
+                    margin-top: 29px;
+                    width: 100%;
+
+                    .btn {
+                        font-size: 12px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-xs) {
+        &__result {
+            float: none;
+            width: 100%;
+
+            &:nth-child(odd),
+            &:nth-child(even) {
+                padding: 0;
+            }
+        }
+    }
+
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm) {
+        &__results__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        &__result {
+            &__wrapper {
+                height: 100%;
+            }
+
+            &__content {
+                padding-bottom: 70px;
+                position: static;
+
+                &__title {
+                    min-height: 32px;
+                }
+
+                &__button {
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            border-bottom: 1px solid @grey--d9;
+            padding: 10px 0;
+
+            &__content {
+                &__itinerary {
+                    dd {
+                        display: inline;
+
+                        &:not(:last-of-type):after {
+                            display: inline;
+                            content: "\00a0\f105\00a0";
+                            font-family: 'FontAwesome';
+                            font-size: 11px;
+                            font-weight: 400;
+                            margin-left: 3px;
+                        }
+                    }
+                }
+
+                &__button {
+                    .btn {
+                        font-size: 10px;
+                        padding: 7px 8px 6px;
+
+                        i {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .v1 &__result {
+            border-bottom: 1px solid @grey--d3;
+            font-size: 12px;
+            padding: 10px 0;
+            
+            &:hover {
+                background-color: @grey--e;
+                cursor: pointer;
+            }
+
+            &__image {
+                display: table-cell;
+                width: 245px;
+
+                &:before {
+                    transition: opacity .3s ease-in-out;
+                }
+            }
+
+            &:hover {
+                .c-fyc__result__image {
+                    &:before {
+                        opacity: .5;
+                    }
+                }
+            }
+
+            &__content {
+                display: table-cell;
+                padding: 5px 5px 5px 10px;
+
+                &__inner {
+                    float: left;
+                    width: calc(~"100% - 160px");
+                }
+
+                &__title {
+                    font-size: 18px;
+                }
+
+                &__description {
+                    .cruise-code,
+                    .cruise-ship:first-of-type {
+                        display: none;
+                    }
+
+                    li {
+                        display: inline;
+
+                        &:not(:last-child):after {
+                            color: @black;
+                            content: " |";
+                        }
+                    }
+                }
+
+                &__summary {
+                    background-color: @grey--f9;
+                    border: 1px solid @grey--e6;
+                    display: inline-block;
+                    font-weight: 700;
+                    margin-top: 5px;
+                    padding: 3px 6px;
+
+                    .fa {
+                        margin-right: 5px;
+                    }
+
+                    &__item,
+                    dl,
+                    dd {
+                        display: inline;
+                    }
+                }
+
+                &__feature {
+                    display: none;
+                }
+
+                &__itinerary {
+                    margin-top: 15px;
+
+                    dt {
+                        font-size: 12px;
+                        font-weight: 700;
+                        margin-bottom: 5px;
+                        text-transform: uppercase;
+                    }
+
+                    dd {
+                        &:not(:last-child):after {
+                            font-size: 11px;
+                        }
+                    }
+                }
+
+                &__price,
+                &__button {
+                    float: right;
+                    text-align: center;
+                    width: 160px;
+                }
+
+                &__price {
+                    margin-top: 24px;
+
+                    strong {
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+                }
+
+                &__button {
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        .v2 &__result {
+            font-size: 11px;
+
+            &:hover {
+                background-color: @grey--3;
+                color: @white;
+
+                .c-fyc__result__content__summary {
+                    background-color: transparent;
+                }
+
+                .tooltip {
+                    color: @black
+                }
+
+                .price-suffixe {
+                    color: @white;
+                }
+            }
+
+            .flag {
+                display: none;
+            }
+
+            &__content {
+                > * {
+                    display: table-cell;
+                    vertical-align: top;
+                }
+
+                &__inner {
+                    position: relative;
+                    width: 70%;
+                    padding-right: 2%;
+
+                    &:before {
+                        content: "";
+                        border-right: 1px solid @white;
+                        bottom: -10px;
+                        position: absolute;
+                        left: 12.5%;
+                        top: -10px;
+                    }
+
+                    > * {
+                        display: table-cell;
+                        padding-right: 4px;
+                        vertical-align: top;
+                    }
+                }
+
+                &__title {
+                    display: none;
+                }
+
+                &__description {
+                    left: 14.5%;
+                    padding-right: 15px;
+                    position: relative;
+                    width: 19%;
+
+                    .cruise-destination {
+                        display: none;
+                    }
+
+                    .cruise-ship {
+                        font-size: 12px;
+                    }
+
+                    .cruise-code {
+                        font-size: 10px;
+                    }
+
+                    .cruise-type {
+                        font-family: @f-theano_didot;
+                        font-style: italic;
+                    }
+
+                    .meta_feature_inner,
+                    .cruise-ship:not(:first-of-type) {
+                        display: none;
+                    }
+                }
+
+                &__summary {
+                    background-color: @grey--eb;
+                    margin-right: 10px;
+                    padding: 10px 5px;
+                    position: relative;
+                    right: calc(~"19% - -4px");
+                    text-align: center;
+                    vertical-align: middle;
+                    width: 12.5%;
+
+                    strong {
+                        font-size: 12px;
+                    }
+
+                    .fa {
+                        display: none;
+                    }
+
+                    &__item--duration {
+                        strong {
+                            font-weight: 800;
+                        }
+
+                        &:before {
+                            background: @grey--c;
+                            content: '';
+                            display: block;
+                            height: 1px;
+                            margin: 5px auto;
+                            width: 10px;
+                        }
+                    }
+                }
+
+                &__feature {
+                    width: 11%;
+
+				.meta_feature_inner .feature {
+				    float: none;
+				    margin-right: 5px;
+				}
+			
+                    .feature i {
+                        font-size: 16px;
+                        
+                    }
+                }
+
+                &__itinerary {
+                    width: 55%;
+
+                    dt {
+                        display: none;
+                    }
+
+                    dd {
+                        &:first-of-type,
+                        &:last-of-type {
+                            font-size: 12px;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+
+                &__price {
+                    padding-right: 5px;
+                    width: 15%;
+
+                    strong {
+                        font-size: 13px;
+                    }
+                }
+
+                &__button {
+                    padding-right: 2px;
+                    width: 130px;
+                }
+            }
+        }
+    }
+}
+
+
+.c-fyc-v2 {
+
+    display  : none;
+    letter-spacing: 0.5px;
+
+    &__results__wrapper {
+        font-family: @suisse  !important;
+    }
+
+
+    .meta_feature_inner {
+
+        padding-bottom: 10px;
+        padding-top: 10px;
+
+        .feature {
+            float: none;
+            margin-right: 5px;
+            padding-top: 25px;
+        }
+    }
+
+
+    &__result {
+        position: relative;
+
+        &__link {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            @media (max-width: 767px) {
+                box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
+                -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+
+            }
+        }
+
+        &__wrapper {
+            cursor: pointer;
+        }
+
+        &__image {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: relative;
+
+            &:before {
+                background-color: @black;
+                content: "";
+                height: 100%;
+                opacity: 0;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .flag {
+                color: @white;
+                display: block;
+                left: 0;
+                height: 75px;
+                position: absolute;
+                text-align: center;
+                top: 0;
+                -webkit-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                width: 75px;
+
+                &:before {
+                    border-top: 75px solid @black;
+                    border-right: 75px solid transparent;
+                    content: " ";
+                    display: block;
+                    height: 0;
+                    position: absolute;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    width: 0;
+                }
+
+                &__icon,
+                &__text {
+                    display: block;
+                    margin: 0 auto;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                &__icon {
+                    font-size: 16px;
+                    margin-bottom: 2px;
+                }
+
+                &__text {
+                    font-size: 8px;
+                    font-weight: 600;
+                    line-height: 1;
+                    text-transform: uppercase;
+                    width: 72px;
+                }
+            }
+        }
+
+        &__content {
+            &__title {
+                font-weight: 700;
+                line-height: 1;
+                margin: 0 0 3px;
+                text-transform: uppercase;
+            }
+
+            &__description.silversea-expedition {
+                .cruise-type {
+                    color: @red-expedition;
+                }
+            }
+
+            &__button {
+                position: relative;
+                z-index: 1;
+
+                .c-fyc-btn-discover-more.btn {
+                    border: none;
+                    padding-top: 3.5px;
+                    text-decoration: underline;
+                    @media (max-width: 767px) {
+                        display: block;
+                        text-align: center;
+                        padding-top: 0px;
+                    }
+                    @media (max-width: 587px) {
+                        padding-top: 6px;
+                    }
+                }
+
+                .c-fyc-btn-discover-more.btn.ab-test-v2-show {
+                    display: none;
+                }
+
+            }
+
+            &__price {
+                font-size: 18px;
+                text-transform: uppercase;
+                font-family: @suisse;
+                letter-spacing: 0.91px;
+
+                &__notWaitList {
+                    font-size: 20px;
+                    line-height: 30px;
+
+                    .price-prefixe {
+                        font-size: 13px;
+                        text-transform: lowercase;
+
+
+                    }
+                    .text-uppercase {
+                        font-size: 18px;
+                        text-transform: uppercase !important;
+                    }
+                }
+
+                &__isWaitList {
+                    font-size: 20px;
+                    line-height: 34px;
+                    margin-bottom: 12px !important;
+                }
+
+                .price-suffixe {
+                    color: @black;
+                    display: block;
+                    font-size: 10px;
+                    text-align: right;
+                    widows: 150%;
+                    padding-bottom: 10px;
+                    margin-top: -4px;
+                }
+            }
+
+            &__summary {
+                text-transform: uppercase;
+                font-family: 13px;
+
+
+            }
+
+            dl {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        &__result {
+            font-size: 12px;
+            float: left;
+            margin-bottom: 16px;
+            font-family: @suisse;
+            width: 50%;
+
+            &:nth-child(odd) {
+                clear: both;
+                padding-right: 8px;
+            }
+
+            &:nth-child(even) {
+                padding-left: 8px;
+            }
+
+            &__wrapper {
+                border: 1px solid @grey--d3;
+                transition: background-color .3s ease-in-out;
+
+                &:hover {
+                    background-color: @grey--eb;
+                }
+            }
+
+            &__image {
+                padding-top: 50%;
+
+                .flag {
+                    height: 82px;
+                    left: auto;
+                    right: 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    width: 82px;
+
+                    &:before {
+                        border-top: 82px solid @black;
+                        border-right: 85px solid transparent;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+
+                    &__text {
+                        font-size: 9px;
+                    }
+                }
+            }
+
+            &__content {
+                padding: 16px 16px 5px;
+                position: relative;
+
+                &__title {
+                    font-size: 16px;
+                    margin-bottom: 25px;
+                }
+
+                &__description {
+                    border-top: 2px solid @blue;
+                    font-weight: 700;
+                    line-height: 18px;
+                    padding-top: 10px;
+
+                    .cruise-type {
+                        color: @blue;
+                        font-style: italic;
+                    }
+
+                    &.silversea-expedition {
+                        border-color: @red-expedition;
+                    }
+                }
+
+                &__summary {
+                    border: 1px solid @grey--c;
+                    display: flex;
+                    letter-spacing: -0.3px;
+                    margin-top: 7px;
+                    text-align: center;
+
+                    &__item {
+                        padding: 13px 5px 9px;
+                        width: 100% / 3;
+
+                        &:not(:last-child) {
+                            border-right: 1px solid @grey--c;
+                        }
+
+                        dl {
+                            dt,
+                            dd {
+                                line-height: 1;
+                            }
+
+                            dt {
+                                color: @grey--a3;
+                                font-size: 11px;
+                                font-weight: 600;
+                                padding-bottom: 6px;
+                            }
+
+                            strong {
+                                display: block;
+                                font-size: 13px;
+                                margin: 5px 0;
+                            }
+                        }
+
+                        &--ship dl {
+                            strong {
+                                font-size: 15px;
+                                font-style: italic;
+                            }
+                        }
+                    }
+                }
+
+                &__price {
+                    color: @black;
+                    font-size: 11px;
+                    line-height: 1;
+                    margin: 12px 0 0;
+                    text-align: center;
+
+
+                    .price-prefixe {
+                        font-size: 11px;
+                    }
+
+                    strong {
+                        color: @black;
+                        font-size: 20px;
+                        line-height: 1.3;
+                    }
+                }
+
+                &__button {
+                    margin-top: 29px;
+                    width: 100%;
+
+                    .btn {
+                        font-size: 12px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-xs) {
+        &__result {
+            float: none;
+            width: 100%;
+
+            &:nth-child(odd),
+            &:nth-child(even) {
+                padding: 0;
+            }
+        }
+    }
+
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm) {
+        &__results__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        &__result {
+            &__wrapper {
+                height: 100%;
+            }
+
+            &__content {
+                padding-bottom: 70px;
+                position: static;
+
+                &__title {
+                    min-height: 32px;
+                }
+
+                &__button {
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            border-bottom: 1px solid @grey--d9;
+            padding: 10px 0;
+
+            &__content {
+                &__itinerary {
+                    &__ports {
+                        max-heigth: 5.4em;
+                        overflow: hidden;
+
+                        input {
+                            display: none;
+                        }
+                    }
+                }
+
+                &__button {
+                    .btn {
+                        font-size: 13px;
+                        padding: 7px 8px 6px;
+
+                        i {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+        .v2 &__result {
+            font-size: 13px;
+            line-height: 19px;
+            padding-top: 15px;
+            padding-bottom: 20px;
+
+            &:hover {
+                background-color: @grey--eb;
+
+
+                .c-fyc__result__content__summary {
+                    background-color: transparent;
+                }
+
+                .tooltip {
+                    color: @black
+                }
+
+
+            }
+
+            .flag {
+                display: none;
+            }
+
+            &__content {
+                > * {
+                    vertical-align: top;
+                }
+
+                &__inner {
+                    position: relative;
+                    width: 100%;
+                    min-width: 100%;
+
+
+
+                    > * {
+                        display: table-cell;
+                        vertical-align: top;
+                    }
+
+                    .bar-for-code {
+                        color: @grey;
+                        padding-right: 5px;
+                    }
+
+                    .cruise-code {
+                        font-size: 12px;
+
+
+
+                    }
+                }
+
+                &__title {
+                    display: none;
+                }
+
+                &__description {
+                    left: 14.5%;
+                    padding-right: 15px;
+                    position: relative;
+                    width: 19%;
+
+                    .cruise-destination {
+                        display: none;
+                    }
+
+                    .cruise-ship {
+                        font-size: 12px;
+                    }
+
+
+
+
+
+
+                    .cruise-type {
+                        font-style: italic;
+                    }
+
+                    .meta_feature_inner,
+                    .cruise-ship:not(:first-of-type) {
+                        display: none;
+                    }
+                }
+
+                &__summary {
+                    margin-right: 40px;
+                    position: relative;
+                    text-align: center;
+                    width: 5%;
+                    min-width: 5%;
+
+                    &__depdate {
+                        color: @red;
+                    }
+
+                    strong {
+                        font-size: 12px;
+                    }
+
+                    .fa {
+                        display: none;
+                    }
+
+                    &__item {
+                        margin-top: 10px;
+                        font-size: 15px;
+                        word-spacing: 4px;
+
+                        &__duration {
+                            color: @grey--3;
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                &__feature {
+                    width: 11%;
+
+                    .feature {
+                        display: inline;
+                    }
+
+                    .feature i {
+                        font-size: 16px;
+                    }
+                }
+
+                &__itinerary {
+                    width: 25%;
+                    min-width: 25%;
+                    margin-right: 40px;
+                    padding-left: 49px;
+                    dt {
+                        display: none;
+                    }
+
+                    dd {
+                        &:first-of-type,
+                        &:last-of-type {
+                            font-size: 12px;
+                            font-weight: 700;
+                            text-transform: uppercase;
+                        }
+                    }
+
+                    &__next-port-symbol {
+                        padding-left: 1px;
+                    }
+
+
+                    .cruise-type {
+                        visibility: hidden;
+                    }
+
+                    .cruise-infix {
+                        text-transform: lowercase;
+                    }
+
+                    .cruise-destination {
+                        font-size: 30px;
+                        font-family: @freight-text;
+                        line-height: 32px;
+                        max-width: 720px;
+                        font-family: @freight;
+                    }
+
+                    .cruise-ship_2 {
+                        text-transform: uppercase;
+                        font-size: 13px;
+                        line-height: 30px;
+                    }
+
+                    .destination-ports {
+                        max-width: 700px;
+                        padding-right: 50px;
+                        text-align: justify;
+                    }
+                    .view-more {
+                        display: none;
+                    }
+                }
+
+                &__price {
+                    padding-top: 3px;
+                    padding-right: 5px;
+                    width: 10%;
+                    min-width: 10%;
+                    text-align: right;
+                    strong {
+                        font-size: 13px;
+                    }
+                }
+
+                &__button {
+                    padding-right: 2px;
+                    top: 82px;
+                    right: 0px;
+                    position: absolute;
+                    letter-spacing: 2px;
+
+                    .btn {
+                        border-radius: 0px;
+                        padding: 10px 17px 10px 17px;
+                    }
+                }
+            }
+        }
+    }   
+	
+}
+
+@media screen and (min-width: 1200px) {
+		.c-fyc .c-fyc__result__content__itinerary {
+		    min-width:450px;
+		}
+	}

@@ -1,0 +1,57 @@
+.c-pagination {
+    &__link {
+        font-weight: bold;
+        text-transform: uppercase;
+
+        i {
+            margin: 0 5px;
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        text-align: center;
+
+        li {
+            display: block;
+            float: left;
+            width: 50%;
+
+            &:first-child {
+                padding-right: 5px;
+            }
+
+            &:last-child {
+                padding-left: 5px;
+            }
+        }
+
+        &__link {
+            background-image: linear-gradient(@white, @grey--f2);
+            border: 1px solid @grey--e6;
+            display: block;
+            line-height: 40px;
+            padding: 0 20px;
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        text-align: right;
+
+        &--separated {
+            border: 1px solid @grey--d9;
+            border-width: 1px 0;
+        }
+
+        li {
+            display: inline-block;
+
+            &:last-child {
+                margin-left: 40px;
+            }
+        }
+
+        &__link {
+            line-height: 50px;
+        }
+    }
+}

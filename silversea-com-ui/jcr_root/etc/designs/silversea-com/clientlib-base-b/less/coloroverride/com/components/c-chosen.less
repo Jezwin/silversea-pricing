@@ -1,0 +1,93 @@
+.chosen-container {
+    width: 100% !important;
+
+    &.chosen-with-drop {
+        .chosen-single {
+            border-color: @black;
+            color: @black;
+
+            &.chosen-default {
+                color: @black;
+            }
+        }
+    }
+
+    .chosen-single {
+        background: @white;
+        box-shadow: none;
+        color: @black;
+        height: 42px;
+        padding: 10px 40px 10px 12px;
+        width: 100%;
+        font-weight: 600;
+
+        &.chosen-default {
+            color: @grey;
+        }
+
+        span {
+            font-size: 14px;
+            line-height: initial;
+            margin: 0;
+
+            @media screen and (max-width: @screen-sm) {
+                font-size: 13px;
+                font-weight: 400;
+            }
+        }
+
+        div b {
+            background: 0;
+
+            &:before {
+                color: @grey;
+                content: "\f107";
+                font-family: FontAwesome;
+                font-size: 18px;
+                font-weight: 400;
+                position: relative;
+                right: 10px;
+                top: 8px;
+
+                @media screen and (max-width: @screen-sm) {
+                    top: 5px;
+                }
+            }
+        }
+    }
+
+    .chosen-drop {
+        border-radius: 0 0 5px 5px;
+        border-color: @black;
+        box-shadow: none;
+
+        .chosen-results {
+            margin: 5px 4px 4px 0;
+            max-height: 270px;
+
+            li {
+                font-size: 13px;
+                line-height: 24px;
+                margin: 0 15px 0 4px;
+
+                &.highlighted,
+                &.result-selected {
+                    background: @black;
+                    color: @white;
+                }
+
+                &.result-selected {
+                    font-weight: @bold;
+                }
+            }
+        }
+
+    }
+}
+
+
+.chosen-container-active.chosen-with-drop {
+    .chosen-single {
+        background-image: none;
+    }
+}

@@ -1,0 +1,131 @@
+.c-cruise-keypeople {
+    .c-cruise__descr {
+        margin-bottom: 20px;
+    }
+
+    .keypeople__slider {
+        margin-bottom: 0;
+
+        .slick-track {
+            display: flex;
+
+            .slick-slide {
+                display: flex;
+                height: auto;
+            }
+        }
+
+        &-item {
+            border: 1px solid @grey--d;
+            cursor: pointer;
+            position: relative;
+
+            &.active {
+                background: @grey--e;
+            }
+
+            img {
+                height: auto;
+                width: 100%;
+            }
+
+            .wrapper {
+                padding: 20px 20px 15px;
+
+                @media screen and (min-width: @screen-md-min) {
+                    padding-bottom: 35px;
+                }
+
+                .keypeople--identity {
+                    font-size: 13px;
+                    font-weight: 700;
+                    line-height: 1.2;
+                    margin: 0 0 10px;
+                    text-transform: uppercase;
+                }
+
+                .keypeople--profession {
+                    font-size: 13px;
+                    font-style: italic;
+                    margin: 10px 0 0;
+                }
+
+                strong {
+                    font-size: 12px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+
+                    i {
+                        padding-left: 5px;
+                    }
+
+                    @media screen and (min-width: @screen-md-min) {
+                        bottom: 15px;
+                        position: absolute;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.keypeople__details {
+    margin: 0 56px;
+
+    &__inner-wrapper {
+        background: @grey--e;
+        display: none;
+        padding: 50px;
+        position: relative;
+
+        @media screen and (max-width: @screen-xs) {
+            padding: 20px;
+        }
+    }
+
+    &--identity {
+        font-family: @f-theano_didot;
+        font-size: 24px;
+        line-height: 1.333333;
+        margin: 0;
+        text-transform: uppercase;
+
+        @media screen and (max-width: @screen-xs) {
+            font-size: 20px;
+        }
+    }
+
+    &--profession {
+        font-size: 13px;
+        font-style: italic;
+        margin: 0;
+    }
+
+    &--descr {
+        font-size: 13px;
+        line-height: 1.5;
+        margin: 30px 0 0;
+
+        @media screen and (max-width: @screen-xs) {
+            margin: 10px 0 0;
+        }
+    }
+
+    .btn-close {
+        color: @grey--7;
+        font-size: 13px;
+        position: absolute;
+        right: 25px;
+        text-transform: uppercase;
+        top: 25px;
+
+        @media screen and (max-width: @screen-xs) {
+            right: 10px;
+            top: 10px;
+        }
+
+        i {
+            margin: 0 5px 0 0;
+        }
+    }
+}

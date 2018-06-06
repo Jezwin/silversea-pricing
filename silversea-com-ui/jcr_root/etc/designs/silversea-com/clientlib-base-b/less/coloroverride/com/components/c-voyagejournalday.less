@@ -1,0 +1,117 @@
+.c-voyagejournals {
+    &__content {
+        img {
+            height: auto;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .row {
+            margin: 0 -5px;
+
+            div[class^="col-"],
+            div[class*=" col-"] {
+                padding: 0 5px;
+
+                &:nth-child(odd) {
+                    clear: both;
+                }
+            }
+        }
+    }
+
+    &__link {
+        &:before {
+            background-color: @black;
+            content: ' ';
+            display: block;
+            height: 100%;
+            left: 5px;
+            opacity: 0;
+            position: absolute;
+            right: 5px;
+            top: 0;
+            transition: 0.3s ease;
+        }
+
+        &:hover:before {
+            opacity: 0.5;
+        }
+    }
+
+    &__title-wrapper {
+        color: @white;
+        bottom: 10px;
+        left: 12px;
+        right: 22px;
+        position: absolute;
+    }
+
+    &__ship,
+    &__title {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    &__title {
+        margin-bottom: 10px;
+    }
+
+    &__date,
+    &__id {
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    &__date {
+        float: left;
+    }
+
+    &__id {
+        float: right;
+    }
+
+    .c-pageheader__properties {
+        border-top: 1px solid;
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        .voyagejournals &,
+        .voyagejournal & {
+            padding: 0;
+        }
+
+        &-sidebar {
+            margin-top: 40px;
+        }
+
+        &__list {
+            margin-bottom: 20px;
+        }
+
+        &__link {
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .c-pagination-number {
+            margin: 20px 0 0 15px;
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        div[class^="col-"] {
+            margin-bottom: 40px;
+        }
+
+        &__title-wrapper {
+            bottom: -20px;
+        }
+
+        &__date,
+        &__id {
+            color: @black;
+            font-weight: 700;
+        }
+    }
+}

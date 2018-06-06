@@ -1,0 +1,78 @@
+.c-cruise-highlights {
+    &__content {
+        background: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), -webkit-linear-gradient(rgba(255, 255, 255, 0) 0, #fff 90%) 100% 100%, -webkit-linear-gradient(rgba(255, 255, 255, 0) 0, #aaa 100%) 0 100%;
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0) 0, #fff 90%) 100% 100%, linear-gradient(rgba(255, 255, 255, 0) 0, #aaa 100%) 0 100%;
+        background-color: @white;
+        background-size: 100%, 100% 30%, 100% 10px, 100%;
+        background-attachment: local, local, scroll, local;
+        background-repeat: no-repeat;
+        border: 1px solid @grey--ca;
+        margin: 30px auto;
+        max-height: 500px;
+        overflow: auto;
+        padding: 20px 40px 40px;
+
+        /* /!\ This following style override the style inline */
+        h1,
+        h2,
+        h3 {
+            font-family: @f-theano_didot;
+            text-align: left!important;
+            font-size: 25px;
+            text-transform: uppercase;
+
+            strong {
+                display: block;
+                font-weight: 400;
+            }
+        }
+
+        @media screen and (max-width: @screen-md-max) {
+            background: none;
+            max-height: 440px;
+            overflow: hidden;
+            padding: 10px;
+            position: relative;
+
+            &.open {
+                max-height: 100000px;
+
+                a[data-toggle-text="close"] {
+                    display: block;
+                }
+
+                a[data-toggle-text="show"] {
+                    display: none;
+                }
+            }
+
+            a[data-toggle-text="close"] {
+                display: none;
+            }
+        }
+
+        &--expand {
+            background: @white;
+            bottom: 0;
+            display: block;
+            padding: 15px;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            width: 100%;
+
+            .c-cruise-highlights__content.open & {
+                position: static;
+            }
+
+            a {
+                font-size: 12px;
+                font-weight: @bold;
+
+                i {
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+}

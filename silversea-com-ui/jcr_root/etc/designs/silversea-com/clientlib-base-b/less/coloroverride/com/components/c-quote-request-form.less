@@ -1,0 +1,64 @@
+.c-quote-request-form {
+    margin: 0 auto;
+    max-width: 500px;
+   	margin-bottom: 30px;
+   	
+   	 @media screen and (min-width: 961px) {
+        max-width: 900px;
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        max-width: 850px;
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        max-width: 100%;
+    }
+
+    &__form {
+        margin: 0 auto;
+        float: none;
+    }
+
+    &__side:not(.c-quote-request-form__side-B-version) + .c-quote-request-form__form {
+        float: left;
+
+        @media screen and (max-width: @screen-sm) {
+            float: none;
+        }
+    }
+
+    &__side-B-version {
+        display: none;
+    }
+
+    .textarea_autogrow {
+        margin-bottom: 10px;
+        position: relative;
+
+        &__field {
+            font-size: 14px;
+            height: 100%!important;
+            left: 0;
+            position: absolute;
+            resize: none;
+            top: 0;
+            white-space: normal;
+
+            @media screen and (max-width: @screen-sm) {
+                font-size: 16px;
+            }
+        }
+
+        &__size {
+            box-sizing: border-box;
+            min-height: 76px;
+            overflow: hidden;
+            padding: 10px 20px;
+            width: 100%;
+            visibility: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    }
+}

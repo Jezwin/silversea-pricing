@@ -1,0 +1,91 @@
+.c-inline-gallery.c-slider {
+    display: none;
+    margin-top: 10px;
+
+    &.slick-initialized {
+        display: block;
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        .full-width();
+    }
+
+    @media screen and (min-width: @screen-lg-min) {
+        .slick-prev,
+        .slick-next {
+            width: 30px;
+        }
+
+        .slick-prev {
+            left: -40px;
+
+            &:before,
+            &:after {
+                left: 30px;
+            }
+        }
+
+        .slick-next {
+            right: -40px;
+
+            &:before,
+            &:after {
+                left: 0;
+            }
+        }
+    }
+
+    .slick-slide {
+        outline: 0;
+        position: relative;
+
+        > div {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 0;
+            margin: 0;
+            padding-top: 27%;
+            position: relative;
+
+            @media screen and (min-width: @screen-md-min) {
+                margin: 0 5px;
+                padding-top: 56%;
+            }
+        }
+
+        .automatic-gallery-modal {
+            height: 100%;
+            left: 5px;
+            position: absolute;
+            right: 5px;
+            top: 0;
+            width: auto;
+
+            .fa {
+                @media screen and (min-width: @screen-lg-min) {
+                    -webkit-transform: translate(-45%, -50%) scale(0.85);
+                    -ms-transform: translate(-45%, -50%) scale(0.85);
+                    transform: translate(-45%, -50%) scale(0.85);
+                }
+            }
+        }
+
+        picture {
+            display: block;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+            .o-img {
+                position: relative;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+        }
+    }
+}
