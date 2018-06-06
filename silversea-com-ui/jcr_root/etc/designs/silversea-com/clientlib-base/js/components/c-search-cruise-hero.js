@@ -30,8 +30,12 @@ $(function() {
 
                     // Disabled option not available
                     $optionList.each(function() {
-                        var $option = $(this);
-                        $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
+                        try {
+                            var $option = $(this);
+                            $option.attr('disabled', filterAvailableObj[$option.val()] !== true);
+                        } catch (error) {
+                            console.log('init issue');
+                        }
                     });
                 }
             });
