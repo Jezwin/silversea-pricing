@@ -66,9 +66,9 @@
     <picture data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <source
-            srcset="${assetHelper.imageUrl}?hei=390&wid=1200&fit=crop,
-            ${assetHelper.imageUrl}?hei=390&wid=1200&fit=crop 2x"
+            srcset="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop,
+            ${assetHelper.imageUrl}?hei=390&wid=930&fit=crop 2x"
             media="(min-width: 768px)" />
-        <img src="${assetHelper.imageUrl}?hei=390&wid=1200&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
