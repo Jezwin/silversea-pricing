@@ -243,7 +243,7 @@ $(function() {
             $description.removeClass('clipped');
             $description.removeClass('opened');
 
-            if ($description.height() > 168) {
+            if ($description.height() > 137) {
                 var $descriptionToggle = $description.next('.variationcontent__descr__expand');
                 var $moreBtn = $descriptionToggle.find('.read_more');
                 var $lessBtn = $descriptionToggle.find('.read_less');
