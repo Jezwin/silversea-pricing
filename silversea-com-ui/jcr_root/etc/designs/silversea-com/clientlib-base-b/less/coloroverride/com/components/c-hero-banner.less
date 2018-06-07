@@ -1,33 +1,30 @@
 .video-link {
     color: @white;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
+
+
+
+
+
 
     .fa-play {
-        font-size: 50px;
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        -webkit-transform: translate(-45%, -50%);
-        -ms-transform: translate(-45%, -50%);
-        transform: translate(-45%, -50%);
+
+
+
+
 
         &:after {
             border: 3px solid @white;
             border-radius: 50%;
-            content: "";
-            display: block;
-            left: 50%;
-            height: 84px;
-            position: absolute;
-            top: 50%;
+
+
+
+
+
+
             -webkit-transform: translate(-55%, -50%);
             -ms-transform: translate(-55%, -50%);
             transform: translate(-55%, -50%);
-            width: 84px;
+
         }
     }
 
@@ -35,64 +32,64 @@
     &:focus,
     &:active {
         color: @white;
-        opacity: 1;
+
     }
 }
 
 .c-slider .c-hero-banner {
-    margin-bottom: 0;
+
 
     @media screen and (max-width: @screen-sm) {
-        margin-left: 15px;
-        margin-right: 15px;
+
+
     }
 }
 
 .c-hero-banner {
-    margin: 0 auto 20px;
-    max-width: 1170px;
-    position: relative;
+
+
+
 
     &-mobile-version {
 
         @media screen and (max-width: @screen-sm) {
             .slick-prev, .slick-next {
-                display: inline-block !important;
-                z-index: 1030;
+
+
             }
         }
     }
 
     &-scrolldown {
-        position: absolute;
-        bottom: 0%;
-        margin: auto;
-        transform: translateX(-50%);
-        left: 50%;
+
+
+
+
+
         color: @white;
-        cursor: pointer;
-        font-size: 17px;
-        z-index: 1500;
-        display: none;
-        text-align: center;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-        line-height: 10px;
+
+
+
+
+
+
+
+
 
         span {
-            display: block;
+
         }
 
         i {
-            font-size: 30px;
-            transition: all .5s ease;
-            -webkit-transition: all .5s ease;
+
+
+
         }
 
         i:hover {
-            transform: translateY(5px);
-            transition: all .5s ease;
-            -webkit-transition: all .5s ease;
+
+
+
         }
 
         @media (min-width: @screen-md-min) {
@@ -100,7 +97,7 @@
                 color: @grey--3;
             }
             &-desktop {
-                display: block;
+
             }
         }
     }
@@ -108,29 +105,29 @@
     span.c-hero-banner__title,
     h2.c-hero-banner__title,
     h3.c-hero-banner__title {
-        display: block;
-        margin-bottom: 20px !important;
-        margin-top: 20px !important;
-        margin: .67em 0;
+
+
+
+
         color: inherit;
-        font-weight: 500;
-        line-height: .9 !important;
+
+
     }
 
     &:not(.c-hero-banner__search) {
-        margin-bottom: 0;
+
     }
 
     .video-link {
-        left: 50%;
-        opacity: .8;
-        position: absolute;
-        top: 0;
-        -webkit-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-        transform: translateX(-50%);
-        transition: opacity 300ms;
-        width: 100vw;
+
+
+
+
+
+
+
+
+
     }
 
     &__content--white {
@@ -138,45 +135,45 @@
     }
 
     &__title {
-        font-family: @f-theano_didot;
-        font-size: 30px;
-        line-height: 0.95;
-        margin-bottom: 20px;
-        text-align: center;
-        text-transform: uppercase;
+
+
+
+
+
+
     }
 
     &__buttons {
-        text-align: center;
+
     }
 
     &__image {
-		.full-width;
+
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-        height: 330px;
-        overflow: hidden;
-        
-        min-height: 200px;
-        
+
+
+
+
+
 		@media (min-width: @screen-lg-min){
-        	max-height:1000px
+
         }
-        
+
 		@media(min-width:@screen-md-min) and (max-width:@screen-md-max){
-        	max-height: 964px;
+
         }
         @media (max-width: @screen-sm){
-        	max-height: 752px;
+
         }
 
         .o-img {
-            left: 50%;
-            min-height: 330px;
-            max-width: none;
-            position: absolute;
-            top: 50%;
+
+
+
+
+
             -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
@@ -185,7 +182,7 @@
 
     @media screen and (min-width: @screen-md-min) {
         &:not(.c-hero-banner__search) {
-            margin-bottom: 20px;
+
         }
 
         &__content:not(.c-hero-banner__content--white) {
@@ -193,26 +190,26 @@
         }
 
         &__title {
-            font-size: 37px;
-            text-align: left;
+
+
         }
 
         &__image + .row &__content {
-            bottom: 0;
-            position: absolute;
-            min-height: 240px;
-            z-index: 1;
-            max-height: 330px;
-            overflow: auto;
+
+
+
+
+
+
         }
 
         &__buttons {
-            text-align: left;
+
 
             .btn {
-                min-width: 150px;
-                float: left;
-                clear: left;
+
+
+
             }
         }
     }
@@ -221,67 +218,67 @@
 
 
         .c-hero-banner__title {
-            margin-top: 18px;
-            line-height: 0.95 !important;
-            font-size: 26px;
-            font-weight: 400;
-            text-align: center;
-            text-transform: uppercase;
+
+
+
+
+
+
             color: @black;
         }
 
         .video-link {
-            height: 100% !important;
+
 
             .wistia_click_to_play {
-                position: relative;
-                width: 200px;
-                height: 100% !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                -webkit-transform: translateY(-50%) !important;
+
+
+
+
+
+
             }
         }
 
         .c-hero-banner__description {
-            display: block;
-            -webkit-margin-before: 0.83em;
-            -webkit-margin-after: 0.83em;
-            -webkit-margin-start: 0px;
-            -webkit-margin-end: 0px;
-            font-weight: 500;
-            margin-top: 20px;
-            font-size: 15px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-            padding: 0px 12px;
-            text-transform: none;
+
+
+
+
+
+
+
+
+
+
+
+
             color: @black;
-            font-family: @f-open_sans;
-            text-align: center;
+
+
         }
 
         .c-hero-banner__buttons {
             a {
-                font-weight: 400;
-                text-transform: uppercase;
+
+
                 border: 0;
-                cursor: pointer;
-                display: inline-block;
-                line-height: 1.5;
-                position: relative;
-                user-select: none;
-                vertical-align: middle;
-                font-size: 15px;
-                width: 200px;
-                text-align: center;
-                padding: 6px 0px 10px !important;
-                margin-bottom: 12px;
+
+
+
+
+
+
+
+
+
+
+
 
                 span {
-                    padding-right: 0px !important;
-                    font-weight: 600;
-                    font-size: 12px;
+
+
+
                 }
             }
         }

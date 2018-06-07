@@ -1,148 +1,148 @@
 .searchcruise {
-    overflow: visible !important;
+
 }
 
 .c-search-cruise {
-    margin: 0 auto;
-    max-width: 930px;
-    position: relative;
+
+
+
 
     @media screen and (min-width: @screen-md-min) {
         &:not(.no-image) &__content {
-            left: 0;
-            position: absolute;
-            top: 100px;
-            z-index: 1;
+
+
+
+
         }
     }
 
     &__content {
-        padding-right: 25px;
-        width: 58%;
+
+
 
         @media screen and (max-width: @screen-sm) {
-            padding-right: 0;
-            width: 100%;
+
+
         }
 
         h1 {
-            font-family: @f-theano_didot;
-            font-size: 48px;
-            font-weight: 400;
-            line-height: .95;
-            padding-bottom: 5px;
-            text-transform: uppercase;
-            margin: 0;
+
+
+
+
+
+
+
 
             @media screen and (max-width: @screen-sm) {
-                font-size: 40px;
-                padding-bottom: 10px;
-                margin-top: 25px;
+
+
+
             }
         }
 
         p {
-            font-size: 20px;
-            font-weight: 400;
-            line-height: 25px;
-            margin-bottom: 30px;
+
+
+
+
 
             @media screen and (max-width: @screen-sm) {
-                font-size: 16px;
-                margin-bottom: 35px;
+
+
             }
         }
 
         .btn {
-            height: 48px;
-            font-size: 16px;
-            font-weight: @bold;
-            padding: 12px 12px 20px;
+
+
+
+
             border: 0;
         }
     }
 
     &__image {
-        .full-width;
+
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-        height: 450px;
-        overflow: hidden;
+
+
 
         @media screen and (max-width: @screen-sm) {
-            height: 190px;
+
         }
 
         .o-img {
-            left: 50%;
-            min-height: 450px;
-            max-width: none;
-            position: absolute;
-            top: 50%;
+
+
+
+
+
             -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
 
             @media screen and (max-width: @screen-sm) {
-                min-height: inherit;
-                width: auto;
-                height: 190px;
+
+
+
             }
         }
     }
 
     @media screen and (min-width: @screen-md-min) {
         &:not(.no-image) &__form {
-            bottom: 75px;
-            position: absolute;
-            right: 0;
+
+
+
         }
     }
 
     &__form {
-        padding: 25px;
+
         background: @grey--6 none repeat scroll 0 0;
 
         @media screen and (max-width: @screen-sm) {
             background: @grey--fa;
-            margin: 0 -15px;
-            padding: 25px 15px;
+
+
         }
 
         &__select-wrapper {
-            position: relative;
-            margin-bottom: 15px;
+
+
 
             select {
-                height: 47px;
+
             }
         }
 
         h3 {
             color: @white;
-            font-size: 24px;
-            font-weight: 700;
-            font-family: @f-theano_didot;
-            text-transform: uppercase;
-            text-align: center;
-            line-height: .95;
-            padding-top: 0;
-            padding-bottom: 30px;
-            margin: 0;
+
+
+
+
+
+
+
+
+
 
             @media screen and (max-width: @screen-sm) {
                 color: @black;
-                font-weight: 400;
+
             }
 
             @media screen and (max-width: @screen-xs) {
-                font-size: 20px;
+
             }
         }
 
         .chosen-container {
-            width: 100% !important;
+
 
             &.chosen-with-drop {
                 .chosen-single {
@@ -154,28 +154,28 @@
                 background: @white;
                 border-color: @grey--eb;
                 border-radius: 0;
-                box-shadow: none;
-                padding: 12px 40px 12px 20px;
-                height: 48px;
+
+
+
 
                 span {
                     color: @black;
-                    font-size: 16px;
-                    font-weight: 600;
-                    line-height: 25px;
-                    margin-right: 0;
+
+
+
+
                 }
 
                 div b {
                     &:before {
-                        content: "\f107";
+
                         color: @black;
-                        font-family: FontAwesome;
-                        font-size: 18px;
-                        font-weight: 400;
-                        position: relative;
-                        right: 10px;
-                        top: 12px;
+
+
+
+
+
+
                     }
                 }
             }
@@ -184,20 +184,20 @@
                 border-radius: 0;
                 border-color: @black;
                 border-top: 0;
-                box-shadow: none;
+
 
                 .chosen-search {
-                    display: none;
+
                 }
 
                 .chosen-results {
-                    margin: 5px 4px 4px 0;
-                    max-height: 270px;
+
+
 
                     li {
-                        font-size: 13px;
-                        line-height: 24px;
-                        margin: 0 15px 0 4px;
+
+
+
 
                         &.highlighted,
                         &.result-selected {
@@ -206,7 +206,7 @@
                         }
 
                         &.result-selected {
-                            font-weight: @bold;
+
                         }
                     }
                 }
@@ -214,27 +214,27 @@
         }
 
         .btn {
-            width: 100%;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 12px 40px 12px 20px;
-            margin: 0;
-            position: relative;
-            white-space: normal;
+
+
+
+
+
+
+
+
 
             @media screen and (max-width: @screen-xs) {
-                font-size: 12px;
+
             }
 
             i {
-                position: absolute;
-                top: 50%;
-                margin-top: -12px;
-                right: 18px;
-                font-size: 23px;
-                font-weight: 400;
-                min-height: 40px;
+
+
+
+
+
+
+
             }
         }
     }

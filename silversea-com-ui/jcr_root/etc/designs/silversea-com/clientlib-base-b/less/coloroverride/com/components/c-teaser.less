@@ -1,85 +1,85 @@
 .c-teaser {
-    position: relative;
-    background: @black;
-    margin-bottom: 10px;
-    overflow: hidden;
 
-    /* phone breakpoint */
+    background: @black;
+
+
+
+
     @media screen and (max-width: @screen-sm) {
         background: transparent;
-        margin-bottom: 20px;
-        box-shadow: @grey--015 0px 1px 2px 0px;
-        -webkit-box-shadow: 0 1px 2px 0 @grey--015;
-        margin-top: 10px;
+
+
+
+
     }
 
     &:hover .o-img {
-        opacity: 0.6;
 
-        /* phone breakpoint */
+
+
         @media screen and (max-width: @screen-sm) {
-            opacity: 1;
+
         }
     }
 
     &__wrapperhover {
-        display: block;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        z-index: 7;
-        width: 100%;
-        height: 100%;
+
+
+
+
+
+
+
     }
 
     &__wrapper {
-        position: absolute;
-        left: 35px;
-        top: 30px;
-        z-index: 6;
 
-        /* phone breakpoint */
+
+
+
+
+
         @media screen and (max-width: @screen-sm) {
-            margin-bottom: 20px;
-            max-width: 100%;
-            position: static;
-            padding: 20px 20px 0px 0px;
+
+
+
+
         }
 
         &__title {
-            font: 22px @f-theano_didot;
-            line-height: 26px;
-            padding-right: 30px;
-            text-transform: uppercase;
-            z-index: 1;
-            color: @white;
-            margin: 0;
 
-            /* phone breakpoint */
+
+
+
+
+            color: @white;
+
+
+
             @media screen and (max-width: @screen-sm) {
                 color: @black;
-                position: inherit;
-                left: auto;
-                top: auto;
-                width: 100%;
-                font-family: @f-theano_didot;
-                margin: 0;
-                text-transform: uppercase;
-                font-size: 20px;
-                margin-bottom: 6px;
-                display: block;
-                line-height: .94;
+
+
+
+
+
+
+
+
+
+
+
             }
         }
 
         &__descr {
-            display: block;
-            margin-bottom: 0;
-            max-width: 100%;
-            font-size: 13px;
-            line-height: 18px;
-            margin-top: 20px;
-            padding-right: 35px;
+
+
+
+
+
+
+
             color: @white;
         }
     }
@@ -87,48 +87,48 @@
     &__shader {
         /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.8+0,0+100 */
         background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
-        /* FF3.6-15 */
+
         background: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
         /* Chrome10-25,Safari5.1-6 */
         background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
         /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#00000000', GradientType=1);
-        /* IE6-9 fallback on horizontal gradient */
-        position: absolute;
-        z-index: 5;
-        height: 100%;
-        width: 100%;
+
+
+
+
+
     }
 
     .o-img {
-        position: relative;
-        z-index: 4;
-        width: 100%;
-        display: block;
-        max-width: 100%;
-        height: auto;
-        -moz-transition: 0.3s ease;
-        -o-transition: 0.3s ease;
-        -ms-transition: 0.3s ease;
-        transition: 0.3s ease;
-        -webkit-transition: 0.3s ease;
 
-        /* phone breakpoint */
+
+
+
+
+
+
+
+
+
+
+
+
         @media screen and (max-width: @screen-sm) {
-            margin-bottom: 10px;
-            margin-top: 0px;
-            width: 100%;
+
+
+
         }
     }
 
     &__descr-mobile {
-        /* phone breakpoint */
+
         @media screen and (max-width: @screen-sm) {
-            font-size: 13px;
-            line-height: 18px;
-            max-width: 100%;
-            margin: 0px !important;
-            padding: 0px !important;
+
+
+
+
+
         }
     }
 
@@ -136,46 +136,46 @@
         @media screen and (max-width: @screen-sm) {
             border: 1px solid @grey--d;
             border-top: none;
-            margin-top: -9px;
-            padding: 20px 20px 40px;
+
+
         }
     }
 
     &__link {
-        position: absolute;
-        bottom: 40px;
-        z-index: 6;
-        font-size: 100%;
-        line-height: 1.5;
+
+
+
+
+
         color: @white;
-        font-family: @f-sans_serif;
+
         border-bottom: 0;
-        text-decoration: none;
-        text-transform: uppercase;
+
+
 
         @media screen and (min-width: @screen-md-min) {
-            left: 35px;
+
         }
-        /* phone breakpoint */
+
         @media screen and (max-width: @screen-sm) {
             color: @black;
-            font-size: 11px;
-            font-weight: 600;
-            bottom: 9px;
-            position: absolute;
-            padding-right: 0px;
+
+
+
+
+
         }
 
         .fa {
-            padding-left: 20px;
+
             @media screen and (max-width: @screen-sm) {
-                padding-left: 8px;
+
             }
         }
     }
     &.no-image {
         .c-teaser__wrapper {
-            position: static;
+
         }
     }
 }

@@ -1,48 +1,48 @@
 .c-language-selector {
     @media screen and (min-width: @screen-lg-min) {
         & > a:after {
-            bottom: 11px;
+
             color: @grey--ba;
-            content: "\f107";
-            font: normal normal normal 14px/1 FontAwesome;
-            left: 0;
-            position: absolute;
-            text-align: center;
-            width: 100%;
+
+
+
+
+
+
         }
 
         &__list {
             background-color: @black;
-            padding-bottom: 17px;
-            position: absolute;
-            top: 48px;
-            transition-duration: .2s;
+
+
+
+
 
             &.cloned {
-                display: none;
+
             }
 
             &.collapse.in:before {
-                bottom: 11px;
+
                 color: @grey--ba;
-                content: "\f106";
-                font: normal normal normal 14px/1 FontAwesome;
-                left: 0;
-                position: absolute;
-                text-align: center;
-                width: 100%;
+
+
+
+
+
+
             }
 
             .c-main-nav {
                 &__top {
                     &__item {
                         &:before {
-                            display: none;
+
                         }
                     }
 
                     &__link {
-                        height: 32px;
+
                     }
                 }
             }
@@ -51,27 +51,27 @@
 
     @media screen and (max-width: @screen-md-max) {
         & > a {
-            position: relative;
+
 
             .fa {
-                font-size: 18px;
-                position: absolute;
-                right: 15px;
-                top: 50%;
-                -webkit-transform: translateY(-50%);
-                -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
+
+
+
+
+
+
+
             }
 
             &[aria-expanded="false"] {
                 .fa-angle-up {
-                    display: none;
+
                 }
             }
 
             &[aria-expanded="true"] {
                 .fa-angle-down {
-                    display: none;
+
                 }
             }
         }
@@ -98,14 +98,14 @@
 
     @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
         &__list:not(.cloned) {
-            display: none;
+
         }
     }
 
     @media screen and (max-width: @screen-sm) {
         &__list {
             &.cloned {
-                display: none;
+
             }
 
             .c-main-nav__top {
