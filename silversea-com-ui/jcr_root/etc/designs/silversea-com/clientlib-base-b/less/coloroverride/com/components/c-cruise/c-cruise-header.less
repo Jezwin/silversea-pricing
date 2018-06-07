@@ -1,5 +1,4 @@
 .cruise__header {
-    margin-bottom: 25px;
 
     @media (max-width: @screen-sm) {
         .btn-dark:hover {
@@ -9,132 +8,17 @@
     }
 
     .cruise__header__title {
-        text-align: center;
         color: @black;
-        font-size: 38px;
-        font-weight: 400;
-        font-family: @f-theano_didot;
-        text-transform: uppercase;
-        line-height: 1;
-
-
-        @media screen and (max-width: @screen-sm) {
-            font-size: 30px;
-        }
-
-        &__to {
-            text-transform: lowercase;
-        }
-
     }
 
     .cruise_header__subtitle {
-        display: block;
-        font-size: 16px;
         color: @grey--9;
-        font-family: @f-sans_serif;
-        margin-top: 10px;
-        text-transform: uppercase;
-        line-height: 1;
-        text-align: center;
-
-        &:after {
-            content: '';
-            width: 80%;
-            max-width: 550px;
-            height: 2px;
-            display: block;
-            margin: 20px auto;
+   &:after {
             background: @blue;
 
             .expedition & {
                 background-color: @red-expedition;
             }
-        }
+        }    }
 
-        &_ship {
-            font: italic 16px @f-playfair-display;
-            display: block;
-            font-size: 19px;
-            margin-top: 3px;
-            text-transform: none;
-        }
-    }
-
-    .cruise__header__desc {
-        display: table;
-        width: 100%;
-
-        .cruise__header__txt {
-            padding-bottom: 10px;
-            display: table-cell;
-            vertical-align: top;
-            font-size: 14px;
-            margin-bottom: 20px;
-            width: 100%;
-
-            /* phone breakpoint */
-            @media screen and (max-width: @screen-sm) {
-                display: block;
-            }
-
-            p {
-                margin-bottom: 0;
-                font-size: 14px;
-            }
-        }
-
-        .cruise__header__cta {
-            padding: 0 0 0 30px;
-            display: table-cell;
-            vertical-align: top;
-            text-align: center;
-
-            .btn {
-                padding: 8px 20px;
-
-                i {
-                    position: relative;
-                    top: 1px;
-                }
-            }
-
-
-
-            @media screen and (max-width: @screen-sm) {
-                display: block;
-                padding: 0;
-
-                a {
-                    width: auto;
-                    display: inline-block !important;
-                    margin: 0 0 10px 0;
-                }
-            }
-        }
-    }
-
-    .cruise__header__meta {
-        width: 100%;
-        float: left;
-        font-size: 12px;
-
-        .cruise__header__nextprev {
-            float: left;
-            text-transform: uppercase;
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            a:nth-child(2):before {
-                content: '|';
-                position: relative;
-                top: -1px;
-                display: inline-block;
-                margin: 0 5px;
-                font-size: 11px;
-            }
-        }
-    }
 }
