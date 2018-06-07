@@ -1,13 +1,4 @@
 .c-hero-banner__search {
-    .c-hero-banner__image {
-
-
-        @media screen and (max-width: @screen-sm) {
-
-
-        }
-    }
-
     @media screen and (min-width: @screen-sm) {
         .c-hero-banner__content:not(.c-hero-banner__content--white) {
             color: @black;
@@ -16,95 +7,21 @@
 }
 
 .c-search-hero {
-
-
-
-
-
     &:before {
         background-color: @grey--d;
-
-
-
-
-
-
-
-
-
-
     }
-
     .chosen-container {
         .chosen-single {
             background: @white;
             border: 1px solid @white;
-
-
-            @media screen and (max-width: @screen-sm) {
-
-
-            }
         }
-
         &.chosen-with-drop {
             .chosen-single {
                 border: 1px solid @black;
             }
         }
     }
-
     &__form {
-        .col-sm-3 {
-            @media screen and (max-width: @screen-sm) {
-                &:not(:last-of-type) {
-
-                }
-            }
-
-            @media screen and (min-width: @screen-md-min) {
-                &:not(:first-child) {
-
-                }
-
-                &:not(:last-of-type) {
-
-                }
-            }
-        }
-
-        .btn {
-
-
-
-
-
-
-
-
-            @media screen and (max-width: @screen-sm) {
-
-
-
-            }
-
-            i {
-
-
-
-
-
-
-            }
-        }
-    }
-}
-
-.slider,
-.herobanner {
-    + .searchhero {
-        @media screen and (min-width: @screen-md-min) {
-
-        }
+        .col-sm-3 {}
     }
 }

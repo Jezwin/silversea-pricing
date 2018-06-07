@@ -1,61 +1,41 @@
-
-
-
-
 .c-accordion {
     border-right: solid 1px @grey--e8;
     border-left: solid 1px @grey--e8;
-
-
     &--darkbox {
-
         .c-accordion__header {
             background-color: @white;
             border: solid 1px @grey--e8;
-
             &:hover,
             &:active,
             &:focus {
                 background-color: @white;
             }
-
             &[data-state='true'] {
                 background-color: @grey--3;
                 color: @white;
-
                 .fa.fa-angle-up {
                     color: @white;
                 }
             }
-
         }
-
     }
-
     &__elem {
         border-top: solid 1px @grey--e8;
-
         &:nth-last-child(1) {
             border-bottom: solid 1px @grey--e8;
         }
     }
-
     &__header {
         background-color: @grey--f9;
-
         &:hover,
         &:active,
         &:focus {
             background-color: @grey--e6;
         }
-
     }
-
     &__action {
-
         &--light {
             color: @grey--8;
         }
     }
-
 }

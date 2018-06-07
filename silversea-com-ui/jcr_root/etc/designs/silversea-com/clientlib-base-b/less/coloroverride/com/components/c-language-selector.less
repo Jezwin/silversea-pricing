@@ -1,116 +1,30 @@
 .c-language-selector {
     @media screen and (min-width: @screen-lg-min) {
         & > a:after {
-
             color: @grey--ba;
-
-
-
-
-
-
         }
-
         &__list {
             background-color: @black;
-
-
-
-
-
-            &.cloned {
-
-            }
-
             &.collapse.in:before {
-
                 color: @grey--ba;
-
-
-
-
-
-
-            }
-
-            .c-main-nav {
-                &__top {
-                    &__item {
-                        &:before {
-
-                        }
-                    }
-
-                    &__link {
-
-                    }
-                }
             }
         }
     }
-
     @media screen and (max-width: @screen-md-max) {
-        & > a {
-
-
-            .fa {
-
-
-
-
-
-
-
-            }
-
-            &[aria-expanded="false"] {
-                .fa-angle-up {
-
-                }
-            }
-
-            &[aria-expanded="true"] {
-                .fa-angle-down {
-
-                }
-            }
-        }
-
+        & > a {}
         &__list {
             .c-main-nav__top {
                 &__item {
                     background-color: @white;
                     border-bottom: 1px solid @grey--d;
-
                     &:nth-child(odd) {
                         border-right: 1px solid @grey--d;
                     }
-
                     &:hover,
                     &:focus,
                     &:active {
                         background: @grey--e;
                     }
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-        &__list:not(.cloned) {
-
-        }
-    }
-
-    @media screen and (max-width: @screen-sm) {
-        &__list {
-            &.cloned {
-
-            }
-
-            .c-main-nav__top {
-                &__item {
-                    border-right: 0;
                 }
             }
         }

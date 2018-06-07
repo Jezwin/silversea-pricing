@@ -1,240 +1,48 @@
-.searchcruise {
-
+&__content {
+    .btn {
+        border: 0;
+    }
 }
 
-.c-search-cruise {
-
-
-
-
-    @media screen and (min-width: @screen-md-min) {
-
-
-
-
-
-        }
+&__form {
+    @media screen and (max-width: @screen-sm) {
+        background: @grey--fa;
     }
-
-    &__content {
-
-
-
+    h3 {
+        color: @white;
         @media screen and (max-width: @screen-sm) {
-
-
-        }
-
-        h1 {
-
-
-
-
-
-
-
-
-            @media screen and (max-width: @screen-sm) {
-
-
-
-            }
-        }
-
-        p {
-
-
-
-
-
-            @media screen and (max-width: @screen-sm) {
-
-
-            }
-        }
-
-        .btn {
-
-
-
-
-            border: 0;
+            color: @black;
         }
     }
-
-    &__image {
-
-
-
-
-
-
-
-        @media screen and (max-width: @screen-sm) {
-
-        }
-
-        .o-img {
-
-
-
-
-
-
-
-           
-
-            @media screen and (max-width: @screen-sm) {
-
-
-
-            }
-        }
-    }
-
-    @media screen and (min-width: @screen-md-min) {
-        &:not(.no-image) &__form {
-
-
-
-        }
-    }
-
-    &__form {
-
-
-
-        @media screen and (max-width: @screen-sm) {
-            background: @grey--fa;
-
-
-        }
-
-        &__select-wrapper {
-
-
-
-            select {
-
-            }
-        }
-
-        h3 {
-            color: @white;
-
-
-
-
-
-
-
-
-
-
-            @media screen and (max-width: @screen-sm) {
-                color: @black;
-
-            }
-
-            @media screen and (max-width: @screen-xs) {
-
-            }
-        }
-
-        .chosen-container {
-
-
-            &.chosen-with-drop {
-                .chosen-single {
-                    border-color: @black;
-                }
-            }
-
+    .chosen-container {
+        &.chosen-with-drop {
             .chosen-single {
-                background: @white;
-                border-color: @grey--eb;
-
-
-
-
-
-                span {
-                    color: @black;
-
-
-
-
-                }
-
-                div b {
-                    &:before {
-
-                        color: @black;
-
-
-
-
-
-
-                    }
-                }
-            }
-
-            .chosen-drop {
-
                 border-color: @black;
-                border-top: 0;
-
-
-                .chosen-search {
-
-                }
-
-                .chosen-results {
-
-
-
-                    li {
-
-
-
-
-                        &.highlighted,
-                        &.result-selected {
-                            background: @black;
-                            color: @white;
-                        }
-
-                        &.result-selected {
-
-                        }
-                    }
+            }
+        }
+        .chosen-single {
+            background: @white;
+            border-color: @grey--eb;
+            span {
+                color: @black;
+            }
+            div b {
+                &:before {
+                    color: @black;
                 }
             }
         }
-
-        .btn {
-
-
-
-
-
-
-
-
-
-            @media screen and (max-width: @screen-xs) {
-
-            }
-
-            i {
-
-
-
-
-
-
-
+        .chosen-drop {
+            border-color: @black;
+            border-top: 0;
+            .chosen-results {
+                li {
+                    &.highlighted,
+                    &.result-selected {
+                        background: @black;
+                        color: @white;
+                    }
+                }
             }
         }
     }

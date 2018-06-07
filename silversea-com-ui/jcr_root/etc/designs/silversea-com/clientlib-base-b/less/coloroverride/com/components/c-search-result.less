@@ -1,148 +1,49 @@
 .c-search-result {
     color: @grey--5;
-
-
     &__form-wrapper {
         color: @grey--2b;
-
-        &__title {
-
-
-
-
-            .fa-angle-up {
-
-            }
-
-            &[aria-expanded="true"] {
-                .fa-angle-down {
-
-                }
-
-                .fa-angle-up {
-
-                }
-            }
-        }
-
-        p {
-
-        }
-
-        .form-group {
-
-
-        }
-
+        &__title {}
         .form-control {
             border-color: @grey;
-
-
-
         }
-
         [type="submit"] {
             background-color: @transparent;
             border: 0;
-
-
-
-
-
         }
     }
-
     &__results {
         &__title {
             color: @grey--2b;
-
-
         }
-
-        &__list {
-
-        }
-
         &__item {
-
-
-
-
-
-
             &:hover,
             &:focus,
             &:active {
                 background-color: @grey--3;
                 color: @white;
             }
-
-            &__title {
-
-
-
-
-            }
-
-            &__description {
-
-            }
-        }
-
-        &__link {
-
-
-
-
-
         }
     }
-
     &__pagination {
         color: @grey--2b;
-
         &__list {
             &__item {
-
-
-
-
-
-
                 a {
-
-
-
                     &:not(.c-search-result__pagination__list__item--next):not(.c-search-result__pagination__list__item--prev):hover {
                         background-color: @grey--eb;
                     }
                 }
-
                 &--active {
                     background-color: @grey--3;
                     color: @white;
-
-
                 }
             }
         }
     }
-
     @media screen and (min-width: @screen-sm) {
-        &__form-wrapper {
-            p {
-
-            }
-        }
-
         &__results {
             &__item {
                 border-bottom: 1px solid @grey--d;
-
-
-                &__description {
-
-                }
             }
         }
     }

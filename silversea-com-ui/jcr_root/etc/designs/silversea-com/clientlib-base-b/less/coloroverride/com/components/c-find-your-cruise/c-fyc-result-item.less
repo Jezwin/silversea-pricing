@@ -1,1316 +1,269 @@
-
 .c-fyc {
-    .meta_feature_inner {
-        .feature {
-
-
-        }
-    }
-
     &__result {
-
-
-        &__link {
-
-
-
-
-
-
-        }
-
         &__wrapper {
-
             @media (max-width: @screen-sm) {
                 box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
                 -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
             }
-
         }
-
         &__image {
-
-
-
-
-
             &:before {
                 background-color: @black;
-
-
-
-
-
-
-
             }
-
             .flag {
                 color: @white;
-
-
-
-
-
-
-
-
-
-
-
                 &:before {
                     border-top: 75px solid @black;
                     border-right: 75px solid @transparent;
-
-
-
-
-
-
-
-
                 }
-
                 &__icon,
-                &__text {
-
-
-
-
-                }
-
-                &__icon {
-
-
-                }
-
-                &__text {
-
-
-
-
-
-                }
             }
         }
-
         &__content {
-            &__title {
-
-
-
-
-            }
-
             &__description.silversea-expedition {
                 .cruise-type {
                     color: @red-expedition;
                 }
             }
-
-            &__button {
-
-
-
-                .c-fyc-btn-discover-more.btn {
-
-
-
-                    @media (max-width: @screen-sm) {
-
-
-
-                    }
-                    @media (max-width: 587px) {
-
-                    }
-                }
-
-                .c-fyc-btn-discover-more.btn.ab-test-v2-show {
-
-                }
-
-            }
-
+            &__button {}
             &__price {
-
-
-
-                &_isWaitList {
-
-                }
-
                 .price-suffixe {
                     color: @black;
-
-
                 }
-            }
-
-            &__summary {
-
-            }
-
-            dl {
-
             }
         }
     }
-
     @media screen and (max-width: @screen-sm) {
         &__result {
-
-
-
-
-
-            &:nth-child(odd) {
-
-
-            }
-
-            &:nth-child(even) {
-
-            }
-
             &__wrapper {
                 border: 1px solid @grey--d3;
                 transition: background-color .3s ease-in-out;
-
                 &:hover {
                     background-color: @grey--d9;
                 }
             }
-
             &__image {
-
-
                 .flag {
-
-
-
-
-
-
-
-
                     &:before {
                         border-top: 82px solid @black;
                         border-right: 85px solid @transparent;
-
-
-
-                    }
-
-                    &__text {
-
                     }
                 }
             }
-
             &__content {
-
-
-
-                &__title {
-
-
-                }
-
                 &__description {
                     border-top: 2px solid @blue;
-
-
-
-
                     .cruise-type {
                         color: @blue;
-
                     }
-
                     &.silversea-expedition {
                         border-color: @red-expedition;
                     }
                 }
-
                 &__summary {
                     border: 1px solid @grey--c;
-
-
-
-
-
                     &__item {
-
-
-
-                        &:not(:last-child) {
+                        &:not(: last-child) {
                             border-right: 1px solid @grey--c;
                         }
-
                         dl {
                             dt,
-                            dd {
-
-                            }
-
                             dt {
                                 color: @grey--a3;
-
-
-
-                            }
-
-                            strong {
-
-
-
-                            }
-                        }
-
-                        &--ship dl {
-                            strong {
-
-
                             }
                         }
                     }
                 }
-
                 &__price {
                     color: @black;
-
-
-
-
-
-                    .price-prefixe {
-
-                    }
-
                     strong {
                         color: @black;
-
-
-                    }
-                }
-
-                &__button {
-
-
-
-                    .btn {
-
-
                     }
                 }
             }
         }
     }
-
-    @media screen and (max-width: @screen-xs) {
-        &__result {
-
-
-
-            &:nth-child(odd),
-            &:nth-child(even) {
-
-            }
-        }
-    }
-
-    @media (min-width: @screen-sm-min) and (max-width: @screen-sm) {
-        &__results__wrapper {
-
-
-        }
-
-        &__result {
-            &__wrapper {
-
-            }
-
-            &__content {
-
-
-
-                &__title {
-
-                }
-
-                &__button {
-
-
-
-
-                }
-            }
-        }
-    }
-
     @media screen and (min-width: @screen-md-min) {
         &__result {
             border-bottom: 1px solid @grey--d9;
-
-
-            &__content {
-                &__itinerary {
-                    dd {
-
-
-                        &:not(:last-of-type):after {
-
-
-
-
-
-
-                        }
-                    }
-                }
-
-                &__button {
-                    .btn {
-
-
-
-                        i {
-
-                        }
-                    }
-                }
-            }
         }
-
         .v1 &__result {
             border-bottom: 1px solid @grey--d3;
-
-
-
             &:hover {
                 background-color: @grey--e;
-
             }
-
-            &__image {
-
-
-
-                &:before {
-
-                }
-            }
-
-            &:hover {
-                .c-fyc__result__image {
-                    &:before {
-
-                    }
-                }
-            }
-
+            &:hover {}
             &__content {
-
-
-
-                &__inner {
-
-
-                }
-
-                &__title {
-
-                }
-
                 &__description {
                     .cruise-code,
-                    .cruise-ship:first-of-type {
-
-                    }
-
                     li {
-
-
-                        &:not(:last-child):after {
+                        &:not(: last-child):after {
                             color: @black;
-
                         }
                     }
                 }
-
                 &__summary {
                     background-color: @grey--f9;
                     border: 1px solid @grey--e6;
-
-
-
-
-
-                    .fa {
-
-                    }
-
                     &__item,
                     dl,
-                    dd {
-
-                    }
-                }
-
-                &__feature {
-
-                }
-
-                &__itinerary {
-
-
-                    dt {
-
-
-
-
-                    }
-
-                    dd {
-                        &:not(:last-child):after {
-
-                        }
-                    }
-                }
-
-                &__price,
-                &__button {
-
-
-
-                }
-
-                &__price {
-
-
-                    strong {
-
-
-                    }
-                }
-
-                &__button {
-
                 }
             }
         }
-
         .v2 &__result {
-
-
             &:hover {
                 background-color: @grey--3;
                 color: @white;
-
                 .c-fyc__result__content__summary {
                     background-color: transparent;
                 }
-
                 .tooltip {
                     color: @black
                 }
-
                 .price-suffixe {
                     color: @white;
                 }
             }
-
-            .flag {
-
-            }
-
             &__content {
-                > * {
-
-
-                }
-
                 &__inner {
-
-
-
-
                     &:before {
-
                         border-right: 1px solid @white;
-
-
-
-
-                    }
-
-                    > * {
-
-
-
                     }
                 }
-
-                &__title {
-
-                }
-
                 &__description {
-
-
-
-
-
-                    .cruise-destination {
-
-                    }
-
-                    .cruise-ship {
-
-                    }
-
-                    .cruise-code {
-
-                    }
-
-                    .cruise-type {
-
-
-                    }
-
                     .meta_feature_inner,
-                    .cruise-ship:not(:first-of-type) {
-
-                    }
                 }
-
                 &__summary {
                     background-color: @grey--eb;
-
-
-
-
-
-
-
-
-                    strong {
-
-                    }
-
-                    .fa {
-
-                    }
-
                     &__item--duration {
-                        strong {
-
-                        }
-
                         &:before {
                             background: @grey--c;
-
-
-
-
-
                         }
                     }
-                }
-
-                &__feature {
-
-
-				.meta_feature_inner .feature {
-
-
-				}
-
-                    .feature i {
-
-
-                    }
-                }
-
-                &__itinerary {
-
-
-                    dt {
-
-                    }
-
-                    dd {
-                        &:first-of-type,
-                        &:last-of-type {
-
-
-
-                        }
-                    }
-                }
-
-                &__price {
-
-
-
-                    strong {
-
-                    }
-                }
-
-                &__button {
-
-
                 }
             }
         }
     }
 }
 
-
 .c-fyc-v2 {
-
-
-
-
-    &__results__wrapper {
-
-    }
-
-
-    .meta_feature_inner {
-
-
-
-
-        .feature {
-
-
-
-        }
-    }
-
-
     &__result {
-
-
         &__link {
-
-
-
-
-
             @media (max-width: 767px) {
                 box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
                 -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
-
             }
         }
-
-        &__wrapper {
-
-        }
-
         &__image {
-
-
-
-
-
             &:before {
                 background-color: @black;
-
-
-
-
-
-
-
             }
-
             .flag {
                 color: @white;
-
-
-
-
-
-
-
-
-
-
-
                 &:before {
                     border-top: 75px solid @black;
                     border-right: 75px solid transparent;
-
-
-
-
-
-
-
-
                 }
-
                 &__icon,
-                &__text {
-
-
-
-
-                }
-
-                &__icon {
-
-
-                }
-
-                &__text {
-
-
-
-
-
-                }
             }
         }
-
         &__content {
-            &__title {
-
-
-
-
-            }
-
             &__description.silversea-expedition {
                 .cruise-type {
                     color: @red-expedition;
                 }
             }
-
-            &__button {
-
-
-
-                .c-fyc-btn-discover-more.btn {
-
-
-
-                    @media (max-width: 767px) {
-
-
-
-                    }
-                    @media (max-width: 587px) {
-
-                    }
-                }
-
-                .c-fyc-btn-discover-more.btn.ab-test-v2-show {
-
-                }
-
-            }
-
+            &__button {}
             &__price {
-
-
-
-
-
-                &__notWaitList {
-
-
-
-                    .price-prefixe {
-
-
-
-
-                    }
-                    .text-uppercase {
-
-
-                    }
-                }
-
-                &__isWaitList {
-
-
-
-                }
-
                 .price-suffixe {
                     color: @black;
-
-
-
-
-
-
                 }
-            }
-
-            &__summary {
-
-
-
-
-            }
-
-            dl {
-
             }
         }
     }
-
     @media screen and (max-width: @screen-sm) {
         &__result {
-
-
-
-
-
-
-            &:nth-child(odd) {
-
-
-            }
-
-            &:nth-child(even) {
-
-            }
-
             &__wrapper {
                 border: 1px solid @grey--d3;
                 transition: background-color .3s ease-in-out;
-
                 &:hover {
                     background-color: @grey--eb;
                 }
             }
-
             &__image {
-
-
                 .flag {
-
-
-
-
-
-
-
-
                     &:before {
                         border-top: 82px solid @black;
                         border-right: 85px solid transparent;
-
-
-
-                    }
-
-                    &__text {
-
                     }
                 }
             }
-
             &__content {
-
-
-
-                &__title {
-
-
-                }
-
                 &__description {
                     border-top: 2px solid @blue;
-
-
-
-
                     .cruise-type {
                         color: @blue;
-
                     }
-
                     &.silversea-expedition {
                         border-color: @red-expedition;
                     }
                 }
-
                 &__summary {
                     border: 1px solid @grey--c;
-
-
-
-
-
                     &__item {
-
-
-
-                        &:not(:last-child) {
+                        &:not(: last-child) {
                             border-right: 1px solid @grey--c;
                         }
-
                         dl {
                             dt,
-                            dd {
-
-                            }
-
                             dt {
                                 color: @grey--a3;
-
-
-
-                            }
-
-                            strong {
-
-
-
-                            }
-                        }
-
-                        &--ship dl {
-                            strong {
-
-
                             }
                         }
                     }
                 }
-
                 &__price {
                     color: @black;
-
-
-
-
-
-
-                    .price-prefixe {
-
-                    }
-
                     strong {
                         color: @black;
-
-
-                    }
-                }
-
-                &__button {
-
-
-
-                    .btn {
-
-
                     }
                 }
             }
         }
     }
-
-    @media screen and (max-width: @screen-xs) {
-        &__result {
-
-
-
-            &:nth-child(odd),
-            &:nth-child(even) {
-
-            }
-        }
-    }
-
-    @media (min-width: @screen-sm-min) and (max-width: @screen-sm) {
-        &__results__wrapper {
-
-
-        }
-
-        &__result {
-            &__wrapper {
-
-            }
-
-            &__content {
-
-
-
-                &__title {
-
-                }
-
-                &__button {
-
-
-
-
-                }
-            }
-        }
-    }
-
     @media screen and (min-width: @screen-md-min) {
         &__result {
             border-bottom: 1px solid @grey--d9;
-
-
-            &__content {
-                &__itinerary {
-                    &__ports {
-
-
-
-                        input {
-
-                        }
-                    }
-                }
-
-                &__button {
-                    .btn {
-
-
-
-                        i {
-
-                        }
-                    }
-                }
-
-
-            }
         }
-
         .v2 &__result {
-
-
-
-
-
             &:hover {
                 background-color: @grey--eb;
-
-
                 .c-fyc__result__content__summary {
                     background-color: transparent;
                 }
-
                 .tooltip {
                     color: @black
                 }
-
-
             }
-
-            .flag {
-
-            }
-
             &__content {
-                > * {
-
-                }
-
                 &__inner {
-
-
-
-
-
-
-                    > * {
-
-
-                    }
-
                     .bar-for-code {
                         color: @grey;
-
-                    }
-
-                    .cruise-code {
-
-
-
-
                     }
                 }
-
-                &__title {
-
-                }
-
-                &__description {
-
-
-
-
-
-                    .cruise-destination {
-
-                    }
-
-                    .cruise-ship {
-
-                    }
-
-
-
-
-
-
-                    .cruise-type {
-
-                    }
-
-                    .meta_feature_inner,
-                    .cruise-ship:not(:first-of-type) {
-
-                    }
-                }
-
+ 
                 &__summary {
-
-
-
-
-
-
                     &__depdate {
                         color: @red;
                     }
-
-                    strong {
-
-                    }
-
-                    .fa {
-
-                    }
-
                     &__item {
-
-
-
-
                         &__duration {
                             color: @grey--3;
-
                         }
                     }
                 }
 
-                &__feature {
-
-
-                    .feature {
-
-                    }
-
-                    .feature i {
-
-                    }
-                }
-
-                &__itinerary {
-
-
-
-
-                    dt {
-
-                    }
-
-                    dd {
-                        &:first-of-type,
-                        &:last-of-type {
-
-
-
-                        }
-                    }
-
-                    &__next-port-symbol {
-
-                    }
-
-
-                    .cruise-type {
-
-                    }
-
-                    .cruise-infix {
-
-                    }
-
-                    .cruise-destination {
-
-
-
-
-
-                    }
-
-                    .cruise-ship_2 {
-
-
-
-                    }
-
-                    .destination-ports {
-
-
-
-                    }
-                    .view-more {
-
-                    }
-                }
-
-                &__price {
-
-
-
-
-
-                    strong {
-
-                    }
-                }
-
-                &__button {
-
-
-
-
-
-
-                    .btn {
-
-
-                    }
-                }
             }
         }
-    }   
-
+    }
 }
-
-@media screen and (min-width: 1200px) {
-		.c-fyc .c-fyc__result__content__itinerary {
-
-		}
-	}

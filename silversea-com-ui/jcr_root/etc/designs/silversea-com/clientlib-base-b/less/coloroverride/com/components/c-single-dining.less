@@ -1,352 +1,55 @@
 .c-single-dining {
-
-
     .c-dining-display {
-
-
-        @media screen and (min-width: @screen-md-min) {
-
-        }
-
         .o-title {
-
-
-
-
-
-
-
-                &:after{
-
-
-
-
-
-
-
-
-
-				    background: @black;
-
-
-
-                }
-            }
-
-        .o-description {
-
-
-
-
-
-
-            }   
-    }
-
-    &__brouchure {
-        .fa-angle-right {
-
-        }
-        .btn-default {
-
-        }
-        .btn-default:hover{
-        	@media screen and (min-width: @screen-sm) {
-		    	background: @grey--9;
-		    }
-		}
-    }
-
-    .c-dining-gallery {
-
-
-
-        @media screen and (max-width: @screen-sm) {
-
-
-                }
-
-            .c-dining__gallery {
-
-                &__featured {
-
-                &:nth-of-type(1n+2) {
-
-                }
-
-                    &__left {
-
-
-
-
-                    }
-
-                    @media screen and (max-width: @screen-sm) {
-                        &__left {
-
-
-
-                        }
-                    }
-
-                    &__right {
-
-
-
-
-                    }
-
-                    @media screen and (max-width: @screen-sm) {
-                        &__right {
-
-
-
-                        }
-                    }
-
-            	}
-
-                &__item {
-                    background-color: @grey--c3;
-
-
-
-
-
-
-
-
-
-                    &:after {
-                        background-color: @white;
-
-
-
-
-
-
-
-                    }
-
-                    img {
-
-
-
-
-
-                    }
-                }
-
-                &__item__right {
-                    background-color: @grey--c3;
-
-
-
-
-
-
-
-
-
-
-                    &:after {
-                        background-color: @white;
-
-
-
-
-
-
-
-                    }
-
-                    img {
-
-
-
-
-
-                    }
-                }
-
-                &__label {
-                	color: @white;
-
-
-
-                    background-color: @grey--05;
-
-
-
-                	@media screen and (max-width: @screen-sm) {
-
-               		}
-
-            	}
-        	}
-
-         	.inactiveLink {
-
-
-            }
-
-            .automatic-gallery-modal {
-                &:before {
-
-
-
-
-
-
-
-
-
-
-                }
-
-                &:hover:before {
-
-                }
-            }
-
-        	&.open {
-                    .expander-open {
-
-                    }
-        	}
-
-            &:not(.open) {
-                    .expander-close {
-
-                    }
-            }
-    }
-
-    .c-dining__item-expander {
-
-
-
-
-
-          @media screen and (min-width: @screen-sm) {
-            &:before {
-
-
-
-
+            &:after {
                 background: @black;
-
-
-
-
-
-
-            	}
-          }
-
-            .btn {
-
-
-
-
-
-
-
-
-
-
-
-
-
-                i {
-
-
-
-
-                }
             }
+        }
     }
-
-    .c-single-dining-availability {
-
-
-
-        @media screen and (min-width: @screen-sm) {
-
-        }
-
-        &__title {
-
-
-
-
-
+    &__brouchure {
+        .btn-default:hover {
             @media screen and (min-width: @screen-sm) {
-
+                background: @grey--9;
             }
         }
-
-        .row {
-
-
-        }
-
-		.c-list {
-			@media screen and (min-width: @screen-md-max) {
-
-			}
-
-            @media screen and (max-width: @screen-md-max) and (min-width: @screen-md-min){
-
-
+    }
+    .c-dining-gallery {
+        .c-dining__gallery {
+            &__item {
+                background-color: @grey--c3;
+                &:after {
+                    background-color: @white;
                 }
+            }
+            &__item__right {
+                background-color: @grey--c3;
+                &:after {
+                    background-color: @white;
+                }
+            }
+            &__label {
+                color: @white;
+                background-color: @grey--05;
+            }
         }
-
+    }
+    .c-dining__item-expander {
+        @media screen and (min-width: @screen-sm) {
+            &:before {
+                background: @black;
+            }
+        }
+    }
+    .c-single-dining-availability {
         .c-list__item {
-
-
-            @media screen and (min-width: @screen-md-max) {
-
-
-
-
-		    }
-            &:first-child, &:nth-child(4n+1) {
-
-            }
-
-            &:nth-child(4n) {
-
-            }
-
-            @media screen and (max-width: @screen-md-max) {
-
-            }
-
             .c-availability__link {
-
                 background: @grey--3;
                 color: @white;
-
-
-
-
-
-
                 &:hover {
                     background: @black;
                     color: @white;
-                }
-
-                i {
-
-
-
-
                 }
             }
         }
     }
 }
-
-

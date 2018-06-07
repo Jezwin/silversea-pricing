@@ -1,194 +1,77 @@
-.tabcontainer .c-tab__link {
-
-}
-
 .c-tab {
-    &__nav {
-
-
-
-
-        &--regular5 {
-            .c-tab__link {
-
-
-            }
-        }
-    }
-
     &__link {
-
-
         border-bottom: solid 1px @black;
-
-
         a {
-
             background-color: @grey--e6;
-
-
             border-right: solid 1px @white;
-
             &:hover {
                 background-color: @grey--e;
             }
         }
-
         &[data-state='active'] {
             background-color: @white;
             border: 1px solid @grey--9;
-            border-bottom: 0;
-
-
-
             a {
                 background-color: @white;
-
-
-
             }
         }
-
         @media screen and (min-width: @screen-md-min) {
             &--button {
                 background: transparent;
-                border: 0;
-
-
                 a {
                     background: transparent;
-                    border: 0;
                     color: @grey--7;
-
-
-
-
-
-
                     &:hover {
                         color: @black;
                         background-color: @grey--ca;
                     }
                 }
-
                 &:not(:last-child) a {
                     border-right: 1px solid @grey--ca;
                 }
-
                 &[data-state='active'] {
                     background: @transparent;
                     border: 2px solid @black;
-
                     a {
                         background-color: @transparent;
                         color: @black;
-
-
-
                     }
                 }
             }
         }
     }
-
-    &__content {
-
-
-
-
-
-        &[data-state='active'] {
-
-
-
-        }
-    }
-
     &__accordion {
         @media screen and (max-width: @screen-sm) {
-
-
             .c-tab__nav {
-
                 border: 0;
-
-
-
-
-
-
             }
-
-            .c-tab__body {
-
-            }
-
             .c-tab__link {
-
-
-
-
-
                 border-bottom: 1px solid @grey--d9;
                 border-left: 1px solid @grey--d9;
                 border-right: 1px solid @grey--d9;
-
-
                 &[data-state='active'] {
-
                     border: 0;
                     color: black;
-
-
                     border: solid 1px @grey--d9;
-
-
-
                     &:hover {
                         background-color: @white;
                     }
-
-                    &::before {
-
-
-
-
-
-                    }
                 }
-
                 a {
                     background-color: @white;
-
-
-
-
-
-
-
                     color: @grey--3;
-
                     &:hover {
                         background-color: @white;
                     }
                 }
             }
-
             &.open {
                 .c-tab__link {
-
-
                     a:hover {
                         background-color: @grey--e;
                     }
-
                     &[data-state='active'] {
                         background-color: @white;
-
-                        &:before {
-
-                        }
-
                         a:hover,
                         a:focus,
                         a:active {
@@ -203,37 +86,12 @@
 
 @media screen and (min-width: @screen-md-min) {
     .c-tab__nav--fixed {
-
-
         .c-tab__link {
-            border-left: 0;
-
-
-            &:last-child {
-                a {
-                    border-right: 0;
-                }
-            }
-
-            span {
-
-
-
-
-            }
-
+           
             &[data-state='active'] {
                 a {
-
-
-
                     &:before {
                         border-left: 1px solid @grey--9;
-
-
-
-
-
                     }
                 }
             }
@@ -243,149 +101,31 @@
 
 .c-tab-ship {
     .c-tab__link {
-
-
         a {
-
-
-
             border-right: solid 1px @grey--c !important;
             border-top: solid 1px @grey--c !important;
-
         }
         &[data-state='active'] {
             border-top: 5px solid @black !important;
-
-            a {
-
-
-            }
         }
     }
     @media screen and (max-width: @screen-sm) {
         .c-tab__nav--fixed {
-
-
-
             .c-tab__link {
                 border-left: 0;
-
-
-                img {
-
-                }
                 &:last-child {
                     a {
                         border-right: 0;
                     }
                 }
-
-                span {
-
-
-
-
-                }
-
                 &[data-state='active'] {
                     a {
-
-
-
                         &:before {
                             border-left: 1px solid @grey--9;
-
-
-
-
-
                         }
                     }
                 }
             }
         }
-    }
-}
-
-.combocruise {
-    #overview.c-tab__content--overview {
-        .c-gallery--cc {
-            .c-gallery__label {
-
-
-                @media (max-width: @screen-sm) {
-
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: @screen-sm) {
-    html.es {
-        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
-
-
-
-        }
-    }
-
-    html.de {
-        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
-
-
-
-        }
-    }
-}
-
-@media screen and (max-width: 400px) {
-    html.es {
-        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
-
-
-
-        }
-    }
-
-    html.de {
-        .c-tab-ship .c-tab__nav--fixed .c-tab__link a {
-
-
-
-        }
-    }
-}
-
-@media (min-width: @screen-md-min) {
-    .combocruise {
-        #route {
-
-            .cc-tab_header_title {
-
-            }
-
-            .cc-tab_header_desc_cta {
-
-            }
-
-            .cc-tab_header_desc_txt {
-
-            }
-        }
-        #excursions,
-        #ships {
-            .c-cruise__descr {
-
-
-            }
-        }
-        #benefitsnevents {
-            .cc-tab_header_title,
-            .cc-tab_header_desc_txt {
-
-            }
-        }
-
     }
 }

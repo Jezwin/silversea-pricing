@@ -1,41 +1,31 @@
 .c-suitelist {
-
     &__suite-table.table {
         border-bottom: 1px solid @grey--d;
-
         thead {
             background-color: @grey--ca;
         }
-
         td {
             small {
                 color: @grey--9;
             }
         }
-
         @media screen and (max-width: @screen-xs) {
-
             tr {
                 border-bottom: 1px solid @grey--ca;
             }
         }
     }
-
     &__collapse {
         background-color: @grey--e;
         .c-tab__body {
-
             &:before {
                 border-bottom: 1px solid @grey--ca;
             }
         }
     }
-
     @media screen and (max-width: @screen-sm) {
-
         &__heading {
             border: 1px solid @grey--d;
-
             &[aria-expanded='true'] {
                 &:before {
                     border-color: @transparent @transparent @grey--e @transparent;
@@ -43,142 +33,117 @@
             }
         }
     }
-
-
     @media screen and (min-width: @screen-md-min) {
         &__item {
             border-bottom: 1px solid @grey--d;
-
             &--first {
                 border-top: 1px solid @grey--d;
             }
         }
-
         &__heading {
-
             &.collapsed:not(.opacity):hover {
                 background-color: @grey--e6;
             }
         }
-
         &__price {
             border: 1px solid @grey--d;
         }
     }
-
     &__row-card {
         .c-suitelist__content {
             border: 1px solid @grey--c !important;
         }
-
         @media (min-width: 769px) {
-                .c-suitelist__content {
-                    border-color: @grey--7 !important;
-
-                }
-                .c-suitelist__button-card {
-                    background-color: @grey--o02;
-
-                }
-                .c-suitelist__price-card,
-                .c-suitelist__detail-card {
-                    background-color: @grey--o02;
-
-                }
-
-                .c-suitelist__image-card {
-                    background-color: @black;
-                }
-
+            .c-suitelist__content {
+                border-color: @grey--7 !important;
+            }
+            .c-suitelist__button-card {
+                background-color: @grey--o02;
+            }
+            .c-suitelist__price-card,
+            .c-suitelist__detail-card {
+                background-color: @grey--o02;
+            }
+            .c-suitelist__image-card {
+                background-color: @black;
             }
         }
-        .c-suitelist__item {
-            border-bottom: 1px solid @grey--d;
-
-            &--first {
-                border-top: 1px solid @grey--d;
-            }
+    }
+    .c-suitelist__item {
+        border-bottom: 1px solid @grey--d;
+        &--first {
+            border-top: 1px solid @grey--d;
         }
-
-        .c-suitelist__heading {
-
-            &.collapsed:not(.opacity):hover {
-                background-color: @grey--e6;
-            }
+    }
+    .c-suitelist__heading {
+        &.collapsed:not(.opacity):hover {
+            background-color: @grey--e6;
         }
-
-        .c-suitelist__detail {
-            &-card {
-                background-color: @white;
-            }
+    }
+    .c-suitelist__detail {
+        &-card {
+            background-color: @white;
         }
-
-        .c-suitelist__price {
-            &-card {
-                background-color: @white;
-            }
+    }
+    .c-suitelist__price {
+        &-card {
+            background-color: @white;
         }
     }
 }
 
 
+}
 .modal-content--transparent-suite {
-
     .modal-body {
         background-color: @white;
     }
-
+    
     @media (max-width: @screen-md-min) {
-
         .modal-header {
             background-color: @black;
         }
     }
 }
-
 .c-suite-detail-modal {
-
     @media (max-width: @screen-md-min) {
         background-color: @white;
     }
-
+    
     .tab-content-grey {
         background-color: @grey-o04 !important;
     }
-
+    
     @media (min-width: 769px) {
         .c-suite-loader {
             border: 7px solid @grey--95;
             border-top: 7px solid @grey--5;
         }
     }
-
+    
     &-footnotes {
         color: @grey--39;
     }
-
+    
     &-deck {
-
         a {
             background-color: @white;
             border: 1px solid @darkgray;
         }
-
         a:hover {
             background-color: @darkgray;
             color: white;
         }
-
         .activeDeck {
             background-color: @darkgray;
             color: @white;
         }
     }
-
+    
     .tab-content {
         background-color: @white;
     }
-
+    
     .nav-tabs > li.active > a,
     .nav-tabs > li.active > a:hover,
     .nav-tabs > li.active > a:focus {
@@ -186,27 +151,29 @@
         background-color: @grey--3;
         border: 1px solid @grey--3;
     }
-
+    
     .nav-tabs > li > a:hover {
         background-color: @white;
         border: 1px solid @grey--3;
     }
+    
     .nav > li > a {
         border: 1px solid @white;
     }
-
+    
     &-description__counter {
         color: @white;
     }
+    
     &-navtabs {
         background-color: @white;
     }
-
+    
     ::-webkit-scrollbar-thumb {
         background: @grey--50ab;
         border: 2px solid @transparent;
     }
-
+    
     .c-slider .slick-next,
     .port_v2__postcarousel .slick-next,
     .c-slider .slick-prev,
@@ -214,7 +181,6 @@
         background-color: @grey--3;
     }
 }
-
-.c-suite-detail-modal #suite-features ::-webkit-scrollbar-track {
+.c-suite-detail-modal #suite-features::-webkit-scrollbar-track {
     background: @white;
 }
