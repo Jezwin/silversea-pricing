@@ -1,43 +1,12 @@
 .c-cruise {
     .c-tab__content {
         &--overview {
-            .slick-slide > * {
-                margin: 0px !important;
-            }
-            .c-cruise__itineraries {
-                .c-cruise-itinerary-list {
-                    .c-cruise-itinerary-list__description__button {
-                        @media (max-width: @screen-sm) {
-                            a.c-btn--white {
-                                padding: 8px 5px;
-                            }
-                        }
-                        .c-btn i.fa-angle-right {
-                            vertical-align: -11%;
-                            @media (max-width: @screen-sm) {
-                                margin-left: 2px;
-                            }
-                        }
-                    }
-                }
-            }
             .voyage {
                 &table {
                     color: @grey--3;
-                    display: table;
-                    font-size: 13px;
-                    margin-bottom: 10px;
-                    text-align: center;
-                    text-transform: uppercase;
-                    width: 100%;
 
                     &__elem {
-                        display: table-cell;
                         border: solid 1px @grey--d;
-                        border-left-width: 0;
-                        padding: 10px 3px;
-                        vertical-align: top;
-                        width: 1%;
 
                         &:first-child {
                             border-left: solid 1px @grey--d;
@@ -45,44 +14,12 @@
 
                         .lead {
                             color: @blue;
-                            font-size: 25px;
-                            font-weight: 700;
-                            margin: 5px 0 0;
-                            white-space: nowrap;
-
-                            @media screen and (max-width: @screen-xs) {
-                                font-size: 20px;
-                            }
-                        }
-
-                        .lead__top {
-                            &:before {
-                                content: '\A\A';
-                                display: block;
-                                white-space: pre;
-                                height: 20px;
-                            }
-                        }
-
-                        .lead__bottom {
-                            &:after {
-                                content: '\A\A';
-                                display: block;
-                                white-space: pre;
-                                height: 20px;
-                            }
                         }
 
                         .price-suffixe {
                             color: @blue;
-                            display: inline-block;
-                            line-height: 10px;
                         }
 
-                        span {
-                            display: block;
-                            line-height: 1;
-                        }
                     }
                 }
 
