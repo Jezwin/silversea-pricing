@@ -199,38 +199,43 @@ public class QuoteRequestUse extends WCMUsePojo {
 					// read property thumbnail, raqTitle and jcr:description
 					resourceResult = result.getHits().get(0).getResource();
 					Node node = resourceResult.adaptTo(Node.class);
-					Property propVal = node.getNode("image").getProperty("fileReference");
-					raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image"
-							+ propVal.getValue().toString() + "?wid=450&fit=constrain");
-					if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
-						// Create an EO model
-						// Loop on EO Variation if there is any match
-						// Then I will set title and desc
-						Page page = getPageManager().getPage(node.getParent().getPath());
-						ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
-
-						List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
-						for (ExclusiveOfferModel eoVar : availableEOVariation) {
-							String fullGeo = String.join("||", eoVar.getGeomarkets());
-
-							if (fullGeo.contains("/" + siteCountry)) {
-								if (!eoVar.getDescription().isEmpty()) {
-									exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
-									exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
+					if (node.hasNode("image") && node.getNode("image").hasProperty("fileReference")) {
+						Property propVal = node.getNode("image").getProperty("fileReference");
+						raqModel.setThumbnail("https://silversea-h.assetsadobe2.com/is/image"
+								+ propVal.getValue().toString() + "?wid=450&fit=constrain");
+						if (splitSelectorR.equalsIgnoreCase(WcmConstants.SELECTOR_EXCLUSIVE_OFFER)) {
+							// Create an EO model
+							// Loop on EO Variation if there is any match
+							// Then I will set title and desc
+							Page page = getPageManager().getPage(node.getParent().getPath());
+							ExclusiveOfferVariedModel exclusiveOfferModel = page.adaptTo(ExclusiveOfferVariedModel.class);
+							
+							List<ExclusiveOfferModel> availableEOVariation = exclusiveOfferModel.getVariations();
+							for (ExclusiveOfferModel eoVar : availableEOVariation) {
+								String fullGeo = String.join("||", eoVar.getGeomarkets());
+								
+								if (fullGeo.contains("/" + siteCountry)) {
+									if (!eoVar.getDescription().isEmpty()) {
+										exclusiveOfferModel.setVariedDescription(eoVar.getDescription());
+										exclusiveOfferModel.setVariedTitle(eoVar.getTitle());
+									}
 								}
 							}
+							
+							raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
+							raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
+						} else {
+							//raqTitle as title to show
+							if (node.hasProperty("raqTitle")) {
+								propVal = node.getProperty("raqTitle");
+								raqModel.setTitle(propVal.getValue().toString());
+							}
+							if (node.hasProperty((JcrConstants.JCR_DESCRIPTION))) {
+								//jcr:description as description to show
+								propVal = node.getProperty(JcrConstants.JCR_DESCRIPTION);
+								raqModel.setDescription(propVal.getValue().toString());
+							}
 						}
-
-						raqModel.setTitle(exclusiveOfferModel.getVariedTitle());
-						raqModel.setDescription(exclusiveOfferModel.getVariedDescription());
-					} else {
-						//raqTitle as title to show
-						propVal = node.getProperty("raqTitle");
-						raqModel.setTitle(propVal.getValue().toString());
-						
-						//jcr:description as description to show
-						propVal = node.getProperty(JcrConstants.JCR_DESCRIPTION);
-						raqModel.setDescription(propVal.getValue().toString());
 					}
 				} catch (Exception e) {
 					LOGGER.error("Error during retrieving raqModel data");

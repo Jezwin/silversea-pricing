@@ -148,14 +148,16 @@ public class WorldAndGrandVoyageCache {
 								String parentPath = hit.getResource().getParent().getParent().getPath()
 										+ "/jcr:content";
 								Node nodeParent = resourceResolver.getResource(parentPath).adaptTo(Node.class);
-								String comboCruiseCode = nodeParent.getProperty("comboCruiseCode").getString();
-								if (!this.cache.containsKey(comboCruiseCode)) {
-									this.cache.put(comboCruiseCode, new HashMap<>());
+								if (nodeParent.hasProperty("comboCruiseCode")) {
+									String comboCruiseCode = nodeParent.getProperty("comboCruiseCode").getString();
+									if (!this.cache.containsKey(comboCruiseCode)) {
+										this.cache.put(comboCruiseCode, new HashMap<>());
+									}
+									list = this.cache.get(comboCruiseCode);
+									list.put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
+									this.cache.remove(comboCruiseCode);
+									this.cache.put(comboCruiseCode, list);
 								}
-								list = this.cache.get(comboCruiseCode);
-								list.put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
-								this.cache.remove(comboCruiseCode);
-								this.cache.put(comboCruiseCode, list);
 							}
 						}
 					}

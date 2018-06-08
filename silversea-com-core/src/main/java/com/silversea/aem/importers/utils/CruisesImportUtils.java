@@ -235,7 +235,7 @@ public class CruisesImportUtils {
                     LOGGER.info("Creating itinerary asset {} SAVED.", assetPath);
                     // setting to activate flag on asset
                     final Node assetNode = asset.adaptTo(Node.class);
-                    if (assetNode != null) {
+                    if (assetNode != null &&  assetNode.hasNode(JcrConstants.JCR_CONTENT)) {
                         final Node assetContentNode = assetNode.getNode(JcrConstants.JCR_CONTENT);
 
                         if (assetContentNode != null) {
