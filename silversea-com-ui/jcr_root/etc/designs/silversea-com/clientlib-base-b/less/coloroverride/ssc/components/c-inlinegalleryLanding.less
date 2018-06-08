@@ -1,0 +1,78 @@
+.c-inline-gallery-landing {
+    .row {
+        .col-sm-4 {
+            .c-inline-gallery-row {
+                a:hover {
+                    .c-inline-gallery-row {
+                        border-color: #777777 !important;
+                    }
+                }
+            }
+        }
+    }
+    .c-inline-gallery {
+        &__title {
+            color: #000;
+        }
+        &__separator {
+            background: black;
+        }
+        &__item {
+            background-color: #c3c3c3;
+            &:after {
+                background-color: #fff;
+            }
+        }
+    }
+    .c-inline__gallery {
+        &__featured {
+            a:hover {
+                .c-inline__gallery__featured__left,
+                c-inline__gallery__featured__right {
+                    border-color: #777777 !important;
+                }
+            }
+        }
+        &__item {
+            background-color: #c3c3c3;
+            &:after {
+                background-color: #fff;
+            }
+        }
+    }
+    .c-inline-gallery__item-expander {
+        @media screen and (min-width: @screen-sm) {
+            &:before {
+                background: @black;
+            }
+        }
+    }
+    .slick-prev,
+    .slick-next {
+        background: black;
+        border: black;
+        color: transparent;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    .c-hero-banner-landing,
+    .c-hero-banner {
+        .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev:after,
+        .port_v2__postcarousel .slick-prev:after,
+        .c-mozaic-nine .c-mozaic__slider .slick-prev:after,
+        .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next:after,
+        .port_v2__postcarousel .slick-next:after,
+        .c-mozaic-nine .c-mozaic__slider .slick-next:after {
+            border: 1px solid #999;
+        }
+        .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-prev::after,
+        .port_v2__postcarousel .slick-prev::after,
+        .c-mozaic-nine .c-mozaic__slider .slick-prev::after,
+        .slider .c-slider:not(.c-slider--full-width):not(.inside-hero-banner) .slick-next::after,
+        .port_v2__postcarousel .slick-next::after,
+        .c-mozaic-nine .c-mozaic__slider .slick-next::after {
+            border-color: white !important;
+        }
+    }
+}

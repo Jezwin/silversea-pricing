@@ -1,0 +1,18 @@
+.c-exclusive-offer-boxes {
+    border: 1.5px solid @grey--90;
+    .title {
+        background-color: @white;
+        color: @red;
+    }
+    @media (max-width: @screen-sm) {
+        .block-content:not(: last-child):after {
+            border-top: 2px solid @grey--90;
+        }
+    }
+    @media (min-width: @screen-md-min) {
+        .block-content:not(: last-child) {
+            border-right: 2px solid @grey--90;
+        }
+    }
+}
+
