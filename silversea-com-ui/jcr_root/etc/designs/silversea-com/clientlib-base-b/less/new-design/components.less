@@ -1,15 +1,30 @@
-.c-subscribe__form .btn, //T-PORT
-.c-fyc__result__content__button .btn //FIND YOUR CRUISE
+.c-subscribe__form .btn //T-PORT
+
     {
     font-size: ~"@{nd-button-font-size} !important";
     font-weight: normal !important;
     padding: ~"@{nd-button-padding} !important";
 }
 
-.v2 .c-fyc__result__content__price {
-    width: 11% !important;
+@media screen and (min-width: @screen-sm-min){
+    
+    .v2 .c-fyc__result__content__inner {
+        width: 63% !important;
+    }
+    .v2  .c-fyc__result__content__price {
+        width: 17% !important;
+    }
 }
+.c-fyc__result__content__button .btn //FIND YOUR CRUISE
+{
+    font-size: 11px !important;
+    font-weight: normal !important;
+    padding: 11px 11px 9px 11px !important;
 
+    thin i.fa.fa-lg.fa-angle-right {
+        font-size: 17px !important;
+    }
+}
 
 .c-hero-banner__buttons .btn:not(.pull-right):not(.btn-thin) span //HERO BANNER
     {
@@ -81,15 +96,19 @@
     margin: 0 auto !important;    
     float: none !important;
 }
-.cruise__header {
+.cruise__header, .c-suitelist__button {
     .btn i.fa.fa-angle-right {
-    font-size: @nd-button-font-size+5;
+    position: relative !important;
+    font-size: @nd-button-font-size+4;
     float: right;
+    right : 0px !important;
     line-height: 13.5px !important;
     position: relative !important;
     top: 0 !important;
     transform: unset !important;
     vertical-align: -15% !important;
+        
+        
 }
 }
 .cruise__header .cruise__header__cta .btn {

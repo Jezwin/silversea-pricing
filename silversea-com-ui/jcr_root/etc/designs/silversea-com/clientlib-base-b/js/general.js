@@ -5,24 +5,43 @@ var sameWidthSelectors = [".c-hero-banner-landing__buttons .btn",
 function applyWidths() {
     function applySameWidth(selector) {
         var widest = 0;
+        var allEquals = true;
         $(selector).each(function () {
-            widest = Math.max(widest, $(this).outerWidth(true));
-        }).outerWidth(10 + widest);
+            var newWidest = Math.max(widest, $(this).outerWidth(true));
+            allEquals = allEquals && (newWidest == widest || widest == 0)
+            widest = newWidest;
+        });
+        if (!allEquals) {
+            $(selector).outerWidth(10 + widest);
+        }
+        return allEquals;
+
     }
+    var allEquals = true;
     for (var i = 0; i < sameWidthSelectors.length; i++) {
-        applySameWidth(sameWidthSelectors[i]);
+        allEquals = allEquals && applySameWidth(sameWidthSelectors[i]);
     }
+    return allEquals;
+}
+
+function appendCss() {
+    $("body").append('<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.min.css" type="text/css">');
 }
 
 function applyNewStyle() {
-    var reapplyTransitions = applyWithoutTransitions(function () {
+    applyWithoutTransitions(function () {
+        appendCss();
         $(".btn:has(> .fa-angle-right)").css('text-align', 'left'); //couldn't apply from plain css
         $(".c-btn:has(> .fa-angle-right)").css('text-align', 'left');
     });
-    setTimeout(function () {
-        applyWidths();
-        reapplyTransitions();
+    var intervalId = setInterval(function () {        
+        applyWithoutTransitions(function () {
+            if (applyWidths()) {
+                clearInterval(intervalId);
+            }
+        });
     }, 300);
+
 }
 
 
@@ -45,5 +64,5 @@ function applyWithoutTransitions(callback) {
         $this = [];
     });
     callback();
-    return goBack;
+    goBack();
 }
