@@ -3,6 +3,19 @@ var sameWidthSelectors = [".c-hero-banner-landing__buttons .btn",
 		".c-hero-banner__buttons .btn"];
 
 function applyWidths() {
+	var shouldApply = true;
+	for (var i = 0; i < sameWidthSelectors.length; i++) {
+		$(sameWidthSelectors[i]).each(function () {
+			if($(this).css("font-family").toLowerCase().indexOf("suisse") == -1){
+				shouldApply =  false;
+			}
+        });
+    }
+	
+	if(!shouldApply){
+		return false;
+	}
+	
     function applySameWidth(selector) {
         var widest = 0;
         var allEquals = true;
@@ -34,10 +47,12 @@ function applyNewStyle() {
         $(".btn:has(> .fa-angle-right)").css('text-align', 'left'); //couldn't apply from plain css
         $(".c-btn:has(> .fa-angle-right)").css('text-align', 'left');
     });
+    
     var intervalId = setInterval(function () {        
         applyWithoutTransitions(function () {
             if (applyWidths()) {
                 clearInterval(intervalId);
+                setTimeout(function() {applyWidths()}, 300)
             }
         });
     }, 300);
