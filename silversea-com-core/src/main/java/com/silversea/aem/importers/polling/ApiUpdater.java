@@ -86,6 +86,24 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
+    
+    @Reference
+    private MultiCruisesImporter multiCruisesImporter;
+
+    @Reference
+    private MultiCruisesItinerariesImporter multiCruisesItinerariesImporter;
+
+    @Reference
+    private MultiCruisesPricesImporter multiCruisesPricesImporter;
+
+    @Reference
+    private MultiCruisesItinerariesHotelsImporter multiCruisesItinerariesHotelsImporter;
+
+    @Reference
+    private MultiCruisesItinerariesLandProgramsImporter multiCruisesItinerariesLandProgramsImporter;
+
+    @Reference
+    private MultiCruisesItinerariesExcursionsImporter multiCruisesItinerariesExcursionsImporter;
 
     @Reference
     private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
@@ -170,6 +188,42 @@ public class ApiUpdater implements Runnable {
             } catch (ImporterException e) {
                 LOGGER.error("Cannot import cruises exclusive offers", e);
             }
+            
+            //update multicruise
+            importResult = multiCruisesImporter.updateItems();
+            LOGGER.info("Multi Cruises import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+
+            importResult = multiCruisesItinerariesImporter.importAllItems();
+            LOGGER.info("Multi Cruises itineraries import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+
+            try {
+                importResult = multiCruisesPricesImporter.importAllItems();
+                LOGGER.info("Multi Cruises prices import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise prices", e);
+            }
+
+            try {
+                importResult = multiCruisesItinerariesHotelsImporter.importAllItems();
+                LOGGER.info("Multi Cruises hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise hotels", e);
+            }
+
+            try {
+                importResult = multiCruisesItinerariesLandProgramsImporter.importAllItems();
+                LOGGER.info("Multi Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise land programs", e);
+            }
+
+            try {
+                importResult = multiCruisesItinerariesExcursionsImporter.importAllItems();
+                LOGGER.info("Multi Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise excursions", e);
+            }
+
             
             //desactivate port without planned cruises
             importResult = citiesImporter.DesactivateUselessPort();
