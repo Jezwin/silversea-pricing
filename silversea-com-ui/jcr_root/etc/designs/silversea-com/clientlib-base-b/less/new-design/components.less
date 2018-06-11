@@ -21,22 +21,23 @@
     }
 }
 
-@media screen and (min-width: @screen-md-min) and (max-width:840px){
-	.c-fyc__result__content__button .btn{
-	    letter-spacing: 1px;
-	    font-size: 10px !important;
-	    line-height: 14px;	
-    }
-}
-
 .c-fyc__result__content__button .btn //FIND YOUR CRUISE
 {
     font-size: 11px !important;
     font-weight: normal !important;
     padding: 11px 11px 9px 11px !important;
+    line-height:14px;
 
     thin i.fa.fa-lg.fa-angle-right {
         font-size: 17px !important;
+    }
+}
+
+@media screen and (min-width: @screen-md-min) and (max-width:840px){
+	.c-fyc__result__content__button .btn{
+	    letter-spacing: 1px;
+	    font-size: 10px !important;
+	    line-height: 14px;	
     }
 }
 
@@ -87,9 +88,23 @@
     line-height: 17px;
 }
 
-@media screen and (min-width@screen-md-min){
+@media screen and (min-width:@screen-md-max){
 	.cruise__header .cruise__header__desc .cruise__header__txt {
 	    width: 80%;
+	}
+	
+		
+	.cruise__header .cruise__header__desc .cruise__header__cta {
+	    padding: 0 !important;
+	    float: right;
+	
+	}
+
+}
+
+@media screen and (min-width:@screen-md-min) and (max-width:@screen-md-max){
+	.cruise__header .cruise__header__desc .cruise__header__txt {
+	    width: 70%;
 	}
 	
 		
@@ -138,6 +153,12 @@
 
 .c-footer .o-section div.col-sm-3 {
 	text-align:center;
+	@media (min-width:@screen-md-min) and (max-width:800px){
+		.btn{
+			font-size: 11px !important;
+	    	line-height: 14px!important;
+		}	
+	}
 }
 @media screen and (min-width: @screen-md-min){
 	.c-hero-banner__title, .c-hero-banner-landing__title, .c-hero-banner span.c-hero-banner__title, .c-hero-banner h2.c-hero-banner__title, .c-hero-banner h3.c-hero-banner__title,
@@ -148,4 +169,8 @@
 
 .c-quote-request-form .btn-lg, .signupforoffers .btn-lg, .request-quote-form .btn-lg {
 	text-align: center!important;
+}
+
+.cc-tab_header_desc_cta a i, .cc-tab_header_desc_cta .btn i, .cc-tab_header_desc_cta a .btn i.fa-lg, .cc-tab_header_desc_cta .btn .btn i.fa-lg {
+    padding-bottom: 2px;
 }
