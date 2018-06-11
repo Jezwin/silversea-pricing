@@ -1,9 +1,35 @@
-.c-subscribe__form .btn, //T-PORT
-.c-fyc__result__content__button .btn //FIND YOUR CRUISE
+.c-subscribe__form .btn //T-PORT
+
     {
     font-size: ~"@{nd-button-font-size} !important";
     font-weight: normal !important;
     padding: ~"@{nd-button-padding} !important";
+        i {
+            margin-right:0px !important;
+        }
+}
+
+@media screen and (min-width: @screen-sm-min){
+    
+    .v2 .c-fyc__result__content__inner {
+        width: 63% !important;
+    }
+    .v2  .c-fyc__result__content__price {
+        width: 17% !important;
+    }
+    .c-fyc__header__inner:nth-child(1) {
+        width: calc(~"77% - 130px") !important;
+    }
+}
+.c-fyc__result__content__button .btn //FIND YOUR CRUISE
+{
+    font-size: 11px !important;
+    font-weight: normal !important;
+    padding: 11px 11px 9px 11px !important;
+
+    thin i.fa.fa-lg.fa-angle-right {
+        font-size: 17px !important;
+    }
 }
 
 .c-hero-banner__buttons .btn:not(.pull-right):not(.btn-thin) span //HERO BANNER
@@ -18,6 +44,7 @@
     font-weight: normal !important;
     padding: ~"@{nd-button-padding} !important";
 }
+
 
 
 
@@ -42,4 +69,55 @@
     top: 0 !important;
     transform: unset !important;
     vertical-align: -15% !important;
+}
+
+
+//SUITE CARD
+.cruise__header .cruise__header__desc .cruise__header__cta .btn {
+
+    padding: ~"@{nd-button-padding} !important";
+}
+
+.cruise__header .cruise__header__desc .cruise__header__txt {
+    width: 80%;
+}
+
+.cruise__header .cruise__header__desc .cruise__header__cta {
+    padding: 0 !important;
+    float: right;
+
+}
+
+.c-suitelist .btn-request-a-quote {
+    padding: ~"@{nd-button-padding} !important";
+    font-size: ~"@{nd-button-font-size} !important";
+    font-weight: normal !important;  
+}
+
+.c-suitelist__row-card .c-suitelist__button-card {
+    max-width: 200px !important;
+    padding: 18px 0;
+    clear: both;
+    float: none;
+    margin: 0 auto !important;    
+    float: none !important;
+}
+.cruise__header, .c-suitelist__button {
+    .btn i.fa.fa-angle-right {
+    position: relative !important;
+    font-size: @nd-button-font-size+4;
+    float: right;
+    right : 0px !important;
+    line-height: 13.5px !important;
+    position: relative !important;
+    top: 0 !important;
+    transform: unset !important;
+    vertical-align: -15% !important;
+        
+        
+}
+}
+.cruise__header .cruise__header__cta .btn {
+    width: 100% !important;
+    max-width: 200px !important;
 }
