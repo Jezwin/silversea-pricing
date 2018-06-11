@@ -9,8 +9,7 @@
         }
 }
 
-@media screen and (min-width: @screen-sm-min){
-    
+@media screen and (min-width: @screen-md-min){    
     .v2 .c-fyc__result__content__inner {
         width: 63% !important;
     }
@@ -21,6 +20,15 @@
         width: calc(~"77% - 130px") !important;
     }
 }
+
+@media screen and (min-width: @screen-md-min) and (max-width:840px){
+	.c-fyc__result__content__button .btn{
+	    letter-spacing: 1px;
+	    font-size: 10px !important;
+	    line-height: 14px;	
+    }
+}
+
 .c-fyc__result__content__button .btn //FIND YOUR CRUISE
 {
     font-size: 11px !important;
@@ -76,15 +84,20 @@
 .cruise__header .cruise__header__desc .cruise__header__cta .btn {
 
     padding: ~"@{nd-button-padding} !important";
+    line-height: 17px;
 }
 
-.cruise__header .cruise__header__desc .cruise__header__txt {
-    width: 80%;
-}
-
-.cruise__header .cruise__header__desc .cruise__header__cta {
-    padding: 0 !important;
-    float: right;
+@media screen and (min-width@screen-md-min){
+	.cruise__header .cruise__header__desc .cruise__header__txt {
+	    width: 80%;
+	}
+	
+		
+	.cruise__header .cruise__header__desc .cruise__header__cta {
+	    padding: 0 !important;
+	    float: right;
+	
+	}
 
 }
 
@@ -92,6 +105,7 @@
     padding: ~"@{nd-button-padding} !important";
     font-size: ~"@{nd-button-font-size} !important";
     font-weight: normal !important;  
+    line-height: 17px;
 }
 
 .c-suitelist__row-card .c-suitelist__button-card {
@@ -120,4 +134,18 @@
 .cruise__header .cruise__header__cta .btn {
     width: 100% !important;
     max-width: 200px !important;
+}
+
+.c-footer .o-section div.col-sm-3 {
+	text-align:center;
+}
+@media screen and (min-width: @screen-md-min){
+	.c-hero-banner__title, .c-hero-banner-landing__title, .c-hero-banner span.c-hero-banner__title, .c-hero-banner h2.c-hero-banner__title, .c-hero-banner h3.c-hero-banner__title,
+	.c-hero-banner-landing span.c-hero-banner__title, .c-hero-banner-landing h2.c-hero-banner__title, .c-hero-banner-landing h3.c-hero-banner__title {
+		margin-bottom:5px !important;	
+	}
+}
+
+.c-quote-request-form .btn-lg, .signupforoffers .btn-lg, .request-quote-form .btn-lg {
+	text-align: center!important;
 }
