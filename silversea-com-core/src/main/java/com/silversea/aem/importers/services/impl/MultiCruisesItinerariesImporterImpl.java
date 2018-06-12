@@ -76,7 +76,7 @@ public class MultiCruisesItinerariesImporterImpl implements MultiCruisesItinerar
 				.getServiceResourceResolver(authenticationParams)) {
 			final PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
 			final Session session = resourceResolver.adaptTo(Session.class);
-			final ItinerariesApi itinerariesApi = new ItinerariesApi(ImportersUtils.getApiClient(apiConfig));
+			final VoyagesApi voyageApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
 
 			if (pageManager == null || session == null) {
 				throw new ImporterException("Cannot initialize pageManager and session");
@@ -173,7 +173,7 @@ public class MultiCruisesItinerariesImporterImpl implements MultiCruisesItinerar
 							throw new ImporterException("Cannot find cruise with id " + cruise.getVoyageId());
 						}
 
-						itineraries = itinerariesApi.itinerariesGetById(cruise.getVoyageId(), null);
+						itineraries =  voyageApi.voyagesGetItinerary(cruise.getVoyageId(),null, null);
 
 						for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
 							final Node cruiseContentNode = session.getNode(cruisePath.getValue() + "/jcr:content");

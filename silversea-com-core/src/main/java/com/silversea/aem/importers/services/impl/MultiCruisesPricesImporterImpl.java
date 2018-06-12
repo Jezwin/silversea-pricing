@@ -17,6 +17,7 @@ import io.swagger.client.model.Voyage77;
 import io.swagger.client.model.VoyagePriceComplete;
 import io.swagger.client.model.VoyagePriceMarket;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -43,7 +44,7 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 	static final private Logger LOGGER = LoggerFactory.getLogger(MultiCruisesPricesImporterImpl.class);
 
 	private int sessionRefresh = 100;
-	private int pageSize = 100;
+	private int pageSize = 50;
 
 	private boolean importRunning;
 
@@ -92,10 +93,10 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 			}
 			// getting last import date
 			final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
-			final String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage,
+			String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage,
 					"lastModificationDateMultiCruisesPrices");
-			
-			if(lastModificationDate == null) {
+
+			if (lastModificationDate == null) {
 				ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
 						"lastModificationDateMultiCruisesPrices", false);
 				lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage,
@@ -104,19 +105,18 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 
 			// init modified voyages cruises
 			final Set<Integer> modifiedCruises = new HashSet<>();
-		
-				final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
-				List<Voyage77> cruises;
-				do {
-					cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
 
-					for (Voyage77 voyage : cruises) {
-						modifiedCruises.add(voyage.getVoyageId());
-					}
+			final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
+			List<Voyage77> cruises;
+			do {
+				cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
 
-					apiPage++;
-				} while (cruises.size() > 0);
-			
+				for (Voyage77 voyage : cruises) {
+					modifiedCruises.add(voyage.getVoyageId());
+				}
+
+				apiPage++;
+			} while (cruises.size() > 0);
 
 			// Initializing elements necessary to import prices
 			// cruises
@@ -160,9 +160,11 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 			List<VoyagePriceComplete> prices;
 			int itemsWritten = 0;
 			apiPage = 1;
-
-			do {
-				prices = pricesApi.pricesGet3(apiPage, pageSize, null);
+			
+			//do {
+			//temp
+			pageSize = 10000;
+			prices = pricesApi.pricesMultiGet3(apiPage, pageSize, null);
 
 				// Iterating over prices received from API
 				for (final VoyagePriceComplete price : prices) {
@@ -185,47 +187,55 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 						for (Map.Entry<String, String> cruise : cruisesMapping.get(cruiseId).entrySet()) {
 							try {
 								final Node cruiseContentNode = session.getNode(cruise.getValue() + "/jcr:content");
-
-								if (cruiseContentNode.hasNode("suites")) {
-									cruiseContentNode.getNode("suites").remove();
+								Boolean isCombo = false;
+								if (cruiseContentNode.hasProperty("isCombo")) {
+									isCombo = BooleanUtils
+											.toBoolean(cruiseContentNode.getProperty("isCombo").getValue().getString());
 								}
 
-								// Creating prices root node under the cruise
-								final Node suitesNode = JcrUtils.getOrAddNode(cruiseContentNode, "suites");
-								suitesNode.setProperty("sling:resourceType",
-										"silversea/silversea-com/components/subpages/prices");
-
-								// Iterating over markets
-								for (final VoyagePriceMarket priceMarket : price.getMarketCurrency()) {
-									final ImportResult importResultPrices = CruisesImportUtils.importCruisePrice(
-											session, cruiseContentNode, cruise, suitesMapping, priceMarket, suitesNode,
-											itemsWritten, sessionRefresh);
-
-									importResult.incrementSuccessOf(importResultPrices.getSuccessNumber());
-									importResult.incrementErrorOf(importResultPrices.getErrorNumber());
-
-									// TEMP FORCE ACTIVATE
-									final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
-									final Boolean isVisible = cruiseContentNode.getProperty("isVisible").getBoolean();
-
-									if (startDate.after(Calendar.getInstance()) && isVisible) {
-										cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
-									} else {
-										cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
-									}
-									// END TEMP FORCE ACTIVATE
-
-									if (importResultPrices.getSuccessNumber() > 0) {
-										itemsWritten++;
+								if (isCombo) {
+									if (cruiseContentNode.hasNode("suites")) {
+										cruiseContentNode.getNode("suites").remove();
 									}
 
-									if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-										try {
-											session.save();
+									// Creating prices root node under the cruise
+									final Node suitesNode = JcrUtils.getOrAddNode(cruiseContentNode, "suites");
+									suitesNode.setProperty("sling:resourceType",
+											"silversea/silversea-com/components/subpages/prices");
 
-											LOGGER.debug("{} prices imported, saving session", +itemsWritten);
-										} catch (RepositoryException e) {
-											session.refresh(true);
+									// Iterating over markets
+									for (final VoyagePriceMarket priceMarket : price.getMarketCurrency()) {
+										final ImportResult importResultPrices = CruisesImportUtils.importCruisePrice(
+												session, cruiseContentNode, cruise, suitesMapping, priceMarket,
+												suitesNode, itemsWritten, sessionRefresh);
+
+										importResult.incrementSuccessOf(importResultPrices.getSuccessNumber());
+										importResult.incrementErrorOf(importResultPrices.getErrorNumber());
+
+										// TEMP FORCE ACTIVATE
+										final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
+										final Boolean isVisible = cruiseContentNode.getProperty("isVisible")
+												.getBoolean();
+
+										if (startDate.after(Calendar.getInstance()) && isVisible) {
+											cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+										} else {
+											cruiseContentNode.setProperty(ImportersConstants.PN_TO_DEACTIVATE, true);
+										}
+										// END TEMP FORCE ACTIVATE
+
+										if (importResultPrices.getSuccessNumber() > 0) {
+											itemsWritten++;
+										}
+
+										if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+											try {
+												session.save();
+
+												LOGGER.debug("{} prices imported, saving session", +itemsWritten);
+											} catch (RepositoryException e) {
+												session.refresh(true);
+											}
 										}
 									}
 								}
@@ -242,8 +252,8 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 					}
 				}
 
-				apiPage++;
-			} while (prices.size() > 0);
+			//	apiPage++;
+			//} while (prices.size() > 0);
 
 			ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
 					"lastModificationDateMultiCruisesPrices", false);
@@ -267,8 +277,8 @@ public class MultiCruisesPricesImporterImpl implements MultiCruisesPricesImporte
 			importRunning = false;
 		}
 
-		LOGGER.info("Ending multi cruise prices import, success: {}, errors: {}, api calls : {}", +importResult.getSuccessNumber(),
-				+importResult.getErrorNumber(), apiPage);
+		LOGGER.info("Ending multi cruise prices import, success: {}, errors: {}, api calls : {}",
+				+importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
 
 		return importResult;
 	}

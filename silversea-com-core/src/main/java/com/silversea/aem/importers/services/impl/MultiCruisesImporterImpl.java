@@ -375,7 +375,9 @@ public class MultiCruisesImporterImpl implements MultiCruisesImporter {
 		cruiseContentNode.setProperty("cruiseCode", cruise.getVoyageCod());
 		cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
 		cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
+		cruiseContentNode.setProperty("isCombo", BooleanUtils.isTrue(cruise.getIsCombo()));
 
+		
 		// SSC-2406 Wrong Cruise URL + Global Search Title
 		// set sling:alias and jcr:title to match voyage name
 		final String alias = JcrUtil
