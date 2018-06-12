@@ -201,6 +201,8 @@ public class MultiCruisesItinerariesImporterImpl implements MultiCruisesItinerar
 									itineraryNode.setProperty("departTime", itinerary.getDepartTime());
 									itineraryNode.setProperty("departAmPm", itinerary.getDepartTimeAmpm());
 									itineraryNode.setProperty("overnight", itinerary.getIsOvernight());
+									itineraryNode.setProperty("voyage_id", itinerary.getVoyageId());
+									itineraryNode.setProperty("city_id", itinerary.getCityId());
 									itineraryNode.setProperty("sling:resourceType",
 											"silversea/silversea-com/components/subpages/itinerary");
 

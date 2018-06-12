@@ -200,7 +200,7 @@ public class MultiCruisesImporterImpl implements MultiCruisesImporter {
 										throw new ImporterException(
 												"Destination " + destinationPath + " cannot be found");
 									}
-
+									
 									final Node cruiseContentNode = CruisesImportUtils.createCruisePage(pageManager,
 											destinationPath, cruise.getVoyageName(), cruise.getVoyageCod());
 

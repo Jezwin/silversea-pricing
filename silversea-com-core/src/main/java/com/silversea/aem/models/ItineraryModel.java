@@ -159,6 +159,10 @@ public class ItineraryModel {
 
         return calendar;
     }
+    
+    public Date getRawDate() {
+        return date;
+    }
 
     public Calendar getDepartDate() {
         return departDate;
