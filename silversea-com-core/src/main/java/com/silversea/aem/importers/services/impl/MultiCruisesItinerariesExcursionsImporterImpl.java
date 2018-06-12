@@ -189,7 +189,7 @@ public class MultiCruisesItinerariesExcursionsImporterImpl implements MultiCruis
 
 								for (ShorexItinerary shorexItinerary : excursionsCache.get(Integer.parseInt(requestedVoyageId))) {
 									try {
-										if (vmap.get("city_id", Integer.class) == shorexItinerary.getCityId() && shorexItinerary.getDate().toGregorianCalendar().getTime().equals(itiModel.getRawDate())) {
+										if (shorexItinerary.getCityId().equals(vmap.get("city_id", Integer.class)) && shorexItinerary.getDate().toGregorianCalendar().get(Calendar.DAY_OF_YEAR) == itiModel.getDate().get(Calendar.DAY_OF_YEAR) ) {
 
 											final Node excursionNode = excursionsNode
 													.addNode(JcrUtil.createValidChildName(excursionsNode,
