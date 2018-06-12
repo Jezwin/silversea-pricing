@@ -1,0 +1,31 @@
+.c-cruise-itinerary-2 {
+    &__list {
+        &__item {
+            border: 1px solid @grey--e8;
+            .panel {
+                &__heading {
+                    &:hover {
+                        background-color: @grey--e6;
+                    }
+                }
+            }
+        }
+        &--nested {
+            &__item {
+                border-top: 1px solid @grey--e8;
+                .panel--nested {
+                    &__heading {
+                        background-color: @grey--f9;
+                        &:hover {
+                            background-color: @grey--e6;
+                        }
+                        .btn-more,
+                        .btn-less {
+                            color: @grey--8;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

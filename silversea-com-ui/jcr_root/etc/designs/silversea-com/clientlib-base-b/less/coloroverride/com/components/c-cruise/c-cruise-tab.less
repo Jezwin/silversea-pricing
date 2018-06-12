@@ -1,0 +1,21 @@
+@media screen and (min-width: @screen-md-min) {
+    .c-tab__nav--fixed .c-tab__link--dark {
+        a {
+            background-color: @grey;
+            color: @white;
+            &:hover {
+                background-color: @grey--8;
+            }
+        }
+        &[data-state='active'] {
+           // border: 1px solid @black;
+            a {
+                background-color: @white;
+                color: @color-typography;
+                &:before {
+                    border-color: @black;
+                }
+            }
+        }
+    }
+}

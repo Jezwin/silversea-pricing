@@ -1,0 +1,20 @@
+.c-quote-request {
+    &:before {
+        background: @grey;
+    }
+    &-link {
+        color: @white;
+        &:hover,
+        &:focus,
+        &:active {
+            color: @grey-l;
+        }
+    }
+    @media screen and (max-width: @screen-sm) {
+        border-left: solid 1px @grey;
+    }
+    @media screen and (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        border-left: solid 1px @grey;
+    }
+}
+

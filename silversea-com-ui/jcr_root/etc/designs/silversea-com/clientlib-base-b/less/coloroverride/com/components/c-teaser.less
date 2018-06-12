@@ -1,0 +1,28 @@
+.c-teaser {
+    background: @black;
+    @media screen and (max-width: @screen-sm) {
+        background: transparent;
+    }
+    &__wrapper {
+        &__title {
+            color: @white;
+            @media screen and (max-width: @screen-sm) {
+                color: @color-typography;
+            }
+        }
+        &__descr {
+            color: @white;
+        }
+    }
+    &__mobile-border {
+        @media screen and (max-width: @screen-sm) {
+            border: 1px solid @grey--d;
+        }
+    }
+    &__link {
+        color: @white;
+        @media screen and (max-width: @screen-sm) {
+            color: @color-typography;
+        }
+    }
+}

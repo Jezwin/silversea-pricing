@@ -1,0 +1,90 @@
+.c-mozaic {
+    &:before {
+        background-color: @color-light-bg;
+    }
+    .btn-wrapper {
+        color: @white;
+    }
+    .c-mozaic__slider__slide {
+        background-color: @transparent !important;
+        .boxShadow {
+            background-color: @white !important;
+        }
+    }
+    &__slider {
+        &__slide {
+            &--text {
+                .c-mozaicslider {
+                    &__link {
+                        color: @white;
+                    }
+                }
+            }
+        }
+        .slick-dots {
+            li:not(.slick-active) button:before {
+                background-color: @grey--ba;
+            }
+        }
+    }
+    @media screen and (max-width: @screen-md-max) {
+        &.c-mozaic-forceBackgroundWhite {}
+        &__slider {
+            .slick-initialized &__slide {
+                background-color: @white;
+                &:before,
+                &:after {
+                    background: @grey--f5;
+                }
+            }
+            .c-tabbedmozaic {
+                &__description {
+                    border: 1px solid @grey--e6;
+                }
+            }
+        }
+    }
+    @media screen and (min-width: @screen-lg-min) {
+        &__slider {
+            &__slide {
+                &--text {
+                    .c-tabbedmozaic {
+                        background-color: @white;
+                        border: 1px solid @grey--c;
+                    }
+                }
+            }
+        }
+    }
+    .c-btn--slider {
+        &--prev,
+        &--next {
+            color: @white;
+        }
+    }
+    @media screen and (max-width:@screen-md-max) {
+        .slick-prev,
+        .slick-next {
+            &:after {
+                border-color: rgb(51, 51, 51) !important;
+            }
+        }
+    }
+}
+
+.c-mozaic-nine {
+    &:before {
+        background-color: transparent;
+    }
+    .c-tabbedmozaic__image-wrapper {
+        background-color: @black;
+    }
+    @media screen and (max-width: @screen-md-max) {
+        .slick-prev,
+        .slick-next {
+            &:after {
+                border-color: rgb(51, 51, 51) !important;
+            }
+        }
+    }
+}

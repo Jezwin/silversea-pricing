@@ -1,0 +1,35 @@
+.chosen-container {
+    &.chosen-with-drop {
+        .chosen-single {
+            border-color: @black;
+            color: @color-typography;
+            &.chosen-default {
+                color: @color-typography;
+            }
+        }
+    }
+    .chosen-single {
+        background: @white;
+        color: @color-typography;
+        &.chosen-default {
+            color: @grey;
+        }
+        div b {
+            &:before {
+                color: @grey;
+            }
+        }
+    }
+    .chosen-drop {
+        border-color: @black;
+        .chosen-results {
+            li {
+                &.highlighted,
+                &.result-selected {
+                    background: @black;
+                    color: @white;
+                }
+            }
+        }
+    }
+}

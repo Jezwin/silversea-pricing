@@ -1,0 +1,24 @@
+.c-subscribe {
+    &__form {
+        border: solid 1px @grey--d;
+        &--label {
+            color: @color-typography;
+        }
+        & .has-error.has-danger .o-input {
+            color: @red;
+            border: solid 1px @red;
+            &::-webkit-input-placeholder {
+                color: @red;
+            }
+            &::-moz-placeholder {
+                color: @red;
+            }
+            &:-ms-input-placeholder {
+                color: @red;
+            }
+            &:-moz-placeholder {
+                color: @red;
+            }
+        }
+    }
+}

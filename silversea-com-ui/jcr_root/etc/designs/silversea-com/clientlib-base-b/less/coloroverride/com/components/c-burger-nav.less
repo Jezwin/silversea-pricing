@@ -1,0 +1,18 @@
+@media screen and (max-width: @screen-md-max) {
+    .c-nav-burger {
+        background: @black;
+        border-left: solid 1px @grey;
+        color: @white;
+        &__btn {
+            background-color: @black;
+            color: @white;
+        }
+        &.is-active {
+            .c-nav-burger__btn {
+                background: @white;
+                border-left: solid 1px @white;
+                color: @color-typography;
+            }
+        }
+    }
+}

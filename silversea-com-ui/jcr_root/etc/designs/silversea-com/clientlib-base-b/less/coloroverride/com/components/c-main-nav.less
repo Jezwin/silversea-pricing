@@ -1,0 +1,112 @@
+.c-main-nav {
+    &__backdrop {
+        &--is-active {
+            background: @black;
+        }
+    }
+    
+    &__top {
+        &__item {
+            &:before {
+                background-color: @grey;
+            }
+        }
+        &__link {
+            color: @grey--ba;
+            &:hover,
+            &:focus,
+            &:active {
+                color: @grey--c;
+            }
+        }
+    }
+    
+    &__bottom {
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+        background: @white;
+        &__item {
+            background: @white;
+            &:hover,
+            &:focus,
+            &:active {
+                background: @grey--e6;
+            }
+            @media screen and (min-width: @screen-lg-min) {
+                &--ontrail {
+                    background: @grey--e6;
+                }
+            }
+            &:before {
+                background: @grey--90;
+            }
+        }
+        &__link {
+            color: @color-typography;
+            &:hover,
+            &:focus,
+            &:active {
+                color: @color-typography;
+            }
+        }
+    }
+    
+    @media screen and (max-width: @screen-md-max) {
+        &__bottom,
+        &__top {
+            &__link {
+                color: @grey--8;
+                &:hover,
+                &:focus,
+                &:active {
+                    color: @grey--8;
+                }
+            }
+        }
+        &__bottom {
+            transform: translate(0, 0);
+            &__item {
+                border-right: 1px solid @grey--d;
+                border-bottom: 1px solid @grey--d;
+                &:hover,
+                &:focus,
+                &:active {
+                    background: @grey--e;
+                }
+            }
+        }
+        &__top {
+            background-color: @grey--d;
+            &__item {
+                border-bottom: solid 1px @white;
+                border-right: solid 1px @white;
+                &:hover,
+                &:focus,
+                &:active {
+                    background: @grey--d3;
+                }
+                &--small-md {
+                    border-right: solid 1px @white;
+                }
+            }
+        }
+    }
+    
+    &__subnav {
+        background-color: @grey--e6;
+        border: 1px solid @grey--e6;
+        &--col {
+            &:nth-child(1) {
+                border-right: 1px solid @grey--e6;
+            }
+        }
+        &__link {
+            color: @color-typography;
+            &:hover,
+            &:focus,
+            &:active {
+                color: @white;
+                background-color: @color-dark-bg;
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+.c-main-nav__top {
+    &__item--search {
+        &__form {
+            &.open {
+                .search-expand__input,
+                .search-expand__input {
+                    background-color: @white;
+                }
+            }
+            .search-expand {
+            
+                > i {
+                    color: @grey--c;
+                }
+                &__btn {
+                    color: @white;
+                    background-color: @grey--9;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: @screen-md-max) {
+        .c-main-nav__top__item--search {
+            &:hover {
+                background-color: inherit;
+            }
+            &__form {
+                .search-expand {
+                    > i {
+                        color: @color-typography;
+                    }
+                    &__input,
+                    &__input {
+                        background-color: @grey--f2;
+                    }
+                }
+            }
+        }
+    }
+
+}

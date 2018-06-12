@@ -1,0 +1,17 @@
+.c-combo-cruise-header {
+    &__content {
+        color: @white;
+        @media screen and (max-width: @screen-sm) {
+            color: @color-typography;
+        }
+        &__resume {
+            border: 2px solid @black;
+            color: @color-typography;
+            td {
+                &:after {
+                    background: @black;
+                }
+            }
+        }
+    }
+}
