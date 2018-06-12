@@ -24,7 +24,13 @@ $.fn.requestForm = function() {
 
         // Autocomplete form with data from cookie
         $currentForm.each(function() {
-            var $form = $(this), userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+            var $form = $(this);
+            var userInfo = null;
+            try {
+          	  userInfo = JSON.parse($.CookieManager.getCookie('userInfo'))
+            } catch(error){
+				$.CookieManager.setCookie("userInfo", JSON.stringify(""));
+			}
             if (userInfo) {
                 $form.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
                 $form.find('[name="firstname"]').val(userInfo.firstname);

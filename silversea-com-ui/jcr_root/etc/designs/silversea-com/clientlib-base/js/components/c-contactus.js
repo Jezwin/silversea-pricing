@@ -1,6 +1,13 @@
 $( document ).ready(function() {
 	if($(".c-contactus").length){
-  var $form = $(this), userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+  var $form = $(this);
+  var userInfo = null;
+  try {
+	  userInfo = JSON.parse($.CookieManager.getCookie('userInfo'))
+  } catch(error){
+	  $.CookieManager.setCookie("userInfo", JSON.stringify(""));
+  }
+  
   var sub_id, myJson;
 $.each(JSON.parse(myJson).subjects, function (index, value) {
 
