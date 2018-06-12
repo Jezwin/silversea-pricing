@@ -106,6 +106,9 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 					if(this.inlineGalleryID == null) {
 						this.inlineGalleryID = searchInlineGalleryID("inlinegalleryLanding");
 					}
+					if(this.inlineGalleryID == null) {
+						this.inlineGalleryID = searchInlineGalleryID("inlineGallery");
+					}
 				}
 			}
 		}
@@ -181,10 +184,12 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
 		map.put("path", path);
 
         map.put("property", "sling:resourceType");
-        if(type.equalsIgnoreCase("inlinegallery")) {
+        if(type.equals("inlinegallery")) {
         	map.put("property.value", "silversea/silversea-com/components/editorial/inlinegallery");
         } else if(type.equalsIgnoreCase("inlinegalleryLanding")) {
         	map.put("property.value", "silversea/silversea-ssc/components/editorial/inlinegalleryLanding");
+        } else if(type.equals("inlineGallery")) {
+        	map.put("property.value", "silversea/silversea-ssc/components/editorial/inlineGallery");
         }
 
         map.put("boolproperty", "enableInlineGalleryHB");
@@ -207,10 +212,12 @@ public class HeroBannerUse extends AbstractGeolocationAwareUse {
         try {
             for (Hit hit : result.getHits()) {
                 ValueMap properties = hit.getProperties();
-                if(type.equalsIgnoreCase("inlinegallery")) {
+                if(type.equals("inlinegallery")) {
                 	id = "#c-inline-gallery-" + properties.get("sscUUID", String.class);
                 } else if(type.equalsIgnoreCase("inlinegalleryLanding")) {
                 	id = "#c-inline-gallery-landing-" + properties.get("sscUUID", String.class);
+                } else if(type.equals("inlineGallery")) {
+                	id = "#c-inlinegallery-" + properties.get("sscUUID", String.class);
                 }
                 String assetSelectionReference = properties.get("assetSelectionReference", String.class);
                 if (StringUtils.isEmpty(assetSelectionReference)) {
