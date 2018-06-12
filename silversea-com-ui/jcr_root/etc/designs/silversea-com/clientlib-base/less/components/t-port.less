@@ -6,7 +6,7 @@
 .port_v2_page .container {
     font-family: @f-open_sans !important;
     margin: 0 auto !important;
-    max-width: 960px !important;
+    max-width: @default-container-width !important;
     width: 100% !important;
     font-size: 13px !important;
 }
@@ -766,6 +766,7 @@ a.scrolltoanchor.bound:hover .port_v2__stats_title {
     margin: auto;
     z-index: 2;
     display: block;
+    opacity: 0.15;
     background: @black;
     transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out;

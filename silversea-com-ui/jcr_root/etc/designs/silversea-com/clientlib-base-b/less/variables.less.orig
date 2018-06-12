@@ -1,32 +1,4 @@
-/*
-COLORS
-*/
-
-@nd-red: #D60524;
-@nd-red-darker: #BA001C;
-@nd-dark: #263133;
-@nd-light: #FFFFFF;
-@nd-light-bg: #F4F4F4;
-
-/**
- * Colors new design 
- */
- @color-typography: #333333;
- @color-typography-disabled: 	rgba(51, 51, 51, 0.6);
- @color-typography-light: #ffffff;
- @color-typography-light-disabled: 	rgba(255, 255, 255, 0.6); 
-  
- @color-primary: #D60524;
- @color-second: #171D47;
- 
- @color-expedition-cruise: #D60524;
- @color-classic-cruise: #273233;
- 
- @color-template-background: #ffffff;
- @color-light-bg: #F4F4F4;
- @color-medium-bg: #98989B;
- @color-dark-bg: #263133;
- 
+<<<<<<< HEAD
 /*
 FONTS
 */
@@ -41,7 +13,7 @@ FONTS
 BUTTONS
 */
 
-@nd-button-padding: 11px 11px 9px 11px; //11px 17px 9px 17px;
+@nd-button-padding: 10px 17px 10px 17px;
 @nd-button-border-radius: 0px;
 @nd-button-border-width: 0px;
 @nd-button-line-height: 16px;
@@ -238,3 +210,97 @@ COLORS CTA
 @button-mobile-fontsize-14: 14px;
 @button-mobile-fontsize-13: 13px;
 @button-mobile-fontsize-12: 12px;
+@button-mobile-fontsize-11: 11px;
+||||||| parent of 1196925... Centering padding
+/*
+COLORS
+*/
+
+@nd-red: #D60524;
+@nd-red-darker: #BA001C;
+@nd-dark: #263133;
+@nd-light: #FFFFFF;
+@nd-light-bg: #F4F4F4;
+
+
+@black: #000;
+
+/*
+FONTS
+*/
+
+@suisse: 'Suisse Regular', sans-serif;
+
+
+/*
+BUTTONS
+*/
+
+@nd-button-padding: 10px 17px 10px 17px;
+@nd-button-border-radius: 0px;
+@nd-button-border-width: 0px;
+@nd-button-line-height: 16px;
+@nd-button-font-size: 13px;
+@nd-button-letter-spacing: 1.5px;
+
+
+
+
+/**
+OLD STUFF
+*/
+
+@bold-l: 600;
+@screen-sm: 767px;
+@white: #fff;
+@grey--9: #999;
+@grey--f4: #f4f4f4;
+@grey--8: #888;
+@grey--e6: #e6e6e6;
+=======
+/*
+COLORS
+*/
+
+@nd-red: #D60524;
+@nd-red-darker: #BA001C;
+@nd-dark: #263133;
+@nd-light: #FFFFFF;
+@nd-light-bg: #F4F4F4;
+
+
+@black: #000;
+
+/*
+FONTS
+*/
+
+@suisse: 'Suisse Regular', sans-serif;
+
+
+/*
+BUTTONS
+*/
+
+@nd-button-padding: 11px 17px 9px 17px;
+@nd-button-border-radius: 0px;
+@nd-button-border-width: 0px;
+@nd-button-line-height: 16px;
+@nd-button-font-size: 13px;
+@nd-button-letter-spacing: 1.5px;
+
+
+
+
+/**
+OLD STUFF
+*/
+
+@bold-l: 600;
+@screen-sm: 767px;
+@white: #fff;
+@grey--9: #999;
+@grey--f4: #f4f4f4;
+@grey--8: #888;
+@grey--e6: #e6e6e6;
+>>>>>>> 1196925... Centering padding

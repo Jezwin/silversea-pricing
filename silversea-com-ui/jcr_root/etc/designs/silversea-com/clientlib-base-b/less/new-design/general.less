@@ -1,0 +1,75 @@
+/*
+** Button
+**/
+
+.c-btn:not(.dropdown-toggle),
+.btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn {
+    white-space: normal;
+    display: inline-block;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    border-width: @nd-button-border-width;
+    border-radius: @nd-button-border-radius;
+    padding: @nd-button-padding;
+    line-height: @nd-button-line-height;
+    font-size: @nd-button-font-size;
+    font-family: @suisse;
+    font-weight: normal;
+    letter-spacing: @nd-button-letter-spacing;
+
+  
+
+    &-default,
+    &--dark {
+        background: @nd-dark;
+        color: @white;
+        border: 1px @nd-light;
+        opacity: 0.9;
+        &:hover,
+        &:focus,
+        &:active {
+            opacity: 1 !important;
+            background: @nd-dark  !important;
+            color: @white  !important;
+        }
+    }
+
+    &--grey {
+        color: @nd-dark;
+        background: @nd-light-bg;
+        opacity: 0.9;
+        &:hover,
+        &:focus,
+        &:active {
+            opacity: 1 !important;
+            color: @nd-dark  !important;
+            background: @nd-light-bg  !important;
+        }
+    }
+
+    &-red,
+    &--red {
+        background-color: @nd-red;
+        color: @white;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: @nd-red-darker  !important;
+            color: @white  !important;
+        }
+    }
+
+    &--white {
+        border: 1px solid @nd-dark;
+        color: @nd-dark;
+        background-color: @white;
+        opacity: 0.5;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: @white  !important;
+            opacity: 1 !important;
+        }
+    }
+}
