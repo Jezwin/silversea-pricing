@@ -166,7 +166,7 @@ public class ComboCruisesImporterImpl implements ComboCruisesImporter {
                                 suitesNode.setProperty("sling:resourceType", "silversea/silversea-com/components/subpages/prices");
 
                                 for (final VoyagePriceMarket priceMarket : specialVoyage.getPrices()) {
-                                    final ImportResult importResultPrices = CruisesImportUtils.importCruisePrice(session, comboCruiseContentNode, comboCruisePath,
+                                    final ImportResult importResultPrices = CruisesImportUtils.importComboCruisePrice(session, comboCruiseContentNode, comboCruisePath,
                                             suitesMapping, priceMarket, suitesNode, itemsWritten, sessionRefresh);
 
                                     importResult.incrementSuccessOf(importResultPrices.getSuccessNumber());
