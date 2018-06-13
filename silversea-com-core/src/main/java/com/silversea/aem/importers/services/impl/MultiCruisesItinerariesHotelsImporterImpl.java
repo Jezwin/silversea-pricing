@@ -8,6 +8,7 @@ import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.MultiCruisesItinerariesHotelsImporter;
 import com.silversea.aem.importers.utils.ImportersUtils;
+import com.silversea.aem.models.CruiseModel;
 import com.silversea.aem.models.ItineraryModel;
 import com.silversea.aem.services.ApiConfigurationService;
 
@@ -16,6 +17,7 @@ import io.swagger.client.api.HotelsApi;
 import io.swagger.client.api.VoyagesApi;
 import io.swagger.client.model.HotelItinerary;
 import io.swagger.client.model.HotelItinerary77;
+import io.swagger.client.model.ShorexItinerary;
 import io.swagger.client.model.Voyage77;
 
 import org.apache.commons.lang3.BooleanUtils;
@@ -28,6 +30,7 @@ import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.ValueMap;
 import org.osgi.service.component.ComponentContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +80,6 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 
 		final ImportResult importResult = new ImportResult();
 		int apiPage = 1;
-		int apiPageDiff = 1;
 
 		final Map<String, Object> authenticationParams = new HashMap<>();
 		authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
@@ -97,8 +99,8 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 			final Page rootPage = pageManager.getPage(apiConfig.apiRootPath("cruisesUrl"));
 			String lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage,
 					"lastModificationDateMultiCruisesItinerariesHotels");
-			
-			if(lastModificationDate == null) {
+
+			if (lastModificationDate == null) {
 				ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
 						"lastModificationDateMultiCruisesItinerariesHotels", false);
 				lastModificationDate = ImportersUtils.getDateFromPageProperties(rootPage,
@@ -106,14 +108,14 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 			}
 
 			// init modified voyages cruises
-			final Set<Integer> modifiedCruises = new HashSet<>();
+			final Set<Voyage77> modifiedCruises = new HashSet<>();
 			final VoyagesApi voyagesApi = new VoyagesApi(ImportersUtils.getApiClient(apiConfig));
 			List<Voyage77> cruises;
 			do {
-				cruises = voyagesApi.voyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
+				cruises = voyagesApi.multiVoyagesGetChanges(lastModificationDate, apiPage, pageSize, null, null);
 
 				for (Voyage77 voyage : cruises) {
-					modifiedCruises.add(voyage.getVoyageId());
+					modifiedCruises.add(voyage);
 				}
 
 				apiPage++;
@@ -122,14 +124,11 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 			// Initializing elements necessary to import hotels
 
 			// cruises mapping
-			final Map<Integer, Map<String, String>> cruisesMapping = ImportersUtils
-					.getItemsMapping(resourceResolver,
+			final Map<Integer, Map<String, Page>> cruisesMapping = ImportersUtils
+					.getItemsPageMapping(resourceResolver,
 							"/jcr:root/content/silversea-com//element(*,cq:PageContent)"
 									+ "[sling:resourceType=\"silversea/silversea-com/components/pages/cruise\"]",
 							"cruiseId");
-
-			// itineraries
-			final List<ItineraryModel> itinerariesMapping = ImportersUtils.getItineraries(resourceResolver);
 
 			// hotels
 			final Map<Integer, Map<String, String>> hotelsMapping = ImportersUtils.getItemsMapping(resourceResolver,
@@ -138,219 +137,123 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 
 			// Importing hotels
 			List<HotelItinerary> hotels;
+			Map<Integer, List<HotelItinerary>> hotelsCache;
 			int itemsWritten = 0;
 			apiPage = 1;
+			hotelsCache = new HashMap<>();
 
-			do {
-				hotels = hotelsApi.hotelsGetItinerary(null, null, null, apiPage, pageSize, null);
+			for (Voyage77 mCruise : modifiedCruises) {
+				apiPage = 1;
+				if (cruisesMapping.containsKey(mCruise.getVoyageId())) {
 
-				// Iterating over hotels received from API
-				for (HotelItinerary hotel : hotels) {
-
-					// Trying to deal with one hotel
-					try {
-						if (!modifiedCruises.contains(hotel.getVoyageId())) {
-							throw new ImporterException("Cruise " + hotel.getVoyageId() + " is not modified");
-						}
-
-						final Integer hotelId = hotel.getHotelId();
-						boolean imported = false;
-
-						if (!hotelsMapping.containsKey(hotelId)) {
-							throw new ImporterException("Hotel " + hotelId + " is not present in hotels cache");
-						}
-
-						// Iterating over itineraries in cache to write hotel
-						for (final ItineraryModel itineraryModel : itinerariesMapping) {
-
-							// Checking if the itinerary correspond to hotel informations
-							if (itineraryModel.isItinerary(hotel.getVoyageId(), hotel.getDate().toGregorianCalendar(),
-									hotel.getCityId())) {
-
-								// Trying to write hotel data on itinerary
-								try {
-									final Resource itineraryResource = itineraryModel.getResource();
-
-									LOGGER.trace("importing hotel {} in itinerary {}", hotelId,
-											itineraryResource.getPath());
-
-									final Node itineraryNode = itineraryResource.adaptTo(Node.class);
-									final Node hotelsNode = JcrUtils.getOrAddNode(itineraryNode, "hotels",
-											"nt:unstructured");
-
-									// TODO to check : getHotelItineraryId() is not unique over API
-									if (!hotelsNode.hasNode(String.valueOf(hotel.getHotelItineraryId()))) {
-										final Node hotelNode = hotelsNode.addNode(JcrUtil.createValidChildName(
-												hotelsNode, String.valueOf(hotel.getHotelItineraryId())));
-										final String lang = LanguageHelper.getLanguage(pageManager, itineraryResource);
-
-										// associating port page
-										if (hotelsMapping.get(hotelId).containsKey(lang)) {
-											hotelNode.setProperty("hotelReference",
-													hotelsMapping.get(hotelId).get(lang));
-										}
-
-										hotelNode.setProperty("hotelId", hotelId);
-										hotelNode.setProperty("hotelItineraryId", hotel.getHotelItineraryId());
-										hotelNode.setProperty("sling:resourceType",
-												"silversea/silversea-com/components/subpages/itinerary/hotel");
-
-										importResult.incrementSuccessNumber();
-										itemsWritten++;
-
-										imported = true;
-
-										if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
-											try {
-												session.save();
-
-												LOGGER.info("{} hotels imported, saving session", +itemsWritten);
-											} catch (RepositoryException e) {
-												session.refresh(true);
-											}
-										}
-									}
-								} catch (RepositoryException e) {
-									LOGGER.error("Cannot write hotel {}", hotel.getHotelId(), e);
-
-									importResult.incrementErrorNumber();
-								}
+					for (Map.Entry<String, Page> cruisePages : cruisesMapping.get(mCruise.getVoyageId()).entrySet()) {
+						try {
+							final Node cruiseContentNode = cruisePages.getValue().getContentResource()
+									.adaptTo(Node.class);
+							final CruiseModel cruise = cruisePages.getValue().adaptTo(CruiseModel.class);
+							if (cruiseContentNode == null) {
+								throw new ImporterException("Cannot get content cruise node");
 							}
-						}
 
-						LOGGER.trace("Hotel {} voyage id: {} city id: {} imported: {}", hotel.getHotelId(),
-								hotel.getVoyageId(), hotel.getCityId(), imported);
-					} catch (ImporterException e) {
-						LOGGER.warn("Cannot deal with hotel {} - {}", hotel.getHotelId(), e.getMessage());
+							if (cruise == null) {
+								throw new ImporterException("Cannot get content cruise model for " + cruisePages.getValue().getPath());
+							}
 
-						importResult.incrementErrorNumber();
-					}
-				}
-
-				apiPage++;
-			} while (hotels.size() > 0);
-
-			// ImportingDiff hotels
-			List<HotelItinerary77> hotelsDiff;
-			int itemsWrittenDiff = 0;
-			apiPageDiff = 1;
-			LOGGER.info("Launching itineraries excursions diff import");
-			do {
-				hotelsDiff = hotelsApi.hotelsGetItinerary2(lastModificationDate, apiPageDiff, pageSize, null);
-
-				// Iterating over hotels received from API
-				for (HotelItinerary77 hotelDiff : hotelsDiff) {
-
-					// Trying to deal with one hotel
-					try {
-
-						final Integer hotelId = hotelDiff.getHotelId();
-						boolean imported = false;
-
-						if (!hotelsMapping.containsKey(hotelId)) {
-							throw new ImporterException("Hotel " + hotelId + " is not present in hotels cache");
-						}
-
-						// Iterating over itineraries in cache to write hotel
-						for (final ItineraryModel itineraryModel : itinerariesMapping) {
-
-							// Checking if the itinerary correspond to hotel informations
-							if (itineraryModel.isItinerary(hotelDiff.getVoyageId(),
-									hotelDiff.getDate().toGregorianCalendar(), hotelDiff.getCityId())) {
-
-								// Trying to write hotel data on itinerary
+							String requestedVoyageId = "";
+							for (ItineraryModel itiModel : cruise.getItineraries()) {
 								try {
-									final Resource itineraryResource = itineraryModel.getResource();
-
-									LOGGER.trace("importing hotel {} in itinerary {}", hotelId,
-											itineraryResource.getPath());
-
-									final Node itineraryNode = itineraryResource.adaptTo(Node.class);
-									final Node hotelsNode = JcrUtils.getOrAddNode(itineraryNode, "hotels",
-											"nt:unstructured");
-
-									if (!BooleanUtils.isTrue(hotelDiff.getIsDeleted())) {
-										// TODO to check : getHotelItineraryId() is not unique over API
-										if (!hotelsNode.hasNode(String.valueOf(hotelDiff.getHotelItineraryId()))) {
-											final Node hotelNode = hotelsNode.addNode(JcrUtil.createValidChildName(
-													hotelsNode, String.valueOf(hotelDiff.getHotelItineraryId())));
-											final String lang = LanguageHelper.getLanguage(pageManager,
-													itineraryResource);
-
-											// associating port page
-											if (hotelsMapping.get(hotelId).containsKey(lang)) {
-												hotelNode.setProperty("hotelReference",
-														hotelsMapping.get(hotelId).get(lang));
-											}
-
-											hotelNode.setProperty("hotelId", hotelId);
-											hotelNode.setProperty("hotelItineraryId", hotelDiff.getHotelItineraryId());
-											hotelNode.setProperty("sling:resourceType",
-													"silversea/silversea-com/components/subpages/itinerary/hotel");
-
-										} else {
-											// update the current hotel
-											final Node hotelNodeToUpdate = hotelsNode
-													.getNode(String.valueOf(hotelDiff.getHotelItineraryId()));
-											hotelNodeToUpdate.setProperty("hotelId", hotelId);
-											hotelNodeToUpdate.setProperty("hotelItineraryId",
-													hotelDiff.getHotelItineraryId());
-										}
-									} else {
-										// Delete the current hotel
-										final Node hotelNodeToDelete = hotelsNode
-												.getNode(String.valueOf(hotelDiff.getHotelItineraryId()));
-										hotelNodeToDelete.remove();
+									Node itiNode = itiModel.getResource().adaptTo(Node.class);
+									if (itiNode.hasNode("hotels")) {
+										itiNode.getNode("hotels").remove();
+										session.save();
 									}
+									
 
-									importResult.incrementSuccessNumber();
-									itemsWrittenDiff++;
+									Resource itiRsr = itiModel.getResource();
+									ValueMap vmap = itiRsr.getValueMap();
 
-									imported = true;
-
-									// set current cruise to activate state
-									final Map<String, String> cruisePaths = cruisesMapping
-											.get(itineraryModel.getCruiseId());
-									for (Map.Entry<String, String> cruisePath : cruisePaths.entrySet()) {
-										final Node cruiseContentNode = session
-												.getNode(cruisePath.getValue() + "/jcr:content");
-										final Calendar startDate = cruiseContentNode.getProperty("startDate").getDate();
-										final Boolean isVisible = cruiseContentNode.getProperty("isVisible")
-												.getBoolean();
-
-										if (startDate.after(Calendar.getInstance()) && isVisible) {
-											cruiseContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
+									if (requestedVoyageId != vmap.get("voyage_id", String.class)) {
+										apiPage = 1;
+										requestedVoyageId = vmap.get("voyage_id", String.class);
+										if (hotelsCache.get(Integer.parseInt(requestedVoyageId)) == null) {
+											List<HotelItinerary> exc = new ArrayList<HotelItinerary>();
+											do {
+												hotels = hotelsApi.hotelsGetItinerary(null,
+														Integer.parseInt(requestedVoyageId), null, apiPage, pageSize,
+														null);
+												exc.addAll(hotels);
+												apiPage++;
+											} while (hotels.size() > 0);
+											hotelsCache.put(Integer.parseInt(requestedVoyageId), exc);
 										}
 									}
 
-									if (itemsWrittenDiff % sessionRefresh == 0 && session.hasPendingChanges()) {
+									for (HotelItinerary hotelItinerary : hotelsCache
+											.get(Integer.parseInt(requestedVoyageId))) {
 										try {
-											session.save();
-											LOGGER.info("{} hotels diff imported, saving session", +itemsWrittenDiff);
+											if (hotelItinerary.getCityId().equals(vmap.get("city_id", Integer.class))
+													&& hotelItinerary.getDate().toGregorianCalendar()
+															.get(Calendar.DAY_OF_YEAR) == itiModel.getDate()
+																	.get(Calendar.DAY_OF_YEAR)) {
+												 if (!hotelsMapping.containsKey(hotelItinerary.getHotelId())) {
+							                            throw new ImporterException("Hotel " + hotelItinerary.getHotelId() + " is not present in hotels cache");
+							                        }
+												 
+												final Node hotelsNode = JcrUtils.getOrAddNode(itiNode, "hotels", "nt:unstructured");
+												final Node hotelNode = hotelsNode
+														.addNode(JcrUtil.createValidChildName(hotelsNode,
+																String.valueOf(hotelItinerary.getHotelItineraryId())));
+
+												final String lang = LanguageHelper.getLanguage(pageManager, itiRsr);
+
+												// associating port page
+												if (hotelsMapping.get(hotelItinerary.getHotelId()).containsKey(lang)) {
+													hotelNode.setProperty("hotelReference",
+															hotelsMapping.get(hotelItinerary.getHotelId()).get(lang));
+												}
+
+												hotelNode.setProperty("hotelId", hotelItinerary.getHotelId());
+												hotelNode.setProperty("hotelItineraryId",
+														hotelItinerary.getHotelItineraryId());
+												hotelNode.setProperty("sling:resourceType",
+														"silversea/silversea-com/components/subpages/itinerary/hotel");
+
+												importResult.incrementSuccessNumber();
+
+												itemsWritten++;
+												if (itemsWritten % sessionRefresh == 0 && session.hasPendingChanges()) {
+													try {
+														session.save();
+
+														LOGGER.info("{} hotels imported, saving session",
+																+itemsWritten);
+													} catch (RepositoryException e) {
+														session.refresh(true);
+													}
+												}
+											}
 										} catch (RepositoryException e) {
-											session.refresh(true);
+											LOGGER.error("Cannot write hotels {}", hotelItinerary.getHotelId(), e);
+
+											importResult.incrementErrorNumber();
 										}
 									}
-
 								} catch (RepositoryException e) {
-									LOGGER.error("Cannot write hotel {}", hotelDiff.getHotelId(), e);
+									LOGGER.error("Cannot write hotels for itinerary {}", itiModel.getPortId(), e);
 
 									importResult.incrementErrorNumber();
 								}
 							}
+						} catch (Exception e) {
+							LOGGER.error(e.getMessage(), e);
+
+							importResult.incrementErrorNumber();
 						}
-
-						LOGGER.trace("Hotel {} voyage id: {} city id: {} imported: {}", hotelDiff.getHotelId(),
-								hotelDiff.getVoyageId(), hotelDiff.getCityId(), imported);
-					} catch (ImporterException e) {
-						LOGGER.warn("Cannot deal with hotel {} - {}", hotelDiff.getHotelId(), e.getMessage());
-
-						importResult.incrementErrorNumber();
 					}
+
 				}
 
-				apiPageDiff++;
-			} while (hotelsDiff.size() > 0);
+			}
 
 			ImportersUtils.setLastModificationDate(session, apiConfig.apiRootPath("cruisesUrl"),
 					"lastModificationDateMultiCruisesItinerariesHotels", false);
@@ -360,7 +263,6 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 					session.save();
 
 					LOGGER.info("{} itineraries hotels imported, saving session", +itemsWritten);
-					LOGGER.info("{} itineraries hotels diff imported, saving session", +itemsWrittenDiff);
 				} catch (RepositoryException e) {
 					session.refresh(false);
 				}
@@ -375,8 +277,8 @@ public class MultiCruisesItinerariesHotelsImporterImpl implements MultiCruisesIt
 			importRunning = false;
 		}
 
-		LOGGER.info("Ending multi Cruise itineraries hotels import, success: {}, errors: {}, api calls : {} and {} diff",
-				+importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage, apiPageDiff);
+		LOGGER.info("Ending multi Cruise itineraries hotels import, success: {}, errors: {}, api calls : {} ",
+				+importResult.getSuccessNumber(), +importResult.getErrorNumber(), apiPage);
 
 		return importResult;
 	}
