@@ -35,7 +35,12 @@ $(function() {
     var setInfoDataLayer = (function setInfoDataLayer() {
         window.dataLayer[0].env_channel = $.viewportDetect();
 
-        var userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+        var userInfo = null;
+        try {
+      	  userInfo = JSON.parse($.CookieManager.getCookie('userInfo'))
+        } catch(error){
+      	  $.CookieManager.setCookie("userInfo", JSON.stringify(""));
+        }
         if (userInfo != undefined) {
             window.dataLayer[0].user_email = userInfo.email;
             window.dataLayer[0].user_recency_optin = userInfo.subscribeemail;
