@@ -12,7 +12,12 @@ $(function() {
             });
 
             // Autocomplete form with data from cookie
-            var userInfo = JSON.parse($.CookieManager.getCookie('userInfo'));
+            var userInfo = null;
+            try {
+          	  userInfo = JSON.parse($.CookieManager.getCookie('userInfo'))
+            } catch(error){
+					  $.CookieManager.setCookie("userInfo", JSON.stringify(""));
+			}
             if (userInfo) {
                 $signUpForm.find('[name="title"]').val(userInfo.title).trigger('chosen:updated');
                 $signUpForm.find('[name="firstname"]').val(userInfo.firstname);
