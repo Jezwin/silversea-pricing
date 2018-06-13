@@ -30,6 +30,12 @@ import com.silversea.aem.importers.services.ExclusiveOffersImporter;
 import com.silversea.aem.importers.services.FeaturesImporter;
 import com.silversea.aem.importers.services.HotelsImporter;
 import com.silversea.aem.importers.services.LandProgramsImporter;
+import com.silversea.aem.importers.services.MultiCruisesImporter;
+import com.silversea.aem.importers.services.MultiCruisesItinerariesExcursionsImporter;
+import com.silversea.aem.importers.services.MultiCruisesItinerariesHotelsImporter;
+import com.silversea.aem.importers.services.MultiCruisesItinerariesImporter;
+import com.silversea.aem.importers.services.MultiCruisesItinerariesLandProgramsImporter;
+import com.silversea.aem.importers.services.MultiCruisesPricesImporter;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.importers.services.StyleCache;
 
@@ -46,6 +52,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 		exclusiveoffers,
 
 		cruises, itineraries, itinerarieshotels, itinerariesexcursions, itinerarieslandprograms, prices, cruisesexclusiveoffers,
+		
+		multicruises, multicruisesitineraries, multicruisesitinerarieshotels, multicruisesitinerariesexcursions, multicruisesitinerarieslandprograms, multicruisesprices,
 
 		combocruises, combocruisessegmentsactivation,
 
@@ -93,6 +101,24 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
 	@Reference
 	private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
+	
+	@Reference
+    private MultiCruisesImporter multiCruisesImporter;
+
+    @Reference
+    private MultiCruisesItinerariesImporter multiCruisesItinerariesImporter;
+
+    @Reference
+    private MultiCruisesPricesImporter multiCruisesPricesImporter;
+
+    @Reference
+    private MultiCruisesItinerariesHotelsImporter multiCruisesItinerariesHotelsImporter;
+
+    @Reference
+    private MultiCruisesItinerariesLandProgramsImporter multiCruisesItinerariesLandProgramsImporter;
+
+    @Reference
+    private MultiCruisesItinerariesExcursionsImporter multiCruisesItinerariesExcursionsImporter;
 
 	@Reference
 	private ComboCruisesImporter comboCruisesImporter;
@@ -160,6 +186,18 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 				cruisesItinerariesExcursionsImporter.importAllItems(true);
 			} else if (mode.equals(Mode.cruisesexclusiveoffers)) {
 				cruisesExclusiveOffersImporter.importAllItems();
+			}else if (mode.equals(Mode.multicruises)) {
+				multiCruisesImporter.updateItems();
+			} else if (mode.equals(Mode.multicruisesitineraries)) {
+				multiCruisesItinerariesImporter.importAllItems();
+			} else if (mode.equals(Mode.multicruisesprices)) {
+				multiCruisesPricesImporter.importAllItems();
+			} else if (mode.equals(Mode.multicruisesitinerarieshotels)) {
+				multiCruisesItinerariesHotelsImporter.importAllItems();
+			} else if (mode.equals(Mode.multicruisesitinerarieslandprograms)) {
+				multiCruisesItinerariesLandProgramsImporter.importAllItems();
+			} else if (mode.equals(Mode.multicruisesitinerariesexcursions)) {
+				multiCruisesItinerariesExcursionsImporter.importAllItems();
 			} else if (mode.equals(Mode.combocruises)) {
 				// comboCruisesImporter.importData(true);
 			} else if (mode.equals(Mode.brochures)) {
