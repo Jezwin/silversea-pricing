@@ -228,8 +228,20 @@ public class ApiUpdater implements Runnable {
             //desactivate port without planned cruises
             importResult = citiesImporter.DesactivateUselessPort();
             LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-
+            
+            //desactivate Shorex not present anymore in the API
+            importResult = shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
+            LOGGER.info("Shorex desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            //desactivate Land Program not present anymore in the API
+            importResult = landProgramsImporter.disactiveAllItemDeltaByAPI();
+            LOGGER.info("Land Programs desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            //desactivate Hotel not present anymore in the API
+            importResult = hotelsImporter.disactiveAllItemDeltaByAPI();
+            LOGGER.info("Hotels desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            
             comboCruisesImporter.markSegmentsForActivation();
 
             //update travel agencies
