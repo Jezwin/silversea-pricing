@@ -202,3 +202,49 @@
 .finyourport .port-dest-search .hidden-xs .fa.fa-angle-down:before {
 	content: "" !important;
 }
+
+/* fix search button find a port */
+.finyourport .port-dest-search button {
+    border-radius: 0px !important;
+        text-align: center !important;
+}
+
+/* remove arrow search button find a port */
+.finyourport .port-dest-search button::after {
+    display: none !important;
+}
+
+
+/*Fix cta cruise header */
+.cruise__header .cruise__header__desc .cruise__header__cta {
+    float: none;
+}
+
+
+.cruise__header .cruise__header__desc .cruise__header__cta a {
+    text-align: center !important;
+        float: none !important;
+}
+.cruise__header .cruise__header__desc .cruise__header__cta i {
+        display: none !important;
+}
+
+/*Fix suite list card cta */
+.c-suitelist__button.c-suitelist__button-card a {
+  text-align: center !important;
+}
+.c-suitelist__button.c-suitelist__button-card a i {
+  display: none !important;
+}
+
+.pt-BR .c-suitelist__row-card .c-suitelist__button-card, .es .c-suitelist__row-card .c-suitelist__button-card, .de .c-suitelist__row-card .c-suitelist__button-card, .fr .c-suitelist__row-card .c-suitelist__button-card {
+  padding-left: 0%;
+   padding-right: 0%;
+}
+
+
+@media (max-width: 768px){
+.pt-BR .c-suitelist .btn-request-a-quote, .es .c-suitelist .btn-request-a-quote, .de .c-suitelist .btn-request-a-quote, .fr .c-suitelist .btn-request-a-quote {
+    width: 200px !important;
+} 
+}
