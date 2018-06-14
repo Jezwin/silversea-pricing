@@ -44,8 +44,8 @@ function appendCss() {
 function applyNewStyle() {
     applyWithoutTransitions(function () {
         appendCss();
-        $(".btn:has(> .fa-angle-right)").css('text-align', 'left'); //couldn't apply from plain css
-        $(".c-btn:has(> .fa-angle-right)").css('text-align', 'left');
+        $(".btn:has(> .fa-angle-right)").css('text-align', 'center'); //couldn't apply from plain css
+        $(".c-btn:has(> .fa-angle-right)").css('text-align', 'center');
     });
     
     var intervalId = setInterval(function () {        

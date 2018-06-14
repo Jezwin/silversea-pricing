@@ -1,13 +1,36 @@
 /*
 ** Button
 **/
+.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next),
+.btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn, .cruise .row.c-cruise__overview .btn {
+	min-width:@nd-button-min-width;
+	  &-xs{
+	  	min-width:@nd-button-small-min-width;
+	  }
+	  
+	    i{
+	  	display: none;
+	  }
+}
 
-.c-btn:not(.dropdown-toggle),
-.btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn {
+.c-btn--slider--next, .c-btn--slider--prev, .brochureteaserlist .btn, .c-cruise-itinerary-list__description__button .c-btn {
+	min-width:auto;
+	
+	i{
+		display:inline-block !important;
+	}
+}
+
+.c-cruise__overview .btn {
+	    padding: @nd-button-padding !important;
+}
+
+.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next),
+.btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn, .c-cruise__overview .btn {
     white-space: normal;
     display: inline-block;
     text-transform: uppercase;
-    text-align: center;
+    text-align: center !important;
     vertical-align: middle;
     border-width: @nd-button-border-width;
     border-radius: @nd-button-border-radius;
@@ -17,8 +40,15 @@
     font-family: @suisse;
     font-weight: normal;
     letter-spacing: @nd-button-letter-spacing;
+    
+    
+    span {
+    	padding-right: 0px!important;
+    }
+
 
   
+
 
     &-default,
     &--dark {
@@ -72,4 +102,10 @@
             opacity: 1 !important;
         }
     }
+}
+
+.c-subscribe{
+	.btn{
+		min-width:auto;
+	}
 }
