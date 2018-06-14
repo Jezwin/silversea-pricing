@@ -6,6 +6,7 @@
     padding: ~"@{nd-button-padding} !important";
         i {
             margin-right:0px !important;
+            display: none;
         }
 }
 
@@ -27,9 +28,10 @@
     font-weight: normal !important;
     padding: 11px 11px 9px 11px !important;
     line-height:14px;
-
+	min-width:auto;
     .thin i.fa.fa-lg.fa-angle-right {
         font-size: 17px !important;
+        display: none;
     }
 }
 .c-fyc-filter__button {
@@ -37,6 +39,7 @@
         height : 100%;
         i {
             line-height: 10px !important;
+            display: none;
         }
     }
 }
@@ -75,6 +78,7 @@
     i.fa.fa-lg.fa-angle-right {
         font-size: @nd-button-font-size+5;
         float: right;
+        display: none;
     }
 }
 
@@ -82,6 +86,7 @@
     font-size: @nd-button-font-size+5;
     float: right;
     line-height: 13.5px !important;
+    display: none;
     position: relative !important;
     top: 0 !important;
     transform: unset !important;
@@ -129,6 +134,7 @@
     font-size: ~"@{nd-button-font-size} !important";
     font-weight: normal !important;  
     line-height: 17px;
+    min-width:auto;
 }
 
 .c-suitelist__row-card .c-suitelist__button-card {
@@ -150,6 +156,7 @@
     top: 0 !important;
     transform: unset !important;
     vertical-align: -15% !important;
+    display: none;
         
         
 }
@@ -181,4 +188,85 @@
 
 .cc-tab_header_desc_cta a i, .cc-tab_header_desc_cta .btn i, .cc-tab_header_desc_cta a .btn i.fa-lg, .cc-tab_header_desc_cta .btn .btn i.fa-lg {
     padding-bottom: 2px;
+    display: none;
+}
+
+.form-control, .chosen-single, .chosen-results, .chosen-drop  {
+    border-radius: 0px !important;
+}
+
+.c-callbox__inner {
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+.c-mozaic .c-btn--slider--prev, .c-mozaic .c-btn--slider--next {
+    padding: 10px 12px;
+    border-radius:0px !important;
+}
+
+
+/** Changes by Giusepe */
+
+/*Fix width and font size brochure landing */
+.c-brochureLanding .bloc-brochures .action .btn_base {
+	border-radius: 0px !important;
+	font-family: @suisse !important;
+}
+
+
+/*Fix landing btn hero banner*/
+.landingpage-dmp-destination .c-hero-banner-landing-dmp .c-hero-banner-landing__buttons .btn {
+    border-radius: 0px !important;
+}
+
+/* fix find a port arrow below */
+.finyourport .port-dest-search .hidden-xs .fa.fa-angle-down:before {
+	content: "" !important;
+}
+
+/* fix search button find a port */
+.finyourport .port-dest-search button {
+    border-radius: 0px !important;
+        text-align: center !important;
+}
+
+/* remove arrow search button find a port */
+.finyourport .port-dest-search button::after {
+    display: none !important;
+}
+
+
+/*Fix cta cruise header */
+.cruise__header .cruise__header__desc .cruise__header__cta {
+    float: none;
+}
+
+
+.cruise__header .cruise__header__desc .cruise__header__cta a {
+    text-align: center !important;
+        float: none !important;
+}
+.cruise__header .cruise__header__desc .cruise__header__cta i {
+        display: none !important;
+}
+
+/*Fix suite list card cta */
+.c-suitelist__button.c-suitelist__button-card a {
+  text-align: center !important;
+}
+.c-suitelist__button.c-suitelist__button-card a i {
+  display: none !important;
+}
+
+.pt-BR .c-suitelist__row-card .c-suitelist__button-card, .es .c-suitelist__row-card .c-suitelist__button-card, .de .c-suitelist__row-card .c-suitelist__button-card, .fr .c-suitelist__row-card .c-suitelist__button-card {
+  padding-left: 0%;
+   padding-right: 0%;
+}
+
+
+@media (max-width: 768px){
+.pt-BR .c-suitelist .btn-request-a-quote, .es .c-suitelist .btn-request-a-quote, .de .c-suitelist .btn-request-a-quote, .fr .c-suitelist .btn-request-a-quote {
+    width: 200px !important;
+} 
 }

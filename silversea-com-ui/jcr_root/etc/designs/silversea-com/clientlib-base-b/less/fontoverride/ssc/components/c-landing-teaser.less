@@ -1,30 +1,36 @@
 .c-landing-teaser {
     &__title {
         font-family: @freight-bold;
-        font-size: @subheader-desktop-fontsize-20;
+        font-size: @subheader-desktop-fontsize-24;
+        text-transform:capitalize;
+        padding-bottom:12px !important;
         @media (min-height: @screen-md-min) and (max-height: @screen-md-max){
-        	font-size:15px;
+        	font-size:@subheader-mobile-fontsize-20;
         }
     }
     &__description {
         font-size: @body-desktop-fontsize-14;
     }
     &__label {
-        font-size: 11px;
+        font-size: @button-desktop-fontsize-13;   
+        color:@color-second;     
+        font-weight: normal;
     }
 
     &--style1 & {
         @media screen and (max-width: @screen-sm) {
             &__title {
-                font-size: 26px;
+                font-size: @subheader-mobile-fontsize-20;
             }
         }
     }
     &--style2 & {
         &__title {            
-            font-size: @subheader-desktop-fontsize-20;           
+            font-size: @subheader-desktop-fontsize-24;           
+            padding-bottom:12px !important;
+            text-transform:capitalize;
             @media screen and (max-width: @screen-sm) {
-                font-size: @subheader-mobile-fontsize-18;
+                font-size: @subheader-mobile-fontsize-20;
             }
         }
     }
@@ -33,7 +39,9 @@
         .c-landing-teaser__caption {
             .c-landing-teaser {
                 &__link__label {
-                    font-size: @label-desktop-fontsize-12;
+                    font-size: @button-desktop-fontsize-13;   
+        			color:@color-second;     
+        			font-weight: normal;
                 }
             }
         }
