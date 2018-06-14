@@ -29,6 +29,9 @@
     padding: 11px 11px 9px 11px !important;
     line-height:14px;
 	min-width:auto;
+	@media (max-width:@screen-md-min){
+		padding: @nd-button-padding;
+	}
     .thin i.fa.fa-lg.fa-angle-right {
         font-size: 17px !important;
         display: none;
@@ -167,7 +170,7 @@
 }
 
 .c-footer .o-section div.col-sm-3 {
-	text-align:center;
+	text-align:justify;
 	@media (min-width:@screen-md-min) and (max-width:800px){
 		.btn{
 			font-size: 11px !important;
@@ -191,13 +194,17 @@
     display: none;
 }
 
-.form-control, .chosen-single, .chosen-results, .chosen-drop  {
+.form-control, .chosen-single, .chosen-results, .chosen-drop, .dropdown-toggle, .chosen, .o-input, .mobile-select-ready  {
     border-radius: 0px !important;
 }
 
+.c-brochure__btn {
+    width: 260px;
+}
+
 .c-callbox__inner {
-    padding-top: 28px;
-    padding-bottom: 28px;
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
 }
 
 .c-mozaic .c-btn--slider--prev, .c-mozaic .c-btn--slider--next {
@@ -254,6 +261,7 @@
 /*Fix suite list card cta */
 .c-suitelist__button.c-suitelist__button-card a {
   text-align: center !important;
+  margin:auto;
 }
 .c-suitelist__button.c-suitelist__button-card a i {
   display: none !important;
@@ -269,4 +277,27 @@
 .pt-BR .c-suitelist .btn-request-a-quote, .es .c-suitelist .btn-request-a-quote, .de .c-suitelist .btn-request-a-quote, .fr .c-suitelist .btn-request-a-quote {
     width: 200px !important;
 } 
+}
+
+.o-section-call .btn-block {
+    width:auto;
+}
+
+@media screen and (max-width: 991px){
+	.c-subscribe__form .o-input--lg, .c-subscribe__form .c-btn--lg {
+	    height: 40px !important;
+	}
+	
+	.c-footer .o-section div.col-sm-3 .btn {
+		min-width:100%;
+	}
+	
+	.c-callbox__inner {
+    padding-top: 26px !important;
+    padding-bottom: 26px !important;
+}
+}
+
+.port_v2__postcarousel .btn {
+	min-width:auto;
 }
