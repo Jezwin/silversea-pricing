@@ -42,7 +42,14 @@
                         <li class="c-cruise-itinerary-list__headline__date__time hidden-xs">
                             <span data-sly-use.arriveTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=itinerary.arriveTime}" data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTimeFormat.value}</span><sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
                             <span data-sly-use.departTimeFormat="${'com.silversea.aem.helper.DateHelper' @ time=itinerary.departTime}" data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTimeFormat.value}</span>
-                        </li>
+                        </li> 
+                         <li class="c-cruise-itinerary-list__headline_overnight hidden-xs" data-sly-test="${itinerary.numberDays > 0}">
+                         	<sly data-sly-use.loopOvernight="${'com.silversea.aem.helper.ListHelper' @ sizeLoop=itinerary.numberDays}" data-sly-repeat="${loopOvernight.objectListLoop}">
+                         		<span><i class="fa fa-moon-o"></i></span>
+                         	</sly>
+                            <span>${'overnight-in-port' @ i18n }</span>
+                        </li>                        	
+                        
                     </ul>
                     <div class="c-cruise-itinerary-list__headline__expand">
                         <span class="btn-more"><span>${'more' @ i18n}</span> <i class="fa fa-angle-down"></i></span>
