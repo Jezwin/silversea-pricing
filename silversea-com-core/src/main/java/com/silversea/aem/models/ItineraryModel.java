@@ -80,6 +80,8 @@ public class ItineraryModel {
     private PortModel port;
     
     private Boolean hasDedicatedShorex;
+    
+    private Integer numberDays = 0;
 
     @PostConstruct
     private void init() {
@@ -293,7 +295,15 @@ public class ItineraryModel {
         return landPrograms;
     }
 
-    public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {
+    public Integer getNumberDays() {
+		return numberDays;
+	}
+
+	public void setNumberDays(Integer numberDays) {
+		this.numberDays = numberDays;
+	}
+
+	public void addLandPrograms(List<ItineraryLandProgramModel> landPrograms) {
         this.landPrograms.addAll(landPrograms);
     }
 
