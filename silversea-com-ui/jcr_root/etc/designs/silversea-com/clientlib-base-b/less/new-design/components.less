@@ -317,6 +317,15 @@
 	.c-cruise .c-tab__content--overview .voyageshare_wrap{
 		max-width:34%;
 	}
+	.slider{
+		.c-vertical-teaser.thumbnail {
+		    margin: 0px 6px !important;
+		}
+	} 
+	
+	.c-vertical-teaser {
+		padding-bottom:14px;
+	}
 }
 
 @media screen and (min-width: @screen-lg-min){
@@ -350,18 +359,54 @@
 	}
 }
 
-.pt-BR {
-	.c-fyc__result__content__button .btn{
-		letter-spacing:0.95px;
+@media (min-width:@screen-md-min){
+	.pt-BR {
+		.c-fyc__result__content__button .btn{
+			letter-spacing:0.95px;
+		}
+	}
+	
+	.es {
+		.c-fyc__result__content__button .btn{
+			letter-spacing:0.55px;
+		}
 	}
 }
 
-.es {
-	.c-fyc__result__content__button .btn{
-		letter-spacing:0.55px;
+@media (max-width:@screen-sm){
+	.c-fyc__result__content{
+		position:relative;
 	}
 }
 
 .c-modal-detail-modal-deck a {
 	min-width:auto !important;
+}
+
+@media (min-width:@screen-md-min) and (max-width:@screen-md-max){
+	.c-fyc__header {
+	    font-size: 10px;
+	}
+	
+	.de .c-fyc__result__content__button .btn {
+		    padding: 11px 8px 9px 8px!important;
+	}
+	
+	.es .c-fyc__result__content__button .btn, .pt-BR .c-fyc__result__content__button .btn {
+		    padding: 11px 8px 9px 8px!important;
+		    min-width:165px;
+		    letter-spacing: 0.5px;
+		    font-size: 10px!important;
+	}
+	
+	.c-hero-banner-landing__title, c-hero-banner__title {
+		margin-top:10px;
+	}
+}
+
+@media screen and (min-width: @screen-md-min){
+	.c-hero-banner-landing__buttons .btn,.c-hero-banner__buttons .btn {
+		letter-spacing: 1.2px;
+		padding: 14px 18px 11px 18px;
+	}
 }
