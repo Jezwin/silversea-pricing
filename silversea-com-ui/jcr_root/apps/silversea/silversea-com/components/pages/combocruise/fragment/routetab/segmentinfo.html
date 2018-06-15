@@ -50,9 +50,12 @@
                             <li class="c-cruise-itinerary-list__headline__title__country">${itinerary.port.country}</li>
                         </ul>
                         <ul class="c-cruise-itinerary-list__headline__date">
-                            <li class="c-cruise-itinerary-list__headline__date__duration" data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">
-                                ${date.value}
-                            </li>
+                            <li class="c-cruise-itinerary-list__headline__date__duration">
+                            	<sly data-sly-test="${itinerary.departDate}">${'from' @ i18n} </sly>
+                            	<span data-sly-use.date="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.date}">${date.value}</span>
+                            	<sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
+                            	<span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
+                        	</li>
                             <li class="c-cruise-itinerary-list__headline__date__time hidden-xs">
                                 <span data-sly-test.arriveTime="${itinerary.arriveTime}">${'arrive' @ i18n}: ${arriveTime}</span><sly data-sly-test="${itinerary.arriveTime && itinerary.departTime}">,</sly>
                                 <span data-sly-test.departTime="${itinerary.departTime}">${'depart' @ i18n} ${departTime}</span>
