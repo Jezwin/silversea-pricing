@@ -187,6 +187,18 @@
 	width: 260px;
 }
 
+.fr,.de{
+	.c-brochure__btn {
+		width: 300px;
+	}
+}
+
+.pt-BR{
+	.c-brochure__btn {
+		width: 265px;
+	}
+}
+
 .c-callbox__inner {
 	padding-top: 28px ! important;
 	padding-bottom: 28px ! important;
@@ -202,7 +214,7 @@
 	font-family: @suisse ! important;
 }
 
-.landingpage-dmp-destination .c-hero-banner-landing-dmp .c-hero-banner-landing__buttons .btn {
+.landingpage-dmp-destination .c-hero-banner-landing-dmp .c-hero-banner-landing__buttons .btn, .c-main-nav__top__item--search__form {
 	border-radius: 0px ! important;
 }
 
@@ -305,4 +317,51 @@
 	.c-cruise .c-tab__content--overview .voyageshare_wrap{
 		max-width:34%;
 	}
+}
+
+@media screen and (min-width: @screen-lg-min){
+	.c-mozaic__slider__slide--text .c-tabbedmozaic {
+	    padding: 8% 0px;
+	}
+	
+	.c-mozaic__slider__slide--text .c-mozaicslider__action {
+	    bottom: 6%;
+	}
+	
+	.c-mozaic__slider__slide--text .c-mozaicslider__descr{
+		padding-top:12px;
+	}
+}
+
+.fr, .es, .de, .pt-BR {
+	.c-search-hero__form .btn {
+	    padding: 14px 8px 11px 8px !important;
+	    letter-spacing:1px;
+	}
+	
+	@media (min-width:@screen-md-max) and (max-width:@screen-lg-max){
+		.c-mozaic__slider__slide--text .c-mozaicslider__link{
+			    padding: 14px 8px 11px 8px !important;
+			    letter-spacing:1px !important;
+		}
+		.c-mozaic__slider__slide--text .c-mozaicslider__action {
+		    bottom: 0%;
+		}
+	}
+}
+
+.pt-BR {
+	.c-fyc__result__content__button .btn{
+		letter-spacing:0.95px;
+	}
+}
+
+.es {
+	.c-fyc__result__content__button .btn{
+		letter-spacing:0.55px;
+	}
+}
+
+.c-modal-detail-modal-deck a {
+	min-width:auto !important;
 }
