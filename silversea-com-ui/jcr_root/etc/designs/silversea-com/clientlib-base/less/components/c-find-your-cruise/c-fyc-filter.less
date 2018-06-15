@@ -4,7 +4,7 @@
     }
 }
 
-.c-fyc-v2-filter, .c-fyc-filter {
+.c-fyc-filter {
     margin-top: 14px;
 
     &__header {
@@ -217,7 +217,7 @@
                 }
             }
 
-            .chosen-drop {
+            .chosen-drop, {
                 background: @grey--eb;
 
                 .chosen-search {
@@ -436,7 +436,7 @@
         }
     }
 }
-/*
+
 .c-fyc-v2-filter {
     margin-top: 14px;
 
@@ -719,35 +719,48 @@
             border-bottom: 0;
             border-radius: 0px 0px 0 0;
         }
+      
 
-
+        &.active {
+            .dropdown {
+                &:not(.open) {
+                    .dropdown-toggle {
+                        background: @grey--f4;
+                        color: @black;
+                    }
+                }
+            }
+        }
         .dropdown {
             position: relative;
+            
+   
 
-            .dropdown-toggle {
-                background: @white;
+            .dropdown-toggle {     
+                border-radius: 0 !important;
+                background-color: @grey--f4;
+                margin-left: -6px;
                 border: 0;
-                color: @black;
-                font-size: 13px;
+                color: @black;              
                 height: 34px;
                 outline: none;
-                padding: 4px 20px 3px 12px;
-                text-align: left;
+                padding: 19px 0 0 0px;
+                text-align: center;
 
                 .text-selected {
                     display: block;
                     font-weight: normal;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    text-transform: capitalize;
+                    text-transform: uppercase;
                 }
 
                 i {
-                    font-size: 13px;
-                    line-height: 22px;
+                    font-size: 21px;
+                    line-height: 21px;
                     position: absolute;
-                    right: 12px;
-                    top: 4px;
+                    right: -3px;
+                    top: 17px;
                     z-index: 100;
                 }
             }
@@ -756,8 +769,8 @@
                 background: @white;
                 display: none;
                 position: absolute;
-                top: 100%;
-                width: 100%;
+                top: 148%;
+                width: 112%;
                 z-index: 1000;
 
                 .v2-feature-filter {
@@ -767,7 +780,7 @@
                     -webkit-overflow-scrolling: touch;
 
                     li {
-                        font-size: 11px;
+                        font-size: 8px;
                         line-height: 14px;
                         padding: 0 4px;
                         position: relative;
@@ -803,10 +816,11 @@
                                 border: 1px solid @grey;
                                 content: "";
                                 display: block;
-                                height: 17px;
+                                height: 12px;
                                 position: absolute;
-                                right: 0;
-                                width: 17px;
+                                right: 2;
+                                top : 5px;
+                                width: 12px;
                                 z-index: 1;
 
                                 @media screen and (max-width: @screen-md-max) {
@@ -820,11 +834,11 @@
                                 background-color: @grey;
                                 content: "";
                                 display: block;
-                                height: 7px;
+                                height: 4px;
                                 position: absolute;
-                                right: 5px;
-                                top: 10px;
-                                width: 7px;
+                                right: 4px;
+                                top: 9px;
+                                width: 4px;
                                 z-index: 2;
 
                                 @media screen and (max-width: @screen-md-max) {
@@ -859,7 +873,7 @@
                 .dropdown-toggle {
                     border: 0;
                     border-bottom: 0;
-                    background: none repeat scroll 0 0 @white;
+                    background: none repeat scroll 0 0 @grey--f4;
                     border-bottom-left-radius: 0;
                     border-bottom-right-radius: 0;
 
@@ -895,4 +909,3 @@
         background-clip: content-box;
     }
 }
-*/
