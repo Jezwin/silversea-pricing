@@ -25,7 +25,7 @@
 	id="destination-fyc-switchable-block-nd"
 	class="c-fyc-v2 destination-switchable-block">
 
-	<sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise/filter.html" data-sly-call="${filterTemplate.filterv2old @ fyc=fyc}" />
+	<sly data-sly-use.filterTemplate="silversea/silversea-com/components/editorial/findyourcruise/filter.html" data-sly-call="${filterTemplate.filterv2 @ fyc=fyc}" />
 
 	<sly data-sly-test.type="${fyc.type || 'v2'}" />
 	<div class="c-fyc-v2__result-wrapper clearfix ${fyc.type || 'v2'}">
