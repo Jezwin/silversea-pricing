@@ -482,10 +482,10 @@
     }
     &__header {
         position: relative;
-        height: 55px;
+        height: 60px;
         left: 0px;
         background-color: #263133;
-        border-bottom: solid @white 1px;
+        border-bottom: solid @white 5px;
         color: @white;
 		width:100%;
 
@@ -647,10 +647,11 @@
 
 .chosen-container:first-child{
 	border-right:none !important;
+	border-left:none !important;
 }
 
         .chosen-container {
-            border-right: 2px solid @white;
+            border-right: 4px solid @white;
            // padding-top: 12px;
            // padding-bottom: 5px;
 
@@ -660,7 +661,7 @@
                 background-color: @grey--f4;
                 border-color: @grey--f4;
                 box-shadow: none;
-                height: 55px;
+                height: 50px;
                
                 border-radius: 0;
                 border: 0;
@@ -673,15 +674,15 @@
                     font-weight: 400;
                     line-height: 27px;
                     text-transform: uppercase;
-                     padding-top:13px;
+                     padding-top:11px;
                 }
 
                 div b {
                     &:before {
                         color: inherit;
                         font-size: 21px;
-                        right: 0;
-                        top: 19px;
+                        right: 4px;
+                        top: 16px;
                         
                     }
                     &:after {
@@ -767,7 +768,7 @@
                 color: @black;     
                 outline: none;
                 
-                 height: 50px;
+                 height: 45px;
                 line-height: 19px;
                 padding: 3px 20px 3px 12px;
 
@@ -792,7 +793,7 @@
                     line-height: 21px;
                     position: absolute;
                     //right: -3px;
-                    top: 17px;
+                    top: 15px;
                     z-index: 100;
                 }
             }
@@ -953,7 +954,7 @@
 
             &.active {
                 select {
-                    background-color: @black;
+                    background-color: #263133;
                     color: @white;
 
                     & + .fa-angle-down {
