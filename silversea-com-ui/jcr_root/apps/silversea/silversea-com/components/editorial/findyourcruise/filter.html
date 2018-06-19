@@ -9,8 +9,8 @@
             <h3 class="c-fyc-filter__title">${properties.jcr:title || 'your-search-results' @ i18n}</h3>
             <span class="c-fyc-filter__text">
                 <span id="matching-value">${fyc.totalMatches}</span>
-                <span class="result-label">${'result' @ i18n}</span>
-                <span class="results-label">${'results' @ i18n}</span>
+                <span class="result-label">${'cruise' @ i18n}</span>
+                <span class="results-label">${'cruises' @ i18n}</span>
             </span>
         </p>
         <p class="c-fyc-filter__reset hidden-xs">
@@ -111,10 +111,11 @@
 
     <div class="c-fyc-v2-filter__header text-uppercase">
         <div class="c-fyc-v2-filter__text container">
+        <div class="c-fyc-v2-filter__text-header">${properties.jcr:title || 'your-search-results' @ i18n}</div>
             <div class="c-fyc-v2-filter__text-header" id="v2-matching-value">${fyc.totalMatches}</div>
-            <div class="c-fyc-v2-filter__text-header result-label" data-sly-test="${fyc.totalMatches == 1}">${'result' @ i18n}</div>
-            <div class="c-fyc-v2-filter__text-header results-label" data-sly-test="${fyc.totalMatches != 1}">${'results' @ i18n}</div>
-            <div class="c-fyc-v2-filter__text-header">${properties.jcr:title || 'your-search-results' @ i18n}</div>
+            <div class="c-fyc-v2-filter__text-header result-label" data-sly-test="${fyc.totalMatches == 1}">${'cruise' @ i18n}</div>
+            <div class="c-fyc-v2-filter__text-header results-label" data-sly-test="${fyc.totalMatches != 1}">${'cruises' @ i18n}</div>
+            
             <div class="c-fyc-v2-filter__text-header c-fyc-v2-filter__reset hidden-xs">
                 <a href="#"><i class="fa fa-undo"></i> <span class="text-uppercase">${'clear-all-filters' @ i18n}</span></a>
             </div>
