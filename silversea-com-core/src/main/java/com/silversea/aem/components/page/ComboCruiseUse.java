@@ -56,6 +56,12 @@ public class ComboCruiseUse extends AbstractGeolocationAwareUse {
                         excursionsNumber += itinerary.getHasDedicatedShorex() ? itinerary.getExcursions().size() : itinerary.getPort().getExcursions().size();
                         landProgramsNumber += itinerary.getLandPrograms().size();
                     }
+                    
+                    if (itinerary.getDepartDate() != null && itinerary.getDate() != null) {
+        				int numberDays = itinerary.getDepartDate().get(Calendar.DATE) - itinerary.getDate().get(Calendar.DATE);
+        				itinerary.setNumberDays(numberDays);
+        			}
+
                 }
             }
         }
