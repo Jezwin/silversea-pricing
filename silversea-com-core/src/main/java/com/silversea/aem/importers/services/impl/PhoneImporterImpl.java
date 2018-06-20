@@ -85,7 +85,7 @@ public class PhoneImporterImpl implements PhoneImporter {
 								
 								Node countryNode = tagNode.getNode(splitById[0]);
 								
-								countryNode.setProperty(splitOtherField[0], splitOtherField[1]);
+								countryNode.setProperty("src-" +splitOtherField[0], splitOtherField[1]);
 								
 								successNumber++;
 							}else {
