@@ -36,6 +36,7 @@ import com.silversea.aem.importers.services.MultiCruisesItinerariesHotelsImporte
 import com.silversea.aem.importers.services.MultiCruisesItinerariesImporter;
 import com.silversea.aem.importers.services.MultiCruisesItinerariesLandProgramsImporter;
 import com.silversea.aem.importers.services.MultiCruisesPricesImporter;
+import com.silversea.aem.importers.services.PhoneImporter;
 import com.silversea.aem.importers.services.ShoreExcursionsImporter;
 import com.silversea.aem.importers.services.StyleCache;
 
@@ -57,7 +58,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
 		combocruises, combocruisessegmentsactivation,
 
-		ccptgeneration,
+		ccptgeneration, phonegeneration,
 
 		stylesconfiguration,
 		
@@ -134,6 +135,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
 	@Reference
 	private CcptImporter ccptImporter;
+	
+	@Reference
+	private PhoneImporter phoneImporter;
 
 	@Reference
 	private StyleCache styleCache;
@@ -206,6 +210,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 				comboCruisesImporter.markSegmentsForActivation();
 			} else if (mode.equals(Mode.ccptgeneration)) {
 				ccptImporter.importAllItems();
+			} else if (mode.equals(Mode.phonegeneration)) {
+				phoneImporter.importAllItems();
 			} else if (mode.equals(Mode.stylesconfiguration)) {
 				styleCache.buildCache();
 			} else if (mode.equals(Mode.excursionsDisactive)) {
