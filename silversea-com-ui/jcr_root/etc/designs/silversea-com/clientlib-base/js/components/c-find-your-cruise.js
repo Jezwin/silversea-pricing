@@ -435,7 +435,7 @@ var v2 = function () {
             $form.find('.destination-filter, .date-filter, .ship-filter, .duration-filter, .cruisetype-filter, .port-filter').each(function () {
                 var $select = $(this);
                 var currentFilter = $('#v2-current-' + $select.attr('name') + '-filter').val();
-                if(currentFilter != 'all'){
+                if(currentFilter != 'all' && currentFilter != ''){
                 	shouldDisplayReset = true;
                 }
                 $select.find('option').each(function () {
