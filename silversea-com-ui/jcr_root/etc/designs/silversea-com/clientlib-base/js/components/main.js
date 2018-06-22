@@ -245,6 +245,22 @@ function createCookie(name, value, days) {
 	document.cookie = name + "=" + value + expires + "; path=/";
 }
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 //Referrer Cookie to use at lead submission level
 var currentReferrer = document.referrer;
 if(currentReferrer != ""){
@@ -258,15 +274,154 @@ if(currentReferrer != ""){
 
 //Get did parameter for TY Page destination id datalayer fetch
 (function () {
-	var match = RegExp('[?&]did=([^&]*)').exec(window.location.search);
-
 	
-	var did = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-	if (did != null && did.length > 0) {
-		dataLayer[0].track_destination_id = did;
-	}
+	try {
+			var match = RegExp('[?&]did=([^&]*)').exec(window.location.search);
+	
+			
+			var did = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+			if (did != null && did.length > 0) {
+				dataLayer[0].track_destination_id = did;
+			}
+		}
+		catch(error) {
+		  console.error(error);
+		}
+
 })();
 
+/*
+ * Phone Number in function geolocation and source
+ * Should save locally the json to avoid multiple call 
+ * Cache should be valid for 24 hours maximum
+ */
+(function () {
+
+	try {
+			var currentCountry = dataLayer[0].user_country;
+			if(currentCountry != null){
+				var d = new Date();
+				var selectedPhoneNumber = "";
+				var dataJson;
+				var currentSource = getCookie("marketingEffortValue");
+				//TODO Before doing the call, make sure that we dont have any recent value in our local cache
+				if(localStorage.getItem("phoneNumberDate") == null || localStorage.getItem("phoneNumber"+currentCountry) == null || d.getTime() - localStorage.getItem("phoneNumberDate") > 72000000){
+				$.getJSON( "/bin/phoneCustom?country="+currentCountry, function( data ) {
+					  dataJson = data;
+					  localStorage.setItem("phoneNumber"+currentCountry,JSON.stringify(data));
+					  localStorage.setItem("phoneNumberDate",d.getTime());
+					});
+				}else {
+					dataJson = JSON.parse(localStorage.getItem("phoneNumber"+currentCountry));
+				}
+				
+				//From cookie marketingeffort - run all regex to categorize in 
+				//Native - Brand - Generic - competition - GDN-DCO - GDN-REM - RTB - Facebook - Others - organic - direct - email - referrer - social organic
+				var SocialRegex = '^social:\s(.*)';
+				var ReferralsRegex = '^referrer:\s(.*)';
+				var EmailRegex = '_dem$|#dem$|^em_';
+				var EmailRegex2 = '^(?!.*(_con_|_agn_).*).*dem$|^em_(?!.*(_con_|_agn_).*).*$';
+				var EmailRegex3 = '^em_(.*)_(con)|_con_dem$';
+				var EmailRegex4 = '^em_(.*)_(agn)|_agn_dem$$';
+				var OrganicRegex = '^organic:\s(.*)';
+				var DirectRegex = '^direct$';
+				var BrandRegex = '^ps_(.*)__(.*)(_br_)(.*)';
+				var BrandRegex2 = '^al!(843|844|845)!105!';
+				var GenericRegex = '^ps_(.*)__(.*)(_gen_)(.*)';
+				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
+				var competitorRegex = '^ps_(.*)__(.*)(_comp_)(.*)';
+				var otherDisplayRegex = '^dis_(.*)'; //Native
+				var GDNDCORegex = '^dis_(.*)(proadw)(.*)__(.*)(d_pro_dco)(.*)';
+				var GDNRemRegex = '^dis_(.*)(remadw)(.*)__(.*)(d_rem_rmk)(.*)';
+				var YoutubeRegex = '^ps_(.*)(sy)(.*)__(.*)(_yt_)(.*)';
+				var YoutubeRMRegex = '^ps_(.*)(sy)(.*)__(.*)(d_rem_yt_)(.*)';
+				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
+				var RTBAdaraRegex = '^dis_(.*)(_proext_)(.*)__(.*)(adara)(.*)';
+				var OtherSocialRegex = '^soc_(.*)';
+				var FaceBookRegex = '^soc_(.*)(_sf_)(.*)__(socf)(.*)';
+				
+				if(typeof dataJson != undefined){
+					if(currentSource.match(SocialRegex)){
+						if(dataJson["social"] != undefined){
+							selectedPhoneNumber = dataJson["social"];
+						}
+					}else if (currentSource.match(ReferralsRegex)){
+						if(dataJson["referral"] != undefined){
+							selectedPhoneNumber = dataJson["referral"];
+						} 
+					}else if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
+						if(dataJson["email"] != undefined){
+							selectedPhoneNumber = dataJson["email"];
+						} 
+					}else if (currentSource.match(OrganicRegex)){
+						if(dataJson["organic"] != undefined){
+							selectedPhoneNumber = dataJson["organic"];
+						} 
+					}else if (currentSource.match(DirectRegex)){
+						if(dataJson["direct"] != undefined){
+							selectedPhoneNumber = dataJson["direct"];
+						} 
+					}else if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
+						if(dataJson["brand"] != undefined){
+							selectedPhoneNumber = dataJson["brand"];
+						} 
+					}else if (currentSource.toLowerCase().match(GenericRegex)){
+						if(dataJson["generic"] != undefined){
+							selectedPhoneNumber = dataJson["generic"];
+						} 
+					}else if (currentSource.toLowerCase().match(RTBRegex)){
+						if(dataJson["rtb"] != undefined){
+							selectedPhoneNumber = dataJson["rtb"];
+						} 
+					}else if (currentSource.toLowerCase().match(competitorRegex)){
+						if(dataJson["competitor"] != undefined){
+							selectedPhoneNumber = dataJson["competitor"];
+						} 
+					}else if (currentSource.toLowerCase().match(otherDisplayRegex)){
+						if(dataJson["native"] != undefined){
+							selectedPhoneNumber = dataJson["native"];
+						} 
+					}else if (currentSource.toLowerCase().match(GDNDCORegex)){
+						if(dataJson["gdndco"] != undefined){
+							selectedPhoneNumber = dataJson["gdndco"];
+						} 
+					}else if (currentSource.toLowerCase().match(GDNRemRegex)){
+						if(dataJson["gdnrem"] != undefined){
+							selectedPhoneNumber = dataJson["gdnrem"];
+						} 
+					}else if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
+						if(dataJson["youtube"] != undefined){
+							selectedPhoneNumber = dataJson["youtube"];
+						} 
+					}else if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
+						if(dataJson["rtb"] != undefined){
+							selectedPhoneNumber = dataJson["rtb"];
+						} 
+					}else if (currentSource.toLowerCase().match(OtherSocialRegex)){
+						if(dataJson["othersocial"] != undefined){
+							selectedPhoneNumber = dataJson["othersocial"];
+						} 
+					}else if (currentSource.toLowerCase().match(FaceBookRegex)){
+						if(dataJson["facebook"] != undefined){
+							selectedPhoneNumber = dataJson["facebook"];
+						} 
+					}
+				}
+				
+				//If selectedPhoneNumber is here let's try to replace all the good id href and display (take a look to googleforwadingnumber.html)
+				  if(selectedPhoneNumber != ""){
+					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+					  $(".phoneSpanSource").text(selectedPhoneNumber);
+				  }
+			}
+		}
+		catch(error) {
+		  console.error(error);
+		}
+		
+
+	
+})();
 
 //KONAMI CODE
 $(function() {
