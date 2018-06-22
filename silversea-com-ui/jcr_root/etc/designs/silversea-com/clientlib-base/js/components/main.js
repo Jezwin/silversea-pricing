@@ -319,26 +319,26 @@ if(currentReferrer != ""){
 				//Native - Brand - Generic - competition - GDN-DCO - GDN-REM - RTB - Facebook - Others - organic - direct - email - referrer - social organic
 				var SocialRegex = '^social:\s(.*)';
 				var ReferralsRegex = '^referrer:\s(.*)';
-				var EmailRegex = '(?i)_dem$|#dem$|^em_';
+				var EmailRegex = '_dem$|#dem$|^em_';
 				var EmailRegex2 = '^(?!.*(_con_|_agn_).*).*dem$|^em_(?!.*(_con_|_agn_).*).*$';
-				var EmailRegex3 = '(?i)^em_(.*)_(con)|_con_dem$';
-				var EmailRegex4 = '(?i)^em_(.*)_(agn)|_agn_dem$$';
+				var EmailRegex3 = '^em_(.*)_(con)|_con_dem$';
+				var EmailRegex4 = '^em_(.*)_(agn)|_agn_dem$$';
 				var OrganicRegex = '^organic:\s(.*)';
 				var DirectRegex = '^direct$';
-				var BrandRegex = '(?i)^PS_(.*)__(.*)(_BR_)(.*)';
-				var BrandRegex2 = '(?i)^al!(843|844|845)!105!';
-				var GenericRegex = '(?i)^PS_(.*)__(.*)(_GEN_)(.*)';
-				var RTBRegex = '(?i)^DIS_(.*)__(.*)(_AMO_)(.*)';
-				var competitorRegex = '(?i)^PS_(.*)__(.*)(_COMP_)(.*)';
-				var otherDisplayRegex = '(?i)^DIS_(.*)'; //Native
-				var GDNDCORegex = '(?i)^DIS_(.*)(PROADW)(.*)__(.*)(D_PRO_DCO)(.*)';
-				var GDNRemRegex = '(?i)^DIS_(.*)(REMADW)(.*)__(.*)(D_REM_RMK)(.*)';
-				var YoutubeRegex = '(?i)^PS_(.*)(SY)(.*)__(.*)(_YT_)(.*)';
-				var YoutubeRMRegex = '(?i)^PS_(.*)(SY)(.*)__(.*)(D_REM_YT_)(.*)';
-				var RTBRegex = '(?i)^DIS_(.*)__(.*)(_AMO_)(.*)';
-				var RTBAdaraRegex = '(?i)^DIS_(.*)(_PROEXT_)(.*)__(.*)(ADARA)(.*)';
-				var OtherSocialRegex = '(?i)^SOC_(.*)';
-				var FaceBookRegex = '(?i)^SOC_(.*)(_SF_)(.*)__(SOCF)(.*)';
+				var BrandRegex = '^ps_(.*)__(.*)(_br_)(.*)';
+				var BrandRegex2 = '^al!(843|844|845)!105!';
+				var GenericRegex = '^ps_(.*)__(.*)(_gen_)(.*)';
+				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
+				var competitorRegex = '^ps_(.*)__(.*)(_comp_)(.*)';
+				var otherDisplayRegex = '^dis_(.*)'; //Native
+				var GDNDCORegex = '^dis_(.*)(proadw)(.*)__(.*)(d_pro_dco)(.*)';
+				var GDNRemRegex = '^dis_(.*)(remadw)(.*)__(.*)(d_rem_rmk)(.*)';
+				var YoutubeRegex = '^ps_(.*)(sy)(.*)__(.*)(_yt_)(.*)';
+				var YoutubeRMRegex = '^ps_(.*)(sy)(.*)__(.*)(d_rem_yt_)(.*)';
+				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
+				var RTBAdaraRegex = '^dis_(.*)(_proext_)(.*)__(.*)(adara)(.*)';
+				var OtherSocialRegex = '^soc_(.*)';
+				var FaceBookRegex = '^soc_(.*)(_sf_)(.*)__(socf)(.*)';
 				
 				if(typeof dataJson != undefined){
 					if(currentSource.match(SocialRegex)){
@@ -349,7 +349,7 @@ if(currentReferrer != ""){
 						if(dataJson["referral"] != undefined){
 							selectedPhoneNumber = dataJson["referral"];
 						} 
-					}else if (currentSource.match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.match(EmailRegex3) || currentSource.match(EmailRegex4)){
+					}else if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
 						if(dataJson["email"] != undefined){
 							selectedPhoneNumber = dataJson["email"];
 						} 
@@ -361,47 +361,47 @@ if(currentReferrer != ""){
 						if(dataJson["direct"] != undefined){
 							selectedPhoneNumber = dataJson["direct"];
 						} 
-					}else if (currentSource.match(BrandRegex) || currentSource.match(BrandRegex2)){
+					}else if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
 						if(dataJson["brand"] != undefined){
 							selectedPhoneNumber = dataJson["brand"];
 						} 
-					}else if (currentSource.match(GenericRegex)){
+					}else if (currentSource.toLowerCase().match(GenericRegex)){
 						if(dataJson["generic"] != undefined){
 							selectedPhoneNumber = dataJson["generic"];
 						} 
-					}else if (currentSource.match(RTBRegex)){
+					}else if (currentSource.toLowerCase().match(RTBRegex)){
 						if(dataJson["rtb"] != undefined){
 							selectedPhoneNumber = dataJson["rtb"];
 						} 
-					}else if (currentSource.match(competitorRegex)){
+					}else if (currentSource.toLowerCase().match(competitorRegex)){
 						if(dataJson["competitor"] != undefined){
 							selectedPhoneNumber = dataJson["competitor"];
 						} 
-					}else if (currentSource.match(otherDisplayRegex)){
+					}else if (currentSource.toLowerCase().match(otherDisplayRegex)){
 						if(dataJson["native"] != undefined){
 							selectedPhoneNumber = dataJson["native"];
 						} 
-					}else if (currentSource.match(GDNDCORegex)){
+					}else if (currentSource.toLowerCase().match(GDNDCORegex)){
 						if(dataJson["gdndco"] != undefined){
 							selectedPhoneNumber = dataJson["gdndco"];
 						} 
-					}else if (currentSource.match(GDNRemRegex)){
+					}else if (currentSource.toLowerCase().match(GDNRemRegex)){
 						if(dataJson["gdnrem"] != undefined){
 							selectedPhoneNumber = dataJson["gdnrem"];
 						} 
-					}else if (currentSource.match(YoutubeRegex) || currentSource.match(YoutubeRMRegex)){
+					}else if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
 						if(dataJson["youtube"] != undefined){
 							selectedPhoneNumber = dataJson["youtube"];
 						} 
-					}else if (currentSource.match(RTBRegex) || currentSource.match(RTBAdaraRegex)){
+					}else if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
 						if(dataJson["rtb"] != undefined){
 							selectedPhoneNumber = dataJson["rtb"];
 						} 
-					}else if (currentSource.match(OtherSocialRegex)){
+					}else if (currentSource.toLowerCase().match(OtherSocialRegex)){
 						if(dataJson["othersocial"] != undefined){
 							selectedPhoneNumber = dataJson["othersocial"];
 						} 
-					}else if (currentSource.match(FaceBookRegex)){
+					}else if (currentSource.toLowerCase().match(FaceBookRegex)){
 						if(dataJson["facebook"] != undefined){
 							selectedPhoneNumber = dataJson["facebook"];
 						} 
