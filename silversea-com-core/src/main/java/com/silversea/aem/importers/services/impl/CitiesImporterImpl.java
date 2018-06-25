@@ -441,7 +441,7 @@ public class CitiesImporterImpl implements CitiesImporter {
 
                                     LOGGER.trace("Port {} is marked to be deactivated", city.getCityName());
                                 } else {
-                                    final Node portContentNode = updatePortContentNode(city, portPage, session, mimeTypeService,resourceResolver);
+                                    final Node portContentNode = updatePortContentNode(city, portPage, session, mimeTypeService,resourceResolver, false);
 
                                     portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
@@ -462,7 +462,7 @@ public class CitiesImporterImpl implements CitiesImporter {
                                     throw new ImporterException("Cannot create port page for city " + city.getCityName());
                                 }
 
-                                final Node portContentNode = updatePortContentNode(city, portPage, session, mimeTypeService, resourceResolver);
+                                final Node portContentNode = updatePortContentNode(city, portPage, session, mimeTypeService, resourceResolver, true);
                                 portContentNode.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
 
                                 LOGGER.trace("Port {} successfully created", portPage.getPath());
@@ -725,7 +725,7 @@ public class CitiesImporterImpl implements CitiesImporter {
      * @throws ImporterException if the port page cannot be updated
      */
     private Node updatePortContentNode(City77 city, Page portPage, Session session, final MimeTypeService mimeTypeService,
-            final ResourceResolver resourceResolver ) throws ImporterException {
+            final ResourceResolver resourceResolver, Boolean isCreate ) throws ImporterException {
         final Node portContentNode = portPage.getContentResource().adaptTo(Node.class);
 
         if (portContentNode == null) {
@@ -733,7 +733,9 @@ public class CitiesImporterImpl implements CitiesImporter {
         }
 
         try {
-            portContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
+        	if(isCreate) {
+        		portContentNode.setProperty(JcrConstants.JCR_TITLE, city.getCityName());
+        	}
             portContentNode.setProperty("apiTitle", city.getCityName());
             portContentNode.setProperty("apiDescription", city.getShortDescription());
             portContentNode.setProperty("apiLongDescription", city.getDescription());
