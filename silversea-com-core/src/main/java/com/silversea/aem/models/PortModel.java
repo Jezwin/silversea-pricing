@@ -141,7 +141,13 @@ public class PortModel {
     }
 
     public String getApiTitle() {
-        return apiTitle;
+    	if(StringUtils.isNotEmpty(title)) {
+    		return title;
+    	}else {
+    		return apiTitle;
+    	}
+    		
+        
     }
 
     public String getDescription() {
