@@ -19,9 +19,11 @@
 	                  ${item.title}
 	                </span>
 	                <ul class="c-list__group c-list__accordion--content" id="collapseFooter-${itemList.index}">
-	                    <li class="c-list__item" data-sly-repeat.child="${item.listChildren}">
-	                        <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
-	                    </li>
+		                <sly data-sly-repeat.child="${item.listChildren}">
+		                    <li class="c-list__item" data-sly-test="${!child.properties.hideInFooter}">
+		                        <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
+		                    </li>
+		                </sly>
 	                    <li class="c-list__item c-list__item--special" data-sly-test="${itemList.last && footer.pageMySilversea.path}">
 	                        <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
 	                            <i class="fa fa-user"></i>
