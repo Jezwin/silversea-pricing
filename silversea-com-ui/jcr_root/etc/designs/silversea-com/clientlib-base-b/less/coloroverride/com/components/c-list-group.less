@@ -1,0 +1,27 @@
+.c-list-group {
+    color: @grey--5;
+    &--striped {
+        .c-list-group__item:nth-child(odd) {
+            background-color: @grey--e8;
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: @grey--3;
+                color: @white;
+            }
+        }
+        .c-list-group__item--active:nth-child(odd) {
+            background-color: @grey--3;
+            color: @white;
+        }
+    }
+    &__item {
+        &:hover,
+        &:focus,
+        &:active,
+        &--active {
+            background-color: @grey--3;
+            color: @white;
+        }
+    }
+}

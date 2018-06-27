@@ -1,0 +1,42 @@
+.c-find-port {
+    &__title {
+        .c-find-port__result & {
+            border-bottom: 1px solid @black;
+        }
+    }
+    &__filter {
+        a {
+            background: @color-dark-bg;
+            color: @white;
+            &:hover,
+            &.active {
+              //  background: @grey--9;
+            }
+        }
+    }
+    &__result {
+        &__link {
+            border-bottom: 1px solid @grey--d9;
+            &:hover {
+                background: @color-dark-bg;
+                color: @white;
+            }
+        }
+        &__city,
+        &__destination,
+        &__header {
+            //color: @grey--9;
+        }
+    }
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            &__link,
+            &__header {
+                //border-bottom: 1px solid @grey--d9;
+            }
+            &__header {
+                color: @color-typography;
+            }
+        }
+    }
+}

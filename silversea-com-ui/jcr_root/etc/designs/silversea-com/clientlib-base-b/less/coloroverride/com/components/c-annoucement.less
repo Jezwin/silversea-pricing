@@ -1,0 +1,19 @@
+.c-annoucement {
+    border: 1px solid #ddd;
+    &__content {
+        background-color: rgba(0, 0, 0, .5);
+        color: @white;
+        @media screen and (max-width: @screen-sm) {
+            border: 1px solid @grey--d;
+            color: @color-typography;
+        }
+        &__cta {
+            a {
+                @media screen and (max-width: @screen-sm) {
+                    background-color: @black;
+                    color: @white;
+                }
+            }
+        }
+    }
+}

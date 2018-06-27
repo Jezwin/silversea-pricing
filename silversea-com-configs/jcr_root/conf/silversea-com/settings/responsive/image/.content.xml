@@ -16,7 +16,7 @@
                 </displayproperties>
                 <editorial jcr:primaryType="nt:unstructured">
                     <image jcr:primaryType="nt:unstructured">
-                        <desktop-12
+                         <desktop-12
                             jcr:primaryType="nt:unstructured"
                             width="930" />
                         <desktop-11
@@ -114,10 +114,10 @@
                     <variationassetsdisplay jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
-                            width="300" />
+                            width="400" />
                         <mobile-12
                             jcr:primaryType="nt:unstructured"
-                            width="300" />
+                            width="400" />
                     </variationassetsdisplay>
                     <pressreleaseslist jcr:primaryType="nt:unstructured">
                         <desktop-12

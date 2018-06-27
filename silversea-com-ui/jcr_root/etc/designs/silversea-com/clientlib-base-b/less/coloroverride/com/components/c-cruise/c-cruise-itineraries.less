@@ -1,0 +1,15 @@
+.c-cruise-itinerary-list {
+    border: 1px solid @grey--e8;
+    &__item {
+        &:not(: last-child) {
+            border-bottom: 1px solid @grey--e8;
+        }
+    }
+    &__headline {
+        &.collapsed {
+            &:hover {
+                background-color: @grey--e6;
+            }
+        }
+    }
+}

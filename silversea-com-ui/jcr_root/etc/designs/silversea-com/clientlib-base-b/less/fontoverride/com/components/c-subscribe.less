@@ -1,0 +1,28 @@
+.c-subscribe {   
+    &__form {     
+        &--label {
+            font-family: @freight-bold;         
+            &-text {               
+                font-size: 15px;
+            }
+
+            &-important {              
+                font-size: 20px;
+                @media screen and (max-width: @screen-md-max) {
+                    font-size: 26px;
+                }
+            }
+        }
+
+        .btn {        
+            font-size: @button-desktop-fontsize-12;
+            @media screen and (max-width: @screen-md-max) {            
+                font-size: @button-mobile-fontsize-12;
+            }
+        }        
+
+        &--error {           
+            font-size: @footnote-desktop-fontsize-11;
+        }
+    }
+}

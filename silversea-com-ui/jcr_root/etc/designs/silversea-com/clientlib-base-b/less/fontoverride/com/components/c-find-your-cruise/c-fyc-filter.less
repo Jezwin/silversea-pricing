@@ -1,0 +1,77 @@
+.c-fyc-filter {
+    &__action {       
+        font-size: 12px;
+    }
+
+    &__title {
+        font-family: @freight-bold;
+        font-size: 22px;       
+    }
+
+    &__text {
+        font-family: @freight-bold;
+        font-size: 15px;
+       
+
+        @media screen and (min-width: @screen-md-max) {
+            font-size: 22px;           
+        }
+
+        #matching-value {
+            font-family: @f-times-new-roman;
+        }
+
+        @media screen and (max-width: @screen-sm) {
+            font-size: 20px;           
+        }
+    }
+
+    &__reset {
+        a {
+            font-size: 14px;
+            
+            &.active {               
+                font-size: 13px;                
+            }
+        }
+    }
+}
+
+.filter-wrapper {
+    .single-filter {
+        .chosen-container {
+            .chosen-single {                
+                span {
+                    font-size: 13px;                  
+                }
+                div b {
+                    &:before {                        
+                        font-size: 13px;                      
+                    }
+                }
+            }
+            .chosen-drop {  
+                .chosen-results {
+                    li {
+                        font-size: 12px;                        
+                    }
+                }
+            }
+        }
+        .dropdown {
+           
+            .dropdown-toggle {              
+                font-size: 13px;                        
+            }
+
+            .dropdown-menu {             
+                .feature-filter {                   
+                    li {
+                        font-size: 11px;
+                    }
+                }
+            }
+
+        }
+    }
+}

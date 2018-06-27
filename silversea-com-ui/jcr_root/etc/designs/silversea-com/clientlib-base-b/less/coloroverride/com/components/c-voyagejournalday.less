@@ -1,0 +1,21 @@
+.c-voyagejournals {
+    &__link {
+        &:before {
+            background-color: @black;
+        }
+    }
+    &__title-wrapper {
+        color: @white;
+    }
+    &__ship,
+    &__date,
+    .c-pageheader__properties {
+        border-top: 1px solid;
+    }
+    @media screen and (min-width: @screen-md-min) {
+        &__date,
+        &__id {
+            color: @color-typography;
+        }
+    }
+}

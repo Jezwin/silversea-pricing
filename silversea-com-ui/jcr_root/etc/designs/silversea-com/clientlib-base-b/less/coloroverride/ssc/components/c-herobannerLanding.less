@@ -1,0 +1,127 @@
+.video-link {
+    color: @white;
+    .fa-play {
+        &:after {
+            border: 3px solid @white;
+        }
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        color: @white;
+    }
+}
+
+.c-hero-banner-landing {
+    span.c-hero-banner-landing__title,
+    h2.c-hero-banner-landing__title,
+    h3.c-hero-banner-landing__title {
+        color: inherit;
+    }
+    &-scrolldown {
+        color: @white;
+        span {}
+        i {}
+        i:hover {}
+        @media (min-width: @screen-md-min) {
+            &-desktop-black {
+                color: @grey--3;
+            }
+        }
+    }
+}
+
+.c-hero-banner-landing {
+    .btn-transparent {
+        color: #000 !important;
+        border: 1px solid @black !important;
+    }
+    .forceWhite {
+        @media (min-width: @screen-md-min) {
+            color: @white !important;
+        }
+    }
+    &__content--white {
+        background-color: @grey--08;
+    }
+    @media screen and (min-width: @screen-md-min) {
+        &__content:not(.c-hero-banner-landing__content--white) {
+            color: @white;
+        }
+    }
+    .whyss__content_intro {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: @white;
+    }
+    .lp17__herobanner_slide_cta {
+        .lp17__herobanner_slide_cta_item {
+            .forceRedVideoCTA {
+                background: @red;
+                color: @white;
+            }
+        }
+    }
+    .forceWhite {
+        .lp17__herobanner_slide_title,
+        .lp17__herobanner_slide_subtitle {
+            @media (min-width: @screen-md-min) {
+                color: white!important;
+            }
+        }
+    }
+    .lp17__herobanner_slide_desc {
+        .container {
+            .lp17__herobanner_slide_title {
+                color: @color-typography;
+            }
+            .lp17__herobanner_slide_subtitle {
+                color: @color-typography;
+            }
+        }
+    }
+}
+
+.c-hero-banner-landing-dmp {
+    .forceWhite {
+        .c-hero-banner-landing__title,
+        c-hero-banner-landing__description {
+            color: white!important;
+            @media (max-width: @screen-md-min) {
+                color: @grey--7 !important;
+            }
+        }
+    }
+    .c-hero-banner-landing__content {
+        @media (min-width: @screen-md-min) {
+            border-top: 1px solid @grey--7;
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid @grey--7;
+        }
+    }
+    .c-hero-banner-landing__title {
+        color: #111;
+        .preOffer {
+            color: @grey--7;
+        }
+        .postOffer {
+            color: @grey--7;
+        }
+    }
+    .c-hero-banner-landing__description {
+        color: @grey--7;
+    }
+}
+
+
+.c-hero-banner-landing-2017Landing,
+.c-hero-banner-landing-NSW4Landing {
+    .c-hero-banner-landing {
+        .lp17__herobanner_slide_cta {
+            .lp17__herobanner_slide_cta_item {
+                a.btn-default:hover {
+                    background: @grey--9;
+                }
+            }
+        }
+    }
+}

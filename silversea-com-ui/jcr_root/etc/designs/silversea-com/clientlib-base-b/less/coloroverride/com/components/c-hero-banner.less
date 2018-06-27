@@ -1,0 +1,45 @@
+.video-link {
+    color: @white;
+    .fa-play {
+        &:after {
+            border: 3px solid @white;
+        }
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        color: @white;
+    }
+}
+
+.c-hero-banner {
+    &-scrolldown {
+        color: @white;
+        @media (min-width: @screen-md-min) {
+            &-desktop-black {
+                color: @grey--3;
+            }
+        }
+    }
+    span.c-hero-banner__title,
+    h2.c-hero-banner__title,
+    h3.c-hero-banner__title {
+        color: inherit;
+    }
+    &__content--white {
+        background-color: @grey--08;
+    }
+    @media screen and (min-width: @screen-md-min) {
+        &__content:not(.c-hero-banner__content--white) {
+            color: @white;
+        }
+    }
+    @media screen and (max-width: @screen-sm) {
+        .c-hero-banner__title {
+            color: @color-typography;
+        }
+        .c-hero-banner__description {
+            color: @color-typography;
+        }
+    }
+}

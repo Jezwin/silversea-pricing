@@ -1,0 +1,111 @@
+.c-form {
+    .chosen-single {
+        color: @grey--7;
+    }
+    .chosen-drop {
+        border-color: @grey--8;
+    }
+    .countrycode {
+        .intl-tel-input .selected-flag {
+            &:after {
+                color: @grey--8;
+            }
+        }
+    }
+    .has-error ~ .chosen-container {
+        .chosen-drop {
+            border-color: @red;
+        }
+    }
+    .has-success ~ .chosen-container {
+        .chosen-drop {
+            border-color: @green--35;
+        }
+    }
+    .has-error {
+        .chosen-container {
+            .chosen-single,
+            .chosen-drop {
+                border-color: @red;
+            }
+            .chosen-single span {
+                color: @red;
+            }
+        }
+        .form-control {
+            &::-webkit-input-placeholder {
+                color: @red;
+            }
+            &::-moz-placeholder {
+                color: @red;
+            }
+            &:-ms-input-placeholder {
+                color: @red;
+            }
+            &:-moz-placeholder {
+                color: @red;
+            }
+        }
+    }
+    .has-success {
+        .chosen-container {
+            .chosen-single,
+            .chosen-drop {
+                border-color: @green--35;
+            }
+        }
+    }
+}
+
+.form-control {
+    border-color: @grey--8;
+    &::-webkit-input-placeholder {
+        color: @grey--7;
+    }
+    &::-moz-placeholder {
+        color: @grey--7;
+    }
+    &:-ms-input-placeholder {
+        color: @grey--7;
+    }
+    &:-moz-placeholder {
+        color: @grey--7;
+    }
+}
+
+input,
+textarea,
+.mobile {
+    .active select {
+        color: @grey--5;
+    }
+    select {
+        background-color: @white;
+        color: @grey--9;
+    }
+    .c-find-your-cruise-filter {
+        .single-filter {
+            &.active {
+                select {
+                    background-color: @black;
+                    color: @white;
+                    & + .fa-angle-down {
+                        color: @white;
+                    }
+                }
+            }
+            select {
+                background-color: @grey--eb;
+                color: @color-typography;
+            }
+        }
+    }
+    .c-search-hero select {
+        color: @grey--9;
+        border-color: @grey--d9;
+    }
+    .c-search-cruise__form select {
+        color: @grey--9;
+        border-color: @grey--d9;
+    }
+}

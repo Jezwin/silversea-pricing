@@ -1,0 +1,26 @@
+.select-segment {
+    dl {
+        dd {
+            a {
+                border: 1px solid @grey--d;
+                &:hover {
+                    background: @grey--e6;
+                }
+                time {
+                    color: @white;
+                    background: @color-dark-bg;
+                }
+            }
+            &.active a {
+                color: @white;
+                background: @color-dark-bg;
+                time {
+                    color: @black;
+                    background: @grey--e6;
+                }
+            }
+        }
+    }
+}
+
+

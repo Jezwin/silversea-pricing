@@ -152,7 +152,14 @@ public class CruiseUse extends EoHelper {
 		// init assets from itinerary and cruise itself
 		for (ItineraryModel itinerary : cruiseModel.getCompactedItineraries()) {
 			PortModel portModel = itinerary.getPort();
-
+			
+			if (itinerary.getDepartDate() != null && itinerary.getDate() != null) {
+				int numberDays = itinerary.getDepartDate().get(Calendar.DATE) - itinerary.getDate().get(Calendar.DATE);
+				itinerary.setNumberDays(numberDays);
+			}
+			
+			
+			
 			if (portModel != null) {
 				String assetSelectionReference = portModel.getAssetSelectionReference();
 

@@ -63,6 +63,15 @@
                                                 renderReadOnly="{Boolean}true"
                                                 text="Hide in Navigation"
                                                 value="true"/>
+                                           <hideinfooter
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                                allowBulkEdit="{Boolean}true"
+                                                cq-msm-lockable="hideInFooter"
+                                                name="./hideInFooter"
+                                                renderReadOnly="{Boolean}true"
+                                                text="Hide in Footer"
+                                                value="true"/>
                                             <showfloatingbrochure
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/foundation/form/select"

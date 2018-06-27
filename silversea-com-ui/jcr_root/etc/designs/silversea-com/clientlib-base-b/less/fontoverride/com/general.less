@@ -1,0 +1,135 @@
+/*
+* General style
+*/
+
+.container {
+    font-family: @suisse;
+}
+
+
+h1 {
+    &.content-title {
+        font-size: 30px;
+    }
+}
+
+
+/*
+** RTE component
+*/
+
+.text {
+    font-size: @body-desktop-fontsize-14;
+}
+
+/*
+** Button
+**/
+
+.btn {
+    &-lg {
+        font-size: 12px;
+    }
+}
+
+.c-btn {
+    &--white {
+        font-size: 11px;
+    }
+}
+
+/*
+* c- INPUT
+*/
+
+.o-input {
+    font-size: @body-desktop-fontsize-14;
+
+    &--lg {
+        font-size: 15px;
+
+        @media screen and (max-width: @screen-md-max) {
+            font-size: 14px;
+        }
+
+        @media screen and (max-width: @screen-sm) {
+            font-size: 13px;
+        }
+
+        @media screen and (max-width: @screen-xxs) {
+            font-size: 12px;
+        }
+    }
+}
+
+.header-h6 {
+    font: 700 12px @suisse;
+}
+
+@media (max-width: @screen-sm) {
+    .h1 {
+        font-family: @freight-bold;
+        font-size: 30px;
+    }
+}
+
+
+/*
+ * ADDITION
+ */
+ @media (min-width: @screen-md-min) {
+	h1, .h1{
+		font-size:@h1-desktop-fontsize-48;
+	}
+	h2, .h2{
+		font-size:@h2-desktop-fontsize-40;
+	}
+	h3, .h3{
+		font-size:@h3-desktop-fontsize-30;
+	}
+	h4, .h4{
+		font-size:@h4-desktop-fontsize-24;
+	}
+	//TMP DUE TO CONTENT CONTRIBUTIO
+	h2 .h1{
+		font-size:@h2-desktop-fontsize-40;
+	}
+}
+
+ @media (max-width: @screen-sm) {
+	h1, .h1{
+		font-size:@h1-mobile-fontsize-34;
+	}
+	h2, .h2{
+		font-size:@h2-mobile-fontsize-28;
+	}
+	h3, .h3{
+		font-size:@h3-mobile-fontsize-22;
+	}
+	h4, .h4{
+		font-size:@h4-mobile-fontsize-16;
+	}
+}
+
+.h-serif{font-family:@freight-bold;}
+.h-sansserif{font-family:@suisse;}
+
+
+/*
+ * GENERAL OVERRIDE
+ */
+ 
+.thumbnail .c-vertical-teaser__caption { 
+    padding: 12px 20px 40px !important;
+}
+.exclusiveOfferList .thumbnail .c-vertical-teaser__caption {
+    padding: 12px 20px 30px !important;
+}
+
+.exclusiveOfferList .c-vertical-teaser.thumbnail.benefitsandevents .c-vertical-teaser__description {
+    margin-top: 0px;
+}
+
+.c-vertical-teaser__title {
+    margin-bottom: 0px;
+}

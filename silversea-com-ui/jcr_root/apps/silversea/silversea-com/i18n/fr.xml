@@ -778,6 +778,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Vue d’ensemble"/>
+    <overnight-in-port 
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Overnights in port"/>
     <overview-and-fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

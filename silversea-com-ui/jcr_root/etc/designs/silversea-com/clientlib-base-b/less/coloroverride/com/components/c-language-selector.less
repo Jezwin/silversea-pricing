@@ -1,0 +1,32 @@
+.c-language-selector {
+    @media screen and (min-width: @screen-lg-min) {
+        & > a:after {
+            color: @grey--ba;
+        }
+        &__list {
+            background-color: @black;
+            &.collapse.in:before {
+                color: @grey--ba;
+            }
+        }
+    }
+    @media screen and (max-width: @screen-md-max) {
+        & > a {}
+        &__list {
+            .c-main-nav__top {
+                &__item {
+                    background-color: @white;
+                    border-bottom: 1px solid @grey--d;
+                    &:nth-child(odd) {
+                        border-right: 1px solid @grey--d;
+                    }
+                    &:hover,
+                    &:focus,
+                    &:active {
+                        background: @grey--e;
+                    }
+                }
+            }
+        }
+    }
+}

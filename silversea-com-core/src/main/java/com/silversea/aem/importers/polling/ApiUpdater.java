@@ -86,6 +86,24 @@ public class ApiUpdater implements Runnable {
 
     @Reference
     private CruisesItinerariesExcursionsImporter cruisesItinerariesExcursionsImporter;
+    
+    @Reference
+    private MultiCruisesImporter multiCruisesImporter;
+
+    @Reference
+    private MultiCruisesItinerariesImporter multiCruisesItinerariesImporter;
+
+    @Reference
+    private MultiCruisesPricesImporter multiCruisesPricesImporter;
+
+    @Reference
+    private MultiCruisesItinerariesHotelsImporter multiCruisesItinerariesHotelsImporter;
+
+    @Reference
+    private MultiCruisesItinerariesLandProgramsImporter multiCruisesItinerariesLandProgramsImporter;
+
+    @Reference
+    private MultiCruisesItinerariesExcursionsImporter multiCruisesItinerariesExcursionsImporter;
 
     @Reference
     private CruisesExclusiveOffersImporter cruisesExclusiveOffersImporter;
@@ -171,11 +189,59 @@ public class ApiUpdater implements Runnable {
                 LOGGER.error("Cannot import cruises exclusive offers", e);
             }
             
+            //update multicruise
+            importResult = multiCruisesImporter.updateItems();
+            LOGGER.info("Multi Cruises import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+
+            importResult = multiCruisesItinerariesImporter.importAllItems();
+            LOGGER.info("Multi Cruises itineraries import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+
+            try {
+                importResult = multiCruisesPricesImporter.importAllItems();
+                LOGGER.info("Multi Cruises prices import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise prices", e);
+            }
+
+            try {
+                importResult = multiCruisesItinerariesHotelsImporter.importAllItems();
+                LOGGER.info("Multi Cruises hotels import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise hotels", e);
+            }
+
+            try {
+                importResult = multiCruisesItinerariesLandProgramsImporter.importAllItems();
+                LOGGER.info("Multi Cruises land programs import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise land programs", e);
+            }
+
+            try {
+                importResult = multiCruisesItinerariesExcursionsImporter.importAllItems();
+                LOGGER.info("Multi Cruises excursions import : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            } catch (ImporterException e) {
+                LOGGER.error("Cannot import Multi cruise excursions", e);
+            }
+
+            
             //desactivate port without planned cruises
             importResult = citiesImporter.DesactivateUselessPort();
             LOGGER.info("Cities desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
-
-
+            
+            //desactivate Shorex not present anymore in the API
+            importResult = shoreExcursionsImporter.disactiveAllItemDeltaByAPI();
+            LOGGER.info("Shorex desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            //desactivate Land Program not present anymore in the API
+            importResult = landProgramsImporter.disactiveAllItemDeltaByAPI();
+            LOGGER.info("Land Programs desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            //desactivate Hotel not present anymore in the API
+            importResult = hotelsImporter.disactiveAllItemDeltaByAPI();
+            LOGGER.info("Hotels desactivation : {} success, {} errors", importResult.getSuccessNumber(), importResult.getErrorNumber());
+            
+            
             comboCruisesImporter.markSegmentsForActivation();
 
             //update travel agencies

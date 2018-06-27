@@ -1,0 +1,21 @@
+.c-list-inline {
+    &__title {
+        color: @grey--2b;
+    }
+    &__group {
+        &--divider-dark-tablet {
+            .c-list-inline__item {
+                &:before {
+                    background: @grey--5;
+                }
+            }
+        }
+    }
+    &__item {
+        &--separated {
+            &:before {
+                background: @grey--d3;
+            }
+        }
+    }
+}

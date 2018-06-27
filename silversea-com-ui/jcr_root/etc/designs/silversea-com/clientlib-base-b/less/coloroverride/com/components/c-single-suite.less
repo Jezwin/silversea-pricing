@@ -1,0 +1,55 @@
+.c-single-suite {
+    .c-suite-display {
+        .o-title {
+            &:after {
+                background: @black;
+            }
+        }
+    }
+    &__brouchure {
+        .btn-default:hover {
+            @media screen and (min-width: @screen-sm) {
+                background: @grey--9;
+            }
+        }
+    }
+    .c-suite-gallery {
+        .c-suite__gallery {
+            &__item {
+                background-color: @grey--c3;
+                &:after {
+                    background-color: @white;
+                }
+            }
+            &__item__right {
+                background-color: @grey--c3;
+                &:after {
+                    background-color: @white;
+                }
+            }
+            &__label {
+                color: @white;
+                background-color: @grey--05;
+            }
+        }
+    }
+    .c-suite__item-expander {
+        @media screen and (min-width: @screen-sm) {
+            &:before {
+                background: @black;
+            }
+        }
+    }
+    .c-single-suite-availability {
+        .c-list__item {
+            .c-availability__link {
+                background: @grey--3;
+                color: @white;
+                &:hover {
+                    background: @black;
+                    color: @white;
+                }
+            }
+        }
+    }
+}

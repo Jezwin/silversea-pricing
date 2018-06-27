@@ -33,7 +33,7 @@ public class EoHelperDataSource extends WCMUsePojo {
 
 		Node tagStyle = resource.adaptTo(Node.class);
 
-		if (tagStyle != null) {
+		if (tagStyle != null && tagStyle.hasProperty("styleList")) {
 			Property pStyle = tagStyle.getProperty("styleList");
 			Value[] values = pStyle.getValues();
 			for (Value v : values) {

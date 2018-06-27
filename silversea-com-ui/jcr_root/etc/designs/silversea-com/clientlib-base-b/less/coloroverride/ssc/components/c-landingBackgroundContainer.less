@@ -1,0 +1,79 @@
+
+.landingpage .c-landingBackgroundContainer .lp17__section_header_separator {
+    background: @green--48;
+}
+
+.c-landingBackgroundContainer {
+    .lp17__section-cruises {
+        @media (max-width: 700px) {
+            background: @white !important;
+        }
+    }
+    .bg_grey {
+        background: @color-light-bg;
+        @media (max-width: 700px) {
+            background: @color-light-bg !important;
+        }
+    }
+    .bg_black {
+        background: @black !important;
+        p,
+        span,
+        h2,
+        h1,
+        h3 {
+            color: @white !important;
+        }
+        .lp17__section_header_separator-light {
+            background: @white !important;
+        }
+    }
+    .lp17__section_header {
+        .lp17__section_header_title {
+            color: @color-typography;
+        }
+        .lp17__section_header_separator {
+            background: black;
+            &-default {
+                background: @black;
+            }
+            &-red {
+                background: @red !important;
+            }
+            &-light {
+                background: @black;
+            }
+        }
+        .white {
+            color: @white;
+        }
+        .dmpTitleStyle {
+            .lp17__section_header_title {
+                @media (max-width: 700px) {}
+            }
+            .lp17__section_header_title.showSubtitleMobileDMP {
+                @media (max-width: 700px) {}
+            }
+            .doNotForceDescriptionUppercase {}
+            .lp17__section_header_subtitle {
+                @media (max-width: 700px) {}
+            }
+        }
+    }
+}
+
+.landingBackgroundContainer {
+    .goldText {
+        color: #b59b4a !important;
+        .lp17__section-cruises {
+            background: none;
+            background-color: @black-8 !important;
+            @media (max-width: 700px) {
+                background: @black-8 !important;
+            }
+        }
+        .lp17__section_header_title {
+            color: @gold--50 !important;
+        }
+    }
+}

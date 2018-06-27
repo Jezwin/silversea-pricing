@@ -771,6 +771,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview"
         sling:message="Overview"/>
+    <overnight-in-port 
+    	jcr:primaryType="sling:MessageEntry"
+        sling:key="overnight-in-port"
+        sling:message="Overnights in port"/>
     <overview-and-fares
         jcr:primaryType="sling:MessageEntry"
         sling:key="overview-and-fares"

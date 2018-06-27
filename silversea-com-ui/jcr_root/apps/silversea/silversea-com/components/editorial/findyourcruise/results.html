@@ -109,9 +109,18 @@
 	        	dataLayerVar.track_ship_id = "${cruiseItem.cruiseModel.ship.id @ context='unsafe'}";
 	        	dataLayerVar.track_voyage_departure_harbor = "${cruiseItem.cruiseModel.departurePortName @ context='unsafe'}";
 	        	dataLayerVar.track_voyage_arrival_harbor = "${cruiseItem.cruiseModel.arrivalPortName @ context='unsafe'}";
-	        	dataLayerVar.track_revenue = "${cruiseItem.lowestPrice.currency @ context='unsafe'} ${cruiseItem.lowestPriceFormated @ context='unsafe'}";
 	        });
         </script>
+        
+        <sly data-sly-test="${!cruiseItem.isWaitList}">
+	         <script data-sly-test="${cruiseItemList.first}">
+	         $(document)
+	         .ready(
+	             function() {
+	         		window.dataLayer[0].track_revenue = "${cruiseItem.lowestPrice.currency @ context='unsafe'} ${cruiseItem.lowestPriceFormated @ context='unsafe'}";
+	             });
+	         </script>
+         </sly>
     </div>
 </div>
 <sly data-sly-use.feedbackTemplate="silversea/silversea-com/components/editorial/findyourcruise/feedback.html" data-sly-call="${feedbackTemplate.feedbackv1 @ fyc=fyc}" />

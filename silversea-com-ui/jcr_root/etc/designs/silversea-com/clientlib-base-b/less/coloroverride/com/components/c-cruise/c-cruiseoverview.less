@@ -1,0 +1,66 @@
+.c-cruise {
+    .c-tab__content {
+        &--overview {
+            .voyage {
+                &table {
+                    color: @grey--3;
+                    &__elem {
+                        border: solid 1px @grey--d;
+                        &:first-child {
+                            border-left: solid 1px @grey--d;
+                        }
+                        .lead {
+                            color: @blue;
+                        }
+                        .price-suffixe {
+                            color: @blue;
+                        }
+                    }
+                }
+                &img {
+
+                    a.lazy.video-link {
+
+                    }
+                    picture {
+                        img {
+                            border: solid 1px @blue;
+                        }
+                    }
+                    &__info {
+                        background-color: @blue;
+                        color: @white;
+                    }
+                    &__label {
+                        color: @grey--5;
+                    }
+                }
+                &feature {
+                    background: @grey--e;
+
+                }
+                &share_wrap {
+                    .share {
+                        color: @grey--39;
+                    }
+                }
+            }
+        }
+    }
+    &.expedition {
+        .c-tab__content--overview .voyageimg picture {
+            border: solid 1px @color-expedition-cruise;
+           // border-top: solid 1px @grey--3;
+        }
+        .c-tab__content--overview .voyageimg__info {
+            background: @grey--3;
+            border-top: none;
+        }
+        .c-tab__content--overview .voyagetable__elem {
+            .lead,
+            .price-suffixe {
+                color: @color-expedition-cruise;
+            }
+        }
+    }
+}

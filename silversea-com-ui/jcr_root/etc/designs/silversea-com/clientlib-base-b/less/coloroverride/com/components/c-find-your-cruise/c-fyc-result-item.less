@@ -1,0 +1,263 @@
+.c-fyc {
+    &__result {
+        &__wrapper {
+            @media (max-width: @screen-sm) {
+                box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
+                -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+            }
+        }
+        &__image {
+            &:before {
+                background-color: @black;
+            }
+            .flag {
+                color: @white;
+                &:before {
+                    border-top: 75px solid @black;
+                    border-right: 75px solid @transparent;
+                }
+            }
+        }
+        &__content {
+            &__description.silversea-expedition {
+                .cruise-type {
+                    color: @color-expedition-cruise;
+                }
+            }
+            &__button {}
+            &__price {
+                .price-suffixe {
+                    color: @color-typography;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: @screen-sm) {
+        &__result {
+            &__wrapper {
+                border: 1px solid @grey--d3;
+                transition: background-color .3s ease-in-out;
+                &:hover {
+                    background-color: @grey--d9;
+                }
+            }
+            &__image {
+                .flag {
+                    &:before {
+                        border-top: 82px solid @black;
+                        border-right: 85px solid @transparent;
+                    }
+                }
+            }
+            &__content {
+                &__description {
+                    border-top: 2px solid @blue;
+                    .cruise-type {
+                        color: @blue;
+                    }
+                    &.silversea-expedition {
+                        border-color: @color-expedition-cruise;
+                    }
+                }
+                &__summary {
+                    border: 1px solid @grey--c;
+                    &__item {
+                        &:not(: last-child) {
+                            border-right: 1px solid @grey--c;
+                        }
+                        dl {
+                            dt,
+                            dt {
+                                color: @grey--a3;
+                            }
+                        }
+                    }
+                }
+                &__price {
+                    color: @color-typography;
+                    strong {
+                        color: @color-typography;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            border-bottom: 1px solid @grey--d9;
+        }
+        .v1 &__result {
+            border-bottom: 1px solid @grey--d3;
+            &:hover {
+                background-color: @grey--e;
+            }
+            &:hover {}
+            &__content {
+                &__description {
+                    .cruise-code,
+                    li {
+                        &:not(: last-child):after {
+                            color: @color-typography;
+                        }
+                    }
+                }
+                &__summary {
+                    background-color: @grey--f9;
+                    border: 1px solid @grey--e6;
+                }
+            }
+        }
+        .v2 &__result {
+            &:hover {
+                background-color: @color-dark-bg;
+                color: @white;
+                .c-fyc__result__content__summary {
+                    background-color: transparent;
+                }
+                .tooltip {
+                    color: @color-typography
+                }
+                .price-suffixe {
+                    color: @white;
+                }
+            }
+            &__content {
+                &__inner {
+                    &:before {
+                        border-right: 1px solid @white;
+                    }
+                }
+                &__summary {
+                    background-color: @grey--eb;
+                    &__item--duration {
+                        &:before {
+                            background: @grey--c;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/*
+.c-fyc-v2 {
+    &__result {
+        &__link {
+            @media (max-width: 767px) {
+                box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px 0px;
+                -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+            }
+        }
+        &__image {
+            &:before {
+                background-color: @black;
+            }
+            .flag {
+                color: @white;
+                &:before {
+                    border-top: 75px solid @black;
+                    border-right: 75px solid transparent;
+                }
+            }
+        }
+        &__content {
+            &__description.silversea-expedition {
+                .cruise-type {
+                    color: @color-expedition-cruise;
+                }
+            }
+            &__price {
+                .price-suffixe {
+                    color: @color-typography;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: @screen-sm) {
+        &__result {
+            &__wrapper {
+                border: 1px solid @grey--d3;
+                transition: background-color .3s ease-in-out;
+                &:hover {
+                    background-color: @grey--eb;
+                }
+            }
+            &__image {
+                .flag {
+                    &:before {
+                        border-top: 82px solid @black;
+                        border-right: 85px solid transparent;
+                    }
+                }
+            }
+            &__content {
+                &__description {
+                    border-top: 2px solid @blue;
+                    .cruise-type {
+                        color: @blue;
+                    }
+                    &.silversea-expedition {
+                        border-color: @color-expedition-cruise;
+                    }
+                }
+                &__summary {
+                    border: 1px solid @grey--c;
+                    &__item {
+                        &:not(: last-child) {
+                            border-right: 1px solid @grey--c;
+                        }
+                        dl {
+                            dt,
+                            dt {
+                                color: @grey--a3;
+                            }
+                        }
+                    }
+                }
+                &__price {
+                    color: @color-typography;
+                    strong {
+                        color: @color-typography;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            border-bottom: 1px solid @grey--d9;
+        }
+        .v2 &__result {
+            &:hover {
+                background-color: @color-dark-bg;
+                .c-fyc__result__content__summary {
+                    background-color: transparent;
+                }
+                .tooltip {
+                    color: @color-typography
+                }
+            }
+            &__content {
+                &__inner {
+                    .bar-for-code {
+                        color: @grey;
+                    }
+                }
+ 
+                &__summary {
+                    &__depdate {
+                        color: @red;
+                    }
+                    &__item {
+                        &__duration {
+                            color: @grey--3;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+* 
+*/

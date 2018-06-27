@@ -1,0 +1,36 @@
+ .c-combo-cruise-header {
+    &__content {
+        &__title {
+            font-size: @h1-desktop-fontsize-48;
+            font-family: @freight-bold;            
+            @media screen and (max-width: @screen-xs) {
+                font-size: @h1-mobile-fontsize-34;
+            }
+        }
+
+        &__details {            
+            font-size: @body-desktop-fontsize-14;
+        }
+
+        &__resume {        
+            th {
+                font-size: @footnote-desktop-fontsize-11;
+                font-family: @suisse;               
+            }
+
+            td {
+                font-size: 36px;
+                font-family: @freight-bold;
+                @media screen and (max-width: @screen-xs) {
+                    font-size: 26px;
+                }             
+            }
+        }
+
+        &__btn {
+            i {               
+                font-size: @button-desktop-fontsize-16;               
+            }
+        }
+    }
+}

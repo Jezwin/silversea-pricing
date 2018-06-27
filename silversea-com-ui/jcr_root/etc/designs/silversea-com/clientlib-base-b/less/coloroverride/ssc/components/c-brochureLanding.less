@@ -1,0 +1,116 @@
+.c-brochureLanding-mobileTablet {
+    &-btn {
+        a {
+            background: @red;
+            color: @white;
+        }
+    }
+}
+
+.c-brochureLanding {
+    .lp17__brochure_inner {
+        .lp17__brochure_col {
+            .lp17__brochure_text {
+                .btnlp17 {
+                    background: @black;
+                    color: @white;
+                }
+            }
+        }
+    }
+    .bloc-brochures {
+        .leftbloc {
+            .title {
+                color: @grey--3;
+                span {
+                    color: @gold--50;
+                }
+            }
+            .subtitle {
+                color: @grey--3;
+            }
+            .subtitle-2017 {
+                color: #111;
+            }
+            .action {
+                .btn_base {
+                    background: @gold--50;
+                    color: @white;
+                }
+            }
+            .action-2017 {
+                .btn_base {
+                    background: @red;
+                    color: @white;
+                }
+            }
+        }
+    }
+    .bloc-brochures.bloc-brochures-landing2018 {
+        .title-2018 {
+            color: @grey--3;
+        }
+        .subtitle-2018 {
+            color: @grey--7;
+        }
+        .action-2018 {
+            .btn_base {
+                background: @black;
+                color: @white;
+            }
+        }
+    }
+}
+
+@media(max-width: @screen-md-min) {
+    .c-brochureLanding2018-mobileTablet-btn {
+        a {
+            background: @red;
+            color: @white;
+            background: @black;
+        }
+        .btn-red {
+            color: @white;
+            background-color: @red !important;
+        }
+    }
+}
+
+@media (max-width:@screen-sm) {
+    .c-mobile-bloc-brochures-landing2018 {
+        .c-brochureLanding-mobileTablet-img {}
+        .c-brochureLanding2018-mobileTablet-btn {}
+        .btn-red {
+            color: @white;
+            background-color: @red !important;
+        }
+    }
+}
+
+
+@media (min-width: @screen-sm) and (max-width: @screen-md-max) {
+    .c-mobile-bloc-brochures-landing2018 {
+        .c-brochureLanding-mobileTablet-title {
+            color: @grey--3;
+        }
+    }
+}
+
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+    .brochureLanding {
+        .c-brochureLanding-mobileTablet-title {
+            color: @grey--3;
+        }
+        .c-brochureLanding2018-mobileTablet-btn {
+            a {
+                background: @red;
+                color: @white;
+                background: @black;
+            }
+            .btn-red {
+                color: @white;
+                background-color: @red !important;
+            }
+        }
+    }
+}

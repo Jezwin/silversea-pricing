@@ -1,0 +1,158 @@
+.c-fyc {
+
+    &__result {
+
+        &__image {
+            .flag {
+                &__icon {
+                    font-size: 16px;                  
+                }
+
+                &__text {
+                    font-size: 8px;                 
+                }
+            }
+        }
+
+        &__content {   
+            &__price {
+                font-size: 10px;
+                .price-suffixe {
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: @screen-sm) {
+        &__result {
+            font-size: 12px;
+            &__image {
+                .flag {
+                    &__text {
+                        font-size: 9px;
+                    }
+                }
+            }
+
+            &__content {               
+                &__title {
+                    font-size: 16px;                   
+                }
+
+                &__summary {                   
+                    &__item {
+                        dl {                          
+                            dt {                              
+                                font-size: 11px;
+                            }
+                            strong {
+                                font-size: 13px;
+                            }
+                        }
+
+                        &--ship dl {
+                            strong {
+                                font-size: 15px;                               
+                            }
+                        }
+                    }
+                }
+
+                &__price {                   
+                    font-size: 11px;                   
+
+                    .price-prefixe {
+                        font-size: 11px;
+                    }
+
+                    strong {                       
+                        font-size: 20px;                       
+                    }
+                }
+
+                &__button {                 
+                    .btn {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: @screen-md-min) {
+        &__result {
+            &__content {
+                &__button {
+                    .btn {
+                        font-size: 10px;                        
+                    }
+                }
+            }
+        }
+
+        .v1 &__result {            
+            font-size: 12px;       
+            &__content {               
+                &__title {
+                    font-size: 18px;
+                }       
+                &__itinerary {                   
+                    dt {
+                        font-size: 12px;                       
+                    }
+
+                    dd {
+                        &:not(:last-child):after {
+                            font-size: 11px;
+                        }
+                    }
+                }
+                &__price {                  
+                    strong {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+
+        .v2 &__result {
+            font-size: 11px;
+           
+            &__content {      
+                &__description {                   
+                    .cruise-ship {
+                        font-size: 12px;
+                    }
+                    .cruise-code {
+                        font-size: 10px;
+                    }
+                    .cruise-type {
+                        font-family: @freight-bold;
+                    }
+                }
+
+                &__summary {                 
+                    strong {
+                        font-size: 12px;
+                    }
+                }
+
+                &__itinerary {                   
+                    dd {
+                        &:first-of-type,
+                        &:last-of-type {
+                            font-size: 12px;                            
+                        }
+                    }
+                }
+
+                &__price {
+                    strong {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+}

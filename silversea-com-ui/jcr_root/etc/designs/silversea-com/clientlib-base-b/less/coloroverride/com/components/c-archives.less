@@ -1,0 +1,23 @@
+.c-archives {
+    &__trigger {
+        a {
+            border: 1px solid @grey--d9;
+            &[aria-expanded="true"] {
+                background-color: @color-dark-bg;
+                color: @white;
+            }
+        }
+    }
+    > ul {
+        > li {
+            > a {
+                border-bottom: 1px solid @grey--d9;
+            }
+            ul {
+                &[aria-expanded="true"] {
+                    border-bottom: 1px solid @grey--d9;
+                }
+            }
+        }
+    }
+}
