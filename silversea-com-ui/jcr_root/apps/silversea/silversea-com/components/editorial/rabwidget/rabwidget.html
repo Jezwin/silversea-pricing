@@ -20,7 +20,9 @@
                    type="email"
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                    data-required-error="${'required-email-address' @ i18n}"
-                   data-error="${'incorrect-email-address' @ i18n}" required />
+                   data-error="${'incorrect-email-address' @ i18n}" required 
+                   data-email-error="${'incorrect-email-address' @ i18n}"
+            		data-email="" />
         </div>
         <div class="col-xs-3">
             <button class="btn btn-default pull-right c-btn--lg"

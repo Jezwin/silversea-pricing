@@ -127,6 +127,26 @@ $.fn.requestForm = function() {
                 cityzip : function($el) {
                     var id = $el.data('cityzip');
                     return !$el.val() || !$('input[name="' + id + '"]').val();
+                },
+                email : function($el){
+                	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                	 if(!re.test($el.val())){
+                		 return "error";
+                	 }
+                	if(typeof prevemail !== 'undefined'){
+                		if(prevemail == $el.val()){
+                			return window.answerBrite;
+                		}else{
+                    		prevemail = $el.val();
+                    		window.briteVerify($el.val());
+                    	  return window.answerBrite;
+                    	}
+                		
+                	}else{
+                		prevemail = $el.val();
+                		window.briteVerify($el.val());
+                	  return window.answerBrite;
+                	}
                 }
             }
         }).off('input.bs.validator change.bs.validator').on('submit', function(e) {

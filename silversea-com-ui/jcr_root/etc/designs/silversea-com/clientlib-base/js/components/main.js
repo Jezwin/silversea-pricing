@@ -76,9 +76,30 @@ $(function() {
      **************************************************************************/
     // On submit store mandatory value
     $('.c-formcookie').validator({
-        focus : false
+        focus : false,custom : {                    
+            email : function($el){
+            	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            	 if(!re.test($el.val())){
+            		 return "error";
+            	 }
+            	if(typeof prevemail !== 'undefined'){
+            		if(prevemail == $el.val()){
+            			return window.answerBrite;
+            		}else{
+                		prevemail = $el.val();
+                		window.briteVerify($el.val());
+                	  return window.answerBrite;
+                	}
+            		
+            	}else{
+            		prevemail = $el.val();
+            		window.briteVerify($el.val());
+            	  return window.answerBrite;
+            	}
+            }
+        }
     }).off('input.bs.validator change.bs.validator focusout.bs.validator').on('submit', function(e) {
-
+    		
         if (!e.isDefaultPrevented()) {
             $.signUp.signUpOffers(this, e);
         }
@@ -269,6 +290,31 @@ if(currentReferrer != ""){
     if(a.hostname.indexOf("silversea") == -1){
 		createCookie("currentReferrer", currentReferrer, 1);
 	}
+}
+window.answerBrite = "";
+//BriteVerify Basic Implementation
+window.briteVerify = function(email){
+	var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
+
+	 $.ajax({
+		    url: url,
+		    dataType: 'jsonp',
+		    cache:true,
+		    data: {
+		      address: email
+		    },
+		    success: function(response) {
+		    	var valid = response["status"];
+
+		    	if(valid == "invalid"){
+		    		window.answerBrite = "error";
+		    	}else{
+		    		window.answerBrite = "";
+		    	}
+		    	$("[name='email']").blur();
+	        }
+	});
+	
 }
 
 
