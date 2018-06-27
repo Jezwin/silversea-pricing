@@ -315,7 +315,7 @@ window.briteVerify = function(email){
 	        }
 	});
 	
-}
+};
 
 
 //Get did parameter for TY Page destination id datalayer fetch
