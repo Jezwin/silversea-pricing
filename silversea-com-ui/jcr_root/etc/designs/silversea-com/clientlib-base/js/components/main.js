@@ -278,8 +278,7 @@ if(currentReferrer != ""){
 window.answerBrite = "";
 //BriteVerify Basic Implementation
 window.briteVerify = function(email){
-	var url = "https://bpi.briteverify.com/emails.json?username=murasylvain1";
-	//var url = "https://bpi.briteverify.com/emails.json?apikey=5d1f252d-23d5-4a05-98fd-c5c7531b6bee";
+	var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
 
 	 $.ajax({
 		    url: url,
