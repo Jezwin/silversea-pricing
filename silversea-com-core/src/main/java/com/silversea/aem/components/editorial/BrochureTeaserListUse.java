@@ -23,13 +23,11 @@ import org.slf4j.LoggerFactory;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static com.silversea.aem.helper.LanguageHelper.getLanguage;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
@@ -97,7 +95,8 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
                 .orElse(DEFAULT_BROCHURE_GROUP);
     }
 
-    private List<BrochureModel> sortBrochures(List<BrochureModel> unsortedBrochures, String brochureTagId) {
+    private List<BrochureModel> sortBrochures(List<BrochureModel> unsortedBrochures, String brochureTagId)
+            throws RepositoryException {
         List<BrochureModel> sortedBrochures = sortBrochures(brochureTagId, unsortedBrochures);
         return sortedBrochures.isEmpty() ? unsortedBrochures : sortedBrochures;
     }
@@ -125,7 +124,8 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
      * @param brochureTagId:    brochure id tag to get all pdf list
      * @return map representing the order or null (not order)
      */
-    private List<BrochureModel> sortBrochures(String brochureTagId, List<BrochureModel> unsortedBrochures) {
+    private List<BrochureModel> sortBrochures(String brochureTagId, List<BrochureModel> unsortedBrochures)
+            throws RepositoryException {
         if (unsortedBrochures.isEmpty()) {
             return Collections.emptyList();
         }
@@ -142,24 +142,20 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
         if (result.getTotalMatches() <= 0) {
             return Collections.emptyList();
         }
-        try {
-            Resource resourceBrochureGroup = result.getHits().get(0).getResource();
-            ResourceCollection collection = resourceBrochureGroup.adaptTo(ResourceCollection.class);
-            if (collection != null) {
-                Iterable<Resource> it = collection::getResources;
-                List<String> orderedIds =
-                        StreamSupport.stream(it.spliterator(), false)
-                                .map(resource -> resource.adaptTo(Asset.class)).filter(Objects::nonNull)
-                                .map(asset -> asset.adaptTo(BrochureModel.class)).filter(Objects::nonNull)
-                                .map(BrochureModel::getBrochureCode)
-                                .collect(toList());
-                sortedBrochures = unsortedBrochures.stream()
-                        .filter(brochure -> orderedIds.contains(brochure.getBrochureCode()))
-                        .sorted(Comparator.comparingInt(brochure -> orderedIds.indexOf(brochure.getBrochureCode())))
-                        .collect(toList());
-            }
-        } catch (RepositoryException e) {
-            LOGGER.error("Error during get resources from collection");
+        Resource resourceBrochureGroup = result.getHits().get(0).getResource();
+        ResourceCollection collection = resourceBrochureGroup.adaptTo(ResourceCollection.class);
+        if (collection != null) {
+            Iterable<Resource> it = collection::getResources;
+            List<String> orderedIds =
+                    StreamSupport.stream(it.spliterator(), false)
+                            .map(resource -> resource.adaptTo(Asset.class)).filter(Objects::nonNull)
+                            .map(asset -> asset.adaptTo(BrochureModel.class)).filter(Objects::nonNull)
+                            .map(BrochureModel::getBrochureCode)
+                            .collect(toList());
+            sortedBrochures = unsortedBrochures.stream()
+                    .filter(brochure -> orderedIds.contains(brochure.getBrochureCode()))
+                    .sorted(Comparator.comparingInt(brochure -> orderedIds.indexOf(brochure.getBrochureCode())))
+                    .collect(toList());
         }
         return sortedBrochures;
     }
@@ -230,8 +226,7 @@ public class BrochureTeaserListUse extends AbstractGeolocationAwareUse {
                 .map(asset -> asset.adaptTo(BrochureModel.class))
                 .filter(Objects::nonNull)
                 .filter(brochure -> isMatchingLocation(brochure, geolocationTags))
-                .filter(brochure -> isMatchingGroup(brochure, brochureGroup) ||
-                        isMatchingGroup(brochure, DEFAULT_BROCHURE_GROUP))
+                .filter(brochure -> isMatchingGroup(brochure, brochureGroup))
                 .collect(toList());
     }
 
