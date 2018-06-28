@@ -3,6 +3,7 @@ package com.silversea.aem.importers.services.impl;
 import com.silversea.aem.importers.ImporterException;
 import com.silversea.aem.importers.ImportersConstants;
 import com.silversea.aem.importers.services.PortsImporter;
+import org.apache.commons.collections.ListUtils;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
@@ -17,10 +18,12 @@ import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.StreamSupport.stream;
 
 @Service
 @Component
@@ -30,8 +33,8 @@ public class PortsImporterImpl implements PortsImporter {
     private ResourceResolverFactory resolverFactory;
     private Logger logger = LoggerFactory.getLogger(PortsImporterImpl.class);
     private static String PATH_PORTS = "/etc/tags/ports";
-    private static String PATH_PORTS_CONTENT = "/content/silversea-com/#LOCAL/other-resources/find-a-port";
     private static String PORTS_DATA = "portsCSVData";
+    private static String PROPERTY = "cityCode";
     private static String SEPARATOR = "=";
     private static String[] LOCALIZATIONS = new String[]{"en", "fr", "de", "es", "pt-br"};
     private int successNumber = 0;
@@ -62,7 +65,7 @@ public class PortsImporterImpl implements PortsImporter {
             if (session.hasPendingChanges()) {
                 try {
                     session.save();
-                    logger.info("Insert {} in ports and {} no insert", successNumber, errorNumber);
+                    logger.info("Insert {} in ports and {} errors", successNumber, errorNumber);
                 } catch (RepositoryException e) {
                     session.refresh(false);
                 }
@@ -75,6 +78,17 @@ public class PortsImporterImpl implements PortsImporter {
 
         }
         return new ImportResult(successNumber, errorNumber);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Map<String, List<Resource>> retrievePorts(ResourceResolver resourceResolver, String locale) {
+        Iterable<Resource> ports = () -> resourceResolver
+                .findResources(
+                        "/jcr:root/content/silversea-com/" + locale + "/other-resources/find-a-port//element(*," +
+                                "cq:PageContent)[@" + PROPERTY + "]", "xpath");
+        return stream(ports.spliterator(), false).collect(
+                toMap(resource -> resource.getValueMap().get(PROPERTY, String.class), Collections::singletonList,
+                        ListUtils::union));
     }
 
     private Iterable<Port> parseCsv(String csvContent) {
@@ -99,31 +113,32 @@ public class PortsImporterImpl implements PortsImporter {
     }
 
     private void updateTitles(ResourceResolver resolver, Iterable<Port> ports) throws RepositoryException {
-        for (String local : LOCALIZATIONS) {
-            String path = PATH_PORTS_CONTENT.replaceAll("#LOCAL", local);
+        for (String locale : LOCALIZATIONS) {
+            Map<String, List<Resource>> fetchtedPorts = retrievePorts(resolver, locale);
+            logger.info("For {} found {} ports", locale, fetchtedPorts.size());
             for (Port port : ports) {
-                String portPath = getPath(path, port);
-                Resource portResource = resolver.getResource(portPath);
-                if (portResource != null) {
-                    Node node = portResource.adaptTo(Node.class);
-                    if (node != null) {
-                        node.getProperty("jcr:title").setValue(port.getTitle());
-                        successNumber++;
-                    } else {
-                        logger.warn("Error during updating of {} with value ", portPath, port.getTitle());
-                        errorNumber++;
+                Optional<List<Resource>> portResourceO = Optional.ofNullable(fetchtedPorts.get(port.code));
+                if (portResourceO.isPresent()) {
+                    for (Resource portResource : portResourceO.get()) {
+                        Node node = portResource.adaptTo(Node.class);
+                        if (node != null) {
+                            node.getProperty("jcr:title").setValue(port.getTitle());
+                            successNumber++;
+                        } else {
+                            logger.warn("Error during updating of {} with value ", portResource.getPath(),
+                                    port.getTitle());
+                            errorNumber++;
+                        }
                     }
-                } else {
-                    logger.warn("Could not find {}", portPath);
+
+                }
+                if (!portResourceO.isPresent()) {
+                    logger.warn("Could not find {}", port.code);
                     errorNumber++;
                 }
 
             }
         }
-    }
-
-    private String getPath(String prefix, Port port) {
-        return prefix + "/" + port.getCode().charAt(0) + "/" + port.getCode() + "/jcr:content";
     }
 
     private class Port {
