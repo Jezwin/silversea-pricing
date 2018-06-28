@@ -843,6 +843,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="pressureUnit"
         sling:message="hPa"/>
+    <prev
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="prev"
+            sling:message="Prev"/>
     <previous
         jcr:primaryType="sling:MessageEntry"
         sling:key="previous"
