@@ -777,7 +777,7 @@
     <overnight-in-port 
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Overnights in port"/>
+        sling:message="Pernoitamentos no porto"/>
     <overview-and-fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
