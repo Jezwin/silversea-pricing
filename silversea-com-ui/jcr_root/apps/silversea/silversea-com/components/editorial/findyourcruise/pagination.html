@@ -1,17 +1,35 @@
 <template data-sly-template.pagination="${@ fyc}">
-<div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
-<nav class="c-fyc-pagination" data-sly-test="${fyc.pagesNumber > 1}">
-    <ul data-sly-list.page="${fyc.pagination}">
-        <li data-sly-test.currentPage="${page}">
-            <a href="#" data-page="${currentPage}" title="${currentPage}"
-            class="${pageList.count == 2 ? 'previous': ''} ${pageList.count == 8 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''}">
-                <sly data-sly-test="${pageList.count == 1}">${'first' @ i18n}</sly>
-                <sly data-sly-test="${pageList.count == 2}">${'previous' @ i18n}</sly>
-                <sly data-sly-test="${pageList.count == 8}">${'next' @ i18n}</sly>
-                <sly data-sly-test="${pageList.count == 9}">${'last' @ i18n}</sly>
-                <sly data-sly-test="${pageList.count > 2 && pageList.count < 8}">${page @ i18n}</sly>
-            </a>
-        </li>
-    </ul>
-</nav>
+    <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
+    <nav class="c-fyc-pagination" data-sly-test="${fyc.pagesNumber > 1}">
+        <ul data-sly-list.page="${fyc.pagination}">
+            <li data-sly-test.currentPage="${page}">
+                <a href="#" data-page="${currentPage}" title="${currentPage}"
+                   class="${pageList.count == 2 ? 'previous': ''} ${pageList.count == 8 ? 'next': ''} ${page == fyc.activePage && pageList.count > 2 && pageList.count < 8 ? 'active' : ''}">
+                    <sly data-sly-test="${pageList.count == 1}">${'first' @ i18n}</sly>
+                    <sly data-sly-test="${pageList.count == 2}">${'previous' @ i18n}</sly>
+                    <sly data-sly-test="${pageList.count == 8}">${'next' @ i18n}</sly>
+                    <sly data-sly-test="${pageList.count == 9}">${'last' @ i18n}</sly>
+                    <sly data-sly-test="${pageList.count > 2 && pageList.count < 8}">${page @ i18n}</sly>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</template>
+<template data-sly-template.paginationv2="${@ fyc}">
+    <div class="fares">${'fares-shown-are-per-guest' @ i18n}</div>
+    <nav class="c-fyc-v2-pagination" data-sly-test="${fyc.pagesNumber > 1}">
+        <ul>
+            <li  data-sly-test="${fyc.activePage>1}"><a data-page="${fyc.activePage}" class="previous" href="#"><i class="fa fa-lg fa-angle-left"></i>${'prev' @ i18n}
+            </a></li>
+            <sly data-sly-list="${fyc.paginationV2}">
+                <li>
+                    <a href="#" data-page="${item}" title="${item}" data-sly-test="${item>0}"
+                       class="${item==fyc.activePage ? 'active' : ''}">${item}</a>
+                    <span data-sly-test="${item<0}">...</span>
+                </li>
+            </sly>
+            <li data-sly-test="${fyc.activePage<fyc.pagesNumber}"><a data-page="${fyc.activePage}" class="next" href="#">${'next' @ i18n} <i
+                    class="fa fa-lg fa-angle-right"></i></a></li>
+        </ul>
+    </nav>
 </template>
