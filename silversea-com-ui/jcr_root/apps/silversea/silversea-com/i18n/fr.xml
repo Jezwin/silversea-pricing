@@ -781,7 +781,11 @@
     <overnight-in-port 
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Overnights in port"/>
+        sling:message="Nuit à quai"/>
+    <overnights-in-port 
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Nuits à quai"/>
     <overview-and-fares
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
