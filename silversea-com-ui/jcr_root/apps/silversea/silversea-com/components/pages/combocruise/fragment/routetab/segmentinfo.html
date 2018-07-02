@@ -64,7 +64,8 @@
                          		<sly data-sly-use.loopOvernight="${'com.silversea.aem.helper.ListHelper' @ sizeLoop=itinerary.numberDays}" data-sly-repeat="${loopOvernight.objectListLoop}">
                          			<span><i class="fa fa-moon-o"></i></span>
                          		</sly>
-                            	<span>${'overnight-in-port' @ i18n }</span>
+                            	<span data-sly-test="${itinerary.numberDays == 1}">${'overnight-in-port' @ i18n }</span>
+                            	<span data-sly-test="${itinerary.numberDays > 1}">${'overnights-in-port' @ i18n }</span>
                         	</li>   
                         </ul>
                         <div class="c-cruise-itinerary-list__headline__expand">
