@@ -22,11 +22,11 @@
     <all-destinations
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Weltreisen"/>
+        sling:message="Alle Reiseziele"/>
     <all-ships
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="alle Schiffe"/>
+        sling:message="Alle Schiffe"/>
     <and
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -779,6 +779,10 @@
         jcr:primaryType="nt:folder"
         sling:message="Übersicht"/>
     <overnight-in-port 
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Übernachtung im Hafen"/>
+    <overnights-in-port 
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Übernachtungen im Hafen"/>
