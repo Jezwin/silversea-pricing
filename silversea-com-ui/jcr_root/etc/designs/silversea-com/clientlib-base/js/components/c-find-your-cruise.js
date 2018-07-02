@@ -521,11 +521,12 @@ var v2 = function () {
          * Pagination
          **************************************************************************/
         var pagination = (function pagination() {
-            $paginationWrapper = $('.c-fyc-pagination');
+
+            $paginationWrapper = $('.c-fyc-v2-pagination');
             $resultWrapper.on('click', $paginationWrapper.find('a'), function (e) {
                 var $currentPage = $(e.target);
 
-                if ($currentPage.closest('.c-fyc-pagination ul').length > 0) {
+                if ($currentPage.closest('.c-fyc-v2-pagination ul').length > 0) {
 
                     e.preventDefault();
                     e.stopPropagation();
@@ -534,6 +535,11 @@ var v2 = function () {
 
                     // Update parameters just before build request
                     $page = $currentPage.data('page');
+                    if ($currentPage.hasClass('next')) {
+                        $page = $page + 1;
+                    } else if ($currentPage.hasClass('previous')) {
+                        $page = $page - 1;
+                    }
 
                     $form.trigger('change', [true]);
 

@@ -31,6 +31,15 @@
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version a.automatic-gallery-modal:not(.video-link)').removeClass("automatic-gallery-modal");
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version a.automatic-gallery-modal.video-link').css("left", "50%");
 
+			    	inlineGalleryID = '${ banner.inlineGalleryID @ context="unsafe" }';
+			        if(inlineGalleryID.indexOf('c-inlinegallery-') > -1){
+			        	setTimeout(function () {
+			        		$('${banner.inlineGalleryID @ context="unsafe"}').slick('unslick');
+			        		$('${banner.inlineGalleryID @ context="unsafe"}').slick();
+			        	}, 10);
+			        }
+
+			        
 			    	$('#c-hero-banner-${properties.sscUUID @context="unsafe"} .c-hero-banner-mobile-version').delegate("a.automatic-gallery-modal.video-link","click", function(){
 						var intervalGallery = setInterval(function(){
                             var gallery = $(".modal .modal-content--gallery .c-gallery");

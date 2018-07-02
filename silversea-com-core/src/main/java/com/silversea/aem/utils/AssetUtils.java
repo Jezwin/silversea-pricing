@@ -48,6 +48,33 @@ public class AssetUtils {
 
         return renditionList;
     }
+    
+    public static List<Asset> buildAssetList2018Order(String setPath, ResourceResolver resourceResolver) {
+        List<Asset> renditionList = new ArrayList<>();
+
+        // Dynamic Media Image Set
+        final Resource members = resourceResolver.getResource(setPath + "/jcr:content/related/s7Set");
+
+        if (members != null) {
+            final ResourceCollection membersCollection = members.adaptTo(ResourceCollection.class);
+
+            if (membersCollection != null) {
+                final Iterator<Resource> it = membersCollection.getResources();
+
+                while (it.hasNext()) {
+                    final Asset asset = it.next().adaptTo(Asset.class);
+                    if (asset != null) {
+                        renditionList.add(asset);
+                    }
+                }
+                
+                renditionList.add(0, renditionList.get(renditionList.size()-1));
+                renditionList.remove(renditionList.size()-1);
+            }
+        }
+
+        return renditionList;
+    }
 
     public static Map<String,List<SilverseaAsset>> addAllShipAreaAssets(final ResourceResolver resourceResolver, final List<? extends ShipAreaModel> shipAreas) {
     	Map<String,List<SilverseaAsset>> result = new HashMap<>();
