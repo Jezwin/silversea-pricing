@@ -22,11 +22,11 @@
     <all-destinations
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Weltreisen"/>
+        sling:message="Alle Reiseziele"/>
     <all-ships
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="alle Schiffe"/>
+        sling:message="Alle Schiffe"/>
     <and
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
