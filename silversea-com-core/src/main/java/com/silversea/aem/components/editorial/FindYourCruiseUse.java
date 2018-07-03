@@ -684,7 +684,7 @@ public class FindYourCruiseUse extends AbstractGeolocationAwareUse {
         //negatives are "..."
         List<Integer> pagination = new ArrayList<>();
         for (int page = 1; page <= pageNumber; page++) {
-            if (activePage - 1 <= page && page <= activePage + 2) {//middle
+            if (activePage - 2 <= page && page <= activePage + 2) {//middle
                 pagination.add(page);
             } else if (page == 1 || page == activePage || page == pageNumber) { //fst current last
                 pagination.add(page);
