@@ -175,6 +175,14 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="code"
         sling:message="code"/>
+    <cruise
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruise"
+        sling:message="cruise"/>
+    <cruises
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="cruises"
+        sling:message="cruises"/>
     <combocruis-overview-subtitle
         jcr:primaryType="sling:MessageEntry"
         sling:key="combo-cruis-overview-subtitle"

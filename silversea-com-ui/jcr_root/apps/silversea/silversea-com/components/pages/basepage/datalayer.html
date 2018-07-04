@@ -73,4 +73,13 @@
     }
 
     window.dataLayer[0].ABDiscoverMoreActivate = shouldAB;
+    
+    //TEMP AB TEST DEST SHIP
+    shouldAB = "false";
+    
+    if(pagecatAB.indexOf('single ship') > -1 || pagecatAB.indexOf('single destination') > -1){
+     shouldAB = "true"; 
+    }
+    
+    window.dataLayer[0].ABShipOrDest = shouldAB;
 </script>

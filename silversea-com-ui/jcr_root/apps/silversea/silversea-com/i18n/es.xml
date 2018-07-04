@@ -172,6 +172,14 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="código "/>
+    <cruise
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="crucero"/>
+    <cruises
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="cruceros"/>
     <combo-cruis-overview-subtitle
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
