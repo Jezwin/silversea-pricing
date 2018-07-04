@@ -461,6 +461,26 @@
             #matching-value, #v2-matching-value {
             font-family: @freight-bold;
         }
+        
+                &__text.results {
+            .result-label {
+                display: none;
+            }
+
+            .results-label {
+                display: inline;
+            }
+        }
+
+        &__text:not(.results) {
+            .result-label {
+                display: inline;
+            }
+
+            .results-label {
+                display: none;
+            }
+        }
     
     .v2-matching-value {
     	font-family:@freight-bold;
@@ -520,7 +540,7 @@
 
 
     &__text {
-        font-size: 15px;
+        font-size: 20px;
         font-weight: bold;
         padding-top: 13px;
 

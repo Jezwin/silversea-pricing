@@ -113,8 +113,8 @@
         <div class="c-fyc-v2-filter__text container">
         <div class="c-fyc-v2-filter__text-header">${properties.jcr:title || 'your-search-results' @ i18n}</div>
             <div class="c-fyc-v2-filter__text-header" id="v2-matching-value">${fyc.totalMatches}</div>
-            <div class="c-fyc-v2-filter__text-header result-label" data-sly-test="${fyc.totalMatches == 1}">${'cruise' @ i18n}</div>
-            <div class="c-fyc-v2-filter__text-header results-label" data-sly-test="${fyc.totalMatches != 1}">${'cruises' @ i18n}</div>
+            <div class="c-fyc-v2-filter__text-header result-label" >${'cruise' @ i18n}</div>
+            <div class="c-fyc-v2-filter__text-header results-label">${'cruises' @ i18n}</div>
             
             <div class="c-fyc-v2-filter__text-header c-fyc-v2-filter__reset hidden-xs">
                 <a href="#"><i class="fa fa-undo"></i> <span class="text-uppercase">${'clear-all-filters' @ i18n}</span></a>
