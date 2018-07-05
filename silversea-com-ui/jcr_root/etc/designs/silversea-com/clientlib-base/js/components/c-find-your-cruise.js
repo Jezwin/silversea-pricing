@@ -530,23 +530,26 @@ var v2 = function () {
 
                     e.preventDefault();
                     e.stopPropagation();
-                    $paginationWrapper.find('a').removeClass('active');
-                    $currentPage.addClass('active');
-
-                    // Update parameters just before build request
                     $page = $currentPage.data('page');
-                    if ($currentPage.hasClass('next')) {
-                        $page = $page + 1;
-                    } else if ($currentPage.hasClass('previous')) {
-                        $page = $page - 1;
+
+                    if (typeof $page != 'undefined' && $page != null) {
+                        $paginationWrapper.find('a').removeClass('active');
+                        $currentPage.addClass('active');
+
+                        // Update parameters just before build request
+                        if ($currentPage.hasClass('next')) {
+                            $page = $page + 1;
+                        } else if ($currentPage.hasClass('previous')) {
+                            $page = $page - 1;
+                        }
+
+                        $form.trigger('change', [true]);
+
+                        // Scroll to filter
+                        $('html, body').animate({
+                            scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height()
+                        }, 800);
                     }
-
-                    $form.trigger('change', [true]);
-
-                    // Scroll to filter
-                    $('html, body').animate({
-                        scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height()
-                    }, 800);
                 }
             });
             return pagination;
