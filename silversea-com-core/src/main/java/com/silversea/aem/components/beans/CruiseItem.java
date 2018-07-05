@@ -1,13 +1,13 @@
 package com.silversea.aem.components.beans;
 
+import com.silversea.aem.helper.PriceHelper;
+import com.silversea.aem.models.CruiseModelLight;
+import com.silversea.aem.models.ExclusiveOfferModelLight;
+import com.silversea.aem.models.PriceModelLight;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import com.silversea.aem.helper.PriceHelper;
-import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.models.ExclusiveOfferModel;
-import com.silversea.aem.models.PriceModelLight;
 
 /**
      * Represent a cruise item used to display cruise informations (especially geolocated) in find your cruise
@@ -22,7 +22,7 @@ import com.silversea.aem.models.PriceModelLight;
         
         private Locale locale;
 
-        private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+        private List<ExclusiveOfferModelLight> exclusiveOffers = new ArrayList<>();
 
         public CruiseItem(final CruiseModelLight cruiseModelLight, final String market, final String currency, final Locale locale) {
             // init lowest price and waitlist based on geolocation
@@ -31,7 +31,7 @@ import com.silversea.aem.models.PriceModelLight;
             this.isWaitList = this.lowestPrice == null;
             
             // init exclusive offers based on geolocation
-            for (ExclusiveOfferModel exclusiveOffer : cruiseModelLight.getExclusiveOffers()) {
+            for (ExclusiveOfferModelLight exclusiveOffer : cruiseModelLight.getExclusiveOffers()) {
                 if (exclusiveOffer.getGeomarkets() != null
                         && exclusiveOffer.getGeomarkets().contains(market.toLowerCase())) {
                     exclusiveOffers.add(exclusiveOffer);
@@ -58,7 +58,7 @@ import com.silversea.aem.models.PriceModelLight;
         }
 
         public String getPricePrefix() {
-            for (ExclusiveOfferModel exclusiveOffer : exclusiveOffers) {
+            for (ExclusiveOfferModelLight exclusiveOffer : exclusiveOffers) {
                 if (exclusiveOffer.getPricePrefix() != null) {
                     return exclusiveOffer.getPricePrefix();
                 }
@@ -67,7 +67,7 @@ import com.silversea.aem.models.PriceModelLight;
             return null;
         }
 
-        public List<ExclusiveOfferModel> getExclusiveOffers() {
+        public List<ExclusiveOfferModelLight> getExclusiveOffers() {
             return exclusiveOffers;
         }
     }
