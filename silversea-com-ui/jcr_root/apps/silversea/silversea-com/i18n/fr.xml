@@ -863,6 +863,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="hPa"/>
+    <prev
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Précédent"/>
     <previous
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

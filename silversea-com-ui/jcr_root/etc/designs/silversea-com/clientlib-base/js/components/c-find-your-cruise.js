@@ -545,7 +545,7 @@ var v2 = function () {
 
                     // Scroll to filter
                     $('html, body').animate({
-                        scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height()
+                        scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height() - 51
                     }, 800);
                 }
             });
