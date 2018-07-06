@@ -8,4 +8,8 @@
         <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=asset.path}"></div>
         <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play"></i></a>
     </div>
+
+</div>
+<div class="ab-test-inline-gallery-2018">
+    <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/inlineGallery/inlineGallery.html" />
 </div>
