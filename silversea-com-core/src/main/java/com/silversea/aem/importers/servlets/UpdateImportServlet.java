@@ -5,12 +5,15 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import com.silversea.aem.importers.services.*;
+import com.silversea.aem.services.CruisesCacheService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +45,7 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
         excursionsDisactive, landProgramsDisactive, hotelsDisactive, citiesDisactive,
 
-        importAllPortImages, portsGeneration
+        importAllPortImages, portsGeneration, FYCCacheRebuild
     }
 
     @Reference
@@ -122,6 +125,9 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
 
     @Reference
     private StyleCache styleCache;
+
+    @Reference
+    private CruisesCacheService cruisesCacheService;
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -205,6 +211,8 @@ public class UpdateImportServlet extends SlingSafeMethodsServlet {
                 citiesImporter.importAllPortImages();
             } else if (mode.equals(Mode.portsGeneration)) {
                 portsImporter.importAllItems();
+            }else if(mode.equals(Mode.FYCCacheRebuild)) {
+                    cruisesCacheService.buildCruiseCache();                
             }
 
         } catch (ImporterException e) {
