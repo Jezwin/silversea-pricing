@@ -132,8 +132,8 @@
                 <select class="chosen destination-filter" name="destination">
                     <option value="all">${'destination' @ i18n}</option>
                     <option data-sly-repeat="${fyc.destinations}" value="${item.name}">${item.title}</option>
-                    <option value="wc" data-ssc-link="${fyc.worldCruisesPagePath @ extension='html'}">${'world-cruises' @ i18n}</option>
-	                <option value="gv" data-ssc-link="${fyc.grandVoyagesPagePath @ extension='html'}">${'grand-voyages' @ i18n}</option>
+                   <option value="wc" data-ssc-link="${externalizerHelperWC.externalizedUrl @ extension='html'}">${'world-cruises' @ i18n}</option>
+                    <option value="gv" data-ssc-link="${externalizerHelperGV.externalizedUrl @ extension='html'}">${'grand-voyages' @ i18n}</option>
                 </select>
             </div>
 
