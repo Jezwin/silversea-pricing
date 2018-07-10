@@ -1,4 +1,4 @@
-<template data-sly-template.default="${ @ banner}">
+<template data-sly-template.default="${ @ banner}" xmlns="http://www.w3.org/1999/html">
     <div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}" 
          data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
         <div class="hidden-xs">
@@ -231,4 +231,117 @@
             </div>
         </div>
 	    </div>
+</template>
+
+<template data-sly-template.abTest="${ @ banner}">
+	<div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner-v2 ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}"
+		 data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+			<div class="c-hero-banner__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.maxHeightDesktop} ${properties.maxHeightTablet}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+				<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
+			</div>
+			<div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
+				<div class="c-hero-banner__content col-sm-12">
+					<div class="col-sm-9 c-hero-banner__content-col">
+						<h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+						<h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+						<h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+						<span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+					</div>
+					<div class="col-sm-3 c-hero-banner__content-col-btn">
+						<sly data-sly-test.btn1="${banner.btn1}" />
+						<sly data-sly-test.btn2="${banner.btn2}" />
+						<p class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+							<a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+								<span class="hidden-xs hidden-sm">${btn1.title} </span>
+							</a>
+							<a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+								<span class="hidden-xs hidden-sm">${btn2.title}</span>
+							</a>
+							<a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+								<span class="hidden-xs hidden-sm">${btn1.title}</span>
+							</a>
+							<a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+								<span class="hidden-xs hidden-sm">${btn2.title}</span>
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="c-hero-banner-scrolldown ${properties.showScrollActionDesktop ? 'c-hero-banner-scrolldown-desktop' : '' } c-hero-banner-scrolldown-desktop-${properties.colorScrollActionDesktop}" data-sly-test="${properties.showScrollActionDesktop}">
+				<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
+				<span><i class="fa fa-angle-down"></i></span>
+			</div>
+		<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+			   data-target=".bs-modal-lg">
+			<i class="fa fa-play"></i>
+		</a>
+	</div>
+	<div class="c-hero-banner__description__desktop" data-sly-test="${banner.description}">
+		<p> ${banner.description @ context='html'} </p>
+	</div>
+	<style>
+		.c-hero-banner-v2 .c-hero-banner__content {
+			padding-right: 0px;
+		}
+		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
+			font-family: "Freight Text Bold", serif;
+			text-transform: uppercase;
+			color: #ffffff;
+			font-size: 50px;
+			text-align: left;
+		}
+		@media (max-width: 991px) and (min-width: 768px) {
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
+				font-size: 45px;
+			}
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__content-col {
+				padding-right: 88px;
+			}
+		}
+		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__content-col {
+			padding-top: 50px;
+			padding-right: 35px;
+		}
+		.c-hero-banner__content-col-btn {
+			padding-top: 11.8%;
+			padding-right: 0px;
+		}
+		.c-hero-banner__description__desktop {
+			display: block;
+			text-align: center;
+			margin-bottom: 20px;
+			margin-top: 40px;
+			font-family: "Suisse Regular", sans-serif;
+		}
+		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn {
+			float: right;
+			text-transform: uppercase;
+			cursor: pointer;
+			display: inline-block;
+			position: relative;
+			vertical-align: middle;
+			min-width: 220px;
+			margin-bottom: 12px;
+			border-color: initial;
+			border-image: initial;
+			text-align: center !important;
+			white-space: normal;
+			border-width: 0px;
+			border-radius: 0px;
+			line-height: 16px;
+			letter-spacing: 1.5px;
+			font-size: 13px !important;
+			font-weight: normal !important;
+			padding: 14px 20px 11px !important;
+			font-family: "Suisse Regular", sans-serif;
+		}
+		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn span {
+			padding: 11px 17px 9px;
+		}
+
+	</style>
 </template>
