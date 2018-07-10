@@ -236,6 +236,7 @@
 <template data-sly-template.abTest="${ @ banner}">
 	<div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner-v2 ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}"
 		 data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
+		<div class="hidden-xs">
 			<div class="c-hero-banner__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.maxHeightDesktop} ${properties.maxHeightTablet}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 				<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
 			</div>
@@ -275,47 +276,59 @@
 				<span>${properties.textScrollActionDesktop || 'scroll-to-continue' @ i18n}</span>
 				<span><i class="fa fa-angle-down"></i></span>
 			</div>
-		<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
-			   data-target=".bs-modal-lg">
-			<i class="fa fa-play"></i>
-		</a>
+			<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+				   data-target=".bs-modal-lg">
+				<i class="fa fa-play"></i>
+			</a>
+		</div>
+		<div class="hidden-sm hidden-md hidden-lg ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}">
+			<div class="c-hero-banner__image ${properties.viewHeightMobile} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+				<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
+				   data-target=".bs-modal-lg">
+					<i class="fa fa-play"></i>
+				</a>
+				<sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCover/imageCovertemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPathMobile}" />
+			</div>
+			<div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
+				<div class="col-sm-5 c-hero-banner__content ${properties.disabledTextBackground ? '' : 'c-hero-banner__content--white'}">
+					<h1 data-sly-test="${properties.titletag == 'h1' || !properties.titletag}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h1>
+					<h2 data-sly-test="${properties.titletag == 'h2'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h2>
+					<h3 data-sly-test="${properties.titletag == 'h3'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</h3>
+					<span data-sly-test="${properties.titletag == 'span'}" class="c-hero-banner__title">${banner.title || pageProperties.jcr:title @ context="html"}</span>
+					<div class="c-hero-banner__description">${banner.description || pageProperties.jcr:description @ context="html"}</div>
+					<sly data-sly-test.btn1="${banner.btn1}" />
+					<sly data-sly-test.btn2="${banner.btn2}" />
+					<div class="c-hero-banner__buttons" data-sly-test="${btn1 || btn2}">
+						<div class="c-hero-banner__buttons__item">
+							<a data-sly-test="${btn1.reference && btn1.analyticType != 'clic-RAQ'}" href="${btn1.reference @ extension='html'}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+							</a>
+							<a data-sly-test="${btn1.reference && btn1.analyticType == 'clic-RAQ'}" href="${btn1.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn1.color} ${btn1.size}" data-sscclicktype="${btn1.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn1.titleTablet || btn1.title}</span>
+							</a>
+						</div>
+						<div class="c-hero-banner__buttons__item">
+							<a data-sly-test="${btn2.reference && btn2.analyticType != 'clic-RAQ'}" href="${btn2.reference @ extension='html'}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+							</a>
+							<a data-sly-test="${btn2.reference && btn2.analyticType == 'clic-RAQ'}" href="${btn2.reference @ extension='html', selectors=banner.selectorUrl, suffix=banner.suffixUrl}" class="btn btn-${btn2.color} ${btn2.size}" data-sscclicktype="${btn2.analyticType}">
+								<span class="visible-xs-inline visible-sm-inline">${btn2.titleTablet || btn2.title}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="c-hero-banner__description__desktop" data-sly-test="${banner.description}">
+	<div class="c-hero-banner__description__desktop hidden-xs" data-sly-test="${banner.description}">
 		<p> ${banner.description @ context='html'} </p>
 	</div>
 	<style>
-		.c-hero-banner-v2 .c-hero-banner__content {
-			padding-right: 0px;
-		}
 		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
 			font-family: "Freight Text Bold", serif;
 			text-transform: uppercase;
 			color: #ffffff;
-			font-size: 50px;
 			text-align: left;
-		}
-		@media (max-width: 991px) and (min-width: 768px) {
-			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
-				font-size: 45px;
-			}
-			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__content-col {
-				padding-right: 88px;
-			}
-		}
-		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__content-col {
-			padding-top: 50px;
-			padding-right: 35px;
-		}
-		.c-hero-banner__content-col-btn {
-			padding-top: 11.8%;
-			padding-right: 0px;
-		}
-		.c-hero-banner__description__desktop {
-			display: block;
-			text-align: center;
-			margin-bottom: 20px;
-			margin-top: 40px;
-			font-family: "Suisse Regular", sans-serif;
 		}
 		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn {
 			float: right;
@@ -339,9 +352,73 @@
 			padding: 14px 20px 11px !important;
 			font-family: "Suisse Regular", sans-serif;
 		}
-		.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn span {
-			padding: 11px 17px 9px;
-		}
+		@media (min-width: 768px) {
+			.c-hero-banner-v2 .c-hero-banner__content {
+				padding-right: 0px;
+			}
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
+				font-size: 50px;
+			}
 
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__content-col {
+				padding-top: 50px;
+				padding-right: 35px;
+			}
+			.c-hero-banner__content-col-btn {
+				padding-top: 11.8%;
+				padding-right: 0px;
+			}
+			.c-hero-banner__description__desktop {
+				display: block;
+				text-align: center;
+				margin-bottom: 20px;
+				margin-top: 40px;
+				font-family: "Suisse Regular", sans-serif;
+			}
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn span {
+				padding: 11px 17px 9px;
+			}
+		}
+		@media (max-width: 991px) and (min-width: 768px) {
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
+				font-size: 45px;
+			}
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__content-col {
+				padding-right: 88px;
+			}
+		}
+		@media (max-width: 767px) {
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__title {
+				text-align: center;
+				margin-bottom: 18px;
+				margin-top: 25px;
+				font-size: 30px !important;
+				color: black;
+				line-height: 1.10 !important;
+			}
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__description {
+				display: block;
+				text-align: center;
+				margin-bottom: 24px;
+				font-family: 'Suisse Regular',sans-serif;
+				font-size: 14px;
+			}
+
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn {
+				min-width: 240px;
+				padding: 16px 20px 13px !important;
+				float: none;
+			}
+
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons .btn.btn-white {
+				border-width: 1px;
+				border-style: solid;
+				border-color: rgb(23, 29, 71);
+				border-image: initial;
+			}
+			.c-hero-banner-v2 .c-hero-banner__content .c-hero-banner__buttons {
+				margin-bottom: 20px;
+			}
+		}
 	</style>
 </template>
