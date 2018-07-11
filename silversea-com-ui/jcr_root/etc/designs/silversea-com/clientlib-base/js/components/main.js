@@ -363,13 +363,14 @@ window.briteVerify = function(email){
 				
 				//From cookie marketingeffort - run all regex to categorize in 
 				//Native - Brand - Generic - competition - GDN-DCO - GDN-REM - RTB - Facebook - Others - organic - direct - email - referrer - social organic
-				var SocialRegex = '^social:\s(.*)';
-				var ReferralsRegex = '^referrer:\s(.*)';
+				var NativeRegex = '^dis_(.*)__(.*)(native)(.*)';
+				var SocialRegex = '^social:(.*)';
+				var ReferralsRegex = '^referrer:(.*)';
 				var EmailRegex = '_dem$|#dem$|^em_';
 				var EmailRegex2 = '^(?!.*(_con_|_agn_).*).*dem$|^em_(?!.*(_con_|_agn_).*).*$';
 				var EmailRegex3 = '^em_(.*)_(con)|_con_dem$';
 				var EmailRegex4 = '^em_(.*)_(agn)|_agn_dem$$';
-				var OrganicRegex = '^organic:\s(.*)';
+				var OrganicRegex = '^organic:(.*)';
 				var DirectRegex = '^direct$';
 				var BrandRegex = '^ps_(.*)__(.*)(_br_)(.*)';
 				var BrandRegex2 = '^al!(843|844|845)!105!';
@@ -391,63 +392,83 @@ window.briteVerify = function(email){
 						if(dataJson["social"] != undefined){
 							selectedPhoneNumber = dataJson["social"];
 						}
-					}else if (currentSource.match(ReferralsRegex)){
+					}
+					if (currentSource.match(ReferralsRegex)){
 						if(dataJson["referral"] != undefined){
 							selectedPhoneNumber = dataJson["referral"];
 						} 
-					}else if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
+					}
+					if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
 						if(dataJson["email"] != undefined){
 							selectedPhoneNumber = dataJson["email"];
 						} 
-					}else if (currentSource.match(OrganicRegex)){
+					}
+					if (currentSource.match(OrganicRegex)){
 						if(dataJson["organic"] != undefined){
 							selectedPhoneNumber = dataJson["organic"];
 						} 
-					}else if (currentSource.match(DirectRegex)){
+					}
+					if (currentSource.match(DirectRegex)){
 						if(dataJson["direct"] != undefined){
 							selectedPhoneNumber = dataJson["direct"];
 						} 
-					}else if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
+					}
+					if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
 						if(dataJson["brand"] != undefined){
 							selectedPhoneNumber = dataJson["brand"];
 						} 
-					}else if (currentSource.toLowerCase().match(GenericRegex)){
+					}	
+					if (currentSource.toLowerCase().match(GenericRegex)){
 						if(dataJson["generic"] != undefined){
 							selectedPhoneNumber = dataJson["generic"];
 						} 
-					}else if (currentSource.toLowerCase().match(RTBRegex)){
+					}	
+					if (currentSource.toLowerCase().match(RTBRegex)){
 						if(dataJson["rtb"] != undefined){
 							selectedPhoneNumber = dataJson["rtb"];
 						} 
-					}else if (currentSource.toLowerCase().match(competitorRegex)){
+					}	
+					if (currentSource.toLowerCase().match(competitorRegex)){
 						if(dataJson["competitor"] != undefined){
 							selectedPhoneNumber = dataJson["competitor"];
 						} 
-					}else if (currentSource.toLowerCase().match(otherDisplayRegex)){
+					}
+					if (currentSource.toLowerCase().match(otherDisplayRegex)){
+						if(dataJson["otherdisplay"] != undefined){
+							selectedPhoneNumber = dataJson["otherdisplay"];
+						} 
+					}
+					if (currentSource.toLowerCase().match(NativeRegex)){
 						if(dataJson["native"] != undefined){
 							selectedPhoneNumber = dataJson["native"];
 						} 
-					}else if (currentSource.toLowerCase().match(GDNDCORegex)){
+					}
+					if (currentSource.toLowerCase().match(GDNDCORegex)){
 						if(dataJson["gdndco"] != undefined){
 							selectedPhoneNumber = dataJson["gdndco"];
 						} 
-					}else if (currentSource.toLowerCase().match(GDNRemRegex)){
+					}
+					if (currentSource.toLowerCase().match(GDNRemRegex)){
 						if(dataJson["gdnrem"] != undefined){
 							selectedPhoneNumber = dataJson["gdnrem"];
 						} 
-					}else if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
+					}
+					if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
 						if(dataJson["youtube"] != undefined){
 							selectedPhoneNumber = dataJson["youtube"];
 						} 
-					}else if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
+					}
+					if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
 						if(dataJson["rtb"] != undefined){
 							selectedPhoneNumber = dataJson["rtb"];
 						} 
-					}else if (currentSource.toLowerCase().match(OtherSocialRegex)){
+					}
+					if (currentSource.toLowerCase().match(OtherSocialRegex)){
 						if(dataJson["othersocial"] != undefined){
 							selectedPhoneNumber = dataJson["othersocial"];
 						} 
-					}else if (currentSource.toLowerCase().match(FaceBookRegex)){
+					}	
+					if (currentSource.toLowerCase().match(FaceBookRegex)){
 						if(dataJson["facebook"] != undefined){
 							selectedPhoneNumber = dataJson["facebook"];
 						} 
