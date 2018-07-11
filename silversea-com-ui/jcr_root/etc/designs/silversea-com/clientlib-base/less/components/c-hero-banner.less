@@ -327,6 +327,13 @@
     }
 
     @media (min-width: 768px) {
+        .gradient-overlay {
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            z-index: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.65) 0px, rgba(0, 0, 0, 0) 100%);
+        }
         .c-hero-banner__content {
             padding-right: 0px;
             .c-hero-banner__title {
@@ -378,6 +385,9 @@
             .c-hero-banner__content-col {
                 padding-right: 88px;
             }
+        }
+        .c-hero-banner__content-col-btn {
+            transform: translate(-100%, -5%) !important;
         }
     }
 
