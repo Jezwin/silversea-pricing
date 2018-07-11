@@ -117,6 +117,14 @@
                                             disabled="{Boolean}true"
                                             required="{Boolean}true"
                                             renderReadOnly="{Boolean}true"/>
+                                    <customDestination
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textfield"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="customDestination"
+                                            fieldLabel="Custom Destination"
+                                            name="./customDestination"
+                                            />
                                     <itinerary
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
