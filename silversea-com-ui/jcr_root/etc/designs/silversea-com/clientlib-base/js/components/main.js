@@ -294,7 +294,7 @@ if(currentReferrer != ""){
 window.answerBrite = "";
 //BriteVerify Basic Implementation
 window.briteVerify = function(email){
-	var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
+	/*var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
 
 	 $.ajax({
 		    url: url,
@@ -313,7 +313,7 @@ window.briteVerify = function(email){
 		    	}
 		    	$("[name='email']").blur();
 	        }
-	});
+	});*/
 	
 };
 
@@ -364,13 +364,13 @@ window.briteVerify = function(email){
 				//From cookie marketingeffort - run all regex to categorize in 
 				//Native - Brand - Generic - competition - GDN-DCO - GDN-REM - RTB - Facebook - Others - organic - direct - email - referrer - social organic
 				var NativeRegex = '^dis_(.*)__(.*)(native)(.*)';
-				var SocialRegex = '^social:\s(.*)';
-				var ReferralsRegex = '^referrer:\s(.*)';
+				var SocialRegex = '^social:(.*)';
+				var ReferralsRegex = '^referrer:(.*)';
 				var EmailRegex = '_dem$|#dem$|^em_';
 				var EmailRegex2 = '^(?!.*(_con_|_agn_).*).*dem$|^em_(?!.*(_con_|_agn_).*).*$';
 				var EmailRegex3 = '^em_(.*)_(con)|_con_dem$';
 				var EmailRegex4 = '^em_(.*)_(agn)|_agn_dem$$';
-				var OrganicRegex = '^organic:\s(.*)';
+				var OrganicRegex = '^organic:(.*)';
 				var DirectRegex = '^direct$';
 				var BrandRegex = '^ps_(.*)__(.*)(_br_)(.*)';
 				var BrandRegex2 = '^al!(843|844|845)!105!';
