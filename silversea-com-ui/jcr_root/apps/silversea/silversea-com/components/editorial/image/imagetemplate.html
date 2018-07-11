@@ -3,18 +3,36 @@
     <picture data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <source
-            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain,
-            ${assetHelper.imageUrl}?hei=${image.mobileRetinaWidth}&wid=${image.mobileRetinaWidth}&fit=constrain 2x"
+            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80,
+            ${assetHelper.imageUrl}?hei=${image.mobileRetinaWidth}&wid=${image.mobileRetinaWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80 2x"
             media="(max-width: 767px)" />
         <source
-            srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain,
-            ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=constrain 2x"
+            srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80,
+            ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80 2x"
             media="(min-width: 768px)" />
         <sly data-sly-test="${!seo}">
-	        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+	        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fmt=pjpeg&pscan=5&qlt=80&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
         </sly>
         <sly data-sly-test="${seo}">
-	        <img itemprop="image" src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+	        <img itemprop="image" src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+        </sly>
+    </picture>
+</template>
+
+<template data-sly-template.defaultNoRetina="${ @ imagePath, seo }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"
+            media="(max-width: 767px)" />
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"
+            media="(min-width: 768px)" />
+        <sly data-sly-test="${!seo}">
+	        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+        </sly>
+        <sly data-sly-test="${seo}">
+	        <img itemprop="image" src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
         </sly>
     </picture>
 </template>
@@ -31,13 +49,13 @@
             srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop,
             ${assetHelper.imageUrl}?hei=${image.desktopRetinaWidth}&wid=${image.desktopRetinaWidth}&fit=crop 2x"
             media="(min-width: 768px)" />
-        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img o-img__virtual-tour cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=crop&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img o-img__virtual-tour cq-dd-image" />
     </picture>
 </template>
 
 <!--/* Image */-->
 <template data-sly-template.image="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-    <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+    <img src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"
         alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         class="o-img cq-dd-image" />
@@ -45,7 +63,7 @@
 
 <!--/* Image lazy */-->
 <template data-sly-template.lazy="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
         alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
@@ -53,7 +71,7 @@
 </template>
 
 <template data-sly-template.lazysmall="${ @ imagePath, width}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imagePath}">
-    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain"
+    <img data-src="${assetHelper.imageUrl}?hei=${width}&wid=${width}&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAQAAABQ+cdNAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfiAgIJFy6RFTkUAAAAE0lEQVQI12P8X8+AAZgYGOgjCAC9eQGKi+OE+gAAAABJRU5ErkJggg=="
         alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
         title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}"
@@ -66,9 +84,9 @@
     <picture data-sly-test.imageUrl="${imagePath}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
         <source
-            srcset="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop,
-            ${assetHelper.imageUrl}?hei=390&wid=930&fit=crop 2x"
+            srcset="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop&fmt=pjpeg&pscan=5&qlt=80,
+            ${assetHelper.imageUrl}?hei=390&wid=930&fit=crop&fmt=pjpeg&pscan=5&qlt=80 2x"
             media="(min-width: 768px)" />
-        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+        <img src="${assetHelper.imageUrl}?hei=390&wid=930&fit=crop&fmt=pjpeg&pscan=5&qlt=80" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
     </picture>
 </template>
