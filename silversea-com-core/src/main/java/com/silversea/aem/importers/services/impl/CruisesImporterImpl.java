@@ -511,7 +511,8 @@ public class CruisesImporterImpl implements CruisesImporter {
         cruiseContentNode.setProperty("cruiseId", cruise.getVoyageId());
         cruiseContentNode.setProperty("isVisible", BooleanUtils.isTrue(cruise.getIsVisible()));
         cruiseContentNode.setProperty("isCombo", BooleanUtils.isTrue(cruise.getIsCombo()));
-        
+        cruiseContentNode.setProperty("tourBook", cruise.getTourBook());
+
         //SSC-2406 Wrong Cruise URL + Global Search Title
         //set sling:alias and jcr:title to match voyage name
         final String alias = JcrUtil.createValidName(StringUtils
