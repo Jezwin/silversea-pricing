@@ -5,7 +5,7 @@
     data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
     <div data-sly-repeat.asset="${setImage.renditionList}">
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
-        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=asset.path}"></div>
+        <div data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.defaultNoRetina @ imagePath=asset.path}"></div>
         <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play"></i></a>
     </div>
 </div>
