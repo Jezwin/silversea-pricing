@@ -76,7 +76,7 @@ $(function() {
     /***************************************************************************
      * Build modal for image
      **************************************************************************/
-    $('.automatic-modal').on('click', function(e) {
+    $(document).on('click', '.automatic-modal',function(e) {
         e.preventDefault();
 
         $('body').addClass('modal-open');
