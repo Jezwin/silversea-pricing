@@ -152,7 +152,7 @@ $(function() {
     /***************************************************************************
      * Modal Gallery for "cruise page" and "inline gallery component"
      **************************************************************************/
-    $('.automatic-gallery-modal').on('click', function(e) {
+    $(document).on('click', '.automatic-gallery-modal',function(e) {
         e.preventDefault();
         var $link = $(this),
             ajaxContentPath = $link.closest('[data-gallery-path]').data('gallery-path'),
