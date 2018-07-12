@@ -1442,5 +1442,5 @@
     <tour-book
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-tour-book"
-        sling:message="Download the excursions full description"/>
+        sling:message="Download the tour program"/>
 </jcr:root>
