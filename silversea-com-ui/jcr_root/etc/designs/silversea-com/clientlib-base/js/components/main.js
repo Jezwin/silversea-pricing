@@ -302,7 +302,7 @@ window.briteVerify = function(email){
 		    cache:true,
 		    data: {
 		      address: email,
-		      apikey: "1847206e-0e64-45a9-bb0a-224260bd2b9a"
+		      username: "1847206e-0e64-45a9-bb0a-224260bd2b9a"
 		    },
 		    success: function(response) {
 		    	var valid = response["status"];
