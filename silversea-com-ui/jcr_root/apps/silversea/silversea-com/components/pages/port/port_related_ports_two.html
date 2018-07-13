@@ -13,7 +13,7 @@
 			<div data-sly-repeat.relatedPorts="${portUse.relatedPorts}" class="port_v2__post single">
 					<sly data-sly-test.imageUrl="${relatedPorts.thumbnail}" />
 					<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}" />
-					<div class="port_v2__post_img" style="background-image: url('${assetHelper.imageUrl @ context='unsafe'}?hei=372&wid=672&fit=crop');">
+					<div class="port_v2__post_img" style="background-image: url('${assetHelper.imageUrl @ context='unsafe'}?hei=372&wid=672&fit=crop&fmt=pjpeg&pscan=5&qlt=80');">
 					<a href="${relatedPorts.path @ extension='html'}" title="${relatedPorts.title}"></a>
 				</div>
 				<div class="port_v2__post_content">

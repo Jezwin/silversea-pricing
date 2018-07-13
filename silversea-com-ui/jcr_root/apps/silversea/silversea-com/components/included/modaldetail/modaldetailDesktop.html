@@ -17,7 +17,7 @@
  							<div class="c-slider c-slider--default c-slider--style1 c-slider--arrowoutside" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}' data-sly-list="${setImage.renditionList}">
 								<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
  								<div class="slider-item">
- 									<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url(${assetHelper.imageUrl @ context='unsafe'}?wid=1200&fit=hfit,1)"></div>
+ 									<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url(${assetHelper.imageUrl @ context='unsafe'}?wid=1200&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1)"></div>
  									<div data-sly-test="${itemList.first}" class="c-modal-detail-loader"></div>
  								</div>
  							</div> 
@@ -25,7 +25,7 @@
 					</div>     
                     <div role="tabpanel" class="tab-pane" id="modal-detail-plan"> 
 						<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=modal.detail.plan}" />
- 						<img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="plan" title="plan" class="o-img" />   
+ 						<img src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="plan" title="plan" class="o-img" />   
 					</div>     
                     <div role="tabpanel" class="tab-pane" id="modal-detail-features">
                     	<div class="row">
@@ -47,7 +47,7 @@
 						</div>  
 						<div data-sly-list="${locationImage.renditionList}">
 							<sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}" />
-							<img id="deck-${itemList.index}" src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain" alt="location" title="Location" class="o-img ${!itemList.first ? 'hidden' : ''}" />
+							<img id="deck-${itemList.index}" src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="location" title="Location" class="o-img ${!itemList.first ? 'hidden' : ''}" />
 						</div>
 					</div>     
                     <div role="tabpanel" class="tab-pane" id="modal-detail-virtual-tour">

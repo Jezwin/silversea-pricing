@@ -562,7 +562,7 @@ $(function() {
 				var assetSelectionReferenceList = assetSelectionReference.split("#next#");
 				for(var i = 0; i < assetSelectionReferenceList.length; i++) {
 					assetSelectionToRender += '<div class="slider-item">';
-					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[i] +'?wid=1200&fit=hfit,1)"></div>';
+					assetSelectionToRender += '<div class="ratio lazy" style="display:block;background-size: cover;background-position: center;background-repeat: no-repeat;background-image:url('+ assetSelectionReferenceList[i] +'?wid=1200&fmt=pjpeg&pscan=5&qlt=80&fit=hfit,1)"></div>';
 					if (i == 0) {
 						assetSelectionToRender += '<div class="c-suite-loader"></div>'; 
 					}
@@ -601,7 +601,7 @@ $(function() {
     				if (i != 0) {
     					style = "style='display:none'";
     				}
-    				locationImageToRender += '<img id="'+idItem+'" src="'+ locationImageList[i] +'"?hei=930&wid=930&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img"' + style + '/>';
+    				locationImageToRender += '<img id="'+idItem+'" src="'+ locationImageList[i] +'"?hei=930&wid=930&fmt=pjpeg&pscan=5&qlt=80&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img"' + style + '/>';
     			}
     		} 
     		
@@ -657,7 +657,7 @@ $(function() {
 		
 		//suitetab
 		if (suitePlan != null) {
-			var suitePlanToRender ='<img src="'+ suitePlan + '?hei=930&wid=930&fit=constrain" alt="Suite plan" title="Suite plan" class="o-img" />';
+			var suitePlanToRender ='<img src="'+ suitePlan + '?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="Suite plan" title="Suite plan" class="o-img" />';
 			$modalContent  = $modalContent.replace("c-suitelist-plan-placeholder", suitePlanToRender);
 		}
 		
