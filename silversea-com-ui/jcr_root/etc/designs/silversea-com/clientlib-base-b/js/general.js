@@ -38,7 +38,7 @@ function applyWidths() {
 }
 
 function appendCss() {
-    $("body").append('<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.min.css" type="text/css">');
+    $("body").append('<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.x.min.css" type="text/css">');
 }
 
 function applyNewStyle() {
