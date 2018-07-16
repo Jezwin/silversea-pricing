@@ -548,16 +548,17 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <upload
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/form/fileupload"
-                                        autoStart="{Boolean}false"
-                                        cq-msm-lockable="/image"
-                                        multiple="{Boolean}false"
-                                        name="./image/file.sftmp"
-                                        sizeLimit="100000000"
-                                        title="Upload Image"
-                                        uploadUrl="will_be_replaced"/>
+                                    <thumbnail
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/coral/common/wcm/pagethumbnail"
+                                            page="${empty param.item ? requestPathInfo.suffix : param.item}"/>
+                                    <edit
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            name="./image/fileReference"
+                                            previewTarget=".foundation-layout-thumbnail-image coral-card-asset img"
+                                            text="Change"
+                                            type="image"/>
                                 </items>
                             </column>
                         </items>
