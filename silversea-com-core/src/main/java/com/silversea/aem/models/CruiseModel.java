@@ -48,9 +48,10 @@ public class CruiseModel {
     @Optional
     private String apiTitle;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/importedDescription")
-    @Optional
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/tourBook") @Optional
+    private String tourBook;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
     private String importedDescription;
 
     @Inject
@@ -222,6 +223,10 @@ public class CruiseModel {
         if (imageResource != null) {
             thumbnail = imageResource.getValueMap().get("fileReference", String.class);
         }
+    }
+
+    public String getTourBook() {
+        return tourBook;
     }
 
     /**
