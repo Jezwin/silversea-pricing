@@ -72,6 +72,15 @@
                                                 renderReadOnly="{Boolean}true"
                                                 text="Hide in Footer"
                                                 value="true"/>
+                                            <abtestmanual
+                                                    jcr:primaryType="nt:unstructured"
+                                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                                                    allowBulkEdit="{Boolean}true"
+                                                    cq-msm-lockable="abTestManual"
+                                                    name="./abTestManual"
+                                                    renderReadOnly="{Boolean}true"
+                                                    text="Manual AB Test"
+                                                    value="true"/>
                                             <showfloatingbrochure
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/foundation/form/select"
