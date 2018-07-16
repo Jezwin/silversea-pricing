@@ -294,14 +294,15 @@ if(currentReferrer != ""){
 window.answerBrite = "";
 //BriteVerify Basic Implementation
 window.briteVerify = function(email){
-	/*var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
+	var url = "https://bpi.briteverify.com/emails.json";
 
 	 $.ajax({
 		    url: url,
 		    dataType: 'jsonp',
 		    cache:true,
 		    data: {
-		      address: email
+		      address: email,
+		      username: "1847206e-0e64-45a9-bb0a-224260bd2b9a"
 		    },
 		    success: function(response) {
 		    	var valid = response["status"];
@@ -313,7 +314,7 @@ window.briteVerify = function(email){
 		    	}
 		    	$("[name='email']").blur();
 	        }
-	});*/
+	});
 	
 };
 
@@ -334,160 +335,6 @@ window.briteVerify = function(email){
 		  console.error(error);
 		}
 
-})();
-
-/*
- * Phone Number in function geolocation and source
- * Should save locally the json to avoid multiple call 
- * Cache should be valid for 24 hours maximum
- */
-(function () {
-
-	try {
-			var currentCountry = dataLayer[0].user_country;
-			if(currentCountry != null){
-				var d = new Date();
-				var selectedPhoneNumber = "";
-				var dataJson;
-				var currentSource = getCookie("marketingEffortValue");
-				//TODO Before doing the call, make sure that we dont have any recent value in our local cache
-				if(localStorage.getItem("phoneNumberDate") == null || localStorage.getItem("phoneNumber"+currentCountry) == null || d.getTime() - localStorage.getItem("phoneNumberDate") > 72000000){
-				$.getJSON( "/bin/phoneCustom?country="+currentCountry, function( data ) {
-					  dataJson = data;
-					  localStorage.setItem("phoneNumber"+currentCountry,JSON.stringify(data));
-					  localStorage.setItem("phoneNumberDate",d.getTime());
-					});
-				}else {
-					dataJson = JSON.parse(localStorage.getItem("phoneNumber"+currentCountry));
-				}
-				
-				//From cookie marketingeffort - run all regex to categorize in 
-				//Native - Brand - Generic - competition - GDN-DCO - GDN-REM - RTB - Facebook - Others - organic - direct - email - referrer - social organic
-				var NativeRegex = '^dis_(.*)__(.*)(native)(.*)';
-				var SocialRegex = '^social:(.*)';
-				var ReferralsRegex = '^referrer:(.*)';
-				var EmailRegex = '_dem$|#dem$|^em_';
-				var EmailRegex2 = '^(?!.*(_con_|_agn_).*).*dem$|^em_(?!.*(_con_|_agn_).*).*$';
-				var EmailRegex3 = '^em_(.*)_(con)|_con_dem$';
-				var EmailRegex4 = '^em_(.*)_(agn)|_agn_dem$$';
-				var OrganicRegex = '^organic:(.*)';
-				var DirectRegex = '^direct$';
-				var BrandRegex = '^ps_(.*)__(.*)(_br_)(.*)';
-				var BrandRegex2 = '^al!(843|844|845)!105!';
-				var GenericRegex = '^ps_(.*)__(.*)(_gen_)(.*)';
-				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
-				var competitorRegex = '^ps_(.*)__(.*)(_comp_)(.*)';
-				var otherDisplayRegex = '^dis_(.*)'; //Native
-				var GDNDCORegex = '^dis_(.*)(proadw)(.*)__(.*)(d_pro_dco)(.*)';
-				var GDNRemRegex = '^dis_(.*)(remadw)(.*)__(.*)(d_rem_rmk)(.*)';
-				var YoutubeRegex = '^ps_(.*)(sy)(.*)__(.*)(_yt_)(.*)';
-				var YoutubeRMRegex = '^ps_(.*)(sy)(.*)__(.*)(d_rem_yt_)(.*)';
-				var RTBRegex = '^dis_(.*)__(.*)(_amo_)(.*)';
-				var RTBAdaraRegex = '^dis_(.*)(_proext_)(.*)__(.*)(adara)(.*)';
-				var OtherSocialRegex = '^soc_(.*)';
-				var FaceBookRegex = '^soc_(.*)(_sf_)(.*)__(socf)(.*)';
-				
-				if(typeof dataJson != undefined){
-					if(currentSource.match(SocialRegex)){
-						if(dataJson["social"] != undefined){
-							selectedPhoneNumber = dataJson["social"];
-						}
-					}
-					if (currentSource.match(ReferralsRegex)){
-						if(dataJson["referral"] != undefined){
-							selectedPhoneNumber = dataJson["referral"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
-						if(dataJson["email"] != undefined){
-							selectedPhoneNumber = dataJson["email"];
-						} 
-					}
-					if (currentSource.match(OrganicRegex)){
-						if(dataJson["organic"] != undefined){
-							selectedPhoneNumber = dataJson["organic"];
-						} 
-					}
-					if (currentSource.match(DirectRegex)){
-						if(dataJson["direct"] != undefined){
-							selectedPhoneNumber = dataJson["direct"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
-						if(dataJson["brand"] != undefined){
-							selectedPhoneNumber = dataJson["brand"];
-						} 
-					}	
-					if (currentSource.toLowerCase().match(GenericRegex)){
-						if(dataJson["generic"] != undefined){
-							selectedPhoneNumber = dataJson["generic"];
-						} 
-					}	
-					if (currentSource.toLowerCase().match(RTBRegex)){
-						if(dataJson["rtb"] != undefined){
-							selectedPhoneNumber = dataJson["rtb"];
-						} 
-					}	
-					if (currentSource.toLowerCase().match(competitorRegex)){
-						if(dataJson["competitor"] != undefined){
-							selectedPhoneNumber = dataJson["competitor"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(otherDisplayRegex)){
-						if(dataJson["otherdisplay"] != undefined){
-							selectedPhoneNumber = dataJson["otherdisplay"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(NativeRegex)){
-						if(dataJson["native"] != undefined){
-							selectedPhoneNumber = dataJson["native"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(GDNDCORegex)){
-						if(dataJson["gdndco"] != undefined){
-							selectedPhoneNumber = dataJson["gdndco"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(GDNRemRegex)){
-						if(dataJson["gdnrem"] != undefined){
-							selectedPhoneNumber = dataJson["gdnrem"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
-						if(dataJson["youtube"] != undefined){
-							selectedPhoneNumber = dataJson["youtube"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
-						if(dataJson["rtb"] != undefined){
-							selectedPhoneNumber = dataJson["rtb"];
-						} 
-					}
-					if (currentSource.toLowerCase().match(OtherSocialRegex)){
-						if(dataJson["othersocial"] != undefined){
-							selectedPhoneNumber = dataJson["othersocial"];
-						} 
-					}	
-					if (currentSource.toLowerCase().match(FaceBookRegex)){
-						if(dataJson["facebook"] != undefined){
-							selectedPhoneNumber = dataJson["facebook"];
-						} 
-					}
-				}
-				
-				//If selectedPhoneNumber is here let's try to replace all the good id href and display (take a look to googleforwadingnumber.html)
-				  if(selectedPhoneNumber != ""){
-					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
-					  $(".phoneSpanSource").text(selectedPhoneNumber);
-				  }
-			}
-		}
-		catch(error) {
-		  console.error(error);
-		}
-		
-
-	
 })();
 
 // FIX Object-fit for IE 11 

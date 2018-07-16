@@ -47,6 +47,20 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
     private Map<String, Set<YearMonth>> departureDates = new HashMap<>();
 
     private Map<String, Set<FeatureModelLight>> features = new HashMap<>();
+    
+    private Map<String, Map<String, CruiseModelLight>> cruisesByCodeTmp = new HashMap<>();
+
+    private Map<String, List<DestinationModelLight>> destinationsTmp = new HashMap<>();
+
+    private Map<String, List<ShipModelLight>> shipsTmp = new HashMap<>();
+
+    private Map<String, List<PortModelLight>> portsTmp = new HashMap<>();
+
+    private Map<String, Set<Integer>> durationsTmp = new HashMap<>();
+
+    private Map<String, Set<YearMonth>> departureDatesTmp = new HashMap<>();
+
+    private Map<String, Set<FeatureModelLight>> featuresTmp = new HashMap<>();
 
     @Override
     public void buildCruiseCache() {
@@ -64,24 +78,47 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
             } else {
                 languages = ImportersUtils.getSiteLocales(pageManager);
             }
+            cruisesByCodeTmp = new HashMap<>();
+            destinationsTmp = new HashMap<>();
+            shipsTmp = new HashMap<>();
+            durationsTmp = new HashMap<>();
+            departureDatesTmp = new HashMap<>();
+            featuresTmp = new HashMap<>();
 
             for (final String lang : languages) {
                 // init language
-                cruisesByCode.put(lang, new HashMap<>());
-                destinations.put(lang, new ArrayList<>());
-                ships.put(lang, new ArrayList<>());
-                ports.put(lang, new ArrayList<>());
-                durations.put(lang, new TreeSet<>());
-                departureDates.put(lang, new TreeSet<>());
-                features.put(lang, new TreeSet<>(Comparator.comparing(FeatureModelLight::getName)));
+                
+                cruisesByCodeTmp.put(lang, new HashMap<>());
+                destinationsTmp.put(lang, new ArrayList<>());
+                shipsTmp.put(lang, new ArrayList<>());
+                portsTmp.put(lang, new ArrayList<>());
+                durationsTmp.put(lang, new TreeSet<>());
+                departureDatesTmp.put(lang, new TreeSet<>());
+                featuresTmp.put(lang, new TreeSet<>(Comparator.comparing(FeatureModelLight::getName)));
 
                 // collect cruises
                 final Page destinationsPage = pageManager.getPage("/content/silversea-com/" + lang + "/destinations");
                 collectCruisesPages(destinationsPage);
-                destinations.get(lang).sort(Comparator.comparing(DestinationModelLight::getTitle));
-                ships.get(lang).sort(Comparator.comparing(ShipModelLight::getTitle));
-                ports.get(lang).sort(Comparator.comparing(PortModelLight::getApiTitle));
+                destinationsTmp.get(lang).sort(Comparator.comparing(DestinationModelLight::getTitle));
+                shipsTmp.get(lang).sort(Comparator.comparing(ShipModelLight::getTitle));
+                portsTmp.get(lang).sort(Comparator.comparing(PortModelLight::getApiTitle));
+               
             }
+            
+            cruisesByCode = cruisesByCodeTmp; 
+            destinations = destinationsTmp;
+            ships = shipsTmp;
+            ports = portsTmp;
+            durations = durationsTmp;
+            departureDates = departureDatesTmp;
+            features = featuresTmp;
+            
+            cruisesByCodeTmp = null;
+            destinationsTmp = null;
+            shipsTmp = null;
+            durationsTmp = null;
+            departureDatesTmp = null;
+            featuresTmp = null;
 
             int i = 0;
             for (Map.Entry<String, Map<String, CruiseModelLight>> cruise : cruisesByCode.entrySet()) {
@@ -184,42 +221,42 @@ public class CruisesCacheServiceImpl implements CruisesCacheService {
 
             final CruiseModel cruiseModel = rootPage.adaptTo(CruiseModel.class);
 
-            if (cruiseModel != null && cruiseModel.isVisible()) {
+            if (cruiseModel != null && cruiseModel.isVisible() && cruiseModel.getStartDate().after(Calendar.getInstance())) {
                 CruiseModelLight cruiseModelLight = new CruiseModelLight(cruiseModel);
-                cruisesByCode.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
+                cruisesByCodeTmp.get(lang).put(cruiseModelLight.getCruiseCode(), cruiseModelLight);
 
                 if (cruiseModel.getDestination() != null
-                        && !destinations.get(lang).contains(new DestinationModelLight(cruiseModel.getDestination()))) {
-                    destinations.get(lang).add(new DestinationModelLight(cruiseModel.getDestination()));
+                        && !destinationsTmp.get(lang).contains(new DestinationModelLight(cruiseModel.getDestination()))) {
+                    destinationsTmp.get(lang).add(new DestinationModelLight(cruiseModel.getDestination()));
                 }
 
-                if (cruiseModel.getShip() != null && !ships.get(lang).contains(new ShipModelLight(cruiseModel.getShip()))) {
-                    ships.get(lang).add(new ShipModelLight(cruiseModel.getShip()));
+                if (cruiseModel.getShip() != null && !shipsTmp.get(lang).contains(new ShipModelLight(cruiseModel.getShip()))) {
+                    shipsTmp.get(lang).add(new ShipModelLight(cruiseModel.getShip()));
                 }
 
                 if (cruiseModel.getItineraries() != null) {
                     for (ItineraryModel itinerary : cruiseModel.getItineraries()) {
-                        if (itinerary.getPort() != null && !ports.get(lang).contains(new PortModelLight(itinerary.getPort()))) {
-                            ports.get(lang).add(new PortModelLight(itinerary.getPort()));
+                        if (itinerary.getPort() != null && !portsTmp.get(lang).contains(new PortModelLight(itinerary.getPort()))) {
+                            portsTmp.get(lang).add(new PortModelLight(itinerary.getPort()));
                         }
                     }
                 }
 
                 try {
-                    durations.get(lang).add(Integer.parseInt(cruiseModel.getDuration()));
+                    durationsTmp.get(lang).add(Integer.parseInt(cruiseModel.getDuration()));
                 } catch (NumberFormatException e) {
                     LOGGER.warn("Cannot get int value for duration {} in cruise {}", cruiseModel.getDuration(),
                             cruiseModel.getPage().getPath());
                 }
 
-                departureDates.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
+                departureDatesTmp.get(lang).add(YearMonth.of(cruiseModel.getStartDate().get(Calendar.YEAR),
                         cruiseModel.getStartDate().get(Calendar.MONTH) + 1));
                 List<FeatureModel> tmpFeat = cruiseModel.getFeatures();
                 List<FeatureModelLight> tmpFeatLight = new ArrayList<>();
                 for (FeatureModel featureModel : tmpFeat) {
 					tmpFeatLight.add(new FeatureModelLight(featureModel));
 				}
-                features.get(lang).addAll(tmpFeatLight);
+                featuresTmp.get(lang).addAll(tmpFeatLight);
                 tmpFeat = null;
                 tmpFeatLight = null;
 

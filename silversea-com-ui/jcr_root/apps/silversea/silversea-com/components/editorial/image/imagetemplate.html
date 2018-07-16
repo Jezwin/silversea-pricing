@@ -19,6 +19,25 @@
     </picture>
 </template>
 
+<!--/* Responsive image */-->
+<template data-sly-template.defaultNoRetina="${ @ imagePath, seo }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
+    <picture data-sly-test.imageUrl="${imagePath}">
+        <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = imageUrl}"/>
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.mobileWidth}&wid=${image.mobileWidth}&fit=constrain"
+            media="(max-width: 767px)" />
+        <source
+            srcset="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain"
+            media="(min-width: 768px)" />
+        <sly data-sly-test="${!seo}">
+	        <img src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+        </sly>
+        <sly data-sly-test="${seo}">
+	        <img itemprop="image" src="${assetHelper.imageUrl}?hei=${image.desktopWidth}&wid=${image.desktopWidth}&fit=constrain" alt="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" title="${properties.alt || assetHelper.metadataResource.valueMap['dc:title'] || currentPage.title}" class="o-img cq-dd-image" />
+        </sly>
+    </picture>
+</template>
+
 <!--/* Responsive image for virtual tour*/-->
 <template data-sly-template.virtualTour="${ @ imagePath }" data-sly-use.image="com.silversea.aem.components.editorial.ImageUse">
     <picture data-sly-test.imageUrl="${imagePath}" class="picture-virtual-tour">
