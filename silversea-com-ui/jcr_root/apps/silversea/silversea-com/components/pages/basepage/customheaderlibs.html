@@ -72,89 +72,89 @@ function getCookie(cname) {
 				var OtherSocialRegex = '^soc_(.*)';
 				var FaceBookRegex = '^soc_(.*)(_sf_)(.*)__(socf)(.*)';
 				
-				if(typeof dataJson != undefined){
+				if(typeof dataJson != 'undefined'){
 					if(currentSource.match(SocialRegex)){
-						if(dataJson["social"] != undefined){
+						if(dataJson["social"] != 'undefined'){
 							selectedPhoneNumber = dataJson["social"];
 						}
 					}
 					if (currentSource.match(ReferralsRegex)){
-						if(dataJson["referral"] != undefined){
+						if(dataJson["referral"] != 'undefined'){
 							selectedPhoneNumber = dataJson["referral"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(EmailRegex) || currentSource.match(EmailRegex2) || currentSource.toLowerCase().match(EmailRegex3) || currentSource.toLowerCase().match(EmailRegex4)){
-						if(dataJson["email"] != undefined){
+						if(dataJson["email"] != 'undefined'){
 							selectedPhoneNumber = dataJson["email"];
 						} 
 					}
 					if (currentSource.match(OrganicRegex)){
-						if(dataJson["organic"] != undefined){
+						if(dataJson["organic"] != 'undefined'){
 							selectedPhoneNumber = dataJson["organic"];
 						} 
 					}
 					if (currentSource.match(DirectRegex)){
-						if(dataJson["direct"] != undefined){
+						if(dataJson["direct"] != 'undefined'){
 							selectedPhoneNumber = dataJson["direct"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(BrandRegex) || currentSource.toLowerCase().match(BrandRegex2)){
-						if(dataJson["brand"] != undefined){
+						if(dataJson["brand"] != 'undefined'){
 							selectedPhoneNumber = dataJson["brand"];
 						} 
 					}	
 					if (currentSource.toLowerCase().match(GenericRegex)){
-						if(dataJson["generic"] != undefined){
+						if(dataJson["generic"] != 'undefined'){
 							selectedPhoneNumber = dataJson["generic"];
 						} 
 					}	
 					if (currentSource.toLowerCase().match(RTBRegex)){
-						if(dataJson["rtb"] != undefined){
+						if(dataJson["rtb"] != 'undefined'){
 							selectedPhoneNumber = dataJson["rtb"];
 						} 
 					}	
 					if (currentSource.toLowerCase().match(competitorRegex)){
-						if(dataJson["competitor"] != undefined){
+						if(dataJson["competitor"] != 'undefined'){
 							selectedPhoneNumber = dataJson["competitor"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(otherDisplayRegex)){
-						if(dataJson["otherdisplay"] != undefined){
+						if(dataJson["otherdisplay"] != 'undefined'){
 							selectedPhoneNumber = dataJson["otherdisplay"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(NativeRegex)){
-						if(dataJson["native"] != undefined){
+						if(dataJson["native"] != 'undefined'){
 							selectedPhoneNumber = dataJson["native"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(GDNDCORegex)){
-						if(dataJson["gdndco"] != undefined){
+						if(dataJson["gdndco"] != 'undefined'){
 							selectedPhoneNumber = dataJson["gdndco"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(GDNRemRegex)){
-						if(dataJson["gdnrem"] != undefined){
+						if(dataJson["gdnrem"] != 'undefined'){
 							selectedPhoneNumber = dataJson["gdnrem"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(YoutubeRegex) || currentSource.toLowerCase().match(YoutubeRMRegex)){
-						if(dataJson["youtube"] != undefined){
+						if(dataJson["youtube"] != 'undefined'){
 							selectedPhoneNumber = dataJson["youtube"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(RTBRegex) || currentSource.toLowerCase().match(RTBAdaraRegex)){
-						if(dataJson["rtb"] != undefined){
+						if(dataJson["rtb"] != 'undefined'){
 							selectedPhoneNumber = dataJson["rtb"];
 						} 
 					}
 					if (currentSource.toLowerCase().match(OtherSocialRegex)){
-						if(dataJson["othersocial"] != undefined){
+						if(dataJson["othersocial"] != 'undefined'){
 							selectedPhoneNumber = dataJson["othersocial"];
 						} 
 					}	
 					if (currentSource.toLowerCase().match(FaceBookRegex)){
-						if(dataJson["facebook"] != undefined){
+						if(dataJson["facebook"] != 'undefined'){
 							selectedPhoneNumber = dataJson["facebook"];
 						} 
 					}
