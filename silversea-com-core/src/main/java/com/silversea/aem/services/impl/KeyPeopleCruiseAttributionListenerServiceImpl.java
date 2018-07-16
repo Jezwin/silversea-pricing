@@ -65,6 +65,8 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 	@Override
 	public void onChange(@Nonnull List<ResourceChange> changes) {
 		if (slingSettingsService.getRunModes().contains("author")) {
+			// TO BE RESTARTED FROM SCRATCH DUE TO THE 6.4
+			/*
 			Map<String, Object> authenticationParams = new HashMap<>();
 			authenticationParams.put(ResourceResolverFactory.SUBSERVICE, ImportersConstants.SUB_SERVICE_IMPORT_DATA);
 			Session session = null;
@@ -348,7 +350,7 @@ public class KeyPeopleCruiseAttributionListenerServiceImpl implements ResourceCh
 				if (session != null) {
 					session.logout();
 				}
-			}
+			}*/
 		}
 	}
 }
