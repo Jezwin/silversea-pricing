@@ -66,18 +66,6 @@ public class CreateUUIDEventListenerServiceImpl implements ResourceChangeListene
 					.getServiceResourceResolver(authenticationParams)) {
 				session = resourceResolver.adaptTo(Session.class);
 				for (ResourceChange resourceChange : changes) {
-					//check if sscUUID triggered the event or not
-					Set<String> listPropsChanged = (resourceChange.getAddedPropertyNames() != null) ?  resourceChange.getAddedPropertyNames() : resourceChange.getChangedPropertyNames();
-
-					boolean updateUUID = false;
-					if (listPropsChanged != null) {
-						updateUUID = true;
-						Iterator<String> iterator = listPropsChanged.iterator();
-						while (iterator.hasNext() && updateUUID) {
-							updateUUID = !(iterator.next().toString().equalsIgnoreCase("sscUUID"));
-						}
-					}
-					if (updateUUID) {
 						Resource resource = resourceResolver.getResource(resourceChange.getPath());
 						Node node = resource.adaptTo(Node.class);
 						if (node != null && node.hasProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) && node.getProperty(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY) != null) {
@@ -85,18 +73,20 @@ public class CreateUUIDEventListenerServiceImpl implements ResourceChangeListene
 							if (val != null && (val.getString().startsWith("silversea/silversea-ssc/components/editorial/")
 									|| val.getString().startsWith("silversea/silversea-com/components/editorial/"))) {
 								int sscUUID = resourceChange.getPath().hashCode();
-								LOGGER.debug("Updating propery sscUUID of {} with {}", resourceChange.getPath(), sscUUID);
-								node.setProperty("sscUUID", sscUUID);
-								LOGGER.debug("Property updated");
-								session.save();
+								if(!node.hasProperty("sscUUID") || sscUUID != node.getProperty("sscUUID").getDouble()) {
+									LOGGER.debug("Updating propery sscUUID of {} with {}", resourceChange.getPath(), sscUUID);
+									node.setProperty("sscUUID", sscUUID);
+									LOGGER.debug("Property updated");
+									session.save();
+								}else{
+									LOGGER.debug("No Change in the current SSC-UUID");
+								}
 							}
 						} else {
 							LOGGER.error("Cannot update property");
 							return;
 						}
-					} else {
-						LOGGER.info("SSC-UUID has triggered the event");	
-					}
+
 				}
 				session.logout();
 			} catch (Exception e) {
