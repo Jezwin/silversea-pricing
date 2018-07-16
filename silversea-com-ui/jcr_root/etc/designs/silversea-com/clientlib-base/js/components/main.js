@@ -294,14 +294,15 @@ if(currentReferrer != ""){
 window.answerBrite = "";
 //BriteVerify Basic Implementation
 window.briteVerify = function(email){
-	/*var url = "https://bpi.briteverify.com/emails.json?apikey=1847206e-0e64-45a9-bb0a-224260bd2b9a";
+	var url = "https://bpi.briteverify.com/emails.json";
 
 	 $.ajax({
 		    url: url,
 		    dataType: 'jsonp',
 		    cache:true,
 		    data: {
-		      address: email
+		      address: email,
+		      username: "1847206e-0e64-45a9-bb0a-224260bd2b9a"
 		    },
 		    success: function(response) {
 		    	var valid = response["status"];
@@ -313,7 +314,7 @@ window.briteVerify = function(email){
 		    	}
 		    	$("[name='email']").blur();
 	        }
-	});*/
+	});
 	
 };
 

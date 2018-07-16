@@ -5,6 +5,11 @@
             <p class="c-cruise__descr">
                 ${'cruise-excursion-description' @ i18n}
             </p>
+            <div class="c-cruise__shorex-pdf" data-sly-test="${cruise.cruiseModel.tourBook}">
+                <a href="${cruise.cruiseModel.tourBook}"><span>${'download-tour-book' @ i18n}</span> <i
+                        class="fa fa-file-pdf-o"></i>
+                </a>
+            </div>
             <div id="excursion-collapse" class="c-cruise-itinerary-2__list" role="tablist"
                 data-sly-list.itinerary="${cruise.cruiseModel.ItinerariesStable}"
                 data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
@@ -35,7 +40,7 @@
                             <sly data-sly-test="${itinerary.departDate}"> ${'to' @ i18n} </sly>
                             <span data-sly-use.departDate="${'com.silversea.aem.helper.DateHelper' @ format='EEEE dd MMM', date=itinerary.departDate}">${departDate.value}</span>
 							<br /></span>
-                                
+
                             </p>
                         </div>
                         <div class="panel__heading__info hidden-xs">
