@@ -71,25 +71,8 @@ public class ReplicateThumbnailEventListenerServiceImpl implements ResourceChang
 				for (ResourceChange resourceChange : changes) {
 					//check if thumbnail has been changed or not
 					if(resourceChange.getPath().contains("jcr:content/image") ){ // we are talking about a thumbnail
-						Set<String> listPropsChanged = resourceChange.getChangedPropertyNames();
-						if(listPropsChanged == null){
-							if(resourceChange.getAddedPropertyNames() != null){
-								listPropsChanged = resourceChange.getAddedPropertyNames();
-							}
-						}else{
-							if(resourceChange.getAddedPropertyNames() != null){
-								listPropsChanged.addAll(resourceChange.getAddedPropertyNames());
-							}
-						}
-						boolean updateThumbnail = false;
-						if (listPropsChanged != null) {
-							Iterator<String> iterator = listPropsChanged.iterator();
-							while (iterator.hasNext()) {
-								if(iterator.next().toString().equalsIgnoreCase("fileReference")){
-									updateThumbnail = true;
-								}
-							}
-						}
+						boolean updateThumbnail = true;
+
 						if (updateThumbnail) {
 							Resource resource = resourceResolver.getResource(resourceChange.getPath());
 							Resource parent = resource.getParent();
