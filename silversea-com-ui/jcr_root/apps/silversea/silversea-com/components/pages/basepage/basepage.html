@@ -6,6 +6,6 @@
     class="${countryHelper.hrefLangValid}"
     lang="${countryHelper.hrefLangValid}">
 <head data-sly-include="head.html"></head>
-<body class="${runModeHelper.authorRunModeClass} ${pageHelper.templateName}" data-sly-include="body.html">
+<body class="${runModeHelper.authorRunModeClass} ${pageHelper.templateName} ${properties.abTestManual ? 'abTestManual' : ''}" data-sly-include="body.html">
 </body>
 </html>
