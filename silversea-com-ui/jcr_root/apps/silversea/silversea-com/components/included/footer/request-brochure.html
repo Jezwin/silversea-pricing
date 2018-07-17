@@ -1,0 +1,23 @@
+<template data-sly-template.default="${@ footer}">
+    <div class="c-footer-request-brochure marginTopDesktop0 marginBottomDesktopDesktop0 marginTopTablet5 marginBottomDesktopTablet5 marginTopMobile5 marginBottomDesktopMobile5">
+        <div class="container paddingTopDesktop20 paddingBottomDesktop20 paddingTopTablet35 paddingBottomTablet35 paddingTopMobile35 paddingBottomMobile35">
+            <div class="col-md-6 request-brochure-image paddingRightDesktop-10 paddingLeftDesktop40 paddingRightTablet35 paddingLeftTablet35 paddingRightMobile35 paddingLeftMobile35">
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html"/>
+                <a href="${properties.linkCtaBrochure @ extension='html'}" class="request-brochure-image-link">
+                    <sly data-sly-call="${imageTemplate.default @ imagePath=properties.assetImageBrochure}"/>
+                </a>
+            </div>
+            <div class="col-md-6 request-brochure-info paddingTopDesktop50  paddingRightDesktop-10 paddingLeftDesktop40 paddingRightTablet35 paddingLeftTablet35 paddingRightMobile35 paddingLeftMobile35">
+                <span class="request-brochure-title">request a free brochure</span>
+                <span class="request-brochure-description paddingRightDesktop55">
+                    Get a more detailed look at all Silversea's Luxury Cruises and Expeditions by reading our brochures. It's completely free
+                </span>
+                <a href="${properties.linkCtaBrochure @ extension='html'}" data-sscclicktype="clic-BRO"
+                   class="request-brochure-btn c-smartbtn btn btn-purple">
+                    <span>DOWNLOAD BROCHURE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+

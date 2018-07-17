@@ -1,0 +1,101 @@
+.c-footer-request-brochure {
+  .container {
+    padding-left: 0px;
+    padding-right: 0px;
+    border-top: 1px solid fade(@white, 50%);
+    border-bottom: 1px solid fade(@white, 50%);
+  }
+
+  .request-brochure-title {
+    text-transform: uppercase;
+    color: @white;
+    font-size: 22px;
+    letter-spacing: 0.46px;
+    line-height: 26px;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 7px;
+    font-family: @freight;
+  }
+  .request-brochure-description {
+    font-size: 16px;
+    color: @white;
+    letter-spacing: 0.44px;
+    line-height: 22px;
+    display: block;
+    margin-bottom: 12px;
+    font-family: @freight;
+  }
+
+  .request-brochure-btn {
+    text-transform: uppercase;
+    cursor: pointer;
+    vertical-align: middle;
+    min-width: 220px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    text-align: center;
+    white-space: normal;
+    border-width: 0;
+    border-radius: 0;
+    line-height: 16px;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 14px 20px 11px 20px;
+    font-family: @suisse;
+    margin-top: 15px;
+    border: 1px solid fade(@white, 50%);
+    span {
+      color: @white;
+    }
+  }
+
+  //Custom Style from 991px to mobile
+  @media (max-width: @screen-md-max) {
+    .container {
+      display: flex;
+      flex-direction: column-reverse;
+      .request-brochure-info {
+        text-align: center;
+        .parbase {
+          margin-bottom: 0px !important;
+        }
+      }
+      .request-brochure-image {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  //End Style from 991px to mobile
+
+  //Custom Only Tablet Style
+  @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+    .request-brochure-title {
+      font-size: 33px;
+    }
+
+    .request-brochure-description {
+      font-size: 20px;
+    }
+  }
+  //End Custom Only Tablet Style
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+    .request-brochure-title {
+      font-size: 22px;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+
+    .request-brochure-description {
+      font-size: 18px;
+      letter-spacing: 0.25px;
+      line-height: 20px;
+      margin-bottom: 25px;
+    }
+  }
+  //End Custom Only Tablet Style
+}
