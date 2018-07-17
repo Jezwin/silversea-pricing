@@ -356,6 +356,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Détails de votre demande"/>
+    <download-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Download brochure"/>
     <dining
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -927,6 +931,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Dernière rénovation"/>
+    <request-free-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="request a free brochure"/>
     <request-a-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

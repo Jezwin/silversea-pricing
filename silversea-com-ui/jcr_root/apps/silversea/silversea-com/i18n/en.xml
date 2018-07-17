@@ -355,6 +355,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="details-about-your-request"
         sling:message="Details About Your Request"/>
+    <download-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="download-brochure"
+        sling:message="Download brochure"/>
     <dining
         jcr:primaryType="sling:MessageEntry"
         sling:key="dining"
@@ -923,6 +927,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="refurb-date"
         sling:message="Last refurbishment"/>
+    <request-free-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-free-brochure"
+        sling:message="request a free brochure"/>
     <request-a-brochure
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-a-brochure"
