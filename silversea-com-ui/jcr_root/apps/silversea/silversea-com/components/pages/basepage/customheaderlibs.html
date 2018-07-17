@@ -162,26 +162,27 @@ function getCookie(cname) {
 				
 				//If selectedPhoneNumber is here let's try to replace all the good id href and display (take a look to googleforwadingnumber.html)
 				  if(selectedPhoneNumber != ""){
-					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+				      selectedPhoneNumberClean = selectedPhoneNumber.replace(/-/g,'');
+					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 					  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 100);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 200);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 300);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 500);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 700);
 				  }
