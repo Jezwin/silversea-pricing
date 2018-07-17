@@ -52,49 +52,50 @@
     }
   }
 
-  //Custom Style from 991px to mobile
-  @media (max-width: @screen-md-max) {
-    .container {
-      display: flex;
-      flex-direction: column-reverse;
-      .request-brochure-info {
-        text-align: center;
-        .parbase {
-          margin-bottom: 0px !important;
-        }
-      }
-      .request-brochure-image {
-        margin-bottom: 20px;
-      }
+  //Custom Only Desktop to 769px style
+  @media (max-width: @screen-md-max) and (min-width: 769px) {
+    .request-brochure-info {
+      padding-top: 25px !important;
     }
   }
-  //End Style from 991px to mobile
-
-  //Custom Only Tablet Style
-  @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
-    .request-brochure-title {
-      font-size: 33px;
-    }
-
-    .request-brochure-description {
-      font-size: 20px;
-    }
-  }
-  //End Custom Only Tablet Style
+  //End Custom Only Desktop to 769px style
 
   //Custom Only Mobile Style
   @media (max-width: @screen-sm) {
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .request-brochure-info {
+      text-align: center;
+      .parbase {
+        margin-bottom: 0px !important;
+      }
+    }
+
+    .request-brochure-image {
+      margin-bottom: 20px;
+    }
+
     .request-brochure-title {
       font-size: 22px;
       line-height: 24px;
       margin-bottom: 10px;
+      letter-spacing: 0.5px;
     }
 
     .request-brochure-description {
       font-size: 18px;
       letter-spacing: 0.25px;
       line-height: 20px;
-      margin-bottom: 25px;
+      margin-bottom: 12px;
+    }
+
+    .request-brochure-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
     }
   }
   //End Custom Only Tablet Style
