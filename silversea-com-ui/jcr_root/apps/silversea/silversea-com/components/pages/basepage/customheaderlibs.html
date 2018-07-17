@@ -22,7 +22,7 @@ function getCookie(cname) {
  * Cache should be valid for 24 hours maximum
  */
 (function () {
-
+setTimeout(function(){ 
 	try {
 			var currentCountry = dataLayer[0].user_country;
 			if(currentCountry != null){
@@ -191,7 +191,7 @@ function getCookie(cname) {
 		catch(error) {
 		  console.error(error);
 		}
-		
+}, 1000);	
 
 	
 })();
