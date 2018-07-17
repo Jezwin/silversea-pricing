@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
           jcr:primaryType="sling:OsgiConfig"
-          resource.resolver.mapping="[/content/silversea-com/en.html&lt;/,/content/silversea-com/en.html&gt;/homepage.html,/content/silversea-com/en/:/,/content/silversea-com/:/,/content/dam/$1/jcr:content/renditions/$2&gt;/content/dam/(.+)-rend-(.+),/content/dam/(.+)/jcr:content/renditions/(.+)&lt;/content/dam/$1-rend-$2,/-/, /conf/global/settings/:/conf/global/settings/]"
+          resource.resolver.mapping="[/content/silversea-com/en.html&lt;/,/content/silversea-com/en.html&gt;/homepage.html,/content/silversea-com/en/:/,/content/silversea-com/:/,/content/dam/$1/jcr:content/renditions/$2&gt;/content/dam/(.+)-rend-(.+),/content/dam/(.+)/jcr:content/renditions/(.+)&lt;/content/dam/$1-rend-$2,/-/]"
           resource.resolver.searchpath="[/apps,/libs,/apps/foundation/components/primary,/libs/foundation/components/primary]"
           resource.resolver.map.location="/etc/map"/>
