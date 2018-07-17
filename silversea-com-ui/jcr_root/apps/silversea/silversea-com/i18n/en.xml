@@ -726,7 +726,7 @@
     <next
         jcr:primaryType="sling:MessageEntry"
         sling:key="next"
-        sling:message="Next"/>
+        sling:message="Next page"/>
     <next-voyage
         jcr:primaryType="sling:MessageEntry"
         sling:key="next-voyage"
@@ -856,9 +856,9 @@
         sling:key="pressureUnit"
         sling:message="hPa"/>
     <prev
-            jcr:primaryType="sling:MessageEntry"
-            sling:key="prev"
-            sling:message="Prev"/>
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="prev"
+        sling:message="Prev page"/>
     <previous
         jcr:primaryType="sling:MessageEntry"
         sling:key="previous"
