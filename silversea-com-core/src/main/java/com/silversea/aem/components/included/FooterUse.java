@@ -31,6 +31,7 @@ public class FooterUse extends WCMUsePojo {
     private Page pageAaward;
     private Page pageBlog;
     private Page pageMySilversea;
+    private Page pageDownlaodBrochure;
 
     private String facebookReference;
     private String youtubeReference;
@@ -38,7 +39,7 @@ public class FooterUse extends WCMUsePojo {
     private String instagramReference;
     private String pinterestReference;
     private String brochureimage;
-    
+
     //New Black Brochure Style
     private Iterator<Page> pagesCol1Iterator;
     private Iterator<Page> pagesCol2Iterator;
@@ -74,11 +75,13 @@ public class FooterUse extends WCMUsePojo {
         final String awardReference = properties.getInherited("awardReference", String.class);
         final String blogReference = properties.getInherited("blogReference", String.class);
         final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
+        String linkCtaBrochure = properties.get("linkCtaBrochure", String.class);
 
         pageSubCol1 = getPageFromPath(subCol1);
         pageSubCol2 = getPageFromPath(subCol2);
         pageSubCol3 = getPageFromPath(subCol3);
         pageQuote = getPageFromPath(quoteReference);
+        pageDownlaodBrochure = getPageFromPath(linkCtaBrochure);
         pageExclusiveOffer = getPageFromPath(exclusiveOfferReference);
         pageAaward = getPageFromPath(awardReference);
         pageBlog = getPageFromPath(blogReference);
@@ -191,6 +194,10 @@ public class FooterUse extends WCMUsePojo {
 
     public Page getPageQuote() {
         return pageQuote;
+    }
+
+    public Page getPageDownlaodBrochure() {
+        return pageDownlaodBrochure;
     }
 
     public Page getPageExclusiveOffer() {

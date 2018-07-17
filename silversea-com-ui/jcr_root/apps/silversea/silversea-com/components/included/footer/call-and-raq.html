@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<template data-sly-template.default="${@ footer}">
+    <div class="c-footer-call-and-raq marginTopDesktop0 marginBottomDesktopDesktop0 marginTopTablet5 marginBottomDesktopTablet5 marginTopMobile5 marginBottomDesktopMobile5">
+        <div class="container paddingTopDesktop20 paddingBottomDesktop20 paddingTopTablet35 paddingBottomTablet35 paddingTopMobile20 paddingBottomMobile20">
+            <div class="col-sm-6 call-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop0 paddingTopTablet15 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10">
+                <p class="call-section-text-1">${'call-reservations-team-1' @ i18n}</p>
+                <span class="call-section-number">
+                    <i class="fa fa-phone fa-stack-1x"></i>
+                    <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+	            	<sly data-sly-call="${googleForwardingNumberTemplate.footer}" />
+                 </span>
+                <p class="call-section-text-2">${'call-reservations-team-2' @ i18n}</p>
+            </div>
+            <div class="col-sm-6 request-quote-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop0 paddingTopTablet15 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10">
+                <span class="request-quote-title">Allow us to take care of your next luxury cruise</span>
+                <a href="${footer.pageQuote.path @ extension='html'}" data-sscclicktype="clic-RAQ"
+                   class="request-quote-btn c-smartbtn btn btn-red">
+                    <span>${'request-quote' @ i18n }</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
 
-</body>
-</html>
