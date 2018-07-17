@@ -146,6 +146,16 @@ public class LeadServlet extends SlingAllMethodsServlet {
 									LOGGER.debug("Match found for {}.", emailadress);
 									leadResponse = "{\"blockedReferer\":\"" + emailadress + "\"}";
 									LOGGER.debug("Lead service response {}", leadResponse);
+								} else {
+									List<String> domainBlockList = ListUtils.EMPTY_LIST;
+									ValueMap domainBlockListMap = blockListResource.getValueMap();
+									domainBlockList = Arrays.asList(domainBlockListMap.get("domainblacklist", String[].class));
+									LOGGER.info("Created domain black list from mappings under {} and its {}", BLACKLIST, domainBlockList);
+									if(domainBlockList.contains(emailadress.substring(emailadress.indexOf("@") + 1))) {
+										LOGGER.info("Match found for {}.", emailadress);
+										leadResponse = "{\"blockedReferer\":\"" + emailadress + "\"}";
+										LOGGER.info("Lead service response {}", leadResponse);
+									}
 								}
 							} 
 							
