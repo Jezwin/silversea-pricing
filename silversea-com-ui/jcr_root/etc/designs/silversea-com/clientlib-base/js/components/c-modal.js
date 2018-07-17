@@ -76,7 +76,7 @@ $(function() {
     /***************************************************************************
      * Build modal for image
      **************************************************************************/
-    $('.automatic-modal').on('click', function(e) {
+    $(document).on('click', '.automatic-modal',function(e) {
         e.preventDefault();
 
         $('body').addClass('modal-open');
@@ -152,7 +152,7 @@ $(function() {
     /***************************************************************************
      * Modal Gallery for "cruise page" and "inline gallery component"
      **************************************************************************/
-    $('.automatic-gallery-modal').on('click', function(e) {
+    $(document).on('click', '.automatic-gallery-modal',function(e) {
         e.preventDefault();
         var $link = $(this),
             ajaxContentPath = $link.closest('[data-gallery-path]').data('gallery-path'),

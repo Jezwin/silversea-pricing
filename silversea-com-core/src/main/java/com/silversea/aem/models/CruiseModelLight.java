@@ -45,7 +45,7 @@ public class CruiseModelLight {
 
     private List<FeatureModelLight> features = new ArrayList<>();
 
-    private List<ExclusiveOfferModel> exclusiveOffers = new ArrayList<>();
+    private List<ExclusiveOfferModelLight> exclusiveOffers = new ArrayList<>();
     
     private List<String> portPaths = new ArrayList<>();
     
@@ -84,8 +84,11 @@ public class CruiseModelLight {
 		}
         features = tmpFeatLight;
         tmpFeat = null;
-       
-        exclusiveOffers = cruiseModel.getExclusiveOffers();
+
+        for(ExclusiveOfferModel eoModel : cruiseModel.getExclusiveOffers()) {
+            ExclusiveOfferModelLight eoModelLight =  new ExclusiveOfferModelLight(eoModel);
+            exclusiveOffers.add(eoModelLight);
+        }
 
         isVisible = cruiseModel.isVisible();
         
@@ -163,7 +166,7 @@ public class CruiseModelLight {
     /**
      * @return exclusive offers attached to the cruise
      */
-    public List<ExclusiveOfferModel> getExclusiveOffers() {
+    public List<ExclusiveOfferModelLight> getExclusiveOffers() {
         return exclusiveOffers;
     }
 
