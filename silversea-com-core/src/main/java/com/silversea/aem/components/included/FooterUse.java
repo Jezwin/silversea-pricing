@@ -41,12 +41,14 @@ public class FooterUse extends WCMUsePojo {
     private String brochureimage;
 
     //New Black Brochure Style
+    //TOOD: clean all not use iterators
     private Iterator<Page> pagesCol1Iterator;
     private Iterator<Page> pagesCol2Iterator;
     private Iterator<Page> pagesCol3Iterator;
     private Iterator<Page> pagesCol4Iterator;
     private Iterator<Page> pagesBottomLineIterator2;
     private Iterator<Page> pagesBottomLineIterator3;
+    private Iterator<Page> pagesLegalLinkIterator;
     
     private String Col2title;
     private String Col3title;
@@ -104,6 +106,7 @@ public class FooterUse extends WCMUsePojo {
         pagesBottomLineIterator = pagesBottomLine.iterator();
         pagesBottomLineIterator2 = pagesBottomLine.iterator();
         pagesBottomLineIterator3 = pagesBottomLine.iterator();
+        pagesLegalLinkIterator =pagesBottomLine.iterator();
         
         //brochure style properties
         final String[] Col1 = properties.getInherited("col1", String[].class);
@@ -292,4 +295,8 @@ public class FooterUse extends WCMUsePojo {
 	public Iterator<Page> getPagesBottomLineIterator3() {
 		return pagesBottomLineIterator3;
 	}
+
+    public Iterator<Page> getPagesLegalLinkIterator() {
+        return pagesLegalLinkIterator;
+    }
 }

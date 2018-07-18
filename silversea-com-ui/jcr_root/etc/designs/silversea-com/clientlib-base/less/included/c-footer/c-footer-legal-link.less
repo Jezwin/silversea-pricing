@@ -1,0 +1,49 @@
+.c-footer-legal-link {
+
+  background: white;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  position: relative;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+
+  span {
+    color: @color-typography;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 16px;
+    text-transform: uppercase;
+  }
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+    .container {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .legal-link-section {
+      text-align: center;
+
+      span {
+        letter-spacing: 1.5px;
+      }
+    }
+
+    .year-section {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    span {
+      color: @color-typography;
+      font-family: @suisse;
+      font-size: 9px;
+      letter-spacing: 1.64px;
+      line-height: 16px;
+    }
+  }
+  //End Custom Only Mobile Style
+}
