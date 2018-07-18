@@ -1,10 +1,10 @@
 <template data-sly-template.default="${@ footer}">
     <div class="c-footer-legal-link">
         <div class="container paddingLeftDesktop0 paddingTopDesktop15 paddingBottomDesktop0 paddingTopTablet15 paddingBottomTablet0 paddingTopMobile15 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5">
-            <div class="col-sm-6 year-section">
+            <div class="col-md-6 year-section">
                 <span>&#169; ${footer.year} ${'copyright' @ i18n}</span>
             </div>
-            <div class="col-sm-6 legal-link-section">
+            <div class="col-md-6 legal-link-section">
                 <span class="legal-link-item paddingRightDesktop30 paddingRightTablet20 paddingRightMobile10" data-sly-repeat.item="${footer.pagesLegalLinkIterator}">
                     <a href="${item.path @ extension='html'}"><span>${item.navigationTitle? item.navigationTitle : item.title} </span></a>
                 </span>

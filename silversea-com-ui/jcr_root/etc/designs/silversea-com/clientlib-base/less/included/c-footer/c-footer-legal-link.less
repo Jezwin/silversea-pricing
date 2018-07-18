@@ -17,8 +17,9 @@
     line-height: 16px;
     text-transform: uppercase;
   }
-  //Custom Only Mobile Style
-  @media (max-width: @screen-sm) {
+
+  //Custom From Table to Mobile Style
+  @media (max-width: @screen-md-min) {
     .container {
       display: flex;
       flex-direction: column-reverse;
@@ -26,20 +27,25 @@
 
     .legal-link-section {
       text-align: center;
-
-      span {
-        letter-spacing: 1.5px;
-      }
     }
 
     .year-section {
       text-align: center;
       margin-top: 10px;
     }
+  }
+  //End Custom From Table to Mobile Style
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+
+    .legal-link-section {
+      span {
+        letter-spacing: 1.5px;
+      }
+    }
 
     span {
-      color: @color-typography;
-      font-family: @suisse;
       font-size: 9px;
       letter-spacing: 1.64px;
       line-height: 16px;
