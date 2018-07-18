@@ -4,8 +4,11 @@
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
-    border-top: 1px solid fade(@white, 50%);
-    border-bottom: 1px solid fade(@white, 50%);
+  }
+
+  hr {
+    border-color: fade(@white, 20%);
+    margin-top: 0px;
   }
 
   .call-section {
@@ -21,12 +24,18 @@
     .call-section-text-2 {
       letter-spacing: 1px;
       text-transform: lowercase;
+      margin-top: 5px;
     }
 
     .call-section-number {
       font-size: 22px;
       letter-spacing: 0.85px;
       line-height: 24px;
+      i.fa {
+        position: relative;
+        width: auto;
+        font-size: 1.2em;
+      }
     }
   }
 
@@ -59,5 +68,41 @@
     padding: 14px 20px 11px 20px;
     font-family: @suisse;
     margin-top: 15px;
+    span {
+      font-family: @suisse;
+    }
   }
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+
+    &::after {
+      background-color: @white;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 110vw;
+      left: -10%;
+      opacity: 0.2;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .call-section-text-1, .call-section-text-2, .request-quote-title {
+      letter-spacing: 1px;
+      line-height: 18px;
+      font-size: 12px;
+    }
+
+    .request-quote-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+    }
+  }
+  //End Custom Only Mobile Style
 }
