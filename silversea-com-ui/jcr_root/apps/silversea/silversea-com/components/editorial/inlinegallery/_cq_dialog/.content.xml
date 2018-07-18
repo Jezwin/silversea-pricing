@@ -36,6 +36,7 @@
                                 name="./enableInlineGalleryHB"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                                 <enableVersionB jcr:primaryType="nt:unstructured" text="Enable version B" name="./enableVersionB" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>

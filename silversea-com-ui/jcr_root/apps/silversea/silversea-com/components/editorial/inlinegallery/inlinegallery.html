@@ -9,7 +9,8 @@
         <a class="automatic-gallery-modal ${isVideo ? 'video-link' : ''}" data-target=".bs-modal-lg" href="${asset.path}"><i data-sly-test="${isVideo}" class="fa fa-play"></i></a>
     </div>
 </div>
-
+<sly datal-sly-test="${properties.enableVersionB}"> 
 <div class="ab-test-inline-gallery-to-show">
     <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/inlineGallery/inlineGallery.html" />
 </div>
+</sly>
