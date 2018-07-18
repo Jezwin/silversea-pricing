@@ -13,3 +13,8 @@
 <div class="ab-test-inline-gallery-to-show">
     <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/inlineGallery/inlineGallery.html" />
 </div>
+<sly datal-sly-test="${properties.enableVersionB}"> 
+<div class="${properties.enableVersionB ? 'ab-test-inline-gallery-to-show' : 'disable-b-version-inline-gallery'}">
+    <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/inlineGallery/inlineGallery.html" />
+</div>
+</sly>
