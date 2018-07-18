@@ -1,0 +1,34 @@
+<template data-sly-template.default="${@ footer}">
+    <div class="c-footer-social-and-signup marginTopMobile5 marginBottomDesktopMobile5">
+        <div class="container paddingTopDesktop20 paddingBottomDesktop20 paddingTopTablet35 paddingBottomTablet35 paddingTopMobile10 paddingBottomMobile10">
+            <div class="col-sm-6 social-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop0 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet0 paddingRightMobile10 paddingLeftMobile10">
+                <span class="social-section-title">${'follow-us' @ i18n}</span>
+                <div class="social-section-items">
+                    <span data-sly-test="${footer.pageFacebook}">
+                        <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </span>
+                        <span data-sly-test="${footer.pageYoutube}">
+                        <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                    </span>
+                        <span data-sly-test="${footer.pageTwitter}">
+                        <a href="${footer.pageTwitter}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </span>
+                        <span data-sly-test="${footer.pageInstagram}">
+                        <a href="${footer.pageInstagram}" target="_blank"> <i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </span>
+                        <span data-sly-test="${footer.pagePinterest}">
+                        <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                    </span>
+                        <span data-sly-test="${footer.pageBlog.path}">
+                        <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">
+                            ${footer.pageBlog.navigationTitle? footer.pageBlog.navigationTitle : footer.pageBlog.title}
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-6 signup-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop40 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10 marginTopMobile30">
+                <div data-sly-resource="${'sfowidget' @ resourceType='silversea/silversea-com/components/editorial/sfowidget'}"></div>
+            </div>
+        </div>
+    </div>
+</template>
