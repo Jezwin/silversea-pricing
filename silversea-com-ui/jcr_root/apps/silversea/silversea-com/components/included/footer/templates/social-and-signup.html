@@ -1,14 +1,14 @@
 <template data-sly-template.default="${@ footer}">
-    <div class="c-footer-social-and-signup marginTopMobile5 marginBottomDesktopMobile5">
-        <div class="container paddingTopDesktop20 paddingBottomDesktop20 paddingTopTablet35 paddingBottomTablet35 paddingTopMobile10 paddingBottomMobile10">
-            <div class="col-sm-6 social-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop0 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet0 paddingRightMobile10 paddingLeftMobile10">
+    <div class="c-footer-social-and-signup">
+        <div class="container paddingTopDesktop25 paddingBottomDesktop0 paddingTopTablet10 paddingBottomTablet10 paddingTopMobile25 paddingBottomMobile10">
+            <div class="col-sm-6 hidden-xs social-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop0 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet0 paddingRightMobile10 paddingLeftMobile10">
                 <span class="social-section-title">${'follow-us' @ i18n}</span>
                 <div class="social-section-items">
                     <span data-sly-test="${footer.pageFacebook}">
                         <a href="${footer.pageFacebook}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                     </span>
                         <span data-sly-test="${footer.pageYoutube}">
-                        <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                        <a href="${footer.pageYoutube}" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
                     </span>
                         <span data-sly-test="${footer.pageTwitter}">
                         <a href="${footer.pageTwitter}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
@@ -26,7 +26,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-sm-6 signup-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop40 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10 marginTopMobile30">
+            <div class="col-sm-6 signup-section paddingTopDesktop0  paddingRightDesktop-10 paddingLeftDesktop40 paddingTopTablet15 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10">
                 <div data-sly-resource="${'sfowidget' @ resourceType='silversea/silversea-com/components/editorial/sfowidget'}"></div>
             </div>
         </div>
