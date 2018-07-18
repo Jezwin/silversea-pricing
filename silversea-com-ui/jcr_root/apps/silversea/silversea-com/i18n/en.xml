@@ -15,6 +15,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="adjust-your-search-filters"
         sling:message="adjust your search filters"/>
+    <departure-dates
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="departure-dates"
+            sling:message="Departure Date"/>
+    <ships
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="ships"
+            sling:message="Ship"/>
+    <alldestinations
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="alldestinations"
+            sling:message="All Destinations"/>
     <all-departure-dates
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-departure-dates"
