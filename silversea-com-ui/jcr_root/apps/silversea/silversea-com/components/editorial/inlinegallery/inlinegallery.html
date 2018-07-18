@@ -1,6 +1,6 @@
 <div data-sly-test.empty="${wcmmode.edit}" class="cq-placeholder" data-emptytext="Inline Gallery - DEPRECATED"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
-<div id="c-inline-gallery-${properties.sscUUID}"  class="c-slider c-inline-gallery  ab-test-inline-gallery-to-hide"
+<div id="c-inline-gallery-${properties.sscUUID}"  class="c-slider c-inline-gallery  ${properties.enableVersionB ? 'ab-test-inline-gallery-to-hide' : ''}"
     data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=properties.assetSelectionReference || pageProperties.assetSelectionReference}"
     data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
     <div data-sly-repeat.asset="${setImage.renditionList}">
