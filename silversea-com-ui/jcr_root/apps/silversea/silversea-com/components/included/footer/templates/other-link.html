@@ -1,0 +1,40 @@
+<template data-sly-template.default="${ @ footer }">
+    <div class="c-footer-other-link">
+        <div class="container paddingTopDesktop0 paddingBottomDesktop0 paddingTopTablet0 paddingLeftTablet0 paddingBottomTablet0 paddingTopMobile10 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5">
+            <hr class="hidden-xs marginBottomDesktop15">
+            <div class="col-sm-10">
+                <div class="row" data-sly-list="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
+                    <div class="col-sm-4 ${itemList.first ? 'paddingLeftDesktop0 paddingLeftTablet0' : 'paddingLeftDesktop0 paddingLeftTablet0 marginLeftDesktop-5 marginLeftTablet-5'}">
+                        <div class="other-link-accordion-list">
+                            <span class="other-link-accordion-title">
+                              ${item.title}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-4 ${itemList.first ? 'paddingLeftDesktop15 paddingLeftTablet15' : 'paddingLeftDesktop5 paddingLeftTablet5'}">
+                    <div class="other-link-accordion-list">
+	                <span class="other-link-accordion-title" data-toggle="collapse"
+                          data-target="#collapseFooter-${itemList.index}">
+	                  ${item.title}
+	                </span>
+                        <ul class="other-link-accordion-content" id="collapseFooter-${itemList.index}">
+                            <sly data-sly-repeat.child="${item.listChildren}">
+                                <li class="c-list__item" data-sly-test="${!child.properties.hideInFooter}">
+                                    <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
+                                </li>
+                            </sly>
+                            <li class="c-list__item c-list__item--special"
+                                data-sly-test="${itemList.last && footer.pageMySilversea.path}">
+                                <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
+                                    <i class="fa fa-user"></i>
+                                    ${footer.pageMySilversea.navigationTitle? footer.pageMySilversea.navigationTitle : footer.pageMySilversea.title}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</template>
