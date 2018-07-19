@@ -1,13 +1,67 @@
 .c-footer-other-link {
-  .other-link-accordion-title {
+  .other-link-accordion-title, .other-link-accordion-search {
     color: @white;
     font-family: @suisse;
     font-size: 11px;
     letter-spacing: 2px;
     line-height: 16px;
     text-transform: uppercase;
+    cursor: pointer;
+
+    i {
+      color: @white;
+    }
+  }
+  .other-link-accordion-search {
+    text-transform: capitalize;
+
+    i {
+      vertical-align: -10%;
+    }
+  }
+  .other-link-row-links, .other-link-row-search {
+    display: none;
   }
 
+  .other-link-row-search {
+    min-height: 300px;
+  }
+
+  .other-link-accordion-list-item {
+    color: @white;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 24px;
+    display: block;
+    cursor: pointer;
+  }
+
+  .container-accordion-content {
+    display: none;
+  }
+
+  .container-accordion {
+    margin-left: -50vw;
+    margin-right: -50vw;
+    position: relative;
+    right: 50%;
+    width: 100vw;
+    max-width: 100vw;
+    left: 50%;
+    background-color: @white;
+
+    .container {
+      background-color: fade(@nd-dark, 80%);
+    }
+
+    .row {
+      width: auto;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 
   //Custom Only Desktop and Tablet Style
   @media (min-width: @screen-md-min) {

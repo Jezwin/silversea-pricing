@@ -1,40 +1,47 @@
 <template data-sly-template.default="${ @ footer }">
     <div class="c-footer-other-link">
-        <div class="container paddingTopDesktop0 paddingBottomDesktop0 paddingTopTablet0 paddingLeftTablet0 paddingBottomTablet0 paddingTopMobile10 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5">
+        <div class="container paddingTopDesktop0 paddingBottomDesktop15 paddingTopTablet0 paddingLeftTablet0 paddingBottomTablet15 paddingTopMobile10 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5">
             <hr class="hidden-xs marginBottomDesktop15">
             <div class="col-sm-10">
                 <div class="row" data-sly-list="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
                     <div class="col-sm-4 ${itemList.first ? 'paddingLeftDesktop0 paddingLeftTablet0' : 'paddingLeftDesktop0 paddingLeftTablet0 marginLeftDesktop-5 marginLeftTablet-5'}">
                         <div class="other-link-accordion-list">
                             <span class="other-link-accordion-title">
-                              ${item.title}
+                              ${item.title} <i class="fa fa-lg fa-angle-down" aria-hidden="true"></i>
                             </span>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-sm-4 ${itemList.first ? 'paddingLeftDesktop15 paddingLeftTablet15' : 'paddingLeftDesktop5 paddingLeftTablet5'}">
-                    <div class="other-link-accordion-list">
-	                <span class="other-link-accordion-title" data-toggle="collapse"
-                          data-target="#collapseFooter-${itemList.index}">
-	                  ${item.title}
-	                </span>
-                        <ul class="other-link-accordion-content" id="collapseFooter-${itemList.index}">
-                            <sly data-sly-repeat.child="${item.listChildren}">
-                                <li class="c-list__item" data-sly-test="${!child.properties.hideInFooter}">
-                                    <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
-                                </li>
-                            </sly>
-                            <li class="c-list__item c-list__item--special"
-                                data-sly-test="${itemList.last && footer.pageMySilversea.path}">
-                                <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
-                                    <i class="fa fa-user"></i>
-                                    ${footer.pageMySilversea.navigationTitle? footer.pageMySilversea.navigationTitle : footer.pageMySilversea.title}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
+            </div>
+            <div class="col-sm-2">
+                 <span class="other-link-accordion-search">
+                  ${'search' @ i18n } <i class="fa fa-lg fa-search" aria-hidden="true"></i>
+                </span>
             </div>
         </div>
+        <div class="container container-accordion paddingTopDesktop0 paddingBottomDesktop0 paddingTopTablet0 paddingLeftTablet0 paddingBottomTablet0 paddingTopMobile10 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5">
+            <div class="container container-accordion container-accordion-content paddingTopDesktop0 paddingBottomDesktop0 paddingTopTablet0 paddingLeftTablet0 paddingBottomTablet0 paddingTopMobile10 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5">
+                <div class="row other-link-row-links marginTopDesktop15 marginBottomDesktop15 marginTopTablet15 marginBottomTablet15 marginLeftTablet10"
+                     data-sly-list="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
+                    <div class="col-sm-3 marginRightDesktop15 marginRightTablet10">
+                        <span class="other-link-accordion-list-item" data-sly-test="${!child.properties.hideInFooter}"
+                              data-sly-repeat.child="${item.listChildren}">
+                            <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
+                        </span>
+                        <span class="other-link-accordion-list-item marginTopDesktop20"
+                              data-sly-test="${itemList.last && footer.pageMySilversea.path}">
+                            <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
+                                <i class="fa fa-user-o"></i>
+                                ${footer.pageMySilversea.navigationTitle? footer.pageMySilversea.navigationTitle : footer.pageMySilversea.title}
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row other-link-row-search marginTopDesktop15 marginBottomDesktop15 marginTopTablet15 marginBottomTablet15 marginLeftTablet10">
+
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
