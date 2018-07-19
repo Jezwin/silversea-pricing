@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" data-sly-test="${footer.searchPage}">
                  <span class="other-link-accordion-search">
                   ${'search' @ i18n } <i class="fa fa-lg fa-search" aria-hidden="true"></i>
                 </span>
@@ -38,10 +38,16 @@
                     </div>
                 </div>
                 <div class="row other-link-row-search marginTopDesktop15 marginBottomDesktop15 marginTopTablet15 marginBottomTablet15 marginLeftTablet10">
+                    <div class="other-link-search-form-section">
+                        <form action="${footer.searchPage.path @ extension ='html'}"
+                              class="other-link-search-form paddingBottomDesktop10 paddingBottomTablet10">
+                                <input class="other-link-search-form-input" type="search" placeholder="${'search' @ i18n}" name="q">
 
+                                <i class="fa fa-lg fa-angle-right"></i>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
