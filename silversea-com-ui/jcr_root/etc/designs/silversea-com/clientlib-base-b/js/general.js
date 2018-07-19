@@ -59,6 +59,7 @@ function applyNewStyle() {
 
 }
 
+window.applyNewStyle = applyNewStyle;
 
 
 function applyWithoutTransitions(callback) {
