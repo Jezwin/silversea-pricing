@@ -89,7 +89,7 @@
                             jcr:primaryType="nt:unstructured"
                             width="34" />
                     </image>
-                    <tabbedMozaic jcr:primaryType="nt:unstructured">
+                    <tabbedmozaic jcr:primaryType="nt:unstructured">
                         <desktop-12
                                 jcr:primaryType="nt:unstructured"
                                 width="930" />
@@ -162,7 +162,7 @@
                         <mobile-1
                                 jcr:primaryType="nt:unstructured"
                                 width="481" />
-                    </tabbedMozaic>
+                    </tabbedmozaic>
                     <herobanner jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
