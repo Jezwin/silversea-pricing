@@ -946,6 +946,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="solicite um orçamento"/>
+    <request-quote-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Allow us to take care of your next luxury cruise"/>
     <required-city
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

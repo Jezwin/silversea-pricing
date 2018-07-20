@@ -40,6 +40,7 @@ public class FooterUse extends WCMUsePojo {
     private String instagramReference;
     private String pinterestReference;
     private String brochureimage;
+    private String assetImageBrochure;
 
     //New Black Brochure Style
     //TOOD: clean all not use iterators
@@ -78,8 +79,9 @@ public class FooterUse extends WCMUsePojo {
         final String awardReference = properties.getInherited("awardReference", String.class);
         final String blogReference = properties.getInherited("blogReference", String.class);
         final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
-        String linkCtaBrochure = properties.get("linkCtaBrochure", String.class);
+        String linkCtaBrochure = properties.getInherited("linkCtaBrochure", String.class);
         final String searchPageReference = properties.getInherited("searchPageReference", "");
+
 
 
         pageSubCol1 = getPageFromPath(subCol1);
@@ -151,6 +153,7 @@ public class FooterUse extends WCMUsePojo {
         pagesCol3Iterator = pagesCol3.iterator();
         pagesCol4Iterator = pagesCol4.iterator();
         brochureimage = properties.getInherited("brochureimage", String.class);
+        assetImageBrochure = properties.getInherited("assetImageBrochure", String.class);
         Col2title = properties.getInherited("Col2title", String.class);
         Col3title = properties.getInherited("Col3title", String.class);
         Col4title = properties.getInherited("Col4title", String.class);
@@ -287,6 +290,10 @@ public class FooterUse extends WCMUsePojo {
 	public String getBrochureimage() {
 		return brochureimage;
 	}
+
+    public String getAssetImageBrochure() {
+        return assetImageBrochure;
+    }
 
 	public String getCol2title() {
 		return Col2title;

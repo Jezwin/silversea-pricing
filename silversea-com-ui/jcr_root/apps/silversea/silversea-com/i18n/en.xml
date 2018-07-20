@@ -947,6 +947,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote"/>
+    <request-quote-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-quote-description"
+        sling:message="Allow us to take care of your next luxury cruise"/>
     <required-city
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-city"
