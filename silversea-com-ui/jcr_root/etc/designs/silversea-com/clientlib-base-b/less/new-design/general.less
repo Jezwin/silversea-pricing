@@ -149,6 +149,36 @@
   right: -80px !important;
 }
 
+.slider:not(.nd){
+  .c-slider{
+    .slick-dots {
+      width: 98% !important;
+      position: absolute;
+      border-bottom: 1px solid @grey--9;
+      white-space: nowrap;
+      overflow: hidden;
+      bottom: -30px !important;
+
+      li {
+        height: 2px !important;
+        margin: 0px !important;
+        vertical-align: bottom;
+        button::before {
+          background-color: #0F1A6E;
+          -webkit-border-radius: 0 !important;
+          -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+        }
+      }
+      li:not(.slick-active) {
+        button::before {
+          background-color: @transparent !important;
+        }
+      }
+    }
+  }
+}
+
 @media(max-width:767px) {
 
   .slider:not(.nd) {
@@ -167,6 +197,8 @@
         opacity: 0.5;
         transform: scale(0.85);
       }
+
+
     }
   }
 }
