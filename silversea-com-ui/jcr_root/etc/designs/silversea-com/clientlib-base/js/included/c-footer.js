@@ -35,6 +35,7 @@ if($(".c-footer-2018 .c-footer-other-link").length > 0 ){
                 rowSearch.show();
                 rowLinks.hide();
                 accordionTitleItem.find("i").removeClass("fa-angle-up").addClass("fa-angle-down");
+                $("#other-link-input-search").focus();
             }
         });
     });

@@ -44,42 +44,34 @@
   .other-link-search-form-section {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 25%;
     bottom: 50%;
     transform: translate(-50%, 50%);
   }
 
   .other-link-search-form {
     border-bottom: 1px solid fade(@white, 50%);
-    i{
+    button {
+      padding-right: 0px;
+      background-color: transparent;
+      border: none;
+      padding-left: 20px;
+    }
+    i {
       color: @white;
     }
 
     input:focus, textarea:focus, select:focus {
       outline: none !important;
     }
-
-
-  }
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: @white;
-  }
-
-  ::-ms-input-placeholder { /* Microsoft Edge */
-    color: @white;
-  }
-
-  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: @white;
-    opacity: 1; /* Firefox */
   }
 
   .other-link-search-form-input {
     background: 0;
     color: @white;
     font-family: @suisse;
-    font-size: 13px;
-    letter-spacing: 1.5px;
+    font-size: 20px;
+    letter-spacing: 2.4px;
     line-height: 16px;
     width: 410px;
     border: none;
@@ -114,4 +106,74 @@
     }
   }
   //End Custom Only Desktop and Tablet Style
+  //Custom Only Tablet Style
+  @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+    .other-link-search-form-input {
+      width: 300px;
+    }
+  }
+  //End Custom Only Tablet Style
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+    .other-link-accordion-mobile {
+      border: 1px solid fade(@white, 20%);
+      border-bottom: none;
+    }
+
+    .other-link-accordion-mobile-full {
+      border-bottom: 1px solid fade(@white, 20%);
+    }
+
+    .other-link-accordion-mobile-list {
+      padding: 0px 30px 10px;
+      color: @white;
+      font-family: @suisse;
+      font-size: 12px;
+      .other-link-accordion-mobile-list-item {
+        line-height: 14px;
+        margin-bottom: 6px;
+      }
+      .other-link-accordion-mobile-list-special {
+        margin-bottom: 0;
+        margin-top: 30px;
+      }
+    }
+
+    .other-link-social-section {
+      color: @white;
+      text-align: center;
+      span {
+        margin-right: 30px;
+      }
+    }
+
+    .other-link-accordion-mobile-item-title {
+      color: @white;
+      cursor: pointer;
+      margin-bottom: 0px;
+      position: relative;
+      padding: 20px 30px;
+      text-transform: uppercase;
+      display: block;
+      font-family: @suisse;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 15px;
+
+      &::before {
+        content: '\f107';
+        display: block;
+        font-size: 20px;
+        font-family: 'FontAwesome';
+        position: absolute;
+        right: 30px;
+        top: 47%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+  }
+  //End Custom Only Mobile Style
 }

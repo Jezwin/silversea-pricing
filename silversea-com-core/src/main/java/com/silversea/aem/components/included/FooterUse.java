@@ -32,6 +32,7 @@ public class FooterUse extends WCMUsePojo {
     private Page pageBlog;
     private Page pageMySilversea;
     private Page pageDownlaodBrochure;
+    private Page searchPage;
 
     private String facebookReference;
     private String youtubeReference;
@@ -78,6 +79,8 @@ public class FooterUse extends WCMUsePojo {
         final String blogReference = properties.getInherited("blogReference", String.class);
         final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
         String linkCtaBrochure = properties.get("linkCtaBrochure", String.class);
+        final String searchPageReference = properties.getInherited("searchPageReference", "");
+
 
         pageSubCol1 = getPageFromPath(subCol1);
         pageSubCol2 = getPageFromPath(subCol2);
@@ -88,6 +91,8 @@ public class FooterUse extends WCMUsePojo {
         pageAaward = getPageFromPath(awardReference);
         pageBlog = getPageFromPath(blogReference);
         pageMySilversea = getPageFromPath(mySilverseaReference);
+        searchPage = getPageManager().getPage(searchPageReference);
+
 
         // external links
         facebookReference = properties.getInherited("facebookReference", String.class);
@@ -245,6 +250,13 @@ public class FooterUse extends WCMUsePojo {
     
     public int getYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    /**
+            * @return the searchPage
+     */
+    public Page getSearchPage() {
+        return searchPage;
     }
     
     /**
