@@ -127,10 +127,10 @@
                 </included>
             </components>
         </silversea-com>
-        <silversea-ssc>
-            <components>
-                <editorial>
-                    <destinationTeaser>
+        <silversea-ssc jcr:primaryType="nt:unstructured">
+            <components jcr:primaryType="nt:unstructured">
+                <editorial jcr:primaryType="nt:unstructured">
+                    <destinationTeaser jcr:primaryType="nt:unstructured">
                         <desktop-12
                                 jcr:primaryType="nt:unstructured"
                                 width="930" />
