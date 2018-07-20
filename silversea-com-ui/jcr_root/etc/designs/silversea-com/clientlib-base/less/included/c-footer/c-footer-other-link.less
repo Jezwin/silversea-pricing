@@ -116,6 +116,34 @@
 
   //Custom Only Mobile Style
   @media (max-width: @screen-sm) {
+    .other-link-mobile-search-form-section {
+      .other-link-mobile-search-form {
+        border-bottom: 1px solid fade(@white, 50%);
+        button {
+          padding-right: 0px;
+          background-color: transparent;
+          border: none;
+          float: right;
+        }
+        i {
+          color: @white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+          outline: none !important;
+        }
+      }
+      .other-link-mobile-search-form-input {
+        background: 0;
+        color: @white;
+        font-family: @suisse;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        line-height: 16px;
+        width: 83vw;
+        border: 0;
+      }
+    }
     .other-link-accordion-mobile {
       border: 1px solid fade(@white, 20%);
       border-bottom: none;

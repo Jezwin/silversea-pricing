@@ -50,7 +50,20 @@
                 </div>
             </div>
         </div>
-        <div class="row visible-xs paddingTopMobile20 paddingBottomMobile25">
+        <div class="row visible-xs paddingTopMobile20 paddingBottomMobile10">
+            <div class="col-xs-12">
+                <div class="other-link-mobile-search-form-section">
+                    <form action="${footer.searchPage.path @ extension ='html'}"
+                          class="other-link-mobile-search-form">
+                        <input class="other-link-mobile-search-form-input paddingBottomMobile10" type="search" placeholder="${'search' @ i18n}" name="q" />
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row visible-xs paddingTopMobile15 paddingBottomMobile25">
             <div class="col-sm-3" data-sly-repeat="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
                 <div class="other-link-accordion-mobile ${itemList.last ? 'other-link-accordion-mobile-full' : ''}">
                     <span class="other-link-accordion-mobile-item-title" data-toggle="collapse" data-target="#collapseMobileFooter-${itemList.index}">
