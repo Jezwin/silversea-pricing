@@ -28,6 +28,11 @@
                                             fieldLabel="Long Description"
                                             name="./longDescription"
                                             renderReadOnly="{Boolean}true"/>
+                                    <excerpt
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                                            fieldLabel="Excerpt"
+                                            name="./excerpt"/>
                                     <shipcode
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textfield"
