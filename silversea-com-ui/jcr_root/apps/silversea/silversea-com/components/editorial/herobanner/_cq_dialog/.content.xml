@@ -166,6 +166,7 @@
                                 name="./enableInlineGallery"
                                 value="true"
                                 sling:resourceType="granite/ui/components/foundation/form/checkbox" />
+                            <enableVersionB jcr:primaryType="nt:unstructured" text="Enable version B (Hero Banner Destination)" name="./enableVersionB" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox" />
                         </items>
                     </column>
                 </items>
