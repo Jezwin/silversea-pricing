@@ -1,0 +1,26 @@
+<template data-sly-template.default="${@ footer}">
+    <div class="c-footer-request-brochure">
+        <div class="container paddingTopDesktop0 paddingBottomDesktop0 paddingTopTablet0 paddingBottomTablet0 paddingTopMobile10 paddingBottomMobile10 paddingLeftMobile5 paddingRightMobile5" data-sly-test="${footer.assetImageBrochure}">
+            <hr class="hidden-xs marginBottomTablet30"/>
+            <div class="col-sm-6 request-brochure-image paddingRightDesktop0 paddingLeftDesktop0 paddingRightTablet25 paddingLeftTablet0 paddingRightMobile0 paddingLeftMobile0">
+                <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageTransparent/imageTransparenttemplate.html"/>
+                <a href="${footer.pageDownlaodBrochure.path @ extension='html'}" class="request-brochure-image-link">
+                    <sly data-sly-call="${imageTemplate.default @ imagePath=footer.assetImageBrochure}"/>
+                </a>
+            </div>
+            <div class="col-sm-6 request-brochure-info paddingTopDesktop0  paddingRightDesktop-10 paddingLeftDesktop40 paddingTopTablet15 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10" data-sly-test="${footer.pageDownlaodBrochure}">
+                <div class="request-brochure-info-relative">
+                    <div class="request-brochure-info-absolute">
+                        <span class="request-brochure-title">${'request-free-brochure' @ i18n }</span>
+                        <span class="request-brochure-description paddingRightDesktop55">${'brochure-text' @ i18n }</span>
+                        <a href="${footer.pageDownlaodBrochure.path @ extension='html'}" data-sscclicktype="clic-BRO"
+                           class="request-brochure-btn c-smartbtn btn">
+                            <span>${'download-brochure' @ i18n }</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+

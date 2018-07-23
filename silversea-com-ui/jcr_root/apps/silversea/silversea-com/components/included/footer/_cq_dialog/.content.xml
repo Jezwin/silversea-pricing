@@ -249,6 +249,59 @@
                     </column>
                 </items>
             </footerbversion>
+            <requestBrochure
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Request brochure Section"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                                <assetImageBrochure
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Brochure Image"
+                                    name="./assetImageBrochure"
+                                    rootPath="/content/dam"/>
+                               <linkCtaBrochure
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Brochure Url Cta"
+                                    name="./linkCtaBrochure"
+                                    rootPath="/content/silversea-com"/>
+                        </items>
+                    </column>
+                </items>
+            </requestBrochure>
+            <search
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Search Section"
+                    sling:resourceType="granite/ui/components/foundation/section">
+                <layout
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+                        margin="{Boolean}false"/>
+                <items jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <searchPageReference
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                    fieldLabel="Search Result page"
+                                    name="./searchPageReference"
+                                    rootPath="/content/silversea-com/" />
+                        </items>
+                    </column>
+                </items>
+            </search>
+
         </items>
     </content>
 </jcr:root>

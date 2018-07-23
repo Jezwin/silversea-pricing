@@ -1,0 +1,108 @@
+.c-footer-call-and-raq {
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  hr {
+    border-color: fade(@white, 20%);
+    margin-top: 0px;
+  }
+
+  .call-section {
+    color: @white;
+    font-family: @suisse;
+    font-size: 11px;
+    line-height: 16px;
+
+    .call-section-text-1 {
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .call-section-text-2 {
+      letter-spacing: 1px;
+      text-transform: lowercase;
+      margin-top: 5px;
+    }
+
+    .call-section-number {
+      font-size: 22px;
+      letter-spacing: 0.85px;
+      line-height: 24px;
+      i.fa {
+        position: relative;
+        width: auto;
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .request-quote-title {
+    color: @white;
+    text-transform: uppercase;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 16px;
+    display: block;
+  }
+
+  .request-quote-btn {
+    text-transform: uppercase;
+    cursor: pointer;
+    vertical-align: middle;
+    min-width: 220px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    text-align: center;
+    white-space: normal;
+    border-width: 0;
+    border-radius: 0;
+    line-height: 16px;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 14px 20px 11px 20px;
+    font-family: @suisse;
+    margin-top: 15px;
+    span {
+      font-family: @suisse;
+    }
+  }
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+
+    &::after {
+      background-color: @white;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 110vw;
+      left: -10%;
+      opacity: 0.2;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .call-section-text-1, .call-section-text-2, .request-quote-title {
+      letter-spacing: 1px;
+      line-height: 18px;
+      font-size: 12px;
+    }
+
+    .request-quote-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+    }
+  }
+  //End Custom Only Mobile Style
+}

@@ -1,0 +1,55 @@
+.c-footer-legal-link {
+
+  background: white;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  position: relative;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+
+  span {
+    color: @color-typography;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 16px;
+    text-transform: uppercase;
+  }
+
+  //Custom From Tablet to Mobile Style
+  @media (max-width: @screen-md-max) {
+    .container {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .legal-link-section {
+      text-align: center;
+    }
+
+    .year-section {
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+  //End Custom From Table to Mobile Style
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+
+    .legal-link-section {
+      span {
+        letter-spacing: 1.5px;
+      }
+    }
+
+    span {
+      font-size: 9px;
+      letter-spacing: 1.64px;
+      line-height: 16px;
+    }
+  }
+  //End Custom Only Mobile Style
+}

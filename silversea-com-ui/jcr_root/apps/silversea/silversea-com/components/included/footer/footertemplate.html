@@ -1,5 +1,5 @@
 <template data-sly-template.default="${  @ footer}">
-	<div class="footer_v2" class="container ab-footer-a-version">
+	<div class="footer_v2" class="container ab-footer-a-version ab-test-footer-to-hide">
 		<sly data-sly-include="form.html" />
 		<sly data-sly-use.linkTemplate="link.html" data-sly-call="${linkTemplate.default @ footer= footer}" />
 		<sly data-sly-use.contactTemplate="contact.html" data-sly-call="${contactTemplate.default @ footer= footer}" />
@@ -7,6 +7,15 @@
 		<div class="o-section o-section--separator o-section--legal">
 			<sly data-sly-use.legalTemplate="legal.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
 		</div>
+	</div>
+</template>
+<template data-sly-template.design2018="${@ footer}">
+	<div class="c-footer-2018 container ab-test-footer-to-show">
+		<sly data-sly-use.socialSignUpTemplate="templates/social-and-signup.html" data-sly-call="${socialSignUpTemplate.default @ footer= footer}" />
+		<sly data-sly-use.requestBrochureTemplate="templates/request-brochure.html" data-sly-call="${requestBrochureTemplate.default @ footer= footer}" />
+		<sly data-sly-use.callRaqTemplate="templates/call-and-raq.html" data-sly-call="${callRaqTemplate.default @ footer= footer}" />
+		<sly data-sly-use.otherLinkTemplate="templates/other-link.html" data-sly-call="${otherLinkTemplate.default @ footer= footer}" />
+		<sly data-sly-use.legalTemplate="templates/legal-link.html" data-sly-call="${legalTemplate.default @ footer= footer}" />
 	</div>
 </template>
 <template data-sly-template.port="${  @ footer}">
