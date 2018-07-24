@@ -170,6 +170,14 @@
                                                 required="{Boolean}true"
                                                 rootPath="/content/silversea-com" />
                                     </exclusiveoffers>
+                                    <bigThumbnail
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            fieldLabel="Big thumbnail"
+                                            renderReadOnly="{Boolean}true"
+                                            name="./bigThumbnail"
+                                            rootPath="/content/dam/silversea-com" />
                                 </items>
                             </column>
                         </items>
