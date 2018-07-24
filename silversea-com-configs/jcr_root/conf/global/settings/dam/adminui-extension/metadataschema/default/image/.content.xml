@@ -59,6 +59,16 @@
                                             jcr:primaryType="nt:unstructured"
                                             metaType="text"/>
                                 </credit>
+                                <deckNumber
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                        fieldLabel="Deck Number"
+                                        name="./jcr:content/metadata/deckNumber"
+                                        renderReadOnly="true">
+                                    <granite:data
+                                            jcr:primaryType="nt:unstructured"
+                                            metaType="text"/>
+                                </deckNumber>
                             </items>
                         </col1>
                         <col2
