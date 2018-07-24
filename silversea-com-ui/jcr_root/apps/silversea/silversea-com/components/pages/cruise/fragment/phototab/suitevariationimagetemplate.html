@@ -3,7 +3,7 @@
         <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
         <a href="${asset.path}" class="lazy c-cruise__gallery__item automatic-gallery-modal ${isVideo ? 'video-link' : ''}"
             data-target=".bs-modal-lg"
-            data-src="${assetHelper.imageUrl @ context='uri'}?hei=630&wid=630&fit=constrain">
+            data-src="${assetHelper.imageUrl @ context='uri'}?hei=630&wid=630&fit=constrain&fmt=pjpeg&pscan=5&qlt=80">
             <!--/* <span class="c-cruise__gallery__item__caption" data-sly-test="${asset.metadata.dc:title}" data-sly-text="${asset.metadata.dc:title}"></span> */-->
             <i data-sly-test="${isVideo}" class="fa fa-play"></i>
             <sly data-sly-test="${!isVideo}">

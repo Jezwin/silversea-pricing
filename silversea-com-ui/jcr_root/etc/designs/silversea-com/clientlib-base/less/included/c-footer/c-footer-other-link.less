@@ -1,0 +1,207 @@
+.c-footer-other-link {
+  .other-link-accordion-title, .other-link-accordion-search {
+    color: @white;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    i {
+      color: @white;
+    }
+  }
+  .other-link-accordion-search {
+    text-transform: capitalize;
+
+    i {
+      vertical-align: -10%;
+    }
+  }
+  .other-link-row-links, .other-link-row-search {
+    display: none;
+  }
+
+  .other-link-row-search {
+    min-height: 300px;
+  }
+
+  .other-link-accordion-list-item {
+    color: @white;
+    font-family: @suisse;
+    font-size: 11px;
+    letter-spacing: 2px;
+    line-height: 24px;
+    display: block;
+    cursor: pointer;
+  }
+
+  .container-accordion-content {
+    display: none;
+  }
+
+  .other-link-search-form-section {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .other-link-search-form {
+    border-bottom: 1px solid fade(@white, 50%);
+    button {
+      padding-right: 0px;
+      background-color: transparent;
+      border: none;
+      padding-left: 20px;
+    }
+    i {
+      color: @white;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none !important;
+    }
+  }
+
+  .other-link-search-form-input {
+    background: 0;
+    color: @white;
+    font-family: @suisse;
+    font-size: 20px;
+    letter-spacing: 2.4px;
+    line-height: 16px;
+    width: 410px;
+    border: none;
+  }
+  .container-accordion {
+    margin-left: -50vw;
+    margin-right: -50vw;
+    position: relative;
+    right: 50%;
+    width: 100vw;
+    max-width: 100vw;
+    left: 50%;
+    background-color: @white;
+
+    .container {
+      background-color: fade(@nd-dark, 80%);
+    }
+
+    .row {
+      width: auto;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  //Custom Only Desktop and Tablet Style
+  @media (min-width: @screen-md-min) {
+    hr {
+      border-color: fade(@white, 20%);
+      margin-top: 0px;
+    }
+  }
+  //End Custom Only Desktop and Tablet Style
+  //Custom Only Tablet Style
+  @media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+    .other-link-search-form-input {
+      width: 300px;
+    }
+  }
+  //End Custom Only Tablet Style
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+    .other-link-mobile-search-form-section {
+      .other-link-mobile-search-form {
+        border-bottom: 1px solid fade(@white, 50%);
+        button {
+          padding-right: 0px;
+          background-color: transparent;
+          border: none;
+          float: right;
+        }
+        i {
+          color: @white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+          outline: none !important;
+        }
+      }
+      .other-link-mobile-search-form-input {
+        background: 0;
+        color: @white;
+        font-family: @suisse;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        line-height: 16px;
+        width: 83vw;
+        border: 0;
+      }
+    }
+    .other-link-accordion-mobile {
+      border: 1px solid fade(@white, 20%);
+      border-bottom: none;
+    }
+
+    .other-link-accordion-mobile-full {
+      border-bottom: 1px solid fade(@white, 20%);
+    }
+
+    .other-link-accordion-mobile-list {
+      padding: 0px 30px 10px;
+      color: @white;
+      font-family: @suisse;
+      font-size: 12px;
+      .other-link-accordion-mobile-list-item {
+        line-height: 14px;
+        margin-bottom: 6px;
+      }
+      .other-link-accordion-mobile-list-special {
+        margin-bottom: 0;
+        margin-top: 30px;
+      }
+    }
+
+    .other-link-social-section {
+      color: @white;
+      text-align: center;
+      span {
+        margin-right: 30px;
+      }
+    }
+
+    .other-link-accordion-mobile-item-title {
+      color: @white;
+      cursor: pointer;
+      margin-bottom: 0px;
+      position: relative;
+      padding: 20px 30px;
+      text-transform: uppercase;
+      display: block;
+      font-family: @suisse;
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 15px;
+
+      &::before {
+        content: '\f107';
+        display: block;
+        font-size: 20px;
+        font-family: 'FontAwesome';
+        position: absolute;
+        right: 30px;
+        top: 47%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+  }
+  //End Custom Only Mobile Style
+}

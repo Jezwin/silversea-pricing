@@ -18,73 +18,119 @@ import com.day.cq.wcm.api.Page;
 @Model(adaptables = Page.class)
 public class ShipModel {
 
-    @Inject @Self
+    @Inject
+    @Self
     private Page page;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/" + JcrConstants.JCR_TITLE)
     private String title;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/longDescription")
+    @Optional
     private String longDescription;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipCode") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/excerpt")
+    @Optional
+    private String excerpt;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/shipCode")
+    @Optional
     private String shipCode;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/shipId") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/shipId")
+    @Optional
     private String shipId;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/heroBanner") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/heroBanner")
+    @Optional
     private String heroBanner;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
+    @Optional
     private String assetGallerySelectionReference;
-    
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/photoVideoSuiteSelectionReference") @Optional
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/photoVideoSuiteSelectionReference")
+    @Optional
     private String photoVideoSuiteSelectionReference;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/deckPlan") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/deckPlan")
+    @Optional
     private String deckPlan;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/guestsCapacity") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/guestsCapacity")
+    @Optional
     private String guestsCapacity;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/crewCapacity") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/crewCapacity")
+    @Optional
     private String crewCapacity;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/builtDate") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/builtDate")
+    @Optional
     private String builtDate;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/refurbDate") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/refurbDate")
+    @Optional
     private String refurbDate;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/tonnage") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/tonnage")
+    @Optional
     private String tonnage;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/lengthFt") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/lengthFt")
+    @Optional
     private String lengthFt;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/lengthM") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/lengthM")
+    @Optional
     private String lengthM;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/width") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/width")
+    @Optional
     private String width;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/speed") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/speed")
+    @Optional
     private String speed;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/registry") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/registry")
+    @Optional
     private String registry;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/image/fileReference") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/image/fileReference")
+    @Optional
     private String thumbnail;
 
-    @Inject @Named("dinings")
+    @Inject
+    @Named("dinings")
     private List<DiningModel> dinings;
 
-    @Inject @Named("public-areas")
+    @Inject
+    @Named("public-areas")
     private List<PublicAreaModel> publicAreas;
 
-    @Inject @Named("suites")
+    @Inject
+    @Named("suites")
     private List<SuiteModel> suites;
 
     private String path;
@@ -126,10 +172,10 @@ public class ShipModel {
     }
 
     public String getPhotoVideoSuiteSelectionReference() {
-		return photoVideoSuiteSelectionReference;
-	}
+        return photoVideoSuiteSelectionReference;
+    }
 
-	public String getDeckPlan() {
+    public String getDeckPlan() {
         return deckPlan;
     }
 
@@ -193,6 +239,10 @@ public class ShipModel {
         return path;
     }
 
+    public String getExcerpt() {
+        return excerpt;
+    }
+
     public String getName() {
         return name;
     }
@@ -211,7 +261,7 @@ public class ShipModel {
             return false;
         }
 
-        final ShipModel objShipModel = (ShipModel)obj;
+        final ShipModel objShipModel = (ShipModel) obj;
 
         return objShipModel.getPath().equals(getPath());
     }

@@ -157,13 +157,13 @@
         background-position: center center;
         height: 330px;
         overflow: hidden;
-        
+
         min-height: 200px;
-        
+
 		@media (min-width: @screen-lg-min){
         	max-height:1000px
         }
-        
+
 		@media(min-width:@screen-md-min) and (max-width:@screen-md-max){
         	max-height: 964px;
         }
@@ -287,3 +287,147 @@
         }
     }
 }
+
+
+//Style to add only on template abTest to look like Hero Banner New Design
+.c-hero-banner-v2 {
+    display: none;
+    .c-hero-banner__content {
+        .c-hero-banner__title {
+            font-family: "Freight Text Bold", serif;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-align: left;
+        }
+        .c-hero-banner__buttons .btn {
+            float: right;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            min-width: 220px;
+            margin-bottom: 12px;
+            border-color: initial;
+            border-image: initial;
+            text-align: center !important;
+            white-space: normal;
+            border-width: 0px;
+            border-radius: 0px;
+            line-height: 16px;
+            letter-spacing: 1.5px;
+            font-size: 13px !important;
+            font-weight: normal !important;
+            padding: 14px 20px 11px !important;
+            font-family: "Suisse Regular", sans-serif;
+        }
+        .c-hero-banner-destination__description__desktop {
+            text-align: center;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .gradient-overlay {
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            z-index: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.65) 0px, rgba(0, 0, 0, 0) 100%);
+        }
+        .c-hero-banner__content {
+            padding-right: 0px;
+            .c-hero-banner__title {
+                font-size: 50px;
+            }
+            .c-hero-banner__content-col {
+                padding-right: 70px;
+            }
+
+            .c-hero-banner__parent {
+                position: relative;
+                .c-hero-banner__content-col {
+                    position: absolute;
+                    left: 4%;
+                    transform: translate(-4%,114px);
+                    bottom: -91px;
+                }
+                .c-hero-banner__content-col-btn {
+                    position: absolute;
+                    left: 100%;
+                    transform: translate(-100%,-4%);
+                }
+            }
+        }
+
+        .c-hero-banner__content-col-btn {
+            padding-top: 11.8%;
+            padding-right: 0px;
+        }
+
+        .c-hero-banner__description__desktop {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 40px;
+            font-family: "Suisse Regular", sans-serif;
+        }
+
+        .c-hero-banner__content .c-hero-banner__buttons .btn span {
+            padding: 11px 17px 9px !important;
+        }
+    }
+
+    @media (max-width: 991px) and (min-width: 768px) {
+        .c-hero-banner__content {
+            .c-hero-banner__title {
+                font-size: 45px;
+            }
+            .c-hero-banner__content-col {
+                padding-right: 88px;
+            }
+        }
+        .c-hero-banner__content-col-btn {
+            transform: translate(-100%, -5%) !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .c-hero-banner__content {
+            .c-hero-banner__title {
+                text-align: center;
+                margin-bottom: 18px;
+                margin-top: 25px;
+                font-size: 30px !important;
+                color: black;
+                line-height: 1.10 !important;
+                padding: 0px 10px;
+            }
+            .c-hero-banner__description {
+                display: block;
+                text-align: center;
+                margin-bottom: 24px;
+                font-family: 'Suisse Regular', sans-serif;
+                font-size: 14px;
+            }
+            .c-hero-banner__buttons .btn {
+                min-width: 240px;
+                padding: 16px 20px 13px !important;
+                float: none;
+            }
+            .c-hero-banner__buttons .btn.btn-white {
+                border-width: 1px;
+                border-style: solid;
+                border-color: rgb(23, 29, 71);
+                border-image: initial;
+            }
+            .c-hero-banner__buttons {
+                margin-bottom: 20px;
+            }
+        }
+        .c-inline-gallery.c-slider {
+            margin-top: 0px;
+        }
+
+    }
+}
+//End Style

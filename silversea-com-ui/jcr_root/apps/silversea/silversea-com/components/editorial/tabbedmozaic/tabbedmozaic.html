@@ -1,7 +1,7 @@
 <div data-sly-test="${wcmmode.edit && (!properties.assetReference || !properties.jcr:title)}" class="cq-placeholder cq-dd-image" data-emptytext="Tabbed mozaic"></div>
 <sly data-sly-test="${properties.reference}"
     data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" />
-<section class="c-tabbedmozaic" id="c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid}">
+<section class="c-tabbedmozaic ab-test-global-v1" id="c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid}">
     <div class="c-tabbedmozaic__image-wrapper" data-sly-test.reference="${properties.assetReference}">
         <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
             data-sly-call="${imageTemplate.default @ imagePath=reference}" />
@@ -9,6 +9,18 @@
     <h2 class="c-tabbedmozaic__title" data-sly-test="${properties.jcr:title}"><span>${properties.jcr:title @ context="html"}</span></h2>
     <a class="c-tabbedmozaic__link--block" data-sly-test=${properties.reference} title="${properties.jcr:title}" href="${properties.reference @ extension='html'}"></a>
 </section>
+<a class="c-destination-teaser__link--block ab-test-global-v2" href="${target.page.path @ extension='html'}" data-sly-use.target="${'com.silversea.aem.helper.PageHelper' @ path=properties.reference}" >
+		<section data-sly-test="${properties.reference}" class="c-destination-teaser" 
+		    data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html">
+		    <div class="c-destination-teaser__image-wrapper">
+		        <sly data-sly-call="${imageTemplate.resp @ imagePath=properties.assetReference}"></sly>
+		    </div>
+		    <div class="c-destination-teaser__caption">
+		        <span class="c-destination-teaser__title">${target.page.navigationTitle || target.page.title}</span>
+		    </div>	    
+		</section>
+	</a>
+	
 <style data-sly-test="${properties.desktopHeight != '0' && properties.desktopHeight}">
 @media (min-width: 992px) {
 	#c-tabbedmozaic-${properties.sscUUID  || properties.jcr:uuid  @ context="unsafe"}.c-tabbedmozaic  {

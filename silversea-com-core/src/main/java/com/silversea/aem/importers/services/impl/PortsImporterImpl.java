@@ -123,6 +123,7 @@ public class PortsImporterImpl implements PortsImporter {
                         Node node = portResource.adaptTo(Node.class);
                         if (node != null) {
                             node.getProperty("jcr:title").setValue(port.getTitle());
+                            node.setProperty(ImportersConstants.PN_TO_ACTIVATE, true);
                             successNumber++;
                         } else {
                             logger.warn("Error during updating of {} with value ", portResource.getPath(),

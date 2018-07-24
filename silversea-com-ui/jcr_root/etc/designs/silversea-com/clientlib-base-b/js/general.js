@@ -38,7 +38,7 @@ function applyWidths() {
 }
 
 function appendCss() {
-    $("body").append('<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.min.css" type="text/css">');
+    $("html").addClass('ab-global-v2-activated');
 }
 
 function applyNewStyle() {
@@ -59,6 +59,7 @@ function applyNewStyle() {
 
 }
 
+window.applyNewStyle = applyNewStyle;
 
 
 function applyWithoutTransitions(callback) {

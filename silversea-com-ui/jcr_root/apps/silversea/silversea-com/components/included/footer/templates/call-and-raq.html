@@ -1,0 +1,24 @@
+<template data-sly-template.default="${@ footer}">
+    <div class="c-footer-call-and-raq marginTopMobile5 marginBottomDesktopMobile5">
+        <div class="container paddingTopDesktop20 paddingBottomDesktop10 paddingTopTablet35 paddingBottomTablet35 paddingTopMobile10 paddingBottomMobile10">
+            <hr class="hidden-xs"/>
+            <div class="col-sm-6 call-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop0 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet0 paddingRightMobile10 paddingLeftMobile10">
+                <p class="call-section-text-1">${'call-reservations-team-1' @ i18n}</p>
+                <span class="call-section-number">
+                    <i class="fa fa-phone fa-stack-1x"></i>
+                    <sly data-sly-use.googleForwardingNumberTemplate="/apps/silversea/silversea-ssc/components/included/googleforwardingnumber/googleforwardingnumber.html" />
+	            	<sly data-sly-call="${googleForwardingNumberTemplate.footer}" />
+                 </span>
+                <p class="call-section-text-2">${'call-reservations-team-2' @ i18n}</p>
+            </div>
+            <div class="col-sm-6 request-quote-section paddingTopDesktop0  paddingRightDesktop0 paddingLeftDesktop40 paddingTopTablet10 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10 marginTopMobile30" data-sly-test="${footer.pageQuote.path}">
+                <span class="request-quote-title">${'request-quote-description' @ i18n}</span>
+                <a href="${footer.pageQuote.path @ extension='html'}" data-sscclicktype="clic-RAQ"
+                   class="request-quote-btn c-smartbtn btn btn-red">
+                    <span>${'request-quote' @ i18n }</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+
