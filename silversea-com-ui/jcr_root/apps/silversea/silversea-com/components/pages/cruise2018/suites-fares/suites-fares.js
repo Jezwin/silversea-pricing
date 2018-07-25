@@ -1,0 +1,1 @@
+windows.thisiscool=42;
