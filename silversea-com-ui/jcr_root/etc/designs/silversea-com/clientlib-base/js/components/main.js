@@ -337,6 +337,22 @@ window.briteVerify = function(email){
 
 })();
 
+//Fix FYC port all caps + dest
+(function () {
+
+    try {
+        $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+            var currentPort = $(this).text();
+            currentPort = currentPort.toLowerCase();
+            $(this).text(currentPort);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+})();
+
 // FIX Object-fit for IE 11 
 this.fitie = function (node) {
 	// restrict to valid object-fit value
