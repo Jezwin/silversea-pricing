@@ -9,6 +9,9 @@ public class EoConfigurationBean {
 	private boolean descriptionMain;
 	private boolean shortDescriptionMain;
 	private boolean footnotesMain;
+
+
+	private boolean priorityWeight;
 	
 	private boolean activeGreysSystem;
 	private boolean imageLightbox;
@@ -150,6 +153,13 @@ public class EoConfigurationBean {
 	public void setFootnotesMain(boolean footnotesMain) {
 		this.footnotesMain = footnotesMain;
 	}
-	
+
+	public boolean isPriorityWeight() {
+		return priorityWeight;
+	}
+
+	public void setPriorityWeight(boolean priorityWeight) {
+		this.priorityWeight = priorityWeight;
+	}
 
 }
