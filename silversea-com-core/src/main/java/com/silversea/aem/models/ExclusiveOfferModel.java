@@ -136,12 +136,12 @@ public class ExclusiveOfferModel {
     private String defaultEoFootnotes;
 
     @Inject
-	@Named(JcrConstants.JCR_CONTENT + "/defaultVoyageIcon")
-	@Optional
-	private String defaultVoyageIcon;
+    @Named(JcrConstants.JCR_CONTENT + "/defaultVoyageIcon")
+    @Optional
+    private String defaultVoyageIcon;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT+"/priorityWeight")
+    @Named(JcrConstants.JCR_CONTENT + "/priorityWeight")
     @Optional
     private Integer priorityWeight;
 

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class Cruise2018Use extends EoHelper {
 
     private static final EoConfigurationBean EO_CONFIG = new EoConfigurationBean();
+
     static {
         EO_CONFIG.setTitleVoyage(true);
         EO_CONFIG.setShortDescriptionVoyage(true);
@@ -22,6 +23,7 @@ public class Cruise2018Use extends EoHelper {
         EO_CONFIG.setMapOverheadVoyage(true);
         EO_CONFIG.setCruiseFareVoyage(true);
         EO_CONFIG.setPriorityWeight(true);
+        EO_CONFIG.setIconVoyage(true);
     }
 
     private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
