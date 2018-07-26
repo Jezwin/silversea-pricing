@@ -9,18 +9,19 @@ public class EoConfigurationBean {
 	private boolean descriptionMain;
 	private boolean shortDescriptionMain;
 	private boolean footnotesMain;
-	
+
 	private boolean activeGreysSystem;
 	private boolean imageLightbox;
 	private boolean titleLigthbox;
 	private boolean descriptionLigthbox;
-	
+
 	private boolean titleVoyage;
 	private boolean shortDescriptionVoyage;
 	private boolean mapOverheadVoyage;
 	private boolean footnoteVoyage;
 	private boolean cruiseFareVoyage;
-	
+	private boolean iconVoyage;
+
 	private boolean descriptionTnC;
 
 	public boolean isActiveSystem() {
@@ -62,7 +63,7 @@ public class EoConfigurationBean {
 	public void setShortDescriptionVoyage(boolean shortDescriptionVoyage) {
 		this.shortDescriptionVoyage = shortDescriptionVoyage;
 	}
-	
+
 	public boolean isMapOverheadVoyage() {
 		return mapOverheadVoyage;
 	}
@@ -70,7 +71,7 @@ public class EoConfigurationBean {
 	public void setMapOverheadVoyage(boolean mapOverheadVoyage) {
 		this.mapOverheadVoyage = mapOverheadVoyage;
 	}
-	
+
 	public boolean isFootnoteVoyage() {
 		return footnoteVoyage;
 	}
@@ -78,7 +79,7 @@ public class EoConfigurationBean {
 	public void setFootnoteVoyage(boolean footnoteVoyage) {
 		this.footnoteVoyage = footnoteVoyage;
 	}
-	
+
 	public boolean isCruiseFareVoyage() {
 		return cruiseFareVoyage;
 	}
@@ -149,6 +150,14 @@ public class EoConfigurationBean {
 
 	public void setFootnotesMain(boolean footnotesMain) {
 		this.footnotesMain = footnotesMain;
+	}
+
+	public boolean isIconVoyage() {
+		return iconVoyage;
+	}
+
+	public void setIconVoyage(boolean iconVoyage) {
+		this.iconVoyage = iconVoyage;
 	}
 	
 

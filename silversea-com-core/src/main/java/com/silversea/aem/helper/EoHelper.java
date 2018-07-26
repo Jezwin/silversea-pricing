@@ -41,7 +41,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 		
 		if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
 			eoBean = new EoBean();
-			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null, shortTitle = null, eofootnotes = null;
+			String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null, shortTitle = null, eofootnotes = null, iconVoyage= null;
 			ExclusiveOfferFareModel[] cruiseFares = null;
 			Map<String, ValueTypeBean> styles = styleCache.getStyles();
 			
@@ -93,6 +93,7 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if (eoConfig.isFootnotesMain()) {
 				eofootnotes = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "footnotes", eoModel.getDefaultEoFootnotes());
 			}
+
 			//-----------------------------------------
 			if(eoConfig.isDescriptionTnC()) {
 				description = getValueByBesthMatchTag(eoModel.getCustomTnCSettings(), "description", eoModel.getDefaultDescriptionTnC());
@@ -112,6 +113,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			}
 			if(eoConfig.isCruiseFareVoyage()){
 				cruiseFares = getCruiseFaresValuesByBesthMatchTag(eoModel.getCustomVoyageFaresSettings());
+			}
+			if(eoConfig.isIconVoyage()) {
+				iconVoyage = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "icon", eoModel.getDefaultVoyageIcon());
 			}
 			//-----------------------------------------
 			if(eoConfig.isTitleLigthbox()) {
@@ -229,6 +233,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 			if (StringUtils.isNotEmpty(footnote)) {
 				eoBean.setFootnote(footnote);
 			}
+			if (StringUtils.isNotEmpty(iconVoyage)) {
+				eoBean.setIcon(iconVoyage);
+			}
 			if(cruiseFares != null && cruiseFares.length > 0){
 				eoBean.setCruiseFares(cruiseFares);
 			}
@@ -320,19 +327,20 @@ public class EoHelper extends AbstractGeolocationAwareUse {
 					
 					if(isActive) {
 						boolean typeIsTitle = (eoSettings.get("type") != null) ? eoSettings.get("type").getAsString().equalsIgnoreCase(type) : false;
+						String propertyNameValue = type.equalsIgnoreCase("icon") ? "valueIcon" : "value";
 						if (typeIsTitle) {
 							if (eoSettings.get("tags") != null) {
 								String[] tags = eoSettings.get("tags").getAsString().split(",");
 								for (String tag : tags) {
 									tag = tag.replaceAll(WcmConstants.GEOLOCATION_TAGS_PREFIX, "");
 									if (super.isBestMatch(tag)) {
-										value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString()
+										value = (eoSettings.get(propertyNameValue) != null) ? eoSettings.get(propertyNameValue).getAsString()
 												: null;
 										break;
 									}
 								}
 							} else {
-								value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString() : null;
+								value = (eoSettings.get(propertyNameValue) != null) ? eoSettings.get(propertyNameValue).getAsString() : null;
 							}
 						}
 					}

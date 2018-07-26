@@ -27,14 +27,16 @@ public class ExclusiveOfferItem {
     private String mapOverhead;
     
     private String eoFootnotes;
-    
+
     private String exclusiveOfferPath;
-    
+
     private List<String> cruiseFareAdditions;
-    
+
     private List<String> footnotes;
-    
-    private Boolean newSystem;
+
+	private String voyageIcon;
+
+	private Boolean newSystem;
 
     private String destinationPath;
     
@@ -82,6 +84,7 @@ public class ExclusiveOfferItem {
 				eoFootnotes  =result.getEoFootnotes();
 				positionDescriptionDesktopLB = exclusiveOffer.getPositionDescriptionDesktopLB();
 				positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
+				voyageIcon = result.getIcon();
 				if(StringUtils.isNotEmpty(result.getFootnote())){
 					footnotes.add(result.getFootnote());
 				}
@@ -219,5 +222,9 @@ public class ExclusiveOfferItem {
 
 	public String getPositionDescriptionMobileLB() {
 		return positionDescriptionMobileLB;
+	}
+
+	public String getVoyageIcon() {
+		return voyageIcon;
 	}
 }

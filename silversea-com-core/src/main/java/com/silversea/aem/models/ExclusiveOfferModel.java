@@ -99,7 +99,7 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultTitle")
 	@Optional
 	private String defaultTitle;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultShortTitle")
 	@Optional
@@ -109,7 +109,7 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultDescription")
 	@Optional
 	private String defaultDescription;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultDescriptionTnC")
 	@Optional
@@ -119,21 +119,26 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/defaultShortDescription")
 	@Optional
 	private String defaultShortDescription;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultMapOverhead")
 	@Optional
 	private String defaultMapOverhead;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultFootnote")
 	@Optional
 	private String defaultFootnote;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/defaultEoFootnotes")
 	@Optional
 	private String defaultEoFootnotes;
+
+    @Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultVoyageIcon")
+	@Optional
+	private String defaultVoyageIcon;
 
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
@@ -159,12 +164,12 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/pathImageLB")
 	@Optional
 	private String pathImageLB;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/positionDescriptionDesktopLB")
 	@Optional
 	private String positionDescriptionDesktopLB;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/positionDescriptionMobileLB")
 	@Optional
@@ -184,7 +189,7 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/customVoyageSettings")
 	@Optional
 	private String[] customVoyageSettings;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/customVoyagesFaresSettings")
 	@Optional
@@ -194,7 +199,7 @@ public class ExclusiveOfferModel {
 	@Named(JcrConstants.JCR_CONTENT + "/customTnCSettings")
 	@Optional
 	private String[] customTnCSettings;
-	
+
 	@Inject
 	@Named(JcrConstants.JCR_CONTENT + "/categoryEO")
 	@Optional
@@ -336,7 +341,7 @@ public class ExclusiveOfferModel {
 	public String getDefaultDescription() {
 		return defaultDescription;
 	}
-	
+
 	public String getDefaultDescriptionTnC() {
 		return defaultDescriptionTnC;
 	}
@@ -344,15 +349,15 @@ public class ExclusiveOfferModel {
 	public String getDefaultShortDescription() {
 		return defaultShortDescription;
 	}
-	
+
 	public String getDefaultMapOverhead() {
 		return defaultMapOverhead;
 	}
-	
+
 	public String getDefaultFootnote() {
 		return defaultFootnote;
 	}
-	
+
 	public String getDefaultEoFootnotes() {
 		return defaultEoFootnotes;
 	}
@@ -392,11 +397,11 @@ public class ExclusiveOfferModel {
 	public String[] getCustomVoyageFaresSettings() {
 		return customVoyageFaresSettings;
 	}
-	
+
 	public String[] getCustomTnCSettings() {
 		return customTnCSettings;
 	}
-	
+
 	public String getDefaultShortTitle() {
 		return defaultShortTitle;
 	}
@@ -412,4 +417,8 @@ public class ExclusiveOfferModel {
 	public String getPositionDescriptionMobileLB() {
 		return positionDescriptionMobileLB;
 	}
+
+    public String getDefaultVoyageIcon() {
+        return defaultVoyageIcon;
+    }
 }

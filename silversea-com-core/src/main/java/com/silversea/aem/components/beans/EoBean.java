@@ -15,6 +15,7 @@ public class EoBean {
 	private boolean greyBoxesSystem;
 	private boolean isAvailable;
 	private String eoFootnotes;
+	private String icon;
 	
 	public EoBean() {}
 	
@@ -105,5 +106,12 @@ public class EoBean {
 	public void setShortTitle(String shortTitle) {
 		this.shortTitle = shortTitle;
 	}
-	
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 }
