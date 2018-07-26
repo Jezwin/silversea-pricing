@@ -35,8 +35,9 @@ public class EoHelper extends AbstractGeolocationAwareUse {
         if (eoConfig != null && eoConfig.isActiveSystem() && eoModel != null) {
             eoBean = new EoBean();
             String title = null, description = null, shortDescription = null, mapOverhead = null, footnote = null,
-                    shortTitle = null, eofootnotes = null;
+                    shortTitle = null, eofootnotes = null, iconVoyage = null;
             Integer priorityWeight = 0;
+
             ExclusiveOfferFareModel[] cruiseFares = null;
             Map<String, ValueTypeBean> styles = styleCache.getStyles();
 
@@ -71,10 +72,6 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             if (eoModel.getGeomarkets() != null && eoModel.getGeomarkets().contains(geomarket)) {
                 eoBean.setAvailable(true);
             }
-            if (eoConfig.isPriorityWeight()) {
-                priorityWeight = Integer.parseInt(
-                        getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "priorityWeight", "0"));
-            }
 
             if (eoConfig.isTitleMain()) {
                 title = getValueByBesthMatchTag(eoModel.getCustomMainSettings(), "title", eoModel.getDefaultTitle());
@@ -107,6 +104,16 @@ public class EoHelper extends AbstractGeolocationAwareUse {
                 title = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "shortTitle",
                         eoModel.getCustomMainSettings(), eoModel.getDefaultShortTitle());
             }
+
+            if (eoConfig.isPriorityWeight()) {
+                priorityWeight = Integer.parseInt(
+                        getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "priorityWeight", "0"));
+            }
+            if (eoConfig.isIconVoyage()) {
+                iconVoyage = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "icon",
+                        eoModel.getDefaultVoyageIcon());
+            }
+
             if (eoConfig.isShortDescriptionVoyage()) {
                 shortDescription = getValueByBesthMatchTag(eoModel.getCustomVoyageSettings(), "shortDescription",
                         eoModel.getCustomMainSettings(), eoModel.getDefaultShortDescription());
@@ -242,10 +249,14 @@ public class EoHelper extends AbstractGeolocationAwareUse {
             if (StringUtils.isNotEmpty(footnote)) {
                 eoBean.setFootnote(footnote);
             }
+            if (StringUtils.isNotEmpty(iconVoyage)) {
+                eoBean.setIcon(iconVoyage);
+            }
             if (cruiseFares != null && cruiseFares.length > 0) {
                 eoBean.setCruiseFares(cruiseFares);
             }
             eoBean.setPriorityWeight(priorityWeight);
+
         }
 
         return eoBean;

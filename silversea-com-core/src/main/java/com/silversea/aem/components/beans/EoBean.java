@@ -10,14 +10,14 @@ public class EoBean {
     private String shortDescription;
     private String footnote;
     private String mapOverhead;
-
-
-    private Integer priorityWeight;
     private ExclusiveOfferFareModel[] cruiseFares;
     private String image;
     private boolean greyBoxesSystem;
     private boolean isAvailable;
     private String eoFootnotes;
+    private String icon;
+    private Integer priorityWeight;
+
 
     public EoBean() {
     }
@@ -113,6 +113,14 @@ public class EoBean {
 
     public void setShortTitle(String shortTitle) {
         this.shortTitle = shortTitle;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Integer getPriorityWeight() {

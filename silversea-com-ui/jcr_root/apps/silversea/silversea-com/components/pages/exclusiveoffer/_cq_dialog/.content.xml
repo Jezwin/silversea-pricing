@@ -577,6 +577,16 @@
 																fieldDescription="Default Footnote on voyage"
 																fieldLabel="Default Footnote - (Voyage page)"
 																name="./defaultFootnote" />
+                                                            <defaultVoyageIcon
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    name="./defaultVoyageIcon"
+                                                                    fieldLabel="Default icon - (Voyage page)"
+                                                                    sling:resourceType="granite/ui/components/foundation/form/select">
+                                                                <datasource
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
+                                                                        addNone="{Boolean}true"/>
+                                                            </defaultVoyageIcon>
 															<defaultPriorityWeight
 																	jcr:primaryType="nt:unstructured"
 																	sling:resourceType="granite/ui/components/foundation/form/numberfield"
@@ -631,6 +641,10 @@
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Footnote - (Voyage page)"
 																				      	value="footnote"/>
+																					  <icon
+																						  jcr:primaryType="nt:unstructured"
+																						  text="Icon - (Voyage page)"
+																						  value="icon"/>
 																				  </items>
 																				</type>
 						                                                        <value
@@ -640,6 +654,16 @@
 						                                        					rows="10"
 						                                                            fieldLabel="Value"
 						                                                            name="./value"/>
+																				 <icon
+																						jcr:primaryType="nt:unstructured"
+																						name="./valueIcon"
+																						fieldLabel="Custom icon"
+																						sling:resourceType="granite/ui/components/foundation/form/select">
+																					<datasource
+																							jcr:primaryType="nt:unstructured"
+																							sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
+																							addNone="{Boolean}true"/>
+																				 </icon>
 						                                                         <tags
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
@@ -813,7 +837,7 @@
 						                                <items jcr:primaryType="nt:unstructured">
 						                                	 <style
 						                                         jcr:primaryType="nt:unstructured"
-						                                         sling:resourceType="granite/ui/components/foundation/form/select">
+																 sling:resourceType="granite/ui/components/foundation/form/select">
 						                                         <datasource
 						                                            jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoHelperDatasource"

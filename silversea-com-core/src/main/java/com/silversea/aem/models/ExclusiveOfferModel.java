@@ -135,11 +135,17 @@ public class ExclusiveOfferModel {
     @Optional
     private String defaultEoFootnotes;
 
-	@Inject
+    @Inject
+	@Named(JcrConstants.JCR_CONTENT + "/defaultVoyageIcon")
+	@Optional
+	private String defaultVoyageIcon;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT+"/priorityWeight")
+    @Optional
     private Integer priorityWeight;
 
-	
+
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/customMainSettings")
     @Optional
@@ -417,4 +423,9 @@ public class ExclusiveOfferModel {
     public String getPositionDescriptionMobileLB() {
         return positionDescriptionMobileLB;
     }
+
+    public String getDefaultVoyageIcon() {
+        return defaultVoyageIcon;
+    }
+
 }
