@@ -1,3 +1,17 @@
-<template data-sly-template.default="${ @ cruise }">
-    <div></div>
+<template data-sly-template.default="${ @ offers }">
+    <div class="cruise-2018-offers">
+        <div class="cruise-2018-offers-title">
+            ${ 'offers' @ i18n}
+        </div>
+        <div data-sly-list.offer="${offers}" class="cruise-2018-offers-list cruise-2018-offers-size-${offers.size}">
+            <div class="cruise-2018-offer-container">
+                <div class="cruise-2018-offer-icon"><img src="${offer.voyageIcon @ context='uri'}"/></div>
+                <div class="cruise-2018-offer-title">${offer.title}</div>
+                <div class="cruise-2018-offer-description"> ${offer.description @ context='html'}</div>
+            </div>
+        </div>
+        <div class="cruise-2018-offers-footer">
+            ??
+        </div>
+    </div>
 </template>

@@ -5,6 +5,7 @@ import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.models.CruiseModel;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,7 +56,8 @@ public class Cruise2018Use extends EoHelper {
                     String destinationPath = cruiseModel.getDestination().getPath();
                     return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
                 })
-                .sorted(Comparator.comparing(ExclusiveOfferItem::getPriorityWeight).reversed())
+                .sorted(Comparator.comparing((ExclusiveOfferItem exclusiveOfferItem) -> ObjectUtils
+                        .firstNonNull(exclusiveOfferItem.getPriorityWeight(), 0)).reversed())
                 .collect(Collectors.toList());
     }
 
