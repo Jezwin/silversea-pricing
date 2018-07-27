@@ -337,42 +337,40 @@ public class EoHelper extends AbstractGeolocationAwareUse {
     }
 
     private String getValueByBesthMatchTag(String[] customSettings, String type) {
-        String value = null;
-        if (customSettings != null) {
-            JsonObject eoSettings = null;
-            for (int i = 0; i < customSettings.length && (value == null); i++) {
-                eoSettings = gson.fromJson(customSettings[i], JsonObject.class);
+		String value = null;
+		if (customSettings != null) {
+			JsonObject eoSettings = null;
+			for (int i = 0; i < customSettings.length && (value == null); i++) {
+				eoSettings = gson.fromJson(customSettings[i], JsonObject.class); 
 
-                if (eoSettings != null) {
-                    boolean isActive = (eoSettings.get("active") != null) ?
-                            Boolean.valueOf(eoSettings.get("active").getAsString()) : false;
+				if (eoSettings != null) {
+					boolean isActive = (eoSettings.get("active") != null) ? Boolean.valueOf(eoSettings.get("active").getAsString()) : false;
+					
+					if(isActive) {
+						boolean typeIsTitle = (eoSettings.get("type") != null) ? eoSettings.get("type").getAsString().equalsIgnoreCase(type) : false;
+						String propertyNameValue = type.equalsIgnoreCase("icon") ? "valueIcon" : "value";
+						if (typeIsTitle) {
+							if (eoSettings.get("tags") != null) {
+								String[] tags = eoSettings.get("tags").getAsString().split(",");
+								for (String tag : tags) {
+									tag = tag.replaceAll(WcmConstants.GEOLOCATION_TAGS_PREFIX, "");
+									if (super.isBestMatch(tag)) {
+										value = (eoSettings.get(propertyNameValue) != null) ? eoSettings.get(propertyNameValue).getAsString()
+												: null;
+										break;
+									}
+								}
+							} else {
+								value = (eoSettings.get(propertyNameValue) != null) ? eoSettings.get(propertyNameValue).getAsString() : null;
+							}
+						}
+					}
+				}
+			}
+		}
+		return value;
+	}
 
-                    if (isActive) {
-                        boolean typeIsTitle = (eoSettings.get("type") != null) ?
-                                eoSettings.get("type").getAsString().equalsIgnoreCase(type) : false;
-                        if (typeIsTitle) {
-                            if (eoSettings.get("tags") != null) {
-                                String[] tags = eoSettings.get("tags").getAsString().split(",");
-                                for (String tag : tags) {
-                                    tag = tag.replaceAll(WcmConstants.GEOLOCATION_TAGS_PREFIX, "");
-                                    if (super.isBestMatch(tag)) {
-                                        value = (eoSettings.get("value") != null) ?
-                                                eoSettings.get("value").getAsString()
-                                                : null;
-                                        break;
-                                    }
-                                }
-                            } else {
-                                value = (eoSettings.get("value") != null) ? eoSettings.get("value").getAsString() :
-                                        null;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return value;
-    }
 
     private ExclusiveOfferFareModel[] getCruiseFaresValuesByBesthMatchTag(String[] customSettings) {
         List<ExclusiveOfferFareModel> value = null;
