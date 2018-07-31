@@ -337,7 +337,7 @@ window.briteVerify = function(email){
 
 })();
 
-//Fix FYC port all caps + dest
+//Fix FYC port all caps + dest +
 (function () {
 
     try {
@@ -345,6 +345,52 @@ window.briteVerify = function(email){
             var currentPort = $(this).text();
             currentPort = currentPort.toLowerCase();
             $(this).text(currentPort);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+})();
+
+//Fix B version all caps
+(function () {
+    function lowerCaseContent(thisEl){
+        var currentPort = $(thisEl).text();
+        currentPort = currentPort.toLowerCase();
+        $(thisEl).text(currentPort);
+    }
+    try {
+        $('.c-destination-teaser__caption .c-destination-teaser__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+    try {
+        $('.c-ship-teaser__caption .c-ship-teaser__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+
+    try {
+        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+    try {
+        $('.c-eolist__caption .c-eolist__title').each(function () {
+            lowerCaseContent(this);
         });
     }
     catch(error) {
