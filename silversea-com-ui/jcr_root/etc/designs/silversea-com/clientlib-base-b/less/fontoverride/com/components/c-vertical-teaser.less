@@ -1,11 +1,13 @@
 .c-vertical-teaser {
     box-shadow: none !important;
     border: none !important;
-    &__caption{
-        padding-left: 7% !important;
-        padding-right: 7% !important;
-        border: 1px solid rgb(211, 211, 211);
-        text-align: center;
+    .c-vertical-teaser __caption{
+        @media(max-width:@screen-sm) {
+            padding-left: 7% !important;
+            padding-right: 7% !important;
+            border: 1px solid rgb(211, 211, 211);
+            text-align: center;
+        }
     }
     &__title {
         font-family: @freight;
@@ -24,9 +26,11 @@
         }
     }
     &__link {
-        left: 50%;
-        transform: translateX(-50%);
-        -webkit-transform: translateX(-50%);
+        @media(max-width:@screen-sm) {
+            left: 50%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
     }
 
     &__label {
