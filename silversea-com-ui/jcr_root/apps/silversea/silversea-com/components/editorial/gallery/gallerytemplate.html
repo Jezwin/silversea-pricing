@@ -38,6 +38,46 @@
     </div>
 </template>
 
+<!--/* Simple gallery in full screen inserted in modal */-->
+<template data-sly-template.fullscreen="${ @ list}">
+    <div class="modal-content modal-content--transparent modal-content--gallery">
+        <div class="modal-header">
+            <button id="steveandsilversea-modal-dialog-close" class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="c-gallery">
+                <div class="c-gallery__wrappertop">
+                    <div class="c-slider c-slider--for">
+                        <div data-sly-repeat.asset="${list}" data-image="${asset.path}">
+                            <div class="ratio"
+                                data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                                style="background-image:url(${asset.path @ context='uri'})">
+                                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                                <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                                <div data-sly-test="${isVideo}" class="c-video" id="${currentNode.identifier}-${assetList.count}" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                                 <sly data-sly-test="${!isVideo}">
+                                	<span data-sly-test.label="${asset.metadata.dc:title}" class="c-gallery__label">${label}</span>
+                                </sly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="c-gallery__counter"><span class="slide-item-current"></span> / <span class="slide-item-total"></span></div>
+                </div>
+                <div class="c-slider c-slider--nav hidden-xs">
+                    <div data-sly-repeat.asset="${list}">
+                        <div class="ratio"
+                            data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                            style="background-image:url(${assetHelper.imageUrl @ context='uri'}?hei=970&wid=970&fit=constrain)">
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                            <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <!--/* Gallery with Tab inserted in modal*/-->
 <template data-sly-template.galleryTab="${ @ map}">
     <div class="modal-content modal-content--transparent modal-content--gallery">

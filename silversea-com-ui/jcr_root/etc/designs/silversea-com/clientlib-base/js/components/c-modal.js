@@ -186,6 +186,20 @@ $(function() {
                 $modal.find(".cruise-gallery-virtual-tour").on('click', function(event) {
                 	createVirtualTour(this, event);
                 });
+                /*Changes for modal full-screen*/
+                $('#steveandsilversea-modal-dialog-close').on('click', function(e) {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen()
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen()
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen()
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen()
+                    }
+        
+                });
+
 
                 // Init video on click
                 $('.video-link').on('click', function(e) {
@@ -260,8 +274,18 @@ $(function() {
                 $(".c-slider--for").slick("slickSetOption", "swipe", true, false);
                 $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), false);
             });
+
+
         });
+
+        /*Changes for modal full-screen*/
+        if($(this).attr("class").indexOf("c-steveandsilversea") > -1){
+             var modeldialog = document.getElementsByClassName("modal-dialog")[0];
+        	 modeldialog.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
     });
+
+
 
     function loadLazyImage($slider) {
         var $sliderActive = $slider.closest('.c-gallery').find('.slick-active');
