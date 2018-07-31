@@ -1,13 +1,14 @@
 <div data-sly-test="${wcmmode.edit}" class="cq-placeholder cq-dd-image" data-emptytext="SteveAndSilversea"></div>
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}" />
 
+
 <div class="row c-steveandsilversea hidden-xs hidden-sm" data-gallery-path="${externalizerHelper.externalizedUrl @ selectors='gallery', extension='html'}">
         <div class="col-sm-6-content">
             <div class="content">
                 <div class="content__title">${properties.title}</div>
                 <div class="content__descr">${properties.text @ context='html'}</div>
                 <div class="content__cta">
-                    <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
+                    <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal-fullscreen' : ''}">${properties.ctatext}</a>
                 </div>
             </div>
         </div>
@@ -34,7 +35,7 @@
                     <div class="content__title">${properties.title}</div>
                     <div class="content__descr">${properties.text @ context='html'}</div>
                     <div class="content__cta">
-                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal' : ''}">${properties.ctatext}</a>
+                         <a href="${!properties.ctalink? '#': properties.ctalink}" data-target="${!properties.ctalink?'.bs-modal-lg' : ''}" class="${!properties.ctalink? 'automatic-gallery-modal-fullscreen' : ''}">${properties.ctatext}</a>
                     </div>
                 </div>
             </div>
