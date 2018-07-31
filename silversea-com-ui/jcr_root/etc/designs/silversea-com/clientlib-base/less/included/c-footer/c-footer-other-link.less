@@ -124,9 +124,13 @@
           background-color: transparent;
           border: none;
           float: right;
+          display: none;
+          transition: transform 1.8s;
+          position: absolute;
+          left: 18%;
         }
         i {
-          color: @white;
+          color: @transparent;
         }
 
         input:focus, textarea:focus, select:focus {
@@ -136,7 +140,7 @@
       .other-link-mobile-search-form-input {
         background: 0;
         color: @white;
-        font-family: @suisse;
+        font-family: @suisse,'FontAwesome';
         font-size: 13px;
         letter-spacing: 1.5px;
         line-height: 16px;
