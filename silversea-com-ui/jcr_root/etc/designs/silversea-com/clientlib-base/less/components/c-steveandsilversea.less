@@ -7,6 +7,15 @@
     background: @black !important;
 }
 
+.c-steveandsilversea__gallery__fullscreen .c-slider--for .slick-slide .ratio {
+    background-size: contain !important;
+}
+
+
+.c-steveandsilversea__gallery__fullscreen .slick-track {
+    background: @black !important;
+}
+
 
 .c-steveandsilversea {
 
@@ -22,6 +31,25 @@
     }
 
     .automatic-gallery-modal-fullscreen {
+        &:before {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAAAZCAYAAABAb2JNAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMDgvMTbfXn/oAAAD9ElEQVRogeWZTYtcRRSGnzM2M8SJ2CCouNABNy77H6RFIqILGyagMQtnIwrJInHlRm0/yCKrjDphFoItRFAQmSiZhSDOT+iFuFOvK8GFtmQSOh/266JOdYry9kfGO4l6Xyi67qlT59R9+9xz6tY1SdQJZoakZeBz4KkKTV8EjgBDqxupwEHgU+AZoACsApsCHgG+BI7VkdRtQoQ+D1xw2cKMOUMzm0iUJANeAM4DF+tIqoAfgUfN5gtSSavAYeAqNyN7BFwDGsBHwHeEyH+4Ue16/zMQsCjp2jQlz78LwBPAS8BlAqnXCYQ+4LbMzE7JI3RW2P9fYcyZS81sBBwH7gUeBO4H7gM+SdTin2NQX1JnwqMUDz6Z2a6ZXQGGwDvAq8Am8AuwlM5tAO3MXgEMgBbQN7MBgKQm0DKznbQ/aVGS2kBhZkUmG/tJx3y8BTSBgZn1U78layzYR8Rak5FrwGngNWAdOAU8Rx6c+ju6ktre7yV67Zgz0v6EBXV8/lY+X1JfUuH9jo+1XK7kt8jm5Wtkj02SfpC0NEs3kuvNJJ32+RsuW5K0K2nddX9WdFJCSnoj7T2Q2kuIa5bNcWIKSU1JAydzJRlfmebrdpCaELso6YOUUJffI+lSTuqsnPox0IvEzAPX7QBdF3UmqBaEDfOaX7fTdJCnhjsMAY8R+DieyI3wMrGcKjcAJO0kspNJvwv0XZbqTEMHwMx6Co93B+iNVyd1Ez/rPp7m7phXcd9xXr7GPhUh5s0p49clHS4ZugKcA76RNN6exk43USzwwmBmhaSzwJvAFvOhAwycvCZwKIv0JqE4DszsZEYWhMhtAYeAxxN5vsZKEAmNLwIpuRnZymVmdkPSCTOTwnkC0cjEnJpc9z1PTs2pnh/lul1vkrQ2weZZ1xnkKcbntfcrp7qNI5I2cnupjzJfZfqSljVPocqv5yB1zdWaiWzL26RCtaLyQrWvpHq/J2kk6e5k3CSdl/S19+ctZmNSF5IbiOjmN+D70fWSG8vndYALMT86toBnuZknI3YIhQpCOmgCPyV/3h+E/fIkX1XgMnAJf7QJhWcTOAZ8TzUnWHcWHrVthWI1S7eKSN3wp+Quj8pNH3/7Vvy43jhSG1H4L0Hhjdu0LiO8t/8JvA+8DLwLvBH9z9oZlKHu7/4jwonTOeAE8Bbw+j81Wtejv4irwEPAK8AZwrbtACGCF8xsdy9PTF0jNTK1mMheBH4DfvX2u6T3btGmoL6RGqv6h4TH/waB4BhkIhznfTuPMY/mYbRbx88p8RvVUeCzaYpepA7MsDfy31XCwfV2HUk9SCDzaar/mvoVcLR2pCbf/b8AnqzQ9DawambDvwDXUjJuORo6rQAAAABJRU5ErkJggg==) no-repeat;
+            bottom: 10px;
+            content: ' ';
+            display: block;
+            height: 25px;
+            opacity: 0;
+            position: absolute;
+            right: 10px;
+            transition: opacity 0.3s ease;
+            width: 85px;
+            pointer-events: none;
+        }
+
+        &:hover:before {
+            opacity: 1;
+        }
+    }
+    .automatic-gallery-modal {
         &:before {
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAAAZCAYAAABAb2JNAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMDgvMTbfXn/oAAAD9ElEQVRogeWZTYtcRRSGnzM2M8SJ2CCouNABNy77H6RFIqILGyagMQtnIwrJInHlRm0/yCKrjDphFoItRFAQmSiZhSDOT+iFuFOvK8GFtmQSOh/266JOdYry9kfGO4l6Xyi67qlT59R9+9xz6tY1SdQJZoakZeBz4KkKTV8EjgBDqxupwEHgU+AZoACsApsCHgG+BI7VkdRtQoQ+D1xw2cKMOUMzm0iUJANeAM4DF+tIqoAfgUfN5gtSSavAYeAqNyN7BFwDGsBHwHeEyH+4Ue16/zMQsCjp2jQlz78LwBPAS8BlAqnXCYQ+4LbMzE7JI3RW2P9fYcyZS81sBBwH7gUeBO4H7gM+SdTin2NQX1JnwqMUDz6Z2a6ZXQGGwDvAq8Am8AuwlM5tAO3MXgEMgBbQN7MBgKQm0DKznbQ/aVGS2kBhZkUmG/tJx3y8BTSBgZn1U78layzYR8Rak5FrwGngNWAdOAU8Rx6c+ju6ktre7yV67Zgz0v6EBXV8/lY+X1JfUuH9jo+1XK7kt8jm5Wtkj02SfpC0NEs3kuvNJJ32+RsuW5K0K2nddX9WdFJCSnoj7T2Q2kuIa5bNcWIKSU1JAydzJRlfmebrdpCaELso6YOUUJffI+lSTuqsnPox0IvEzAPX7QBdF3UmqBaEDfOaX7fTdJCnhjsMAY8R+DieyI3wMrGcKjcAJO0kspNJvwv0XZbqTEMHwMx6Co93B+iNVyd1Ez/rPp7m7phXcd9xXr7GPhUh5s0p49clHS4ZugKcA76RNN6exk43USzwwmBmhaSzwJvAFvOhAwycvCZwKIv0JqE4DszsZEYWhMhtAYeAxxN5vsZKEAmNLwIpuRnZymVmdkPSCTOTwnkC0cjEnJpc9z1PTs2pnh/lul1vkrQ2weZZ1xnkKcbntfcrp7qNI5I2cnupjzJfZfqSljVPocqv5yB1zdWaiWzL26RCtaLyQrWvpHq/J2kk6e5k3CSdl/S19+ctZmNSF5IbiOjmN+D70fWSG8vndYALMT86toBnuZknI3YIhQpCOmgCPyV/3h+E/fIkX1XgMnAJf7QJhWcTOAZ8TzUnWHcWHrVthWI1S7eKSN3wp+Quj8pNH3/7Vvy43jhSG1H4L0Hhjdu0LiO8t/8JvA+8DLwLvBH9z9oZlKHu7/4jwonTOeAE8Bbw+j81Wtejv4irwEPAK8AZwrbtACGCF8xsdy9PTF0jNTK1mMheBH4DfvX2u6T3btGmoL6RGqv6h4TH/waB4BhkIhznfTuPMY/mYbRbx88p8RvVUeCzaYpepA7MsDfy31XCwfV2HUk9SCDzaar/mvoVcLR2pCbf/b8AnqzQ9DawambDvwDXUjJuORo6rQAAAABJRU5ErkJggg==) no-repeat;
             bottom: 10px;
@@ -220,7 +248,7 @@
     flex-direction: column;
 }
 
-.c-steveandsilversea__gallery {
+.c-steveandsilversea__gallery__fullscreen {
      background-color: black;
     height: 100%;
     width: 100%;
@@ -231,6 +259,10 @@
     right: 50%;
     width: 100vw;
     top:-8%;
+}
+
+.c-steveandsilversea__gallery {
+     margin-top:9%;
 }
 
 

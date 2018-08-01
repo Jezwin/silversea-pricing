@@ -153,6 +153,7 @@ $(function() {
      * Modal Gallery for "cruise page" and "inline gallery component"
      **************************************************************************/
     $('.automatic-gallery-modal').on('click', function(e) {
+
         e.preventDefault();
         var $link = $(this),
             ajaxContentPath = $link.closest('[data-gallery-path]').data('gallery-path'),
@@ -268,6 +269,7 @@ $(function() {
 
 /*Changes for modal full-screen*/
 $('.automatic-gallery-modal-fullscreen').on('click', function(e) {
+
         e.preventDefault();
         var $link = $(this),
             ajaxContentPath = $link.closest('[data-gallery-path]').data('gallery-path'),
