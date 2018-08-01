@@ -14,7 +14,10 @@
 }
 .port_v2__header_title {
     font-family: @freight;   
-    font-size: @h1-desktop-fontsize-48;   
+    font-size: @h1-desktop-fontsize-48;
+    @media (max-width:@screen-sm){
+        font-size: @h1-mobile-fontsize-34;
+    }
 }
 .port_v2__stats_num {
     font-size: 45px;
