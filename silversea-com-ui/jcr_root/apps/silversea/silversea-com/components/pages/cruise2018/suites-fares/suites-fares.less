@@ -1,0 +1,176 @@
+.cruise-2018-suites-fares-main {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: @suisse;
+  text-align: center;
+}
+
+.cruise-2018-suites-fares-container {
+  border: 1px solid rgb(204, 204, 204);
+  box-shadow: rgba(0, 0, 0, 0.15) 0 1px 2px 0;
+  margin-top: 11px;
+  padding-bottom: 15px;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  div.cruise-2018-suites-fares-image div,
+  img {
+    transform: scale(1.05);
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 1s linear;
+    -o-transition: all 1s linear;
+    transition: all 0.5s linear;
+  }
+  &:hover {
+
+    border-color: @grey--7 !important;
+    background-color: @grey--o02;
+    .cruise-2018-suites-fares-image div {
+      transform: scale(1.0);
+      -ms-transform: scale(1.0);
+      -moz-transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+      -o-transform: scale(1.0);
+      opacity: 0.5;
+    }
+
+    img {
+      transform: scale(1.0);
+      -ms-transform: scale(1.0);
+      -moz-transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+      -o-transform: scale(1.0);
+      opacity: 0.5;
+
+    }
+
+    .c-suitelist__button-card {
+      background-color: @grey--o02;
+
+    }
+
+    .cruise-2018-suites-fares-image {
+      background-color: @black;
+    }
+
+  }
+}
+
+.cruise-2018-suites-fares-image {
+  overflow: hidden;
+  position: relative;
+  height: 210px;
+}
+
+.cruise-2018-suites-fares-description-title {
+  font-family: @freight;
+  font-size: 19px;
+  height: 30px;
+  margin-top: 8px;
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.cruise-2018-suites-fares-description-upto {
+  height: 20px;
+  font-size: 11px;
+}
+
+.cruise-2018-offer-text {
+  height: 58px;
+}
+
+.cruise-2018-suites-fares-waiting-list {
+  padding-top: 10px;
+  text-transform: uppercase;
+  line-height: 20px;
+  font-size: 18px;
+
+}
+
+.cruise-2018-suites-fares-price-from {
+  display: inline;
+  font-size: 11px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.cruise-2018-suites-fares-price-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.cruise-2018-suites-fares-details {
+  text-transform: uppercase;
+  font-size: 12.5px;
+  line-height: 25px;
+  padding: 0 6px 0 0;
+}
+
+@nd-red: #D60524;
+@nd-red-darker: #BA001C;
+@nd-button-padding: 14px 20px 11px 20px; //11px 17px 9px 17px;
+@nd-button-border-radius: 0px;
+@nd-button-border-width: 0px;
+@nd-button-line-height: 16px;
+@nd-button-font-size: 13px;
+@nd-button-letter-spacing: 1.5px;
+@nd-button-min-width: 220px;
+@nd-button-small-min-width: 180px;
+
+.cruise-2018-suites-fares-btn {
+  white-space: normal;
+  display: inline-block;
+  text-transform: uppercase;
+  text-align: center ! important;
+  vertical-align: middle;
+  border-width: @nd-button-border-width;
+  border-radius: @nd-button-border-radius;
+  padding: 10px 15px 9px;
+  margin-top: 30px;
+  line-height: @nd-button-line-height;
+  font-size: @nd-button-font-size;
+  font-family: @suisse;
+  font-weight: normal;
+  letter-spacing: @nd-button-letter-spacing;
+  span {
+    padding-right: 0 ! important;
+  }
+
+  &-red {
+    background-color: @nd-red;
+    color: @white;
+    &:hover, &:focus, &:active {
+      background-color: @nd-red-darker ! important;
+      color: @white ! important;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm) {
+  //0-->sm
+  .cruise-2018-suites-fares-container {
+    flex-basis: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+@media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
+  //sm-->md
+  .cruise-2018-suites-fares-container {
+    flex-basis: 49%;
+    margin-left: 1%;
+  }
+}
+
+@media screen and (min-width: @screen-md-max) {
+  //md-->
+  .cruise-2018-suites-fares-container {
+    flex-basis: 31%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: 2%;
+  }
+}
+
