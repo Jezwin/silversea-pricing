@@ -291,6 +291,13 @@ body.suite, body.dining{
 }
 
 //put cruise button to white design
-.cruise .row.c-cruise__overview .btn {
+.cruise .row.c-cruise__overview .btn, .cc-tab_header_desc_cta .btn.btn-dark, .btn-dark.expander-open, .btn-dark.expander-close {
 
+  color: @color-second !important;
+  background-color: @white !important;
+  border: 1px solid fade(@color-second, 50%) !important;
+  &:hover {
+    border: 1px solid fade(@color-second, 100%) !important;
+    color: @color-second !important;
+  }
 }
