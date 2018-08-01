@@ -231,3 +231,45 @@
       display:none;
     }
   }
+
+
+  /***
+  Rework Suites and Dining page
+   */
+
+body.suite, body.dining{
+  .o-title:after {
+    background:transparent !important;
+    margin-top: 0px !important;
+  }
+  .o-description {
+    margin-bottom: 10px !important;
+  }
+
+  .c-single-dining .c-single-dining-slider, .c-single-suite .c-single-suite-slider {
+    margin-bottom:80px !important;
+  }
+
+  .c-single-dining__brouchure, .c-single-suite__brouchure {
+    display:none;
+  }
+
+
+  @media(min-width:@screen-md-min){
+    .c-single-dining-availability__title, .c-single-suite-availability__title {
+      font-size:24px !important;
+      font-family: @freight !important;
+    }
+
+  }
+
+  @media (max-width:@screen-sm){
+    .o-description {
+      margin-bottom: 0px !important;
+    }
+    .c-single-dining-availability__title, .c-single-suite-availability__title {
+      font-size:24px !important;
+      font-family: @freight !important;
+    }
+  }
+}
