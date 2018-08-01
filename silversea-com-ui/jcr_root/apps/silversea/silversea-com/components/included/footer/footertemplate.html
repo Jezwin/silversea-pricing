@@ -19,7 +19,7 @@
 	</div>
 </template>
 <template data-sly-template.port="${  @ footer}">
-	<div class="footer-v2 ab-footer-a-version" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
+	<div class="footer-v2 ab-footer-a-version ab-test-footer-to-hide" data-sly-use.countryHelper="com.silversea.aem.helper.CountryHelper">
 		<div class="container_large">
 			<div class="sv_v3__footer-forms ${properties.hideGreySectionFooter ? 'ab-hide-footer-more-about-silversea' : ''}">
 				<div class="container">
@@ -61,7 +61,7 @@
 	</div>
 </template>
 <template data-sly-template.style1="${  @ footer}">
-	<div class="footer_v2" class="container ab-footer-b-version">
+	<div class="footer_v2" class="container ab-footer-b-version ab-test-footer-to-hide">
 		<sly data-sly-use.brochureTemplate="brochure.html" data-sly-call="${brochureTemplate.style1 @ footer= footer}"/>
         <sly data-sly-use.contactTemplate="contact.html" data-sly-call="${contactTemplate.style1 @ footer= footer}" />
 		<sly data-sly-use.linkTemplate="link.html" data-sly-call="${linkTemplate.style1 @ footer= footer}" />
