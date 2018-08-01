@@ -56,12 +56,11 @@ if ($(".c-footer-2018 .c-footer-other-link").length > 0) {
         });
 
         var $inputSearchMobile = footerOtherLinkSection.find(".other-link-mobile-search-form-input");
+        var $buttonSearchMobile = footerOtherLinkSection.find(".other-link-mobile-search-form button");
         $inputSearchMobile.on("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
-            var $buttonSearchMobile = footerOtherLinkSection.find(".other-link-mobile-search-form button");
             $buttonSearchMobile.show();
-            $inputSearchMobile.attr("placeholder","");
             var intevarlBtn = setInterval(function() {
                 if($buttonSearchMobile.is(":visible")) {
                     clearInterval(intevarlBtn);
@@ -76,6 +75,12 @@ if ($(".c-footer-2018 .c-footer-other-link").length > 0) {
                     $buttonSearchMobile.css("transform","translateX("+translateX+"px)");
                 }
             });
+        });
+        $inputSearchMobile.focusout(function(){
+            $buttonSearchMobile.css("transform","translateX(-5px)");
+            setTimeout(function() {
+                $buttonSearchMobile.find("i.fa").removeAttr("style");
+            },1900);
         });
     });
 
