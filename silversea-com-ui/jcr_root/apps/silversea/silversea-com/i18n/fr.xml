@@ -1464,5 +1464,5 @@
     <tour-book
             jcr:mixinTypes="[sling:Message]"
             jcr:primaryType="nt:folder"
-            sling:message="Faça o download do programa de excursões"/>
+            sling:message="Téléchargez le programme des croisières"/>
 </jcr:root>
