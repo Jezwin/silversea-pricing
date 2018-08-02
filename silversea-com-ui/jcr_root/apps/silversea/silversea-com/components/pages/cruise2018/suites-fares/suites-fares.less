@@ -1,6 +1,4 @@
 .cruise-2018-suites-fares-main {
-  display: flex;
-  flex-wrap: wrap;
   font-family: @suisse;
   text-align: center;
 }
@@ -10,9 +8,7 @@
   box-shadow: rgba(0, 0, 0, 0.15) 0 1px 2px 0;
   margin-top: 11px;
   padding-bottom: 15px;
-  padding-left: 0;
   padding-right: 0;
-  width: 100%;
   div.cruise-2018-suites-fares-image div,
   img {
     transform: scale(1.05);
@@ -59,21 +55,24 @@
 .cruise-2018-suites-fares-image {
   overflow: hidden;
   position: relative;
-  height: 210px;
+  height: 171px;
+  margin-bottom: 10px;
 }
 
 .cruise-2018-suites-fares-description-title {
   font-family: @freight;
-  font-size: 19px;
+  font-size: 24px;
+  line-height: 26px;
   height: 30px;
   margin-top: 8px;
   padding: 5px;
-  text-transform: uppercase;
 }
 
 .cruise-2018-suites-fares-description-upto {
   height: 20px;
   font-size: 11px;
+  line-height: 18px;
+  margin-top: 8px;
 }
 
 .cruise-2018-offer-text {
@@ -90,20 +89,24 @@
 
 .cruise-2018-suites-fares-price-from {
   display: inline;
-  font-size: 11px;
-  font-weight: normal;
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 14px;
   text-transform: uppercase;
 }
 
 .cruise-2018-suites-fares-price-text {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 24px;
 }
 
 .cruise-2018-suites-fares-details {
   text-transform: uppercase;
-  font-size: 12.5px;
-  line-height: 25px;
+  font-size: 13px;
+  line-height: 16px;
+  color: @color-second;
+  letter-spacing: 1px;
   padding: 0 6px 0 0;
 }
 
@@ -147,30 +150,30 @@
   }
 }
 
+.cruise-2018-suites-fares-price-bonus {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 14px;
+  text-align: center;
+  display: block;
+}
+
 @media screen and (max-width: @screen-sm) {
   //0-->sm
   .cruise-2018-suites-fares-container {
-    flex-basis: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
   }
 }
 
 @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
   //sm-->md
   .cruise-2018-suites-fares-container {
-    flex-basis: 49%;
-    margin-left: 1%;
   }
 }
 
 @media screen and (min-width: @screen-md-max) {
   //md-->
   .cruise-2018-suites-fares-container {
-    flex-basis: 31%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    margin-left: 2%;
   }
 }
 

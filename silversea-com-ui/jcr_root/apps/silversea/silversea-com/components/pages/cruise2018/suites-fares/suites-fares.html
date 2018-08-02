@@ -3,54 +3,53 @@
         <div class="cruise-2018-title cruise-2018-suites-fares-title">
             ${ 'suites-and-fares' @ i18n}
         </div>
-        <div class="cruise-2018-suites-fares-main">
+        <div class="cruise-2018-suites-fares-main row">
             <sly data-sly-repeat="${cruise.prices}">
-                <div class="cruise-2018-suites-fares-container" id="cruise-2018-container${itemList.index}">
-                    <div class="cruise-2018-suites-fares-image">
-                        <sly data-sly-test="${item.suite.thumbnail}"
-                             data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
-                             data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}"/>
-                    </div>
-                    <div class="cruise-2018-suites-fares-description">
+                <div class="col-md-4 col-xs-12 col-sm-6">
+                    <div class="cruise-2018-suites-fares-container " id="cruise-2018-container${itemList.index}">
+                        <div class="cruise-2018-suites-fares-image">
+                            <sly data-sly-test="${item.suite.thumbnail}"
+                                 data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                                 data-sly-call="${imageTemplate.image @ imagePath=item.suite.thumbnail}"/>
+                        </div>
+                        <div class="cruise-2018-suites-fares-description">
                         <span class="cruise-2018-suites-fares-description-title"
                               data-sly-text="${item.suite.title}"></span>
-                        <p class="cruise-2018-suites-fares-description-upto">${item.suite.suitesubtitleUpTo @ context='html'}</p>
-                    </div>
-                    <div class="cruise-2018-suites-fares-price ${item.isWaitList ? 'cruise-2018-suites-fares-waiting-list' : ''}">
+                            <p class="cruise-2018-suites-fares-description-upto">${item.suite.suitesubtitleUpTo @ context='html'}</p>
+                        </div>
+                        <div class="cruise-2018-suites-fares-price ${item.isWaitList ? 'cruise-2018-suites-fares-waiting-list' : ''}">
                     <span data-sly-test="${item.isWaitList}"
                           class="cruise-2018-suites-fares-price-text">${'waitlist' @ i18n}</span>
-                        <sly data-sly-test="${!item.isWaitList}">
-                            <div class="cruise-2018-suites-fares-price-text">
-                                <div class="cruise-2018-suites-fares-price-from">${'from' @ i18n}</div>
-                                <div data-sly-test.early="${item.lowestPrice.earlyBookingBonus}">
-                                </div>
-                                <span class="cruise-2018-suites-fares-price-text">
+                            <sly data-sly-test="${!item.isWaitList}">
+                                <div class="cruise-2018-suites-fares-price-text">
+                                    <div class="cruise-2018-suites-fares-price-from">${'from' @ i18n}</div>
+                                    <span class="cruise-2018-suites-fares-price-text">
 	                                 ${item.lowestPrice.currency @ i18n} ${item.computedPriceFormated}
 	                            </span>
-                                <span class="cruise-2018-suites-fares-price-bonus">
-		                            <span data-sly-test="${early}">
+                                    <span class="cruise-2018-suites-fares-price-bonus"
+                                          data-sly-test="${item.lowestPrice.earlyBookingBonus}">
 		                            	${'with-early' @ i18n}&nbsp;${'booking-bonus' @ i18n}
-		                            </span>
-		                        </span>
-                            </div>
-                        </sly>
-                    </div>
-                    <div class="cruise-2018-suites-fares-cta">
-                        <div>
-                            <a class="cruise-2018-suites-fares-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
-                               id="cruise-2018-rqa-${itemList.index}"
-                               data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
-                               href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
-                               data-sscclicktype="clic-RAQ">
-                                <span>${'request-quote' @i18n}</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
+                                    </span>
+                                </div>
+                            </sly>
                         </div>
-                        <div>
-                            <a class="cruise-2018-suites-fares-details"
-                               id="cruise-2018-suites-fares-mode-details${itemList.index}">
-                                <span>${'view-more-details' @ i18n}</span>
-                            </a>
+                        <div class="cruise-2018-suites-fares-cta">
+                            <div>
+                                <a class="cruise-2018-suites-fares-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
+                                   id="cruise-2018-rqa-${itemList.index}"
+                                   data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+                                   href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
+                                   data-sscclicktype="clic-RAQ">
+                                    <span>${'request-quote' @i18n}</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                            <div>
+                                <a class="cruise-2018-suites-fares-details"
+                                   id="cruise-2018-suites-fares-mode-details${itemList.index}">
+                                    <span>${'view-more-details' @ i18n}</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
