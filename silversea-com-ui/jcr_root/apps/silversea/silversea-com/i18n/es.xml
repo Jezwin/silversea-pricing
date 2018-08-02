@@ -359,7 +359,7 @@
     <download-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Download brochure"/>
+        sling:message="Descargar catálogo"/>
     <dining
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -937,7 +937,7 @@
     <request-free-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="request a free brochure"/>
+        sling:message="Solicitar un catálogo gratuito"/>
     <request-a-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -957,7 +957,7 @@
     <request-quote-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Allow us to take care of your next luxury cruise"/>
+        sling:message="Deje en nuestras manos su próximo crucero de lujo"/>
     <required-city
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1464,4 +1464,8 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
 	    sling:message=" los miembros del club Venetian Society beneficiaran de un descuento del 5% sobre el precio del crucero"/>
+    <tour-book
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Descargar el programa de excursiones"/>
 </jcr:root>
