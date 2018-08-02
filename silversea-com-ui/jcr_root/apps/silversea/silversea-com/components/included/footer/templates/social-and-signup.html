@@ -19,14 +19,14 @@
                         <span data-sly-test="${footer.pagePinterest}">
                         <a href="${footer.pagePinterest}" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                     </span>
-                        <span data-sly-test="${footer.pageBlog.path}">
+                     <span data-sly-test="${footer.pageBlog.path}" class="social-section-title">
                         <a href="${footer.pageBlog.path @ extension='html'}" target="_blank">
                             ${footer.pageBlog.navigationTitle? footer.pageBlog.navigationTitle : footer.pageBlog.title}
                         </a>
                     </span>
                 </div>
             </div>
-            <div class="col-sm-6 signup-section paddingTopDesktop0  paddingRightDesktop-10 paddingLeftDesktop40 paddingTopTablet15 paddingRightTablet25 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10">
+            <div class="col-sm-6 signup-section paddingTopDesktop0  paddingRightDesktop-10 paddingLeftDesktop40 paddingTopTablet15 paddingRightTablet0 paddingLeftTablet25 paddingRightMobile10 paddingLeftMobile10 paddingRightDesktop0">
                 <div data-sly-resource="${'sfowidget' @ resourceType='silversea/silversea-com/components/editorial/sfowidget'}"></div>
             </div>
         </div>

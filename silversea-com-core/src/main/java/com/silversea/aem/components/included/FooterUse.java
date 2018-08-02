@@ -56,6 +56,13 @@ public class FooterUse extends WCMUsePojo {
     private String Col3title;
     private String Col4title;
 
+    private String titleDesktop;
+    private String titleMobile;
+    private String descriptionDesktop;
+    private String descriptionMobile;
+    private String ctaLabelDesktop;
+    private String ctaLabelMobile;
+
     /**
      * Initialize the component.
      */
@@ -102,6 +109,14 @@ public class FooterUse extends WCMUsePojo {
         twitterReference = properties.getInherited("twitterReference", String.class);
         instagramReference = properties.getInherited("instagramReference", String.class);
         pinterestReference = properties.getInherited("pinterestReference", String.class);
+
+        titleDesktop = properties.getInherited("titleDesktop", String.class);
+        titleMobile = properties.getInherited("titleMobile", String.class);
+        descriptionDesktop = properties.getInherited("descriptionDesktop", String.class);
+        descriptionMobile = properties.getInherited("descriptionMobile", String.class);
+        ctaLabelDesktop = properties.getInherited("ctaLabelDesktop", String.class);
+        ctaLabelMobile = properties.getInherited("ctaLabelMobile", String.class);
+
 
         final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
         ArrayList<Page> pagesBottomLine = new ArrayList<Page>();
@@ -317,5 +332,29 @@ public class FooterUse extends WCMUsePojo {
 
     public Iterator<Page> getPagesLegalLinkIterator() {
         return pagesLegalLinkIterator;
+    }
+
+    public String getTitleDesktop() {
+        return titleDesktop;
+    }
+
+    public String getTitleMobile() {
+        return titleMobile;
+    }
+
+    public String getDescriptionDesktop() {
+        return descriptionDesktop;
+    }
+
+    public String getDescriptionMobile() {
+        return descriptionMobile;
+    }
+
+    public String getCtaLabelDesktop() {
+        return ctaLabelDesktop;
+    }
+
+    public String getCtaLabelMobile() {
+        return ctaLabelMobile;
     }
 }

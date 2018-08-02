@@ -18,6 +18,10 @@
     }
   }
   .signup-section {
+
+    .help-block.with-errors.c-subscribe__form--error {
+      margin-bottom: 0px;
+    }
     .c-subscribe__form {
       border: none;
       padding: 0px;
@@ -73,6 +77,10 @@
         i {
           margin-right: -10px;
         }
+
+        &:hover {
+          background: @transparent !important;
+        }
       }
 
       .o-input.o-input--dark {
@@ -97,7 +105,6 @@
       input {
         background: none;
         color: @white;
-        opacity: 0.8;
         font-family: @suisse;
         font-size: 13px;
         letter-spacing: 1.5px;

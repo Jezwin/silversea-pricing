@@ -5,9 +5,17 @@
     }
     &-description {
         font-size: @body-desktop-fontsize-14;
+        text-align:center;
+        @media(max-width:@screen-sm) {
+            font-size: @body-mobile-fontsize-13;
+        }
     }
     &-shortDescription {
-        font-size: @body-desktop-fontsize-14;       
+        text-align:center;
+        font-size: @body-desktop-fontsize-14;
+        @media(max-width:@screen-sm) {
+            font-size: @body-mobile-fontsize-13;
+        }
     }    
     &-footnotes {
     	font-size: @footnote-desktop-fontsize-11;
@@ -32,5 +40,8 @@
 	.c-eo_maininfo-new-title .times{
 		font-size:40px;
 		line-height:34px;
+        @media (max-width: @screen-sm) {
+            font-size:@h1-mobile-fontsize-34;
+        }
 	}
 }
