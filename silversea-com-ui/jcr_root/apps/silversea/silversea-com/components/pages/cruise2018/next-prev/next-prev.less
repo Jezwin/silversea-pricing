@@ -1,0 +1,67 @@
+.cruise-next-prev-block {
+  display: block;
+  position:relative;
+  margin-top: 20px;
+  .previous-block, .next-block {
+    display:block;
+    position:relative;
+    max-width:50%;
+    .next-content, .previous-content {
+      max-width:90%;
+      .previous-label, .next-label {
+        color: @color-typography;
+        font-family: @suisse;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        line-height: 16px;
+        text-transform: uppercase;
+      }
+      .previous-title, .next-title {
+        color: @color-typography;
+        font-family: @freight;
+        font-size: 20px;
+        letter-spacing: 0.42px;
+        line-height: 26px;
+      }
+    }
+    i {
+      font-size:50px;
+      -webkit-text-stroke: 2px white;
+      margin-top:-6px;
+    }
+  }
+  .next-block {
+    float:right;
+    .next-arrow {
+      float:right;
+      i {
+        padding-left:20px;
+      }
+    }
+    .next-content {
+      float:right;
+      text-align: right;
+    }
+  }
+
+  .previous-block {
+    float:left;
+    .previous-arrow {
+      float:left;
+      i {
+        padding-right:20px;
+      }
+    }
+    .previous-content {
+      float:left;
+      text-align: left;
+    }
+  }
+
+}
+
+@media (max-width: @screen-sm) {
+  .cruise-next-prev-block {
+      display:none;
+  }
+}

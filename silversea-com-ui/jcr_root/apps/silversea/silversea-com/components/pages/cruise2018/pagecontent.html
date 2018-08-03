@@ -1,6 +1,6 @@
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
 <div itemscope itemtype="http://schema.org/Product"
-     data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use">
+     data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use" class="cruise2018 container">
     <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise2018/menu/header.html"
          data-sly-call="${header.default @ cruise=cruise}"/>
     <sly data-sly-use.overview="/apps/silversea/silversea-com/components/pages/cruise2018/overview/overview.html"
@@ -18,6 +18,8 @@
          data-sly-call="${ship.default @ cruise=cruise}"/>
     <sly data-sly-use.prepost="/apps/silversea/silversea-com/components/pages/cruise2018/pre-post/pre-post.html"
          data-sly-call="${prepost.default @ cruise=cruise}"/>
+    <sly data-sly-use.nextprev="/apps/silversea/silversea-com/components/pages/cruise2018/next-prev/next-prev.html"
+         data-sly-call="${nextprev.default @ cruise=cruise}"/>
     <sly data-sly-use.footer="/apps/silversea/silversea-com/components/pages/cruise2018/menu/footer.html"
          data-sly-call="${footer.default @ cruise=cruise}"/>
 </div>
