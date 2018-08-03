@@ -41,7 +41,6 @@
                                    href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
                                    data-sscclicktype="clic-RAQ">
                                     <span>${'request-quote' @i18n}</span>
-                                    <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>
                             <div>
@@ -54,10 +53,9 @@
                     </div>
                 </div>
             </sly>
-
-        </div>
-        <div class="cruise-2018-suites-fares-footnote" style="margin-bottom: 30px">
-            <i>${'fares-shown-are-per-guest' @i18n}</i>
+            <div class="cruise-2018-suites-fares-footnote col-xs-12">
+                <i>${'fares-shown-are-per-guest' @i18n}</i>
+            </div>
         </div>
 
     </div>
