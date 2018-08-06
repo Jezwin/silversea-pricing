@@ -1,8 +1,9 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="cruise-2018-suites-fares container">
+    <div class="cruise-2018-suites-fares row container">
         <div class="cruise-2018-title cruise-2018-suites-fares-title">
             ${ 'suites-and-fares' @ i18n}
         </div>
+        <div class="cruise-2018-suites-fares-description hidden-xs">${'cruise-suites-and-fares-descr' @i18n}</div>
         <div class="cruise-2018-suites-fares-main row">
             <sly data-sly-repeat="${cruise.prices}">
                 <div class="col-md-4 col-xs-12 col-sm-6">
@@ -37,6 +38,7 @@
                             <div>
                                 <a class="cruise-2018-suites-fares-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
                                    id="cruise-2018-rqa-${itemList.index}"
+
                                    data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
                                    href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
                                    data-sscclicktype="clic-RAQ">

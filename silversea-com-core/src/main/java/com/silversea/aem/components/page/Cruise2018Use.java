@@ -6,13 +6,11 @@ import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.models.CruiseModel;
-import org.apache.commons.lang3.ObjectUtils;
+import com.silversea.aem.utils.PathUtils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
@@ -89,6 +87,10 @@ public class Cruise2018Use extends EoHelper {
 
     public CruiseModel getCruiseModel() {
         return cruiseModel;
+    }
+
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 
 }

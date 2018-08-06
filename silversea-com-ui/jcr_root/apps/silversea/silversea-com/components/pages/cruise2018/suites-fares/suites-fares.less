@@ -1,24 +1,40 @@
 
 .cruise-2018-suites-fares {
 
+  padding: 0;
+  background-color: @grey--f4;
   letter-spacing: 0.5px;
+
   .cruise-2018-suites-fares-title {
     font-family: @freight;
+    letter-spacing: 0.5px;
     font-size: 30px;
     line-height: 32px;
   }
+  .cruise-2018-suites-fares-description {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    margin: auto;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 80%;
+  }
+
   .cruise-2018-suites-fares-main {
     font-family: @suisse;
     text-align: center;
   }
 
+  .cruise-2018-suites-fares-container:not(first) {
+    margin-top: 25px;
+  }
   .cruise-2018-suites-fares-container {
     border: 1px solid rgb(204, 204, 204);
     box-shadow: rgba(0, 0, 0, 0.15) 0 1px 2px 0;
-    margin-top: 11px;
+    height: 380px;
     padding-bottom: 15px;
     padding-right: 0;
-    height: 380px;
     div.cruise-2018-suites-fares-image div,
     img {
       transform: scale(1.05);
@@ -126,21 +142,21 @@
   }
 
   .cruise-2018-suites-fares-btn {
-    white-space: normal;
-    display: inline-block;
-    text-transform: uppercase;
-    text-align: center ! important;
-    vertical-align: middle;
-    border-width: @nd-button-border-width;
     border-radius: @nd-button-border-radius;
-    padding: 10px 15px 9px;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    line-height: @nd-button-line-height;
-    font-size: @nd-button-font-size;
+    border-width: @nd-button-border-width;
+    display: inline-block;
     font-family: @suisse;
+    font-size: @nd-button-font-size;
     font-weight: normal;
     letter-spacing: @nd-button-letter-spacing;
+    line-height: @nd-button-line-height;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    padding: 10px 15px 9px;
+    text-align: center ! important;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: normal;
     span {
       padding-right: 0 ! important;
     }
@@ -177,7 +193,7 @@
       background-color: white;
       box-shadow: rgba(0, 0, 0, 0) 0 0 0 0;
       border: 0;
-      width: 95%;
+      width: 90%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -196,7 +212,7 @@
 
     .cruise-2018-suites-fares-price-from {
       font-size: 9px;
-      line-height: 11;
+      line-height: 11px;
     }
 
     .cruise-2018-suites-fares-price-text {
