@@ -356,9 +356,9 @@ window.briteVerify = function(email){
 //Fix B version all caps
 (function () {
     function lowerCaseContent(thisEl){
-        var currentPort = $(thisEl).text();
+        var currentPort = $(thisEl).html();
         currentPort = currentPort.toLowerCase();
-        $(thisEl).text(currentPort);
+        $(thisEl).html(currentPort);
     }
     try {
         $('.c-destination-teaser__caption .c-destination-teaser__title').each(function () {
@@ -380,7 +380,7 @@ window.briteVerify = function(email){
 
 
     try {
-        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title span').each(function () {
+        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title').each(function () {
             lowerCaseContent(this);
         });
     }
