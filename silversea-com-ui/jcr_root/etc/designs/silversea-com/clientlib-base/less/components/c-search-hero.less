@@ -15,11 +15,65 @@
   }
 }
 
+.searchheroCustom .c-search-hero-v2 {
+  @media (max-width: @screen-sm) {
+    margin-top: 0px !important;
+  }
+  .chosen-single.chosen-default{
+    margin:auto;
+  }
+}
+
+
 .c-search-hero-v2 {
   display:none;
-  @media (max-width: @screen-sm) {
-    margin-top: -80px;
 
+  .separator-line-light {
+    clear: both;
+    height: 1px;
+    margin: 20px 11px;
+    z-index: 10;
+    position: relative;
+    opacity: 0.2;
+    @media (max-width: @screen-sm) {
+      display:none;
+    }
+  }
+
+  @media (min-width: @screen-md-min) {
+    .c-fyc-light__form.c-search-hero__form {
+      .row {
+        padding-left: 5px;
+        .col-sm-4 {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+        .col-cta {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        .chosen-container .chosen-drop, .chosen-container .chosen-single {
+          margin-left: 13px;
+        }
+        .ships .chosen-container .chosen-drop, .ships .chosen-container .chosen-single {
+          margin-left: 19px;
+        }
+      }
+    }
+
+    .c-fyc-light__form.c-search-hero__form {
+      .chosen-single:not(.chosen-default) span {
+        font-weight: bold !important;
+      }
+    }
+  }
+
+    @media (max-width: @screen-sm) {
+    margin-top: -95px;
+
+    select.chosen.form-control.mobile-select-ready {
+      height: 55px !important;
+    }
     font: 12px @suisse !important;
     .chosen-container-single .chosen-single div {
       right: 10px !important;
@@ -39,9 +93,17 @@
     }
 
     form {
-      margin-left: 4%;
-      margin-right: 4%;
+      margin-left: 0px;
+      margin-right: 0px;
+
+      .active {
+        select.chosen.form-control.mobile-select-ready {
+          font-weight: bold;
+
+        }
+      }
     }
+
 
     .col-sm-3 {
       &:not(:last-of-type) {
@@ -314,7 +376,7 @@
 .mobile {
   .c-search-hero-v2 {
     .form-control {
-      border-color: @grey--d3 !important;
+      border-color: fade(@grey--d3,22%) !important;
     }
 
     select {
@@ -327,8 +389,9 @@
       line-height: 38px !important;
       height: 50px !important;
       padding: 3px 15px !important;
+      border-bottom: 0px !important;
       + .fa-angle-down {
-        top: 14px;
+        top: 20px;
         color: @color-second;
       }
 
@@ -336,3 +399,16 @@
   }
 
 }
+
+
+@media (max-width: 767px) {
+  .c-search-hero-v2 select.chosen.form-control.mobile-select-ready {
+    color: #333333;
+    font-size: 12px !important;	letter-spacing: 1px !important;	line-height: 15px !important;
+  }
+  div.c-search-hero-v2 button.btn.btn-red {
+    height: 55px !important;
+    font-size: 13px !important;	letter-spacing: 1px !important;	line-height: 15px !important;
+  }
+}
+

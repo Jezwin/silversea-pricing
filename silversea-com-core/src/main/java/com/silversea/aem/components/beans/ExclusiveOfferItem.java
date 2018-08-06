@@ -27,14 +27,16 @@ public class ExclusiveOfferItem {
     private String mapOverhead;
     
     private String eoFootnotes;
-    
+
     private String exclusiveOfferPath;
-    
+
     private List<String> cruiseFareAdditions;
-    
+
     private List<String> footnotes;
-    
-    private Boolean newSystem;
+
+	private String voyageIcon;
+
+	private Boolean newSystem;
 
     private String destinationPath;
     
@@ -43,11 +45,13 @@ public class ExclusiveOfferItem {
     private Boolean isLBGreyBoxActivated;
     
     private String positionDescriptionDesktopLB;
-    
-    private String positionDescriptionMobileLB;
+
+	private String positionDescriptionMobileLB;
+
+	private Integer priorityWeight;
 
     public ExclusiveOfferItem(final ExclusiveOfferModel exclusiveOffer, final String countryCodeIso2, final String destinationPath, EoBean result) {
-		
+
 	        this.exclusiveOffer = exclusiveOffer;
 	        newSystem = false;
 	        if(result == null){ //Rely on the old system
@@ -67,7 +71,7 @@ public class ExclusiveOfferItem {
 		                }
 		            }
 		        }
-	        }else{ //Rely on the new EO System 
+	        }else{ //Rely on the new EO System
 	        	newSystem = true;
 
 				title = result.getTitle();
@@ -82,6 +86,7 @@ public class ExclusiveOfferItem {
 				eoFootnotes  =result.getEoFootnotes();
 				positionDescriptionDesktopLB = exclusiveOffer.getPositionDescriptionDesktopLB();
 				positionDescriptionMobileLB = exclusiveOffer.getPositionDescriptionMobileLB();
+				voyageIcon = result.getIcon();
 				if(StringUtils.isNotEmpty(result.getFootnote())){
 					footnotes.add(result.getFootnote());
 				}
@@ -95,12 +100,12 @@ public class ExclusiveOfferItem {
 						}
 					}
 				}
-				
+
 	        }
-	
+
 	        this.destinationPath = destinationPath;
     }
-    
+
     public Boolean getNewSystem(){
     	return newSystem;
     }
@@ -110,7 +115,7 @@ public class ExclusiveOfferItem {
 	        if (exclusiveOfferVariation != null) {
 	            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getTitle(), exclusiveOffer.getTitle());
 	        }
-	
+
 	        return exclusiveOffer.getTitle();
     	}else{
     		return title;
@@ -122,11 +127,11 @@ public class ExclusiveOfferItem {
 	        if (destinationPath != null && exclusiveOffer.getDestinationsTexts().containsKey(destinationPath)) {
 	            return exclusiveOffer.getDestinationsTexts().get(destinationPath);
 	        }
-	
+
 	        if (exclusiveOfferVariation != null) {
 	            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getDescription(), exclusiveOffer.getDescription());
 	        }
-	
+
 	        return exclusiveOffer.getDescription();
     	}else{
     		return shortDescription;
@@ -138,7 +143,7 @@ public class ExclusiveOfferItem {
 	        if (exclusiveOfferVariation != null) {
 	            return StringUtils.defaultIfBlank(exclusiveOfferVariation.getLongDescription(), exclusiveOffer.getLongDescription());
 	        }
-	
+
 	        return exclusiveOffer.getLongDescription();
     	}else{
     		return description;
@@ -150,7 +155,7 @@ public class ExclusiveOfferItem {
 	        if (exclusiveOfferVariation != null && exclusiveOfferVariation.getCruiseFareAdditions() != null && !exclusiveOfferVariation.getCruiseFareAdditions().isEmpty()) {
 	            return exclusiveOfferVariation.getCruiseFareAdditions();
 	        }
-	
+
 	        return exclusiveOffer.getCruiseFareAdditions();
     	}else{
     		return cruiseFareAdditions;
@@ -162,7 +167,7 @@ public class ExclusiveOfferItem {
 	        if (exclusiveOfferVariation != null && exclusiveOfferVariation.getFootNotes() != null && !exclusiveOfferVariation.getFootNotes().isEmpty()) {
 	            return exclusiveOfferVariation.getFootNotes();
 	        }
-	
+
 	        return exclusiveOffer.getFootNotes();
     	}else{
     		return footnotes;
@@ -174,7 +179,7 @@ public class ExclusiveOfferItem {
 	        if (exclusiveOfferVariation != null) {
 	            return StringUtils.defaultString(exclusiveOfferVariation.getMapOverHead(), exclusiveOffer.getMapOverHead());
 	        }
-	
+
 	        return exclusiveOffer.getMapOverHead();
     	}else{
     		return mapOverhead;
@@ -188,7 +193,11 @@ public class ExclusiveOfferItem {
 
         return exclusiveOffer.getLightboxReference();
     }
-    
+
+	public Integer getPriorityWeight() {
+		return priorityWeight;
+	}
+
     public String getExclusiveOfferPath(){
     	return exclusiveOfferPath;
     }
@@ -219,5 +228,9 @@ public class ExclusiveOfferItem {
 
 	public String getPositionDescriptionMobileLB() {
 		return positionDescriptionMobileLB;
+	}
+
+	public String getVoyageIcon() {
+		return voyageIcon;
 	}
 }

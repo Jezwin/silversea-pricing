@@ -39,6 +39,16 @@ function applyWidths() {
 
 function appendCss() {
     $("html").addClass('ab-global-v2-activated');
+    try {
+        $('.c-vertical-teaser .c-vertical-teaser__title').each(function(){
+            var currentPort = $(this).text();
+            currentPort = currentPort.toLowerCase();
+            $(this).text(currentPort);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 }
 
 function applyNewStyle() {

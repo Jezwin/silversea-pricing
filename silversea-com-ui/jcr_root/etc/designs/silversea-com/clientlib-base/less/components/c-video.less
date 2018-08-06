@@ -56,6 +56,20 @@
 }
 
 .video {
+    .full-width-video {
+        left: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        position: relative;
+        right: 50% !important;
+        width: 100vw !important;
+    }
+    @media (max-width: @screen-sm) {
+        .fullWidthVideoMobile {
+            .full-width-video();
+        }
+    }
+
     .c-video {
         .s7container {
             video {

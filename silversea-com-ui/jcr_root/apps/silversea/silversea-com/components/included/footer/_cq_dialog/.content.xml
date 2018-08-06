@@ -188,6 +188,12 @@
                                     fieldLabel="Brochure Url Cta"
                                     name="./linkCtaBrochure"
                                     rootPath="/content/silversea-com"/>
+                                <titleDesktop jcr:primaryType="nt:unstructured" fieldLabel="Title desktop" name="./titleDesktop" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <descriptionDesktop jcr:primaryType="nt:unstructured" fieldLabel="Description desktop" name="./descriptionDesktop" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <titleMobile jcr:primaryType="nt:unstructured" fieldLabel="Title mobile" name="./titleMobile" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <descriptionMobile jcr:primaryType="nt:unstructured" fieldLabel="Description mobile" name="./descriptionMobile" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <ctaLabelDesktop  jcr:primaryType="nt:unstructured" fieldLabel="Cta label desktop" name="./ctaLabelDesktop" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <ctaLabelMobile jcr:primaryType="nt:unstructured" fieldLabel="Cta label mobile" name="./ctaLabelMobile" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
                         </items>
                     </column>
                 </items>

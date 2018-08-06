@@ -33,14 +33,14 @@
   }
 }
 
-.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next), .btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn, .c-cruise__overview .btn {
+.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next), .btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn, .c-cruise__overview .btn, .LB-EO .new-eo-modal-cta .btn_base-red {
   white-space: normal;
   display: inline-block;
   text-transform: uppercase;
-  text-align: center ! important;
+  text-align: center;
   vertical-align: middle;
   border-width: @nd-button-border-width;
-  border-radius: @nd-button-border-radius;
+  border-radius: @nd-button-border-radius !important;
   padding: @nd-button-padding;
   line-height: @nd-button-line-height;
   font-size: @nd-button-font-size;
@@ -109,101 +109,209 @@
 }
 
 //Adapt slider (editorial one)
-.slider .c-slider button.slick-next:after {
-  width: 30px;
-  height: 30px;
-  border-left: 0px solid transparent;
-  border-right: 2px solid #171d47 !important;
-  border-bottom: 2px solid #171d47 !important;
-  border-top: 0px solid transparent;
-  opacity: 0.9;
-  content: " ";
-  right: 53%;
-  left: initial !important;
-  transform: rotateZ(-45deg);
+.slider, .c-single-dining-slider, .c-single-suite-slider {
+  .c-slider button.slick-next:after {
+    width: 25px;
+    height: 25px;
+    border-left: 0px solid transparent;
+    border-right: 2px solid #171d47 !important;
+    border-bottom: 2px solid #171d47 !important;
+    border-top: 0px solid transparent;
+    opacity: 0.6;
+    content: " ";
+    right: 53%;
+    left: initial !important;
+    transform: rotateZ(-45deg);
 
+  }
+
+  .c-slider button.slick-prev:after {
+    width: 25px;
+    height: 25px;
+    border-left: 0px solid transparent;
+    border-right: 2px solid #171d47 !important;
+    border-bottom: 2px solid #171d47 !important;
+    border-top: 0px solid transparent;
+    opacity: 0.6;
+    content: " ";
+    right: 0;
+    transform: rotateZ(135deg);
+  }
 }
 
-.slider .c-slider button.slick-prev:after {
-  width: 30px;
-  height: 30px;
-  border-left: 0px solid transparent;
-  border-right: 2px solid #171d47 !important;
-  border-bottom: 2px solid #171d47 !important;
-  border-top: 0px solid transparent;
-  opacity: 0.9;
-  content: " ";
-  right: 0;
-  transform: rotateZ(135deg);
+  .slider, .c-single-dining-slider, .c-single-suite-slider {
+    .c-slider button.slick-prev:before, .c-slider button.slick-next:before {
+      border: none;
+    }
+
+    .c-slider:not(.c-slider--full-width):not(.exclusiveOfferListND__slider) button.slick-prev {
+      left: -80px !important;
+    }
+
+    .c-slider:not(.c-slider--full-width):not(.exclusiveOfferListND__slider) button.slick-next {
+      right: -80px !important;
+    }
+  }
+
+.c-single-suite-slider, .c-single-dining-slider {
+  .c-slider:not(.c-slider--full-width) .slick-dots {
+    margin-bottom: -15px !important;
+  }
 }
+.slider:not(.nd) .c-slider:not(.c-slider--full-width), .c-single-dining-slider .c-slider:not(.c-slider--full-width), .c-single-suite-slider .c-slider:not(.c-slider--full-width), .port_v2__postcarousel{
 
-.slider .c-slider button.slick-prev:before, .slider .c-slider button.slick-next:before {
-  border: none;
-}
+      margin-bottom:45px;
+      .slick-dots {
+        width: 98% !important;
+        position: absolute;
+        border-bottom: 1px solid @grey--9;
+        white-space: nowrap;
+        overflow: hidden;
+        bottom: -15px !important;
 
-.slider .c-slider:not(.c-slider--full-width):not(.exclusiveOfferListND__slider) button.slick-prev {
-  left: -80px !important;
-}
-
-.slider .c-slider:not(.c-slider--full-width):not(.exclusiveOfferListND__slider) button.slick-next {
-  right: -80px !important;
-}
-
-.slider:not(.nd){
-  .c-slider:not(.c-slider--full-width){
-    margin-bottom:45px;
-    .slick-dots {
-      width: 98% !important;
-      position: absolute;
-      border-bottom: 1px solid @grey--9;
-      white-space: nowrap;
-      overflow: hidden;
-      bottom: -15px !important;
-
-      li {
-        height: 2px !important;
-        margin: 0px !important;
-        vertical-align: bottom;
-        button::before {
-          background-color: #0F1A6E;
-          -webkit-border-radius: 0 !important;
-          -moz-border-radius: 0 !important;
-          border-radius: 0 !important;
+        li {
+          height: 2px !important;
+          margin: 0px !important;
+          vertical-align: bottom;
+          button::before {
+            background-color: #0F1A6E;
+            -webkit-border-radius: 0 !important;
+            -moz-border-radius: 0 !important;
+            border-radius: 0 !important;
+          }
         }
-      }
-      li:not(.slick-active) {
-        button::before {
-          background-color: @transparent !important;
+        li:not(.slick-active) {
+          button::before {
+            background-color: @transparent !important;
+          }
         }
+
+    }
+  }
+
+  @media(max-width:767px) {
+
+    .slider:not(.nd), .c-single-dining-slider, .c-single-suite-slider {
+      .c-slider:not(.c-slider--full-width) {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        .slick-list {
+          overflow: visible !important;
+        }
+
+        .slick-slide {
+          transition: 0.5s;
+        }
+        .slick-slide:not(.slick-current) {
+          opacity: 0.5;
+          transform: scale(0.85);
+        }
+
+
       }
+    }
+  }
+
+  .thumbnail .c-vertical-teaser__caption {
+    padding-top:12px;
+  }
+
+  .pressrelease ul.c-pagination.c-pagination--separated.clearfix {
+    border-top: none;
+    border-bottom: none;
+    text-align:unset;
+    li:last-child{
+      float:right;
+    }
+  }
+
+  .btn-dark.expander-open, .btn-dark.expander-close {
+    i.fa.fa-angle-down {
+      display:none;
+    }
+  }
+
+
+  /***
+  Rework Suites and Dining page
+   */
+
+body.suite, body.dining{
+  .o-title:after {
+    background:transparent !important;
+    margin-top: 0px !important;
+  }
+  .o-description {
+    margin-bottom: 10px !important;
+  }
+
+  .c-single-dining .c-single-dining-slider:not(.thumbnail), .c-single-suite .c-single-suite-slider:not(.thumbnail) {
+    margin-bottom:80px !important;
+  }
+
+  .c-single-dining__brouchure, .c-single-suite__brouchure {
+    display:none;
+  }
+
+
+  @media(min-width:@screen-md-min){
+    .c-single-dining-availability__title, .c-single-suite-availability__title {
+      font-size:24px !important;
+      font-family: @freight !important;
+    }
+
+  }
+
+  @media (max-width:@screen-sm){
+    .o-description {
+      margin-bottom: 0px !important;
+    }
+    .c-single-dining-availability__title, .c-single-suite-availability__title {
+      font-size:24px !important;
+      font-family: @freight !important;
     }
   }
 }
 
-@media(max-width:767px) {
-
-  .slider:not(.nd) {
-    .c-slider:not(.c-slider--full-width) {
-      width: 80%;
-      margin-left: 10%;
-      margin-right: 10%;
-      .slick-list {
-        overflow: visible !important;
-      }
-
-      .slick-slide {
-        transition: 0.5s;
-      }
-      .slick-slide:not(.slick-current) {
-        opacity: 0.5;
-        transform: scale(0.85);
-      }
-
-
+//B Version of Combo Cruise overview like B Version of Cruise
+.combocruise {
+  @media(min-width:@screen-md-min){
+    .cc-tab_header_desc_cta{
+      left: 32%;
+      display: block;
+      width: 30%;
+      padding: 0px;
+    }
+    .cc-tab_header_desc_txt {
+      width:100%;
+      display:block;
+      text-align:center !important;
+    }
+    .cc-tab_header_title {
+      text-align: center;
     }
   }
 }
 
-.thumbnail .c-vertical-teaser__caption {
-  padding-top:12px;
+//put cruise button to white design
+.cruise .row.c-cruise__overview .btn, .cc-tab_header_desc_cta .btn.btn-dark, .btn-dark.expander-open, .btn-dark.expander-close {
+
+  color: @color-second !important;
+  background-color: @white !important;
+  border: 1px solid fade(@color-second, 50%) !important;
+  &:hover {
+    border: 1px solid fade(@color-second, 100%) !important;
+    color: @color-second !important;
+  }
+}
+
+.port_v2__postcarousel .slick-dots li button {
+  width: 100%;
+
+}
+
+.port_v2__postcarousel .slick-dots li button:before {
+
+  width: 100%;
 }

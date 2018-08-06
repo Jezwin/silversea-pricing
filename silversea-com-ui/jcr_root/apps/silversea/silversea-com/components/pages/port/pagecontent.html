@@ -4,14 +4,20 @@
 	<div class="port_v2">
 	    <sly data-sly-use.port_head="port_head.html" data-sly-call="${port_head.default @ portUse=portUse}"  />
 	    <sly data-sly-use.port_headdesc="port_headdescription.html" data-sly-call="${port_headdesc.default @ portUse=portUse}"/>
-	    <sly data-sly-use.port_common="port_common.html" data-sly-call="${port_common.default @ portUse=portUse}" />
+		<div class="ab-test-intro-silversea-to-hide">
+			<sly data-sly-use.port_common="port_common.html" data-sly-call="${port_common.default @ portUse=portUse}" />
+		</div>
 	    <sly data-sly-test="${portuse.cruiseCounter > 0 }" data-sly-use.port_fyc="port_fyc.html" data-sly-call="${port_fyc.default @ portUse=portUse}"/>
 	    <sly data-sly-test="${portUse.filteredExcursions}" data-sly-use.port_excursion="port_acordion_excursions.html" data-sly-call="${port_excursion.default @ portUse=portUse}" />
 	    <sly data-sly-test="${portUse.filteredLand}" data-sly-use.port_land="port_acordion_land.html" data-sly-call="${port_land.default @ portUse=portUse}"  />
 	    <sly data-sly-test="${portUse.filteredHotels}" data-sly-use.port_hotel="port_acordion_hotels.html" data-sly-call="${port_hotel.default @ portUse=portUse}"  />
 	    <sly data-sly-test="${portUse.relatedPortsCount < 3}" data-sly-use.port_related_two="port_related_ports_two.html" data-sly-call="${port_related_two.default @ portUse=portUse}"  />
-	    <sly data-sly-test="${portUse.relatedPortsCount > 2}" data-sly-use.port_related="port_related_ports.html" data-sly-call="${port_related.default @ portUse=portUse}"/>
-    </div>
+		<sly data-sly-test="${portUse.relatedPortsCount > 2}" data-sly-use.port_related="port_related_ports.html" data-sly-call="${port_related.default @ portUse=portUse}"/>
+		<div class="ab-test-intro-silversea-to-show">
+			<sly data-sly-use.port_common="port_common.html" data-sly-call="${port_common.default @ portUse=portUse}" />
+		</div>
+
+	</div>
 </div>
 <script>
 $(document).ready(function() {

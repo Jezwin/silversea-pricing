@@ -1,0 +1,2 @@
+
+window.prova=42
