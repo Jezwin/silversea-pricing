@@ -46,7 +46,15 @@ public class FooterUse extends WCMUsePojo {
     private Iterator<Page> pagesBottomLineIterator2;
     private Iterator<Page> pagesBottomLineIterator3;
     private Iterator<Page> pagesLegalLinkIterator;
-    
+
+    private String titleDesktop;
+    private String titleMobile;
+    private String descriptionDesktop;
+    private String descriptionMobile;
+    private String ctaLabelDesktop;
+    private String ctaLabelMobile;
+
+
     /**
      * Initialize the component.
      */
