@@ -1468,4 +1468,256 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Tourenprogramm herunterladen "/>
+    <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba" />
+    <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afghanistan" />
+    <AGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Angola" />
+    <AIA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Anguilla" />
+    <ALA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Åland" />
+    <ALB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Albanien" />
+    <AND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Andorra" />
+    <ANT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niederländische Antillen" />
+    <ARE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vereinte Arabische Emirate" />
+    <ARG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Argentinien" />
+    <ARM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Armenien" />
+    <ASM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Amerikanisch-Samoa" />
+    <ATA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antarktis" />
+    <ATF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Französische Süd- und Antarktisgebiete" />
+    <ATG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Antigua und Barbuda" />
+    <AUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Australien" />
+    <AUT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Österreich" />
+    <AZE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aserbaidschan" />
+    <BDI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Burundi" />
+    <BEL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Belgien" />
+    <BEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Benin" />
+    <BES jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bonaire, Sint Eustatius und Saba" />
+    <BFA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Burkina Faso" />
+    <BGD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bangladesch" />
+    <BGR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bulgarien" />
+    <BHR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bahrain" />
+    <BHS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bahamas" />
+    <BIH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bosnien und Herzegowina" />
+    <BLM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Barthélemy" />
+    <BLR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Weißrussland" />
+    <BLZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Belize" />
+    <BMU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bermuda" />
+    <BOL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bolivien" />
+    <BRA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Brasilien" />
+    <BRB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Barbados" />
+    <BRN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Brunei" />
+    <BTN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bhutan" />
+    <BVT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Bouvetinsel" />
+    <BWA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Botswana" />
+    <CAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Zentralafrikanische Republik" />
+    <CAN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kanada" />
+    <CCK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kokosinseln" />
+    <CHE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Schweiz" />
+    <CHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Chile" />
+    <CHN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="China" />
+    <CIV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Elfenbeinküste" />
+    <CMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kamerun" />
+    <COD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Demokratische Republik Kongo" />
+    <COG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Republik Kongo" />
+    <COK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Cookinseln" />
+    <COL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kolumbien" />
+    <COM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Komoren" />
+    <CPV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kap Verde" />
+    <CRI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Costa Rica" />
+    <CUB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kuba" />
+    <CUW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Curacao" />
+    <CXR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Weihnachtsinsel" />
+    <CYM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kaimaninseln" />
+    <CYP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Zypern" />
+    <CZE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tschechische Republik" />
+    <DEU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Deutschland" />
+    <DJI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Dschibuti" />
+    <DMA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Dominica" />
+    <DNK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Dänemark" />
+    <DOM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Dominikanische Republik" />
+    <DZA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Algerien" />
+    <ECU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ecuador" />
+    <EGY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ägypten" />
+    <ERI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Eritrea" />
+    <ESH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Westsahara" />
+    <ESP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Spanien" />
+    <EST jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Estland" />
+    <ETH jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Äthiopien" />
+    <FIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Finnland" />
+    <FJI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Fidschi" />
+    <FLK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Falkland-Inseln" />
+    <FRA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Frankreich" />
+    <FRO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Färöer-Inseln" />
+    <FSM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mikronesien" />
+    <GAB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gabun" />
+    <GBR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Großbritannien" />
+    <GEO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Georgien" />
+    <GGY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guernsey" />
+    <GHA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ghana" />
+    <GIB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gibraltar" />
+    <GIN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinea" />
+    <GLP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guadeloupe" />
+    <GMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Gambia" />
+    <GNB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guinea-Bissau" />
+    <GNQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Äquatorialguinea" />
+    <GRC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Griechenland" />
+    <GRD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Grenada" />
+    <GRL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Grönland" />
+    <GTM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guatemala" />
+    <GUF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Französisch-Guayana" />
+    <GUM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guam" />
+    <GUY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Guyana" />
+    <HKG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Hongkong" />
+    <HMD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Heard und McDonaldinseln" />
+    <HND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Honduras" />
+    <HRV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kroatien" />
+    <HTI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Haiti" />
+    <HUN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ungarn" />
+    <IDN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Indonesien" />
+    <IMN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Isle of Man" />
+    <IND jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Indien" />
+    <IOT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Britisches Territorium im Indischen Ozean" />
+    <IRL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Irland" />
+    <IRN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Iran" />
+    <IRQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Irak" />
+    <ISL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Island" />
+    <ISR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Israel" />
+    <ITA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Italien" />
+    <JAM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jamaika" />
+    <JEY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jersey" />
+    <JOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jordanien" />
+    <JPN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Japan" />
+    <KAZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kasachstan" />
+    <KEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kenia" />
+    <KGZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kirgisistan" />
+    <KHM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kambodscha" />
+    <KIR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kiribati" />
+    <KNA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="St. Kitts und Nevis" />
+    <KOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Südkorea" />
+    <KWT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kuwait" />
+    <LAO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Laos" />
+    <LBN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Libanon" />
+    <LBR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Liberia" />
+    <LBY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Libyen" />
+    <LCA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="St. Lucia" />
+    <LIE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Liechtenstein" />
+    <LKA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sri Lanka" />
+    <LSO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lesotho" />
+    <LTU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Litauen" />
+    <LUX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Luxemburg" />
+    <LVA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Lettland" />
+    <MAC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Macao" />
+    <MAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="St. Martin" />
+    <MAR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Marokko" />
+    <MCO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Monaco" />
+    <MDA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Moldawien" />
+    <MDG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Madagaskar" />
+    <MDV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malediven" />
+    <MEX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mexiko" />
+    <MHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Marshallinseln" />
+    <MKD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mazedonien" />
+    <MLI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mali" />
+    <MLT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malta" />
+    <MMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Myanmar" />
+    <MNE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Montenegro" />
+    <MNG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mongolei" />
+    <MNP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nördliche Marianen" />
+    <MOZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mosambik" />
+    <MRT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mauretanien" />
+    <MSR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Montserrat" />
+    <MTQ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Martinique" />
+    <MUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mauritius" />
+    <MWI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malawi" />
+    <MYS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Malaysia" />
+    <MYT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Mayotte" />
+    <NAM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Namibia" />
+    <NCL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Neukaledonien" />
+    <NER jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niger" />
+    <NFK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Norfolkinsel" />
+    <NGA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nigeria" />
+    <NIC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nicaragua" />
+    <NIU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niue" />
+    <NLD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Niederlande" />
+    <NOR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Norwegen" />
+    <NPL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nepal" />
+    <NRU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nauru" />
+    <NZL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Neuseeland" />
+    <OMN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Oman" />
+    <PAK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pakistan" />
+    <PAN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Panama" />
+    <PCN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Pitcairninseln" />
+    <PER jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Peru" />
+    <PHL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Philippinen" />
+    <PLW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Palau" />
+    <PNG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Papua-Neuguinea" />
+    <POL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Polen" />
+    <PRI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Puerto Rico" />
+    <PRK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Nordkorea" />
+    <PRT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Portugal" />
+    <PRY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Paraguay" />
+    <PSE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Palästinensische Autonomiegebiete" />
+    <PYF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Französisch-Polynesien" />
+    <QAT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Katar" />
+    <REU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Réunion" />
+    <ROU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Rumänien" />
+    <RUS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Russland" />
+    <RWA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ruanda" />
+    <SAU jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saudi-Arabien" />
+    <SCG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Serbien und Montenegro" />
+    <SDN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sudan" />
+    <SEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Senegal" />
+    <SGP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Singapur" />
+    <SGS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Südgeorgien und die Südlichen Sandwichinseln" />
+    <SHN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="St. Helena" />
+    <SJM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Svalbard und Jan Mayen" />
+    <SLB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Salomon-Inseln" />
+    <SLE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sierra Leone" />
+    <SLV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="El Salvador" />
+    <SMR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="San Marino" />
+    <SOM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Somalia" />
+    <SPM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Saint-Pierre und Miquelon" />
+    <SRB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Serbien" />
+    <SSD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Südsudan" />
+    <STP jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="São Tomé und Príncipe" />
+    <SUR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Suriname" />
+    <SVK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Slowakei" />
+    <SVN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Slowenien" />
+    <SWE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Schweden" />
+    <SWZ jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Swasiland" />
+    <SXM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sint Maarten" />
+    <SYC jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Seychellen" />
+    <SYR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Syrien" />
+    <TCA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Turks- und Caicosinseln" />
+    <TCD jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tschad" />
+    <TGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Togo" />
+    <THA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Thailand" />
+    <TJK jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tadschikistan" />
+    <TKL jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tokelau" />
+    <TKM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Turkmenistan" />
+    <TLS jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Osttimor" />
+    <TON jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tonga" />
+    <TTO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Trinidad und Tobago" />
+    <TUN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tunesien" />
+    <TUR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Türkei" />
+    <TUV jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tuvalu" />
+    <TWN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Taiwan" />
+    <TZA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Tansania" />
+    <UGA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Uganda" />
+    <UKR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Ukraine" />
+    <UMI jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="United States Minor Outlying Islands" />
+    <URY jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Uruguay" />
+    <USA jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vereinigte Staaten von Amerika (USA)" />
+    <UZB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Usbekistan" />
+    <VAT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vatikanstadt" />
+    <VCT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="St. Vincent und die Grenadinen" />
+    <VEN jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Venezuela" />
+    <VGB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Britische Jungferninseln" />
+    <VIR jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Amerikanische Jungferninseln" />
+    <VNM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vietnam" />
+    <VUT jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Vanuatu" />
+    <WLF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Wallis und Futuna" />
+    <WSM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Samoa" />
+    <XKX jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Kosovo" />
+    <YEM jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Jemen" />
+    <ZAF jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Südafrika" />
+    <ZMB jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Sambia" />
+    <ZWE jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Simbabwe" />
 </jcr:root>
