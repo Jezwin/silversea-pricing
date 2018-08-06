@@ -380,7 +380,7 @@ window.briteVerify = function(email){
 
 
     try {
-        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title').each(function () {
+        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title span').each(function () {
             lowerCaseContent(this);
         });
     }
