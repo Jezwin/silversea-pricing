@@ -1,14 +1,23 @@
 package com.silversea.aem.components.page;
 
+import com.day.cq.dam.api.Asset;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.ShipAreaModel;
+import com.silversea.aem.models.ShipModel;
+import com.silversea.aem.models.SilverseaAsset;
+import com.silversea.aem.utils.AssetUtils;
+import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Cruise2018Use extends EoHelper {
@@ -28,12 +37,14 @@ public class Cruise2018Use extends EoHelper {
 
     private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
     private CruiseModel cruiseModel;
+    private List<SilverseaAsset> assetsGallery;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         cruiseModel = retrieveCruiseModel();
-        exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+        assetsGallery = retrieveAssetsGallery(cruiseModel);
+        //exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
     }
 
     private CruiseModel retrieveCruiseModel() {
@@ -43,6 +54,45 @@ public class Cruise2018Use extends EoHelper {
             CruiseModel cruiseModel = getCurrentPage().adaptTo(CruiseModel.class);
             getRequest().setAttribute("cruiseModel", cruiseModel);
             return cruiseModel;
+        }
+    }
+
+    private List<SilverseaAsset> retrieveAssetsGallery(CruiseModel cruiseModel) {
+        List<SilverseaAsset> assetsListResult = new ArrayList<>();
+        if (cruiseModel != null) {
+            if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
+                assetsListResult.addAll(AssetUtils.buildSilverseaAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver(), null));
+            }
+            assetsListResult.addAll(retrieveAssestsFromShip(cruiseModel.getShip()));
+        }
+
+        return assetsListResult;
+    }
+
+    private List<SilverseaAsset> retrieveAssestsFromShip(ShipModel shipModel) {
+        List<SilverseaAsset> listShipAssests = new ArrayList<>();
+        if (shipModel != null) {
+            List<SilverseaAsset> virtualTourAssets = new ArrayList<>();
+            if (StringUtils.isNotEmpty(cruiseModel.getShip().getPhotoVideoSuiteSelectionReference())) {
+                listShipAssests.addAll(AssetUtils.buildSilverseaAssetList(shipModel.getPhotoVideoSuiteSelectionReference(), getResourceResolver(), null));
+            } else {
+                retrieveAssestsFromShip(shipModel.getSuites(),listShipAssests, virtualTourAssets);
+            }
+            retrieveAssestsFromShip(shipModel.getDinings(),listShipAssests, virtualTourAssets);
+            retrieveAssestsFromShip(shipModel.getPublicAreas(),listShipAssests, virtualTourAssets);
+            listShipAssests.addAll(virtualTourAssets);
+            virtualTourAssets = null;
+        }
+        return listShipAssests;
+    }
+
+    private void retrieveAssestsFromShip(List<? extends ShipAreaModel> shipEntitiy, List<SilverseaAsset> classicAssets, List<SilverseaAsset> virtualTourAssets) {
+        if (shipEntitiy != null && !shipEntitiy.isEmpty()) {
+            Map<String, List<SilverseaAsset>> mapAsset = AssetUtils.addAllShipAreaAssets(getResourceResolver(), shipEntitiy);
+            if (!mapAsset.isEmpty()) {
+                classicAssets.addAll(mapAsset.get("assets"));
+                virtualTourAssets.addAll(mapAsset.get("assetsVirtualTour"));
+            }
         }
     }
 
@@ -65,5 +115,9 @@ public class Cruise2018Use extends EoHelper {
 
     public CruiseModel getCruiseModel() {
         return cruiseModel;
+    }
+
+    public List<SilverseaAsset> getAssetsGallery() {
+        return assetsGallery;
     }
 }
