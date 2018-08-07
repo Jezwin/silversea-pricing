@@ -337,6 +337,68 @@ window.briteVerify = function(email){
 
 })();
 
+//Fix FYC port all caps + dest +
+(function () {
+
+    try {
+        $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+            var currentPort = $(this).text();
+            currentPort = currentPort.toLowerCase();
+            $(this).text(currentPort);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+})();
+
+//Fix B version all caps
+(function () {
+    function lowerCaseContent(thisEl){
+        var currentPort = $(thisEl).html();
+        currentPort = currentPort.toLowerCase();
+        $(thisEl).html(currentPort);
+    }
+    try {
+        $('.c-destination-teaser__caption .c-destination-teaser__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+    try {
+        $('.c-ship-teaser__caption .c-ship-teaser__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+
+    try {
+        $('.c-destinationSlider-slide-small-inner__description .c-destinationSlider-slide-small-inner__description-title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+    try {
+        $('.c-eolist__caption .c-eolist__title').each(function () {
+            lowerCaseContent(this);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
+
+})();
+
 // FIX Object-fit for IE 11 
 this.fitie = function (node) {
 	// restrict to valid object-fit value

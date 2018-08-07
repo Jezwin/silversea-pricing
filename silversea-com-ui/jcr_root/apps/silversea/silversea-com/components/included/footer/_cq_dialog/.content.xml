@@ -163,92 +163,6 @@
                     </column>
                 </items>
             </Legalline>
-            <footerbversion
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Footer B version"
-                sling:resourceType="granite/ui/components/foundation/section">
-                <layout
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                    margin="{Boolean}false"/>
-                <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <brochureimage
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                fieldLabel="Brochure Image"
-                                name="./brochureimage"
-                                rootPath="/content/dam"/>
-                            <Col1
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                fieldDescription="Ignored for Mobile view"
-                                fieldLabel="Column 1 (hidden on mobile)">
-                                <field
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                    fieldLabel="Col 1"
-                                    name="./col1"
-                                    rootPath="/content/silversea-com"/>
-                            </Col1>
-                            <Col2title
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                fieldDescription="Column 2 Title (mobile only)"
-                                fieldLabel="Column 2 Title (mobile only)"
-                                name="./Col2title"/>
-                            <Col2
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                fieldLabel="Column 2">
-                                <field
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                    fieldLabel="Col 2"
-                                    name="./col2"
-                                    rootPath="/content/silversea-com"/>
-                            </Col2>
-                            <Col3title
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                fieldDescription="Column 3 Title (mobile only)"
-                                fieldLabel="Column 3 Title (mobile only)"
-                                name="./Col3title"/>
-                            <Col3
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                fieldLabel="Column 3">
-                                <field
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                    fieldLabel="Col 3"
-                                    name="./col3"
-                                    rootPath="/content/silversea-com"/>
-                            </Col3>
-                            <Col4title
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                fieldDescription="Column 4 Title (mobile only)"
-                                fieldLabel="Column 4 Title (mobile only)"
-                                name="./Col4title"/>
-                            <Col4
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/multifield"
-                                fieldLabel="Column 4">
-                                <field
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
-                                    fieldLabel="Col 4"
-                                    name="./col4"
-                                    rootPath="/content/silversea-com"/>
-                            </Col4>
-                        </items>
-                    </column>
-                </items>
-            </footerbversion>
             <requestBrochure
                     jcr:primaryType="nt:unstructured"
                     jcr:title="Request brochure Section"
@@ -274,6 +188,12 @@
                                     fieldLabel="Brochure Url Cta"
                                     name="./linkCtaBrochure"
                                     rootPath="/content/silversea-com"/>
+                                <titleDesktop jcr:primaryType="nt:unstructured" fieldLabel="Title desktop" name="./titleDesktop" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <descriptionDesktop jcr:primaryType="nt:unstructured" fieldLabel="Description desktop" name="./descriptionDesktop" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <titleMobile jcr:primaryType="nt:unstructured" fieldLabel="Title mobile" name="./titleMobile" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <descriptionMobile jcr:primaryType="nt:unstructured" fieldLabel="Description mobile" name="./descriptionMobile" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <ctaLabelDesktop  jcr:primaryType="nt:unstructured" fieldLabel="Cta label desktop" name="./ctaLabelDesktop" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
+                                <ctaLabelMobile jcr:primaryType="nt:unstructured" fieldLabel="Cta label mobile" name="./ctaLabelMobile" sling:resourceType="granite/ui/components/foundation/form/textfield"  />
                         </items>
                     </column>
                 </items>
