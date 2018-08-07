@@ -61,11 +61,13 @@ if ($(".c-footer-2018 .c-footer-other-link").length > 0) {
             e.preventDefault();
             e.stopPropagation();
             $buttonSearchMobile.show();
+            /*
+            Code to create transition effect to move the icon from left to right
             var intevarlBtn = setInterval(function() {
                 if($buttonSearchMobile.is(":visible")) {
                     clearInterval(intevarlBtn);
-                    var translateX = $inputSearchMobile.width() - 41;
                     $buttonSearchMobile.find("i.fa").css("color","white");
+                    var translateX = $inputSearchMobile.width() - 41;
                     $buttonSearchMobile.css("transform","translateX("+translateX+"px)");
                 }
             },50);
@@ -75,13 +77,17 @@ if ($(".c-footer-2018 .c-footer-other-link").length > 0) {
                     $buttonSearchMobile.css("transform","translateX("+translateX+"px)");
                 }
             });
+            */
         });
         $inputSearchMobile.focusout(function(){
-            $buttonSearchMobile.css("transform","translateX(-5px)");
-            setTimeout(function() {
-                $buttonSearchMobile.find("i.fa").removeAttr("style");
-            },1900);
+            $buttonSearchMobile.hide();
+            /*
+                $buttonSearchMobile.css("transform","translateX(-5px)");
+                setTimeout(function() {
+                    $buttonSearchMobile.find("i.fa").removeAttr("style");
+                },1900);
+             */
+            });
         });
-    });
 
 }
