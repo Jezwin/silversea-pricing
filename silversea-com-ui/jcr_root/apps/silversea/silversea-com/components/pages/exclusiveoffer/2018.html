@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body cruise-2018" data-sly-use.exclusiveOffer="com.silversea.aem.components.page.ExclusiveOfferUse">
+
+    <div class="cruise-2018-modal-exclusive-offer-content">
+        <div class="cruise-2018-modal-exclusive-offer-title">${exclusiveOffer.exclusiveOfferItem.title @ context='html'}</div>
+        <div class="cruise-2018-modal-exclusive-offer-subtitle">${exclusiveOffer.exclusiveOfferItem.mapOverHead @ context='html'}</div>
+        <div class="cruise-2018-modal-exclusive-offer-including">
+            <div class="cruise-2018-modal-exclusive-offer-including-title"><span>Including</span></div>
+            <div class="cruise-2018-modal-exclusive-offer-box">
+                <div class="cruise-2018-modal-exclusive-offer-box-icon"></div>
+                <div class="cruise-2018-modal-exclusive-offer-box-text">Text describing what is included</div>
+            </div>
+            <div class="cruise-2018-modal-exclusive-offer-box">
+                <div class="cruise-2018-modal-exclusive-offer-box-icon"></div>
+                <div class="cruise-2018-modal-exclusive-offer-box-text">Text describing what is included</div>
+            </div>
+            <div class="cruise-2018-modal-exclusive-offer-box">
+                <div class="cruise-2018-modal-exclusive-offer-box-icon"></div>
+                <div class="cruise-2018-modal-exclusive-offer-box-text">Text describing what is included</div>
+            </div>
+        </div>
+        <div class="cruise-2018-modal-exclusive-offer-description">${exclusiveOffer.exclusiveOfferItem.description @ context='html'}
+            ${exclusiveOffer.exclusiveOfferItem.eoFootnotes @ context='html'}
+        </div>
+        <div class="cruise-2018-modal-exclusive-offer-btn-container">
+            <a class="cruise-2018-modal-exclusive-offer-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
+               href="${exclusiveOffer.requestQuotePagePath @ extension='html'}">${'request-quote' @ i18n }</a>
+        </div>
+    </div>
+</div>
+
+
