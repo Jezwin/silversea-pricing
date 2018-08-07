@@ -3,13 +3,18 @@ package com.silversea.aem.components.page;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
+import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.utils.PathUtils;
+import java.util.Locale;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.ObjectUtils.firstNonNull;
 import org.apache.commons.lang3.ObjectUtils;
 import com.silversea.aem.models.CruiseModelLight;
 import com.silversea.aem.services.CruisesCacheService;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -33,6 +38,8 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
+
+    private List<SuitePrice> prices = new ArrayList<>();
     private CruiseModel cruiseModel;
     private String previous;
     private String previousDeparture;
@@ -46,11 +53,34 @@ public class Cruise2018Use extends EoHelper {
         super.activate();
         cruiseModel = retrieveCruiseModel();
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+        prices = retrievePrices(cruiseModel);
 
         //Init the Previous and Next cruise (navigation pane)
         String shipName = (cruiseModel.getShip() != null) ? cruiseModel.getShip().getName() : null;
         searchPreviousAndNextCruise(shipName);
+    }
 
+    private List<SuitePrice> retrievePrices(CruiseModel cruise) {
+        Locale locale = getCurrentPage().getLanguage(false);
+        return cruise.getPrices().stream()
+                .filter(price -> geomarket.equals(price.getGeomarket()))
+                .filter(price -> currency.equals(price.getCurrency()))
+                .distinct()
+                .map(price -> new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory()))
+                .collect(toList());
+    }
+
+    private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
+        return cruise.getExclusiveOffers().stream()
+                .filter(eo -> eo.getGeomarkets() != null && eo.getGeomarkets().contains(geomarket))
+                .map(exclusiveOfferModel -> {
+                    EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
+                    EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
+                    String destinationPath = cruise.getDestination().getPath();
+                    return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
+                })
+                .sorted(comparing((ExclusiveOfferItem eo) -> firstNonNull(eo.getPriorityWeight(), 0)).reversed())
+                .collect(toList());
     }
 
     private CruiseModel retrieveCruiseModel() {
@@ -61,20 +91,6 @@ public class Cruise2018Use extends EoHelper {
             getRequest().setAttribute("cruiseModel", cruiseModel);
             return cruiseModel;
         }
-    }
-
-    private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruiseModel) {
-        return cruiseModel.getExclusiveOffers().stream()
-                .filter(eo -> eo.getGeomarkets() != null && eo.getGeomarkets().contains(geomarket))
-                .map(exclusiveOfferModel -> {
-                    EO_CONFIG.setActiveSystem(exclusiveOfferModel.getActiveSystem());
-                    EoBean result = super.parseExclusiveOffer(EO_CONFIG, exclusiveOfferModel);
-                    String destinationPath = cruiseModel.getDestination().getPath();
-                    return new ExclusiveOfferItem(exclusiveOfferModel, countryCode, destinationPath, result);
-                })
-                .sorted(Comparator.comparing((ExclusiveOfferItem exclusiveOfferItem) -> ObjectUtils
-                        .firstNonNull(exclusiveOfferItem.getPriorityWeight(), 0)).reversed())
-                .collect(Collectors.toList());
     }
 
     private void searchPreviousAndNextCruise(String shipName) {
@@ -137,8 +153,16 @@ public class Cruise2018Use extends EoHelper {
         return exclusiveOffers;
     }
 
+    public List<SuitePrice> getPrices() {
+        return prices;
+    }
+
     public CruiseModel getCruiseModel() {
         return cruiseModel;
+    }
+
+    public String getRequestQuotePagePath() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 
     /**
