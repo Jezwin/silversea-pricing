@@ -2,7 +2,6 @@
 	 data-sly-use.pageHelper="com.silversea.aem.helper.PageHelper"/>
 <sly data-sly-use.footerTemplate="footertemplate.html">
 	<sly data-sly-test="${pageHelper.templateName != 'port' && pageHelper.templateName != 'cruise' && pageHelper.templateName != 'destination'}" data-sly-call="${footerTemplate.default @ footer= footer}"></sly>
-	<sly data-sly-test="${pageHelper.templateName != 'port' && pageHelper.templateName != 'cruise' && pageHelper.templateName != 'destination'}" data-sly-call="${footerTemplate.design2018 @ footer= footer}"></sly>
+	<sly data-sly-call="${footerTemplate.design2018 @ footer= footer}"></sly>
 	<sly data-sly-test="${pageHelper.templateName == 'port' || pageHelper.templateName == 'cruise' || pageHelper.templateName == 'destination' }" data-sly-call="${footerTemplate.port @ footer=footer}"></sly>
-    <sly data-sly-call="${footerTemplate.style1 @ footer=footer}"></sly>
 </sly>

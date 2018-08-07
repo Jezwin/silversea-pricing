@@ -359,7 +359,7 @@
     <download-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Download brochure"/>
+        sling:message="Broschüre herunterladen"/>
     <dining
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -937,7 +937,7 @@
     <request-free-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="request a free brochure"/>
+        sling:message="Eine kostenlose Broschüre anfordern"/>
     <request-a-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -957,7 +957,7 @@
     <request-quote-description
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Allow us to take care of your next luxury cruise"/>
+        sling:message="Erlauben Sie uns, dass wir uns um Ihre nächste Luxusreise kümmern"/>
     <required-city
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1464,6 +1464,10 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
 	    sling:message=" die Mitglieder des Venetian Society Clubs profitieren von einem 5% Rabatt auf den Preis der Kreuzfahrt"/>
+    <tour-book
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Tourenprogramm herunterladen "/>
     <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba" />
     <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afghanistan" />
     <AGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Angola" />

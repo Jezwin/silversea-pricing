@@ -47,9 +47,11 @@
     font-family: @suisse;
     margin-top: 15px;
     border: 1px solid fade(@white, 50%) !important;
+    background-color: @white !important;
+    border-color: @white !important;
     span {
       font-family: @suisse;
-      color: @white;
+      color: @color-typography;
     }
   }
   //Custom Only Desktop and Tablet Style
@@ -69,6 +71,7 @@
       transform: translateY(5%);
       -webkit-transform: translateY(5%);
     }
+
   }
   //End Custom Only Desktop and Tablet Style
 
@@ -128,7 +131,7 @@
     }
 
     .request-brochure-description {
-      font-size: 18px;
+      font-size: 15px;
       letter-spacing: 0.25px;
       line-height: 20px;
       margin-bottom: 12px;
@@ -138,8 +141,8 @@
       font-size: 12px;
       letter-spacing: 1px;
       line-height: 18px;
-      background-color: @white;
-      border-color: @white;
+      background-color: @white !important;
+      border-color: @white !important;
       span {
         color: @color-typography;
       }
