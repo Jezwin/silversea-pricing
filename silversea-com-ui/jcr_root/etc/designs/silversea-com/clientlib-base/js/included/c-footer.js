@@ -80,7 +80,9 @@ if ($(".c-footer-2018 .c-footer-other-link").length > 0) {
             */
         });
         $inputSearchMobile.focusout(function(){
-            $buttonSearchMobile.hide();
+           if($inputSearchMobile.val().length ==0) {
+               $buttonSearchMobile.hide();
+           }
             /*
                 $buttonSearchMobile.css("transform","translateX(-5px)");
                 setTimeout(function() {
