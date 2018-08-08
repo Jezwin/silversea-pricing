@@ -7,7 +7,7 @@
         </div>
         <sly data-sly-test.ast="*"/>
         <div data-sly-list.offer="${offers}" class="cruise-2018-offers-list cruise-2018-offers-size-${offers.size}">
-            <a href="${offer.exclusiveOfferPath @ extension='html', selectors='2018'}"
+            <a href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
                rel="nofollow"
                data-toggle="modal" class="cruise-2018-offer-container"
                data-target=".bs-modal-lg">
