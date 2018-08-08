@@ -1,6 +1,6 @@
 <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
-<div itemscope itemtype="http://schema.org/Product"
-     data-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightbox-gallery-assets'}"
+<div itemscope itemtype="http://schema.org/Product" class="container"
+     data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightbox-gallery-assets'}"
      data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use">
     <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise2018/menu/header.html"
          data-sly-call="${header.default @ cruise=cruise}"/>

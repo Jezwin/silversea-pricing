@@ -1,12 +1,12 @@
 $(function() {
     /***************************************************************************
-     * Modal Gallery for "cruise page" 2018"
+     * Lightbox Gallery for "cruise page" 2018"
      **************************************************************************/
     $(".open-lightbox-gallery-assets").on("click",function(e) {
         e.preventDefault();
         e.stopPropagation();
         var $link = $(this),
-            ajaxContentPath = $link.closest('[lightbox-gallery-assets-path]').data('lightbox-gallery-assets-path'),
+            ajaxContentPath = $link.closest('[data-lightbox-gallery-path]').data('lightbox-gallery-path'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
         $modalContent.modal('show');
@@ -19,12 +19,12 @@ $(function() {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-dialog').load(ajaxContentPath, function(e) {
-                createLigthboxGallerySlider($modal);
+                createLigthboxGallerySlider($modal, $link);
             });
         });
     });
 
-    function createLigthboxGallerySlider($modal) {
+    function createLigthboxGallerySlider($modal, $link) {
         var $mainSlider = $modal.find('.main-slider').slick({
             slidesToShow : 1,
             slidesToScroll : 1,
@@ -35,7 +35,8 @@ $(function() {
             slidesToShow : 6,
             slidesToScroll : 5,
             asNavFor : '.lightbox-gallery-assets .main-slider',
-            focusOnSelect : true
+            focusOnSelect : true,
+            arrows: false
         });
 
         // Init video on click
@@ -45,7 +46,7 @@ $(function() {
             $(this).next('.c-video').initVideo();
         });
 
-        $slideFor.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+        $mainSlider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
             var $slider = $(this);
             // Kill video if current slide contains video
             var $video = $slider.find('.slick-current .c-video');
@@ -60,16 +61,16 @@ $(function() {
 
         // Scroll to the target image
         var currentImagePath = $link.attr('href');
-        $(".main-slider").slick("slickSetOption", "draggable", true, false);
-        $(".main-slider").slick("slickSetOption", "swipe", true, false);
-        $slideFor.slick('slickGoTo', $slideFor.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), false);
+        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "draggable", true, false);
+        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "swipe", true, false);
+        $mainSlider.slick('slickGoTo', $mainSlider.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), false);
 
     };//createLigthboxGallerySlider
 
     function loadLazyImage($slider) {
-        var $sliderActive = $slider.closest('.c-gallery').find('.slick-active');
-        $(".c-slider--for").slick("slickSetOption", "draggable", true, false);
-        $(".c-slider--for").slick("slickSetOption", "swipe", true, false);
+        var $sliderActive = $slider.closest('.lightbox-gallery-assets').find('.slick-active');
+        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "draggable", true, false);
+        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "swipe", true, false);
         // call lazy loading for active image
         $sliderActive.find('.lazy').lazy();
 
