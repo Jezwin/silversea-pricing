@@ -36,19 +36,6 @@ included/c-modaldetail.js
 included/c-footer.js
 
 
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/expeditions/expeditions.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/itinerary-excursions/excursions/excursions.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/itinerary-excursions/itinerary/itinerary.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/menu/footer.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/menu/header.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/offers/offers.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/overview/overview.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/pre-post/pre-post.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/ship/deck/overview.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/ship/dining/dining.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/ship/public-areas/public-areas.js
-../../../../../apps/silversea/silversea-com/components/pages/cruise2018/suites-fares/suites-fares.js
-
 
 ../../../../../apps/silversea/silversea-com/components/included/lightboxes/lightbox-gallery-assets/lightbox-gallery-assets.js
 
