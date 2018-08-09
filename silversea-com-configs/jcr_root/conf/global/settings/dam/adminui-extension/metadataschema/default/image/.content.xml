@@ -53,7 +53,7 @@
                                         jcr:primaryType="nt:unstructured"
                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                         fieldLabel="Credit"
-                                        name="./jcr:content/metadata/credit"
+                                        name="./jcr:content/metadata/dam:credit"
                                         renderReadOnly="true">
                                     <granite:data
                                             jcr:primaryType="nt:unstructured"

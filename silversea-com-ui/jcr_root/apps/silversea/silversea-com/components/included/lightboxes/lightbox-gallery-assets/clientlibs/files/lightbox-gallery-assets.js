@@ -55,15 +55,13 @@ $(function() {
              // Call lazy load for 2 previous and 2 next slides
             loadLazyImage($(this));
         }).on('afterChange', function(event, slick, currentSlide) {
+            createInfoAssetSection($(this));
             // Call lazy load for 2 previous and 2 next slides
             loadLazyImage($(this));
         });
 
-        // Scroll to the target image
-        var currentImagePath = $link.attr('href');
-        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "draggable", true, false);
-        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "swipe", true, false);
-        $mainSlider.slick('slickGoTo', $mainSlider.find('.slick-slide:not(".slick-cloned")[data-image="' + currentImagePath + '"]').first().data('slick-index'), false);
+        var $firstElement = $mainSlider.find('[data-slick-index="0"] > div');
+        createInfoAssetSection($firstElement);
 
     };//createLigthboxGallerySlider
 
@@ -84,4 +82,27 @@ $(function() {
         }, 50);
 
     };//loadLazyImage
+
+    function createInfoAssetSection(element) {
+        var $assetLabel = $(".lightbox-gallery-assets #ga-label-text-label");
+        var $assetCredits = $(".lightbox-gallery-assets #ga-label-text-credits");
+        var $assetSectionLabel = $(".lightbox-gallery-assets .ga-label");
+        var $assetSectionCredits = $(".lightbox-gallery-assets .ga-credits");
+        var label = element.data("asset-label");
+        var credits = element.data("asset-credits");
+        if (label != null && label.length > 0){
+            $assetLabel.html(label);
+            $assetSectionLabel.show();
+        } else {
+            $assetLabel.html("");
+            $assetSectionLabel.hide();
+        }
+        if (credits != null && credits.length > 0){
+            $assetCredits.html(credits);
+            $assetSectionCredits.show();
+        } else {
+            $assetCredits.html("");
+            $assetSectionCredits.hide();
+        }
+    };//createInfoAssetSection
 });
