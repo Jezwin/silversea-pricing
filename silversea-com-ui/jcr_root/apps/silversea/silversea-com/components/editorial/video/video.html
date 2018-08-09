@@ -1,11 +1,15 @@
 <div data-sly-test="${wcmmode.edit && !properties.videoReference}" class="cq-placeholder cq-dd-image" data-emptytext="Video"></div>
 <sly data-sly-test="${properties.videoReference}"
-    data-sly-use.videoTemplate="videotemplate.html"
-    data-sly-call="${videoTemplate.default @ videoPath = properties.videoReference}" />
+     data-sly-use.videoTemplate="videotemplate.html"
+     data-sly-call="${videoTemplate.default @ videoPath = properties.videoReference}" />
 <style data-sly-test="${properties.heightVideoMobile != '0' && properties.heightVideoMobile}">
     @media (max-width: 767px) {
         .video .c-video .s7container {
-            height: ${properties.heightVideoMobile @ context='unsafe'};
+            height: ${properties.heightVideoMobile @ context='unsafe'}px!important;
         }
+        .s7videoplayer .s7videoposter{
+            background-size: cover !important;
+        }
+
     }
 </style>

@@ -1,0 +1,165 @@
+@iconSize: 60px;
+.cruise-2018-offers {
+  font-family: @suisse;
+
+  .cruise-2018-offers-title {
+    font-size: 22px;
+    line-height: 26px;
+  }
+
+  .cruise-2018-offers-list {
+    display: flex;
+  }
+
+  .cruise-2018-offers-size-1 {
+    width: 50%;
+    margin-left: 25%;
+  }
+
+  .cruise-2018-offer-container {
+    color: @white;
+    background-color: @color-second;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .cruise-2018-offer-title {
+    text-transform: uppercase;
+    font-family: @freight;
+    letter-spacing: 0.5px;
+
+  }
+
+  .cruise-2018-offer-description {
+    font-family: @freight;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .cruise-2018-offer-icon {
+
+    height: @iconSize;
+    width: @iconSize;
+    border-radius: @iconSize/2;
+    margin-bottom: 10px;
+    background-color: @white;
+    img {
+      width: @iconSize;
+      padding: 8px;
+    }
+
+  }
+
+  .cruise-2018-offers-footnotes {
+    text-align: center;
+    color: @grey--9;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    font-family: @suisse;
+    font-size: 13px;
+  }
+
+}
+
+@media screen and (max-width: @screen-sm) {
+  .cruise-2018-offers {
+
+    .cruise-2018-offer-container {
+      margin-top: 5px;
+      padding: 10px 10px 20px 10px;
+    }
+
+    .cruise-2018-offers-list {
+      flex-direction: column;
+    }
+    .cruise-2018-offer-title {
+      font-size: 20px;
+    }
+
+    .cruise-2018-offer-description {
+      font-size: 18px;
+      line-height: 24px;
+      padding-top: 5px;
+    }
+    .cruise-2018-offer-icon-container {
+      float: left;
+      width: 0;
+    }
+
+    .cruise-2018-offer-text {
+      text-align: left;
+      float: right;
+      padding-left: 70px;
+      width: 100%;
+      line-height: 24px;
+    }
+    .cruise-2018-offers-footnote {
+      width: 100% !important;;
+      line-height: 18px !important;;
+      letter-spacing: 1px !important;;
+    }
+    .cruise-2018-offers-footnotes {
+      padding-top: 16px !important;
+    }
+  }
+}
+
+@media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
+  .cruise-2018-offers {
+    .cruise-2018-offer-icon {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cruise-2018-offer-container {
+      padding: 30px;
+    }
+
+    .cruise-2018-offer-title {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .cruise-2018-offer-description {
+      text-align: center;
+      font-size: 18px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+}
+
+@media screen and (min-width: @screen-md-max) {
+  .cruise-2018-offers {
+    .cruise-2018-offer-icon {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cruise-2018-offer-container {
+      padding: 30px;
+    }
+
+    .cruise-2018-offer-title {
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .cruise-2018-offer-description {
+      text-align: center;
+      font-size: 18px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+    }
+  }
+
+}
+

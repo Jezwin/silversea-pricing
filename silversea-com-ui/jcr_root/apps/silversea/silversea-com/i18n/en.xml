@@ -771,6 +771,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="offer"
         sling:message="Offer"/>
+    <offers
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="offers"
+            sling:message="Offers"/>
     <other-recent-journals
         jcr:primaryType="sling:MessageEntry"
         sling:key="other-recent-journals"
