@@ -1,6 +1,6 @@
 $(function() {
     /***************************************************************************
-     * Lightbox Gallery for "cruise page" 2018"
+     * Lightbox Gallery Assets for "cruise page" 2018"
      **************************************************************************/
     $(".open-lightbox-gallery-assets").on("click",function(e) {
         e.preventDefault();
@@ -52,7 +52,7 @@ $(function() {
             var $video = $slider.find('.slick-current .c-video');
             $video.find('.s7playpausebutton[selected="false"]').trigger('click');
             $video.attr('class', 'c-video').empty();
-            // Call lazy load for 2 previous and 2 next slides
+             // Call lazy load for 2 previous and 2 next slides
             loadLazyImage($(this));
         }).on('afterChange', function(event, slick, currentSlide) {
             // Call lazy load for 2 previous and 2 next slides

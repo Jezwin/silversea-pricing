@@ -227,6 +227,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="country-code"
         sling:message="Country code"/>
+    <credits
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="credits"
+        sling:message="credits"/>
     <crew
         jcr:primaryType="sling:MessageEntry"
         sling:key="crew"
