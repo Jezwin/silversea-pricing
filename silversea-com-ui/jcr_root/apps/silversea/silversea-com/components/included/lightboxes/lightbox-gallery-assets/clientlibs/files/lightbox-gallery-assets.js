@@ -47,6 +47,8 @@ $(function() {
         });
 
         $mainSlider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+            $(".lightbox-gallery-assets .ga-label").hide();
+            $(".lightbox-gallery-assets .ga-credits").hide();
             var $slider = $(this);
             // Kill video if current slide contains video
             var $video = $slider.find('.slick-current .c-video');
@@ -60,8 +62,8 @@ $(function() {
             loadLazyImage($(this));
         });
 
-        var $firstElement = $mainSlider.find('[data-slick-index="0"] > div');
-        createInfoAssetSection($firstElement);
+
+        createInfoAssetSection($mainSlider);
 
     };//createLigthboxGallerySlider
 
@@ -83,13 +85,14 @@ $(function() {
 
     };//loadLazyImage
 
-    function createInfoAssetSection(element) {
+    function createInfoAssetSection($slider) {
+        var $sliderActive = $slider.find(".slick-slide.slick-current.slick-active div");
         var $assetLabel = $(".lightbox-gallery-assets #ga-label-text-label");
         var $assetCredits = $(".lightbox-gallery-assets #ga-label-text-credits");
         var $assetSectionLabel = $(".lightbox-gallery-assets .ga-label");
         var $assetSectionCredits = $(".lightbox-gallery-assets .ga-credits");
-        var label = element.data("asset-label");
-        var credits = element.data("asset-credits");
+        var label = $sliderActive.data("asset-label");
+        var credits = $sliderActive.data("asset-credits");
         if (label != null && label.length > 0){
             $assetLabel.html(label);
             $assetSectionLabel.show();
