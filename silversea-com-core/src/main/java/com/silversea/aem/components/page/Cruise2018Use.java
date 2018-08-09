@@ -6,21 +6,20 @@ import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.beans.SuitePrice;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
-import com.silversea.aem.models.CruiseModel;
+import com.silversea.aem.models.*;
+import com.silversea.aem.services.CruisesCacheService;
+import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
-import java.util.Locale;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.ObjectUtils.firstNonNull;
-import org.apache.commons.lang3.ObjectUtils;
-import com.silversea.aem.models.CruiseModelLight;
-import com.silversea.aem.services.CruisesCacheService;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+
 
 public class Cruise2018Use extends EoHelper {
 
@@ -41,6 +40,9 @@ public class Cruise2018Use extends EoHelper {
 
     private List<SuitePrice> prices = new ArrayList<>();
     private CruiseModel cruiseModel;
+
+    private List<SilverseaAsset> assetsGallery;
+
     private String previous;
     private String previousDeparture;
     private String previousArrival;
@@ -48,13 +50,14 @@ public class Cruise2018Use extends EoHelper {
     private String nextDeparture;
     private String nextArrival;
 
+
     @Override
     public void activate() throws Exception {
         super.activate();
         cruiseModel = retrieveCruiseModel();
+        assetsGallery = retrieveAssetsGallery(cruiseModel);
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         prices = retrievePrices(cruiseModel);
-
         //Init the Previous and Next cruise (navigation pane)
         String shipName = (cruiseModel.getShip() != null) ? cruiseModel.getShip().getName() : null;
         searchPreviousAndNextCruise(shipName);
@@ -92,6 +95,52 @@ public class Cruise2018Use extends EoHelper {
             return cruiseModel;
         }
     }
+
+    private List<SilverseaAsset> retrieveAssetsGallery(CruiseModel cruiseModel) {
+        List<SilverseaAsset> assetsListResult = new ArrayList<>();
+        if (cruiseModel != null) {
+            if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
+                assetsListResult.addAll(AssetUtils
+                        .buildSilverseaAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver(),
+                                null));
+            }
+            assetsListResult.addAll(retrieveAssestsFromShip(cruiseModel.getShip()));
+        }
+
+        return assetsListResult;
+    }
+
+    private List<SilverseaAsset> retrieveAssestsFromShip(ShipModel shipModel) {
+        List<SilverseaAsset> listShipAssests = new ArrayList<>();
+        if (shipModel != null) {
+            List<SilverseaAsset> virtualTourAssets = new ArrayList<>();
+            if (StringUtils.isNotEmpty(cruiseModel.getShip().getPhotoVideoSuiteSelectionReference())) {
+                listShipAssests.addAll(AssetUtils
+                        .buildSilverseaAssetList(shipModel.getPhotoVideoSuiteSelectionReference(),
+                                getResourceResolver(), null));
+            } else {
+                retrieveAssestsFromShip(shipModel.getSuites(), listShipAssests, virtualTourAssets);
+            }
+            retrieveAssestsFromShip(shipModel.getDinings(), listShipAssests, virtualTourAssets);
+            retrieveAssestsFromShip(shipModel.getPublicAreas(), listShipAssests, virtualTourAssets);
+            listShipAssests.addAll(virtualTourAssets);
+            virtualTourAssets = null;
+        }
+        return listShipAssests;
+    }
+
+    private void retrieveAssestsFromShip(List<? extends ShipAreaModel> shipEntitiy, List<SilverseaAsset> classicAssets,
+                                         List<SilverseaAsset> virtualTourAssets) {
+        if (shipEntitiy != null && !shipEntitiy.isEmpty()) {
+            Map<String, List<SilverseaAsset>> mapAsset =
+                    AssetUtils.addAllShipAreaAssets(getResourceResolver(), shipEntitiy);
+            if (!mapAsset.isEmpty()) {
+                classicAssets.addAll(mapAsset.get("assets"));
+                virtualTourAssets.addAll(mapAsset.get("assetsVirtualTour"));
+            }
+        }
+    }
+
 
     private void searchPreviousAndNextCruise(String shipName) {
         final String lang = LanguageHelper.getLanguage(getCurrentPage());
@@ -132,9 +181,11 @@ public class Cruise2018Use extends EoHelper {
                 Integer nextCruiseIndex = indexCurrentCruise.get() + 1;
                 this.previous = (previousCruiseIndex >= 0) ? listCruiseFilterByShip.get(previousCruiseIndex).getPath()
                         : null;
-                this.previousDeparture = (previousCruiseIndex >= 0) ? listCruiseFilterByShip.get(previousCruiseIndex).getDeparturePortName()
+                this.previousDeparture = (previousCruiseIndex >= 0) ?
+                        listCruiseFilterByShip.get(previousCruiseIndex).getDeparturePortName()
                         : null;
-                this.previousArrival = (previousCruiseIndex >= 0) ? listCruiseFilterByShip.get(previousCruiseIndex).getArrivalPortName()
+                this.previousArrival = (previousCruiseIndex >= 0) ?
+                        listCruiseFilterByShip.get(previousCruiseIndex).getArrivalPortName()
                         : null;
                 this.next = (nextCruiseIndex < listCruiseFilterByShip.size())
                         ? listCruiseFilterByShip.get(nextCruiseIndex).getPath()
@@ -147,6 +198,7 @@ public class Cruise2018Use extends EoHelper {
                         : null;
             }
         }
+
     }
 
     public List<ExclusiveOfferItem> getExclusiveOffers() {
@@ -159,6 +211,10 @@ public class Cruise2018Use extends EoHelper {
 
     public CruiseModel getCruiseModel() {
         return cruiseModel;
+    }
+
+    public List<SilverseaAsset> getAssetsGallery() {
+        return assetsGallery;
     }
 
     public String getRequestQuotePagePath() {

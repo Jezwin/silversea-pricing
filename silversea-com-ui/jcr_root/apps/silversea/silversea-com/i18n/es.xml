@@ -216,6 +216,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Código de país"/>
+    <credits
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="credits"/>
     <crew
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
