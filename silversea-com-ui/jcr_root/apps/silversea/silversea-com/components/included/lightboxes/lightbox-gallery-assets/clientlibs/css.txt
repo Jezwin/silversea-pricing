@@ -1,0 +1,2 @@
+#base=files
+ligthbox-gallery-assets.less

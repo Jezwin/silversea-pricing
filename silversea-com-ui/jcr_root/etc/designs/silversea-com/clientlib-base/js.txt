@@ -35,7 +35,3 @@ components/c-steveandsilversea.js
 included/c-modaldetail.js
 included/c-footer.js
 
-
-
-../../../../../apps/silversea/silversea-com/components/included/lightboxes/lightbox-gallery-assets/lightbox-gallery-assets.js
-
