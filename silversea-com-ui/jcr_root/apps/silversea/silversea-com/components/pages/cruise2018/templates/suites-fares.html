@@ -55,6 +55,14 @@
                     </div>
                 </div>
             </sly>
+            <div class="col-xs-12 cruise-2018-suites-fares-included hidden-xs">
+                <div class="cruise-2018-suites-fares-included-title">${'included-cruise-fare' @ i18n}</div>
+                <ul class="cruise-2018-suites-fares-included-ul">
+                    <li data-sly-repeat="${cruise.exclusiveOffersCruiseFareAdditions}"
+                        class="cruise-2018-suites-fares-included-eo">${item}</li>
+                    <li data-sly-repeat="${cruise.cruiseModel.cruiseFareAdditions}">${item}</li>
+                </ul>
+            </div>
             <div class="cruise-2018-suites-fares-footnote col-xs-12">
                 <i>${'fares-shown-are-per-guest' @i18n}</i>
             </div>
