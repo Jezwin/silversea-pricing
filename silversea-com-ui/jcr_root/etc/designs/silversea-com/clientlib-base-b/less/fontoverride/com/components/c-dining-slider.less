@@ -4,7 +4,11 @@
 
         .o-single-dining-slider-title {           
             font-size: @h4-desktop-fontsize-24;
-            font-family: @freight;         
+            font-family: @freight;
+            text-transform: capitalize;
+            @media (max-width: @screen-sm){
+                font-size: 26px;
+            }
         }
 
         .o-single-dining-slider-description {

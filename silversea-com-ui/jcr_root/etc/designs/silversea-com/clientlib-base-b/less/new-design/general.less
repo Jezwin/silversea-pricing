@@ -259,6 +259,7 @@ body.suite, body.dining{
     .c-single-dining-availability__title, .c-single-suite-availability__title {
       font-size:24px !important;
       font-family: @freight !important;
+      text-transform: capitalize !important;
     }
 
   }
@@ -268,8 +269,9 @@ body.suite, body.dining{
       margin-bottom: 0px !important;
     }
     .c-single-dining-availability__title, .c-single-suite-availability__title {
-      font-size:24px !important;
+      font-size:26px !important;
       font-family: @freight !important;
+      text-transform: capitalize !important;
     }
   }
 }
@@ -314,4 +316,10 @@ body.suite, body.dining{
 .port_v2__postcarousel .slick-dots li button:before {
 
   width: 100%;
+}
+
+@media (max-width: @screen-sm){
+  .c-single-suite .c-suite-gallery .c-suite__gallery__item__right, .c-single-dining .c-dining-gallery .c-dining__gallery__item__right {
+    padding-bottom: 20%;
+  }
 }

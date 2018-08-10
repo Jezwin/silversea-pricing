@@ -2,7 +2,11 @@
     .c-single-suite-slider-property-display {       
         .o-single-suite-slider-title {        
             font-size: 24px;
-            font-family: @freight;          
+            font-family: @freight;
+            text-transform: capitalize;
+            @media (max-width: @screen-sm){
+                font-size: 26px;
+            }
         }
 
         .o-single-suite-slider-description {
