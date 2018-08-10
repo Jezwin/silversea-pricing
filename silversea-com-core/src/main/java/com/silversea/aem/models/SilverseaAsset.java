@@ -6,7 +6,16 @@ public class SilverseaAsset {
     private String name;
     private String label;
     private String credits;
+    private String type;
 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getCredits() {
         return credits;

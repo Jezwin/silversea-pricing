@@ -102,6 +102,7 @@ public class AssetUtils {
 					Asset vAsset = virtualTourResource.adaptTo(Asset.class);
                 	SilverseaAsset sscAssetVirtT =  new SilverseaAsset();
                 	sscAssetVirtT.setPath(vAsset.getPath());
+                    sscAssetVirtT.setType("virtual-tour");
                     assetsVirtualTour.add(sscAssetVirtT);
                 }
             }
