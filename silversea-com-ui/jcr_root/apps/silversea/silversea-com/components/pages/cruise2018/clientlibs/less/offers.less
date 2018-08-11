@@ -3,8 +3,10 @@
   font-family: @suisse;
 
   .cruise-2018-offers-title {
-    font-size: 22px;
-    line-height: 26px;
+    font-family: @freight;
+    font-size: 30px;
+    letter-spacing: 0.5px;
+    line-height: 32px;
   }
 
   .cruise-2018-offers-list {
@@ -30,7 +32,7 @@
     text-transform: uppercase;
     font-family: @freight;
     letter-spacing: 0.5px;
-
+    line-height: 26px;
   }
 
   .cruise-2018-offer-description {
@@ -60,15 +62,23 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 20px;
+    margin-top: 50px;
     font-family: @suisse;
     font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
   }
 
 }
 
 @media screen and (max-width: @screen-sm) {
   .cruise-2018-offers {
+    .cruise-2018-offers-title {
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      line-height: 24px;
+      text-align: center;
+    }
 
     .cruise-2018-offer-container {
       margin-top: 5px;
@@ -85,7 +95,7 @@
     .cruise-2018-offer-description {
       font-size: 18px;
       line-height: 24px;
-      padding-top: 5px;
+      margin-top: 1px;
     }
     .cruise-2018-offer-icon-container {
       float: left;
@@ -141,6 +151,7 @@
     .cruise-2018-offer-icon {
       margin-left: auto;
       margin-right: auto;
+      margin-bottom: 14.5px;
     }
 
     .cruise-2018-offer-container {
@@ -150,6 +161,7 @@
     .cruise-2018-offer-title {
       text-align: center;
       font-size: 22px;
+      margin-bottom: 7px;
     }
 
     .cruise-2018-offer-description {

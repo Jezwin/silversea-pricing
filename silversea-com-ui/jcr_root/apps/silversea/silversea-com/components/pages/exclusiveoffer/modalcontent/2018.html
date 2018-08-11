@@ -8,6 +8,7 @@
         <div class="cruise-2018-modal-exclusive-offer-content">
             <div class="cruise-2018-modal-exclusive-offer-title">${exclusiveOffer.exclusiveOfferItem.title @ context='html'}</div>
             <sly data-sly-test=${exclusiveOffer.exclusiveOfferItem.isLBGreyBoxActivated}>
+                <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/eoBoxes/eoBoxes.html"/>
                 <sly data-sly-include="/apps/silversea/silversea-ssc/components/editorial/exclusiveOfferBoxes/exclusiveOfferBoxes.html"/>
             </sly>
             <div class="cruise-2018-modal-exclusive-offer-description">${exclusiveOffer.exclusiveOfferItem.longDescription @ context='html'}
