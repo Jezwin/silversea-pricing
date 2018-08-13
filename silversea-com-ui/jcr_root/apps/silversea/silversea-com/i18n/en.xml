@@ -1471,6 +1471,9 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
 	    sling:message=" members of the Venetian Society enjoy an additional 5% saving on the cruise fare"/>
+    <map jcr:primaryType="sling:MessageEntry"
+         sling:key="map"
+         sling:message="Map"/>
     <tour-book
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-tour-book"
