@@ -237,7 +237,7 @@
                                             name="./thirdGuestCapacity"
                                             value="true"
                                             sling:resourceType="granite/ui/components/foundation/form/checkbox" />
-                                    <deckInfo
+                                    <deckInfoNode
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/multifield"
                                             class="full-width"
@@ -246,7 +246,7 @@
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/fieldset"
                                             acs-commons-nested="NODE_STORE"
-                                            name="./deckInfo">
+                                            name="./deckInfoNode">
                                             <layout
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
@@ -277,7 +277,7 @@
                                                 </column>
                                             </items>
                                         </field>
-                                    </deckInfo>
+                                    </deckInfoNode>
                                 </items>
                             </column>
                         </items>
