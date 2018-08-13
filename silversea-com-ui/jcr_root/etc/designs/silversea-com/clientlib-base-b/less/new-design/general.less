@@ -278,6 +278,9 @@ body.suite, body.dining{
 
 //B Version of Combo Cruise overview like B Version of Cruise
 .combocruise {
+  .cc-tab_header_desc_cta{
+    display: none;
+  }
   @media(min-width:@screen-md-min){
     .cc-tab_header_desc_cta{
       left: 32%;
@@ -321,5 +324,62 @@ body.suite, body.dining{
 @media (max-width: @screen-sm){
   .c-single-suite .c-suite-gallery .c-suite__gallery__item__right, .c-single-dining .c-dining-gallery .c-dining__gallery__item__right {
     padding-bottom: 20%;
+  }
+}
+
+.brochureteaserlist {
+  .c-brochure__title, .c-brochure__description, .c-brochure__btnwrapper {
+     text-align: center;
+   }
+}
+
+.combocruise {
+  .c-tab__content.c-tab__content--overview .spacer + .cc-section-title {
+    display: none !important;
+  }
+  .c-tab__content.c-tab__content--overview .cc-tab_header_desc_txt {
+    padding-bottom: 0px;
+    margin-bottom: -20px !important;
+  }
+
+  .c-tab__content.c-tab__content--overview .cc-tab_header_desc_cta {
+    display: none;
+  }
+
+  #excursions, #landnhotel {
+    .c-cruise__descr {
+      max-width: 1200px;
+    }
+    .c-cruise-itinerary-2__list {
+      margin-bottom: 50px;
+    }
+  }
+  #benefitsnevents {
+    .cc-tab_header_title h2 {
+      font-size: 26px !important;
+    }
+  }
+}
+
+.cruise {
+  #landnhotel {
+    .c-cruise-itinerary-2__list {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+
+.c-quote-request-form form  button i.fa.fa-angle-right {
+  display: none;
+}
+
+.c-form .form-group-lg input:not([type="checkbox"])::placeholder {
+  font-size: 14px !important;
+}
+
+.c-quote-request-form form   {
+  .chosen-container .chosen-drop .chosen-results li {
+    font-size: 14px;
   }
 }
