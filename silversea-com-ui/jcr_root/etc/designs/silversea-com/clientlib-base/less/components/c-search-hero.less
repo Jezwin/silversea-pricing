@@ -391,10 +391,12 @@
       padding: 3px 15px !important;
       border-bottom: 0px !important;
       + .fa-angle-down {
-        top: 20px;
+        top: 13px;
+        @media (max-width: @screen-sm) {
+          top: 20px;
+        }
         color: @color-second;
       }
-
     }
   }
 
