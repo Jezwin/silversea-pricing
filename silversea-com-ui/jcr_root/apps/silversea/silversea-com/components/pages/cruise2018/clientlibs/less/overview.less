@@ -46,22 +46,17 @@
   }
 
   .cruise-2018-overview-description-cruise {
-    margin-top: 10px;
     text-transform: uppercase;
     text-align: center;
     color: @grey--3;
     font-family: @suisse;
-    font-size: 11px;
     letter-spacing: 1px;
-    line-height: 16px;
   }
 
   .cruise-2018-overview-description-from-to {
     color: @grey--3;
     font-family: @freight;
-    font-size: 30px;
     letter-spacing: 0.5px;
-    line-height: 32px;
     text-align: center;
     margin-top: 2px;
   }
@@ -74,23 +69,19 @@
     display: inline;
   }
 
-  @box-height: 113px;
-
   .cruise-2018-overview-description-date-boxes {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
-    height: @box-height;
     width: 361px;
+    max-width: 100%;
+    white-space: nowrap;
     background-color: rgba(244, 244, 244, 0.6);
   }
   .cruise-2018-overview-description-date-boxes-title {
 
     color: @nd-red;
     font-family: @suisse;
-    font-size: 11px;
     letter-spacing: 1px;
-    line-height: 14px;
   }
 
   .cruise-2018-overview-description-date-boxes-box-container {
@@ -110,36 +101,27 @@
   }
 
   .cruise-2018-overview-description-date-boxes-title {
-    margin-top: 20px;
-    margin-bottom: 10px;
   }
 
   .cruise-2018-overview-description-date-boxes-content {
-
     color: @grey--3;
     font-family: @suisse;
-    font-size: 20px;
     letter-spacing: 1.5px;
-    line-height: 24px;
-    margin-bottom: 8px;
 
   }
   .cruise-2018-overview-description-date-boxes-subtitle {
 
     color: @grey--3;
     font-family: @suisse;
-    font-size: 11px;
     letter-spacing: 1px;
-    line-height: 14px;
 
   }
 
   .cruise-2018-overview-description-date-boxes-ship {
     color: @grey--3;
     font-family: @suisse;
-    font-size: 11px;
+    white-space: initial;
     letter-spacing: 1px;
-    line-height: 14px;
   }
 
   .cruise-2018-overview-description-date-boxes-box.bordered::after {
@@ -152,7 +134,6 @@
   }
 
   .cruise-2018-overview-quote {
-    margin-top: 42px;
     text-align: center;
     text-transform: uppercase;
   }
@@ -161,33 +142,26 @@
     display: inline;
     color: @grey--3;
     font-family: @suisse;
-    font-size: 11px;
     letter-spacing: 0.5px;
-    line-height: 18px;
 
   }
   .cruise-2018-overview-quote-price-number {
     display: inline;
     color: @grey--3;
     font-family: @suisse;
-    font-size: 20px;
     letter-spacing: 1px;
-    line-height: 24px;
   }
 
   .cruise-2018-overview-quote-price-bonus {
     color: @grey--3;
     font-family: @suisse;
-    font-size: 11px;
     letter-spacing: 0.5px;
-    line-height: 18px;
 
   }
 
   .cruise-2018-overview-quote-price-bonus {
     color: @grey--3;
     font-family: @suisse;
-    font-size: 11px;
     letter-spacing: 0.5px;
     line-height: 18px;
 
@@ -213,11 +187,11 @@
 
   .jssocials-share {
     margin: 0 !important;
-    color: black !important;
+    color: @black !important;
   }
 
   .jssocials-share-facebook .jssocials-share-link {
-    color: black !important;
+    color: @black !important;
   }
   .jssocials-share-logo {
     font-size: inherit !important;
@@ -234,7 +208,6 @@
     letter-spacing: @nd-button-letter-spacing;
     line-height: @nd-button-line-height;
     margin-bottom: 3px;
-    margin-top: 12px;
     padding: @nd-button-padding;
     text-align: center ! important;
     text-transform: uppercase;
@@ -262,14 +235,124 @@
 }
 
 @media screen and (max-width: @screen-sm) {
-
   .cruise-2018-overview {
+    .cruise-2018-overview-big-pic {
+      width: 100vw;
+      padding: 0 !important;
+      margin-left: -15px;
+    }
+    .cruise-2018-overview-description-cruise {
+      margin-top: 15px;
+      font-size: 9px;
+      line-height: 11px;
+    }
+    .cruise-2018-overview-description-from-to {
+      font-size: 22px;
+      line-height: 24px;
+    }
+    .cruise-2018-overview-description-date-boxes {
+      height: 75px;
+      margin-top: 20px;
+    }
+    .cruise-2018-overview-description-date-boxes-title {
+      font-size: 9px;
+      line-height: 11px;
+      margin-top: 10px;
+      margin-bottom: 6px;
 
+    }
+    .cruise-2018-overview-description-date-boxes-content {
+      font-size: 18px;
+      line-height: 25px;
+      margin-bottom: 3px;
+    }
+    .cruise-2018-overview-description-date-boxes-ship {
+      line-height: 11px;
+      font-size: 9px;
+    }
+    .cruise-2018-overview-description-date-boxes-subtitle {
+
+      font-size: 9px;
+      line-height: 11px;
+    }
+    .cruise-2018-overview-quote {
+      margin-top: 20px;
+    }
+    .cruise-2018-overview-quote-btn {
+      margin-top: 10px;
+    }
+    .cruise-2018-overview-quote-price-from {
+      font-size: 9px;
+      line-height: 11px;
+    }
+    .cruise-2018-overview-quote-price-number {
+      font-size: 18px;
+      line-height: 25px;
+    }
+    .cruise-2018-overview-quote-price-bonus {
+      font-size: 9px;
+      line-height: 11px;
+    }
   }
 }
 
 @media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
   .cruise-2018-overview {
+    .cruise-2018-overview-description-cruise {
+      margin-top: 10px;
+      font-size: 11px;
+      line-height: 16px;
+    }
 
+    .cruise-2018-overview-description-from-to {
+
+      font-size: 30px;
+      line-height: 32px;
+    }
+    .cruise-2018-overview-description-date-boxes {
+      height: 113px;
+      margin-top: 40px;
+
+    }
+    .cruise-2018-overview-description-date-boxes-title {
+      font-size: 11px;
+      line-height: 14px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+
+    }
+    .cruise-2018-overview-description-date-boxes-content {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 8px;
+    }
+    .cruise-2018-overview-description-date-boxes-ship {
+      line-height: 14px;
+      font-size: 11px;
+
+    }
+    .cruise-2018-overview-description-date-boxes-subtitle {
+
+      font-size: 11px;
+      line-height: 14px;
+    }
+    .cruise-2018-overview-quote {
+      margin-top: 42px;
+    }
+    .cruise-2018-overview-quote-btn {
+      margin-top: 12px;
+    }
+    .cruise-2018-overview-quote-price-from {
+      font-size: 11px;
+      line-height: 18px;
+    }
+    .cruise-2018-overview-quote-price-number {
+      font-size: 20px;
+      line-height: 24px;
+    }
+    .cruise-2018-overview-quote-price-bonus {
+      font-size: 11px;
+      line-height: 18px;
+    }
   }
 }

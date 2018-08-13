@@ -4,12 +4,12 @@
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12">
             <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html"
                  data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.thumbnail, imageTemplate = imageTemplate}"/>
-            <div class="cruise-2018-overview-map-btn"
+            <div class="cruise-2018-overview-map-btn hidden-xs"
                  style="background-image:url('${cruise.cruiseModel.itinerary @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
             </div>
             <a href="#"
-               class="open-lightbox-gallery-assets" data-target=".lightbox">
+               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
                 <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
             </a>
         </div>
