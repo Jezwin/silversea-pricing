@@ -36,9 +36,11 @@ public class Cruise2018Use extends EoHelper {
         EO_CONFIG.setIconVoyage(true);
     }
 
-    private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
+    private List<ExclusiveOfferItem> exclusiveOffers;
+    private List<String> exclusiveOffersCruiseFareAdditions;
 
-    private List<SuitePrice> prices = new ArrayList<>();
+    private List<SuitePrice> prices;
+
     private CruiseModel cruiseModel;
 
     private List<SilverseaAsset> assetsGallery;
@@ -57,10 +59,16 @@ public class Cruise2018Use extends EoHelper {
         cruiseModel = retrieveCruiseModel();
         assetsGallery = retrieveAssetsGallery(cruiseModel);
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+        exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         prices = retrievePrices(cruiseModel);
         //Init the Previous and Next cruise (navigation pane)
         String shipName = (cruiseModel.getShip() != null) ? cruiseModel.getShip().getName() : null;
         searchPreviousAndNextCruise(shipName);
+    }
+
+    private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
+        return offers.stream().map(ExclusiveOfferItem::getCruiseFareAdditions).flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 
     private List<SuitePrice> retrievePrices(CruiseModel cruise) {
@@ -219,6 +227,10 @@ public class Cruise2018Use extends EoHelper {
 
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+    }
+
+    public List<String> getExclusiveOffersCruiseFareAdditions() {
+        return exclusiveOffersCruiseFareAdditions;
     }
 
     /**
