@@ -37,9 +37,11 @@ public class Cruise2018Use extends EoHelper {
         EO_CONFIG.setIconVoyage(true);
     }
 
-    private List<ExclusiveOfferItem> exclusiveOffers = new ArrayList<>();
+    private List<ExclusiveOfferItem> exclusiveOffers;
+    private List<String> exclusiveOffersCruiseFareAdditions;
 
-    private List<SuitePrice> prices = new ArrayList<>();
+    private List<SuitePrice> prices;
+
     private CruiseModel cruiseModel;
 
     private boolean venetianSociety;
@@ -60,6 +62,7 @@ public class Cruise2018Use extends EoHelper {
         cruiseModel = retrieveCruiseModel();
         assetsGallery = retrieveAssetsGallery(cruiseModel);
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
+        exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         prices = retrievePrices(cruiseModel);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
         //Init the Previous and Next cruise (navigation pane)
@@ -70,6 +73,11 @@ public class Cruise2018Use extends EoHelper {
     private boolean retrieveVenetianSociety(CruiseModel cruise) {
         return cruise.getFeatures().stream().map(FeatureModel::getFeatureCode).filter(Objects::nonNull)
                 .anyMatch(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY::equals);
+    }
+    
+    private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
+        return offers.stream().filter(offer -> offer.getCruiseFareAdditions() != null).map(ExclusiveOfferItem::getCruiseFareAdditions).flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 
     private List<SuitePrice> retrievePrices(CruiseModel cruise) {
@@ -228,6 +236,10 @@ public class Cruise2018Use extends EoHelper {
 
     public String getRequestQuotePagePath() {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+    }
+
+    public List<String> getExclusiveOffersCruiseFareAdditions() {
+        return exclusiveOffersCruiseFareAdditions;
     }
 
     /**
