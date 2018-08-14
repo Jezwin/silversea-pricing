@@ -67,7 +67,7 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
-        return offers.stream().map(ExclusiveOfferItem::getCruiseFareAdditions).flatMap(List::stream)
+        return offers.stream().filter(offer -> offer.getCruiseFareAdditions() != null).map(ExclusiveOfferItem::getCruiseFareAdditions).flatMap(List::stream)
                 .collect(Collectors.toList());
     }
 
