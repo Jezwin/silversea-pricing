@@ -1,5 +1,9 @@
 package com.silversea.aem.models;
 
+import com.silversea.aem.components.beans.DeckBean;
+
+import java.util.List;
+
 public class ShipModelLight {
 
     private String title;
@@ -12,6 +16,8 @@ public class ShipModelLight {
 
     private String name;
 
+    private List<DeckBean> deckList;
+
     public ShipModelLight(ShipModel shipModel) {
 
         title = shipModel.getTitle();
@@ -19,6 +25,7 @@ public class ShipModelLight {
         shipId = shipModel.getShipId();
         path = shipModel.getPath();
         name = shipModel.getName();
+        deckList = shipModel.getDeckInfoList();
     }
 
    
@@ -59,5 +66,9 @@ public class ShipModelLight {
         final ShipModelLight objShipModel = (ShipModelLight)obj;
 
         return objShipModel.getPath().equals(getPath());
+    }
+
+    public List<DeckBean> getDeckList() {
+        return deckList;
     }
 }

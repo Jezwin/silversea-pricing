@@ -37,4 +37,9 @@ public class DeckBean {
     public void setLevel(String level) {
         this.level = level;
     }
+
+    @Override
+    public String toString() {
+        return "Level: " + level + " Image Top: " + imageTopPath + " Image Side: " + imageSidePath ;
+    }
 }
