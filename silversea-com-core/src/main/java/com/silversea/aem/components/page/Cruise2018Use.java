@@ -4,6 +4,7 @@ import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
 import com.silversea.aem.components.beans.SuitePrice;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.helper.EoHelper;
 import com.silversea.aem.helper.LanguageHelper;
 import com.silversea.aem.models.*;
@@ -43,6 +44,8 @@ public class Cruise2018Use extends EoHelper {
 
     private CruiseModel cruiseModel;
 
+    private boolean venetianSociety;
+
     private List<SilverseaAsset> assetsGallery;
 
     private String previous;
@@ -61,11 +64,17 @@ public class Cruise2018Use extends EoHelper {
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         prices = retrievePrices(cruiseModel);
+        venetianSociety = retrieveVenetianSociety(cruiseModel);
         //Init the Previous and Next cruise (navigation pane)
         String shipName = (cruiseModel.getShip() != null) ? cruiseModel.getShip().getName() : null;
         searchPreviousAndNextCruise(shipName);
     }
 
+    private boolean retrieveVenetianSociety(CruiseModel cruise) {
+        return cruise.getFeatures().stream().map(FeatureModel::getFeatureCode).filter(Objects::nonNull)
+                .anyMatch(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY::equals);
+    }
+    
     private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
         return offers.stream().filter(offer -> offer.getCruiseFareAdditions() != null).map(ExclusiveOfferItem::getCruiseFareAdditions).flatMap(List::stream)
                 .collect(Collectors.toList());
