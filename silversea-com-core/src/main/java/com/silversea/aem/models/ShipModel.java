@@ -180,40 +180,40 @@ public class ShipModel {
     }
 
     private List<DeckBean> transformDeckInformationFromNodeToList(String nodeToTransformName) {
-        List<DeckBean> listResult = null;
-        Node nodeToTransform = null;
         LOGGER.debug("ShipModelTransformDeckInfo start transform deck info from node to list for {}", this.name);
-        try {s
+        try {
             if (this.page.getContentResource("deckInfoNode") != null) {
-                nodeToTransform = this.page.getContentResource("deckInfoNode").adaptTo(Node.class);
-            }
-            if(nodeToTransform != null && nodeToTransform.hasNodes()) {
-                listResult = new ArrayList<>();
-                Iterator<Node> nodeIterator = nodeToTransform.getNodes();
-                while (nodeIterator.hasNext()) {
-                    DeckBean deckBean = new DeckBean();
-                    Node node = nodeIterator.next();
-                    if(node.hasProperty("deckLevel") && node.getProperty("deckLevel") != null) {
-                        String propertyDeckLevel = node.getProperty("deckLevel").getString();
-                        deckBean.setLevel(propertyDeckLevel);
+                Node nodeToTransform = this.page.getContentResource("deckInfoNode").adaptTo(Node.class);
+                if(nodeToTransform != null && nodeToTransform.hasNodes()) {
+                    List<DeckBean> listResult = new ArrayList<>();
+                    Iterator<Node> nodeIterator = nodeToTransform.getNodes();
+                    while (nodeIterator.hasNext()) {
+                        DeckBean deckBean = new DeckBean();
+                        Node node = nodeIterator.next();
+                        if(node.hasProperty("deckLevel") && node.getProperty("deckLevel") != null) {
+                            String propertyDeckLevel = node.getProperty("deckLevel").getString();
+                            deckBean.setLevel(propertyDeckLevel);
+                        }
+                        if(node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
+                            String propertyImageTopPath = node.getProperty("deckImageTop").getString();
+                            deckBean.setImageTopPath(propertyImageTopPath);
+                        }
+                        if(node.hasProperty("deckImageSide") && node.getProperty("deckImageSide") != null) {
+                            String propertyImageSidePath = node.getProperty("deckImageSide").getString();
+                            deckBean.setImageSidePath(propertyImageSidePath);
+                        }
+                        listResult.add(deckBean);
+                        LOGGER.debug("ShipModelTransformDeckInfo name: {} add new deck bean {}",this.name, deckBean.toString());
                     }
-                    if(node.hasProperty("deckImageTop") && node.getProperty("deckImageTop") != null) {
-                        String propertyImageTopPath = node.getProperty("deckImageTop").getString();
-                        deckBean.setImageTopPath(propertyImageTopPath);
-                    }
-                    if(node.hasProperty("deckImageSide") && node.getProperty("deckImageSide") != null) {
-                        String propertyImageSidePath = node.getProperty("deckImageSide").getString();
-                        deckBean.setImageSidePath(propertyImageSidePath);
-                    }
-                    listResult.add(deckBean);
-                    LOGGER.debug("ShipModelTransformDeckInfo add new deck bean {}", deckBean.toString());
+                    LOGGER.debug("ShipModelTransformDeckInfo name: {}  list of  {} elements", listResult.size());
+                    return listResult;
                 }
             }
         } catch (RepositoryException e) {
             LOGGER.error("RepositoryException in Ship Model during get deckInfoNode {}", e.getMessage());
         }
-        LOGGER.debug("ShipModelTransformDeckInfo completed function with list of  {} elements", listResult.size());
-        return listResult;
+        LOGGER.debug("ShipModelTransformDeckInfo completed function name :{}", this.name);
+        return null;
     }
 
 
