@@ -176,7 +176,6 @@ public class ShipModel {
     private void init() {
         path = page.getPath();
         name = page.getName();
-        deckInfoList = transformDeckInformationFromNodeToList("deckInfoNode");
     }
 
     private List<DeckBean> transformDeckInformationFromNodeToList(String nodeToTransformName) {
@@ -373,6 +372,9 @@ public class ShipModel {
     }
 
     public List<DeckBean> getDeckInfoList() {
+        if(deckInfoList == null){
+            deckInfoList = transformDeckInformationFromNodeToList("deckInfoNode");
+        }
         return deckInfoList;
     }
 
