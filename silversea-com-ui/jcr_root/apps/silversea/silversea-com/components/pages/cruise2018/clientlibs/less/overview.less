@@ -127,7 +127,6 @@
   .cruise-2018-overview-description-date-boxes-box.bordered::after {
     content: " ";
     border-right: 1px solid rgba(98, 98, 98, 0.2);
-    height: 65px;
     position: absolute;
     top: 0;
     right: -20px;
@@ -234,6 +233,22 @@
 
 }
 
+@media screen and (max-width: @screen-xxs) {
+  .cruise-2018-overview-description-date-boxes-title {
+    font-size: 7px;
+
+  }
+
+  .cruise-2018-overview-description-date-boxes-content {
+    font-size: 15px;
+  }
+
+  .cruise-2018-overview-description-date-boxes-ship {
+    font-size: 6px;
+
+  }
+}
+
 @media screen and (max-width: @screen-sm) {
   .cruise-2018-overview {
     .cruise-2018-overview-big-pic {
@@ -293,10 +308,14 @@
       font-size: 9px;
       line-height: 11px;
     }
+    .cruise-2018-overview-description-date-boxes-box.bordered::after {
+      height: 55px;
+
+    }
   }
 }
 
-@media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
+@media screen and (min-width: @screen-sm) {
   .cruise-2018-overview {
     .cruise-2018-overview-description-cruise {
       margin-top: 10px;
@@ -353,6 +372,9 @@
     .cruise-2018-overview-quote-price-bonus {
       font-size: 11px;
       line-height: 18px;
+    }
+    .cruise-2018-overview-description-date-boxes-box.bordered::after {
+      height: 65px;
     }
   }
 }
