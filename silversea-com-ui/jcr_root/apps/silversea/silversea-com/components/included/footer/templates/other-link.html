@@ -24,10 +24,11 @@
                 <div class="row other-link-row-links marginTopDesktop15 marginBottomDesktop15 marginTopTablet15 marginBottomTablet15 marginLeftTablet10"
                      data-sly-list="${[footer.pageSubCol1, footer.pageSubCol2, footer.pageSubCol3]}">
                     <div class="col-sm-3 marginRightDesktop15 marginRightTablet10">
-                        <span class="other-link-accordion-list-item" data-sly-test="${!child.properties.hideInFooter}"
-                              data-sly-repeat.child="${item.listChildren}">
-                            <a href="${child.path @ extension='html'}">${child.navigtioanTitle? child.navigationTitle : child.title}</a>
+                        <sly data-sly-repeat.child="${item.listChildren}">
+                        <span class="other-link-accordion-list-item" data-sly-test="${!child.properties.hideInFooter}">
+                            <a href="${child.path @ extension='html'}">${child.navigationTitle? child.navigationTitle : child.title}</a>
                         </span>
+                        </sly>
                         <span class="other-link-accordion-list-item marginTopDesktop20"
                               data-sly-test="${itemList.last && footer.pageMySilversea.path}">
                             <a href="${footer.pageMySilversea.path @ extension='html'}" target="_blank">
@@ -75,9 +76,9 @@
                 <div class="other-link-mobile-search-form-section">
                     <form action="${footer.searchPage.path @ extension ='html'}"
                           class="other-link-mobile-search-form">
-                        <input class="other-link-mobile-search-form-input paddingBottomMobile10" type="search" placeholder="${'search' @ i18n} &#xf002" name="q" />
+                        <input class="other-link-mobile-search-form-input paddingBottomMobile10" type="search" placeholder="${'search' @ i18n} &#xf002s" name="q" />
                         <button type="submit">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-lg fa-angle-right"></i>
                         </button>
                     </form>
                 </div>
