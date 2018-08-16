@@ -1,0 +1,41 @@
+<template data-sly-template.default="${ @ offers }">
+
+    <div class="cruise-2018-offers" itemprop="offers" itemscope itemtype="http://schema.org/Offer"
+         data-sly-test="${offers.size!=0}">
+        <div class="cruise-2018-title cruise-2018-offers-title">
+            ${ 'offers' @ i18n}
+        </div>
+        <sly data-sly-test.ast="*"/>
+        <div data-sly-list.offer="${offers}" class="cruise-2018-offers-list cruise-2018-offers-size-${offers.size}">
+            <sly data-sly-test.linkOffer="${offer.newSystem ? offer.exclusiveOfferPath : offer.lightboxReference }"/>
+            <a href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
+               rel="nofollow"
+               data-toggle="modal" class="cruise-2018-offer-container"
+               data-target=".bs-modal-lg">
+                <div class="cruise-2018-offer-icon-container">
+                    <div class="cruise-2018-offer-icon"><img src="${offer.voyageIcon @ context='uri'}"/></div>
+                </div>
+                <div class="cruise-2018-offer-text">
+                    <div class="cruise-2018-offer-title">${offer.title}</div>
+                    <div class="cruise-2018-offer-description"> ${offer.description @ context='html'}
+                        <sly data-sly-test="${offer.footNotes.size>0}">${ast}</sly>
+                        <sly data-sly-test.ast="${ast}*"/>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <sly data-sly-test.ast="*"/>
+        <div class="cruise-2018-offers-footnotes">
+            <div data-sly-list.offer="${offers}" class="cruise-2018-offers-footnotes">
+                <div class="cruise-2018-offer-footnote">
+                    <ul>
+                        <li data-sly-repeat.footnote="${offer.footNotes}">
+                            ${ast}${footnote @ context='html'}
+                            <sly data-sly-test.ast="${ast}*"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

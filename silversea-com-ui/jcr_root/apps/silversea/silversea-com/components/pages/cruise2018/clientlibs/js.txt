@@ -1,0 +1,13 @@
+#base=js
+expeditions.js
+footer.js
+header.js
+itineraryexcursions/excursions.js
+itineraryexcursions/itinerary.js
+offers.js
+overview.js
+pre-post.js
+ship/dining.js
+ship/ship-overview.js
+ship/public-areas.js
+suites-fares.js

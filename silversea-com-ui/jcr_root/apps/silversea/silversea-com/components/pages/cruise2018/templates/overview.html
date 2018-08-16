@@ -1,0 +1,115 @@
+<template data-sly-template.default="${ @ cruise }">
+    <div class="cruise-2018-overview row container"
+         data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+        <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12">
+            <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html"
+                 data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.thumbnail, imageTemplate = imageTemplate}"/>
+            <div class="cruise-2018-overview-map-btn hidden-xs"
+                 style="background-image:url('${cruise.cruiseModel.itinerary @ context='unsafe'}')">
+                <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
+            </div>
+            <a href="#"
+               class="open-lightbox-gallery-assets hidden-xs" data-target=".lightbox">
+                <div class="cruise-2018-overview-photos-videos-btn">${'photos-and-videos' @ i18n}</div>
+            </a>
+        </div>
+        <div class="cruise-2018-overview-description col-md-6 col-xs-12">
+            <div class="cruise-2018-overview-description-cruise">
+                ${cruise.cruiseModel.destination.navigationTitle || cruise.cruiseModel.destination.title}
+            </div>
+            <div class="cruise-2018-overview-description-from-to">
+                <div>${cruise.cruiseModel.departurePortName} </div>
+                <div class="cruise-2018-overview-description-from-to-to">${'to' @ i18n}</div>
+                <div class="cruise-2018-overview-description-from-to-destination">${cruise.cruiseModel.arrivalPortName}</div>
+            </div>
+            <div class="cruise-2018-overview-description-date-boxes">
+                <div class="cruise-2018-overview-description-date-boxes-box-container">
+                    <div class="cruise-2018-overview-description-date-boxes-box bordered">
+                        <div class="cruise-2018-overview-description-date-boxes-title">${'departure' @ i18n}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-content"
+                             data-sly-use.dateDay="${'com.silversea.aem.helper.DateHelper' @ format='MMM dd', date=cruise.cruiseModel.startDate}">
+                            ${dateDay.value}
+                        </div>
+                        <div class="cruise-2018-overview-description-date-boxes-subtitle"
+                             data-sly-use.dateYear="${'com.silversea.aem.helper.DateHelper' @ format='yyyy', date=cruise.cruiseModel.startDate}">
+                            ${dateYear.value}
+                        </div>
+                    </div>
+                </div>
+                <div class="cruise-2018-overview-description-date-boxes-box-container">
+                    <div class="cruise-2018-overview-description-date-boxes-box bordered">
+                        <div class="cruise-2018-overview-description-date-boxes-title">${'duration' @ i18n}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-content">${cruise.cruiseModel.duration}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-subtitle">${'days' @ i18n}</div>
+                    </div>
+                </div>
+                <div class="cruise-2018-overview-description-date-boxes-box-container">
+                    <div class="cruise-2018-overview-description-date-boxes-box">
+                        <div class="cruise-2018-overview-description-date-boxes-title">${'ship' @ i18n}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-ship">${cruise.cruiseModel.ship.name}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-subtitle">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cruise-2018-overview-quote">
+                <div class="cruise-2018-overview-quote-price">
+                    <div class="cruise-2018-overview-quote-price-from">${'from' @ i18n}</div>
+                    <div class="cruise-2018-overview-quote-price-number">
+                        ${cruise.lowestPrice.currency @ i18n} ${cruise.computedPriceFormatted}
+                    </div>
+                    <div class="cruise-2018-overview-quote-price-bonus"
+                         data-sly-test="${cruise.lowestPrice.earlyBookingBonus}">${'with-early' @ i18n} ${'booking-bonus' @ i18n}</div>
+                </div>
+                <div class="cruise-2018-overview-quote-rqa">
+                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-red effect btn-request-a-quote "
+                       id="cruise-2018-rqa-${itemList.index}"
+                       data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
+                       data-sscclicktype="clic-RAQ">
+                        <span>${'request-quote' @i18n}</span>
+                    </a>
+                </div>
+                <div class="cruise-2018-overview-quote-suites-fares">
+                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote "
+                       id="cruise-2018-rqa-${itemList.index}"
+                       data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
+                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
+                       data-sscclicktype="clic-RAQ">
+                        <span>${'suites-and-fares' @i18n}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 cruise-2018-overview-quote-icons hidden-xs">
+            <a href='${cruise.currentPath @ context="uri"}.rendition.download.${cruise.countryCode @ context="scriptString"}${cruise.ccptCode @ context="scriptString"}${cruise.taCode @ context="scriptString"}.t.pdf'
+               target="_blank" id="cruise-2018-pdf-download" rel="nofollow">
+                <i class="cruise-2018-pdf-download-link fa fa-file-o"></i>
+            </a>
+            <div class="cruise-2018-overview-quote-icons-print" id="cruise-2018-pdf-print">
+                <i class="fa fa-refresh fa-spin cruise-2018-pdf-print-link" style="display: none;"></i>
+                <i class="fa fa-print cruise-2018-pdf-print-link"></i>
+            </div>
+            <div class="cruise-2018-overview-quote-icons-facebook" id="cruise-2018-facebook"><i
+                    class="fa fa-facebook"></i>
+            </div>
+        </div>
+    </div>
+    <script lang="javascript">
+        const uri = '${cruise.currentPath @ context="uri"}';
+        const countryCode = '${cruise.countryCode @ context="scriptString"}';
+        const ccpt = '${cruise.ccptCode @ context="scriptString"}';
+        var cruiseTypeText = '';
+        if ('${cruise.cruiseModel.cruiseType  @ context='scriptString'}' === 'silversea-expedition') {
+            cruiseTypeText = '${'expedition-cruise' @ i18n,context='scriptString'}'
+        }
+        else {
+            cruiseTypeText = '${'cruise' @ i18n,context='scriptString'}'
+        }
+        const shareText = ('${cruise.cruiseModel.departurePortName @ context='scriptString'} ${'to' @ i18n, context='scriptString' } ${cruise.cruiseModel.arrivalPortName @ context='scriptString'}, ${(cruise.cruiseModel.destination.navigationTitle ||cruise.cruiseModel.destination.title) @ context='scriptString'} ') + cruiseTypeText;
+        $(document).ready(function () {
+                pdfInit(uri, countryCode, ccpt);
+                socialInit(shareText);
+            }
+        );
+    </script>
+</template>

@@ -116,6 +116,9 @@ public class LeadResubmissionServlet extends SlingAllMethodsServlet {
 					continue;
 				}
 				if (!StringUtils.isEmpty(leadResponse)) {
+					// Log statement to record relation between temporary id and api_indiv_id
+					LOGGER.info("Resubmission successful for temporary id {} and the new api_indiv_id received is  {}", childRes.getName().substring(0, childRes.getName().length() - 4),
+							leadResponse);
 					LOGGER.debug("Resubmission successful for {} and the response is {}", childRes.getPath(),
 							leadResponse);
 					responseMap.put("status", "success");
