@@ -45,26 +45,28 @@ public class Cruise2018Use extends EoHelper {
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
 
+    private int totalNumberOfOffers;
+
     private List<SuitePrice> prices;
+
     private PriceModel lowestPrice;
     private boolean waitlist;
     private String computedPriceFormatted;
-
     private String currentPath;
-    private String ccptCode;
 
+    private String ccptCode;
     private CruiseModel cruiseModel;
 
 
     private List<SilverseaAsset> assetsGallery;
 
     private String previous;
+
     private String previousDeparture;
     private String previousArrival;
     private String next;
     private String nextDeparture;
     private String nextArrival;
-
 
     @Override
     public void activate() throws Exception {
@@ -302,6 +304,10 @@ public class Cruise2018Use extends EoHelper {
 
     public PriceModel getLowestPrice() {
         return lowestPrice;
+    }
+
+    public int getTotalNumberOfOffers() {
+        return exclusiveOffers.size() + (isVenetianSociety() ? 1 : 0);
     }
 
     public boolean isWaitlist() {
