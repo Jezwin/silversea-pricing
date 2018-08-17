@@ -9,6 +9,8 @@ $(function () {
             ajaxContentPath = $link.closest('[data-lightbox-gallery-path]').data('lightbox-gallery-path'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
+        $modalContent.find(".modal-content").addClass("modal-content--transparent");
+        $modalContent.find(".modal-content").addClass("modal-content--gallery");
         $modalContent.modal('show');
 
         // Wait for modal opening
@@ -18,7 +20,7 @@ $(function () {
             var $modal = $(this);
             $modal.off('shown.bs.modal');
             // Append html response inside modal
-            $modal.find('.modal-dialog').load(ajaxContentPath, function (e) {
+            $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 createLigthboxGallerySlider($modal, $link);
             });
         });
