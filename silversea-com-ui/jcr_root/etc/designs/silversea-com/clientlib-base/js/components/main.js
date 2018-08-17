@@ -401,29 +401,32 @@ window.briteVerify = function(email){
 
 // FIX Object-fit for IE 11
 
-if (/MSIE|Trident/.test(navigator.userAgent)) {
-    $('picture').each(function () {
-        var $container = $(this),
-            imgUrl = $container.find('img').prop('src');
-        if($container.find('img').attr("style")){
-        if($container.find('img').attr("style").indexOf("cover") != -1 && $container.find('img').attr("style").indexOf("object-fit") != -1 ) {
-            if (imgUrl && imgUrl.indexOf('base64') == -1) {
-                $container
-                    .css('backgroundImage', 'url(' + imgUrl + ')')
-                    .addClass('compat-object-fit');
-                $container.find('img').remove();
-            }else {
-                imgUrl = $container.find('img').prop('data-src');
-                if (imgUrl) {
-                    $container
-                        .css('backgroundImage', 'url(' + imgUrl + ')')
-                        .addClass('compat-object-fit');
-                    $container.find('img').remove();
+if (/MSIE|Trident/.test(navigator.userAgent))
+    setTimeout(function() {
+        $('picture').each(function () {
+            var $container = $(this),
+                imgUrl = $container.find('img').prop('src');
+            if($container.find('img').attr("style")){
+                if($container.find('img').attr("style").indexOf("cover") != -1 && $container.find('img').attr("style").indexOf("object-fit") != -1 ) {
+                    if (imgUrl && imgUrl.indexOf('base64') == -1) {
+                        $container
+                            .css('backgroundImage', 'url(' + imgUrl + ')')
+                            .addClass('compat-object-fit');
+                        $container.find('img').remove();
+                    }else {
+                        imgUrl = $container.find('img').prop('data-src');
+                        if (imgUrl) {
+                            $container
+                                .css('backgroundImage', 'url(' + imgUrl + ')')
+                                .addClass('compat-object-fit');
+                            $container.find('img').remove();
+                        }
+                    }
                 }
             }
-        }
-        }
-    });
+        });
+    },4000);
+
 };
 
 
