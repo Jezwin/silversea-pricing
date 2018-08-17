@@ -1,30 +1,51 @@
 $(function() {
+
     /***************************************************************************
-     * Modal : Clean modal content on close event
+     * Modal : Global modal code applied for every modal
+     **************************************************************************/
+    $(document).on('show.bs.modal', function(e) {
+        var $body = $('body');
+        var $html = $('html');
+
+        if (!$body.hasClass("no-scroll-body")) {
+            $body.addClass('no-scroll-body');
+        }
+        if (!$html.hasClass("no-scroll-html")) {
+            $html.addClass('no-scroll-html');
+        }
+    });
+
+    /***************************************************************************
+     * Modal : Global Clean modal content on close event
      **************************************************************************/
     $(document).on('hide.bs.modal', function(e) {
     	$(e.target).removeData('bs.modal');
+		var $body = $('body');
+		var $html = $('html');
 
-        $('body').removeClass('modal-open');
-        
+		if ($body.hasClass("modal-open")) {
+            $body.removeClass('modal-open');
+		}
+        if ($body.hasClass("no-scroll-body")) {
+            $body.removeClass('no-scroll-body');
+        }
+        if ($html.hasClass("no-scroll-html")) {
+            $html.removeClass('no-scroll-html');
+        }
+        if(window.iNoBounce != null) {
+            try {
+                window.iNoBounce.disable();
+            }catch(error) {}
+        }
+
         if ($('header').nextAll().hasClass("c-cruise") && $(".modal-content").hasClass("modal-content--transparent-suite")) {
-        	$('html').removeClass("no-scroll-html");
-        	$('body').removeClass("no-scroll-body");
         	if (!window.backNavigation) {
         		history.back();
         	}
-            
         	 setTimeout(function(){window.backNavigation = false;},200);
-        	
         	if (window.suiteDesktop == false) {
         		$(".modal-content--transparent-suite").parent().parent().css("overflow-y", "auto"); //remove when modal is close
         	}
-        	if(window.iNoBounce != null) {
-        		try {
-        			window.iNoBounce.disable();
-        		}catch(error) {
-        		}
-        	} 
         }
         
         var $modal = $(".modal");
@@ -33,26 +54,14 @@ $(function() {
     		if ( window.$slickSlider != null) {
 				 window.$slickSlider.slick("unslick");
 			}
-    		$('html').removeClass("no-scroll-html");
-        	$('body').removeClass("no-scroll-body");
-        	
         	if (!window.backNavigation) {
         		history.back();
         	}
-        	
         	setTimeout(function(){window.backNavigation = false;},200);
-        	
-        	if(window.iNoBounce != null) {
-        		try {
-        			window.iNoBounce.disable();
-        		}catch(error) {
-        		}
-        	} 
         	if ($modalBody.hasClass("automatic-modal-body-modal-detail-mobile")) {
         		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("overflow-y", "auto"); 
         		$(".automatic-modal-body-modal-detail-mobile").parent().parent().parent().css("top", "9%"); 
         	}
-
     	}
         
         var $modalContent = $('body > .modal .modal-content');
