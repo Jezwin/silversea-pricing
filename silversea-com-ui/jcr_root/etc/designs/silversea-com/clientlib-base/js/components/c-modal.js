@@ -22,8 +22,14 @@ $(function() {
     	$(e.target).removeData('bs.modal');
 		var $body = $('body');
 		var $html = $('html');
+        var $modal = $(".modal");
+        var $modalLightbox = $("#modalLightbox");
+        var $modalBody = $modal.find(".modal-body");
+        var $modalDialog = $modal.find(".modal-dialog");
+        var $modalDialogLightbox = $modalLightbox.find(".modal-dialog");
 
-		if ($body.hasClass("modal-open")) {
+
+        if ($body.hasClass("modal-open")) {
             $body.removeClass('modal-open');
 		}
         if ($body.hasClass("no-scroll-body")) {
@@ -32,6 +38,16 @@ $(function() {
         if ($html.hasClass("no-scroll-html")) {
             $html.removeClass('no-scroll-html');
         }
+        if ($modalDialogLightbox.hasClass("custom-lightbox-width")) {
+            $modalDialogLightbox.removeClass("custom-lightbox-width");
+            var clazzList = $modalDialogLightbox.attr("class").split(/\s+/);
+            for(i in clazzList) {
+                if(clazzList[i].startsWith("lightbox-width-")) {
+                    $modalDialogLightbox.removeClass(clazzList[i]);
+                }
+            }
+        }
+
         if(window.iNoBounce != null) {
             try {
                 window.iNoBounce.disable();
@@ -48,8 +64,7 @@ $(function() {
         	}
         }
         
-        var $modal = $(".modal");
-    	var $modalBody = $modal.find(".modal-body");
+
     	if ($modalBody.hasClass("automatic-modal-body-modal-detail")) {
     		if ( window.$slickSlider != null) {
 				 window.$slickSlider.slick("unslick");

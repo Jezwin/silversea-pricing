@@ -1,88 +1,74 @@
 $(function () {
+    "use strict";
     /***************************************************************************
      * Lightbox Suite detail
      **************************************************************************/
-    $('.open-lightbox-suite').on('click', function(e) {
+    $('.open-lightbox-suite').on('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('html').addClass("no-scroll-html");
-        $('body').addClass("no-scroll-body");
         var $link = $(this),
             ajaxContentPath = $link.attr('href'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
+        $modalContent.find(".modal-dialog").addClass("custom-lightbox-width");
+        $modalContent.find(".modal-dialog").addClass("lightbox-width-732");
 
         // Activate Modal
         $modalContent.modal('show');
-
         // Wait for modal opening
-        $modalContent.on('shown.bs.modal', function(e) {
+        $modalContent.on('shown.bs.modal', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
             var $modal = $(this);
             $modal.off('shown.bs.modal');
-
             // Append html response inside modal
-            $modal.find('.modal-content').load(ajaxContentPath, function() {
-                var modalBody = $modal.find(".modal-body");
-
+            $modal.find('.modal-content').load(ajaxContentPath, function (e) {
                 //window.location.hash = "#modal";
-                history.pushState(null, null, "#modal"); // push state that hash into the url
-                //createSlider(modalBody);
+                //history.pushState(null, null, "#modal"); // push state that hash into the url
+                createSlider($modal, $link);
+                createLineProgressBarSuiteGallery($modal);
             });
         });
     });
 
-    function createLigthboxGallerySlider($modal, $link) {
-        var $mainSlider = $modal.find('.main-slider').slick({
+    function createSlider($modal, $link) {
+        var $mainSlider = $modal.find('.lightbox-suite .gs-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            asNavFor: '.lightbox-gallery-assets .navigation-slider'
-        });
-
-        var $navigationSlider = $modal.find('.navigation-slider').slick({
-            slidesToShow: 6,
-            slidesToScroll: 5,
-            asNavFor: '.lightbox-gallery-assets .main-slider',
-            focusOnSelect: true,
-            arrows: false
+            dots: true
         });
 
         // Init video on click
-        $('.lightbox-gallery-assets .video-link').on('click', function (e) {
+        $('.lightbox-suite .gs-asset-gallery .video-link').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             $(this).next('.c-video').initVideo();
         });
 
-        $modal.find(".ga-virtual-tour").on('click', function (event) {
+        $modal.find(".lightbox-suite .gs-virtual-tour").on('click', function (event) {
             createVirtualTour(this, event);
         });
 
         $mainSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-            $(".lightbox-gallery-assets .ga-label").hide();
-            $(".lightbox-gallery-assets .ga-credits").hide();
             var $slider = $(this);
             // Kill video if current slide contains video
             var $video = $slider.find('.slick-current .c-video');
             $video.find('.s7playpausebutton[selected="false"]').trigger('click');
             $video.attr('class', 'c-video').empty();
-            // Call lazy load for 2 previous and 2 next slides
             destroyVirtualTour();
-            loadLazyImage($(this));
         }).on('afterChange', function (event, slick, currentSlide) {
-            createInfoAssetSection($(this));
             // Call lazy load for 2 previous and 2 next slides
             loadLazyImage($(this));
         });
 
-
-        createInfoAssetSection($mainSlider);
+        loadLazyImage($mainSlider);
 
     };//createLigthboxGallerySlider
 
     function loadLazyImage($slider) {
-        var $sliderActive = $slider.closest('.lightbox-gallery-assets').find('.slick-active');
-        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "draggable", true, false);
-        $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "swipe", true, false);
+        var $sliderActive = $slider.closest('.lightbox-suite').find('.slick-active');
+        $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "draggable", true, false);
+        $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "swipe", true, false);
         // call lazy loading for active image
         $sliderActive.find('.lazy').lazy();
 
@@ -97,30 +83,6 @@ $(function () {
 
     };//loadLazyImage
 
-    function createInfoAssetSection($slider) {
-        var $sliderActive = $slider.find(".slick-slide.slick-current.slick-active div");
-        var $assetLabel = $(".lightbox-gallery-assets #ga-label-text-label");
-        var $assetCredits = $(".lightbox-gallery-assets #ga-label-text-credits");
-        var $assetSectionLabel = $(".lightbox-gallery-assets .ga-label");
-        var $assetSectionCredits = $(".lightbox-gallery-assets .ga-credits");
-        var label = $sliderActive.data("asset-label");
-        var credits = $sliderActive.data("asset-credits");
-        if (label != null && label.length > 0) {
-            $assetLabel.html(label);
-            $assetSectionLabel.show();
-        } else {
-            $assetLabel.html("");
-            $assetSectionLabel.hide();
-        }
-        if (credits != null && credits.length > 0) {
-            $assetCredits.html(credits);
-            $assetSectionCredits.show();
-        } else {
-            $assetCredits.html("");
-            $assetSectionCredits.hide();
-        }
-    };//createInfoAssetSection
-
     function destroyVirtualTour() {
         if (window.hasOwnProperty('virtualTour') && window.virtualTour != null) {
             window.virtualTour.destroy();
@@ -129,12 +91,12 @@ $(function () {
 
         if (window.hasOwnProperty('virtualTourID') && window.virtualTourID != null) {
             $(window.virtualTourID).empty();
-            $(window.virtualTourID).css("height","0px");
+            $(window.virtualTourID).css("height", "0px");
             window.virtualTourID = null;
         }
 
         if (window.hasOwnProperty('virtualTourImage') && window.virtualTourImage != null) {
-            $(window.virtualTourImage).css("display","block");
+            $(window.virtualTourImage).css("display", "block");
             window.virtualTourImage = null;
         }
 
@@ -182,9 +144,43 @@ $(function () {
                         ]
                     });
                 }
-                $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "draggable", false, false);
-                $(".lightbox-gallery-assets .main-slider").slick("slickSetOption", "swipe", false, false);
+                $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "draggable", false, false);
+                $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "swipe", false, false);
             }, 500);
         }
     };//createVirtualTour
+
+    function createLineProgressBarSuiteGallery($modal) {
+        var widthSlider = $modal.find(".slick-list .slick-dots").width();
+        if ($("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg")) {
+            if (widthSlider > 930) {
+                widthSlider = 930;
+            }
+        } else if ($("body").hasClass("viewport-sm")) {
+            if (widthSlider > 768) {
+                widthSlider = 630;
+            }
+        } else if ($("body").hasClass("viewport-xs")) {
+            widthSlider = widthSlider;
+        }
+
+        var liItem =  $modal.find("ul.slick-dots li").length;
+        var liWidth = ((widthSlider / liItem) - 1);
+
+        if ($("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg")) {
+            $modal.find("ul.slick-dots li").css("width", liWidth + "px");
+        } else if ($("body").hasClass("viewport-sm")) {
+            $modal.find("ul.slick-dots li").css("width", liWidth + "px");
+        } else if ($("body").hasClass("viewport-xs")) {
+            $modal.find("ul.slick-dots li").css("width", liWidth + "px");
+        }
+    };//createLineProgressBarSuiteGallery
+
+    wdest = $(window).width();
+
+    $(window).resize(function () {
+        if ($(window).width() == wdest) return;
+        wdest = $(window).width();
+        createLineProgressBarSuiteGallery();
+    });
 });

@@ -1,9 +1,22 @@
 <template data-sly-template.default="${ @ cruise}">
-<!--    <sly data-sly-use.cruise="com.silversea.aem.components.included.LightboxSuiteUse" /> -->
+    <sly data-sly-use.model="com.silversea.aem.components.included.lightboxes.LightboxSuiteUse" />
     <div class="modal-content modal-content--transparent modal-content--gallery">
-        <div class="modal-body">
+        <div class="modal-body lightbox-suite-body">
             <div class="lightbox-suite">
-                it works
+                <div class="gs-asset-slider gs-asset-slider--main">
+                    <sly data-sly-use.setImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=model.suitePrice.suite.assetSelectionReference}" />
+                    <div data-sly-repeat.asset="${setImage.renditionList}" data-image="${asset.path}">
+                        <div class="ratio ${asset.type == 'virtual-tour' ? 'gs-virtual-tour' : ''}"
+                             id="gs-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
+                             data-image-virtual-tour="${asset.path}">
+                            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
+                            <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
+                            <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
+                            <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
+                        </div>
+                        <div data-sly-test="${asset.type == 'virtual-tour'}" id="gs-virtual-tour-${assetList.index}-container"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

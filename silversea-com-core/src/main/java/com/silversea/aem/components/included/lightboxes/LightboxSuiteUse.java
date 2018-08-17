@@ -14,18 +14,18 @@ import java.util.Locale;
 
 public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
 
-    private SuitePrice model;
+    private SuitePrice suitePrice;
 
     @Override
     public void activate() throws Exception {
         super.activate();
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
-        model = retrieveSuitePriceModel(selectors);
+        suitePrice = retrieveSuitePriceModel(selectors);
     }
 
     private SuitePrice retrieveSuitePriceModel(String[] selectors) {
         if (ArrayUtils.isNotEmpty(selectors)) {
-            String suiteCode = selectors[1];
+            String suiteCode = selectors[2];
             List<PriceModel> prices = new ArrayList<>();
             Resource currentResource = getCurrentPage().getContentResource();
             Resource suitesResource = currentResource.hasChildren() ? currentResource.getChild("suites") : null;
@@ -57,7 +57,7 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
         return null;
     }
 
-    public SuitePrice getModel() {
-        return model;
+    public SuitePrice getSuitePrice() {
+        return suitePrice;
     }
 }
