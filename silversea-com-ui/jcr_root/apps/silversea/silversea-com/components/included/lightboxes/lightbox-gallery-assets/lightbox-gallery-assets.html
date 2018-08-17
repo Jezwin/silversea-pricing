@@ -7,10 +7,11 @@
             <div class="lightbox-gallery-assets">
                 <div class="ga-slider ga-slider--main main-slider">
                     <div data-sly-repeat.asset="${list}" data-image="${asset.path}">
-                        <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour' : ''}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
+                        <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour' : ''}"
                              id="ga-virtual-tour-${asset.type == 'virtual-tour' ? assetList.index : asset.path}"
                              data-image-virtual-tour="${asset.path}"
-                             style="background-image:url(${assetHelper.imageUrl @ context='uri'}?fit=${asset.type == 'virtual-tour' ? 'crop' : 'constrain' @ context='uri'}&hei=970&wid=970&fmt=pjpeg&pscan=5&qlt=80)" data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
+                             data-asset-label="${asset.label}" data-asset-credits="${asset.credits}" >
+                            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                             <a data-sly-test.isVideo="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                             <div data-sly-test="${isVideo}" class="c-video" data-video-asset="${asset.path}" data-video-autoplay="1"></div>
@@ -20,8 +21,8 @@
                 </div>
                 <div class="ga-slider ga-slider--nav hidden-xs navigation-slider">
                     <div data-sly-repeat.asset="${list}">
-                        <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour-thumbnail' : ''}" data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath = asset.path}"
-                             style="background-image:url(${assetHelper.imageUrl @ context='uri'}?fit=${asset.type == 'virtual-tour' ? 'crop' : 'constrain' @ context='uri'}&hei=970&wid=970&fmt=pjpeg&pscan=5&qlt=80)">
+                        <div class="ratio ${asset.type == 'virtual-tour' ? 'ga-virtual-tour-thumbnail' : ''}">
+                            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html" data-sly-call="${imageTemplate.responsiveLazy @ imagePath=asset.path}" />
                             <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}" data-sly-test.isVideo="${assetHelper.assetType == 'VideoAVS'}" />
                             <a data-sly-test="${isVideo}" class="video-link" href="#"><i class="fa fa-play"></i></a>
                         </div>

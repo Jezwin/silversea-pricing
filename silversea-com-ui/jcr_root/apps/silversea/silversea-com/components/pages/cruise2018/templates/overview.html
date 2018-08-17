@@ -1,9 +1,11 @@
 <template data-sly-template.default="${ @ cruise }">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
     <div class="cruise-2018-overview row container"
+         data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}"
          data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12">
             <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html"
-                 data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.thumbnail, imageTemplate = imageTemplate}"/>
+                 data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.bigThumbnail, imageTemplate = imageTemplate}"/>
             <div class="cruise-2018-overview-map-btn hidden-xs"
                  style="background-image:url('${cruise.cruiseModel.itinerary @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>

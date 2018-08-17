@@ -1,25 +1,32 @@
 $(function () {
     /***************************************************************************
-     * Lightbox Gallery Assets for "cruise page" 2018"
+     * Lightbox Suite detail
      **************************************************************************/
-    $(".open-lightbox-gallery-assets").on("click", function (e) {
+    $('.open-lightbox-suite').on('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        $('html').addClass("no-scroll-html");
+        $('body').addClass("no-scroll-body");
         var $link = $(this),
-            ajaxContentPath = $link.closest('[data-lightbox-gallery-path]').data('lightbox-gallery-path'),
+            ajaxContentPath = $link.attr('href'),
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
+
+        // Activate Modal
         $modalContent.modal('show');
 
         // Wait for modal opening
-        $modalContent.on('shown.bs.modal', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+        $modalContent.on('shown.bs.modal', function(e) {
             var $modal = $(this);
             $modal.off('shown.bs.modal');
+
             // Append html response inside modal
-            $modal.find('.modal-dialog').load(ajaxContentPath, function (e) {
-                createLigthboxGallerySlider($modal, $link);
+            $modal.find('.modal-content').load(ajaxContentPath, function() {
+                var modalBody = $modal.find(".modal-body");
+
+                //window.location.hash = "#modal";
+                history.pushState(null, null, "#modal"); // push state that hash into the url
+                //createSlider(modalBody);
             });
         });
     });

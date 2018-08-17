@@ -1,6 +1,4 @@
-<sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
 <div itemscope itemtype="http://schema.org/Product" class="cruise-2018 container"
-     data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightbox-gallery-assets'}"
      data-sly-use.cruise="com.silversea.aem.components.page.Cruise2018Use">
     <sly data-sly-use.header="/apps/silversea/silversea-com/components/pages/cruise2018/templates/header.html"
          data-sly-call="${header.default @ cruise=cruise}"/>
