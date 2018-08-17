@@ -23,6 +23,7 @@ import static java.util.Comparator.comparing;
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.ObjectUtils.firstNonNull;
 
 
@@ -69,14 +70,19 @@ public class Cruise2018Use extends EoHelper {
     @Override
     public void activate() throws Exception {
         super.activate();
+        String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         Locale locale = getCurrentPage().getLanguage(false);
         cruiseModel = retrieveCruiseModel();
-        assetsGallery = retrieveAssetsGallery(cruiseModel);
+        assetsGallery = retrieveAssetsGallery(cruiseModel, selectors);
+        if (assetsGallery != null) {
+            //return I do not need other fields
+            return;
+        }
+
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
 
-        String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
 
@@ -160,18 +166,24 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
-    private List<SilverseaAsset> retrieveAssetsGallery(CruiseModel cruiseModel) {
-        List<SilverseaAsset> assetsListResult = new ArrayList<>();
-        if (cruiseModel != null) {
+    private List<SilverseaAsset> retrieveAssetsGallery(CruiseModel cruiseModel, String[] selectors) {
+        boolean isGalleryAsset = false;
+        for (String selector : selectors) {
+            if (selector.contains("lg-gallery-assets")){
+                isGalleryAsset = true;
+            }
+        }
+        if (cruiseModel != null && isGalleryAsset) {
+            List<SilverseaAsset> assetsListResult = new ArrayList<>();
             if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
                 assetsListResult.addAll(AssetUtils
                         .buildSilverseaAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver(),
                                 null));
             }
             assetsListResult.addAll(retrieveAssetsFromShip(cruiseModel.getShip()));
+            return assetsListResult;
         }
-
-        return assetsListResult;
+        return null;
     }
 
     private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {
