@@ -2,7 +2,7 @@
   position: relative;
   min-height: 500px;
 
-  .cruise-2018-overview-big-pic img {
+  .cruise-2018-overview-big-pic picture {
     position: relative;
     width: 100%;
   }
@@ -236,6 +236,9 @@
 
 @media screen and (max-width: @screen-sm) {
   .cruise-2018-overview {
+    .cruise-2018-overview-big-pic picture {
+      min-height: 200px;
+    }
     .cruise-2018-overview-big-pic {
       width: 100vw;
       padding: 0 !important;
@@ -296,8 +299,11 @@
   }
 }
 
-@media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
+@media screen and (min-width: @screen-sm) {
   .cruise-2018-overview {
+    .cruise-2018-overview-big-pic picture {
+      min-height: 500px;
+    }
     .cruise-2018-overview-description-cruise {
       margin-top: 10px;
       font-size: 11px;
