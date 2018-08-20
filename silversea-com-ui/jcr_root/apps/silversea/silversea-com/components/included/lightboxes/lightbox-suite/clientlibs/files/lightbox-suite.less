@@ -1,5 +1,6 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
+
 .lightbox .modal-content .modal-body.lightbox-suite-body {
   padding-top: 0px;
 }
@@ -8,22 +9,33 @@
 
   .lg-content {
     margin: 0px 60px 0px 60px;
+
+    hr {
+      border: 1px solid rgba(152, 152, 155, 0.5);
+    }
+  }
+
+  //style applied only to suite-overview.html template
+  .lg-suite-overview {
     .lg-row-title-price {
       margin-top: 60px;
     }
     .lg-row-bed-cta {
       margin-top: 15px;
     }
+
     .lg-row-descr {
       margin-top: 50px;
       margin-bottom: 30px;
     }
+
     .lg-suite-name {
       font-family: @freight;
       font-size: 30px;
       letter-spacing: 0.5px;
       line-height: 32px;
     }
+
     .lg-suite-bedrooms {
       font-family: @suisse;
       font-size: 13px;
@@ -106,13 +118,10 @@
       line-height: 18px;
       display: block;
     }
-
-    hr {
-      border: 1px solid rgba(152, 152, 155, 0.5);
-    }
   }
 
-  .gs-asset-slider {
+  //style applied only to suite-gallery.html templates
+  .lg-asset-slider {
     margin-bottom: 20px;
     visibility: hidden;
 
@@ -138,7 +147,7 @@
       }
     }
 
-    &:not(.ga-slider--full-width) .slick-slide > * {
+    &:not(.lg-slider--full-width) .slick-slide > * {
       margin: 0 5px;
       @media (max-width: @screen-sm) {
         margin: 0 10px;
@@ -280,33 +289,33 @@
     .slick-slide[data-slide-type^="video"] {
       position: relative;
     }
+    .lg-virtual-tour {
+      &:not(:required):after {
+        content: '360\00b0';
+        font-size: 100px;
+        z-index: 3243;
+        background-image: none;
+        color: @white;
+        font-family: @f-serif;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        position: absolute;
+      }
+      &:before {
+        content: "";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        background-color: @grey--04;
+      }
+    }
   }
 
-  .gs-virtual-tour {
-    &:not(:required):after {
-      content: '360\00b0';
-      font-size: 100px;
-      z-index: 3243;
-      background-image: none;
-      color: @white;
-      font-family: @f-serif;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      position: absolute;
-    }
-    &:before {
-      content: "";
-      display: block;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1;
-      background-color: @grey--04;
-    }
-  }
 }
 
 //Desktop

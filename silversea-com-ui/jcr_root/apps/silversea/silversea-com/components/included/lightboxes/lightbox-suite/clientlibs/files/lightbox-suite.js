@@ -32,20 +32,20 @@ $(function () {
     });
 
     function createSlider($modal, $link) {
-        var $mainSlider = $modal.find('.lightbox-suite .gs-asset-slider').slick({
+        var $mainSlider = $modal.find('.lightbox-suite .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
             dots: true
         });
 
         // Init video on click
-        $('.lightbox-suite .gs-asset-gallery .video-link').on('click', function (e) {
+        $('.lightbox-suite .lg-asset-gallery .video-link').on('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             $(this).next('.c-video').initVideo();
         });
 
-        $modal.find(".lightbox-suite .gs-virtual-tour").on('click', function (event) {
+        $modal.find(".lightbox-suite .lg-virtual-tour").on('click', function (event) {
             createVirtualTour(this, event);
         });
 
@@ -67,8 +67,8 @@ $(function () {
 
     function loadLazyImage($slider) {
         var $sliderActive = $slider.closest('.lightbox-suite').find('.slick-active');
-        $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "draggable", true, false);
-        $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "swipe", true, false);
+        $(".lightbox-suite .lg-asset-slider").slick("slickSetOption", "draggable", true, false);
+        $(".lightbox-suite .lg-asset-slider").slick("slickSetOption", "swipe", true, false);
         // call lazy loading for active image
         $sliderActive.find('.lazy').lazy();
 
@@ -144,8 +144,8 @@ $(function () {
                         ]
                     });
                 }
-                $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "draggable", false, false);
-                $(".lightbox-suite .gs-asset-slider").slick("slickSetOption", "swipe", false, false);
+                $(".lightbox-suite .lg-asset-slider").slick("slickSetOption", "draggable", false, false);
+                $(".lightbox-suite .lg-asset-slider").slick("slickSetOption", "swipe", false, false);
             }, 500);
         }
     };//createVirtualTour
