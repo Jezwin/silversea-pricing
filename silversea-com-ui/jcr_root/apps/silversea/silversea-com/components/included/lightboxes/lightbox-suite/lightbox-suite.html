@@ -3,10 +3,16 @@
     <div class="modal-content modal-content--transparent modal-content--gallery">
         <div class="modal-body lightbox-suite-body">
             <div class="lightbox-suite">
-                <sly data-sly-use.templateGallery="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-gallery.html" data-sly-call="${templateGallery.default @ suite = model.suitePrice.suite}" />
+                <sly data-sly-test="${ model.suitePrice.suite.assetSelectionReference }"
+                     data-sly-use.templateGallery="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-gallery.html"
+                     data-sly-call="${templateGallery.default @ suite = model.suitePrice.suite}"/>
                 <div class="lg-content">
-                    <sly data-sly-use.templateOverview="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-overview.html" data-sly-call="${templateOverview.default @ model= model}" />
+                    <sly data-sly-use.templateOverview="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-overview.html"
+                         data-sly-call="${templateOverview.default @ model= model}"/>
                     <hr/>
+                    <sly data-sly-test="${model.suitePrice.suite}"
+                         data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-deck.html"
+                         data-sly-call="${templateDeck.default @ suite= model.suitePrice.suite}"/>
                 </div>
             </div>
         </div>
