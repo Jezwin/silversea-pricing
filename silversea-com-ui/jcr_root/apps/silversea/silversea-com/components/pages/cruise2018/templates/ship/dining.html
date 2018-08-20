@@ -1,2 +1,47 @@
 <template data-sly-template.default="${ @ cruise }">
+    <div class="cruise-2018-ship-dining-area">
+        <sly data-sly-test.dinings="${cruise.cruiseModel.ship.dinings}">
+            <div class="hidden-xs cruise-2018-ship-dining-area-list" data-sly-list="${dinings}">
+                <div class="row cruise-2018-ship-dining-area-row ${itemList.index<2 ? '' : 'cruise-2018-accordion'}">
+                    <div class="col-xs-6">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html"
+                             data-sly-call="${imageTemplate.lazy @ imagePath=item.thumbnail, width=930}"/>
+                    </div>
+                    <div class="col-xs-6 cruise-2018-ship-dining-area-text">
+                        <div class="cruise-2018-ship-dining-area-text-wrapper">
+                            <div class="cruise-2018-ship-dining-area-text-title">${item.title}</div>
+                            <div class="cruise-2018-ship-dining-area-text-description">${item.shortVoyageDescription @ context='html'}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-6 col-md-offset-6">
+                    <div class="cruise-2018-ship-dining-area-text-line">&nbsp;</div>
+                </div>
+            </div>
+            <div class="cruise-2018-ship-dining-area-btns hidden-xs" data-sly-test="${dinings.size > 2}">
+                <a data-ssc-accordion="show" class="btn btn-thin btn-white cruise-2018-dining-show-btn " href="#">
+                    <span class="cruise-2018-accordion-button">${'view-all' @ i18n}</span>
+                    <span class="cruise-2018-accordion-button" style="display:none">${'close' @ i18n}</span>
+                </a>
+            </div>
+            <div class="hidden-md hidden-lg cruise-2018-ship-dining-area-list-slider activate-progressbar"
+                 data-sly-list="${dinings}">
+                <div class="cruise-2018-ship-dining-area-slide">
+                    <div class="cruise-2018-ship-dining-area-slide-thumbnail">
+                        <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                             data-sly-call="${imageTemplate.responsiveLazy @ imagePath=item.thumbnail}"/>
+                    </div>
+                    <div class="cruise-2018-ship-dining-area-slide-text">
+                        <div class="cruise-2018-ship-dining-area-slide-title">
+                            ${item.title}
+                        </div>
+                        <div class="cruise-2018-ship-dining-area-slide-description">
+                            ${item.shortVoyageDescription @ context='html'}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </sly>
+    </div>
 </template>
