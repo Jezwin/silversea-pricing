@@ -2,8 +2,10 @@ package com.silversea.aem.components.included.lightboxes;
 
 import com.silversea.aem.components.AbstractGeolocationAwareUse;
 import com.silversea.aem.components.beans.SuitePrice;
+import com.silversea.aem.constants.WcmConstants;
 import com.silversea.aem.models.PriceModel;
 import com.silversea.aem.utils.CruiseUtils;
+import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.jcr.resource.JcrResourceConstants;
@@ -15,6 +17,8 @@ import java.util.Locale;
 public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
 
     private SuitePrice suitePrice;
+    private String suffixUrl;
+    private String selectorUrl = WcmConstants.SELECTOR_FYC_RESULT;
 
     @Override
     public void activate() throws Exception {
@@ -51,6 +55,7 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
 
                     }
                 }
+                suffixUrl = suitePriceModel.getSuite().getName() + WcmConstants.HTML_SUFFIX;
                 return suitePriceModel;
             }
         }
@@ -59,5 +64,17 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
 
     public SuitePrice getSuitePrice() {
         return suitePrice;
+    }
+
+    public String getRaqLink() {
+        return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
+    }
+
+    public String getSuffixUrl() {
+        return suffixUrl;
+    }
+
+    public String getSelectorUrl() {
+        return selectorUrl;
     }
 }

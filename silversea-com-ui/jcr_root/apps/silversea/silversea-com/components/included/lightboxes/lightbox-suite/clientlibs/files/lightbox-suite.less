@@ -5,6 +5,113 @@
 }
 
 .lightbox-suite {
+
+  .lg-content {
+    margin: 0px 60px 0px 60px;
+    .lg-row-title-price {
+      margin-top: 60px;
+    }
+    .lg-row-bed-cta {
+      margin-top: 15px;
+    }
+    .lg-row-descr {
+      margin-top: 50px;
+      margin-bottom: 30px;
+    }
+    .lg-suite-name {
+      font-family: @freight;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+      line-height: 32px;
+    }
+    .lg-suite-bedrooms {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      p {
+        margin: 0px;
+      }
+    }
+
+    .lg-suite-description {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      .lg-suite-descr-label {
+        text-transform: uppercase;
+      }
+    }
+
+    .lg-suite-raq {
+      float: right;
+
+      a {
+        border-radius: @nd-button-border-radius;
+        border-width: @nd-button-border-width;
+        display: inline-block;
+        font-family: @suisse;
+        font-size: @nd-button-font-size;
+        font-weight: normal;
+        letter-spacing: @nd-button-letter-spacing;
+        line-height: @nd-button-line-height;
+        padding: @nd-button-padding-lightbox;
+        text-align: center ! important;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: normal;
+        span {
+          padding-right: 0 ! important;
+        }
+
+        &-red {
+          background-color: @nd-red;
+          color: @white;
+          &:hover, &:focus, &:active {
+            background-color: @nd-red-darker ! important;
+            color: @white ! important;
+          }
+        }
+      }
+    }
+
+    .lg-suite-prices {
+      text-align: center;
+      text-transform: uppercase;
+      padding-left: 10%;
+    }
+    .lg-suite-prices-from {
+      font-family: @suisse;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      line-height: 18px;
+    }
+    .lg-suite-prices-text {
+      font-family: @suisse;
+      font-size: 20px;
+      letter-spacing: 1px;
+      line-height: 24px;
+    }
+    .lg-suite-waiting-list {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      line-height: 16px;
+      text-transform: uppercase;
+    }
+
+    .lg-suite-prices-bonus {
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      line-height: 18px;
+      display: block;
+    }
+
+    hr {
+      border: 1px solid rgba(152, 152, 155, 0.5);
+    }
+  }
+
   .gs-asset-slider {
     margin-bottom: 20px;
     visibility: hidden;
@@ -151,7 +258,7 @@
 
     .slick-dots {
       width: 100%;
-      max-width: 150px;
+      // max-width: 150px;
     }
 
     .slick-dots li {
@@ -219,5 +326,13 @@
   .lightbox-suite {
   }
 }
+
+
+
+
+
+
+
+
 
 

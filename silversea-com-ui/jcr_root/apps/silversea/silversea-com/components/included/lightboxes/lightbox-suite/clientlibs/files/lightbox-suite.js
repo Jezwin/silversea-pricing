@@ -176,11 +176,12 @@ $(function () {
         }
     };//createLineProgressBarSuiteGallery
 
-    wdest = $(window).width();
+    var wdest = $(window).width();
 
     $(window).resize(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
-        createLineProgressBarSuiteGallery();
+        var $modal = $(".modal.lightbox");
+        createLineProgressBarSuiteGallery($modal);
     });
 });

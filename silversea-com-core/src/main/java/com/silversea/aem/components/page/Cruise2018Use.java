@@ -74,10 +74,13 @@ public class Cruise2018Use extends EoHelper {
         super.activate();
         String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         Locale locale = getCurrentPage().getLanguage(false);
-        assetsGallery = retrieveAssetsGallery(selectors);
-        if (assetsGallery != null) {
-            //return I do not need other fields
-            return;
+        Lightbox typeLightbox = checkIsLightbox(selectors);
+        switch (typeLightbox) {
+            case ASSET_GALLERY:
+                assetsGallery = retrieveAssetsGallery();
+                return;
+            case CRUISE_PAGE:
+                break;
         }
 
         cruiseModel = retrieveCruiseModel();
@@ -103,6 +106,15 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    private Lightbox checkIsLightbox(String[] selectors) {
+        for (String selector : selectors) {
+            if (selector.contains(Lightbox.ASSET_GALLERY.getSelector())) {
+                return Lightbox.ASSET_GALLERY;
+            }
+        }
+        return Lightbox.CRUISE_PAGE;
     }
 
     private String retrieveCcptCode(String[] selectors) {
@@ -168,40 +180,32 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
-    private List<SilverseaAsset> retrieveAssetsGallery(String[] selectors) {
-        boolean isGalleryAsset = false;
-        for (String selector : selectors) {
-            if (selector.contains("lg-gallery-assets")) {
-                isGalleryAsset = true;
-            }
-        }
-        if (isGalleryAsset) {
-            Page currentPage = getCurrentPage();
-            PageManager pageManager = currentPage.getPageManager();
-            ShipModel ship = null;
-            String assetSelectionReference = null;
-            if (pageManager != null) {
-                ValueMap vmProperties = currentPage.getProperties();
-                if (vmProperties != null) {
-                    String shipReference = vmProperties.get("shipReference", String.class);
-                    if (StringUtils.isNotEmpty(shipReference)) {
-                        Page shipPage = pageManager.getPage(shipReference);
-                        if (shipPage != null) {
-                            ship = shipPage.adaptTo(ShipModel.class);
-                        }
+    private List<SilverseaAsset> retrieveAssetsGallery() {
+        Page currentPage = getCurrentPage();
+        PageManager pageManager = currentPage.getPageManager();
+        ShipModel ship = null;
+        String assetSelectionReference = null;
+        if (pageManager != null) {
+            ValueMap vmProperties = currentPage.getProperties();
+            if (vmProperties != null) {
+                String shipReference = vmProperties.get("shipReference", String.class);
+                if (StringUtils.isNotEmpty(shipReference)) {
+                    Page shipPage = pageManager.getPage(shipReference);
+                    if (shipPage != null) {
+                        ship = shipPage.adaptTo(ShipModel.class);
                     }
-                    assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
-                    List<SilverseaAsset> assetsListResult = new ArrayList<>();
-                    if (StringUtils.isNotBlank(assetSelectionReference)) {
-                        assetsListResult.addAll(AssetUtils
-                                .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
-                                        null));
-                    }
-                    if (ship != null) {
-                        assetsListResult.addAll(retrieveAssetsFromShip(ship));
-                    }
-                    return assetsListResult;
                 }
+                assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
+                List<SilverseaAsset> assetsListResult = new ArrayList<>();
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetsListResult.addAll(AssetUtils
+                            .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                                    null));
+                }
+                if (ship != null) {
+                    assetsListResult.addAll(retrieveAssetsFromShip(ship));
+                }
+                return assetsListResult;
             }
         }
         return null;
@@ -261,6 +265,25 @@ public class Cruise2018Use extends EoHelper {
         return allSameShipCruises(cruiseModel)
                 .filter(cruise -> cruise.getStartDate().after(cruiseModel.getStartDate()))
                 .min(Comparator.comparing(CruiseModelLight::getStartDate));
+    }
+
+    private enum Lightbox {
+        ASSET_GALLERY("lg-gallery-assets"), CRUISE_PAGE("");
+
+        private String selector = "";
+
+        public String getSelector() {
+            return selector;
+        }
+
+        Lightbox(String selector) {
+            this.selector = selector;
+        }
+
+        public String toString() {
+            return selector;
+        }
+
     }
 
     public List<ExclusiveOfferItem> getExclusiveOffers() {
