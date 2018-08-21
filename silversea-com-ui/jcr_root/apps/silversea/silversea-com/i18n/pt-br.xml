@@ -1473,50 +1473,41 @@
             jcr:primaryType="nt:folder"
             sling:key="dining-options"
             sling:message="Dining Options"/>
-    <one
+    <number1
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="1"
             sling:message="one"/>
-    <two
+    <number2
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="2"
             sling:message="two"/>
-    <three
+    <number3
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="3"
             sling:message="three"/>
-    <four
+    <number4
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="4"
             sling:message="four"/>
-    <five
+    <number5
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="5"
             sling:message="five"/>
-    <six
+    <number6
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="6"
             sling:message="six"/>
-    <seven
+    <number7
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="7"
             sling:message="seven"/>
-    <eight
+    <number8
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="8"
             sling:message="eight"/>
-    <nine
+    <number9
             jcr:primaryType="nt:folder"
             jcr:mixinTypes="[sling:Message]"
-            sling:key="9"
             sling:message="nine"/>
     <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba" />
     <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afeganistão" />

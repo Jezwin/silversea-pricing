@@ -22,7 +22,8 @@
                     <span class="cruise-2018-accordion-button" style="display:none">${'close' @ i18n}</span>
                 </a>
             </div>
-            <div class="cruise-2018-ship-dining-area-title"> ${dinings.size @i18n} ${'restaurants' @i18n}</div>
+            <sly data-sly-test.numberOfRestaurants="number${dinings.size}"/>
+            <div class="cruise-2018-ship-dining-area-title"> ${numberOfRestaurants @i18n} ${'restaurants' @i18n}</div>
             <div class="cruise-2018-ship-dining-area-list-slider activate-progressbar"
                  data-sly-list="${dinings}">
                 <div class="cruise-2018-ship-dining-area-slide">

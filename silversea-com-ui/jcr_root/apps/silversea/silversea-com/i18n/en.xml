@@ -311,41 +311,41 @@
             jcr:primaryType="sling:MessageEntry"
             sling:key="dining-options"
             sling:message="Dining Options"/>
-    <one
+    <number1
             jcr:primaryType="sling:MessageEntry"
-            sling:key="1"
+            sling:key="number1"
             sling:message="one"/>
-    <two
+    <number2
             jcr:primaryType="sling:MessageEntry"
-            sling:key="2"
+            sling:key="number2"
             sling:message="two"/>
-    <three
+    <number3
             jcr:primaryType="sling:MessageEntry"
-            sling:key="3"
+            sling:key="number3"
             sling:message="three"/>
-    <four
+    <number4
             jcr:primaryType="sling:MessageEntry"
-            sling:key="4"
+            sling:key="number4"
             sling:message="four"/>
-    <five
+    <number5
             jcr:primaryType="sling:MessageEntry"
-            sling:key="5"
+            sling:key="number5"
             sling:message="five"/>
-    <six
+    <number6
             jcr:primaryType="sling:MessageEntry"
-            sling:key="6"
+            sling:key="number6"
             sling:message="six"/>
-    <seven
+    <number7
             jcr:primaryType="sling:MessageEntry"
-            sling:key="7"
+            sling:key="number7"
             sling:message="seven"/>
-    <eight
+    <number8
             jcr:primaryType="sling:MessageEntry"
-            sling:key="8"
+            sling:key="number8"
             sling:message="eight"/>
-    <nine
+    <number9
             jcr:primaryType="sling:MessageEntry"
-            sling:key="9"
+            sling:key="number9"
             sling:message="nine"/>
     <cruise-type
         jcr:primaryType="sling:MessageEntry"
