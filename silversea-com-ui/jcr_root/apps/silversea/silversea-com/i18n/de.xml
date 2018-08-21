@@ -1473,6 +1473,55 @@
         jcr:primaryType="nt:folder"
         sling:message="Tourenprogramm herunterladen "/>
     <map jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Map"/>
+    <dining-options
+            jcr:primaryType="nt:folder"
+            sling:key="dining-options"
+            sling:message="Dining Options"/>
+    <one
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="1"
+            sling:message="one"/>
+    <two
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="2"
+            sling:message="two"/>
+    <three
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="3"
+            sling:message="three"/>
+    <four
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="4"
+            sling:message="four"/>
+    <five
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="5"
+            sling:message="five"/>
+    <six
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="6"
+            sling:message="six"/>
+    <seven
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="7"
+            sling:message="seven"/>
+    <eight
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="8"
+            sling:message="eight"/>
+    <nine
+            jcr:primaryType="nt:folder"
+            jcr:mixinTypes="[sling:Message]"
+            sling:key="9"
+            sling:message="nine"/>
     <ABW jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Aruba" />
     <AFG jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Afghanistan" />
     <AGO jcr:primaryType="nt:folder" jcr:mixinTypes="[sling:Message]" sling:message="Angola" />

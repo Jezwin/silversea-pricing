@@ -1,6 +1,7 @@
 <template data-sly-template.default="${ @ cruise }">
     <div class="cruise-2018-ship-dining-area">
         <sly data-sly-test.dinings="${cruise.cruiseModel.ship.dinings}">
+            <div class="hidden-xs cruise-2018-ship-dining-area-title">${cruise.cruiseModel.ship.title} ${'dining-options' @i18n}: ${dinings.size} ${'restaurants' @i18n}</div>
             <div class="hidden-xs cruise-2018-ship-dining-area-list" data-sly-list="${dinings}">
                 <div class="row cruise-2018-ship-dining-area-row ${itemList.index<2 ? '' : 'cruise-2018-accordion'}">
                     <div class="col-xs-6">
@@ -10,12 +11,9 @@
                     <div class="col-xs-6 cruise-2018-ship-dining-area-text">
                         <div class="cruise-2018-ship-dining-area-text-wrapper">
                             <div class="cruise-2018-ship-dining-area-text-title">${item.title}</div>
-                            <div class="cruise-2018-ship-dining-area-text-description">${item.shortVoyageDescription @ context='html'}</div>
+                            <div class="cruise-2018-ship-dining-area-text-description">${item.shortVoyageDescription || item.longDescription @ context='html'}</div>
                         </div>
                     </div>
-                </div>
-                <div class=" col-md-6 col-md-offset-6">
-                    <div class="cruise-2018-ship-dining-area-text-line">&nbsp;</div>
                 </div>
             </div>
             <div class="cruise-2018-ship-dining-area-btns hidden-xs" data-sly-test="${dinings.size > 2}">
@@ -24,7 +22,8 @@
                     <span class="cruise-2018-accordion-button" style="display:none">${'close' @ i18n}</span>
                 </a>
             </div>
-            <div class="hidden-md hidden-lg cruise-2018-ship-dining-area-list-slider activate-progressbar"
+            <div class="cruise-2018-ship-dining-area-title"> ${dinings.size @i18n} ${'restaurants' @i18n}</div>
+            <div class="cruise-2018-ship-dining-area-list-slider activate-progressbar"
                  data-sly-list="${dinings}">
                 <div class="cruise-2018-ship-dining-area-slide">
                     <div class="cruise-2018-ship-dining-area-slide-thumbnail">
@@ -36,7 +35,7 @@
                             ${item.title}
                         </div>
                         <div class="cruise-2018-ship-dining-area-slide-description">
-                            ${item.shortVoyageDescription @ context='html'}
+                            ${item.shortVoyageDescription || item.longDescription @ context='html'}
                         </div>
                     </div>
                 </div>

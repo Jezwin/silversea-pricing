@@ -1,5 +1,5 @@
 function viewMore(e) {
-    $('.cruise-2018-accordion').slideDown();
+    $('.cruise-2018-accordion').slideDown(200,'linear');
     displayLazy();
 }
 
@@ -14,6 +14,7 @@ function displayLazy() {
 function toggle(e) {
     e && e.preventDefault();
     const $this = $(this);
+    $this.blur();
     if ($this.data('ssc-accordion') === 'show') {
         $this.data('ssc-accordion', 'hide');
         viewMore(e);
@@ -65,7 +66,6 @@ function initSlider() {
             slidesPerRow: 1,
             slidesToShow: 1
         });
-
     }
     createLineProgressBar();
     $slider.on('afterChange', function (event, slick, currentSlide) {
@@ -75,6 +75,7 @@ function initSlider() {
 
 $(function () {
     $(".cruise-2018-ship-dining-area-btns a").on("click", toggle);
+    $(window).on("resize", initSlider);
     initSlider();
     displayLazy();
 });

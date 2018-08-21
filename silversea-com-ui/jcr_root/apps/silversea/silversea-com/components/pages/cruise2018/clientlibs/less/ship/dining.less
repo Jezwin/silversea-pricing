@@ -27,7 +27,7 @@
     letter-spacing: @nd-button-letter-spacing;
     line-height: @nd-button-line-height;
     margin-bottom: 15px;
-    margin-top: 30px;
+    margin-top: 25px;
     padding: @nd-button-padding;
     text-align: center ! important;
     text-transform: uppercase;
@@ -48,6 +48,17 @@
 
     background: @grey--f4;
     padding-bottom: 55px;
+    .cruise-2018-ship-dining-area-title {
+      color: @grey--3;
+      font-family: @suisse;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: 18px;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 23px;
+    }
 
     .cruise-2018-ship-dining-area-slide {
       background: @white;
@@ -74,7 +85,6 @@
       height: 100%;
     }
     .cruise-2018-ship-dining-area-slide-title {
-      height: 20px;
       text-transform: uppercase;
       color: @grey--3;
       font-family: @freight;
@@ -96,6 +106,10 @@
     .cruise-2018-ship-dining-area-slide.slick-slide:not(.slick-current) {
       transform: scale(0.95);
       opacity: 0.4;
+      .cruise-2018-ship-dining-area-slide-title {
+        max-height: 1em;
+        overflow: hidden;
+      }
     }
     .cruise-2018-ship-dining-area-slide-text {
       padding-left: 11px;
@@ -135,6 +149,19 @@
 
 @media screen and (min-width: @screen-sm) {
   .cruise-2018-ship-dining-area {
+    .cruise-2018-ship-dining-area-title, .cruise-2018-ship-dining-area-list-slider {
+      display: none;
+    }
+    .cruise-2018-ship-dining-area-title {
+      color: @grey--3;
+      font-family: @freight;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+      line-height: 26px;
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
     .cruise-2018-ship-dining-area-text-title {
       font-size: 20px;
       line-height: 24px;
@@ -147,26 +174,31 @@
       line-height: 20px;
     }
 
+    @cruise2018diningheight: 310px;
     .cruise-2018-ship-dining-area-text {
       padding-left: 25px;
+      height: @cruise2018diningheight;
     }
     .cruise-2018-ship-dining-area-row {
       margin-top: 20px;
       img {
-        height: 310px;
+        height: @cruise2018diningheight;
         object-fit: cover;
       }
     }
-    .cruise-2018-ship-dining-area-text-line {
+    .cruise-2018-ship-dining-area-text:after {
       content: " ";
       width: 165px;
       background-color: rgb(155, 155, 155, 0.3);
-      height: 0.5px;
+      height: 1px;
       margin-left: auto;
       margin-right: auto;
       text-align: center;
       display: block;
-
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
   }
 }
