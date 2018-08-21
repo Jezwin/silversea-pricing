@@ -10,7 +10,7 @@ $(function() {
                 'params' : {
                     'VideoPlayer.ssl' : 'on',
                     'serverurl' : 'https://silversea-h.assetsadobe2.com/is/image',
-                    'contenturl' : 'https://silversea.assetsadobe.com/',
+                    //'contenturl' : 'https://silversea.assetsadobe.com/',
                     'config' : 'etc/dam/presets/viewer/Video',
                     //'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public/silversea',
                     'videoserverurl' : 'https://gateway-eu.assetsadobe.com/DMGateway/public-ssl/silversea',
