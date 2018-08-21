@@ -68,6 +68,40 @@
         padding-left: 8px;
       }
     }
+    .slick-next:after {
+      width: 25px;
+      height: 25px;
+      padding: 10px;
+      border-left: 0 solid @transparent;
+      border-right: 2px solid @color-second !important;
+      border-bottom: 2px solid @color-second !important;
+      border-top: 0 solid @transparent;
+      opacity: 0.6;
+      content: " ";
+      right: 53%;
+      left: initial !important;
+
+    }
+
+    .slick-prev {
+      transform: rotateZ(135deg);
+    }
+    .slick-next {
+      transform: rotateZ(-45deg);
+
+    }
+    .slick-prev:after {
+      width: 25px;
+      padding: 10px;
+      height: 25px;
+      border-left: 0 solid @transparent;
+      border-right: 2px solid @color-second !important;
+      border-bottom: 2px solid @color-second !important;
+      border-top: 0 solid @transparent;
+      opacity: 0.6;
+      content: " ";
+      right: 0;
+    }
 
   }
 

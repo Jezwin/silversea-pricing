@@ -5,6 +5,7 @@ $(function () {
             $(this).slick({
                 slidesToShow: 3,
                 arrows: true,
+                centerPadding: '0px',
                 dots: true,
                 infinite: true,
                 slidesToScroll: 1,
