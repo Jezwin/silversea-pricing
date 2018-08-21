@@ -58,6 +58,11 @@ function loadLazyImage($slider) {
 function initSlider() {
     const $slider = $(".cruise-2018-ship-dining-area-list-slider:visible");
     if ($slider) {
+        try{
+            $slider.slick("unslick");
+        }catch(e){
+
+        }
         $slider.slick({
             centerMode: true,
             dots: true,
