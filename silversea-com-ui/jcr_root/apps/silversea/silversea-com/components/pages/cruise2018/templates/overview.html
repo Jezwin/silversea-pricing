@@ -1,9 +1,12 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="cruise-2018-overview row container"
-         data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html">
+    <div class="cruise-2018-overview row container">
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12">
-            <sly data-sly-use.overviewImage="silversea/silversea-com/components/pages/cruise/fragment/overviewtab/galleryimage.html"
-                 data-sly-call="${overviewImage.default @ item = cruise.cruiseModel.thumbnail, imageTemplate = imageTemplate}"/>
+            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                 data-sly-test="${cruise.cruiseModel.thumbnail}"
+                 data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.thumbnail}"/>
+            <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
+                 data-sly-test="${!cruise.cruiseModel.thumbnail}"
+                 data-sly-call="${imageTemplate.default @ imagePath=cruise.cruiseModel.itinerary}"/>
             <div class="cruise-2018-overview-map-btn hidden-xs"
                  style="background-image:url('${cruise.cruiseModel.itinerary @ context='unsafe'}')">
                 <div class="cruise-2018-overview-map-btn-label">${'map' @ i18n}</div>
@@ -46,7 +49,7 @@
                 <div class="cruise-2018-overview-description-date-boxes-box-container">
                     <div class="cruise-2018-overview-description-date-boxes-box">
                         <div class="cruise-2018-overview-description-date-boxes-title">${'ship' @ i18n}</div>
-                        <div class="cruise-2018-overview-description-date-boxes-ship">${cruise.cruiseModel.ship.name}</div>
+                        <div class="cruise-2018-overview-description-date-boxes-ship">${cruise.cruiseModel.ship.title}</div>
                         <div class="cruise-2018-overview-description-date-boxes-subtitle">&nbsp;</div>
                     </div>
                 </div>
