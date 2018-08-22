@@ -46,4 +46,8 @@ public class RunModesServicesImpl implements RunModesService {
 
         return runMode;
     }
+
+    public String getCurrentRunModeFull() {
+        return slingSettingsService.getRunModes().toString();
+    }
 }

@@ -78,7 +78,7 @@ public class AssetHelper extends WCMUsePojo {
     	Resource assetResource = getResourceResolver().getResource(assetPath);
 
         if (runModesService.isPublish()
-                && runModesService.getCurrentRunMode().contains("dynamicmedia")
+                && runModesService.getCurrentRunModeFull().contains("dynamicmedia")
                 && publishUtils != null                
                 && assetResource != null) {
             try {
