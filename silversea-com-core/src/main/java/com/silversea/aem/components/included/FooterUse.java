@@ -31,6 +31,8 @@ public class FooterUse extends WCMUsePojo {
     private Page pageAaward;
     private Page pageBlog;
     private Page pageMySilversea;
+    private Page pageDownlaodBrochure;
+    private Page searchPage;
 
     private String facebookReference;
     private String youtubeReference;
@@ -38,18 +40,28 @@ public class FooterUse extends WCMUsePojo {
     private String instagramReference;
     private String pinterestReference;
     private String brochureimage;
-    
+    private String assetImageBrochure;
+
     //New Black Brochure Style
+    //TOOD: clean all not use iterators
     private Iterator<Page> pagesCol1Iterator;
     private Iterator<Page> pagesCol2Iterator;
     private Iterator<Page> pagesCol3Iterator;
     private Iterator<Page> pagesCol4Iterator;
     private Iterator<Page> pagesBottomLineIterator2;
     private Iterator<Page> pagesBottomLineIterator3;
+    private Iterator<Page> pagesLegalLinkIterator;
     
     private String Col2title;
     private String Col3title;
     private String Col4title;
+
+    private String titleDesktop;
+    private String titleMobile;
+    private String descriptionDesktop;
+    private String descriptionMobile;
+    private String ctaLabelDesktop;
+    private String ctaLabelMobile;
 
     /**
      * Initialize the component.
@@ -74,15 +86,22 @@ public class FooterUse extends WCMUsePojo {
         final String awardReference = properties.getInherited("awardReference", String.class);
         final String blogReference = properties.getInherited("blogReference", String.class);
         final String mySilverseaReference = properties.getInherited("mySilverseaReference", String.class);
+        String linkCtaBrochure = properties.getInherited("linkCtaBrochure", String.class);
+        final String searchPageReference = properties.getInherited("searchPageReference", "");
+
+
 
         pageSubCol1 = getPageFromPath(subCol1);
         pageSubCol2 = getPageFromPath(subCol2);
         pageSubCol3 = getPageFromPath(subCol3);
         pageQuote = getPageFromPath(quoteReference);
+        pageDownlaodBrochure = getPageFromPath(linkCtaBrochure);
         pageExclusiveOffer = getPageFromPath(exclusiveOfferReference);
         pageAaward = getPageFromPath(awardReference);
         pageBlog = getPageFromPath(blogReference);
         pageMySilversea = getPageFromPath(mySilverseaReference);
+        searchPage = getPageManager().getPage(searchPageReference);
+
 
         // external links
         facebookReference = properties.getInherited("facebookReference", String.class);
@@ -90,6 +109,14 @@ public class FooterUse extends WCMUsePojo {
         twitterReference = properties.getInherited("twitterReference", String.class);
         instagramReference = properties.getInherited("instagramReference", String.class);
         pinterestReference = properties.getInherited("pinterestReference", String.class);
+
+        titleDesktop = properties.getInherited("titleDesktop", String.class);
+        titleMobile = properties.getInherited("titleMobile", String.class);
+        descriptionDesktop = properties.getInherited("descriptionDesktop", String.class);
+        descriptionMobile = properties.getInherited("descriptionMobile", String.class);
+        ctaLabelDesktop = properties.getInherited("ctaLabelDesktop", String.class);
+        ctaLabelMobile = properties.getInherited("ctaLabelMobile", String.class);
+
 
         final String[] bottomLine = properties.getInherited("referencelegal", String[].class);
         ArrayList<Page> pagesBottomLine = new ArrayList<Page>();
@@ -101,6 +128,7 @@ public class FooterUse extends WCMUsePojo {
         pagesBottomLineIterator = pagesBottomLine.iterator();
         pagesBottomLineIterator2 = pagesBottomLine.iterator();
         pagesBottomLineIterator3 = pagesBottomLine.iterator();
+        pagesLegalLinkIterator =pagesBottomLine.iterator();
         
         //brochure style properties
         final String[] Col1 = properties.getInherited("col1", String[].class);
@@ -140,6 +168,7 @@ public class FooterUse extends WCMUsePojo {
         pagesCol3Iterator = pagesCol3.iterator();
         pagesCol4Iterator = pagesCol4.iterator();
         brochureimage = properties.getInherited("brochureimage", String.class);
+        assetImageBrochure = properties.getInherited("assetImageBrochure", String.class);
         Col2title = properties.getInherited("Col2title", String.class);
         Col3title = properties.getInherited("Col3title", String.class);
         Col4title = properties.getInherited("Col4title", String.class);
@@ -193,6 +222,10 @@ public class FooterUse extends WCMUsePojo {
         return pageQuote;
     }
 
+    public Page getPageDownlaodBrochure() {
+        return pageDownlaodBrochure;
+    }
+
     public Page getPageExclusiveOffer() {
         return pageExclusiveOffer;
     }
@@ -236,6 +269,13 @@ public class FooterUse extends WCMUsePojo {
     public int getYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
+
+    /**
+            * @return the searchPage
+     */
+    public Page getSearchPage() {
+        return searchPage;
+    }
     
     /**
      * @return the brochures page
@@ -266,6 +306,10 @@ public class FooterUse extends WCMUsePojo {
 		return brochureimage;
 	}
 
+    public String getAssetImageBrochure() {
+        return assetImageBrochure;
+    }
+
 	public String getCol2title() {
 		return Col2title;
 	}
@@ -285,4 +329,32 @@ public class FooterUse extends WCMUsePojo {
 	public Iterator<Page> getPagesBottomLineIterator3() {
 		return pagesBottomLineIterator3;
 	}
+
+    public Iterator<Page> getPagesLegalLinkIterator() {
+        return pagesLegalLinkIterator;
+    }
+
+    public String getTitleDesktop() {
+        return titleDesktop;
+    }
+
+    public String getTitleMobile() {
+        return titleMobile;
+    }
+
+    public String getDescriptionDesktop() {
+        return descriptionDesktop;
+    }
+
+    public String getDescriptionMobile() {
+        return descriptionMobile;
+    }
+
+    public String getCtaLabelDesktop() {
+        return ctaLabelDesktop;
+    }
+
+    public String getCtaLabelMobile() {
+        return ctaLabelMobile;
+    }
 }

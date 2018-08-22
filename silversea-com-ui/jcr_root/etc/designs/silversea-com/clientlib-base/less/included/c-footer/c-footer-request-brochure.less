@@ -1,0 +1,149 @@
+.c-footer-request-brochure {
+  .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .request-brochure-title {
+    text-transform: uppercase;
+    color: @white;
+    font-size: 22px;
+    letter-spacing: 0.46px;
+    line-height: 26px;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 7px;
+    font-family: @freight;
+  }
+  .request-brochure-description {
+    font-size: 16px;
+    color: @white;
+    letter-spacing: 0.44px;
+    line-height: 22px;
+    display: block;
+    margin-bottom: 12px;
+    font-family: @freight;
+  }
+
+  .request-brochure-btn {
+    text-transform: uppercase;
+    cursor: pointer;
+    vertical-align: middle;
+    min-width: 220px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    text-align: center;
+    white-space: normal;
+    border-width: 0;
+    border-radius: 0;
+    line-height: 16px;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 14px 20px 11px 20px;
+    font-family: @suisse;
+    margin-top: 15px;
+    border: 1px solid fade(@white, 50%) !important;
+    background-color: @white !important;
+    border-color: @white !important;
+    span {
+      font-family: @suisse;
+      color: @color-typography;
+    }
+  }
+  //Custom Only Desktop and Tablet Style
+  @media (min-width: @screen-md-min) {
+    hr {
+      border-color: fade(@white, 20%) !important;
+      margin-top: 0px;
+    }
+
+    .request-brochure-info-relative {
+      position: relative;
+    }
+
+    .request-brochure-info-absolute {
+      position: absolute;
+      top: 50%;
+      transform: translateY(5%);
+      -webkit-transform: translateY(5%);
+    }
+
+  }
+  //End Custom Only Desktop and Tablet Style
+
+  //Custom Only Desktop Style
+  @media (min-width: @screen-lg-min) {
+    .request-brochure-info-absolute {
+      top: 50%;
+      transform: translateY(45%);
+      -webkit-transform: translateY(45%);
+    }
+  }
+  //End Custom Only Desktop Style
+
+  //Custom Only Desktop to 769px style
+  @media (max-width: @screen-md-max) and (min-width: 769px) {
+    .request-brochure-info {
+      padding-top: 25px !important;
+    }
+  }
+  //End Custom Only Desktop to 769px style
+
+  //Custom Only Mobile Style
+  @media (max-width: @screen-sm) {
+
+    &::after {
+      background-color: @white;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 110vw;
+      left: -10%;
+      opacity: 0.2;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .request-brochure-info {
+      text-align: center;
+      .parbase {
+        margin-bottom: 0px !important;
+      }
+    }
+
+    .request-brochure-image {
+      margin-bottom: 20px;
+      width: 105vw;
+      margin-left: -30px;
+    }
+
+    .request-brochure-title {
+      font-size: 22px;
+      line-height: 24px;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .request-brochure-description {
+      font-size: 15px;
+      letter-spacing: 0.25px;
+      line-height: 20px;
+      margin-bottom: 12px;
+    }
+
+    .request-brochure-btn {
+      font-size: 12px;
+      letter-spacing: 1px;
+      line-height: 18px;
+    }
+  }
+  //End Custom Only Tablet Style
+}

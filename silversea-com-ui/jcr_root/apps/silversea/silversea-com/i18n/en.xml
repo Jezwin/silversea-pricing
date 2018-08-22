@@ -15,6 +15,18 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="adjust-your-search-filters"
         sling:message="adjust your search filters"/>
+    <departure-dates
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="departure-dates"
+            sling:message="Departure Date"/>
+    <ships
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="ships"
+            sling:message="Ship"/>
+    <alldestinations
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="alldestinations"
+            sling:message="All Destinations"/>
     <all-departure-dates
         jcr:primaryType="sling:MessageEntry"
         sling:key="all-departure-dates"
@@ -355,6 +367,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="details-about-your-request"
         sling:message="Details About Your Request"/>
+    <download-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="download-brochure"
+        sling:message="Download brochure"/>
     <dining
         jcr:primaryType="sling:MessageEntry"
         sling:key="dining"
@@ -726,7 +742,7 @@
     <next
         jcr:primaryType="sling:MessageEntry"
         sling:key="next"
-        sling:message="Next"/>
+        sling:message="Next page"/>
     <next-voyage
         jcr:primaryType="sling:MessageEntry"
         sling:key="next-voyage"
@@ -856,9 +872,9 @@
         sling:key="pressureUnit"
         sling:message="hPa"/>
     <prev
-            jcr:primaryType="sling:MessageEntry"
-            sling:key="prev"
-            sling:message="Prev"/>
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="prev"
+        sling:message="Prev page"/>
     <previous
         jcr:primaryType="sling:MessageEntry"
         sling:key="previous"
@@ -923,6 +939,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="refurb-date"
         sling:message="Last refurbishment"/>
+    <request-free-brochure
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-free-brochure"
+        sling:message="request a free brochure"/>
     <request-a-brochure
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-a-brochure"
@@ -939,6 +959,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="request-quote"
         sling:message="request a quote"/>
+    <request-quote-description
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="request-quote-description"
+        sling:message="Allow us to take care of your next luxury cruise"/>
     <required-city
         jcr:primaryType="sling:MessageEntry"
         sling:key="required-city"

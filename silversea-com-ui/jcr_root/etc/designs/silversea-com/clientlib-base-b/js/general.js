@@ -38,7 +38,17 @@ function applyWidths() {
 }
 
 function appendCss() {
-    $("body").append('<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.x.min.css" type="text/css">');
+    $("html").addClass('ab-global-v2-activated');
+    try {
+        $('.c-vertical-teaser .c-vertical-teaser__title').each(function(){
+            var currentPort = $(this).text();
+            currentPort = currentPort.toLowerCase();
+            $(this).text(currentPort);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 }
 
 function applyNewStyle() {
@@ -59,6 +69,7 @@ function applyNewStyle() {
 
 }
 
+window.applyNewStyle = applyNewStyle;
 
 
 function applyWithoutTransitions(callback) {

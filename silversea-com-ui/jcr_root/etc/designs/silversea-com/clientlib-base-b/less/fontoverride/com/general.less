@@ -79,7 +79,7 @@ h1 {
  */
  @media (min-width: @screen-md-min) {
 	h1, .h1{
-		font-size:@h1-desktop-fontsize-48;
+		font-size:40px
 	}
 	h2, .h2{
 		font-size:@h2-desktop-fontsize-40;
@@ -98,7 +98,7 @@ h1 {
 
  @media (max-width: @screen-sm) {
 	h1, .h1{
-		font-size:@h1-mobile-fontsize-34;
+		font-size:30px;
 	}
 	h2, .h2{
 		font-size:@h2-mobile-fontsize-28;
@@ -120,7 +120,9 @@ h1 {
  */
  
 .thumbnail .c-vertical-teaser__caption { 
-    padding: 12px 20px 40px !important;
+    //padding: 12px 20px 40px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 .exclusiveOfferList .thumbnail .c-vertical-teaser__caption {
     padding: 12px 20px 30px !important;
@@ -133,3 +135,14 @@ h1 {
 .c-vertical-teaser__title {
     margin-bottom: 0px;
 }
+
+  body{
+    padding-bottom:15px !important;
+  }
+
+  .tabcontainer .container {
+      @media(min-width:@screen-md-min) and (max-width:@screen-md-max){
+      padding-left:5px;
+      padding-right:5px;
+    }
+  }

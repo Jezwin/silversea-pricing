@@ -1,4 +1,14 @@
 .c-vertical-teaser {
+    box-shadow: none !important;
+    border: none !important;
+    .c-vertical-teaser __caption{
+        @media(max-width:@screen-sm) {
+            padding-left: 7% !important;
+            padding-right: 7% !important;
+            border: 1px solid rgb(211, 211, 211);
+            text-align: center;
+        }
+    }
     &__title {
         font-family: @freight;
         font-size: @subheader-desktop-fontsize-24; 
@@ -6,7 +16,19 @@
         text-transform:capitalize;
     }
     &__description {
-        font-size: @body-desktop-fontsize-14;
+        font-size: 13px;
+        letter-spacing:0.5px;
+        line-height:19px;
+        @media (max-width:@screen-sm){
+            font-size: 12px;
+            letter-spacing: 1px;
+            line-height: 18px;
+        }
+    }
+    &__link {
+        @media(max-width:@screen-sm) {
+
+        }
     }
 
     &__label {

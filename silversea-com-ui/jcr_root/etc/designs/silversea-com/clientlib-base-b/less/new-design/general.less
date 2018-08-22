@@ -1,106 +1,449 @@
 /*
 ** Button
 **/
-.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next) , .btn:not(.dropdown-toggle) , .c-combo-cruise-header__content__btn , .cruise .row.c-cruise__overview .btn {
-	min-width: @nd-button-min-width;
-	&-xs {
-		min-width: @nd-button-small-min-width;
-	}
+.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next):not(.btn-purple-link):not(.btn-white-link):not(.btn-white-border-purple):not(btn-red-2018):not(.btn-black-border-white):not(.btn-transparent-border-white):not(btn-purple),  .c-combo-cruise-header__content__btn, .cruise .row.c-cruise__overview .btn {
+  min-width: @nd-button-min-width;
+  &-xs {
+    min-width: @nd-button-small-min-width;
+  }
 
-	i {
-		display: none;
-	}
+  i {
+    display: none;
+  }
 }
 
-.c-btn--slider--next , .c-btn--slider--prev , .brochureteaserlist .btn , .c-cruise-itinerary-list__description__button .c-btn {
-	min-width: auto;
-	i {
-		display: inline-block ! important;
-	}
+.c-fyc-v2__result .c-fyc-v2__result__content .c-fyc-v2__result__content__button .btn {
+  min-width: auto;
+}
+
+.c-btn--slider--next, .c-btn--slider--prev, .brochureteaserlist .btn, .c-cruise-itinerary-list__description__button .c-btn {
+  min-width: auto;
+  i {
+    display: inline-block ! important;
+  }
 }
 
 .c-cruise__overview .btn {
-	padding: @nd-button-padding ! important;
+  padding: @nd-button-padding ! important;
 }
 
 @media (max-width: 767px) {
-	.c-hero-banner-landing__buttons .btn {
-		padding: @nd-button-padding ! important;
-	}
+  .c-hero-banner-landing__buttons .btn {
+    padding: @nd-button-padding ! important;
+  }
 }
 
-.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next) , .btn:not(.dropdown-toggle) , .c-combo-cruise-header__content__btn , .c-cruise__overview .btn {
-	white-space: normal;
-	display: inline-block;
-	text-transform: uppercase;
-	text-align: center ! important;
-	vertical-align: middle;
-	border-width: @nd-button-border-width;
-	border-radius: @nd-button-border-radius;
-	padding: @nd-button-padding;
-	line-height: @nd-button-line-height;
-	font-size: @nd-button-font-size;
-	font-family: @suisse;
-	font-weight: normal;
-	letter-spacing: @nd-button-letter-spacing;
-	span {
-		padding-right: 0px ! important;
-	}
+.c-btn:not(.dropdown-toggle):not(.c-btn--slider--prev):not(.c-btn--slider--next), .btn:not(.dropdown-toggle), .c-combo-cruise-header__content__btn, .c-cruise__overview .btn, .LB-EO .new-eo-modal-cta .btn_base-red {
+  white-space: normal;
+  display: inline-block;
+  text-transform: uppercase;
+  text-align: center;
+  vertical-align: middle;
+  border-width: @nd-button-border-width;
+  border-radius: @nd-button-border-radius !important;
+  padding: @nd-button-padding;
+  line-height: @nd-button-line-height;
+  font-size: @nd-button-font-size;
+  font-family: @suisse;
+  font-weight: normal;
+  letter-spacing: @nd-button-letter-spacing;
+  span {
+    padding-right: 0px ! important;
+  }
 
-	&-default , &- -dark {
-		background: @nd-dark;
-		color: @white;
-		border: 1px @nd-light;
-		opacity: 0.9;
-		&:hover , &:focus , &:active {
-			opacity: 1 ! important;
-			background: @nd-dark ! important;
-			color: @white ! important;
-		}
-	}
+  &-default, &- -dark {
+    background: @nd-dark;
+    color: @white;
+    border: 1px @nd-light;
+    opacity: 0.9;
+    &:hover, &:focus, &:active {
+      opacity: 1 ! important;
+      background: @nd-dark ! important;
+      color: @white ! important;
+    }
+  }
 
-	&- -grey {
-		color: @nd-dark;
-		background: @nd-light-bg;
-		opacity: 0.9;
-		&:hover , &:focus , &:active {
-			opacity: 1 ! important;
-			color: @nd-dark ! important;
-			background: @nd-light-bg ! important;
-		}
-	}
+  &- -grey {
+    color: @nd-dark;
+    background: @nd-light-bg;
+    opacity: 0.9;
+    &:hover, &:focus, &:active {
+      opacity: 1 ! important;
+      color: @nd-dark ! important;
+      background: @nd-light-bg ! important;
+    }
+  }
 
-	&-red , &- -red {
-		background-color: @nd-red;
-		color: @white;
-		&:hover , &:focus , &:active {
-			background-color: @nd-red-darker ! important;
-			color: @white ! important;
-		}
-	}
+  &-red, &- -red {
+    background-color: @nd-red;
+    color: @white;
+    &:hover, &:focus, &:active {
+      background-color: @nd-red-darker ! important;
+      color: @white ! important;
+    }
+  }
 
-	&- -white {
-		border: 1px solid @nd-dark;
-		color: @nd-dark;
-		background-color: @white;
-		opacity: 0.5;
-		&:hover , &:focus , &:active {
-			background-color: @white ! important;
-			opacity: 1 ! important;
-		}
-	}
+  &- -white {
+    border: 1px solid @nd-dark;
+    color: @nd-dark;
+    background-color: @white;
+    opacity: 0.5;
+    &:hover, &:focus, &:active {
+      background-color: @white ! important;
+      opacity: 1 ! important;
+    }
+  }
 }
 
 .c-subscribe {
-	.btn {
-		min-width: auto;
-	}
+  .btn {
+    min-width: auto;
+  }
 }
 
 .btn-white {
-	i.fa.fa-lg.fa-angle-right {
-		display: inline-block ! important;
-		padding-left:5px;
-	}
+  i.fa.fa-lg.fa-angle-right {
+    display: inline-block ! important;
+    padding-left: 5px;
+  }
 }
 
+//Adapt slider (editorial one)
+.slider, .c-single-dining-slider, .c-single-suite-slider {
+  .c-slider button.slick-next:after {
+    width: 25px;
+    height: 25px;
+    border-left: 0px solid transparent;
+    border-right: 2px solid #171d47 !important;
+    border-bottom: 2px solid #171d47 !important;
+    border-top: 0px solid transparent;
+    opacity: 0.6;
+    content: " ";
+    right: 53%;
+    left: initial !important;
+    transform: rotateZ(-45deg);
+
+  }
+
+  .c-slider button.slick-prev:after {
+    width: 25px;
+    height: 25px;
+    border-left: 0px solid transparent;
+    border-right: 2px solid #171d47 !important;
+    border-bottom: 2px solid #171d47 !important;
+    border-top: 0px solid transparent;
+    opacity: 0.6;
+    content: " ";
+    right: 0;
+    transform: rotateZ(135deg);
+  }
+}
+
+.slider, .c-single-dining-slider, .c-single-suite-slider {
+  .c-slider button.slick-prev:before, .c-slider button.slick-next:before {
+    border: none;
+  }
+
+  .c-slider:not(.c-slider--full-width):not(.exclusiveOfferListND__slider) button.slick-prev {
+    left: -80px !important;
+  }
+
+  .c-slider:not(.c-slider--full-width):not(.exclusiveOfferListND__slider) button.slick-next {
+    right: -80px !important;
+  }
+}
+
+.c-single-suite-slider, .c-single-dining-slider {
+  .c-slider:not(.c-slider--full-width) .slick-dots {
+    margin-bottom: -15px !important;
+  }
+}
+
+.slider:not(.nd) .c-slider:not(.c-slider--full-width), .c-single-dining-slider .c-slider:not(.c-slider--full-width), .c-single-suite-slider .c-slider:not(.c-slider--full-width), .port_v2__postcarousel {
+
+  margin-bottom: 45px;
+  .slick-dots {
+    width: 98% !important;
+    position: absolute;
+    border-bottom: 1px solid @grey--9;
+    white-space: nowrap;
+    overflow: hidden;
+    bottom: -15px !important;
+
+    li {
+      height: 2px !important;
+      margin: 0px !important;
+      vertical-align: bottom;
+      button::before {
+        background-color: #0F1A6E;
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        border-radius: 0 !important;
+      }
+    }
+    li:not(.slick-active) {
+      button::before {
+        background-color: @transparent !important;
+      }
+    }
+
+  }
+}
+
+@media (max-width: 767px) {
+
+  .slider:not(.nd), .c-single-dining-slider, .c-single-suite-slider {
+    .c-slider:not(.c-slider--full-width) {
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+      .slick-list {
+        overflow: visible !important;
+      }
+
+      .slick-slide {
+        transition: 0.5s;
+      }
+      .slick-slide:not(.slick-current) {
+        opacity: 0.5;
+        transform: scale(0.85);
+      }
+
+    }
+  }
+}
+
+.thumbnail .c-vertical-teaser__caption {
+  padding-top: 12px;
+}
+
+.pressrelease ul.c-pagination.c-pagination--separated.clearfix {
+  border-top: none;
+  border-bottom: none;
+  text-align: unset;
+  li:last-child {
+    float: right;
+  }
+}
+
+.btn-dark.expander-open, .btn-dark.expander-close {
+  i.fa.fa-angle-down {
+    display: none;
+  }
+}
+
+/***
+Rework Suites and Dining page
+ */
+
+body.suite, body.dining {
+  .o-title:after {
+    background: transparent !important;
+    margin-top: 0px !important;
+  }
+  .o-description {
+    margin-bottom: 10px !important;
+  }
+
+  .c-single-dining .c-single-dining-slider:not(.thumbnail), .c-single-suite .c-single-suite-slider:not(.thumbnail) {
+    margin-bottom: 80px !important;
+  }
+
+  .c-single-dining__brouchure, .c-single-suite__brouchure {
+    display: none;
+  }
+
+  @media (min-width: @screen-md-min) {
+    .c-single-dining-availability__title, .c-single-suite-availability__title {
+      font-size: 24px !important;
+      font-family: @freight !important;
+      text-transform: capitalize !important;
+    }
+
+  }
+
+  @media (max-width: @screen-sm) {
+    .o-description {
+      margin-bottom: 0px !important;
+    }
+
+    .c-single-dining-availability__title, .c-single-suite-availability__title {
+      font-size: 26px !important;
+      font-family: @freight !important;
+      text-transform: capitalize !important;
+    }
+  }
+}
+
+//B Version of Combo Cruise overview like B Version of Cruise
+.combocruise {
+  .cc-tab_header_desc_cta {
+    display: none;
+  }
+  @media (min-width: @screen-md-min) {
+    .cc-tab_header_desc_cta {
+      left: 32%;
+      display: block;
+      width: 30%;
+      padding: 0px;
+    }
+
+    .cc-tab_header_desc_txt {
+      width: 100%;
+      display: block;
+      text-align: center !important;
+    }
+
+    .cc-tab_header_title {
+      text-align: center;
+    }
+  }
+}
+
+//put cruise button to white design
+.cruise .row.c-cruise__overview .btn, .cc-tab_header_desc_cta .btn.btn-dark, .btn-dark.expander-open, .btn-dark.expander-close {
+
+  color: @color-second !important;
+  background-color: @white !important;
+  border: 1px solid fade(@color-second, 50%) !important;
+  &:hover {
+    border: 1px solid fade(@color-second, 100%) !important;
+    color: @color-second !important;
+  }
+}
+
+.port_v2__postcarousel .slick-dots li button {
+  width: 100%;
+
+}
+
+.port_v2__postcarousel .slick-dots li button:before {
+
+  width: 100%;
+}
+
+@media (max-width: @screen-sm) {
+  .c-single-suite .c-suite-gallery .c-suite__gallery__item__right, .c-single-dining .c-dining-gallery .c-dining__gallery__item__right {
+    padding-bottom: 20%;
+  }
+}
+
+.brochureteaserlist {
+  .c-brochure__title, .c-brochure__description, .c-brochure__btnwrapper {
+    text-align: center;
+  }
+}
+
+.combocruise {
+  .c-tab__content.c-tab__content--overview .spacer + .cc-section-title {
+    display: none !important;
+  }
+  .c-tab__content.c-tab__content--overview .cc-tab_header_desc_txt {
+    padding-bottom: 0px;
+    margin-bottom: -20px !important;
+  }
+
+  .c-tab__content.c-tab__content--overview .cc-tab_header_desc_cta {
+    display: none;
+  }
+
+  #excursions, #landnhotel {
+    .c-cruise__descr {
+      max-width: 1200px;
+      text-align: center;
+    }
+    .c-cruise-itinerary-2__list {
+      margin-bottom: 50px;
+    }
+  }
+  #benefitsnevents {
+    .cc-tab_header_title h2 {
+      font-size: 26px !important;
+    }
+      margin-bottom: 50px;
+  }
+}
+
+.cruise {
+  #excursion, #landnhotel {
+    .c-cruise-itinerary-2__list {
+      margin-bottom: 50px;
+    }
+  }
+  #highlight {
+    .c-cruise-highlights .c-cruise-highlights__content {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.c-quote-request-form form button i.fa.fa-angle-right {
+  display: none;
+}
+
+.signupforoffers form button i.fa.fa-angle-right {
+  display: none;
+}
+
+.c-form .form-group {
+  ::-webkit-input-placeholder {
+    font-size: 14px !important;
+  }
+  ::-moz-placeholder {
+    font-size: 14px !important;
+  }
+  /* firefox 19+ */
+  :-ms-input-placeholder {
+    font-size: 14px !important;
+  }
+  /* ie */
+  input:-moz-placeholder {
+    font-size: 14px !important;
+  }
+}
+
+.c-quote-request-form form {
+  .chosen-container .chosen-drop .chosen-results li {
+    font-size: 14px;
+  }
+}
+
+
+//font size title and subtitle combocruise mobile
+@media(max-width: 767px) {
+  body.combocruise {
+    .cc-tab_header_title, .cc-tab_header_title>* {
+      font-size: 26px !important;
+    }
+
+    .select-segment h2 {
+      font-size: 26px !important;
+    }
+
+    #route .cc-tab_header_desc_cta {
+      display: none !important;;
+    }
+
+    .c-cruise__ship-overview h3.c-cruise__subtitle {
+      font-size: 26px !important;
+    }
+
+    .c-cruise-ship-info h3.c-cruise__subtitle {
+      font-size: 26px !important;
+
+    }
+
+    h1.c-combo-cruise-header__content__title {
+      font-size: 30px !important;
+    }
+  }
+}
+
+//font size title and subtitle cruise mobile
+@media(max-width: 767px) {
+  body.cruise {
+    .c-cruise__subtitle {
+      font-size: 26px !important;
+    }
+  }
+}

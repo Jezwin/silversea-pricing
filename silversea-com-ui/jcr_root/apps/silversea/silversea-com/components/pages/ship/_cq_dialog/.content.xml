@@ -28,6 +28,11 @@
                                             fieldLabel="Long Description"
                                             name="./longDescription"
                                             renderReadOnly="{Boolean}true"/>
+                                    <excerpt
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                            fieldLabel="Excerpt"
+                                            name="./excerpt"/>
                                     <shipcode
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/textfield"
@@ -87,6 +92,15 @@
                                             name="./photoVideoSuiteSelectionReference"
                                             rootPath="/content/dam/silversea-com"
                                             renderReadOnly="{Boolean}true"/>
+                                    <shortVoyageDescription
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/foundation/form/textarea"
+                                        allowBulkEdit="{Boolean}true"
+                                        cq-msm-lockable="shortVoyageDescription"
+                                        rows="10"
+                                        fieldLabel="Short Voyage Description"
+                                        name="./shortVoyageDescription"
+                                        renderReadOnly="{Boolean}true"/>
                                 </items>
                             </column>
                         </items>

@@ -237,7 +237,7 @@
 	<div id="c-hero-banner-${properties.sscUUID}" class="c-hero-banner c-hero-banner-v2 ${properties.enableInlineGallery && banner.inlineGalleryID ? 'inline-gallery-included' : ''}"
 		 data-sly-use.pageHelper="${'com.silversea.aem.helper.PageHelper' @ path=currentPage.path}">
 		<div class="hidden-xs">
-			<div class="c-hero-banner__image ${properties.viewHeightDesktop} ${properties.viewHeightTablet} ${properties.maxHeightDesktop} ${properties.maxHeightTablet}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+			<div class="c-hero-banner__image heightDesktop500 heightTablet400 maxHeightDesktop500 maxHeightTablet400" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 				<sly data-sly-use.imageTemplate="silversea/silversea-com/components/editorial/image/imagetemplate.html" data-sly-call="${imageTemplate.default @ imagePath=banner.imageBackgroundPath}" />
 			</div>
 			<div data-sly-test="${!properties.disabledText}" class="row c-hero-banner__row">
@@ -284,7 +284,7 @@
 			</a>
 		</div>
 		<div class="hidden-sm hidden-md hidden-lg ${properties.enableInlineGallery && banner.inlineGalleryID ? 'c-hero-banner-mobile-version' : ''}">
-			<div class="c-hero-banner__image ${properties.viewHeightMobile} ${properties.maxHeightMobile}" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
+			<div class="c-hero-banner__image viewHeightMobile50 maxHeightMobile380" data-sly-test.reference="${banner.background || pageHelper.thumbnail}">
 				<a data-sly-test="${properties.videoReference}" class="video-link " href="${currentNode.path @ selectors='video', extension='html'}"
 				   data-target=".bs-modal-lg">
 					<i class="fa fa-play"></i>

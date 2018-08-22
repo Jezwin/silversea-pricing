@@ -22,7 +22,7 @@ function getCookie(cname) {
  * Cache should be valid for 24 hours maximum
  */
 (function () {
-
+setTimeout(function(){ 
 	try {
 			var currentCountry = dataLayer[0].user_country;
 			if(currentCountry != null){
@@ -72,7 +72,7 @@ function getCookie(cname) {
 				var OtherSocialRegex = '^soc_(.*)';
 				var FaceBookRegex = '^soc_(.*)(_sf_)(.*)__(socf)(.*)';
 				
-				if(typeof dataJson != undefined){
+				if(typeof dataJson != 'undefined'){
 					if(currentSource.match(SocialRegex)){
 						if(dataJson["social"] != undefined){
 							selectedPhoneNumber = dataJson["social"];
@@ -162,26 +162,27 @@ function getCookie(cname) {
 				
 				//If selectedPhoneNumber is here let's try to replace all the good id href and display (take a look to googleforwadingnumber.html)
 				  if(selectedPhoneNumber != ""){
-					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+				      selectedPhoneNumberClean = selectedPhoneNumber.replace(/-/g,'');
+					  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 					  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 100);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 200);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 300);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 500);
 					  setTimeout(function(){ 
-						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumber);
+						  $(".phoneLinkSource").attr("href", "tel:" + selectedPhoneNumberClean);
 						  $(".phoneSpanSource").text(selectedPhoneNumber);
 					  }, 700);
 				  }
@@ -190,7 +191,7 @@ function getCookie(cname) {
 		catch(error) {
 		  console.error(error);
 		}
-		
+}, 1000);	
 
 	
 })();
@@ -199,3 +200,5 @@ function getCookie(cname) {
     data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
     data-sly-call="${clientlib.css @ categories='apps.silversea-com,apps.silversea-ssc'}" />
 <sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}" />
+<script src="/etc/designs/silversea-com/clientlib-base-b.v12225.min.js"></script>
+<link rel="stylesheet" href="/etc/designs/silversea-com/clientlib-base-b.v12225.min.css" type="text/css">

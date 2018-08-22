@@ -356,6 +356,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Détails de votre demande"/>
+    <download-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Télécharger la brochure"/>
     <dining
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -737,7 +741,7 @@
     <next
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
-        sling:message="Suivant"/>
+        sling:message="Page suivante"/>
     <next-voyage
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -863,6 +867,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="hPa"/>
+    <prev
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Page précédente"/>
     <previous
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -927,6 +935,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Dernière rénovation"/>
+    <request-free-brochure
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Demandez une brochure gratuite"/>
     <request-a-brochure
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -943,6 +955,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="demandez un devis"/>
+    <request-quote-description
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Laissez-nous prendre soin de votre prochaine croisière de luxe"/>
     <required-city
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
@@ -1445,4 +1461,8 @@
 	    jcr:primaryType="sling:MessageEntry"
 	    sling:key="VS-EO-Message"
 	    sling:message=" les membres du club Venetian Society bénéficient d’une réduction de 5% sur le prix de la croisière"/>
+    <tour-book
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="Téléchargez le programme des croisières"/>
 </jcr:root>

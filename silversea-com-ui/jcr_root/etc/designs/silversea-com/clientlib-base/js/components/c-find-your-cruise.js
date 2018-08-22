@@ -358,6 +358,17 @@ var v1 = function () {
 
                             // Set data layer key according to the current result
                             searchAnalytics();
+
+                            try {
+                                $('.c-fyc-v2__result__content__itinerary li.destination-ports .c-fyc-v2__result__content__itinerary__ports span').each(function(){
+                                    var currentPort = $(this).text();
+                                    currentPort = currentPort.toLowerCase();
+                                    $(this).text(currentPort);
+                                });
+                            }
+                            catch(error) {
+                                console.error(error);
+                            }
                         }
                     });
                 }
@@ -547,9 +558,10 @@ var v2 = function () {
 
                         // Scroll to filter
                         $('html, body').animate({
-                            scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height()
+                            scrollTop: $('.c-fyc-v2-filter').first().offset().top - $('.c-header').height() -51
                         }, 800);
                     }
+
                 }
             });
             return pagination;

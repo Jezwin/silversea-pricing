@@ -89,6 +89,80 @@
                             jcr:primaryType="nt:unstructured"
                             width="34" />
                     </image>
+                    <tabbedmozaic jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                                jcr:primaryType="nt:unstructured"
+                                width="930" />
+                        <desktop-11
+                                jcr:primaryType="nt:unstructured"
+                                width="850" />
+                        <desktop-10
+                                jcr:primaryType="nt:unstructured"
+                                width="770" />
+                        <desktop-9
+                                jcr:primaryType="nt:unstructured"
+                                width="690" />
+                        <desktop-8
+                                jcr:primaryType="nt:unstructured"
+                                width="610" />
+                        <desktop-7
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-6
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-5
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-4
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-3
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-2
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-1
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <mobile-12
+                                jcr:primaryType="nt:unstructured"
+                                width="737" />
+                        <mobile-11
+                                jcr:primaryType="nt:unstructured"
+                                width="673" />
+                        <mobile-10
+                                jcr:primaryType="nt:unstructured"
+                                width="609" />
+                        <mobile-9
+                                jcr:primaryType="nt:unstructured"
+                                width="545" />
+                        <mobile-8
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-7
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-6
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-5
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-4
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-3
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-2
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-1
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                    </tabbedmozaic>
                     <herobanner jcr:primaryType="nt:unstructured">
                         <desktop-12
                             jcr:primaryType="nt:unstructured"
@@ -127,5 +201,85 @@
                 </included>
             </components>
         </silversea-com>
+        <silversea-ssc jcr:primaryType="nt:unstructured">
+            <components jcr:primaryType="nt:unstructured">
+                <editorial jcr:primaryType="nt:unstructured">
+                    <destinationTeaser jcr:primaryType="nt:unstructured">
+                        <desktop-12
+                                jcr:primaryType="nt:unstructured"
+                                width="930" />
+                        <desktop-11
+                                jcr:primaryType="nt:unstructured"
+                                width="850" />
+                        <desktop-10
+                                jcr:primaryType="nt:unstructured"
+                                width="770" />
+                        <desktop-9
+                                jcr:primaryType="nt:unstructured"
+                                width="690" />
+                        <desktop-8
+                                jcr:primaryType="nt:unstructured"
+                                width="610" />
+                        <desktop-7
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-6
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-5
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-4
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-3
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-2
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <desktop-1
+                                jcr:primaryType="nt:unstructured"
+                                width="530" />
+                        <mobile-12
+                                jcr:primaryType="nt:unstructured"
+                                width="737" />
+                        <mobile-11
+                                jcr:primaryType="nt:unstructured"
+                                width="673" />
+                        <mobile-10
+                                jcr:primaryType="nt:unstructured"
+                                width="609" />
+                        <mobile-9
+                                jcr:primaryType="nt:unstructured"
+                                width="545" />
+                        <mobile-8
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-7
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-6
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-5
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-4
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-3
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-2
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                        <mobile-1
+                                jcr:primaryType="nt:unstructured"
+                                width="481" />
+                    </destinationTeaser>
+                </editorial>
+            </components>
+        </silversea-ssc>
     </silversea>
 </jcr:root>
