@@ -6,6 +6,7 @@ $(function () {
         } catch (e) {
 
         }
+        $slider.removeClass('c-slider');
         $slider.slick({
             slidesToShow: 3,
             arrows: true,
@@ -16,15 +17,13 @@ $(function () {
             centerMode: true,
             responsive: [
                 {
-                    breakpoint: 480,
+                    breakpoint: 600,
                     settings: {
-                        dots: false,
                         slidesToShow: 1,
                         slidesToScroll: 1
                     }
                 }
             ]
         });
-        $slider.removeClass('c-slider');
     }
 });
