@@ -69,7 +69,9 @@ function initSlider() {
             draggable: true,
             infinite: true,
             slidesPerRow: 1,
-            slidesToShow: 1
+            slidesToShow: 1,
+            centerPadding:  '40px'
+
         });
     }
     createLineProgressBar();
@@ -84,5 +86,4 @@ $(function () {
     initSlider();
     displayLazy();
 });
-
 
