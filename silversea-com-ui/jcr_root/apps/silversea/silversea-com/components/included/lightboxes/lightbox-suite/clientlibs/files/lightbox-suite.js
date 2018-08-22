@@ -42,7 +42,6 @@ $(function () {
                 //window.location.hash = "#modal";
                 //history.pushState(null, null, "#modal"); // push state that hash into the url
                 createSlider($modal, $link);
-                createLineProgressBarSuiteGallery($modal);
                 $(".lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
@@ -57,7 +56,6 @@ $(function () {
                 if($("body").hasClass("viewport-sm")){
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
-
             });
         });
     });
@@ -94,6 +92,7 @@ $(function () {
         });
 
         loadLazyImage($mainSlider);
+        createLineProgressBarSuiteGallery($modal);
 
     };//createLigthboxGallerySlider
 
@@ -183,7 +182,7 @@ $(function () {
     };//createVirtualTour
 
     function createLineProgressBarSuiteGallery($modal) {
-        var widthSlider = $modal.find(".slick-list .slick-dots").width();
+        var widthSlider = $modal.find(".slick-dots").width();
         if ($("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg")) {
             if (widthSlider > 930) {
                 widthSlider = 930;
@@ -214,6 +213,9 @@ $(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
+        if($("body").hasClass("viewport-sm")){
+            $modal.css("padding-left", "0px");
+        }
         createLineProgressBarSuiteGallery($modal);
     });
 });
