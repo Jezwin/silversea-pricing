@@ -6,9 +6,9 @@
 
         <div class="lg-suite-deck-tab">
             <sly data-sly-use.locationImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=suite.locationImage,  metadata='deckNumber'}"/>
-            <div class="lg-suite-deck-number ${assetList.first ? 'lg-suite-active-deck' : ''}" data-sly-repeat.asset="${locationImage.renditionList}">
+            <div class="lg-suite-deck-number ${assetList.first ? 'lg-suite-active-deck lg-suite-active-first' : ''}" data-sly-repeat.asset="${locationImage.renditionList}">
                 <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"/>
-                <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
+                <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
             </div>
         </div>
 

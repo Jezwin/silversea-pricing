@@ -1,0 +1,11 @@
+<template data-sly-template.default="${ @ suite}">
+    <div class="lg-suite-features">
+        <div class="lg-suite-features-label">
+            <span>${suite.title @ context='html'} ${'features' @ i18n }</span>
+        </div>
+
+        <ul class="lg-suite-features-list">
+            <li data-sly-repeat="${suite.features}" class="${itemList.first ? 'features-first' : ''}">- ${item @ context='html'}</li>
+        </ul>
+    </div>
+</template>

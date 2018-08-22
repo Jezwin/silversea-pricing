@@ -1,5 +1,21 @@
 $(function () {
     "use strict";
+
+    function showImageDeckPlan (myThat, e){
+        e && e.preventDefault();
+        e && e.stopPropagation();
+        var $element = $(myThat),
+            srcImage = $element.data("image-src"),
+            $img = $("#image-deck-plan");
+        $img.attr("src", srcImage);
+
+        $(".lightbox-suite .lg-suite-deck-number").each(function(){
+            $(this).removeClass("lg-suite-active-deck");
+        });
+
+        $element.parent().addClass("lg-suite-active-deck");
+    };//showImageDeckPlan
+
     /***************************************************************************
      * Lightbox Suite detail
      **************************************************************************/
@@ -27,6 +43,21 @@ $(function () {
                 //history.pushState(null, null, "#modal"); // push state that hash into the url
                 createSlider($modal, $link);
                 createLineProgressBarSuiteGallery($modal);
+                $(".lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
+                    showImageDeckPlan(this, e);
+                });
+                var $deckActive = $modal.find(".lightbox-suite .lg-suite-deck-number.lg-suite-active-deck span");
+                if ($deckActive != null && $deckActive.length > 0) {
+                    showImageDeckPlan($deckActive);
+                }
+                //avoid ios issue
+                if(window.scrollSupport != null && window.scrollSupport) {
+                    window.iNoBounce.enable();
+                }
+                if($("body").hasClass("viewport-sm")){
+                    $(".modal.lightbox").css("padding-left", "0px");
+                }
+
             });
         });
     });
@@ -47,7 +78,8 @@ $(function () {
 
         $modal.find(".lightbox-suite .lg-virtual-tour").on('click', function (event) {
             createVirtualTour(this, event);
-        });
+        })
+
 
         $mainSlider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             var $slider = $(this);

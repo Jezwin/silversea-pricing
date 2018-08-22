@@ -13,6 +13,13 @@
                     <sly data-sly-test="${model.suitePrice.suite}"
                          data-sly-use.templateDeck="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-deck.html"
                          data-sly-call="${templateDeck.default @ suite= model.suitePrice.suite}"/>
+                    <hr class="separator" />
+                    <sly data-sly-test="${model.suitePrice.suite.features}"
+                         data-sly-use.templateFeatures="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-features.html"
+                         data-sly-call="${templateFeatures.default @ suite= model.suitePrice.suite}"/>
+                    <hr class="separator"/>
+                    <sly data-sly-use.templateCta="/apps/silversea/silversea-com/components/included/lightboxes/lightbox-suite/templates/suite-cta.html"
+                         data-sly-call="${templateCta.default @ model= model}"/>
                 </div>
             </div>
         </div>

@@ -6,53 +6,17 @@
 
 .lightbox-suite {
 
+   //common style across templates
   .lg-content {
     margin: 0px 60px 0px 60px;
 
     hr {
       border: 1px solid rgba(152, 152, 155, 0.2);
     }
-  }
 
-  //style applied only to suite-overview.html template
-  .lg-suite-overview {
-    .lg-row-title-price {
-      margin-top: 60px;
-    }
-    .lg-row-bed-cta {
-      margin-top: 15px;
-    }
-
-    .lg-row-descr {
-      margin-top: 50px;
-      margin-bottom: 10px;
-    }
-
-    .lg-suite-name {
-      font-family: @freight;
-      font-size: 30px;
-      letter-spacing: 0.5px;
-      line-height: 32px;
-    }
-
-    .lg-suite-bedrooms {
-      font-family: @suisse;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      line-height: 20px;
-      p {
-        margin: 0px;
-      }
-    }
-
-    .lg-suite-description {
-      font-family: @suisse;
-      font-size: 13px;
-      letter-spacing: 0.5px;
-      line-height: 20px;
-      .lg-suite-descr-label {
-        text-transform: uppercase;
-      }
+    hr.separator {
+      margin-top: 40px;
+      margin-bottom: 40px;
     }
 
     .lg-suite-raq {
@@ -117,6 +81,48 @@
       letter-spacing: 0.5px;
       line-height: 18px;
       display: block;
+    }
+  }
+
+  //style applied only to suite-overview.html template
+  .lg-suite-overview {
+    .lg-row-title-price {
+      margin-top: 60px;
+    }
+    .lg-row-bed-cta {
+      margin-top: 15px;
+    }
+
+    .lg-row-descr {
+      margin-top: 50px;
+      margin-bottom: 10px;
+    }
+
+    .lg-suite-name {
+      font-family: @freight;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+      line-height: 32px;
+    }
+
+    .lg-suite-bedrooms {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      p {
+        margin: 0px;
+      }
+    }
+
+    .lg-suite-description {
+      font-family: @suisse;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      line-height: 20px;
+      .lg-suite-descr-label {
+        text-transform: uppercase;
+      }
     }
   }
 
@@ -316,6 +322,7 @@
     }
   }
 
+  //style applied only to suite-deck.html templates
   .lg-suite-deck {
     .lg-suite-deck-label {
       text-align: center;
@@ -329,11 +336,13 @@
     }
     .lg-suite-deck-tab {
       text-align: center;
+      margin-bottom: 36px;
     }
     .lg-suite-deck-number {
       display: inline-block;
       vertical-align: top;
       span {
+        cursor: pointer;
         font-size: 13px;
         letter-spacing: 1.5px;
         line-height: 16px;
@@ -342,25 +351,99 @@
         opacity: 0.6;
         text-transform: uppercase;
       }
+
+      span::after {
+        content: "";
+        position: absolute;
+        width: 7%;
+        margin-top: 4px;
+        margin-left: 30px;
+        display: block;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+      }
+
+      &:hover {
+        span {
+          opacity: 1;
+          color: @color-second;
+        }
+        span:after {
+          border-top: 0.12em solid @color-second;
+        }
+      }
     }
-    .lg-suite-active-deck  {
+    .lg-suite-deck-number.lg-suite-active-first {
+      span {
+        margin-left: 0px;
+      }
+      span:after {
+        margin-left: 0px;
+      }
+    }
+
+    .lg-suite-active-deck {
       span {
         opacity: 1;
         color: @color-second;
       }
-      &::after {
-        content: "";
-        position: absolute;
-        height: 5px;
-        width: 7%;
-        margin-left: -10px;
-        margin-top: 4px;
-        border-top: 0.11em solid @color-second;
+      span:after {
+        border-top: 0.12em solid @color-second;
       }
     }
 
     .lg-suite-deck-image {
       text-align: center;
+    }
+  }
+
+  //style applied only to suite-features.html templates
+  .lg-suite-features {
+    font-family: "Suisse Int'l";
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 18px;
+    font-family: @suisse;
+    .lg-suite-features-label {
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .lg-suite-features-list {
+      -webkit-columns: 2;
+      -moz-columns: 2;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+
+      .features-first {
+        margin-top: 0px;
+      }
+
+      li {
+        margin-top: 5px;
+        padding-left: 1em;
+        text-indent: -1em;
+        text-align: left;
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+  }
+
+  .lg-suite-cta {
+    .lg-suite-prices {
+      padding-left: 0px;
+    }
+    .lg-suite-raq {
+      float: none;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 52px;
     }
   }
 
