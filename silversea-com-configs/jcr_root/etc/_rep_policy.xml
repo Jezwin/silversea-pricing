@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:rep="internal"
     jcr:primaryType="rep:ACL">
-    <allow20
-        jcr:primaryType="rep:GrantACE"
-        rep:principalName="anonymous"
-        rep:privileges="{Name}[jcr:read]"/>
     <deny
             jcr:primaryType="rep:DenyACE"
             rep:principalName="everyone"
@@ -93,4 +89,8 @@
                 jcr:primaryType="rep:Restrictions"
                 rep:glob="/tenants"/>
     </allow13>
+    <allow20
+            jcr:primaryType="rep:GrantACE"
+            rep:principalName="anonymous"
+            rep:privileges="{Name}[jcr:read]"/>
 </jcr:root>
