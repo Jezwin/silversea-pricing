@@ -30,7 +30,8 @@
                                 name="./videoReference"
                                 rootPath="/content/dam/silversea-com"
                                 sling:resourceType="granite/ui/components/foundation/form/pathbrowser" />
-
+                            <fullWidthVideoMobile jcr:primaryType="nt:unstructured" text="Full width mobile" name="./fullWidthMobile" value="true" sling:resourceType="granite/ui/components/foundation/form/checkbox"/>
+                            <heightVideoMobile jcr:primaryType="nt:unstructured" sling:resourceType="granite/ui/components/foundation/form/numberfield"  step="1" min="0"  fieldLabel="Height video mobile" fieldDescription="Choose the height video mobile" name="./heightVideoMobile" />
                         </items>
                     </column>
                 </items>
