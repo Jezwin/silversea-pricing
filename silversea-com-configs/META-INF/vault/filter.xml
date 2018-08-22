@@ -29,6 +29,7 @@
     <filter root="/etc/blueprints/silversea-com"/>
     <filter root="/etc/tags/features/rep:policy"/>
     <filter root="/etc/tags/geotagging/rep:policy"/>
+    <filter root="/etc/rep:policy"/>
     <filter root="/etc/dam/imageserver/configuration/jcr:content/settings"/>
     <filter root="/etc/dam/video/dynamicmedia/silversea-video-profile"/>
 
