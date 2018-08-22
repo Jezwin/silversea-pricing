@@ -642,6 +642,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Itinéraires et tarifs"/>
+    <is-available-on
+            jcr:mixinTypes="[sling:Message]"
+            jcr:primaryType="nt:folder"
+            sling:message="est disponible sur"/>
     <key-fact
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

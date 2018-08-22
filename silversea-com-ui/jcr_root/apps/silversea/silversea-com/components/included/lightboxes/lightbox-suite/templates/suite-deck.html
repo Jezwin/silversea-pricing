@@ -1,28 +1,19 @@
 <template data-sly-template.default="${ @ suite}">
     <div class="lg-suite-deck">
         <div class="lg-suite-deck-label">
-            <span>${suite.title @ context='html'}</span>
+            <span>${suite.title @ context='html'} ${'is-available-on' @ i18n }</span>
         </div>
 
         <div class="lg-suite-deck-tab">
             <sly data-sly-use.locationImage="${'com.silversea.aem.helper.ImageSetHelper' @ path=suite.locationImage,  metadata='deckNumber'}"/>
-            <ul class="nav nav-tabs">
-                <li class="${assetList.first ? 'active' : ''}" data-sly-repeat.asset="${locationImage.renditionList}">
-                    <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"/>
-                    <a data-toggle="tab" href="#suite-plan-tab-${assetList.index}">
-                        <span> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="lg-suite-deck-number ${assetList.first ? 'lg-suite-active-deck' : ''}" data-sly-repeat.asset="${locationImage.renditionList}">
+                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=asset.path}"/>
+                <span data-image-src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80"> ${'deck' @ i18n} ${assetHelper.metadataResource.valueMap['deckNumber']}</span>
+            </div>
         </div>
 
-        <div class="tab-content" data-sly-list="${locationImage.renditionList}">
-            <div id="#suite-plan-tab-${itemList.index}" class="tab-pane fade ${itemList.first ? 'in active' : ''}">
-                <sly data-sly-use.assetHelper="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.path}"/>
-                <img id="deck-${itemList.index}"
-                     src="${assetHelper.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80" alt="location"
-                     title="Location" class="o-img"/>
-            </div>
+        <div class="lg-suite-deck-image">
+            <img id="image-deck-plan" src="" alt="location" title="Location" class="o-img"/>
         </div>
     </div>
 </template>

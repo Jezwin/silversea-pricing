@@ -1,6 +1,5 @@
 @import "/etc/designs/silversea-com/clientlib-base/less/variables.less";
 
-
 .lightbox .modal-content .modal-body.lightbox-suite-body {
   padding-top: 0px;
 }
@@ -11,7 +10,7 @@
     margin: 0px 60px 0px 60px;
 
     hr {
-      border: 1px solid rgba(152, 152, 155, 0.5);
+      border: 1px solid rgba(152, 152, 155, 0.2);
     }
   }
 
@@ -26,7 +25,7 @@
 
     .lg-row-descr {
       margin-top: 50px;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     .lg-suite-name {
@@ -92,6 +91,7 @@
       text-align: center;
       text-transform: uppercase;
       padding-left: 10%;
+      margin-top: 5px;
     }
     .lg-suite-prices-from {
       font-family: @suisse;
@@ -313,6 +313,54 @@
         z-index: 1;
         background-color: @grey--04;
       }
+    }
+  }
+
+  .lg-suite-deck {
+    .lg-suite-deck-label {
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: 1px;
+      line-height: 20px;
+      font-family: @suisse;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      margin-top: 33px;
+    }
+    .lg-suite-deck-tab {
+      text-align: center;
+    }
+    .lg-suite-deck-number {
+      display: inline-block;
+      vertical-align: top;
+      span {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        line-height: 16px;
+        font-family: @suisse;
+        margin-left: 30px;
+        opacity: 0.6;
+        text-transform: uppercase;
+      }
+    }
+    .lg-suite-active-deck  {
+      span {
+        opacity: 1;
+        color: @color-second;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        height: 5px;
+        width: 7%;
+        margin-left: -10px;
+        margin-top: 4px;
+        border-top: 0.11em solid @color-second;
+      }
+    }
+
+    .lg-suite-deck-image {
+      text-align: center;
     }
   }
 

@@ -643,6 +643,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="itinerary-and-fares"
         sling:message="itinerary and fares"/>
+    <is-available-on
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="is-available-on"
+            sling:message="is available on"/>
     <key-fact
         jcr:primaryType="sling:MessageEntry"
         sling:key="key-fact"
