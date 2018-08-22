@@ -38,11 +38,56 @@
   }
 }
 
-@media(min-width: @screen-md-min) {
-  .lightbox {
+@media (min-width: @screen-lg-min) {
+  .lightbox .lightbox-width-732 {
+    max-width: 732px !important;
+  }
+}
+
+@media (max-width: @screen-md-max) and (min-width: @screen-md-min) {
+  .modal.lightbox {
     .modal-dialog {
-        width: 100%;
-        max-width: 1200px;
+      padding-top: 0%;
     }
   }
 }
+
+@media (min-width: @screen-md-min) {
+  .lightbox {
+    .modal-dialog {
+      width: 100%;
+      max-width: 1200px;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-sm) {
+  .modal.lightbox {
+    .lightbox-close {
+      position: absolute;
+      right: 0;
+      height: 59px;
+      width: 130px;
+      cursor: pointer;
+      z-index: 2001;
+      color: @white;
+      background-color: @transparent;
+
+      .icon-close {
+        top: 15%;
+        left: 70%;
+        opacity: 1.0;
+      }
+
+      i {
+        font-size: 30px;
+      }
+    }
+    .modal-dialog {
+      .modal-content {
+        top: 0%;
+      }
+    }
+  }
+}
+

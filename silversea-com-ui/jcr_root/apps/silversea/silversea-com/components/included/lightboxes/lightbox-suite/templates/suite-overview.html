@@ -6,7 +6,7 @@
                     <span>${model.suitePrice.suite.title @ context="html"}</span>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 hidden-xs">
                 <div class="lg-suite-prices">
                 <span data-sly-test="${model.suitePrice.isWaitList}"
                       class="lg-suite-waiting-list">${'waitlist' @ i18n}</span>
@@ -29,7 +29,7 @@
                     ${model.suitePrice.suite.bedroomsInformation @ context="html"}
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 hidden-xs">
                 <div class="lg-suite-raq">
                     <a class="btn btn-thin btn-red effect"
                        href="${model.raqLink @ extension='html', suffix=model.suffix, selectors=model.selector}"
@@ -42,7 +42,7 @@
         <div class="row lg-row-descr">
             <div class="col-xs-12">
                 <div class="lg-suite-description">
-                    <span class="lg-suite-descr-label">${'description' @ i18n}</span>
+                    <span class="lg-suite-descr-label hidden-xs">${'description' @ i18n}</span>
                     ${model.suitePrice.suite.longDescription @ context="html"}
                 </div>
             </div>

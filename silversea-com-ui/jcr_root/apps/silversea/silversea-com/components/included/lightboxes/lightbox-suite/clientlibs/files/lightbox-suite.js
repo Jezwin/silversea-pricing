@@ -1,7 +1,7 @@
 $(function () {
     "use strict";
 
-    function showImageDeckPlan (myThat, e){
+    function showImageDeckPlan(myThat, e) {
         e && e.preventDefault();
         e && e.stopPropagation();
         var $element = $(myThat),
@@ -9,7 +9,7 @@ $(function () {
             $img = $("#image-deck-plan");
         $img.attr("src", srcImage);
 
-        $(".lightbox-suite .lg-suite-deck-number").each(function(){
+        $(".lightbox-suite .lg-suite-deck-number").each(function () {
             $(this).removeClass("lg-suite-active-deck");
         });
 
@@ -50,10 +50,10 @@ $(function () {
                     showImageDeckPlan($deckActive);
                 }
                 //avoid ios issue
-                if(window.scrollSupport != null && window.scrollSupport) {
+                if (window.scrollSupport != null && window.scrollSupport) {
                     window.iNoBounce.enable();
                 }
-                if($("body").hasClass("viewport-sm")){
+                if ($("body").hasClass("viewport-sm")) {
                     $(".modal.lightbox").css("padding-left", "0px");
                 }
             });
@@ -64,7 +64,15 @@ $(function () {
         var $mainSlider = $modal.find('.lightbox-suite .lg-asset-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            dots: true
+            dots: true,
+            responsive: [
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false
+                    }
+                }
+            ]
         });
 
         // Init video on click
@@ -195,7 +203,7 @@ $(function () {
             widthSlider = widthSlider;
         }
 
-        var liItem =  $modal.find("ul.slick-dots li").length;
+        var liItem = $modal.find("ul.slick-dots li").length;
         var liWidth = ((widthSlider / liItem) - 1);
 
         if ($("body").hasClass("viewport-md") || $("body").hasClass("viewport-lg")) {
@@ -213,7 +221,7 @@ $(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
-        if($("body").hasClass("viewport-sm")){
+        if ($("body").hasClass("viewport-sm")) {
             $modal.css("padding-left", "0px");
         }
         createLineProgressBarSuiteGallery($modal);
