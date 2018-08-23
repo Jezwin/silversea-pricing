@@ -1,5 +1,5 @@
 function viewMore(e) {
-    $('.cruise-2018-accordion').slideDown(200,'linear');
+    $('.cruise-2018-accordion').slideDown(200, 'linear');
     displayLazy();
 }
 
@@ -14,14 +14,15 @@ function displayLazy() {
 function toggle(e) {
     e && e.preventDefault();
     const $this = $(this);
-    $this.blur();
     if ($this.data('ssc-accordion') === 'show') {
-        $this.data('ssc-accordion', 'hide');
         viewMore(e);
+        $this.data('ssc-accordion', 'hide');
     } else if ($this.data('ssc-accordion') === 'hide') {
-        $this.data('ssc-accordion', 'show');
         viewLess(e);
+        $this.data('ssc-accordion', 'show');
+        $('.cruise-2018-ship-dining-area').get(0).scrollIntoView({block: 'end', behavior: 'smooth'});
     }
+    $this.blur();
     $('.cruise-2018-accordion-button').toggle();
 }
 
@@ -58,9 +59,9 @@ function loadLazyImage($slider) {
 function initSlider() {
     const $slider = $(".cruise-2018-ship-dining-area-list-slider:visible");
     if ($slider) {
-        try{
+        try {
             $slider.slick("unslick");
-        }catch(e){
+        } catch (e) {
 
         }
         $slider.slick({
@@ -70,7 +71,7 @@ function initSlider() {
             infinite: true,
             slidesPerRow: 1,
             slidesToShow: 1,
-            centerPadding:  '40px'
+            centerPadding: '40px'
 
         });
     }
@@ -81,8 +82,7 @@ function initSlider() {
 }
 
 $(function () {
-    $(".cruise-2018-ship-dining-area-btns a").on("click", toggle);
-    $(window).on("resize", initSlider);
+    $(".cruise-2018-ship-dining-area-btns a").on("click touchstart", toggle);
     initSlider();
     displayLazy();
 });
