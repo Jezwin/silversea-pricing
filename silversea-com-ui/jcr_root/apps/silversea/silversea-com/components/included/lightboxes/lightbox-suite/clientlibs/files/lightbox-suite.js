@@ -63,8 +63,7 @@ $(function () {
             $modal.off('shown.bs.modal');
             // Append html response inside modal
             $modal.find('.modal-content').load(ajaxContentPath, function (e) {
-                //window.location.hash = "#modal";
-                //history.pushState(null, null, "#modal"); // push state that hash into the url
+                history.pushState(null, null, "#modal"); // push state that hash into the url
                 createSlider($modal, $link);
                 $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
