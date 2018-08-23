@@ -16,6 +16,30 @@ $(function () {
         $element.parent().addClass("lg-suite-active-deck");
     };//showImageDeckPlan
 
+    function showSuiteFeatures(myThat, e) {
+        e && e.preventDefault();
+        e && e.stopPropagation();
+        var $element = $(myThat);
+        var $featuresList = $(".lightbox-suite .lg-suite-features .lg-suite-features-list");
+        var $materialIcons = $element.find(".material-icons");
+        if ($materialIcons.html() == "add") {
+            $materialIcons.html("close");
+            $featuresList.slideDown();
+        } else {
+            $materialIcons.html("add");
+            $featuresList.slideUp();
+        }
+    };//showSuiteFeatures
+
+    function showDescription(myThat, e) {
+        e && e.preventDefault();
+        e && e.stopPropagation();
+        var $element = $(myThat);
+        var $description = $(".lightbox-suite .lg-suite-overview .lg-suite-description");
+        $description.removeClass("lg-suite-description-truncate");
+        $element.hide();
+    };//showDescription
+
     /***************************************************************************
      * Lightbox Suite detail
      **************************************************************************/
@@ -42,9 +66,16 @@ $(function () {
                 //window.location.hash = "#modal";
                 //history.pushState(null, null, "#modal"); // push state that hash into the url
                 createSlider($modal, $link);
-                $(".lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
+                $(".lightbox-suite .lg-suite-deck .lg-suite-deck-number span").on("click", function (e) {
                     showImageDeckPlan(this, e);
                 });
+                $(".lightbox-suite .lg-suite-features .lg-suite-features-expand").on("click", function (e) {
+                    showSuiteFeatures(this, e);
+                });
+                $(".lightbox-suite .lg-suite-overview .lg-suite-description-expand").on("click", function (e) {
+                    showDescription(this, e);
+                });
+
                 var $deckActive = $modal.find(".lightbox-suite .lg-suite-deck-number.lg-suite-active-deck span");
                 if ($deckActive != null && $deckActive.length > 0) {
                     showImageDeckPlan($deckActive);

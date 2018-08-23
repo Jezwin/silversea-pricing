@@ -14,11 +14,6 @@
       border: 1px solid rgba(152, 152, 155, 0.2);
     }
 
-    hr.separator {
-      margin-top: 40px;
-      margin-bottom: 40px;
-    }
-
     .lg-suite-raq {
       float: right;
 
@@ -314,28 +309,19 @@
   .lg-suite-deck {
     .lg-suite-deck-label {
       text-align: center;
-      font-size: 13px;
-      letter-spacing: 1px;
-      line-height: 20px;
       font-family: @suisse;
       text-transform: uppercase;
-      margin-bottom: 30px;
-      margin-top: 33px;
     }
     .lg-suite-deck-tab {
       text-align: center;
-      margin-bottom: 36px;
     }
     .lg-suite-deck-number {
       display: inline-block;
       vertical-align: top;
+      position: relative;
       span {
         cursor: pointer;
-        font-size: 13px;
-        letter-spacing: 1.5px;
-        line-height: 16px;
         font-family: @suisse;
-        margin-left: 30px;
         opacity: 0.6;
         text-transform: uppercase;
       }
@@ -343,9 +329,7 @@
       span::after {
         content: "";
         position: absolute;
-        width: 7%;
-        margin-top: 4px;
-        margin-left: 30px;
+        width: 68%;
         display: block;
         border-radius: 4px;
         -webkit-border-radius: 4px;
@@ -371,6 +355,7 @@
       }
       span:after {
         margin-left: 0px;
+        width: 100%;
       }
     }
 
@@ -392,7 +377,6 @@
   //style applied only to suite-features.html templates
   .lg-suite-features {
     font-family: "Suisse Int'l";
-    font-size: 13px;
     letter-spacing: 1px;
     line-height: 18px;
     font-family: @suisse;
@@ -401,7 +385,6 @@
       margin-bottom: 10px;
     }
     .lg-suite-features-list {
-      -webkit-columns: 2;
       -moz-columns: 2;
       list-style: none;
       margin-left: 0;
@@ -442,8 +425,13 @@
   .lightbox-suite {
     .lg-content {
       margin: 0 60px 0 60px;
-    }
 
+      hr.lg-suite-separator {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+    }
     //style applied only to suite-overview.html template
     .lg-suite-overview {
       .lg-suite-name {
@@ -466,19 +454,70 @@
         height: 432px;
       }
     }
+    //style applied only to suite-features.html templates
+    .lg-suite-features {
+      font-size: 13px;
+      .lg-suite-features-list {
+        -webkit-columns: 2;
+      }
+    }
+
+    //style applied only to suite-deck.html templates
+    .lg-suite-deck {
+      .lg-suite-deck-label {
+        font-size: 13px;
+        letter-spacing: 1px;
+        line-height: 20px;
+        margin-top: 33px;
+        margin-bottom: 30px;
+      }
+      .lg-suite-deck-number {
+        span {
+          font-size: 13px;
+          letter-spacing: 1.5px;
+          line-height: 16px;
+          margin-left: 30px;
+        }
+        span::after {
+          margin-left: 32%;
+          margin-top: 4px;
+        }
+      }
+      .lg-suite-deck-tab {
+        margin-bottom: 36px;
+      }
+    }
   }
 }
 
 //Mobile
 @media screen and (max-width: @screen-sm) {
   .lightbox-suite {
-
     .lg-content {
       margin: 0 25px 0 25px;
+
+      hr.lg-suite-separator {
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      hr.lg-suite-separator-1 {
+        margin-top: 0px;
+        border: none;
+      }
     }
 
     //style applied only to suite-overview.html template
     .lg-suite-overview {
+
+      .lg-suite-description-expand {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        font-family: @suisse;
+        color: @color-second;
+        text-transform: uppercase;
+      }
       .lg-suite-name {
         font-size: 22px;
         letter-spacing: 0.5px;
@@ -490,6 +529,82 @@
       .lg-row-descr {
         margin-top: 15px;
         margin-bottom: 5px;
+
+        .lg-suite-description p {
+          margin-bottom: 0px;
+        }
+
+        /* styles for '...' */
+        .lg-suite-description-truncate {
+          overflow: hidden;
+          position: relative;
+          max-height: 3.4em;
+          text-align: justify;
+          margin-right: -1em;
+          padding-right: 1em;
+        }
+        /* create the ... */
+        .lg-suite-description-truncate:before {
+          content: '...';
+          position: absolute;
+          right: 0;
+          bottom: 3px;
+        }
+        /* hide ... if we have text, which is less than or equal to max lines */
+        .lg-suite-description-truncate:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          width: 1em;
+          height: 1em;
+          margin-top: 0.2em;
+          background: @white;
+        }
+      }
+    }
+
+    //style applied only to suite-deck.html templates
+    .lg-suite-deck {
+      padding-bottom: 25px;
+      padding-top: 25px;
+      position: relative;
+      z-index: 1;
+      &::before {
+        background-color: @grey--f4;
+        left: 50%;
+        width: 100vw;
+        bottom: 0;
+        content: ' ';
+        display: block;
+        top: 0;
+        z-index: -1;
+        max-width: 1920px;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        position: absolute;
+        margin: auto;
+      }
+      .lg-suite-deck-label {
+        font-size: 12px;
+        letter-spacing: 1px;
+        line-height: 18px;
+        margin-top: 0px;
+        margin-bottom: 25px;
+      }
+      .lg-suite-deck-number {
+        span {
+          font-size: 12px;
+          letter-spacing: 1px;
+          line-height: 18px;
+          margin-left: 20px;
+        }
+        span:after {
+          margin-left: 28%;
+          margin-top: 1px;
+        }
+      }
+      .lg-suite-deck-tab {
+        margin-bottom: 25px;
       }
     }
 
@@ -502,6 +617,39 @@
     .lg-asset-slider {
       .slick-dots {
         bottom: 20px;
+      }
+    }
+
+    //style applied only to the first suite-cta.html templates
+    .visible-xs {
+      .lg-suite-cta {
+        .lg-suite-raq {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    //style applied only to the second suite-cta.html templates
+    .lg-suite-cta {
+      .lg-suite-raq {
+        margin-bottom: 30px;
+      }
+    }
+
+    //style applied only to suite-features.html templates
+    .lg-suite-features {
+      font-size: 12px;
+      .lg-suite-features-list {
+        -webkit-columns: 1;
+        display: none;
+      }
+
+      .lg-suite-features-expand {
+        float: right;
+        i {
+          font-size: 29px;
+          line-height: 0.6;
+        }
       }
     }
   }

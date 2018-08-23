@@ -1,7 +1,13 @@
 <template data-sly-template.default="${ @ suite}">
     <div class="lg-suite-features">
-        <div class="lg-suite-features-label">
-            <span>${suite.title @ context='html'} ${'features' @ i18n }</span>
+        <div class="lg-suite-features-label hidden-xs">
+            <span class="hidden-xs">${suite.title @ context='html'} ${'features' @ i18n }</span>
+        </div>
+        <div class="lg-suite-features-label visible-xs">
+            <span>${'suite-features' @ i18n }</span>
+            <span class="icon-close lg-suite-features-expand">
+                <i class="material-icons">add</i>
+            </span>
         </div>
 
         <ul class="lg-suite-features-list">

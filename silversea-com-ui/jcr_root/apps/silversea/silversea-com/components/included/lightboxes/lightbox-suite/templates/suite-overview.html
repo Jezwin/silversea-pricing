@@ -41,10 +41,13 @@
         </div>
         <div class="row lg-row-descr">
             <div class="col-xs-12">
-                <div class="lg-suite-description">
+                <div class="lg-suite-description lg-suite-description-truncate">
                     <span class="lg-suite-descr-label hidden-xs">${'description' @ i18n}</span>
                     ${model.suitePrice.suite.longDescription @ context="html"}
                 </div>
+            </div>
+            <div class="col-xs-12 visible-xs">
+                <span class="lg-suite-description-expand">${'read-more' @ i18n }</span>
             </div>
         </div>
     </div>
