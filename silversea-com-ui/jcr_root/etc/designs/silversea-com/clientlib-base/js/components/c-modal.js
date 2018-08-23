@@ -26,6 +26,7 @@ $(function() {
         var $modalLightbox = $("#modalLightbox");
         var $modalBody = $modal.find(".modal-body");
         var $modalDialog = $modal.find(".modal-dialog");
+        var $modalContent = $modal.find(".modal-content");
         var $modalDialogLightbox = $modalLightbox.find(".modal-dialog");
 
 
@@ -38,6 +39,14 @@ $(function() {
         if ($html.hasClass("no-scroll-html")) {
             $html.removeClass('no-scroll-html');
         }
+        if ($modalLightbox.hasClass("lightbox-no-scroll")) {
+            $modalLightbox.removeClass("lightbox-no-scroll");
+        }
+
+        if ($modalContent.hasClass("lightbox-gallery-assets-content")) {
+            $modalContent.removeClass("lightbox-gallery-assets-content");
+        }
+
         if ($modalDialogLightbox.hasClass("custom-lightbox-width")) {
             $modalDialogLightbox.removeClass("custom-lightbox-width");
             var clazzList = $modalDialogLightbox.attr("class").split(/\s+/);

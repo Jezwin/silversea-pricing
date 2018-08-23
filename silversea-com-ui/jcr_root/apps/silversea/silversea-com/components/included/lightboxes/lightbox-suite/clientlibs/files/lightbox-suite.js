@@ -52,6 +52,7 @@ $(function () {
             $modalContent = $(modalTarget);
         $modalContent.find(".modal-dialog").addClass("custom-lightbox-width");
         $modalContent.find(".modal-dialog").addClass("lightbox-width-732");
+        $modalContent.addClass("lightbox-no-scroll");
 
         // Activate Modal
         $modalContent.modal('show');

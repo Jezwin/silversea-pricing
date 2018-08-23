@@ -10,7 +10,8 @@ $(function () {
             modalTarget = $link.data('target'),
             $modalContent = $(modalTarget);
         $modalContent.find(".modal-content").addClass("modal-content--transparent");
-        $modalContent.find(".modal-content").addClass("modal-content--gallery");
+        $modalContent.find(".modal-content").addClass("lightbox-gallery-assets-content");
+        $modalContent.addClass("lightbox-no-scroll");
         $modalContent.modal('show');
 
         // Wait for modal opening
