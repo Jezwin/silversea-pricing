@@ -106,3 +106,14 @@
     }
   }
 }
+@media (max-width: @screen-md-max) {
+  .modal.lightbox {
+    display: block;
+    overflow-y: hidden;
+
+    .modal-body {
+      overflow-y: scroll;
+      max-height: 100vh;
+    }
+  }
+}
