@@ -8,10 +8,10 @@
         <sly data-sly-test.ast="*"/>
         <div data-sly-list.offer="${offers}" class="cruise-2018-offers-list cruise-2018-offers-size-${offers.size}">
             <sly data-sly-test.linkOffer="${offer.newSystem ? offer.exclusiveOfferPath : offer.lightboxReference }"/>
-            <a href="${offer.exclusiveOfferPath @ extension='html', selectors=['modalcontent' , '2018']}"
+            <a href="${offer.exclusiveOfferPath @ extension='html', selectors=['lightbox' , 'lightbox-offer']}"
                rel="nofollow"
                data-toggle="modal" class="cruise-2018-offer-container"
-               data-target=".bs-modal-lg">
+               data-target=".lightbox">
                 <div class="cruise-2018-offer-icon-container">
                     <div class="cruise-2018-offer-icon"><img src="${offer.voyageIcon @ context='uri'}"/></div>
                 </div>

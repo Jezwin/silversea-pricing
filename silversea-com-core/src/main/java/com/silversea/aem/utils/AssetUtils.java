@@ -137,6 +137,8 @@ public class AssetUtils {
                     	} else {
                     		sscAsset.setLabel(asset.getMetadataValue("dc:title"));
                     	}
+                        String metadataValue = asset.getMetadataValue("dam:credit");
+                        sscAsset.setCredits(metadataValue);
                         renditionList.add(sscAsset);
                     }
                 }

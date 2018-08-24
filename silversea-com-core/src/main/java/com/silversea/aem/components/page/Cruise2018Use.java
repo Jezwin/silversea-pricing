@@ -1,6 +1,8 @@
 package com.silversea.aem.components.page;
 
 import com.day.cq.commons.Externalizer;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import com.silversea.aem.components.beans.EoBean;
 import com.silversea.aem.components.beans.EoConfigurationBean;
 import com.silversea.aem.components.beans.ExclusiveOfferItem;
@@ -14,6 +16,7 @@ import com.silversea.aem.services.CruisesCacheService;
 import com.silversea.aem.utils.AssetUtils;
 import com.silversea.aem.utils.PathUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.ValueMap;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,14 +72,22 @@ public class Cruise2018Use extends EoHelper {
     @Override
     public void activate() throws Exception {
         super.activate();
+        String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         Locale locale = getCurrentPage().getLanguage(false);
+        Lightbox typeLightbox = checkIsLightbox(selectors);
+        switch (typeLightbox) {
+            case ASSET_GALLERY:
+                assetsGallery = retrieveAssetsGallery();
+                return;
+            case CRUISE_PAGE:
+                break;
+        }
+
         cruiseModel = retrieveCruiseModel();
-        assetsGallery = retrieveAssetsGallery(cruiseModel);
         exclusiveOffers = retrieveExclusiveOffers(cruiseModel);
         exclusiveOffersCruiseFareAdditions = retrieveExclusiveOffersCruiseFareAdditions(exclusiveOffers);
         venetianSociety = retrieveVenetianSociety(cruiseModel);
 
-        String[] selectors = getRequest().getRequestPathInfo().getSelectors();
         currentPath = retrieveCurrentPath();
         ccptCode = retrieveCcptCode(selectors);
 
@@ -95,6 +106,15 @@ public class Cruise2018Use extends EoHelper {
             this.nextArrival = next.getArrivalPortName();
             this.nextDeparture = next.getDeparturePortName();
         });
+    }
+
+    private Lightbox checkIsLightbox(String[] selectors) {
+        for (String selector : selectors) {
+            if (selector.contains(Lightbox.ASSET_GALLERY.getSelector())) {
+                return Lightbox.ASSET_GALLERY;
+            }
+        }
+        return Lightbox.CRUISE_PAGE;
     }
 
     private String retrieveCcptCode(String[] selectors) {
@@ -160,25 +180,42 @@ public class Cruise2018Use extends EoHelper {
         }
     }
 
-    private List<SilverseaAsset> retrieveAssetsGallery(CruiseModel cruiseModel) {
-        List<SilverseaAsset> assetsListResult = new ArrayList<>();
-        if (cruiseModel != null) {
-            if (StringUtils.isNotBlank(cruiseModel.getAssetSelectionReference())) {
-                assetsListResult.addAll(AssetUtils
-                        .buildSilverseaAssetList(cruiseModel.getAssetSelectionReference(), getResourceResolver(),
-                                null));
+    private List<SilverseaAsset> retrieveAssetsGallery() {
+        Page currentPage = getCurrentPage();
+        PageManager pageManager = currentPage.getPageManager();
+        ShipModel ship = null;
+        String assetSelectionReference = null;
+        if (pageManager != null) {
+            ValueMap vmProperties = currentPage.getProperties();
+            if (vmProperties != null) {
+                String shipReference = vmProperties.get("shipReference", String.class);
+                if (StringUtils.isNotEmpty(shipReference)) {
+                    Page shipPage = pageManager.getPage(shipReference);
+                    if (shipPage != null) {
+                        ship = shipPage.adaptTo(ShipModel.class);
+                    }
+                }
+                assetSelectionReference = vmProperties.get("assetSelectionReference", String.class);
+                List<SilverseaAsset> assetsListResult = new ArrayList<>();
+                if (StringUtils.isNotBlank(assetSelectionReference)) {
+                    assetsListResult.addAll(AssetUtils
+                            .buildSilverseaAssetList(assetSelectionReference, getResourceResolver(),
+                                    null));
+                }
+                if (ship != null) {
+                    assetsListResult.addAll(retrieveAssetsFromShip(ship));
+                }
+                return assetsListResult;
             }
-            assetsListResult.addAll(retrieveAssetsFromShip(cruiseModel.getShip()));
         }
-
-        return assetsListResult;
+        return null;
     }
 
     private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {
         List<SilverseaAsset> listShipAssets = new ArrayList<>();
         if (shipModel != null) {
             List<SilverseaAsset> virtualTourAssets = new ArrayList<>();
-            if (StringUtils.isNotEmpty(cruiseModel.getShip().getPhotoVideoSuiteSelectionReference())) {
+            if (StringUtils.isNotEmpty(shipModel.getPhotoVideoSuiteSelectionReference())) {
                 listShipAssets.addAll(AssetUtils
                         .buildSilverseaAssetList(shipModel.getPhotoVideoSuiteSelectionReference(),
                                 getResourceResolver(), null));
@@ -228,6 +265,25 @@ public class Cruise2018Use extends EoHelper {
         return allSameShipCruises(cruiseModel)
                 .filter(cruise -> cruise.getStartDate().after(cruiseModel.getStartDate()))
                 .min(Comparator.comparing(CruiseModelLight::getStartDate));
+    }
+
+    private enum Lightbox {
+        ASSET_GALLERY("lg-gallery-assets"), CRUISE_PAGE("");
+
+        private String selector = "";
+
+        public String getSelector() {
+            return selector;
+        }
+
+        Lightbox(String selector) {
+            this.selector = selector;
+        }
+
+        public String toString() {
+            return selector;
+        }
+
     }
 
     public List<ExclusiveOfferItem> getExclusiveOffers() {

@@ -8,6 +8,7 @@
             <sly data-sly-repeat="${cruise.prices}">
                 <div class="col-md-4 col-xs-12 col-sm-6 cruise-2018-suites-fares-col">
                     <div class="cruise-2018-suites-fares-container " id="cruise-2018-container${itemList.index}">
+                        <a class="open-lightbox-suite cruise-2018-link-open-modal" data-target=".lightbox" href="${cruise.cruiseModel.page.path @ extension='html', selectors=['lightboxes.lg-suite', item.suiteCategory]}"></a>
                         <div class="cruise-2018-suites-fares-image">
                             <sly data-sly-test="${item.suite.thumbnail}"
                                  data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
@@ -38,7 +39,6 @@
                             <div>
                                 <a class="cruise-2018-suites-fares-btn btn btn-thin btn-red effect btn-request-a-quote link-request-quote-card"
                                    id="cruise-2018-rqa-${itemList.index}"
-
                                    data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
                                    href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
                                    data-sscclicktype="clic-RAQ">
