@@ -117,8 +117,15 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private boolean retrieveVenetianSociety(CruiseModel cruise) {
-        return cruise.getFeatures().stream().map(FeatureModel::getFeatureCode).filter(Objects::nonNull)
-                .anyMatch(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY::equals);
+        for (FeatureModel featureModel : cruise.getFeatures()) {
+            String featureCode = featureModel.getFeatureCode();
+            if (featureCode != null) {
+                if (WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY.equals(featureCode)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
