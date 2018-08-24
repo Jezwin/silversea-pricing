@@ -169,8 +169,19 @@ public class Cruise2018Use extends EoHelper {
             if (geomarket.equals(price.getGeomarket())) {
                 if (currency.equals(price.getCurrency())) {
                     if (uniqueValues.add(price)) {
-                        SuitePrice suitePrice = new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
-                        list.add(suitePrice);
+                        boolean b = true;
+                        for (SuitePrice t1 : list) {
+                            if (t1.getSuite().equals(price.getSuite())) {
+                                b = false;
+                                break;
+                            }
+                        }
+                        if(b) {
+                            SuitePrice suitePrice = new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
+                            list.add(suitePrice);
+                        }else {
+                            list.stream().filter(t-> t.getSuite().equals(price.getSuite())).findFirst().get().add(price);
+                        }
                     }
                 }
             }
