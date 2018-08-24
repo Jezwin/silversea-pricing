@@ -1,0 +1,82 @@
+@cruise-2018-menu-height: 60px;
+.cruise-2018-menu-container {
+
+  .ssc-table-full-width {
+    width: 100%;
+    display: table;
+    position: relative;
+    border-collapse: collapse;
+  }
+
+  .ssc-cell-full-width {
+    display: table-cell;
+  }
+
+  .ssc-table-full-width:before, .ssc-table-full-width:after {
+    content: " ";
+    background-color: @grey--f4;
+    height: 60px;
+    width: 100vw;
+    display: table-cell;
+    position: absolute;
+    top: 0;
+  }
+
+  .ssc-table-full-width:before {
+    left: -100vw;
+  }
+
+  .ssc-table-full-width:after {
+    right: -100vw;
+  }
+  .cruise-2018-menu {
+    background-color: @grey--f4;
+    height: @cruise-2018-menu-height;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    vertical-align: middle;
+  }
+
+  .cruise-2018-menu-tab {
+    color: @color-second;
+    vertical-align: middle;
+    line-height: @cruise-2018-menu-height;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-family: @suisse;
+    letter-spacing: 1.5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: @screen-sm) {
+    .cruise-2018-menu {
+      .cruise-2018-menu-tab-fourth {
+        display: none;
+      }
+      .cruise-2018-menu-tab {
+        width: 32%;
+        border-left: 0;
+        border-right: 0;
+      }
+      .cruise-2018-menu-tab-text-big {
+        display: none;
+      }
+    }
+  }
+  @media screen and (min-width: @screen-sm) {
+    .cruise-2018-menu {
+      .cruise-2018-menu-tab {
+        width: 24%;
+        border-left: 1px solid @white;
+        border-right: 1px solid @white;
+      }
+      .cruise-2018-menu-tab-text-small {
+        display: none;
+      }
+    }
+  }
+}
+
