@@ -132,11 +132,6 @@ public class CruiseModel {
 
     private String thumbnail;
 
-    @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/bigThumbnail")
-    @Optional
-    private String bigThumbnail;
-
     private List<FeatureModel> features = new ArrayList<>();
 
     @Inject
