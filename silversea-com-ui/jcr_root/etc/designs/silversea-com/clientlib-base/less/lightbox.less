@@ -7,7 +7,7 @@
     width: 130px;
     cursor: pointer;
     z-index: 2001;
-    top:0px;
+    top: 0px;
 
     &:hover {
       opacity: 0.9;
@@ -47,8 +47,14 @@
 }
 
 @media (min-width: @screen-lg-min) {
-  .lightbox .lightbox-width-732 {
-    max-width: 732px !important;
+  .lightbox {
+    .lightbox-width-732 {
+      max-width: 732px !important;
+    }
+
+    .lightbox-width-1200 {
+      max-width: 1200px !important;
+    }
   }
 }
 
@@ -64,7 +70,7 @@
   .lightbox {
     .modal-dialog {
       width: 100%;
-      max-width: 1200px;
+      max-width: 768px;
     }
   }
 }
@@ -95,14 +101,6 @@
       .modal-content {
         top: 0%;
       }
-    }
-  }
-}
-@media (min-width: @screen-md-min) {
-
-  .modal.lightbox {
-    .modal-content {
-     top: 0px;
     }
   }
 }

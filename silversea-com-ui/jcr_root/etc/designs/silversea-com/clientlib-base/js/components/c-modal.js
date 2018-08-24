@@ -43,8 +43,8 @@ $(function() {
             $modalLightbox.removeClass("lightbox-no-scroll");
         }
 
-        if ($modalContent.hasClass("lightbox-gallery-assets-content")) {
-            $modalContent.removeClass("lightbox-gallery-assets-content");
+        if ($modalContent.hasClass("lightbox-suite-content")) {
+            $modalContent.removeClass("lightbox-suite-content");
         }
 
         if ($modalDialogLightbox.hasClass("custom-lightbox-width")) {
