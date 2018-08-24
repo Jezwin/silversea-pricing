@@ -2,7 +2,6 @@
   .cruise-2018-ship-public-content {
 
     margin-bottom: 100px;
-    max-width: 91vw;
 
     .slick-dots {
       width: 100%;
@@ -45,14 +44,13 @@
 
     .slick-prev {
       width: 40px;
-      left: -27px !important;
+      left: -30px !important;
       transform: rotateZ(135deg);
     }
     .slick-next {
       width: 40px;
-      right: -27px !important;
+      right: -30px !important;
       transform: rotateZ(-45deg);
-
     }
     .slick-prev:after {
       width: 20px;
@@ -117,5 +115,25 @@
     line-height: 20px;
     text-align: center;
     max-height: 130px;
+  }
+}
+
+@media (max-width: @screen-md-min) {
+  .cruise-2018-ship-public {
+    .cruise-2018-ship-public-content {
+      .slick-prev {
+        width: 40px;
+        left: -18px !important;
+      }
+      .slick-next {
+        width: 40px;
+        right: -18px !important;
+      }
+    }
+    .cruise-2018-ship-public-slide-text {
+      font-size: 12px;
+      line-height: 18px;
+      max-height: 162px;
+    }
   }
 }
