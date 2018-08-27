@@ -203,7 +203,7 @@
     width: inherit !important;
     vertical-align: inherit !important;
   }
-
+   
   .cruise-2018-overview-quote-btn {
     border-radius: @nd-button-border-radius;
     display: inline-block;
@@ -218,10 +218,7 @@
     text-transform: uppercase;
     vertical-align: middle;
     white-space: normal;
-   
-    .cruise-2018-overview-quote-rqa {
-         border: 1px solid #d60524;
-    }
+
     span {
       padding-right: 0 ! important;
     }
@@ -240,6 +237,12 @@
       color: @color-second;
     }
   }
+  
+   .cruise-2018-overview-quote-rqa {
+      .cruise-2018-overview-quote-btn {
+             border: 1px solid #d60524;
+      }
+    }
 
 }
 
