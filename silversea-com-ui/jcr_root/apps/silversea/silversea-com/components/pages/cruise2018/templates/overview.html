@@ -71,11 +71,7 @@
                     </a>
                 </div>
                 <div class="cruise-2018-overview-quote-suites-fares">
-                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote "
-                       id="cruise-2018-rqa-${itemList.index}"
-                       data-sly-test.appendSuffix="${'{0}{1}' @ format=[item.suite.name, '.html']}"
-                       href="${cruise.requestQuotePagePath @ extension='html', selectors='s', suffix=pageProperties.cruiseCode, appendSuffix=appendSuffix}"
-                       data-sscclicktype="clic-RAQ">
+                    <a class="cruise-2018-overview-quote-btn btn btn-thin btn-white effect btn-request-a-quote coolanchorminussmall" href="#SuiteBlock">
                         <span>${'suites-and-fares' @i18n}</span>
                     </a>
                 </div>

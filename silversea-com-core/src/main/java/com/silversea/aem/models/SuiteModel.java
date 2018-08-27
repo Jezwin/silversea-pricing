@@ -60,6 +60,12 @@ public class SuiteModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/suitesubtitleUpTo") @Optional
     private String suitesubtitleUpTo;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSizeFeet") @Optional
+    private String suiteSizeFeet;
+
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/suiteSizeMeter") @Optional
+    private String suiteSizeMeter;
+
     private List<Asset> assets = new ArrayList<>();
 
     private String name;
@@ -90,6 +96,14 @@ public class SuiteModel implements ShipAreaModel {
 
     public String getSuitesubtitleUpTo() {
 		return suitesubtitleUpTo;
+	}
+
+    public String getSuiteSizeFeet() {
+		return suiteSizeFeet;
+	}
+
+    public String getSuiteSizeMeter() {
+		return suiteSizeMeter;
 	}
 
 	public String getLongDescription() {
