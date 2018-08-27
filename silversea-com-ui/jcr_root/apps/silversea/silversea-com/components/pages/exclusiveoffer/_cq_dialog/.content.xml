@@ -584,7 +584,7 @@
                                                                     sling:resourceType="granite/ui/components/foundation/form/select">
                                                                 <datasource
                                                                         jcr:primaryType="nt:unstructured"
-                                                                        sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
+                                                                        sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIconDatasource"
                                                                         addNone="{Boolean}true"/>
                                                             </defaultVoyageIcon>
 															<defaultPriorityWeight
@@ -661,7 +661,7 @@
 																						sling:resourceType="granite/ui/components/foundation/form/select">
 																					<datasource
 																							jcr:primaryType="nt:unstructured"
-																							sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
+																							sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIconDatasource"
 																							addNone="{Boolean}true"/>
 																				 </icon>
 						                                                         <tags
