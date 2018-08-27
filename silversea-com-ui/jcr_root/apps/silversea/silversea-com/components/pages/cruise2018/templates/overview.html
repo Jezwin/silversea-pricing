@@ -1,5 +1,6 @@
 <template data-sly-template.default="${ @ cruise }">
-    <div class="cruise-2018-overview row container">
+    <sly data-sly-use.externalizerHelper="${'com.silversea.aem.helper.ExternalizerHelper' @ path=currentNode.path}"/>
+    <div class="cruise-2018-overview row container" data-lightbox-gallery-path="${externalizerHelper.externalizedUrl @ extension='html', selectors='lightboxes.lg-gallery-assets'}">
         <div class="cruise-2018-overview-big-pic col-md-6 col-xs-12">
             <sly data-sly-test.cruiseImg="${cruise.cruiseModel.bigThumbnail || cruise.cruiseModel.itinerary}"/>
             <sly data-sly-use.imageTemplate="silversea/silversea-ssc/components/editorial/imageCoverSmall/imageCoverSmalltemplate.html"
