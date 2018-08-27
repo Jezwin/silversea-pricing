@@ -48,6 +48,8 @@ public class Cruise2018Use extends EoHelper {
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
 
+    private boolean isFeetSquare = false;
+
     private List<SuitePrice> prices;
     private PriceModel lowestPrice;
     private boolean waitlist;
@@ -95,7 +97,9 @@ public class Cruise2018Use extends EoHelper {
         lowestPrice = retrieveLowestPrice(prices);
         waitlist = lowestPrice == null;
         computedPriceFormatted = PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-
+        if(countryCode.equals("US")) {
+            isFeetSquare = true;
+        }
         retrievePreviousCruise(cruiseModel).ifPresent(previous -> {
             this.previous = previous.getPath();
             this.previousArrival = previous.getArrivalPortName();
@@ -340,6 +344,10 @@ public class Cruise2018Use extends EoHelper {
 
     public boolean isVenetianSociety() {
         return venetianSociety;
+    }
+
+    public boolean isFeetSquare() {
+        return isFeetSquare;
     }
 
     public List<String> getExclusiveOffersCruiseFareAdditions() {
