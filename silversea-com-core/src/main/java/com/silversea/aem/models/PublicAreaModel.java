@@ -34,6 +34,9 @@ public class PublicAreaModel implements ShipAreaModel {
     @Inject @Named(JcrConstants.JCR_CONTENT + "/longDescription") @Optional
     private String longDescription;
 
+    @Inject @Named(JcrConstants.JCR_CONTENT + "/shortVoyageDescription") @Optional
+    private String shortVoyageDescription;
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference") @Optional
     private String assetSelectionReference;
 
@@ -45,7 +48,7 @@ public class PublicAreaModel implements ShipAreaModel {
 
     @Inject @Named(JcrConstants.JCR_CONTENT + "/virtualTour") @Optional
     private String virtualTour;
-    
+
     @Inject @Named(JcrConstants.JCR_CONTENT + "/shipId") @Optional
     private String shipId;
 
@@ -79,7 +82,7 @@ public class PublicAreaModel implements ShipAreaModel {
         return title != null ? title :
                 (genericSuite != null ? genericSuite.getTitle() : null);
     }
-    
+
     public String getNavigationTitle() {
 		return navigationTitle;
 	}
@@ -109,8 +112,12 @@ public class PublicAreaModel implements ShipAreaModel {
     public Page getPage() {
         return page;
     }
-    
+
     public String getShipId() {
 		return shipId;
    }
+
+    public String getShortVoyageDescription() {
+        return shortVoyageDescription;
+    }
 }
