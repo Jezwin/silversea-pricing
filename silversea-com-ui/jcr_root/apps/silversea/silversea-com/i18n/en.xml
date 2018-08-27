@@ -307,6 +307,46 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-suites-and-fares-descr-v2"
         sling:message="Silversea's oceanview suites are some of the most spacious in luxury cruising. All include the services of a butler thanks to the highest service ratio at sea and almost all have a private teak veranda so that you can breathe in the fresh sea air by merely stepping outside your door. Select your suite and Request a Quote - guests who book early are rewarded with the best fares and ability to select their desired suite"/>
+    <dining-options
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="dining-options"
+            sling:message="Dining Options"/>
+    <number1
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number1"
+            sling:message="one"/>
+    <number2
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number2"
+            sling:message="two"/>
+    <number3
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number3"
+            sling:message="three"/>
+    <number4
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number4"
+            sling:message="four"/>
+    <number5
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number5"
+            sling:message="five"/>
+    <number6
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number6"
+            sling:message="six"/>
+    <number7
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number7"
+            sling:message="seven"/>
+    <number8
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number8"
+            sling:message="eight"/>
+    <number9
+            jcr:primaryType="sling:MessageEntry"
+            sling:key="number9"
+            sling:message="nine"/>
     <cruise-type
         jcr:primaryType="sling:MessageEntry"
         sling:key="cruise-type"
