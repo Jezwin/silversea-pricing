@@ -251,9 +251,9 @@ $(function () {
         if ($(window).width() == wdest) return;
         wdest = $(window).width();
         var $modal = $(".modal.lightbox");
-        if ($("body").hasClass("viewport-sm")) {
+        /*if ($("body").hasClass("viewport-sm")) {
             $modal.css("padding-left", "0px");
-        }
+        }*/
         createLineProgressBarSuiteGallery($modal);
     });
 });

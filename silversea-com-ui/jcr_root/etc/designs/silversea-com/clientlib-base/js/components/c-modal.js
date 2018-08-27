@@ -15,6 +15,14 @@ $(function() {
         }
     });
 
+    $(document).on('shown.bs.modal', function(e) {
+        var $modalLightbox = $("#modalLightbox");
+        var $modalBodyLightbox = $modalLightbox.find(".modal-body");
+
+        if ($modalBodyLightbox.hasClass("cruise-2018-offers")) {
+            $modalLightbox.find(".lightbox-close i").addClass("lightbox-close-dark");
+        }
+    });
     /***************************************************************************
      * Modal : Global Clean modal content on close event
      **************************************************************************/
