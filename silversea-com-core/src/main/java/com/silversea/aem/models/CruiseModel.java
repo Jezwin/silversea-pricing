@@ -97,14 +97,14 @@ public class CruiseModel {
     private String itinerary;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/bigItinerary")
+    @Named(JcrConstants.JCR_CONTENT + "/bigItineraryMap")
     @Optional
-    private String bigItinerary;
+    private String bigItineraryMap;
 
     @Inject
-    @Named(JcrConstants.JCR_CONTENT + "/smallItinerary")
+    @Named(JcrConstants.JCR_CONTENT + "/smallItineraryMap")
     @Optional
-    private String smallItinerary;
+    private String smallItineraryMap;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
@@ -490,11 +490,11 @@ public class CruiseModel {
         return bigThumbnail;
     }
 
-    public String getBigItinerary() {
-        return bigItinerary;
+    public String getBigItineraryMap() {
+        return bigItineraryMap;
     }
 
-    public String getSmallItinerary() {
-        return smallItinerary;
+    public String getSmallItineraryMap() {
+        return smallItineraryMap;
     }
 }

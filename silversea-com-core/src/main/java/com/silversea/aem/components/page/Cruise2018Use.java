@@ -122,6 +122,9 @@ public class Cruise2018Use extends EoHelper {
             if (selector.contains(Lightbox.ASSET_GALLERY.getSelector())) {
                 return Lightbox.ASSET_GALLERY;
             }
+            if (selector.contains(Lightbox.ASSET_MAP.getSelector())) {
+                return Lightbox.ASSET_MAP;
+            }
         }
         return Lightbox.CRUISE_PAGE;
     }
@@ -227,7 +230,7 @@ public class Cruise2018Use extends EoHelper {
             ValueMap vmProperties = currentPage.getProperties();
             if (vmProperties != null) {
                 List<String> assetsListResult = new ArrayList<>();
-                String itineraryMap = vmProperties.get("itineraryMap", String.class);
+                String itineraryMap = vmProperties.get("itinerary", String.class);
                 assetsListResult.add(itineraryMap);
                 assetsListResult.add(itineraryMap);
                 String bigItineraryMap = vmProperties.get("bigItineraryMap", String.class);
