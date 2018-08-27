@@ -48,10 +48,14 @@ public class CruiseModel {
     @Optional
     private String apiTitle;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/tourBook") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/tourBook")
+    @Optional
     private String tourBook;
 
-    @Inject @Named(JcrConstants.JCR_CONTENT + "/importedDescription") @Optional
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/importedDescription")
+    @Optional
     private String importedDescription;
 
     @Inject
@@ -91,6 +95,16 @@ public class CruiseModel {
     @Named(JcrConstants.JCR_CONTENT + "/itinerary")
     @Optional
     private String itinerary;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/bigItinerary")
+    @Optional
+    private String bigItinerary;
+
+    @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/smallItinerary")
+    @Optional
+    private String smallItinerary;
 
     @Inject
     @Named(JcrConstants.JCR_CONTENT + "/assetSelectionReference")
@@ -474,5 +488,13 @@ public class CruiseModel {
 
     public String getBigThumbnail() {
         return bigThumbnail;
+    }
+
+    public String getBigItinerary() {
+        return bigItinerary;
+    }
+
+    public String getSmallItinerary() {
+        return smallItinerary;
     }
 }

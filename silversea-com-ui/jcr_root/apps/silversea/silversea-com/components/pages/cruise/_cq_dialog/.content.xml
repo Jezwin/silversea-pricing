@@ -134,6 +134,24 @@
                                             renderReadOnly="{Boolean}true"
                                             name="./itinerary"
                                             rootPath="/content/dam/silversea-com" />
+                                    <bigItineraryMap
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="bigItineraryMap"
+                                            fieldLabel="Big Itinerary map"
+                                            renderReadOnly="{Boolean}true"
+                                            name="./bigItineraryMap"
+                                            rootPath="/content/dam/silversea-com" />
+                                    <smallItineraryMap
+                                            jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
+                                            allowBulkEdit="{Boolean}true"
+                                            cq-msm-lockable="bigItineraryMap"
+                                            fieldLabel="Small Itinerary map"
+                                            renderReadOnly="{Boolean}true"
+                                            name="./smallItineraryMap"
+                                            rootPath="/content/dam/silversea-com" />
                                     <assetSelectionReference
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/foundation/form/pathbrowser"
