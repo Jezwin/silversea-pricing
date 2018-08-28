@@ -207,24 +207,13 @@
       padding-bottom: 25px;
       padding-top: 25px;
       position: relative;
-      z-index: 1;
-      &::before {
-        background-color: @grey--f4;
-        left: 50%;
-        width: 100vw;
-        bottom: 0;
-        content: ' ';
-        display: block;
-        top: 0;
-        z-index: -1;
-        max-width: 1920px;
-        transform: translateX(-50%);
-        -webkit-transform: translateX(-50%);
-        position: absolute;
-        margin: auto;
+
+      .row-right, .row-left{
+        padding-left: 0px;
+        padding-right: 0px
       }
       .lg-deck-label {
-        font-size: 12px;
+        font-size: 22px;
         letter-spacing: 1px;
         line-height: 18px;
         margin-top: 0px;

@@ -35,6 +35,7 @@ $(function () {
             $modalContent = $(modalTarget);
         $modalContent.find(".modal-content").addClass("lightbox-suite-content");
         $modalContent.addClass("lightbox-no-scroll");
+        $modalContent.find(".lightbox-close i").addClass("lightbox-close-dark");
 
         // Activate Modal
         $modalContent.modal('show');
