@@ -62,6 +62,8 @@ public class Cruise2018Use extends EoHelper {
 
 
     private List<SilverseaAsset> assetsGallery;
+    private String bigItineraryMap;
+    private String smallItineraryMap;
 
     private String previous;
     private String previousDeparture;
@@ -80,6 +82,13 @@ public class Cruise2018Use extends EoHelper {
         switch (typeLightbox) {
             case ASSET_GALLERY:
                 assetsGallery = retrieveAssetsGallery();
+                return;
+            case ASSET_MAP:
+                List<String> newItineraryMap = retrieveItineraryMaps();
+                if (newItineraryMap != null && !newItineraryMap.isEmpty()) {
+                    bigItineraryMap = newItineraryMap.get(0);
+                    smallItineraryMap = newItineraryMap.get(1);
+                }
                 return;
             case CRUISE_PAGE:
                 break;
@@ -116,6 +125,9 @@ public class Cruise2018Use extends EoHelper {
         for (String selector : selectors) {
             if (selector.contains(Lightbox.ASSET_GALLERY.getSelector())) {
                 return Lightbox.ASSET_GALLERY;
+            }
+            if (selector.contains(Lightbox.ASSET_MAP.getSelector())) {
+                return Lightbox.ASSET_MAP;
             }
         }
         return Lightbox.CRUISE_PAGE;
@@ -247,6 +259,30 @@ public class Cruise2018Use extends EoHelper {
         return null;
     }
 
+    private List<String> retrieveItineraryMaps() {
+        Page currentPage = getCurrentPage();
+        PageManager pageManager = currentPage.getPageManager();
+        if (pageManager != null) {
+            ValueMap vmProperties = currentPage.getProperties();
+            if (vmProperties != null) {
+                List<String> assetsListResult = new ArrayList<>();
+                String itineraryMap = vmProperties.get("itinerary", String.class);
+                assetsListResult.add(itineraryMap);
+                assetsListResult.add(itineraryMap);
+                String bigItineraryMap = vmProperties.get("bigItineraryMap", String.class);
+                String smallItineraryMap = vmProperties.get("smallItineraryMap", String.class);
+                if (StringUtils.isNotEmpty(bigItineraryMap)) {
+                    assetsListResult.add(0, bigItineraryMap);
+                }
+                if (StringUtils.isNotEmpty(smallItineraryMap)) {
+                    assetsListResult.add(1, smallItineraryMap);
+                }
+                return assetsListResult;
+            }
+        }
+        return null;
+    }
+
     private List<SilverseaAsset> retrieveAssetsFromShip(ShipModel shipModel) {
         List<SilverseaAsset> listShipAssets = new ArrayList<>();
         if (shipModel != null) {
@@ -303,8 +339,16 @@ public class Cruise2018Use extends EoHelper {
                 .min(Comparator.comparing(CruiseModelLight::getStartDate));
     }
 
+    public String getBigItineraryMap() {
+        return bigItineraryMap;
+    }
+
+    public String getSmallItineraryMap() {
+        return smallItineraryMap;
+    }
+
     private enum Lightbox {
-        ASSET_GALLERY("lg-gallery-assets"), CRUISE_PAGE("");
+        ASSET_GALLERY("lg-gallery-assets"), ASSET_MAP("lg-map"), CRUISE_PAGE("");
 
         private String selector = "";
 
