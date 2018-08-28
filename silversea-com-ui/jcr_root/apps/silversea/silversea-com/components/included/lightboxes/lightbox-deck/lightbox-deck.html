@@ -15,7 +15,7 @@
                              data-sly-repeat.item="${model.ship.deckInfoList}">
                             <sly data-sly-use.assetHelperTop="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageTopPath}"/>
                             <sly data-sly-use.assetHelperSide="${'com.silversea.aem.helper.AssetHelper' @ assetPath=item.imageSidePath}"/>
-                            <span data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"
+                            <span data-deck-number="${item.level}" data-image-src-top="${assetHelperTop.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain"
                                   data-image-src-side="${assetHelperSide.imageUrl}?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80&fit=constrain">
                                 ${'deck' @ i18n} ${item.level}
                             </span>
@@ -26,6 +26,27 @@
                         <img id="image-deck-plan-side" src="" alt="location side" title="Location side" class="o-img"/>
                     </div>
                     <hr/>
+                    <div class="row">
+                        <span class="lg-deck-spec-label">${'specifications' @ i18n }</span>
+                    </div>
+                    <div class="row">
+                        <sly data-sly-list.spec="${model.specifications}">
+                            <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'}">
+                                <div class="lg-deck-spec">
+                                    <div class="label-spec">${spec.label @ i18n }</div>
+                                    <div class="dots-spec">..............................................................................................................................................</div>
+                                    <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">${spec.value}</div>
+                                </div>
+                            </div>
+                        </sly>
+                    </div>
+                    <div class="row lg-deck-download">
+                        <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}" target="_blank"
+                           class="hidden-xs">
+                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                            <strong>${'view-deck-plan' @ i18n}</strong>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

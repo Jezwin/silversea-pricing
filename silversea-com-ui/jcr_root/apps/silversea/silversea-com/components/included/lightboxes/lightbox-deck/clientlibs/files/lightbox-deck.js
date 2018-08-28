@@ -5,12 +5,16 @@ $(function () {
         e && e.preventDefault();
         e && e.stopPropagation();
         var $element = $(myThat),
+            deckNumber= $element.data("deck-number"),
             srcImageTop = $element.data("image-src-top"),
             srcImageSide = $element.data("image-src-side"),
             $imgTop = $("#image-deck-plan-top"),
             $imgSide = $("#image-deck-plan-side");
+
         $imgTop.attr("src", srcImageTop);
         $imgSide.attr("src", srcImageSide);
+
+        $(".passenger-decks").html(deckNumber);
 
         $(".lightbox-deck .lg-deck-number").each(function () {
             $(this).removeClass("lg-active-deck");
