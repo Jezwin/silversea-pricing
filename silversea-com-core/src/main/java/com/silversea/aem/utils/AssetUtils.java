@@ -86,7 +86,14 @@ public class AssetUtils {
             	SilverseaAsset sscAsset =  new SilverseaAsset();
             	sscAsset.setPath(item.getPath());
             	sscAsset.setName(item.getName());
-            	sscAsset.setLabel(shipArea.getTitle());
+            	String label = item.getMetadataValue("dc:title");
+            	if (StringUtils.isNotEmpty(label)) {
+                    sscAsset.setLabel(label);
+                } else {
+                    sscAsset.setLabel(shipArea.getTitle());
+                }
+                String metadataValue = item.getMetadataValue("dam:credit");
+                sscAsset.setCredits(metadataValue);
                 assets.add(sscAsset);
             }
             if (StringUtils.isNotBlank(shipArea.getVirtualTour())) {
@@ -95,6 +102,7 @@ public class AssetUtils {
 					Asset vAsset = virtualTourResource.adaptTo(Asset.class);
                 	SilverseaAsset sscAssetVirtT =  new SilverseaAsset();
                 	sscAssetVirtT.setPath(vAsset.getPath());
+                    sscAssetVirtT.setType("virtual-tour");
                     assetsVirtualTour.add(sscAssetVirtT);
                 }
             }
@@ -129,6 +137,8 @@ public class AssetUtils {
                     	} else {
                     		sscAsset.setLabel(asset.getMetadataValue("dc:title"));
                     	}
+                        String metadataValue = asset.getMetadataValue("dam:credit");
+                        sscAsset.setCredits(metadataValue);
                         renditionList.add(sscAsset);
                     }
                 }

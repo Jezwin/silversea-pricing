@@ -9,7 +9,10 @@ public class EoConfigurationBean {
 	private boolean descriptionMain;
 	private boolean shortDescriptionMain;
 	private boolean footnotesMain;
-	
+
+
+	private boolean priorityWeight;
+
 	private boolean activeGreysSystem;
 	private boolean imageLightbox;
 	private boolean titleLigthbox;
@@ -20,7 +23,8 @@ public class EoConfigurationBean {
 	private boolean mapOverheadVoyage;
 	private boolean footnoteVoyage;
 	private boolean cruiseFareVoyage;
-	
+	private boolean iconVoyage;
+
 	private boolean descriptionTnC;
 
 	public boolean isActiveSystem() {
@@ -150,6 +154,22 @@ public class EoConfigurationBean {
 	public void setFootnotesMain(boolean footnotesMain) {
 		this.footnotesMain = footnotesMain;
 	}
-	
+
+	public boolean isIconVoyage() {
+		return iconVoyage;
+	}
+
+	public void setIconVoyage(boolean iconVoyage) {
+		this.iconVoyage = iconVoyage;
+	}
+
+
+	public boolean isPriorityWeight() {
+		return priorityWeight;
+	}
+
+	public void setPriorityWeight(boolean priorityWeight) {
+		this.priorityWeight = priorityWeight;
+	}
 
 }

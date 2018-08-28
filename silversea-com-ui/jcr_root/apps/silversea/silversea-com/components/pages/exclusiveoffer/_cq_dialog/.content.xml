@@ -156,7 +156,7 @@
                             </column>
                         </items>
                     </destinationsTab>
-                    
+
                     <automaticExclusiveoffer
                     	cq:showOnCreate="{Boolean}false"
                         jcr:primaryType="nt:unstructured"
@@ -234,7 +234,7 @@
 																rows="5"
 																fieldLabel="Default footnotes - (Exclusive offer page,)"
 																name="./defaultEoFootnotes" />
-						                                    <customMainSettings 
+						                                    <customMainSettings
 						                                    		jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
 						                                            class="full-width"
@@ -274,11 +274,11 @@
 																				      	jcr:primaryType="nt:unstructured"
 																				      	text="Description - (Exclusive offer page, Lightbox, Tnc page)"
 																				      	value="description" />
-																				    <shortDescription 
+																				    <shortDescription
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Short description - (Home page, voyage page)"
 																				      	value="shortDescription"/>
-																				     <footnotes 
+																				     <footnotes
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Footnotes - (Exclusive offer page)"
 																				      	value="footnotes"/>
@@ -577,6 +577,22 @@
 																fieldDescription="Default Footnote on voyage"
 																fieldLabel="Default Footnote - (Voyage page)"
 																name="./defaultFootnote" />
+                                                            <defaultVoyageIcon
+                                                                    jcr:primaryType="nt:unstructured"
+                                                                    name="./defaultVoyageIcon"
+                                                                    fieldLabel="Default icon - (Voyage page)"
+                                                                    sling:resourceType="granite/ui/components/foundation/form/select">
+                                                                <datasource
+                                                                        jcr:primaryType="nt:unstructured"
+                                                                        sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
+                                                                        addNone="{Boolean}true"/>
+                                                            </defaultVoyageIcon>
+															<defaultPriorityWeight
+																	jcr:primaryType="nt:unstructured"
+																	sling:resourceType="granite/ui/components/foundation/form/numberfield"
+																	fieldDescription="The highest is first."
+																	fieldLabel="Priority weight."
+																	name="./priorityWeight" />
 						                                     <customVoyageSettings
 						                                    		jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="granite/ui/components/foundation/form/multifield"
@@ -609,18 +625,26 @@
 																				      	jcr:primaryType="nt:unstructured"
 																				      	text="Short title - (Voyage page)"
 																				      	value="shortTitle" />
-																				     <shortDescription 
+																				     <shortDescription
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Short description - (Voyage page)"
 																				      	value="shortDescription"/>
-																				     <mapOverhead 
+																				     <mapOverhead
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Map overhead - (Voyage page)"
 																				      	value="mapOverhead"/>
-																				     <footnote 
+																					  <priorityWeight
+																							  jcr:primaryType="nt:unstructured"
+																							  text="Priority Weight (Voyage page)"
+																							  value="priorityWeight"/>
+																				     <footnote
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Footnote - (Voyage page)"
 																				      	value="footnote"/>
+																					  <icon
+																						  jcr:primaryType="nt:unstructured"
+																						  text="Icon - (Voyage page)"
+																						  value="icon"/>
 																				  </items>
 																				</type>
 						                                                        <value
@@ -630,6 +654,16 @@
 						                                        					rows="10"
 						                                                            fieldLabel="Value"
 						                                                            name="./value"/>
+																				 <icon
+																						jcr:primaryType="nt:unstructured"
+																						name="./valueIcon"
+																						fieldLabel="Custom icon"
+																						sling:resourceType="granite/ui/components/foundation/form/select">
+																					<datasource
+																							jcr:primaryType="nt:unstructured"
+																							sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoIcons2018Datasource"
+																							addNone="{Boolean}true"/>
+																				 </icon>
 						                                                         <tags
 		                                                                            jcr:primaryType="nt:unstructured"
 		                                                                            sling:resourceType="cq/gui/components/common/tagspicker"
@@ -749,7 +783,7 @@
 																				    fieldLabel="Type"
 																				    name="./type">
 																				  <items jcr:primaryType="nt:unstructured">
-																				     <description 
+																				     <description
 																				    	jcr:primaryType="nt:unstructured"
 																				      	text="Description - (Tnc page)"
 																				      	value="description"/>
@@ -803,7 +837,7 @@
 						                                <items jcr:primaryType="nt:unstructured">
 						                                	 <style
 						                                         jcr:primaryType="nt:unstructured"
-						                                         sling:resourceType="granite/ui/components/foundation/form/select">
+																 sling:resourceType="granite/ui/components/foundation/form/select">
 						                                         <datasource
 						                                            jcr:primaryType="nt:unstructured"
 						                                            sling:resourceType="/apps/silversea/silversea-com/components/datasources/eoHelperDatasource"

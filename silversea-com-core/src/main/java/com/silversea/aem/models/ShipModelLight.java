@@ -1,5 +1,9 @@
 package com.silversea.aem.models;
 
+import com.silversea.aem.components.beans.DeckBean;
+
+import java.util.List;
+
 public class ShipModelLight {
 
     private String title;

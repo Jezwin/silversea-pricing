@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
-    jcr:primaryType="cq:ClientLibraryFolder"
-    categories="[apps.silversea-com]"
-    embed="[apps.silversea-com.bootstrap-3-3-7, apps.silversea-com.bootstrap-validator-0-11-9, apps.silversea-com.font-awesome-4-7-0, apps.silversea-com.chosen-1-6-2, apps.silversea-com.slick-1-6-0, viewportDetect-1-0, apps.silversea-com.feature-icon, apps.silversea-com.intl-tel-input-11-0-14, apps.silversea-com.icheck-1.0.2, jquery-lazy-1-7-4, apps.silversea-com.jssocials, jquery-match-height-0-7-2, apps.silversea-com.material-icons-3-0-1]"
-    dependencies="[cq.foundation]"/>
+          jcr:primaryType="cq:ClientLibraryFolder"
+          categories="[apps.silversea-com]"
+          embed="[apps.silversea-com.bootstrap-3-3-7, apps.silversea-com.bootstrap-validator-0-11-9, apps.silversea-com.font-awesome-4-7-0, apps.silversea-com.chosen-1-6-2, apps.silversea-com.slick-1-6-0, viewportDetect-1-0, apps.silversea-com.feature-icon, apps.silversea-com.intl-tel-input-11-0-14, apps.silversea-com.icheck-1.0.2, jquery-lazy-1-7-4, apps.silversea-com.jssocials, jquery-match-height-0-7-2, apps.silversea-com.material-icons-3-0-1, apps.silversea-com.cruise, apps.silversea-com.lightbox.gallery-assets,apps.silversea-com.lightbox.map,apps.silversea-com.lightbox.suite]"
+          dependencies="[cq.foundation]"/>
