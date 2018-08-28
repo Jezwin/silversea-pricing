@@ -1,6 +1,7 @@
 .cruise-2018-overview {
   position: relative;
   min-height: 500px;
+  margin-top:25px;
 
   .cruise-2018-overview-big-pic picture {
     position: relative;
@@ -43,6 +44,10 @@
     background-color: rgba(255, 255, 255, 0.8);
     padding: 10px 14px 10px 14px;
     margin-left: 15px;
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 1px;
+    font-family: @suisse;
   }
 
   .cruise-2018-overview-description-cruise {
@@ -51,6 +56,7 @@
     color: @grey--3;
     font-family: @suisse;
     letter-spacing: 1px;
+    margin-top:20px;
   }
 
   .cruise-2018-overview-description-from-to {
@@ -180,7 +186,7 @@
 
   .cruise-2018-overview-quote-icons div, .cruise-2018-overview-quote-icons a {
     display: inline-block;
-    margin-right: 35px;
+    margin-right: 30px;
     cursor: pointer;
   }
 
@@ -197,7 +203,7 @@
     width: inherit !important;
     vertical-align: inherit !important;
   }
-
+   
   .cruise-2018-overview-quote-btn {
     border-radius: @nd-button-border-radius;
     display: inline-block;
@@ -212,11 +218,12 @@
     text-transform: uppercase;
     vertical-align: middle;
     white-space: normal;
+
     span {
       padding-right: 0 ! important;
     }
 
-    &-red {
+    &.btn-red {
       border-width: @nd-button-border-width;
       background-color: @nd-red;
       color: @white;
@@ -225,15 +232,25 @@
         color: @white ! important;
       }
     }
-    &-white {
+    &.btn-white {
       border: 1px solid @color-second !important;
       color: @color-second;
     }
   }
+  
+   .cruise-2018-overview-quote-rqa {
+      .cruise-2018-overview-quote-btn {
+             border: 1px solid #d60524;
+      }
+    }
 
 }
 
 @media screen and (max-width: @screen-xxs) {
+  .cruise-2018-overview-description {
+    padding-left:0;
+    padding-right:0;
+  }
   .cruise-2018-overview-description-date-boxes-title {
     font-size: 7px;
 
@@ -251,6 +268,7 @@
 
 @media screen and (max-width: @screen-sm) {
   .cruise-2018-overview {
+    margin-top:0px;
     .cruise-2018-overview-big-pic picture {
       min-height: 200px;
     }
@@ -318,11 +336,30 @@
   }
 }
 
+@media screen and (min-width: @screen-sm) and (max-width: @screen-md-max) {
+  .cruise-2018-overview {
+    margin-top:0px;
+    .cruise-2018-overview-big-pic {
+      width: 100vw;
+      padding: 0 !important;
+      margin-left: -15px;
+    }
+
+    .cruise-2018-overview-quote-icons {
+      display:none;
+    }
+  }
+}
+
 @media screen and (min-width: @screen-sm) {
   .cruise-2018-overview {
     .cruise-2018-overview-big-pic picture {
       min-height: 500px;
     }
+    .cruise-2018-overview-description{
+      padding-left: 0px;
+    }
+
     .cruise-2018-overview-description-cruise {
       margin-top: 10px;
       font-size: 11px;
@@ -335,9 +372,13 @@
       line-height: 32px;
     }
     .cruise-2018-overview-description-date-boxes {
-      height: 113px;
+      height: 105px;
       margin-top: 40px;
 
+    }
+
+    .cruise-2018-overview-description-date-boxes-box-container {
+      float:left;
     }
     .cruise-2018-overview-description-date-boxes-title {
       font-size: 11px;

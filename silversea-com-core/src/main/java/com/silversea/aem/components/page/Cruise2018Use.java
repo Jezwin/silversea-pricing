@@ -48,6 +48,8 @@ public class Cruise2018Use extends EoHelper {
     private List<String> exclusiveOffersCruiseFareAdditions;
     private boolean venetianSociety;
 
+    private boolean isFeetSquare = false;
+
     private List<SuitePrice> prices;
     private PriceModel lowestPrice;
     private boolean waitlist;
@@ -104,7 +106,9 @@ public class Cruise2018Use extends EoHelper {
         lowestPrice = retrieveLowestPrice(prices);
         waitlist = lowestPrice == null;
         computedPriceFormatted = PriceHelper.getValue(locale, getLowestPrice().getComputedPrice());
-
+        if(countryCode.equals("US")) {
+            isFeetSquare = true;
+        }
         retrievePreviousCruise(cruiseModel).ifPresent(previous -> {
             this.previous = previous.getPath();
             this.previousArrival = previous.getArrivalPortName();
@@ -149,24 +153,56 @@ public class Cruise2018Use extends EoHelper {
     }
 
     private boolean retrieveVenetianSociety(CruiseModel cruise) {
-        return cruise.getFeatures().stream().map(FeatureModel::getFeatureCode).filter(Objects::nonNull)
-                .anyMatch(WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY::equals);
+        for (FeatureModel featureModel : cruise.getFeatures()) {
+            String featureCode = featureModel.getFeatureCode();
+            if (featureCode != null) {
+                if (WcmConstants.FEATURE_CODE_VENETIAN_SOCIETY.equals(featureCode)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private List<String> retrieveExclusiveOffersCruiseFareAdditions(List<ExclusiveOfferItem> offers) {
-        return offers.stream().filter(offer -> offer.getCruiseFareAdditions() != null)
-                .map(ExclusiveOfferItem::getCruiseFareAdditions).flatMap(List::stream)
-                .collect(Collectors.toList());
+        List<String> list = new ArrayList<>();
+        for (ExclusiveOfferItem offer : offers) {
+            if (offer.getCruiseFareAdditions() != null) {
+                List<String> cruiseFareAdditions = offer.getCruiseFareAdditions();
+                for (String string : cruiseFareAdditions) {
+                    list.add(string);
+                }
+            }
+        }
+        return list;
     }
 
     private List<SuitePrice> retrievePrices(CruiseModel cruise) {
         Locale locale = getCurrentPage().getLanguage(false);
-        return cruise.getPrices().stream()
-                .filter(price -> geomarket.equals(price.getGeomarket()))
-                .filter(price -> currency.equals(price.getCurrency()))
-                .distinct()
-                .map(price -> new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory()))
-                .collect(toList());
+        List<SuitePrice> list = new ArrayList<>();
+        Set<PriceModel> uniqueValues = new HashSet<>();
+        for (PriceModel price : cruise.getPrices()) {
+            if (geomarket.equals(price.getGeomarket())) {
+                if (currency.equals(price.getCurrency())) {
+                    if (uniqueValues.add(price)) {
+                        boolean b = true;
+                        for (SuitePrice t1 : list) {
+                            if (t1.getSuite().equals(price.getSuite())) {
+                                b = false;
+                                break;
+                            }
+                        }
+                        if(b) {
+                            SuitePrice suitePrice = new SuitePrice(price.getSuite(), price, locale, price.getSuiteCategory());
+                            list.add(suitePrice);
+                        }else {
+                            list.stream().filter(t-> t.getSuite().equals(price.getSuite())).findFirst().get().add(price);
+                        }
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     private List<ExclusiveOfferItem> retrieveExclusiveOffers(CruiseModel cruise) {
@@ -352,6 +388,10 @@ public class Cruise2018Use extends EoHelper {
 
     public boolean isVenetianSociety() {
         return venetianSociety;
+    }
+
+    public boolean isFeetSquare() {
+        return isFeetSquare;
     }
 
     public List<String> getExclusiveOffersCruiseFareAdditions() {
