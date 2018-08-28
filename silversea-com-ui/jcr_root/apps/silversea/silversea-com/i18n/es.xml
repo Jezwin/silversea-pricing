@@ -324,6 +324,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Plano de cubiertas y detalles"/>
+    <deck-plans
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Planos de cubiertas"/>
     <depart
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

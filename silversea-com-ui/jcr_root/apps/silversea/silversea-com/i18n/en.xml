@@ -375,6 +375,10 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="deck-plan-details"
         sling:message="Deck Plan and Details"/>
+    <deck-plans
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="deck-plans"
+        sling:message="Deck Plans"/>
     <depart
         jcr:primaryType="sling:MessageEntry"
         sling:key="depart"

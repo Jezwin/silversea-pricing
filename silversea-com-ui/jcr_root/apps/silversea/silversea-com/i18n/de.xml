@@ -324,6 +324,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Deckplan und Details"/>
+    <deck-plans
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Deckplan"/>
     <depart
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"

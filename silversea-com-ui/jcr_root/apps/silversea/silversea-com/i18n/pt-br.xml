@@ -320,6 +320,10 @@
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
         sling:message="Plano e detalhes do convés"/>
+    <deck-plans
+        jcr:mixinTypes="[sling:Message]"
+        jcr:primaryType="nt:folder"
+        sling:message="Planos do convés"/>
     <depart
         jcr:mixinTypes="[sling:Message]"
         jcr:primaryType="nt:folder"
