@@ -34,8 +34,17 @@
                             <div class="col-sm-6 ${specList.even ? 'row-right': 'row-left'}">
                                 <div class="lg-deck-spec">
                                     <div class="label-spec">${spec.label @ i18n }</div>
-                                    <div class="dots-spec">..............................................................................................................................................</div>
-                                    <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">${spec.value}</div>
+                                    <div class="dots-spec" data-sly-test="${spec.label != 'third-guest-capacity'}">..............................................................................................................................................</div>
+                                    <div class="value-spec ${spec.label == 'passenger-decks' ? 'passenger-decks' : ''}">
+                                        <sly data-sly-test="${spec.label != 'third-guest-capacity'}">
+                                            ${spec.value}
+                                        </sly>
+                                        <sly data-sly-test="${spec.label == 'width' || spec.label == 'length'}">${'knots' @ i18n }
+                                            <sly data-sly-test="${spec.isFeet}">${'feet' @ i18n }</sly>
+                                            <sly data-sly-test="${spec.isFeet}">${'meters' @ i18n }</sly>
+                                        </sly>
+                                        <sly data-sly-test="${spec.label == 'speed'}">${'knots' @ i18n }</sly>
+                                    </div>
                                 </div>
                             </div>
                         </sly>
@@ -43,7 +52,7 @@
                     <div class="row lg-deck-download">
                         <a data-sly-test.deckPlan="${model.ship.deckPlan}" href="${model.ship.deckPlan}" target="_blank">
                             <i class="fa fa-file-o" aria-hidden="true"></i>
-                            <strong>${'view-deck-plan' @ i18n}</strong>
+                            <strong>${'download-pdf' @ i18n}</strong>
                         </a>
                     </div>
                 </div>

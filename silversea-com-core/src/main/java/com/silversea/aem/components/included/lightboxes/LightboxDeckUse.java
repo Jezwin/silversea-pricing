@@ -83,6 +83,10 @@ public class LightboxDeckUse extends AbstractGeolocationAwareUse {
         return null;
     }
 
+    public boolean isFeet() {
+        return super.countryCode.equals("US");
+    }
+
     public ShipModel getShip() {
         return ship;
     }
