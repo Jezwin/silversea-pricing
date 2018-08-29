@@ -1526,6 +1526,54 @@
         jcr:primaryType="sling:MessageEntry"
         sling:key="download-tour-book"
         sling:message="Download the tour program"/>
+    <specifications
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="specifications"
+        sling:message="specifications"/>
+    <officers
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="officers"
+        sling:message="officers"/>
+    <width
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="width"
+        sling:message="width"/>
+    <speed
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="speed"
+        sling:message="speed"/>
+    <passenger-decks
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="passenger-decks"
+        sling:message="passenger decks"/>
+    <third-guest-capacity
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="third-guest-capacity"
+        sling:message="3rd guest capacity"/>
+    <connecting-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="connecting-suites"
+        sling:message="connecting suites"/>
+    <handicap-suites
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="handicap-suites"
+        sling:message="handicap suites"/>
+    <built
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="built"
+        sling:message="built"/>
+    <registry
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="registry"
+        sling:message="registry"/>
+    <knots
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="knots"
+        sling:message="knots"/>
+    <download-pdf
+        jcr:primaryType="sling:MessageEntry"
+        sling:key="download-pdf"
+        sling:message="download the pdf"/>
     <ABW jcr:primaryType="sling:MessageEntry" sling:key="ABW" sling:message="Aruba" />
     <AFG jcr:primaryType="sling:MessageEntry" sling:key="AFG" sling:message="Afghanistan" />
     <AGO jcr:primaryType="sling:MessageEntry" sling:key="AGO" sling:message="Angola" />
