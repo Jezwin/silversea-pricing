@@ -82,6 +82,11 @@ public class ShipModel {
     private String guestsCapacity;
 
     @Inject
+    @Named(JcrConstants.JCR_CONTENT + "/shortVoyageDescription")
+    @Optional
+    private String shortVoyageDescription;
+
+    @Inject
     @Named(JcrConstants.JCR_CONTENT + "/crewCapacity")
     @Optional
     private String crewCapacity;
@@ -380,5 +385,9 @@ public class ShipModel {
 
     public void setDeckInfoList(List<DeckBean> deckInfoList) {
         this.deckInfoList = deckInfoList;
+    }
+
+    public String getShortVoyageDescription() {
+        return shortVoyageDescription;
     }
 }
