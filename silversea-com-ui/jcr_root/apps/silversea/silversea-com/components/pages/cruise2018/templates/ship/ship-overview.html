@@ -1,6 +1,6 @@
-<template data-sly-template.default="${ @ cruise }">
+<template data-sly-template.default="${ @ cruise, externalizerHelper }">
     ${cruise.ship.shipCode}
-    <div data-lightbox-deck="${cruise.currentPath @ extension='html', selectors='lightboxes.lg-deck'}">
+    <div data-lightbox-deck="${externalizerHelper.externalizedUrl  @ extension='html', selectors='lightboxes.lg-deck'}">
         <a class="open-lightbox-deck cruise-2018-link-open-modal" data-target=".lightbox" href="#">VIEW DECK PLAN ${cruise @ context='html'}</a>
     </div>
 </template>
