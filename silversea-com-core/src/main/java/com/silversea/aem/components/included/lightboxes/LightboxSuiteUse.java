@@ -17,6 +17,7 @@ import java.util.Locale;
 public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
 
     private SuitePrice suitePrice;
+    private String appendSuffixUrl;
     private String suffixUrl;
     private String selectorUrl = WcmConstants.SELECTOR_FYC_RESULT;
 
@@ -51,11 +52,14 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
                         }
                         if (suitePriceModel != null && suitePriceModel.getSuite().equals(priceModel.getSuite())) {
                             suitePriceModel.add(priceModel);
+                            appendSuffixUrl = suitePriceModel.getSuite().getName() + WcmConstants.HTML_SUFFIX;
+                            if (selectors.length > 3) {
+                                suffixUrl = selectors[3];
+                            }
                         }
 
                     }
                 }
-                suffixUrl = suitePriceModel.getSuite().getName() + WcmConstants.HTML_SUFFIX;
                 return suitePriceModel;
             }
         }
@@ -70,11 +74,15 @@ public class LightboxSuiteUse extends AbstractGeolocationAwareUse {
         return PathUtils.getRequestQuotePagePath(getResource(), getCurrentPage());
     }
 
-    public String getSuffixUrl() {
-        return suffixUrl;
+    public String getAppendSuffixUrl() {
+        return appendSuffixUrl;
     }
 
     public String getSelectorUrl() {
         return selectorUrl;
+    }
+
+    public String getSuffixUrl() {
+        return suffixUrl;
     }
 }
